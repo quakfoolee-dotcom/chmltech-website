@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V2** (see `CHANGELOG.md`).
+Version: **V3** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -10,14 +10,19 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | File | Page |
 |---|---|
 | `index.html` | Home |
-| `industries.html` | Industries (8 sectors, with anchors such as `#manufacturing`) |
-| `solutions.html` | Core services and all 10 solutions (anchors such as `#rapid-lean-assessment`) |
-| `training.html` | Training areas and delivery formats |
-| `insights.html` | Insight topics with a topic filter and an email subscription form |
-| `courses.html` | Course catalogue and FAQs |
-| `book.html` | Book Online: strategy-call request form |
+| `industries.html` | Industries overview, linking to the 8 industry pages |
+| `solutions.html` | Core services and an overview of the 11 solution pages |
+| `training.html` | Free practice-exam library (search and filters) plus self-hosted mock exams |
+| `insights.html` | All articles with search, category filters and email subscription |
+| `courses.html` | Free online courses and paid one-hour sessions |
+| `book.html` | Book Online: free strategy call or paid session request |
 | `contact.html` | Contact form, details and FAQs |
 | `404.html` | Not-found page |
+| `post/*.html` | Insights articles (one file per article, same address as on Wix) |
+| `<industry>.html`, `<solution>.html` | Industry and solution detail pages (for example `manufacturing.html`, `scaling-up.html`) |
+| `challenge-page/*.html` | Free course pages |
+| `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
+| `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 
 Shared files: `assets/css/styles.css` (all styling, with brand colours as CSS variables at the top), `assets/js/main.js` (mobile menu, forms, insights filter) and `assets/img/` (logo, mark and icons).
 
@@ -44,12 +49,24 @@ Each form includes a hidden spam honeypot field (`_gotcha`).
 - **Netlify or Cloudflare Pages:** drag and drop the folder, or connect the repository. Leave the build command empty and set the publish directory to `/`.
 - **Custom domain:** point `www.chmltech-consulting.com` at the host. Canonical URLs and `sitemap.xml` already use that domain.
 
+## Adding a new article
+
+1. Copy any file in `post/` and rename it with the new article's slug.
+2. Replace the title, date, body and meta description.
+3. Add a card for it at the top of the list in `insights.html` (copy an existing `<article class="article">` block).
+
+## Leaving Wix: checklist
+
+1. Deploy this repository (GitHub Pages: Settings → Pages → `main` / root).
+2. Set up Formspree (see above) so the forms deliver email.
+3. Point the domain `www.chmltech-consulting.com` at GitHub Pages: add a `CNAME` file containing `www.chmltech-consulting.com`, then update DNS at your registrar.
+4. Check a few old addresses, for example `/post/...`, `/scaling-up` and `/challenges`.
+5. Cancel the Wix premium plan. If Wix is also the domain registrar, transfer the domain before cancelling.
+
 ## Before going live
 
 Search the code for `TODO`:
 
 - **Social links:** the footer links point to the platforms' home pages. Replace them with Chmltech profile URLs.
-- **Testimonial:** confirm the exact quote from Dora Bridges (`index.html`, `solutions.html`).
-- **Insights:** the article cards are topic previews marked "Article coming soon". Link them to published articles when they are ready.
-- **Booking:** you can replace the request form in `book.html` with an embedded scheduler (Wix Bookings, Calendly or Microsoft Bookings).
-- **Course fees:** these show "On request". Add fees and dates if you want to publish them.
+- **Booking:** you can replace the request form in `book.html` with an embedded scheduler such as Calendly or Microsoft Bookings.
+- **Free courses:** the step-by-step lessons of the 6 free programs were behind a Wix member login and are not in this repository. Course pages offer "Request access" until the lessons are added.

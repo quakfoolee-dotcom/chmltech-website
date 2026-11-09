@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National Professional Practice Exam — 100 Question Mock Exam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c1a17;
+  --paper:#f4efe6;
+  --paper2:#ebe3d5;
+  --gold:#b08d3c;
+  --gold-deep:#8a6d28;
+  --green:#2f6b4f;
+  --green-soft:#e3eee6;
+  --red:#a8412f;
+  --red-soft:#f3e3df;
+  --prof:#1a5276;
+  --ethics:#7d6608;
+  --practice:#145a32;
+  --law:#6e2f8f;
+  --prolaw:#7b2d26;
+  --discipline:#2d5f73;
+  --line:#d4c9b4;
+  --shadow:rgba(40,32,18,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Newsreader',Georgia,serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(176,141,60,.07), transparent 40%),
+    radial-gradient(circle at 88% 92%, rgba(47,107,79,.06), transparent 40%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:0 22px}
+
+header.masthead{
+  text-align:center;padding:54px 0 30px;border-bottom:3px double var(--ink);
+  margin-bottom:8px;
+}
+.kicker{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--gold-deep);margin-bottom:18px;
+}
+h1.title{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.2rem,5.8vw,4rem);
+  line-height:.98;letter-spacing:-.02em;margin-bottom:10px;
+}
+h1.title .of{font-style:italic;font-weight:400;color:var(--gold-deep)}
+.byline{font-style:italic;font-size:1.05rem;color:#6b5f4a;margin-bottom:22px;max-width:720px;margin-left:auto;margin-right:auto}
+.exambar{
+  display:inline-flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.04em;
+  color:#5a5040;padding:12px 26px;border:1px solid var(--line);
+  border-radius:2px;background:rgba(255,255,255,.35);
+}
+.exambar b{color:var(--ink)}
+.source-note{
+  margin:18px auto 0;max-width:760px;font-size:.94rem;color:#6b5f4a;
+  background:rgba(255,255,255,.32);border:1px solid var(--line);padding:12px 16px;border-radius:4px;
+}
+
+.hud{
+  position:sticky;top:0;z-index:20;margin:0 -22px 30px;padding:14px 22px;
+  background:rgba(244,239,230,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.hud .bar-track{flex:1;min-width:140px;height:8px;background:var(--paper2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.hud .bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-deep));border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.hud .stat{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.03em;white-space:nowrap}
+.hud .stat b{font-size:.95rem;color:var(--gold-deep)}
+.hud .stat .sc-correct{color:var(--green)}
+
+.section-head{
+  margin:46px 0 8px;padding:13px 20px;border-radius:3px;
+  font-family:'Fraunces',serif;font-weight:700;font-size:1.18rem;letter-spacing:.01em;
+  color:#fff;display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;
+  box-shadow:0 4px 16px var(--shadow);
+}
+.section-head .tag{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;border-radius:99px;
+  background:rgba(255,255,255,.2);
+}
+.sec-prof{background:linear-gradient(100deg,var(--prof),#0f3a52)}
+.sec-ethics{background:linear-gradient(100deg,var(--ethics),#574700)}
+.sec-practice{background:linear-gradient(100deg,var(--practice),#0a3c20)}
+.sec-law{background:linear-gradient(100deg,var(--law),#4a1f63)}
+.sec-prolaw{background:linear-gradient(100deg,var(--prolaw),#511914)}
+.sec-discipline{background:linear-gradient(100deg,var(--discipline),#173847)}
+
+.q-card{
+  background:rgba(255,255,255,.55);border:1px solid var(--line);
+  border-radius:4px;padding:24px 26px 20px;margin:16px 0;
+  box-shadow:0 2px 10px rgba(40,32,18,.05);
+  transition:box-shadow .3s,border-color .3s;
+}
+.q-card.answered{box-shadow:0 4px 18px var(--shadow)}
+.q-top{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.q-num{
+  font-family:'Fraunces',serif;font-weight:900;font-size:1.5rem;color:var(--gold-deep);
+  line-height:1;min-width:62px;
+}
+.q-type{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;padding:3px 8px;border-radius:99px;
+  border:1px solid currentColor;opacity:.85;
+}
+.t-professionalism{color:var(--prof)}
+.t-ethics{color:var(--ethics)}
+.t-professional-practice{color:var(--practice)}
+.t-law-for-professional-practice{color:var(--law)}
+.t-professional-law{color:var(--prolaw)}
+.t-regulation-of-members-discipline-processes{color:var(--discipline)}
+.q-text{font-size:1.12rem;line-height:1.55;margin-bottom:16px;font-weight:500}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  display:flex;align-items:flex-start;gap:13px;padding:13px 16px;
+  border:1px solid var(--line);border-radius:3px;cursor:pointer;
+  background:rgba(255,255,255,.4);transition:all .18s ease;
+  font-size:1.01rem;position:relative;
+}
+.opt:hover{border-color:var(--gold);background:rgba(176,141,60,.07);transform:translateX(2px)}
+.opt .letter{
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;
+  width:25px;height:25px;flex-shrink:0;border-radius:50%;
+  display:grid;place-items:center;border:1.5px solid var(--gold-deep);
+  color:var(--gold-deep);transition:all .18s;
+}
+.opt .otext{flex:1;padding-top:1px}
+.opt.sel{border-color:var(--gold-deep);background:rgba(176,141,60,.1)}
+.opt.sel .letter{background:var(--gold-deep);color:#fff}
+.q-card.locked .opt{cursor:default;pointer-events:none}
+.q-card.locked .opt:hover{transform:none}
+.opt.correct{border-color:var(--green);background:var(--green-soft)}
+.opt.correct .letter{background:var(--green);color:#fff;border-color:var(--green)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.opt.wrong .letter{background:var(--red);color:#fff;border-color:var(--red)}
+.opt .mark{margin-left:auto;font-weight:700;font-size:1.1rem;opacity:0;transition:opacity .3s;align-self:center}
+.opt.correct .mark{opacity:1;color:var(--green)}
+.opt.wrong .mark{opacity:1;color:var(--red)}
+
+.explain{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .5s ease,opacity .4s ease,margin .4s ease,padding .4s ease;
+  border-left:3px solid var(--gold);background:rgba(176,141,60,.06);
+  border-radius:0 3px 3px 0;margin-top:0;padding:0 18px;
+}
+.explain.show{max-height:900px;opacity:1;margin-top:16px;padding:15px 18px}
+.explain .elabel{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);
+  margin-bottom:7px;display:flex;align-items:center;gap:8px;
+}
+.explain .ans-line{font-weight:600;color:var(--green);margin-bottom:6px;font-size:.98rem}
+.explain p{font-size:1rem;line-height:1.62;color:#3a3326}
+
+.results{
+  margin:48px 0 0;padding:38px 34px;border-radius:6px;text-align:center;
+  background:linear-gradient(160deg,#fff,var(--paper2));
+  border:1px solid var(--line);box-shadow:0 8px 30px var(--shadow);
+  display:none;
+}
+.results.show{display:block;animation:rise .6s ease}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.results .rk{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
+.results .score-big{font-family:'Fraunces',serif;font-weight:900;font-size:4.5rem;line-height:1;margin-bottom:6px}
+.results .score-big span:last-child{font-size:2rem;color:#8a7d63}
+.results .grade{font-family:'Fraunces',serif;font-style:italic;font-size:1.6rem;margin-bottom:14px}
+.results .blurb{max-width:620px;margin:0 auto 24px;color:#4a4234;font-size:1.05rem}
+.results .breakdown{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.bd-item{padding:10px 16px;border-radius:4px;border:1px solid var(--line);background:rgba(255,255,255,.5);min-width:120px}
+.bd-item .bd-t{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.bd-item .bd-s{font-family:'Fraunces',serif;font-weight:700;font-size:1.3rem}
+
+.btn{
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:14px 30px;border:none;
+  border-radius:3px;cursor:pointer;transition:all .2s;
+}
+.btn-gold{background:var(--ink);color:var(--paper)}
+.btn-gold:hover{background:var(--gold-deep);transform:translateY(-2px);box-shadow:0 6px 18px var(--shadow)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+.modebar{
+  display:flex;align-items:center;justify-content:center;gap:0;margin:26px 0 8px;
+  border:1px solid var(--line);border-radius:99px;overflow:hidden;width:fit-content;
+  margin-left:auto;margin-right:auto;background:rgba(255,255,255,.4);
+}
+.modebar button{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:11px 22px;border:none;
+  background:transparent;cursor:pointer;color:#6b5f4a;transition:all .2s;
+}
+.modebar button.active{background:var(--ink);color:var(--paper)}
+.mode-hint{text-align:center;font-style:italic;color:#7a6e58;font-size:.92rem;margin-bottom:8px}
+
+.jumpbar{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:18px auto 0;max-width:760px;
+}
+.jumpbar a{
+  font-family:'JetBrains Mono',monospace;font-size:.64rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;color:#5a5040;border:1px solid var(--line);background:rgba(255,255,255,.38);
+  padding:7px 10px;border-radius:99px;transition:.2s;
+}
+.jumpbar a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+footer{text-align:center;margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:#8a7d63}
+footer .disclaimer{margin:12px auto 0;max-width:760px;font-family:'Newsreader',Georgia,serif;font-size:.98rem;letter-spacing:0;color:#5a5040;line-height:1.55}
+
+@media(max-width:560px){
+  .q-card{padding:20px 18px}
+  .q-num{font-size:1.25rem;min-width:52px}
+  .q-text{font-size:1.04rem}
+  .results .score-big{font-size:3.5rem}
+  .hud{gap:12px}
+  .modebar{border-radius:12px;flex-direction:column;width:100%}
+  .modebar button{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">Mock Examination &middot; Unofficial Study Resource</div>
+    <h1 class="title">National Professional <span class="of">Practice</span> Exam</h1>
+    <div class="byline">100 multiple-choice practice questions covering Professionalism, Ethics, Professional Practice, Law for Professional Practice, Professional Law, and Regulation & Discipline.</div>
+    <div class="exambar">
+      <span><b>100</b> Questions</span>
+      <span><b>4</b> Options Each</span>
+      <span><b>1</b> Mark per Question</span>
+      <span>Total: <b>100</b> Marks</span>
+    </div>
+    <p class="source-note">Use this as a study drill, not as a substitute for the official NPPE blueprint, candidate guide, legislation, regulator guidance, or recommended study materials.</p>
+    <nav class="jumpbar" aria-label="Jump to sections">
+      <a href="#sec-Professionalism">Professionalism</a>
+      <a href="#sec-Ethics">Ethics</a>
+      <a href="#sec-Professional-Practice">Practice</a>
+      <a href="#sec-Law-for-Professional-Practice">Law</a>
+      <a href="#sec-Professional-Law">Professional Law</a>
+      <a href="#sec-Regulation-of-Members-and-Discipline-Processes">Discipline</a>
+    </nav>
+  </header>
+
+  <div class="modebar" role="tablist">
+    <button id="mode-instant" class="active" onclick="setMode('instant')">Instant Feedback</button>
+    <button id="mode-exam" onclick="setMode('exam')">Exam Mode</button>
+  </div>
+  <p class="mode-hint" id="modeHint">Pick an answer and see the explanation immediately.</p>
+
+  <div class="hud">
+    <span class="stat">Progress <b id="progCount">0</b>/100</span>
+    <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+    <span class="stat">Score <b class="sc-correct" id="scoreNum">0</b></span>
+  </div>
+
+  <main id="exam"></main>
+
+  <div class="actions" style="margin-top:34px">
+    <button class="btn btn-gold" id="submitBtn" onclick="submitExam()" style="display:none">Submit Exam</button>
+  </div>
+
+  <section class="results" id="results">
+    <div class="rk">Your Result</div>
+    <div class="score-big"><span id="rScore">0</span><span>/100</span></div>
+    <div class="grade" id="rGrade"></div>
+    <p class="blurb" id="rBlurb"></p>
+    <div class="breakdown" id="rBreak"></div>
+    <div class="actions">
+      <button class="btn btn-gold" onclick="reviewAll()">Review Answers</button>
+      <button class="btn btn-ghost" onclick="resetExam()">Retake Exam</button>
+    </div>
+  </section>
+
+  <footer>
+    National Professional Practice Exam mock preparation set &middot; 100 questions
+    <div class="disclaimer">This is an unofficial NPPE preparation resource. It is not affiliated with or endorsed by Engineers Canada or any provincial regulator.</div>
+  </footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    "type": "Professionalism",
+    "q": "Which statement best describes the defining feature of a professional in engineering or geoscience?",
+    "opts": [
+      "A person who has many years of technical experience",
+      "A person with advanced knowledge who is trusted by the public and regulated in the public interest",
+      "A person who works independently rather than as an employee",
+      "A person who has authority to approve all business decisions"
+    ],
+    "correct": 1,
+    "explanation": "A professional is not defined only by technical skill. The NPPE blueprint emphasizes advanced knowledge, public trust, service in the public interest, an ethical code, self-governance, and continued competence."
+  },
+  {
+    "type": "Professionalism",
+    "q": "Why is self-regulation granted to engineering and geoscience professions?",
+    "opts": [
+      "Because regulators are industry advocacy groups",
+      "Because professionals earn the privilege by protecting the public and maintaining standards",
+      "Because employers need faster approval of engineering work",
+      "Because professional associations replace the court system"
+    ],
+    "correct": 1,
+    "explanation": "Self-regulation is a privilege granted by statute. It exists to protect the public, not to advance the private interests of members or employers."
+  },
+  {
+    "type": "Professionalism",
+    "q": "A project manager asks a professional to approve a design despite unresolved safety concerns. What professional principle is most directly engaged?",
+    "opts": [
+      "Loyalty to the employer",
+      "Protection of the public as the paramount duty",
+      "Efficiency in project delivery",
+      "Confidentiality of commercial information"
+    ],
+    "correct": 1,
+    "explanation": "Professional status carries a duty to protect the health, safety, welfare, and interests of the public. That duty takes priority over schedule, cost, or employer pressure."
+  },
+  {
+    "type": "Professionalism",
+    "q": "Which statement best explains the relationship between right to title and right to practice?",
+    "opts": [
+      "They are identical in every Canadian jurisdiction",
+      "Right to title controls use of protected professional designations, while right to practice controls who may perform regulated work",
+      "Right to title applies only to firms, while right to practice applies only to individuals",
+      "Right to practice is voluntary unless a client asks for a seal"
+    ],
+    "correct": 1,
+    "explanation": "Professional legislation commonly protects both titles and scopes of practice. The exact wording differs by jurisdiction, but title protection and practice rights are distinct concepts."
+  },
+  {
+    "type": "Professionalism",
+    "q": "A licensed professional supervises an engineering-in-training who prepares calculations. Who remains accountable for the professional work being relied upon?",
+    "opts": [
+      "Only the engineering-in-training, because they completed the calculation",
+      "The supervising professional, if they reviewed and accepted responsibility for the work",
+      "The client, because the client requested the work",
+      "No one, because calculations are internal documents"
+    ],
+    "correct": 1,
+    "explanation": "Professionals are accountable for their own professional work and for work done under their supervision when they accept or authenticate it."
+  },
+  {
+    "type": "Professionalism",
+    "q": "Which is the best example of the public served by professional regulation?",
+    "opts": [
+      "Only people who directly pay the engineer or geoscientist",
+      "Only government agencies and regulators",
+      "Clients, employers, workers, users, communities, and others who may be affected by professional work",
+      "Only licensed members of the same profession"
+    ],
+    "correct": 2,
+    "explanation": "The public is broad. It may include clients, employers, employees, users, communities, future occupants, the environment, and others affected by professional decisions."
+  },
+  {
+    "type": "Professionalism",
+    "q": "Which behaviour most clearly supports the profession’s social licence to self-regulate?",
+    "opts": [
+      "Avoiding all communication with the public",
+      "Participating in professional governance, maintaining competence, and acting in the public interest",
+      "Promoting the profession as a business brand only",
+      "Treating regulation as optional guidance"
+    ],
+    "correct": 1,
+    "explanation": "Self-regulation requires members to participate in maintaining standards and public trust. It is not merely a personal credential."
+  },
+  {
+    "type": "Professionalism",
+    "q": "Why is continuing study and professional development part of professionalism?",
+    "opts": [
+      "It guarantees promotion to management roles",
+      "It ensures professionals remain competent as standards, technology, risk, and public expectations evolve",
+      "It replaces the need for experience",
+      "It allows professionals to practise outside their area of expertise"
+    ],
+    "correct": 1,
+    "explanation": "Professional knowledge changes. Continued competence is required because public protection depends on current, responsible judgment."
+  },
+  {
+    "type": "Professionalism",
+    "q": "Which statement best reflects the value of engineering and geoscience to society?",
+    "opts": [
+      "Their value is limited to reducing construction costs",
+      "Their value includes infrastructure, technology, resource development, environmental stewardship, safety, and sustainable economic activity",
+      "Their value is mainly the protection of professional income",
+      "Their value is only relevant when work is performed for government"
+    ],
+    "correct": 1,
+    "explanation": "The professions contribute through infrastructure, energy, products, resource development, technology, manufacturing, public safety, and sustainability."
+  },
+  {
+    "type": "Professionalism",
+    "q": "What is the most accurate distinction between a regulator and a voluntary technical society?",
+    "opts": [
+      "A regulator protects the public through legal authority; a technical society generally supports professional knowledge, networking, and advocacy",
+      "A technical society can discipline licensed members more severely than a regulator",
+      "A regulator exists to market the profession to clients",
+      "There is no practical difference"
+    ],
+    "correct": 0,
+    "explanation": "Regulators derive authority from legislation and protect the public. Technical societies may provide education and community but normally do not license or discipline practice."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which statement best describes the relationship between ethics and law?",
+    "opts": [
+      "Ethics and law are identical",
+      "Ethics concerns right conduct and may require more than strict legal compliance",
+      "Law is always broader than ethics",
+      "Ethical decisions are irrelevant when a statute applies"
+    ],
+    "correct": 1,
+    "explanation": "Law sets minimum enforceable rules. Ethical duties can require higher standards of honesty, fairness, competence, and public protection."
+  },
+  {
+    "type": "Ethics",
+    "q": "A decision maker chooses the option that produces the greatest overall benefit for affected people. Which ethical theory does this most closely reflect?",
+    "opts": [
+      "Utilitarianism",
+      "Virtue ethics",
+      "Rights-based ethics",
+      "Egoism"
+    ],
+    "correct": 0,
+    "explanation": "Utilitarian reasoning focuses on consequences and the greatest net benefit or least overall harm."
+  },
+  {
+    "type": "Ethics",
+    "q": "A professional refuses to falsify a test result because honesty is a duty, even though the falsification would avoid a costly delay. Which ethical approach is most evident?",
+    "opts": [
+      "Utilitarianism",
+      "Duty-based ethics",
+      "Relativism",
+      "Opportunism"
+    ],
+    "correct": 1,
+    "explanation": "Duty-based ethics emphasizes obligations and principles, such as honesty and integrity, regardless of immediate outcomes."
+  },
+  {
+    "type": "Ethics",
+    "q": "A design decision would save money but expose a small group of workers to unacceptable risk without their informed consent. Which ethical perspective is most directly violated?",
+    "opts": [
+      "Rights-based ethics",
+      "Aesthetic preference",
+      "Market efficiency",
+      "Competitive advantage"
+    ],
+    "correct": 0,
+    "explanation": "Rights-based reasoning emphasizes respecting people’s fundamental rights, including safety, informed treatment, and dignity."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which answer best illustrates virtue ethics in professional practice?",
+    "opts": [
+      "Doing only what is legally required",
+      "Acting with integrity, courage, prudence, and fairness because these are qualities of good professional character",
+      "Selecting the option with the lowest project cost",
+      "Following management instructions without question"
+    ],
+    "correct": 1,
+    "explanation": "Virtue ethics emphasizes character and professional virtues such as honesty, courage, fairness, and responsibility."
+  },
+  {
+    "type": "Ethics",
+    "q": "What is the main source of legal authority for professional codes of ethics in Canada?",
+    "opts": [
+      "Private contracts between professionals and clients",
+      "Provincial and territorial professional legislation, regulations, bylaws, and related regulatory instruments",
+      "International engineering textbooks",
+      "Employer policy manuals only"
+    ],
+    "correct": 1,
+    "explanation": "Codes of ethics are connected to professional statutes, regulations, bylaws, or regulatory instruments. Employer policies may supplement but do not replace them."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which duty is normally paramount in engineering and geoscience codes of ethics?",
+    "opts": [
+      "Maximizing client profit",
+      "Protecting the health, safety, welfare, and interests of the public",
+      "Protecting the reputation of the employer",
+      "Avoiding all professional disagreements"
+    ],
+    "correct": 1,
+    "explanation": "Public protection is the central duty in professional codes and regulatory discipline."
+  },
+  {
+    "type": "Ethics",
+    "q": "A professional is asked to sign off on geotechnical recommendations outside their expertise. What is the most ethical response?",
+    "opts": [
+      "Sign because the client needs the report urgently",
+      "Sign only the administrative cover page and let others rely on it",
+      "Decline or obtain competent review and assistance before accepting responsibility",
+      "Sign if the fee is reduced"
+    ],
+    "correct": 2,
+    "explanation": "Professionals must practise only within areas of competence or obtain appropriate assistance and review."
+  },
+  {
+    "type": "Ethics",
+    "q": "A professional has a financial interest in a supplier being recommended to a client. What should they do?",
+    "opts": [
+      "Say nothing unless the client asks",
+      "Disclose the conflict and manage or avoid it according to professional obligations and client consent requirements",
+      "Recommend the supplier because insider knowledge improves quality",
+      "Hide the relationship if the supplier is qualified"
+    ],
+    "correct": 1,
+    "explanation": "Conflicts of interest must be recognized, disclosed, and managed or avoided. The client must not be misled."
+  },
+  {
+    "type": "Ethics",
+    "q": "A client’s confidential information reveals an imminent danger to the public. What is the best ethical response?",
+    "opts": [
+      "Maintain confidentiality no matter what",
+      "Ignore the danger because the information belongs to the client",
+      "Take appropriate steps to protect the public, escalating disclosure only as necessary",
+      "Post the information publicly on social media"
+    ],
+    "correct": 2,
+    "explanation": "Confidentiality is important but not absolute. Where public safety is at risk, the professional must act responsibly, usually through internal escalation, client notice, and regulator or authority reporting when required."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which action best balances loyalty to an employer with professional duty?",
+    "opts": [
+      "Following every employer instruction without objection",
+      "Providing competent, honest advice and escalating concerns when employer direction conflicts with public protection or law",
+      "Refusing all commercial objectives as unethical",
+      "Disclosing all employer information to competitors"
+    ],
+    "correct": 1,
+    "explanation": "Professionals owe loyalty and diligence to employers, but this duty is limited by public safety, legality, competence, and integrity."
+  },
+  {
+    "type": "Ethics",
+    "q": "Management rejects a professional’s written warning about a design risk. What should the professional do next?",
+    "opts": [
+      "Destroy the memo to avoid conflict",
+      "Clearly communicate the possible consequences, keep appropriate records, and escalate through proper channels if the risk remains unresolved",
+      "Approve the design because management has authority",
+      "Wait until a failure occurs before acting"
+    ],
+    "correct": 1,
+    "explanation": "Codes commonly require professionals to present the consequences of disregarded professional judgment and to escalate serious unresolved issues appropriately."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which scenario is most clearly plagiarism or improper use of intellectual work?",
+    "opts": [
+      "Quoting a published standard with attribution",
+      "Using another consultant’s report language and analysis without permission or acknowledgement",
+      "Learning from a publicly available case study",
+      "Referring a client to a specialist"
+    ],
+    "correct": 1,
+    "explanation": "Presenting another person’s work as one’s own or copying without proper authorization or attribution can be unethical and may infringe copyright."
+  },
+  {
+    "type": "Ethics",
+    "q": "A professional is asked to review another engineer’s design. Which conduct is most appropriate?",
+    "opts": [
+      "Assume the other engineer was wrong because a review was requested",
+      "Conduct an objective, fair, competent review and communicate concerns respectfully through proper channels",
+      "Rewrite the design without telling anyone",
+      "Criticize the engineer personally in the report"
+    ],
+    "correct": 1,
+    "explanation": "Reviewing the work of others requires objectivity, fairness, competence, and professional communication."
+  },
+  {
+    "type": "Ethics",
+    "q": "A vendor offers an expensive gift during a procurement evaluation. What is the best response?",
+    "opts": [
+      "Accept because it does not guarantee selection",
+      "Accept only if the vendor is technically qualified",
+      "Decline or disclose it according to conflict-of-interest rules to preserve impartiality",
+      "Accept if the gift is shared with the team"
+    ],
+    "correct": 2,
+    "explanation": "Gifts can create an actual, potential, or perceived conflict of interest. The safest professional response is to decline or disclose and follow the applicable rules."
+  },
+  {
+    "type": "Ethics",
+    "q": "A Canadian professional works on an international assignment where local practice permits lower safety standards than Canadian professional expectations. What should guide conduct?",
+    "opts": [
+      "The lowest local standard only",
+      "The client’s instructions only",
+      "Applicable local law, contractual duties, and the professional’s home code of ethics and public protection obligations",
+      "The cheapest available standard"
+    ],
+    "correct": 2,
+    "explanation": "Foreign assignments require attention to local law and professional obligations, including the home regulator’s ethical expectations where applicable."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which action best supports equitable treatment in professional practice?",
+    "opts": [
+      "Applying technical standards differently based on personal preference",
+      "Making professional decisions using relevant evidence and avoiding discrimination, harassment, and unfair exclusion",
+      "Avoiding all difficult conversations",
+      "Selecting team members only from one’s social network"
+    ],
+    "correct": 1,
+    "explanation": "Professional ethics include fairness, objectivity, and equitable treatment. Bias or discrimination undermines trust and public protection."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which sequence is generally appropriate when considering whistleblowing?",
+    "opts": [
+      "Go directly to the media in every case",
+      "Ignore the issue unless personally affected",
+      "Document facts, use internal channels where safe and effective, escalate to regulators or authorities when serious risk or illegality remains unresolved",
+      "Resign without telling anyone"
+    ],
+    "correct": 2,
+    "explanation": "Whistleblowing is serious. Professionals should act on facts, use appropriate channels, and escalate when necessary to protect the public or address illegal/unethical practice."
+  },
+  {
+    "type": "Ethics",
+    "q": "Which statement in a technical report best reflects honesty and objectivity?",
+    "opts": [
+      "The design is safe because the client wants approval",
+      "The design meets all assumptions listed; however, additional investigation is required before final approval of the unstable slope area",
+      "All risks have been eliminated",
+      "This report should not be questioned"
+    ],
+    "correct": 1,
+    "explanation": "Honest communication identifies assumptions, limitations, uncertainties, and required next steps. It does not overstate certainty."
+  },
+  {
+    "type": "Ethics",
+    "q": "A supervisor instructs a professional to omit failed test data from a submission. What is the best ethical response?",
+    "opts": [
+      "Omit the data if the final conclusion is unchanged",
+      "Refuse to mislead, explain the ethical issue, and include or disclose the data appropriately",
+      "Replace the data with typical values",
+      "Submit the data anonymously without context"
+    ],
+    "correct": 1,
+    "explanation": "Professional integrity requires truthful and complete reporting of relevant information. Omitting failed data to mislead is unethical."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A junior designer prepares a drawing under a professional’s supervision. Before the drawing is issued, what must the professional do?",
+    "opts": [
+      "Rely solely on the junior designer’s confidence",
+      "Review sufficiently to be satisfied the work is competent before taking professional responsibility",
+      "Ask the client to approve technical accuracy",
+      "Issue the drawing unsealed because it was prepared by a junior person"
+    ],
+    "correct": 1,
+    "explanation": "Supervision is meaningful only when the professional reviews and controls the work sufficiently to accept responsibility."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which statement best describes the professional’s position when corporate pressure conflicts with professional judgment?",
+    "opts": [
+      "Corporate direction always overrides professional judgment",
+      "The professional must balance organizational loyalty with independent professional obligations, especially public safety and legality",
+      "The professional should avoid documenting disagreement",
+      "The professional has no duty unless they are the project manager"
+    ],
+    "correct": 1,
+    "explanation": "Professionals may work inside corporations, but their professional duties remain personal and cannot be fully delegated to management."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "In due diligence, why are foreseeability, preventability, and controllability important?",
+    "opts": [
+      "They prove that all accidents are avoidable",
+      "They help assess whether reasonable steps were taken to identify and manage risks",
+      "They eliminate the need for records",
+      "They apply only to criminal law"
+    ],
+    "correct": 1,
+    "explanation": "Due diligence asks whether reasonable care was taken under the circumstances. Foreseeability, preventability, and controllability help evaluate that care."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which source is most likely to define the minimum technical expectations for a design?",
+    "opts": [
+      "Personal preference",
+      "Applicable statutes, regulations, codes, standards, guidelines, and accepted practice",
+      "A competitor’s brochure",
+      "The lowest bid received"
+    ],
+    "correct": 1,
+    "explanation": "Professional practice requires awareness of statutory and non-statutory standards, including codes and accepted practice."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "What is the most logical first step in a risk assessment?",
+    "opts": [
+      "Buy insurance",
+      "Identify hazards and affected parties",
+      "Assign blame",
+      "Select a contractor"
+    ],
+    "correct": 1,
+    "explanation": "Risk assessment begins by identifying hazards, exposure, affected people or assets, and potential consequences."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "What is the main purpose of professional errors and omissions insurance?",
+    "opts": [
+      "To guarantee the project will have no defects",
+      "To provide financial protection for claims arising from professional negligence or errors, subject to policy terms",
+      "To replace professional competence",
+      "To remove the need for contracts"
+    ],
+    "correct": 1,
+    "explanation": "E&O insurance manages financial consequences of covered professional liability claims. It does not replace competent practice."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which quality management practice most directly supports defensible professional work?",
+    "opts": [
+      "Relying on memory instead of records",
+      "Using independent checks, documented reviews, revision control, and clear responsibility for approvals",
+      "Skipping peer review to save time",
+      "Approving work only by verbal agreement"
+    ],
+    "correct": 1,
+    "explanation": "Quality management supports public protection through planned checks, records, responsibilities, document control, and continuous improvement."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A project has significant environmental implications outside the professional’s expertise. What should the professional do?",
+    "opts": [
+      "Ignore environmental issues because they are political",
+      "Use appropriate environmental or sustainability specialists and integrate their input into responsible professional judgment",
+      "Proceed if the client accepts the risk",
+      "Delay indefinitely without communicating"
+    ],
+    "correct": 1,
+    "explanation": "Professional environmental responsibility includes understanding issues in the field, obtaining specialists where needed, and considering sustainability and environmental costs."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A professional uses design software to size a structural element. What is their responsibility for the output?",
+    "opts": [
+      "The software vendor is solely responsible",
+      "The professional must understand, validate, and check the output sufficiently before relying on it",
+      "No review is needed if the software is popular",
+      "The client is responsible for software selection"
+    ],
+    "correct": 1,
+    "explanation": "Professionals remain responsible for outputs they rely on. Software use requires validation, understanding of assumptions, and appropriate checking."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which statement best describes control of a professional seal or stamp?",
+    "opts": [
+      "It may be shared with a trusted technician",
+      "It should be controlled by the professional and used only when they are taking professional responsibility",
+      "It may be pre-applied to blank drawings",
+      "It is mainly decorative"
+    ],
+    "correct": 1,
+    "explanation": "Seal control is a core professional responsibility. It must not be delegated or used on work the professional has not properly reviewed."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Why is document revision control important?",
+    "opts": [
+      "It makes documents look more formal",
+      "It ensures users know which version is current, what changed, and who authorized the change",
+      "It eliminates the need for quality review",
+      "It applies only to paper drawings"
+    ],
+    "correct": 1,
+    "explanation": "Revision control prevents use of obsolete or conflicting documents and supports accountability."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Who is normally responsible for ensuring as-built or record drawings are clearly identified and based on appropriate information?",
+    "opts": [
+      "Only the construction contractor, regardless of professional involvement",
+      "The professional or organization issuing them, within the scope of their review and available information",
+      "The regulator",
+      "No one after construction is complete"
+    ],
+    "correct": 1,
+    "explanation": "Record documents must be accurately described. A professional should not imply verification beyond what was actually reviewed."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "What is the main professional purpose of keeping project records?",
+    "opts": [
+      "To increase administrative burden",
+      "To support continuity, accountability, quality, legal defensibility, and future safe use of information",
+      "To avoid all client communication",
+      "To replace professional judgment"
+    ],
+    "correct": 1,
+    "explanation": "Records document assumptions, decisions, approvals, changes, and communications. They support public protection and defensible practice."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A professional discovers that a previously issued report contains a significant error affecting safety. What should they do?",
+    "opts": [
+      "Wait for the client to find it",
+      "Promptly inform the appropriate parties and take reasonable steps to prevent harm",
+      "Delete the original files",
+      "Do nothing if the fee has been paid"
+    ],
+    "correct": 1,
+    "explanation": "Duty to inform requires timely, truthful communication when errors or risks could affect clients, authorities, or the public."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which communication approach is most professional for a complex technical risk?",
+    "opts": [
+      "Use vague language to avoid liability",
+      "Explain the risk, assumptions, uncertainty, consequences, and recommended actions in language suitable for the audience",
+      "Only discuss the risk orally",
+      "Hide the risk in an appendix"
+    ],
+    "correct": 1,
+    "explanation": "Professional communication should be complete, clear, truthful, and tailored to the audience while preserving technical accuracy."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which duty to a client is most consistent with professional practice?",
+    "opts": [
+      "Guarantee the client’s desired outcome",
+      "Provide competent, diligent, honest service within the agreed scope while protecting the public",
+      "Avoid all disagreement with the client",
+      "Accept any scope regardless of expertise"
+    ],
+    "correct": 1,
+    "explanation": "Professionals owe competence, diligence, honesty, confidentiality, and loyalty to clients, limited by public and legal duties."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A client verbally authorizes a major design change during a site meeting. What should the professional do?",
+    "opts": [
+      "Proceed without documentation because the client spoke clearly",
+      "Document the change, confirm authority and scope impacts, and manage technical review before implementation",
+      "Ignore the change",
+      "Apply the change to all projects"
+    ],
+    "correct": 1,
+    "explanation": "Design changes should be documented, authorized, reviewed for technical impacts, and controlled through proper revision processes."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A professional relies on a specialist report in a multidisciplinary project. What is the best practice?",
+    "opts": [
+      "Accept the report blindly",
+      "Confirm the specialist’s scope, qualifications, assumptions, interfaces, and consistency with the overall design",
+      "Rewrite the specialist report without permission",
+      "Exclude the specialist from meetings"
+    ],
+    "correct": 1,
+    "explanation": "Professionals may rely on others, but must exercise reasonable care in selecting, coordinating, and integrating specialist input."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "In a formal tendering process, why must communications with bidders be carefully controlled?",
+    "opts": [
+      "To make the process slower",
+      "To maintain fairness, transparency, and consistency, and to avoid creating unintended contractual obligations",
+      "To help preferred bidders win",
+      "To prevent all questions"
+    ],
+    "correct": 1,
+    "explanation": "Procurement communications can affect fairness and legal obligations. Consistent documented processes reduce risk."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "At project close-out, which action best supports professional practice?",
+    "opts": [
+      "Discard all working documents",
+      "Provide required final documents, record assumptions, transfer records as required, and clarify limitations",
+      "Avoid explaining unresolved deficiencies",
+      "Seal every draft generated during the project"
+    ],
+    "correct": 1,
+    "explanation": "Close-out should preserve necessary records, deliver required documents, and clearly communicate limitations and unresolved issues."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A construction contractor proposes a field shortcut that appears unsafe. What should the professional do?",
+    "opts": [
+      "Accept if it saves cost",
+      "Assess the technical and safety implications, document the decision, and reject or modify the shortcut if public or worker safety is compromised",
+      "Approve verbally and leave the site",
+      "Let the contractor decide because means and methods are always separate"
+    ],
+    "correct": 1,
+    "explanation": "Professionals must consider safety and technical consequences. Contractor means and methods do not remove professional duties when an unsafe change affects the design or public protection."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which practice is most appropriate for internet-based professional communication?",
+    "opts": [
+      "Assume emails have no legal significance",
+      "Use clear, respectful, accurate communication and manage electronic records as part of the project record",
+      "Use informal messages to avoid accountability",
+      "Send confidential material without considering security"
+    ],
+    "correct": 1,
+    "explanation": "Emails and electronic records can have legal and professional significance. Courtesy, clarity, confidentiality, and record management matter."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A professional supervises remote staff in another office. Which action best demonstrates adequate supervision?",
+    "opts": [
+      "Assume distance removes responsibility",
+      "Set clear scope, review checkpoints, documentation expectations, and technical review before work is issued",
+      "Let staff issue drawings directly to the client",
+      "Use only informal chats and no records"
+    ],
+    "correct": 1,
+    "explanation": "Remote supervision still requires clear expectations, documented review, and control over issued professional work."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A project combines civil, mechanical, electrical, and environmental work. What is the professional responsibility across discipline interfaces?",
+    "opts": [
+      "Each discipline can ignore interfaces",
+      "Coordinate assumptions, responsibilities, and interfaces so the integrated work is safe and coherent",
+      "Let the client identify all conflicts",
+      "Seal only the easiest discipline"
+    ],
+    "correct": 1,
+    "explanation": "Multidisciplinary work requires coordination. Many failures occur at interfaces, so responsibilities and assumptions must be clear."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Which option is an example of transferring risk rather than eliminating it?",
+    "opts": [
+      "Removing a hazard from the design",
+      "Buying insurance or using an indemnity clause",
+      "Changing the design to reduce exposure",
+      "Improving quality control"
+    ],
+    "correct": 1,
+    "explanation": "Insurance and indemnities transfer or allocate financial risk; they do not physically eliminate hazards or replace professional care."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "What distinguishes hazard identification from risk evaluation?",
+    "opts": [
+      "They are identical",
+      "Hazard identification finds possible sources of harm; risk evaluation estimates likelihood, consequence, and acceptability",
+      "Risk evaluation is done before hazards are known",
+      "Hazard identification applies only to environmental projects"
+    ],
+    "correct": 1,
+    "explanation": "Hazards are sources of harm. Risk evaluation considers likelihood, consequence, and whether controls are adequate."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A client asks that a report omit a known limitation because it may affect financing. What should the professional do?",
+    "opts": [
+      "Omit it because financing is the client’s business",
+      "Include the limitation and explain its significance because reports must not mislead users",
+      "Move it to a private file only",
+      "Replace it with optimistic wording"
+    ],
+    "correct": 1,
+    "explanation": "A professional report must be truthful and complete enough for intended users to understand limitations and risks."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "Why is stakeholder trust central to professional practice?",
+    "opts": [
+      "It allows professionals to avoid regulation",
+      "The public, clients, employers, and authorities rely on professional judgment they cannot independently verify",
+      "It guarantees higher fees",
+      "It is useful only for marketing"
+    ],
+    "correct": 1,
+    "explanation": "Professional work often involves specialized knowledge that others cannot readily verify. Trust is earned through competence, integrity, and accountability."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A statute sets a minimum requirement, but accepted practice in similar projects is more stringent due to known hazards. What should the professional do?",
+    "opts": [
+      "Follow only the minimum statute",
+      "Consider whether professional standard of care requires the more stringent practice under the circumstances",
+      "Ignore accepted practice unless the client pays extra",
+      "Use whichever option is fastest"
+    ],
+    "correct": 1,
+    "explanation": "Legal minimums may not be enough. Professional standard of care can require reasonable practices beyond minimum code when hazards are foreseeable."
+  },
+  {
+    "type": "Professional Practice",
+    "q": "A professional receives data from a client that appears inconsistent with field observations. What is the best response?",
+    "opts": [
+      "Use the client data without comment",
+      "Investigate, clarify assumptions, document uncertainty, and avoid relying on questionable data without qualification",
+      "Reject the project immediately",
+      "Alter the field notes to match the data"
+    ],
+    "correct": 1,
+    "explanation": "Professionals must handle data responsibly. Inconsistencies should be investigated and communicated, not ignored or hidden."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which statement best distinguishes public law from private law?",
+    "opts": [
+      "Public law governs relationships involving the state; private law governs relationships between private persons or organizations",
+      "Public law applies only to engineers; private law applies only to geoscientists",
+      "Public law is always criminal; private law is always contractual",
+      "There is no distinction in Canada"
+    ],
+    "correct": 0,
+    "explanation": "Public law includes constitutional, criminal, administrative, and regulatory matters. Private law includes contracts, torts, property, and related civil disputes."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "In common law jurisdictions, why is precedent important?",
+    "opts": [
+      "Courts must ignore earlier decisions",
+      "Earlier judicial decisions can guide or bind later courts when facts and legal issues are similar",
+      "Precedent applies only to criminal cases",
+      "Precedent is the same as a statute"
+    ],
+    "correct": 1,
+    "explanation": "Common law develops through court decisions. Precedent promotes consistency and predictability."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What is a high-level difference between Quebec civil law and common law provinces?",
+    "opts": [
+      "Quebec has no contract law",
+      "Quebec private law is primarily codified in the Civil Code, while common law provinces rely more heavily on judge-made precedent alongside statutes",
+      "Common law has no statutes",
+      "Civil law applies only to criminal matters"
+    ],
+    "correct": 1,
+    "explanation": "Quebec’s private law tradition is civil law and codified. Other provinces use common law, though all jurisdictions also have statutes."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which set contains the basic elements normally required to form a contract?",
+    "opts": [
+      "Offer, acceptance, consideration, intention to create legal relations, and certainty of terms",
+      "Friendship, optimism, and a handshake only",
+      "Tender, invoice, and insurance",
+      "Seal, stamp, and regulator approval"
+    ],
+    "correct": 0,
+    "explanation": "Contract formation generally requires offer, acceptance, consideration, intention, capacity, legality, and sufficiently certain terms, though details vary."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What is the usual meaning of an invitation to treat?",
+    "opts": [
+      "A final binding offer that must be accepted",
+      "An invitation for others to make offers, such as a price list or advertisement in many contexts",
+      "A breach of contract",
+      "A professional seal"
+    ],
+    "correct": 1,
+    "explanation": "An invitation to treat invites negotiation or offers. It is generally not itself an offer capable of immediate acceptance."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which statement about letters of intent or memoranda of understanding is most accurate?",
+    "opts": [
+      "They are never legally relevant",
+      "Their legal effect depends on wording, context, and whether binding obligations were intended",
+      "They always create a complete final contract",
+      "They are used only in employment law"
+    ],
+    "correct": 1,
+    "explanation": "LOIs and MOUs can be non-binding, partly binding, or binding depending on language, conduct, and context."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "A consultant fails to deliver a report by the contractual deadline, causing foreseeable delay costs. What legal concept is most directly involved?",
+    "opts": [
+      "Breach of contract and damages",
+      "Patent registration",
+      "Defamation",
+      "Professional title protection only"
+    ],
+    "correct": 0,
+    "explanation": "Failure to perform contractual obligations can be a breach. Damages may be available if causation, foreseeability, and proof of loss are established."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Why are limitation of liability clauses used in professional service agreements?",
+    "opts": [
+      "To eliminate all professional duties",
+      "To allocate or cap financial exposure, subject to enforceability and public policy limits",
+      "To guarantee approval by the regulator",
+      "To replace insurance"
+    ],
+    "correct": 1,
+    "explanation": "Limitation clauses are risk-allocation tools. They do not remove professional obligations and may be interpreted or limited by law."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which scenario is most likely a misrepresentation issue?",
+    "opts": [
+      "A consultant accurately states all assumptions",
+      "A consultant makes a false statement of fact that induces the client to enter a contract",
+      "A contractor asks a question during tender",
+      "A report includes a drawing revision number"
+    ],
+    "correct": 1,
+    "explanation": "Misrepresentation involves a false statement of fact that induces another party to act, such as entering a contract."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Why is agency and authority important in professional contracts?",
+    "opts": [
+      "It determines whether a person had authority to bind an organization to obligations",
+      "It determines soil bearing capacity",
+      "It replaces the need for written terms",
+      "It applies only to patents"
+    ],
+    "correct": 0,
+    "explanation": "A person’s actual or apparent authority can affect whether their organization is bound by commitments they make."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which elements are commonly required to prove negligence?",
+    "opts": [
+      "Duty of care, breach of standard of care, causation, and damages",
+      "Offer, acceptance, and consideration only",
+      "Patent, copyright, and trademark",
+      "Registration, CPD, and discipline"
+    ],
+    "correct": 0,
+    "explanation": "Negligence generally requires a duty, breach, causation, and damages or loss."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What does professional standard of care generally mean?",
+    "opts": [
+      "Perfection in every outcome",
+      "The level of skill, care, and diligence reasonably expected of a competent professional in similar circumstances",
+      "The lowest cost option",
+      "The client’s preferred answer"
+    ],
+    "correct": 1,
+    "explanation": "Professionals are not guarantors of perfection, but they must meet the reasonable standard expected of competent practitioners."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "A professional becomes aware of an imminent danger created by their design. Which legal/professional concept is most relevant?",
+    "opts": [
+      "Duty to warn",
+      "Trademark infringement",
+      "Invitation to treat",
+      "Quantum meruit"
+    ],
+    "correct": 0,
+    "explanation": "A duty to warn may arise when a professional knows or ought to know of a serious danger and affected parties need to be informed."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What is negligent misstatement?",
+    "opts": [
+      "A false criminal accusation only",
+      "Careless provision of inaccurate information or advice that another party reasonably relies on to their detriment",
+      "Any disagreement between experts",
+      "A patent application error only"
+    ],
+    "correct": 1,
+    "explanation": "Professionals can face liability for careless statements or reports relied upon by clients or, in some situations, third parties."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What is vicarious liability?",
+    "opts": [
+      "Liability for one’s own intentional act only",
+      "A situation where an employer or principal may be liable for wrongful acts of employees or agents within the scope of their work",
+      "A method of calculating contract price",
+      "A type of professional seal"
+    ],
+    "correct": 1,
+    "explanation": "Vicarious liability can make organizations responsible for acts of employees or agents performed in the course of work."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What does joint and several liability generally mean?",
+    "opts": [
+      "Each defendant pays only an equal share regardless of fault",
+      "A plaintiff may recover full damages from one liable defendant, who may then seek contribution from others",
+      "No one is liable if more than one party contributed",
+      "It applies only to criminal matters"
+    ],
+    "correct": 1,
+    "explanation": "Joint and several liability can expose one liable party to the full amount of recoverable damages, subject to contribution rules."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which dispute resolution process uses a neutral third party to help parties reach their own agreement without imposing a binding decision?",
+    "opts": [
+      "Mediation",
+      "Arbitration",
+      "Litigation",
+      "Discipline hearing"
+    ],
+    "correct": 0,
+    "explanation": "Mediation is facilitative. Arbitration and litigation normally result in decisions imposed by an arbitrator or court."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Who generally owns copyright in an engineering drawing prepared by an employee in the course of employment, subject to contract and law?",
+    "opts": [
+      "Always the employee, regardless of circumstances",
+      "Often the employer, unless contract or law provides otherwise",
+      "Always the client automatically",
+      "No one owns technical drawings"
+    ],
+    "correct": 1,
+    "explanation": "Intellectual property ownership depends on employment status, contract terms, and law. Employee-created work is often owned by the employer."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which protection is most associated with keeping commercially valuable confidential technical information secret?",
+    "opts": [
+      "Trade secret protection",
+      "Trademark registration",
+      "Bid bond",
+      "Construction lien"
+    ],
+    "correct": 0,
+    "explanation": "Trade secrets depend on confidentiality and reasonable steps to preserve secrecy. Patents require public disclosure."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Why does the employee versus independent contractor distinction matter?",
+    "opts": [
+      "It affects employment standards, tax, liability, intellectual property, and control issues",
+      "It determines whether engineering physics applies",
+      "It eliminates all contract duties",
+      "It matters only outside Canada"
+    ],
+    "correct": 0,
+    "explanation": "Worker classification can affect rights, obligations, taxes, benefits, IP ownership, and liability allocation."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "A qualified employee requests accommodation for a disability that affects work scheduling. Which legal area is most relevant?",
+    "opts": [
+      "Human rights law",
+      "Patent law",
+      "Construction lien law",
+      "International trade law only"
+    ],
+    "correct": 0,
+    "explanation": "Human rights law often requires reasonable accommodation to the point of undue hardship, depending on jurisdiction and facts."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "What is the general purpose of construction lien legislation?",
+    "opts": [
+      "To punish professional regulators",
+      "To provide security for payment to parties who supply labour or materials to an improvement, subject to statutory rules",
+      "To replace performance bonds",
+      "To regulate professional titles"
+    ],
+    "correct": 1,
+    "explanation": "Lien laws protect payment rights in construction projects through statutory claims against the improved property or related funds."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "Which bond is primarily intended to protect an owner if the successful bidder refuses to enter into the contract?",
+    "opts": [
+      "Bid bond",
+      "Performance bond",
+      "Payment bond",
+      "Fidelity bond"
+    ],
+    "correct": 0,
+    "explanation": "A bid bond supports the bidder’s tender commitment. Performance bonds relate to completion; payment bonds relate to payment of subcontractors/suppliers."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "A professional discovers contamination that triggers statutory reporting obligations. What legal area is most directly engaged?",
+    "opts": [
+      "Environmental law and duty to report",
+      "Defamation",
+      "Trademark law",
+      "Agency by estoppel"
+    ],
+    "correct": 0,
+    "explanation": "Environmental legislation may impose reporting, investigation, prevention, and remediation duties. Professional duties may also require prompt action."
+  },
+  {
+    "type": "Law for Professional Practice",
+    "q": "On a construction site, which topic is most closely connected to the role of a prime contractor and accident response obligations?",
+    "opts": [
+      "Occupational health and safety law",
+      "Copyright law",
+      "Civil Code interpretation only",
+      "Securities law"
+    ],
+    "correct": 0,
+    "explanation": "OH&S law addresses responsibilities of employers, workers, owners, contractors, and sometimes prime contractors, including incident response and prevention."
+  },
+  {
+    "type": "Professional Law",
+    "q": "What is the primary source of a provincial or territorial engineering/geoscience regulator’s authority?",
+    "opts": [
+      "A private membership vote only",
+      "The professional Act and related regulations, bylaws, and rules enacted under legal authority",
+      "A university policy",
+      "An employer’s internal procedure"
+    ],
+    "correct": 1,
+    "explanation": "Regulators exist because legislation grants them authority to license, set standards, enforce, and discipline in the public interest."
+  },
+  {
+    "type": "Professional Law",
+    "q": "Which item is typically part of admission to the engineering or geoscience profession?",
+    "opts": [
+      "A guaranteed job offer",
+      "Academic qualification, acceptable experience, examinations, good character or fitness requirements, and registration requirements as applicable",
+      "Purchase of insurance only",
+      "Membership in a social club"
+    ],
+    "correct": 1,
+    "explanation": "Admission requirements vary by regulator but typically include education, experience, examination, character/fitness, and application requirements."
+  },
+  {
+    "type": "Professional Law",
+    "q": "An unlicensed person advertises as a “Professional Engineer” in a regulated jurisdiction. What issue is most directly raised?",
+    "opts": [
+      "Misuse of protected title",
+      "A private trademark dispute only",
+      "A quality management preference",
+      "A mediation clause"
+    ],
+    "correct": 0,
+    "explanation": "Professional titles are protected by law. Misuse can trigger regulatory enforcement."
+  },
+  {
+    "type": "Professional Law",
+    "q": "A company offers regulated engineering services without required authorization where a permit to practice is required. What is the main concern?",
+    "opts": [
+      "Illegal practice or unauthorized practice by a firm",
+      "A normal marketing choice",
+      "A tax issue only",
+      "A copyright exception"
+    ],
+    "correct": 0,
+    "explanation": "Some jurisdictions require firms to hold permits, certificates, or authorizations to provide professional services. Unauthorized practice can be enforced."
+  },
+  {
+    "type": "Professional Law",
+    "q": "What is the main purpose of a permit to practice or certificate of authorization for a firm?",
+    "opts": [
+      "To allow the firm to avoid individual professional responsibility",
+      "To ensure organizations offering professional services have accountable professional oversight and quality systems required by the regulator",
+      "To guarantee profit",
+      "To replace all contracts"
+    ],
+    "correct": 1,
+    "explanation": "Firm regulation supports public protection by requiring accountable professional responsibility, quality management, and regulatory oversight."
+  },
+  {
+    "type": "Professional Law",
+    "q": "What is the purpose of interprovincial mobility agreements for licensed professionals?",
+    "opts": [
+      "To make all regulators identical",
+      "To facilitate recognition and mobility of qualified professionals between Canadian jurisdictions, subject to applicable requirements",
+      "To remove all local law",
+      "To allow unlicensed practice everywhere"
+    ],
+    "correct": 1,
+    "explanation": "Mobility agreements support labour mobility while preserving each jurisdiction’s regulatory authority and requirements."
+  },
+  {
+    "type": "Professional Law",
+    "q": "Which statement best describes Engineers Canada and Geoscientists Canada in relation to provincial/territorial regulators?",
+    "opts": [
+      "They directly license every engineer and geoscientist in Canada",
+      "They generally support national coordination, accreditation, guidelines, and standards, while licensing remains with provincial/territorial regulators",
+      "They replace local discipline committees",
+      "They act only as insurance brokers"
+    ],
+    "correct": 1,
+    "explanation": "Licensure is provincial/territorial. National bodies support coordination, accreditation, mobility, and guidance but are not the direct regulator of every practitioner."
+  },
+  {
+    "type": "Professional Law",
+    "q": "Which action is most likely regulatory enforcement rather than private contract enforcement?",
+    "opts": [
+      "A client sues for unpaid invoices",
+      "A regulator investigates unauthorized practice or misuse of professional title",
+      "Two companies negotiate a change order",
+      "An owner claims liquidated damages"
+    ],
+    "correct": 1,
+    "explanation": "Regulatory enforcement protects the public and the statutory scheme, including title and practice restrictions."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "Which distinction best describes unprofessional conduct and unskilled practice?",
+    "opts": [
+      "They are always identical",
+      "Unprofessional conduct concerns ethical or professional misconduct; unskilled practice concerns incompetence or lack of skill, though facts may overlap",
+      "Unskilled practice applies only to students",
+      "Unprofessional conduct is never disciplinable"
+    ],
+    "correct": 1,
+    "explanation": "Discipline frameworks commonly address both misconduct and incompetence. A case may involve both, but the concepts are distinct."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "What principle is essential in a fair discipline process?",
+    "opts": [
+      "Punishment before investigation",
+      "Procedural fairness, including notice of allegations and an opportunity to respond",
+      "No written record",
+      "Private resolution without regulator involvement in every case"
+    ],
+    "correct": 1,
+    "explanation": "Regulatory discipline must be fair. Notice, evidence, impartiality, reasons, and opportunity to respond are important due process concepts."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "Which outcome may result from a finding of professional misconduct or unskilled practice?",
+    "opts": [
+      "Only a private apology",
+      "Reprimand, conditions, fines, suspension, cancellation, education requirements, or other orders allowed by the regulator’s legislation",
+      "Automatic criminal conviction in every case",
+      "No consequence if the client was not harmed"
+    ],
+    "correct": 1,
+    "explanation": "Discipline consequences vary by legislation but can include sanctions, practice restrictions, education, costs, suspension, or cancellation."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "What is the primary purpose of an individual practice review?",
+    "opts": [
+      "To assign blame for every project error",
+      "To assess and improve a registrant’s practice, competence, records, and compliance in the public interest",
+      "To replace continuing professional development",
+      "To provide a marketing certification"
+    ],
+    "correct": 1,
+    "explanation": "Practice review is generally preventive and quality-focused, supporting competent practice and public protection."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "Why might a regulator conduct a firm practice review?",
+    "opts": [
+      "To guarantee the firm wins public contracts",
+      "To assess whether the firm’s systems, supervision, quality management, authentication, and professional oversight meet regulatory expectations",
+      "To set the firm’s hourly rates",
+      "To replace client audits"
+    ],
+    "correct": 1,
+    "explanation": "Firm reviews focus on organizational systems that affect professional practice and public protection."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "What is the main purpose of continuing professional development requirements?",
+    "opts": [
+      "To create paperwork only",
+      "To help professionals maintain and improve competence throughout their careers",
+      "To permit practice outside competence",
+      "To eliminate the need for supervision"
+    ],
+    "correct": 1,
+    "explanation": "CPD supports ongoing competence as technology, standards, risks, and professional expectations change."
+  },
+  {
+    "type": "Regulation of Members & Discipline Processes",
+    "q": "A registrant refuses to cooperate with a regulator’s lawful investigation. What is the likely professional concern?",
+    "opts": [
+      "Nothing, because cooperation is optional",
+      "Failure to cooperate may itself be misconduct and can undermine the discipline or practice review process",
+      "The regulator must immediately end the file",
+      "The client becomes responsible for the investigation"
+    ],
+    "correct": 1,
+    "explanation": "Regulators rely on member cooperation to protect the public. Failure to cooperate with lawful regulatory processes can create separate discipline concerns."
+  }
+];
+const LETTERS = ['A','B','C','D'];
+const SECTIONS = [
+  {
+    "key": "Professionalism",
+    "label": "Section A — Professionalism",
+    "cls": "sec-prof",
+    "range": "Questions 1–10"
+  },
+  {
+    "key": "Ethics",
+    "label": "Section B — Ethics",
+    "cls": "sec-ethics",
+    "range": "Questions 11–30"
+  },
+  {
+    "key": "Professional Practice",
+    "label": "Section C — Professional Practice",
+    "cls": "sec-practice",
+    "range": "Questions 31–60"
+  },
+  {
+    "key": "Law for Professional Practice",
+    "label": "Section D — Law for Professional Practice",
+    "cls": "sec-law",
+    "range": "Questions 61–85"
+  },
+  {
+    "key": "Professional Law",
+    "label": "Section E — Professional Law",
+    "cls": "sec-prolaw",
+    "range": "Questions 86–93"
+  },
+  {
+    "key": "Regulation of Members & Discipline Processes",
+    "label": "Section F — Regulation & Discipline",
+    "cls": "sec-discipline",
+    "range": "Questions 94–100"
+  }
+];
+let mode = 'instant';
+let answers = new Array(QUESTIONS.length).fill(null);
+let locked  = new Array(QUESTIONS.length).fill(false);
+
+function slug(s){
+  return s.replace(/&/g,'and').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+function clsSlug(s){
+  return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+function build(){
+  const exam = document.getElementById('exam');
+  exam.innerHTML='';
+  let qi=0;
+  SECTIONS.forEach(sec=>{
+    const h=document.createElement('div');
+    h.className='section-head '+sec.cls;
+    h.id='sec-'+slug(sec.key);
+    h.innerHTML=`<span>${sec.label}</span><span class="tag">${sec.range}</span>`;
+    exam.appendChild(h);
+    QUESTIONS.forEach((q,idx)=>{
+      if(q.type!==sec.key) return;
+      qi++;
+      exam.appendChild(makeCard(q,idx,qi));
+    });
+  });
+}
+
+function makeCard(q,idx,num){
+  const card=document.createElement('div');
+  card.className='q-card';
+  card.id='q'+idx;
+  const typeClass='t-'+clsSlug(q.type);
+  let optsHtml='';
+  q.opts.forEach((o,i)=>{
+    optsHtml+=`<div class="opt" data-i="${i}" onclick="choose(${idx},${i})">
+      <span class="letter">${LETTERS[i]}</span>
+      <span class="otext">${o}</span>
+      <span class="mark"></span>
+    </div>`;
+  });
+  card.innerHTML=`
+    <div class="q-top">
+      <span class="q-num">Q${num}</span>
+      <span class="q-type ${typeClass}">${q.type}</span>
+    </div>
+    <div class="q-text">${q.q}</div>
+    <div class="opts">${optsHtml}</div>
+    <div class="explain" id="exp${idx}">
+      <div class="elabel">Explanation</div>
+      <div class="ans-line">Correct Answer: ${LETTERS[q.correct]} — ${q.opts[q.correct]}</div>
+      <p>${q.explanation}</p>
+    </div>`;
+  return card;
+}
+
+function choose(idx,i){
+  if(locked[idx]) return;
+  answers[idx]=i;
+  const card=document.getElementById('q'+idx);
+  card.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  card.querySelector(`.opt[data-i="${i}"]`).classList.add('sel');
+  card.classList.add('answered');
+  if(mode==='instant'){ lockCard(idx); }
+  updateHud();
+}
+
+function lockCard(idx){
+  locked[idx]=true;
+  const q=QUESTIONS[idx];
+  const card=document.getElementById('q'+idx);
+  card.classList.add('locked');
+  const chosen=answers[idx];
+  card.querySelectorAll('.opt').forEach(o=>{
+    const oi=+o.dataset.i;
+    if(oi===q.correct){o.classList.add('correct');o.querySelector('.mark').textContent='✓';}
+    else if(oi===chosen){o.classList.add('wrong');o.querySelector('.mark').textContent='✕';}
+  });
+  document.getElementById('exp'+idx).classList.add('show');
+}
+
+function updateHud(){
+  const done=answers.filter(a=>a!==null).length;
+  document.getElementById('progCount').textContent=done;
+  document.getElementById('barFill').style.width=(done/QUESTIONS.length*100)+'%';
+  if(mode==='instant'){
+    const correct=answers.reduce((s,a,i)=>s+(a===QUESTIONS[i].correct?1:0),0);
+    document.getElementById('scoreNum').textContent=correct;
+  }
+  if(mode==='exam'){
+    document.getElementById('submitBtn').style.display = done===QUESTIONS.length ? 'inline-block':'none';
+  }
+}
+
+function submitExam(){
+  let correct=0;
+  const byType={};
+  QUESTIONS.forEach((q,idx)=>{
+    lockCard(idx);
+    const ok=answers[idx]===q.correct;
+    if(ok)correct++;
+    byType[q.type]=byType[q.type]||{c:0,t:0};
+    byType[q.type].t++; if(ok)byType[q.type].c++;
+  });
+  document.getElementById('scoreNum').textContent=correct;
+  showResults(correct,byType);
+}
+
+function showResults(correct,byType){
+  const pct=correct/QUESTIONS.length;
+  document.getElementById('rScore').textContent=correct;
+  let grade,blurb;
+  if(pct>=0.9){grade='Excellent NPPE Readiness';blurb='Strong performance. Keep reviewing official materials, legislation, and regulator guidance, especially the explanations behind any missed questions.';}
+  else if(pct>=0.8){grade='Solid Exam Preparation';blurb='Good work. Your foundation is strong, but review weaker sections and practise scenario questions where professional duty conflicts with business pressure.';}
+  else if(pct>=0.7){grade='Approaching Readiness';blurb='You are close. Focus on ethics, professional accountability, contract/tort law, and discipline processes before attempting a timed mock again.';}
+  else if(pct>=0.6){grade='Needs Targeted Review';blurb='You have a workable base, but several blueprint areas need reinforcement. Re-read the explanations and revisit the official blueprint topics.';}
+  else{grade='Review Required';blurb='Treat this as a diagnostic. Study the official blueprint, law/practice materials, and regulator guidance before retaking the mock exam.';}
+  document.getElementById('rGrade').textContent=grade;
+  document.getElementById('rBlurb').textContent=blurb;
+  const bd=document.getElementById('rBreak');bd.innerHTML='';
+  SECTIONS.forEach(sec=>{
+    const t=sec.key;
+    if(!byType[t])return;
+    const d=document.createElement('div');d.className='bd-item';
+    d.innerHTML=`<div class="bd-t">${t}</div><div class="bd-s">${byType[t].c}/${byType[t].t}</div>`;
+    bd.appendChild(d);
+  });
+  const r=document.getElementById('results');r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth'});
+}
+
+function reviewAll(){document.getElementById('q0').scrollIntoView({behavior:'smooth'});}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('mode-instant').classList.toggle('active',m==='instant');
+  document.getElementById('mode-exam').classList.toggle('active',m==='exam');
+  document.getElementById('modeHint').textContent = m==='instant'
+    ? 'Pick an answer and see the explanation immediately.'
+    : 'Answer all 100 questions, then submit to see your score and explanations.';
+  resetExam();
+}
+
+function resetExam(){
+  answers=new Array(QUESTIONS.length).fill(null);
+  locked=new Array(QUESTIONS.length).fill(false);
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('scoreNum').textContent='0';
+  document.getElementById('submitBtn').style.display='none';
+  build();
+  updateHud();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+build();
+updateHud();
+</script>
+</body>
+</html>
