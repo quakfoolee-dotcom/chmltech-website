@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.2** (see `CHANGELOG.md`).
+Version: **V4.3** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -20,7 +20,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `404.html` | Not-found page |
 | `post/*.html` | Insights articles (one file per article, same address as on Wix) |
 | `<industry>.html`, `<solution>.html` | Industry and solution detail pages (for example `manufacturing.html`, `scaling-up.html`) |
-| `challenge-page/*.html` | The 9 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`) |
+| `challenge-page/*.html` | The 12 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`) |
 | `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 

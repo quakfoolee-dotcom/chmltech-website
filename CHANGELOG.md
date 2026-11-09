@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.3 — 2026-11-09
+- Three more free interactive courses:
+  - **AI Awareness for Everyone:** 21 lessons, entry level for all staff. Labs: "Fact, myth or it depends?", "Is it safe to share?", AI awareness check.
+  - **Digital Automation for SMEs: Building Your Digital Automation Plan:** 23 lessons. Labs: maturity by function, opportunity matrix, business-case calculator. Ends with a written plan.
+  - **Multi-Agent Systems for Business:** 22 lessons. Labs: design-fit sort, use-case matrix, token-cost calculator.
+- Each has 6 interactive diagrams, an animated header, a 20-question exam and a certificate.
+- The site now has 12 free courses, 268 lessons and 36 labs. Courses are listed from entry level (AI Awareness) to advanced, and the Courses and home page descriptions are updated.
+
 ## V4.2 — 2026-11-09
 - Three new free interactive courses, built the same way as the first six:
   - **AI Agents for Business Operations:** 22 lessons. Labs: agent-fit sort, use-case risk/value matrix, agent readiness assessment.

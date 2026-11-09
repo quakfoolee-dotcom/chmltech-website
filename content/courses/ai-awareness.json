@@ -1,0 +1,1134 @@
+{
+ "id": "ai-awareness-for-everyone",
+ "title": "AI Awareness for Everyone",
+ "tagline": "Understand AI in plain language and use it safely, honestly and well in your everyday work.",
+ "summary": "A friendly, no-jargon introduction to AI for every employee, from the shop floor to the front office. Learn what AI is and is not, how chat tools work and why they can be wrong, how to use them for everyday tasks, and how to protect data, spot scams and follow your company's rules.",
+ "audience": [
+  "Frontline staff, office staff and supervisors in Canadian small and mid-sized businesses",
+  "Anyone with no technical background who wants to understand AI",
+  "Teams starting to use AI tools at work",
+  "Managers looking for a simple AI awareness course for all staff"
+ ],
+ "outcomes": [
+  "Explain in plain words what AI is and is not, including machine learning and generative AI",
+  "Use AI chat tools for drafting, summarizing, brainstorming, translating and checking tone",
+  "Write clear prompts and check AI output before using it",
+  "Decide what information is safe to share, and in which tools, with Canadian privacy basics in mind",
+  "Recognize deepfakes, AI-assisted phishing and bias, and respond appropriately",
+  "Follow your company's AI policy and build a personal 30-day AI habit plan"
+ ],
+ "modules": [
+  {
+   "title": "What AI Is (and Is Not)",
+   "summary": "A plain-language starting point: what people mean by AI, the main kinds you will hear about, the AI you already use every day, and the myths worth dropping.",
+   "steps": [
+    {
+     "title": "What AI is, in everyday terms",
+     "minutes": 6,
+     "body": "<p>You hear the word AI everywhere. On the news, in software ads, in the lunchroom. It can sound big and mysterious. It does not need to be.</p><p>In everyday terms, <strong>artificial intelligence (AI)</strong> is software that does tasks we usually think need human judgment. It can spot patterns, make a guess, sort things into groups, or write and talk in a way that sounds human.</p><p>Regular software follows exact rules a person wrote. If an invoice is over $5,000, send it to the manager. AI is different. Instead of following only written rules, it learns patterns from many examples. Then it uses those patterns to make a best guess about something new.</p><h3>A simple way to picture it</h3><p>Think about a new hire at a distributor's warehouse. On day one, they need a checklist for everything. After a few months, they can glance at a pallet and tell it is packed wrong. Nobody wrote a rule for every bad pallet. They learned from seeing lots of good and bad ones. AI learns in a similar way, from data instead of experience.</p><h3>What AI is good at, and what it is not</h3><table><thead><tr><th>AI is usually good at</th><th>AI is usually weak at</th></tr></thead><tbody><tr><td>Spotting patterns in lots of data</td><td>Knowing what is true right now in your workplace</td></tr><tr><td>Producing a fast first draft</td><td>Understanding feelings, context and office history</td></tr><tr><td>Sorting, tagging and summarizing</td><td>Taking responsibility for a decision</td></tr><tr><td>Working tirelessly on repetitive tasks</td><td>Common sense in unusual situations</td></tr></tbody></table><p>The key idea: AI makes <strong>predictions and best guesses</strong>. It does not think the way you do. It has no goals, no feelings and no understanding of your customers. It is a tool. A very useful one, when a person stays in charge.</p><p>You do not need to know any maths or code to use AI well. You need three things: a clear idea of what it can and cannot do, good habits for checking its work, and care with information. That is what this course gives you.</p>",
+     "takeaways": [
+      "AI is software that learns patterns from examples and makes best guesses.",
+      "It is strong at patterns, drafts and sorting, but weak at context and judgment.",
+      "A person stays in charge of decisions; AI is a tool, not a colleague."
+     ],
+     "apply": "Write down two tasks in your own job that follow strict rules and two that need judgment. Next to each, note whether you think AI could help, and why. Keep the list for later lessons.",
+     "check": {
+      "q": "Which statement best describes how most AI differs from regular software?",
+      "opts": [
+       "AI always follows exact rules written by a programmer",
+       "AI learns patterns from examples and makes best guesses",
+       "AI understands the world the same way people do",
+       "AI only works when connected to the internet"
+      ],
+      "a": 1,
+      "why": "Regular software follows written rules. AI learns patterns from data and uses them to predict or generate a likely answer."
+     }
+    },
+    {
+     "title": "Narrow AI, machine learning and generative AI",
+     "minutes": 7,
+     "body": "<p>People use a few AI words as if they mean the same thing. They do not. Knowing the difference helps you understand what a tool can really do.</p><h3>Narrow AI</h3><p>Almost all AI in use today is <strong>narrow AI</strong>. It does one kind of job well. A spam filter sorts email. A map app predicts traffic. A camera on a production line spots scratches. None of them can do the others' jobs. The idea of a general AI that can do anything a person can is a topic for debate and science fiction. It is not the tool on your computer.</p><h3>Machine learning</h3><p><strong>Machine learning</strong> is the most common way to build AI. You show a computer many examples, and it learns the pattern. Show it thousands of emails marked spam or not spam, and it learns what spam tends to look like. Then it can judge new emails it has never seen.</p><h3>Generative AI</h3><p><strong>Generative AI</strong> is a newer kind of machine learning. Instead of only sorting or predicting, it <em>creates</em> new content: text, images, audio or video. AI chat assistants are the best-known example. You type a request and they write a reply, a summary or a draft.</p><table><thead><tr><th>Type</th><th>What it does</th><th>Everyday example</th></tr></thead><tbody><tr><td>Narrow AI</td><td>One specific task</td><td>Face unlock on your phone</td></tr><tr><td>Machine learning</td><td>Learns patterns from examples to predict or sort</td><td>Bank flags an unusual card purchase</td></tr><tr><td>Generative AI</td><td>Creates new text, images or audio</td><td>A chat tool drafts a polite reply to a customer</td></tr></tbody></table><h3>How they fit together</h3><p>Think of nesting boxes. AI is the biggest box. Machine learning sits inside it. Generative AI sits inside machine learning. And today, all of them are narrow in the sense that they are built for certain kinds of tasks.</p><p>Imagine a clinic's intake desk. A scheduling system that predicts no-shows uses machine learning. A tool that drafts a reminder message uses generative AI. Both are narrow. Neither knows the patient the way the receptionist does.</p><p>When someone at work says \"we are using AI,\" a good first question is: <strong>which kind, doing what job?</strong></p>",
+     "takeaways": [
+      "Nearly all AI today is narrow: built for specific tasks.",
+      "Machine learning learns from examples; generative AI creates new content.",
+      "Ask \"which kind of AI, doing what job?\" to cut through the hype."
+     ],
+     "apply": "Pick one software tool you use at work. Find out, or ask a colleague, whether it uses any AI features, and decide which type from this lesson they are. Share what you find with your team.",
+     "check": {
+      "q": "A tool writes a first draft of a job posting from a few bullet points. What kind of AI is this?",
+      "opts": [
+       "A rules-based macro",
+       "General AI",
+       "Generative AI",
+       "A spam filter"
+      ],
+      "a": 2,
+      "why": "Creating new text from a short request is what generative AI does. It is still narrow AI, built for language tasks."
+     }
+    },
+    {
+     "title": "AI you already use",
+     "minutes": 6,
+     "body": "<p>Many people say they have never used AI. Most of them use it every day. It is built quietly into tools you already know.</p><h3>Everyday examples</h3><ul><li><strong>Email filters.</strong> Your inbox sorts spam and flags messages that look like phishing. It learned what junk looks like from huge numbers of examples.</li><li><strong>Maps and navigation.</strong> Your map app predicts traffic and suggests a faster route. It learns from patterns in travel data.</li><li><strong>Recommendations.</strong> Streaming services, online stores and news apps suggest what you might like next, based on what you and people like you have chosen.</li><li><strong>Voice assistants.</strong> Smart speakers and phone assistants turn your speech into text and try to work out what you want.</li><li><strong>Phone cameras and keyboards.</strong> Your camera sharpens photos and recognizes faces. Your keyboard predicts the next word.</li><li><strong>Banking.</strong> Your bank may text you when a purchase looks unusual. That alert often comes from a machine learning model.</li></ul><h3>At work, too</h3><p>Many workplace tools now include AI features. A word processor may suggest how to rephrase a sentence. A video call app may offer live captions or a meeting summary. Accounting software may suggest how to code an expense. A warehouse system may forecast which items will run low.</p><h3>Why this matters</h3><p>Seeing AI you already use does two things. First, it makes AI less scary. You have been working alongside it for years. Second, it shows you its limits. Think about it:</p><ul><li>Your spam filter sometimes hides a real email.</li><li>Your map sometimes sends you down a closed road.</li><li>Your recommendations sometimes miss badly.</li></ul><p>That is normal. AI makes best guesses, and guesses are sometimes wrong. The same is true of the newer AI chat tools. The habit you already have of checking your spam folder now and then is exactly the habit you need for all AI: <strong>trust it for speed, check it for accuracy.</strong></p>",
+     "takeaways": [
+      "You already use AI daily in email, maps, recommendations and voice tools.",
+      "Workplace software increasingly has AI features built in.",
+      "Everyday AI makes mistakes too, so the checking habit applies everywhere."
+     ],
+     "apply": "For one workday, keep a quick tally of every time you notice AI working in a tool you use, at home or at work. At the end of the day, note one time it helped and one time it got something wrong.",
+     "check": {
+      "q": "Your email program moves a real customer order into the spam folder. What does this best show?",
+      "opts": [
+       "The email program has no AI in it",
+       "AI tools make best guesses that are sometimes wrong",
+       "The customer must have sent a scam",
+       "AI filters never need checking"
+      ],
+      "a": 1,
+      "why": "Spam filters use machine learning to predict what is junk. Predictions can be wrong, which is why checking still matters."
+     }
+    },
+    {
+     "title": "Common AI myths",
+     "minutes": 7,
+     "body": "<p>AI attracts a lot of myths. Some make it sound magical. Some make it sound like a monster. Both get in the way of using it sensibly. Here are common ones, and what is closer to the truth.</p><table><thead><tr><th>Myth</th><th>Closer to the truth</th></tr></thead><tbody><tr><td>AI understands what it says.</td><td>AI chat tools predict likely words. They can sound wise without understanding anything.</td></tr><tr><td>If AI says it confidently, it must be right.</td><td>AI sounds equally confident when it is right and when it is wrong.</td></tr><tr><td>AI is neutral because it is a machine.</td><td>AI learns from data made by people, so it can repeat human bias.</td></tr><tr><td>AI is only for tech experts.</td><td>Many AI tools are built for everyday users and need plain language, not code.</td></tr><tr><td>AI will do my whole job for me.</td><td>AI helps with parts of tasks. People still bring judgment, relationships and responsibility.</td></tr><tr><td>What I type into a chat tool stays private.</td><td>It depends on the tool and its settings. Some public tools may store or use what you enter.</td></tr><tr><td>AI always knows the latest facts.</td><td>Many tools learned from data up to a certain date and may not know recent changes.</td></tr></tbody></table><h3>Why myths are risky at work</h3><p>Myths lead to real mistakes. Imagine a supervisor at a fabrication shop who believes AI is always right. They ask a chat tool about a safety standard and copy the answer into a toolbox talk without checking. If the answer is out of date or wrong, workers get bad safety guidance.</p><p>Now imagine an office manager who believes AI is useless. They spend two hours writing a routine letter that a chat tool could have drafted in seconds for them to edit. Both myths cost something.</p><h3>\"It depends\" is often the honest answer</h3><p>Many questions about AI do not have a simple yes or no. Is it safe to use AI for this? It depends on the tool, the data and the task. Will AI change my job? It depends on what your job involves. Getting comfortable with \"it depends\" is a sign of good judgment, not confusion.</p><p>A useful habit: when you hear a big claim about AI, good or bad, ask <strong>\"how do we know that?\"</strong> and <strong>\"in which situations?\"</strong></p>",
+     "takeaways": [
+      "AI sounds confident whether it is right or wrong.",
+      "AI is neither magic nor useless; it helps with parts of tasks.",
+      "\"It depends\" is often the most honest answer about AI."
+     ],
+     "apply": "Listen for one claim about AI this week, from the news, an ad or a colleague. Ask yourself \"how do we know that?\" and \"in which situations?\" and write down whether it is a fact, a myth or an it-depends.",
+     "check": {
+      "q": "A colleague says, \"AI is a machine, so it can't be biased.\" What is the best response?",
+      "opts": [
+       "That is correct; machines have no opinions",
+       "Bias only matters in hiring, not other tasks",
+       "Only generative AI can be biased",
+       "AI learns from human-made data, so it can repeat human bias"
+      ],
+      "a": 3,
+      "why": "AI learns patterns from data that people created, including their unfair patterns. Bias is a real risk and needs checking."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Generative AI: How It Works and Using It Well",
+   "summary": "How AI chat tools produce answers, why they can be confidently wrong, the everyday work tasks they help with, and simple habits for asking and checking.",
+   "steps": [
+    {
+     "title": "How AI chat tools work",
+     "minutes": 7,
+     "body": "<p>AI chat assistants feel like talking to a person. Knowing roughly what happens behind the screen helps you use them well and spot their limits. No technical background needed.</p><h3>A very well-read guesser</h3><p>These tools are built on what is called a <strong>large language model</strong>. During training, the model read a huge amount of text: books, websites, articles and more. From all that reading, it learned how words usually follow each other.</p><p>When you type a question, the tool does not look up a single right answer. It predicts a likely next word, then the next, then the next, until it has a full reply. It is a bit like the word suggestions on your phone keyboard, but far more powerful.</p><h3>What happens when you hit Enter</h3><ol><li><strong>You write a prompt.</strong> Your question or request, plus any text you paste in.</li><li><strong>The tool breaks it into pieces.</strong> These small chunks of text are called tokens.</li><li><strong>It predicts a response.</strong> Word by word, based on patterns it learned.</li><li><strong>It shows you the answer.</strong> Often in seconds.</li><li><strong>You check and decide.</strong> This step is yours, and it is the most important one.</li></ol><h3>Things worth knowing</h3><ul><li><strong>It can give different answers to the same question.</strong> There is some built-in variety in its word choices.</li><li><strong>It only knows what it learned, plus what you give it.</strong> Some tools can also search the web or read files you upload, but they still make mistakes.</li><li><strong>It does not know your workplace.</strong> It has never seen your price list, your customers or your procedures unless you share them, and you should be careful what you share.</li><li><strong>It has a memory limit.</strong> In a very long chat, it can lose track of things said early on.</li></ul><p>Here is a quick example. An engineering office assistant asks a chat tool, \"Write a short note telling clients our office closes early on Friday.\" The tool predicts a polite, typical note. It does not know the actual closing time unless you say it. So you add: \"We close at 2 p.m. this Friday, December 20.\" Better input, better output.</p>",
+     "takeaways": [
+      "AI chat tools predict likely words; they do not look up one right answer.",
+      "They only know what they learned plus what you give them.",
+      "The final step, checking and deciding, always belongs to you."
+     ],
+     "apply": "Ask an approved AI chat tool the same simple question twice, for example \"suggest a name for a team lunch event.\" Compare the two answers and note how they differ. Then add one detail and see how the answer changes.",
+     "check": {
+      "q": "Why might an AI chat tool give you two different answers to the exact same question?",
+      "opts": [
+       "It is broken and needs to be restarted",
+       "It has built-in variety in how it predicts words",
+       "Someone else changed the answer in between",
+       "It always gives a random answer"
+      ],
+      "a": 1,
+      "why": "These tools predict likely words with some built-in variety, so wording and details can change between tries."
+     }
+    },
+    {
+     "title": "Why AI can be confidently wrong",
+     "minutes": 7,
+     "body": "<p>The most important thing to know about AI chat tools is this: <strong>they can be completely wrong while sounding completely sure.</strong> When an AI tool makes up facts, people call it a <em>hallucination</em>.</p><h3>Why it happens</h3><p>Remember, the tool predicts likely words. Its goal is a reply that <em>sounds</em> right. Most of the time, sounding right and being right line up. Sometimes they do not. When it lacks good information, it does not usually say \"I don't know.\" It fills the gap with something that looks plausible.</p><h3>Common types of confident mistakes</h3><ul><li><strong>Made-up facts.</strong> A date, a figure or a rule that sounds real but is not.</li><li><strong>Fake sources.</strong> A report title or web page that does not exist.</li><li><strong>Out-of-date information.</strong> Rules, prices or contacts that have changed.</li><li><strong>Wrong maths.</strong> Totals or percentages that look neat but do not add up.</li><li><strong>Wrong context.</strong> Rules from another country or industry presented as if they apply to you.</li></ul><h3>A worked example</h3><p>Imagine a supervisor at a small food distributor in Ontario. She asks a chat tool, \"How many paid sick days do employees get here?\" The tool gives a clear, confident number. It might mix up rules from another province, a different year or a different country. Employment rules vary by province and change over time.</p><p>The right move: use the AI answer as a starting point at most, then check the official provincial source or ask HR. Never put a fact like that in a staff notice based only on an AI answer.</p><h3>Where to be extra careful</h3><table><thead><tr><th>Lower risk</th><th>Higher risk, always verify</th></tr></thead><tbody><tr><td>Brainstorming names for an event</td><td>Laws, regulations and safety rules</td></tr><tr><td>Making an email sound friendlier</td><td>Numbers, prices and calculations</td></tr><tr><td>Turning notes into bullet points</td><td>Medical, legal or financial information</td></tr><tr><td>Suggesting a meeting agenda</td><td>Anything sent to customers or regulators</td></tr></tbody></table><p>Confidence is not evidence. The more it matters, the more you check.</p>",
+     "takeaways": [
+      "AI chat tools can make up facts and still sound certain.",
+      "Laws, numbers, safety and customer-facing content need extra checking.",
+      "Confidence is not evidence; the higher the stakes, the more you verify."
+     ],
+     "apply": "Ask an approved AI tool a question you already know the answer to about your own industry or workplace. Check the reply carefully and note anything that is wrong, vague or out of date.",
+     "check": {
+      "q": "An AI tool gives you a reference to a government report to support its answer. What should you do before using it?",
+      "opts": [
+       "Use it; AI tools only cite real sources",
+       "Check that the report exists and says what the AI claims",
+       "Ask the AI if it is sure, and trust its answer",
+       "Remove the reference and keep the rest unchecked"
+      ],
+      "a": 1,
+      "why": "AI tools can invent sources that look real. Find the actual source and confirm it says what the AI claims."
+     }
+    },
+    {
+     "title": "Good everyday uses at work",
+     "minutes": 7,
+     "body": "<p>Used well, AI chat tools can save you time on the routine parts of your day. Here are five everyday uses that suit almost any role, from the shop floor to the front office.</p><h3>1. Drafting</h3><p>Get a first version of an email, a notice, a job posting or a short procedure. You then edit it so it is accurate and sounds like you. A blank page becomes a rough draft in seconds.</p><h3>2. Summarizing</h3><p>Turn long text into key points. For example, a supervisor pastes a non-confidential, approved-to-share policy update and asks for a five-bullet summary for the team huddle. Always check the summary did not drop something important.</p><h3>3. Brainstorming</h3><p>Generate ideas when you are stuck: ways to reduce clutter at a workstation, themes for a safety week, questions to ask at a supplier meeting. You pick the ideas that fit.</p><h3>4. Translating</h3><p>Help with a quick translation or understanding a message in another language. This can help in diverse teams. For anything important, such as safety instructions or contracts, have a fluent person review it.</p><h3>5. Checking tone</h3><p>Ask whether a message sounds too harsh, too casual or unclear, and get a gentler or clearer version. This is useful before replying to an upset customer.</p><h3>A worked example</h3><p>Imagine Sam, a shipping lead at a distributor. He needs to tell customers that a holiday will delay deliveries by one day. He writes in an approved AI tool:</p><blockquote>Write a short, friendly email to customers. Deliveries scheduled for Monday will arrive Tuesday because of the holiday. Apologize briefly and thank them. Keep it under 100 words.</blockquote><p>He gets a draft, fixes one date, adds his name and sends it. It took two minutes instead of fifteen.</p><h3>Good fit or poor fit?</h3><table><thead><tr><th>Good fit</th><th>Poor fit</th></tr></thead><tbody><tr><td>First drafts you will edit</td><td>Final decisions about people</td></tr><tr><td>Summaries you will check</td><td>Facts you cannot verify</td></tr><tr><td>Ideas to choose from</td><td>Tasks that need confidential data in a public tool</td></tr></tbody></table><p>The pattern is simple: <strong>AI does the first pass, you do the final pass.</strong></p>",
+     "takeaways": [
+      "Drafting, summarizing, brainstorming, translating and tone-checking suit most roles.",
+      "Give clear details so the draft needs fewer fixes.",
+      "AI does the first pass; you do the final pass."
+     ],
+     "apply": "Pick one routine writing task you do every week, such as a status email or shift handover note. Try drafting it with an approved AI tool, edit it, and note how long it took compared with doing it alone.",
+     "check": {
+      "q": "Which is the best everyday use of an AI chat tool at work?",
+      "opts": [
+       "Deciding which employee should be let go",
+       "Sending a translated safety procedure without review",
+       "Drafting a routine customer email that you then edit and send",
+       "Pasting a customer list into a public tool to clean it up"
+      ],
+      "a": 2,
+      "why": "A routine draft that you review and edit plays to AI's strengths while you stay in control of the final message."
+     }
+    },
+    {
+     "title": "Simple prompting habits",
+     "minutes": 7,
+     "body": "<p>A <strong>prompt</strong> is what you type into an AI tool. Better prompts get better answers. You do not need special tricks. A few simple habits make a big difference.</p><h3>Five prompting habits</h3><ol><li><strong>Say what you want.</strong> Start with the task: write, summarize, list, rewrite, explain.</li><li><strong>Give context.</strong> Who is it for? What is the situation? \"For new warehouse staff on their first day.\"</li><li><strong>Set the format.</strong> Bullet points, a short email, a table, under 150 words.</li><li><strong>Set the tone.</strong> Friendly, formal, plain language, reassuring.</li><li><strong>Ask for changes.</strong> If the first answer is not right, say what to fix. \"Shorter, and remove the jargon.\"</li></ol><h3>A worked example: before and after</h3><p>Weak prompt:</p><blockquote>Write about safety.</blockquote><p>This gives a long, general essay nobody will read.</p><p>Better prompt:</p><blockquote>Write a 5-bullet reminder for forklift operators at a small warehouse about checking their truck before each shift. Plain language, friendly tone, short sentences.</blockquote><p>This gives something you can actually use, after you check it against your own procedures.</p><h3>Treat it like a conversation</h3><p>You rarely get the perfect answer on the first try. That is fine. Think of the AI as a fast helper who needs direction. Ask it to:</p><ul><li>\"Make this shorter.\"</li><li>\"Give me three other versions.\"</li><li>\"Explain this like I'm new to the job.\"</li><li>\"What questions might a customer ask after reading this?\"</li></ul><h3>What to leave out</h3><p>Good prompts give helpful context, but not private details. You can say \"a customer who received a late order\" instead of using their name and account number. Describe the situation without exposing the people. We cover this in detail in the next module.</p><p>One more tip: if a task is big, break it into smaller asks. First ask for an outline, then ask for each section. Shorter requests are easier to check, and you stay in control of where the work is going.</p><p>Simple formula to remember: <strong>Task + Context + Format + Tone</strong>, then refine.</p>",
+     "takeaways": [
+      "Use Task + Context + Format + Tone, then refine.",
+      "Treat AI like a conversation and ask for changes.",
+      "Describe the situation without including private details."
+     ],
+     "apply": "Take one weak prompt you might type, such as \"write an email to a customer,\" and rewrite it using Task + Context + Format + Tone. Try both in an approved tool and compare the results.",
+     "check": {
+      "q": "Which prompt is most likely to give a useful result?",
+      "opts": [
+       "Write something about our holiday hours.",
+       "Holiday hours.",
+       "Write a friendly 3-sentence notice for clinic patients saying we close at noon on December 24.",
+       "Tell me everything about holidays."
+      ],
+      "a": 2,
+      "why": "It states the task, audience, format, tone and the key fact, so the tool has what it needs to produce a usable draft."
+     }
+    },
+    {
+     "title": "Checking AI output",
+     "minutes": 7,
+     "body": "<p>You have learned that AI can be confidently wrong. So checking its work is not optional. It is the skill that makes AI safe to use. The good news: checking is a simple habit, and you can build it quickly.</p><h3>The four-step check</h3><ol><li><strong>Read it all.</strong> Do not skim. Read the whole output as if a new coworker wrote it.</li><li><strong>Verify the facts.</strong> Check names, dates, numbers, rules and sources against something you trust: your own records, an official website or a colleague who knows.</li><li><strong>Fix and fit.</strong> Correct errors, remove anything you cannot confirm, and adjust it to your workplace and your voice.</li><li><strong>Own it.</strong> Once you send or use it, it is your work. Would you be comfortable putting your name on it?</li></ol><h3>Quick questions to ask yourself</h3><ul><li>Is anything here that I do not actually know is true?</li><li>Do the numbers add up?</li><li>Does this apply to Canada, my province and my industry?</li><li>Is anything missing that the reader needs?</li><li>Could this offend, confuse or mislead anyone?</li></ul><h3>A worked example</h3><p>Imagine Priya, an office administrator at an engineering firm. She uses an approved tool to summarize a long, internal project update for the weekly bulletin. The summary reads well. But when she checks it against the original, she spots two problems. The summary says the project finishes in March; the original says May. And it leaves out that a site visit was cancelled.</p><p>She fixes both. Two minutes of checking saved an embarrassing correction later.</p><h3>Match the check to the stakes</h3><table><thead><tr><th>Use</th><th>How much checking</th></tr></thead><tbody><tr><td>Ideas for a team lunch</td><td>A quick read</td></tr><tr><td>An internal email</td><td>Read fully, fix tone and facts</td></tr><tr><td>Customer, safety or money matters</td><td>Verify every fact, and get a second person to review if needed</td></tr></tbody></table><p>The rule to remember: <strong>AI can help you write it, but you are responsible for what it says.</strong></p>",
+     "takeaways": [
+      "Read it all, verify the facts, fix and fit, then own it.",
+      "Match the amount of checking to the stakes.",
+      "Once you use AI output, you are responsible for it."
+     ],
+     "apply": "Next time you use AI for a work task, run the four-step check and write down every change you made. After a week, look at your notes to see which kinds of mistakes come up most often.",
+     "check": {
+      "q": "An AI summary of a meeting looks clear and well written. What should you do before sharing it?",
+      "opts": [
+       "Share it right away since it looks professional",
+       "Compare it with the original notes and fix errors or gaps",
+       "Ask the AI to rate its own accuracy",
+       "Share it and add a note saying AI may be wrong"
+      ],
+      "a": 1,
+      "why": "Good writing is not proof of accuracy. Checking against the source catches wrong facts and missing points before others rely on them."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Staying Safe: Data, Privacy and Scams",
+   "summary": "What you should never paste into public AI tools, why company-approved tools matter, Canadian privacy law in plain terms, and how to spot deepfakes and AI-assisted scams.",
+   "steps": [
+    {
+     "title": "What never to paste into public AI tools",
+     "minutes": 7,
+     "body": "<p>The fastest way to get into trouble with AI is to paste the wrong thing into the wrong tool. Many free, public AI tools may store what you type. Depending on the tool and its settings, that text could be kept, reviewed or used to improve the service. Once it leaves your hands, you cannot pull it back.</p><h3>The never-share list (for public tools)</h3><ul><li><strong>Personal information about people:</strong> names with addresses, phone numbers, birth dates, social insurance numbers, health details, pay or performance information.</li><li><strong>Customer and supplier data:</strong> customer lists, account numbers, order histories, contract terms, pricing agreements.</li><li><strong>Passwords and access details:</strong> logins, PINs, security codes, network details. Never, in any tool.</li><li><strong>Financial information:</strong> bank details, unreleased financial results, payroll files.</li><li><strong>Confidential business information:</strong> drawings, formulas, quotes, plans, internal reports, anything marked confidential.</li><li><strong>Anything you were told to keep private:</strong> legal matters, HR issues, investigations.</li></ul><h3>The \"front page\" test</h3><p>Before you paste, ask: <strong>would I be comfortable if this text showed up somewhere public with our company's name on it?</strong> If not, do not paste it into a public tool.</p><h3>How to still get help, safely</h3><p>You can usually get the help you need without the sensitive parts. Remove or replace details:</p><table><thead><tr><th>Instead of this</th><th>Try this</th></tr></thead><tbody><tr><td>\"Reply to Jane Doe at 123 Main St about her overdue $4,210 invoice\"</td><td>\"Reply politely to a customer about an overdue invoice\"</td></tr><tr><td>Pasting a full employee review</td><td>\"How do I give constructive feedback on missed deadlines?\"</td></tr><tr><td>Uploading a client drawing</td><td>Describing the general problem in your own words</td></tr></tbody></table><h3>A worked example</h3><p>Imagine Marco, a receptionist at a physiotherapy clinic. A patient emails an upset complaint that includes their health history. Marco wants help writing a calm reply. He does not paste the email. Instead, he types: \"Help me write a calm, caring reply to a patient upset about a long wait time. Under 120 words.\" He gets a good draft and adds the personal touches himself.</p><p>When in doubt, leave it out, and ask your supervisor.</p>",
+     "takeaways": [
+      "Public AI tools may store what you type; you cannot take it back.",
+      "Never paste personal, customer, financial, confidential or password information into a public tool.",
+      "Remove details and describe the situation instead."
+     ],
+     "apply": "Look at the last three things you might have asked an AI tool for help with at work. For each, write how you would describe the task without any names, numbers or confidential details.",
+     "check": {
+      "q": "You want help replying to a supplier about a pricing dispute. What is the safest approach in a public AI tool?",
+      "opts": [
+       "Paste the full email thread so the AI has all the details",
+       "Describe the situation generally, without names, prices or contract terms",
+       "Paste the contract but remove the supplier's logo",
+       "Use the tool in a private browser window and paste everything"
+      ],
+      "a": 1,
+      "why": "Describing the situation in general terms gets useful help without exposing confidential business information."
+     }
+    },
+    {
+     "title": "Company-approved AI tools",
+     "minutes": 6,
+     "body": "<p>Not all AI tools are the same when it comes to your data. Many companies choose specific AI tools for staff to use. These are often called <strong>company-approved</strong> or <strong>sanctioned</strong> tools.</p><h3>Why approved tools are different</h3><p>When a company sets up an approved tool, it can usually:</p><ul><li>Sign a business agreement with the provider about how data is handled.</li><li>Choose settings so your inputs are not used to train the provider's models.</li><li>Control who has access and keep records of use.</li><li>Connect it safely to company systems.</li></ul><p>That is why some information that must never go into a public tool may be fine in an approved one. But approved does not mean anything goes. Your company's policy still decides what is allowed.</p><h3>Three levels to keep in mind</h3><table><thead><tr><th>Level</th><th>Examples</th><th>Where it can go</th></tr></thead><tbody><tr><td>Public or general information</td><td>Published hours, a general how-to question, public product info</td><td>OK in any AI tool</td></tr><tr><td>Internal business information</td><td>Internal procedures, meeting notes, draft reports</td><td>Only in a company-approved tool, if policy allows</td></tr><tr><td>Highly sensitive information</td><td>Passwords, social insurance numbers, banking details</td><td>Never share in any AI tool unless a specific, approved process says so</td></tr></tbody></table><h3>Watch out for \"shadow AI\"</h3><p><strong>Shadow AI</strong> means using AI tools at work that the company has not approved. It often starts with good intentions. Someone finds a handy browser add-on or a free app and starts pasting work documents into it. The problem is that nobody knows where that data goes.</p><p>Imagine a 30-person engineering office. One drafter installs a free AI note-taker that joins video calls automatically. It records client meetings and sends summaries to an outside server. Nobody approved it, and clients never agreed. That is a real risk, created in minutes.</p><h3>What to do</h3><ul><li>Find out which AI tools your company approves.</li><li>Use your work account, not a personal one, for work tasks.</li><li>If you find a useful new tool, ask before using it with work data.</li><li>If there is no approved tool yet, stick to public information only.</li></ul>",
+     "takeaways": [
+      "Approved tools usually come with agreements and settings that protect company data.",
+      "Approved does not mean anything goes; policy still applies.",
+      "Ask before using any new AI tool with work information."
+     ],
+     "apply": "Find out which AI tools, if any, are approved at your workplace and where the list is kept. If you cannot find out, ask your supervisor, and write down the answer.",
+     "check": {
+      "q": "A coworker installs a free AI browser add-on and uses it to summarize internal reports. What is the main concern?",
+      "opts": [
+       "The summaries may be too short",
+       "It is unapproved, so nobody knows where the company data goes",
+       "Free tools never work properly",
+       "Browser add-ons are always illegal"
+      ],
+      "a": 1,
+      "why": "Using unapproved tools with work data, known as shadow AI, means the company cannot control where that information ends up."
+     }
+    },
+    {
+     "title": "Privacy basics: PIPEDA in plain language",
+     "minutes": 7,
+     "body": "<p>In Canada, privacy laws set rules for how businesses handle personal information. You do not need to be a lawyer, but every employee should know the basics, especially now that AI tools make it easy to copy and paste data.</p><h3>What PIPEDA is</h3><p><strong>PIPEDA</strong> stands for the <em>Personal Information Protection and Electronic Documents Act</em>. It is the federal law that covers how many private-sector businesses collect, use and share personal information in the course of commercial activity. Some provinces, including British Columbia, Alberta and Quebec, have their own similar private-sector privacy laws that apply instead in many situations. Your company will know which apply.</p><h3>What counts as personal information</h3><p>Information about an identifiable person. For example:</p><ul><li>Name together with contact details</li><li>Age, ID numbers, health information</li><li>Employee records, pay and performance notes</li><li>Customer purchase history linked to a person</li></ul><h3>The main ideas, in plain words</h3><table><thead><tr><th>Idea</th><th>What it means for you</th></tr></thead><tbody><tr><td>Purpose and consent</td><td>Use personal information only for the reason it was collected, with the person's consent.</td></tr><tr><td>Collect only what you need</td><td>Do not gather or copy more than the task requires.</td></tr><tr><td>Limit use and sharing</td><td>Do not send it to new places, including AI tools, without a proper reason and approval.</td></tr><tr><td>Keep it safe</td><td>Protect it from loss, theft and careless sharing.</td></tr><tr><td>Accountability</td><td>The company is responsible, and someone is named to oversee privacy.</td></tr><tr><td>Access</td><td>People can ask to see the information a business holds about them.</td></tr></tbody></table><h3>How this connects to AI</h3><p>Pasting a customer's details into a public AI tool can mean sharing personal information with an outside company for a purpose the customer never agreed to. That can be a privacy problem, even if you meant well. Businesses may also have to report certain privacy breaches that create a real risk of significant harm.</p><p>Imagine a clinic receptionist who pastes a list of patient names and appointment notes into a free chat tool to \"tidy the formatting.\" It took ten seconds and felt harmless. It may now be a privacy incident the clinic must deal with.</p><p>This lesson is general awareness, not legal advice. Your company's privacy officer or policy has the details. If you think personal information has been shared by mistake, report it right away. Quick reporting helps limit the harm.</p>",
+     "takeaways": [
+      "PIPEDA and similar provincial laws govern how businesses handle personal information.",
+      "Use personal information only for its purpose, keep it safe and share only with approval.",
+      "Report any accidental sharing of personal information right away."
+     ],
+     "apply": "Find out who handles privacy at your workplace and how to report a privacy concern. Write the name or contact somewhere you can find it quickly.",
+     "check": {
+      "q": "Which action is most consistent with Canadian privacy principles?",
+      "opts": [
+       "Pasting customer records into a public AI tool to save time",
+       "Copying a full employee file when you only need their start date",
+       "Using personal information only for its intended purpose and with approval",
+       "Keeping personal data forever, just in case"
+      ],
+      "a": 2,
+      "why": "Privacy laws like PIPEDA focus on using personal information for its stated purpose, collecting only what is needed and protecting it."
+     }
+    },
+    {
+     "title": "Deepfakes, scams and AI-assisted phishing",
+     "minutes": 8,
+     "body": "<p>Criminals use AI too. It helps them write convincing emails, clone voices and fake videos. The good news is that simple habits still stop most scams.</p><h3>What has changed</h3><ul><li><strong>Better phishing emails.</strong> Scam emails used to be full of spelling mistakes. AI can now write clean, professional messages that sound like a real supplier or manager.</li><li><strong>Voice cloning.</strong> With a short sample of someone's voice, scammers can create fake phone calls or voicemails that sound like your boss.</li><li><strong>Deepfake video and images.</strong> AI can make realistic videos or photos of people saying or doing things they never did.</li><li><strong>Fake chat and websites.</strong> Lookalike websites and chat bots can trick you into entering passwords or payment details.</li></ul><h3>Warning signs to watch for</h3><p>Since scams look more polished, focus less on spelling and more on <strong>behaviour</strong>:</p><ol><li><strong>Urgency.</strong> \"This must be done in the next hour.\"</li><li><strong>Secrecy.</strong> \"Don't tell anyone, this is confidential.\"</li><li><strong>Unusual requests.</strong> Buying gift cards, changing bank details, sending files to a new address.</li><li><strong>A new channel.</strong> A manager who never texts suddenly texts you.</li><li><strong>Pressure to skip steps.</strong> \"Don't worry about the usual approval.\"</li></ol><h3>A worked example</h3><p>Imagine Linh, who handles accounts payable at a mid-sized distributor. She gets a voicemail that sounds exactly like the owner: \"I'm at the airport. Pay the new supplier invoice I'm emailing you today. It's urgent.\" An email arrives with new bank details.</p><p>Linh pauses. The request is urgent, unusual and skips normal approval. She calls the owner back on the number she already has on file, not the one in the email. The owner knows nothing about it. Linh reports it to IT. A scam stopped by one phone call.</p><h3>Your simple defence</h3><table><thead><tr><th>Habit</th><th>Why it works</th></tr></thead><tbody><tr><td>Pause before acting on urgent requests</td><td>Pressure is the scammer's main tool</td></tr><tr><td>Verify through a known channel</td><td>Fake voices and emails cannot answer a call to a real number</td></tr><tr><td>Follow normal approval steps every time</td><td>Processes protect you when something feels off</td></tr><tr><td>Report anything suspicious</td><td>Fast reports protect your coworkers too</td></tr></tbody></table><p>Some teams agree on a simple code word for unusual money or data requests made by phone. It is low-tech and effective.</p>",
+     "takeaways": [
+      "AI makes scams more polished, so watch behaviour, not spelling.",
+      "Urgency, secrecy and unusual requests are red flags.",
+      "Always verify through a known channel before acting."
+     ],
+     "apply": "Find out your workplace's process for verifying a request to change payment details or send sensitive files. If there is none, suggest a simple call-back rule to your supervisor.",
+     "check": {
+      "q": "You receive a voicemail that sounds like your manager asking you to urgently buy gift cards for a client. What should you do?",
+      "opts": [
+       "Buy them quickly since it is your manager's voice",
+       "Reply to the number that left the voicemail to confirm",
+       "Ignore it and tell nobody",
+       "Contact your manager through a number you already know and report it"
+      ],
+      "a": 3,
+      "why": "Voices can be cloned. Verifying through a known channel and reporting it stops the scam and warns others."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Using AI Responsibly",
+   "summary": "Bias and fairness, intellectual property, being honest about AI use, and a balanced look at how AI is changing jobs and skills.",
+   "steps": [
+    {
+     "title": "Bias and fairness",
+     "minutes": 7,
+     "body": "<p>AI learns from data. Data comes from people and the past. If the past was unfair, AI can learn that unfairness and repeat it, sometimes at scale and in ways that are hard to see.</p><h3>How bias gets in</h3><ul><li><strong>Unbalanced data.</strong> If most examples come from one group, the AI may work poorly for others. A voice tool trained mostly on certain accents may struggle with others.</li><li><strong>Past decisions.</strong> If an AI learns from old hiring decisions that favoured certain people, it may keep favouring them.</li><li><strong>Stereotypes in text.</strong> Generative AI read huge amounts of text that include stereotypes. It can repeat them, for example by assuming a nurse is a woman or an engineer is a man.</li><li><strong>Missing context.</strong> The AI does not know your community, your customers or your team.</li></ul><h3>Where it matters most</h3><p>Bias matters most when AI output affects people. Be especially careful with:</p><ul><li>Hiring, screening resumes or writing job ads</li><li>Performance reviews and scheduling</li><li>Customer service decisions, credit or pricing</li><li>Images or content that represent people</li></ul><h3>A worked example</h3><p>Imagine Dana, an office manager at a fabrication shop, asks an AI tool to draft a job ad for a welder. The draft says \"he will be responsible for\" and asks for \"a young, energetic team player.\" Dana spots the problem. The language could discourage qualified applicants and may run against human rights rules. She rewrites it to use \"you\" and focus on the actual skills: welding certification, reading drawings, working safely.</p><h3>Simple fairness checks</h3><table><thead><tr><th>Ask yourself</th><th>Why</th></tr></thead><tbody><tr><td>Does this treat people differently because of who they are?</td><td>Catches unfair assumptions</td></tr><tr><td>Would I be comfortable if the person affected read this?</td><td>Tests respect and tone</td></tr><tr><td>Is a person making the final decision?</td><td>Keeps judgment and accountability human</td></tr><tr><td>Does it use inclusive, neutral language?</td><td>Avoids stereotypes</td></tr></tbody></table><p>AI should never be the only decision-maker about a person's job, pay or opportunities. <strong>People decide; AI can assist.</strong></p>",
+     "takeaways": [
+      "AI can learn and repeat unfair patterns from its data.",
+      "Take extra care when AI output affects people.",
+      "People make decisions about people; AI only assists."
+     ],
+     "apply": "Ask an approved AI tool to write a short description of a typical worker in your field. Read it for any assumptions about gender, age or background, and note how you would rewrite it.",
+     "check": {
+      "q": "Why can an AI tool produce biased results even though nobody intended it?",
+      "opts": [
+       "AI tools have personal opinions",
+       "It learns patterns from data that can contain past unfairness",
+       "Bias only comes from bad prompts",
+       "AI tools are designed to be biased"
+      ],
+      "a": 1,
+      "why": "AI reflects the data it learned from. If that data contains unfair patterns or stereotypes, the AI can repeat them."
+     }
+    },
+    {
+     "title": "Intellectual property and AI",
+     "minutes": 7,
+     "body": "<p><strong>Intellectual property (IP)</strong> means creations of the mind that the law can protect: written work, designs, logos, inventions, software and trade secrets. AI raises new questions about IP, and many of them are still being worked out by courts and lawmakers.</p><h3>Two directions to think about</h3><p><strong>1. Protecting your company's IP going in.</strong> Drawings, formulas, source code, pricing models and proposals are valuable. If you paste them into a public AI tool, you may lose control of them. This is the same rule from the data lessons: keep confidential business information out of unapproved tools.</p><p><strong>2. Respecting others' IP coming out.</strong> AI output can sometimes closely resemble existing work. An AI image might look like a known artist's style or a brand's logo. AI text might repeat phrases from a published source.</p><h3>Practical rules</h3><ul><li>Do not ask AI to copy a specific person's or company's work, logo or branded content.</li><li>Do not present AI-generated images or text as original design work for a client without checking your company's rules.</li><li>Check that important AI-written content is not copied word for word from somewhere else.</li><li>Treat AI-generated code, designs and marketing material carefully, and follow your company's review process.</li><li>Remember that who owns AI-generated content can be unclear, and tool terms of use differ.</li></ul><h3>A worked example</h3><p>Imagine Ravi, who runs social media for a small building supply company. He asks an AI image tool for \"a hardware store mascot like the one from a famous chain.\" The result looks very close to that chain's well-known character. Ravi realizes that using it could cause a trademark problem. He asks instead for an original design based on the company's own colours and a friendly beaver character. Then he shares it with his manager for approval.</p><table><thead><tr><th>Lower risk</th><th>Higher risk</th></tr></thead><tbody><tr><td>Brainstorming slogan ideas you then rework</td><td>Copying a competitor's ad with small changes</td></tr><tr><td>Drafting an internal how-to</td><td>Using AI images of real people or brands</td></tr><tr><td>Rewording your own writing</td><td>Pasting a client's confidential drawings into a public tool</td></tr></tbody></table><p>This is general awareness, not legal advice. When IP questions come up, ask your manager.</p>",
+     "takeaways": [
+      "Keep your company's IP out of unapproved AI tools.",
+      "Do not use AI to copy others' work, logos or brands.",
+      "AI ownership questions are still unsettled; ask before using AI content commercially."
+     ],
+     "apply": "Look at one piece of marketing or customer-facing material your team made recently. Ask yourself whether any part used AI and whether it could look like someone else's work. Note any questions to raise with your manager.",
+     "check": {
+      "q": "A colleague asks AI to create a logo \"just like\" a famous competitor's. What is the main risk?",
+      "opts": [
+       "The logo will take too long to create",
+       "The result may infringe the competitor's trademark",
+       "AI tools cannot make logos",
+       "There is no risk if AI made it"
+      ],
+      "a": 1,
+      "why": "Asking for a close copy of a known brand can produce something that infringes trademark or copyright, whoever or whatever made it."
+     }
+    },
+    {
+     "title": "Being honest about AI use",
+     "minutes": 6,
+     "body": "<p>Using AI at work is not cheating. It is a tool, like spell check or a calculator. But honesty about how you use it builds trust with your team, your customers and your company.</p><h3>Why honesty matters</h3><ul><li><strong>Trust.</strong> People feel misled if they learn later that something personal or expert was mostly machine-written.</li><li><strong>Quality.</strong> If your manager knows AI helped, they know what extra checks may be needed.</li><li><strong>Responsibility.</strong> Being open keeps it clear that you, not the tool, stand behind the work.</li><li><strong>Policy.</strong> Some companies, clients and contracts require you to disclose AI use.</li></ul><h3>When to say you used AI</h3><table><thead><tr><th>Situation</th><th>Usually</th></tr></thead><tbody><tr><td>Fixing grammar in an internal email</td><td>No need to mention it</td></tr><tr><td>An AI-drafted report you heavily edited</td><td>Follow team norms; mention it if asked or if policy requires</td></tr><tr><td>Analysis or figures AI helped produce</td><td>Say so, and say how you checked them</td></tr><tr><td>Client deliverables, where contracts mention AI</td><td>Disclose as required</td></tr><tr><td>Training, tests or certifications</td><td>Follow the rules; do not use AI where it is not allowed</td></tr></tbody></table><h3>What honest AI use looks like</h3><ul><li>Never pass off AI-generated facts as things you personally checked when you did not.</li><li>Do not use AI to write fake reviews, fake testimonials or messages pretending to be someone else.</li><li>Do not use AI to impersonate a coworker or customer.</li><li>Be open with your manager about how you use AI in your work.</li></ul><h3>A worked example</h3><p>Imagine Tom, a supervisor at a packaging plant. He uses an approved AI tool to draft a summary of a month's downtime notes for the operations meeting. He checks the summary against the logs and corrects two items. When he presents it, he says, \"I used our AI tool for the first draft and checked it against the logs.\" Nobody minds. The team now knows the numbers were verified, and two coworkers ask him to show them how.</p><p>A good rule: <strong>if you would feel uncomfortable if people knew AI wrote it, either change how you used AI, or tell them.</strong></p>",
+     "takeaways": [
+      "Using AI is fine; being open about it builds trust.",
+      "Disclose AI help when it matters to quality, trust or policy.",
+      "Never use AI to fake reviews or impersonate people."
+     ],
+     "apply": "Think about one piece of work you could do with AI help. Decide in advance whether you would mention the AI use, and how you would phrase it in one sentence.",
+     "check": {
+      "q": "A team member uses AI to help analyze customer survey comments for a report. What is the most honest approach?",
+      "opts": [
+       "Present the analysis as entirely their own manual work",
+       "Hide the AI use so the report seems more expert",
+       "Say AI helped and explain how the results were checked",
+       "Refuse to use AI for any analysis"
+      ],
+      "a": 2,
+      "why": "Saying AI helped, and how it was checked, keeps trust and lets others judge how much to rely on the results."
+     }
+    },
+    {
+     "title": "How AI is changing jobs and skills",
+     "minutes": 7,
+     "body": "<p>Many people wonder: will AI take my job? It is a fair question. The honest answer is that nobody knows exactly how things will play out. What we can see is that AI is changing <strong>tasks</strong> within jobs, and that changes which skills matter.</p><h3>Tasks, not whole jobs</h3><p>Most jobs are a bundle of tasks. AI tends to help with some of those tasks, usually the routine ones: drafting, sorting, searching, summarizing and data entry. Other tasks stay firmly human: building relationships, handling the unexpected, hands-on work, leadership and judgment.</p><p>Imagine a customer service representative at a distributor. AI might draft replies to common questions and summarize long email threads. The representative now spends more time solving tricky problems and calming upset customers, the parts of the job that need a person.</p><h3>A balanced view</h3><table><thead><tr><th>Concerns worth taking seriously</th><th>Opportunities worth noticing</th></tr></thead><tbody><tr><td>Some tasks may shrink or change a lot</td><td>Less time on boring, repetitive work</td></tr><tr><td>Skills may need updating</td><td>New skills open new roles and growth</td></tr><tr><td>Changes can feel fast and stressful</td><td>Small businesses can do more with the team they have</td></tr><tr><td>Over-relying on AI can weaken skills</td><td>AI can be a patient tutor for learning new things</td></tr></tbody></table><h3>Skills that grow in value</h3><ul><li><strong>Judgment:</strong> knowing when an answer is wrong or does not fit.</li><li><strong>Communication:</strong> explaining clearly, listening and building trust.</li><li><strong>Problem-solving:</strong> handling situations nobody planned for.</li><li><strong>Know-how about your work:</strong> the deep knowledge of your process, products and customers.</li><li><strong>Using AI well:</strong> asking good questions, checking outputs and handling data safely.</li><li><strong>Learning:</strong> being willing to try, adjust and keep growing.</li></ul><h3>What you can do</h3><p>You do not need to become an AI expert. Start small. Learn the tools your company approves. Notice which of your tasks AI helps with and which it does not. Share tips with coworkers. Talk to your supervisor about training. People who understand both their work and how to use AI sensibly are valuable to any business.</p><p>Keep your own skills sharp, too. Use AI to help, not to stop thinking. <strong>Your experience is what makes AI output useful.</strong></p>",
+     "takeaways": [
+      "AI mostly changes tasks within jobs, not whole jobs at once.",
+      "Judgment, communication, problem-solving and know-how grow in value.",
+      "Start small: learn approved tools and keep your own skills sharp."
+     ],
+     "apply": "List the main tasks in your job. Mark each one as \"AI could help,\" \"AI might help a little\" or \"needs a person.\" Pick one skill from this lesson you want to build this year.",
+     "check": {
+      "q": "Which statement best reflects a balanced view of AI and jobs?",
+      "opts": [
+       "AI will replace every job within a few years",
+       "AI has no effect on work at all",
+       "AI changes some tasks within jobs, so updating skills matters",
+       "Only technical staff need to think about AI"
+      ],
+      "a": 2,
+      "why": "AI tends to change specific tasks rather than whole jobs, which shifts which skills matter for everyone."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Your Company, Your Habits",
+   "summary": "Understanding your company's AI policy, knowing when and how to ask for help, building AI confidence as a team, and a personal 30-day AI habit plan.",
+   "steps": [
+    {
+     "title": "Your company's AI policy",
+     "minutes": 6,
+     "body": "<p>Many organizations now have an <strong>AI policy</strong> or <strong>acceptable-use guideline</strong>. It tells staff how AI can and cannot be used at work. If your company has one, it is your most important guide. If it does not yet, the habits in this course are a safe starting point until it does.</p><h3>What an AI policy usually covers</h3><table><thead><tr><th>Topic</th><th>Questions it answers</th></tr></thead><tbody><tr><td>Approved tools</td><td>Which AI tools can I use for work?</td></tr><tr><td>Data rules</td><td>What information can go into which tools?</td></tr><tr><td>Allowed and banned uses</td><td>What tasks are OK? What is off-limits?</td></tr><tr><td>Checking and review</td><td>When must a person review AI output?</td></tr><tr><td>Disclosure</td><td>When do I tell others AI helped?</td></tr><tr><td>Reporting</td><td>Who do I tell if something goes wrong?</td></tr><tr><td>Ownership</td><td>Who is responsible for the policy and updates?</td></tr></tbody></table><h3>How to read it</h3><ol><li><strong>Find it.</strong> It may be in the employee handbook, on the intranet or with HR.</li><li><strong>Look for the approved tool list.</strong> This tells you where to start.</li><li><strong>Check the data rules.</strong> Match them to the kind of information you handle.</li><li><strong>Note the contact.</strong> Who to ask with questions.</li><li><strong>Check for updates.</strong> AI policies change often as tools change.</li></ol><h3>A worked example</h3><p>Imagine a 60-person home care agency. Its one-page AI guideline says: staff may use the company's approved AI assistant for drafting and summarizing; client names and health details must never go into any AI tool; all client-facing content must be reviewed by a supervisor; questions go to the operations manager. A care coordinator reads it in five minutes and now knows exactly what she can do.</p><h3>If there is no policy yet</h3><p>Use these safe defaults:</p><ul><li>Use only public, non-sensitive information in AI tools.</li><li>Check everything before you use it.</li><li>Tell your supervisor how you are using AI.</li><li>Suggest that the company create a simple policy. You could be helping everyone.</li></ul><p>A policy is not there to stop you. It is there so you can use AI <strong>confidently and safely</strong>.</p>",
+     "takeaways": [
+      "Your company's AI policy is your most important guide.",
+      "Look for approved tools, data rules, review rules and a contact.",
+      "If there is no policy yet, use safe defaults and talk to your supervisor."
+     ],
+     "apply": "Find your company's AI policy or guideline and read it. Write down the approved tools, one thing you can do, one thing you cannot do, and who to ask. If there is none, write the safe defaults on a sticky note.",
+     "check": {
+      "q": "Your company has no written AI policy yet. What is the safest approach?",
+      "opts": [
+       "Use any tool with any data, since nothing is banned",
+       "Stop using all software with AI features",
+       "Use only public, non-sensitive information, check outputs and talk to your supervisor",
+       "Wait until someone else gets in trouble first"
+      ],
+      "a": 2,
+      "why": "Without a policy, safe defaults protect you and the company while a formal policy is developed."
+     }
+    },
+    {
+     "title": "Asking for help and reporting problems",
+     "minutes": 6,
+     "body": "<p>Nobody expects you to know everything about AI. Tools change fast, and questions are normal. Knowing <strong>when</strong> to ask and <strong>how</strong> to report problems is one of the most valuable AI skills you can have.</p><h3>When to stop and ask</h3><ul><li>You are not sure if information is OK to put into a tool.</li><li>You found a new AI tool or feature and want to use it for work.</li><li>An AI output will be used for a decision about a person, money or safety.</li><li>Something in the AI output seems wrong, biased or strange.</li><li>A customer asks whether you use AI, and you are not sure what to say.</li></ul><h3>When to report right away</h3><ul><li>You or someone else pasted sensitive information into an unapproved tool.</li><li>You received a suspicious message, call or video that might be a scam or deepfake.</li><li>AI-generated content with errors was sent to a customer or posted publicly.</li><li>A tool behaves unexpectedly, such as sharing data with others.</li></ul><h3>Who to go to</h3><table><thead><tr><th>Type of issue</th><th>Usually go to</th></tr></thead><tbody><tr><td>How to use a tool or write a prompt</td><td>Supervisor, a team AI champion or the tool's help guide</td></tr><tr><td>Data or privacy concerns</td><td>Privacy officer, HR or your manager</td></tr><tr><td>Suspicious messages or security issues</td><td>IT or whoever handles security</td></tr><tr><td>Policy questions</td><td>The policy owner named in your AI guideline</td></tr></tbody></table><h3>Mistakes happen: report them fast</h3><p>Imagine Jordan, a junior estimator at a fabrication shop. He pastes a customer quote into a free AI tool to fix the formatting, then remembers the policy. He feels embarrassed and is tempted to say nothing. Instead, he tells his supervisor that afternoon. The supervisor works with the owner to check the tool's data settings and decide whether the customer needs to be told. Because Jordan spoke up quickly, the company could act.</p><p>Good workplaces treat honest reporting as a positive. Hiding a mistake is almost always worse than the mistake itself.</p><h3>How to report clearly</h3><ol><li>What happened, and when.</li><li>Which tool or message was involved.</li><li>What information may be affected.</li><li>What you have done so far.</li></ol>",
+     "takeaways": [
+      "Asking questions about AI is normal and smart.",
+      "Report data slips, suspected scams and public errors right away.",
+      "Fast, honest reporting limits harm; hiding mistakes makes them worse."
+     ],
+     "apply": "Write a short list of who to contact for each of the four issue types in this lesson at your workplace. Save it where you can find it quickly, such as your phone or desk.",
+     "check": {
+      "q": "You realize you pasted a customer's contact details into an unapproved AI tool. What should you do first?",
+      "opts": [
+       "Delete the chat and say nothing",
+       "Wait to see if anything bad happens",
+       "Ask the AI tool to forget the information and move on",
+       "Tell your supervisor or privacy contact right away"
+      ],
+      "a": 3,
+      "why": "Reporting quickly lets the company assess and limit any harm. Deleting the chat may not remove the data from the provider."
+     }
+    },
+    {
+     "title": "Building AI confidence as a team",
+     "minutes": 6,
+     "body": "<p>AI skills grow fastest when people learn together. A team that shares tips, mistakes and good examples gets better and safer, faster than people working alone.</p><h3>Why learning together works</h3><ul><li>People pick up practical tips from coworkers who do the same work.</li><li>Mistakes become lessons instead of secrets.</li><li>Less confident people get support without feeling judged.</li><li>The team builds shared habits, such as always checking facts.</li></ul><h3>Simple ways to learn as a team</h3><table><thead><tr><th>Idea</th><th>How it works</th><th>Time</th></tr></thead><tbody><tr><td>Tip of the week</td><td>One person shares a prompt or use that worked</td><td>5 minutes in a huddle</td></tr><tr><td>Prompt library</td><td>A shared document of prompts that work for your team's tasks</td><td>Ongoing</td></tr><tr><td>Catch of the week</td><td>Share an AI mistake someone caught by checking</td><td>5 minutes</td></tr><tr><td>Buddy pairs</td><td>A confident user helps someone newer try a task</td><td>15 minutes</td></tr><tr><td>AI champion</td><td>One person per team keeps up with approved tools and policy</td><td>An hour or two a month</td></tr></tbody></table><h3>A worked example</h3><p>Imagine the front office of a 25-person engineering firm. The office lead starts a \"tip of the week\" at the Monday meeting. Week one, a coordinator shows how she asks the approved tool to turn meeting notes into action items. Week two, a drafter shares how the tool once invented a code clause, and how he caught it. Within a month, most of the office is using the tool for routine drafting, and everyone knows the checking habit.</p><h3>Supporting different comfort levels</h3><p>Some people are excited about AI. Some are worried or sceptical. Both are reasonable. Good team habits include:</p><ul><li>Never shaming anyone for not knowing, or for being cautious.</li><li>Respecting that some roles will use AI more than others.</li><li>Keeping the focus on useful, safe tasks, not on showing off.</li><li>Making sure frontline staff, not just office staff, are included.</li></ul><p>Confidence comes from small, safe successes, repeated and shared.</p>",
+     "takeaways": [
+      "Teams learn AI faster and more safely together.",
+      "Short, regular sharing works better than one big training day.",
+      "Respect different comfort levels and include every role."
+     ],
+     "apply": "Suggest one team learning idea from the table to your supervisor or team, and offer to go first. Share one useful prompt or one mistake you caught.",
+     "check": {
+      "q": "Which approach is most likely to build safe AI habits across a team?",
+      "opts": [
+       "Letting each person figure it out alone",
+       "Short, regular sharing of tips and caught mistakes",
+       "Only training the most technical person",
+       "Banning discussion of AI mistakes"
+      ],
+      "a": 1,
+      "why": "Regular sharing spreads good practice, normalizes checking and helps less confident people learn from coworkers."
+     }
+    },
+    {
+     "title": "Wrap-up: your 30-day AI habit plan",
+     "minutes": 8,
+     "body": "<p>You now know what AI is and is not, how chat tools work, why they can be wrong, how to use them well, and how to stay safe. The final step is turning that knowledge into habits. Small, steady practice beats a big burst of effort.</p><h3>Your 30-day plan</h3><table><thead><tr><th>Week</th><th>Focus</th><th>Actions</th></tr></thead><tbody><tr><td>Week 1</td><td>Know your rules</td><td>Find your company's AI policy and approved tools. Save your help and reporting contacts.</td></tr><tr><td>Week 2</td><td>Try safely</td><td>Use an approved tool for one low-risk task each day: draft, summarize or brainstorm.</td></tr><tr><td>Week 3</td><td>Check and improve</td><td>Use the four-step check every time. Keep a note of mistakes you catch and prompts that work.</td></tr><tr><td>Week 4</td><td>Share and plan</td><td>Share one tip with your team. Retake the awareness check. Pick your next skill to build.</td></tr></tbody></table><h3>The habits to keep</h3><ol><li><strong>Use approved tools</strong> for work tasks.</li><li><strong>Protect data:</strong> when in doubt, leave it out.</li><li><strong>Prompt clearly:</strong> Task + Context + Format + Tone.</li><li><strong>Check everything:</strong> read, verify, fix, own.</li><li><strong>Pause on urgent requests</strong> and verify through a known channel.</li><li><strong>Be fair and honest</strong> about how you use AI.</li><li><strong>Ask and report</strong> early.</li></ol><h3>A worked example</h3><p>Imagine Aisha, a shift supervisor at a food processing plant. In week one she finds the company's AI guideline and saves the IT contact. In week two she uses the approved tool to draft her shift handover notes each day. In week three she notices the tool sometimes rounds numbers, so she always checks counts against the log. In week four she shows two other supervisors her handover prompt. Thirty days in, she saves time every shift and trusts her own checking process.</p><h3>Track your progress</h3><ul><li>How many tasks did AI help with this month?</li><li>How many mistakes did you catch?</li><li>Did you share at least one tip?</li><li>Do you feel more confident than when you started?</li></ul><p>AI will keep changing. The habits in this course will stay useful: stay curious, stay careful and stay in charge. Thank you for taking the course.</p>",
+     "takeaways": [
+      "Turn knowledge into habits with small, steady weekly steps.",
+      "Keep the core habits: approved tools, protect data, prompt clearly, check everything.",
+      "Stay curious, stay careful and stay in charge."
+     ],
+     "apply": "Copy the 30-day plan into your calendar or notebook, with one action for each week. Set a reminder for day 30 to retake the AI awareness check and compare your scores.",
+     "check": {
+      "q": "In week 3 of the 30-day plan, what is the main focus?",
+      "opts": [
+       "Finding the company AI policy",
+       "Teaching the whole company about AI",
+       "Using the four-step check every time and noting what you learn",
+       "Trying as many new AI tools as possible"
+      ],
+      "a": 2,
+      "why": "Week 3 builds the checking habit: verify every output and note mistakes caught and prompts that work."
+     }
+    }
+   ]
+  }
+ ],
+ "labs": [
+  {
+   "id": "fact-myth-depends",
+   "type": "classify",
+   "title": "Fact, myth or it depends?",
+   "intro": "Sort 12 common statements about AI into Fact, Myth or It depends, then check your answers. It builds the habit of questioning big claims about AI.",
+   "after_step": 4,
+   "config": {
+    "categories": [
+     "Fact",
+     "Myth",
+     "It depends"
+    ],
+    "items": [
+     {
+      "text": "Most AI in use today is built for specific tasks.",
+      "answer": 0,
+      "why": "Today's AI is narrow: spam filters, map apps and chat tools are each built for certain kinds of tasks."
+     },
+     {
+      "text": "AI chat tools understand what they are saying.",
+      "answer": 1,
+      "why": "They predict likely words based on patterns. They can sound wise without understanding."
+     },
+     {
+      "text": "AI chat tools can make up facts and sources.",
+      "answer": 0,
+      "why": "This is called hallucination. The tool fills gaps with plausible-sounding text."
+     },
+     {
+      "text": "If an AI answer sounds confident, it is correct.",
+      "answer": 1,
+      "why": "AI sounds equally confident when it is right and when it is wrong. Confidence is not evidence."
+     },
+     {
+      "text": "AI is completely neutral because it is a machine.",
+      "answer": 1,
+      "why": "AI learns from human-made data and can repeat the bias in that data."
+     },
+     {
+      "text": "What you type into an AI tool stays private.",
+      "answer": 2,
+      "why": "It depends on the tool, its settings and any business agreement. Some public tools may store or use your inputs."
+     },
+     {
+      "text": "AI will replace my job.",
+      "answer": 2,
+      "why": "It depends on the tasks in your job. AI tends to change specific tasks rather than whole jobs at once."
+     },
+     {
+      "text": "Spam filters and map apps use AI.",
+      "answer": 0,
+      "why": "Both use machine learning to predict what is junk mail or which route is fastest."
+     },
+     {
+      "text": "You need to know how to code to use AI tools.",
+      "answer": 1,
+      "why": "Many AI tools are built for everyday users and work with plain language."
+     },
+     {
+      "text": "Using AI to draft a customer email is a good idea.",
+      "answer": 2,
+      "why": "It depends: it is a good use if you use an approved tool, leave out sensitive data and check the draft before sending."
+     },
+     {
+      "text": "Scammers can use AI to clone a person's voice.",
+      "answer": 0,
+      "why": "Voice cloning is a real tool for scams, which is why you verify urgent requests through a known channel."
+     },
+     {
+      "text": "AI tools always know the latest information.",
+      "answer": 1,
+      "why": "Many tools learned from data up to a certain date and may not know about recent changes."
+     }
+    ]
+   }
+  },
+  {
+   "id": "safe-to-share",
+   "type": "classify",
+   "title": "Is it safe to share?",
+   "intro": "Decide where each piece of workplace information can go: any AI tool, only a company-approved tool, or nowhere. It turns the data rules into a quick, everyday judgment.",
+   "after_step": 11,
+   "config": {
+    "categories": [
+     "OK in any AI tool",
+     "Only in a company-approved tool",
+     "Never share"
+    ],
+    "items": [
+     {
+      "text": "Your company's published store hours",
+      "answer": 0,
+      "why": "This is already public information, so there is no risk in using it with any AI tool."
+     },
+     {
+      "text": "A general question: how do I write a polite reminder email?",
+      "answer": 0,
+      "why": "A general how-to question with no company or personal details is fine in any tool."
+     },
+     {
+      "text": "Internal meeting notes about next quarter's plans",
+      "answer": 1,
+      "why": "Internal business information belongs only in a tool your company has approved and set up for it."
+     },
+     {
+      "text": "Your login password for the company system",
+      "answer": 2,
+      "why": "Passwords and access details should never go into any AI tool."
+     },
+     {
+      "text": "A customer's credit card number",
+      "answer": 2,
+      "why": "Payment card details are highly sensitive and must never be shared with AI tools."
+     },
+     {
+      "text": "A draft internal procedure for receiving shipments",
+      "answer": 1,
+      "why": "Internal procedures are company information; use an approved tool, if your policy allows."
+     },
+     {
+      "text": "An employee's social insurance number",
+      "answer": 2,
+      "why": "Government ID numbers are highly sensitive personal information and should never be shared with AI tools."
+     },
+     {
+      "text": "A public news article about your industry",
+      "answer": 0,
+      "why": "Published public content carries no confidentiality risk, though you still respect copyright in how you use the output."
+     },
+     {
+      "text": "A summary of internal sales figures for a team report",
+      "answer": 1,
+      "why": "Internal financial information should stay in an approved tool, and only where policy allows."
+     },
+     {
+      "text": "A client's confidential engineering drawing",
+      "answer": 1,
+      "why": "Client confidential work can only go into an approved tool if your policy and the client agreement allow it; never into a public one."
+     },
+     {
+      "text": "Patient health details from a clinic file",
+      "answer": 2,
+      "why": "Health information is highly sensitive. Unless a specific, approved process exists, never put it into an AI tool."
+     },
+     {
+      "text": "Ideas for a team-building lunch theme",
+      "answer": 0,
+      "why": "Brainstorming with no sensitive details is a low-risk use for any tool."
+     }
+    ]
+   }
+  },
+  {
+   "id": "ai-awareness-check",
+   "type": "assessment",
+   "title": "Your AI awareness check",
+   "intro": "Rate yourself or your team on seven areas of everyday AI awareness. Your radar chart shows strengths and gaps, with a next step for each area. Retake it after your 30-day plan.",
+   "after_step": 20,
+   "config": {
+    "scale": [
+     "Not started",
+     "Ad hoc",
+     "Defined",
+     "Managed",
+     "Optimized"
+    ],
+    "dimensions": [
+     {
+      "name": "Understanding of AI",
+      "question": "How well can you explain what AI is, the main types, and what it can and cannot do?",
+      "low": "Revisit Module 1 and try explaining narrow AI and generative AI to a coworker in your own words.",
+      "high": "Help others by sharing simple explanations and correcting common myths when you hear them."
+     },
+     {
+      "name": "Everyday use",
+      "question": "How often and how well do you use approved AI tools for routine tasks such as drafting and summarizing?",
+      "low": "Pick one low-risk weekly task and try it with an approved tool, using Task + Context + Format + Tone.",
+      "high": "Build a small prompt library for your team's common tasks and share what works."
+     },
+     {
+      "name": "Checking outputs",
+      "question": "How consistently do you read, verify, fix and own AI output before using it?",
+      "low": "Use the four-step check on every AI output for the next two weeks and note what you catch.",
+      "high": "Share examples of mistakes you caught so the checking habit spreads across your team."
+     },
+     {
+      "name": "Data protection",
+      "question": "How confident are you about what information can go into which AI tools?",
+      "low": "Review the never-share list and your company's data rules, and keep them where you can see them.",
+      "high": "Help coworkers rewrite requests without sensitive details, and flag unclear rules to the policy owner."
+     },
+     {
+      "name": "Spotting scams and deepfakes",
+      "question": "How well can you recognize and respond to AI-assisted phishing, voice cloning and deepfakes?",
+      "low": "Learn the red flags of urgency, secrecy and unusual requests, and find your workplace's verification process.",
+      "high": "Suggest a call-back rule or code word for unusual requests and share warning signs with your team."
+     },
+     {
+      "name": "Knowing company policy",
+      "question": "How well do you know your company's AI policy, approved tools and who to contact?",
+      "low": "Find and read your company's AI guideline, or ask your supervisor what the current rules are.",
+      "high": "Offer feedback to the policy owner on what is unclear and help new staff find the rules."
+     },
+     {
+      "name": "Confidence to learn",
+      "question": "How comfortable are you trying new AI skills, asking questions and reporting problems?",
+      "low": "Start small with one safe task, and ask a coworker or supervisor to show you one thing they do.",
+      "high": "Act as an informal AI buddy or champion and help less confident coworkers try safe first steps."
+     }
+    ]
+   }
+  }
+ ],
+ "exam": [
+  {
+   "q": "A coworker says the new scheduling software \"uses AI\" and so it must be able to do anything. What is the best question to ask?",
+   "opts": [
+    "Which kind of AI is it, and what job does it do?",
+    "How much did it cost?",
+    "Is it connected to the internet?",
+    "Can it replace the supervisor?"
+   ],
+   "a": 0,
+   "why": "Almost all AI is narrow. Asking what kind of AI it is and what task it does cuts through the hype."
+  },
+  {
+   "q": "Which of these is an example of generative AI?",
+   "opts": [
+    "A map app predicting traffic",
+    "A bank flagging an unusual purchase",
+    "A spam filter sorting email",
+    "A chat tool writing a draft meeting agenda"
+   ],
+   "a": 3,
+   "why": "Generative AI creates new content such as text. The others predict or sort."
+  },
+  {
+   "q": "An AI chat tool gives a confident answer about a provincial employment rule. What should you do?",
+   "opts": [
+    "Check the official provincial source or ask HR before relying on it",
+    "Use it, because AI tools are trained on official sources",
+    "Ask the AI if it is sure",
+    "Share it with the team as a quick tip"
+   ],
+   "a": 0,
+   "why": "AI can be confidently wrong, especially about rules that vary by province and change over time."
+  },
+  {
+   "q": "Why does an AI chat tool sometimes invent a source that does not exist?",
+   "opts": [
+    "It is designed to trick users",
+    "Someone hacked it",
+    "It predicts plausible-sounding text rather than looking up verified facts",
+    "Sources always exist if AI mentions them"
+   ],
+   "a": 2,
+   "why": "The tool aims for text that sounds right. When it lacks good information, it may fill the gap with something plausible but false."
+  },
+  {
+   "q": "A warehouse lead wants help writing a notice about new forklift inspection times. Which prompt is best?",
+   "opts": [
+    "Forklifts.",
+    "Write about safety.",
+    "Tell me about forklift rules in Canada.",
+    "Write a 5-bullet notice for warehouse staff: forklift inspections now happen at 7 a.m. before each shift. Friendly, plain language."
+   ],
+   "a": 3,
+   "why": "It gives the task, audience, key fact, format and tone, so the draft needs fewer fixes."
+  },
+  {
+   "q": "An AI summary of a supplier meeting lists a delivery date of June 3. The notes say June 13. What does this show?",
+   "opts": [
+    "The notes are probably wrong",
+    "Checking AI output against the source catches errors",
+    "AI summaries never contain errors",
+    "The meeting should be repeated"
+   ],
+   "a": 1,
+   "why": "This is exactly why you verify facts. A neat summary can still contain wrong details."
+  },
+  {
+   "q": "Which task is the poorest fit for an AI chat tool?",
+   "opts": [
+    "Brainstorming safety week themes",
+    "Making a reply to a customer sound friendlier",
+    "Making the final decision on which employee gets a promotion",
+    "Summarizing a public article for a team huddle"
+   ],
+   "a": 2,
+   "why": "Decisions about people need human judgment and accountability. AI can assist, but should not decide."
+  },
+  {
+   "q": "A receptionist wants help replying to a patient complaint that includes health details. What is the safest approach in a public AI tool?",
+   "opts": [
+    "Describe the situation generally, without the patient's details",
+    "Paste the full complaint so the reply is accurate",
+    "Paste it but remove the patient's last name",
+    "Paste it into a private browser window"
+   ],
+   "a": 0,
+   "why": "Describing the situation without personal details gets useful help while protecting health information."
+  },
+  {
+   "q": "Which information should never go into any AI tool?",
+   "opts": [
+    "Your published business hours",
+    "A general question about writing a thank-you note",
+    "Ideas for a team event",
+    "Your system login password"
+   ],
+   "a": 3,
+   "why": "Passwords and access details should never be shared with any AI tool."
+  },
+  {
+   "q": "What is \"shadow AI\"?",
+   "opts": [
+    "AI that works only at night",
+    "Using AI tools at work that the company has not approved",
+    "A type of deepfake video",
+    "AI that runs without electricity"
+   ],
+   "a": 1,
+   "why": "Shadow AI means unapproved tools used with work data, so the company cannot control where the data goes."
+  },
+  {
+   "q": "A colleague says, \"It's fine to paste our customer list into the free chat tool, it's just to fix the formatting.\" What principle from Canadian privacy law is most at risk?",
+   "opts": [
+    "Using personal information only for its purpose and sharing it only with approval",
+    "The right to free speech",
+    "Minimum wage rules",
+    "Tax filing deadlines"
+   ],
+   "a": 0,
+   "why": "Sending personal information to an outside tool for an unapproved purpose can breach privacy principles like those in PIPEDA."
+  },
+  {
+   "q": "You get an email from a known supplier asking to update their bank details for the next payment. The email looks perfect. What should you do?",
+   "opts": [
+    "Update the details since the email looks professional",
+    "Reply to the email to confirm",
+    "Forward it to the whole team",
+    "Call the supplier on a number you already have on file and follow the approval process"
+   ],
+   "a": 3,
+   "why": "AI makes scam emails look polished. Verifying through a known channel stops payment fraud."
+  },
+  {
+   "q": "Which is the strongest warning sign of an AI-assisted scam?",
+   "opts": [
+    "A spelling mistake in the signature",
+    "A request that is urgent, secret and skips normal approval",
+    "An email sent in the afternoon",
+    "A message with a company logo"
+   ],
+   "a": 1,
+   "why": "Polished AI scams may have no spelling errors, so behaviour such as urgency, secrecy and skipping steps is the better signal."
+  },
+  {
+   "q": "An AI tool drafts a job ad asking for a \"young, energetic\" candidate and uses \"he\" throughout. What is the best action?",
+   "opts": [
+    "Post it as written since AI wrote it",
+    "Rewrite it with inclusive language focused on the actual skills",
+    "Add more adjectives",
+    "Ask the AI to make it more energetic"
+   ],
+   "a": 1,
+   "why": "AI can repeat stereotypes. Fair, inclusive language focused on skills is the right fix, with a person making the final call."
+  },
+  {
+   "q": "A marketing coordinator wants AI to make a logo \"just like\" a well-known brand's. What should they do instead?",
+   "opts": [
+    "Ask for a close copy and change one colour",
+    "Use the copy for internal use only",
+    "Ask for an original design based on the company's own identity and get approval",
+    "Remove the brand name and use it"
+   ],
+   "a": 2,
+   "why": "Close copies of known brands risk trademark issues. An original design, approved by a manager, avoids that."
+  },
+  {
+   "q": "A supervisor used an approved AI tool to draft a monthly report and checked the figures against the logs. What is the most honest way to present it?",
+   "opts": [
+    "Say AI helped with the first draft and explain how it was checked",
+    "Say nothing and present it as fully manual work",
+    "Say the AI is responsible for any errors",
+    "Refuse to present it"
+   ],
+   "a": 0,
+   "why": "Being open about AI help, and how it was checked, builds trust and keeps responsibility clear."
+  },
+  {
+   "q": "Which statement best describes how AI is changing work?",
+   "opts": [
+    "AI changes some tasks within jobs, so skills like judgment and communication matter more",
+    "AI will replace all frontline jobs next year",
+    "AI has no effect on small businesses",
+    "Only IT staff need new skills"
+   ],
+   "a": 0,
+   "why": "AI tends to change specific tasks. Human skills such as judgment, communication and problem-solving grow in value."
+  },
+  {
+   "q": "You find a handy new AI tool and want to use it to summarize internal reports. What should you do first?",
+   "opts": [
+    "Start using it right away",
+    "Use it with a personal account instead",
+    "Check your company's AI policy and ask whether it is approved",
+    "Try it with a few reports to see if it works"
+   ],
+   "a": 2,
+   "why": "New tools should be approved before work data goes into them. Checking policy and asking first prevents shadow AI."
+  },
+  {
+   "q": "You realize you accidentally pasted a client's quote into an unapproved AI tool. What is the best next step?",
+   "opts": [
+    "Delete the chat and forget it",
+    "Wait to see if the client complains",
+    "Ask the AI tool to forget it",
+    "Report it promptly to your supervisor or privacy contact with what happened"
+   ],
+   "a": 3,
+   "why": "Fast, honest reporting lets the company assess and limit harm. Deleting a chat may not remove the data."
+  },
+  {
+   "q": "Which plan best builds lasting AI habits over 30 days?",
+   "opts": [
+    "Try every AI tool available in the first week",
+    "Know the rules, try safe tasks, check every output, then share and review",
+    "Wait until the company has perfect training",
+    "Use AI only for personal tasks"
+   ],
+   "a": 1,
+   "why": "Small, steady steps from rules to safe practice, checking and sharing turn knowledge into habits."
+  }
+ ],
+ "figures": [
+  {
+   "step": 2,
+   "type": "stack",
+   "title": "How the AI terms fit together",
+   "caption": "Click each layer, from the bottom up, to see how the AI terms build on each other.",
+   "config": {
+    "top_label": "AI chat tools",
+    "layers": [
+     {
+      "label": "Regular software",
+      "text": "Follows exact rules a person wrote. If an invoice is over a set amount, send it for approval."
+     },
+     {
+      "label": "Artificial intelligence",
+      "text": "The broad idea: software that does tasks we usually think need human judgment."
+     },
+     {
+      "label": "Machine learning",
+      "text": "The most common way to build AI. It learns patterns from many examples, like spam and not-spam emails."
+     },
+     {
+      "label": "Generative AI",
+      "text": "Machine learning that creates new text, images or audio instead of only sorting or predicting."
+     }
+    ]
+   }
+  },
+  {
+   "step": 5,
+   "type": "flow",
+   "title": "What happens when you hit Enter",
+   "caption": "Watch a request move through an AI chat tool, and notice that the last step belongs to you.",
+   "config": {
+    "steps": [
+     {
+      "label": "You write a prompt",
+      "text": "Your question or request, plus any text you share. Clear details lead to better answers."
+     },
+     {
+      "label": "Split into tokens",
+      "text": "The tool breaks your text into small chunks it can work with."
+     },
+     {
+      "label": "Predict next words",
+      "text": "It predicts a likely reply word by word, based on patterns it learned in training."
+     },
+     {
+      "label": "Answer appears",
+      "text": "A full reply shows up in seconds. It may sound sure whether or not it is right."
+     },
+     {
+      "label": "You check and decide",
+      "text": "You read, verify and fix before using it. This step is yours and matters most."
+     }
+    ],
+    "bottleneck": null
+   }
+  },
+  {
+   "step": 9,
+   "type": "cycle",
+   "title": "The four-step check",
+   "caption": "Click each stage to see what to do every time you use AI output.",
+   "config": {
+    "center": "Check AI output",
+    "stages": [
+     {
+      "label": "Read it all",
+      "text": "Read the whole output as if a new coworker wrote it. Do not skim."
+     },
+     {
+      "label": "Verify the facts",
+      "text": "Check names, dates, numbers, rules and sources against something you trust."
+     },
+     {
+      "label": "Fix and fit",
+      "text": "Correct errors, remove what you cannot confirm, and adjust it to your workplace and voice."
+     },
+     {
+      "label": "Own it",
+      "text": "Once you use it, it is your work. Only send it if you would put your name on it."
+     }
+    ]
+   }
+  },
+  {
+   "step": 13,
+   "type": "compare",
+   "title": "Genuine request or AI-assisted scam?",
+   "caption": "Toggle between the two sides and notice that the warning signs are about behaviour, not spelling.",
+   "config": {
+    "left": {
+     "title": "Genuine request",
+     "points": [
+      "Comes through the usual channel",
+      "Follows normal approval steps",
+      "Gives you time to check",
+      "Is easy to confirm with a call to a known number"
+     ]
+    },
+    "right": {
+     "title": "Likely scam",
+     "points": [
+      "Urgent: must happen right now",
+      "Secret: do not tell anyone",
+      "Unusual: gift cards, new bank details",
+      "Arrives by a new channel or number",
+      "Pushes you to skip approval"
+     ]
+    }
+   }
+  },
+  {
+   "step": 17,
+   "type": "compare",
+   "title": "How a job's tasks can shift",
+   "caption": "Toggle to see how a customer service role might shift when AI takes on routine tasks.",
+   "config": {
+    "left": {
+     "title": "Before AI help",
+     "points": [
+      "Typing replies to common questions",
+      "Reading long email threads",
+      "Searching for order details",
+      "Less time for tricky problems"
+     ]
+    },
+    "right": {
+     "title": "With AI help",
+     "points": [
+      "AI drafts common replies; you check them",
+      "AI summarizes threads; you verify key points",
+      "More time for upset customers and tricky cases",
+      "Judgment and relationships matter more"
+     ]
+    }
+   }
+  },
+  {
+   "step": 21,
+   "type": "timeline",
+   "title": "Your 30-day AI habit plan",
+   "caption": "Click each week to see the actions that turn this course into habits.",
+   "config": {
+    "phases": [
+     {
+      "label": "Week 1",
+      "title": "Know your rules",
+      "items": [
+       "Find your company's AI policy",
+       "List the approved tools",
+       "Save help and reporting contacts"
+      ]
+     },
+     {
+      "label": "Week 2",
+      "title": "Try safely",
+      "items": [
+       "One low-risk task a day in an approved tool",
+       "Use Task + Context + Format + Tone"
+      ]
+     },
+     {
+      "label": "Week 3",
+      "title": "Check and improve",
+      "items": [
+       "Use the four-step check every time",
+       "Note mistakes caught and prompts that work"
+      ]
+     },
+     {
+      "label": "Week 4",
+      "title": "Share and plan",
+      "items": [
+       "Share one tip with your team",
+       "Retake the AI awareness check",
+       "Pick your next skill to build"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}
