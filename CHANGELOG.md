@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.9.2 — 2026-11-09
+- Consumer Goods header animation: the delivery truck now waits at the end of the conveyor while all three parcels are loaded. Each parcel drops into the truck and lights up a parcel icon on its side. When loading is complete, the truck drives off forward and a new truck pulls up for the next cycle (10-second loop).
+
 ## V4.9.1 — 2026-11-09
 - Natural Resources header animation: the haul truck now drives forward, cab first, from left to right. It used to move backwards.
 
