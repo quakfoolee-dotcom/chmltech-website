@@ -59,3 +59,17 @@
 .j-table tbody tr:first-child td{font-weight:400;background:#fff;color:inherit}
 .j-table tbody tr:nth-child(even) td{background:#F7F9FC}
 .j-table table{width:100%!important;display:table!important;margin:0!important}
+/* figures (V4.15) */
+.j-fig{margin:1.8em 0;border:1px solid #DDE6F0;border-radius:10px;background:#fff;padding:18px 18px 14px}
+.j-fig-art svg{display:block;width:100%;height:auto;max-height:520px}
+.j-fig figcaption{font-size:14.5px;line-height:1.55;color:#26324A;margin-top:12px;padding-top:10px;border-top:1px solid #EEF2F7}
+.j-fig-src{display:block;color:#5A6B82;font-size:13px;margin-top:4px}
+@media print{.j-fig{break-inside:avoid;border:none;padding:0}}
+.j-fig figcaption{text-align:left}
+@media (max-width:640px){
+  .j-fig{padding:12px}
+  .j-fig-art{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .j-fig-art svg{min-width:540px;max-height:none}
+  .j-fig-art::after{content:"Swipe to see the full figure →";display:block;font-size:12px;color:#5A6B82;margin-top:6px}
+}
+@media print{.j-fig-art::after{display:none}.j-fig-art svg{min-width:0}}

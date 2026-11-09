@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.15 — 2026-11-09
+- **Figures in journal papers (pilot).** Journal papers can now include numbered figures. Each one has a caption, a source line, alt text for screen readers, and a reference in the text. The figures are SVG graphics with live text in the site fonts and colours, so they stay sharp at any size and print cleanly in the PDF version. On phones, wide figures keep a readable size and scroll sideways.
+- **Engineering CAPEX and OPEX Estimation for Process Plants (Vol. 104, Issue 4)** now has four figures:
+  1. AACE estimate-class accuracy ranges (from Table 1).
+  2. Capacity-exponent scaling for n = 0.4–1.0, with the worked-example point.
+  3. Schematic CAPEX–OPEX trade-off with the optimum ΔT<sub>min</sub>.
+  4. Monte Carlo FCI and NPV distributions. The simulation was rebuilt from the paper's stated model and reproduces its published results exactly (NPV $43.0M, IRR 13.6%, FCI P50/P90 182/217, NPV P10/P50/P90 −69/11/87).
+- The checker now requires figures to be numbered in order, referred to in the text, given alt text, and backed by their SVG file. Figure sources and the scripts that draw them are in `content/journal/figures/` and `content/journal/figure-scripts/`.
+
 ## V4.14 — 2026-11-09
 - **Chmltech Online Journal, Volume 104:** six new research papers, published November 9, 2026, in the same research-paper format as the existing four.
 

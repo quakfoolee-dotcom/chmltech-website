@@ -135,7 +135,16 @@
      }
     },
     {
-     "p": "Three features of Table 1 are frequently misunderstood. First, the ranges are themselves ranges: depending on technical complexity, the quality of reference data and the treatment of contingency, a Class 5 estimate may be as broad as −50% to +100% or as narrow as −20% to +30% [7]. Second, the ranges are asymmetric, because cost outcomes are bounded below but not above; overruns larger than underruns should be expected. Third, the ranges apply to the estimate including contingency, and the AACE practice states explicitly that the accuracy of a particular estimate must be determined by risk analysis rather than read from the table [7]. The classes overlap, and a Class 5 estimate for a repeat plant with good historical data may be more accurate than a Class 3 estimate for a first-of-a-kind facility."
+     "fig": {
+      "n": 1,
+      "id": "fig1-aace-accuracy",
+      "caption": "Expected accuracy ranges of AACE estimate classes 5 to 1. The dark bar spans the narrowest and the light bar the widest range given for each class in Table 1.",
+      "alt": "Horizontal bar chart of expected estimate accuracy for AACE classes 5 to 1. Class 5 spans from minus 50% to plus 100% at its widest and minus 20% to plus 30% at its narrowest; the ranges narrow class by class to Class 1 at minus 10% to plus 15% widest and minus 3% to plus 3% narrowest.",
+      "source": "Drawn by the author from the ranges in [7]."
+     }
+    },
+    {
+     "p": "Three features of Table 1 are frequently misunderstood. First, the ranges are themselves ranges: depending on technical complexity, the quality of reference data and the treatment of contingency, a Class 5 estimate may be as broad as −50% to +100% or as narrow as −20% to +30% [7]. Second, the ranges are asymmetric, because cost outcomes are bounded below but not above; overruns larger than underruns should be expected. Third, the ranges apply to the estimate including contingency, and the AACE practice states explicitly that the accuracy of a particular estimate must be determined by risk analysis rather than read from the table [7]. The classes overlap, and a Class 5 estimate for a repeat plant with good historical data may be more accurate than a Class 3 estimate for a first-of-a-kind facility. Figure 1 shows the same ranges graphically: the band narrows sharply from Class 5 to Class 1, and at every class the upside is larger than the downside."
     },
     {
      "p": "The empirical basis for these cautions is strong. In a statistical analysis of 44 pioneer plants built by 34 companies, Merrow et al. found that unanticipated inflation, regulatory changes, scope changes and external events such as weather and strikes were not the principal causes of cost underestimation. Most of the variation in estimating error was explained instead by the degree to which the plant's technology departed from that of prior plants, the degree of definition of the site and project, and plant complexity. More than half of the plants in the sample failed to reach their production targets in the second six months after start-up [4]."
@@ -160,7 +169,16 @@
      "n": 2
     },
     {
-     "p": "Here C<sub>1</sub> and C<sub>2</sub> are the costs of the reference and new plant, S<sub>1</sub> and S<sub>2</sub> are their capacities, and n is the capacity exponent. With n = 0.6, the familiar “six-tenths rule”, doubling capacity increases cost by a factor of 2<sup>0.6</sup> ≈ 1.52, which expresses the economy of scale that arises because vessel cost scales roughly with surface area while capacity scales with volume, and because instrumentation, engineering and many offsite items vary only weakly with size [2, 3]. Empirical studies have shown that real exponents vary widely between equipment types and plants, so that 0.6 is a rough average rather than a law [8, 9]. Equipment-specific exponents should therefore be used where available, and a default of 0.6 or 0.7 only where they are not [10]. The rule is valid only within the capacity range of the data on which it is based; beyond the maximum size of a single train, plants are built from parallel trains and the exponent approaches unity."
+     "fig": {
+      "n": 2,
+      "id": "fig2-scaling",
+      "caption": "Capacity-exponent scaling, Eq. (2), on logarithmic axes for n = 0.4, 0.6, 0.8 and 1.0. The marked point is the scale-up used in the worked example of Section 9.",
+      "alt": "Log-log line chart of cost ratio against capacity ratio from 0.25 to 4 for exponents 0.4, 0.6, 0.8 and 1.0. Lower exponents give flatter lines. A marked point at capacity ratio 1.6 and cost ratio 1.326 shows the worked example.",
+      "source": "Author's calculation from Eq. (2)."
+     }
+    },
+    {
+     "p": "Here C<sub>1</sub> and C<sub>2</sub> are the costs of the reference and new plant, S<sub>1</sub> and S<sub>2</sub> are their capacities, and n is the capacity exponent. With n = 0.6, the familiar “six-tenths rule”, doubling capacity increases cost by a factor of 2<sup>0.6</sup> ≈ 1.52, which expresses the economy of scale that arises because vessel cost scales roughly with surface area while capacity scales with volume, and because instrumentation, engineering and many offsite items vary only weakly with size [2, 3]. Empirical studies have shown that real exponents vary widely between equipment types and plants, so that 0.6 is a rough average rather than a law [8, 9]. Equipment-specific exponents should therefore be used where available, and a default of 0.6 or 0.7 only where they are not [10]. The rule is valid only within the capacity range of the data on which it is based; beyond the maximum size of a single train, plants are built from parallel trains and the exponent approaches unity. Figure 2 plots Eq. (2) for typical exponents and shows how strongly the choice of n affects the result when the capacity ratio departs from one."
     },
     {
      "h3": "4.2 Equipment-factored estimates: Lang and Hand factors"
@@ -381,7 +399,16 @@
      "n": 10
     },
     {
-     "p": "The classic example is heat recovery. Reducing the minimum approach temperature ΔT<sub>min</sub> in a heat exchanger network increases heat recovery and reduces hot and cold utility consumption, but increases the required exchanger area and capital cost, which tend toward infinity as ΔT<sub>min</sub> approaches zero. The pinch design method provided the energy targets for this trade-off [20], and subsequent work established capital cost targets that allow the optimum ΔT<sub>min</sub> to be identified before the network is designed [21]. The optimum shifts with utility prices and the cost of exchanger area: higher energy prices or carbon costs favour more area, while expensive alloys favour less."
+     "fig": {
+      "n": 3,
+      "id": "fig3-tradeoff",
+      "caption": "Schematic CAPEX–OPEX trade-off of Eq. (10) for heat recovery. Annualized capital rises steeply as ΔT<sub>min</sub> falls, utility cost rises with ΔT<sub>min</sub>, and total annualized cost has a minimum at the economic optimum. Curves are illustrative and not to scale.",
+      "alt": "Schematic line chart of annual cost against minimum approach temperature. The annualized capital curve falls as approach temperature increases, the operating cost line rises, and the total annualized cost curve has a marked minimum labelled optimum delta T min.",
+      "source": "Schematic by the author after the approach of [20, 21]."
+     }
+    },
+    {
+     "p": "The classic example is heat recovery. Reducing the minimum approach temperature ΔT<sub>min</sub> in a heat exchanger network increases heat recovery and reduces hot and cold utility consumption, but increases the required exchanger area and capital cost, which tend toward infinity as ΔT<sub>min</sub> approaches zero. The pinch design method provided the energy targets for this trade-off [20], and subsequent work established capital cost targets that allow the optimum ΔT<sub>min</sub> to be identified before the network is designed [21]. The optimum shifts with utility prices and the cost of exchanger area: higher energy prices or carbon costs favour more area, while expensive alloys favour less. Figure 3 illustrates the shape of this trade-off: total annualized cost has a broad minimum, so moderate departures from the optimum cost little, while very small approach temperatures are heavily penalized."
     },
     {
      "p": "Similar trade-offs include reflux ratio against number of stages in distillation; pipe diameter against pumping power; compressor staging and intercooling against power; insulation thickness against heat loss; and catalyst loading or reactor volume against conversion and recycle cost. Reliability decisions are also CAPEX–OPEX trade-offs. Installing a spare pump or compressor (for example, a 2 × 100% arrangement) adds capital and some maintenance cost, but reduces the expected production loss from unplanned outages. The economic comparison weighs the annualized cost of the spare against the expected value of lost margin, which is the product of the outage frequency, the repair time and the margin per hour, plus any safety or environmental consequences. For critical services in continuous plants the spare is usually justified; for inexpensive services with short repair times or intermediate storage, it may not be. Because Eq. (6) charges roughly 18% of FCI per year to cash operating cost, capital decisions that appear small at the equipment level can have a material effect on OPEX [1]."
@@ -478,7 +505,16 @@
      }
     },
     {
-     "p": "For the Monte Carlo analysis, FCI was represented by a triangular distribution from −25% to +40% of the base value, product price by a triangular distribution from −15% to +10%, and raw-material cost by a triangular distribution from −10% to +15%, sampled independently. Two observations generalize beyond this example. First, the deterministic NPV of $43 million lies well above the P50 NPV of about $11 million, because the input distributions are skewed in the unfavourable direction. Second, a P90 FCI of $217 million implies that a contingency of about 24% above the base estimate would be needed to reach 90% confidence at this level of definition, whereas about 4% suffices for P50. The project would therefore justify further definition to narrow the cost range, in particular a Class 4 estimate built from equipment-specific factors and vendor budget prices for the major items, before a decision to proceed to FEED."
+     "fig": {
+      "n": 4,
+      "id": "fig4-monte-carlo",
+      "caption": "Monte Carlo results of the illustrative example (20,000 trials, hypothetical data). (a) Cumulative distribution of FCI with the base estimate and the P50 and P90 values. (b) Distribution of NPV at 10%, with the P10, P50 and P90 values and the deterministic NPV; trials with negative NPV are shaded.",
+      "alt": "Two-panel chart. Left: S-shaped cumulative probability curve of fixed capital investment, with the base estimate of 175, P50 of 182 and P90 of 217 million dollars marked. Right: histogram of net present value from about minus 150 to plus 150 million dollars, with P10 of minus 69, P50 of 11, P90 of 87 and the deterministic value of 43 marked; about 43% of trials are below zero.",
+      "source": "Author's simulation using the inputs stated in the text."
+     }
+    },
+    {
+     "p": "For the Monte Carlo analysis, FCI was represented by a triangular distribution from −25% to +40% of the base value, product price by a triangular distribution from −15% to +10%, and raw-material cost by a triangular distribution from −10% to +15%, sampled independently. Two observations generalize beyond this example. First, the deterministic NPV of $43 million lies well above the P50 NPV of about $11 million, because the input distributions are skewed in the unfavourable direction. Second, a P90 FCI of $217 million implies that a contingency of about 24% above the base estimate would be needed to reach 90% confidence at this level of definition, whereas about 4% suffices for P50. The project would therefore justify further definition to narrow the cost range, in particular a Class 4 estimate built from equipment-specific factors and vendor budget prices for the major items, before a decision to proceed to FEED. Figure 4 shows the simulated distributions of FCI and NPV."
     }
    ]
   },
