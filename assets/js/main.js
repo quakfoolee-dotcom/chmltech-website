@@ -66,13 +66,16 @@
       if (payload.email) payload._replyto = payload.email;
 
       btn.disabled = true; var label = btn.textContent; btn.textContent = 'Sending…';
-      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
+      fetch(endpoint, { method: 'POST', referrerPolicy: 'strict-origin-when-cross-origin', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
           var success = res.ok && (res.j.success === true || res.j.success === 'true');
           if (success) {
             form.reset();
             show('ok', form.getAttribute('data-success') || 'Thank you. Your message has been sent and we will reply within one business day.');
+          } else if (res.j && /web server/i.test(res.j.message || '')) {
+            // Browser did not send the page address (privacy setting/extension, or page opened from a local file).
+            mailtoFallback(location.protocol === 'file:' ? 'Online sending only works on the live website.' : 'Your browser blocked online sending (privacy settings).');
           } else if (res.j && /activat/i.test(res.j.message || '')) {
             // First-ever submission: FormSubmit has emailed an "Activate Form" link to CONTACT_EMAIL.
             mailtoFallback('Our online form is being activated, so this message was not delivered.');

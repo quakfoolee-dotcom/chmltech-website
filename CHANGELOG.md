@@ -1,5 +1,9 @@
 # Changelog
 
+## V3.7 — 2026-11-09
+- Forms: always send the page origin (`referrerPolicy` plus a `<meta name="referrer">` tag on every page). FormSubmit rejects submissions without it, which caused "could not be sent" in some browsers.
+- Clearer message when a browser's privacy settings block sending, or when a page is opened from a local file.
+
 ## V3.6 — 2026-11-09
 - Fixed the Insights category filters, search and "Show more", and the same controls on the Training exam library. Filtered-out cards were marked hidden but stayed visible because the card styles overrode the browser's hiding; a global `[hidden]{display:none}` rule fixes it.
 
