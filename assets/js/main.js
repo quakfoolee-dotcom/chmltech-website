@@ -144,8 +144,10 @@
     });
     if (input) input.addEventListener('input', function () { state.q = input.value; state.shown = size; apply(); });
     if (more) more.addEventListener('click', function () { state.shown += size; apply(); });
-    var m = location.hash.match(/cat=([\w-]+)/);
-    setCat(m ? m[1] : 'all');
-    window.addEventListener('hashchange', function () { var h = location.hash.match(/cat=([\w-]+)/); setCat(h ? h[1] : 'all'); });
+    // Old category names kept working: the journal used to be #cat=clean-energy (V4.18).
+    var ALIAS = { 'clean-energy': 'chmltech-online-journal' };
+    function fromHash() { var h = location.hash.match(/cat=([\w-]+)/); var c = h ? h[1] : 'all'; return ALIAS[c] || c; }
+    setCat(fromHash());
+    window.addEventListener('hashchange', function () { setCat(fromHash()); });
   });
 })();

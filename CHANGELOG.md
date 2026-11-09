@@ -1,5 +1,15 @@
 # Changelog
 
+## V4.18 — 2026-11-09
+- **Journal has its own category.** The Chmltech Online Journal filter is now `insights.html#cat=chmltech-online-journal` (10 papers). Wix had stored it under the slug `clean-energy`, which didn't fit the AI papers.
+  - Old links keep working: `#cat=clean-energy` and `insights/categories/clean-energy.html` both open the journal filter.
+  - The paper breadcrumb and "All journal articles" links point to the new category.
+- **Each paper is also filed under its subject**, so readers browsing a topic find it:
+  - Artificial Intelligence: 103(1), 103(2), 104(1) AI OS, 104(2) multi-agent, 104(3) RAG, 104(6) ML systems
+  - ESG: 101(1) solid-state hydrogen, 102(1) electrolysis
+  - Operational Efficiency: 104(4) CAPEX and OPEX
+  - Digital Technology: 104(5) digital twins
+
 ## V4.17 — 2026-11-09
 - **Journal PDF downloads with lead capture.** Each Chmltech Online Journal paper has a "Download PDF" button under the abstract and another in the sidebar.
   - The button opens a short form: full name, work email, company (optional), and an unticked "Send me occasional updates" box.
