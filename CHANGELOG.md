@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.9.1 — 2026-11-09
+- Natural Resources header animation: the haul truck now drives forward, cab first, from left to right. It used to move backwards.
+
 ## V4.9 — 2026-11-09
 - Every industry page now has an interactive swim lane process with a fixable bottleneck. It is the first diagram on each page, shown full width.
 
