@@ -69,34 +69,178 @@
  ],
  "figs": [
   {
-   "type": "flow",
+   "type": "swimlane",
    "title": "Order flow through the DC",
-   "caption": "Watch orders back up at picking, then click Fix the bottleneck to see flow after slotting and pick path improvements.",
+   "caption": "A swim lane view of who does what, from purchase order to delivery. Watch orders back up at picking, then click Fix the bottleneck.",
    "config": {
+    "lanes": [
+     "Customer",
+     "Customer service",
+     "Inventory control (WMS)",
+     "Warehouse floor",
+     "Suppliers and carriers"
+    ],
+    "cols": 7,
     "steps": [
      {
-      "label": "Receiving",
-      "text": "Inbound goods are checked against the purchase order and recorded."
+      "id": "inbound",
+      "label": "Inbound delivery",
+      "lane": 4,
+      "col": 0,
+      "seq": 1,
+      "text": "Suppliers deliver against purchase orders, ideally to a booked dock appointment."
      },
      {
-      "label": "Putaway",
-      "text": "Stock is moved to its location. Wrong or unrecorded locations cause accuracy problems later."
+      "id": "receive",
+      "label": "Receive",
+      "lane": 3,
+      "col": 1,
+      "seq": 2,
+      "text": "Inbound goods are checked against the purchase order and recorded in the system."
      },
      {
-      "label": "Picking",
-      "text": "Orders are picked from locations. Poor slotting means long walks and searching."
+      "id": "putaway",
+      "label": "Put away",
+      "lane": 3,
+      "col": 2,
+      "seq": 3,
+      "text": "Stock moves to its storage location. Wrong or unrecorded locations cause accuracy problems later."
      },
      {
-      "label": "Packing",
+      "id": "order",
+      "label": "Place order",
+      "lane": 0,
+      "col": 0,
+      "seq": 4,
+      "text": "The customer places an order online, by EDI or through a sales rep."
+     },
+     {
+      "id": "release",
+      "label": "Enter and release order",
+      "lane": 1,
+      "col": 1,
+      "seq": 5,
+      "text": "Customer service checks the order, credit and dates, then releases it to the warehouse."
+     },
+     {
+      "id": "allocate",
+      "label": "Allocate stock",
+      "lane": 2,
+      "col": 2,
+      "seq": 6,
+      "text": "The WMS allocates stock to the order and prints the pick list."
+     },
+     {
+      "id": "pick",
+      "label": "Pick",
+      "lane": 3,
+      "col": 3,
+      "seq": 7,
+      "text": "Pickers walk long routes to poorly slotted items and often find the pick face empty, so orders wait in the pick queue."
+     },
+     {
+      "id": "replen",
+      "label": "Replenish pick face",
+      "lane": 2,
+      "col": 3,
+      "seq": 8,
+      "text": "Each short pick goes back to inventory control. Someone moves stock from reserve to the pick face, then the order returns to the pick queue."
+     },
+     {
+      "id": "pack",
+      "label": "Pack and check",
+      "lane": 3,
+      "col": 4,
+      "seq": 9,
       "text": "Orders are checked, packed and labelled."
      },
      {
-      "label": "Shipping",
-      "text": "Orders are staged and loaded for carriers on schedule."
+      "id": "ship",
+      "label": "Load and ship",
+      "lane": 3,
+      "col": 5,
+      "seq": 10,
+      "text": "Orders are staged by carrier and loaded on schedule."
+     },
+     {
+      "id": "deliver",
+      "label": "Deliver",
+      "lane": 4,
+      "col": 6,
+      "seq": 11,
+      "text": "The carrier delivers the order and sends proof of delivery."
+     },
+     {
+      "id": "received",
+      "label": "Receive order",
+      "lane": 0,
+      "col": 6,
+      "seq": 12,
+      "text": "The customer receives a complete, accurate order on the promised date."
      }
     ],
-    "bottleneck": 2,
-    "fix_text": "Slotting fast movers near the pack area and batching small orders shortens pick paths and keeps orders flowing to packing."
+    "links": [
+     [
+      "inbound",
+      "receive"
+     ],
+     [
+      "receive",
+      "putaway"
+     ],
+     [
+      "putaway",
+      "allocate"
+     ],
+     [
+      "order",
+      "release"
+     ],
+     [
+      "release",
+      "allocate"
+     ],
+     [
+      "allocate",
+      "pick"
+     ],
+     [
+      "pick",
+      "pack"
+     ],
+     [
+      "pack",
+      "ship"
+     ],
+     [
+      "ship",
+      "deliver"
+     ],
+     [
+      "deliver",
+      "received"
+     ]
+    ],
+    "bottleneck": "pick",
+    "loop": {
+     "step": "replen",
+     "label": "short pick",
+     "after": "Stocked ahead"
+    },
+    "chips": {
+     "before": [
+      "Queue at picking",
+      "Short picks: frequent",
+      "Rework loop to inventory control"
+     ],
+     "after": [
+      "Queue cleared",
+      "Pick faces stocked ahead",
+      "Rework loop removed"
+     ]
+    },
+    "fix_title": "Fixed: velocity slotting and batch picking",
+    "fix_text": "Fast movers sit closest to packing, pickers batch small orders by zone, and min/max replenishment refills each pick face before it runs out. The rework loop to inventory control disappears and orders flow straight through to packing."
    }
   },
   {

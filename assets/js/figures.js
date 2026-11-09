@@ -1,4 +1,4 @@
-/* Chmltech interactive course illustrations (V4.1): cycle, flow, stack, compare, timeline, bars.
+/* Chmltech interactive course illustrations (V4.1, swimlane added V4.8): cycle, flow, stack, compare, timeline, bars, swimlane.
    Usage: ChmFig.render(hostElement, figureConfig). Respects prefers-reduced-motion. */
 (function () {
   'use strict';
@@ -63,6 +63,107 @@
     });
     if (b >= 0) show('Bottleneck: ' + steps[b].label, steps[b].text + ' Click "Fix the bottleneck" to see the difference.');
     else show(steps[0].label, steps[0].text + ' Click any step for details.');
+  }
+
+
+  /* ---------------- swimlane (V4.8) ----------------
+     config: lanes[], cols, steps[{id,label,lane,col,seq,text}], links[[from,to]], bottleneck:id,
+     loop:{step:id,label,after}, chips:{before[],after[]}, fix_title, fix_text */
+  function swimlane(host, c) {
+    var NS = 'http://www.w3.org/2000/svg', byId = {}, bn = c.bottleneck, lp = c.loop || null;
+    c.steps.forEach(function (s) { byId[s.id] = s; });
+    var bnIdx = -1; c.links.forEach(function (l, i) { if (l[1] === bn) bnIdx = i; });
+    var h = '';
+    if (c.chips) h += '<div class="sl-chips"><span class="sl-chip-set is-before">' + c.chips.before.map(function (x) { return '<span class="sl-chip bad">' + esc(x) + '</span>'; }).join('') + '</span><span class="sl-chip-set is-after">' + c.chips.after.map(function (x) { return '<span class="sl-chip ok">' + esc(x) + '</span>'; }).join('') + '</span></div>';
+    h += '<div class="sl" style="--cols:' + c.cols + ';--lanes:' + c.lanes.length + '">';
+    c.lanes.forEach(function (l, i) { h += '<div class="sl-band' + (i % 2 ? ' alt' : '') + '" style="grid-row:' + (i + 1) + '"></div><div class="sl-lane" style="grid-row:' + (i + 1) + '">' + esc(l) + '</div>'; });
+    h += '<svg class="sl-lines" aria-hidden="true"></svg>';
+    c.steps.forEach(function (s) {
+      var cls = 'sl-step' + (s.id === bn ? ' is-bn' : '') + (lp && s.id === lp.step ? ' is-loop' : '');
+      var tag = s.id === bn ? '<em class="is-before">Bottleneck</em><em class="is-after">Fixed</em>' : (lp && s.id === lp.step ? '<em class="is-before">Rework loop</em><em class="is-after">' + esc(lp.after || 'Not needed') + '</em>' : '');
+      var q = s.id === bn ? '<span class="sl-queue" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' : '';
+      h += '<button type="button" class="' + cls + '" data-id="' + esc(s.id) + '" style="grid-row:' + (s.lane + 1) + ';grid-column:' + (s.col + 2) + ';order:' + (s.seq || 0) + '">' + q + '<small class="sl-tag">' + esc(c.lanes[s.lane]) + '</small><span>' + esc(s.label) + '</span>' + tag + '</button>';
+    });
+    h += '</div>';
+    h += '<div class="btn-row" style="margin-top:14px"><button type="button" class="btn btn-ghost fig-fix" aria-pressed="false">Fix the bottleneck</button></div>';
+    host.innerHTML = h + '<div class="fig-detail" aria-live="polite"></div>';
+    var show = detail(host), wrap = host.querySelector('.sl'), svg = host.querySelector('.sl-lines'), fig = host;
+
+    function box(id) {
+      var el = wrap.querySelector('[data-id="' + id + '"]'), r = el.getBoundingClientRect(), o = wrap.getBoundingClientRect();
+      return { l: r.left - o.left, r: r.right - o.left, t: r.top - o.top, b: r.bottom - o.top, cx: (r.left + r.right) / 2 - o.left, cy: (r.top + r.bottom) / 2 - o.top };
+    }
+    function route(a, b) {
+      var A = box(a), B = box(b), sa = byId[a], sb = byId[b];
+      if (sa.col === sb.col) return sa.lane < sb.lane ? 'M' + A.cx + ' ' + A.b + ' V' + (B.t - 2) : 'M' + A.cx + ' ' + A.t + ' V' + (B.b + 2);
+      if (sa.lane === sb.lane) return 'M' + A.r + ' ' + A.cy + ' H' + (B.l - 2);
+      var mx = Math.round((A.r + B.l) / 2);
+      return 'M' + A.r + ' ' + A.cy + ' H' + mx + ' V' + B.cy + ' H' + (B.l - 2);
+    }
+    function el(name, attrs, parent) { var e = document.createElementNS(NS, name); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+    function dots(d, cls, n, dur, color) {
+      if (reduce) return;
+      var g = el('g', { 'class': cls });
+      for (var k = 0; k < n; k++) {
+        var ci = el('circle', { r: 4.5, fill: color, opacity: 0 }, g);
+        el('animateMotion', { dur: dur + 's', begin: (k * dur / n).toFixed(2) + 's', repeatCount: 'indefinite', path: d }, ci);
+        el('animate', { attributeName: 'opacity', values: '0;1;1;0', keyTimes: '0;.1;.9;1', dur: dur + 's', begin: (k * dur / n).toFixed(2) + 's', repeatCount: 'indefinite' }, ci);
+      }
+    }
+    function draw() {
+      var list = wrap.clientWidth < (c.min_width || 820);
+      fig.classList.toggle('sl-list', list);
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      if (list) return;
+      svg.setAttribute('width', wrap.clientWidth); svg.setAttribute('height', wrap.clientHeight);
+      var defs = el('defs', {});
+      [['n', '#9DB6D3'], ['r', '#E07A3A']].forEach(function (m) { var mk = el('marker', { id: 'slm' + m[0] + uid, viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 9, markerHeight: 9, markerUnits: 'userSpaceOnUse', orient: 'auto' }, defs); el('path', { d: 'M0 0 L10 5 L0 10z', fill: m[1] }, mk); });
+      c.links.forEach(function (l, i) {
+        var d = route(l[0], l[1]);
+        el('path', { d: d, 'class': 'sl-link', 'marker-end': 'url(#slmn' + uid + ')' });
+        var downstream = isDown(l[0]);
+        if (downstream) { dots(d, 'sl-dots is-before', 1, 4.8, '#9DB6D3'); dots(d, 'sl-dots is-after', 2, 2.4, '#0E77B5'); }
+        else dots(d, 'sl-dots', 2, 2.4, '#0E77B5');
+      });
+      if (lp) {
+        var P = box(bn), R = box(lp.step), up = byId[lp.step].lane < byId[bn].lane;
+        var x1 = Math.round(P.l + (P.r - P.l) * 0.32), x2 = Math.round(P.l + (P.r - P.l) * 0.68);
+        var d1 = up ? 'M' + x1 + ' ' + P.t + ' V' + (R.b + 2) : 'M' + x1 + ' ' + P.b + ' V' + (R.t - 2);
+        var d2 = up ? 'M' + x2 + ' ' + R.b + ' V' + (P.t - 2) : 'M' + x2 + ' ' + R.t + ' V' + (P.b + 2);
+        var g = el('g', { 'class': 'sl-loop is-before' });
+        el('path', { d: d1, 'class': 'sl-link loop', 'marker-end': 'url(#slmr' + uid + ')' }, g);
+        el('path', { d: d2, 'class': 'sl-link loop', 'marker-end': 'url(#slmr' + uid + ')' }, g);
+        var t = el('text', { x: x2 + 8, y: Math.round((P.t + R.b) / 2) + 4, 'class': 'sl-loop-label' }, g); t.textContent = lp.label || 'rework';
+        dots(d1, 'sl-dots is-before', 1, 2.2, '#E07A3A'); dots(d2, 'sl-dots is-before', 1, 2.2, '#E07A3A');
+      }
+    }
+    var downSet = null;
+    function isDown(id) {
+      if (!downSet) { downSet = {}; downSet[bn] = 1; var changed = true; while (changed) { changed = false; c.links.forEach(function (l) { if (downSet[l[0]] && !downSet[l[1]]) { downSet[l[1]] = 1; changed = true; } }); } }
+      return !!downSet[id];
+    }
+    var uid = Math.random().toString(36).slice(2, 7);
+    draw();
+    if (window.ResizeObserver) { var rq; new ResizeObserver(function () { cancelAnimationFrame(rq); rq = requestAnimationFrame(draw); }).observe(wrap); }
+    else window.addEventListener('resize', draw);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+    host.addEventListener('click', function (e) {
+      var s = e.target.closest('.sl-step');
+      if (s) {
+        var st = byId[s.getAttribute('data-id')];
+        Array.prototype.forEach.call(host.querySelectorAll('.sl-step'), function (x) { x.classList.toggle('is-on', x === s); });
+        show(c.lanes[st.lane] + ': ' + st.label, st.text);
+      }
+      var f = e.target.closest('.fig-fix');
+      if (f) {
+        var on = fig.classList.toggle('fixed');
+        f.setAttribute('aria-pressed', on ? 'true' : 'false');
+        f.textContent = on ? 'Show the original process' : 'Fix the bottleneck';
+        if (on) show(c.fix_title || 'After the fix', c.fix_text || ''); else show('Bottleneck: ' + byId[bn].label, byId[bn].text);
+      }
+    });
+    show('Bottleneck: ' + byId[bn].label, byId[bn].text + ' Click "Fix the bottleneck" to see the difference, or click any step for details.');
   }
 
   /* ---------------- stack ---------------- */
@@ -131,7 +232,7 @@
   }
   function fmt(v) { return Number(v).toLocaleString('en-CA', { maximumFractionDigits: 1 }); }
 
-  var TYPES = { cycle: cycle, flow: flow, stack: stack, compare: compare, timeline: timeline, bars: bars };
+  var TYPES = { cycle: cycle, flow: flow, stack: stack, compare: compare, timeline: timeline, bars: bars, swimlane: swimlane };
   window.ChmFig = {
     render: function (host, fig) {
       if (!host || host.getAttribute('data-ready')) return;

@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.8 — 2026-11-09
+- Distribution & Warehousing: the order-flow diagram is now an interactive **swim lane process**.
+  - Five lanes show who does each step: Customer, Customer service, Inventory control (WMS), Warehouse floor, and Suppliers and carriers.
+  - The 12 steps run from inbound delivery and putaway, through order entry, stock allocation, picking, packing and shipping, to delivery.
+- **Before:** orders queue at Pick, which is marked as the bottleneck. A dashed orange "short pick" rework loop runs up to "Replenish pick face" in inventory control and back. Order dots slow down after picking.
+- **Fix the bottleneck:** Pick turns green and is marked Fixed, the queue and the rework loop disappear, and the replenish step shows as "Stocked ahead". Orders flow at full speed through packing and shipping. The status chips and the note panel explain the fix: velocity slotting, batch picking by zone, and min/max replenishment. "Show the original process" switches back.
+- Click any step to see what happens there.
+- On narrow screens, the diagram becomes an ordered list with a lane tag on each step, and the rework loop is indented under Pick.
+- Motion is off for visitors who choose reduced motion.
+- New reusable `swimlane` diagram type in `assets/js/figures.js`, configured from page data (`content/industries/*.json`), so other pages can use it later.
+
 ## V4.7.2 — 2026-11-09
 - Fixed doubled labels in the "Typical scenarios" cards on all 8 industry pages. Cards showed "Before: Before: …" and "After: After: …"; each label now appears once. The page builder now strips a repeated label automatically.
 
