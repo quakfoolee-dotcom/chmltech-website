@@ -289,3 +289,10 @@
 /* solution pages (V4.4) */
 .cfig[data-svc-fig]{max-width:none;margin:0}
 .grid > .cfig{height:100%}
+
+/* flow fit on solution and industry pages (V4.7.1) */
+.fig-col{display:grid;gap:24px}
+.fig-col>.cfig{margin:0}
+.flow-step{overflow-wrap:break-word;hyphens:auto;padding:10px 8px}
+.flow-step em{font-size:10px;letter-spacing:.04em}
+@media (min-width:721px){.fig-col .flow-step{flex:4 1 0;max-width:200px}.fig-col .flow-link{flex:1 0 24px;min-width:24px}}

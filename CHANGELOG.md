@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.7.1 — 2026-11-09
+- Fixed process-flow diagrams where step names touched the box edges (for example "Department reviews" and "Notification" on Public Sector). This affected 6 pages: Public Sector, Energy & Chemicals, Health Care, Professional Services, Distribution & Warehousing and Business Process Optimization.
+- On those pages, the flow diagram now gets the full width of the section, with the second diagram below it, instead of sharing a half-width column. Flow boxes have a little more inner room, and long words wrap cleanly.
+- Checked every flow step on desktop (1366, 1100 and 900 px) and phone (390 px): all text stays at least 4 px inside its box.
+
 ## V4.7 — 2026-11-09
 - Redesigned all 8 industry pages with new writing built on the original Chmltech content: Energy & Chemicals, Natural Resources, Manufacturing, Health Care, Professional Services, Consumer Goods, Distribution & Warehousing, and Public Sector.
 - Each page has an animated header scene:
