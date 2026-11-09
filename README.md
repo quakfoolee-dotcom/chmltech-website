@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.12** (see `CHANGELOG.md`).
+Version: **V4.13** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -51,7 +51,7 @@ The email address is never written into the page source, so address-harvesting b
 - Email links are written as `<a class="js-mail" data-u="info" data-d="chmltech.com" href="contact.html">info [at] chmltech [dot] com</a>`.
 - `assets/js/main.js` rebuilds the real address and `mailto:` link in the visitor's browser.
 - Without JavaScript, the link shows the spelled-out form and opens the contact form.
-- After each build, run `python3 gen/protect_email.py <site_dir>`. It is safe to run twice. It reports any page that still contains the plain address.
+- After each build, run `python3 gen/dedupe_images.py <site_dir>` (removes repeated pictures in articles), then `python3 gen/protect_email.py <site_dir>`. It is safe to run twice. It reports any page that still contains the plain address.
 
 ## Deploy
 

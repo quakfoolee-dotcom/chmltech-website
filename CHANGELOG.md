@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.13 — 2026-11-09
+- **Repeated pictures in Insights articles: full review.** All 122 articles were checked. Each cover was compared with every image in the article body, and each body image with the others. The check uses visual similarity, so it also catches the same picture saved as a different file or crop, which the V3.3 exact-file check missed.
+  - **How to Reduce Costs with Proven Process Improvement Strategies:** removed the "Cost Reduction Strategy" image under the cover. It was a second copy of the cover picture.
+  - **Change Management Toolkit: The Top 10 Models…:** removed 9 repeats of the same gear icon. The first one stays.
+  - No other article repeats a picture. The 20 closest remaining cover/body pairs were checked by eye and are different pictures.
+- New post-build step `gen/dedupe_images.py` removes these repeats automatically on every build. It is safe to run twice.
+
 ## V4.12 — 2026-11-09
 - **Chmltech Online Journal:** all four journal articles were rewritten as full research papers, keeping their original URLs.
 
