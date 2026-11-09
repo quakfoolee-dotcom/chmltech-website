@@ -934,5 +934,229 @@
    "a": 2,
    "why": "Monitoring tool performance with defined triggers is how drift is detected and acted on after go-live."
   }
+ ],
+ "figures": [
+  {
+   "step": 1,
+   "type": "stack",
+   "title": "The four layers of AI readiness",
+   "caption": "Click each layer, from the bottom up, to see what must be in place before AI delivers dependable results.",
+   "config": {
+    "top_label": "Dependable AI results",
+    "layers": [
+     {
+      "label": "Strategic readiness",
+      "text": "Leaders know which business problems AI should help with and why those problems matter now."
+     },
+     {
+      "label": "Technical readiness",
+      "text": "The data exists, is good enough, and can be reached by the tools that need it."
+     },
+     {
+      "label": "People and culture",
+      "text": "Staff have the skills, trust and time to use new tools, and managers can lead the change."
+     },
+     {
+      "label": "Governance readiness",
+      "text": "Clear rules cover risk, privacy, accountability and how AI-assisted decisions are checked."
+     }
+    ]
+   }
+  },
+  {
+   "step": 3,
+   "type": "compare",
+   "title": "Pilot purgatory vs scaled AI",
+   "caption": "Toggle between the two sides and notice that each difference is a readiness gap, not a weak algorithm.",
+   "config": {
+    "left": {
+     "title": "Pilot purgatory",
+     "points": [
+      "IT or a vendor runs it; no business owner",
+      "No baseline, so success cannot be shown",
+      "Hand-cleaned sample data, not live data",
+      "Old workflow and approvals left unchanged",
+      "No go/no-go criteria agreed in advance"
+     ]
+    },
+    "right": {
+     "title": "Pilot designed to scale",
+     "points": [
+      "A named operations owner uses the result",
+      "Baseline measured before the pilot starts",
+      "Realistic, production-like data",
+      "Future workflow and integration sketched early",
+      "Exit criteria written before launch"
+     ]
+    }
+   }
+  },
+  {
+   "step": 8,
+   "type": "cycle",
+   "title": "The AI use-case lifecycle",
+   "caption": "Click each stage to see how ideas move from a business problem to a pilot and back into the pipeline.",
+   "config": {
+    "center": "Use-case pipeline",
+    "stages": [
+     {
+      "label": "Frame the problem",
+      "text": "Start from a strategic goal and write a problem statement that does not assume the solution."
+     },
+     {
+      "label": "Discover ideas",
+      "text": "Use SIPOC and value stream mapping to find steps where AI could remove pain or waste."
+     },
+     {
+      "label": "Score value/effort",
+      "text": "Rate each idea 1 to 5 for value and effort as a group, and place it in a quadrant."
+     },
+     {
+      "label": "Choose the route",
+      "text": "Decide whether to use features you own, buy a product, partner or build."
+     },
+     {
+      "label": "Pilot and measure",
+      "text": "Run a chartered pilot against a baseline and make a clear go/no-go decision."
+     },
+     {
+      "label": "Re-score pipeline",
+      "text": "As readiness improves, re-score parked ideas; a hard idea today can become a quick win."
+     }
+    ]
+   }
+  },
+  {
+   "step": 12,
+   "type": "bars",
+   "title": "Audit results vs acceptance threshold",
+   "caption": "Example values from the food processor worked example: compare each audit score with the 90% threshold.",
+   "config": {
+    "unit": "%",
+    "items": [
+     {
+      "label": "Completeness",
+      "value": 60,
+      "highlight": true
+     },
+     {
+      "label": "Accuracy",
+      "value": 80
+     },
+     {
+      "label": "Acceptance threshold",
+      "value": 90
+     }
+    ],
+    "note": "Both scores fall short of the threshold, so the data is not yet fit for predictive maintenance, and completeness is the largest gap."
+   }
+  },
+  {
+   "step": 18,
+   "type": "stack",
+   "title": "ADKAR: what each person needs for AI to stick",
+   "caption": "The model builds from Awareness upward. Click each layer to see what it means for an AI rollout.",
+   "config": {
+    "top_label": "AI adopted and sustained",
+    "layers": [
+     {
+      "label": "Awareness",
+      "text": "People understand the business problem the AI addresses and why change is needed now."
+     },
+     {
+      "label": "Desire",
+      "text": "People see what is in it for them and their concerns, such as job security and monitoring, are addressed openly."
+     },
+     {
+      "label": "Knowledge",
+      "text": "People know how to use the tool, when to trust its output and when to check or escalate."
+     },
+     {
+      "label": "Ability",
+      "text": "People can apply it in real work, with practice time, coaching and support close at hand."
+     },
+     {
+      "label": "Reinforcement",
+      "text": "Leaders recognize good use, track adoption and fix problems quickly so people do not drift back."
+     }
+    ]
+   }
+  },
+  {
+   "step": 23,
+   "type": "flow",
+   "title": "From pilot to everyday operations",
+   "caption": "Watch work queue at the integration step, then click Fix the bottleneck to see the rollout flow.",
+   "config": {
+    "steps": [
+     {
+      "label": "Update standard work",
+      "text": "Revise procedures, training and the RACI for production roles."
+     },
+     {
+      "label": "Integrate and secure",
+      "text": "Complete reliable, secure connections to core systems and run security checks."
+     },
+     {
+      "label": "Roll out in waves",
+      "text": "Go live team by team or site by site, with super users supporting each wave."
+     },
+     {
+      "label": "Retire workarounds",
+      "text": "Remove old workarounds and duplicate processes once each wave is stable."
+     },
+     {
+      "label": "Hand over to owner",
+      "text": "The process owner takes over with a control plan and drift monitoring in place."
+     },
+     {
+      "label": "Review results",
+      "text": "Compare outcomes with the business case at three and six months."
+     }
+    ],
+    "bottleneck": 1,
+    "fix_text": "Planning production integration during the pilot, instead of deferring it, stops the rollout stalling while an unplanned project is set up."
+   }
+  },
+  {
+   "step": 24,
+   "type": "timeline",
+   "title": "Your 90-day AI readiness plan",
+   "caption": "Click each phase to see the outputs it should produce before you move to the next.",
+   "config": {
+    "phases": [
+     {
+      "label": "Days 1–30",
+      "title": "Assess and align",
+      "items": [
+       "Readiness assessment with evidence",
+       "Sponsor named",
+       "Acceptable-use policy issued",
+       "Use-case discovery workshop held"
+      ]
+     },
+     {
+      "label": "Days 31–60",
+      "title": "Prioritize and prepare",
+      "items": [
+       "Scored value–effort matrix",
+       "One quick win chosen",
+       "Data audit completed",
+       "Business case and pilot charter approved"
+      ]
+     },
+     {
+      "label": "Days 61–90",
+      "title": "Pilot and learn",
+      "items": [
+       "Pilot running with baseline and weekly PDCA",
+       "Skills plan under way",
+       "Data fixes for the next strategic bet",
+       "Readiness reassessed at day 90"
+      ]
+     }
+    ]
+   }
+  }
  ]
 }

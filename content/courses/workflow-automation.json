@@ -889,5 +889,214 @@
    "a": 1,
    "why": "A control plan, borrowed from the DMAIC Control phase, keeps results stable and flags drift early."
   }
+ ],
+ "figures": [
+  {
+   "step": 2,
+   "type": "stack",
+   "title": "The automation spectrum",
+   "caption": "Click each layer, starting at the bottom, to see how approaches grow from simple rules to AI.",
+   "config": {
+    "top_label": "Right tool for the task",
+    "layers": [
+     {
+      "label": "Built-in features",
+      "text": "Rules, templates and notifications already inside your software, such as automatic payment reminders."
+     },
+     {
+      "label": "Low-code workflows",
+      "text": "Trigger-action flows that connect apps through their APIs, such as a web form creating a CRM contact and task."
+     },
+     {
+      "label": "Integration (iPaaS)",
+      "text": "Managed two-way data sync between core systems, with field mapping and error queues."
+     },
+     {
+      "label": "RPA bots",
+      "text": "Software bots that operate a user interface like a person would, useful when a system has no API."
+     },
+     {
+      "label": "AI-assisted steps",
+      "text": "Models that read documents or classify requests. They are probabilistic, so they usually need human review."
+     }
+    ]
+   }
+  },
+  {
+   "step": 6,
+   "type": "flow",
+   "title": "Manual order entry with a bottleneck",
+   "caption": "Watch orders queue in front of the manual keying step, then click Fix the bottleneck.",
+   "config": {
+    "steps": [
+     {
+      "label": "Order email arrives",
+      "text": "A customer emails a purchase order to a shared inbox."
+     },
+     {
+      "label": "Rep reads the order",
+      "text": "A sales rep opens the email and works out what the customer wants."
+     },
+     {
+      "label": "Key into ERP",
+      "text": "The rep retypes customer, items and quantities into the ERP by hand. Orders wait here and typing errors creep in."
+     },
+     {
+      "label": "Confirm to customer",
+      "text": "The rep writes and sends a confirmation email."
+     },
+     {
+      "label": "Release to warehouse",
+      "text": "The order is released so the warehouse can pick and ship it."
+     }
+    ],
+    "bottleneck": 2,
+    "fix_text": "Capturing order data once from a structured form and validating it on entry removes the retyping step and the queue in front of it."
+   }
+  },
+  {
+   "step": 7,
+   "type": "bars",
+   "title": "Handling time versus waiting time",
+   "caption": "Example values for a single order; notice how much of the lead time is waiting, not work.",
+   "config": {
+    "unit": "min",
+    "items": [
+     {
+      "label": "Waiting in inbox",
+      "value": 240,
+      "highlight": true
+     },
+     {
+      "label": "Reading the order",
+      "value": 3
+     },
+     {
+      "label": "Keying into ERP",
+      "value": 6
+     },
+     {
+      "label": "Waiting for approval",
+      "value": 90
+     },
+     {
+      "label": "Sending confirmation",
+      "value": 2
+     }
+    ],
+    "note": "Hands-on effort is only a few minutes; most of the customer's wait comes from queues, which is why lead time matters for the business case."
+   }
+  },
+  {
+   "step": 11,
+   "type": "compare",
+   "title": "Manual versus error-proofed workflow",
+   "caption": "Toggle between the two sides to see how future-state design prevents errors instead of catching them.",
+   "config": {
+    "left": {
+     "title": "Manual workflow",
+     "points": [
+      "Data retyped at each handoff",
+      "Errors found later by customers",
+      "Work waits in inboxes for someone to notice",
+      "No record of who did what and when"
+     ]
+    },
+    "right": {
+     "title": "Automated, error-proofed",
+     "points": [
+      "Data captured once at the source",
+      "Validation checks on entry",
+      "Next step triggered automatically",
+      "Every run logged for audit and problem solving"
+     ]
+    }
+   }
+  },
+  {
+   "step": 17,
+   "type": "cycle",
+   "title": "Monitor and improve after go-live",
+   "caption": "Click each stage to see how an automation is kept healthy over its working life.",
+   "config": {
+    "center": "Sustain",
+    "stages": [
+     {
+      "label": "Monitor",
+      "text": "Track run health, exception volume, queue age, business results and AI accuracy."
+     },
+     {
+      "label": "Detect",
+      "text": "Spot failures or drift early, such as a renamed field quietly leaving data blank."
+     },
+     {
+      "label": "Fix and retest",
+      "text": "The owner of the fix updates the automation and re-runs the test set before it goes back live."
+     },
+     {
+      "label": "Document",
+      "text": "Update the runbook and inventory so the change is traceable and supportable."
+     },
+     {
+      "label": "Review",
+      "text": "Review results against the baseline and plan the next improvement."
+     }
+    ]
+   }
+  },
+  {
+   "step": 21,
+   "type": "timeline",
+   "title": "Your 90-day automation plan",
+   "caption": "Click each phase to see its focus and the outputs it should produce.",
+   "config": {
+    "phases": [
+     {
+      "label": "Weeks 1–4",
+      "title": "Find and understand",
+      "items": [
+       "Set up the idea pipeline",
+       "Screen the top three candidates",
+       "Map current state and baseline"
+      ]
+     },
+     {
+      "label": "Week 5",
+      "title": "Prioritize",
+      "items": [
+       "Score effort and value",
+       "Select a quick win and write the business case"
+      ]
+     },
+     {
+      "label": "Weeks 6–8",
+      "title": "Design and build",
+      "items": [
+       "Future-state map and exception plan",
+       "Governance review",
+       "Build increment 1"
+      ]
+     },
+     {
+      "label": "Weeks 9–10",
+      "title": "Test",
+      "items": [
+       "Run the test set",
+       "Acceptance sign-off",
+       "Go-live and rollback plan"
+      ]
+     },
+     {
+      "label": "Weeks 11–13",
+      "title": "Go live and sustain",
+      "items": [
+       "Pilot or parallel run",
+       "Runbook and RACI",
+       "First results versus baseline"
+      ]
+     }
+    ]
+   }
+  }
  ]
 }

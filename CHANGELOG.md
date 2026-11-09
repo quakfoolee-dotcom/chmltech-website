@@ -1,5 +1,17 @@
 # Changelog
 
+## V4.1 — 2026-11-09
+- Animated header illustration on each of the six course pages: readiness radar, digital layers, turning gears with a trend line, Gantt chart, automation loop, 5S staircase.
+- 37 interactive illustrations inside lessons (6–7 per course), of six types:
+  - **Cycle:** auto-advancing stages; click a stage for details.
+  - **Process flow:** moving work items, with a queue at the bottleneck and a "Fix the bottleneck" toggle.
+  - **Stack:** a layered foundation that builds up; click a layer.
+  - **Compare:** a before/after toggle.
+  - **Timeline:** a roadmap that reveals phases in sequence.
+  - **Bars:** animated comparisons.
+- Illustrations are driven by a `figures` list in each course JSON (`content/courses/`) and rendered by `assets/js/figures.js`. A text version is included for search engines and visitors without JavaScript.
+- Motion is disabled for visitors who choose reduced motion; flows stack vertically on phones.
+
 ## V4.0 — 2026-11-09
 - **Six free interactive courses**, rebuilt from scratch: AI Readiness; Digital Transformation & AI Readiness Strategy; Operational Excellence; Project Leadership; Workflow Automation; 5S Mastery. 135 lessons in total (about 48,000 words), keeping each original course's step count.
 - Each lesson has key takeaways, an "Apply it at work" exercise and a knowledge check with explanation.

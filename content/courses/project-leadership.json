@@ -912,5 +912,178 @@
    "a": 1,
    "why": "A control plan defines who responds and how when a measure crosses its trigger, so the owner acts immediately."
   }
+ ],
+ "figures": [
+  {
+   "step": 1,
+   "type": "compare",
+   "title": "Command-and-control vs engaging leadership",
+   "caption": "Toggle between the two styles and notice which one still works after the project team leaves.",
+   "config": {
+    "left": {
+     "title": "Command-and-control",
+     "points": [
+      "Leader decides the solution and tells people what to do",
+      "Status is reported upward from the office",
+      "Success means hitting the milestone",
+      "Compliance lasts only while the leader is present"
+     ]
+    },
+    "right": {
+     "title": "Engaging leadership",
+     "points": [
+      "Team and frontline help find and test the solution",
+      "Leader goes to the floor to see the work",
+      "Success means the process actually got better",
+      "Process owner sustains the change after handover"
+     ]
+    }
+   }
+  },
+  {
+   "step": 8,
+   "type": "timeline",
+   "title": "Phases of an OpEx project",
+   "caption": "Click each phase to see the typical activities between phase gates.",
+   "config": {
+    "phases": [
+     {
+      "label": "Phase 1",
+      "title": "Assess",
+      "items": [
+       "Go to the gemba and map the current state",
+       "Set baselines with clear definitions",
+       "Fix a few obvious just-do-it items"
+      ]
+     },
+     {
+      "label": "Phase 2",
+      "title": "Design",
+      "items": [
+       "Find root causes with the team",
+       "Timebox design decisions",
+       "Test ideas on paper or with mock-ups"
+      ]
+     },
+     {
+      "label": "Phase 3",
+      "title": "Pilot",
+      "items": [
+       "Trial the new method on one shift or area",
+       "Compare results with the baseline",
+       "Adjust and frame setbacks as learning"
+      ]
+     },
+     {
+      "label": "Phase 4",
+      "title": "Rollout",
+      "items": [
+       "Extend the change to remaining areas",
+       "Protect team time and share early wins",
+       "Train staff on the new standard"
+      ]
+     },
+     {
+      "label": "Phase 5",
+      "title": "Sustain",
+      "items": [
+       "Hand over standard work and control plan",
+       "Add measures to the owner's reporting",
+       "Run 30, 60 and 90-day checks"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "step": 13,
+   "type": "cycle",
+   "title": "The weekly team cadence",
+   "caption": "Watch the highlight travel around the cycle, then click each stage to see what happens in it.",
+   "config": {
+    "center": "Team rhythm",
+    "stages": [
+     {
+      "label": "Plan",
+      "text": "Agree new actions with an owner and a date, and protect the hours each person can give the project."
+     },
+     {
+      "label": "Huddle",
+      "text": "Hold a 30-minute standing huddle at the board: measure update, actions done, late or blocked, top risks."
+     },
+     {
+      "label": "Review",
+      "text": "Check the run chart of the primary measure and take decisions or escalations to the sponsor check-in."
+     },
+     {
+      "label": "Adjust",
+      "text": "Park deep problems for a working session, update the board and change the plan where results call for it."
+     }
+    ]
+   }
+  },
+  {
+   "step": 15,
+   "type": "stack",
+   "title": "ADKAR: building individual change",
+   "caption": "Click each layer from the bottom up; each one rests on the stage below it.",
+   "config": {
+    "top_label": "Lasting adoption",
+    "layers": [
+     {
+      "label": "Awareness",
+      "text": "Why is this change happening? Share the problem and the data."
+     },
+     {
+      "label": "Desire",
+      "text": "What is in it for me and for us? Involve people, address concerns and show benefits."
+     },
+     {
+      "label": "Knowledge",
+      "text": "How do I do it? Provide training, one-point lessons and demonstrations."
+     },
+     {
+      "label": "Ability",
+      "text": "Can I actually do it on the job? Give practice, coaching and time to learn."
+     },
+     {
+      "label": "Reinforcement",
+      "text": "Will it stick? Use recognition, audits, measures and follow-up."
+     }
+    ]
+   }
+  },
+  {
+   "step": 22,
+   "type": "flow",
+   "title": "From charter to benefits handover",
+   "caption": "Watch work move through the project; press Fix the bottleneck to see what a formal handover does.",
+   "config": {
+    "steps": [
+     {
+      "label": "Charter",
+      "text": "Sponsor and leader agree the problem, goal, scope, team and how benefits will be tracked."
+     },
+     {
+      "label": "Assess and baseline",
+      "text": "Map the current state and measure the starting point with clear operational definitions."
+     },
+     {
+      "label": "Design and pilot",
+      "text": "Test the new method on a small scale and adjust it based on results."
+     },
+     {
+      "label": "Verify benefits",
+      "text": "Compare results with the baseline using the same definitions to confirm the gain is real."
+     },
+     {
+      "label": "Handover",
+      "text": "The process owner takes on standard work, the control plan, open actions and regular reporting."
+     }
+    ],
+    "bottleneck": 4,
+    "fix_text": "Make handover a formal step at the closure gate, with an owner who confirms the standard and a 30, 60 and 90-day check."
+   }
+  }
  ]
 }

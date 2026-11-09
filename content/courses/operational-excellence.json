@@ -952,5 +952,193 @@
    "a": 0,
    "why": "When contexts differ, teaching the method and letting the receiving team adapt builds ownership and a better-fitting solution."
   }
+ ],
+ "figures": [
+  {
+   "step": 2,
+   "type": "stack",
+   "title": "The five principles behind OpEx",
+   "caption": "Click each layer, starting at the bottom, to see how the principles build on one another.",
+   "config": {
+    "top_label": "Operational excellence",
+    "layers": [
+     {
+      "label": "Respect for people",
+      "text": "The people doing the work know its problems best. Leaders build their capability and give them time and permission to fix things."
+     },
+     {
+      "label": "Go and see",
+      "text": "Decisions come from direct observation and data where the work happens, not from reports alone."
+     },
+     {
+      "label": "Standardize, improve",
+      "text": "The current best known method becomes the standard and the baseline for the next improvement."
+     },
+     {
+      "label": "Make the work flow",
+      "text": "Work moves steadily from step to step without waiting, batching or backtracking."
+     },
+     {
+      "label": "Customer value",
+      "text": "Define value from the customer's point of view: what they would willingly pay for, or what improves the patient's outcome."
+     }
+    ]
+   }
+  },
+  {
+   "step": 9,
+   "type": "flow",
+   "title": "Pump repair value stream: where work waits",
+   "caption": "Watch the queue build in front of the approval step, then click Fix the bottleneck to see the flow afterwards.",
+   "config": {
+    "steps": [
+     {
+      "label": "Pump arrives",
+      "text": "The pump is logged in and waits for a technician to start teardown."
+     },
+     {
+      "label": "Teardown and quote",
+      "text": "The pump is opened, inspected and a repair quote is prepared for the customer."
+     },
+     {
+      "label": "Customer approval",
+      "text": "The quote sits with the customer. Most of the lead time is spent waiting here and for parts, not on the bench."
+     },
+     {
+      "label": "Repair and assembly",
+      "text": "Parts are fitted and the pump is reassembled; this is value-added process time."
+     },
+     {
+      "label": "Test and ship",
+      "text": "The pump is tested against its specification and shipped back to the customer."
+     }
+    ],
+    "bottleneck": 2,
+    "fix_text": "Fixing the information flow, for example with standard quotes and pre-agreed approval limits, removes most of the waiting without faster wrenches."
+   }
+  },
+  {
+   "step": 12,
+   "type": "bars",
+   "title": "Where the CNC cell loses its planned time",
+   "caption": "Example values from the CNC cell worked example in this lesson (450 planned minutes); compare the size of each loss.",
+   "config": {
+    "unit": "min",
+    "items": [
+     {
+      "label": "Downtime loss",
+      "value": 60,
+      "highlight": true
+     },
+     {
+      "label": "Speed, minor stops",
+      "value": 60,
+      "highlight": true
+     },
+     {
+      "label": "Quality loss",
+      "value": 16.5
+     },
+     {
+      "label": "Fully productive time",
+      "value": 313.5
+     }
+    ],
+    "note": "Availability and performance losses are about the same size, so the team studies the changeover and tracks minor stops before choosing a project."
+   }
+  },
+  {
+   "step": 19,
+   "type": "compare",
+   "title": "The tool crib before and after 5S",
+   "caption": "Toggle between the two views to see what 5S and standard work change in the maintenance shop example.",
+   "config": {
+    "left": {
+     "title": "Before 5S",
+     "points": [
+      "Technicians search for torque wrenches each morning",
+      "Missing tools are noticed only when needed",
+      "Each crew loads its truck a different way",
+      "Crews leave for site late"
+     ]
+    },
+    "right": {
+     "title": "After 5S",
+     "points": [
+      "Shadow boards show where every tool belongs",
+      "A sign-out sheet makes missing tools visible at a glance",
+      "Standard work with a photo shows a correctly loaded truck",
+      "Crews leave earlier with the right tools"
+     ]
+    }
+   }
+  },
+  {
+   "step": 20,
+   "type": "cycle",
+   "title": "The PDCA cycle for safe change",
+   "caption": "Click each stage to see what it involves, then follow the highlight around to the next cycle.",
+   "config": {
+    "center": "PDCA",
+    "stages": [
+     {
+      "label": "Plan",
+      "text": "State the problem, the change you will test and what you predict will happen. Define how you will measure it."
+     },
+     {
+      "label": "Do",
+      "text": "Run the change on a small scale, such as one shift, one line or one clinic room, with a rollback plan ready."
+     },
+     {
+      "label": "Check",
+      "text": "Compare the results with your prediction and with the baseline."
+     },
+     {
+      "label": "Act",
+      "text": "Adopt, adapt or abandon the change. If adopted, update the standard work, then plan the next cycle."
+     }
+    ]
+   }
+  },
+  {
+   "step": 24,
+   "type": "timeline",
+   "title": "Your 90-day OpEx action plan",
+   "caption": "Click each phase to see the activities planned for that 30-day block.",
+   "config": {
+    "phases": [
+     {
+      "label": "Days 1-30",
+      "title": "Assess",
+      "items": [
+       "Run the maturity assessment with a mixed group",
+       "Do three gemba walks and map one value stream",
+       "Set baselines for two or three KPIs",
+       "Agree on a prioritized gap list"
+      ]
+     },
+     {
+      "label": "Days 31-60",
+      "title": "Engage and start",
+      "items": [
+       "Write the case for change",
+       "Map stakeholders",
+       "Charter one improvement project with a sponsor",
+       "Launch a Tier 1 huddle with one team"
+      ]
+     },
+     {
+      "label": "Days 61-90",
+      "title": "Transform and sustain",
+      "items": [
+       "Complete root cause analysis and run PDCA pilots",
+       "Update standard work",
+       "Introduce leader standard work for supervisors",
+       "Review results against the baseline"
+      ]
+     }
+    ]
+   }
+  }
  ]
 }

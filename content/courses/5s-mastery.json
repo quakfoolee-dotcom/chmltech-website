@@ -908,5 +908,206 @@
    "a": 1,
    "why": "A visible, manageable pilot with an engaged team and built-in Sustain produces credible results others can copy."
   }
+ ],
+ "figures": [
+  {
+   "step": 1,
+   "type": "cycle",
+   "title": "The 5S cycle",
+   "caption": "Click each stage to see what it involves, and notice that Sustain loops back to Sort.",
+   "config": {
+    "center": "5S",
+    "stages": [
+     {
+      "label": "Sort",
+      "text": "Keep only what is needed, in the quantity needed, in the area where it is needed. Red-tag the rest."
+     },
+     {
+      "label": "Set in Order",
+      "text": "Give every needed item a defined, labelled home based on frequency, sequence, ergonomics and safety."
+     },
+     {
+      "label": "Shine",
+      "text": "Clean so that you inspect as you go, spotting leaks, wear and hazards early."
+     },
+     {
+      "label": "Standardize",
+      "text": "Capture the good state with standard photos, checklists and named owners so it is repeatable."
+     },
+     {
+      "label": "Sustain",
+      "text": "Audits, leader routines and closed-loop actions keep the standard alive and trigger the next round of Sort."
+     }
+    ]
+   }
+  },
+  {
+   "step": 6,
+   "type": "flow",
+   "title": "The red-tag process",
+   "caption": "Watch tagged items move through the event, then click Fix the bottleneck to see what happens when the holding area is cleared on schedule.",
+   "config": {
+    "steps": [
+     {
+      "label": "Prepare",
+      "text": "Agree the area, team, holding area, tag log, approval rules and safety briefing."
+     },
+     {
+      "label": "Tag items",
+      "text": "Work shelf by shelf, asking if each item is needed, needed here and needed in this quantity."
+     },
+     {
+      "label": "Holding area",
+      "text": "Tagged items wait for a fixed period, often one to four weeks, so owners can claim them."
+     },
+     {
+      "label": "Decide disposition",
+      "text": "Return, relocate, sell or recycle, or dispose safely through proper channels."
+     },
+     {
+      "label": "Clear and record",
+      "text": "Empty the holding area completely and photograph the area after Sort."
+     }
+    ],
+    "bottleneck": 2,
+    "fix_text": "Set a firm review date and an approver for disposals so the holding area is cleared completely instead of becoming a new pile of clutter."
+   }
+  },
+  {
+   "step": 7,
+   "type": "bars",
+   "title": "Minutes lost searching per task",
+   "caption": "Example values for a single packing station before Set in Order, not real benchmarks; notice which search dominates.",
+   "config": {
+    "unit": "min",
+    "items": [
+     {
+      "label": "Finding tape gun",
+      "value": 3
+     },
+     {
+      "label": "Finding box sizes",
+      "value": 5
+     },
+     {
+      "label": "Finding label rolls",
+      "value": 4
+     },
+     {
+      "label": "Finding packing slips",
+      "value": 8,
+      "highlight": true
+     },
+     {
+      "label": "Finding scale",
+      "value": 2
+     }
+    ],
+    "note": "In this example, giving paperwork a labelled home at the point of use removes the largest single search."
+   }
+  },
+  {
+   "step": 13,
+   "type": "compare",
+   "title": "A workbench before and after 5S",
+   "caption": "Toggle between the two states and notice how each change makes the normal condition visible.",
+   "config": {
+    "left": {
+     "title": "Before 5S",
+     "points": [
+      "Tools mixed in drawers and on the bench top",
+      "Broken and unused items kept just in case",
+      "Spills and offcuts cleaned only when someone complains",
+      "No agreed layout, so each shift sets it up differently"
+     ]
+    },
+    "right": {
+     "title": "After 5S",
+     "points": [
+      "Shadow board shows each tool's home and any gaps",
+      "Only needed items, in the needed quantity, remain",
+      "Daily clean doubles as an inspection with abnormality tags",
+      "Posted standard photo and checklist with a named owner"
+     ]
+    }
+   }
+  },
+  {
+   "step": 15,
+   "type": "stack",
+   "title": "Building blocks of Sustain",
+   "caption": "The structure builds from the bottom up; click each layer to see why it depends on the one below.",
+   "config": {
+    "top_label": "5S that sticks",
+    "layers": [
+     {
+      "label": "Clear standards",
+      "text": "Practical standard photos, checklists and zone owners define what good looks like."
+     },
+     {
+      "label": "Checks and audits",
+      "text": "Owner checks plus scheduled audits by someone outside the area, scored against the baseline criteria."
+     },
+     {
+      "label": "Closed-loop actions",
+      "text": "Every finding gets an owner and a date and is closed, so audits feel worthwhile."
+     },
+     {
+      "label": "Leader routines",
+      "text": "Supervisors and managers walk the area regularly and ask about the standard."
+     },
+     {
+      "label": "Culture of recognition",
+      "text": "Progress and good ideas are noticed and shared until 5S is simply how the area works."
+     }
+    ]
+   }
+  },
+  {
+   "step": 22,
+   "type": "timeline",
+   "title": "Your 90-day 5S plan",
+   "caption": "Click each phase to see its key activities and outputs for the pilot area.",
+   "config": {
+    "phases": [
+     {
+      "label": "Weeks 1–2",
+      "title": "Prepare and assess",
+      "items": [
+       "Define the area and form the team",
+       "Involve the safety representative",
+       "Baseline audit, photos and search-time sample"
+      ]
+     },
+     {
+      "label": "Weeks 3–7",
+      "title": "Sort and Set in Order",
+      "items": [
+       "Red-tag event and holding area",
+       "Spaghetti diagram and trial layout",
+       "Labels, shadow boards and floor marking"
+      ]
+     },
+     {
+      "label": "Weeks 8–11",
+      "title": "Shine and Standardize",
+      "items": [
+       "Zones, owners and cleaning-as-inspection",
+       "Fix one source of mess",
+       "Standard photo, checklist and one-point lessons"
+      ]
+     },
+     {
+      "label": "Weeks 12–13",
+      "title": "Sustain",
+      "items": [
+       "Audit schedule with a peer auditor",
+       "Leader walks start",
+       "Follow-up audit and day-90 review"
+      ]
+     }
+    ]
+   }
+  }
  ]
 }

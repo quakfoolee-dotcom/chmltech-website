@@ -52,6 +52,10 @@
     outlineLinks.forEach(function (a) { a.classList.toggle('is-current', a.getAttribute('data-goto') === id); if (a.getAttribute('data-goto') === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
     var view = root.querySelector('[data-view="' + id + '"]');
     if (id.indexOf('lab-') === 0) initLab(id.slice(4), view);
+    if (window.ChmFig && DATA.figures) Array.prototype.forEach.call(view.querySelectorAll('.cfig'), function (f) {
+      f.setAttribute('data-ready-host', '1');
+      window.ChmFig.render(f.querySelector('.fig-host'), DATA.figures[+f.getAttribute('data-fig')]);
+    });
     if (id === 'exam') initExam(view);
     if (id === 'certificate') initCert(view);
     var outline = document.querySelector('.course-outline details'); if (outline && window.innerWidth < 1000) outline.open = false;
