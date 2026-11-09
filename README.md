@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V3** (see `CHANGELOG.md`).
+Version: **V3.1** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -47,7 +47,8 @@ Each form includes a hidden spam honeypot field (`_gotcha`).
 
 - **GitHub Pages:** go to Settings → Pages, set the source to the `main` branch and the `/ (root)` folder.
 - **Netlify or Cloudflare Pages:** drag and drop the folder, or connect the repository. Leave the build command empty and set the publish directory to `/`.
-- **Custom domain:** point `www.chmltech-consulting.com` at the host. Canonical URLs and `sitemap.xml` already use that domain.
+- **Custom domain:** the site is served at `www.chmltech.com`, set by the `CNAME` file. DNS is at IONOS: four A records for `@` (185.199.108–111.153) and a CNAME for `www` pointing to `quakfoolee-dotcom.github.io`. Keep the MX, SPF, DKIM and DMARC records unchanged, because they carry email.
+- **Forwarding domain:** `chmltech-consulting.com` should redirect to `https://www.chmltech.com/` and keep the page path, so old `/post/...` links still land on the same article.
 
 ## Adding a new article
 
@@ -59,7 +60,7 @@ Each form includes a hidden spam honeypot field (`_gotcha`).
 
 1. Deploy this repository (GitHub Pages: Settings → Pages → `main` / root).
 2. Set up Formspree (see above) so the forms deliver email.
-3. Point the domain `www.chmltech-consulting.com` at GitHub Pages: add a `CNAME` file containing `www.chmltech-consulting.com`, then update DNS at your registrar.
+3. Done: `www.chmltech.com` points to GitHub Pages. Next, set `chmltech-consulting.com` to forward to it while keeping page paths (Cloudflare redirect rule, or registrar forwarding if it keeps paths).
 4. Check a few old addresses, for example `/post/...`, `/scaling-up` and `/challenges`.
 5. Cancel the Wix premium plan. If Wix is also the domain registrar, transfer the domain before cancelling.
 

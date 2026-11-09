@@ -1,5 +1,10 @@
 # Changelog
 
+## V3.1 — 2026-11-08
+- Primary address is now www.chmltech.com (DNS at IONOS points to GitHub Pages). Added a `CNAME` file.
+- Canonical URLs, Open Graph tags, sitemap.xml and robots.txt updated to www.chmltech.com.
+- chmltech-consulting.com becomes a forwarding domain (path-preserving redirect to www.chmltech.com).
+
 ## V3 — 2026-11-08
 - Full migration off Wix: all site content now lives in this repository. Nothing loads from Wix.
 - Insights: every published article migrated to `post/<slug>.html`, with images, publish dates, authors, tags, related articles and BlogPosting structured data. The Insights page has search, category filters and "show more".
