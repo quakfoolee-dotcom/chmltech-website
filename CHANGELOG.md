@@ -1,5 +1,18 @@
 # Changelog
 
+## V4.4 — 2026-11-09
+- Rebuilt three solution pages with stronger writeups, each built on the original Chmltech content: Artificial Intelligence, Business Process Optimization and Process Improvement.
+- Animated header illustrations:
+  - **AI:** a neural network feeding a chat assistant.
+  - **BPO:** a tangled process path straightening into a clean flow, with Identify → Analyze → Implement → Monitor.
+  - **Process Improvement:** a continuous-improvement staircase with a rising KPI gauge.
+- Two interactive diagrams per page:
+  - **AI:** idea-to-value cycle and AI foundations stack.
+  - **BPO:** 4-step method cycle and a purchase-order approval flow with a fixable bottleneck.
+  - **Process Improvement:** Lean program timeline and a report-and-leave vs. embedded-team comparison.
+- New sections: overview, signs you need this, services and deliverables, AI use cases and ways to start, before/after real examples, outcomes, Lean and people approach, FAQs, related free courses and related articles.
+- New `assets/js/svc.js` renders the diagrams on solution pages.
+
 ## V4.3 — 2026-11-09
 - Three more free interactive courses:
   - **AI Awareness for Everyone:** 21 lessons, entry level for all staff. Labs: "Fact, myth or it depends?", "Is it safe to share?", AI awareness check.
