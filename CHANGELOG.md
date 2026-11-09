@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.11 — 2026-11-09
+- **Email address protection.** The address no longer appears in the page source on any page, so bots that harvest addresses for spam and phishing lists can't scrape it. It used to appear 683 times across 189 pages.
+  - Visitors still see and click the real address: the site script rebuilds it in the browser.
+  - Without JavaScript, the link reads "info [at] chmltech [dot] com" and opens the contact form.
+  - The form email fallback builds the address in code.
+  - The Contact page's search description no longer includes the address.
+  - The address is spelled out in the README and changelog as well, because the repository is public.
+
 ## V4.10 — 2026-11-09
 - Rebuilt the Lean Six Sigma Training page (`lean-six-sigma-training.html`) with new writing and design, in the same style as the other rebuilt solution pages.
 - **Animated header:** the DMAIC phases light up in turn. During Improve, the process curve narrows inside its spec limits and the out-of-spec defects disappear; Control holds the gain.
@@ -165,7 +173,7 @@
 - Fixed the Insights category filters, search and "Show more", and the same controls on the Training exam library. Filtered-out cards were marked hidden but stayed visible because the card styles overrode the browser's hiding; a global `[hidden]{display:none}` rule fixes it.
 
 ## V3.5 — 2026-11-08
-- Forms now deliver by email: Contact, Book Online and the Insights subscription post to FormSubmit, which emails info@chmltech.com. They no longer depend on the visitor's email app.
+- Forms now deliver by email: Contact, Book Online and the Insights subscription post to FormSubmit, which emails info [at] chmltech [dot] com. They no longer depend on the visitor's email app.
 - Submission emails use a table layout and a clear subject, with Reply-To set to the visitor's email. The spam honeypot field is renamed to `_honey`.
 - Clear on-page messages for sent, not-yet-activated and failed cases; the email draft is offered only when online sending fails.
 

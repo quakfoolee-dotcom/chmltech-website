@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.10** (see `CHANGELOG.md`).
+Version: **V4.11** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -37,12 +37,21 @@ python3 -m http.server 8000
 
 The Contact, Book Online and Insights subscription forms send submissions by email through [Web3Forms](https://web3forms.com) (free plan, 250 submissions a month).
 
-- **Account:** the form "Chmltech Website" lives in the Web3Forms account of quakfoo.lee@gmail.com. Submissions go to that account's recipient email; change it in the Web3Forms dashboard.
+- **Account:** the form "Chmltech Website" lives in the Web3Forms account of the owner's Gmail account. Submissions go to that account's recipient email; change it in the Web3Forms dashboard.
 - **Access key:** `WEB3FORMS_KEY` in `assets/js/main.js`. The key is designed to be public. To rotate it, create a new key in Web3Forms and replace it there.
 - **Emails:** the subject names the form and the sender, for example "Strategy call booking request — Name". The visitor's email is included, so you can reply directly.
 - **Spam:** a hidden honeypot checkbox (`botcheck`) blocks simple bots. You can turn on extra spam filtering in the Web3Forms dashboard.
-- **Fallback:** if the service can't be reached, the visitor is offered an email draft to info@chmltech.com.
+- **Fallback:** if the service can't be reached, the visitor is offered an email draft to info [at] chmltech [dot] com.
 - Web3Forms only accepts submissions from real browsers, so test from the live site.
+
+## Email address protection
+
+The email address is never written into the page source, so address-harvesting bots can't scrape it.
+
+- Email links are written as `<a class="js-mail" data-u="info" data-d="chmltech.com" href="contact.html">info [at] chmltech [dot] com</a>`.
+- `assets/js/main.js` rebuilds the real address and `mailto:` link in the visitor's browser.
+- Without JavaScript, the link shows the spelled-out form and opens the contact form.
+- After each build, run `python3 gen/protect_email.py <site_dir>`. It is safe to run twice. It reports any page that still contains the plain address.
 
 ## Deploy
 

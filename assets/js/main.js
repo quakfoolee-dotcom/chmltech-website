@@ -2,6 +2,13 @@
 (function () {
   'use strict';
 
+  /* Email links: the address is not in the page source (anti-harvesting); rebuild it for people (V4.11) */
+  Array.prototype.forEach.call(document.querySelectorAll('.js-mail[data-u][data-d]'), function (a) {
+    var addr = a.getAttribute('data-u') + '@' + a.getAttribute('data-d'), q = a.getAttribute('data-q');
+    a.setAttribute('href', 'mailto:' + addr + (q ? '?' + q : ''));
+    a.textContent = addr;
+  });
+
   /* Mobile navigation */
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');
@@ -30,7 +37,7 @@
   /* Forms: submissions are emailed by Web3Forms (https://web3forms.com) using the public
      access key below. The endpoint is set per form in data-endpoint. If the service cannot
      be reached, the visitor is offered an email draft instead. */
-  var CONTACT_EMAIL = 'info@chmltech.com';
+  var CONTACT_EMAIL = ['info', 'chmltech.com'].join('@');
   var WEB3FORMS_KEY = 'c6fc23a3-54c8-4bbc-a5c3-06be5ca70a70';
   var forms = document.querySelectorAll('form[data-endpoint]');
   Array.prototype.forEach.call(forms, function (form) {
