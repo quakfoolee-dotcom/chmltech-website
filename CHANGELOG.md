@@ -1,5 +1,15 @@
 # Changelog
 
+## V4.17 — 2026-11-09
+- **Journal PDF downloads with lead capture.** Each Chmltech Online Journal paper has a "Download PDF" button under the abstract and another in the sidebar.
+  - The button opens a short form: full name, work email, company (optional), and an unticked "Send me occasional updates" box.
+  - On submit, Web3Forms emails the lead to Chmltech with the subject "Journal PDF download — Vol. X, Issue Y — Name". The email lists name, email, company, updates choice, paper and page. The PDF then downloads straight away.
+  - The reader's details are remembered in their browser, so the next paper takes one click; each download is still sent as a lead.
+  - If the form service can't be reached, the download goes ahead anyway, so a reader is never blocked.
+  - The "Print or save as PDF" button is removed. The web version of every paper stays fully public.
+- **PDFs:** `gen/journal_pdfs.js` prints each paper to `assets/journal/pdf/chmltech-journal-vol<V>-issue<I>.pdf`, with a running footer showing the journal, volume and issue, and page numbers. `robots.txt` keeps the PDF folder out of search engines.
+- **New privacy notice** (`privacy.html`), linked from every page footer and from the download form. It covers the forms, journal downloads, service providers (Web3Forms, GitHub Pages, Google Fonts), browser storage, and how to ask for access, correction or deletion.
+
 ## V4.16 — 2026-11-09
 - **Figures in all Chmltech Online Journal papers.** After the CAPEX/OPEX pilot (V4.15), the other nine papers now have figures too: 30 across the journal. Each is numbered, captioned, referenced in the text, credited with a source line, and given alt text.
 
