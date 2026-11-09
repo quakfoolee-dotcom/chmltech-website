@@ -1,5 +1,10 @@
 # Changelog
 
+## V3.5 — 2026-11-08
+- Forms now deliver by email: Contact, Book Online and the Insights subscription post to FormSubmit, which emails info@chmltech.com. They no longer depend on the visitor's email app.
+- Submission emails use a table layout and a clear subject, with Reply-To set to the visitor's email. The spam honeypot field is renamed to `_honey`.
+- Clear on-page messages for sent, not-yet-activated and failed cases; the email draft is offered only when online sending fails.
+
 ## V3.4 — 2026-11-08
 - New solution: **AI Operating System** (`ai-operating-system.html`). Covers what an AI OS is, the six building blocks, the five-phase build approach, benefits, FAQs and related reading.
 - Animated SVG illustration: systems and data flow into the AI OS core, which delivers assistants, automations, KPIs and decisions under a governance layer. Motion is disabled for visitors who choose reduced motion.

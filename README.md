@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V3.4** (see `CHANGELOG.md`).
+Version: **V3.5** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -33,15 +33,15 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Make the forms send email (5 minutes)
+## Forms (email delivery)
 
-The Contact, Book Online and Insights forms post to a form service. Until one is configured, submitting a form opens the visitor's email app with the message addressed to info@chmltech.com.
+The Contact, Book Online and Insights subscription forms send submissions by email to **info@chmltech.com** through [FormSubmit](https://formsubmit.co), a free service that needs no account.
 
-1. Create a free form at https://formspree.io (or any service that accepts a standard form POST and returns JSON).
-2. Copy the endpoint, which looks like `https://formspree.io/f/abcdwxyz`.
-3. Replace `https://formspree.io/f/YOUR_FORM_ID` in `contact.html`, `book.html` and `insights.html`.
-
-Each form includes a hidden spam honeypot field (`_gotcha`).
+- **One-time activation:** the first submission from the live site triggers an "Activate Form" email to info@chmltech.com. Click the link once; after that every submission is delivered. Check the spam folder if the email doesn't arrive.
+- **Emails:** each submission arrives as a table, with a subject such as "Strategy call booking request — Name". Reply-To is set to the submitter's email, so you can answer directly.
+- **Changing the address:** replace `info@chmltech.com` in the `data-endpoint` attributes of `contact.html`, `book.html` and `insights.html`, and in `CONTACT_EMAIL` in `assets/js/main.js`. Then activate again.
+- **Spam:** a hidden honeypot field (`_honey`) blocks simple bots.
+- **Fallback:** if the service can't be reached, the visitor is offered an email draft instead.
 
 ## Deploy
 
@@ -59,7 +59,7 @@ Each form includes a hidden spam honeypot field (`_gotcha`).
 ## Leaving Wix: checklist
 
 1. Deploy this repository (GitHub Pages: Settings → Pages → `main` / root).
-2. Set up Formspree (see above) so the forms deliver email.
+2. Done: forms deliver to info@chmltech.com via FormSubmit (see Forms above). Activate once.
 3. Done: `www.chmltech.com` points to GitHub Pages. Next, set `chmltech-consulting.com` to forward to it while keeping page paths (Cloudflare redirect rule, or registrar forwarding if it keeps paths).
 4. Check a few old addresses, for example `/post/...`, `/scaling-up` and `/challenges`.
 5. Cancel the Wix premium plan. If Wix is also the domain registrar, transfer the domain before cancelling.

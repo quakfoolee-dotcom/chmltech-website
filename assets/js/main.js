@@ -27,8 +27,9 @@
     if (sel) for (var j = 0; j < sel.options.length; j++) if (sel.options[j].value === svc) sel.selectedIndex = j;
   }
 
-  /* Forms: post to Formspree (or any JSON endpoint) set in data-endpoint.
-     Until a real endpoint is configured, fall back to opening an email draft. */
+  /* Forms: submissions are emailed to CONTACT_EMAIL by FormSubmit (https://formsubmit.co).
+     The endpoint is set per form in data-endpoint. If the service cannot be reached,
+     the visitor is offered an email draft instead. */
   var CONTACT_EMAIL = 'info@chmltech.com';
   var forms = document.querySelectorAll('form[data-endpoint]');
   Array.prototype.forEach.call(forms, function (form) {
@@ -37,29 +38,49 @@
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
       var data = new FormData(form);
-      if (data.get('_gotcha')) return; // spam honeypot
+      if (data.get('_honey')) return; // spam honeypot
       var endpoint = form.getAttribute('data-endpoint');
       var btn = form.querySelector('[type="submit"]');
+      var subject = (form.getAttribute('data-subject') || 'Website enquiry') + ' — ' + (data.get('name') || '');
 
-      if (!endpoint || endpoint.indexOf('YOUR_FORM_ID') !== -1) {
+      function mailtoFallback(prefix) {
         var lines = [];
         data.forEach(function (v, k) { if (k.charAt(0) !== '_' && v) lines.push(k.replace(/_/g, ' ') + ': ' + v); });
-        var subject = (form.getAttribute('data-subject') || 'Website enquiry') + ' — ' + (data.get('name') || '');
-        location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
-        show('ok', 'Your email app should open with your message ready to send. If it does not, email us at ' + CONTACT_EMAIL + '.');
-        return;
+        var href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+        status.className = 'form-status err';
+        status.innerHTML = '';
+        status.appendChild(document.createTextNode(prefix + ' '));
+        var a = document.createElement('a'); a.href = href; a.textContent = 'Send it by email instead';
+        status.appendChild(a);
+        status.appendChild(document.createTextNode(' or write to ' + CONTACT_EMAIL + '.'));
+        status.focus();
       }
 
+      if (!endpoint) { mailtoFallback('Online sending is not available right now.'); return; }
+
+      var payload = {};
+      data.forEach(function (v, k) { if (k !== '_honey') payload[k] = v; });
+      payload._subject = subject;
+      payload._template = 'table';
+      payload._captcha = 'false';
+      if (payload.email) payload._replyto = payload.email;
+
       btn.disabled = true; var label = btn.textContent; btn.textContent = 'Sending…';
-      fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-        .then(function (r) {
-          if (!r.ok) throw new Error('Request failed');
-          form.reset();
-          show('ok', form.getAttribute('data-success') || 'Thank you. We will be in touch within one business day.');
+      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          var success = res.ok && (res.j.success === true || res.j.success === 'true');
+          if (success) {
+            form.reset();
+            show('ok', form.getAttribute('data-success') || 'Thank you. Your message has been sent and we will reply within one business day.');
+          } else if (res.j && /activat/i.test(res.j.message || '')) {
+            // First-ever submission: FormSubmit has emailed an "Activate Form" link to CONTACT_EMAIL.
+            mailtoFallback('Our online form is being activated, so this message was not delivered.');
+          } else {
+            mailtoFallback('Sorry, your message could not be sent.');
+          }
         })
-        .catch(function () {
-          show('err', 'Sorry, something went wrong. Please email us at ' + CONTACT_EMAIL + '.');
-        })
+        .catch(function () { mailtoFallback('Sorry, your message could not be sent.'); })
         .then(function () { btn.disabled = false; btn.textContent = label; });
     });
     function show(kind, msg) {
