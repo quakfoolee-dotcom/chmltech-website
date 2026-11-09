@@ -1,5 +1,9 @@
 # Changelog
 
+## V3.8 — 2026-11-09
+- Forms switched from FormSubmit to Web3Forms (fixed access key, no per-page activation). Contact, Book Online and the Insights subscription all deliver through one key.
+- Submissions are sent as a simple FormData request (no CORS preflight); the honeypot field is renamed to `botcheck`.
+
 ## V3.7 — 2026-11-09
 - Forms: always send the page origin (`referrerPolicy` plus a `<meta name="referrer">` tag on every page). FormSubmit rejects submissions without it, which caused "could not be sent" in some browsers.
 - Clearer message when a browser's privacy settings block sending, or when a page is opened from a local file.

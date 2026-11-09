@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V3.7** (see `CHANGELOG.md`).
+Version: **V3.8** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -35,13 +35,14 @@ python3 -m http.server 8000
 
 ## Forms (email delivery)
 
-The Contact, Book Online and Insights subscription forms send submissions by email to **info@chmltech.com** through [FormSubmit](https://formsubmit.co), a free service that needs no account.
+The Contact, Book Online and Insights subscription forms send submissions by email through [Web3Forms](https://web3forms.com) (free plan, 250 submissions a month).
 
-- **One-time activation:** the first submission from the live site triggers an "Activate Form" email to info@chmltech.com. Click the link once; after that every submission is delivered. Check the spam folder if the email doesn't arrive.
-- **Emails:** each submission arrives as a table, with a subject such as "Strategy call booking request — Name". Reply-To is set to the submitter's email, so you can answer directly.
-- **Changing the address:** replace `info@chmltech.com` in the `data-endpoint` attributes of `contact.html`, `book.html` and `insights.html`, and in `CONTACT_EMAIL` in `assets/js/main.js`. Then activate again.
-- **Spam:** a hidden honeypot field (`_honey`) blocks simple bots.
-- **Fallback:** if the service can't be reached, the visitor is offered an email draft instead.
+- **Account:** the form "Chmltech Website" lives in the Web3Forms account of quakfoo.lee@gmail.com. Submissions go to that account's recipient email; change it in the Web3Forms dashboard.
+- **Access key:** `WEB3FORMS_KEY` in `assets/js/main.js`. The key is designed to be public. To rotate it, create a new key in Web3Forms and replace it there.
+- **Emails:** the subject names the form and the sender, for example "Strategy call booking request — Name". The visitor's email is included, so you can reply directly.
+- **Spam:** a hidden honeypot checkbox (`botcheck`) blocks simple bots. You can turn on extra spam filtering in the Web3Forms dashboard.
+- **Fallback:** if the service can't be reached, the visitor is offered an email draft to info@chmltech.com.
+- Web3Forms only accepts submissions from real browsers, so test from the live site.
 
 ## Deploy
 
@@ -59,7 +60,7 @@ The Contact, Book Online and Insights subscription forms send submissions by ema
 ## Leaving Wix: checklist
 
 1. Deploy this repository (GitHub Pages: Settings → Pages → `main` / root).
-2. Done: forms deliver to info@chmltech.com via FormSubmit (see Forms above). Activate once.
+2. Done: forms deliver by email via Web3Forms (see Forms above).
 3. Done: `www.chmltech.com` points to GitHub Pages. Next, set `chmltech-consulting.com` to forward to it while keeping page paths (Cloudflare redirect rule, or registrar forwarding if it keeps paths).
 4. Check a few old addresses, for example `/post/...`, `/scaling-up` and `/challenges`.
 5. Cancel the Wix premium plan. If Wix is also the domain registrar, transfer the domain before cancelling.

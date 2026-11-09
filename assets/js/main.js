@@ -27,10 +27,11 @@
     if (sel) for (var j = 0; j < sel.options.length; j++) if (sel.options[j].value === svc) sel.selectedIndex = j;
   }
 
-  /* Forms: submissions are emailed to CONTACT_EMAIL by FormSubmit (https://formsubmit.co).
-     The endpoint is set per form in data-endpoint. If the service cannot be reached,
-     the visitor is offered an email draft instead. */
+  /* Forms: submissions are emailed by Web3Forms (https://web3forms.com) using the public
+     access key below. The endpoint is set per form in data-endpoint. If the service cannot
+     be reached, the visitor is offered an email draft instead. */
   var CONTACT_EMAIL = 'info@chmltech.com';
+  var WEB3FORMS_KEY = 'c6fc23a3-54c8-4bbc-a5c3-06be5ca70a70';
   var forms = document.querySelectorAll('form[data-endpoint]');
   Array.prototype.forEach.call(forms, function (form) {
     var status = form.querySelector('.form-status');
@@ -38,14 +39,14 @@
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
       var data = new FormData(form);
-      if (data.get('_honey')) return; // spam honeypot
+      if (data.get('botcheck')) return; // spam honeypot
       var endpoint = form.getAttribute('data-endpoint');
       var btn = form.querySelector('[type="submit"]');
       var subject = (form.getAttribute('data-subject') || 'Website enquiry') + ' — ' + (data.get('name') || '');
 
       function mailtoFallback(prefix) {
         var lines = [];
-        data.forEach(function (v, k) { if (k.charAt(0) !== '_' && v) lines.push(k.replace(/_/g, ' ') + ': ' + v); });
+        data.forEach(function (v, k) { if (k !== 'botcheck' && v) lines.push(k.replace(/_/g, ' ') + ': ' + v); });
         var href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
         status.className = 'form-status err';
         status.innerHTML = '';
@@ -58,27 +59,21 @@
 
       if (!endpoint) { mailtoFallback('Online sending is not available right now.'); return; }
 
-      var payload = {};
-      data.forEach(function (v, k) { if (k !== '_honey') payload[k] = v; });
-      payload._subject = subject;
-      payload._template = 'table';
-      payload._captcha = 'false';
-      if (payload.email) payload._replyto = payload.email;
+      // Plain FormData body (no custom Content-Type) = a "simple" CORS request with no preflight.
+      var payload = new FormData();
+      payload.append('access_key', WEB3FORMS_KEY);
+      payload.append('subject', subject);
+      payload.append('from_name', 'Chmltech Website');
+      data.forEach(function (v, k) { if (k !== 'botcheck') payload.append(k, v); });
+      payload.append('page', location.href);
 
       btn.disabled = true; var label = btn.textContent; btn.textContent = 'Sending…';
-      fetch(endpoint, { method: 'POST', referrerPolicy: 'strict-origin-when-cross-origin', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
+      fetch(endpoint, { method: 'POST', headers: { 'Accept': 'application/json' }, body: payload })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
-          var success = res.ok && (res.j.success === true || res.j.success === 'true');
-          if (success) {
+          if (res.ok && (res.j.success === true || res.j.success === 'true')) {
             form.reset();
             show('ok', form.getAttribute('data-success') || 'Thank you. Your message has been sent and we will reply within one business day.');
-          } else if (res.j && /web server/i.test(res.j.message || '')) {
-            // Browser did not send the page address (privacy setting/extension, or page opened from a local file).
-            mailtoFallback(location.protocol === 'file:' ? 'Online sending only works on the live website.' : 'Your browser blocked online sending (privacy settings).');
-          } else if (res.j && /activat/i.test(res.j.message || '')) {
-            // First-ever submission: FormSubmit has emailed an "Activate Form" link to CONTACT_EMAIL.
-            mailtoFallback('Our online form is being activated, so this message was not delivered.');
           } else {
             mailtoFallback('Sorry, your message could not be sent.');
           }
