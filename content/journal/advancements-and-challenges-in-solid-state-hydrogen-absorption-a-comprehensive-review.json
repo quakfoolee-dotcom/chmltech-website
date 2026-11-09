@@ -75,7 +75,16 @@
      "n": 1
     },
     {
-     "p": "The process proceeds through several elementary steps: physisorption of H<sub>2</sub> on the surface, dissociation into chemisorbed H atoms, penetration into the subsurface, diffusion through the lattice as a dilute solid solution (the α phase), and, once the local concentration exceeds the solubility limit, nucleation and growth of the hydride (β) phase [1, 2]. In a pressure–composition isotherm the coexistence of the α and β phases appears as a plateau, at which the equilibrium pressure P<sub>eq</sub> is ideally independent of composition. The width of the plateau determines the reversible capacity; its height at a given temperature defines the thermodynamic operating window. Real materials show sloping plateaus and hysteresis between absorption and desorption, caused by lattice strain and defects."
+     "p": "The process proceeds through several elementary steps: physisorption of H<sub>2</sub> on the surface, dissociation into chemisorbed H atoms, penetration into the subsurface, diffusion through the lattice as a dilute solid solution (the α phase), and, once the local concentration exceeds the solubility limit, nucleation and growth of the hydride (β) phase [1, 2]. In a pressure–composition isotherm the coexistence of the α and β phases appears as a plateau, at which the equilibrium pressure P<sub>eq</sub> is ideally independent of composition. The width of the plateau determines the reversible capacity; its height at a given temperature defines the thermodynamic operating window. Real materials show sloping plateaus and hysteresis between absorption and desorption, caused by lattice strain and defects. Figure 1 sketches these features: the plateau rises and shortens as temperature increases, so the reversible capacity available at a given pressure depends on the operating temperature."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-pci-isotherms",
+      "caption": "Schematic pressure–composition isotherms at three temperatures, showing the α solid solution, the α + β plateau and the β hydride branch. The dotted line bounds the two-phase region. Axes are in relative units; sloping plateaus and hysteresis are simplified.",
+      "alt": "Schematic chart of the logarithm of pressure against hydrogen content for three temperatures. Each curve rises steeply in the alpha solid-solution region, runs almost flat across the alpha plus beta plateau and rises again in the beta hydride region. Higher temperatures give higher and shorter plateaus inside a dotted two-phase envelope.",
+      "source": "Schematic by the author after the description in [1, 2]."
+     }
     },
     {
      "h3": "2.2 Thermodynamics: the van 't Hoff relation"
@@ -95,7 +104,16 @@
      "n": 3
     },
     {
-     "p": "With ΔS ≈ −130 J mol<sup>−1</sup> K<sup>−1</sup>, a plateau of 1 bar near room temperature requires |ΔH| ≈ 39 kJ mol<sup>−1</sup> H<sub>2</sub>, and a material that delivers hydrogen at a few bar to a proton exchange membrane fuel cell operating at about 80 °C requires |ΔH| in the range of roughly 30–45 kJ mol<sup>−1</sup> H<sub>2</sub> [1, 2]. Magnesium hydride, with ΔH<sub>abs</sub> ≈ −75 kJ mol<sup>−1</sup> H<sub>2</sub>, reaches 1 bar only near 300 °C [3]. This simple relation explains why the search for storage materials has been, to a large extent, a search for the right enthalpy."
+     "p": "With ΔS ≈ −130 J mol<sup>−1</sup> K<sup>−1</sup>, a plateau of 1 bar near room temperature requires |ΔH| ≈ 39 kJ mol<sup>−1</sup> H<sub>2</sub>, and a material that delivers hydrogen at a few bar to a proton exchange membrane fuel cell operating at about 80 °C requires |ΔH| in the range of roughly 30–45 kJ mol<sup>−1</sup> H<sub>2</sub> [1, 2]. Magnesium hydride, with ΔH<sub>abs</sub> ≈ −75 kJ mol<sup>−1</sup> H<sub>2</sub>, reaches 1 bar only near 300 °C [3]. This simple relation explains why the search for storage materials has been, to a large extent, a search for the right enthalpy. Figure 2 applies Eq. (2) to the materials of Table 2: the intermetallic hydrides pass through the DOE delivery window near ambient temperature, whereas MgH<sub>2</sub> and Mg<sub>2</sub>NiH<sub>4</sub> reach 1 bar only near 300 °C."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-van-t-hoff",
+      "caption": "Van 't Hoff plot, Eq. (2), for representative hydrides. Solid lines use the absorption enthalpy from Table 2, with ΔS back-calculated from the equilibrium point stated in the text or Table 2 (marked). Dashed NaAlH<sub>4</sub> lines use the desorption enthalpies in Table 2 and the typical ΔS of −130 J mol<sup>−1</sup> K<sup>−1</sup> of Section 2.2 and are indicative only. The shaded box is the DOE delivery window of Table 1.",
+      "alt": "Line chart of the natural logarithm of equilibrium pressure against 1000 over temperature, with a temperature scale in degrees Celsius on top and pressure in bar on the right. LaNi5H6 and TiFeH2 lines cross 1 bar near room temperature and pass through the shaded DOE window of 5 to 12 bar at minus 40 to 85 degrees Celsius. Mg2NiH4 and MgH2 lines reach 1 bar only near 280 and 300 degrees Celsius. Dashed lines for the two sodium alanate steps lie between them.",
+      "source": "Author's calculation from Eq. (2) using the values in Table 2 and Sections 2.2 and 3.2; DOE window from Table 1."
+     }
     },
     {
      "h3": "2.3 Kinetics"
@@ -190,7 +208,7 @@
    "title": "Materials for Solid-State Hydrogen Storage",
    "blocks": [
     {
-     "p": "Four broad classes of materials have been investigated: interstitial and intermetallic hydrides, magnesium-based hydrides, complex hydrides, and chemical hydrides, together with porous physisorbents such as activated carbons, graphene-derived materials and metal–organic frameworks (MOFs). Representative properties are compiled in Table 2 at the end of this section."
+     "p": "Four broad classes of materials have been investigated: interstitial and intermetallic hydrides, magnesium-based hydrides, complex hydrides, and chemical hydrides, together with porous physisorbents such as activated carbons, graphene-derived materials and metal–organic frameworks (MOFs). Representative properties are compiled in Table 2 at the end of this section. Figure 3 places the same materials against the DOE targets and shows that the materials lying furthest beyond the targets are those with the highest operating temperatures or the most limited reversibility."
     },
     {
      "h3": "3.1 Interstitial and intermetallic hydrides"
@@ -359,6 +377,15 @@
        ]
       ],
       "note": "Sources: [1, 2, 3, 7, 10, 8, 26, 12, 17, 18, 14]. Volumetric densities are the author's estimates from crystallographic densities (±10%) and are given for orientation only; gravimetric values are calculated from stoichiometry."
+     }
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-capacity-map",
+      "caption": "Gravimetric and volumetric hydrogen capacity of the materials in Table 2, with the DOE system targets of Table 1 as dashed boundaries and liquid and 700 bar compressed hydrogen as dotted references. Material values are material-level and DOE targets are system-level, so a material must lie well beyond a target to meet it as a system. Orange points include hydrogen that is not reversibly released; materials without a volumetric value are shown on the horizontal axis.",
+      "alt": "Scatter chart of volumetric capacity in kilograms of hydrogen per cubic metre against gravimetric capacity in weight percent. Intermetallic hydrides sit at 1.4 to 3.6 weight percent and about 95 to 105 kilograms per cubic metre, MgH2 at 7.6 and 110, sodium alanate at 5.6 and 70, and LiBH4 and ammonia borane (total hydrogen) at 18.5 and 19.6 percent. Dashed DOE system target boundaries lie at 4.5 to 6.5 percent and 30 to 50 kilograms per cubic metre. Physisorbents and the reactive hydride composite appear as triangles on the horizontal axis.",
+      "source": "Drawn by the author from Tables 1 and 2 and Section 1 [1, 2, 6]."
      }
     }
    ]

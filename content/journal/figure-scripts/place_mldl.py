@@ -1,0 +1,14 @@
+import sys; sys.path.insert(0, __file__.rsplit("/", 1)[0])
+from insert import apply
+P = __file__.rsplit("/", 2)[0] + "/journal/copy-of-chmltech-online-journal-volume-103-issue-2.json"
+apply(P, [
+ dict(sec="1", after=1, ref=("1", 1), sentence="Figure 1 places the milestones discussed in this paper on a common timeline; most of the deep learning advances reviewed here fall in the six years from 2012 to 2017.",
+      fig=dict(n=1, id="fig1-timeline", caption="Milestones in machine learning and deep learning discussed in this paper, with the reference for each. Years are those of the cited work or, where the text states one, of the reported result; years are evenly spaced, not to scale.",
+               alt="Vertical timeline from 1986 to 2019. Machine learning milestones on the left include backpropagation in 1986, random forests in 2001, feature transfer in 2014, DQN in 2015, AlphaGo and LIME in 2016, AlphaGo Zero, SHAP and federated averaging in 2017, and the case for interpretable models in 2019. Deep learning milestones on the right include LSTM in 1997, LeNet in 1998, ImageNet in 2009, AlexNet in 2012, GAN in 2014, ResNet in 2015, the Transformer in 2017 and StyleGAN in 2019.",
+               source="Drawn by the author from the works cited in Sections 2, 3 and 6.")),
+ dict(sec="3", after=1, ref=("3", 0), sentence="Figure 2 contrasts how three of these families move information: a CNN through stacked local filters, an LSTM through a gated cell state updated once per time step, and a Transformer through attention across all positions within a single layer.",
+      fig=dict(n=2, id="fig2-architectures", caption="Schematic building blocks of three architecture families. (a) A CNN applies a shared kernel <em>K</em> at every position, Eq. (4), and pools to a class probability, Eq. (1). (b) An LSTM cell updates its cell state additively through forget and input gates, Eq. (5). (c) A Transformer encoder block applies self-attention, Eq. (6), and a feed-forward network, each wrapped in a residual connection and layer normalization.",
+               alt="Three-panel block diagram. Left: a convolutional network in which an input image with a small kernel passes through convolution and pooling stacks of shrinking size to a fully connected layer and class probabilities. Middle: an LSTM cell with forget, input, candidate and output gates fed by the previous hidden state and current input; the cell state runs across the top through a multiply and an add node. Right: a Transformer encoder block with token embeddings plus positional encoding, multi-head self-attention, add and layer norm, feed-forward network and a second add and layer norm, with two residual paths and a repeat-N marker.",
+               source="Drawn by the author after [19], [21] and [22], using the notation of Eqs. (1) and (4)–(6); the output gate follows [5].")),
+])
+print("placed")

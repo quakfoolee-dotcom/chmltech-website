@@ -86,7 +86,7 @@
      "h3": "3.1 Design principles"
     },
     {
-     "p": "The reference architecture rests on four principles. <strong>Mediation</strong>: agents and applications reach models, tools and data only through platform services that can authorize, meter and log each request, following the AIOS kernel concept [3] and the zero-trust principle that no request is trusted by virtue of its network location [14]. <strong>Separation of concerns</strong>: knowledge, models, tools and workflows are versioned and replaced independently, which limits the entanglement that Sculley et al. identified as a source of technical debt [1]. <strong>Least privilege</strong>: every agent acts under an identity whose permissions do not exceed those of the human or service on whose behalf it acts. <strong>Measurability</strong>: every unit of work produces a trace from which quality, cost and latency can be computed. Table 1 summarizes the resulting layers."
+     "p": "The reference architecture rests on four principles. <strong>Mediation</strong>: agents and applications reach models, tools and data only through platform services that can authorize, meter and log each request, following the AIOS kernel concept [3] and the zero-trust principle that no request is trusted by virtue of its network location [14]. <strong>Separation of concerns</strong>: knowledge, models, tools and workflows are versioned and replaced independently, which limits the entanglement that Sculley et al. identified as a source of technical debt [1]. <strong>Least privilege</strong>: every agent acts under an identity whose permissions do not exceed those of the human or service on whose behalf it acts. <strong>Measurability</strong>: every unit of work produces a trace from which quality, cost and latency can be computed. Table 1 summarizes the resulting layers. Figure 1 arranges the same ten layers as a stack: six lie on the path between applications and systems of record, while identity and permissions, governance, evaluation and observability, and cost control cut across all of them, so every request meets them whichever layers it uses."
     },
     {
      "table": {
@@ -161,6 +161,15 @@
        ]
       ],
       "note": "Synthesized by the author from [2, 3, 13, 17, 24]."
+     }
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-reference-architecture",
+      "caption": "The ten-layer reference architecture of Table 1. Six layers lie on the path from AI applications to systems of record; four cross-cutting layers apply to every request. Typical mechanisms are listed for each layer; the stacked and cross-cutting grouping is the author's.",
+      "alt": "Layered architecture diagram. Between a dashed box for AI applications and agents at the top and a dashed box for systems of record at the bottom are six stacked layers: workflow orchestration, agent and tool, memory, model access and routing, knowledge and retrieval, and data and integration, each with its typical mechanisms. To the right, four vertical bars spanning all six layers represent the cross-cutting layers: identity and permissions, governance, evaluation and observability, and cost control.",
+      "source": "Drawn by the author from Table 1."
      }
     },
     {
@@ -397,7 +406,16 @@
      }
     },
     {
-     "p": "The progression reflects a deliberate ordering. Managed access comes first because it provides the inventory and logging on which all later governance depends. Retrieval precedes tool use because read-only grounding carries lower risk than write actions and allows the organization to build evaluation capability before automation raises the stakes. Supervised automation introduces tools under human approval, which generates labeled data on agent decisions that later justifies relaxing approval for low-risk actions. Governed autonomy is reached only for workflows whose measured reliability, as in Eq. (4), and risk classification warrant it. This sequencing aligns with the iterative Govern–Map–Measure–Manage cycle of the NIST framework [17] and the continual-improvement structure of ISO/IEC 42001 [19]."
+     "fig": {
+      "n": 2,
+      "id": "fig2-maturity",
+      "caption": "The proposed five-stage maturity model of Table 3 as a staircase. Each step lists the capabilities added at that stage and, above it, the exit criterion for moving to the next stage; the bands below mark where tool actions and autonomy are introduced.",
+      "alt": "Staircase of five rising steps. Stage 0 Ad hoc, Stage 1 Managed access, Stage 2 Grounded assistance, Stage 3 Supervised automation and Stage 4 Governed autonomy, each listing its added capabilities such as single sign-on and gateway logging, a permission-filtered knowledge layer, a tool registry and delegated identity, and a policy engine. Exit criteria appear above each step. Bands beneath show stages 0 to 2 without tool actions, stage 3 with tools under human approval and stage 4 with autonomy within policy.",
+      "source": "Drawn by the author from Table 3."
+     }
+    },
+    {
+     "p": "The progression reflects a deliberate ordering. Managed access comes first because it provides the inventory and logging on which all later governance depends. Retrieval precedes tool use because read-only grounding carries lower risk than write actions and allows the organization to build evaluation capability before automation raises the stakes. Supervised automation introduces tools under human approval, which generates labeled data on agent decisions that later justifies relaxing approval for low-risk actions. Governed autonomy is reached only for workflows whose measured reliability, as in Eq. (4), and risk classification warrant it. This sequencing aligns with the iterative Govern–Map–Measure–Manage cycle of the NIST framework [17] and the continual-improvement structure of ISO/IEC 42001 [19]. Figure 2 draws Table 3 as a staircase: each stage adds capabilities to those below it, and tool actions appear only at Stage 3, after inventory, grounding and evaluation are in place."
     }
    ]
   },
@@ -415,7 +433,16 @@
      "p": "With 85% of invoices completed without intervention, Eq. (3) gives A = 0.85. Suppose the step reliabilities are 0.99, 0.98, 0.97 and 0.99. Eq. (4) gives R = 0.99 × 0.98 × 0.97 × 0.99 ≈ 0.932 for unattended operation. If the validation step is allowed a second independent attempt when a checksum fails, its effective reliability becomes 1 − 0.03<sup>2</sup> = 0.9991 and R rises to approximately 0.960, subject to the independence caveat in Section 4.3. Under these assumptions, the most effective improvement is not a cheaper model but a reduction in the escalation rate through better extraction on difficult layouts, since each percentage point of escalation removed saves about $0.02 per invoice, roughly the entire large-model cost."
     },
     {
-     "p": "The same scenario illustrates the governance controls. The extraction agent reads untrusted supplier documents and therefore holds no write-capable tools; posting is performed by deterministic code after validation and, above a value threshold, after human approval under the approver's own delegated identity. The workflow is registered in the inventory with an owner, an evaluation suite of labeled historical invoices and a documented model version, so that a model upgrade triggers re-evaluation before deployment."
+     "p": "The same scenario illustrates the governance controls. The extraction agent reads untrusted supplier documents and therefore holds no write-capable tools; posting is performed by deterministic code after validation and, above a value threshold, after human approval under the approver's own delegated identity. The workflow is registered in the inventory with an owner, an evaluation suite of labeled historical invoices and a documented model version, so that a model upgrade triggers re-evaluation before deployment. Figure 3 brings the workflow, its controls and the metrics of this section into one view, and shows that the human-review step, which is not part of the reliability product, carries most of the cost per invoice."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-invoice-workflow",
+      "caption": "The hypothetical invoice workflow of Section 7 with its step reliabilities, costs per invoice and controls. Eighty-five percent of invoices pass straight through and 15% are escalated for review; all values are the illustrative assumptions of this section.",
+      "alt": "Workflow diagram. A supplier invoice, marked untrusted, passes through intake and classification, field extraction by a large model, validation against purchase orders, human review for 15 percent of invoices, and posting by deterministic code to the accounting system; an arc shows 85 percent going straight from validation to posting. Rows beneath give step reliabilities of 0.99, 0.98, 0.97 or 0.9991 with retry, and 0.99, costs of 0.0255 and 0.00075 dollars for the model steps and 0.30 dollars averaged for review, and the controls at each step. A bar at the bottom gives cost per task of about 0.34 dollars, automation rate 0.85 and reliability 0.932, or about 0.960 with retry.",
+      "source": "Author's calculation from Eqs. (2)–(4) with the hypothetical inputs stated in this section."
+     }
     }
    ]
   },

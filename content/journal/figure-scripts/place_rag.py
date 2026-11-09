@@ -1,0 +1,18 @@
+import sys; sys.path.insert(0, __file__.rsplit("/", 1)[0])
+from insert import apply
+P = __file__.rsplit("/", 2)[0] + "/journal/retrieval-augmented-generation-design-evaluation-and-failure-analysis.json"
+apply(P, [
+ dict(sec="1", after=2, ref=("1", 2), sentence="Figure 1 maps the stages discussed in these sections onto a single pipeline and marks where each failure point of Section 7 typically originates, so that a failed answer can be traced to the stage where the evidence was lost.",
+      fig=dict(n=1, id="fig1-pipeline", caption="End-to-end enterprise RAG pipeline. Offline, documents are parsed, chunked with metadata, embedded and indexed; at query time the query is rewritten, retrieved from sparse and dense indexes, fused with RRF, re-ranked, assembled into a prompt, answered and checked for grounding. Orange tags mark the failure points FP1–FP7 of Table 2 at the stage where each typically originates.",
+               alt="Flow diagram in two lanes. Offline lane: source documents, parse and extract, chunk with metadata, embed chunks, and BM25 plus HNSW indexes. Online lane: user query, query rewrite, hybrid retrieval with access-control filter fed by the indexes, reciprocal rank fusion, re-ranking, context assembly, generation with citations, grounding check with a retry loop back to retrieval, and a cited answer or abstention. Failure-point tags: FP1 at source documents, FP6 at query rewrite, FP2 at retrieval, FP3 at context assembly and FP4 to FP7 at generation.",
+               source="Drawn by the author from Sections 3–7; failure points as listed in Table 2.")),
+ dict(sec="3", after=11, ref=("3", 11), sentence="Figure 2 works through Eq. (5) for two short ranked lists: a passage found by both retrievers at moderate ranks outscores a passage ranked first by only one of them.",
+      fig=dict(n=2, id="fig2-rrf", caption="Worked example of reciprocal rank fusion, Eq. (5), with k = 60, for hypothetical BM25 and dense top-5 lists of passages P1–P9. Each bar is split into the contribution of each retriever; the labels give the passage's rank in each list.",
+               alt="Horizontal stacked bar chart of fused RRF scores. Passages found by both retrievers rank first: P2 at 0.0323 (rank 2 in both lists), P7 at 0.0320 (BM25 rank 1, dense rank 4) and P1 at 0.0313. P5, ranked first by the dense retriever only, comes fourth at 0.0164, followed by single-list passages P9, P4 and P8 at about 0.015 to 0.016.",
+               source="Author's calculation from Eq. (5) for hypothetical rankings, with k = 60 as in [10].")),
+ dict(sec="6", after=5, ref=("6", 5), sentence="Figure 3 illustrates the difference for one query: re-ranking the same ten candidates leaves recall@10 unchanged but raises recall@5 from 0.67 to 1.00 and nDCG@5 from 0.43 to 0.98.",
+      fig=dict(n=3, id="fig3-retrieval-metrics", caption="Recall@k and nDCG@k from Eqs. (6) and (7) for one hypothetical query with three relevant passages (graded 2, 1 and 1). Ordering A is a first-stage hybrid list; ordering B is the same ten candidates after re-ranking. The dashed line marks the five passages passed to the generator.",
+               alt="Top: two rows of ten rank cells showing relevance grades; ordering A has relevant passages at ranks 2, 5 and 9, ordering B at ranks 1, 2 and 4. Bottom left: recall at k reaches 1.0 at k = 4 for B but only at k = 9 for A, with 0.67 versus 1.00 at k = 5. Bottom right: nDCG at k is about 0.98 for B from k = 4 onward, while A stays between 0 and 0.51, with 0.43 at k = 5.",
+               source="Author's calculation from Eqs. (6) and (7) for hypothetical relevance judgments.")),
+])
+print("placed")

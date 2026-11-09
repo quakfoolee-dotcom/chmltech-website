@@ -56,7 +56,16 @@
      "h3": "2.2 Digital model, digital shadow and digital twin"
     },
     {
-     "p": "Kritzinger et al. proposed a classification based on the degree of data integration between the physical and digital objects that has become widely adopted [4]. In a <em>digital model</em>, data are exchanged manually in both directions; a conventional process simulation, tuned off-line to plant data and used for studies, falls into this category. In a <em>digital shadow</em>, data flow automatically from the physical object to the digital object, but information flows back to the plant only through human decisions; an on-line simulation that tracks the plant and advises operators is an example. In a <em>digital twin</em>, data flow automatically in both directions, so that a change in the digital object can directly change the state of the physical object [4]. Jones et al., in a systematic review, characterized the digital twin in terms of the physical entity, the virtual entity, the physical and virtual environments, the twinning process with its rate, and the physical-to-virtual and virtual-to-physical connections [2]."
+     "p": "Kritzinger et al. proposed a classification based on the degree of data integration between the physical and digital objects that has become widely adopted [4]. In a <em>digital model</em>, data are exchanged manually in both directions; a conventional process simulation, tuned off-line to plant data and used for studies, falls into this category. In a <em>digital shadow</em>, data flow automatically from the physical object to the digital object, but information flows back to the plant only through human decisions; an on-line simulation that tracks the plant and advises operators is an example. In a <em>digital twin</em>, data flow automatically in both directions, so that a change in the digital object can directly change the state of the physical object [4]. Jones et al., in a systematic review, characterized the digital twin in terms of the physical entity, the virtual entity, the physical and virtual environments, the twinning process with its rate, and the physical-to-virtual and virtual-to-physical connections [2]. Figure 1 summarizes the three categories: they differ only in whether each of the two data flows is manual or automatic, not in the fidelity of the model."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-model-shadow-twin",
+      "caption": "Digital model, digital shadow and digital twin distinguished by the automation of the data flow from the physical to the digital object and of the information flow back. Dashed grey arrows are manual flows (a human in the loop); solid blue arrows are automatic. Process examples follow Section 2.2.",
+      "alt": "Three-panel diagram. Each panel shows a physical object box and a digital object box joined by two arrows. In the digital model both arrows are dashed grey, meaning manual. In the digital shadow the arrow from physical to digital is solid blue, meaning automatic, and the return arrow is dashed. In the digital twin both arrows are solid blue. Each panel has a process example below.",
+      "source": "Adapted from [4]."
+     }
     },
     {
      "p": "For process plants this classification has a practical consequence. Closing the loop from the digital object to the physical plant means that the twin, or a controller or optimizer driven by it, writes set points to the control system. That requirement brings the twin within the scope of process safety management, management of change and control-system cybersecurity. Many valuable process applications are therefore deliberately implemented as digital shadows, with a human in the loop, and the distinction should be made explicit in the design of the system."
@@ -89,7 +98,16 @@
      "h3": "3.3 Functional layers"
     },
     {
-     "p": "A process twin can be described as a sequence of functional layers: (i) data acquisition and validation, in which signals are checked for range, freezing, spikes and communication failures; (ii) data reconciliation and gross-error detection; (iii) state and parameter estimation, which update the model to the current condition of the plant; (iv) prediction and optimization services; and (v) visualization and decision support or closed-loop action. Each layer depends on the quality of the one below it, which is why data validation and reconciliation, often treated as auxiliary, are central to the credibility of the whole system [9, 10]."
+     "p": "A process twin can be described as a sequence of functional layers: (i) data acquisition and validation, in which signals are checked for range, freezing, spikes and communication failures; (ii) data reconciliation and gross-error detection; (iii) state and parameter estimation, which update the model to the current condition of the plant; (iv) prediction and optimization services; and (v) visualization and decision support or closed-loop action. Each layer depends on the quality of the one below it, which is why data validation and reconciliation, often treated as auxiliary, are central to the credibility of the whole system [9, 10]. Figure 2 shows these layers stacked on the ISA-95 levels, together with the two possible return paths to the plant: advice through operators, which keeps the system a digital shadow, and set points written directly to Level 2, which makes it a digital twin."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-architecture",
+      "caption": "Layered architecture of a process plant digital twin. Plant data pass upward through the historian and OPC UA interface, validation, reconciliation and estimation to the models and applications; results return either as advice to operators (dashed) or as set points written to the control system (solid). Layer numbering (i)–(v) follows Section 3.3.",
+      "alt": "Layered block diagram. From the bottom: physical process and field instruments at ISA-95 Levels 0 and 1; DCS and PLC at Level 2; plant historian, LIMS and maintenance records with OPC UA context at Level 3; then data acquisition and validation, data reconciliation and gross-error detection, and state and parameter estimation; then first-principles, data-driven and hybrid models; and at the top the applications RTO, MPC, monitoring and predictive maintenance, operator training and what-if, and energy optimization. On the right, a dashed path returns advice to operators and a solid path returns set points to the DCS.",
+      "source": "Drawn by the author from Sections 3 to 6; ISA-95 levels after [6], OPC UA after [7]."
+     }
     }
    ]
   },
@@ -373,7 +391,7 @@
      "p": "The following example is illustrative; the plant, the measurements and their uncertainties are hypothetical. A CSTR, described by Eqs. (1) and (2), receives a feed whose flow F<sub>1</sub> is split downstream into a product stream F<sub>2</sub> and a recycle or purge stream F<sub>3</sub>, so that the steady-state mass balance is F<sub>1</sub> − F<sub>2</sub> − F<sub>3</sub> = 0. The three mass flows are measured as 100.0, 61.0 and 41.0 t h<sup>−1</sup>, each with a standard deviation of 2% of the reading. The measured balance does not close: the residual is r = 100.0 − 61.0 − 41.0 = −2.0 t h<sup>−1</sup>. Applying Eq. (4) with V = diag(2.00<sup>2</sup>, 1.22<sup>2</sup>, 0.82<sup>2</sup>) gives A V A<sup>T</sup> = 6.16 and the reconciled values in Table 3. The adjustment is distributed in proportion to the variance of each measurement, so that the least precise measurement, F<sub>1</sub>, is adjusted most. The test statistic is γ = (−2.0)<sup>2</sup>/6.16 = 0.65, well below the 95% critical value of 3.84 for one degree of freedom, so no gross error is indicated."
     },
     {
-     "p": "In a second case, the flow transmitter on F<sub>3</sub> develops a bias and reads 47.0 t h<sup>−1</sup>, with the other readings unchanged. The residual becomes −8.0 t h<sup>−1</sup> and γ = 10.0, which exceeds the critical value and flags a gross error. If the twin had not tested for gross errors, the reconciled feed flow of 105.0 t h<sup>−1</sup> would have been passed to the reactor model, and the state estimator would have interpreted the apparent increase in throughput, without a corresponding change in reactor temperature, as a loss of reaction rate or a change in heat-transfer coefficient. This is the mechanism by which instrument faults are converted into false process diagnoses, and it is why reconciliation and gross-error detection precede state and parameter estimation in the architecture of Section 3.3."
+     "p": "In a second case, the flow transmitter on F<sub>3</sub> develops a bias and reads 47.0 t h<sup>−1</sup>, with the other readings unchanged. The residual becomes −8.0 t h<sup>−1</sup> and γ = 10.0, which exceeds the critical value and flags a gross error. If the twin had not tested for gross errors, the reconciled feed flow of 105.0 t h<sup>−1</sup> would have been passed to the reactor model, and the state estimator would have interpreted the apparent increase in throughput, without a corresponding change in reactor temperature, as a loss of reaction rate or a change in heat-transfer coefficient. This is the mechanism by which instrument faults are converted into false process diagnoses, and it is why reconciliation and gross-error detection precede state and parameter estimation in the architecture of Section 3.3. Figure 3 compares the adjustments in the two cases: in case 1 every correction lies within one standard deviation of the measurement, whereas in case 2 the bias on F<sub>3</sub> is spread over all three streams and the feed flow is moved by 2.5 standard deviations."
     },
     {
      "table": {
@@ -430,6 +448,15 @@
        ]
       ],
       "note": "Source: calculation by the author using Eq. (4) and the global test described in [9]. In case 2 the standard deviation of F<sub>3</sub> is 0.94 t h<sup>−1</sup> (2% of 47.0)."
+     }
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-reconciliation",
+      "caption": "Adjustments made by weighted least-squares reconciliation, Eq. (4), to the three flow measurements of the illustrative example (hypothetical data). Grey bars show ±1σ of each measurement; dots show the reconciled value minus the measured value, with the measured value under each stream name. (a) Case 1, random errors only. (b) Case 2, F<sub>3</sub> biased to 47.0 t h<sup>−1</sup>, reconciled as if the bias were not detected.",
+      "alt": "Two-panel chart of the adjustment from measured value in tonnes per hour for streams F1, F2 and F3, each with a plus or minus one standard deviation error bar about zero. In case 1 the adjustments are plus 1.30, minus 0.48 and minus 0.22, all inside the error bars, and the test statistic of 0.65 is below 3.84. In case 2 the adjustments are plus 5.02, minus 1.87 and minus 1.11, all outside the error bars, and the statistic of 10.04 exceeds 3.84, flagging a gross error.",
+      "source": "Author's calculation from Eq. (4) and Table 3."
      }
     },
     {

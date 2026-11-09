@@ -1,5 +1,24 @@
 # Changelog
 
+## V4.16 — 2026-11-09
+- **Figures in all Chmltech Online Journal papers.** After the CAPEX/OPEX pilot (V4.15), the other nine papers now have figures too: 30 across the journal. Each is numbered, captioned, referenced in the text, credited with a source line, and given alt text.
+
+| Paper | Figures |
+|---|---|
+| 101(1) Solid-state hydrogen | PCT isotherms (schematic); van 't Hoff plot with the DOE delivery window; gravimetric vs volumetric capacity map against DOE targets |
+| 102(1) Electrolysis | Polarization curve with stacked losses (representative parameters, passes through the DOE stack point); specific energy consumption vs cell voltage with reference values; plant block diagram with balance of plant |
+| 103(1) FrugalGPT / MultiModal-GPT | LLM cascade flow; cost and accuracy results from the paper's Table 2 and HEADLINES case; MultiModal-GPT architecture with LoRA |
+| 103(2) ML and DL | Milestone timeline; CNN, LSTM and Transformer block diagrams |
+| 104(1) AI Operating Systems | Reference architecture stack; maturity staircase; governed invoice workflow with cost and reliability per step |
+| 104(2) Multi-agent AI | Five coordination topologies; token growth from Eq. (2); compounding error with and without a verifier |
+| 104(3) RAG | End-to-end pipeline with failure points; worked reciprocal rank fusion example; recall@k and nDCG@k before and after re-ranking |
+| 104(4) CAPEX/OPEX | AACE accuracy ranges; six-tenths scaling; CAPEX–OPEX trade-off; Monte Carlo FCI and NPV (V4.15) |
+| 104(5) Digital twins | Digital model / shadow / twin; layered twin architecture; data-reconciliation adjustments for both cases in Table 3 |
+| 104(6) ML systems design | Life-cycle loop; precision/recall/F<sub>1</sub> vs threshold and PR curve (synthetic data); PSI drift monitoring against alert thresholds (synthetic data) |
+
+- **Sources of the numbers:** every plotted number comes from the paper's own equations, tables or worked examples, or from its cited sources. Qualitative plots are labelled as schematic, and synthetic examples are labelled as synthetic. Diagrams that follow published work are redrawn in the site's style and credited "Adapted from [n]".
+- **Scripts:** the drawing and placement scripts are in `content/journal/figure-scripts/` (see its README).
+
 ## V4.15 — 2026-11-09
 - **Figures in journal papers (pilot).** Journal papers can now include numbered figures. Each one has a caption, a source line, alt text for screen readers, and a reference in the text. The figures are SVG graphics with live text in the site fonts and colours, so they stay sharp at any size and print cleanly in the PDF version. On phones, wide figures keep a readable size and scroll sideways.
 - **Engineering CAPEX and OPEX Estimation for Process Plants (Vol. 104, Issue 4)** now has four figures:

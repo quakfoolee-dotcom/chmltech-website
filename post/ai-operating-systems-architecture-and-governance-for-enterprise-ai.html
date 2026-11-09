@@ -55,14 +55,899 @@
     <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 104, Issue 1</span><span>Research article</span></p>
     <h1 class="h-xl j-title">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</h1>
     <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Burnaby, BC, Canada</span></div>
-    <p class="post-meta"><span>Published November 9, 2026</span><span>20 min read</span></p>
+    <p class="post-meta"><span>Published November 9, 2026</span><span>21 min read</span></p>
   </div>
 </section>
 <section class="section j-wrap"><div class="container layout-aside">
   <article class="prose j-paper">
     <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Organizations that adopt large language models (LLMs) through isolated assistants and pilots accumulate fragmented prompts, data connections, credentials and costs that are difficult to govern. This paper develops the concept of an AI operating system (AI OS): a shared, organization-wide layer that mediates access to data, knowledge, models, tools and workflows, in the way that a conventional operating system mediates access to hardware and files. It reviews research that treats LLM runtimes as operating systems, notably MemGPT and AIOS, together with work on tool use, retrieval augmentation and the Model Context Protocol. A ten-layer reference architecture is proposed, covering data and integration, knowledge and retrieval, model access and routing, agents and tools, workflow orchestration, memory, identity and permissions, governance, evaluation and observability, and cost control, with the function, mechanisms and principal risks of each layer. The architecture is mapped to the NIST AI Risk Management Framework, ISO/IEC 42001:2023, the EU Artificial Intelligence Act and the OWASP Top 10 for LLM Applications 2025. Operating metrics are defined for routing, cost per successfully completed task, automation rate and end-to-end reliability, and a five-stage maturity model is proposed. A hypothetical SME invoice-processing example shows that human review can dominate total cost and that reliability improvements may matter more than cheaper models. The paper concludes that mediation of all model, tool and data access is the decision on which governance, security and cost control depend.</p>
       <p class="j-keywords"><strong>Keywords:</strong> AI operating system; enterprise AI architecture; AI governance; LLM agents; model routing; retrieval-augmented generation; prompt injection; Model Context Protocol</p></section>
-    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Most organizations first encounter large language models (LLMs) as isolated tools: a chat assistant used by individual staff, a document summarizer embedded in one application, or a pilot that automates a single workflow. Each such deployment carries its own prompts, data connections, credentials, logging conventions and cost profile. As the number of deployments grows, the organization accumulates a fragmented estate in which the same customer record is retrieved by several pipelines, the same policy is restated in several system prompts, and nobody can answer simple questions such as which models touch personal information or what the AI estate cost last month. The phenomenon is a generative-AI analogue of the hidden technical debt that Sculley et al. described for conventional machine learning systems, where the model code is a small fraction of a much larger body of configuration, data dependencies and glue code [<a href="#ref-1" class="j-cite">1</a>].</p><p>This paper uses the term <em>AI operating system</em> (AI OS) for the shared, organization-wide layer that addresses this fragmentation. An AI OS is not a single product. It is an architectural pattern: a set of common services for data access, knowledge retrieval, model access and routing, tool execution, workflow orchestration, memory, identity and permissions, governance, evaluation, observability and cost control, on top of which individual AI applications and agents are built. The analogy to a conventional operating system is deliberate. An operating system abstracts hardware, schedules processes, isolates them from one another, mediates access to files and devices, and enforces permissions; an AI OS performs corresponding functions for models, agents, tools and enterprise data.</p><p>The analogy has research precedent. MemGPT treats the LLM context window as a scarce fast memory and manages movement of information between it and slower external storage, in the manner of virtual memory [<a href="#ref-2" class="j-cite">2</a>]. AIOS proposes an operating-system kernel for LLM agents that provides scheduling, context management, memory and storage management and access control as shared services [<a href="#ref-3" class="j-cite">3</a>]. These systems operate at the level of a single runtime, whereas the present paper extends the analogy to the enterprise level, where the dominant concerns are integration with existing systems, accountability and risk.</p><p>The contribution of the paper is threefold. First, it proposes a layered reference architecture for an enterprise AI OS and identifies, for each layer, its function, typical mechanisms and principal risks. Second, it maps the architecture onto published governance frameworks and security guidance and defines a small set of quantitative operating metrics. Third, it proposes a staged maturity model and illustrates the metrics with a clearly hypothetical worked example for a small or medium-sized enterprise (SME). Section 2 reviews related work; Section 3 presents the architecture; Section 4 addresses governance, evaluation and observability; Section 5 treats security; Section 6 presents the maturity model; Section 7 gives the worked example; Section 8 discusses limitations; and Section 9 concludes.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Background and Related Work</h2><h3>2.1 The LLM-as-operating-system analogy</h3><p>MemGPT addresses the limited context window of LLMs through what its authors call virtual context management. The model is given a hierarchy of memory tiers, a bounded main context that it reads directly and external stores that it can search and write through function calls, and it uses interrupts to manage control flow between itself and the user. The authors evaluated the design on analysis of documents far larger than the underlying context window and on multi-session conversational agents that retain information across sessions [<a href="#ref-2" class="j-cite">2</a>]. The relevant lesson for enterprise architecture is that memory is a managed resource with explicit policies for what is kept in context, what is paged out and what is persisted.</p><p>AIOS approaches the analogy from the systems side. It isolates LLM and tool resources from agent applications in an AIOS kernel, which provides scheduling, context management, memory management, storage management and access control to running agents, and exposes those services through a software development kit. The authors reported up to 2.1× faster execution when serving agents built with several agent frameworks on AIOS, which they attribute to scheduling and resource management [<a href="#ref-3" class="j-cite">3</a>]. For an enterprise, the transferable idea is that agents should not hold raw, unmediated access to models, tools and data; access should pass through a shared layer that can queue, meter, authorize and log it.</p><h3>2.2 Tool use and agents</h3><p>An LLM becomes an agent when it can take actions rather than only produce text. Surveys of LLM-based autonomous agents describe a common anatomy comprising a profile or role, a memory module, a planning module and an action module that invokes tools [<a href="#ref-4" class="j-cite">4</a>]. ReAct interleaves free-text reasoning traces with actions such as search queries, so that observations returned by the environment inform subsequent reasoning [<a href="#ref-5" class="j-cite">5</a>]. Toolformer showed that a language model can learn in a self-supervised manner when to call external application programming interfaces (APIs), such as a calculator, a question-answering system, search engines, a translation system and a calendar, and how to incorporate their results [<a href="#ref-6" class="j-cite">6</a>]. Earlier, the MRKL architecture proposed a modular, neuro-symbolic system in which a router directs each input to the most suitable expert module, which may be a neural model or a symbolic component such as a calculator or database query [<a href="#ref-7" class="j-cite">7</a>]. Gorilla fine-tuned a model specifically for generating API calls and reported reduced hallucination of API usage compared with general-purpose models [<a href="#ref-8" class="j-cite">8</a>]. Together these works establish tool invocation as a central, and security-critical, capability of any AI OS.</p><h3>2.3 Retrieval augmentation</h3><p>Retrieval-augmented generation (RAG) combines a parametric model with a non-parametric memory, such as a dense vector index of documents, from which passages are retrieved and supplied to the generator [<a href="#ref-9" class="j-cite">9</a>]. A subsequent survey organizes the field into naive, advanced and modular RAG paradigms, distinguished by the sophistication of indexing, query rewriting, re-ranking and the composition of retrieval and generation modules [<a href="#ref-10" class="j-cite">10</a>]. Retrieval does not remove the need to manage context carefully: Liu et al. found that model performance can degrade significantly when relevant information is placed in the middle of a long input context rather than at its beginning or end, even for models designed for long contexts [<a href="#ref-11" class="j-cite">11</a>]. An enterprise knowledge layer therefore needs ranking and context-assembly policies, not merely a large index.</p><h3>2.4 Interoperability through the Model Context Protocol</h3><p>A practical obstacle to a shared AI layer has been the absence of a common interface between models and enterprise systems. The Model Context Protocol (MCP), introduced by Anthropic in November 2024 as an open standard for connecting AI assistants to the systems where data resides [<a href="#ref-12" class="j-cite">12</a>], addresses this obstacle. The specification defines JSON-RPC 2.0 messages exchanged between hosts (LLM applications), clients (connectors within a host) and servers (services that provide context and capabilities). Servers may expose resources, prompts and tools; clients may offer sampling, roots and elicitation to servers [<a href="#ref-13" class="j-cite">13</a>]. The specification also states security principles, including explicit user consent before tools are invoked and the instruction that descriptions of tool behavior be treated as untrusted unless obtained from a trusted server, while noting that the protocol itself cannot enforce these principles [<a href="#ref-13" class="j-cite">13</a>]. In AI OS terms, MCP is a candidate standard for the boundary between the agent layer and the integration layer, but enforcement remains the responsibility of the platform.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> A Reference Architecture</h2><h3>3.1 Design principles</h3><p>The reference architecture rests on four principles. <strong>Mediation</strong>: agents and applications reach models, tools and data only through platform services that can authorize, meter and log each request, following the AIOS kernel concept [<a href="#ref-3" class="j-cite">3</a>] and the zero-trust principle that no request is trusted by virtue of its network location [<a href="#ref-14" class="j-cite">14</a>]. <strong>Separation of concerns</strong>: knowledge, models, tools and workflows are versioned and replaced independently, which limits the entanglement that Sculley et al. identified as a source of technical debt [<a href="#ref-1" class="j-cite">1</a>]. <strong>Least privilege</strong>: every agent acts under an identity whose permissions do not exceed those of the human or service on whose behalf it acts. <strong>Measurability</strong>: every unit of work produces a trace from which quality, cost and latency can be computed. Table 1 summarizes the resulting layers.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Reference architecture for an enterprise AI operating system: layers, functions, typical mechanisms and principal risks.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Layer</th><th>Primary function</th><th>Typical mechanisms</th><th>Principal risks</th></tr></thead><tbody><tr><td>Data and integration</td><td>Governed access to systems of record</td><td>Connectors, APIs, MCP servers, change-data capture, data contracts</td><td>Stale or inconsistent data; over-broad credentials</td></tr><tr><td>Knowledge and retrieval</td><td>Ground outputs in organizational content</td><td>Chunking, embeddings, hybrid search, re-ranking, access-filtered indexes</td><td>Leakage across permission boundaries; poor recall; context dilution</td></tr><tr><td>Model access and routing</td><td>Select and call models</td><td>Model gateway, routers, cascades, caching, fallbacks</td><td>Vendor lock-in; quality regression after model updates</td></tr><tr><td>Agent and tool</td><td>Execute actions through tools</td><td>Tool registry with schemas, ReAct-style loops, sandboxes</td><td>Excessive agency; injected instructions in tool output</td></tr><tr><td>Workflow orchestration</td><td>Compose steps into durable processes</td><td>State machines, queues, retries, human-approval gates</td><td>Silent partial failure; compounding error</td></tr><tr><td>Memory</td><td>Persist context across sessions</td><td>Session state, episodic and semantic stores, retention rules</td><td>Retention of personal data; memory poisoning</td></tr><tr><td>Identity and permissions</td><td>Bind every action to an accountable principal</td><td>Single sign-on, delegated tokens, role- and attribute-based access control</td><td>Privilege escalation; confused-deputy behavior</td></tr><tr><td>Governance</td><td>Policy, accountability and compliance</td><td>AI inventory, risk assessment, model cards, approval workflow</td><td>Unregistered shadow deployments</td></tr><tr><td>Evaluation and observability</td><td>Measure quality, safety, latency</td><td>Test suites, LLM-as-judge with human calibration, traces</td><td>Unmeasured drift; biased automated judges</td></tr><tr><td>Cost control</td><td>Allocate and bound spending</td><td>Token metering, budgets, quotas, routing policies</td><td>Unbounded consumption; unattributed spend</td></tr></tbody></table></div><p class="j-table-note">Synthesized by the author from [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>, <a href="#ref-13" class="j-cite">13</a>, <a href="#ref-17" class="j-cite">17</a>, <a href="#ref-24" class="j-cite">24</a>].</p></figure><h3>3.2 Data and integration layer</h3><p>The data and integration layer provides governed, read-and-write access to systems of record such as enterprise resource planning, customer relationship management, document management and email. Its central design decision is whether AI components call systems directly or through intermediary services that enforce data contracts, field-level masking and rate limits. Protocol standards such as MCP reduce the cost of building connectors by giving each system a uniform server interface [<a href="#ref-13" class="j-cite">13</a>], but the connector inherits whatever credentials it is given. The layer should therefore issue scoped credentials per connector and per caller rather than a single service account with broad rights.</p><h3>3.3 Knowledge and retrieval layer</h3><p>The knowledge layer turns documents, records and transcripts into retrievable context, following the RAG pattern [<a href="#ref-9" class="j-cite">9</a>]. Enterprise deployments typically need the advanced or modular forms described by Gao et al., including query rewriting, hybrid lexical and vector search and re-ranking [<a href="#ref-10" class="j-cite">10</a>]. Two enterprise-specific requirements dominate. First, retrieval must respect source permissions: a passage that a user cannot open in the source system must not be retrieved on that user's behalf. Permission filters should be applied at query time against the caller's identity rather than baked into separate indexes that drift out of date. Second, because models use information unevenly across long contexts [<a href="#ref-11" class="j-cite">11</a>], the layer should return a small number of highly ranked passages with provenance rather than maximizing the volume of retrieved text.</p><h3>3.4 Model access and routing layer</h3><p>A model gateway decouples applications from specific model providers and versions. Its most consequential function is routing. FrugalGPT demonstrated that an LLM cascade, which queries inexpensive models first and escalates only when a learned scorer rejects an answer, could match the performance of the best individual model on its benchmarks with up to 98% cost reduction [<a href="#ref-15" class="j-cite">15</a>]. RouteLLM trained routers on human preference data to choose between a stronger and a weaker model and reported cost reductions of more than a factor of two in some settings without loss of response quality [<a href="#ref-16" class="j-cite">16</a>]. The MRKL architecture had earlier proposed routing among heterogeneous expert modules [<a href="#ref-7" class="j-cite">7</a>]. A simple formalization of a threshold router selects, for input <em>x</em>, the cheapest model whose predicted quality meets a threshold:</p><div class="j-eq" role="math"><span class="j-eq-body">m*(x) = arg min<sub>m ∈ M</sub> c<sub>m</sub>(x)  subject to  q̂<sub>m</sub>(x) ≥ τ</span><span class="j-eq-n">(1)</span></div><p>where <em>M</em> is the set of available models, c<sub>m</sub>(x) is the expected cost of model <em>m</em> on input <em>x</em>, q̂<sub>m</sub>(x) is a predicted quality score and τ is a task-specific acceptance threshold. If no model satisfies the constraint, the request escalates to the strongest model or to a human. Eq. (1) makes explicit that a router is only as good as its quality predictor, which must be validated on the organization's own workload; published savings are workload-dependent and do not transfer automatically [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>]. The gateway also implements response caching, fallback on provider outage and pinning of model versions, so that a provider update does not silently change behavior in production.</p><h3>3.5 Agent and tool layer</h3><p>The agent layer hosts reasoning-and-acting loops of the ReAct type [<a href="#ref-5" class="j-cite">5</a>] together with a tool registry. Each registered tool should carry a machine-readable schema, an owner, a risk classification and a declaration of whether it reads, writes or performs irreversible actions. The registry allows the platform to present each agent with only the tools its task requires. Model fine-tuning for tool use can reduce malformed calls [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-8" class="j-cite">8</a>], but schema validation of arguments at the platform boundary remains necessary because model output is not trustworthy input. Tools that execute code or reach external networks should run in sandboxes with constrained egress.</p><h3>3.6 Workflow orchestration</h3><p>Many enterprise tasks are not open-ended conversations but processes with defined steps, such as receiving a document, extracting fields, validating them against a system of record, obtaining approval and posting a transaction. Orchestration encodes such processes as explicit state machines in which some steps are performed by LLM agents and others by deterministic code or humans. Explicit orchestration provides durable state, retries with idempotency, timeouts and human-approval gates, and it confines model nondeterminism to the steps that require language understanding. A useful default is to let deterministic code control the flow and to call models for bounded subtasks, reserving free-form agent autonomy for tasks whose steps cannot be enumerated in advance.</p><h3>3.7 Memory</h3><p>Memory spans short-term session state, episodic records of past interactions and semantic stores of distilled facts. MemGPT illustrates explicit management of what enters the limited context and what is paged to external storage [<a href="#ref-2" class="j-cite">2</a>]. In an enterprise setting memory is also a data-protection concern: persisted memories may contain personal information and must be subject to retention schedules, access control and deletion on request. Memory written by an agent from untrusted content is also an attack surface, because an injected instruction stored today may be retrieved and acted upon later.</p><h3>3.8 Identity and permissions</h3><p>Every action taken by an agent should be attributable to an accountable principal. The zero-trust model, under which access decisions are made per request on the basis of authenticated identity and policy rather than network location [<a href="#ref-14" class="j-cite">14</a>], fits agent systems well. In practice this implies delegated, short-lived tokens that carry the identity of the requesting user, attribute-based policies that can express conditions such as amount limits, and a prohibition on agents using standing administrative credentials. Without delegation, an agent with broad service credentials can be induced to act as a confused deputy, performing on behalf of one user an action that only another principal is entitled to perform.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Governance, Evaluation and Observability</h2><h3>4.1 Governance frameworks</h3><p>Three instruments provide the main external reference points as of late 2026. The NIST AI Risk Management Framework (AI RMF 1.0) organizes AI risk management into four functions, Govern, Map, Measure and Manage, and is voluntary and sector-neutral [<a href="#ref-17" class="j-cite">17</a>]. Its Generative AI Profile, published in July 2024, applies the framework to risks that are specific to or amplified by generative AI [<a href="#ref-18" class="j-cite">18</a>]. ISO/IEC 42001:2023 specifies requirements for establishing, implementing, maintaining and continually improving an AI management system within an organization of any size and is designed for certification [<a href="#ref-19" class="j-cite">19</a>]. The European Union's Artificial Intelligence Act, Regulation (EU) 2024/1689, entered into force on 1 August 2024 and applies generally from 2 August 2026, with certain provisions applying on other dates set out in Article 113; it establishes risk-based obligations that bear on organizations placing AI systems on the EU market or using them there [<a href="#ref-20" class="j-cite">20</a>].</p><p>An AI OS makes these frameworks operable because it centralizes the evidence they require. The platform's inventory of models, tools, agents and workflows forms the system register that ISO/IEC 42001 and the Map function presuppose; per-deployment documentation in the style of model cards [<a href="#ref-21" class="j-cite">21</a>] records intended use, evaluation results and known limitations; and traces provide the measurement record for the Measure and Manage functions [<a href="#ref-17" class="j-cite">17</a>]. Governance implemented as platform policy, for example a rule that no workflow may call a write-capable tool without a registered owner and a passed evaluation, scales better than governance implemented as periodic manual review.</p><h3>4.2 Evaluation</h3><p>Evaluation should be multi-dimensional. The Holistic Evaluation of Language Models (HELM) project argued for measuring accuracy together with calibration, robustness, fairness, bias, toxicity and efficiency across many scenarios, rather than reporting a single score [<a href="#ref-22" class="j-cite">22</a>]. Enterprise evaluation adds task-specific criteria such as field-extraction accuracy, policy compliance and correct tool selection. Because human grading is expensive, many teams use a strong LLM as an automated judge. Zheng et al. found that a strong judge model could reach agreement with human preferences comparable to agreement between humans, but also documented position, verbosity and self-enhancement biases [<a href="#ref-23" class="j-cite">23</a>]. Automated judges should therefore be calibrated periodically against human-labeled samples drawn from production traffic, and evaluation suites should be rerun whenever a model, prompt, tool or retrieval index changes.</p><h3>4.3 Operating metrics</h3><p>Observability converts traces into a small set of metrics that can be tracked over time. The first is the fully loaded cost per successfully completed task:</p><div class="j-eq" role="math"><span class="j-eq-body">C<sub>task</sub> = [ Σ<sub>i</sub> ( p<sub>in,i</sub> T<sub>in,i</sub> + p<sub>out,i</sub> T<sub>out,i</sub> ) + C<sub>tool</sub> + C<sub>human</sub> ] / N<sub>success</sub></span><span class="j-eq-n">(2)</span></div><p>where the sum runs over all model calls in a reporting period, p<sub>in,i</sub> and p<sub>out,i</sub> are the per-token prices of input and output tokens for call <em>i</em>, T<sub>in,i</sub> and T<sub>out,i</sub> are the corresponding token counts, C<sub>tool</sub> is the cost of tool and infrastructure usage, C<sub>human</sub> is the cost of human review and correction, and N<sub>success</sub> is the number of tasks completed correctly. Dividing by successful rather than attempted tasks penalizes systems that are cheap per call but fail often. The second metric is the automation rate:</p><div class="j-eq" role="math"><span class="j-eq-body">A = N<sub>auto</sub> / N<sub>total</sub></span><span class="j-eq-n">(3)</span></div><p>where N<sub>auto</sub> is the number of tasks completed and accepted without human intervention and N<sub>total</sub> is the number of tasks received. The automation rate must always be reported together with a quality measure, since it can be raised trivially by removing review. The third metric is end-to-end reliability of a workflow composed of <em>k</em> steps with step success probabilities r<sub>j</sub>. Under an assumption of independence,</p><div class="j-eq" role="math"><span class="j-eq-body">R = Π<sub>j=1</sub><sup>k</sup> r<sub>j</sub>,   r′<sub>j</sub> = 1 − (1 − r<sub>j</sub>)<sup>n<sub>j</sub></sup></span><span class="j-eq-n">(4)</span></div><p>where r′<sub>j</sub> is the effective success probability of step <em>j</em> when a reliable validator detects failure and permits up to n<sub>j</sub> independent attempts. Eq. (4) shows why long autonomous chains are fragile and why cheap validation is valuable. The independence assumption is optimistic: repeated attempts by the same model on the same input tend to fail in correlated ways, so measured retry gains are usually smaller than the formula suggests. Latency percentiles, escalation rates, refusal rates and evaluation scores by workflow complete the operating dashboard.</p><h3>4.4 Cost control</h3><p>Cost control combines metering, attribution and limits. Each model call should be tagged with the workflow, business unit and principal that caused it, so that Eq. (2) can be computed per workflow. Budgets and quotas at the gateway bound spending, and routing policies (Eq. (1)) direct routine traffic to inexpensive models. Limits also have a security function: the OWASP Top 10 for LLM Applications lists unbounded consumption as a distinct risk, covering both runaway cost and denial of service [<a href="#ref-24" class="j-cite">24</a>].</p><aside class="j-callout"><p>Cost per successfully completed task, not cost per token, is the economic metric that matters. In workflows with human review, review labor frequently exceeds model spending, so improvements in reliability can reduce total cost more than cheaper models do.</p></aside></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Security and Risk</h2><h3>5.1 Prompt injection</h3><p>Prompt injection is the defining security problem of LLM-integrated systems. Perez and Ribeiro demonstrated goal hijacking and prompt leaking through adversarial user input [<a href="#ref-25" class="j-cite">25</a>]. Greshake et al. showed that the more serious threat is indirect: an adversary places instructions in content that the application will later retrieve, such as a web page, an email or a document, and the model executes them with the application's privileges. They demonstrated data theft, manipulation of application behavior and control over which APIs are called against real systems, and argued that LLM-integrated applications blur the boundary between data and instructions [<a href="#ref-26" class="j-cite">26</a>]. An AI OS amplifies this risk because it connects many data sources to many tools; a single poisoned document in the knowledge layer can reach every agent that retrieves it.</p><p>No published technique eliminates prompt injection, so the architecture must limit its consequences. Effective measures are structural: separating trusted instructions from untrusted content in prompts and in logs; giving agents that process untrusted content no access to write-capable or exfiltration-capable tools; requiring human approval for irreversible actions; constraining network egress; and validating tool arguments against schemas and policy before execution. The MCP specification's instruction to treat tool descriptions as untrusted unless obtained from a trusted server reflects the same principle at the protocol boundary [<a href="#ref-13" class="j-cite">13</a>].</p><h3>5.2 Mapping risks to platform controls</h3><p>The OWASP Top 10 for LLM Applications 2025 provides a widely used risk catalogue [<a href="#ref-24" class="j-cite">24</a>]. Table 2 maps a selection of its entries to the architecture layers of Table 1 and to controls that a platform can enforce centrally. The mapping illustrates the main security argument for an AI OS: controls implemented once in the gateway, registry and identity layers apply to every application, whereas controls implemented separately in each application tend to be inconsistent.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Selected OWASP Top 10 for LLM Applications 2025 risks mapped to AI OS layers and platform-level controls.</figcaption><div class="j-table-scroll"><table><thead><tr><th>OWASP 2025 risk</th><th>Most exposed layers</th><th>Platform-level controls</th></tr></thead><tbody><tr><td>LLM01 Prompt Injection</td><td>Knowledge, agent and tool, memory</td><td>Separate trusted and untrusted content; restrict tools for agents reading untrusted input; approval gates</td></tr><tr><td>LLM02 Sensitive Information Disclosure</td><td>Knowledge, memory, model access</td><td>Permission-filtered retrieval; masking; retention rules; provider data agreements</td></tr><tr><td>LLM03 Supply Chain</td><td>Model access, agent and tool</td><td>Approved model and tool registry; version pinning; review of third-party servers</td></tr><tr><td>LLM05 Improper Output Handling</td><td>Agent and tool, orchestration</td><td>Schema validation of tool arguments; treat model output as untrusted input</td></tr><tr><td>LLM06 Excessive Agency</td><td>Agent and tool, identity</td><td>Least-privilege tool sets; delegated tokens; limits on amounts and scope</td></tr><tr><td>LLM08 Vector and Embedding Weaknesses</td><td>Knowledge</td><td>Access control on indexes; provenance; ingestion screening</td></tr><tr><td>LLM10 Unbounded Consumption</td><td>Model access, cost control</td><td>Quotas, budgets, rate limits, loop and step limits</td></tr></tbody></table></div><p class="j-table-note">Risk identifiers and names from [<a href="#ref-24" class="j-cite">24</a>]; layer mapping and controls by the author.</p></figure><aside class="j-callout"><p>Because prompt injection cannot currently be prevented reliably at the model level, the decisive control is architectural: an agent that reads untrusted content should not simultaneously hold tools that can move money, change records or send data outside the organization.</p></aside></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Maturity Model and Phased Adoption</h2><p>Organizations rarely build all layers of Table 1 at once. Table 3 proposes a five-stage maturity model derived from the architecture. The stages are cumulative and describe capabilities rather than elapsed time; an organization may be at different stages for different capabilities. The model is a planning aid proposed in this paper, not an empirically validated instrument.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Proposed five-stage maturity model for an enterprise AI operating system.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Characteristics</th><th>Capabilities added</th><th>Exit criteria</th></tr></thead><tbody><tr><td>0 Ad hoc</td><td>Individual use of public assistants; no inventory</td><td>None shared</td><td>Acceptable-use policy issued; usage inventoried</td></tr><tr><td>1 Managed access</td><td>Sanctioned assistant and model gateway</td><td>Single sign-on, gateway logging, data-handling rules</td><td>All model traffic passes through gateway</td></tr><tr><td>2 Grounded assistance</td><td>Retrieval over internal content</td><td>Permission-filtered knowledge layer, evaluation suite</td><td>Retrieval quality measured; no permission leakage in tests</td></tr><tr><td>3 Supervised automation</td><td>Workflows with tools and human approval</td><td>Tool registry, orchestration, delegated identity, cost attribution</td><td>Eq. (2)–(4) reported per workflow</td></tr><tr><td>4 Governed autonomy</td><td>Agents act within policy without per-step approval</td><td>Policy engine, continuous evaluation, incident response, management system</td><td>Audit against chosen framework passed</td></tr></tbody></table></div><p class="j-table-note">Proposed by the author; framework alignment with [<a href="#ref-17" class="j-cite">17</a>, <a href="#ref-19" class="j-cite">19</a>].</p></figure><p>The progression reflects a deliberate ordering. Managed access comes first because it provides the inventory and logging on which all later governance depends. Retrieval precedes tool use because read-only grounding carries lower risk than write actions and allows the organization to build evaluation capability before automation raises the stakes. Supervised automation introduces tools under human approval, which generates labeled data on agent decisions that later justifies relaxing approval for low-risk actions. Governed autonomy is reached only for workflows whose measured reliability, as in Eq. (4), and risk classification warrant it. This sequencing aligns with the iterative Govern–Map–Measure–Manage cycle of the NIST framework [<a href="#ref-17" class="j-cite">17</a>] and the continual-improvement structure of ISO/IEC 42001 [<a href="#ref-19" class="j-cite">19</a>].</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Illustrative SME Scenario</h2><p>This section applies the metrics to a hypothetical example. All figures are assumptions chosen for illustration; they do not describe any real organization, and the prices are not quotations from any provider. Consider a wholesale distributor with about 40 staff that processes 2,000 supplier invoices per month and has reached Stage 3 of Table 3 for invoice processing. Each invoice passes through a four-step workflow: document intake and classification, field extraction by a large model, validation against purchase orders by deterministic code assisted by a small model, and posting to the accounting system after any required human approval.</p><p>Assume that extraction consumes 6,000 input and 500 output tokens on a large model priced at $3 and $15 per million input and output tokens, giving $0.018 + $0.0075 = $0.0255 per invoice, and that validation consumes 2,000 input and 200 output tokens on a small model priced at $0.25 and $1.25 per million tokens, giving $0.00075. Tool and infrastructure costs are assumed to be $0.005 per invoice. Assume further that 15% of invoices are escalated for human review, each requiring 3 minutes of a clerk costed at $40 per hour, or $2.00 per escalated invoice and $0.30 averaged over all invoices. If 97% of invoices are completed correctly, Eq. (2) gives C<sub>task</sub> = ($0.0255 + $0.00075 + $0.005 + $0.30) / 0.97 ≈ $0.34 per invoice. Model tokens account for less than 8% of this cost; human review accounts for nearly 90%.</p><p>With 85% of invoices completed without intervention, Eq. (3) gives A = 0.85. Suppose the step reliabilities are 0.99, 0.98, 0.97 and 0.99. Eq. (4) gives R = 0.99 × 0.98 × 0.97 × 0.99 ≈ 0.932 for unattended operation. If the validation step is allowed a second independent attempt when a checksum fails, its effective reliability becomes 1 − 0.03<sup>2</sup> = 0.9991 and R rises to approximately 0.960, subject to the independence caveat in Section 4.3. Under these assumptions, the most effective improvement is not a cheaper model but a reduction in the escalation rate through better extraction on difficult layouts, since each percentage point of escalation removed saves about $0.02 per invoice, roughly the entire large-model cost.</p><p>The same scenario illustrates the governance controls. The extraction agent reads untrusted supplier documents and therefore holds no write-capable tools; posting is performed by deterministic code after validation and, above a value threshold, after human approval under the approver's own delegated identity. The workflow is registered in the inventory with an owner, an evaluation suite of labeled historical invoices and a documented model version, so that a model upgrade triggers re-evaluation before deployment.</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Limitations and Open Problems</h2><p>The architecture and maturity model in this paper are proposals synthesized from the literature and standards; they have not been validated empirically across a population of organizations. Several problems remain open. First, prompt injection lacks a general defense, and the structural mitigations of Section 5 reduce capability as well as risk [<a href="#ref-26" class="j-cite">26</a>, <a href="#ref-24" class="j-cite">24</a>]. Second, evaluation of agentic workflows remains costly, and automated judges carry documented biases [<a href="#ref-23" class="j-cite">23</a>]. Third, routers and cascades depend on quality predictors whose calibration may degrade when models or traffic change [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>]. Fourth, the regulatory landscape continues to evolve; organizations should consult the current consolidated text of applicable instruments rather than secondary summaries [<a href="#ref-20" class="j-cite">20</a>]. Finally, interoperability standards such as MCP are recent, and their security model relies on implementers to enforce consent and authorization [<a href="#ref-13" class="j-cite">13</a>].</p><p>There is also a risk of over-engineering. An SME with two AI workflows does not need every layer of Table 1 implemented as separate infrastructure; the layers are logical responsibilities that may be fulfilled by a small number of services or by configuration of commercial platforms. The value of the reference architecture lies in making each responsibility explicit so that none is omitted by default.</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Conclusion</h2><p>As AI deployments multiply, organizations face a choice between a fragmented estate of independent assistants and agents and a shared layer that provides common services for data, knowledge, models, tools, workflows, memory, identity, governance, evaluation and cost. This paper has described the latter under the name AI operating system, building on research that treats LLM runtimes as operating systems [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>], on tool-use and retrieval research [<a href="#ref-5" class="j-cite">5</a>, <a href="#ref-6" class="j-cite">6</a>, <a href="#ref-9" class="j-cite">9</a>], on the Model Context Protocol as an interoperability standard [<a href="#ref-13" class="j-cite">13</a>], and on governance and security frameworks [<a href="#ref-17" class="j-cite">17</a>, <a href="#ref-19" class="j-cite">19</a>, <a href="#ref-24" class="j-cite">24</a>].</p><p>Three conclusions follow. First, mediation of all model, tool and data access through platform services is the architectural decision on which governance, security and cost control depend. Second, the economic performance of an AI OS should be judged by cost per successfully completed task and by measured reliability, not by token prices, since human review and failure frequently dominate total cost. Third, adoption should proceed in stages that build inventory, grounding and evaluation capability before granting agents autonomy over consequential actions.</p><aside class="j-callout"><p>An AI operating system is best understood as a set of explicit responsibilities rather than a product: every model call, tool action and retrieved document should pass through a layer that knows who requested it, whether it is permitted, what it cost and whether it was correct.</p></aside></section>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Most organizations first encounter large language models (LLMs) as isolated tools: a chat assistant used by individual staff, a document summarizer embedded in one application, or a pilot that automates a single workflow. Each such deployment carries its own prompts, data connections, credentials, logging conventions and cost profile. As the number of deployments grows, the organization accumulates a fragmented estate in which the same customer record is retrieved by several pipelines, the same policy is restated in several system prompts, and nobody can answer simple questions such as which models touch personal information or what the AI estate cost last month. The phenomenon is a generative-AI analogue of the hidden technical debt that Sculley et al. described for conventional machine learning systems, where the model code is a small fraction of a much larger body of configuration, data dependencies and glue code [<a href="#ref-1" class="j-cite">1</a>].</p><p>This paper uses the term <em>AI operating system</em> (AI OS) for the shared, organization-wide layer that addresses this fragmentation. An AI OS is not a single product. It is an architectural pattern: a set of common services for data access, knowledge retrieval, model access and routing, tool execution, workflow orchestration, memory, identity and permissions, governance, evaluation, observability and cost control, on top of which individual AI applications and agents are built. The analogy to a conventional operating system is deliberate. An operating system abstracts hardware, schedules processes, isolates them from one another, mediates access to files and devices, and enforces permissions; an AI OS performs corresponding functions for models, agents, tools and enterprise data.</p><p>The analogy has research precedent. MemGPT treats the LLM context window as a scarce fast memory and manages movement of information between it and slower external storage, in the manner of virtual memory [<a href="#ref-2" class="j-cite">2</a>]. AIOS proposes an operating-system kernel for LLM agents that provides scheduling, context management, memory and storage management and access control as shared services [<a href="#ref-3" class="j-cite">3</a>]. These systems operate at the level of a single runtime, whereas the present paper extends the analogy to the enterprise level, where the dominant concerns are integration with existing systems, accountability and risk.</p><p>The contribution of the paper is threefold. First, it proposes a layered reference architecture for an enterprise AI OS and identifies, for each layer, its function, typical mechanisms and principal risks. Second, it maps the architecture onto published governance frameworks and security guidance and defines a small set of quantitative operating metrics. Third, it proposes a staged maturity model and illustrates the metrics with a clearly hypothetical worked example for a small or medium-sized enterprise (SME). Section 2 reviews related work; Section 3 presents the architecture; Section 4 addresses governance, evaluation and observability; Section 5 treats security; Section 6 presents the maturity model; Section 7 gives the worked example; Section 8 discusses limitations; and Section 9 concludes.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Background and Related Work</h2><h3>2.1 The LLM-as-operating-system analogy</h3><p>MemGPT addresses the limited context window of LLMs through what its authors call virtual context management. The model is given a hierarchy of memory tiers, a bounded main context that it reads directly and external stores that it can search and write through function calls, and it uses interrupts to manage control flow between itself and the user. The authors evaluated the design on analysis of documents far larger than the underlying context window and on multi-session conversational agents that retain information across sessions [<a href="#ref-2" class="j-cite">2</a>]. The relevant lesson for enterprise architecture is that memory is a managed resource with explicit policies for what is kept in context, what is paged out and what is persisted.</p><p>AIOS approaches the analogy from the systems side. It isolates LLM and tool resources from agent applications in an AIOS kernel, which provides scheduling, context management, memory management, storage management and access control to running agents, and exposes those services through a software development kit. The authors reported up to 2.1× faster execution when serving agents built with several agent frameworks on AIOS, which they attribute to scheduling and resource management [<a href="#ref-3" class="j-cite">3</a>]. For an enterprise, the transferable idea is that agents should not hold raw, unmediated access to models, tools and data; access should pass through a shared layer that can queue, meter, authorize and log it.</p><h3>2.2 Tool use and agents</h3><p>An LLM becomes an agent when it can take actions rather than only produce text. Surveys of LLM-based autonomous agents describe a common anatomy comprising a profile or role, a memory module, a planning module and an action module that invokes tools [<a href="#ref-4" class="j-cite">4</a>]. ReAct interleaves free-text reasoning traces with actions such as search queries, so that observations returned by the environment inform subsequent reasoning [<a href="#ref-5" class="j-cite">5</a>]. Toolformer showed that a language model can learn in a self-supervised manner when to call external application programming interfaces (APIs), such as a calculator, a question-answering system, search engines, a translation system and a calendar, and how to incorporate their results [<a href="#ref-6" class="j-cite">6</a>]. Earlier, the MRKL architecture proposed a modular, neuro-symbolic system in which a router directs each input to the most suitable expert module, which may be a neural model or a symbolic component such as a calculator or database query [<a href="#ref-7" class="j-cite">7</a>]. Gorilla fine-tuned a model specifically for generating API calls and reported reduced hallucination of API usage compared with general-purpose models [<a href="#ref-8" class="j-cite">8</a>]. Together these works establish tool invocation as a central, and security-critical, capability of any AI OS.</p><h3>2.3 Retrieval augmentation</h3><p>Retrieval-augmented generation (RAG) combines a parametric model with a non-parametric memory, such as a dense vector index of documents, from which passages are retrieved and supplied to the generator [<a href="#ref-9" class="j-cite">9</a>]. A subsequent survey organizes the field into naive, advanced and modular RAG paradigms, distinguished by the sophistication of indexing, query rewriting, re-ranking and the composition of retrieval and generation modules [<a href="#ref-10" class="j-cite">10</a>]. Retrieval does not remove the need to manage context carefully: Liu et al. found that model performance can degrade significantly when relevant information is placed in the middle of a long input context rather than at its beginning or end, even for models designed for long contexts [<a href="#ref-11" class="j-cite">11</a>]. An enterprise knowledge layer therefore needs ranking and context-assembly policies, not merely a large index.</p><h3>2.4 Interoperability through the Model Context Protocol</h3><p>A practical obstacle to a shared AI layer has been the absence of a common interface between models and enterprise systems. The Model Context Protocol (MCP), introduced by Anthropic in November 2024 as an open standard for connecting AI assistants to the systems where data resides [<a href="#ref-12" class="j-cite">12</a>], addresses this obstacle. The specification defines JSON-RPC 2.0 messages exchanged between hosts (LLM applications), clients (connectors within a host) and servers (services that provide context and capabilities). Servers may expose resources, prompts and tools; clients may offer sampling, roots and elicitation to servers [<a href="#ref-13" class="j-cite">13</a>]. The specification also states security principles, including explicit user consent before tools are invoked and the instruction that descriptions of tool behavior be treated as untrusted unless obtained from a trusted server, while noting that the protocol itself cannot enforce these principles [<a href="#ref-13" class="j-cite">13</a>]. In AI OS terms, MCP is a candidate standard for the boundary between the agent layer and the integration layer, but enforcement remains the responsibility of the platform.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> A Reference Architecture</h2><h3>3.1 Design principles</h3><p>The reference architecture rests on four principles. <strong>Mediation</strong>: agents and applications reach models, tools and data only through platform services that can authorize, meter and log each request, following the AIOS kernel concept [<a href="#ref-3" class="j-cite">3</a>] and the zero-trust principle that no request is trusted by virtue of its network location [<a href="#ref-14" class="j-cite">14</a>]. <strong>Separation of concerns</strong>: knowledge, models, tools and workflows are versioned and replaced independently, which limits the entanglement that Sculley et al. identified as a source of technical debt [<a href="#ref-1" class="j-cite">1</a>]. <strong>Least privilege</strong>: every agent acts under an identity whose permissions do not exceed those of the human or service on whose behalf it acts. <strong>Measurability</strong>: every unit of work produces a trace from which quality, cost and latency can be computed. Table 1 summarizes the resulting layers. Figure 1 arranges the same ten layers as a stack: six lie on the path between applications and systems of record, while identity and permissions, governance, evaluation and observability, and cost control cut across all of them, so every request meets them whichever layers it uses.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Reference architecture for an enterprise AI operating system: layers, functions, typical mechanisms and principal risks.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Layer</th><th>Primary function</th><th>Typical mechanisms</th><th>Principal risks</th></tr></thead><tbody><tr><td>Data and integration</td><td>Governed access to systems of record</td><td>Connectors, APIs, MCP servers, change-data capture, data contracts</td><td>Stale or inconsistent data; over-broad credentials</td></tr><tr><td>Knowledge and retrieval</td><td>Ground outputs in organizational content</td><td>Chunking, embeddings, hybrid search, re-ranking, access-filtered indexes</td><td>Leakage across permission boundaries; poor recall; context dilution</td></tr><tr><td>Model access and routing</td><td>Select and call models</td><td>Model gateway, routers, cascades, caching, fallbacks</td><td>Vendor lock-in; quality regression after model updates</td></tr><tr><td>Agent and tool</td><td>Execute actions through tools</td><td>Tool registry with schemas, ReAct-style loops, sandboxes</td><td>Excessive agency; injected instructions in tool output</td></tr><tr><td>Workflow orchestration</td><td>Compose steps into durable processes</td><td>State machines, queues, retries, human-approval gates</td><td>Silent partial failure; compounding error</td></tr><tr><td>Memory</td><td>Persist context across sessions</td><td>Session state, episodic and semantic stores, retention rules</td><td>Retention of personal data; memory poisoning</td></tr><tr><td>Identity and permissions</td><td>Bind every action to an accountable principal</td><td>Single sign-on, delegated tokens, role- and attribute-based access control</td><td>Privilege escalation; confused-deputy behavior</td></tr><tr><td>Governance</td><td>Policy, accountability and compliance</td><td>AI inventory, risk assessment, model cards, approval workflow</td><td>Unregistered shadow deployments</td></tr><tr><td>Evaluation and observability</td><td>Measure quality, safety, latency</td><td>Test suites, LLM-as-judge with human calibration, traces</td><td>Unmeasured drift; biased automated judges</td></tr><tr><td>Cost control</td><td>Allocate and bound spending</td><td>Token metering, budgets, quotas, routing policies</td><td>Unbounded consumption; unattributed spend</td></tr></tbody></table></div><p class="j-table-note">Synthesized by the author from [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>, <a href="#ref-13" class="j-cite">13</a>, <a href="#ref-17" class="j-cite">17</a>, <a href="#ref-24" class="j-cite">24</a>].</p></figure><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 524.88 288.72" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Layered architecture diagram. Between a dashed box for AI applications and agents at the top and a dashed box for systems of record at the bottom are six stacked layers: workflow orchestration, agent and tool, memory, model access and routing, knowledge and retrieval, and data and integration, each with its typical mechanisms. To the right, four vertical bars spanning all six layers represent the cross-cutting layers: identity and permissions, governance, evaluation and observability, and cost control.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 288.72 
+L 524.88 288.72 
+L 524.88 0 
+L 0 0 
+L 0 288.72 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 15.560509 36.56 
+L 313.309309 36.56 
+Q 316.109455 36.56 316.109455 33.92 
+L 316.109455 17.2 
+Q 316.109455 14.56 313.309309 14.56 
+L 15.560509 14.56 
+Q 12.760364 14.56 12.760364 17.2 
+L 12.760364 33.92 
+Q 12.760364 36.56 15.560509 36.56 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #ffffff; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 15.560509 74.4 
+L 313.309309 74.4 
+Q 316.109455 74.4 316.109455 71.76 
+L 316.109455 49.76 
+Q 316.109455 47.12 313.309309 47.12 
+L 15.560509 47.12 
+Q 12.760364 47.12 12.760364 49.76 
+L 12.760364 71.76 
+Q 12.760364 74.4 15.560509 74.4 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e6eef7; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 15.560509 106.96 
+L 313.309309 106.96 
+Q 316.109455 106.96 316.109455 104.32 
+L 316.109455 82.32 
+Q 316.109455 79.68 313.309309 79.68 
+L 15.560509 79.68 
+Q 12.760364 79.68 12.760364 82.32 
+L 12.760364 104.32 
+Q 12.760364 106.96 15.560509 106.96 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e6eef7; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 15.560509 139.52 
+L 313.309309 139.52 
+Q 316.109455 139.52 316.109455 136.88 
+L 316.109455 114.88 
+Q 316.109455 112.24 313.309309 112.24 
+L 15.560509 112.24 
+Q 12.760364 112.24 12.760364 114.88 
+L 12.760364 136.88 
+Q 12.760364 139.52 15.560509 139.52 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #eef1f5; stroke: #9ab0c8; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 15.560509 172.08 
+L 313.309309 172.08 
+Q 316.109455 172.08 316.109455 169.44 
+L 316.109455 147.44 
+Q 316.109455 144.8 313.309309 144.8 
+L 15.560509 144.8 
+Q 12.760364 144.8 12.760364 147.44 
+L 12.760364 169.44 
+Q 12.760364 172.08 15.560509 172.08 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e4f1e0; stroke: #4d7f12; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 15.560509 204.64 
+L 313.309309 204.64 
+Q 316.109455 204.64 316.109455 202 
+L 316.109455 180 
+Q 316.109455 177.36 313.309309 177.36 
+L 15.560509 177.36 
+Q 12.760364 177.36 12.760364 180 
+L 12.760364 202 
+Q 12.760364 204.64 15.560509 204.64 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e4f1e0; stroke: #4d7f12; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 15.560509 237.2 
+L 313.309309 237.2 
+Q 316.109455 237.2 316.109455 234.56 
+L 316.109455 212.56 
+Q 316.109455 209.92 313.309309 209.92 
+L 15.560509 209.92 
+Q 12.760364 209.92 12.760364 212.56 
+L 12.760364 234.56 
+Q 12.760364 237.2 15.560509 237.2 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e4f1e0; stroke: #4d7f12; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 15.560509 278.56 
+L 313.309309 278.56 
+Q 316.109455 278.56 316.109455 275.92 
+L 316.109455 259.2 
+Q 316.109455 256.56 313.309309 256.56 
+L 15.560509 256.56 
+Q 12.760364 256.56 12.760364 259.2 
+L 12.760364 275.92 
+Q 12.760364 278.56 15.560509 278.56 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #ffffff; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_10">
+<path d="M 326.843345 252.16 
+L 361.378473 252.16 
+Q 364.178618 252.16 364.178618 249.52 
+L 364.178618 49.76 
+Q 364.178618 47.12 361.378473 47.12 
+L 326.843345 47.12 
+Q 324.0432 47.12 324.0432 49.76 
+L 324.0432 249.52 
+Q 324.0432 252.16 326.843345 252.16 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #fbe6d8; stroke: #e07a3a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_11">
+<path d="M 373.512436 252.16 
+L 408.047564 252.16 
+Q 410.847709 252.16 410.847709 249.52 
+L 410.847709 49.76 
+Q 410.847709 47.12 408.047564 47.12 
+L 373.512436 47.12 
+Q 370.712291 47.12 370.712291 49.76 
+L 370.712291 249.52 
+Q 370.712291 252.16 373.512436 252.16 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #fbe6d8; stroke: #e07a3a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 420.181527 252.16 
+L 454.716655 252.16 
+Q 457.5168 252.16 457.5168 249.52 
+L 457.5168 49.76 
+Q 457.5168 47.12 454.716655 47.12 
+L 420.181527 47.12 
+Q 417.381382 47.12 417.381382 49.76 
+L 417.381382 249.52 
+Q 417.381382 252.16 420.181527 252.16 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e6eef7; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_13">
+<path d="M 466.850618 252.16 
+L 501.385745 252.16 
+Q 504.185891 252.16 504.185891 249.52 
+L 504.185891 49.76 
+Q 504.185891 47.12 501.385745 47.12 
+L 466.850618 47.12 
+Q 464.050473 47.12 464.050473 49.76 
+L 464.050473 249.52 
+Q 464.050473 252.16 466.850618 252.16 
+z
+" clip-path="url(#pd3d5054018)" style="fill: #e6eef7; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="164.434909" y="28.11875" transform="rotate(-0 164.434909 28.11875)">AI applications and agents (consumers of the platform)</text>
+</g>
+<g id="text_2">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="19.760727" y="59.375811" transform="rotate(-0 19.760727 59.375811)">Workflow orchestration</text>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="19.760727" y="70.633926" transform="rotate(-0 19.760727 70.633926)">state machines, queues, retries, human-approval gates</text>
+</g>
+<g id="text_4">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="19.760727" y="91.935811" transform="rotate(-0 19.760727 91.935811)">Agent and tool</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="19.760727" y="103.193926" transform="rotate(-0 19.760727 103.193926)">tool registry with schemas, ReAct-style loops, sandboxes</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="19.760727" y="124.495811" transform="rotate(-0 19.760727 124.495811)">Memory</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="19.760727" y="135.753926" transform="rotate(-0 19.760727 135.753926)">session state, episodic and semantic stores, retention rules</text>
+</g>
+<g id="text_8">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="19.760727" y="157.055811" transform="rotate(-0 19.760727 157.055811)">Model access and routing</text>
+</g>
+<g id="text_9">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="19.760727" y="168.313926" transform="rotate(-0 19.760727 168.313926)">model gateway, routers, cascades, caching, fallbacks</text>
+</g>
+<g id="text_10">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="19.760727" y="189.615811" transform="rotate(-0 19.760727 189.615811)">Knowledge and retrieval</text>
+</g>
+<g id="text_11">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="19.760727" y="200.873926" transform="rotate(-0 19.760727 200.873926)">hybrid search, re-ranking, access-filtered indexes</text>
+</g>
+<g id="text_12">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="19.760727" y="222.175811" transform="rotate(-0 19.760727 222.175811)">Data and integration</text>
+</g>
+<g id="text_13">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="19.760727" y="233.433926" transform="rotate(-0 19.760727 233.433926)">connectors, APIs, MCP servers, data contracts</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="164.434909" y="270.071313" transform="rotate(-0 164.434909 270.071313)">Systems of record: ERP, CRM, document management, email</text>
+</g>
+<g id="text_15">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(341.499738 206.216953) rotate(-90)">Identity and permissions</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(355.785271 226.265859) rotate(-90)">SSO, delegated tokens, RBAC/ABAC</text>
+</g>
+<g id="text_17">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(388.168829 177.558125) rotate(-90)">Governance</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(402.454362 234.97125) rotate(-90)">inventory, risk assessment, model cards</text>
+</g>
+<g id="text_19">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(434.83792 214.560625) rotate(-90)">Evaluation and observability</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(449.123453 226.380469) rotate(-90)">test suites, calibrated judges, traces</text>
+</g>
+<g id="text_21">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(481.507011 177.674648) rotate(-90)">Cost control</text>
+</g>
+<g id="text_22">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(495.792544 205.523672) rotate(-90)">metering, budgets, quotas</text>
+</g>
+<g id="text_23">
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(357.758374 23.389102)">Cross-cutting layers apply</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(379.546108 34.27875)">to every request</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pd3d5054018">
+<rect x="5.76" y="5.76" width="513.36" height="277.2"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> The ten-layer reference architecture of Table 1. Six layers lie on the path from AI applications to systems of record; four cross-cutting layers apply to every request. Typical mechanisms are listed for each layer; the stacked and cross-cutting grouping is the author's. <span class="j-fig-src">Drawn by the author from Table 1.</span></figcaption></figure><h3>3.2 Data and integration layer</h3><p>The data and integration layer provides governed, read-and-write access to systems of record such as enterprise resource planning, customer relationship management, document management and email. Its central design decision is whether AI components call systems directly or through intermediary services that enforce data contracts, field-level masking and rate limits. Protocol standards such as MCP reduce the cost of building connectors by giving each system a uniform server interface [<a href="#ref-13" class="j-cite">13</a>], but the connector inherits whatever credentials it is given. The layer should therefore issue scoped credentials per connector and per caller rather than a single service account with broad rights.</p><h3>3.3 Knowledge and retrieval layer</h3><p>The knowledge layer turns documents, records and transcripts into retrievable context, following the RAG pattern [<a href="#ref-9" class="j-cite">9</a>]. Enterprise deployments typically need the advanced or modular forms described by Gao et al., including query rewriting, hybrid lexical and vector search and re-ranking [<a href="#ref-10" class="j-cite">10</a>]. Two enterprise-specific requirements dominate. First, retrieval must respect source permissions: a passage that a user cannot open in the source system must not be retrieved on that user's behalf. Permission filters should be applied at query time against the caller's identity rather than baked into separate indexes that drift out of date. Second, because models use information unevenly across long contexts [<a href="#ref-11" class="j-cite">11</a>], the layer should return a small number of highly ranked passages with provenance rather than maximizing the volume of retrieved text.</p><h3>3.4 Model access and routing layer</h3><p>A model gateway decouples applications from specific model providers and versions. Its most consequential function is routing. FrugalGPT demonstrated that an LLM cascade, which queries inexpensive models first and escalates only when a learned scorer rejects an answer, could match the performance of the best individual model on its benchmarks with up to 98% cost reduction [<a href="#ref-15" class="j-cite">15</a>]. RouteLLM trained routers on human preference data to choose between a stronger and a weaker model and reported cost reductions of more than a factor of two in some settings without loss of response quality [<a href="#ref-16" class="j-cite">16</a>]. The MRKL architecture had earlier proposed routing among heterogeneous expert modules [<a href="#ref-7" class="j-cite">7</a>]. A simple formalization of a threshold router selects, for input <em>x</em>, the cheapest model whose predicted quality meets a threshold:</p><div class="j-eq" role="math"><span class="j-eq-body">m*(x) = arg min<sub>m ∈ M</sub> c<sub>m</sub>(x)  subject to  q̂<sub>m</sub>(x) ≥ τ</span><span class="j-eq-n">(1)</span></div><p>where <em>M</em> is the set of available models, c<sub>m</sub>(x) is the expected cost of model <em>m</em> on input <em>x</em>, q̂<sub>m</sub>(x) is a predicted quality score and τ is a task-specific acceptance threshold. If no model satisfies the constraint, the request escalates to the strongest model or to a human. Eq. (1) makes explicit that a router is only as good as its quality predictor, which must be validated on the organization's own workload; published savings are workload-dependent and do not transfer automatically [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>]. The gateway also implements response caching, fallback on provider outage and pinning of model versions, so that a provider update does not silently change behavior in production.</p><h3>3.5 Agent and tool layer</h3><p>The agent layer hosts reasoning-and-acting loops of the ReAct type [<a href="#ref-5" class="j-cite">5</a>] together with a tool registry. Each registered tool should carry a machine-readable schema, an owner, a risk classification and a declaration of whether it reads, writes or performs irreversible actions. The registry allows the platform to present each agent with only the tools its task requires. Model fine-tuning for tool use can reduce malformed calls [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-8" class="j-cite">8</a>], but schema validation of arguments at the platform boundary remains necessary because model output is not trustworthy input. Tools that execute code or reach external networks should run in sandboxes with constrained egress.</p><h3>3.6 Workflow orchestration</h3><p>Many enterprise tasks are not open-ended conversations but processes with defined steps, such as receiving a document, extracting fields, validating them against a system of record, obtaining approval and posting a transaction. Orchestration encodes such processes as explicit state machines in which some steps are performed by LLM agents and others by deterministic code or humans. Explicit orchestration provides durable state, retries with idempotency, timeouts and human-approval gates, and it confines model nondeterminism to the steps that require language understanding. A useful default is to let deterministic code control the flow and to call models for bounded subtasks, reserving free-form agent autonomy for tasks whose steps cannot be enumerated in advance.</p><h3>3.7 Memory</h3><p>Memory spans short-term session state, episodic records of past interactions and semantic stores of distilled facts. MemGPT illustrates explicit management of what enters the limited context and what is paged to external storage [<a href="#ref-2" class="j-cite">2</a>]. In an enterprise setting memory is also a data-protection concern: persisted memories may contain personal information and must be subject to retention schedules, access control and deletion on request. Memory written by an agent from untrusted content is also an attack surface, because an injected instruction stored today may be retrieved and acted upon later.</p><h3>3.8 Identity and permissions</h3><p>Every action taken by an agent should be attributable to an accountable principal. The zero-trust model, under which access decisions are made per request on the basis of authenticated identity and policy rather than network location [<a href="#ref-14" class="j-cite">14</a>], fits agent systems well. In practice this implies delegated, short-lived tokens that carry the identity of the requesting user, attribute-based policies that can express conditions such as amount limits, and a prohibition on agents using standing administrative credentials. Without delegation, an agent with broad service credentials can be induced to act as a confused deputy, performing on behalf of one user an action that only another principal is entitled to perform.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Governance, Evaluation and Observability</h2><h3>4.1 Governance frameworks</h3><p>Three instruments provide the main external reference points as of late 2026. The NIST AI Risk Management Framework (AI RMF 1.0) organizes AI risk management into four functions, Govern, Map, Measure and Manage, and is voluntary and sector-neutral [<a href="#ref-17" class="j-cite">17</a>]. Its Generative AI Profile, published in July 2024, applies the framework to risks that are specific to or amplified by generative AI [<a href="#ref-18" class="j-cite">18</a>]. ISO/IEC 42001:2023 specifies requirements for establishing, implementing, maintaining and continually improving an AI management system within an organization of any size and is designed for certification [<a href="#ref-19" class="j-cite">19</a>]. The European Union's Artificial Intelligence Act, Regulation (EU) 2024/1689, entered into force on 1 August 2024 and applies generally from 2 August 2026, with certain provisions applying on other dates set out in Article 113; it establishes risk-based obligations that bear on organizations placing AI systems on the EU market or using them there [<a href="#ref-20" class="j-cite">20</a>].</p><p>An AI OS makes these frameworks operable because it centralizes the evidence they require. The platform's inventory of models, tools, agents and workflows forms the system register that ISO/IEC 42001 and the Map function presuppose; per-deployment documentation in the style of model cards [<a href="#ref-21" class="j-cite">21</a>] records intended use, evaluation results and known limitations; and traces provide the measurement record for the Measure and Manage functions [<a href="#ref-17" class="j-cite">17</a>]. Governance implemented as platform policy, for example a rule that no workflow may call a write-capable tool without a registered owner and a passed evaluation, scales better than governance implemented as periodic manual review.</p><h3>4.2 Evaluation</h3><p>Evaluation should be multi-dimensional. The Holistic Evaluation of Language Models (HELM) project argued for measuring accuracy together with calibration, robustness, fairness, bias, toxicity and efficiency across many scenarios, rather than reporting a single score [<a href="#ref-22" class="j-cite">22</a>]. Enterprise evaluation adds task-specific criteria such as field-extraction accuracy, policy compliance and correct tool selection. Because human grading is expensive, many teams use a strong LLM as an automated judge. Zheng et al. found that a strong judge model could reach agreement with human preferences comparable to agreement between humans, but also documented position, verbosity and self-enhancement biases [<a href="#ref-23" class="j-cite">23</a>]. Automated judges should therefore be calibrated periodically against human-labeled samples drawn from production traffic, and evaluation suites should be rerun whenever a model, prompt, tool or retrieval index changes.</p><h3>4.3 Operating metrics</h3><p>Observability converts traces into a small set of metrics that can be tracked over time. The first is the fully loaded cost per successfully completed task:</p><div class="j-eq" role="math"><span class="j-eq-body">C<sub>task</sub> = [ Σ<sub>i</sub> ( p<sub>in,i</sub> T<sub>in,i</sub> + p<sub>out,i</sub> T<sub>out,i</sub> ) + C<sub>tool</sub> + C<sub>human</sub> ] / N<sub>success</sub></span><span class="j-eq-n">(2)</span></div><p>where the sum runs over all model calls in a reporting period, p<sub>in,i</sub> and p<sub>out,i</sub> are the per-token prices of input and output tokens for call <em>i</em>, T<sub>in,i</sub> and T<sub>out,i</sub> are the corresponding token counts, C<sub>tool</sub> is the cost of tool and infrastructure usage, C<sub>human</sub> is the cost of human review and correction, and N<sub>success</sub> is the number of tasks completed correctly. Dividing by successful rather than attempted tasks penalizes systems that are cheap per call but fail often. The second metric is the automation rate:</p><div class="j-eq" role="math"><span class="j-eq-body">A = N<sub>auto</sub> / N<sub>total</sub></span><span class="j-eq-n">(3)</span></div><p>where N<sub>auto</sub> is the number of tasks completed and accepted without human intervention and N<sub>total</sub> is the number of tasks received. The automation rate must always be reported together with a quality measure, since it can be raised trivially by removing review. The third metric is end-to-end reliability of a workflow composed of <em>k</em> steps with step success probabilities r<sub>j</sub>. Under an assumption of independence,</p><div class="j-eq" role="math"><span class="j-eq-body">R = Π<sub>j=1</sub><sup>k</sup> r<sub>j</sub>,   r′<sub>j</sub> = 1 − (1 − r<sub>j</sub>)<sup>n<sub>j</sub></sup></span><span class="j-eq-n">(4)</span></div><p>where r′<sub>j</sub> is the effective success probability of step <em>j</em> when a reliable validator detects failure and permits up to n<sub>j</sub> independent attempts. Eq. (4) shows why long autonomous chains are fragile and why cheap validation is valuable. The independence assumption is optimistic: repeated attempts by the same model on the same input tend to fail in correlated ways, so measured retry gains are usually smaller than the formula suggests. Latency percentiles, escalation rates, refusal rates and evaluation scores by workflow complete the operating dashboard.</p><h3>4.4 Cost control</h3><p>Cost control combines metering, attribution and limits. Each model call should be tagged with the workflow, business unit and principal that caused it, so that Eq. (2) can be computed per workflow. Budgets and quotas at the gateway bound spending, and routing policies (Eq. (1)) direct routine traffic to inexpensive models. Limits also have a security function: the OWASP Top 10 for LLM Applications lists unbounded consumption as a distinct risk, covering both runaway cost and denial of service [<a href="#ref-24" class="j-cite">24</a>].</p><aside class="j-callout"><p>Cost per successfully completed task, not cost per token, is the economic metric that matters. In workflows with human review, review labor frequently exceeds model spending, so improvements in reliability can reduce total cost more than cheaper models do.</p></aside></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Security and Risk</h2><h3>5.1 Prompt injection</h3><p>Prompt injection is the defining security problem of LLM-integrated systems. Perez and Ribeiro demonstrated goal hijacking and prompt leaking through adversarial user input [<a href="#ref-25" class="j-cite">25</a>]. Greshake et al. showed that the more serious threat is indirect: an adversary places instructions in content that the application will later retrieve, such as a web page, an email or a document, and the model executes them with the application's privileges. They demonstrated data theft, manipulation of application behavior and control over which APIs are called against real systems, and argued that LLM-integrated applications blur the boundary between data and instructions [<a href="#ref-26" class="j-cite">26</a>]. An AI OS amplifies this risk because it connects many data sources to many tools; a single poisoned document in the knowledge layer can reach every agent that retrieves it.</p><p>No published technique eliminates prompt injection, so the architecture must limit its consequences. Effective measures are structural: separating trusted instructions from untrusted content in prompts and in logs; giving agents that process untrusted content no access to write-capable or exfiltration-capable tools; requiring human approval for irreversible actions; constraining network egress; and validating tool arguments against schemas and policy before execution. The MCP specification's instruction to treat tool descriptions as untrusted unless obtained from a trusted server reflects the same principle at the protocol boundary [<a href="#ref-13" class="j-cite">13</a>].</p><h3>5.2 Mapping risks to platform controls</h3><p>The OWASP Top 10 for LLM Applications 2025 provides a widely used risk catalogue [<a href="#ref-24" class="j-cite">24</a>]. Table 2 maps a selection of its entries to the architecture layers of Table 1 and to controls that a platform can enforce centrally. The mapping illustrates the main security argument for an AI OS: controls implemented once in the gateway, registry and identity layers apply to every application, whereas controls implemented separately in each application tend to be inconsistent.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Selected OWASP Top 10 for LLM Applications 2025 risks mapped to AI OS layers and platform-level controls.</figcaption><div class="j-table-scroll"><table><thead><tr><th>OWASP 2025 risk</th><th>Most exposed layers</th><th>Platform-level controls</th></tr></thead><tbody><tr><td>LLM01 Prompt Injection</td><td>Knowledge, agent and tool, memory</td><td>Separate trusted and untrusted content; restrict tools for agents reading untrusted input; approval gates</td></tr><tr><td>LLM02 Sensitive Information Disclosure</td><td>Knowledge, memory, model access</td><td>Permission-filtered retrieval; masking; retention rules; provider data agreements</td></tr><tr><td>LLM03 Supply Chain</td><td>Model access, agent and tool</td><td>Approved model and tool registry; version pinning; review of third-party servers</td></tr><tr><td>LLM05 Improper Output Handling</td><td>Agent and tool, orchestration</td><td>Schema validation of tool arguments; treat model output as untrusted input</td></tr><tr><td>LLM06 Excessive Agency</td><td>Agent and tool, identity</td><td>Least-privilege tool sets; delegated tokens; limits on amounts and scope</td></tr><tr><td>LLM08 Vector and Embedding Weaknesses</td><td>Knowledge</td><td>Access control on indexes; provenance; ingestion screening</td></tr><tr><td>LLM10 Unbounded Consumption</td><td>Model access, cost control</td><td>Quotas, budgets, rate limits, loop and step limits</td></tr></tbody></table></div><p class="j-table-note">Risk identifiers and names from [<a href="#ref-24" class="j-cite">24</a>]; layer mapping and controls by the author.</p></figure><aside class="j-callout"><p>Because prompt injection cannot currently be prevented reliably at the model level, the decisive control is architectural: an agent that reads untrusted content should not simultaneously hold tools that can move money, change records or send data outside the organization.</p></aside></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Maturity Model and Phased Adoption</h2><p>Organizations rarely build all layers of Table 1 at once. Table 3 proposes a five-stage maturity model derived from the architecture. The stages are cumulative and describe capabilities rather than elapsed time; an organization may be at different stages for different capabilities. The model is a planning aid proposed in this paper, not an empirically validated instrument.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Proposed five-stage maturity model for an enterprise AI operating system.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Characteristics</th><th>Capabilities added</th><th>Exit criteria</th></tr></thead><tbody><tr><td>0 Ad hoc</td><td>Individual use of public assistants; no inventory</td><td>None shared</td><td>Acceptable-use policy issued; usage inventoried</td></tr><tr><td>1 Managed access</td><td>Sanctioned assistant and model gateway</td><td>Single sign-on, gateway logging, data-handling rules</td><td>All model traffic passes through gateway</td></tr><tr><td>2 Grounded assistance</td><td>Retrieval over internal content</td><td>Permission-filtered knowledge layer, evaluation suite</td><td>Retrieval quality measured; no permission leakage in tests</td></tr><tr><td>3 Supervised automation</td><td>Workflows with tools and human approval</td><td>Tool registry, orchestration, delegated identity, cost attribution</td><td>Eq. (2)–(4) reported per workflow</td></tr><tr><td>4 Governed autonomy</td><td>Agents act within policy without per-step approval</td><td>Policy engine, continuous evaluation, incident response, management system</td><td>Audit against chosen framework passed</td></tr></tbody></table></div><p class="j-table-note">Proposed by the author; framework alignment with [<a href="#ref-17" class="j-cite">17</a>, <a href="#ref-19" class="j-cite">19</a>].</p></figure><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 529.677152 291.589619" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Staircase of five rising steps. Stage 0 Ad hoc, Stage 1 Managed access, Stage 2 Grounded assistance, Stage 3 Supervised automation and Stage 4 Governed autonomy, each listing its added capabilities such as single sign-on and gateway logging, a permission-filtered knowledge layer, a tool registry and delegated identity, and a policy engine. Exit criteria appear above each step. Bands beneath show stages 0 to 2 without tool actions, stage 3 with tools under human approval and stage 4 with autonomy within policy.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 291.589619 
+L 529.677152 291.589619 
+L 529.677152 0 
+L 0 0 
+L 0 291.589619 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 17.603269 250.648344 
+L 110.209387 250.648344 
+Q 113.229152 250.648344 113.229152 248.607607 
+L 113.229152 177.862086 
+Q 113.229152 175.82135 110.209387 175.82135 
+L 17.603269 175.82135 
+Q 14.583505 175.82135 14.583505 177.862086 
+L 14.583505 248.607607 
+Q 14.583505 250.648344 17.603269 250.648344 
+z
+" clip-path="url(#p740f032e4c)" style="fill: #eef1f5; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 119.771975 250.648344 
+L 212.378093 250.648344 
+Q 215.397858 250.648344 215.397858 248.607607 
+L 215.397858 150.65227 
+Q 215.397858 148.611534 212.378093 148.611534 
+L 119.771975 148.611534 
+Q 116.75221 148.611534 116.75221 150.65227 
+L 116.75221 248.607607 
+Q 116.75221 250.648344 119.771975 250.648344 
+z
+" clip-path="url(#p740f032e4c)" style="fill: #e6eef7; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 221.940681 250.648344 
+L 314.546799 250.648344 
+Q 317.566563 250.648344 317.566563 248.607607 
+L 317.566563 123.442454 
+Q 317.566563 121.401718 314.546799 121.401718 
+L 221.940681 121.401718 
+Q 218.920916 121.401718 218.920916 123.442454 
+L 218.920916 248.607607 
+Q 218.920916 250.648344 221.940681 250.648344 
+z
+" clip-path="url(#p740f032e4c)" style="fill: #d7e6f3; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 324.109387 250.648344 
+L 416.715505 250.648344 
+Q 419.735269 250.648344 419.735269 248.607607 
+L 419.735269 96.232638 
+Q 419.735269 94.191902 416.715505 94.191902 
+L 324.109387 94.191902 
+Q 321.089622 94.191902 321.089622 96.232638 
+L 321.089622 248.607607 
+Q 321.089622 250.648344 324.109387 250.648344 
+z
+" clip-path="url(#p740f032e4c)" style="fill: #c9ddee; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 426.278093 250.648344 
+L 518.88421 250.648344 
+Q 521.903975 250.648344 521.903975 248.607607 
+L 521.903975 69.022822 
+Q 521.903975 66.982086 518.88421 66.982086 
+L 426.278093 66.982086 
+Q 423.258328 66.982086 423.258328 69.022822 
+L 423.258328 248.607607 
+Q 423.258328 250.648344 426.278093 250.648344 
+z
+" clip-path="url(#p740f032e4c)" style="fill: #b8d2ea; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="line2d_1">
+<path d="M 15.590093 258.131043 
+L 307.500681 258.131043 
+" clip-path="url(#p740f032e4c)" style="fill: none; stroke: #4d7f12; stroke-width: 3"/>
+</g>
+<g id="line2d_2">
+<path d="M 317.566563 258.131043 
+L 408.159505 258.131043 
+" clip-path="url(#p740f032e4c)" style="fill: none; stroke: #e07a3a; stroke-width: 3"/>
+</g>
+<g id="line2d_3">
+<path d="M 418.225387 258.131043 
+L 508.818328 258.131043 
+" clip-path="url(#p740f032e4c)" style="fill: none; stroke: #b4410c; stroke-width: 3"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="20.623034" y="189.64194" transform="rotate(-0 20.623034 189.64194)">Stage 0</text>
+</g>
+<g id="text_2">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="20.623034" y="202.474994" transform="rotate(-0 20.623034 202.474994)">Ad hoc</text>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(20.623034 213.525927)">Individual use of</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(20.623034 226.774735)">public assistants;</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(20.623034 240.9137)">no shared capability</text>
+</g>
+<g id="text_4">
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(5.76 141.516401)">Exit: Acceptable-use policy</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(34.289297 154.548823)">issued; usage</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(40.187109 168.534682)">inventoried</text>
+</g>
+<g id="text_5">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="122.79174" y="162.432124" transform="rotate(-0 122.79174 162.432124)">Stage 1</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="122.79174" y="174.262975" transform="rotate(-0 122.79174 174.262975)">Managed access</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(122.79174 198.408915)">+ Single sign-on</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(122.79174 212.565458)">+ Gateway logging</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(122.79174 226.722001)">+ Data-handling</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(122.79174 241.689247)">   rules</text>
+</g>
+<g id="text_8">
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(122.176831 114.304475)">Exit: All model traffic</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(133.036597 127.231429)">passes through</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(139.792222 140.299007)">the gateway</text>
+</g>
+<g id="text_9">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="224.960446" y="135.222308" transform="rotate(-0 224.960446 135.222308)">Stage 2</text>
+</g>
+<g id="text_10">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.960446 148.103597)">Grounded</text>
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.960446 161.861591)">assistance</text>
+</g>
+<g id="text_11">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.960446 199.327196)">+ Permission-</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.960446 213.530146)">   filtered</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.960446 226.614423)">   knowledge layer</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.960446 241.792607)">+ Evaluation suite</text>
+</g>
+<g id="text_12">
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(223.674052 87.096769)">Exit: Retrieval quality</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(238.962802 100.203722)">measured; no</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(226.705224 113.196769)">permission leakage</text>
+</g>
+<g id="text_13">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="327.129152" y="108.012492" transform="rotate(-0 327.129152 108.012492)">Stage 3</text>
+</g>
+<g id="text_14">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.129152 120.070734)">Supervised</text>
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.129152 134.651775)">automation</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.129152 198.408915)">+ Tool registry</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.129152 213.479521)">+ Orchestration</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.129152 226.722001)">+ Delegated identity</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.129152 241.792607)">+ Cost attribution</text>
+</g>
+<g id="text_16">
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(335.249868 60.203359)">Exit: Eqs. (2)–(4)</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(343.88354 72.864531)">reported per</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(350.80018 86.02)">workflow</text>
+</g>
+<g id="text_17">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="429.297858" y="80.802676" transform="rotate(-0 429.297858 80.802676)">Stage 4</text>
+</g>
+<g id="text_18">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 93.683965)">Governed</text>
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 106.054646)">autonomy</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 170.095829)">+ Policy engine</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 185.170653)">+ Continuous</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 199.322978)">   evaluation</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 212.618193)">+ Incident response</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 226.614423)">+ Management</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.297858 240.573388)">   system</text>
+</g>
+<g id="text_20">
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(426.047636 32.641981)">Exit: Audit against the</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(432.702714 45.742606)">chosen framework</text>
+<text style="font-style: italic; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(456.967558 58.722293)">passed</text>
+</g>
+<g id="text_21">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="161.545387" y="270.320527" transform="rotate(-0 161.545387 270.320527)">No tool actions: read-only use and grounding</text>
+</g>
+<g id="text_22">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(337.215143 271.084824)">Tools under</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(327.918425 282.195781)">human approval</text>
+</g>
+<g id="text_23">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(426.715373 270.355684)">Autonomy within</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(450.432483 282.334297)">policy</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p740f032e4c">
+<rect x="10.557152" y="5.76" width="513.36" height="277.2"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> The proposed five-stage maturity model of Table 3 as a staircase. Each step lists the capabilities added at that stage and, above it, the exit criterion for moving to the next stage; the bands below mark where tool actions and autonomy are introduced. <span class="j-fig-src">Drawn by the author from Table 3.</span></figcaption></figure><p>The progression reflects a deliberate ordering. Managed access comes first because it provides the inventory and logging on which all later governance depends. Retrieval precedes tool use because read-only grounding carries lower risk than write actions and allows the organization to build evaluation capability before automation raises the stakes. Supervised automation introduces tools under human approval, which generates labeled data on agent decisions that later justifies relaxing approval for low-risk actions. Governed autonomy is reached only for workflows whose measured reliability, as in Eq. (4), and risk classification warrant it. This sequencing aligns with the iterative Govern–Map–Measure–Manage cycle of the NIST framework [<a href="#ref-17" class="j-cite">17</a>] and the continual-improvement structure of ISO/IEC 42001 [<a href="#ref-19" class="j-cite">19</a>]. Figure 2 draws Table 3 as a staircase: each stage adds capabilities to those below it, and tool actions appear only at Stage 3, after inventory, grounding and evaluation are in place.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Illustrative SME Scenario</h2><p>This section applies the metrics to a hypothetical example. All figures are assumptions chosen for illustration; they do not describe any real organization, and the prices are not quotations from any provider. Consider a wholesale distributor with about 40 staff that processes 2,000 supplier invoices per month and has reached Stage 3 of Table 3 for invoice processing. Each invoice passes through a four-step workflow: document intake and classification, field extraction by a large model, validation against purchase orders by deterministic code assisted by a small model, and posting to the accounting system after any required human approval.</p><p>Assume that extraction consumes 6,000 input and 500 output tokens on a large model priced at $3 and $15 per million input and output tokens, giving $0.018 + $0.0075 = $0.0255 per invoice, and that validation consumes 2,000 input and 200 output tokens on a small model priced at $0.25 and $1.25 per million tokens, giving $0.00075. Tool and infrastructure costs are assumed to be $0.005 per invoice. Assume further that 15% of invoices are escalated for human review, each requiring 3 minutes of a clerk costed at $40 per hour, or $2.00 per escalated invoice and $0.30 averaged over all invoices. If 97% of invoices are completed correctly, Eq. (2) gives C<sub>task</sub> = ($0.0255 + $0.00075 + $0.005 + $0.30) / 0.97 ≈ $0.34 per invoice. Model tokens account for less than 8% of this cost; human review accounts for nearly 90%.</p><p>With 85% of invoices completed without intervention, Eq. (3) gives A = 0.85. Suppose the step reliabilities are 0.99, 0.98, 0.97 and 0.99. Eq. (4) gives R = 0.99 × 0.98 × 0.97 × 0.99 ≈ 0.932 for unattended operation. If the validation step is allowed a second independent attempt when a checksum fails, its effective reliability becomes 1 − 0.03<sup>2</sup> = 0.9991 and R rises to approximately 0.960, subject to the independence caveat in Section 4.3. Under these assumptions, the most effective improvement is not a cheaper model but a reduction in the escalation rate through better extraction on difficult layouts, since each percentage point of escalation removed saves about $0.02 per invoice, roughly the entire large-model cost.</p><p>The same scenario illustrates the governance controls. The extraction agent reads untrusted supplier documents and therefore holds no write-capable tools; posting is performed by deterministic code after validation and, above a value threshold, after human approval under the approver's own delegated identity. The workflow is registered in the inventory with an owner, an evaluation suite of labeled historical invoices and a documented model version, so that a model upgrade triggers re-evaluation before deployment. Figure 3 brings the workflow, its controls and the metrics of this section into one view, and shows that the human-review step, which is not part of the reliability product, carries most of the cost per invoice.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 524.88 299.808" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Workflow diagram. A supplier invoice, marked untrusted, passes through intake and classification, field extraction by a large model, validation against purchase orders, human review for 15 percent of invoices, and posting by deterministic code to the accounting system; an arc shows 85 percent going straight from validation to posting. Rows beneath give step reliabilities of 0.99, 0.98, 0.97 or 0.9991 with retry, and 0.99, costs of 0.0255 and 0.00075 dollars for the model steps and 0.30 dollars averaged for review, and the controls at each step. A bar at the bottom gives cost per task of about 0.34 dollars, automation rate 0.85 and reliability 0.932, or about 0.960 with retry.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 299.808 
+L 524.88 299.808 
+L 524.88 0 
+L 0 0 
+L 0 299.808 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 10.185517 83.021184 
+L 59.75131 83.021184 
+Q 62.406621 83.021184 62.406621 80.253619 
+L 62.406621 41.968973 
+Q 62.406621 39.201408 59.75131 39.201408 
+L 10.185517 39.201408 
+Q 7.530207 39.201408 7.530207 41.968973 
+L 7.530207 80.253619 
+Q 7.530207 83.021184 10.185517 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #ffffff; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 462.030828 83.021184 
+L 514.251931 83.021184 
+Q 516.907241 83.021184 516.907241 80.253619 
+L 516.907241 41.968973 
+Q 516.907241 39.201408 514.251931 39.201408 
+L 462.030828 39.201408 
+Q 459.375517 39.201408 459.375517 41.968973 
+L 459.375517 80.253619 
+Q 459.375517 83.021184 462.030828 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #ffffff; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 73.027862 83.021184 
+L 137.640414 83.021184 
+Q 140.295724 83.021184 140.295724 80.253619 
+L 140.295724 41.968973 
+Q 140.295724 39.201408 137.640414 39.201408 
+L 73.027862 39.201408 
+Q 70.372552 39.201408 70.372552 41.968973 
+L 70.372552 80.253619 
+Q 70.372552 83.021184 73.027862 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #eef1f5; stroke: #9ab0c8; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 150.474414 83.021184 
+L 215.086966 83.021184 
+Q 217.742276 83.021184 217.742276 80.253619 
+L 217.742276 41.968973 
+Q 217.742276 39.201408 215.086966 39.201408 
+L 150.474414 39.201408 
+Q 147.819103 39.201408 147.819103 41.968973 
+L 147.819103 80.253619 
+Q 147.819103 83.021184 150.474414 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #e6eef7; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 227.920966 83.021184 
+L 292.533517 83.021184 
+Q 295.188828 83.021184 295.188828 80.253619 
+L 295.188828 41.968973 
+Q 295.188828 39.201408 292.533517 39.201408 
+L 227.920966 39.201408 
+Q 225.265655 39.201408 225.265655 41.968973 
+L 225.265655 80.253619 
+Q 225.265655 83.021184 227.920966 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #e6eef7; stroke: #0b6fa4; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 305.367517 83.021184 
+L 369.980069 83.021184 
+Q 372.635379 83.021184 372.635379 80.253619 
+L 372.635379 41.968973 
+Q 372.635379 39.201408 369.980069 39.201408 
+L 305.367517 39.201408 
+Q 302.712207 39.201408 302.712207 41.968973 
+L 302.712207 80.253619 
+Q 302.712207 83.021184 305.367517 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #fbe6d8; stroke: #e07a3a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 382.814069 83.021184 
+L 447.426621 83.021184 
+Q 450.081931 83.021184 450.081931 80.253619 
+L 450.081931 41.968973 
+Q 450.081931 39.201408 447.426621 39.201408 
+L 382.814069 39.201408 
+Q 380.158759 39.201408 380.158759 41.968973 
+L 380.158759 80.253619 
+Q 380.158759 83.021184 382.814069 83.021184 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #e4f1e0; stroke: #4d7f12; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 62.406621 61.111296 
+Q 66.389586 61.111296 69.030911 61.111296 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 65.430911 59.311296 
+L 69.030911 61.111296 
+L 65.430911 62.911296 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 140.295724 61.111296 
+Q 144.057414 61.111296 146.477463 61.111296 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 142.877463 59.311296 
+L 146.477463 61.111296 
+L 142.877463 62.911296 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_11">
+<path d="M 217.742276 61.111296 
+Q 221.503966 61.111296 223.924014 61.111296 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 220.324014 59.311296 
+L 223.924014 61.111296 
+L 220.324014 62.911296 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_12">
+<path d="M 295.188828 61.111296 
+Q 298.950517 61.111296 301.370566 61.111296 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #e07a3a; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 297.770566 59.311296 
+L 301.370566 61.111296 
+L 297.770566 62.911296 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #e07a3a; stroke: #e07a3a; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_13">
+<path d="M 372.635379 61.111296 
+Q 376.397069 61.111296 378.817118 61.111296 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 375.217118 59.311296 
+L 378.817118 61.111296 
+L 375.217118 62.911296 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_14">
+<path d="M 450.081931 61.111296 
+Q 454.728724 61.111296 458.033876 61.111296 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 454.433876 59.311296 
+L 458.033876 61.111296 
+L 454.433876 62.911296 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_15">
+<path d="M 271.291034 38.970778 
+Q 337.673793 5.779398 402.856552 38.370778 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #4d7f12; stroke-width: 1.2; stroke-linecap: round"/>
+<path d="M 400.17327 34.793069 
+L 402.856552 38.370778 
+L 398.384416 38.370778 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #4d7f12; stroke: #4d7f12; stroke-width: 1.2; stroke-linecap: round"/>
+</g>
+<g id="patch_16">
+<path d="M 12.840828 288.51287 
+L 512.039172 288.51287 
+Q 514.694483 288.51287 514.694483 285.745306 
+L 514.694483 254.379571 
+Q 514.694483 251.612006 512.039172 251.612006 
+L 12.840828 251.612006 
+Q 10.185517 251.612006 10.185517 254.379571 
+L 10.185517 285.745306 
+Q 10.185517 288.51287 12.840828 288.51287 
+z
+" clip-path="url(#pbf8c38af54)" style="fill: #eef4fa; stroke: #0b2a5a; stroke-width: 1.2; stroke-linejoin: miter"/>
+</g>
+<g id="line2d_1">
+<path d="M 10.185517 122.458982 
+L 514.694483 122.458982 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #dce4ee; stroke-width: 0.9; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<path d="M 10.185517 165.817498 
+L 514.694483 165.817498 
+" clip-path="url(#pbf8c38af54)" style="fill: none; stroke: #dce4ee; stroke-width: 0.9; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(17.412789 49.962282)">Supplier</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(19.862476 64.43989)">invoice</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(11.357476 77.584372)">(untrusted)</text>
+</g>
+<g id="text_2">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(463.896926 56.715578)">Accounting</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(472.868098 70.022483)">system</text>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(78.885388 57.522063)">1  Intake and</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(77.489685 71.288108)">classification</text>
+</g>
+<g id="text_4">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(167.290143 50.827829)">2  Field</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(161.530846 64.435671)">extraction</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(154.504518 77.226482)">(large model)</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(234.13146 50.82361)">3  Validation</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(234.265054 63.466765)">vs purchase</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(246.46146 77.944372)">orders</text>
+</g>
+<g id="text_6">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(307.277699 57.629641)">Human review</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(310.390434 70.778342)">(escalations)</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(387.315267 49.909548)">4  Posting by</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(387.637298 64.43989)">deterministic</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(404.47222 77.944372)">code</text>
+</g>
+<g id="text_8">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="337.673793" y="20.565446" transform="rotate(-0 337.673793 20.565446)">85% straight through</text>
+</g>
+<g id="text_9">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #b4410c" x="299.171793" y="92.06087" transform="rotate(-0 299.171793 92.06087)">15%</text>
+</g>
+<g id="text_10">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="11.070621" y="109.127519" transform="rotate(-0 11.070621 109.127519)">Reliability</text>
+</g>
+<g id="text_11">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(11.070621 141.967342)">Cost per</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(11.070621 152.85699)">invoice</text>
+</g>
+<g id="text_12">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="11.070621" y="211.988678" transform="rotate(-0 11.070621 211.988678)">Control</text>
+</g>
+<g id="text_13">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="105.334138" y="109.13789" transform="rotate(-0 105.334138 109.13789)">r = 0.99</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(72.865935 134.985926)">tools and infra-</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(69.711013 147.412693)">structure $0.005</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(84.521638 159.217195)">(all steps)</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(69.675857 185.954596)">Whole workflow:</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(73.644997 198.057486)">registered with</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(68.010857 211.307174)">owner, evaluation</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(71.574997 225.106705)">suite and model</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(89.753591 238.178502)">version</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="182.78069" y="109.13789" transform="rotate(-0 182.78069 109.13789)">r = 0.98</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="182.78069" y="147.412693" transform="rotate(-0 182.78069 147.412693)">$0.0255</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(148.030846 192.330182)">Reads untrusted</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(151.431862 204.665807)">documents, so</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(150.653502 218.577135)">holds no write-</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(154.286549 230.671588)">capable tools</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(237.392554 102.131733)">r = 0.97, or</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(224.588648 114.56061)">0.9991 with retry</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="260.227241" y="147.412693" transform="rotate(-0 260.227241 147.412693)">$0.00075</text>
+</g>
+<g id="text_21">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(226.656538 191.51315)">Second attempt</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(221.670679 205.39776)">when a checksum</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(226.56021 217.887369)">fails; code does</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(232.801851 230.726432)">the checking</text>
+</g>
+<g id="text_22">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="337.673793" y="108.363047" transform="rotate(-0 337.673793 108.363047)">not a step of R</text>
+</g>
+<g id="text_23">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(312.193246 140.841067)">$2.00 each,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(304.116449 153.182053)">$0.30 averaged</text>
+</g>
+<g id="text_24">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(300.687309 184.935065)">Approval above a</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(305.044574 198.863971)">value threshold</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(301.265277 211.070221)">under approver's</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(306.26309 224.085065)">own delegated</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(321.894965 237.295377)">identity</text>
+</g>
+<g id="text_25">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="415.120345" y="109.13789" transform="rotate(-0 415.120345 109.13789)">r = 0.99</text>
+</g>
+<g id="text_26">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(382.078392 191.60526)">Posts only after</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(385.497689 205.505338)">validation and</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(388.459251 217.69401)">any required</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(396.728001 230.671588)">approval</text>
+</g>
+<g id="text_27">
+<g style="fill: #0b2a5a" transform="translate(33.345 265.03367)">
+<text>
+<tspan x="0" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">T</tspan>
+<tspan x="5.80957" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="9.197754" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">a</tspan>
+<tspan x="14.251465" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">c</tspan>
+<tspan x="19.393066" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="24.640137" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="29.390625" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="31.921875" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">f</tspan>
+<tspan x="35.25293" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="38.641113" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="44.037598" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">m</tspan>
+<tspan x="51.921387" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="54.452637" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="59.699707" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">v</tspan>
+<tspan x="64.757812" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="70.004883" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="73.393066" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">y</tspan>
+<tspan x="78.451172" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="80.982422" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="85.73291" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="88.677246" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="93.924316" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">p</tspan>
+<tspan x="99.435059" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">:</tspan>
+<tspan x="102.027832" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="104.559082" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="126.881982" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="129.413232" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">=</tspan>
+<tspan x="135.367822" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="137.899072" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">(</tspan>
+<tspan x="141.181787" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">$</tspan>
+<tspan x="146.956201" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="152.633936" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="155.226709" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="160.904443" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">2</tspan>
+<tspan x="166.393213" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">5</tspan>
+<tspan x="171.864404" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">5</tspan>
+<tspan x="177.335596" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="179.866846" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">+</tspan>
+<tspan x="185.821436" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="188.352686" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">$</tspan>
+<tspan x="194.1271" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="199.804834" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="202.397607" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="208.075342" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="213.753076" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="219.430811" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">7</tspan>
+<tspan x="224.524072" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">5</tspan>
+<tspan x="229.995264" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="232.526514" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">+</tspan>
+<tspan x="238.481104" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="241.012354" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">$</tspan>
+<tspan x="246.786768" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="252.464502" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="255.057275" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="260.73501" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="266.412744" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">5</tspan>
+<tspan x="271.883936" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="274.415186" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">+</tspan>
+<tspan x="280.369775" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="282.901025" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">$</tspan>
+<tspan x="288.675439" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="294.353174" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="296.945947" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">3</tspan>
+<tspan x="302.505029" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="308.182764" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">)</tspan>
+<tspan x="311.465479" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="313.996729" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">/</tspan>
+<tspan x="317.239893" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="319.771143" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="325.448877" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="328.04165" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">9</tspan>
+<tspan x="333.622705" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">7</tspan>
+<tspan x="338.715967" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="341.247217" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">≈</tspan>
+<tspan x="347.201807" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="349.733057" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">$</tspan>
+<tspan x="355.507471" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="361.185205" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="363.777979" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">3</tspan>
+<tspan x="369.337061" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">4</tspan>
+<tspan x="375.151025" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="377.682275" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">p</tspan>
+<tspan x="383.193018" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="388.440088" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="391.828271" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="394.359521" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="396.539209" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="401.856592" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">v</tspan>
+<tspan x="406.914697" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="412.311182" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="414.490869" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">c</tspan>
+<tspan x="419.632471" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="424.879541" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">,</tspan>
+<tspan x="427.472314" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="430.003564" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">E</tspan>
+<tspan x="435.413232" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">q</tspan>
+<tspan x="440.923975" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="443.516748" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="446.047998" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">(</tspan>
+<tspan x="449.330713" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">2</tspan>
+<tspan x="454.819482" y="-0.5" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">)</tspan>
+<tspan x="107.090332" y="-0.5" style="font-style: oblique; font-size: 9px; font-family: 'DejaVu Sans'; fill: #0b2a5a">C</tspan>
+<tspan x="113.374512" y="0.849996" style="font-size: 6.3px; font-family: 'DejaVu Sans'; fill: #0b2a5a">t</tspan>
+<tspan x="115.844678" y="0.849996" style="font-size: 6.3px; font-family: 'DejaVu Sans'; fill: #0b2a5a">a</tspan>
+<tspan x="119.705273" y="0.849996" style="font-size: 6.3px; font-family: 'DejaVu Sans'; fill: #0b2a5a">s</tspan>
+<tspan x="122.987549" y="0.849996" style="font-size: 6.3px; font-family: 'DejaVu Sans'; fill: #0b2a5a">k</tspan>
+</text>
+</g>
+</g>
+<g id="text_28">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="262.44" y="281.639059" transform="rotate(-0 262.44 281.639059)">A = 0.85, Eq. (3);   R = 0.932 unattended, ≈ 0.960 with the validation retry, Eq. (4)</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pbf8c38af54">
+<rect x="5.76" y="5.76" width="513.36" height="288.288"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> The hypothetical invoice workflow of Section 7 with its step reliabilities, costs per invoice and controls. Eighty-five percent of invoices pass straight through and 15% are escalated for review; all values are the illustrative assumptions of this section. <span class="j-fig-src">Author's calculation from Eqs. (2)–(4) with the hypothetical inputs stated in this section.</span></figcaption></figure></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Limitations and Open Problems</h2><p>The architecture and maturity model in this paper are proposals synthesized from the literature and standards; they have not been validated empirically across a population of organizations. Several problems remain open. First, prompt injection lacks a general defense, and the structural mitigations of Section 5 reduce capability as well as risk [<a href="#ref-26" class="j-cite">26</a>, <a href="#ref-24" class="j-cite">24</a>]. Second, evaluation of agentic workflows remains costly, and automated judges carry documented biases [<a href="#ref-23" class="j-cite">23</a>]. Third, routers and cascades depend on quality predictors whose calibration may degrade when models or traffic change [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>]. Fourth, the regulatory landscape continues to evolve; organizations should consult the current consolidated text of applicable instruments rather than secondary summaries [<a href="#ref-20" class="j-cite">20</a>]. Finally, interoperability standards such as MCP are recent, and their security model relies on implementers to enforce consent and authorization [<a href="#ref-13" class="j-cite">13</a>].</p><p>There is also a risk of over-engineering. An SME with two AI workflows does not need every layer of Table 1 implemented as separate infrastructure; the layers are logical responsibilities that may be fulfilled by a small number of services or by configuration of commercial platforms. The value of the reference architecture lies in making each responsibility explicit so that none is omitted by default.</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Conclusion</h2><p>As AI deployments multiply, organizations face a choice between a fragmented estate of independent assistants and agents and a shared layer that provides common services for data, knowledge, models, tools, workflows, memory, identity, governance, evaluation and cost. This paper has described the latter under the name AI operating system, building on research that treats LLM runtimes as operating systems [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>], on tool-use and retrieval research [<a href="#ref-5" class="j-cite">5</a>, <a href="#ref-6" class="j-cite">6</a>, <a href="#ref-9" class="j-cite">9</a>], on the Model Context Protocol as an interoperability standard [<a href="#ref-13" class="j-cite">13</a>], and on governance and security frameworks [<a href="#ref-17" class="j-cite">17</a>, <a href="#ref-19" class="j-cite">19</a>, <a href="#ref-24" class="j-cite">24</a>].</p><p>Three conclusions follow. First, mediation of all model, tool and data access through platform services is the architectural decision on which governance, security and cost control depend. Second, the economic performance of an AI OS should be judged by cost per successfully completed task and by measured reliability, not by token prices, since human review and failure frequently dominate total cost. Third, adoption should proceed in stages that build inventory, grounding and evaluation capability before granting agents autonomy over consequential actions.</p><aside class="j-callout"><p>An AI operating system is best understood as a set of explicit responsibilities rather than a product: every model call, tool action and retrieved document should pass through a layer that knows who requested it, whether it is permitted, what it cost and whether it was correct.</p></aside></section>
     <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. Advances in Neural Information Processing Systems, 28. <a href="https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html" rel="noopener" target="_blank">papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abst</a></li><li id="ref-2">Packer, C., Wooders, S., Lin, K., Fang, V., Patil, S. G., Stoica, I., & Gonzalez, J. E. (2023). MemGPT: Towards LLMs as operating systems. arXiv preprint arXiv:2310.08560. <a href="https://arxiv.org/abs/2310.08560" rel="noopener" target="_blank">arxiv.org/abs/2310.08560</a></li><li id="ref-3">Mei, K., Zhu, X., Xu, W., Hua, W., Jin, M., Li, Z., Xu, S., Ye, R., Ge, Y., & Zhang, Y. (2024). AIOS: LLM agent operating system. arXiv preprint arXiv:2403.16971 (published at COLM 2025). <a href="https://arxiv.org/abs/2403.16971" rel="noopener" target="_blank">arxiv.org/abs/2403.16971</a></li><li id="ref-4">Wang, L., Ma, C., Feng, X., Zhang, Z., Yang, H., Zhang, J., Chen, Z., Tang, J., Chen, X., Lin, Y., Zhao, W. X., Wei, Z., & Wen, J.-R. (2023). A survey on large language model based autonomous agents. arXiv preprint arXiv:2308.11432. <a href="https://arxiv.org/abs/2308.11432" rel="noopener" target="_blank">arxiv.org/abs/2308.11432</a></li><li id="ref-5">Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. International Conference on Learning Representations (ICLR). arXiv:2210.03629. <a href="https://arxiv.org/abs/2210.03629" rel="noopener" target="_blank">arxiv.org/abs/2210.03629</a></li><li id="ref-6">Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Cancedda, N., & Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. arXiv preprint arXiv:2302.04761. <a href="https://arxiv.org/abs/2302.04761" rel="noopener" target="_blank">arxiv.org/abs/2302.04761</a></li><li id="ref-7">Karpas, E., Abend, O., Belinkov, Y., Lenz, B., Lieber, O., Ratner, N., Shoham, Y., Bata, H., Levine, Y., Leyton-Brown, K., et al. (2022). MRKL systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning. arXiv preprint arXiv:2205.00445. <a href="https://arxiv.org/abs/2205.00445" rel="noopener" target="_blank">arxiv.org/abs/2205.00445</a></li><li id="ref-8">Patil, S. G., Zhang, T., Wang, X., & Gonzalez, J. E. (2023). Gorilla: Large language model connected with massive APIs. arXiv preprint arXiv:2305.15334. <a href="https://arxiv.org/abs/2305.15334" rel="noopener" target="_blank">arxiv.org/abs/2305.15334</a></li><li id="ref-9">Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33. arXiv:2005.11401. <a href="https://arxiv.org/abs/2005.11401" rel="noopener" target="_blank">arxiv.org/abs/2005.11401</a></li><li id="ref-10">Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2023). Retrieval-augmented generation for large language models: A survey. arXiv preprint arXiv:2312.10997. <a href="https://arxiv.org/abs/2312.10997" rel="noopener" target="_blank">arxiv.org/abs/2312.10997</a></li><li id="ref-11">Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the middle: How language models use long contexts. Transactions of the Association for Computational Linguistics, 12. arXiv:2307.03172. <a href="https://arxiv.org/abs/2307.03172" rel="noopener" target="_blank">arxiv.org/abs/2307.03172</a></li><li id="ref-12">Anthropic. (2024, November 25). Introducing the Model Context Protocol. Anthropic News. <a href="https://www.anthropic.com/news/model-context-protocol" rel="noopener" target="_blank">www.anthropic.com/news/model-context-protocol</a></li><li id="ref-13">Model Context Protocol. (2025). Specification, version 2025-06-18. modelcontextprotocol.io. <a href="https://modelcontextprotocol.io/specification/2025-06-18" rel="noopener" target="_blank">modelcontextprotocol.io/specification/2025-06-18</a></li><li id="ref-14">Rose, S., Borchert, O., Mitchell, S., & Connelly, S. (2020). Zero trust architecture (NIST Special Publication 800-207). National Institute of Standards and Technology. <a href="https://doi.org/10.6028/NIST.SP.800-207" rel="noopener" target="_blank">10.6028/NIST.SP.800-207</a></li><li id="ref-15">Chen, L., Zaharia, M., & Zou, J. (2023). FrugalGPT: How to use large language models while reducing cost and improving performance. arXiv preprint arXiv:2305.05176. <a href="https://arxiv.org/abs/2305.05176" rel="noopener" target="_blank">arxiv.org/abs/2305.05176</a></li><li id="ref-16">Ong, I., Almahairi, A., Wu, V., Chiang, W.-L., Wu, T., Gonzalez, J. E., Kadous, M. W., & Stoica, I. (2024). RouteLLM: Learning to route LLMs with preference data. arXiv preprint arXiv:2406.18665. <a href="https://arxiv.org/abs/2406.18665" rel="noopener" target="_blank">arxiv.org/abs/2406.18665</a></li><li id="ref-17">National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1). <a href="https://doi.org/10.6028/NIST.AI.100-1" rel="noopener" target="_blank">10.6028/NIST.AI.100-1</a></li><li id="ref-18">National Institute of Standards and Technology. (2024). Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile (NIST AI 600-1). <a href="https://doi.org/10.6028/NIST.AI.600-1" rel="noopener" target="_blank">10.6028/NIST.AI.600-1</a></li><li id="ref-19">International Organization for Standardization & International Electrotechnical Commission. (2023). ISO/IEC 42001:2023 Information technology — Artificial intelligence — Management system (1st ed.). <a href="https://webstore.iec.ch/publication/90574" rel="noopener" target="_blank">webstore.iec.ch/publication/90574</a></li><li id="ref-20">European Parliament & Council of the European Union. (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L series. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" rel="noopener" target="_blank">eur-lex.europa.eu/eli/reg/2024/1689/oj</a></li><li id="ref-21">Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., & Gebru, T. (2019). Model cards for model reporting. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229. <a href="https://doi.org/10.1145/3287560.3287596" rel="noopener" target="_blank">10.1145/3287560.3287596</a></li><li id="ref-22">Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., et al. (2023). Holistic evaluation of language models. Transactions on Machine Learning Research. arXiv:2211.09110. <a href="https://arxiv.org/abs/2211.09110" rel="noopener" target="_blank">arxiv.org/abs/2211.09110</a></li><li id="ref-23">Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Gonzalez, J. E., & Stoica, I. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. Advances in Neural Information Processing Systems 36, Datasets and Benchmarks Track. arXiv:2306.05685. <a href="https://arxiv.org/abs/2306.05685" rel="noopener" target="_blank">arxiv.org/abs/2306.05685</a></li><li id="ref-24">OWASP Foundation. (2024). OWASP Top 10 for LLM Applications 2025. OWASP Gen AI Security Project. <a href="https://genai.owasp.org/llm-top-10/" rel="noopener" target="_blank">genai.owasp.org/llm-top-10/</a></li><li id="ref-25">Perez, F., & Ribeiro, I. (2022). Ignore previous prompt: Attack techniques for language models. NeurIPS ML Safety Workshop. arXiv:2211.09527. <a href="https://arxiv.org/abs/2211.09527" rel="noopener" target="_blank">arxiv.org/abs/2211.09527</a></li><li id="ref-26">Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., & Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec '23), 79–90. <a href="https://doi.org/10.1145/3605764.3623985" rel="noopener" target="_blank">10.1145/3605764.3623985</a></li></ol></section>
     <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI. <em>Chmltech Online Journal</em>, <em>104</em>(1). https://www.chmltech.com/post/ai-operating-systems-architecture-and-governance-for-enterprise-ai</p>
       </section>
@@ -76,7 +961,7 @@
 </div></section>
 <section class="section sand j-related"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=clean-energy">All journal articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="clean-energy" data-search="designing machine learning systems: from problem framing to production operations a review of end-to-end ml system design: problem framing, data, features, evaluation, a/b testing, deployment, drift monitoring, mlops and model documentation. machine learning systems mlops problem framing model evaluation calibration concept drift technical debt model cards"><div class="thumb"><img src="../assets/media/covers/thumbs/designing-machine-learning-systems-from-problem-framing-to-production.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/designing-machine-learning-systems-from-problem-framing-to-production.html">Designing Machine Learning Systems: From Problem Framing to Production Operations</a></h3><p class="muted">A review of end-to-end ML system design: problem framing, data, features, evaluation, A/B testing, deployment, drift monitoring, MLOps and model…</p><p class="meta">Vol. 104, Issue 6 · Nov 9, 2026 · 18 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="digital twins in chemical process plants: architecture, modeling approaches and applications digital twins for process plants: definitions, isa-95 and opc ua architecture, mechanistic and hybrid models, kalman filtering, data reconciliation and rto. digital twin process systems engineering hybrid modeling data reconciliation state estimation real-time optimization soft sensors industry 4.0"><div class="thumb"><img src="../assets/media/covers/thumbs/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications</a></h3><p class="muted">Digital twins for process plants: definitions, ISA-95 and OPC UA architecture, mechanistic and hybrid models, Kalman filtering, data reconciliation…</p><p class="meta">Vol. 104, Issue 5 · Nov 9, 2026 · 19 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="engineering capex and opex estimation for process plants: methods, accuracy and trade-offs capital and operating cost estimation for process plants: aace classes, six-tenths rule, lang and module factors, cepci, cost of manufacture, npv and monte carlo. capital cost estimation operating cost aace estimate classes lang factor six-tenths rule cepci cost of manufacture monte carlo"><div class="thumb"><img src="../assets/media/covers/thumbs/engineering-capex-and-opex-estimation-for-process-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/engineering-capex-and-opex-estimation-for-process-plants.html">Engineering CAPEX and OPEX Estimation for Process Plants: Methods, Accuracy and Trade-offs</a></h3><p class="muted">Capital and operating cost estimation for process plants: AACE classes, six-tenths rule, Lang and module factors, CEPCI, cost of manufacture, NPV and…</p><p class="meta">Vol. 104, Issue 4 · Nov 9, 2026 · 22 min read</p></div></article></div>
+  <div class="grid grid-3"><article class="article" data-cats="clean-energy" data-search="designing machine learning systems: from problem framing to production operations a review of end-to-end ml system design: problem framing, data, features, evaluation, a/b testing, deployment, drift monitoring, mlops and model documentation. machine learning systems mlops problem framing model evaluation calibration concept drift technical debt model cards"><div class="thumb"><img src="../assets/media/covers/thumbs/designing-machine-learning-systems-from-problem-framing-to-production.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/designing-machine-learning-systems-from-problem-framing-to-production.html">Designing Machine Learning Systems: From Problem Framing to Production Operations</a></h3><p class="muted">A review of end-to-end ML system design: problem framing, data, features, evaluation, A/B testing, deployment, drift monitoring, MLOps and model…</p><p class="meta">Vol. 104, Issue 6 · Nov 9, 2026 · 19 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="digital twins in chemical process plants: architecture, modeling approaches and applications digital twins for process plants: definitions, isa-95 and opc ua architecture, mechanistic and hybrid models, kalman filtering, data reconciliation and rto. digital twin process systems engineering hybrid modeling data reconciliation state estimation real-time optimization soft sensors industry 4.0"><div class="thumb"><img src="../assets/media/covers/thumbs/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications</a></h3><p class="muted">Digital twins for process plants: definitions, ISA-95 and OPC UA architecture, mechanistic and hybrid models, Kalman filtering, data reconciliation…</p><p class="meta">Vol. 104, Issue 5 · Nov 9, 2026 · 20 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="engineering capex and opex estimation for process plants: methods, accuracy and trade-offs capital and operating cost estimation for process plants: aace classes, six-tenths rule, lang and module factors, cepci, cost of manufacture, npv and monte carlo. capital cost estimation operating cost aace estimate classes lang factor six-tenths rule cepci cost of manufacture monte carlo"><div class="thumb"><img src="../assets/media/covers/thumbs/engineering-capex-and-opex-estimation-for-process-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/engineering-capex-and-opex-estimation-for-process-plants.html">Engineering CAPEX and OPEX Estimation for Process Plants: Methods, Accuracy and Trade-offs</a></h3><p class="muted">Capital and operating cost estimation for process plants: AACE classes, six-tenths rule, Lang and module factors, CEPCI, cost of manufacture, NPV and…</p><p class="meta">Vol. 104, Issue 4 · Nov 9, 2026 · 22 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI", "name": "AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI", "abstract": "Organizations that adopt large language models (LLMs) through isolated assistants and pilots accumulate fragmented prompts, data connections, credentials and costs that are difficult to govern. This paper develops the concept of an AI operating system (AI OS): a shared, organization-wide layer that mediates access to data, knowledge, models, tools and workflows, in the way that a conventional operating system mediates access to hardware and files. It reviews research that treats LLM runtimes as operating systems, notably MemGPT and AIOS, together with work on tool use, retrieval augmentation and the Model Context Protocol. A ten-layer reference architecture is proposed, covering data and integration, knowledge and retrieval, model access and routing, agents and tools, workflow orchestration, memory, identity and permissions, governance, evaluation and observability, and cost control, with the function, mechanisms and principal risks of each layer. The architecture is mapped to the NIST AI Risk Management Framework, ISO/IEC 42001:2023, the EU Artificial Intelligence Act and the OWASP Top 10 for LLM Applications 2025. Operating metrics are defined for routing, cost per successfully completed task, automation rate and end-to-end reliability, and a five-stage maturity model is proposed. A hypothetical SME invoice-processing example shows that human review can dominate total cost and that reliability improvements may matter more than cheaper models. The paper concludes that mediation of all model, tool and data access is the decision on which governance, security and cost control depend.", "keywords": "AI operating system, enterprise AI architecture, AI governance, LLM agents, model routing, retrieval-augmented generation, prompt injection, Model Context Protocol", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Person", "name": "Quak Foo Lee", "jobTitle": "Chief Technology Officer", "affiliation": {"@type": "Organization", "name": "Chmltech Ltd."}}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "1", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "104", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/ai-operating-systems-architecture-and-governance-for-enterprise-ai", "citation": ["Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. Advances in Neural Information Processing Systems, 28.", "Packer, C., Wooders, S., Lin, K., Fang, V., Patil, S. G., Stoica, I., & Gonzalez, J. E. (2023). MemGPT: Towards LLMs as operating systems. arXiv preprint arXiv:2310.08560.", "Mei, K., Zhu, X., Xu, W., Hua, W., Jin, M., Li, Z., Xu, S., Ye, R., Ge, Y., & Zhang, Y. (2024). AIOS: LLM agent operating system. arXiv preprint arXiv:2403.16971 (published at COLM 2025).", "Wang, L., Ma, C., Feng, X., Zhang, Z., Yang, H., Zhang, J., Chen, Z., Tang, J., Chen, X., Lin, Y., Zhao, W. X., Wei, Z., & Wen, J.-R. (2023). A survey on large language model based autonomous agents. arXiv preprint arXiv:2308.11432.", "Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. International Conference on Learning Representations (ICLR). arXiv:2210.03629.", "Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Cancedda, N., & Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. arXiv preprint arXiv:2302.04761.", "Karpas, E., Abend, O., Belinkov, Y., Lenz, B., Lieber, O., Ratner, N., Shoham, Y., Bata, H., Levine, Y., Leyton-Brown, K., et al. (2022). MRKL systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning. arXiv preprint arXiv:2205.00445.", "Patil, S. G., Zhang, T., Wang, X., & Gonzalez, J. E. (2023). Gorilla: Large language model connected with massive APIs. arXiv preprint arXiv:2305.15334.", "Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33. arXiv:2005.11401.", "Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2023). Retrieval-augmented generation for large language models: A survey. arXiv preprint arXiv:2312.10997.", "Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the middle: How language models use long contexts. Transactions of the Association for Computational Linguistics, 12. arXiv:2307.03172.", "Anthropic. (2024, November 25). Introducing the Model Context Protocol. Anthropic News.", "Model Context Protocol. (2025). Specification, version 2025-06-18. modelcontextprotocol.io.", "Rose, S., Borchert, O., Mitchell, S., & Connelly, S. (2020). Zero trust architecture (NIST Special Publication 800-207). National Institute of Standards and Technology.", "Chen, L., Zaharia, M., & Zou, J. (2023). FrugalGPT: How to use large language models while reducing cost and improving performance. arXiv preprint arXiv:2305.05176.", "Ong, I., Almahairi, A., Wu, V., Chiang, W.-L., Wu, T., Gonzalez, J. E., Kadous, M. W., & Stoica, I. (2024). RouteLLM: Learning to route LLMs with preference data. arXiv preprint arXiv:2406.18665.", "National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1).", "National Institute of Standards and Technology. (2024). Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile (NIST AI 600-1).", "International Organization for Standardization & International Electrotechnical Commission. (2023). ISO/IEC 42001:2023 Information technology — Artificial intelligence — Management system (1st ed.).", "European Parliament & Council of the European Union. (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L series.", "Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., & Gebru, T. (2019). Model cards for model reporting. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229.", "Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., et al. (2023). Holistic evaluation of language models. Transactions on Machine Learning Research. arXiv:2211.09110.", "Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Gonzalez, J. E., & Stoica, I. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. Advances in Neural Information Processing Systems 36, Datasets and Benchmarks Track. arXiv:2306.05685.", "OWASP Foundation. (2024). OWASP Top 10 for LLM Applications 2025. OWASP Gen AI Security Project.", "Perez, F., & Ribeiro, I. (2022). Ignore previous prompt: Attack techniques for language models. NeurIPS ML Safety Workshop. arXiv:2211.09527.", "Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., & Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec '23), 79–90."]}</script>
 <section class="cta">

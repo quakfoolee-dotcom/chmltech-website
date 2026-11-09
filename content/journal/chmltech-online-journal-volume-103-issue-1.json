@@ -174,7 +174,16 @@
      "n": 5
     },
     {
-     "p": "Eq. (5) is a mixed-integer problem: the ordering of APIs is discrete and the thresholds are continuous. Chen et al. solved it approximately with a specialized optimizer that prunes candidate API lists whose members rarely disagree and approximates the objective by interpolation from a small number of samples; the experiments used cascades of length three [5]. Two features of this design correct a common misreading. First, the later, more expensive model does not refine or fine-tune the output of the earlier one; it answers the query afresh, and only one answer is returned. Second, no LLM is trained: the learned components are the small scorer, the API ordering and the thresholds, fitted on a labeled sample of the workload."
+     "p": "Eq. (5) is a mixed-integer problem: the ordering of APIs is discrete and the thresholds are continuous. Chen et al. solved it approximately with a specialized optimizer that prunes candidate API lists whose members rarely disagree and approximates the objective by interpolation from a small number of samples; the experiments used cascades of length three [5]. Two features of this design correct a common misreading. First, the later, more expensive model does not refine or fine-tune the output of the earlier one; it answers the query afresh, and only one answer is returned. Second, no LLM is trained: the learned components are the small scorer, the API ordering and the thresholds, fitted on a labeled sample of the workload. Figure 1 traces a query through the three-stage cascade that Chen et al. learned for HEADLINES: every rejection adds the cost of a further, more expensive call, and the last stage is returned without scoring."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-cascade",
+      "caption": "The FrugalGPT LLM cascade of Eqs. (4) and (5), shown with the policy learned for the HEADLINES dataset (GPT-J, then J1-Large, then GPT-4, with thresholds τ<sub>1</sub> = 0.96 and τ<sub>2</sub> = 0.37). Each model answers the query independently; the scorer <em>g</em> only decides whether to accept that answer or escalate.",
+      "alt": "Flow diagram of the LLM cascade. A query goes to stage 1, GPT-J; a scorer diamond checks whether g of q and a1 is at least 0.96. If accepted, the answer is returned; if rejected, the query escalates to stage 2, J1-Large, with threshold 0.37, and then to stage 3, GPT-4, whose answer is returned without scoring. A note states that cost accumulates over all stages queried and that ordering, thresholds and scorer are learned under the budget constraint.",
+      "source": "Drawn by the author from Eqs. (4) and (5) and the HEADLINES case reported in [5]."
+     }
     },
     {
      "p": "The cascade works because LLMs make different errors. The authors measured how often a cheaper API answers correctly when a stronger one fails; on the HEADLINES dataset, small models such as GPT-J, J1-Large or GPT-Curie were correct on roughly 6% of queries that GPT-4 answered incorrectly, and on COQA, GPT-3 was correct on about 13% of queries where GPT-4 erred [5]. A cascade that accepts confident cheap answers therefore saves cost on easy queries and can, on some datasets, exceed the accuracy of the strongest single model."
@@ -227,7 +236,16 @@
      }
     },
     {
-     "p": "A worked case on HEADLINES illustrates the learned policy. With a budget of one fifth of the cost of running GPT-4 on every query, the learned cascade queried GPT-J first, then J1-Large, then GPT-4, with acceptance thresholds of 0.96 and 0.37 for the first two stages. Accuracy rose from 0.857 for GPT-4 alone to 0.872, at roughly 80% lower cost [5]. On OVERRULING the cascade improved accuracy by about one percentage point while reducing cost by 73% relative to GPT-4. These are results on three benchmark workloads with prices current in early 2023; they demonstrate the mechanism rather than establishing a universal saving."
+     "p": "A worked case on HEADLINES illustrates the learned policy. With a budget of one fifth of the cost of running GPT-4 on every query, the learned cascade queried GPT-J first, then J1-Large, then GPT-4, with acceptance thresholds of 0.96 and 0.37 for the first two stages. Accuracy rose from 0.857 for GPT-4 alone to 0.872, at roughly 80% lower cost [5]. On OVERRULING the cascade improved accuracy by about one percentage point while reducing cost by 73% relative to GPT-4. These are results on three benchmark workloads with prices current in early 2023; they demonstrate the mechanism rather than establishing a universal saving. Figure 2 sets these results side by side: the saving at matched performance ranges from 98.3% on HEADLINES to 59.2% on COQA, and at one fifth of GPT-4's cost the HEADLINES cascade is more accurate than GPT-4, not merely cheaper."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-cost-accuracy",
+      "caption": "Reported cost and accuracy of FrugalGPT. (a) Cost of the evaluation workload for the best individual LLM and for FrugalGPT at matched performance (Table 2). (b) HEADLINES: GPT-4 on every query against the learned cascade at a budget of one fifth of GPT-4's cost.",
+      "alt": "Two-panel chart. Left: horizontal bars of workload cost in US dollars; HEADLINES 33.1 for GPT-4 versus 0.6 for FrugalGPT, OVERRULING 9.7 versus 2.6, COQA 72.5 for GPT-3 versus 29.6, with reductions of 98.3, 73.3 and 59.2 percent. Right: accuracy against cost relative to GPT-4; GPT-4 alone at cost 1.0 and accuracy 0.857, the FrugalGPT cascade at about 0.2 and accuracy 0.872, inside a shaded budget band.",
+      "source": "Drawn by the author from Table 2 and the HEADLINES case in [5]."
+     }
     },
     {
      "callout": "FrugalGPT's savings come from not calling the expensive model on queries that a cheap model, checked by a small learned scorer, already answers reliably. The achievable saving depends on the workload's mix of easy and hard queries and on the price gap between APIs."
@@ -287,7 +305,7 @@
      "h3": "4.3 Parameter-Efficient Fine-Tuning with LoRA"
     },
     {
-     "p": "Rather than updating the full OpenFlamingo model, Gong et al. froze it entirely and added low-rank adaptation (LoRA) modules to the self-attention, cross-attention and feed-forward parts of the language decoder [6]. LoRA represents the update to a pretrained weight matrix <em>W</em><sub>0</sub> ∈ ℝ<sup><em>d</em>×<em>k</em></sup> as the product of two small matrices, as in Eq. (7), where <em>B</em> ∈ ℝ<sup><em>d</em>×<em>r</em></sup>, <em>A</em> ∈ ℝ<sup><em>r</em>×<em>k</em></sup>, the rank <em>r</em> ≪ min(<em>d</em>, <em>k</em>), and α<sub>L</sub> is a scaling constant [15]."
+     "p": "Rather than updating the full OpenFlamingo model, Gong et al. froze it entirely and added low-rank adaptation (LoRA) modules to the self-attention, cross-attention and feed-forward parts of the language decoder [6]. LoRA represents the update to a pretrained weight matrix <em>W</em><sub>0</sub> ∈ ℝ<sup><em>d</em>×<em>k</em></sup> as the product of two small matrices, as in Eq. (7), where <em>B</em> ∈ ℝ<sup><em>d</em>×<em>r</em></sup>, <em>A</em> ∈ ℝ<sup><em>r</em>×<em>k</em></sup>, the rank <em>r</em> ≪ min(<em>d</em>, <em>k</em>), and α<sub>L</sub> is a scaling constant [15]. Figure 3 shows where the adapters sit: the vision encoder, Perceiver Resampler and every decoder sublayer stay frozen, and only the small LoRA matrices beside the cross-attention, self-attention and feed-forward sublayers are trained."
     },
     {
      "eq": "<em>h</em> = <em>W</em><sub>0</sub><em>x</em> + (α<sub>L</sub> / <em>r</em>) <em>B</em><em>A</em><em>x</em>",
@@ -295,6 +313,15 @@
     },
     {
      "p": "Only <em>A</em> and <em>B</em> are trained; <em>B</em> is initialized to zero so that training starts from the pretrained model. Hu et al. reported that, for GPT-3 175B, LoRA reduced the number of trainable parameters by a factor of about 10,000 and GPU memory requirements by a factor of three relative to full fine-tuning, with no additional inference latency once the low-rank product is merged into <em>W</em><sub>0</sub> [15]. Subsequent work combined LoRA with 4-bit quantization of the frozen weights, making it possible to fine-tune a 65-billion-parameter model on a single 48 GB GPU [16]. Parameter efficiency is what allowed MultiModal-GPT to be trained in one epoch on eight A100 GPUs [6]."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-multimodal-gpt",
+      "caption": "MultiModal-GPT architecture and training recipe. Visual tokens from the frozen CLIP-based encoder and Perceiver Resampler enter each frozen LLaMA decoder layer through gated cross-attention, Eq. (6); LoRA adapters, Eq. (7), are the only trained parameters, and the loss of Eq. (8) is computed on response tokens only.",
+      "alt": "Block diagram. On the left, an image passes through a frozen CLIP-based vision encoder and a frozen Perceiver Resampler to give visual tokens V. These feed the gated cross-attention sublayer of a frozen LLaMA decoder layer, followed by causal self-attention and a feed-forward network; each of the three sublayers has a green trainable LoRA adapter beside it. Text tokens enter from below. Notes on the right state the response-only loss, the pairing of one vision-language and one language-only example per step, and the LoRA equation.",
+      "source": "Adapted from [6] and [12]."
+     }
     },
     {
      "h3": "4.4 Instruction Data and Training Objective"

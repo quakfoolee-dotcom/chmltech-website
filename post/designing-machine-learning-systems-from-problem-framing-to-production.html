@@ -55,14 +55,2439 @@
     <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 104, Issue 6</span><span>Research article</span></p>
     <h1 class="h-xl j-title">Designing Machine Learning Systems: From Problem Framing to Production Operations</h1>
     <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Burnaby, BC, Canada</span></div>
-    <p class="post-meta"><span>Published November 9, 2026</span><span>18 min read</span></p>
+    <p class="post-meta"><span>Published November 9, 2026</span><span>19 min read</span></p>
   </div>
 </section>
 <section class="section j-wrap"><div class="container layout-aside">
   <article class="prose j-paper">
     <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Machine learning models deliver value only as components of larger systems that collect data, compute features, serve predictions, monitor behavior and support change over time. Much of the cost and risk of these systems lies outside the model itself. This paper reviews the end-to-end design of production machine learning systems from the perspective of November 2026. It begins with problem framing, including criteria for deciding when machine learning should not be used, and with the requirements of reliability, scalability, maintainability and adaptability. It then examines data engineering, covering label quality, class imbalance and data leakage, followed by feature engineering and training–serving skew, the bias–variance trade-off and cross-validation for unbiased model selection. Evaluation is treated in detail, with equations for precision, recall, F1, ROC-AUC, expected calibration error and the Brier score, and with the relationship between offline evaluation and online controlled experiments. The paper reviews batch, online and edge deployment patterns, the detection of data and concept drift using divergence measures such as the population stability index, and the literature on hidden technical debt, the ML Test Score, software engineering for machine learning, deployment challenges and MLOps principles. Model cards and datasheets are presented as documentation practices for responsible deployment. A design checklist consolidates the review. The paper concludes that production readiness requires evidence across every life-cycle stage rather than excellence in modeling alone.</p>
       <p class="j-keywords"><strong>Keywords:</strong> machine learning systems; MLOps; problem framing; model evaluation; calibration; concept drift; technical debt; model cards</p></section>
-    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>A machine learning (ML) model is a small part of a machine learning system. Sculley et al. observed that in real-world systems only a small fraction of the code is the model itself, and that the surrounding infrastructure for data collection, feature extraction, verification, serving, configuration and monitoring is larger, more complex and a principal source of long-term maintenance cost [<a href="#ref-1" class="j-cite">1</a>]. Huyen frames the design of such systems as an iterative process in which business objectives, data, models, deployment and monitoring are revisited repeatedly rather than completed in sequence [<a href="#ref-2" class="j-cite">2</a>]. Surveys of deployment case studies report that practitioners encounter difficulties at every stage of this process, from data management through model learning, verification and deployment, together with cross-cutting concerns of ethics, law, end-user trust and security [<a href="#ref-3" class="j-cite">3</a>].</p><p>This paper reviews the end-to-end design of ML systems from the perspective of November 2026. It is organized around the life cycle of a production system. Section 2 addresses problem framing and the decision of whether to use ML at all. Section 3 sets out system requirements. Section 4 covers data engineering, including labeling, class imbalance and leakage, and Section 5 covers feature engineering. Section 6 discusses training and model selection, Section 7 evaluation metrics, and Section 8 the relationship between offline evaluation and online experiments. Section 9 reviews deployment patterns and Section 10 monitoring and drift. Section 11 addresses MLOps and technical debt, Section 12 responsible documentation, and Section 13 consolidates the discussion in a design checklist. Section 14 concludes.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Problem Framing and When Not to Use Machine Learning</h2><p>Design begins with the decision that the system is meant to support, not with a model. A useful framing specifies who acts on the prediction, what action they take, how quickly the prediction is needed, what an error costs in each direction, and how success will be measured in business terms. Huyen distinguishes business objectives from ML objectives and emphasizes that model metrics are useful only insofar as they move the business metric that motivated the project [<a href="#ref-2" class="j-cite">2</a>]. The same problem can usually be framed in several ways, for example as classification, regression or ranking, and the framing determines which labels are needed, which loss is optimized and how the output is consumed downstream [<a href="#ref-2" class="j-cite">2</a>].</p><p>Machine learning is appropriate when a task involves patterns that are too complex or too changeable to specify as rules, when examples of the desired behavior exist or can be collected, when the task is repeated often enough for the investment to be recovered, and when occasional errors are tolerable or can be caught [<a href="#ref-2" class="j-cite">2</a>]. Conversely, ML should be avoided or deferred when a deterministic rule or a simple heuristic meets the requirement, when there is no reliable signal or no way to obtain labels, when errors are unacceptable and cannot be detected, or when the organization cannot support the data pipelines and monitoring that a production model requires. Amershi et al. found at Microsoft that ML components differ from conventional software in the difficulty of data management, the specialized skills needed to customize and reuse models, and the way models become entangled with one another, so that ML imposes engineering costs beyond model training [<a href="#ref-4" class="j-cite">4</a>]. A non-ML baseline is therefore a design deliverable in its own right: it establishes the value that a model must exceed to justify its complexity.</p><aside class="j-callout"><p>Before building a model, document the decision it supports, the cost of each type of error, the business metric it is meant to move, and a non-ML baseline. A model that cannot be shown to beat the baseline on the business metric should not proceed to production.</p></aside></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> System Requirements</h2><p>Huyen identifies four requirements that most production ML systems must meet: reliability, scalability, maintainability and adaptability [<a href="#ref-2" class="j-cite">2</a>]. They are summarized with their principal design implications in Table 1. Reliability is complicated by the fact that ML systems can fail silently: a model that returns well-formed but wrong predictions raises no exception, so correctness must be monitored statistically rather than inferred from uptime [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-5" class="j-cite">5</a>]. Scalability concerns not only request volume but also the number of models, features and training runs the organization must manage. Maintainability depends on reproducible pipelines, versioned data and code, and clear ownership. Adaptability is the capacity to respond to shifting data distributions and business needs by retraining and redeploying quickly and safely.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Requirements for production ML systems and their design implications.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Requirement</th><th>Meaning in an ML context</th><th>Design implications</th></tr></thead><tbody><tr><td>Reliability</td><td>Correct outputs at the required level of performance, including under adverse conditions</td><td>Input validation; statistical output monitoring; fallbacks to a baseline or rule [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-6" class="j-cite">6</a>]</td></tr><tr><td>Scalability</td><td>Growth in traffic, data volume, model count and team size</td><td>Stateless serving; distributed training; shared feature and metadata stores [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-7" class="j-cite">7</a>]</td></tr><tr><td>Maintainability</td><td>Ability of different people to understand, reproduce and change the system</td><td>Versioned data, code and models; reproducible pipelines; documented ownership [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-1" class="j-cite">1</a>]</td></tr><tr><td>Adaptability</td><td>Ability to respond to drift and changing requirements</td><td>Drift detection; automated retraining and evaluation; staged rollout [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-7" class="j-cite">7</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: requirement categories from [<a href="#ref-2" class="j-cite">2</a>]; implications compiled from the cited works.</p></figure></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Data Engineering</h2><h3>4.1 Data Quality and Labeling</h3><p>Data work frequently determines the outcome of an ML project. Sambasivan et al. interviewed 53 practitioners working on high-stakes AI in India, East and West African countries and the United States and described data cascades, compounding events with negative downstream effects that originate in data issues; they reported a 92% prevalence of such cascades among their participants [<a href="#ref-9" class="j-cite">9</a>]. Polyzotis et al. survey the data life cycle of production ML, including data understanding, validation, cleaning and preparation, and describe the challenges that arise when these activities must operate continuously on changing production data rather than once on a static dataset [<a href="#ref-10" class="j-cite">10</a>]. A practical consequence is that data validation belongs in the pipeline itself: each new batch of training or serving data should be checked against an explicit schema covering expected features, types, value ranges and missing-value rates before it reaches a model, so that upstream changes are detected where they occur rather than inferred later from degraded predictions [<a href="#ref-10" class="j-cite">10</a>, <a href="#ref-6" class="j-cite">6</a>].</p><p>Labels deserve particular scrutiny because they define what the model learns and how it is judged. Northcutt et al. estimated an average of at least 3.3% label errors in the test sets of ten widely used computer vision, language and audio datasets, including at least 6% of the ImageNet validation set, and showed that such errors can change which model appears best [<a href="#ref-11" class="j-cite">11</a>]. Confident learning provides a principled method for estimating the joint distribution of noisy and true labels and identifying likely mislabeled examples [<a href="#ref-12" class="j-cite">12</a>]. Practical labeling programs therefore define written labeling guidelines, measure inter-annotator agreement, audit a sample of labels, and version label sets so that changes in guidelines can be traced to changes in model behavior.</p><h3>4.2 Class Imbalance</h3><p>Many operational problems, such as fraud, equipment failure and defect detection, involve a rare positive class. He and Garcia review the effects of imbalance and the main remedies: sampling methods, cost-sensitive learning that assigns higher cost to minority-class errors, and evaluation metrics that remain informative when one class dominates [<a href="#ref-13" class="j-cite">13</a>]. The synthetic minority over-sampling technique (SMOTE) generates new minority examples by interpolating between a minority example and its nearest minority neighbors rather than duplicating examples [<a href="#ref-14" class="j-cite">14</a>]. Resampling changes the class prior seen during training, so predicted probabilities must be recalibrated (Section 7.3) before they are used as estimates of real-world risk, and resampling must be applied only to training folds, never to validation or test data.</p><h3>4.3 Data Leakage</h3><p>Kaufman et al. define leakage as the introduction of information about the target that should not legitimately be available to the model, and describe it as one of the most common mistakes in data mining practice, illustrated by controversies in several public competitions [<a href="#ref-15" class="j-cite">15</a>]. Typical sources include features computed after the prediction time, identifiers that encode the outcome, preprocessing statistics computed over the full dataset before splitting, and duplicate or near-duplicate records that appear in both training and test sets. Kaufman et al. propose a learn–predict separation in which each training example is constructed using only data available before its prediction point [<a href="#ref-15" class="j-cite">15</a>]. For temporal problems this implies time-based splits rather than random splits, and for grouped data, such as multiple records per customer or per machine, it implies splitting by group.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Feature Engineering</h2><p>Feature engineering converts raw data into inputs that a model can use. Even where deep learning learns representations from raw inputs, production systems typically combine learned embeddings with engineered features such as aggregates over time windows, ratios, counts and domain-specific indicators [<a href="#ref-2" class="j-cite">2</a>]. Common operations include scaling numerical features, encoding categorical features (one-hot, target or hashed encodings), handling missing values explicitly, discretizing continuous variables and constructing interaction terms. Each transformation must be fitted on training data only and then applied unchanged at serving time; fitting a scaler or encoder on the full dataset is a form of leakage [<a href="#ref-15" class="j-cite">15</a>].</p><p>The principal systems risk in feature engineering is training–serving skew, in which features are computed differently in the offline training pipeline and the online serving path. Sculley et al. identify related forms of debt, including unstable and underutilized data dependencies, glue code and "pipeline jungles" of ad hoc preprocessing steps, and they note that because of entanglement, changing any input feature can change the behavior of the whole model, which they summarize as "changing anything changes everything" [<a href="#ref-1" class="j-cite">1</a>]. Shared feature definitions used by both training and serving, schema validation of inputs, and periodic pruning of features with little marginal value reduce these risks [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-6" class="j-cite">6</a>].</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Training and Model Selection</h2><h3>6.1 The Bias–Variance Trade-off</h3><p>Model selection balances underfitting and overfitting. For squared-error loss, the expected prediction error of an estimator <em>f̂</em> at input <em>x</em>, with target <em>y</em> = <em>f</em>(<em>x</em>) + ε and noise variance σ<sup>2</sup>, decomposes into three terms [<a href="#ref-16" class="j-cite">16</a>, <a href="#ref-17" class="j-cite">17</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">𝔼[(<em>y</em> − <em>f̂</em>(<em>x</em>))<sup>2</sup>] = (𝔼[<em>f̂</em>(<em>x</em>)] − <em>f</em>(<em>x</em>))<sup>2</sup> + 𝔼[(<em>f̂</em>(<em>x</em>) − 𝔼[<em>f̂</em>(<em>x</em>)])<sup>2</sup>] + σ<sup>2</sup></span><span class="j-eq-n">(1)</span></div><p>The first term is the squared bias, the second the variance of the estimator over training sets, and the third the irreducible noise. Geman et al. showed that flexible models such as neural networks reduce bias at the cost of variance, so that controlling variance through regularization, more data or constrained model families is central to generalization [<a href="#ref-16" class="j-cite">16</a>]. In practice, a simple, well-regularized baseline such as logistic regression or a gradient-boosted tree model should be trained first; it calibrates expectations, exposes data problems early and provides the benchmark against which more complex models are judged [<a href="#ref-2" class="j-cite">2</a>].</p><h3>6.2 Cross-Validation and Hyperparameter Selection</h3><p><em>K</em>-fold cross-validation estimates generalization error by training on <em>K</em> − 1 folds and evaluating on the held-out fold, rotating through all folds [<a href="#ref-17" class="j-cite">17</a>]. When the same cross-validation estimate is used both to tune hyperparameters and to report performance, the estimate is optimistically biased; Varma and Simon demonstrated this bias and showed that nested cross-validation, in which tuning is performed inside each outer training fold, yields an approximately unbiased estimate [<a href="#ref-18" class="j-cite">18</a>]. Splits must respect the structure of the data identified in Section 4.3: time-ordered or grouped splits for temporal or grouped data, and stratification by class for imbalanced problems. A final test set, held out from all development decisions, provides the last offline check before deployment.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Evaluation Metrics</h2><h3>7.1 Precision, Recall and F1</h3><p>For a binary classifier with true positives TP, false positives FP and false negatives FN at a given decision threshold:</p><div class="j-eq" role="math"><span class="j-eq-body">Precision = TP / (TP + FP),    Recall = TP / (TP + FN),    F<sub>1</sub> = 2 · Precision · Recall / (Precision + Recall)</span><span class="j-eq-n">(2)</span></div><p>Precision is the fraction of positive predictions that are correct, recall the fraction of actual positives that are found, and F<sub>1</sub> their harmonic mean. The appropriate balance depends on the error costs identified during problem framing (Section 2): a screening model that triggers a cheap manual review favors recall, while a model that triggers an expensive or irreversible action favors precision. Because both quantities depend on the threshold, the threshold should be chosen explicitly from the cost trade-off rather than left at a default of 0.5 [<a href="#ref-19" class="j-cite">19</a>].</p><h3>7.2 ROC Analysis and Precision–Recall Curves</h3><p>The receiver operating characteristic (ROC) curve plots the true positive rate against the false positive rate as the threshold varies. The area under the ROC curve (AUC) has a probabilistic interpretation: it equals the probability that the classifier assigns a higher score to a randomly chosen positive instance than to a randomly chosen negative instance [<a href="#ref-19" class="j-cite">19</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">AUC = <em>P</em>(<em>s</em>(<em>x</em><sup>+</sup>) > <em>s</em>(<em>x</em><sup>−</sup>))</span><span class="j-eq-n">(3)</span></div><p>where <em>s</em> is the classifier's score and <em>x</em><sup>+</sup> and <em>x</em><sup>−</sup> are positive and negative instances. AUC is threshold-independent and insensitive to class prevalence, which is useful for comparing rankers but can mask poor performance on a rare positive class. Saito and Rehmsmeier showed that precision–recall plots are more informative than ROC plots for evaluating binary classifiers on imbalanced datasets [<a href="#ref-20" class="j-cite">20</a>]. Table 2 summarizes these and related metrics.</p><h3>7.3 Calibration</h3><p>When predicted probabilities feed decisions, expected costs or downstream models, they must be calibrated, meaning that among instances assigned probability <em>p</em>, approximately a fraction <em>p</em> are positive. Guo et al. found that modern neural networks are poorly calibrated, with depth, width, weight decay and batch normalization affecting calibration, and that temperature scaling, a single-parameter variant of Platt scaling, is effective on most datasets [<a href="#ref-21" class="j-cite">21</a>]. They measure miscalibration with the expected calibration error (ECE), which partitions <em>n</em> predictions into <em>M</em> confidence bins <em>B</em><sub><em>m</em></sub> and compares accuracy with mean confidence in each bin [<a href="#ref-21" class="j-cite">21</a>]. The Brier score, the mean squared difference between predicted probability <em>p</em><sub><em>i</em></sub> and outcome <em>o</em><sub><em>i</em></sub> ∈ {0, 1}, combines calibration and discrimination in a single proper scoring rule [<a href="#ref-22" class="j-cite">22</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">ECE = Σ<sub><em>m</em>=1</sub><sup><em>M</em></sup> (|<em>B</em><sub><em>m</em></sub>| / <em>n</em>) |acc(<em>B</em><sub><em>m</em></sub>) − conf(<em>B</em><sub><em>m</em></sub>)|,    BS = (1/<em>n</em>) Σ<sub><em>i</em>=1</sub><sup><em>n</em></sup> (<em>p</em><sub><em>i</em></sub> − <em>o</em><sub><em>i</em></sub>)<sup>2</sup></span><span class="j-eq-n">(4)</span></div><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Common evaluation metrics for classification systems and their appropriate use.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Metric</th><th>Measures</th><th>Use when</th><th>Caution</th></tr></thead><tbody><tr><td>Precision, recall, F<sub>1</sub> (Eq. 2)</td><td>Error rates at one threshold</td><td>Error costs are asymmetric and the operating threshold is known</td><td>Threshold-dependent; F<sub>1</sub> weights precision and recall equally</td></tr><tr><td>ROC-AUC (Eq. 3)</td><td>Ranking quality across thresholds</td><td>Comparing rankers on moderately balanced data [<a href="#ref-19" class="j-cite">19</a>]</td><td>Can look favorable when positives are rare [<a href="#ref-20" class="j-cite">20</a>]</td></tr><tr><td>Precision–recall curve and its area</td><td>Precision attainable at each recall level</td><td>Positive class is rare [<a href="#ref-20" class="j-cite">20</a>]</td><td>Baseline depends on prevalence, so values are not comparable across datasets with different prevalence</td></tr><tr><td>ECE and Brier score (Eq. 4)</td><td>Agreement of probabilities with observed frequencies</td><td>Probabilities drive decisions or expected-cost calculations [<a href="#ref-21" class="j-cite">21</a>, <a href="#ref-22" class="j-cite">22</a>]</td><td>ECE depends on the binning scheme</td></tr><tr><td>Business metric</td><td>Value delivered, such as cost avoided or conversions</td><td>Final go or no-go decisions [<a href="#ref-2" class="j-cite">2</a>]</td><td>Usually observable only online and with delay</td></tr></tbody></table></div><p class="j-table-note">Source: compiled from [<a href="#ref-19" class="j-cite">19</a>], [<a href="#ref-20" class="j-cite">20</a>], [<a href="#ref-21" class="j-cite">21</a>], [<a href="#ref-22" class="j-cite">22</a>] and [<a href="#ref-2" class="j-cite">2</a>].</p></figure></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Offline Versus Online Evaluation</h2><p>Offline evaluation on historical data estimates how a model would have performed, but it cannot capture how users and processes react to the model's outputs, nor the feedback loops through which a deployed model alters its own future training data [<a href="#ref-1" class="j-cite">1</a>]. Online controlled experiments, or A/B tests, randomly assign units such as users or sessions to the existing system or the candidate and compare an overall evaluation criterion (OEC), a quantitative measure of the experiment's objective [<a href="#ref-23" class="j-cite">23</a>]. Kohavi et al. give a rule of thumb for the minimum sample size per variant at 95% confidence and 90% power:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>n</em> = (4<em>r</em>σ / Δ)<sup>2</sup></span><span class="j-eq-n">(5)</span></div><p>where <em>r</em> is the number of variants, σ is the standard deviation of the OEC and Δ is the minimum difference to be detected; the authors note that the factor of 4 may overestimate the requirement by about 25% for large <em>n</em> [<a href="#ref-23" class="j-cite">23</a>]. Because the required sample grows with the inverse square of Δ, detecting small improvements requires large samples or variance-reduction techniques. Kohavi, Tang and Xu discuss the practical conditions for trustworthy experiments, including guardrail metrics, checks that the observed allocation matches the intended allocation, and the dangers of stopping early when results look favorable [<a href="#ref-24" class="j-cite">24</a>]. Where randomized experiments are infeasible, as in many industrial process applications, shadow deployment, in which the candidate model scores live traffic without affecting decisions, and staged rollouts provide weaker but still valuable evidence [<a href="#ref-2" class="j-cite">2</a>].</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Deployment Patterns</h2><p>Deployment patterns differ mainly in when predictions are computed and where. In batch prediction, the model scores a population on a schedule and writes predictions to a store from which applications read them; this is simple and efficient but cannot react to information that arrives between runs. In online prediction, the model is served behind an interface and scores each request as it arrives, which supports fresh features and personalized responses but imposes latency, availability and scaling requirements [<a href="#ref-2" class="j-cite">2</a>]. Streaming designs compute features from event streams so that online predictions can use near-real-time information. Edge deployment runs the model on a device or local controller, reducing latency, network dependence and data transfer, but constraining model size and complicating updates and monitoring [<a href="#ref-2" class="j-cite">2</a>].</p><p>Paleyes et al. group deployment-stage challenges into integration, monitoring and updating, and note that integration difficulties often stem from infrastructure, code quality and the need to coordinate ML and software teams [<a href="#ref-3" class="j-cite">3</a>]. Whatever the pattern, releases should be progressive: shadow mode first, then a canary on a small share of traffic, then wider rollout, each stage gated by predefined metric thresholds and each with a tested rollback path. The ML Test Score rubric of Breck et al. includes corresponding infrastructure tests: model quality is validated before serving, models are canaried before serving, and serving models can be rolled back; its monitoring tests include checks that training and serving are not skewed and that models are not too stale [<a href="#ref-6" class="j-cite">6</a>].</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Monitoring and Drift</h2><h3>10.1 Types of Drift</h3><p>A model trained on one data distribution is deployed into a world that changes. Gama et al. define concept drift as a change in the joint distribution of inputs and targets over time, and distinguish real drift, a change in the conditional distribution <em>p</em>(<em>y</em> | <em>x</em>), from virtual drift, a change in the input distribution <em>p</em>(<em>x</em>) that does not alter the decision boundary; they further characterize drift by its pattern as sudden, incremental, gradual or recurring [<a href="#ref-8" class="j-cite">8</a>]. Lu et al. review drift detection, understanding and adaptation, and organize detection methods into error-rate-based, data-distribution-based and multiple-hypothesis-test approaches [<a href="#ref-25" class="j-cite">25</a>]. Rabanser et al. emphasize that ML systems tend to fail silently when inputs shift; in their experiments, two-sample testing on representations produced by a pretrained classifier was the most effective of the shift-detection methods they examined [<a href="#ref-5" class="j-cite">5</a>].</p><h3>10.2 Distribution Monitoring with KL Divergence and PSI</h3><p>Ground-truth labels often arrive late or never, so monitoring relies heavily on input and prediction distributions. The Kullback–Leibler divergence of a current distribution <em>Q</em> from a reference distribution <em>P</em> over bins <em>i</em> is defined as [<a href="#ref-26" class="j-cite">26</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>D</em><sub>KL</sub>(<em>P</em> ‖ <em>Q</em>) = Σ<sub><em>i</em></sub> <em>p</em><sub><em>i</em></sub> ln(<em>p</em><sub><em>i</em></sub> / <em>q</em><sub><em>i</em></sub>),    PSI = Σ<sub><em>i</em></sub> (<em>a</em><sub><em>i</em></sub> − <em>e</em><sub><em>i</em></sub>) ln(<em>a</em><sub><em>i</em></sub> / <em>e</em><sub><em>i</em></sub>)</span><span class="j-eq-n">(6)</span></div><p>The population stability index (PSI), widely used in credit-risk model validation, compares the actual proportion <em>a</em><sub><em>i</em></sub> of a variable in bin <em>i</em> with the expected proportion <em>e</em><sub><em>i</em></sub> from the development sample. Algebraically, PSI equals the sum of the two directed divergences, <em>D</em><sub>KL</sub>(<em>A</em> ‖ <em>E</em>) + <em>D</em><sub>KL</sub>(<em>E</em> ‖ <em>A</em>), so it is symmetric in the two distributions. Yurdakul and Naranjo note that the conventional rule-of-thumb thresholds of 0.10 and 0.25 are applied without reference to type I or type II error rates, and they study the statistic's sampling properties to support more principled use [<a href="#ref-27" class="j-cite">27</a>]. Both measures require care with empty bins, which make the logarithm undefined, and with the choice of binning. A monitoring design should combine such distribution statistics with data-quality checks (schema, missing rates, ranges), prediction-distribution monitoring, and, when labels become available, delayed performance metrics; alerts should be tied to retraining or investigation procedures rather than left as dashboards [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-25" class="j-cite">25</a>].</p><p>Once drift is detected, the system must adapt. Gama et al. distinguish informed adaptation, in which retraining is triggered by a detector, from blind adaptation, in which the model is updated at regular intervals regardless of evidence of change, and they review memory and forgetting mechanisms such as sliding windows and instance weighting that determine which historical data remain in the training set [<a href="#ref-8" class="j-cite">8</a>]. Lu et al. add drift understanding, establishing when, how and where a drift occurred, as a step between detection and adaptation, because the appropriate response to a sudden, localized change differs from the response to a gradual, global one [<a href="#ref-25" class="j-cite">25</a>]. In production, scheduled retraining provides a simple form of blind adaptation, while detector-triggered retraining reduces unnecessary updates; in either case, each retrained model should pass the same automated evaluation gates as the original before it replaces the serving model [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-6" class="j-cite">6</a>].</p><aside class="j-callout"><p>Distribution drift is a signal for investigation, not proof of harm. Pair drift statistics with delayed ground-truth performance where possible, and define in advance which thresholds trigger investigation, retraining or rollback.</p></aside></section><section class="j-sec" id="sec-11"><h2><span class="j-num">11.</span> MLOps and Technical Debt</h2><h3>11.1 Hidden Technical Debt</h3><p>Sculley et al. argued that ML systems incur technical debt that is hidden at the system level rather than visible in code. Their catalog includes the erosion of abstraction boundaries through entanglement, correction cascades in which models are stacked to patch one another, undeclared consumers of model outputs, unstable and underutilized data dependencies, direct and hidden feedback loops, system-level anti-patterns such as glue code, pipeline jungles and dead experimental code paths, configuration debt, and changes in the external world [<a href="#ref-1" class="j-cite">1</a>]. Shankar et al., interviewing 18 ML engineers across applications including chatbots, autonomous vehicles and finance, identified velocity, validation and versioning as the three variables governing success in production deployments [<a href="#ref-28" class="j-cite">28</a>].</p><h3>11.2 The ML Test Score</h3><p>Breck et al. turned production-readiness practice at Google into a rubric of 28 tests in four sections of seven: tests for features and data, tests for model development, tests for ML infrastructure, and monitoring tests. A test earns half a point if performed manually with documented results and one point if automated and run repeatedly; the final ML Test Score is the minimum of the four section scores, so that progress is required in every area [<a href="#ref-6" class="j-cite">6</a>]. The minimum aggregation is a useful design principle in its own right: an excellent model with no monitoring is not production-ready.</p><h3>11.3 MLOps Principles</h3><p>Kreuzberger et al. combined a literature review, a tool review and eight expert interviews to define MLOps as a paradigm, spanning best practices, concepts and a development culture, for the end-to-end conceptualization, implementation, monitoring, deployment and scalability of ML products, drawing on ML, software engineering (especially DevOps) and data engineering [<a href="#ref-7" class="j-cite">7</a>]. They identify nine principles: CI/CD automation, workflow orchestration, reproducibility, versioning of data, model and code, collaboration, continuous ML training and evaluation, ML metadata tracking and logging, continuous monitoring, and feedback loops [<a href="#ref-7" class="j-cite">7</a>]. Amershi et al. describe a nine-stage ML workflow integrated into agile software processes at Microsoft, from model requirements and data collection through training, evaluation, deployment and monitoring, and stress that the stages contain feedback loops rather than a linear sequence [<a href="#ref-4" class="j-cite">4</a>]. The level of automation should be matched to the system's change rate and risk; a model retrained annually may not need continuous training, but every production model needs versioning, reproducibility and monitoring.</p></section><section class="j-sec" id="sec-12"><h2><span class="j-num">12.</span> Responsible ML Documentation</h2><p>Documentation makes a model's intended use, limitations and evidence available to the people who deploy, operate, audit and are affected by it. Model cards are short documents accompanying trained models that report benchmarked evaluation across relevant conditions and groups, including cultural, demographic, phenotypic and intersectional groups where these are relevant to the application, and that disclose the intended context of use and the evaluation procedures [<a href="#ref-29" class="j-cite">29</a>]. The proposed sections cover model details, intended use, factors, metrics, evaluation data, training data, quantitative analyses, ethical considerations, and caveats and recommendations [<a href="#ref-29" class="j-cite">29</a>].</p><p>Datasheets for datasets apply the same principle to data. Gebru et al. propose that every dataset be accompanied by a datasheet that documents its motivation, composition, collection process, preprocessing, cleaning and labeling, recommended uses, distribution and maintenance [<a href="#ref-30" class="j-cite">30</a>]. In industrial and enterprise settings, the same documents serve practical purposes beyond fairness: they record the operating envelope within which a model was validated, the data sources on which it depends, and the conditions under which it should not be used, which are exactly the facts needed during incident investigation and model handover.</p></section><section class="j-sec" id="sec-13"><h2><span class="j-num">13.</span> Design Checklist</h2><p>Table 3 consolidates the preceding sections into a design checklist organized by life-cycle stage. As with the ML Test Score, the value of the checklist lies in requiring evidence for every stage rather than excellence in one [<a href="#ref-6" class="j-cite">6</a>].</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Design checklist for production machine learning systems.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Key questions</th><th>Evidence required</th></tr></thead><tbody><tr><td>Problem framing</td><td>What decision is supported? What do errors cost? Is ML needed?</td><td>Decision and cost statement; business metric; non-ML baseline [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-4" class="j-cite">4</a>]</td></tr><tr><td>Requirements</td><td>What reliability, scalability, maintainability and adaptability are required?</td><td>Service-level targets; fallback behavior; retraining cadence [<a href="#ref-2" class="j-cite">2</a>]</td></tr><tr><td>Data</td><td>Are labels accurate? Is the class balance understood? Is leakage excluded?</td><td>Label audit and agreement; time- or group-based splits; datasheet [<a href="#ref-11" class="j-cite">11</a>, <a href="#ref-15" class="j-cite">15</a>, <a href="#ref-30" class="j-cite">30</a>]</td></tr><tr><td>Features</td><td>Are transformations identical in training and serving?</td><td>Shared feature definitions; schema validation; skew tests [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-6" class="j-cite">6</a>]</td></tr><tr><td>Training and selection</td><td>Is the estimate of generalization unbiased?</td><td>Nested or held-out evaluation; simple baseline comparison [<a href="#ref-18" class="j-cite">18</a>, <a href="#ref-17" class="j-cite">17</a>]</td></tr><tr><td>Evaluation</td><td>Do metrics reflect error costs, imbalance and calibration needs?</td><td>Precision–recall at the chosen threshold; calibration metrics; subgroup results [<a href="#ref-20" class="j-cite">20</a>, <a href="#ref-21" class="j-cite">21</a>, <a href="#ref-29" class="j-cite">29</a>]</td></tr><tr><td>Online validation</td><td>Does the model improve the business metric in practice?</td><td>A/B test with adequate power or shadow and canary evidence [<a href="#ref-23" class="j-cite">23</a>, <a href="#ref-24" class="j-cite">24</a>]</td></tr><tr><td>Deployment</td><td>Batch, online or edge? How is rollback performed?</td><td>Progressive rollout plan; tested rollback [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>Monitoring</td><td>How are drift and silent failures detected?</td><td>Data-quality checks; drift statistics; delayed performance tracking; alert procedures [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-5" class="j-cite">5</a>, <a href="#ref-27" class="j-cite">27</a>]</td></tr><tr><td>Operations and governance</td><td>Is the system reproducible, versioned and documented?</td><td>ML Test Score self-assessment; MLOps principles; model card [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-29" class="j-cite">29</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: synthesis of Sections 2–12; see the cited works for each item.</p></figure></section><section class="j-sec" id="sec-14"><h2><span class="j-num">14.</span> Conclusion</h2><p>Designing a machine learning system is a systems-engineering task in which the model is one component among data pipelines, feature computation, serving infrastructure, monitoring and governance [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-2" class="j-cite">2</a>]. The literature reviewed here converges on several principles. Problems should be framed around decisions and error costs, with a non-ML baseline as the benchmark. Data quality, label accuracy and the exclusion of leakage determine the ceiling on model performance [<a href="#ref-9" class="j-cite">9</a>, <a href="#ref-11" class="j-cite">11</a>, <a href="#ref-15" class="j-cite">15</a>]. Evaluation should use metrics matched to class balance, error costs and the need for calibrated probabilities, and should be completed by online evidence where possible [<a href="#ref-20" class="j-cite">20</a>, <a href="#ref-21" class="j-cite">21</a>, <a href="#ref-24" class="j-cite">24</a>]. Deployed models must be monitored for drift and silent failure [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-5" class="j-cite">5</a>], and the system as a whole should be assessed for production readiness across data, model, infrastructure and monitoring, with documentation that records its intended use and limits [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-29" class="j-cite">29</a>, <a href="#ref-30" class="j-cite">30</a>]. Systems designed on these principles can be maintained, audited and improved as their data and requirements change.</p></section>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>A machine learning (ML) model is a small part of a machine learning system. Sculley et al. observed that in real-world systems only a small fraction of the code is the model itself, and that the surrounding infrastructure for data collection, feature extraction, verification, serving, configuration and monitoring is larger, more complex and a principal source of long-term maintenance cost [<a href="#ref-1" class="j-cite">1</a>]. Huyen frames the design of such systems as an iterative process in which business objectives, data, models, deployment and monitoring are revisited repeatedly rather than completed in sequence [<a href="#ref-2" class="j-cite">2</a>]. Surveys of deployment case studies report that practitioners encounter difficulties at every stage of this process, from data management through model learning, verification and deployment, together with cross-cutting concerns of ethics, law, end-user trust and security [<a href="#ref-3" class="j-cite">3</a>].</p><p>This paper reviews the end-to-end design of ML systems from the perspective of November 2026. It is organized around the life cycle of a production system. Section 2 addresses problem framing and the decision of whether to use ML at all. Section 3 sets out system requirements. Section 4 covers data engineering, including labeling, class imbalance and leakage, and Section 5 covers feature engineering. Section 6 discusses training and model selection, Section 7 evaluation metrics, and Section 8 the relationship between offline evaluation and online experiments. Section 9 reviews deployment patterns and Section 10 monitoring and drift. Section 11 addresses MLOps and technical debt, Section 12 responsible documentation, and Section 13 consolidates the discussion in a design checklist. Section 14 concludes. Figure 1 arranges these stages as a loop rather than a sequence: monitoring and retraining feed back into data work, and an evaluation that fails to beat the baseline sends the project back to problem framing.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 524.88 272.088" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Loop diagram of eight boxes. Top row: problem framing, data, features and training. Bottom row from right to left: evaluation, deployment, monitoring and retraining, with retraining feeding a new data window back to the data stage. Dashed feedback arrows run from monitoring to data for data-quality alerts and label issues, and from evaluation back to problem framing when the model fails to beat the baseline or move the business metric.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 272.088 
+L 524.88 272.088 
+L 524.88 0 
+L 0 0 
+L 0 272.088 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 122.87025 75.668488 
+Q 134.1 75.668488 143.764502 75.668488 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 139.364502 73.468488 
+L 143.764502 75.668488 
+L 139.364502 77.868488 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_3">
+<path d="M 402.00975 237.729073 
+Q 390.78 237.729073 381.115498 237.729073 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 385.515498 239.929073 
+L 381.115498 237.729073 
+L 385.515498 235.529073 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_4">
+<path d="M 251.21025 75.668488 
+Q 262.44 75.668488 272.104502 75.668488 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 267.704502 73.468488 
+L 272.104502 75.668488 
+L 267.704502 77.868488 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_5">
+<path d="M 273.66975 237.729073 
+Q 262.44 237.729073 252.775498 237.729073 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 257.175498 239.929073 
+L 252.775498 237.729073 
+L 257.175498 235.529073 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_6">
+<path d="M 379.55025 75.668488 
+Q 390.78 75.668488 400.444502 75.668488 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 396.044502 73.468488 
+L 400.444502 75.668488 
+L 396.044502 77.868488 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_7">
+<path d="M 145.32975 237.729073 
+Q 134.1 237.729073 124.435498 237.729073 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 128.835498 239.929073 
+L 124.435498 237.729073 
+L 128.835498 235.529073 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_8">
+<path d="M 454.95 100.295341 
+Q 454.95 156.69878 454.95 211.536972 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 457.15 207.136972 
+L 454.95 211.536972 
+L 452.75 207.136972 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_9">
+<path d="M 89.181 213.10222 
+Q 134.1 156.69878 178.043897 101.519749 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 173.581887 103.591093 
+L 178.043897 101.519749 
+L 177.023767 106.332164 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 507.89025 237.729073 
+L 515.9115 237.729073 
+L 515.9115 23.237122 
+L 69.93 23.237122 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.4"/>
+</g>
+<g id="patch_10">
+<path d="M 69.93 23.237122 
+Q 69.93 37.139378 69.93 49.476387 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 72.13 45.076387 
+L 69.93 49.476387 
+L 67.73 45.076387 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #e07a3a; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_11">
+<path d="M 198.27 213.10222 
+Q 198.27 156.69878 198.27 101.860589 
+" clip-path="url(#p50f7086dac)" style="fill: none; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 196.07 106.260589 
+L 198.27 101.860589 
+L 200.47 106.260589 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #e07a3a; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_12">
+<path d="M 21.48165 100.295341 
+L 118.37835 100.295341 
+Q 122.87025 100.295341 122.87025 95.84662 
+L 122.87025 55.490356 
+Q 122.87025 51.041634 118.37835 51.041634 
+L 21.48165 51.041634 
+Q 16.98975 51.041634 16.98975 55.490356 
+L 16.98975 95.84662 
+Q 16.98975 100.295341 21.48165 100.295341 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f4f8fc; stroke: #0b6fa4; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_13">
+<path d="M 149.82165 100.295341 
+L 246.71835 100.295341 
+Q 251.21025 100.295341 251.21025 95.84662 
+L 251.21025 55.490356 
+Q 251.21025 51.041634 246.71835 51.041634 
+L 149.82165 51.041634 
+Q 145.32975 51.041634 145.32975 55.490356 
+L 145.32975 95.84662 
+Q 145.32975 100.295341 149.82165 100.295341 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f4f8fc; stroke: #0b6fa4; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_14">
+<path d="M 278.16165 100.295341 
+L 375.05835 100.295341 
+Q 379.55025 100.295341 379.55025 95.84662 
+L 379.55025 55.490356 
+Q 379.55025 51.041634 375.05835 51.041634 
+L 278.16165 51.041634 
+Q 273.66975 51.041634 273.66975 55.490356 
+L 273.66975 95.84662 
+Q 273.66975 100.295341 278.16165 100.295341 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f4f8fc; stroke: #0b6fa4; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_15">
+<path d="M 406.50165 100.295341 
+L 503.39835 100.295341 
+Q 507.89025 100.295341 507.89025 95.84662 
+L 507.89025 55.490356 
+Q 507.89025 51.041634 503.39835 51.041634 
+L 406.50165 51.041634 
+Q 402.00975 51.041634 402.00975 55.490356 
+L 402.00975 95.84662 
+Q 402.00975 100.295341 406.50165 100.295341 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f4f8fc; stroke: #0b6fa4; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_16">
+<path d="M 406.50165 262.355927 
+L 503.39835 262.355927 
+Q 507.89025 262.355927 507.89025 257.907205 
+L 507.89025 217.550941 
+Q 507.89025 213.10222 503.39835 213.10222 
+L 406.50165 213.10222 
+Q 402.00975 213.10222 402.00975 217.550941 
+L 402.00975 257.907205 
+Q 402.00975 262.355927 406.50165 262.355927 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f5faef; stroke: #4d7f12; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_17">
+<path d="M 278.16165 262.355927 
+L 375.05835 262.355927 
+Q 379.55025 262.355927 379.55025 257.907205 
+L 379.55025 217.550941 
+Q 379.55025 213.10222 375.05835 213.10222 
+L 278.16165 213.10222 
+Q 273.66975 213.10222 273.66975 217.550941 
+L 273.66975 257.907205 
+Q 273.66975 262.355927 278.16165 262.355927 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f5faef; stroke: #4d7f12; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_18">
+<path d="M 149.82165 262.355927 
+L 246.71835 262.355927 
+Q 251.21025 262.355927 251.21025 257.907205 
+L 251.21025 217.550941 
+Q 251.21025 213.10222 246.71835 213.10222 
+L 149.82165 213.10222 
+Q 145.32975 213.10222 145.32975 217.550941 
+L 145.32975 257.907205 
+Q 145.32975 262.355927 149.82165 262.355927 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f5faef; stroke: #4d7f12; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_19">
+<path d="M 21.48165 262.355927 
+L 118.37835 262.355927 
+Q 122.87025 262.355927 122.87025 257.907205 
+L 122.87025 217.550941 
+Q 122.87025 213.10222 118.37835 213.10222 
+L 21.48165 213.10222 
+Q 16.98975 213.10222 16.98975 217.550941 
+L 16.98975 257.907205 
+Q 16.98975 262.355927 21.48165 262.355927 
+z
+" clip-path="url(#p50f7086dac)" style="fill: #f5faef; stroke: #4d7f12; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="text_1">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(80.756438 154.527882)">new data</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(86.688 165.41753)">window</text>
+</g>
+<g id="text_2">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #b4410c" x="294.525" y="18.841863" transform="rotate(-0 294.525 18.841863)">fails to beat the baseline or move the business metric → reframe or stop</text>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(203.08275 146.583736)">data-quality alerts,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #b4410c" transform="translate(203.08275 157.473384)">label issues</text>
+</g>
+<g id="text_4">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="69.93" y="67.793858" transform="rotate(-0 69.93 67.793858)">1  Problem framing</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(25.096641 79.943508)">decision, error costs,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(19.371094 92.890588)">non-ML baseline (§2–3)</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="198.27" y="67.793858" transform="rotate(-0 198.27 67.793858)">2  Data</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(160.122656 79.943508)">labels, imbalance,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(155.124844 92.583323)">leakage checks (§4)</text>
+</g>
+<g id="text_8">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="326.61" y="67.793858" transform="rotate(-0 326.61 67.793858)">3  Features</text>
+</g>
+<g id="text_9">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(287.893125 80.286633)">shared train/serve</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(294.659297 92.890588)">definitions (§5)</text>
+</g>
+<g id="text_10">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="454.95" y="67.793858" transform="rotate(-0 454.95 67.793858)">4  Training</text>
+</g>
+<g id="text_11">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(410.5125 79.989914)">baseline first; nested</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(411.070078 92.890588)">CV for selection (§6)</text>
+</g>
+<g id="text_12">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="454.95" y="229.854444" transform="rotate(-0 454.95 229.854444)">5  Evaluation</text>
+</g>
+<g id="text_13">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(413.036719 242.004094)">metrics, calibration,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(409.031016 254.951174)">A/B or shadow (§7–8)</text>
+</g>
+<g id="text_14">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="326.61" y="229.854444" transform="rotate(-0 326.61 229.854444)">6  Deployment</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(282.987422 241.749562)">shadow → canary →</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(283.964063 254.826017)">rollout; rollback (§9)</text>
+</g>
+<g id="text_16">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="198.27" y="229.854444" transform="rotate(-0 198.27 229.854444)">7  Monitoring</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(161.233594 241.903547)">data quality, drift,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(156.086719 254.679064)">delayed labels (§10)</text>
+</g>
+<g id="text_18">
+<text style="font-weight: 700; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="69.93" y="229.854444" transform="rotate(-0 69.93 229.854444)">8  Retraining</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(42.157266 242.632687)">scheduled or</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(19.040625 254.643908)">detector-triggered (§10)</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p50f7086dac">
+<rect x="5.76" y="5.76" width="513.36" height="260.568"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Life cycle of a production ML system. Development stages (blue) lead to production stages (green); solid arrows show the main loop, dashed arrows the feedback paths. Section numbers refer to this paper. <span class="j-fig-src">Drawn by the author from Sections 2–11, after [<a href="#ref-2" class="j-cite">2</a>] and [<a href="#ref-4" class="j-cite">4</a>].</span></figcaption></figure></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Problem Framing and When Not to Use Machine Learning</h2><p>Design begins with the decision that the system is meant to support, not with a model. A useful framing specifies who acts on the prediction, what action they take, how quickly the prediction is needed, what an error costs in each direction, and how success will be measured in business terms. Huyen distinguishes business objectives from ML objectives and emphasizes that model metrics are useful only insofar as they move the business metric that motivated the project [<a href="#ref-2" class="j-cite">2</a>]. The same problem can usually be framed in several ways, for example as classification, regression or ranking, and the framing determines which labels are needed, which loss is optimized and how the output is consumed downstream [<a href="#ref-2" class="j-cite">2</a>].</p><p>Machine learning is appropriate when a task involves patterns that are too complex or too changeable to specify as rules, when examples of the desired behavior exist or can be collected, when the task is repeated often enough for the investment to be recovered, and when occasional errors are tolerable or can be caught [<a href="#ref-2" class="j-cite">2</a>]. Conversely, ML should be avoided or deferred when a deterministic rule or a simple heuristic meets the requirement, when there is no reliable signal or no way to obtain labels, when errors are unacceptable and cannot be detected, or when the organization cannot support the data pipelines and monitoring that a production model requires. Amershi et al. found at Microsoft that ML components differ from conventional software in the difficulty of data management, the specialized skills needed to customize and reuse models, and the way models become entangled with one another, so that ML imposes engineering costs beyond model training [<a href="#ref-4" class="j-cite">4</a>]. A non-ML baseline is therefore a design deliverable in its own right: it establishes the value that a model must exceed to justify its complexity.</p><aside class="j-callout"><p>Before building a model, document the decision it supports, the cost of each type of error, the business metric it is meant to move, and a non-ML baseline. A model that cannot be shown to beat the baseline on the business metric should not proceed to production.</p></aside></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> System Requirements</h2><p>Huyen identifies four requirements that most production ML systems must meet: reliability, scalability, maintainability and adaptability [<a href="#ref-2" class="j-cite">2</a>]. They are summarized with their principal design implications in Table 1. Reliability is complicated by the fact that ML systems can fail silently: a model that returns well-formed but wrong predictions raises no exception, so correctness must be monitored statistically rather than inferred from uptime [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-5" class="j-cite">5</a>]. Scalability concerns not only request volume but also the number of models, features and training runs the organization must manage. Maintainability depends on reproducible pipelines, versioned data and code, and clear ownership. Adaptability is the capacity to respond to shifting data distributions and business needs by retraining and redeploying quickly and safely.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Requirements for production ML systems and their design implications.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Requirement</th><th>Meaning in an ML context</th><th>Design implications</th></tr></thead><tbody><tr><td>Reliability</td><td>Correct outputs at the required level of performance, including under adverse conditions</td><td>Input validation; statistical output monitoring; fallbacks to a baseline or rule [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-6" class="j-cite">6</a>]</td></tr><tr><td>Scalability</td><td>Growth in traffic, data volume, model count and team size</td><td>Stateless serving; distributed training; shared feature and metadata stores [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-7" class="j-cite">7</a>]</td></tr><tr><td>Maintainability</td><td>Ability of different people to understand, reproduce and change the system</td><td>Versioned data, code and models; reproducible pipelines; documented ownership [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-1" class="j-cite">1</a>]</td></tr><tr><td>Adaptability</td><td>Ability to respond to drift and changing requirements</td><td>Drift detection; automated retraining and evaluation; staged rollout [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-7" class="j-cite">7</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: requirement categories from [<a href="#ref-2" class="j-cite">2</a>]; implications compiled from the cited works.</p></figure></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Data Engineering</h2><h3>4.1 Data Quality and Labeling</h3><p>Data work frequently determines the outcome of an ML project. Sambasivan et al. interviewed 53 practitioners working on high-stakes AI in India, East and West African countries and the United States and described data cascades, compounding events with negative downstream effects that originate in data issues; they reported a 92% prevalence of such cascades among their participants [<a href="#ref-9" class="j-cite">9</a>]. Polyzotis et al. survey the data life cycle of production ML, including data understanding, validation, cleaning and preparation, and describe the challenges that arise when these activities must operate continuously on changing production data rather than once on a static dataset [<a href="#ref-10" class="j-cite">10</a>]. A practical consequence is that data validation belongs in the pipeline itself: each new batch of training or serving data should be checked against an explicit schema covering expected features, types, value ranges and missing-value rates before it reaches a model, so that upstream changes are detected where they occur rather than inferred later from degraded predictions [<a href="#ref-10" class="j-cite">10</a>, <a href="#ref-6" class="j-cite">6</a>].</p><p>Labels deserve particular scrutiny because they define what the model learns and how it is judged. Northcutt et al. estimated an average of at least 3.3% label errors in the test sets of ten widely used computer vision, language and audio datasets, including at least 6% of the ImageNet validation set, and showed that such errors can change which model appears best [<a href="#ref-11" class="j-cite">11</a>]. Confident learning provides a principled method for estimating the joint distribution of noisy and true labels and identifying likely mislabeled examples [<a href="#ref-12" class="j-cite">12</a>]. Practical labeling programs therefore define written labeling guidelines, measure inter-annotator agreement, audit a sample of labels, and version label sets so that changes in guidelines can be traced to changes in model behavior.</p><h3>4.2 Class Imbalance</h3><p>Many operational problems, such as fraud, equipment failure and defect detection, involve a rare positive class. He and Garcia review the effects of imbalance and the main remedies: sampling methods, cost-sensitive learning that assigns higher cost to minority-class errors, and evaluation metrics that remain informative when one class dominates [<a href="#ref-13" class="j-cite">13</a>]. The synthetic minority over-sampling technique (SMOTE) generates new minority examples by interpolating between a minority example and its nearest minority neighbors rather than duplicating examples [<a href="#ref-14" class="j-cite">14</a>]. Resampling changes the class prior seen during training, so predicted probabilities must be recalibrated (Section 7.3) before they are used as estimates of real-world risk, and resampling must be applied only to training folds, never to validation or test data.</p><h3>4.3 Data Leakage</h3><p>Kaufman et al. define leakage as the introduction of information about the target that should not legitimately be available to the model, and describe it as one of the most common mistakes in data mining practice, illustrated by controversies in several public competitions [<a href="#ref-15" class="j-cite">15</a>]. Typical sources include features computed after the prediction time, identifiers that encode the outcome, preprocessing statistics computed over the full dataset before splitting, and duplicate or near-duplicate records that appear in both training and test sets. Kaufman et al. propose a learn–predict separation in which each training example is constructed using only data available before its prediction point [<a href="#ref-15" class="j-cite">15</a>]. For temporal problems this implies time-based splits rather than random splits, and for grouped data, such as multiple records per customer or per machine, it implies splitting by group.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Feature Engineering</h2><p>Feature engineering converts raw data into inputs that a model can use. Even where deep learning learns representations from raw inputs, production systems typically combine learned embeddings with engineered features such as aggregates over time windows, ratios, counts and domain-specific indicators [<a href="#ref-2" class="j-cite">2</a>]. Common operations include scaling numerical features, encoding categorical features (one-hot, target or hashed encodings), handling missing values explicitly, discretizing continuous variables and constructing interaction terms. Each transformation must be fitted on training data only and then applied unchanged at serving time; fitting a scaler or encoder on the full dataset is a form of leakage [<a href="#ref-15" class="j-cite">15</a>].</p><p>The principal systems risk in feature engineering is training–serving skew, in which features are computed differently in the offline training pipeline and the online serving path. Sculley et al. identify related forms of debt, including unstable and underutilized data dependencies, glue code and "pipeline jungles" of ad hoc preprocessing steps, and they note that because of entanglement, changing any input feature can change the behavior of the whole model, which they summarize as "changing anything changes everything" [<a href="#ref-1" class="j-cite">1</a>]. Shared feature definitions used by both training and serving, schema validation of inputs, and periodic pruning of features with little marginal value reduce these risks [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-6" class="j-cite">6</a>].</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Training and Model Selection</h2><h3>6.1 The Bias–Variance Trade-off</h3><p>Model selection balances underfitting and overfitting. For squared-error loss, the expected prediction error of an estimator <em>f̂</em> at input <em>x</em>, with target <em>y</em> = <em>f</em>(<em>x</em>) + ε and noise variance σ<sup>2</sup>, decomposes into three terms [<a href="#ref-16" class="j-cite">16</a>, <a href="#ref-17" class="j-cite">17</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">𝔼[(<em>y</em> − <em>f̂</em>(<em>x</em>))<sup>2</sup>] = (𝔼[<em>f̂</em>(<em>x</em>)] − <em>f</em>(<em>x</em>))<sup>2</sup> + 𝔼[(<em>f̂</em>(<em>x</em>) − 𝔼[<em>f̂</em>(<em>x</em>)])<sup>2</sup>] + σ<sup>2</sup></span><span class="j-eq-n">(1)</span></div><p>The first term is the squared bias, the second the variance of the estimator over training sets, and the third the irreducible noise. Geman et al. showed that flexible models such as neural networks reduce bias at the cost of variance, so that controlling variance through regularization, more data or constrained model families is central to generalization [<a href="#ref-16" class="j-cite">16</a>]. In practice, a simple, well-regularized baseline such as logistic regression or a gradient-boosted tree model should be trained first; it calibrates expectations, exposes data problems early and provides the benchmark against which more complex models are judged [<a href="#ref-2" class="j-cite">2</a>].</p><h3>6.2 Cross-Validation and Hyperparameter Selection</h3><p><em>K</em>-fold cross-validation estimates generalization error by training on <em>K</em> − 1 folds and evaluating on the held-out fold, rotating through all folds [<a href="#ref-17" class="j-cite">17</a>]. When the same cross-validation estimate is used both to tune hyperparameters and to report performance, the estimate is optimistically biased; Varma and Simon demonstrated this bias and showed that nested cross-validation, in which tuning is performed inside each outer training fold, yields an approximately unbiased estimate [<a href="#ref-18" class="j-cite">18</a>]. Splits must respect the structure of the data identified in Section 4.3: time-ordered or grouped splits for temporal or grouped data, and stratification by class for imbalanced problems. A final test set, held out from all development decisions, provides the last offline check before deployment.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Evaluation Metrics</h2><h3>7.1 Precision, Recall and F1</h3><p>For a binary classifier with true positives TP, false positives FP and false negatives FN at a given decision threshold:</p><div class="j-eq" role="math"><span class="j-eq-body">Precision = TP / (TP + FP),    Recall = TP / (TP + FN),    F<sub>1</sub> = 2 · Precision · Recall / (Precision + Recall)</span><span class="j-eq-n">(2)</span></div><p>Precision is the fraction of positive predictions that are correct, recall the fraction of actual positives that are found, and F<sub>1</sub> their harmonic mean. The appropriate balance depends on the error costs identified during problem framing (Section 2): a screening model that triggers a cheap manual review favors recall, while a model that triggers an expensive or irreversible action favors precision. Because both quantities depend on the threshold, the threshold should be chosen explicitly from the cost trade-off rather than left at a default of 0.5 [<a href="#ref-19" class="j-cite">19</a>].</p><h3>7.2 ROC Analysis and Precision–Recall Curves</h3><p>The receiver operating characteristic (ROC) curve plots the true positive rate against the false positive rate as the threshold varies. The area under the ROC curve (AUC) has a probabilistic interpretation: it equals the probability that the classifier assigns a higher score to a randomly chosen positive instance than to a randomly chosen negative instance [<a href="#ref-19" class="j-cite">19</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">AUC = <em>P</em>(<em>s</em>(<em>x</em><sup>+</sup>) > <em>s</em>(<em>x</em><sup>−</sup>))</span><span class="j-eq-n">(3)</span></div><p>where <em>s</em> is the classifier's score and <em>x</em><sup>+</sup> and <em>x</em><sup>−</sup> are positive and negative instances. AUC is threshold-independent and insensitive to class prevalence, which is useful for comparing rankers but can mask poor performance on a rare positive class. Saito and Rehmsmeier showed that precision–recall plots are more informative than ROC plots for evaluating binary classifiers on imbalanced datasets [<a href="#ref-20" class="j-cite">20</a>]. Table 2 summarizes these and related metrics. Figure 2 illustrates both points on a synthetic data set with 5% positives: ROC-AUC is 0.93, yet precision at the default threshold of 0.5 is only 0.37, and the threshold that minimizes a stated error cost differs from both 0.5 and the F<sub>1</sub>-maximizing value.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 567.202299 281.285805" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Two-panel chart on synthetic data. Left: precision rises and recall falls as the threshold increases; F1 peaks at 0.62 at a threshold of 0.60, the cost-based threshold is 0.42 and the default is 0.50. Right: precision-recall curve falling from 1.0 to about 0.05, with operating points at precision 0.63 and recall 0.62 for maximum F1, precision 0.37 and recall 0.73 for the default, and precision 0.23 and recall 0.86 for the cost-based threshold; ROC-AUC is 0.93 and the no-skill baseline is 5%.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 281.285805 
+L 567.202299 281.285805 
+L 567.202299 0 
+L 0 0 
+L 0 281.285805 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 45.631309 239.116625 
+L 268.831309 239.116625 
+L 268.831309 22.900625 
+L 45.631309 22.900625 
+L 45.631309 239.116625 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 45.631309 239.116625 
+L 45.631309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m865af7deda" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m865af7deda" x="45.631309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="45.631309" y="256.2885" transform="rotate(-0 45.631309 256.2885)">0.0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 90.271309 239.116625 
+L 90.271309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m865af7deda" x="90.271309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="90.271309" y="256.2885" transform="rotate(-0 90.271309 256.2885)">0.2</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 134.911309 239.116625 
+L 134.911309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m865af7deda" x="134.911309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="134.911309" y="256.2885" transform="rotate(-0 134.911309 256.2885)">0.4</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 179.551309 239.116625 
+L 179.551309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m865af7deda" x="179.551309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="179.551309" y="256.2885" transform="rotate(-0 179.551309 256.2885)">0.6</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 224.191309 239.116625 
+L 224.191309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m865af7deda" x="224.191309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="224.191309" y="256.2885" transform="rotate(-0 224.191309 256.2885)">0.8</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 268.831309 239.116625 
+L 268.831309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m865af7deda" x="268.831309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="268.831309" y="256.2885" transform="rotate(-0 268.831309 256.2885)">1.0</text>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="157.231309" y="272.99309" transform="rotate(-0 157.231309 272.99309)">Decision threshold on score</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 45.631309 239.116625 
+L 268.831309 239.116625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="m24a25de37f" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m24a25de37f" x="45.631309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="244.202563" transform="rotate(-0 38.631309 244.202563)">0.0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 45.631309 199.076625 
+L 268.831309 199.076625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m24a25de37f" x="45.631309" y="199.076625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="204.162563" transform="rotate(-0 38.631309 204.162563)">0.2</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 45.631309 159.036625 
+L 268.831309 159.036625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m24a25de37f" x="45.631309" y="159.036625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="164.122563" transform="rotate(-0 38.631309 164.122563)">0.4</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 45.631309 118.996625 
+L 268.831309 118.996625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m24a25de37f" x="45.631309" y="118.996625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="124.082563" transform="rotate(-0 38.631309 124.082563)">0.6</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 45.631309 78.956625 
+L 268.831309 78.956625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m24a25de37f" x="45.631309" y="78.956625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="84.042563" transform="rotate(-0 38.631309 84.042563)">0.8</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 45.631309 38.916625 
+L 268.831309 38.916625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m24a25de37f" x="45.631309" y="38.916625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="44.002563" transform="rotate(-0 38.631309 44.002563)">1.0</text>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="131.008625" transform="rotate(-90 15.931875 131.008625)">Metric value, Eq. (2)</text>
+</g>
+</g>
+<g id="line2d_25">
+<path d="M 50.095309 229.071467 
+L 55.452109 228.855221 
+L 62.594509 228.335796 
+L 64.380109 228.188677 
+L 66.165709 228.019064 
+L 78.218509 226.242027 
+L 79.557709 225.971517 
+L 86.700109 224.253967 
+L 87.146509 224.063993 
+L 87.592909 224.112991 
+L 88.932109 223.571684 
+L 89.824909 223.323956 
+L 90.717709 223.029125 
+L 94.288909 221.971469 
+L 95.181709 221.746073 
+L 95.628109 221.53029 
+L 96.074509 221.925927 
+L 96.967309 221.596844 
+L 98.306509 221.304577 
+L 99.645709 220.760178 
+L 100.092109 220.725046 
+L 103.216909 219.303017 
+L 104.109709 219.075749 
+L 105.002509 218.627073 
+L 105.895309 218.29409 
+L 107.234509 217.856448 
+L 107.680909 217.761958 
+L 108.573709 217.226876 
+L 110.805709 216.263831 
+L 111.698509 215.678576 
+L 114.376909 214.516886 
+L 115.269709 214.192127 
+L 115.716109 213.750685 
+L 116.608909 213.185427 
+L 117.055309 212.781972 
+L 117.948109 212.480573 
+L 118.394509 212.015315 
+L 118.840909 211.789622 
+L 119.287309 211.378071 
+L 120.626509 210.650688 
+L 121.519309 209.684961 
+L 122.858509 208.702268 
+L 123.304909 208.394534 
+L 123.751309 207.813876 
+L 124.197709 207.651685 
+L 124.644109 207.042329 
+L 125.536909 206.172321 
+L 126.876109 204.742663 
+L 130.447309 202.073382 
+L 131.340109 201.147659 
+L 132.232909 200.920572 
+L 132.679309 199.9764 
+L 133.125709 199.350872 
+L 133.572109 199.076625 
+L 134.018509 198.23071 
+L 134.464909 197.828376 
+L 134.911309 197.629396 
+L 135.804109 196.709728 
+L 136.696909 195.195196 
+L 137.589709 193.447659 
+L 138.036109 193.204092 
+L 138.482509 192.709078 
+L 138.928909 192.748778 
+L 139.375309 192.237837 
+L 139.821709 191.978121 
+L 140.268109 191.316063 
+L 140.714509 191.046004 
+L 141.607309 191.09177 
+L 142.053709 190.387593 
+L 142.500109 190.100106 
+L 142.946509 190.125084 
+L 143.392909 189.676991 
+L 143.839309 189.684526 
+L 144.285709 188.592966 
+L 145.178509 187.766625 
+L 145.624909 187.431004 
+L 146.071309 185.864773 
+L 146.517709 185.137785 
+L 146.964109 185.269728 
+L 147.410509 184.516625 
+L 147.856909 183.545095 
+L 148.303309 183.146733 
+L 148.749709 182.538364 
+L 149.642509 179.515098 
+L 150.088909 178.824733 
+L 150.535309 178.591044 
+L 151.428109 176.150496 
+L 151.874509 175.678765 
+L 152.767309 173.797133 
+L 153.213709 173.249958 
+L 153.660109 172.971251 
+L 154.106509 170.866625 
+L 154.552909 169.923077 
+L 154.999309 169.923077 
+L 155.445709 169.235493 
+L 155.892109 167.891625 
+L 156.784909 166.407172 
+L 157.231309 165.305514 
+L 157.677709 165.196625 
+L 158.124109 165.744897 
+L 159.016909 163.365274 
+L 159.463309 162.953582 
+L 159.909709 162.953582 
+L 160.356109 162.53739 
+L 160.802509 161.261069 
+L 161.248909 161.766625 
+L 161.695309 160.425296 
+L 162.141709 159.504929 
+L 162.588109 156.609958 
+L 163.034509 155.597607 
+L 163.927309 151.286948 
+L 164.373709 150.138847 
+L 164.820109 149.553467 
+L 165.266509 148.359292 
+L 165.712909 147.750182 
+L 166.159309 145.229728 
+L 166.605709 143.916625 
+L 167.052109 143.246202 
+L 167.498509 143.986129 
+L 168.391309 142.617344 
+L 169.284109 135.936625 
+L 169.730509 135.13678 
+L 170.623309 131.809425 
+L 171.069709 132.55856 
+L 171.962509 132.55856 
+L 172.408909 130.811707 
+L 172.855309 130.811707 
+L 173.301709 130.674958 
+L 173.748109 130.674958 
+L 174.194509 131.446037 
+L 174.640909 129.441842 
+L 175.087309 128.479783 
+L 175.533709 125.489598 
+L 176.426509 125.489598 
+L 176.872909 124.186995 
+L 177.765709 116.221575 
+L 178.212109 116.221575 
+L 178.658509 114.992625 
+L 179.104909 114.992625 
+L 179.551309 113.738847 
+L 179.997709 116.077042 
+L 180.890509 116.077042 
+L 181.336909 116.889257 
+L 181.783309 116.889257 
+L 182.229709 115.588965 
+L 182.676109 115.079668 
+L 183.122509 113.716625 
+L 183.568909 113.148086 
+L 184.461709 113.148086 
+L 184.908109 111.716625 
+L 185.354509 108.753834 
+L 185.800909 107.220154 
+L 186.247309 107.220154 
+L 187.140109 101.479125 
+L 187.586509 98.716625 
+L 188.032909 97.641958 
+L 188.479309 98.435544 
+L 188.925709 96.508406 
+L 189.372109 96.508406 
+L 189.818509 95.310991 
+L 190.264909 95.310991 
+L 190.711309 96.116625 
+L 191.157709 94.85486 
+L 191.604109 94.85486 
+L 192.050509 92.7017 
+L 192.496909 92.7017 
+L 192.943309 86.583292 
+L 193.389709 87.352109 
+L 194.282509 82.293292 
+L 194.728909 83.789039 
+L 195.175309 81.063993 
+L 196.514509 83.405514 
+L 198.300109 83.405514 
+L 199.192909 77.416625 
+L 199.639309 71.602339 
+L 200.532109 71.602339 
+L 200.978509 72.993221 
+L 201.424909 73.734016 
+L 201.871309 70.058847 
+L 202.317709 70.766625 
+L 202.764109 70.766625 
+L 204.103309 73.097113 
+L 204.549709 68.946625 
+L 204.996109 69.716625 
+L 205.442509 69.716625 
+L 206.781709 55.599958 
+L 207.228109 56.076625 
+L 207.674509 56.076625 
+L 208.120909 57.116625 
+L 209.460109 57.116625 
+L 210.352909 58.290819 
+L 213.031309 58.290819 
+L 213.477709 58.936625 
+L 214.370509 58.936625 
+L 214.816909 59.62697 
+L 215.263309 61.161069 
+L 215.709709 54.316625 
+L 217.048909 54.316625 
+L 217.495309 54.932625 
+L 218.388109 54.932625 
+L 219.280909 38.916625 
+L 264.367309 38.916625 
+L 264.367309 38.916625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<path d="M 50.095309 38.916625 
+L 87.146509 38.916625 
+L 87.592909 40.918625 
+L 95.628109 40.918625 
+L 96.074509 46.924625 
+L 112.144909 46.924625 
+L 112.591309 48.926625 
+L 113.930509 48.926625 
+L 114.823309 52.930625 
+L 118.394509 52.930625 
+L 118.840909 54.932625 
+L 119.733709 54.932625 
+L 120.180109 56.934625 
+L 127.322509 56.934625 
+L 127.768909 58.936625 
+L 129.108109 58.936625 
+L 129.554509 60.938625 
+L 130.447309 60.938625 
+L 130.893709 62.940625 
+L 131.340109 62.940625 
+L 131.786509 64.942625 
+L 134.018509 64.942625 
+L 134.464909 66.944625 
+L 138.482509 66.944625 
+L 138.928909 68.946625 
+L 140.714509 68.946625 
+L 141.607309 72.950625 
+L 142.500109 72.950625 
+L 142.946509 76.954625 
+L 143.392909 76.954625 
+L 143.839309 78.956625 
+L 144.285709 78.956625 
+L 144.732109 80.958625 
+L 146.517709 80.958625 
+L 146.964109 82.960625 
+L 151.428109 82.960625 
+L 151.874509 84.962625 
+L 152.767309 84.962625 
+L 153.660109 88.966625 
+L 154.999309 88.966625 
+L 155.445709 90.968625 
+L 156.338509 90.968625 
+L 156.784909 92.970625 
+L 157.231309 92.970625 
+L 157.677709 94.972625 
+L 158.124109 98.976625 
+L 160.802509 98.976625 
+L 161.248909 102.980625 
+L 167.052109 102.980625 
+L 167.498509 104.982625 
+L 170.623309 104.982625 
+L 171.069709 106.984625 
+L 172.855309 106.984625 
+L 173.301709 108.986625 
+L 173.748109 108.986625 
+L 174.640909 112.990625 
+L 176.426509 112.990625 
+L 176.872909 114.992625 
+L 179.551309 114.992625 
+L 179.997709 120.998625 
+L 180.890509 120.998625 
+L 181.336909 123.000625 
+L 182.229709 123.000625 
+L 182.676109 125.002625 
+L 183.122509 125.002625 
+L 183.568909 127.004625 
+L 186.693709 127.004625 
+L 188.479309 135.012625 
+L 189.372109 135.012625 
+L 189.818509 137.014625 
+L 190.264909 137.014625 
+L 191.157709 141.018625 
+L 192.496909 141.018625 
+L 193.389709 145.022625 
+L 194.282509 145.022625 
+L 194.728909 149.026625 
+L 195.175309 149.026625 
+L 196.514509 155.032625 
+L 199.192909 155.032625 
+L 199.639309 157.034625 
+L 200.532109 157.034625 
+L 200.978509 161.038625 
+L 201.424909 163.040625 
+L 201.871309 163.040625 
+L 202.317709 165.042625 
+L 202.764109 165.042625 
+L 204.103309 171.048625 
+L 204.549709 171.048625 
+L 204.996109 173.050625 
+L 206.781709 173.050625 
+L 207.228109 175.052625 
+L 207.674509 175.052625 
+L 208.120909 179.056625 
+L 209.460109 179.056625 
+L 210.352909 183.060625 
+L 213.031309 183.060625 
+L 213.477709 185.062625 
+L 214.370509 185.062625 
+L 214.816909 187.064625 
+L 215.263309 191.068625 
+L 217.048909 191.068625 
+L 217.495309 193.070625 
+L 218.388109 193.070625 
+L 218.834509 195.072625 
+L 220.173709 195.072625 
+L 220.620109 197.074625 
+L 223.298509 197.074625 
+L 223.744909 199.076625 
+L 224.191309 203.080625 
+L 226.423309 203.080625 
+L 226.869709 207.084625 
+L 229.994509 207.084625 
+L 230.887309 211.088625 
+L 231.333709 211.088625 
+L 232.226509 215.092625 
+L 234.904909 215.092625 
+L 236.690509 223.100625 
+L 239.368909 223.100625 
+L 239.815309 225.102625 
+L 241.154509 225.102625 
+L 241.600909 229.106625 
+L 243.386509 229.106625 
+L 243.832909 233.110625 
+L 245.172109 233.110625 
+L 246.064909 237.114625 
+L 247.404109 237.114625 
+L 247.850509 239.116625 
+L 264.367309 239.116625 
+L 264.367309 239.116625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_27">
+<path d="M 50.095309 219.98619 
+L 53.666509 219.754923 
+L 60.362509 218.955497 
+L 62.148109 218.698471 
+L 63.487309 218.488083 
+L 67.951309 217.670455 
+L 73.754509 216.091898 
+L 75.540109 215.70142 
+L 78.218509 214.923272 
+L 78.664909 214.701991 
+L 79.111309 214.642297 
+L 84.468109 212.405484 
+L 85.360909 212.025962 
+L 86.253709 211.597725 
+L 86.700109 211.445581 
+L 87.146509 211.116625 
+L 87.592909 211.221058 
+L 88.932109 210.287825 
+L 89.824909 209.862308 
+L 90.271309 209.688563 
+L 91.164109 209.109358 
+L 92.503309 208.459548 
+L 93.396109 207.928899 
+L 94.735309 207.404945 
+L 95.181709 207.174965 
+L 95.628109 206.810513 
+L 96.074509 207.558004 
+L 96.520909 207.191044 
+L 98.752909 206.150587 
+L 100.538509 205.190411 
+L 103.216909 203.192887 
+L 104.109709 202.819741 
+L 104.556109 202.368633 
+L 106.788109 201.058803 
+L 107.680909 200.678225 
+L 108.573709 199.813558 
+L 110.805709 198.268166 
+L 111.698509 197.335755 
+L 113.930509 195.644625 
+L 114.823309 195.462229 
+L 115.269709 195.152989 
+L 115.716109 194.467704 
+L 116.608909 193.594376 
+L 117.055309 192.973874 
+L 117.948109 192.511869 
+L 118.394509 191.80125 
+L 118.840909 191.52386 
+L 119.287309 190.900918 
+L 120.626509 189.878247 
+L 121.519309 188.44013 
+L 122.412109 187.652783 
+L 122.858509 186.990159 
+L 123.304909 186.538847 
+L 123.751309 185.690819 
+L 124.197709 185.454769 
+L 124.644109 184.571116 
+L 125.536909 183.318156 
+L 126.876109 181.281069 
+L 127.322509 180.818385 
+L 127.768909 180.521503 
+L 128.661709 179.454373 
+L 129.108109 179.25616 
+L 130.000909 178.305021 
+L 131.340109 176.642866 
+L 131.786509 176.688668 
+L 132.232909 176.464107 
+L 132.679309 175.199561 
+L 133.125709 174.367926 
+L 133.572109 174.004849 
+L 134.018509 172.890769 
+L 135.357709 171.730324 
+L 135.804109 171.064451 
+L 136.696909 169.128007 
+L 137.589709 166.927107 
+L 138.036109 166.623151 
+L 138.482509 166.007495 
+L 138.928909 166.238681 
+L 139.375309 165.609066 
+L 139.821709 165.290161 
+L 140.268109 164.48066 
+L 140.714509 164.151867 
+L 141.607309 164.602724 
+L 142.053709 163.757895 
+L 142.500109 163.414575 
+L 142.946509 163.867437 
+L 143.392909 163.339989 
+L 143.839309 163.569455 
+L 144.285709 162.301277 
+L 145.624909 161.20628 
+L 146.071309 159.440051 
+L 146.517709 158.629093 
+L 146.964109 159.036625 
+L 148.303309 156.712403 
+L 148.749709 156.054923 
+L 149.642509 152.842592 
+L 150.088909 152.121639 
+L 150.535309 151.878636 
+L 151.428109 149.371797 
+L 151.874509 149.230911 
+L 152.767309 147.358292 
+L 153.213709 147.181882 
+L 153.660109 147.281763 
+L 154.106509 145.272875 
+L 154.552909 144.384764 
+L 154.999309 144.384764 
+L 155.445709 144.149958 
+L 155.892109 142.916625 
+L 156.338509 142.287867 
+L 156.784909 142.009648 
+L 157.231309 141.032061 
+L 157.677709 141.391879 
+L 158.124109 142.800474 
+L 159.016909 140.772765 
+L 159.463309 140.426484 
+L 159.909709 140.426484 
+L 160.356109 140.077756 
+L 160.802509 139.016625 
+L 161.248909 140.46735 
+L 161.695309 139.383292 
+L 162.141709 138.647252 
+L 162.588109 136.372474 
+L 163.034509 135.59115 
+L 163.927309 132.343292 
+L 164.373709 131.499234 
+L 164.820109 131.072181 
+L 165.266509 130.207825 
+L 165.712909 129.77044 
+L 166.159309 127.985196 
+L 166.605709 127.070534 
+L 167.052109 126.607534 
+L 167.498509 127.802102 
+L 168.391309 126.8706 
+L 169.284109 122.478364 
+L 169.730509 121.969027 
+L 170.623309 119.886403 
+L 171.069709 121.141625 
+L 171.962509 121.141625 
+L 172.408909 120.078787 
+L 172.855309 120.078787 
+L 173.301709 120.816625 
+L 173.748109 120.816625 
+L 174.194509 122.104753 
+L 174.640909 121.790113 
+L 175.087309 121.241859 
+L 175.533709 119.565914 
+L 176.426509 119.565914 
+L 176.872909 119.766625 
+L 177.765709 115.610157 
+L 178.212109 115.610157 
+L 178.658509 114.992625 
+L 179.104909 114.992625 
+L 179.551309 114.368886 
+L 179.997709 118.588054 
+L 180.890509 118.588054 
+L 181.336909 120.023292 
+L 181.783309 120.023292 
+L 182.229709 119.409409 
+L 182.676109 120.247875 
+L 183.122509 119.625526 
+L 183.568909 120.479588 
+L 184.461709 120.479588 
+L 184.908109 119.84854 
+L 185.354509 118.566087 
+L 185.800909 117.914463 
+L 186.247309 117.914463 
+L 186.693709 116.589849 
+L 187.586509 116.960693 
+L 188.032909 117.852625 
+L 188.479309 119.456855 
+L 188.925709 118.76518 
+L 189.372109 118.76518 
+L 189.818509 119.699081 
+L 190.264909 119.699081 
+L 190.711309 121.351919 
+L 191.157709 122.333292 
+L 191.604109 122.333292 
+L 192.050509 121.63399 
+L 192.496909 121.63399 
+L 192.943309 121.207423 
+L 193.389709 122.951193 
+L 194.282509 121.499125 
+L 194.728909 125.07865 
+L 195.175309 124.352294 
+L 196.514509 129.916625 
+L 198.300109 129.916625 
+L 199.192909 128.479783 
+L 199.639309 128.939444 
+L 200.532109 128.939444 
+L 200.978509 132.888054 
+L 201.424909 134.902926 
+L 201.871309 134.184211 
+L 202.317709 136.236069 
+L 202.764109 136.236069 
+L 204.103309 142.56627 
+L 204.549709 141.876625 
+L 204.996109 144.057632 
+L 205.442509 144.057632 
+L 206.781709 141.960743 
+L 207.228109 144.206995 
+L 207.674509 144.206995 
+L 208.120909 148.800836 
+L 209.460109 148.800836 
+L 210.352909 153.534946 
+L 213.031309 153.534946 
+L 213.477709 155.956625 
+L 214.370509 155.956625 
+L 214.816909 158.41585 
+L 215.263309 163.450483 
+L 215.709709 162.849958 
+L 217.048909 162.849958 
+L 217.495309 165.443025 
+L 218.388109 165.443025 
+L 218.834509 167.500365 
+L 219.280909 166.913346 
+L 220.173709 166.913346 
+L 220.620109 169.625716 
+L 223.298509 169.625716 
+L 223.744909 172.383292 
+L 224.191309 178.038659 
+L 226.423309 178.038659 
+L 226.869709 183.889039 
+L 229.994509 183.889039 
+L 230.887309 189.944695 
+L 231.333709 189.944695 
+L 232.226509 196.216625 
+L 234.904909 196.216625 
+L 236.690509 209.457366 
+L 239.368909 209.457366 
+L 239.815309 212.922232 
+L 241.154509 212.922232 
+L 241.600909 220.049958 
+L 243.386509 220.049958 
+L 243.832909 227.454489 
+L 245.172109 227.454489 
+L 246.064909 235.152269 
+L 247.404109 235.152269 
+L 247.850509 239.116625 
+L 264.367309 239.116625 
+L 264.367309 239.116625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke-dasharray: 6.66,2.88; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.8"/>
+</g>
+<g id="line2d_28">
+<path d="M 138.482509 239.116625 
+L 138.482509 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_29">
+<path d="M 179.551309 239.116625 
+L 179.551309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_30">
+<path d="M 157.231309 239.116625 
+L 157.231309 22.900625 
+" clip-path="url(#p832321af17)" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #8a94a6; stroke-width: 1.2"/>
+</g>
+<g id="patch_3">
+<path d="M 45.631309 239.116625 
+L 45.631309 22.900625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 45.631309 239.116625 
+L 268.831309 239.116625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(116.901071 33.621375)">cost</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(115.788727 44.511023)">0.42</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(182.899309 33.621375)">max F₁</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(182.899309 44.511023)">0.60</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(167.735659 233.110625) rotate(-90)">default 0.50</text>
+</g>
+<g id="text_18">
+<text style="font-weight: 600; font-size: 11.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="157.231309" y="16.900625" transform="rotate(-0 157.231309 16.900625)">(a) Metrics against threshold</text>
+</g>
+<g id="legend_1">
+<g id="line2d_31">
+<path d="M 58.195309 94.121302 
+L 67.195309 94.121302 
+L 76.195309 94.121302 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="83.395309" y="97.271302" transform="rotate(-0 83.395309 97.271302)">Precision</text>
+</g>
+<g id="line2d_32">
+<path d="M 58.195309 109.510951 
+L 67.195309 109.510951 
+L 76.195309 109.510951 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="83.395309" y="112.660951" transform="rotate(-0 83.395309 112.660951)">Recall</text>
+</g>
+<g id="line2d_33">
+<path d="M 58.195309 124.900599 
+L 67.195309 124.900599 
+L 76.195309 124.900599 
+" style="fill: none; stroke-dasharray: 6.66,2.88; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.8"/>
+</g>
+<g id="text_21">
+<g transform="translate(83.395309 128.050599)">
+<text>
+<tspan x="0" y="-0.4375" style="font-style: oblique; font-size: 9px; font-family: 'DejaVu Sans'">F</tspan>
+<tspan x="5.176758" y="0.912496" style="font-size: 6.3px; font-family: 'DejaVu Sans'">1</tspan>
+</text>
+</g>
+</g>
+</g>
+</g>
+<g id="axes_2">
+<g id="patch_5">
+<path d="M 335.791309 239.116625 
+L 558.991309 239.116625 
+L 558.991309 22.900625 
+L 335.791309 22.900625 
+L 335.791309 239.116625 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_3">
+<g id="xtick_7">
+<g id="line2d_34">
+<path d="M 335.791309 239.116625 
+L 335.791309 22.900625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_35">
+<g>
+<use xlink:href="#m865af7deda" x="335.791309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_22">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="335.791309" y="256.2885" transform="rotate(-0 335.791309 256.2885)">0.0</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_36">
+<path d="M 379.556014 239.116625 
+L 379.556014 22.900625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_37">
+<g>
+<use xlink:href="#m865af7deda" x="379.556014" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="379.556014" y="256.2885" transform="rotate(-0 379.556014 256.2885)">0.2</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_38">
+<path d="M 423.32072 239.116625 
+L 423.32072 22.900625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_39">
+<g>
+<use xlink:href="#m865af7deda" x="423.32072" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="423.32072" y="256.2885" transform="rotate(-0 423.32072 256.2885)">0.4</text>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_40">
+<path d="M 467.085426 239.116625 
+L 467.085426 22.900625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_41">
+<g>
+<use xlink:href="#m865af7deda" x="467.085426" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_25">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="467.085426" y="256.2885" transform="rotate(-0 467.085426 256.2885)">0.6</text>
+</g>
+</g>
+<g id="xtick_11">
+<g id="line2d_42">
+<path d="M 510.850132 239.116625 
+L 510.850132 22.900625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_43">
+<g>
+<use xlink:href="#m865af7deda" x="510.850132" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_26">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="510.850132" y="256.2885" transform="rotate(-0 510.850132 256.2885)">0.8</text>
+</g>
+</g>
+<g id="xtick_12">
+<g id="line2d_44">
+<path d="M 554.614838 239.116625 
+L 554.614838 22.900625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_45">
+<g>
+<use xlink:href="#m865af7deda" x="554.614838" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_27">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="554.614838" y="256.2885" transform="rotate(-0 554.614838 256.2885)">1.0</text>
+</g>
+</g>
+<g id="text_28">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="447.391309" y="272.99309" transform="rotate(-0 447.391309 272.99309)">Recall</text>
+</g>
+</g>
+<g id="matplotlib.axis_4">
+<g id="ytick_7">
+<g id="line2d_46">
+<path d="M 335.791309 239.116625 
+L 558.991309 239.116625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_47">
+<g>
+<use xlink:href="#m24a25de37f" x="335.791309" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_29">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="328.791309" y="244.202563" transform="rotate(-0 328.791309 244.202563)">0.0</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_48">
+<path d="M 335.791309 197.932625 
+L 558.991309 197.932625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_49">
+<g>
+<use xlink:href="#m24a25de37f" x="335.791309" y="197.932625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_30">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="328.791309" y="203.018563" transform="rotate(-0 328.791309 203.018563)">0.2</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_50">
+<path d="M 335.791309 156.748625 
+L 558.991309 156.748625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_51">
+<g>
+<use xlink:href="#m24a25de37f" x="335.791309" y="156.748625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_31">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="328.791309" y="161.834563" transform="rotate(-0 328.791309 161.834563)">0.4</text>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_52">
+<path d="M 335.791309 115.564625 
+L 558.991309 115.564625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_53">
+<g>
+<use xlink:href="#m24a25de37f" x="335.791309" y="115.564625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_32">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="328.791309" y="120.650563" transform="rotate(-0 328.791309 120.650563)">0.6</text>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_54">
+<path d="M 335.791309 74.380625 
+L 558.991309 74.380625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_55">
+<g>
+<use xlink:href="#m24a25de37f" x="335.791309" y="74.380625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_33">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="328.791309" y="79.466563" transform="rotate(-0 328.791309 79.466563)">0.8</text>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_56">
+<path d="M 335.791309 33.196625 
+L 558.991309 33.196625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_57">
+<g>
+<use xlink:href="#m24a25de37f" x="335.791309" y="33.196625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_34">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="328.791309" y="38.282563" transform="rotate(-0 328.791309 38.282563)">1.0</text>
+</g>
+</g>
+<g id="text_35">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="306.091875" y="131.008625" transform="rotate(-90 306.091875 131.008625)">Precision</text>
+</g>
+</g>
+<g id="line2d_58">
+<path d="M 554.614838 228.784462 
+L 554.614838 223.633918 
+L 552.426603 223.684316 
+L 552.426603 221.027823 
+L 545.861897 221.434765 
+L 545.861897 214.801348 
+L 543.673662 214.571581 
+L 543.673662 213.874819 
+L 539.297191 213.684274 
+L 539.297191 211.240992 
+L 537.108956 211.008851 
+L 537.108956 210.369068 
+L 534.92072 210.109318 
+L 534.92072 203.423825 
+L 532.732485 203.130606 
+L 532.732485 202.198697 
+L 530.54425 201.791004 
+L 530.54425 201.015003 
+L 528.356014 200.479184 
+L 528.356014 200.062832 
+L 526.167779 200.000817 
+L 526.167779 197.06254 
+L 523.979544 196.648711 
+L 523.979544 191.383148 
+L 521.791309 191.423982 
+L 521.791309 189.672557 
+L 517.414838 189.719631 
+L 517.414838 188.699634 
+L 513.038367 188.725326 
+L 513.038367 188.26443 
+L 510.850132 188.272181 
+L 510.850132 187.149433 
+L 508.661897 186.640238 
+L 508.661897 183.595533 
+L 506.473662 183.731246 
+L 506.473662 174.351464 
+L 504.285426 173.866255 
+L 504.285426 171.930862 
+L 502.097191 171.368054 
+L 499.908956 171.081383 
+L 499.908956 167.946118 
+L 499.908956 167.946118 
+L 497.72072 167.238889 
+L 497.72072 165.145363 
+L 495.532485 164.329759 
+L 495.532485 163.196625 
+L 493.34425 163.084625 
+L 488.967779 163.648562 
+L 488.967779 159.036625 
+L 484.591309 159.556625 
+L 484.591309 140.507048 
+L 482.403073 141.268114 
+L 482.403073 128.743505 
+L 480.214838 129.514044 
+L 480.214838 129.514044 
+L 480.214838 127.717281 
+L 478.026603 127.576625 
+L 478.026603 127.576625 
+L 475.838367 128.369734 
+L 473.650132 126.308277 
+L 473.650132 122.243111 
+L 473.650132 122.243111 
+L 471.461897 120.903292 
+L 471.461897 110.156625 
+L 462.708956 113.397046 
+L 462.708956 113.397046 
+L 462.708956 112.059604 
+L 460.52072 111.535755 
+L 460.52072 110.133768 
+L 458.332485 109.548985 
+L 458.332485 109.548985 
+L 458.332485 100.182649 
+L 456.14425 97.546625 
+L 453.956014 94.705196 
+L 451.767779 93.599825 
+L 449.579544 94.416084 
+L 449.579544 92.433885 
+L 449.579544 92.433885 
+L 447.391309 91.202259 
+L 447.391309 91.202259 
+L 445.203073 92.030911 
+L 443.014838 90.733096 
+L 443.014838 90.733096 
+L 443.014838 88.518416 
+L 443.014838 88.518416 
+L 440.826603 82.225196 
+L 438.638367 83.01598 
+L 438.638367 77.812625 
+L 434.261897 79.351108 
+L 434.261897 76.548204 
+L 427.697191 78.956625 
+L 427.697191 78.956625 
+L 427.697191 72.796625 
+L 425.508956 66.816217 
+L 425.508956 66.816217 
+L 418.94425 69.008799 
+L 418.94425 65.228625 
+L 412.379544 67.516625 
+L 410.191309 68.353698 
+L 410.191309 64.084625 
+L 408.003073 64.876625 
+L 408.003073 64.876625 
+L 408.003073 50.356625 
+L 401.438367 51.916625 
+L 401.438367 51.916625 
+L 397.061897 53.124367 
+L 397.061897 53.124367 
+L 392.685426 54.498694 
+L 388.308956 56.076625 
+L 388.308956 49.036625 
+L 388.308956 49.036625 
+L 386.12072 49.670225 
+L 386.12072 49.670225 
+L 383.932485 42.149668 
+L 383.932485 33.196625 
+L 383.932485 33.196625 
+L 335.791309 33.196625 
+L 335.791309 33.196625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_59">
+<path d="M 335.791309 228.820625 
+L 558.991309 228.820625 
+" clip-path="url(#p665b2c0c7b)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #8a94a6; stroke-width: 1.2"/>
+</g>
+<g id="patch_6">
+<path d="M 335.791309 239.116625 
+L 335.791309 22.900625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_7">
+<path d="M 335.791309 239.116625 
+L 558.991309 239.116625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_36">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="340.167779" y="222.643025" transform="rotate(-0 340.167779 222.643025)">no-skill baseline = prevalence 5%</text>
+</g>
+<g id="patch_8">
+<path d="M 461.598891 203.349797 
+Q 490.33534 197.837206 519.071789 192.324616 
+" style="fill: none; stroke: #e07a3a; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_37">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #e07a3a" x="344.54425" y="207.384151" transform="rotate(-0 344.54425 207.384151)">cost-based: P 0.23, R 0.86</text>
+</g>
+<g id="patch_9">
+<path d="M 443.574142 133.228082 
+Q 455.592907 123.284994 467.611671 113.341906 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_38">
+<g style="fill: #0b2a5a" transform="translate(344.54425 139.430551)">
+<text>
+<tspan x="0" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">m</tspan>
+<tspan x="7.883789" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">a</tspan>
+<tspan x="12.9375" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">x</tspan>
+<tspan x="17.850586" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="29.812939" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">:</tspan>
+<tspan x="32.405713" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="34.936963" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">P</tspan>
+<tspan x="40.68501" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="43.21626" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="48.893994" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="51.486768" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">6</tspan>
+<tspan x="57.067822" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">3</tspan>
+<tspan x="62.626904" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">,</tspan>
+<tspan x="65.219678" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="67.750928" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">R</tspan>
+<tspan x="73.54292" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="76.07417" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">0</tspan>
+<tspan x="81.751904" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">.</tspan>
+<tspan x="84.344678" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">6</tspan>
+<tspan x="89.925732" y="-0.359375" style="font-size: 9px; font-family: 'Inter'; fill: #0b2a5a">2</tspan>
+<tspan x="20.381836" y="-0.359375" style="font-style: oblique; font-size: 9px; font-family: 'DejaVu Sans'; fill: #0b2a5a">F</tspan>
+<tspan x="25.558594" y="0.990621" style="font-size: 6.3px; font-family: 'DejaVu Sans'; fill: #0b2a5a">1</tspan>
+</text>
+</g>
+</g>
+<g id="patch_10">
+<path d="M 456.610572 170.426263 
+Q 473.612777 167.26815 490.614983 164.110037 
+" style="fill: none; stroke: #8a94a6; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_39">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="344.54425" y="174.436951" transform="rotate(-0 344.54425 174.436951)">default 0.5: P 0.37, R 0.73</text>
+</g>
+<g id="text_40">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #0b2a5a" x="552.295309" y="38.59023" transform="rotate(-0 552.295309 38.59023)">ROC-AUC (Eq. 3) = 0.93</text>
+</g>
+<g id="text_41">
+<text style="font-weight: 600; font-size: 11.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="447.391309" y="16.900625" transform="rotate(-0 447.391309 16.900625)">(b) Precision–recall curve</text>
+</g>
+<g id="line2d_60">
+<defs>
+<path id="m905216e676" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #e07a3a; stroke-width: 2"/>
+</defs>
+<g clip-path="url(#p665b2c0c7b)">
+<use xlink:href="#m905216e676" x="523.979544" y="191.383148" style="fill: #ffffff; stroke: #e07a3a; stroke-width: 2"/>
+</g>
+</g>
+<g id="line2d_61">
+<defs>
+<path id="mceaf3b5772" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #0b2a5a; stroke-width: 2"/>
+</defs>
+<g clip-path="url(#p665b2c0c7b)">
+<use xlink:href="#mceaf3b5772" x="471.461897" y="110.156625" style="fill: #ffffff; stroke: #0b2a5a; stroke-width: 2"/>
+</g>
+</g>
+<g id="line2d_62">
+<defs>
+<path id="m6e555aea87" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #8a94a6; stroke-width: 2"/>
+</defs>
+<g clip-path="url(#p665b2c0c7b)">
+<use xlink:href="#m6e555aea87" x="495.532485" y="163.196625" style="fill: #ffffff; stroke: #8a94a6; stroke-width: 2"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p832321af17">
+<rect x="45.631309" y="22.900625" width="223.2" height="216.216"/>
+</clipPath>
+<clipPath id="p665b2c0c7b">
+<rect x="335.791309" y="22.900625" width="223.2" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Threshold selection on synthetic data (2,000 cases, 5% positive). (a) Precision, recall and F<sub>1</sub> from Eq. (2) against the decision threshold, with the default of 0.5, the F<sub>1</sub>-maximizing threshold and the threshold minimizing an assumed cost in which a missed positive costs 20 false alarms. (b) The precision–recall curve with the same three operating points and the prevalence baseline. <span class="j-fig-src">Author's calculation from Eqs. (2) and (3) on synthetic data.</span></figcaption></figure><h3>7.3 Calibration</h3><p>When predicted probabilities feed decisions, expected costs or downstream models, they must be calibrated, meaning that among instances assigned probability <em>p</em>, approximately a fraction <em>p</em> are positive. Guo et al. found that modern neural networks are poorly calibrated, with depth, width, weight decay and batch normalization affecting calibration, and that temperature scaling, a single-parameter variant of Platt scaling, is effective on most datasets [<a href="#ref-21" class="j-cite">21</a>]. They measure miscalibration with the expected calibration error (ECE), which partitions <em>n</em> predictions into <em>M</em> confidence bins <em>B</em><sub><em>m</em></sub> and compares accuracy with mean confidence in each bin [<a href="#ref-21" class="j-cite">21</a>]. The Brier score, the mean squared difference between predicted probability <em>p</em><sub><em>i</em></sub> and outcome <em>o</em><sub><em>i</em></sub> ∈ {0, 1}, combines calibration and discrimination in a single proper scoring rule [<a href="#ref-22" class="j-cite">22</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">ECE = Σ<sub><em>m</em>=1</sub><sup><em>M</em></sup> (|<em>B</em><sub><em>m</em></sub>| / <em>n</em>) |acc(<em>B</em><sub><em>m</em></sub>) − conf(<em>B</em><sub><em>m</em></sub>)|,    BS = (1/<em>n</em>) Σ<sub><em>i</em>=1</sub><sup><em>n</em></sup> (<em>p</em><sub><em>i</em></sub> − <em>o</em><sub><em>i</em></sub>)<sup>2</sup></span><span class="j-eq-n">(4)</span></div><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Common evaluation metrics for classification systems and their appropriate use.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Metric</th><th>Measures</th><th>Use when</th><th>Caution</th></tr></thead><tbody><tr><td>Precision, recall, F<sub>1</sub> (Eq. 2)</td><td>Error rates at one threshold</td><td>Error costs are asymmetric and the operating threshold is known</td><td>Threshold-dependent; F<sub>1</sub> weights precision and recall equally</td></tr><tr><td>ROC-AUC (Eq. 3)</td><td>Ranking quality across thresholds</td><td>Comparing rankers on moderately balanced data [<a href="#ref-19" class="j-cite">19</a>]</td><td>Can look favorable when positives are rare [<a href="#ref-20" class="j-cite">20</a>]</td></tr><tr><td>Precision–recall curve and its area</td><td>Precision attainable at each recall level</td><td>Positive class is rare [<a href="#ref-20" class="j-cite">20</a>]</td><td>Baseline depends on prevalence, so values are not comparable across datasets with different prevalence</td></tr><tr><td>ECE and Brier score (Eq. 4)</td><td>Agreement of probabilities with observed frequencies</td><td>Probabilities drive decisions or expected-cost calculations [<a href="#ref-21" class="j-cite">21</a>, <a href="#ref-22" class="j-cite">22</a>]</td><td>ECE depends on the binning scheme</td></tr><tr><td>Business metric</td><td>Value delivered, such as cost avoided or conversions</td><td>Final go or no-go decisions [<a href="#ref-2" class="j-cite">2</a>]</td><td>Usually observable only online and with delay</td></tr></tbody></table></div><p class="j-table-note">Source: compiled from [<a href="#ref-19" class="j-cite">19</a>], [<a href="#ref-20" class="j-cite">20</a>], [<a href="#ref-21" class="j-cite">21</a>], [<a href="#ref-22" class="j-cite">22</a>] and [<a href="#ref-2" class="j-cite">2</a>].</p></figure></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Offline Versus Online Evaluation</h2><p>Offline evaluation on historical data estimates how a model would have performed, but it cannot capture how users and processes react to the model's outputs, nor the feedback loops through which a deployed model alters its own future training data [<a href="#ref-1" class="j-cite">1</a>]. Online controlled experiments, or A/B tests, randomly assign units such as users or sessions to the existing system or the candidate and compare an overall evaluation criterion (OEC), a quantitative measure of the experiment's objective [<a href="#ref-23" class="j-cite">23</a>]. Kohavi et al. give a rule of thumb for the minimum sample size per variant at 95% confidence and 90% power:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>n</em> = (4<em>r</em>σ / Δ)<sup>2</sup></span><span class="j-eq-n">(5)</span></div><p>where <em>r</em> is the number of variants, σ is the standard deviation of the OEC and Δ is the minimum difference to be detected; the authors note that the factor of 4 may overestimate the requirement by about 25% for large <em>n</em> [<a href="#ref-23" class="j-cite">23</a>]. Because the required sample grows with the inverse square of Δ, detecting small improvements requires large samples or variance-reduction techniques. Kohavi, Tang and Xu discuss the practical conditions for trustworthy experiments, including guardrail metrics, checks that the observed allocation matches the intended allocation, and the dangers of stopping early when results look favorable [<a href="#ref-24" class="j-cite">24</a>]. Where randomized experiments are infeasible, as in many industrial process applications, shadow deployment, in which the candidate model scores live traffic without affecting decisions, and staged rollouts provide weaker but still valuable evidence [<a href="#ref-2" class="j-cite">2</a>].</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Deployment Patterns</h2><p>Deployment patterns differ mainly in when predictions are computed and where. In batch prediction, the model scores a population on a schedule and writes predictions to a store from which applications read them; this is simple and efficient but cannot react to information that arrives between runs. In online prediction, the model is served behind an interface and scores each request as it arrives, which supports fresh features and personalized responses but imposes latency, availability and scaling requirements [<a href="#ref-2" class="j-cite">2</a>]. Streaming designs compute features from event streams so that online predictions can use near-real-time information. Edge deployment runs the model on a device or local controller, reducing latency, network dependence and data transfer, but constraining model size and complicating updates and monitoring [<a href="#ref-2" class="j-cite">2</a>].</p><p>Paleyes et al. group deployment-stage challenges into integration, monitoring and updating, and note that integration difficulties often stem from infrastructure, code quality and the need to coordinate ML and software teams [<a href="#ref-3" class="j-cite">3</a>]. Whatever the pattern, releases should be progressive: shadow mode first, then a canary on a small share of traffic, then wider rollout, each stage gated by predefined metric thresholds and each with a tested rollback path. The ML Test Score rubric of Breck et al. includes corresponding infrastructure tests: model quality is validated before serving, models are canaried before serving, and serving models can be rolled back; its monitoring tests include checks that training and serving are not skewed and that models are not too stale [<a href="#ref-6" class="j-cite">6</a>].</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Monitoring and Drift</h2><h3>10.1 Types of Drift</h3><p>A model trained on one data distribution is deployed into a world that changes. Gama et al. define concept drift as a change in the joint distribution of inputs and targets over time, and distinguish real drift, a change in the conditional distribution <em>p</em>(<em>y</em> | <em>x</em>), from virtual drift, a change in the input distribution <em>p</em>(<em>x</em>) that does not alter the decision boundary; they further characterize drift by its pattern as sudden, incremental, gradual or recurring [<a href="#ref-8" class="j-cite">8</a>]. Lu et al. review drift detection, understanding and adaptation, and organize detection methods into error-rate-based, data-distribution-based and multiple-hypothesis-test approaches [<a href="#ref-25" class="j-cite">25</a>]. Rabanser et al. emphasize that ML systems tend to fail silently when inputs shift; in their experiments, two-sample testing on representations produced by a pretrained classifier was the most effective of the shift-detection methods they examined [<a href="#ref-5" class="j-cite">5</a>].</p><h3>10.2 Distribution Monitoring with KL Divergence and PSI</h3><p>Ground-truth labels often arrive late or never, so monitoring relies heavily on input and prediction distributions. The Kullback–Leibler divergence of a current distribution <em>Q</em> from a reference distribution <em>P</em> over bins <em>i</em> is defined as [<a href="#ref-26" class="j-cite">26</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>D</em><sub>KL</sub>(<em>P</em> ‖ <em>Q</em>) = Σ<sub><em>i</em></sub> <em>p</em><sub><em>i</em></sub> ln(<em>p</em><sub><em>i</em></sub> / <em>q</em><sub><em>i</em></sub>),    PSI = Σ<sub><em>i</em></sub> (<em>a</em><sub><em>i</em></sub> − <em>e</em><sub><em>i</em></sub>) ln(<em>a</em><sub><em>i</em></sub> / <em>e</em><sub><em>i</em></sub>)</span><span class="j-eq-n">(6)</span></div><p>The population stability index (PSI), widely used in credit-risk model validation, compares the actual proportion <em>a</em><sub><em>i</em></sub> of a variable in bin <em>i</em> with the expected proportion <em>e</em><sub><em>i</em></sub> from the development sample. Algebraically, PSI equals the sum of the two directed divergences, <em>D</em><sub>KL</sub>(<em>A</em> ‖ <em>E</em>) + <em>D</em><sub>KL</sub>(<em>E</em> ‖ <em>A</em>), so it is symmetric in the two distributions. Yurdakul and Naranjo note that the conventional rule-of-thumb thresholds of 0.10 and 0.25 are applied without reference to type I or type II error rates, and they study the statistic's sampling properties to support more principled use [<a href="#ref-27" class="j-cite">27</a>]. Both measures require care with empty bins, which make the logarithm undefined, and with the choice of binning. A monitoring design should combine such distribution statistics with data-quality checks (schema, missing rates, ranges), prediction-distribution monitoring, and, when labels become available, delayed performance metrics; alerts should be tied to retraining or investigation procedures rather than left as dashboards [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-25" class="j-cite">25</a>]. Figure 3 shows on synthetic data why the threshold should be derived rather than assumed: with 2,000 observations per check, a threshold set from the no-drift sampling distribution of PSI flags a gradual shift at week 6, whereas the 0.10 and 0.25 rules of thumb are first exceeded at weeks 11 and 15.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 561.612793 281.285805" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Two-panel chart on synthetic data. Left: bar chart of ten bins in which the reference has 10% in each bin, while at week 16 the shares rise from 3% in bin 1 to 25% in bin 10, giving PSI 0.31. Right: weekly PSI stays below 0.01 for four weeks, then rises steadily to 0.31 at week 16; it crosses the no-drift 99th percentile of 0.013 at week 6, the 0.10 line at week 11 and the 0.25 line at week 15.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 281.285805 
+L 561.612793 281.285805 
+L 561.612793 0 
+L 0 0 
+L 0 281.285805 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 42.492793 239.116625 
+L 240.892793 239.116625 
+L 240.892793 22.900625 
+L 42.492793 22.900625 
+L 42.492793 239.116625 
+z
+" style="fill: none"/>
+</g>
+<g id="patch_3">
+<path d="M 51.510975 239.116625 
+L 58.872756 239.116625 
+L 58.872756 161.896625 
+L 51.510975 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 69.915427 239.116625 
+L 77.277209 239.116625 
+L 77.277209 161.896625 
+L 69.915427 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 88.31988 239.116625 
+L 95.681661 239.116625 
+L 95.681661 161.896625 
+L 88.31988 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 106.724333 239.116625 
+L 114.086114 239.116625 
+L 114.086114 161.896625 
+L 106.724333 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 125.128786 239.116625 
+L 132.490567 239.116625 
+L 132.490567 161.896625 
+L 125.128786 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 143.533238 239.116625 
+L 150.895019 239.116625 
+L 150.895019 161.896625 
+L 143.533238 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 161.937691 239.116625 
+L 169.299472 239.116625 
+L 169.299472 161.896625 
+L 161.937691 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_10">
+<path d="M 180.342144 239.116625 
+L 187.703925 239.116625 
+L 187.703925 161.896625 
+L 180.342144 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_11">
+<path d="M 198.746596 239.116625 
+L 206.108377 239.116625 
+L 206.108377 161.896625 
+L 198.746596 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 217.151049 239.116625 
+L 224.51283 239.116625 
+L 224.51283 161.896625 
+L 217.151049 161.896625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_13">
+<path d="M 58.872756 239.116625 
+L 66.234537 239.116625 
+L 66.234537 216.336725 
+L 58.872756 216.336725 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_14">
+<path d="M 77.277209 239.116625 
+L 84.63899 239.116625 
+L 84.63899 200.506625 
+L 77.277209 200.506625 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_15">
+<path d="M 95.681661 239.116625 
+L 103.043442 239.116625 
+L 103.043442 191.240225 
+L 95.681661 191.240225 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_16">
+<path d="M 114.086114 239.116625 
+L 121.447895 239.116625 
+L 121.447895 172.321325 
+L 114.086114 172.321325 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_17">
+<path d="M 132.490567 239.116625 
+L 139.852348 239.116625 
+L 139.852348 178.112825 
+L 132.490567 178.112825 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_18">
+<path d="M 150.895019 239.116625 
+L 158.2568 239.116625 
+L 158.2568 181.973825 
+L 150.895019 181.973825 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_19">
+<path d="M 169.299472 239.116625 
+L 176.661253 239.116625 
+L 176.661253 161.124425 
+L 169.299472 161.124425 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_20">
+<path d="M 187.703925 239.116625 
+L 195.065706 239.116625 
+L 195.065706 146.066525 
+L 187.703925 146.066525 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_21">
+<path d="M 206.108377 239.116625 
+L 213.470158 239.116625 
+L 213.470158 125.989325 
+L 206.108377 125.989325 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_22">
+<path d="M 224.51283 239.116625 
+L 231.874611 239.116625 
+L 231.874611 45.294425 
+L 224.51283 45.294425 
+z
+" clip-path="url(#p0ce23d7ee8)" style="fill: #0b6fa4"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<defs>
+<path id="mba7eee9fd4" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mba7eee9fd4" x="58.872756" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="58.872756" y="256.2885" transform="rotate(-0 58.872756 256.2885)">1</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_2">
+<g>
+<use xlink:href="#mba7eee9fd4" x="77.277209" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="77.277209" y="256.2885" transform="rotate(-0 77.277209 256.2885)">2</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_3">
+<g>
+<use xlink:href="#mba7eee9fd4" x="95.681661" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="95.681661" y="256.2885" transform="rotate(-0 95.681661 256.2885)">3</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_4">
+<g>
+<use xlink:href="#mba7eee9fd4" x="114.086114" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="114.086114" y="256.2885" transform="rotate(-0 114.086114 256.2885)">4</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_5">
+<g>
+<use xlink:href="#mba7eee9fd4" x="132.490567" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="132.490567" y="256.2885" transform="rotate(-0 132.490567 256.2885)">5</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_6">
+<g>
+<use xlink:href="#mba7eee9fd4" x="150.895019" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="150.895019" y="256.2885" transform="rotate(-0 150.895019 256.2885)">6</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_7">
+<g>
+<use xlink:href="#mba7eee9fd4" x="169.299472" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="169.299472" y="256.2885" transform="rotate(-0 169.299472 256.2885)">7</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_8">
+<g>
+<use xlink:href="#mba7eee9fd4" x="187.703925" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="187.703925" y="256.2885" transform="rotate(-0 187.703925 256.2885)">8</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_9">
+<g>
+<use xlink:href="#mba7eee9fd4" x="206.108377" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="206.108377" y="256.2885" transform="rotate(-0 206.108377 256.2885)">9</text>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_10">
+<g>
+<use xlink:href="#mba7eee9fd4" x="224.51283" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="224.51283" y="256.2885" transform="rotate(-0 224.51283 256.2885)">10</text>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="141.692793" y="272.99309" transform="rotate(-0 141.692793 272.99309)">Bin (reference deciles)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_11">
+<path d="M 42.492793 239.116625 
+L 240.892793 239.116625 
+" clip-path="url(#p0ce23d7ee8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<defs>
+<path id="m07341f1c74" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m07341f1c74" x="42.492793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.492793" y="244.202563" transform="rotate(-0 35.492793 244.202563)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_13">
+<path d="M 42.492793 200.506625 
+L 240.892793 200.506625 
+" clip-path="url(#p0ce23d7ee8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m07341f1c74" x="42.492793" y="200.506625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.492793" y="205.592563" transform="rotate(-0 35.492793 205.592563)">5</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_15">
+<path d="M 42.492793 161.896625 
+L 240.892793 161.896625 
+" clip-path="url(#p0ce23d7ee8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m07341f1c74" x="42.492793" y="161.896625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.492793" y="166.982563" transform="rotate(-0 35.492793 166.982563)">10</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_17">
+<path d="M 42.492793 123.286625 
+L 240.892793 123.286625 
+" clip-path="url(#p0ce23d7ee8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m07341f1c74" x="42.492793" y="123.286625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.492793" y="128.372563" transform="rotate(-0 35.492793 128.372563)">15</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_19">
+<path d="M 42.492793 84.676625 
+L 240.892793 84.676625 
+" clip-path="url(#p0ce23d7ee8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m07341f1c74" x="42.492793" y="84.676625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.492793" y="89.762563" transform="rotate(-0 35.492793 89.762563)">20</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_21">
+<path d="M 42.492793 46.066625 
+L 240.892793 46.066625 
+" clip-path="url(#p0ce23d7ee8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m07341f1c74" x="42.492793" y="46.066625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.492793" y="51.152563" transform="rotate(-0 35.492793 51.152563)">25</text>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="131.008625" transform="rotate(-90 15.931875 131.008625)">Share of observations (%)</text>
+</g>
+</g>
+<g id="patch_23">
+<path d="M 42.492793 239.116625 
+L 42.492793 22.900625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_24">
+<path d="M 42.492793 239.116625 
+L 240.892793 239.116625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-weight: 600; font-size: 11.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="141.692793" y="16.900625" transform="rotate(-0 141.692793 16.900625)">(a) Bin shares, week 16: PSI = 0.31</text>
+</g>
+<g id="legend_1">
+<g id="patch_25">
+<path d="M 50.592793 39.719375 
+L 68.592793 39.719375 
+L 68.592793 33.419375 
+L 50.592793 33.419375 
+z
+" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="75.792793" y="39.719375" transform="rotate(-0 75.792793 39.719375)">Reference (expected, eᵢ)</text>
+</g>
+<g id="patch_26">
+<path d="M 50.592793 55.109023 
+L 68.592793 55.109023 
+L 68.592793 48.809023 
+L 50.592793 48.809023 
+z
+" style="fill: #0b6fa4"/>
+</g>
+<g id="text_21">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="75.792793" y="55.109023" transform="rotate(-0 75.792793 55.109023)">Week 16 (actual, aᵢ)</text>
+</g>
+</g>
+</g>
+<g id="axes_2">
+<g id="patch_27">
+<path d="M 307.852793 239.116625 
+L 555.852793 239.116625 
+L 555.852793 22.900625 
+L 307.852793 22.900625 
+L 307.852793 239.116625 
+z
+" style="fill: none"/>
+</g>
+<g id="patch_28">
+<path d="M 307.852793 239.116625 
+L 555.852793 239.116625 
+L 555.852793 231.166734 
+L 307.852793 231.166734 
+z
+" clip-path="url(#p8c9470e204)" style="fill: #e9f4dc; stroke: #e9f4dc; stroke-linejoin: miter"/>
+</g>
+<g id="matplotlib.axis_3">
+<g id="xtick_11">
+<g id="line2d_23">
+<path d="M 315.602793 239.116625 
+L 315.602793 22.900625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#mba7eee9fd4" x="315.602793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_22">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="315.602793" y="256.2885" transform="rotate(-0 315.602793 256.2885)">1</text>
+</g>
+</g>
+<g id="xtick_12">
+<g id="line2d_25">
+<path d="M 362.102793 239.116625 
+L 362.102793 22.900625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#mba7eee9fd4" x="362.102793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="362.102793" y="256.2885" transform="rotate(-0 362.102793 256.2885)">4</text>
+</g>
+</g>
+<g id="xtick_13">
+<g id="line2d_27">
+<path d="M 424.102793 239.116625 
+L 424.102793 22.900625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#mba7eee9fd4" x="424.102793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="424.102793" y="256.2885" transform="rotate(-0 424.102793 256.2885)">8</text>
+</g>
+</g>
+<g id="xtick_14">
+<g id="line2d_29">
+<path d="M 486.102793 239.116625 
+L 486.102793 22.900625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#mba7eee9fd4" x="486.102793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_25">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="486.102793" y="256.2885" transform="rotate(-0 486.102793 256.2885)">12</text>
+</g>
+</g>
+<g id="xtick_15">
+<g id="line2d_31">
+<path d="M 548.102793 239.116625 
+L 548.102793 22.900625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#mba7eee9fd4" x="548.102793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_26">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="548.102793" y="256.2885" transform="rotate(-0 548.102793 256.2885)">16</text>
+</g>
+</g>
+<g id="text_27">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="431.852793" y="272.99309" transform="rotate(-0 431.852793 272.99309)">Week</text>
+</g>
+</g>
+<g id="matplotlib.axis_4">
+<g id="ytick_7">
+<g id="line2d_33">
+<path d="M 307.852793 239.116625 
+L 555.852793 239.116625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="239.116625" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_28">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="244.202563" transform="rotate(-0 300.852793 244.202563)">0.00</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_35">
+<path d="M 307.852793 207.320154 
+L 555.852793 207.320154 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="207.320154" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_29">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="212.406092" transform="rotate(-0 300.852793 212.406092)">0.05</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_37">
+<path d="M 307.852793 175.523684 
+L 555.852793 175.523684 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="175.523684" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_30">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="180.609621" transform="rotate(-0 300.852793 180.609621)">0.10</text>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_39">
+<path d="M 307.852793 143.727213 
+L 555.852793 143.727213 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_40">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="143.727213" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_31">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="148.813151" transform="rotate(-0 300.852793 148.813151)">0.15</text>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_41">
+<path d="M 307.852793 111.930743 
+L 555.852793 111.930743 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_42">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="111.930743" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_32">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="117.01668" transform="rotate(-0 300.852793 117.01668)">0.20</text>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_43">
+<path d="M 307.852793 80.134272 
+L 555.852793 80.134272 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_44">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="80.134272" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_33">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="85.22021" transform="rotate(-0 300.852793 85.22021)">0.25</text>
+</g>
+</g>
+<g id="ytick_13">
+<g id="line2d_45">
+<path d="M 307.852793 48.337801 
+L 555.852793 48.337801 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_46">
+<g>
+<use xlink:href="#m07341f1c74" x="307.852793" y="48.337801" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_34">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="300.852793" y="53.423739" transform="rotate(-0 300.852793 53.423739)">0.30</text>
+</g>
+</g>
+<g id="text_35">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="271.9075" y="131.008625" transform="rotate(-90 271.9075 131.008625)">PSI</text>
+</g>
+</g>
+<g id="line2d_47">
+<path d="M 315.602793 234.759906 
+L 331.102793 237.531498 
+L 346.602793 237.669545 
+L 362.102793 235.820172 
+L 377.602793 235.441806 
+L 393.102793 230.939602 
+L 408.602793 222.696185 
+L 424.102793 221.538673 
+L 439.602793 195.973488 
+L 455.102793 180.99084 
+L 470.602793 165.608824 
+L 486.102793 165.348467 
+L 501.602793 123.922962 
+L 517.102793 88.951064 
+L 532.602793 62.76335 
+L 548.102793 39.322739 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #0b2a5a; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="mc9a556516e" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#p8c9470e204)">
+<use xlink:href="#mc9a556516e" x="315.602793" y="234.759906" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="331.102793" y="237.531498" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="346.602793" y="237.669545" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="362.102793" y="235.820172" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="377.602793" y="235.441806" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="393.102793" y="230.939602" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="408.602793" y="222.696185" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="424.102793" y="221.538673" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="439.602793" y="195.973488" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="455.102793" y="180.99084" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="470.602793" y="165.608824" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="486.102793" y="165.348467" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="501.602793" y="123.922962" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="517.102793" y="88.951064" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="532.602793" y="62.76335" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#mc9a556516e" x="548.102793" y="39.322739" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_48">
+<path d="M 307.852793 231.166734 
+L 555.852793 231.166734 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.4"/>
+</g>
+<g id="line2d_49">
+<path d="M 307.852793 175.523684 
+L 555.852793 175.523684 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_50">
+<path d="M 307.852793 80.134272 
+L 555.852793 80.134272 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_51">
+<path d="M 369.852793 239.116625 
+L 369.852793 22.900625 
+" clip-path="url(#p8c9470e204)" style="fill: none; stroke: #8a94a6; stroke-linecap: square"/>
+</g>
+<g id="patch_29">
+<path d="M 307.852793 239.116625 
+L 307.852793 22.900625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_30">
+<path d="M 307.852793 239.116625 
+L 555.852793 239.116625 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_36">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="312.502793" y="208.328903" transform="rotate(-0 312.502793 208.328903)">no-drift 99th pct. = 0.013</text>
+</g>
+<g id="text_37">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #b4410c" x="312.502793" y="169.537209" transform="rotate(-0 312.502793 169.537209)">rule of thumb 0.10</text>
+</g>
+<g id="text_38">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #b4410c" x="312.502793" y="74.147797" transform="rotate(-0 312.502793 74.147797)">rule of thumb 0.25</text>
+</g>
+<g id="text_39">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="372.952793" y="37.978669" transform="rotate(-0 372.952793 37.978669)">drift starts</text>
+</g>
+<g id="text_40">
+<text style="font-weight: 600; font-size: 11.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="431.852793" y="16.900625" transform="rotate(-0 431.852793 16.900625)">(b) PSI over time against alert thresholds</text>
+</g>
+<g id="line2d_52">
+<defs>
+<path id="m5ddf879c08" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #4d7f12; stroke-width: 2"/>
+</defs>
+<g clip-path="url(#p8c9470e204)">
+<use xlink:href="#m5ddf879c08" x="393.102793" y="230.939602" style="fill-opacity: 0; stroke: #4d7f12; stroke-width: 2"/>
+</g>
+</g>
+<g id="line2d_53">
+<defs>
+<path id="m46655e2d47" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #e07a3a; stroke-width: 2"/>
+</defs>
+<g clip-path="url(#p8c9470e204)">
+<use xlink:href="#m46655e2d47" x="470.602793" y="165.608824" style="fill-opacity: 0; stroke: #e07a3a; stroke-width: 2"/>
+</g>
+</g>
+<g id="line2d_54">
+<g clip-path="url(#p8c9470e204)">
+<use xlink:href="#m46655e2d47" x="532.602793" y="62.76335" style="fill-opacity: 0; stroke: #e07a3a; stroke-width: 2"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p0ce23d7ee8">
+<rect x="42.492793" y="22.900625" width="198.4" height="216.216"/>
+</clipPath>
+<clipPath id="p8c9470e204">
+<rect x="307.852793" y="22.900625" width="248" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> PSI monitoring on synthetic data: a standard normal input whose mean drifts by 0.05 standard deviations per week from week 5, with 2,000 observations per week and ten bins at the reference deciles. (a) Bin shares at week 16. (b) Weekly PSI from Eq. (6) against the 99th percentile of PSI without drift and the conventional 0.10 and 0.25 values. Alert thresholds are context-dependent: the no-drift percentile changes with sample size and binning and fixes a 1% false-alarm rate per check, while the rules of thumb have no stated error rates [<a href="#ref-27" class="j-cite">27</a>]. <span class="j-fig-src">Author's calculation from Eq. (6) on synthetic data.</span></figcaption></figure><p>Once drift is detected, the system must adapt. Gama et al. distinguish informed adaptation, in which retraining is triggered by a detector, from blind adaptation, in which the model is updated at regular intervals regardless of evidence of change, and they review memory and forgetting mechanisms such as sliding windows and instance weighting that determine which historical data remain in the training set [<a href="#ref-8" class="j-cite">8</a>]. Lu et al. add drift understanding, establishing when, how and where a drift occurred, as a step between detection and adaptation, because the appropriate response to a sudden, localized change differs from the response to a gradual, global one [<a href="#ref-25" class="j-cite">25</a>]. In production, scheduled retraining provides a simple form of blind adaptation, while detector-triggered retraining reduces unnecessary updates; in either case, each retrained model should pass the same automated evaluation gates as the original before it replaces the serving model [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-6" class="j-cite">6</a>].</p><aside class="j-callout"><p>Distribution drift is a signal for investigation, not proof of harm. Pair drift statistics with delayed ground-truth performance where possible, and define in advance which thresholds trigger investigation, retraining or rollback.</p></aside></section><section class="j-sec" id="sec-11"><h2><span class="j-num">11.</span> MLOps and Technical Debt</h2><h3>11.1 Hidden Technical Debt</h3><p>Sculley et al. argued that ML systems incur technical debt that is hidden at the system level rather than visible in code. Their catalog includes the erosion of abstraction boundaries through entanglement, correction cascades in which models are stacked to patch one another, undeclared consumers of model outputs, unstable and underutilized data dependencies, direct and hidden feedback loops, system-level anti-patterns such as glue code, pipeline jungles and dead experimental code paths, configuration debt, and changes in the external world [<a href="#ref-1" class="j-cite">1</a>]. Shankar et al., interviewing 18 ML engineers across applications including chatbots, autonomous vehicles and finance, identified velocity, validation and versioning as the three variables governing success in production deployments [<a href="#ref-28" class="j-cite">28</a>].</p><h3>11.2 The ML Test Score</h3><p>Breck et al. turned production-readiness practice at Google into a rubric of 28 tests in four sections of seven: tests for features and data, tests for model development, tests for ML infrastructure, and monitoring tests. A test earns half a point if performed manually with documented results and one point if automated and run repeatedly; the final ML Test Score is the minimum of the four section scores, so that progress is required in every area [<a href="#ref-6" class="j-cite">6</a>]. The minimum aggregation is a useful design principle in its own right: an excellent model with no monitoring is not production-ready.</p><h3>11.3 MLOps Principles</h3><p>Kreuzberger et al. combined a literature review, a tool review and eight expert interviews to define MLOps as a paradigm, spanning best practices, concepts and a development culture, for the end-to-end conceptualization, implementation, monitoring, deployment and scalability of ML products, drawing on ML, software engineering (especially DevOps) and data engineering [<a href="#ref-7" class="j-cite">7</a>]. They identify nine principles: CI/CD automation, workflow orchestration, reproducibility, versioning of data, model and code, collaboration, continuous ML training and evaluation, ML metadata tracking and logging, continuous monitoring, and feedback loops [<a href="#ref-7" class="j-cite">7</a>]. Amershi et al. describe a nine-stage ML workflow integrated into agile software processes at Microsoft, from model requirements and data collection through training, evaluation, deployment and monitoring, and stress that the stages contain feedback loops rather than a linear sequence [<a href="#ref-4" class="j-cite">4</a>]. The level of automation should be matched to the system's change rate and risk; a model retrained annually may not need continuous training, but every production model needs versioning, reproducibility and monitoring.</p></section><section class="j-sec" id="sec-12"><h2><span class="j-num">12.</span> Responsible ML Documentation</h2><p>Documentation makes a model's intended use, limitations and evidence available to the people who deploy, operate, audit and are affected by it. Model cards are short documents accompanying trained models that report benchmarked evaluation across relevant conditions and groups, including cultural, demographic, phenotypic and intersectional groups where these are relevant to the application, and that disclose the intended context of use and the evaluation procedures [<a href="#ref-29" class="j-cite">29</a>]. The proposed sections cover model details, intended use, factors, metrics, evaluation data, training data, quantitative analyses, ethical considerations, and caveats and recommendations [<a href="#ref-29" class="j-cite">29</a>].</p><p>Datasheets for datasets apply the same principle to data. Gebru et al. propose that every dataset be accompanied by a datasheet that documents its motivation, composition, collection process, preprocessing, cleaning and labeling, recommended uses, distribution and maintenance [<a href="#ref-30" class="j-cite">30</a>]. In industrial and enterprise settings, the same documents serve practical purposes beyond fairness: they record the operating envelope within which a model was validated, the data sources on which it depends, and the conditions under which it should not be used, which are exactly the facts needed during incident investigation and model handover.</p></section><section class="j-sec" id="sec-13"><h2><span class="j-num">13.</span> Design Checklist</h2><p>Table 3 consolidates the preceding sections into a design checklist organized by life-cycle stage. As with the ML Test Score, the value of the checklist lies in requiring evidence for every stage rather than excellence in one [<a href="#ref-6" class="j-cite">6</a>].</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Design checklist for production machine learning systems.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Key questions</th><th>Evidence required</th></tr></thead><tbody><tr><td>Problem framing</td><td>What decision is supported? What do errors cost? Is ML needed?</td><td>Decision and cost statement; business metric; non-ML baseline [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-4" class="j-cite">4</a>]</td></tr><tr><td>Requirements</td><td>What reliability, scalability, maintainability and adaptability are required?</td><td>Service-level targets; fallback behavior; retraining cadence [<a href="#ref-2" class="j-cite">2</a>]</td></tr><tr><td>Data</td><td>Are labels accurate? Is the class balance understood? Is leakage excluded?</td><td>Label audit and agreement; time- or group-based splits; datasheet [<a href="#ref-11" class="j-cite">11</a>, <a href="#ref-15" class="j-cite">15</a>, <a href="#ref-30" class="j-cite">30</a>]</td></tr><tr><td>Features</td><td>Are transformations identical in training and serving?</td><td>Shared feature definitions; schema validation; skew tests [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-6" class="j-cite">6</a>]</td></tr><tr><td>Training and selection</td><td>Is the estimate of generalization unbiased?</td><td>Nested or held-out evaluation; simple baseline comparison [<a href="#ref-18" class="j-cite">18</a>, <a href="#ref-17" class="j-cite">17</a>]</td></tr><tr><td>Evaluation</td><td>Do metrics reflect error costs, imbalance and calibration needs?</td><td>Precision–recall at the chosen threshold; calibration metrics; subgroup results [<a href="#ref-20" class="j-cite">20</a>, <a href="#ref-21" class="j-cite">21</a>, <a href="#ref-29" class="j-cite">29</a>]</td></tr><tr><td>Online validation</td><td>Does the model improve the business metric in practice?</td><td>A/B test with adequate power or shadow and canary evidence [<a href="#ref-23" class="j-cite">23</a>, <a href="#ref-24" class="j-cite">24</a>]</td></tr><tr><td>Deployment</td><td>Batch, online or edge? How is rollback performed?</td><td>Progressive rollout plan; tested rollback [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>Monitoring</td><td>How are drift and silent failures detected?</td><td>Data-quality checks; drift statistics; delayed performance tracking; alert procedures [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-5" class="j-cite">5</a>, <a href="#ref-27" class="j-cite">27</a>]</td></tr><tr><td>Operations and governance</td><td>Is the system reproducible, versioned and documented?</td><td>ML Test Score self-assessment; MLOps principles; model card [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-29" class="j-cite">29</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: synthesis of Sections 2–12; see the cited works for each item.</p></figure></section><section class="j-sec" id="sec-14"><h2><span class="j-num">14.</span> Conclusion</h2><p>Designing a machine learning system is a systems-engineering task in which the model is one component among data pipelines, feature computation, serving infrastructure, monitoring and governance [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-2" class="j-cite">2</a>]. The literature reviewed here converges on several principles. Problems should be framed around decisions and error costs, with a non-ML baseline as the benchmark. Data quality, label accuracy and the exclusion of leakage determine the ceiling on model performance [<a href="#ref-9" class="j-cite">9</a>, <a href="#ref-11" class="j-cite">11</a>, <a href="#ref-15" class="j-cite">15</a>]. Evaluation should use metrics matched to class balance, error costs and the need for calibrated probabilities, and should be completed by online evidence where possible [<a href="#ref-20" class="j-cite">20</a>, <a href="#ref-21" class="j-cite">21</a>, <a href="#ref-24" class="j-cite">24</a>]. Deployed models must be monitored for drift and silent failure [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-5" class="j-cite">5</a>], and the system as a whole should be assessed for production readiness across data, model, infrastructure and monitoring, with documentation that records its intended use and limits [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-29" class="j-cite">29</a>, <a href="#ref-30" class="j-cite">30</a>]. Systems designed on these principles can be maintained, audited and improved as their data and requirements change.</p></section>
     <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. Advances in Neural Information Processing Systems, 28, 2503–2511. <a href="https://proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html" rel="noopener" target="_blank">proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract</a></li><li id="ref-2">Huyen, C. (2022). Designing machine learning systems: An iterative process for production-ready applications. O'Reilly Media. ISBN 978-1-098-10796-3. <a href="https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/" rel="noopener" target="_blank">www.oreilly.com/library/view/designing-machine-learning/9781098107956/</a></li><li id="ref-3">Paleyes, A., Urma, R.-G., & Lawrence, N. D. (2022). Challenges in deploying machine learning: A survey of case studies. ACM Computing Surveys, 55(6), 1–29. <a href="https://doi.org/10.1145/3533378" rel="noopener" target="_blank">10.1145/3533378</a></li><li id="ref-4">Amershi, S., Begel, A., Bird, C., DeLine, R., Gall, H., Kamar, E., Nagappan, N., Nushi, B., & Zimmermann, T. (2019). Software engineering for machine learning: A case study. 2019 IEEE/ACM 41st International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP), 291–300. <a href="https://doi.org/10.1109/ICSE-SEIP.2019.00042" rel="noopener" target="_blank">10.1109/ICSE-SEIP.2019.00042</a></li><li id="ref-5">Rabanser, S., Günnemann, S., & Lipton, Z. C. (2019). Failing loudly: An empirical study of methods for detecting dataset shift. Advances in Neural Information Processing Systems 32 (NeurIPS 2019). arXiv:1810.11953. <a href="https://arxiv.org/abs/1810.11953" rel="noopener" target="_blank">arxiv.org/abs/1810.11953</a></li><li id="ref-6">Breck, E., Cai, S., Nielsen, E., Salib, M., & Sculley, D. (2017). The ML test score: A rubric for ML production readiness and technical debt reduction. 2017 IEEE International Conference on Big Data (Big Data), 1123–1132. <a href="https://doi.org/10.1109/BigData.2017.8258038" rel="noopener" target="_blank">10.1109/BigData.2017.8258038</a></li><li id="ref-7">Kreuzberger, D., Kühl, N., & Hirschl, S. (2023). Machine learning operations (MLOps): Overview, definition, and architecture. IEEE Access, 11, 31866–31879. <a href="https://doi.org/10.1109/ACCESS.2023.3262138" rel="noopener" target="_blank">10.1109/ACCESS.2023.3262138</a></li><li id="ref-8">Gama, J., Žliobaitė, I., Bifet, A., Pechenizkiy, M., & Bouchachia, A. (2014). A survey on concept drift adaptation. ACM Computing Surveys, 46(4), 1–37. <a href="https://doi.org/10.1145/2523813" rel="noopener" target="_blank">10.1145/2523813</a></li><li id="ref-9">Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. (2021). "Everyone wants to do the model work, not the data work": Data cascades in high-stakes AI. Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems, 1–15. <a href="https://doi.org/10.1145/3411764.3445518" rel="noopener" target="_blank">10.1145/3411764.3445518</a></li><li id="ref-10">Polyzotis, N., Roy, S., Whang, S. E., & Zinkevich, M. (2018). Data lifecycle challenges in production machine learning: A survey. ACM SIGMOD Record, 47(2), 17–28. <a href="https://doi.org/10.1145/3299887.3299891" rel="noopener" target="_blank">10.1145/3299887.3299891</a></li><li id="ref-11">Northcutt, C. G., Athalye, A., & Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. 35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks. arXiv:2103.14749. <a href="https://arxiv.org/abs/2103.14749" rel="noopener" target="_blank">arxiv.org/abs/2103.14749</a></li><li id="ref-12">Northcutt, C., Jiang, L., & Chuang, I. (2021). Confident learning: Estimating uncertainty in dataset labels. Journal of Artificial Intelligence Research, 70, 1373–1411. <a href="https://doi.org/10.1613/jair.1.12125" rel="noopener" target="_blank">10.1613/jair.1.12125</a></li><li id="ref-13">He, H., & Garcia, E. A. (2009). Learning from imbalanced data. IEEE Transactions on Knowledge and Data Engineering, 21(9), 1263–1284. <a href="https://doi.org/10.1109/TKDE.2008.239" rel="noopener" target="_blank">10.1109/TKDE.2008.239</a></li><li id="ref-14">Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). SMOTE: Synthetic minority over-sampling technique. Journal of Artificial Intelligence Research, 16, 321–357. <a href="https://doi.org/10.1613/jair.953" rel="noopener" target="_blank">10.1613/jair.953</a></li><li id="ref-15">Kaufman, S., Rosset, S., Perlich, C., & Stitelman, O. (2012). Leakage in data mining: Formulation, detection, and avoidance. ACM Transactions on Knowledge Discovery from Data, 6(4), 1–21. <a href="https://doi.org/10.1145/2382577.2382579" rel="noopener" target="_blank">10.1145/2382577.2382579</a></li><li id="ref-16">Geman, S., Bienenstock, E., & Doursat, R. (1992). Neural networks and the bias/variance dilemma. Neural Computation, 4(1), 1–58. <a href="https://doi.org/10.1162/neco.1992.4.1.1" rel="noopener" target="_blank">10.1162/neco.1992.4.1.1</a></li><li id="ref-17">Hastie, T., Tibshirani, R., & Friedman, J. (2009). The elements of statistical learning: Data mining, inference, and prediction (2nd ed.). Springer. <a href="https://doi.org/10.1007/978-0-387-84858-7" rel="noopener" target="_blank">10.1007/978-0-387-84858-7</a></li><li id="ref-18">Varma, S., & Simon, R. (2006). Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics, 7, 91. <a href="https://doi.org/10.1186/1471-2105-7-91" rel="noopener" target="_blank">10.1186/1471-2105-7-91</a></li><li id="ref-19">Fawcett, T. (2006). An introduction to ROC analysis. Pattern Recognition Letters, 27(8), 861–874. <a href="https://doi.org/10.1016/j.patrec.2005.10.010" rel="noopener" target="_blank">10.1016/j.patrec.2005.10.010</a></li><li id="ref-20">Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLOS ONE, 10(3), e0118432. <a href="https://doi.org/10.1371/journal.pone.0118432" rel="noopener" target="_blank">10.1371/journal.pone.0118432</a></li><li id="ref-21">Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. Proceedings of the 34th International Conference on Machine Learning (ICML 2017). arXiv:1706.04599. <a href="https://arxiv.org/abs/1706.04599" rel="noopener" target="_blank">arxiv.org/abs/1706.04599</a></li><li id="ref-22">Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. Monthly Weather Review, 78(1), 1–3. <a href="https://doi.org/10.1175/1520-0493(1950)078&lt;0001:VOFEIT&gt;2.0.CO;2" rel="noopener" target="_blank">10.1175/1520-0493(1950)078&lt;0001:VOFEIT&gt;2.0.CO;2</a></li><li id="ref-23">Kohavi, R., Henne, R. M., & Sommerfield, D. (2007). Practical guide to controlled experiments on the web: Listen to your customers not to the HiPPO. Proceedings of the 13th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 959–967. <a href="https://doi.org/10.1145/1281192.1281295" rel="noopener" target="_blank">10.1145/1281192.1281295</a></li><li id="ref-24">Kohavi, R., Tang, D., & Xu, Y. (2020). Trustworthy online controlled experiments: A practical guide to A/B testing. Cambridge University Press. <a href="https://doi.org/10.1017/9781108653985" rel="noopener" target="_blank">10.1017/9781108653985</a></li><li id="ref-25">Lu, J., Liu, A., Dong, F., Gu, F., Gama, J., & Zhang, G. (2019). Learning under concept drift: A review. IEEE Transactions on Knowledge and Data Engineering, 31(12), 2346–2363. <a href="https://doi.org/10.1109/TKDE.2018.2876857" rel="noopener" target="_blank">10.1109/TKDE.2018.2876857</a></li><li id="ref-26">Kullback, S., & Leibler, R. A. (1951). On information and sufficiency. The Annals of Mathematical Statistics, 22(1), 79–86. <a href="https://doi.org/10.1214/aoms/1177729694" rel="noopener" target="_blank">10.1214/aoms/1177729694</a></li><li id="ref-27">Yurdakul, B., & Naranjo, J. (2020). Statistical properties of the population stability index. The Journal of Risk Model Validation. <a href="https://doi.org/10.21314/JRMV.2020.227" rel="noopener" target="_blank">10.21314/JRMV.2020.227</a></li><li id="ref-28">Shankar, S., Garcia, R., Hellerstein, J. M., & Parameswaran, A. G. (2022). Operationalizing machine learning: An interview study. arXiv preprint arXiv:2209.09125. <a href="https://arxiv.org/abs/2209.09125" rel="noopener" target="_blank">arxiv.org/abs/2209.09125</a></li><li id="ref-29">Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., & Gebru, T. (2019). Model cards for model reporting. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229. <a href="https://doi.org/10.1145/3287560.3287596" rel="noopener" target="_blank">10.1145/3287560.3287596</a></li><li id="ref-30">Gebru, T., Morgenstern, J., Vecchione, B., Vaughan, J. W., Wallach, H., Daumé III, H., & Crawford, K. (2021). Datasheets for datasets. Communications of the ACM, 64(12), 86–92. <a href="https://doi.org/10.1145/3458723" rel="noopener" target="_blank">10.1145/3458723</a></li></ol></section>
     <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Designing Machine Learning Systems: From Problem Framing to Production Operations. <em>Chmltech Online Journal</em>, <em>104</em>(6). https://www.chmltech.com/post/designing-machine-learning-systems-from-problem-framing-to-production</p>
       </section>
@@ -76,7 +2501,7 @@
 </div></section>
 <section class="section sand j-related"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=clean-energy">All journal articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="clean-energy" data-search="ai operating systems: a reference architecture and governance model for enterprise ai a layered reference architecture for an organization-wide ai layer, with governance mapping, operating metrics, a maturity model and an sme example. ai operating system enterprise ai architecture ai governance llm agents model routing retrieval-augmented generation prompt injection model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/ai-operating-systems-architecture-and-governance-for-enterprise-ai.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/ai-operating-systems-architecture-and-governance-for-enterprise-ai.html">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</a></h3><p class="muted">A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.</p><p class="meta">Vol. 104, Issue 1 · Nov 9, 2026 · 20 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="digital twins in chemical process plants: architecture, modeling approaches and applications digital twins for process plants: definitions, isa-95 and opc ua architecture, mechanistic and hybrid models, kalman filtering, data reconciliation and rto. digital twin process systems engineering hybrid modeling data reconciliation state estimation real-time optimization soft sensors industry 4.0"><div class="thumb"><img src="../assets/media/covers/thumbs/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications</a></h3><p class="muted">Digital twins for process plants: definitions, ISA-95 and OPC UA architecture, mechanistic and hybrid models, Kalman filtering, data reconciliation…</p><p class="meta">Vol. 104, Issue 5 · Nov 9, 2026 · 19 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="engineering capex and opex estimation for process plants: methods, accuracy and trade-offs capital and operating cost estimation for process plants: aace classes, six-tenths rule, lang and module factors, cepci, cost of manufacture, npv and monte carlo. capital cost estimation operating cost aace estimate classes lang factor six-tenths rule cepci cost of manufacture monte carlo"><div class="thumb"><img src="../assets/media/covers/thumbs/engineering-capex-and-opex-estimation-for-process-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/engineering-capex-and-opex-estimation-for-process-plants.html">Engineering CAPEX and OPEX Estimation for Process Plants: Methods, Accuracy and Trade-offs</a></h3><p class="muted">Capital and operating cost estimation for process plants: AACE classes, six-tenths rule, Lang and module factors, CEPCI, cost of manufacture, NPV and…</p><p class="meta">Vol. 104, Issue 4 · Nov 9, 2026 · 22 min read</p></div></article></div>
+  <div class="grid grid-3"><article class="article" data-cats="clean-energy" data-search="ai operating systems: a reference architecture and governance model for enterprise ai a layered reference architecture for an organization-wide ai layer, with governance mapping, operating metrics, a maturity model and an sme example. ai operating system enterprise ai architecture ai governance llm agents model routing retrieval-augmented generation prompt injection model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/ai-operating-systems-architecture-and-governance-for-enterprise-ai.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/ai-operating-systems-architecture-and-governance-for-enterprise-ai.html">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</a></h3><p class="muted">A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.</p><p class="meta">Vol. 104, Issue 1 · Nov 9, 2026 · 21 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="digital twins in chemical process plants: architecture, modeling approaches and applications digital twins for process plants: definitions, isa-95 and opc ua architecture, mechanistic and hybrid models, kalman filtering, data reconciliation and rto. digital twin process systems engineering hybrid modeling data reconciliation state estimation real-time optimization soft sensors industry 4.0"><div class="thumb"><img src="../assets/media/covers/thumbs/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications</a></h3><p class="muted">Digital twins for process plants: definitions, ISA-95 and OPC UA architecture, mechanistic and hybrid models, Kalman filtering, data reconciliation…</p><p class="meta">Vol. 104, Issue 5 · Nov 9, 2026 · 20 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="engineering capex and opex estimation for process plants: methods, accuracy and trade-offs capital and operating cost estimation for process plants: aace classes, six-tenths rule, lang and module factors, cepci, cost of manufacture, npv and monte carlo. capital cost estimation operating cost aace estimate classes lang factor six-tenths rule cepci cost of manufacture monte carlo"><div class="thumb"><img src="../assets/media/covers/thumbs/engineering-capex-and-opex-estimation-for-process-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/engineering-capex-and-opex-estimation-for-process-plants.html">Engineering CAPEX and OPEX Estimation for Process Plants: Methods, Accuracy and Trade-offs</a></h3><p class="muted">Capital and operating cost estimation for process plants: AACE classes, six-tenths rule, Lang and module factors, CEPCI, cost of manufacture, NPV and…</p><p class="meta">Vol. 104, Issue 4 · Nov 9, 2026 · 22 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Designing Machine Learning Systems: From Problem Framing to Production Operations", "name": "Designing Machine Learning Systems: From Problem Framing to Production Operations", "abstract": "Machine learning models deliver value only as components of larger systems that collect data, compute features, serve predictions, monitor behavior and support change over time. Much of the cost and risk of these systems lies outside the model itself. This paper reviews the end-to-end design of production machine learning systems from the perspective of November 2026. It begins with problem framing, including criteria for deciding when machine learning should not be used, and with the requirements of reliability, scalability, maintainability and adaptability. It then examines data engineering, covering label quality, class imbalance and data leakage, followed by feature engineering and training–serving skew, the bias–variance trade-off and cross-validation for unbiased model selection. Evaluation is treated in detail, with equations for precision, recall, F1, ROC-AUC, expected calibration error and the Brier score, and with the relationship between offline evaluation and online controlled experiments. The paper reviews batch, online and edge deployment patterns, the detection of data and concept drift using divergence measures such as the population stability index, and the literature on hidden technical debt, the ML Test Score, software engineering for machine learning, deployment challenges and MLOps principles. Model cards and datasheets are presented as documentation practices for responsible deployment. A design checklist consolidates the review. The paper concludes that production readiness requires evidence across every life-cycle stage rather than excellence in modeling alone.", "keywords": "machine learning systems, MLOps, problem framing, model evaluation, calibration, concept drift, technical debt, model cards", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Person", "name": "Quak Foo Lee", "jobTitle": "Chief Technology Officer", "affiliation": {"@type": "Organization", "name": "Chmltech Ltd."}}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "6", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "104", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/designing-machine-learning-systems-from-problem-framing-to-production", "citation": ["Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. Advances in Neural Information Processing Systems, 28, 2503–2511.", "Huyen, C. (2022). Designing machine learning systems: An iterative process for production-ready applications. O'Reilly Media. ISBN 978-1-098-10796-3.", "Paleyes, A., Urma, R.-G., & Lawrence, N. D. (2022). Challenges in deploying machine learning: A survey of case studies. ACM Computing Surveys, 55(6), 1–29.", "Amershi, S., Begel, A., Bird, C., DeLine, R., Gall, H., Kamar, E., Nagappan, N., Nushi, B., & Zimmermann, T. (2019). Software engineering for machine learning: A case study. 2019 IEEE/ACM 41st International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP), 291–300.", "Rabanser, S., Günnemann, S., & Lipton, Z. C. (2019). Failing loudly: An empirical study of methods for detecting dataset shift. Advances in Neural Information Processing Systems 32 (NeurIPS 2019). arXiv:1810.11953.", "Breck, E., Cai, S., Nielsen, E., Salib, M., & Sculley, D. (2017). The ML test score: A rubric for ML production readiness and technical debt reduction. 2017 IEEE International Conference on Big Data (Big Data), 1123–1132.", "Kreuzberger, D., Kühl, N., & Hirschl, S. (2023). Machine learning operations (MLOps): Overview, definition, and architecture. IEEE Access, 11, 31866–31879.", "Gama, J., Žliobaitė, I., Bifet, A., Pechenizkiy, M., & Bouchachia, A. (2014). A survey on concept drift adaptation. ACM Computing Surveys, 46(4), 1–37.", "Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. (2021). \"Everyone wants to do the model work, not the data work\": Data cascades in high-stakes AI. Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems, 1–15.", "Polyzotis, N., Roy, S., Whang, S. E., & Zinkevich, M. (2018). Data lifecycle challenges in production machine learning: A survey. ACM SIGMOD Record, 47(2), 17–28.", "Northcutt, C. G., Athalye, A., & Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. 35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks. arXiv:2103.14749.", "Northcutt, C., Jiang, L., & Chuang, I. (2021). Confident learning: Estimating uncertainty in dataset labels. Journal of Artificial Intelligence Research, 70, 1373–1411.", "He, H., & Garcia, E. A. (2009). Learning from imbalanced data. IEEE Transactions on Knowledge and Data Engineering, 21(9), 1263–1284.", "Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). SMOTE: Synthetic minority over-sampling technique. Journal of Artificial Intelligence Research, 16, 321–357.", "Kaufman, S., Rosset, S., Perlich, C., & Stitelman, O. (2012). Leakage in data mining: Formulation, detection, and avoidance. ACM Transactions on Knowledge Discovery from Data, 6(4), 1–21.", "Geman, S., Bienenstock, E., & Doursat, R. (1992). Neural networks and the bias/variance dilemma. Neural Computation, 4(1), 1–58.", "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The elements of statistical learning: Data mining, inference, and prediction (2nd ed.). Springer.", "Varma, S., & Simon, R. (2006). Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics, 7, 91.", "Fawcett, T. (2006). An introduction to ROC analysis. Pattern Recognition Letters, 27(8), 861–874.", "Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLOS ONE, 10(3), e0118432.", "Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. Proceedings of the 34th International Conference on Machine Learning (ICML 2017). arXiv:1706.04599.", "Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. Monthly Weather Review, 78(1), 1–3.", "Kohavi, R., Henne, R. M., & Sommerfield, D. (2007). Practical guide to controlled experiments on the web: Listen to your customers not to the HiPPO. Proceedings of the 13th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 959–967.", "Kohavi, R., Tang, D., & Xu, Y. (2020). Trustworthy online controlled experiments: A practical guide to A/B testing. Cambridge University Press.", "Lu, J., Liu, A., Dong, F., Gu, F., Gama, J., & Zhang, G. (2019). Learning under concept drift: A review. IEEE Transactions on Knowledge and Data Engineering, 31(12), 2346–2363.", "Kullback, S., & Leibler, R. A. (1951). On information and sufficiency. The Annals of Mathematical Statistics, 22(1), 79–86.", "Yurdakul, B., & Naranjo, J. (2020). Statistical properties of the population stability index. The Journal of Risk Model Validation.", "Shankar, S., Garcia, R., Hellerstein, J. M., & Parameswaran, A. G. (2022). Operationalizing machine learning: An interview study. arXiv preprint arXiv:2209.09125.", "Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., & Gebru, T. (2019). Model cards for model reporting. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229.", "Gebru, T., Morgenstern, J., Vecchione, B., Vaughan, J. W., Wallach, H., Daumé III, H., & Crawford, K. (2021). Datasheets for datasets. Communications of the ACM, 64(12), 86–92."]}</script>
 <section class="cta">

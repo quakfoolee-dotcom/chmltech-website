@@ -242,7 +242,16 @@
      "n": 13
     },
     {
-     "p": "Mass-transport losses appear at high current density when gas bubbles block active sites or impede water access. In AEL, bubble coverage of electrodes and gas voids in the electrolyte gap add substantially to the ohmic resistance [3]."
+     "p": "Mass-transport losses appear at high current density when gas bubbles block active sites or impede water access. In AEL, bubble coverage of electrodes and gas voids in the electrolyte gap add substantially to the ohmic resistance [3]. Figure 1 assembles these terms into a polarization curve with representative parameters: the anode activation loss is the largest single loss, while the ohmic loss grows linearly and accounts for most of the voltage increase at high current density."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-polarization",
+      "caption": "Polarization curve of a PEM cell at 80 °C built from Eq. (10), with E<sub>rev</sub> from Eq. (4) and the 0.85 mV K<sup>−1</sup> slope of Section 2.1, activation losses from Eq. (11), the ohmic loss from Eq. (13) and an empirical mass-transport term. The paper does not specify kinetic or resistance parameters, so representative values are used (j<sub>0,a</sub> = 10<sup>−6</sup> and j<sub>0,c</sub> = 0.2 A cm<sup>−2</sup>, α = 1, ASR = 0.09 Ω cm<sup>2</sup>, limiting current 4 A cm<sup>−2</sup>), chosen so that the curve passes through the DOE 2022 stack status point of Table 2. The curve is illustrative, not a fit to a particular cell.",
+      "alt": "Stacked area chart of cell voltage against current density from 0 to 3 amperes per square centimetre. Above a base of the reversible voltage of about 1.18 volts lie thin cathode activation, thick anode activation, a linearly growing ohmic band and a thin mass-transport band at high current. The total cell voltage rises from about 1.45 volts to about 2.05 volts and passes through the marked DOE status point of 1.9 volts at 2 amperes per square centimetre, above the dashed thermoneutral line at 1.481 volts.",
+      "source": "Author's calculation from Eqs. (4) and (10)–(13) with representative parameters; status point from [12]."
+     }
     },
     {
      "h3": "3.3 Voltage efficiency"
@@ -281,7 +290,7 @@
      "n": 16
     },
     {
-     "p": "Table 2 summarizes reference values. The difference of about 4 kWh kg<sup>−1</sup> (≈ 7%) between the DOE stack and system figures for PEM electrolysis indicates the magnitude of BOP losses in a well-designed system without compression. The most efficient commercial low-temperature systems operated at about 50–55 kWh kg<sup>−1</sup> in the early 2020s, within reported ranges of 50–83 kWh kg<sup>−1</sup>, with targets for 2050 below 45 kWh kg<sup>−1</sup> [12, 10]."
+     "p": "Table 2 summarizes reference values. The difference of about 4 kWh kg<sup>−1</sup> (≈ 7%) between the DOE stack and system figures for PEM electrolysis indicates the magnitude of BOP losses in a well-designed system without compression. The most efficient commercial low-temperature systems operated at about 50–55 kWh kg<sup>−1</sup> in the early 2020s, within reported ranges of 50–83 kWh kg<sup>−1</sup>, with targets for 2050 below 45 kWh kg<sup>−1</sup> [12, 10]. Figure 2 places these values on the line of Eq. (9) and shows that the gap between the thermoneutral minimum and current stack performance is larger than the further gap added by the balance of plant."
     },
     {
      "table": {
@@ -335,6 +344,15 @@
        ]
       ],
       "note": "Sources: [12, 10]; theoretical values calculated from Eq. (9). HHV efficiency of the DOE system figure calculated as 39.4/55."
+     }
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-sec-voltage",
+      "caption": "Stack specific energy consumption against cell voltage from Eq. (9), with the reversible and thermoneutral points, the LHV and the DOE 2022 PEM stack status marked. Horizontal lines show the DOE system status and ultimate target, and the bars on the right show the IRENA 2020 system ranges, which include balance-of-plant losses and are not tied to a cell voltage (*SOEC electricity only, excluding heat). The η<sub>F</sub> = 0.95 line is illustrative of crossover losses.",
+      "alt": "Line chart of specific energy consumption in kilowatt-hours per kilogram of hydrogen against cell voltage from 1.15 to 2.4 volts, with voltage efficiency on the top axis. A straight line rises from 32.7 at 1.229 volts through 39.4 at 1.481 volts to 50.5 at 1.9 volts, the DOE stack status point. A dashed line for 95% Faraday efficiency lies slightly above. Horizontal lines mark the DOE system status of 55 and ultimate target of 46, and a dotted line the LHV of 33.3. Bars on the right show IRENA system ranges of 50 to 78 for alkaline, 50 to 83 for PEM and 45 to 55 for solid oxide.",
+      "source": "Author's calculation from Eq. (9); reference values from Table 2 [12, 10]."
      }
     }
    ]
@@ -402,7 +420,7 @@
      "h3": "5.4 Plant-level balance of plant"
     },
     {
-     "p": "At plant scale, SEC and availability depend substantially on the BOP [9, 2]:"
+     "p": "At plant scale, SEC and availability depend substantially on the BOP [9, 2]: Figure 3 shows how these units are connected around the stack."
     },
     {
      "list": [
@@ -413,6 +431,15 @@
       "<strong>Compression and storage.</strong> Where delivery pressures exceed stack outlet pressure, mechanical compressors add typically several kWh kg<sup>−1</sup> depending on the pressure ratio; this should be reported separately from the electrolysis SEC [16, 9]."
      ],
      "ordered": false
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-plant-bop",
+      "caption": "Simplified block diagram of a low-temperature (PEM-type) electrolysis plant. Power conversion, water treatment, gas–liquid separation, deoxidation, drying, compression, the circulating water loop and the heat-rejection and heat-recovery paths form the balance of plant, whose power demand enters Eq. (16). Stream colours distinguish electricity, water, hydrogen, oxygen and heat.",
+      "alt": "Block diagram. AC grid or renewable power passes through a transformer and a rectifier to the electrolyzer stack. Raw water is treated by reverse osmosis and ion exchange and fed to the oxygen–water separator, from which a pump and heat exchanger return cooled water to the stack. The stack sends oxygen and water to the oxygen separator, with oxygen vented or used, and hydrogen and water to the hydrogen separator, deoxidizer, dryer and compressor before storage. Heat from the heat exchanger goes to heat consumers or to a dry cooler or cooling tower.",
+      "source": "Drawn by the author from the description in Section 5.4 [9, 2]."
+     }
     }
    ]
   },

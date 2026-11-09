@@ -62,7 +62,2031 @@
   <article class="prose j-paper">
     <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Large language models hallucinate, have a fixed knowledge cutoff and have no access to an organization's private documents. Retrieval-augmented generation (RAG) addresses these limitations by conditioning generation on passages retrieved from an external corpus at inference time. This paper reviews the design, evaluation and failure analysis of RAG systems for enterprise knowledge applications from the perspective of November 2026. It presents the original RAG formulation, in which the output probability is marginalized over retrieved passages, together with the related REALM, Fusion-in-Decoder and RETRO architectures. It then examines the retrieval stage in detail: dense passage retrieval, BM25 sparse retrieval, hybrid search with reciprocal rank fusion, chunking strategies, embedding model selection and approximate nearest neighbor indexes such as HNSW. Re-ranking with cross-encoders and late-interaction models, query rewriting with hypothetical document embeddings, and advanced patterns including Self-RAG, Corrective RAG and GraphRAG are reviewed, along with evidence on long-context models versus retrieval. The paper defines retrieval metrics (recall@k, mean reciprocal rank and nDCG) and the RAGAS generation metrics, maps the seven documented failure points of RAG systems to diagnostic signals and mitigations, and discusses indirect prompt injection, knowledge poisoning and data leakage. It concludes with an implementation checklist and argues that RAG systems should be engineered for diagnosis, with retrieval and generation measured separately and retrieved content treated as untrusted input.</p>
       <p class="j-keywords"><strong>Keywords:</strong> retrieval-augmented generation; large language models; dense retrieval; hybrid search; re-ranking; RAG evaluation; prompt injection; enterprise knowledge systems</p></section>
-    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Large language models (LLMs) store a great deal of factual and procedural knowledge in their parameters, but this parametric memory has three properties that limit its use in enterprise knowledge systems. First, models produce fluent statements that are unsupported by, or contradict, the available evidence, a behavior generally described as hallucination [<a href="#ref-1" class="j-cite">1</a>]. Second, parametric knowledge is fixed at the end of training, so a model cannot know about documents, prices, policies or events that postdate its training corpus without being retrained or fine-tuned. Third, the documents that matter most to an organization, such as engineering standards, contracts, procedures, support tickets and internal reports, are usually private and therefore absent from any public pretraining corpus.</p><p>Retrieval-augmented generation (RAG) addresses all three limitations by coupling a generator with a non-parametric memory: at inference time a retriever selects passages from an external corpus, and the generator conditions its output on those passages [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>]. The external corpus can be updated without retraining, access to it can be governed with the same controls that protect the source documents, and the retrieved passages provide evidence that can be cited and audited. Gao et al. characterize the field's progression from "naive" retrieve-then-read pipelines, through "advanced" pipelines with pre- and post-retrieval optimization, to "modular" architectures in which retrieval, routing, rewriting and verification are composable components [<a href="#ref-3" class="j-cite">3</a>].</p><p>RAG does not, however, remove the need for engineering discipline. A RAG system inherits the failure modes of information retrieval (relevant content that is missing or ranked too low), the failure modes of LLMs (ignoring or misreading evidence), and new failure modes that arise from their interaction, including attacks delivered through the retrieved content itself. This paper reviews the design space of RAG from the perspective of November 2026 with an emphasis on enterprise knowledge systems. Section 2 presents the original formulations and their predecessors and successors. Section 3 covers retrieval: sparse, dense and hybrid methods, chunking, embedding models and vector indexes. Section 4 covers re-ranking and query transformation. Section 5 reviews advanced patterns and the relationship between RAG and long-context models. Section 6 treats evaluation, Section 7 failure analysis, Section 8 security and privacy, and Section 9 presents an implementation checklist. Section 10 concludes.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Foundations of Retrieval-Augmented Generation</h2><h3>2.1 The Original RAG Formulation</h3><p>Lewis et al. introduced the term retrieval-augmented generation for models that combine a pretrained sequence-to-sequence generator, the parametric memory, with a dense vector index of Wikipedia, the non-parametric memory, accessed through a pretrained neural retriever [<a href="#ref-2" class="j-cite">2</a>]. Given an input sequence <em>x</em>, a retriever <em>p</em><sub>η</sub>(<em>z</em> | <em>x</em>) returns a distribution over passages <em>z</em>, and a generator <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em>, <em>z</em>, <em>y</em><sub>1:<em>i</em>−1</sub>) produces the output token by token. Because the retrieved passage is a latent variable, the output probability is obtained by marginalizing over the top-<em>k</em> retrieved passages. In the RAG-Sequence variant the same passage is used for the whole output sequence:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>p</em><sub>RAG-Seq</sub>(<em>y</em> | <em>x</em>) ≈ Σ<sub><em>z</em> ∈ top-<em>k</em>(<em>p</em><sub>η</sub>(·|<em>x</em>))</sub> <em>p</em><sub>η</sub>(<em>z</em> | <em>x</em>) Π<sub><em>i</em>=1</sub><sup><em>N</em></sup> <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em>, <em>z</em>, <em>y</em><sub>1:<em>i</em>−1</sub>)</span><span class="j-eq-n">(1)</span></div><p>In the RAG-Token variant the marginalization is performed separately for each output token, so that different tokens can draw on different passages:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>p</em><sub>RAG-Tok</sub>(<em>y</em> | <em>x</em>) ≈ Π<sub><em>i</em>=1</sub><sup><em>N</em></sup> Σ<sub><em>z</em> ∈ top-<em>k</em>(<em>p</em><sub>η</sub>(·|<em>x</em>))</sub> <em>p</em><sub>η</sub>(<em>z</em> | <em>x</em>) <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em>, <em>z</em>, <em>y</em><sub>1:<em>i</em>−1</sub>)</span><span class="j-eq-n">(2)</span></div><p>The retriever and generator were fine-tuned jointly on input–output pairs, with the document encoder and index held fixed, and the resulting models set new results on several open-domain question-answering benchmarks while producing more specific and factual text than a parametric-only baseline [<a href="#ref-2" class="j-cite">2</a>]. Two features of Eqs. (1) and (2) are important for practitioners. The retrieval score enters the output probability directly, so a poorly calibrated retriever degrades generation; and the truncation to the top <em>k</em> passages means that any relevant passage ranked below <em>k</em> is invisible to the generator.</p><h3>2.2 REALM, Fusion-in-Decoder and RETRO</h3><p>Retrieval-augmented language modeling predates the RAG name. REALM augmented masked-language-model pretraining with a learned knowledge retriever and backpropagated through the retrieval step, treating the retrieved document as a latent variable in the same marginal form, <em>p</em>(<em>y</em> | <em>x</em>) = Σ<sub><em>z</em></sub> <em>p</em>(<em>y</em> | <em>z</em>, <em>x</em>) <em>p</em>(<em>z</em> | <em>x</em>), and periodically refreshing the document index during training [<a href="#ref-4" class="j-cite">4</a>]. Fusion-in-Decoder (FiD) took a different route: each retrieved passage is encoded independently together with the question, and the decoder attends over the concatenation of all encoded passages, which allows a generator to aggregate evidence from many passages efficiently [<a href="#ref-5" class="j-cite">5</a>].</p><p>RETRO (Retrieval-Enhanced Transformer) moved retrieval into the language model itself. It conditions an autoregressive model on document chunks retrieved from a database of 2 trillion tokens on the basis of local similarity with the preceding tokens, using a frozen BERT retriever and a chunked cross-attention mechanism; with this database it obtained performance comparable to GPT-3 and Jurassic-1 on the Pile while using 25× fewer parameters [<a href="#ref-6" class="j-cite">6</a>]. RETRO demonstrated that retrieval can substitute for a large share of parametric capacity, but most enterprise systems today follow the simpler architecture of Lewis et al., in which an off-the-shelf instruction-tuned LLM receives retrieved passages in its prompt without any joint training [<a href="#ref-3" class="j-cite">3</a>].</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Retrieval: Sparse, Dense and Hybrid</h2><h3>3.1 Dense Retrieval</h3><p>Dense passage retrieval (DPR) encodes questions and passages with two separate BERT-based encoders, <em>E</em><sub>Q</sub> and <em>E</em><sub>P</sub>, and scores a passage by the inner product of the two embeddings [<a href="#ref-7" class="j-cite">7</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">sim(<em>q</em>, <em>p</em>) = <em>E</em><sub>Q</sub>(<em>q</em>)<sup>T</sup> <em>E</em><sub>P</sub>(<em>p</em>)</span><span class="j-eq-n">(3)</span></div><p>The encoders are trained contrastively so that a question's embedding is closer to its positive passage than to negative passages, including in-batch negatives and hard negatives mined with BM25. Because passage embeddings are computed offline, retrieval at query time reduces to a maximum inner product search. Karpukhin et al. reported that this dual-encoder retriever outperformed a strong Lucene-BM25 system by 9–19 percentage points absolute in top-20 passage retrieval accuracy across a range of open-domain question-answering datasets [<a href="#ref-7" class="j-cite">7</a>]. Dense retrieval captures paraphrase and semantic similarity that exact term matching misses, which is why it became the default first stage in RAG pipelines.</p><h3>3.2 Sparse Retrieval and BM25</h3><p>Sparse retrieval represents queries and documents as weighted bags of terms. The dominant scoring function, Okapi BM25, derives from the probabilistic relevance framework [<a href="#ref-8" class="j-cite">8</a>]. For a query <em>Q</em> containing terms <em>t</em> and a document <em>D</em>:</p><div class="j-eq" role="math"><span class="j-eq-body">BM25(<em>D</em>, <em>Q</em>) = Σ<sub><em>t</em> ∈ <em>Q</em></sub> IDF(<em>t</em>) · [<em>f</em>(<em>t</em>, <em>D</em>) (<em>k</em><sub>1</sub> + 1)] / [<em>f</em>(<em>t</em>, <em>D</em>) + <em>k</em><sub>1</sub> (1 − <em>b</em> + <em>b</em> · |<em>D</em>| / avgdl)],  IDF(<em>t</em>) = ln[(<em>N</em> − <em>n</em>(<em>t</em>) + 0.5) / (<em>n</em>(<em>t</em>) + 0.5)]</span><span class="j-eq-n">(4)</span></div><p>Here <em>f</em>(<em>t</em>, <em>D</em>) is the frequency of term <em>t</em> in <em>D</em>, |<em>D</em>| is the document length, avgdl is the average document length in the collection, <em>N</em> is the number of documents and <em>n</em>(<em>t</em>) is the number of documents containing <em>t</em>. The parameter <em>k</em><sub>1</sub> controls how quickly term-frequency saturates and <em>b</em> controls length normalization [<a href="#ref-8" class="j-cite">8</a>]. Implementations differ in their IDF variant; several add a constant inside the logarithm to keep weights non-negative for very common terms. BM25 remains important in enterprise RAG for two reasons. It matches exact identifiers such as part numbers, error codes, clause references and personal names, which dense encoders often blur; and it requires no training, so it transfers to new domains reliably. The BEIR benchmark showed that BM25 is a robust zero-shot baseline across heterogeneous retrieval tasks and that many neural retrievers trained on one dataset generalize poorly to others [<a href="#ref-9" class="j-cite">9</a>].</p><h3>3.3 Hybrid Search and Reciprocal Rank Fusion</h3><p>Hybrid search runs sparse and dense retrievers in parallel and merges their ranked lists. Score-level fusion requires normalizing scores that have different scales and distributions, so rank-level fusion is often preferred. Reciprocal rank fusion (RRF) scores each document <em>d</em> by summing reciprocal ranks over the set of rankings <em>R</em> [<a href="#ref-10" class="j-cite">10</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">RRF(<em>d</em>) = Σ<sub><em>r</em> ∈ <em>R</em></sub> 1 / (<em>k</em> + <em>r</em>(<em>d</em>))</span><span class="j-eq-n">(5)</span></div><p>where <em>r</em>(<em>d</em>) is the rank of <em>d</em> in ranking <em>r</em>. The constant <em>k</em> mitigates the influence of high rankings by outlier systems; Cormack et al. fixed <em>k</em> = 60 in a pilot study and found that RRF outperformed Condorcet fusion and individual learning-to-rank methods on TREC collections [<a href="#ref-10" class="j-cite">10</a>]. RRF needs no score calibration and no training data, which makes it a practical default for combining BM25 with one or more dense retrievers. Table 1 summarizes the main retrieval families.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Principal retrieval families used in RAG pipelines.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Family</th><th>Representation and scoring</th><th>Strengths</th><th>Weaknesses</th></tr></thead><tbody><tr><td>Sparse (BM25)</td><td>Term-weighted bag of words; Eq. (4)</td><td>Exact matching of identifiers and rare terms; no training; robust zero-shot [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-9" class="j-cite">9</a>]</td><td>Vocabulary mismatch; no notion of paraphrase</td></tr><tr><td>Dense bi-encoder (DPR, sentence embeddings)</td><td>Single vector per text; inner product or cosine, Eq. (3)</td><td>Semantic matching; fast approximate search over precomputed vectors [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-11" class="j-cite">11</a>]</td><td>Domain shift; weaker on exact identifiers; needs an embedding model and index</td></tr><tr><td>Late interaction (ColBERT)</td><td>One vector per token; sum of maximum similarities</td><td>Finer-grained matching than single-vector models at moderate cost [<a href="#ref-12" class="j-cite">12</a>]</td><td>Larger index; more complex serving</td></tr><tr><td>Cross-encoder re-ranker</td><td>Query and passage encoded jointly; relevance score</td><td>Highest precision among these options [<a href="#ref-13" class="j-cite">13</a>]</td><td>Too slow for first-stage retrieval over a large corpus</td></tr><tr><td>Hybrid with RRF</td><td>Rank fusion of several retrievers; Eq. (5)</td><td>Combines lexical and semantic evidence without score calibration [<a href="#ref-10" class="j-cite">10</a>]</td><td>Extra latency and infrastructure for multiple indexes</td></tr></tbody></table></div><p class="j-table-note">Source: compiled from [<a href="#ref-8" class="j-cite">8</a>], [<a href="#ref-7" class="j-cite">7</a>], [<a href="#ref-12" class="j-cite">12</a>], [<a href="#ref-13" class="j-cite">13</a>] and [<a href="#ref-10" class="j-cite">10</a>].</p></figure><h3>3.4 Chunking Strategies</h3><p>Enterprise documents are usually too long to embed or place in a prompt in their entirety, so they are split into chunks before indexing. The chunk is simultaneously the unit of retrieval, the unit of embedding and the unit of evidence presented to the generator, and these roles pull in different directions: small chunks yield focused embeddings and precise citations but can separate a statement from the context that qualifies it, while large chunks preserve context but dilute the embedding and consume prompt budget [<a href="#ref-3" class="j-cite">3</a>]. Common strategies include fixed-length windows with overlap, splitting on document structure (headings, sections, table boundaries), recursive splitting that falls back from paragraphs to sentences, and semantic splitting at points where adjacent-sentence similarity drops. Gao et al. also describe small-to-big patterns, in which small units are retrieved but their enclosing section is passed to the generator, and the enrichment of chunks with metadata such as title, section path, date and access-control labels that can be used for filtering [<a href="#ref-3" class="j-cite">3</a>].</p><p>No chunking strategy is optimal across corpora, so chunking should be treated as a tunable parameter and evaluated with the retrieval metrics of Section 6. Tables, forms and scanned drawings require dedicated handling, because text extraction that flattens a table into a stream of cells destroys the row–column relationships on which the answer depends.</p><h3>3.5 Embedding Models and Vector Indexes</h3><p>Sentence-BERT established the now standard approach of fine-tuning a Transformer encoder in a Siamese configuration so that cosine similarity between pooled embeddings reflects semantic similarity, reducing the cost of pairwise similarity search from cross-encoding every pair to a single encoding per sentence [<a href="#ref-11" class="j-cite">11</a>]. The Massive Text Embedding Benchmark (MTEB) evaluates embedding models across retrieval, classification, clustering, re-ranking, semantic similarity and other tasks, and found that no single model dominated across all tasks [<a href="#ref-14" class="j-cite">14</a>]. Public leaderboard rank is therefore only a starting point: an embedding model should be selected by measuring retrieval quality on a sample of the organization's own queries and documents, with attention to language coverage, maximum input length, embedding dimension (which drives index size) and whether the model can be hosted within the organization's data-residency constraints.</p><p>Exact nearest neighbor search scales linearly with corpus size, so production systems use approximate nearest neighbor (ANN) indexes. Hierarchical Navigable Small World (HNSW) graphs organize vectors into a multi-layer proximity graph in which upper layers contain progressively sparser subsets of points; a search starts at the top layer and greedily descends, giving logarithmic complexity scaling in the authors' evaluation and strong recall–speed trade-offs [<a href="#ref-15" class="j-cite">15</a>]. The FAISS library provides GPU implementations of inverted-file and product-quantization indexes that compress vectors and make billion-scale search feasible [<a href="#ref-16" class="j-cite">16</a>]. ANN parameters, such as the HNSW graph degree and search breadth, trade recall for latency and memory; because a missed neighbor at this stage cannot be recovered by later stages, index recall should be measured against exact search on a held-out query sample.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Re-ranking and Query Transformation</h2><h3>4.1 Cross-Encoders and Late Interaction</h3><p>First-stage retrievers are optimized for recall at low cost. A second-stage re-ranker then reorders a candidate set of, typically, tens to hundreds of passages using a more expensive model. Nogueira and Cho showed that a BERT cross-encoder, which concatenates query and passage and predicts relevance from the joint representation, substantially improved passage ranking on the MS MARCO benchmark over prior methods [<a href="#ref-13" class="j-cite">13</a>]. Because the cross-encoder must process every query–passage pair, it is applied only to the candidates returned by the first stage.</p><p>ColBERT occupies a middle ground. It encodes queries and documents independently into one embedding per token and computes relevance by late interaction: for each query token it takes the maximum similarity over document tokens and sums these maxima. Document token embeddings can be precomputed, so ColBERT retains much of the expressiveness of token-level interaction while remaining far cheaper than a cross-encoder at query time [<a href="#ref-12" class="j-cite">12</a>]. In practice a two- or three-stage cascade, hybrid retrieval followed by a learned re-ranker, is the most common way to raise precision in the top few positions that the generator actually reads.</p><h3>4.2 Query Rewriting and HyDE</h3><p>User questions are often short, ambiguous or phrased differently from the documents that answer them. Query transformation techniques rewrite the query before retrieval: expanding acronyms, decomposing multi-part questions into sub-queries, generating several paraphrases whose results are fused with Eq. (5), or adding conversational context in multi-turn settings [<a href="#ref-3" class="j-cite">3</a>]. Hypothetical Document Embeddings (HyDE) take this further. An instruction-following LLM is asked to write a hypothetical document that answers the query; this document may contain false details, but it captures the relevance pattern. It is then encoded with an unsupervised contrastive encoder, and real documents near its embedding are retrieved, so that the encoder's dense bottleneck grounds the hypothetical text in the actual corpus [<a href="#ref-17" class="j-cite">17</a>]. Gao et al. reported that HyDE significantly outperformed the unsupervised Contriever retriever and was comparable to fine-tuned retrievers across web search, question answering and fact verification tasks [<a href="#ref-17" class="j-cite">17</a>]. Query rewriting adds an LLM call to the critical path, so its latency and cost must be justified by measured retrieval gains.</p><aside class="j-callout"><p>The generator can only use what the retriever surfaces in the top <em>k</em> positions. Investment in hybrid retrieval, re-ranking and chunking usually yields larger and more measurable gains than changes to the prompt or the generator model.</p></aside></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Advanced Patterns and Long Context</h2><h3>5.1 Self-RAG and Corrective RAG</h3><p>A fixed pipeline retrieves a fixed number of passages for every query, whether or not retrieval is needed and whether or not the passages are relevant. Self-RAG trains a single LM to retrieve on demand and to generate special reflection tokens that critique whether retrieval is needed, whether each retrieved passage is relevant, whether the generated segment is supported by it, and how useful the response is. Because reflection tokens are explicit, behavior can be tuned at inference time; Asai et al. reported that Self-RAG models with 7 and 13 billion parameters outperformed ChatGPT and retrieval-augmented Llama 2-chat on open-domain question answering, reasoning and fact verification, with gains in factuality and citation accuracy for long-form generation [<a href="#ref-18" class="j-cite">18</a>].</p><p>Corrective RAG (CRAG) addresses the case in which retrieval goes wrong. A lightweight retrieval evaluator assigns a confidence to the retrieved set for a query; depending on this confidence, the system uses the documents, discards them and falls back to web search, or combines both. A decompose-then-recompose step filters retrieved documents down to their relevant parts [<a href="#ref-19" class="j-cite">19</a>]. CRAG is designed as a plug-in to existing pipelines. For enterprise use, the important idea is the explicit retrieval-quality gate; the web-search fallback is frequently inappropriate for confidential questions and is better replaced by an abstention or escalation path.</p><h3>5.2 GraphRAG</h3><p>Conventional RAG retrieves passages that are locally similar to the query. It therefore performs poorly on global sensemaking questions directed at an entire corpus, such as "What are the main themes in this dataset?", which are query-focused summarization tasks rather than retrieval tasks. GraphRAG uses an LLM to build a graph index in two stages: it extracts an entity knowledge graph from the source documents and then pregenerates summaries for communities of closely related entities. At query time, each community summary contributes a partial answer, and the partial answers are summarized into a final response [<a href="#ref-20" class="j-cite">20</a>]. For global questions over datasets in the one-million-token range, Edge et al. reported substantial improvements over a conventional RAG baseline in the comprehensiveness and diversity of answers [<a href="#ref-20" class="j-cite">20</a>]. The approach has a significant indexing cost, because the LLM must read the entire corpus, so it is best reserved for corpora and question types where global synthesis is a stated requirement.</p><h3>5.3 Long Context Versus Retrieval</h3><p>As context windows have grown, a recurring question is whether retrieval is still needed when an entire document collection can be placed in the prompt. Two lines of evidence suggest that it is. Liu et al. found that language models' performance on multi-document question answering and key-value retrieval was often highest when relevant information was at the beginning or end of the input and degraded significantly when it was in the middle, even for models designed for long contexts [<a href="#ref-21" class="j-cite">21</a>]. Xu et al. compared retrieval augmentation with context-window extension using a 43-billion-parameter GPT model and Llama 2-70B; an LLM with a 4K window and simple retrieval achieved performance comparable to a model fine-tuned for a 16K window on long-context tasks with much less computation, and retrieval improved performance regardless of the extended window size [<a href="#ref-22" class="j-cite">22</a>].</p><p>For enterprise systems there are additional, non-accuracy reasons to retrieve. Placing a large corpus in every prompt raises cost and latency per query, makes it difficult to enforce document-level access controls, and obscures which source supported an answer. A reasonable design position is to use long context to pass more complete retrieved units (whole sections rather than fragments) and to order the most relevant evidence at the start or end of the prompt, rather than to abandon retrieval [<a href="#ref-21" class="j-cite">21</a>, <a href="#ref-22" class="j-cite">22</a>].</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Evaluation</h2><h3>6.1 Retrieval Metrics</h3><p>Evaluation should separate the retrieval stage from the generation stage, because a single end-to-end score cannot distinguish a missing document from a misread one. Retrieval is evaluated against a set of queries <em>Q</em> with known relevant passages. Recall at cutoff <em>k</em> measures the fraction of relevant items for query <em>q</em>, Rel(<em>q</em>), that appear among the top <em>k</em> results, Ret<sub><em>k</em></sub>(<em>q</em>); mean reciprocal rank (MRR) averages the reciprocal of the rank of the first relevant result:</p><div class="j-eq" role="math"><span class="j-eq-body">Recall@<em>k</em> = (1/|<em>Q</em>|) Σ<sub><em>q</em> ∈ <em>Q</em></sub> |Rel(<em>q</em>) ∩ Ret<sub><em>k</em></sub>(<em>q</em>)| / |Rel(<em>q</em>)|,    MRR = (1/|<em>Q</em>|) Σ<sub><em>q</em> ∈ <em>Q</em></sub> 1 / rank<sub><em>q</em></sub></span><span class="j-eq-n">(6)</span></div><p>Graded relevance judgments are handled by discounted cumulative gain, which rewards relevant results more when they appear higher in the ranking [<a href="#ref-23" class="j-cite">23</a>]. With graded relevance <em>rel</em><sub><em>i</em></sub> at position <em>i</em>, a widely used form is:</p><div class="j-eq" role="math"><span class="j-eq-body">DCG@<em>k</em> = Σ<sub><em>i</em>=1</sub><sup><em>k</em></sup> (2<sup><em>rel</em><sub><em>i</em></sub></sup> − 1) / log<sub>2</sub>(<em>i</em> + 1),    nDCG@<em>k</em> = DCG@<em>k</em> / IDCG@<em>k</em></span><span class="j-eq-n">(7)</span></div><p>where IDCG@<em>k</em> is the DCG of the ideal ordering, so that nDCG lies between 0 and 1. Järvelin and Kekäläinen's original formulation used a logarithmic discount applied after a chosen rank; the exponential-gain variant in Eq. (7) is common in modern benchmarks and emphasizes highly relevant documents [<a href="#ref-23" class="j-cite">23</a>, <a href="#ref-9" class="j-cite">9</a>]. For RAG, recall@<em>k</em> at the value of <em>k</em> actually passed to the generator is the most directly interpretable metric, because it bounds the information available for generation, while MRR and nDCG indicate whether the best evidence appears early enough to avoid the position effects of Section 5.3.</p><h3>6.2 Generation Metrics and RAGAS</h3><p>Generation quality has several dimensions that must be measured separately: whether the answer is supported by the retrieved context, whether it addresses the question, and whether the context itself was relevant and focused. RAGAS proposes reference-free metrics for these three aspects, named faithfulness, answer relevance and context relevance, computed with an LLM so that they do not require human-written ground-truth answers [<a href="#ref-24" class="j-cite">24</a>]. Faithfulness is computed by having an LLM decompose the answer into a set of statements <em>S</em> and then judge, for each statement, whether it can be inferred from the context; with <em>V</em> the set of supported statements:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>F</em> = |<em>V</em>| / |<em>S</em>|</span><span class="j-eq-n">(8)</span></div><p>Answer relevance is computed by generating candidate questions from the answer and averaging their embedding similarity with the original question [<a href="#ref-24" class="j-cite">24</a>]. LLM-based judges are convenient for rapid iteration, but they are themselves models with errors and biases, so their agreement with human judgments should be measured on a sample of the organization's own data before their scores are used as release criteria. A practical evaluation set combines a few hundred representative questions with labeled relevant passages and reference answers, a smaller adversarial set (unanswerable questions, conflicting sources, questions that require tables), and production logs sampled for periodic human review.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Failure Analysis</h2><p>Barnett et al. reported an experience study of three RAG systems in research, education and biomedical domains and identified seven failure points (FP) [<a href="#ref-25" class="j-cite">25</a>]. Two of their conclusions are particularly relevant to enterprise programs: validation of a RAG system is only feasible during operation, and robustness evolves through operation rather than being designed in at the start [<a href="#ref-25" class="j-cite">25</a>]. Table 2 lists the failure points, the pipeline stage where each originates, the metrics from Section 6 that expose it, and common mitigations.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Failure points of RAG systems mapped to pipeline stages, diagnostic signals and mitigations.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Failure point</th><th>Stage</th><th>Diagnostic signal</th><th>Typical mitigations</th></tr></thead><tbody><tr><td>FP1 Missing content: the question cannot be answered from the corpus, but the system answers anyway</td><td>Corpus and ingestion</td><td>Unanswerable test questions answered with confidence</td><td>Coverage audits; explicit abstention instructions; retrieval-confidence gate [<a href="#ref-19" class="j-cite">19</a>]</td></tr><tr><td>FP2 Missed the top-ranked documents: the answer exists but ranks below the cutoff</td><td>Retrieval</td><td>Low recall@<em>k</em> (Eq. 6)</td><td>Hybrid search with RRF; better embeddings; tuning <em>k</em> and ANN recall [<a href="#ref-10" class="j-cite">10</a>, <a href="#ref-15" class="j-cite">15</a>]</td></tr><tr><td>FP3 Not in context: retrieved documents with the answer are dropped during consolidation</td><td>Context assembly</td><td>Relevant passage retrieved but absent from the final prompt</td><td>Re-ranking before truncation; budget-aware packing; small-to-big expansion [<a href="#ref-13" class="j-cite">13</a>, <a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>FP4 Not extracted: the answer is in the context but the LLM fails to extract it</td><td>Generation</td><td>Low answer correctness with high context recall</td><td>Fewer, cleaner passages; evidence placed at prompt start or end; conflict detection [<a href="#ref-21" class="j-cite">21</a>]</td></tr><tr><td>FP5 Wrong format: the requested format (for example, a table or list) is ignored</td><td>Generation</td><td>Schema or format validation failures</td><td>Structured-output constraints; output validators with retry</td></tr><tr><td>FP6 Incorrect specificity: the answer is too general or too specific</td><td>Query understanding and generation</td><td>Human review; answer-relevance scores [<a href="#ref-24" class="j-cite">24</a>]</td><td>Query rewriting and clarification; user-role context [<a href="#ref-17" class="j-cite">17</a>]</td></tr><tr><td>FP7 Incomplete: available information is omitted</td><td>Generation</td><td>Partial matches against reference answers</td><td>Query decomposition; multi-passage aggregation [<a href="#ref-5" class="j-cite">5</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: failure points from [<a href="#ref-25" class="j-cite">25</a>]; diagnostic and mitigation mapping by the author, drawing on the cited works.</p></figure><p>Several failure points compound. A chunking choice that separates a table from its header (Section 3.4) produces FP2 at retrieval and FP4 at generation; a retriever that returns many near-duplicate passages pushes the decisive passage out of the prompt and produces FP3. Diagnosis therefore benefits from logging every intermediate artifact for each query: the rewritten query, the candidates from each retriever with their scores, the re-ranked list, the final prompt and the response. With these traces, a failed answer can be attributed to the earliest stage at which the relevant evidence was lost.</p><aside class="j-callout"><p>Measure retrieval and generation separately. If the relevant passage is not in the prompt, the fault lies upstream of the generator, and prompt changes will not repair it; if it is in the prompt but the answer is wrong, retrieval changes will not repair it.</p></aside></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Security and Privacy</h2><h3>8.1 Indirect Prompt Injection and Knowledge Poisoning</h3><p>A RAG system executes a language model over text that it did not author. Greshake et al. demonstrated that adversaries can place instructions in content that an LLM-integrated application later retrieves, such as web pages, e-mails or documents, and thereby manipulate the application's behavior without direct access to the prompt; their taxonomy of impacts includes data theft, worming and information ecosystem contamination, and they showed that processing retrieved prompts can manipulate an application's functionality and control whether and how other APIs are called [<a href="#ref-26" class="j-cite">26</a>]. Retrieved content must therefore be treated as untrusted data, never as instructions, and this principle must be enforced architecturally: tool permissions available to a RAG agent should be limited to what the use case needs, and actions with external effects should require confirmation.</p><p>Knowledge poisoning targets the corpus rather than the prompt. PoisonedRAG formulates the injection of malicious texts into a knowledge database as an optimization problem, so that a chosen question retrieves the attacker's text and the LLM produces an attacker-chosen answer; Zou et al. reported a 90% attack success rate when injecting five malicious texts per target question into a knowledge database containing millions of texts, and found the defenses they evaluated to be insufficient [<a href="#ref-27" class="j-cite">27</a>]. In an enterprise setting the most effective controls are upstream: restricting who can write to indexed sources, recording provenance for every chunk, and monitoring for newly ingested content that is unusually similar to high-value queries.</p><h3>8.2 Data Leakage and Access Control</h3><p>RAG also creates privacy risk for the retrieval corpus. Zeng et al. showed empirically, using novel attack methods, that RAG systems are vulnerable to leaking their private retrieval database; they also found that retrieval can reduce leakage of the LLM's own training data [<a href="#ref-28" class="j-cite">28</a>]. The most common enterprise leakage path, however, is simpler: a shared index that ignores the permissions of the source systems, so that a user can retrieve passages from documents they could not open directly. Access control should be enforced at retrieval time by filtering on permission metadata attached to each chunk, with permissions synchronized from the source system, rather than by instructing the model not to reveal certain content.</p><aside class="j-callout"><p>Treat everything retrieved as untrusted input. Enforce document permissions in the retriever, keep write access to indexed sources narrow, and give the model no capability whose misuse an injected instruction could exploit.</p></aside></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Enterprise Implementation Checklist</h2><p>Table 3 consolidates the preceding sections into a checklist organized by pipeline stage. It is intended as a review aid for design and go-live decisions rather than a prescription; the appropriate depth at each stage depends on the risk of the use case.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Implementation checklist for enterprise RAG systems.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Design questions</th><th>Evidence to require before go-live</th></tr></thead><tbody><tr><td>Scope and corpus</td><td>Which questions must be answered? Which sources are authoritative, and how current must they be?</td><td>Documented question taxonomy; source inventory with owners and refresh frequency; set of unanswerable questions (FP1) [<a href="#ref-25" class="j-cite">25</a>]</td></tr><tr><td>Ingestion and chunking</td><td>How are tables, scans and structured fields extracted? What chunk size, overlap and metadata?</td><td>Extraction spot checks; chunking variants compared on recall@<em>k</em> [<a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>Retrieval</td><td>Sparse, dense or hybrid? Which embedding model? What ANN settings?</td><td>Recall@<em>k</em>, MRR and nDCG on in-domain queries; ANN recall against exact search [<a href="#ref-14" class="j-cite">14</a>, <a href="#ref-15" class="j-cite">15</a>, <a href="#ref-10" class="j-cite">10</a>]</td></tr><tr><td>Re-ranking and query handling</td><td>Is a cross-encoder or late-interaction re-ranker justified? Is query rewriting needed?</td><td>Measured precision gain versus added latency [<a href="#ref-13" class="j-cite">13</a>, <a href="#ref-12" class="j-cite">12</a>, <a href="#ref-17" class="j-cite">17</a>]</td></tr><tr><td>Context assembly and generation</td><td>How many passages, in what order? How are citations and abstentions produced?</td><td>Faithfulness and answer relevance on the test set; citation accuracy audit [<a href="#ref-24" class="j-cite">24</a>, <a href="#ref-21" class="j-cite">21</a>]</td></tr><tr><td>Security and privacy</td><td>Are source permissions enforced at retrieval? Who can write to indexed sources? Which tools can the model call?</td><td>Permission-filter tests; prompt-injection and poisoning red-team results [<a href="#ref-26" class="j-cite">26</a>, <a href="#ref-27" class="j-cite">27</a>, <a href="#ref-28" class="j-cite">28</a>]</td></tr><tr><td>Operations</td><td>What is logged per query? How are regressions detected after corpus or model updates?</td><td>Trace logging of intermediate artifacts; scheduled re-evaluation; human review of sampled production answers [<a href="#ref-25" class="j-cite">25</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: synthesis of Sections 3–8; see the cited works for each item.</p></figure><p>Two organizational points complement the checklist. First, each authoritative source needs a named owner, because answer quality is bounded by source quality and no retrieval technique compensates for an outdated procedure. Second, evaluation sets should be versioned with the system, so that every change to chunking, embedding model, re-ranker, prompt or generator can be compared against the same baseline before it is released [<a href="#ref-25" class="j-cite">25</a>].</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Conclusion</h2><p>Retrieval-augmented generation grounds language-model outputs in an external, updatable and governable corpus. Its probabilistic foundation, the marginalization over retrieved passages in Eqs. (1) and (2), makes explicit that generation quality is bounded by retrieval quality, and the empirical record from DPR, BM25 benchmarks, reciprocal rank fusion and cross-encoder re-ranking shows that robust retrieval in enterprise settings usually combines lexical and semantic evidence in a multi-stage cascade [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-9" class="j-cite">9</a>, <a href="#ref-10" class="j-cite">10</a>, <a href="#ref-13" class="j-cite">13</a>]. Advanced patterns such as Self-RAG, Corrective RAG and GraphRAG add adaptive retrieval, quality gating and corpus-level synthesis, at the cost of additional training or indexing effort [<a href="#ref-18" class="j-cite">18</a>, <a href="#ref-19" class="j-cite">19</a>, <a href="#ref-20" class="j-cite">20</a>]. Longer context windows complement rather than replace retrieval, given position effects and the cost, access-control and provenance requirements of enterprise use [<a href="#ref-21" class="j-cite">21</a>, <a href="#ref-22" class="j-cite">22</a>].</p><p>The engineering lesson of the literature is that RAG systems should be built to be diagnosed. Retrieval and generation metrics should be measured separately, intermediate artifacts should be logged, failure points should be traced to the stage at which evidence was lost, and retrieved content should be treated as untrusted input [<a href="#ref-24" class="j-cite">24</a>, <a href="#ref-25" class="j-cite">25</a>, <a href="#ref-26" class="j-cite">26</a>]. Organizations that adopt these practices obtain systems whose answers can be checked against sources and whose failures can be located and corrected.</p></section>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Large language models (LLMs) store a great deal of factual and procedural knowledge in their parameters, but this parametric memory has three properties that limit its use in enterprise knowledge systems. First, models produce fluent statements that are unsupported by, or contradict, the available evidence, a behavior generally described as hallucination [<a href="#ref-1" class="j-cite">1</a>]. Second, parametric knowledge is fixed at the end of training, so a model cannot know about documents, prices, policies or events that postdate its training corpus without being retrained or fine-tuned. Third, the documents that matter most to an organization, such as engineering standards, contracts, procedures, support tickets and internal reports, are usually private and therefore absent from any public pretraining corpus.</p><p>Retrieval-augmented generation (RAG) addresses all three limitations by coupling a generator with a non-parametric memory: at inference time a retriever selects passages from an external corpus, and the generator conditions its output on those passages [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>]. The external corpus can be updated without retraining, access to it can be governed with the same controls that protect the source documents, and the retrieved passages provide evidence that can be cited and audited. Gao et al. characterize the field's progression from "naive" retrieve-then-read pipelines, through "advanced" pipelines with pre- and post-retrieval optimization, to "modular" architectures in which retrieval, routing, rewriting and verification are composable components [<a href="#ref-3" class="j-cite">3</a>].</p><p>RAG does not, however, remove the need for engineering discipline. A RAG system inherits the failure modes of information retrieval (relevant content that is missing or ranked too low), the failure modes of LLMs (ignoring or misreading evidence), and new failure modes that arise from their interaction, including attacks delivered through the retrieved content itself. This paper reviews the design space of RAG from the perspective of November 2026 with an emphasis on enterprise knowledge systems. Section 2 presents the original formulations and their predecessors and successors. Section 3 covers retrieval: sparse, dense and hybrid methods, chunking, embedding models and vector indexes. Section 4 covers re-ranking and query transformation. Section 5 reviews advanced patterns and the relationship between RAG and long-context models. Section 6 treats evaluation, Section 7 failure analysis, Section 8 security and privacy, and Section 9 presents an implementation checklist. Section 10 concludes. Figure 1 maps the stages discussed in these sections onto a single pipeline and marks where each failure point of Section 7 typically originates, so that a failed answer can be traced to the stage where the evidence was lost.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 524.88 321.984" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Flow diagram in two lanes. Offline lane: source documents, parse and extract, chunk with metadata, embed chunks, and BM25 plus HNSW indexes. Online lane: user query, query rewrite, hybrid retrieval with access-control filter fed by the indexes, reciprocal rank fusion, re-ranking, context assembly, generation with citations, grounding check with a retry loop back to retrieval, and a cited answer or abstention. Failure-point tags: FP1 at source documents, FP6 at query rewrite, FP2 at retrieval, FP3 at context assembly and FP4 to FP7 at generation.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 321.984 
+L 524.88 321.984 
+L 524.88 -0 
+L 0 -0 
+L 0 321.984 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 13.399286 104.397 
+L 511.480714 104.397 
+Q 517.592143 104.397 517.592143 97.929 
+L 517.592143 15.462 
+Q 517.592143 8.994 511.480714 8.994 
+L 13.399286 8.994 
+Q 7.287857 8.994 7.287857 15.462 
+L 7.287857 97.929 
+Q 7.287857 104.397 13.399286 104.397 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #eef3f9; stroke: #dce4ee; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 13.399286 314.607 
+L 511.480714 314.607 
+Q 517.592143 314.607 517.592143 308.139 
+L 517.592143 120.567 
+Q 517.592143 114.099 511.480714 114.099 
+L 13.399286 114.099 
+Q 7.287857 114.099 7.287857 120.567 
+L 7.287857 308.139 
+Q 7.287857 314.607 13.399286 314.607 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #f2f8ec; stroke: #d9e8c6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 103.542857 68.823 
+Q 108.890357 68.823 112.784413 68.823 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 108.784413 66.823 
+L 112.784413 68.823 
+L 108.784413 70.823 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_5">
+<path d="M 205.909286 68.823 
+Q 211.256786 68.823 215.150842 68.823 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 211.150842 66.823 
+L 215.150842 68.823 
+L 211.150842 70.823 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_6">
+<path d="M 308.275714 68.823 
+Q 313.623214 68.823 317.51727 68.823 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 313.51727 66.823 
+L 317.51727 68.823 
+L 313.51727 70.823 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_7">
+<path d="M 410.642143 68.823 
+Q 415.989643 68.823 419.883699 68.823 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 415.883699 66.823 
+L 419.883699 68.823 
+L 415.883699 70.823 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_8">
+<path d="M 103.542857 172.311 
+Q 108.890357 172.311 112.784413 172.311 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 108.784413 170.311 
+L 112.784413 172.311 
+L 108.784413 174.311 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_9">
+<path d="M 205.909286 172.311 
+Q 211.256786 172.311 215.150842 172.311 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 211.150842 170.311 
+L 215.150842 172.311 
+L 211.150842 174.311 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 308.275714 172.311 
+Q 313.623214 172.311 317.51727 172.311 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 313.51727 170.311 
+L 317.51727 172.311 
+L 313.51727 174.311 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_11">
+<path d="M 410.642143 172.311 
+Q 415.989643 172.311 419.883699 172.311 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 415.883699 170.311 
+L 419.883699 172.311 
+L 415.883699 174.311 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_12">
+<path d="M 467.172857 194.1405 
+Q 467.172857 219.204 467.172857 242.814056 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 469.172857 238.814056 
+L 467.172857 242.814056 
+L 465.172857 238.814056 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_13">
+<path d="M 421.337143 266.097 
+Q 415.989643 266.097 412.095587 266.097 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 416.095587 268.097 
+L 412.095587 266.097 
+L 416.095587 264.097 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_14">
+<path d="M 318.970714 266.097 
+Q 313.623214 266.097 309.729158 266.097 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 313.729158 268.097 
+L 309.729158 266.097 
+L 313.729158 264.097 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_15">
+<path d="M 216.604286 266.097 
+Q 211.256786 266.097 207.36273 266.097 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 211.36273 268.097 
+L 207.36273 266.097 
+L 211.36273 264.097 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 467.172857 90.6525 
+L 467.172857 123.801 
+L 262.44 123.801 
+L 262.44 139.971 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke-dasharray: 5.2,2.6; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.3"/>
+</g>
+<g id="patch_16">
+<path d="M 262.44 139.971 
+Q 262.44 145.22625 262.44 149.028056 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke: #0b6fa4; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 264.44 145.028056 
+L 262.44 149.028056 
+L 260.44 145.028056 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="patch_17">
+<path d="M 262.44 244.2675 
+Q 262.44 219.204 262.44 195.593944 
+" clip-path="url(#pab5c047a15)" style="fill: none; stroke-dasharray: 3.9,2.6; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.3; stroke-linecap: round"/>
+<path d="M 260.44 199.593944 
+L 262.44 195.593944 
+L 264.44 199.593944 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #e07a3a; stroke-dasharray: 3.9,2.6; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.3; stroke-linecap: round"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 700; font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="14.927143" y="24.13258" transform="rotate(-0 14.927143 24.13258)">Offline: ingestion and indexing</text>
+</g>
+<g id="text_2">
+<text style="font-weight: 700; font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="14.927143" y="129.23758" transform="rotate(-0 14.927143 129.23758)">Online: query time</text>
+</g>
+<g id="patch_18">
+<path d="M 15.538286 90.6525 
+L 99.876 90.6525 
+Q 103.542857 90.6525 103.542857 86.7717 
+L 103.542857 50.8743 
+Q 103.542857 46.9935 99.876 46.9935 
+L 15.538286 46.9935 
+Q 11.871429 46.9935 11.871429 50.8743 
+L 11.871429 86.7717 
+Q 11.871429 90.6525 15.538286 90.6525 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #0b6fa4; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_19">
+<path d="M 117.904714 90.6525 
+L 202.242429 90.6525 
+Q 205.909286 90.6525 205.909286 86.7717 
+L 205.909286 50.8743 
+Q 205.909286 46.9935 202.242429 46.9935 
+L 117.904714 46.9935 
+Q 114.237857 46.9935 114.237857 50.8743 
+L 114.237857 86.7717 
+Q 114.237857 90.6525 117.904714 90.6525 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #0b6fa4; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_20">
+<path d="M 220.271143 90.6525 
+L 304.608857 90.6525 
+Q 308.275714 90.6525 308.275714 86.7717 
+L 308.275714 50.8743 
+Q 308.275714 46.9935 304.608857 46.9935 
+L 220.271143 46.9935 
+Q 216.604286 46.9935 216.604286 50.8743 
+L 216.604286 86.7717 
+Q 216.604286 90.6525 220.271143 90.6525 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #0b6fa4; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_21">
+<path d="M 322.637571 90.6525 
+L 406.975286 90.6525 
+Q 410.642143 90.6525 410.642143 86.7717 
+L 410.642143 50.8743 
+Q 410.642143 46.9935 406.975286 46.9935 
+L 322.637571 46.9935 
+Q 318.970714 46.9935 318.970714 50.8743 
+L 318.970714 86.7717 
+Q 318.970714 90.6525 322.637571 90.6525 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #0b6fa4; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_22">
+<path d="M 425.004 90.6525 
+L 509.341714 90.6525 
+Q 513.008571 90.6525 513.008571 86.7717 
+L 513.008571 50.8743 
+Q 513.008571 46.9935 509.341714 46.9935 
+L 425.004 46.9935 
+Q 421.337143 46.9935 421.337143 50.8743 
+L 421.337143 86.7717 
+Q 421.337143 90.6525 425.004 90.6525 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #0b6fa4; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_23">
+<path d="M 15.538286 194.1405 
+L 99.876 194.1405 
+Q 103.542857 194.1405 103.542857 190.2597 
+L 103.542857 154.3623 
+Q 103.542857 150.4815 99.876 150.4815 
+L 15.538286 150.4815 
+Q 11.871429 150.4815 11.871429 154.3623 
+L 11.871429 190.2597 
+Q 11.871429 194.1405 15.538286 194.1405 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_24">
+<path d="M 117.904714 194.1405 
+L 202.242429 194.1405 
+Q 205.909286 194.1405 205.909286 190.2597 
+L 205.909286 154.3623 
+Q 205.909286 150.4815 202.242429 150.4815 
+L 117.904714 150.4815 
+Q 114.237857 150.4815 114.237857 154.3623 
+L 114.237857 190.2597 
+Q 114.237857 194.1405 117.904714 194.1405 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_25">
+<path d="M 220.271143 194.1405 
+L 304.608857 194.1405 
+Q 308.275714 194.1405 308.275714 190.2597 
+L 308.275714 154.3623 
+Q 308.275714 150.4815 304.608857 150.4815 
+L 220.271143 150.4815 
+Q 216.604286 150.4815 216.604286 154.3623 
+L 216.604286 190.2597 
+Q 216.604286 194.1405 220.271143 194.1405 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_26">
+<path d="M 322.637571 194.1405 
+L 406.975286 194.1405 
+Q 410.642143 194.1405 410.642143 190.2597 
+L 410.642143 154.3623 
+Q 410.642143 150.4815 406.975286 150.4815 
+L 322.637571 150.4815 
+Q 318.970714 150.4815 318.970714 154.3623 
+L 318.970714 190.2597 
+Q 318.970714 194.1405 322.637571 194.1405 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_27">
+<path d="M 425.004 194.1405 
+L 509.341714 194.1405 
+Q 513.008571 194.1405 513.008571 190.2597 
+L 513.008571 154.3623 
+Q 513.008571 150.4815 509.341714 150.4815 
+L 425.004 150.4815 
+Q 421.337143 150.4815 421.337143 154.3623 
+L 421.337143 190.2597 
+Q 421.337143 194.1405 425.004 194.1405 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_28">
+<path d="M 425.004 287.9265 
+L 509.341714 287.9265 
+Q 513.008571 287.9265 513.008571 284.0457 
+L 513.008571 248.1483 
+Q 513.008571 244.2675 509.341714 244.2675 
+L 425.004 244.2675 
+Q 421.337143 244.2675 421.337143 248.1483 
+L 421.337143 284.0457 
+Q 421.337143 287.9265 425.004 287.9265 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_29">
+<path d="M 322.637571 287.9265 
+L 406.975286 287.9265 
+Q 410.642143 287.9265 410.642143 284.0457 
+L 410.642143 248.1483 
+Q 410.642143 244.2675 406.975286 244.2675 
+L 322.637571 244.2675 
+Q 318.970714 244.2675 318.970714 248.1483 
+L 318.970714 284.0457 
+Q 318.970714 287.9265 322.637571 287.9265 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_30">
+<path d="M 220.271143 287.9265 
+L 304.608857 287.9265 
+Q 308.275714 287.9265 308.275714 284.0457 
+L 308.275714 248.1483 
+Q 308.275714 244.2675 304.608857 244.2675 
+L 220.271143 244.2675 
+Q 216.604286 244.2675 216.604286 248.1483 
+L 216.604286 284.0457 
+Q 216.604286 287.9265 220.271143 287.9265 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="patch_31">
+<path d="M 117.904714 287.9265 
+L 202.242429 287.9265 
+Q 205.909286 287.9265 205.909286 284.0457 
+L 205.909286 248.1483 
+Q 205.909286 244.2675 202.242429 244.2675 
+L 117.904714 244.2675 
+Q 114.237857 244.2675 114.237857 248.1483 
+L 114.237857 284.0457 
+Q 114.237857 287.9265 117.904714 287.9265 
+z
+" clip-path="url(#pab5c047a15)" style="fill: #ffffff; stroke: #4d7f12; stroke-width: 1.5; stroke-linejoin: miter"/>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b6fa4" x="364.806429" y="117.749302" transform="rotate(-0 364.806429 117.749302)">indexes queried at run time</text>
+</g>
+<g id="text_4">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(209.717344 217.033102)">retry or</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(196.086563 227.92275)">re-retrieve</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #b4410c" x="14.927143" y="304.944926" transform="rotate(-0 14.927143 304.944926)">FPn = failure point of Table 2 where evidence is typically lost</text>
+</g>
+<g id="text_6">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(17.669096 68.086346)">Source documents</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(25.674174 79.904207)">(permissioned)</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(122.704587 61.780501)">Parse and extract</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(133.740837 73.772034)">(text, tables,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(145.881696 86.470911)">scans)</text>
+</g>
+<g id="text_8">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(223.304766 61.824798)">Chunk + metadata</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(232.117031 73.772034)">(section, date,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(252.016172 86.883646)">ACL)</text>
+</g>
+<g id="text_9">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(333.364085 61.78472)">Embed chunks</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(338.610804 73.772034)">(bi-encoder,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(352.363225 86.371771)">Eq. 3)</text>
+</g>
+<g id="text_10">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(449.377467 61.78472)">Indexes:</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(439.289029 74.36055)">BM25 + ANN</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(449.835201 86.883646)">(HNSW)</text>
+</g>
+<g id="text_11">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="57.707143" y="176.912691" transform="rotate(-0 57.707143 176.912691)">User query</text>
+</g>
+<g id="text_12">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(131.039431 164.497173)">Query rewrite</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(145.266462 177.319097)">(HyDE,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(132.679118 189.653755)">sub-queries)</text>
+</g>
+<g id="text_13">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(229.663828 164.497173)">Hybrid retrieval</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(231.406172 177.840112)">BM25 + dense</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(239.452031 190.164927)">(ACL filter)</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(331.77221 170.776299)">Reciprocal rank</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(335.0551 183.598223)">fusion, Eq. (5)</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(442.151451 164.407173)">Re-rank top</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(443.817154 177.899175)">candidates</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(432.608638 189.958911)">(cross-encoder)</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(429.056451 258.219892)">Context assembly</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(439.14067 270.916659)">(top-k, order,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(450.504576 283.387021)">budget)</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(327.701819 265.373002)">Generation (LLM)</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(336.658929 277.946723)">with citations</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(226.020938 258.248017)">Grounding check</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(234.70875 271.046034)">(faithfulness,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(249.992578 283.645771)">Eq. 8)</text>
+</g>
+<g id="text_19">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(131.125915 265.50519)">Cited answer</text>
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(130.93115 278.028285)">or abstention</text>
+</g>
+<g id="text_20">
+<g id="patch_32">
+<path d="M 87.142036 46.9891 
+L 100.394286 46.9891 
+Q 103.034286 46.9891 103.034286 44.3491 
+L 103.034286 35.109444 
+Q 103.034286 32.469444 100.394286 32.469444 
+L 87.142036 32.469444 
+Q 84.502036 32.469444 84.502036 35.109444 
+L 84.502036 44.3491 
+Q 84.502036 46.9891 87.142036 46.9891 
+z
+" style="fill: #e07a3a"/>
+</g>
+<text style="font-weight: 700; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="101.098286" y="42.930444" transform="rotate(-0 101.098286 42.930444)">FP1</text>
+</g>
+<g id="text_21">
+<g id="patch_33">
+<path d="M 187.587589 150.4771 
+L 202.760714 150.4771 
+Q 205.400714 150.4771 205.400714 147.8371 
+L 205.400714 138.597444 
+Q 205.400714 135.957444 202.760714 135.957444 
+L 187.587589 135.957444 
+Q 184.947589 135.957444 184.947589 138.597444 
+L 184.947589 147.8371 
+Q 184.947589 150.4771 187.587589 150.4771 
+z
+" style="fill: #e07a3a"/>
+</g>
+<text style="font-weight: 700; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="203.464714" y="146.418444" transform="rotate(-0 203.464714 146.418444)">FP6</text>
+</g>
+<g id="text_22">
+<g id="patch_34">
+<path d="M 290.125893 150.4771 
+L 305.127143 150.4771 
+Q 307.767143 150.4771 307.767143 147.8371 
+L 307.767143 138.597444 
+Q 307.767143 135.957444 305.127143 135.957444 
+L 290.125893 135.957444 
+Q 287.485893 135.957444 287.485893 138.597444 
+L 287.485893 147.8371 
+Q 287.485893 150.4771 290.125893 150.4771 
+z
+" style="fill: #e07a3a"/>
+</g>
+<text style="font-weight: 700; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="305.831143" y="146.418444" transform="rotate(-0 305.831143 146.418444)">FP2</text>
+</g>
+<g id="text_23">
+<g id="patch_35">
+<path d="M 494.72125 244.2631 
+L 509.86 244.2631 
+Q 512.5 244.2631 512.5 241.6231 
+L 512.5 232.383444 
+Q 512.5 229.743444 509.86 229.743444 
+L 494.72125 229.743444 
+Q 492.08125 229.743444 492.08125 232.383444 
+L 492.08125 241.6231 
+Q 492.08125 244.2631 494.72125 244.2631 
+z
+" style="fill: #e07a3a"/>
+</g>
+<text style="font-weight: 700; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="510.564" y="240.204444" transform="rotate(-0 510.564 240.204444)">FP3</text>
+</g>
+<g id="text_24">
+<g id="patch_36">
+<path d="M 382.566196 244.2631 
+L 407.493571 244.2631 
+Q 410.133571 244.2631 410.133571 241.6231 
+L 410.133571 232.383444 
+Q 410.133571 229.743444 407.493571 229.743444 
+L 382.566196 229.743444 
+Q 379.926196 229.743444 379.926196 232.383444 
+L 379.926196 241.6231 
+Q 379.926196 244.2631 382.566196 244.2631 
+z
+" style="fill: #e07a3a"/>
+</g>
+<text style="font-weight: 700; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #ffffff" x="408.197571" y="240.204444" transform="rotate(-0 408.197571 240.204444)">FP4–7</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pab5c047a15">
+<rect x="5.76" y="5.76" width="513.36" height="310.464"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> End-to-end enterprise RAG pipeline. Offline, documents are parsed, chunked with metadata, embedded and indexed; at query time the query is rewritten, retrieved from sparse and dense indexes, fused with RRF, re-ranked, assembled into a prompt, answered and checked for grounding. Orange tags mark the failure points FP1–FP7 of Table 2 at the stage where each typically originates. <span class="j-fig-src">Drawn by the author from Sections 3–7; failure points as listed in Table 2.</span></figcaption></figure></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Foundations of Retrieval-Augmented Generation</h2><h3>2.1 The Original RAG Formulation</h3><p>Lewis et al. introduced the term retrieval-augmented generation for models that combine a pretrained sequence-to-sequence generator, the parametric memory, with a dense vector index of Wikipedia, the non-parametric memory, accessed through a pretrained neural retriever [<a href="#ref-2" class="j-cite">2</a>]. Given an input sequence <em>x</em>, a retriever <em>p</em><sub>η</sub>(<em>z</em> | <em>x</em>) returns a distribution over passages <em>z</em>, and a generator <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em>, <em>z</em>, <em>y</em><sub>1:<em>i</em>−1</sub>) produces the output token by token. Because the retrieved passage is a latent variable, the output probability is obtained by marginalizing over the top-<em>k</em> retrieved passages. In the RAG-Sequence variant the same passage is used for the whole output sequence:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>p</em><sub>RAG-Seq</sub>(<em>y</em> | <em>x</em>) ≈ Σ<sub><em>z</em> ∈ top-<em>k</em>(<em>p</em><sub>η</sub>(·|<em>x</em>))</sub> <em>p</em><sub>η</sub>(<em>z</em> | <em>x</em>) Π<sub><em>i</em>=1</sub><sup><em>N</em></sup> <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em>, <em>z</em>, <em>y</em><sub>1:<em>i</em>−1</sub>)</span><span class="j-eq-n">(1)</span></div><p>In the RAG-Token variant the marginalization is performed separately for each output token, so that different tokens can draw on different passages:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>p</em><sub>RAG-Tok</sub>(<em>y</em> | <em>x</em>) ≈ Π<sub><em>i</em>=1</sub><sup><em>N</em></sup> Σ<sub><em>z</em> ∈ top-<em>k</em>(<em>p</em><sub>η</sub>(·|<em>x</em>))</sub> <em>p</em><sub>η</sub>(<em>z</em> | <em>x</em>) <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em>, <em>z</em>, <em>y</em><sub>1:<em>i</em>−1</sub>)</span><span class="j-eq-n">(2)</span></div><p>The retriever and generator were fine-tuned jointly on input–output pairs, with the document encoder and index held fixed, and the resulting models set new results on several open-domain question-answering benchmarks while producing more specific and factual text than a parametric-only baseline [<a href="#ref-2" class="j-cite">2</a>]. Two features of Eqs. (1) and (2) are important for practitioners. The retrieval score enters the output probability directly, so a poorly calibrated retriever degrades generation; and the truncation to the top <em>k</em> passages means that any relevant passage ranked below <em>k</em> is invisible to the generator.</p><h3>2.2 REALM, Fusion-in-Decoder and RETRO</h3><p>Retrieval-augmented language modeling predates the RAG name. REALM augmented masked-language-model pretraining with a learned knowledge retriever and backpropagated through the retrieval step, treating the retrieved document as a latent variable in the same marginal form, <em>p</em>(<em>y</em> | <em>x</em>) = Σ<sub><em>z</em></sub> <em>p</em>(<em>y</em> | <em>z</em>, <em>x</em>) <em>p</em>(<em>z</em> | <em>x</em>), and periodically refreshing the document index during training [<a href="#ref-4" class="j-cite">4</a>]. Fusion-in-Decoder (FiD) took a different route: each retrieved passage is encoded independently together with the question, and the decoder attends over the concatenation of all encoded passages, which allows a generator to aggregate evidence from many passages efficiently [<a href="#ref-5" class="j-cite">5</a>].</p><p>RETRO (Retrieval-Enhanced Transformer) moved retrieval into the language model itself. It conditions an autoregressive model on document chunks retrieved from a database of 2 trillion tokens on the basis of local similarity with the preceding tokens, using a frozen BERT retriever and a chunked cross-attention mechanism; with this database it obtained performance comparable to GPT-3 and Jurassic-1 on the Pile while using 25× fewer parameters [<a href="#ref-6" class="j-cite">6</a>]. RETRO demonstrated that retrieval can substitute for a large share of parametric capacity, but most enterprise systems today follow the simpler architecture of Lewis et al., in which an off-the-shelf instruction-tuned LLM receives retrieved passages in its prompt without any joint training [<a href="#ref-3" class="j-cite">3</a>].</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Retrieval: Sparse, Dense and Hybrid</h2><h3>3.1 Dense Retrieval</h3><p>Dense passage retrieval (DPR) encodes questions and passages with two separate BERT-based encoders, <em>E</em><sub>Q</sub> and <em>E</em><sub>P</sub>, and scores a passage by the inner product of the two embeddings [<a href="#ref-7" class="j-cite">7</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">sim(<em>q</em>, <em>p</em>) = <em>E</em><sub>Q</sub>(<em>q</em>)<sup>T</sup> <em>E</em><sub>P</sub>(<em>p</em>)</span><span class="j-eq-n">(3)</span></div><p>The encoders are trained contrastively so that a question's embedding is closer to its positive passage than to negative passages, including in-batch negatives and hard negatives mined with BM25. Because passage embeddings are computed offline, retrieval at query time reduces to a maximum inner product search. Karpukhin et al. reported that this dual-encoder retriever outperformed a strong Lucene-BM25 system by 9–19 percentage points absolute in top-20 passage retrieval accuracy across a range of open-domain question-answering datasets [<a href="#ref-7" class="j-cite">7</a>]. Dense retrieval captures paraphrase and semantic similarity that exact term matching misses, which is why it became the default first stage in RAG pipelines.</p><h3>3.2 Sparse Retrieval and BM25</h3><p>Sparse retrieval represents queries and documents as weighted bags of terms. The dominant scoring function, Okapi BM25, derives from the probabilistic relevance framework [<a href="#ref-8" class="j-cite">8</a>]. For a query <em>Q</em> containing terms <em>t</em> and a document <em>D</em>:</p><div class="j-eq" role="math"><span class="j-eq-body">BM25(<em>D</em>, <em>Q</em>) = Σ<sub><em>t</em> ∈ <em>Q</em></sub> IDF(<em>t</em>) · [<em>f</em>(<em>t</em>, <em>D</em>) (<em>k</em><sub>1</sub> + 1)] / [<em>f</em>(<em>t</em>, <em>D</em>) + <em>k</em><sub>1</sub> (1 − <em>b</em> + <em>b</em> · |<em>D</em>| / avgdl)],  IDF(<em>t</em>) = ln[(<em>N</em> − <em>n</em>(<em>t</em>) + 0.5) / (<em>n</em>(<em>t</em>) + 0.5)]</span><span class="j-eq-n">(4)</span></div><p>Here <em>f</em>(<em>t</em>, <em>D</em>) is the frequency of term <em>t</em> in <em>D</em>, |<em>D</em>| is the document length, avgdl is the average document length in the collection, <em>N</em> is the number of documents and <em>n</em>(<em>t</em>) is the number of documents containing <em>t</em>. The parameter <em>k</em><sub>1</sub> controls how quickly term-frequency saturates and <em>b</em> controls length normalization [<a href="#ref-8" class="j-cite">8</a>]. Implementations differ in their IDF variant; several add a constant inside the logarithm to keep weights non-negative for very common terms. BM25 remains important in enterprise RAG for two reasons. It matches exact identifiers such as part numbers, error codes, clause references and personal names, which dense encoders often blur; and it requires no training, so it transfers to new domains reliably. The BEIR benchmark showed that BM25 is a robust zero-shot baseline across heterogeneous retrieval tasks and that many neural retrievers trained on one dataset generalize poorly to others [<a href="#ref-9" class="j-cite">9</a>].</p><h3>3.3 Hybrid Search and Reciprocal Rank Fusion</h3><p>Hybrid search runs sparse and dense retrievers in parallel and merges their ranked lists. Score-level fusion requires normalizing scores that have different scales and distributions, so rank-level fusion is often preferred. Reciprocal rank fusion (RRF) scores each document <em>d</em> by summing reciprocal ranks over the set of rankings <em>R</em> [<a href="#ref-10" class="j-cite">10</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">RRF(<em>d</em>) = Σ<sub><em>r</em> ∈ <em>R</em></sub> 1 / (<em>k</em> + <em>r</em>(<em>d</em>))</span><span class="j-eq-n">(5)</span></div><p>where <em>r</em>(<em>d</em>) is the rank of <em>d</em> in ranking <em>r</em>. The constant <em>k</em> mitigates the influence of high rankings by outlier systems; Cormack et al. fixed <em>k</em> = 60 in a pilot study and found that RRF outperformed Condorcet fusion and individual learning-to-rank methods on TREC collections [<a href="#ref-10" class="j-cite">10</a>]. RRF needs no score calibration and no training data, which makes it a practical default for combining BM25 with one or more dense retrievers. Table 1 summarizes the main retrieval families. Figure 2 works through Eq. (5) for two short ranked lists: a passage found by both retrievers at moderate ranks outscores a passage ranked first by only one of them.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 560.009609 280.317055" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Horizontal stacked bar chart of fused RRF scores. Passages found by both retrievers rank first: P2 at 0.0323 (rank 2 in both lists), P7 at 0.0320 (BM25 rank 1, dense rank 4) and P1 at 0.0313. P5, ranked first by the dense retriever only, comes fourth at 0.0164, followed by single-list passages P9, P4 and P8 at about 0.015 to 0.016.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 280.317055 
+L 560.009609 280.317055 
+L 560.009609 0 
+L 0 0 
+L 0 280.317055 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 130.169609 238.147875 
+L 554.249609 238.147875 
+L 554.249609 21.931875 
+L 130.169609 21.931875 
+L 130.169609 238.147875 
+z
+" style="fill: none"/>
+</g>
+<g id="patch_3">
+<path d="M 130.169609 49.628966 
+L 310.169609 49.628966 
+L 310.169609 31.759875 
+L 130.169609 31.759875 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_4">
+<path d="M 310.169609 49.628966 
+L 490.169609 49.628966 
+L 490.169609 31.759875 
+L 310.169609 31.759875 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="patch_5">
+<path d="M 130.169609 79.410784 
+L 313.120429 79.410784 
+L 313.120429 61.541693 
+L 130.169609 61.541693 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_6">
+<path d="M 313.120429 79.410784 
+L 487.495429 79.410784 
+L 487.495429 61.541693 
+L 313.120429 61.541693 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="patch_7">
+<path d="M 130.169609 109.192602 
+L 301.861917 109.192602 
+L 301.861917 91.323511 
+L 130.169609 91.323511 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_8">
+<path d="M 301.861917 109.192602 
+L 479.004774 109.192602 
+L 479.004774 91.323511 
+L 301.861917 91.323511 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="patch_9">
+<path d="M 130.169609 138.97442 
+L 130.169609 138.97442 
+L 130.169609 121.10533 
+L 130.169609 121.10533 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_10">
+<path d="M 130.169609 138.97442 
+L 313.120429 138.97442 
+L 313.120429 121.10533 
+L 130.169609 121.10533 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="patch_11">
+<path d="M 130.169609 168.756239 
+L 307.312467 168.756239 
+L 307.312467 150.887148 
+L 130.169609 150.887148 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_12">
+<path d="M 307.312467 168.756239 
+L 307.312467 168.756239 
+L 307.312467 150.887148 
+L 307.312467 150.887148 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="patch_13">
+<path d="M 130.169609 198.538057 
+L 304.544609 198.538057 
+L 304.544609 180.668966 
+L 130.169609 180.668966 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_14">
+<path d="M 304.544609 198.538057 
+L 304.544609 198.538057 
+L 304.544609 180.668966 
+L 304.544609 180.668966 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="patch_15">
+<path d="M 130.169609 228.319875 
+L 130.169609 228.319875 
+L 130.169609 210.450784 
+L 130.169609 210.450784 
+z
+" clip-path="url(#p79bd771710)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_16">
+<path d="M 130.169609 228.319875 
+L 301.861917 228.319875 
+L 301.861917 210.450784 
+L 130.169609 210.450784 
+z
+" clip-path="url(#p79bd771710)" style="fill: #8dc63f"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 130.169609 238.147875 
+L 130.169609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m625c457729" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m625c457729" x="130.169609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="130.169609" y="255.31975" transform="rotate(-0 130.169609 255.31975)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 185.969609 238.147875 
+L 185.969609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m625c457729" x="185.969609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="185.969609" y="255.31975" transform="rotate(-0 185.969609 255.31975)">5</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 241.769609 238.147875 
+L 241.769609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m625c457729" x="241.769609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="241.769609" y="255.31975" transform="rotate(-0 241.769609 255.31975)">10</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 297.569609 238.147875 
+L 297.569609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m625c457729" x="297.569609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="297.569609" y="255.31975" transform="rotate(-0 297.569609 255.31975)">15</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 353.369609 238.147875 
+L 353.369609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m625c457729" x="353.369609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="353.369609" y="255.31975" transform="rotate(-0 353.369609 255.31975)">20</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 409.169609 238.147875 
+L 409.169609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m625c457729" x="409.169609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="409.169609" y="255.31975" transform="rotate(-0 409.169609 255.31975)">25</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 464.969609 238.147875 
+L 464.969609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m625c457729" x="464.969609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="464.969609" y="255.31975" transform="rotate(-0 464.969609 255.31975)">30</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 520.769609 238.147875 
+L 520.769609 21.931875 
+" clip-path="url(#p79bd771710)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m625c457729" x="520.769609" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="520.769609" y="255.31975" transform="rotate(-0 520.769609 255.31975)">35</text>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="342.209609" y="272.02434" transform="rotate(-0 342.209609 272.02434)">RRF score × 1000, Eq. (5) with k = 60</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_17">
+<defs>
+<path id="m5b60edaa95" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="40.69442" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="45.295983" transform="rotate(-0 123.169609 45.295983)">1. P2   BM25 #2, dense #2</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_18">
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="70.476239" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="75.077801" transform="rotate(-0 123.169609 75.077801)">2. P7   BM25 #1, dense #4</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_19">
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="100.258057" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="104.859619" transform="rotate(-0 123.169609 104.859619)">3. P1   BM25 #5, dense #3</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_20">
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="130.039875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="134.641438" transform="rotate(-0 123.169609 134.641438)">4. P5   BM25 –, dense #1</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="159.821693" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="164.423256" transform="rotate(-0 123.169609 164.423256)">5. P9   BM25 #3, dense –</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_22">
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="189.603511" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="194.205074" transform="rotate(-0 123.169609 194.205074)">6. P4   BM25 #4, dense –</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_23">
+<g>
+<use xlink:href="#m5b60edaa95" x="130.169609" y="219.38533" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="123.169609" y="223.986892" transform="rotate(-0 123.169609 223.986892)">7. P8   BM25 –, dense #5</text>
+</g>
+</g>
+</g>
+<g id="patch_17">
+<path d="M 130.169609 238.147875 
+L 130.169609 21.931875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_18">
+<path d="M 130.169609 238.147875 
+L 554.249609 238.147875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="494.633609" y="43.968346" transform="rotate(-0 494.633609 43.968346)">0.0323</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="491.959429" y="73.750164" transform="rotate(-0 491.959429 73.750164)">0.0320</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="483.468774" y="103.531983" transform="rotate(-0 483.468774 103.531983)">0.0313</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="317.584429" y="133.313801" transform="rotate(-0 317.584429 133.313801)">0.0164</text>
+</g>
+<g id="text_21">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="311.776467" y="163.095619" transform="rotate(-0 311.776467 163.095619)">0.0159</text>
+</g>
+<g id="text_22">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="309.008609" y="192.877437" transform="rotate(-0 309.008609 192.877437)">0.0156</text>
+</g>
+<g id="text_23">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="306.325917" y="222.659255" transform="rotate(-0 306.325917 222.659255)">0.0154</text>
+</g>
+<g id="text_24">
+<text style="font-weight: 600; font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="130.169609" y="15.931875" transform="rotate(-0 130.169609 15.931875)">Fused ranking (top to bottom)</text>
+</g>
+<g id="legend_1">
+<g id="patch_19">
+<path d="M 427.590078 212.487328 
+L 445.590078 212.487328 
+L 445.590078 206.187328 
+L 427.590078 206.187328 
+z
+" style="fill: #0b6fa4"/>
+</g>
+<g id="text_25">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="452.790078" y="212.487328" transform="rotate(-0 452.790078 212.487328)">BM25 term, 1/(60 + r)</text>
+</g>
+<g id="patch_20">
+<path d="M 427.590078 227.876977 
+L 445.590078 227.876977 
+L 445.590078 221.576977 
+L 427.590078 221.576977 
+z
+" style="fill: #8dc63f"/>
+</g>
+<g id="text_26">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="452.790078" y="227.876977" transform="rotate(-0 452.790078 227.876977)">Dense term, 1/(60 + r)</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p79bd771710">
+<rect x="130.169609" y="21.931875" width="424.08" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Worked example of reciprocal rank fusion, Eq. (5), with k = 60, for hypothetical BM25 and dense top-5 lists of passages P1–P9. Each bar is split into the contribution of each retriever; the labels give the passage's rank in each list. <span class="j-fig-src">Author's calculation from Eq. (5) for hypothetical rankings, with k = 60 as in [<a href="#ref-10" class="j-cite">10</a>].</span></figcaption></figure><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Principal retrieval families used in RAG pipelines.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Family</th><th>Representation and scoring</th><th>Strengths</th><th>Weaknesses</th></tr></thead><tbody><tr><td>Sparse (BM25)</td><td>Term-weighted bag of words; Eq. (4)</td><td>Exact matching of identifiers and rare terms; no training; robust zero-shot [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-9" class="j-cite">9</a>]</td><td>Vocabulary mismatch; no notion of paraphrase</td></tr><tr><td>Dense bi-encoder (DPR, sentence embeddings)</td><td>Single vector per text; inner product or cosine, Eq. (3)</td><td>Semantic matching; fast approximate search over precomputed vectors [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-11" class="j-cite">11</a>]</td><td>Domain shift; weaker on exact identifiers; needs an embedding model and index</td></tr><tr><td>Late interaction (ColBERT)</td><td>One vector per token; sum of maximum similarities</td><td>Finer-grained matching than single-vector models at moderate cost [<a href="#ref-12" class="j-cite">12</a>]</td><td>Larger index; more complex serving</td></tr><tr><td>Cross-encoder re-ranker</td><td>Query and passage encoded jointly; relevance score</td><td>Highest precision among these options [<a href="#ref-13" class="j-cite">13</a>]</td><td>Too slow for first-stage retrieval over a large corpus</td></tr><tr><td>Hybrid with RRF</td><td>Rank fusion of several retrievers; Eq. (5)</td><td>Combines lexical and semantic evidence without score calibration [<a href="#ref-10" class="j-cite">10</a>]</td><td>Extra latency and infrastructure for multiple indexes</td></tr></tbody></table></div><p class="j-table-note">Source: compiled from [<a href="#ref-8" class="j-cite">8</a>], [<a href="#ref-7" class="j-cite">7</a>], [<a href="#ref-12" class="j-cite">12</a>], [<a href="#ref-13" class="j-cite">13</a>] and [<a href="#ref-10" class="j-cite">10</a>].</p></figure><h3>3.4 Chunking Strategies</h3><p>Enterprise documents are usually too long to embed or place in a prompt in their entirety, so they are split into chunks before indexing. The chunk is simultaneously the unit of retrieval, the unit of embedding and the unit of evidence presented to the generator, and these roles pull in different directions: small chunks yield focused embeddings and precise citations but can separate a statement from the context that qualifies it, while large chunks preserve context but dilute the embedding and consume prompt budget [<a href="#ref-3" class="j-cite">3</a>]. Common strategies include fixed-length windows with overlap, splitting on document structure (headings, sections, table boundaries), recursive splitting that falls back from paragraphs to sentences, and semantic splitting at points where adjacent-sentence similarity drops. Gao et al. also describe small-to-big patterns, in which small units are retrieved but their enclosing section is passed to the generator, and the enrichment of chunks with metadata such as title, section path, date and access-control labels that can be used for filtering [<a href="#ref-3" class="j-cite">3</a>].</p><p>No chunking strategy is optimal across corpora, so chunking should be treated as a tunable parameter and evaluated with the retrieval metrics of Section 6. Tables, forms and scanned drawings require dedicated handling, because text extraction that flattens a table into a stream of cells destroys the row–column relationships on which the answer depends.</p><h3>3.5 Embedding Models and Vector Indexes</h3><p>Sentence-BERT established the now standard approach of fine-tuning a Transformer encoder in a Siamese configuration so that cosine similarity between pooled embeddings reflects semantic similarity, reducing the cost of pairwise similarity search from cross-encoding every pair to a single encoding per sentence [<a href="#ref-11" class="j-cite">11</a>]. The Massive Text Embedding Benchmark (MTEB) evaluates embedding models across retrieval, classification, clustering, re-ranking, semantic similarity and other tasks, and found that no single model dominated across all tasks [<a href="#ref-14" class="j-cite">14</a>]. Public leaderboard rank is therefore only a starting point: an embedding model should be selected by measuring retrieval quality on a sample of the organization's own queries and documents, with attention to language coverage, maximum input length, embedding dimension (which drives index size) and whether the model can be hosted within the organization's data-residency constraints.</p><p>Exact nearest neighbor search scales linearly with corpus size, so production systems use approximate nearest neighbor (ANN) indexes. Hierarchical Navigable Small World (HNSW) graphs organize vectors into a multi-layer proximity graph in which upper layers contain progressively sparser subsets of points; a search starts at the top layer and greedily descends, giving logarithmic complexity scaling in the authors' evaluation and strong recall–speed trade-offs [<a href="#ref-15" class="j-cite">15</a>]. The FAISS library provides GPU implementations of inverted-file and product-quantization indexes that compress vectors and make billion-scale search feasible [<a href="#ref-16" class="j-cite">16</a>]. ANN parameters, such as the HNSW graph degree and search breadth, trade recall for latency and memory; because a missed neighbor at this stage cannot be recovered by later stages, index recall should be measured against exact search on a held-out query sample.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Re-ranking and Query Transformation</h2><h3>4.1 Cross-Encoders and Late Interaction</h3><p>First-stage retrievers are optimized for recall at low cost. A second-stage re-ranker then reorders a candidate set of, typically, tens to hundreds of passages using a more expensive model. Nogueira and Cho showed that a BERT cross-encoder, which concatenates query and passage and predicts relevance from the joint representation, substantially improved passage ranking on the MS MARCO benchmark over prior methods [<a href="#ref-13" class="j-cite">13</a>]. Because the cross-encoder must process every query–passage pair, it is applied only to the candidates returned by the first stage.</p><p>ColBERT occupies a middle ground. It encodes queries and documents independently into one embedding per token and computes relevance by late interaction: for each query token it takes the maximum similarity over document tokens and sums these maxima. Document token embeddings can be precomputed, so ColBERT retains much of the expressiveness of token-level interaction while remaining far cheaper than a cross-encoder at query time [<a href="#ref-12" class="j-cite">12</a>]. In practice a two- or three-stage cascade, hybrid retrieval followed by a learned re-ranker, is the most common way to raise precision in the top few positions that the generator actually reads.</p><h3>4.2 Query Rewriting and HyDE</h3><p>User questions are often short, ambiguous or phrased differently from the documents that answer them. Query transformation techniques rewrite the query before retrieval: expanding acronyms, decomposing multi-part questions into sub-queries, generating several paraphrases whose results are fused with Eq. (5), or adding conversational context in multi-turn settings [<a href="#ref-3" class="j-cite">3</a>]. Hypothetical Document Embeddings (HyDE) take this further. An instruction-following LLM is asked to write a hypothetical document that answers the query; this document may contain false details, but it captures the relevance pattern. It is then encoded with an unsupervised contrastive encoder, and real documents near its embedding are retrieved, so that the encoder's dense bottleneck grounds the hypothetical text in the actual corpus [<a href="#ref-17" class="j-cite">17</a>]. Gao et al. reported that HyDE significantly outperformed the unsupervised Contriever retriever and was comparable to fine-tuned retrievers across web search, question answering and fact verification tasks [<a href="#ref-17" class="j-cite">17</a>]. Query rewriting adds an LLM call to the critical path, so its latency and cost must be justified by measured retrieval gains.</p><aside class="j-callout"><p>The generator can only use what the retriever surfaces in the top <em>k</em> positions. Investment in hybrid retrieval, re-ranking and chunking usually yields larger and more measurable gains than changes to the prompt or the generator model.</p></aside></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Advanced Patterns and Long Context</h2><h3>5.1 Self-RAG and Corrective RAG</h3><p>A fixed pipeline retrieves a fixed number of passages for every query, whether or not retrieval is needed and whether or not the passages are relevant. Self-RAG trains a single LM to retrieve on demand and to generate special reflection tokens that critique whether retrieval is needed, whether each retrieved passage is relevant, whether the generated segment is supported by it, and how useful the response is. Because reflection tokens are explicit, behavior can be tuned at inference time; Asai et al. reported that Self-RAG models with 7 and 13 billion parameters outperformed ChatGPT and retrieval-augmented Llama 2-chat on open-domain question answering, reasoning and fact verification, with gains in factuality and citation accuracy for long-form generation [<a href="#ref-18" class="j-cite">18</a>].</p><p>Corrective RAG (CRAG) addresses the case in which retrieval goes wrong. A lightweight retrieval evaluator assigns a confidence to the retrieved set for a query; depending on this confidence, the system uses the documents, discards them and falls back to web search, or combines both. A decompose-then-recompose step filters retrieved documents down to their relevant parts [<a href="#ref-19" class="j-cite">19</a>]. CRAG is designed as a plug-in to existing pipelines. For enterprise use, the important idea is the explicit retrieval-quality gate; the web-search fallback is frequently inappropriate for confidential questions and is better replaced by an abstention or escalation path.</p><h3>5.2 GraphRAG</h3><p>Conventional RAG retrieves passages that are locally similar to the query. It therefore performs poorly on global sensemaking questions directed at an entire corpus, such as "What are the main themes in this dataset?", which are query-focused summarization tasks rather than retrieval tasks. GraphRAG uses an LLM to build a graph index in two stages: it extracts an entity knowledge graph from the source documents and then pregenerates summaries for communities of closely related entities. At query time, each community summary contributes a partial answer, and the partial answers are summarized into a final response [<a href="#ref-20" class="j-cite">20</a>]. For global questions over datasets in the one-million-token range, Edge et al. reported substantial improvements over a conventional RAG baseline in the comprehensiveness and diversity of answers [<a href="#ref-20" class="j-cite">20</a>]. The approach has a significant indexing cost, because the LLM must read the entire corpus, so it is best reserved for corpora and question types where global synthesis is a stated requirement.</p><h3>5.3 Long Context Versus Retrieval</h3><p>As context windows have grown, a recurring question is whether retrieval is still needed when an entire document collection can be placed in the prompt. Two lines of evidence suggest that it is. Liu et al. found that language models' performance on multi-document question answering and key-value retrieval was often highest when relevant information was at the beginning or end of the input and degraded significantly when it was in the middle, even for models designed for long contexts [<a href="#ref-21" class="j-cite">21</a>]. Xu et al. compared retrieval augmentation with context-window extension using a 43-billion-parameter GPT model and Llama 2-70B; an LLM with a 4K window and simple retrieval achieved performance comparable to a model fine-tuned for a 16K window on long-context tasks with much less computation, and retrieval improved performance regardless of the extended window size [<a href="#ref-22" class="j-cite">22</a>].</p><p>For enterprise systems there are additional, non-accuracy reasons to retrieve. Placing a large corpus in every prompt raises cost and latency per query, makes it difficult to enforce document-level access controls, and obscures which source supported an answer. A reasonable design position is to use long context to pass more complete retrieved units (whole sections rather than fragments) and to order the most relevant evidence at the start or end of the prompt, rather than to abandon retrieval [<a href="#ref-21" class="j-cite">21</a>, <a href="#ref-22" class="j-cite">22</a>].</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Evaluation</h2><h3>6.1 Retrieval Metrics</h3><p>Evaluation should separate the retrieval stage from the generation stage, because a single end-to-end score cannot distinguish a missing document from a misread one. Retrieval is evaluated against a set of queries <em>Q</em> with known relevant passages. Recall at cutoff <em>k</em> measures the fraction of relevant items for query <em>q</em>, Rel(<em>q</em>), that appear among the top <em>k</em> results, Ret<sub><em>k</em></sub>(<em>q</em>); mean reciprocal rank (MRR) averages the reciprocal of the rank of the first relevant result:</p><div class="j-eq" role="math"><span class="j-eq-body">Recall@<em>k</em> = (1/|<em>Q</em>|) Σ<sub><em>q</em> ∈ <em>Q</em></sub> |Rel(<em>q</em>) ∩ Ret<sub><em>k</em></sub>(<em>q</em>)| / |Rel(<em>q</em>)|,    MRR = (1/|<em>Q</em>|) Σ<sub><em>q</em> ∈ <em>Q</em></sub> 1 / rank<sub><em>q</em></sub></span><span class="j-eq-n">(6)</span></div><p>Graded relevance judgments are handled by discounted cumulative gain, which rewards relevant results more when they appear higher in the ranking [<a href="#ref-23" class="j-cite">23</a>]. With graded relevance <em>rel</em><sub><em>i</em></sub> at position <em>i</em>, a widely used form is:</p><div class="j-eq" role="math"><span class="j-eq-body">DCG@<em>k</em> = Σ<sub><em>i</em>=1</sub><sup><em>k</em></sup> (2<sup><em>rel</em><sub><em>i</em></sub></sup> − 1) / log<sub>2</sub>(<em>i</em> + 1),    nDCG@<em>k</em> = DCG@<em>k</em> / IDCG@<em>k</em></span><span class="j-eq-n">(7)</span></div><p>where IDCG@<em>k</em> is the DCG of the ideal ordering, so that nDCG lies between 0 and 1. Järvelin and Kekäläinen's original formulation used a logarithmic discount applied after a chosen rank; the exponential-gain variant in Eq. (7) is common in modern benchmarks and emphasizes highly relevant documents [<a href="#ref-23" class="j-cite">23</a>, <a href="#ref-9" class="j-cite">9</a>]. For RAG, recall@<em>k</em> at the value of <em>k</em> actually passed to the generator is the most directly interpretable metric, because it bounds the information available for generation, while MRR and nDCG indicate whether the best evidence appears early enough to avoid the position effects of Section 5.3. Figure 3 illustrates the difference for one query: re-ranking the same ten candidates leaves recall@10 unchanged but raises recall@5 from 0.67 to 1.00 and nDCG@5 from 0.43 to 0.98.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 570.328496 322.520517" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Top: two rows of ten rank cells showing relevance grades; ordering A has relevant passages at ranks 2, 5 and 9, ordering B at ranks 1, 2 and 4. Bottom left: recall at k reaches 1.0 at k = 4 for B but only at k = 9 for A, with 0.67 versus 1.00 at k = 5. Bottom right: nDCG at k is about 0.98 for B from k = 4 onward, while A stays between 0 and 0.51, with 0.43 at k = 5.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 322.520517 
+L 570.328496 322.520517 
+L 570.328496 0 
+L 0 0 
+L 0 322.520517 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 153.133496 30.653347 
+L 181.382246 30.653347 
+Q 184.520996 30.653347 184.520996 28.980356 
+L 184.520996 15.596426 
+Q 184.520996 13.923435 181.382246 13.923435 
+L 153.133496 13.923435 
+Q 149.994746 13.923435 149.994746 15.596426 
+L 149.994746 28.980356 
+Q 149.994746 30.653347 153.133496 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 192.367871 30.653347 
+L 220.616621 30.653347 
+Q 223.755371 30.653347 223.755371 28.980356 
+L 223.755371 15.596426 
+Q 223.755371 13.923435 220.616621 13.923435 
+L 192.367871 13.923435 
+Q 189.229121 13.923435 189.229121 15.596426 
+L 189.229121 28.980356 
+Q 189.229121 30.653347 192.367871 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #b9dcf2; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 231.602246 30.653347 
+L 259.850996 30.653347 
+Q 262.989746 30.653347 262.989746 28.980356 
+L 262.989746 15.596426 
+Q 262.989746 13.923435 259.850996 13.923435 
+L 231.602246 13.923435 
+Q 228.463496 13.923435 228.463496 15.596426 
+L 228.463496 28.980356 
+Q 228.463496 30.653347 231.602246 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 270.836621 30.653347 
+L 299.085371 30.653347 
+Q 302.224121 30.653347 302.224121 28.980356 
+L 302.224121 15.596426 
+Q 302.224121 13.923435 299.085371 13.923435 
+L 270.836621 13.923435 
+Q 267.697871 13.923435 267.697871 15.596426 
+L 267.697871 28.980356 
+Q 267.697871 30.653347 270.836621 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 310.070996 30.653347 
+L 338.319746 30.653347 
+Q 341.458496 30.653347 341.458496 28.980356 
+L 341.458496 15.596426 
+Q 341.458496 13.923435 338.319746 13.923435 
+L 310.070996 13.923435 
+Q 306.932246 13.923435 306.932246 15.596426 
+L 306.932246 28.980356 
+Q 306.932246 30.653347 310.070996 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #0b6fa4; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 349.305371 30.653347 
+L 377.554121 30.653347 
+Q 380.692871 30.653347 380.692871 28.980356 
+L 380.692871 15.596426 
+Q 380.692871 13.923435 377.554121 13.923435 
+L 349.305371 13.923435 
+Q 346.166621 13.923435 346.166621 15.596426 
+L 346.166621 28.980356 
+Q 346.166621 30.653347 349.305371 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 388.539746 30.653347 
+L 416.788496 30.653347 
+Q 419.927246 30.653347 419.927246 28.980356 
+L 419.927246 15.596426 
+Q 419.927246 13.923435 416.788496 13.923435 
+L 388.539746 13.923435 
+Q 385.400996 13.923435 385.400996 15.596426 
+L 385.400996 28.980356 
+Q 385.400996 30.653347 388.539746 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 427.774121 30.653347 
+L 456.022871 30.653347 
+Q 459.161621 30.653347 459.161621 28.980356 
+L 459.161621 15.596426 
+Q 459.161621 13.923435 456.022871 13.923435 
+L 427.774121 13.923435 
+Q 424.635371 13.923435 424.635371 15.596426 
+L 424.635371 28.980356 
+Q 424.635371 30.653347 427.774121 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_10">
+<path d="M 467.008496 30.653347 
+L 495.257246 30.653347 
+Q 498.395996 30.653347 498.395996 28.980356 
+L 498.395996 15.596426 
+Q 498.395996 13.923435 495.257246 13.923435 
+L 467.008496 13.923435 
+Q 463.869746 13.923435 463.869746 15.596426 
+L 463.869746 28.980356 
+Q 463.869746 30.653347 467.008496 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #b9dcf2; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_11">
+<path d="M 506.242871 30.653347 
+L 534.491621 30.653347 
+Q 537.630371 30.653347 537.630371 28.980356 
+L 537.630371 15.596426 
+Q 537.630371 13.923435 534.491621 13.923435 
+L 506.242871 13.923435 
+Q 503.104121 13.923435 503.104121 15.596426 
+L 503.104121 28.980356 
+Q 503.104121 30.653347 506.242871 30.653347 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 153.133496 54.702596 
+L 181.382246 54.702596 
+Q 184.520996 54.702596 184.520996 53.029605 
+L 184.520996 39.645675 
+Q 184.520996 37.972684 181.382246 37.972684 
+L 153.133496 37.972684 
+Q 149.994746 37.972684 149.994746 39.645675 
+L 149.994746 53.029605 
+Q 149.994746 54.702596 153.133496 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #0b6fa4; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_13">
+<path d="M 192.367871 54.702596 
+L 220.616621 54.702596 
+Q 223.755371 54.702596 223.755371 53.029605 
+L 223.755371 39.645675 
+Q 223.755371 37.972684 220.616621 37.972684 
+L 192.367871 37.972684 
+Q 189.229121 37.972684 189.229121 39.645675 
+L 189.229121 53.029605 
+Q 189.229121 54.702596 192.367871 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #b9dcf2; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_14">
+<path d="M 231.602246 54.702596 
+L 259.850996 54.702596 
+Q 262.989746 54.702596 262.989746 53.029605 
+L 262.989746 39.645675 
+Q 262.989746 37.972684 259.850996 37.972684 
+L 231.602246 37.972684 
+Q 228.463496 37.972684 228.463496 39.645675 
+L 228.463496 53.029605 
+Q 228.463496 54.702596 231.602246 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_15">
+<path d="M 270.836621 54.702596 
+L 299.085371 54.702596 
+Q 302.224121 54.702596 302.224121 53.029605 
+L 302.224121 39.645675 
+Q 302.224121 37.972684 299.085371 37.972684 
+L 270.836621 37.972684 
+Q 267.697871 37.972684 267.697871 39.645675 
+L 267.697871 53.029605 
+Q 267.697871 54.702596 270.836621 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #b9dcf2; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_16">
+<path d="M 310.070996 54.702596 
+L 338.319746 54.702596 
+Q 341.458496 54.702596 341.458496 53.029605 
+L 341.458496 39.645675 
+Q 341.458496 37.972684 338.319746 37.972684 
+L 310.070996 37.972684 
+Q 306.932246 37.972684 306.932246 39.645675 
+L 306.932246 53.029605 
+Q 306.932246 54.702596 310.070996 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_17">
+<path d="M 349.305371 54.702596 
+L 377.554121 54.702596 
+Q 380.692871 54.702596 380.692871 53.029605 
+L 380.692871 39.645675 
+Q 380.692871 37.972684 377.554121 37.972684 
+L 349.305371 37.972684 
+Q 346.166621 37.972684 346.166621 39.645675 
+L 346.166621 53.029605 
+Q 346.166621 54.702596 349.305371 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_18">
+<path d="M 388.539746 54.702596 
+L 416.788496 54.702596 
+Q 419.927246 54.702596 419.927246 53.029605 
+L 419.927246 39.645675 
+Q 419.927246 37.972684 416.788496 37.972684 
+L 388.539746 37.972684 
+Q 385.400996 37.972684 385.400996 39.645675 
+L 385.400996 53.029605 
+Q 385.400996 54.702596 388.539746 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_19">
+<path d="M 427.774121 54.702596 
+L 456.022871 54.702596 
+Q 459.161621 54.702596 459.161621 53.029605 
+L 459.161621 39.645675 
+Q 459.161621 37.972684 456.022871 37.972684 
+L 427.774121 37.972684 
+Q 424.635371 37.972684 424.635371 39.645675 
+L 424.635371 53.029605 
+Q 424.635371 54.702596 427.774121 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_20">
+<path d="M 467.008496 54.702596 
+L 495.257246 54.702596 
+Q 498.395996 54.702596 498.395996 53.029605 
+L 498.395996 39.645675 
+Q 498.395996 37.972684 495.257246 37.972684 
+L 467.008496 37.972684 
+Q 463.869746 37.972684 463.869746 39.645675 
+L 463.869746 53.029605 
+Q 463.869746 54.702596 467.008496 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_21">
+<path d="M 506.242871 54.702596 
+L 534.491621 54.702596 
+Q 537.630371 54.702596 537.630371 53.029605 
+L 537.630371 39.645675 
+Q 537.630371 37.972684 534.491621 37.972684 
+L 506.242871 37.972684 
+Q 503.104121 37.972684 503.104121 39.645675 
+L 503.104121 53.029605 
+Q 503.104121 54.702596 506.242871 54.702596 
+z
+" clip-path="url(#p028dca106d)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #0b2a5a" x="141.755527" y="25.744202" transform="rotate(-0 141.755527 25.744202)">A: hybrid retrieval</text>
+</g>
+<g id="text_2">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="206.492246" y="25.562317" transform="rotate(-0 206.492246 25.562317)">1</text>
+</g>
+<g id="text_3">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="324.195371" y="25.562317" transform="rotate(-0 324.195371 25.562317)">2</text>
+</g>
+<g id="text_4">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="481.132871" y="25.562317" transform="rotate(-0 481.132871 25.562317)">1</text>
+</g>
+<g id="text_5">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #0b2a5a" x="141.755527" y="49.793451" transform="rotate(-0 141.755527 49.793451)">B: after re-ranking</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="167.257871" y="49.611566" transform="rotate(-0 167.257871 49.611566)">2</text>
+</g>
+<g id="text_7">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="206.492246" y="49.611566" transform="rotate(-0 206.492246 49.611566)">1</text>
+</g>
+<g id="text_8">
+<text style="font-weight: 700; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="284.960996" y="49.611566" transform="rotate(-0 284.960996 49.611566)">1</text>
+</g>
+<g id="text_9">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="167.257871" y="14.47875" transform="rotate(-0 167.257871 14.47875)">1</text>
+</g>
+<g id="text_10">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="206.492246" y="14.47875" transform="rotate(-0 206.492246 14.47875)">2</text>
+</g>
+<g id="text_11">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="245.726621" y="14.47875" transform="rotate(-0 245.726621 14.47875)">3</text>
+</g>
+<g id="text_12">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="284.960996" y="14.47875" transform="rotate(-0 284.960996 14.47875)">4</text>
+</g>
+<g id="text_13">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="324.195371" y="14.47875" transform="rotate(-0 324.195371 14.47875)">5</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="363.429746" y="14.47875" transform="rotate(-0 363.429746 14.47875)">6</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="402.664121" y="14.47875" transform="rotate(-0 402.664121 14.47875)">7</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="441.898496" y="14.47875" transform="rotate(-0 441.898496 14.47875)">8</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="481.132871" y="14.47875" transform="rotate(-0 481.132871 14.47875)">9</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="520.367246" y="14.47875" transform="rotate(-0 520.367246 14.47875)">10</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="545.86959" y="14.47875" transform="rotate(-0 545.86959 14.47875)">rank</text>
+</g>
+</g>
+<g id="axes_2">
+<g id="patch_22">
+<path d="M 45.631309 280.351337 
+L 265.894466 280.351337 
+L 265.894466 102.258722 
+L 45.631309 102.258722 
+L 45.631309 280.351337 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 55.64327 280.351337 
+L 55.64327 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m757d5780b6" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m757d5780b6" x="55.64327" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_20">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="55.64327" y="297.523212" transform="rotate(-0 55.64327 297.523212)">1</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 77.892074 280.351337 
+L 77.892074 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m757d5780b6" x="77.892074" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_21">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="77.892074" y="297.523212" transform="rotate(-0 77.892074 297.523212)">2</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 100.140878 280.351337 
+L 100.140878 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m757d5780b6" x="100.140878" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_22">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="100.140878" y="297.523212" transform="rotate(-0 100.140878 297.523212)">3</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 122.389682 280.351337 
+L 122.389682 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m757d5780b6" x="122.389682" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="122.389682" y="297.523212" transform="rotate(-0 122.389682 297.523212)">4</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 144.638486 280.351337 
+L 144.638486 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m757d5780b6" x="144.638486" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="144.638486" y="297.523212" transform="rotate(-0 144.638486 297.523212)">5</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 166.887289 280.351337 
+L 166.887289 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m757d5780b6" x="166.887289" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_25">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="166.887289" y="297.523212" transform="rotate(-0 166.887289 297.523212)">6</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 189.136093 280.351337 
+L 189.136093 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m757d5780b6" x="189.136093" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_26">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="189.136093" y="297.523212" transform="rotate(-0 189.136093 297.523212)">7</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 211.384897 280.351337 
+L 211.384897 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m757d5780b6" x="211.384897" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_27">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="211.384897" y="297.523212" transform="rotate(-0 211.384897 297.523212)">8</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 233.633701 280.351337 
+L 233.633701 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m757d5780b6" x="233.633701" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_28">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="233.633701" y="297.523212" transform="rotate(-0 233.633701 297.523212)">9</text>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_19">
+<path d="M 255.882505 280.351337 
+L 255.882505 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m757d5780b6" x="255.882505" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_29">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="255.882505" y="297.523212" transform="rotate(-0 255.882505 297.523212)">10</text>
+</g>
+</g>
+<g id="text_30">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="155.762888" y="314.227802" transform="rotate(-0 155.762888 314.227802)">Cutoff k</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_21">
+<path d="M 45.631309 280.351337 
+L 265.894466 280.351337 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<defs>
+<path id="m6f04d64d5d" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m6f04d64d5d" x="45.631309" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_31">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="285.437275" transform="rotate(-0 38.631309 285.437275)">0.0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_23">
+<path d="M 45.631309 247.371223 
+L 265.894466 247.371223 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m6f04d64d5d" x="45.631309" y="247.371223" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_32">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="252.457161" transform="rotate(-0 38.631309 252.457161)">0.2</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_25">
+<path d="M 45.631309 214.391109 
+L 265.894466 214.391109 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m6f04d64d5d" x="45.631309" y="214.391109" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_33">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="219.477047" transform="rotate(-0 38.631309 219.477047)">0.4</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_27">
+<path d="M 45.631309 181.410995 
+L 265.894466 181.410995 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m6f04d64d5d" x="45.631309" y="181.410995" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_34">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="186.496933" transform="rotate(-0 38.631309 186.496933)">0.6</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_29">
+<path d="M 45.631309 148.430881 
+L 265.894466 148.430881 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m6f04d64d5d" x="45.631309" y="148.430881" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_35">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="153.516819" transform="rotate(-0 38.631309 153.516819)">0.8</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_31">
+<path d="M 45.631309 115.450767 
+L 265.894466 115.450767 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m6f04d64d5d" x="45.631309" y="115.450767" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_36">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="120.536705" transform="rotate(-0 38.631309 120.536705)">1.0</text>
+</g>
+</g>
+<g id="text_37">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="191.305029" transform="rotate(-90 15.931875 191.305029)">Recall@k</text>
+</g>
+</g>
+<g id="line2d_33">
+<path d="M 55.64327 280.351337 
+L 77.892074 225.384481 
+L 100.140878 225.384481 
+L 122.389682 225.384481 
+L 144.638486 170.417624 
+L 166.887289 170.417624 
+L 189.136093 170.417624 
+L 211.384897 170.417624 
+L 233.633701 115.450767 
+L 255.882505 115.450767 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="mca64e55e6a" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p7153ebbb8f)">
+<use xlink:href="#mca64e55e6a" x="55.64327" y="280.351337" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="77.892074" y="225.384481" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="100.140878" y="225.384481" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="122.389682" y="225.384481" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="144.638486" y="170.417624" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="166.887289" y="170.417624" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="189.136093" y="170.417624" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="211.384897" y="170.417624" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="233.633701" y="115.450767" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="255.882505" y="115.450767" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_34">
+<path d="M 55.64327 225.384481 
+L 77.892074 170.417624 
+L 100.140878 170.417624 
+L 122.389682 115.450767 
+L 144.638486 115.450767 
+L 166.887289 115.450767 
+L 189.136093 115.450767 
+L 211.384897 115.450767 
+L 233.633701 115.450767 
+L 255.882505 115.450767 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="m5cbfebb16b" d="M -2 2 
+L 2 2 
+L 2 -2 
+L -2 -2 
+z
+" style="stroke: #0b6fa4; stroke-linejoin: miter"/>
+</defs>
+<g clip-path="url(#p7153ebbb8f)">
+<use xlink:href="#m5cbfebb16b" x="55.64327" y="225.384481" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="77.892074" y="170.417624" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="100.140878" y="170.417624" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="122.389682" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="144.638486" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="166.887289" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="189.136093" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="211.384897" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="233.633701" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="255.882505" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+</g>
+<g id="line2d_35">
+<path d="M 144.638486 280.351337 
+L 144.638486 102.258722 
+" clip-path="url(#p7153ebbb8f)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #8a94a6"/>
+</g>
+<g id="patch_23">
+<path d="M 45.631309 280.351337 
+L 45.631309 102.258722 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_24">
+<path d="M 45.631309 280.351337 
+L 265.894466 280.351337 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_38">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(149.088246 256.269643)">k passed to</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(149.088246 267.159292)">generator = 5</text>
+</g>
+<g id="text_39">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #e07a3a" x="120.638486" y="164.417624" transform="rotate(-0 120.638486 164.417624)">0.67</text>
+</g>
+<g id="text_40">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="120.638486" y="109.450767" transform="rotate(-0 120.638486 109.450767)">1.00</text>
+</g>
+<g id="text_41">
+<text style="font-weight: 600; font-size: 11.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="155.762888" y="96.258722" transform="rotate(-0 155.762888 96.258722)">(a) Recall@k, Eq. (6)</text>
+</g>
+</g>
+<g id="axes_3">
+<g id="patch_25">
+<path d="M 327.568151 280.351337 
+L 547.831309 280.351337 
+L 547.831309 102.258722 
+L 327.568151 102.258722 
+L 327.568151 280.351337 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_3">
+<g id="xtick_11">
+<g id="line2d_36">
+<path d="M 337.580112 280.351337 
+L 337.580112 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_37">
+<g>
+<use xlink:href="#m757d5780b6" x="337.580112" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_42">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="337.580112" y="297.523212" transform="rotate(-0 337.580112 297.523212)">1</text>
+</g>
+</g>
+<g id="xtick_12">
+<g id="line2d_38">
+<path d="M 359.828916 280.351337 
+L 359.828916 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_39">
+<g>
+<use xlink:href="#m757d5780b6" x="359.828916" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_43">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="359.828916" y="297.523212" transform="rotate(-0 359.828916 297.523212)">2</text>
+</g>
+</g>
+<g id="xtick_13">
+<g id="line2d_40">
+<path d="M 382.07772 280.351337 
+L 382.07772 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_41">
+<g>
+<use xlink:href="#m757d5780b6" x="382.07772" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_44">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="382.07772" y="297.523212" transform="rotate(-0 382.07772 297.523212)">3</text>
+</g>
+</g>
+<g id="xtick_14">
+<g id="line2d_42">
+<path d="M 404.326524 280.351337 
+L 404.326524 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_43">
+<g>
+<use xlink:href="#m757d5780b6" x="404.326524" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_45">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="404.326524" y="297.523212" transform="rotate(-0 404.326524 297.523212)">4</text>
+</g>
+</g>
+<g id="xtick_15">
+<g id="line2d_44">
+<path d="M 426.575328 280.351337 
+L 426.575328 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_45">
+<g>
+<use xlink:href="#m757d5780b6" x="426.575328" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_46">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="426.575328" y="297.523212" transform="rotate(-0 426.575328 297.523212)">5</text>
+</g>
+</g>
+<g id="xtick_16">
+<g id="line2d_46">
+<path d="M 448.824132 280.351337 
+L 448.824132 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_47">
+<g>
+<use xlink:href="#m757d5780b6" x="448.824132" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_47">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="448.824132" y="297.523212" transform="rotate(-0 448.824132 297.523212)">6</text>
+</g>
+</g>
+<g id="xtick_17">
+<g id="line2d_48">
+<path d="M 471.072935 280.351337 
+L 471.072935 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_49">
+<g>
+<use xlink:href="#m757d5780b6" x="471.072935" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_48">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="471.072935" y="297.523212" transform="rotate(-0 471.072935 297.523212)">7</text>
+</g>
+</g>
+<g id="xtick_18">
+<g id="line2d_50">
+<path d="M 493.321739 280.351337 
+L 493.321739 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_51">
+<g>
+<use xlink:href="#m757d5780b6" x="493.321739" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_49">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="493.321739" y="297.523212" transform="rotate(-0 493.321739 297.523212)">8</text>
+</g>
+</g>
+<g id="xtick_19">
+<g id="line2d_52">
+<path d="M 515.570543 280.351337 
+L 515.570543 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_53">
+<g>
+<use xlink:href="#m757d5780b6" x="515.570543" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_50">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="515.570543" y="297.523212" transform="rotate(-0 515.570543 297.523212)">9</text>
+</g>
+</g>
+<g id="xtick_20">
+<g id="line2d_54">
+<path d="M 537.819347 280.351337 
+L 537.819347 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_55">
+<g>
+<use xlink:href="#m757d5780b6" x="537.819347" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_51">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="537.819347" y="297.523212" transform="rotate(-0 537.819347 297.523212)">10</text>
+</g>
+</g>
+<g id="text_52">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="437.69973" y="314.227802" transform="rotate(-0 437.69973 314.227802)">Cutoff k</text>
+</g>
+</g>
+<g id="matplotlib.axis_4">
+<g id="ytick_7">
+<g id="line2d_56">
+<path d="M 327.568151 280.351337 
+L 547.831309 280.351337 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_57">
+<g>
+<use xlink:href="#m6f04d64d5d" x="327.568151" y="280.351337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_53">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="320.568151" y="285.437275" transform="rotate(-0 320.568151 285.437275)">0.0</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_58">
+<path d="M 327.568151 247.371223 
+L 547.831309 247.371223 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_59">
+<g>
+<use xlink:href="#m6f04d64d5d" x="327.568151" y="247.371223" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_54">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="320.568151" y="252.457161" transform="rotate(-0 320.568151 252.457161)">0.2</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_60">
+<path d="M 327.568151 214.391109 
+L 547.831309 214.391109 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_61">
+<g>
+<use xlink:href="#m6f04d64d5d" x="327.568151" y="214.391109" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_55">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="320.568151" y="219.477047" transform="rotate(-0 320.568151 219.477047)">0.4</text>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_62">
+<path d="M 327.568151 181.410995 
+L 547.831309 181.410995 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_63">
+<g>
+<use xlink:href="#m6f04d64d5d" x="327.568151" y="181.410995" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_56">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="320.568151" y="186.496933" transform="rotate(-0 320.568151 186.496933)">0.6</text>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_64">
+<path d="M 327.568151 148.430881 
+L 547.831309 148.430881 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_65">
+<g>
+<use xlink:href="#m6f04d64d5d" x="327.568151" y="148.430881" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_57">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="320.568151" y="153.516819" transform="rotate(-0 320.568151 153.516819)">0.8</text>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_66">
+<path d="M 327.568151 115.450767 
+L 547.831309 115.450767 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_67">
+<g>
+<use xlink:href="#m6f04d64d5d" x="327.568151" y="115.450767" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_58">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="320.568151" y="120.536705" transform="rotate(-0 320.568151 120.536705)">1.0</text>
+</g>
+</g>
+<g id="text_59">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="297.868717" y="191.305029" transform="rotate(-90 297.868717 191.305029)">nDCG@k</text>
+</g>
+</g>
+<g id="line2d_68">
+<path d="M 337.580112 280.351337 
+L 359.828916 251.697333 
+L 382.07772 255.16556 
+L 404.326524 255.16556 
+L 426.575328 208.837795 
+L 448.824132 208.837795 
+L 471.072935 208.837795 
+L 493.321739 208.837795 
+L 515.570543 196.821125 
+L 537.819347 196.821125 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+<g clip-path="url(#pf2de8065b7)">
+<use xlink:href="#mca64e55e6a" x="337.580112" y="280.351337" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="359.828916" y="251.697333" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="382.07772" y="255.16556" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="404.326524" y="255.16556" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="426.575328" y="208.837795" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="448.824132" y="208.837795" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="471.072935" y="208.837795" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="493.321739" y="208.837795" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="515.570543" y="196.821125" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#mca64e55e6a" x="537.819347" y="196.821125" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_69">
+<path d="M 337.580112 115.450767 
+L 359.828916 115.450767 
+L 382.07772 135.410023 
+L 404.326524 118.218056 
+L 426.575328 118.218056 
+L 448.824132 118.218056 
+L 471.072935 118.218056 
+L 493.321739 118.218056 
+L 515.570543 118.218056 
+L 537.819347 118.218056 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<g clip-path="url(#pf2de8065b7)">
+<use xlink:href="#m5cbfebb16b" x="337.580112" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="359.828916" y="115.450767" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="382.07772" y="135.410023" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="404.326524" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="426.575328" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="448.824132" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="471.072935" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="493.321739" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="515.570543" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+<use xlink:href="#m5cbfebb16b" x="537.819347" y="118.218056" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+</g>
+<g id="line2d_70">
+<path d="M 426.575328 280.351337 
+L 426.575328 102.258722 
+" clip-path="url(#pf2de8065b7)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #8a94a6"/>
+</g>
+<g id="patch_26">
+<path d="M 327.568151 280.351337 
+L 327.568151 102.258722 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_27">
+<path d="M 327.568151 280.351337 
+L 547.831309 280.351337 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_60">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #e07a3a" x="432.575328" y="220.837795" transform="rotate(-0 432.575328 220.837795)">0.43</text>
+</g>
+<g id="text_61">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="432.575328" y="130.218056" transform="rotate(-0 432.575328 130.218056)">0.98</text>
+</g>
+<g id="text_62">
+<text style="font-weight: 600; font-size: 11.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="437.69973" y="96.258722" transform="rotate(-0 437.69973 96.258722)">(b) nDCG@k, Eq. (7)</text>
+</g>
+<g id="legend_1">
+<g id="line2d_71">
+<path d="M 437.076465 251.54079 
+L 446.076465 251.54079 
+L 455.076465 251.54079 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#mca64e55e6a" x="446.076465" y="251.54079" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="text_63">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="462.276465" y="254.69079" transform="rotate(-0 462.276465 254.69079)">A: hybrid retrieval</text>
+</g>
+<g id="line2d_72">
+<path d="M 437.076465 266.930439 
+L 446.076465 266.930439 
+L 455.076465 266.930439 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m5cbfebb16b" x="446.076465" y="266.930439" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+</g>
+<g id="text_64">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="462.276465" y="270.080439" transform="rotate(-0 462.276465 270.080439)">B: after re-ranking</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p028dca106d">
+<rect x="45.631309" y="8.695337" width="502.2" height="50.189737"/>
+</clipPath>
+<clipPath id="p7153ebbb8f">
+<rect x="45.631309" y="102.258722" width="220.263158" height="178.092616"/>
+</clipPath>
+<clipPath id="pf2de8065b7">
+<rect x="327.568151" y="102.258722" width="220.263158" height="178.092616"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Recall@k and nDCG@k from Eqs. (6) and (7) for one hypothetical query with three relevant passages (graded 2, 1 and 1). Ordering A is a first-stage hybrid list; ordering B is the same ten candidates after re-ranking. The dashed line marks the five passages passed to the generator. <span class="j-fig-src">Author's calculation from Eqs. (6) and (7) for hypothetical relevance judgments.</span></figcaption></figure><h3>6.2 Generation Metrics and RAGAS</h3><p>Generation quality has several dimensions that must be measured separately: whether the answer is supported by the retrieved context, whether it addresses the question, and whether the context itself was relevant and focused. RAGAS proposes reference-free metrics for these three aspects, named faithfulness, answer relevance and context relevance, computed with an LLM so that they do not require human-written ground-truth answers [<a href="#ref-24" class="j-cite">24</a>]. Faithfulness is computed by having an LLM decompose the answer into a set of statements <em>S</em> and then judge, for each statement, whether it can be inferred from the context; with <em>V</em> the set of supported statements:</p><div class="j-eq" role="math"><span class="j-eq-body"><em>F</em> = |<em>V</em>| / |<em>S</em>|</span><span class="j-eq-n">(8)</span></div><p>Answer relevance is computed by generating candidate questions from the answer and averaging their embedding similarity with the original question [<a href="#ref-24" class="j-cite">24</a>]. LLM-based judges are convenient for rapid iteration, but they are themselves models with errors and biases, so their agreement with human judgments should be measured on a sample of the organization's own data before their scores are used as release criteria. A practical evaluation set combines a few hundred representative questions with labeled relevant passages and reference answers, a smaller adversarial set (unanswerable questions, conflicting sources, questions that require tables), and production logs sampled for periodic human review.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Failure Analysis</h2><p>Barnett et al. reported an experience study of three RAG systems in research, education and biomedical domains and identified seven failure points (FP) [<a href="#ref-25" class="j-cite">25</a>]. Two of their conclusions are particularly relevant to enterprise programs: validation of a RAG system is only feasible during operation, and robustness evolves through operation rather than being designed in at the start [<a href="#ref-25" class="j-cite">25</a>]. Table 2 lists the failure points, the pipeline stage where each originates, the metrics from Section 6 that expose it, and common mitigations.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Failure points of RAG systems mapped to pipeline stages, diagnostic signals and mitigations.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Failure point</th><th>Stage</th><th>Diagnostic signal</th><th>Typical mitigations</th></tr></thead><tbody><tr><td>FP1 Missing content: the question cannot be answered from the corpus, but the system answers anyway</td><td>Corpus and ingestion</td><td>Unanswerable test questions answered with confidence</td><td>Coverage audits; explicit abstention instructions; retrieval-confidence gate [<a href="#ref-19" class="j-cite">19</a>]</td></tr><tr><td>FP2 Missed the top-ranked documents: the answer exists but ranks below the cutoff</td><td>Retrieval</td><td>Low recall@<em>k</em> (Eq. 6)</td><td>Hybrid search with RRF; better embeddings; tuning <em>k</em> and ANN recall [<a href="#ref-10" class="j-cite">10</a>, <a href="#ref-15" class="j-cite">15</a>]</td></tr><tr><td>FP3 Not in context: retrieved documents with the answer are dropped during consolidation</td><td>Context assembly</td><td>Relevant passage retrieved but absent from the final prompt</td><td>Re-ranking before truncation; budget-aware packing; small-to-big expansion [<a href="#ref-13" class="j-cite">13</a>, <a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>FP4 Not extracted: the answer is in the context but the LLM fails to extract it</td><td>Generation</td><td>Low answer correctness with high context recall</td><td>Fewer, cleaner passages; evidence placed at prompt start or end; conflict detection [<a href="#ref-21" class="j-cite">21</a>]</td></tr><tr><td>FP5 Wrong format: the requested format (for example, a table or list) is ignored</td><td>Generation</td><td>Schema or format validation failures</td><td>Structured-output constraints; output validators with retry</td></tr><tr><td>FP6 Incorrect specificity: the answer is too general or too specific</td><td>Query understanding and generation</td><td>Human review; answer-relevance scores [<a href="#ref-24" class="j-cite">24</a>]</td><td>Query rewriting and clarification; user-role context [<a href="#ref-17" class="j-cite">17</a>]</td></tr><tr><td>FP7 Incomplete: available information is omitted</td><td>Generation</td><td>Partial matches against reference answers</td><td>Query decomposition; multi-passage aggregation [<a href="#ref-5" class="j-cite">5</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: failure points from [<a href="#ref-25" class="j-cite">25</a>]; diagnostic and mitigation mapping by the author, drawing on the cited works.</p></figure><p>Several failure points compound. A chunking choice that separates a table from its header (Section 3.4) produces FP2 at retrieval and FP4 at generation; a retriever that returns many near-duplicate passages pushes the decisive passage out of the prompt and produces FP3. Diagnosis therefore benefits from logging every intermediate artifact for each query: the rewritten query, the candidates from each retriever with their scores, the re-ranked list, the final prompt and the response. With these traces, a failed answer can be attributed to the earliest stage at which the relevant evidence was lost.</p><aside class="j-callout"><p>Measure retrieval and generation separately. If the relevant passage is not in the prompt, the fault lies upstream of the generator, and prompt changes will not repair it; if it is in the prompt but the answer is wrong, retrieval changes will not repair it.</p></aside></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Security and Privacy</h2><h3>8.1 Indirect Prompt Injection and Knowledge Poisoning</h3><p>A RAG system executes a language model over text that it did not author. Greshake et al. demonstrated that adversaries can place instructions in content that an LLM-integrated application later retrieves, such as web pages, e-mails or documents, and thereby manipulate the application's behavior without direct access to the prompt; their taxonomy of impacts includes data theft, worming and information ecosystem contamination, and they showed that processing retrieved prompts can manipulate an application's functionality and control whether and how other APIs are called [<a href="#ref-26" class="j-cite">26</a>]. Retrieved content must therefore be treated as untrusted data, never as instructions, and this principle must be enforced architecturally: tool permissions available to a RAG agent should be limited to what the use case needs, and actions with external effects should require confirmation.</p><p>Knowledge poisoning targets the corpus rather than the prompt. PoisonedRAG formulates the injection of malicious texts into a knowledge database as an optimization problem, so that a chosen question retrieves the attacker's text and the LLM produces an attacker-chosen answer; Zou et al. reported a 90% attack success rate when injecting five malicious texts per target question into a knowledge database containing millions of texts, and found the defenses they evaluated to be insufficient [<a href="#ref-27" class="j-cite">27</a>]. In an enterprise setting the most effective controls are upstream: restricting who can write to indexed sources, recording provenance for every chunk, and monitoring for newly ingested content that is unusually similar to high-value queries.</p><h3>8.2 Data Leakage and Access Control</h3><p>RAG also creates privacy risk for the retrieval corpus. Zeng et al. showed empirically, using novel attack methods, that RAG systems are vulnerable to leaking their private retrieval database; they also found that retrieval can reduce leakage of the LLM's own training data [<a href="#ref-28" class="j-cite">28</a>]. The most common enterprise leakage path, however, is simpler: a shared index that ignores the permissions of the source systems, so that a user can retrieve passages from documents they could not open directly. Access control should be enforced at retrieval time by filtering on permission metadata attached to each chunk, with permissions synchronized from the source system, rather than by instructing the model not to reveal certain content.</p><aside class="j-callout"><p>Treat everything retrieved as untrusted input. Enforce document permissions in the retriever, keep write access to indexed sources narrow, and give the model no capability whose misuse an injected instruction could exploit.</p></aside></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Enterprise Implementation Checklist</h2><p>Table 3 consolidates the preceding sections into a checklist organized by pipeline stage. It is intended as a review aid for design and go-live decisions rather than a prescription; the appropriate depth at each stage depends on the risk of the use case.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Implementation checklist for enterprise RAG systems.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Design questions</th><th>Evidence to require before go-live</th></tr></thead><tbody><tr><td>Scope and corpus</td><td>Which questions must be answered? Which sources are authoritative, and how current must they be?</td><td>Documented question taxonomy; source inventory with owners and refresh frequency; set of unanswerable questions (FP1) [<a href="#ref-25" class="j-cite">25</a>]</td></tr><tr><td>Ingestion and chunking</td><td>How are tables, scans and structured fields extracted? What chunk size, overlap and metadata?</td><td>Extraction spot checks; chunking variants compared on recall@<em>k</em> [<a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>Retrieval</td><td>Sparse, dense or hybrid? Which embedding model? What ANN settings?</td><td>Recall@<em>k</em>, MRR and nDCG on in-domain queries; ANN recall against exact search [<a href="#ref-14" class="j-cite">14</a>, <a href="#ref-15" class="j-cite">15</a>, <a href="#ref-10" class="j-cite">10</a>]</td></tr><tr><td>Re-ranking and query handling</td><td>Is a cross-encoder or late-interaction re-ranker justified? Is query rewriting needed?</td><td>Measured precision gain versus added latency [<a href="#ref-13" class="j-cite">13</a>, <a href="#ref-12" class="j-cite">12</a>, <a href="#ref-17" class="j-cite">17</a>]</td></tr><tr><td>Context assembly and generation</td><td>How many passages, in what order? How are citations and abstentions produced?</td><td>Faithfulness and answer relevance on the test set; citation accuracy audit [<a href="#ref-24" class="j-cite">24</a>, <a href="#ref-21" class="j-cite">21</a>]</td></tr><tr><td>Security and privacy</td><td>Are source permissions enforced at retrieval? Who can write to indexed sources? Which tools can the model call?</td><td>Permission-filter tests; prompt-injection and poisoning red-team results [<a href="#ref-26" class="j-cite">26</a>, <a href="#ref-27" class="j-cite">27</a>, <a href="#ref-28" class="j-cite">28</a>]</td></tr><tr><td>Operations</td><td>What is logged per query? How are regressions detected after corpus or model updates?</td><td>Trace logging of intermediate artifacts; scheduled re-evaluation; human review of sampled production answers [<a href="#ref-25" class="j-cite">25</a>]</td></tr></tbody></table></div><p class="j-table-note">Source: synthesis of Sections 3–8; see the cited works for each item.</p></figure><p>Two organizational points complement the checklist. First, each authoritative source needs a named owner, because answer quality is bounded by source quality and no retrieval technique compensates for an outdated procedure. Second, evaluation sets should be versioned with the system, so that every change to chunking, embedding model, re-ranker, prompt or generator can be compared against the same baseline before it is released [<a href="#ref-25" class="j-cite">25</a>].</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Conclusion</h2><p>Retrieval-augmented generation grounds language-model outputs in an external, updatable and governable corpus. Its probabilistic foundation, the marginalization over retrieved passages in Eqs. (1) and (2), makes explicit that generation quality is bounded by retrieval quality, and the empirical record from DPR, BM25 benchmarks, reciprocal rank fusion and cross-encoder re-ranking shows that robust retrieval in enterprise settings usually combines lexical and semantic evidence in a multi-stage cascade [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-9" class="j-cite">9</a>, <a href="#ref-10" class="j-cite">10</a>, <a href="#ref-13" class="j-cite">13</a>]. Advanced patterns such as Self-RAG, Corrective RAG and GraphRAG add adaptive retrieval, quality gating and corpus-level synthesis, at the cost of additional training or indexing effort [<a href="#ref-18" class="j-cite">18</a>, <a href="#ref-19" class="j-cite">19</a>, <a href="#ref-20" class="j-cite">20</a>]. Longer context windows complement rather than replace retrieval, given position effects and the cost, access-control and provenance requirements of enterprise use [<a href="#ref-21" class="j-cite">21</a>, <a href="#ref-22" class="j-cite">22</a>].</p><p>The engineering lesson of the literature is that RAG systems should be built to be diagnosed. Retrieval and generation metrics should be measured separately, intermediate artifacts should be logged, failure points should be traced to the stage at which evidence was lost, and retrieved content should be treated as untrusted input [<a href="#ref-24" class="j-cite">24</a>, <a href="#ref-25" class="j-cite">25</a>, <a href="#ref-26" class="j-cite">26</a>]. Organizations that adopt these practices obtain systems whose answers can be checked against sources and whose failures can be located and corrected.</p></section>
     <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., & Fung, P. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), 1–38. <a href="https://doi.org/10.1145/3571730" rel="noopener" target="_blank">10.1145/3571730</a></li><li id="ref-2">Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33 (NeurIPS 2020). <a href="https://arxiv.org/abs/2005.11401" rel="noopener" target="_blank">arxiv.org/abs/2005.11401</a></li><li id="ref-3">Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2023). Retrieval-augmented generation for large language models: A survey. arXiv preprint arXiv:2312.10997. <a href="https://arxiv.org/abs/2312.10997" rel="noopener" target="_blank">arxiv.org/abs/2312.10997</a></li><li id="ref-4">Guu, K., Lee, K., Tung, Z., Pasupat, P., & Chang, M.-W. (2020). Retrieval augmented language model pre-training. Proceedings of the 37th International Conference on Machine Learning, PMLR 119, 3929–3938. <a href="https://proceedings.mlr.press/v119/guu20a.html" rel="noopener" target="_blank">proceedings.mlr.press/v119/guu20a.html</a></li><li id="ref-5">Izacard, G., & Grave, E. (2021). Leveraging passage retrieval with generative models for open domain question answering. Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume, 874–880. <a href="https://doi.org/10.18653/v1/2021.eacl-main.74" rel="noopener" target="_blank">10.18653/v1/2021.eacl-main.74</a></li><li id="ref-6">Borgeaud, S., Mensch, A., Hoffmann, J., Cai, T., Rutherford, E., Millican, K., van den Driessche, G., Lespiau, J.-B., Damoc, B., Clark, A., de Las Casas, D., Guy, A., et al. (2022). Improving language models by retrieving from trillions of tokens. Proceedings of the 39th International Conference on Machine Learning, PMLR 162, 2206–2240. <a href="https://proceedings.mlr.press/v162/borgeaud22a.html" rel="noopener" target="_blank">proceedings.mlr.press/v162/borgeaud22a.html</a></li><li id="ref-7">Karpukhin, V., Oğuz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen, D., & Yih, W. (2020). Dense passage retrieval for open-domain question answering. Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP), 6769–6781. <a href="https://doi.org/10.18653/v1/2020.emnlp-main.550" rel="noopener" target="_blank">10.18653/v1/2020.emnlp-main.550</a></li><li id="ref-8">Robertson, S., & Zaragoza, H. (2009). The probabilistic relevance framework: BM25 and beyond. Foundations and Trends in Information Retrieval, 4(1-2), 1–174. <a href="https://doi.org/10.1561/1500000019" rel="noopener" target="_blank">10.1561/1500000019</a></li><li id="ref-9">Thakur, N., Reimers, N., Rücklé, A., Srivastava, A., & Gurevych, I. (2021). BEIR: A heterogeneous benchmark for zero-shot evaluation of information retrieval models. Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track. arXiv:2104.08663. <a href="https://arxiv.org/abs/2104.08663" rel="noopener" target="_blank">arxiv.org/abs/2104.08663</a></li><li id="ref-10">Cormack, G. V., Clarke, C. L. A., & Buettcher, S. (2009). Reciprocal rank fusion outperforms Condorcet and individual rank learning methods. Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval, 758–759. <a href="https://doi.org/10.1145/1571941.1572114" rel="noopener" target="_blank">10.1145/1571941.1572114</a></li><li id="ref-11">Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using Siamese BERT-networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), 3980–3990. <a href="https://doi.org/10.18653/v1/D19-1410" rel="noopener" target="_blank">10.18653/v1/D19-1410</a></li><li id="ref-12">Khattab, O., & Zaharia, M. (2020). ColBERT: Efficient and effective passage search via contextualized late interaction over BERT. Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval, 39–48. <a href="https://doi.org/10.1145/3397271.3401075" rel="noopener" target="_blank">10.1145/3397271.3401075</a></li><li id="ref-13">Nogueira, R., & Cho, K. (2019). Passage re-ranking with BERT. arXiv preprint arXiv:1901.04085. <a href="https://arxiv.org/abs/1901.04085" rel="noopener" target="_blank">arxiv.org/abs/1901.04085</a></li><li id="ref-14">Muennighoff, N., Tazi, N., Magne, L., & Reimers, N. (2023). MTEB: Massive text embedding benchmark. Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics, 2014–2037. <a href="https://doi.org/10.18653/v1/2023.eacl-main.148" rel="noopener" target="_blank">10.18653/v1/2023.eacl-main.148</a></li><li id="ref-15">Malkov, Y. A., & Yashunin, D. A. (2020). Efficient and robust approximate nearest neighbor search using hierarchical navigable small world graphs. IEEE Transactions on Pattern Analysis and Machine Intelligence, 42(4), 824–836. <a href="https://doi.org/10.1109/TPAMI.2018.2889473" rel="noopener" target="_blank">10.1109/TPAMI.2018.2889473</a></li><li id="ref-16">Johnson, J., Douze, M., & Jégou, H. (2021). Billion-scale similarity search with GPUs. IEEE Transactions on Big Data, 7(3), 535–547. <a href="https://doi.org/10.1109/TBDATA.2019.2921572" rel="noopener" target="_blank">10.1109/TBDATA.2019.2921572</a></li><li id="ref-17">Gao, L., Ma, X., Lin, J., & Callan, J. (2023). Precise zero-shot dense retrieval without relevance labels. Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 1762–1777. <a href="https://doi.org/10.18653/v1/2023.acl-long.99" rel="noopener" target="_blank">10.18653/v1/2023.acl-long.99</a></li><li id="ref-18">Asai, A., Wu, Z., Wang, Y., Sil, A., & Hajishirzi, H. (2024). Self-RAG: Learning to retrieve, generate, and critique through self-reflection. The Twelfth International Conference on Learning Representations (ICLR 2024). <a href="https://arxiv.org/abs/2310.11511" rel="noopener" target="_blank">arxiv.org/abs/2310.11511</a></li><li id="ref-19">Yan, S.-Q., Gu, J.-C., Zhu, Y., & Ling, Z.-H. (2024). Corrective retrieval augmented generation. arXiv preprint arXiv:2401.15884. <a href="https://arxiv.org/abs/2401.15884" rel="noopener" target="_blank">arxiv.org/abs/2401.15884</a></li><li id="ref-20">Edge, D., Trinh, H., Cheng, N., Bradley, J., Chao, A., Mody, A., Truitt, S., Metropolitansky, D., Ness, R. O., & Larson, J. (2024). From local to global: A graph RAG approach to query-focused summarization. arXiv preprint arXiv:2404.16130. <a href="https://arxiv.org/abs/2404.16130" rel="noopener" target="_blank">arxiv.org/abs/2404.16130</a></li><li id="ref-21">Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the middle: How language models use long contexts. Transactions of the Association for Computational Linguistics, 12, 157–173. <a href="https://doi.org/10.1162/tacl_a_00638" rel="noopener" target="_blank">10.1162/tacl_a_00638</a></li><li id="ref-22">Xu, P., Ping, W., Wu, X., McAfee, L., Zhu, C., Liu, Z., Subramanian, S., Bakhturina, E., Shoeybi, M., & Catanzaro, B. (2024). Retrieval meets long context large language models. The Twelfth International Conference on Learning Representations (ICLR 2024). arXiv:2310.03025. <a href="https://arxiv.org/abs/2310.03025" rel="noopener" target="_blank">arxiv.org/abs/2310.03025</a></li><li id="ref-23">Järvelin, K., & Kekäläinen, J. (2002). Cumulated gain-based evaluation of IR techniques. ACM Transactions on Information Systems, 20(4), 422–446. <a href="https://doi.org/10.1145/582415.582418" rel="noopener" target="_blank">10.1145/582415.582418</a></li><li id="ref-24">Es, S., James, J., Espinosa Anke, L., & Schockaert, S. (2024). RAGAs: Automated evaluation of retrieval augmented generation. Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, 150–158. <a href="https://doi.org/10.18653/v1/2024.eacl-demo.16" rel="noopener" target="_blank">10.18653/v1/2024.eacl-demo.16</a></li><li id="ref-25">Barnett, S., Kurniawan, S., Thudumu, S., Brannelly, Z., & Abdelrazek, M. (2024). Seven failure points when engineering a retrieval augmented generation system. Proceedings of the IEEE/ACM 3rd International Conference on AI Engineering – Software Engineering for AI (CAIN 2024), 194–199. <a href="https://doi.org/10.1145/3644815.3644945" rel="noopener" target="_blank">10.1145/3644815.3644945</a></li><li id="ref-26">Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., & Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec '23), 79–90. <a href="https://doi.org/10.1145/3605764.3623985" rel="noopener" target="_blank">10.1145/3605764.3623985</a></li><li id="ref-27">Zou, W., Geng, R., Wang, B., & Jia, J. (2025). PoisonedRAG: Knowledge corruption attacks to retrieval-augmented generation of large language models. Proceedings of the 34th USENIX Security Symposium, 3827–3844. <a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag" rel="noopener" target="_blank">www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag</a></li><li id="ref-28">Zeng, S., Zhang, J., He, P., Xing, Y., Liu, Y., Xu, H., Ren, J., Wang, S., Yin, D., Chang, Y., & Tang, J. (2024). The good and the bad: Exploring privacy issues in retrieval-augmented generation (RAG). arXiv preprint arXiv:2402.16893. <a href="https://arxiv.org/abs/2402.16893" rel="noopener" target="_blank">arxiv.org/abs/2402.16893</a></li></ol></section>
     <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis for Enterprise Knowledge Systems. <em>Chmltech Online Journal</em>, <em>104</em>(3). https://www.chmltech.com/post/retrieval-augmented-generation-design-evaluation-and-failure-analysis</p>
       </section>
@@ -76,7 +2100,7 @@
 </div></section>
 <section class="section sand j-related"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=clean-energy">All journal articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="clean-energy" data-search="ai operating systems: a reference architecture and governance model for enterprise ai a layered reference architecture for an organization-wide ai layer, with governance mapping, operating metrics, a maturity model and an sme example. ai operating system enterprise ai architecture ai governance llm agents model routing retrieval-augmented generation prompt injection model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/ai-operating-systems-architecture-and-governance-for-enterprise-ai.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/ai-operating-systems-architecture-and-governance-for-enterprise-ai.html">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</a></h3><p class="muted">A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.</p><p class="meta">Vol. 104, Issue 1 · Nov 9, 2026 · 20 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="designing machine learning systems: from problem framing to production operations a review of end-to-end ml system design: problem framing, data, features, evaluation, a/b testing, deployment, drift monitoring, mlops and model documentation. machine learning systems mlops problem framing model evaluation calibration concept drift technical debt model cards"><div class="thumb"><img src="../assets/media/covers/thumbs/designing-machine-learning-systems-from-problem-framing-to-production.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/designing-machine-learning-systems-from-problem-framing-to-production.html">Designing Machine Learning Systems: From Problem Framing to Production Operations</a></h3><p class="muted">A review of end-to-end ML system design: problem framing, data, features, evaluation, A/B testing, deployment, drift monitoring, MLOps and model…</p><p class="meta">Vol. 104, Issue 6 · Nov 9, 2026 · 18 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="digital twins in chemical process plants: architecture, modeling approaches and applications digital twins for process plants: definitions, isa-95 and opc ua architecture, mechanistic and hybrid models, kalman filtering, data reconciliation and rto. digital twin process systems engineering hybrid modeling data reconciliation state estimation real-time optimization soft sensors industry 4.0"><div class="thumb"><img src="../assets/media/covers/thumbs/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications</a></h3><p class="muted">Digital twins for process plants: definitions, ISA-95 and OPC UA architecture, mechanistic and hybrid models, Kalman filtering, data reconciliation…</p><p class="meta">Vol. 104, Issue 5 · Nov 9, 2026 · 19 min read</p></div></article></div>
+  <div class="grid grid-3"><article class="article" data-cats="clean-energy" data-search="ai operating systems: a reference architecture and governance model for enterprise ai a layered reference architecture for an organization-wide ai layer, with governance mapping, operating metrics, a maturity model and an sme example. ai operating system enterprise ai architecture ai governance llm agents model routing retrieval-augmented generation prompt injection model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/ai-operating-systems-architecture-and-governance-for-enterprise-ai.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/ai-operating-systems-architecture-and-governance-for-enterprise-ai.html">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</a></h3><p class="muted">A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.</p><p class="meta">Vol. 104, Issue 1 · Nov 9, 2026 · 21 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="designing machine learning systems: from problem framing to production operations a review of end-to-end ml system design: problem framing, data, features, evaluation, a/b testing, deployment, drift monitoring, mlops and model documentation. machine learning systems mlops problem framing model evaluation calibration concept drift technical debt model cards"><div class="thumb"><img src="../assets/media/covers/thumbs/designing-machine-learning-systems-from-problem-framing-to-production.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/designing-machine-learning-systems-from-problem-framing-to-production.html">Designing Machine Learning Systems: From Problem Framing to Production Operations</a></h3><p class="muted">A review of end-to-end ML system design: problem framing, data, features, evaluation, A/B testing, deployment, drift monitoring, MLOps and model…</p><p class="meta">Vol. 104, Issue 6 · Nov 9, 2026 · 19 min read</p></div></article><article class="article" data-cats="clean-energy" data-search="digital twins in chemical process plants: architecture, modeling approaches and applications digital twins for process plants: definitions, isa-95 and opc ua architecture, mechanistic and hybrid models, kalman filtering, data reconciliation and rto. digital twin process systems engineering hybrid modeling data reconciliation state estimation real-time optimization soft sensors industry 4.0"><div class="thumb"><img src="../assets/media/covers/thumbs/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span></div><h3><a href="../post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications</a></h3><p class="muted">Digital twins for process plants: definitions, ISA-95 and OPC UA architecture, mechanistic and hybrid models, Kalman filtering, data reconciliation…</p><p class="meta">Vol. 104, Issue 5 · Nov 9, 2026 · 20 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis for Enterprise Knowledge Systems", "name": "Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis for Enterprise Knowledge Systems", "abstract": "Large language models hallucinate, have a fixed knowledge cutoff and have no access to an organization's private documents. Retrieval-augmented generation (RAG) addresses these limitations by conditioning generation on passages retrieved from an external corpus at inference time. This paper reviews the design, evaluation and failure analysis of RAG systems for enterprise knowledge applications from the perspective of November 2026. It presents the original RAG formulation, in which the output probability is marginalized over retrieved passages, together with the related REALM, Fusion-in-Decoder and RETRO architectures. It then examines the retrieval stage in detail: dense passage retrieval, BM25 sparse retrieval, hybrid search with reciprocal rank fusion, chunking strategies, embedding model selection and approximate nearest neighbor indexes such as HNSW. Re-ranking with cross-encoders and late-interaction models, query rewriting with hypothetical document embeddings, and advanced patterns including Self-RAG, Corrective RAG and GraphRAG are reviewed, along with evidence on long-context models versus retrieval. The paper defines retrieval metrics (recall@k, mean reciprocal rank and nDCG) and the RAGAS generation metrics, maps the seven documented failure points of RAG systems to diagnostic signals and mitigations, and discusses indirect prompt injection, knowledge poisoning and data leakage. It concludes with an implementation checklist and argues that RAG systems should be engineered for diagnosis, with retrieval and generation measured separately and retrieved content treated as untrusted input.", "keywords": "retrieval-augmented generation, large language models, dense retrieval, hybrid search, re-ranking, RAG evaluation, prompt injection, enterprise knowledge systems", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Person", "name": "Quak Foo Lee", "jobTitle": "Chief Technology Officer", "affiliation": {"@type": "Organization", "name": "Chmltech Ltd."}}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "3", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "104", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/retrieval-augmented-generation-design-evaluation-and-failure-analysis", "citation": ["Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., & Fung, P. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), 1–38.", "Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33 (NeurIPS 2020).", "Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2023). Retrieval-augmented generation for large language models: A survey. arXiv preprint arXiv:2312.10997.", "Guu, K., Lee, K., Tung, Z., Pasupat, P., & Chang, M.-W. (2020). Retrieval augmented language model pre-training. Proceedings of the 37th International Conference on Machine Learning, PMLR 119, 3929–3938.", "Izacard, G., & Grave, E. (2021). Leveraging passage retrieval with generative models for open domain question answering. Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume, 874–880.", "Borgeaud, S., Mensch, A., Hoffmann, J., Cai, T., Rutherford, E., Millican, K., van den Driessche, G., Lespiau, J.-B., Damoc, B., Clark, A., de Las Casas, D., Guy, A., et al. (2022). Improving language models by retrieving from trillions of tokens. Proceedings of the 39th International Conference on Machine Learning, PMLR 162, 2206–2240.", "Karpukhin, V., Oğuz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen, D., & Yih, W. (2020). Dense passage retrieval for open-domain question answering. Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP), 6769–6781.", "Robertson, S., & Zaragoza, H. (2009). The probabilistic relevance framework: BM25 and beyond. Foundations and Trends in Information Retrieval, 4(1-2), 1–174.", "Thakur, N., Reimers, N., Rücklé, A., Srivastava, A., & Gurevych, I. (2021). BEIR: A heterogeneous benchmark for zero-shot evaluation of information retrieval models. Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track. arXiv:2104.08663.", "Cormack, G. V., Clarke, C. L. A., & Buettcher, S. (2009). Reciprocal rank fusion outperforms Condorcet and individual rank learning methods. Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval, 758–759.", "Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using Siamese BERT-networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), 3980–3990.", "Khattab, O., & Zaharia, M. (2020). ColBERT: Efficient and effective passage search via contextualized late interaction over BERT. Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval, 39–48.", "Nogueira, R., & Cho, K. (2019). Passage re-ranking with BERT. arXiv preprint arXiv:1901.04085.", "Muennighoff, N., Tazi, N., Magne, L., & Reimers, N. (2023). MTEB: Massive text embedding benchmark. Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics, 2014–2037.", "Malkov, Y. A., & Yashunin, D. A. (2020). Efficient and robust approximate nearest neighbor search using hierarchical navigable small world graphs. IEEE Transactions on Pattern Analysis and Machine Intelligence, 42(4), 824–836.", "Johnson, J., Douze, M., & Jégou, H. (2021). Billion-scale similarity search with GPUs. IEEE Transactions on Big Data, 7(3), 535–547.", "Gao, L., Ma, X., Lin, J., & Callan, J. (2023). Precise zero-shot dense retrieval without relevance labels. Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 1762–1777.", "Asai, A., Wu, Z., Wang, Y., Sil, A., & Hajishirzi, H. (2024). Self-RAG: Learning to retrieve, generate, and critique through self-reflection. The Twelfth International Conference on Learning Representations (ICLR 2024).", "Yan, S.-Q., Gu, J.-C., Zhu, Y., & Ling, Z.-H. (2024). Corrective retrieval augmented generation. arXiv preprint arXiv:2401.15884.", "Edge, D., Trinh, H., Cheng, N., Bradley, J., Chao, A., Mody, A., Truitt, S., Metropolitansky, D., Ness, R. O., & Larson, J. (2024). From local to global: A graph RAG approach to query-focused summarization. arXiv preprint arXiv:2404.16130.", "Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the middle: How language models use long contexts. Transactions of the Association for Computational Linguistics, 12, 157–173.", "Xu, P., Ping, W., Wu, X., McAfee, L., Zhu, C., Liu, Z., Subramanian, S., Bakhturina, E., Shoeybi, M., & Catanzaro, B. (2024). Retrieval meets long context large language models. The Twelfth International Conference on Learning Representations (ICLR 2024). arXiv:2310.03025.", "Järvelin, K., & Kekäläinen, J. (2002). Cumulated gain-based evaluation of IR techniques. ACM Transactions on Information Systems, 20(4), 422–446.", "Es, S., James, J., Espinosa Anke, L., & Schockaert, S. (2024). RAGAs: Automated evaluation of retrieval augmented generation. Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, 150–158.", "Barnett, S., Kurniawan, S., Thudumu, S., Brannelly, Z., & Abdelrazek, M. (2024). Seven failure points when engineering a retrieval augmented generation system. Proceedings of the IEEE/ACM 3rd International Conference on AI Engineering – Software Engineering for AI (CAIN 2024), 194–199.", "Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., & Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec '23), 79–90.", "Zou, W., Geng, R., Wang, B., & Jia, J. (2025). PoisonedRAG: Knowledge corruption attacks to retrieval-augmented generation of large language models. Proceedings of the 34th USENIX Security Symposium, 3827–3844.", "Zeng, S., Zhang, J., He, P., Xing, Y., Liu, Y., Xu, H., Ren, J., Wang, S., Yin, D., Chang, Y., & Tang, J. (2024). The good and the bad: Exploring privacy issues in retrieval-augmented generation (RAG). arXiv preprint arXiv:2402.16893."]}</script>
 <section class="cta">

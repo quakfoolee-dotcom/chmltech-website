@@ -38,7 +38,16 @@
      "p": "Retrieval-augmented generation (RAG) addresses all three limitations by coupling a generator with a non-parametric memory: at inference time a retriever selects passages from an external corpus, and the generator conditions its output on those passages [2, 3]. The external corpus can be updated without retraining, access to it can be governed with the same controls that protect the source documents, and the retrieved passages provide evidence that can be cited and audited. Gao et al. characterize the field's progression from \"naive\" retrieve-then-read pipelines, through \"advanced\" pipelines with pre- and post-retrieval optimization, to \"modular\" architectures in which retrieval, routing, rewriting and verification are composable components [3]."
     },
     {
-     "p": "RAG does not, however, remove the need for engineering discipline. A RAG system inherits the failure modes of information retrieval (relevant content that is missing or ranked too low), the failure modes of LLMs (ignoring or misreading evidence), and new failure modes that arise from their interaction, including attacks delivered through the retrieved content itself. This paper reviews the design space of RAG from the perspective of November 2026 with an emphasis on enterprise knowledge systems. Section 2 presents the original formulations and their predecessors and successors. Section 3 covers retrieval: sparse, dense and hybrid methods, chunking, embedding models and vector indexes. Section 4 covers re-ranking and query transformation. Section 5 reviews advanced patterns and the relationship between RAG and long-context models. Section 6 treats evaluation, Section 7 failure analysis, Section 8 security and privacy, and Section 9 presents an implementation checklist. Section 10 concludes."
+     "p": "RAG does not, however, remove the need for engineering discipline. A RAG system inherits the failure modes of information retrieval (relevant content that is missing or ranked too low), the failure modes of LLMs (ignoring or misreading evidence), and new failure modes that arise from their interaction, including attacks delivered through the retrieved content itself. This paper reviews the design space of RAG from the perspective of November 2026 with an emphasis on enterprise knowledge systems. Section 2 presents the original formulations and their predecessors and successors. Section 3 covers retrieval: sparse, dense and hybrid methods, chunking, embedding models and vector indexes. Section 4 covers re-ranking and query transformation. Section 5 reviews advanced patterns and the relationship between RAG and long-context models. Section 6 treats evaluation, Section 7 failure analysis, Section 8 security and privacy, and Section 9 presents an implementation checklist. Section 10 concludes. Figure 1 maps the stages discussed in these sections onto a single pipeline and marks where each failure point of Section 7 typically originates, so that a failed answer can be traced to the stage where the evidence was lost."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-pipeline",
+      "caption": "End-to-end enterprise RAG pipeline. Offline, documents are parsed, chunked with metadata, embedded and indexed; at query time the query is rewritten, retrieved from sparse and dense indexes, fused with RRF, re-ranked, assembled into a prompt, answered and checked for grounding. Orange tags mark the failure points FP1–FP7 of Table 2 at the stage where each typically originates.",
+      "alt": "Flow diagram in two lanes. Offline lane: source documents, parse and extract, chunk with metadata, embed chunks, and BM25 plus HNSW indexes. Online lane: user query, query rewrite, hybrid retrieval with access-control filter fed by the indexes, reciprocal rank fusion, re-ranking, context assembly, generation with citations, grounding check with a retry loop back to retrieval, and a cited answer or abstention. Failure-point tags: FP1 at source documents, FP6 at query rewrite, FP2 at retrieval, FP3 at context assembly and FP4 to FP7 at generation.",
+      "source": "Drawn by the author from Sections 3–7; failure points as listed in Table 2."
+     }
     }
    ]
   },
@@ -118,7 +127,16 @@
      "n": 5
     },
     {
-     "p": "where <em>r</em>(<em>d</em>) is the rank of <em>d</em> in ranking <em>r</em>. The constant <em>k</em> mitigates the influence of high rankings by outlier systems; Cormack et al. fixed <em>k</em> = 60 in a pilot study and found that RRF outperformed Condorcet fusion and individual learning-to-rank methods on TREC collections [10]. RRF needs no score calibration and no training data, which makes it a practical default for combining BM25 with one or more dense retrievers. Table 1 summarizes the main retrieval families."
+     "p": "where <em>r</em>(<em>d</em>) is the rank of <em>d</em> in ranking <em>r</em>. The constant <em>k</em> mitigates the influence of high rankings by outlier systems; Cormack et al. fixed <em>k</em> = 60 in a pilot study and found that RRF outperformed Condorcet fusion and individual learning-to-rank methods on TREC collections [10]. RRF needs no score calibration and no training data, which makes it a practical default for combining BM25 with one or more dense retrievers. Table 1 summarizes the main retrieval families. Figure 2 works through Eq. (5) for two short ranked lists: a passage found by both retrievers at moderate ranks outscores a passage ranked first by only one of them."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-rrf",
+      "caption": "Worked example of reciprocal rank fusion, Eq. (5), with k = 60, for hypothetical BM25 and dense top-5 lists of passages P1–P9. Each bar is split into the contribution of each retriever; the labels give the passage's rank in each list.",
+      "alt": "Horizontal stacked bar chart of fused RRF scores. Passages found by both retrievers rank first: P2 at 0.0323 (rank 2 in both lists), P7 at 0.0320 (BM25 rank 1, dense rank 4) and P1 at 0.0313. P5, ranked first by the dense retriever only, comes fourth at 0.0164, followed by single-list passages P9, P4 and P8 at about 0.015 to 0.016.",
+      "source": "Author's calculation from Eq. (5) for hypothetical rankings, with k = 60 as in [10]."
+     }
     },
     {
      "table": {
@@ -261,7 +279,16 @@
      "n": 7
     },
     {
-     "p": "where IDCG@<em>k</em> is the DCG of the ideal ordering, so that nDCG lies between 0 and 1. Järvelin and Kekäläinen's original formulation used a logarithmic discount applied after a chosen rank; the exponential-gain variant in Eq. (7) is common in modern benchmarks and emphasizes highly relevant documents [23, 9]. For RAG, recall@<em>k</em> at the value of <em>k</em> actually passed to the generator is the most directly interpretable metric, because it bounds the information available for generation, while MRR and nDCG indicate whether the best evidence appears early enough to avoid the position effects of Section 5.3."
+     "p": "where IDCG@<em>k</em> is the DCG of the ideal ordering, so that nDCG lies between 0 and 1. Järvelin and Kekäläinen's original formulation used a logarithmic discount applied after a chosen rank; the exponential-gain variant in Eq. (7) is common in modern benchmarks and emphasizes highly relevant documents [23, 9]. For RAG, recall@<em>k</em> at the value of <em>k</em> actually passed to the generator is the most directly interpretable metric, because it bounds the information available for generation, while MRR and nDCG indicate whether the best evidence appears early enough to avoid the position effects of Section 5.3. Figure 3 illustrates the difference for one query: re-ranking the same ten candidates leaves recall@10 unchanged but raises recall@5 from 0.67 to 1.00 and nDCG@5 from 0.43 to 0.98."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-retrieval-metrics",
+      "caption": "Recall@k and nDCG@k from Eqs. (6) and (7) for one hypothetical query with three relevant passages (graded 2, 1 and 1). Ordering A is a first-stage hybrid list; ordering B is the same ten candidates after re-ranking. The dashed line marks the five passages passed to the generator.",
+      "alt": "Top: two rows of ten rank cells showing relevance grades; ordering A has relevant passages at ranks 2, 5 and 9, ordering B at ranks 1, 2 and 4. Bottom left: recall at k reaches 1.0 at k = 4 for B but only at k = 9 for A, with 0.67 versus 1.00 at k = 5. Bottom right: nDCG at k is about 0.98 for B from k = 4 onward, while A stays between 0 and 0.51, with 0.43 at k = 5.",
+      "source": "Author's calculation from Eqs. (6) and (7) for hypothetical relevance judgments."
+     }
     },
     {
      "h3": "6.2 Generation Metrics and RAGAS"
