@@ -1,0 +1,956 @@
+{
+ "id": "b4b6581a-31f8-43f9-8796-268c83448b9f",
+ "title": "Operational Excellence: Assessment & Transformation",
+ "tagline": "Find your operational gaps, engage your people and build improvement that lasts.",
+ "summary": "A practical, self-paced introduction to operational excellence for organizations in energy, manufacturing and health care. You will learn to assess maturity and find operational gaps, engage stakeholders in process improvement, and execute transformation plans that deliver measurable results. The course closes with a framework for daily management, leadership routines and scaling improvement across divisions.",
+ "audience": [
+  "Owners, general managers and operations leaders in Canadian SMEs",
+  "Supervisors and team leads in manufacturing, energy and health-care settings",
+  "Continuous improvement, quality and process engineering staff",
+  "Managers preparing their first structured improvement program"
+ ],
+ "outcomes": [
+  "Run an operational excellence maturity assessment and turn the results into a prioritized gap list",
+  "Map processes and value streams and identify the 8 wastes in any setting",
+  "Select balanced KPIs, calculate OEE and distinguish real signals from normal variation",
+  "Find verified root causes using 5 Whys, fishbone diagrams and DMAIC",
+  "Engage stakeholders with RACI and change models, and test improvements safely with PDCA",
+  "Build tiered daily management and leader routines that sustain and scale the gains"
+ ],
+ "modules": [
+  {
+   "title": "Foundations of Operational Excellence",
+   "summary": "What operational excellence is, the principles behind it, how it applies in high-stakes industries, and how to make the case for change.",
+   "steps": [
+    {
+     "title": "What operational excellence really means",
+     "minutes": 7,
+     "body": "<p>Operational excellence (OpEx) is not a single tool, a project or a poster on the lunchroom wall. It is a way of running an organization in which every person can see how value flows to the customer, notices when that flow breaks, and fixes problems at the root, every day. The goal is consistent, predictable performance that keeps getting better.</p> <p>Many SMEs confuse OpEx with a one-time cost-cutting exercise. Cost cutting removes resources; operational excellence removes the reasons the resources were needed in the first place: rework, waiting, searching, firefighting and unclear handoffs.</p> <h3>Three things OpEx is, and three things it is not</h3> <table><thead><tr><th>OpEx is</th><th>OpEx is not</th></tr></thead><tbody> <tr><td>A management system that runs daily</td><td>A project with an end date</td></tr> <tr><td>Led by line managers and supervisors</td><td>Owned by a quality department alone</td></tr> <tr><td>Built on facts gathered where work happens</td><td>Built on opinions in a boardroom</td></tr> </tbody></table> <h3>A simple working definition</h3> <p>For this course, use this definition: <strong>operational excellence is the ability to deliver what the customer values, safely, at the right quality, on time and at the lowest sustainable cost, and to improve that ability continuously.</strong> Notice the word <em>sustainable</em>. A shop that hits its numbers by running overtime every weekend is not excellent; it is borrowing from next quarter.</p> <h4>Worked example</h4> <p>Imagine a 40-person fabrication shop that ships on time most months but only because the owner personally expedites the late jobs. On paper, delivery looks fine. In reality, the process depends on one person's heroics. An OpEx view asks different questions:</p> <ul> <li>Why do jobs become late in the first place?</li> <li>What would happen if the owner went on vacation for three weeks?</li> <li>Where does work wait, and who knows about it before the customer does?</li> </ul> <p>Answering those questions moves the shop from heroics to a system. That shift, from people compensating for a weak process to a strong process that supports people, is the heart of operational excellence. The rest of this course gives you a structured path to make it happen: assess where you are, engage the people who do the work, transform the processes that matter most, and build habits that sustain the gains.</p>",
+     "takeaways": [
+      "OpEx is a daily management system, not a one-time project.",
+      "It removes the causes of cost, not just the cost itself.",
+      "Heroics hide weak processes; excellence makes performance predictable."
+     ],
+     "apply": "List three recent situations in your operation where someone had to step in personally to rescue a job, order or patient appointment. For each, write one sentence on what in the process made the rescue necessary.",
+     "check": {
+      "q": "A distributor meets its delivery targets only because the operations manager works every Saturday to clear backlogs. From an operational excellence view, what is the best description of this situation?",
+      "opts": [
+       "Excellent performance that should be rewarded and repeated",
+       "A capacity problem that can only be solved by hiring",
+       "Performance that depends on heroics and hides a weak process",
+       "A normal seasonal pattern that needs no action"
+      ],
+      "a": 2,
+      "why": "Operational excellence looks for sustainable performance. Results that depend on one person's extra effort signal a process problem that will eventually surface."
+     }
+    },
+    {
+     "title": "The core principles behind OpEx",
+     "minutes": 7,
+     "body": "<p>Every serious operational excellence approach, whether it is called Lean, the Toyota Production System, Six Sigma or a company-branded system, rests on a short list of principles. Tools come and go; principles stay. When a tool does not seem to fit your situation, go back to the principle and ask what it is trying to achieve.</p> <h3>Five principles to anchor your work</h3> <ol> <li><strong>Start with customer value.</strong> Define value from the customer's point of view: what they would willingly pay for, or in health care, what improves the patient's outcome and experience.</li> <li><strong>Make the work flow.</strong> Work should move steadily from step to step without waiting, batching or backtracking.</li> <li><strong>Standardize, then improve.</strong> A process that is done five different ways cannot be improved; it can only be argued about. The current best known method becomes the standard and the baseline for the next improvement.</li> <li><strong>Go and see.</strong> Decisions are made from direct observation and data at the place where work happens, not from reports alone.</li> <li><strong>Respect for people.</strong> The people doing the work know the most about its problems. Leaders build their capability and give them time and permission to fix things.</li> </ol> <h3>How the principles show up in practice</h3> <table><thead><tr><th>Principle</th><th>What you would see on a good day</th></tr></thead><tbody> <tr><td>Customer value</td><td>Teams can explain what their customer needs from their step</td></tr> <tr><td>Flow</td><td>Small queues, short waits, clear signals to start the next job</td></tr> <tr><td>Standardize</td><td>Simple visual work instructions at the point of use</td></tr> <tr><td>Go and see</td><td>Managers on the floor daily, asking questions</td></tr> <tr><td>Respect for people</td><td>Improvement ideas captured, tested and acknowledged</td></tr> </tbody></table> <h4>Worked example</h4> <p>A clinic's intake desk asks every new patient to complete a paper form, which staff then retype into the scheduling system. Applying the principles: the patient values being seen promptly and accurately, not filling in forms twice (value). Retyping creates a queue at the desk (flow). Each staff member enters fields differently (standardize). The manager has never timed the process (go and see). Front-desk staff have suggested pre-visit online forms for months (respect for people). The principles alone point to the improvement before any advanced tool is needed.</p>",
+     "takeaways": [
+      "Principles outlast tools; return to them when a tool does not fit.",
+      "Standardization is the baseline that makes improvement possible.",
+      "The people doing the work hold most of the improvement knowledge."
+     ],
+     "apply": "Pick one process you manage and score it 1 to 5 against each of the five principles. Share the lowest-scoring principle with your team and ask them for one example of where it shows up.",
+     "check": {
+      "q": "A plant manager says, \"We cannot improve the changeover until everyone agrees on the best way.\" Which principle best addresses this situation?",
+      "opts": [
+       "Go and see",
+       "Standardize, then improve",
+       "Start with customer value",
+       "Make the work flow"
+      ],
+      "a": 1,
+      "why": "Capturing the current best method as a standard creates a stable baseline. Improvements are then tested against that standard rather than debated."
+     }
+    },
+    {
+     "title": "OpEx in high-stakes industries",
+     "minutes": 8,
+     "body": "<p>Operational excellence matters everywhere, but in energy, manufacturing and health care the stakes are higher. A missed step can mean an injury, an environmental release, a product recall or harm to a patient. In these settings OpEx is closely tied to safety and regulatory compliance, and improvement must never trade away control.</p> <h3>What is different in high-stakes settings</h3> <ul> <li><strong>Safety comes first, always.</strong> Every change passes through a management of change (MOC) or equivalent review before it touches live operations.</li> <li><strong>Regulation shapes the process.</strong> Some steps exist because a regulator, code or accreditation body requires them. These are not waste, even if the customer never sees them.</li> <li><strong>Variation is dangerous.</strong> A small deviation in a pressure, a dose or a torque value can have large consequences, so standard work and verification carry extra weight.</li> <li><strong>Shift work and handovers.</strong> Many failures occur at shift change or patient handoff, so communication standards are part of the process.</li> </ul> <h3>Typical focus areas by sector</h3> <table><thead><tr><th>Sector</th><th>Common OpEx focus</th></tr></thead><tbody> <tr><td>Energy (oil and gas services, utilities, renewables)</td><td>Equipment reliability, permit-to-work flow, maintenance planning, field crew productivity</td></tr> <tr><td>Manufacturing</td><td>Equipment effectiveness, changeovers, first-pass yield, inventory and flow</td></tr> <tr><td>Health care (clinics, long-term care, labs)</td><td>Patient flow and wait times, handoffs, medication and specimen processes, scheduling</td></tr> </tbody></table> <h4>Worked example</h4> <p>Consider a field services company that inspects wells. Crews spend part of each morning waiting for work permits to be signed. A purely cost-focused view might suggest skipping the sign-off. An OpEx view keeps the safety control and redesigns the flow around it: permits are prepared the evening before, the supervisor reviews them at a fixed time, and a simple board shows which crews are cleared. The control stays intact; the waiting disappears.</p> <blockquote>In high-stakes work, the question is never \"can we remove this check?\" but \"how do we make this check fast, reliable and easy to do right?\"</blockquote> <p>This mindset protects people and the licence to operate while still freeing capacity. Throughout this course, treat safety and compliance requirements as design constraints, not obstacles.</p>",
+     "takeaways": [
+      "In high-stakes industries, safety and compliance are design constraints, not waste.",
+      "Use management of change before altering any controlled process.",
+      "Redesign the flow around controls instead of removing them."
+     ],
+     "apply": "Identify one regulatory or safety step in your operation that people complain slows them down. Map who does it, when, and what they wait for, then list two ways to make it faster without weakening the control.",
+     "check": {
+      "q": "A long-term care home finds that medication checks at shift change delay rounds. Which response best reflects operational excellence in a high-stakes setting?",
+      "opts": [
+       "Remove the second check for experienced staff",
+       "Move the check to the end of the shift when it is quieter",
+       "Ask staff to work faster during the check",
+       "Keep the check and redesign its timing, layout and tools so it is quick and reliable"
+      ],
+      "a": 3,
+      "why": "The control protects residents, so it stays. OpEx improves how the control is performed so it causes less waiting and fewer errors."
+     }
+    },
+    {
+     "title": "Building the case for change",
+     "minutes": 7,
+     "body": "<p>Before an organization invests time in assessment and transformation, leaders need a clear reason to act. A strong case for change connects operational problems to things the business already cares about: safety, customers, cash, capacity and people. Without it, improvement becomes a side project that loses to the next urgent order.</p> <h3>The cost of poor quality</h3> <p>A useful lens is the <strong>cost of poor quality (COPQ)</strong>: the money spent because things were not done right the first time. It usually falls into four buckets.</p> <table><thead><tr><th>Bucket</th><th>Examples</th></tr></thead><tbody> <tr><td>Internal failure</td><td>Scrap, rework, re-inspection, re-running a lab test</td></tr> <tr><td>External failure</td><td>Warranty claims, returns, credits, complaints, repeat site visits</td></tr> <tr><td>Appraisal</td><td>Inspection, testing, audits needed because the process is not trusted</td></tr> <tr><td>Prevention</td><td>Training, error-proofing, planning (the good kind of spending)</td></tr> </tbody></table> <p>Most SMEs do not track COPQ formally, so start with a rough estimate from a few weeks of data. A rough number that leaders believe is more powerful than a precise number nobody trusts.</p> <h4>Worked example</h4> <p>Imagine a 25-person cabinet manufacturer. Over four weeks the team logs remakes caused by measuring errors: 12 remakes averaging 3 labour hours and $180 in material each. At a loaded labour cost of $55 per hour:</p> <ul> <li>Labour: 12 x 3 x $55 = $1,980</li> <li>Material: 12 x $180 = $2,160</li> <li>Four-week total: $4,140, or roughly $53,800 a year if the pattern holds</li> </ul> <p>That number does not yet include delayed installs, unhappy customers or the overtime used to catch up. It is enough to justify a focused improvement effort.</p> <h3>Elements of a one-page case for change</h3> <ol> <li>The problem, in plain language, with one or two facts</li> <li>Why it matters now (customer, safety, growth, cash)</li> <li>What happens if nothing changes</li> <li>What success would look like in 6 to 12 months</li> <li>What is being asked of leaders and teams</li> </ol> <p>Keep it to one page and test it with a supervisor. If they cannot repeat the message in their own words, simplify it.</p>",
+     "takeaways": [
+      "Connect improvement to safety, customers, cash, capacity and people.",
+      "A rough, believable cost of poor quality is a powerful starting point.",
+      "A one-page case for change should be repeatable by any supervisor."
+     ],
+     "apply": "For the next two weeks, ask one team to log every instance of rework or redo with a rough time estimate. Convert the total to dollars using your loaded labour rate and draft a one-page case for change.",
+     "check": {
+      "q": "Which of these costs belongs in the internal failure bucket of the cost of poor quality?",
+      "opts": [
+       "Re-running a lab test because the first sample was mislabelled",
+       "A customer warranty claim on a shipped pump",
+       "A new training program on error-proofing",
+       "An annual external audit fee"
+      ],
+      "a": 0,
+      "why": "Internal failures are found before the product or service reaches the customer. A re-run test caused by a labelling error is caught inside the organization."
+     }
+    },
+    {
+     "title": "The OpEx roadmap: assess, transform, sustain",
+     "minutes": 6,
+     "body": "<p>Operational excellence efforts fail most often not because of the wrong tools, but because of the wrong sequence: launching training before understanding the gaps, or running improvement events with no system to hold the gains. This course follows a simple roadmap that keeps the work in order.</p> <h3>The four phases</h3> <table><thead><tr><th>Phase</th><th>Key question</th><th>Main outputs</th></tr></thead><tbody> <tr><td>1. Assess</td><td>Where are we today, and where are the biggest gaps?</td><td>Maturity profile, process maps, baseline KPIs, prioritized gap list</td></tr> <tr><td>2. Engage and plan</td><td>Who needs to be involved, and what will we do first?</td><td>Stakeholder map, RACI, project charters, change plan</td></tr> <tr><td>3. Transform</td><td>How do we fix the priority processes?</td><td>Root causes, new standard work, pilots, measured results</td></tr> <tr><td>4. Sustain and scale</td><td>How do we hold the gains and spread them?</td><td>Daily management, leader routines, replication across sites</td></tr> </tbody></table> <h3>Why assessment comes first</h3> <p>Assessment gives you three things you cannot get any other way: a shared picture of reality, a baseline to measure against, and a list of priorities based on evidence rather than the loudest voice. It also builds early engagement, because people who help find the problems are more likely to help fix them.</p> <h3>Sizing the effort for an SME</h3> <p>A large corporation may run a multi-year program with a dedicated team. An SME can follow the same phases at a smaller scale:</p> <ul> <li>Assess one value stream in two to four weeks</li> <li>Run one or two focused improvement projects over the next 90 days</li> <li>Introduce a short daily team huddle alongside the first project</li> <li>Review results, then choose the next value stream</li> </ul> <h4>Worked example</h4> <p>A regional HVAC distributor wants to reduce order errors. Instead of buying new software straight away, the team assesses the order-to-ship process, finds that most errors start at manual order entry, runs a 60-day project to standardize entry and add a simple check, and then starts a 10-minute daily huddle to review errors. Only after the process is stable do they evaluate whether automation would add further value.</p> <p>Keep this roadmap in mind as you move through the modules. Each lesson fits into one of the four phases.</p>",
+     "takeaways": [
+      "Follow the sequence: assess, engage and plan, transform, sustain and scale.",
+      "Assessment builds a shared picture, a baseline and evidence-based priorities.",
+      "SMEs can run the same phases on one value stream at a time."
+     ],
+     "apply": "Write down the improvement initiatives your organization has started in the past two years. Label each with the roadmap phase it skipped, if any, and note what happened to its results.",
+     "check": {
+      "q": "A manufacturer wants to start Lean training for all staff next month but has not yet looked at where its main process gaps are. What does the roadmap suggest?",
+      "opts": [
+       "Train everyone first so they can find the gaps themselves",
+       "Buy new scheduling software before anything else",
+       "Skip assessment because training is cheaper",
+       "Assess one value stream first so training and projects target real gaps"
+      ],
+      "a": 3,
+      "why": "Assessment comes first so that effort is directed at the biggest gaps. Training without a target often fades without results."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Assessment: Finding the Gaps",
+   "summary": "Run a maturity assessment, observe work at the gemba, map processes and value streams, and turn findings into a prioritized gap list.",
+   "steps": [
+    {
+     "title": "Running an operational maturity assessment",
+     "minutes": 8,
+     "body": "<p>A maturity assessment is a structured self-check of how well your organization's management system supports excellent operations. It does not measure how hard people work; it measures how well the system helps them succeed. Done well, it creates a shared language and a starting point for planning.</p> <h3>A five-level maturity scale</h3> <table><thead><tr><th>Level</th><th>Description</th></tr></thead><tbody> <tr><td>1. Not started</td><td>No recognized practice; results depend on individuals</td></tr> <tr><td>2. Ad hoc</td><td>Some good practices exist in pockets, not consistently applied</td></tr> <tr><td>3. Defined</td><td>Practices are documented and generally followed</td></tr> <tr><td>4. Managed</td><td>Practices are measured, reviewed and corrected regularly</td></tr> <tr><td>5. Optimized</td><td>Practices are routinely improved and shared across the organization</td></tr> </tbody></table> <h3>Typical dimensions to assess</h3> <ul> <li>Leadership and strategy deployment</li> <li>Process standardization</li> <li>Performance measurement and KPIs</li> <li>Problem solving</li> <li>Workforce engagement and capability</li> <li>Customer focus</li> <li>Continuous improvement culture</li> </ul> <h3>How to run it well</h3> <ol> <li><strong>Use a mixed group.</strong> Include leaders, supervisors and front-line staff. Leaders often score higher than the floor does; the gap itself is useful information.</li> <li><strong>Ask for evidence.</strong> For every score, ask \"what would we show a visitor to prove this?\" No evidence means the score drops.</li> <li><strong>Score independently, then discuss.</strong> Have each person score privately, then compare. Discuss the dimensions with the widest spread.</li> <li><strong>Do not chase a perfect score.</strong> The point is to find the two or three dimensions that are holding the operation back.</li> </ol> <h4>Worked example</h4> <p>A 60-person machine shop runs the assessment with six people. Leaders score process standardization at 4; machinists score it at 2. When asked for evidence, the team finds work instructions exist for only a third of part families, and most are out of date. The honest score is 2. That dimension becomes a priority, and the gap between leader and floor perceptions becomes a talking point for the engagement plan.</p> <p>After this lesson, use the maturity assessment lab to score your own organization and see your profile as a radar chart.</p>",
+     "takeaways": [
+      "Maturity assessments measure the system, not individual effort.",
+      "Every score needs evidence a visitor could see.",
+      "Differences between leader and floor scores are valuable findings."
+     ],
+     "apply": "Gather four to six people from different levels and have each score your organization privately on the seven dimensions. Compare results and discuss the two dimensions with the widest spread of scores.",
+     "check": {
+      "q": "During a maturity assessment, leaders score problem solving at 4 but supervisors score it at 2. What is the best next step?",
+      "opts": [
+       "Average the scores to 3 and move on",
+       "Ask both groups for evidence and discuss the gap openly",
+       "Use the leaders' score because they see the whole business",
+       "Remove problem solving from the assessment"
+      ],
+      "a": 1,
+      "why": "Evidence settles the score and the discussion reveals why perceptions differ, which is itself an important finding for the change plan."
+     }
+    },
+    {
+     "title": "Gemba walks: learning where the work happens",
+     "minutes": 7,
+     "body": "<p>Gemba is a Japanese term meaning \"the real place\", the place where value is created. In a plant it is the production floor; in a clinic it is the intake desk and exam rooms; in an energy company it may be a well site or a maintenance shop. A gemba walk is a planned visit to observe the work, ask questions and learn, not to inspect or blame.</p> <h3>The purpose of a gemba walk</h3> <ul> <li>See the actual process, including the workarounds that never appear in procedures</li> <li>Understand problems from the point of view of the people doing the work</li> <li>Check whether standards exist, are visible and are followed</li> <li>Build trust by showing genuine interest</li> </ul> <h3>A simple gemba walk routine</h3> <ol> <li><strong>Pick a focus.</strong> One process or one question, for example \"why do work orders wait before release?\"</li> <li><strong>Tell people why you are coming.</strong> Explain that you are learning about the process, not evaluating individuals.</li> <li><strong>Watch first.</strong> Spend at least ten minutes observing before you ask anything.</li> <li><strong>Ask open questions.</strong> \"Walk me through what happens next.\" \"What gets in your way?\" \"How do you know this is done right?\"</li> <li><strong>Write down facts.</strong> Times, counts, distances, quotes. Avoid conclusions on the spot.</li> <li><strong>Close the loop.</strong> Thank people and come back to tell them what happened with what they shared.</li> </ol> <h3>Common mistakes</h3> <table><thead><tr><th>Mistake</th><th>Better approach</th></tr></thead><tbody> <tr><td>Solving problems on the spot</td><td>Capture the issue and solve it with the team later</td></tr> <tr><td>Walking only with managers</td><td>Bring a supervisor or operator as a guide</td></tr> <tr><td>Treating it as an audit</td><td>Focus on the process, not the person</td></tr> </tbody></table> <h4>Worked example</h4> <p>An operations manager at a pipe distributor walks the shipping area with the focus \"why are some orders shipped late?\" Watching for 20 minutes, she sees pickers walk to the office three times to ask about unclear pick tickets. One picker says, \"The tickets don't show which yard the pipe is in.\" That single observation, which never appeared in any report, becomes the first improvement target.</p>",
+     "takeaways": [
+      "Gemba walks are for learning, not inspecting or blaming.",
+      "Observe before asking, and record facts rather than conclusions.",
+      "Always close the loop with the people you spoke to."
+     ],
+     "apply": "Schedule a 30-minute gemba walk this week with one focus question. Record at least five facts (times, counts or quotes) and share them with the team you observed within two days.",
+     "check": {
+      "q": "During a gemba walk, a supervisor notices an operator using a homemade jig not described in any procedure. What is the best response?",
+      "opts": [
+       "Stop the operator and require the official method immediately",
+       "Ignore it because it is not part of the walk's focus",
+       "Ask the operator why they made it and note it for team review",
+       "Report the operator to the quality manager"
+      ],
+      "a": 2,
+      "why": "Workarounds reveal gaps in the standard. Asking with curiosity uncovers the reason and may turn the jig into an improvement for everyone."
+     }
+    },
+    {
+     "title": "Mapping the process: SIPOC and swim lanes",
+     "minutes": 8,
+     "body": "<p>Before you can improve a process, everyone must agree on what the process is. Mapping makes the invisible visible. Two complementary tools work well for SMEs: the SIPOC for the high-level view, and the swim lane map for detail.</p> <h3>SIPOC: the 30,000-metre view</h3> <p>SIPOC stands for Suppliers, Inputs, Process, Outputs and Customers. It defines the boundaries of a process in one page and is often the first tool used in a Six Sigma project.</p> <table><thead><tr><th>Suppliers</th><th>Inputs</th><th>Process (5 to 7 steps)</th><th>Outputs</th><th>Customers</th></tr></thead><tbody> <tr><td>Referring physician, patient</td><td>Referral, health card, history</td><td>Receive referral, triage, book, confirm, check in</td><td>Booked appointment, chart ready</td><td>Patient, clinician</td></tr> </tbody></table> <p>Build a SIPOC from the middle out: list the process steps first, then outputs and customers, then inputs and suppliers. Keep it high-level; detail comes later.</p> <h3>Swim lane maps: who does what, and where it waits</h3> <p>A swim lane map shows each role or department as a horizontal lane and draws the steps in the lane of whoever performs them. Every time work crosses a lane, there is a handoff, and handoffs are where delays and errors tend to happen.</p> <ul> <li>Map the process as it actually runs today, not as the procedure says</li> <li>Use sticky notes on a wall so people can move steps easily</li> <li>Mark waits, rework loops and decision points clearly</li> <li>Note the time each step takes and how long work waits before it</li> </ul> <h4>Worked example</h4> <p>An engineering office maps its drawing approval process in swim lanes: designer, checker, project manager and client. The team counts 9 handoffs and finds that drawings wait an average of 3 days in the project manager's inbox, while checking itself takes about 2 hours. The map shows clearly that the delay is in waiting, not in the work. The team agrees to a daily 15-minute approval slot, a change that the map made obvious.</p> <p>Whatever tool you use, the conversation while mapping is often worth more than the map. People discover how their work affects others, which builds the engagement you will need later.</p>",
+     "takeaways": [
+      "SIPOC sets the boundaries; swim lanes reveal handoffs and waits.",
+      "Map the process as it really runs, with the people who do it.",
+      "Delays usually hide in waiting between steps, not in the steps themselves."
+     ],
+     "apply": "Build a SIPOC for one core process with two colleagues in under 45 minutes. Then pick the step with the most complaints and map it in swim lanes, marking every handoff and wait.",
+     "check": {
+      "q": "A team maps a process and finds that work spends 3 days waiting between two departments but only 2 hours being processed. Where should improvement focus first?",
+      "opts": [
+       "Speeding up the 2-hour processing step",
+       "The handoff and waiting time between departments",
+       "Adding more staff to both departments",
+       "Rewriting the procedure document"
+      ],
+      "a": 1,
+      "why": "Most of the elapsed time is waiting at the handoff. Reducing that wait has far more impact than trimming the short processing step."
+     }
+    },
+    {
+     "title": "Value stream mapping and the 8 wastes",
+     "minutes": 9,
+     "body": "<p>A value stream is every step, value-adding or not, required to take a product or service from request to delivery. Value stream mapping (VSM) draws that flow along with the information that triggers it, and adds timing data so you can see how much of the total time actually adds value.</p> <h3>Key VSM measures</h3> <ul> <li><strong>Process time:</strong> the time someone is actually working on the item</li> <li><strong>Lead time:</strong> the total elapsed time from request to delivery</li> <li><strong>Process cycle efficiency:</strong> value-added time divided by lead time</li> </ul> <h3>The 8 wastes</h3> <p>Lean thinking classifies activities as value-added (the customer pays for it), necessary non-value-added (required by regulation, safety or current constraints) or waste. A common memory aid for the eight wastes is DOWNTIME.</p> <table><thead><tr><th>Waste</th><th>Manufacturing example</th><th>Health care or office example</th></tr></thead><tbody> <tr><td>Defects</td><td>Scrapped welds</td><td>Re-drawn blood sample</td></tr> <tr><td>Overproduction</td><td>Building parts ahead of orders</td><td>Printing reports nobody reads</td></tr> <tr><td>Waiting</td><td>Machine idle for material</td><td>Patient waiting for a room</td></tr> <tr><td>Non-utilized talent</td><td>Operators' ideas ignored</td><td>Nurses doing clerical work</td></tr> <tr><td>Transportation</td><td>Moving parts between buildings</td><td>Sending files between offices</td></tr> <tr><td>Inventory</td><td>Piles of work in progress</td><td>Backlog of unprocessed referrals</td></tr> <tr><td>Motion</td><td>Walking to fetch tools</td><td>Searching for supplies</td></tr> <tr><td>Extra processing</td><td>Polishing a hidden surface</td><td>Entering the same data twice</td></tr> </tbody></table> <h4>Worked example</h4> <p>A pump repair shop maps its repair value stream. Teardown, repair, assembly and testing add up to 6 hours of process time. But the total lead time from pump arrival to shipment is 10 working days, or about 80 working hours. Process cycle efficiency is 6 / 80 = 7.5%. The rest is waiting for quotes, parts and customer approval. The map makes it clear that the biggest gains are in the information flow, not in faster wrenches.</p> <p>Low process cycle efficiency is normal in a first map; do not be discouraged. It simply shows where the opportunity lies. After this lesson, use the classification lab to practise sorting real activities into value-added, necessary non-value-added and waste.</p>",
+     "takeaways": [
+      "Value stream maps show both material and information flow with timing.",
+      "Process cycle efficiency compares value-added time to total lead time.",
+      "DOWNTIME helps you spot the 8 wastes in any setting."
+     ],
+     "apply": "Choose one product or service and walk its value stream from request to delivery. Record process time and waiting time at each step, calculate process cycle efficiency and circle the three largest waits.",
+     "check": {
+      "q": "A lab report has 45 minutes of hands-on work but takes 3 working days (24 working hours) to reach the physician. What is the process cycle efficiency, approximately?",
+      "opts": [
+       "About 31%",
+       "About 19%",
+       "About 3%",
+       "About 45%"
+      ],
+      "a": 2,
+      "why": "Value-added time of 0.75 hours divided by 24 hours of lead time is about 3%. Most of the lead time is waiting."
+     }
+    },
+    {
+     "title": "Turning findings into a prioritized gap list",
+     "minutes": 7,
+     "body": "<p>After assessment, mapping and gemba walks, most teams have more problems than they can solve. The risk now is trying to fix everything at once and finishing nothing. The final step of the assessment phase is to convert findings into a short, prioritized list of gaps linked to the case for change.</p> <h3>From observations to gap statements</h3> <p>Write each finding as a clear gap statement: <strong>current state, desired state, and impact</strong>. For example: \"Changeovers on Press 3 take 90 minutes; target is 30 minutes; the gap costs about 6 hours of capacity per week.\"</p> <h3>Simple prioritization criteria</h3> <table><thead><tr><th>Criterion</th><th>Question to ask</th><th>Score 1 to 5</th></tr></thead><tbody> <tr><td>Impact</td><td>How much does closing this gap help safety, customers or cost?</td><td>5 = large</td></tr> <tr><td>Effort</td><td>How much time, money and disruption to fix?</td><td>5 = small effort</td></tr> <tr><td>Urgency</td><td>Is there a deadline, risk or customer complaint?</td><td>5 = urgent</td></tr> <tr><td>Control</td><td>Can our team fix it, or does it depend on others?</td><td>5 = fully in our control</td></tr> </tbody></table> <p>Add the scores and rank the gaps. Treat the ranking as a guide for discussion, not a formula that replaces judgement. A safety gap goes to the top regardless of score.</p> <h4>Worked example</h4> <p>A small food processor lists five gaps after assessment. Scored by a team of four:</p> <ul> <li>Long sanitation changeover between allergen runs: 5 + 3 + 4 + 5 = 17</li> <li>Paper-based batch records with frequent errors: 4 + 3 + 4 + 4 = 15</li> <li>No daily production meeting: 3 + 5 + 2 + 5 = 15</li> <li>Supplier late deliveries: 4 + 2 + 3 + 2 = 11</li> <li>Outdated ERP system: 4 + 1 + 2 + 3 = 10</li> </ul> <p>The team chooses the sanitation changeover as its first project, starts a daily production meeting immediately because it is low effort, and parks the ERP question until processes are stable.</p> <h3>Keep the list short</h3> <p>For an SME, two or three active improvement projects at a time is usually the most a leadership team can support properly. Everything else goes on a visible backlog so people know their ideas were heard.</p>",
+     "takeaways": [
+      "Write gaps as current state, desired state and impact.",
+      "Score impact, effort, urgency and control, then apply judgement.",
+      "Limit active projects to what leaders can genuinely support."
+     ],
+     "apply": "Take your top eight findings and write each as a gap statement. Score them with two colleagues using the four criteria and agree on no more than three to start in the next quarter.",
+     "check": {
+      "q": "A team's top-scoring gap is a scheduling issue, but a lower-scoring gap involves a recurring near-miss with a forklift. What should happen?",
+      "opts": [
+       "Follow the scores strictly and start with scheduling",
+       "Address the forklift safety gap first",
+       "Average the two and work on both slowly",
+       "Put both on the backlog until the next assessment"
+      ],
+      "a": 1,
+      "why": "Scoring guides the discussion but does not override judgement. Safety gaps take priority regardless of their score."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Measuring and Analyzing Performance",
+   "summary": "Choose KPIs that drive the right behaviour, measure equipment effectiveness, read variation and find root causes with structured methods.",
+   "steps": [
+    {
+     "title": "Choosing KPIs that drive the right behaviour",
+     "minutes": 7,
+     "body": "<p>What gets measured shapes what people pay attention to. Good key performance indicators (KPIs) tell teams whether the process is healthy and help them act early. Poor KPIs create busywork, hide problems or encourage gaming.</p> <h3>Leading and lagging indicators</h3> <table><thead><tr><th>Type</th><th>What it tells you</th><th>Examples</th></tr></thead><tbody> <tr><td>Lagging</td><td>The result, after the fact</td><td>Monthly on-time delivery, recordable injuries, quarterly margin</td></tr> <tr><td>Leading</td><td>Conditions that predict the result</td><td>Daily schedule attainment, near-miss reports, preventive maintenance completed on time</td></tr> </tbody></table> <p>Leaders need both. Lagging measures confirm whether strategy is working; leading measures let teams correct course before the month is lost.</p> <h3>A balanced set: safety, quality, delivery, cost, people</h3> <p>Many operations organize KPIs under five headings, sometimes shortened to SQDCP. Choose one or two measures under each heading for each level of the organization. A front-line team might track:</p> <ul> <li><strong>Safety:</strong> near misses reported today</li> <li><strong>Quality:</strong> first-pass yield</li> <li><strong>Delivery:</strong> jobs completed versus plan</li> <li><strong>Cost:</strong> overtime hours</li> <li><strong>People:</strong> improvement ideas submitted</li> </ul> <h3>Tests for a good KPI</h3> <ol> <li>The team can influence it through their own actions</li> <li>It is updated often enough to act on (daily or weekly at the front line)</li> <li>It has a clear definition and a single source of data</li> <li>It is paired with a measure that prevents gaming, such as speed paired with quality</li> </ol> <h4>Worked example</h4> <p>A clinic tracks only the average time from check-in to seeing a clinician. Staff begin checking patients in later to make the number look better. The clinic redefines the measure to start from the scheduled appointment time, adds a leading measure (charts prepared before the patient arrives), and pairs speed with a short patient feedback question. The measures now reward the behaviour the clinic actually wants.</p>",
+     "takeaways": [
+      "Use leading indicators to act early and lagging ones to confirm results.",
+      "Organize KPIs under safety, quality, delivery, cost and people.",
+      "Pair measures to prevent gaming and keep definitions precise."
+     ],
+     "apply": "List the KPIs your front-line team currently sees. Label each as leading or lagging and identify one SQDCP heading that has no measure. Propose one leading indicator to fill that gap.",
+     "check": {
+      "q": "Which of the following is a leading indicator for on-time delivery in a fabrication shop?",
+      "opts": [
+       "Monthly on-time delivery percentage",
+       "Annual customer satisfaction score",
+       "Quarterly revenue",
+       "Daily percentage of jobs released to the floor with complete material"
+      ],
+      "a": 3,
+      "why": "Jobs released with complete material predict whether they will finish on time. The others report results after the fact."
+     }
+    },
+    {
+     "title": "Overall Equipment Effectiveness (OEE)",
+     "minutes": 9,
+     "body": "<p>Overall Equipment Effectiveness (OEE) is a standard measure of how well a machine, line or asset is used during the time it is planned to run. It combines three losses into one number and, more importantly, shows which loss to attack first. Although it began in manufacturing, the same logic applies to a compressor station, a CT scanner or a laboratory analyzer.</p> <h3>The three factors</h3> <table><thead><tr><th>Factor</th><th>Formula</th><th>Typical losses</th></tr></thead><tbody> <tr><td>Availability</td><td>Run time / Planned production time</td><td>Breakdowns, changeovers, waiting for material</td></tr> <tr><td>Performance</td><td>(Ideal cycle time x Total count) / Run time</td><td>Slow running, minor stops, jams</td></tr> <tr><td>Quality</td><td>Good count / Total count</td><td>Scrap, rework, start-up rejects</td></tr> </tbody></table> <p><strong>OEE = Availability x Performance x Quality.</strong> Run time is planned production time minus downtime.</p> <h4>Worked example</h4> <p>A CNC cell is planned to run one 8-hour shift with a 30-minute break, giving 450 minutes of planned production time. During the shift:</p> <ul> <li>Downtime (one changeover and a tool breakage): 60 minutes, so run time = 390 minutes</li> <li>Ideal cycle time: 1.5 minutes per part</li> <li>Total parts produced: 220; good parts: 209</li> </ul> <ol> <li>Availability = 390 / 450 = 86.7%</li> <li>Performance = (1.5 x 220) / 390 = 330 / 390 = 84.6%</li> <li>Quality = 209 / 220 = 95.0%</li> <li>OEE = 0.867 x 0.846 x 0.950 = about 69.7%</li> </ol> <p>Here, availability and performance losses are similar in size. The team looks at the changeover (availability) and tracks minor stops for a week (performance) before choosing a project.</p> <h3>Using OEE wisely</h3> <ul> <li>Use OEE to compare a machine with itself over time, not to rank machines or crews against each other</li> <li>Agree on the ideal cycle time from the equipment's design rate or best demonstrated rate, and keep it fixed</li> <li>Collect downtime reasons, not just minutes; the reasons drive the improvement</li> <li>Apply OEE to bottleneck assets first, where every lost minute is lost output</li> </ul> <p>After this lesson, use the OEE calculator lab with numbers from one of your own assets.</p>",
+     "takeaways": [
+      "OEE = Availability x Performance x Quality.",
+      "The factor breakdown matters more than the single OEE number.",
+      "Track OEE on bottleneck assets and compare each asset with itself over time."
+     ],
+     "apply": "Pick one bottleneck asset and record one shift of planned time, downtime with reasons, total count and good count. Calculate the three factors and identify the largest loss.",
+     "check": {
+      "q": "A packaging line has availability of 95%, performance of 70% and quality of 99%. Where should the team look first?",
+      "opts": [
+       "Breakdowns and changeovers",
+       "Minor stops and slow running",
+       "Scrap and rework",
+       "Planned maintenance schedules"
+      ],
+      "a": 1,
+      "why": "Performance is the lowest factor at 70%, pointing to slow running and minor stops as the largest loss."
+     }
+    },
+    {
+     "title": "Baselines, variation and reading the data",
+     "minutes": 8,
+     "body": "<p>Before you change a process, you need a baseline: a measure of how it performs today. Without one, you cannot prove an improvement worked, and you risk reacting to normal ups and downs as if they were real problems.</p> <h3>Two kinds of variation</h3> <p>Statistical process control, developed in the early twentieth century, distinguishes two types of variation:</p> <ul> <li><strong>Common cause variation:</strong> the natural noise built into a stable process. Reacting to each high or low point makes things worse.</li> <li><strong>Special cause variation:</strong> a signal that something specific has changed, such as a new supplier lot, a worn tool or a staffing gap. It deserves investigation.</li> </ul> <h3>Start with a run chart</h3> <p>A run chart plots a measure over time with a median line. It is simple enough to draw by hand on a whiteboard. Common rules of thumb for spotting a signal include:</p> <ol> <li>A run of six or more points in a row all above or all below the median</li> <li>Five or more points in a row steadily going up or down</li> <li>One point far outside the usual range</li> </ol> <p>When you have enough data, a control chart adds calculated limits that make the distinction more rigorous.</p> <h4>Worked example</h4> <p>A distribution centre tracks daily picking errors for 20 days. The median is 4 errors per day. A supervisor wants to retrain staff after a day with 7 errors. Looking at the run chart, the team sees that 6 and 7 have appeared several times without any pattern; the process is simply noisy. Then, starting on day 15, six days in a row fall above the median. Investigation shows a new product line with similar-looking labels was introduced on day 14. That is a special cause, and the fix is better labelling, not retraining.</p> <h3>Practical baseline guidelines</h3> <table><thead><tr><th>Guideline</th><th>Why</th></tr></thead><tbody> <tr><td>Collect at least 15 to 20 data points</td><td>Enough to see the normal range</td></tr> <tr><td>Write down the measure definition</td><td>So before and after are measured the same way</td></tr> <tr><td>Note events on the chart</td><td>Helps link signals to causes</td></tr> </tbody></table>",
+     "takeaways": [
+      "A baseline is required to prove an improvement worked.",
+      "Do not react to common cause noise; investigate special cause signals.",
+      "Run charts are a simple, powerful starting point."
+     ],
+     "apply": "Choose one KPI and plot its last 20 data points on a run chart with a median line. Mark any runs or trends that meet the signal rules and note what was happening at those times.",
+     "check": {
+      "q": "A run chart of daily patient wait times shows seven consecutive days above the median after a new booking template was introduced. What does this most likely indicate?",
+      "opts": [
+       "Normal common cause variation",
+       "A data entry error",
+       "A special cause signal worth investigating",
+       "That the median was calculated wrongly"
+      ],
+      "a": 2,
+      "why": "Six or more consecutive points on one side of the median is a common signal of special cause, and the timing points to the new template."
+     }
+    },
+    {
+     "title": "Root cause analysis: 5 Whys and fishbone",
+     "minutes": 8,
+     "body": "<p>Most organizations are good at fixing symptoms. They replace the broken part, re-send the shipment, apologize to the patient. The same problem then comes back next month. Root cause analysis (RCA) asks why the problem happened until you reach a cause that, if removed, would stop it from recurring.</p> <h3>The 5 Whys</h3> <p>Ask \"why?\" repeatedly, usually around five times, each answer based on facts rather than guesses. It works best for problems with a fairly straight chain of cause and effect.</p> <ol> <li>Why did the customer receive the wrong valve? <em>The picker pulled the wrong part number.</em></li> <li>Why? <em>Two valves with similar numbers sit in adjacent bins.</em></li> <li>Why? <em>Bins are assigned by part number order, not by appearance.</em></li> <li>Why? <em>The slotting rule was set up when the catalogue was much smaller.</em></li> <li>Why has it not been revisited? <em>No one owns warehouse layout reviews.</em></li> </ol> <p>The fix moves from \"tell the picker to be careful\" to \"separate look-alike parts and assign an owner for slotting reviews.\"</p> <h3>The fishbone (Ishikawa) diagram</h3> <p>For problems with many possible causes, a fishbone diagram organizes ideas under standard categories. A common set for operations is the 6Ms:</p> <table><thead><tr><th>Category</th><th>Questions to ask</th></tr></thead><tbody> <tr><td>Method</td><td>Is there a standard? Is it followed?</td></tr> <tr><td>Machine</td><td>Is equipment maintained and capable?</td></tr> <tr><td>Material</td><td>Are inputs consistent and correct?</td></tr> <tr><td>Measurement</td><td>Are gauges and data reliable?</td></tr> <tr><td>Manpower (people)</td><td>Are skills, training and staffing adequate?</td></tr> <tr><td>Mother Nature (environment)</td><td>Do temperature, lighting or noise play a role?</td></tr> </tbody></table> <h3>Rules for good RCA</h3> <ul> <li>Focus on the process, never on blaming a person</li> <li>Verify each suspected cause with data or observation before acting</li> <li>If the answer is \"human error\", ask why the process allowed the error</li> <li>Choose fixes that make the error hard or impossible to repeat (error-proofing)</li> </ul>",
+     "takeaways": [
+      "Fix root causes, not symptoms, so problems do not return.",
+      "Use 5 Whys for simple chains and a fishbone for many possible causes.",
+      "Human error is a starting point for asking why, not a root cause."
+     ],
+     "apply": "Pick a problem that has recurred at least twice in the last three months. Run a 5 Whys with two people who were involved, verify each answer with a fact, and propose one error-proofing fix.",
+     "check": {
+      "q": "An RCA concludes that a dosing error was caused by \"technician carelessness.\" What should the team do next?",
+      "opts": [
+       "Close the investigation and retrain the technician",
+       "Ask why the process allowed the error to occur and reach the patient",
+       "Discipline the technician to deter future errors",
+       "Add a warning sign and move on"
+      ],
+      "a": 1,
+      "why": "Human error is rarely a root cause. Good RCA asks what in the process, tools or environment allowed the error, so the fix protects everyone."
+     }
+    },
+    {
+     "title": "DMAIC: a structured path for complex problems",
+     "minutes": 8,
+     "body": "<p>Some problems are too complex for a quick 5 Whys: the causes are unclear, several factors interact, or the stakes are high. Six Sigma's DMAIC method gives these problems a disciplined, data-driven structure. It has five phases, each with a clear exit question.</p> <table><thead><tr><th>Phase</th><th>Purpose</th><th>Common tools</th><th>Exit question</th></tr></thead><tbody> <tr><td>Define</td><td>Clarify the problem, scope and goal</td><td>Project charter, SIPOC, voice of the customer</td><td>Do we agree what we are solving and why?</td></tr> <tr><td>Measure</td><td>Establish the baseline and data reliability</td><td>Data collection plan, run charts, measurement checks</td><td>Do we trust the data and know current performance?</td></tr> <tr><td>Analyze</td><td>Find and verify root causes</td><td>Fishbone, 5 Whys, Pareto charts, scatter plots</td><td>Have we proven which causes matter most?</td></tr> <tr><td>Improve</td><td>Develop, test and implement solutions</td><td>Brainstorming, pilots, error-proofing</td><td>Did the pilot achieve the goal?</td></tr> <tr><td>Control</td><td>Sustain the gain</td><td>Standard work, control charts, response plans</td><td>Will this hold when the team moves on?</td></tr> </tbody></table> <h3>DMAIC versus PDCA</h3> <p>PDCA (Plan, Do, Check, Act) is a shorter improvement cycle used for everyday problems and quick experiments. DMAIC is a longer, more rigorous path for problems where the cause is unknown and the impact is large. Many organizations use PDCA daily and reserve DMAIC for a handful of projects each year.</p> <h4>Worked example</h4> <p>A plastics moulder has intermittent short shots on one product. Quick fixes have not worked. Using DMAIC:</p> <ul> <li><strong>Define:</strong> reduce short-shot scrap on Part 220 from 4% to under 1% in 12 weeks</li> <li><strong>Measure:</strong> the team confirms operators classify defects consistently and collects four weeks of data</li> <li><strong>Analyze:</strong> a Pareto chart shows most short shots occur in the first hour after a resin lot change; a test confirms moisture content varies between lots</li> <li><strong>Improve:</strong> the team adds a resin drying check before lot changes and pilots it for two weeks; scrap falls to 0.8%</li> <li><strong>Control:</strong> the check is added to standard work and scrap is charted daily, with a response plan if it rises</li> </ul> <p>The structure prevents jumping to solutions and makes sure the gain is locked in before the team disbands.</p>",
+     "takeaways": [
+      "DMAIC suits complex problems with unknown causes and high impact.",
+      "Each phase has an exit question that must be answered before moving on.",
+      "Use PDCA for daily problems and DMAIC for a few major projects."
+     ],
+     "apply": "Choose one chronic problem in your operation and draft the Define phase: a problem statement with a baseline, a measurable goal with a date, the scope boundaries and the team members.",
+     "check": {
+      "q": "In a DMAIC project, the team has confirmed its data is reliable and knows current performance. Brainstorming solutions is suggested. What phase should come next?",
+      "opts": [
+       "Improve, because the data is ready",
+       "Control, to lock in the baseline",
+       "Analyze, to find and verify root causes",
+       "Define, to restart the charter"
+      ],
+      "a": 2,
+      "why": "Analyze comes before Improve. Solutions should target root causes that have been verified, otherwise the team may fix the wrong thing."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Engaging People and Transforming Processes",
+   "summary": "Engage stakeholders, lead the people side of change, charter projects, build standard work and test changes safely.",
+   "steps": [
+    {
+     "title": "Mapping stakeholders and roles with RACI",
+     "minutes": 7,
+     "body": "<p>Process improvement changes how people work, so people must be part of it from the start. Engaging stakeholders is not a courtesy; it is how you get accurate information, workable solutions and lasting adoption. Two tools help: a stakeholder map and a RACI chart.</p> <h3>The stakeholder map</h3> <p>List everyone affected by or able to influence the change, then place them on a simple grid of influence and interest.</p> <table><thead><tr><th></th><th>Low interest</th><th>High interest</th></tr></thead><tbody> <tr><td><strong>High influence</strong></td><td>Keep satisfied: brief regularly, seek input on key decisions</td><td>Manage closely: involve in design and decisions</td></tr> <tr><td><strong>Low influence</strong></td><td>Monitor: share general updates</td><td>Keep informed: involve in testing, ask for feedback</td></tr> </tbody></table> <p>Front-line staff often appear as \"low influence\" on an organization chart but have very high practical influence: if they do not adopt the new method, nothing changes. Place them honestly.</p> <h3>RACI: clear roles for each decision or task</h3> <ul> <li><strong>R</strong>esponsible: does the work</li> <li><strong>A</strong>ccountable: owns the outcome and signs off (only one per task)</li> <li><strong>C</strong>onsulted: gives input before the decision</li> <li><strong>I</strong>nformed: told after the decision</li> </ul> <h4>Worked example</h4> <p>A home health agency is redesigning its client intake. Its RACI for three tasks:</p> <table><thead><tr><th>Task</th><th>Intake coordinator</th><th>Clinical lead</th><th>Operations manager</th><th>Scheduling staff</th></tr></thead><tbody> <tr><td>Map current intake</td><td>R</td><td>C</td><td>A</td><td>C</td></tr> <tr><td>Design new triage rules</td><td>C</td><td>A, R</td><td>I</td><td>C</td></tr> <tr><td>Update scheduling templates</td><td>C</td><td>I</td><td>A</td><td>R</td></tr> </tbody></table> <p>Building the RACI revealed that no one had previously owned triage rules, which explained why they varied by coordinator.</p> <h3>Common RACI pitfalls</h3> <ul> <li>More than one A on a task, which means no one is truly accountable</li> <li>Too many Cs, which slows every decision</li> <li>No R on the front line, which leaves improvements designed for staff, not with them</li> </ul>",
+     "takeaways": [
+      "Map stakeholders by influence and interest, and rate front-line influence honestly.",
+      "Each task needs exactly one Accountable person.",
+      "Building a RACI often reveals ownership gaps behind process problems."
+     ],
+     "apply": "For your top-priority gap, list every stakeholder group and place them on the influence and interest grid. Then draft a RACI for the five main tasks of the improvement and check that each has exactly one A.",
+     "check": {
+      "q": "A RACI chart for a new maintenance process shows both the plant manager and the maintenance supervisor as Accountable for approving work orders. What is the problem?",
+      "opts": [
+       "There are too few Consulted roles",
+       "Two Accountable roles mean ownership is unclear",
+       "The supervisor should be Informed only",
+       "RACI charts should not include managers"
+      ],
+      "a": 1,
+      "why": "Each task should have exactly one Accountable person. Two creates confusion over who has the final say and who owns the outcome."
+     }
+    },
+    {
+     "title": "Leading the people side of change",
+     "minutes": 8,
+     "body": "<p>A technically perfect process redesign can still fail if people do not understand it, believe in it or know how to do it. Change management gives structure to the people side. Two widely used models are Kotter's eight steps, aimed at organizational change, and ADKAR, aimed at individual change.</p> <h3>Kotter's eight steps (summarized)</h3> <ol> <li>Create a sense of urgency</li> <li>Build a guiding coalition</li> <li>Form a strategic vision</li> <li>Communicate the vision widely</li> <li>Remove barriers and empower action</li> <li>Generate short-term wins</li> <li>Sustain acceleration</li> <li>Anchor the change in the culture</li> </ol> <h3>ADKAR: what each person needs</h3> <table><thead><tr><th>Element</th><th>Question in the person's mind</th><th>What helps</th></tr></thead><tbody> <tr><td>Awareness</td><td>Why is this changing?</td><td>The case for change, explained by their own leader</td></tr> <tr><td>Desire</td><td>What is in it for me and my team?</td><td>Involvement, addressing concerns honestly</td></tr> <tr><td>Knowledge</td><td>How do I do it?</td><td>Training, clear standard work</td></tr> <tr><td>Ability</td><td>Can I do it in real conditions?</td><td>Coaching, practice, time to learn</td></tr> <tr><td>Reinforcement</td><td>Will it stick?</td><td>Recognition, measures, leader follow-up</td></tr> </tbody></table> <p>ADKAR is especially useful for diagnosing resistance. When someone is not adopting a change, find the first element that is missing and work on that one.</p> <h4>Worked example</h4> <p>A utility's maintenance crews are asked to start using a mobile work order app. Six weeks in, one crew still uses paper. The supervisor works through ADKAR: they know why (awareness) and are open to it (desire), and they attended training (knowledge). But in the field, the app needs a signal that several sites lack, so they cannot use it (ability). The fix is offline mode, not more training or pressure.</p> <h3>Practical tips for SMEs</h3> <ul> <li>Communicate through direct supervisors; people trust their own leader most</li> <li>Expect and welcome questions; resistance often contains useful information</li> <li>Celebrate early wins publicly and credit the people who made them</li> </ul>",
+     "takeaways": [
+      "Kotter guides organizational change; ADKAR guides individual change.",
+      "Diagnose resistance by finding the first missing ADKAR element.",
+      "Supervisors are the most trusted channel for change messages."
+     ],
+     "apply": "Think of a change that did not stick in your organization. Walk through ADKAR for one affected team and identify the first element that was missing. Write one action that would have addressed it.",
+     "check": {
+      "q": "Staff understand why a new triage process is needed, support it and have been trained, but still revert to the old method during busy periods. Which ADKAR element is most likely missing?",
+      "opts": [
+       "Awareness",
+       "Desire",
+       "Knowledge",
+       "Ability"
+      ],
+      "a": 3,
+      "why": "They have awareness, desire and knowledge, but cannot perform the new method under real conditions. That points to ability, which needs coaching, practice or a process adjustment."
+     }
+    },
+    {
+     "title": "Chartering and running improvement projects",
+     "minutes": 8,
+     "body": "<p>Turning a priority gap into results needs a clear project structure. The project charter is the single most useful document for this. It aligns sponsors and team members before work begins and protects the project from drifting.</p> <h3>Elements of a one-page charter</h3> <table><thead><tr><th>Element</th><th>What to write</th></tr></thead><tbody> <tr><td>Problem statement</td><td>What is wrong, where, since when, and how big, with a baseline number</td></tr> <tr><td>Goal</td><td>Specific, measurable target with a date</td></tr> <tr><td>Scope</td><td>What is in and, just as important, what is out</td></tr> <tr><td>Team</td><td>Sponsor, lead and members, including front-line staff</td></tr> <tr><td>Timeline</td><td>Key milestones, usually 60 to 120 days for an SME project</td></tr> <tr><td>Measures</td><td>Primary measure and at least one balancing measure</td></tr> </tbody></table> <h3>Kaizen events versus longer projects</h3> <ul> <li><strong>Kaizen event:</strong> a focused three- to five-day workshop where a cross-functional team analyzes and improves a narrow process, such as a changeover or a supply room. Good for problems with a clear scope and quick solutions.</li> <li><strong>Improvement project:</strong> runs over weeks or months, often using DMAIC, for problems that need data collection and analysis.</li> </ul> <h3>The sponsor's role</h3> <p>Every project needs a sponsor who can remove barriers, provide time and resources, and hold the team accountable. In an SME, this is often the owner or general manager. A sponsor should meet the project lead briefly every week or two.</p> <h4>Worked example</h4> <p>A machine shop charters a project: \"Average changeover on the vertical machining centre takes 75 minutes (four-week baseline). Reduce to 30 minutes by end of quarter without increasing first-piece rejects. In scope: VMC 2 and its fixtures. Out of scope: purchasing new equipment.\" The team includes two machinists, the setup lead and a supervisor, with the operations manager as sponsor. Using a single-minute exchange of die (SMED) approach, they move setup tasks to before the machine stops and pre-stage tooling on a cart, reaching 35 minutes in six weeks and 28 minutes after standard work is in place.</p> <p>Notice the balancing measure: speeding changeovers is only a win if first-piece quality holds.</p>",
+     "takeaways": [
+      "A one-page charter aligns sponsors and teams before work begins.",
+      "Use kaizen events for narrow, clear problems and projects for complex ones.",
+      "Include a balancing measure so gains do not create new problems."
+     ],
+     "apply": "Draft a one-page charter for your top-priority gap, including a baseline, a dated goal, clear out-of-scope items and a balancing measure. Review it with your intended sponsor this week.",
+     "check": {
+      "q": "A project charter's goal is \"Improve shipping performance.\" What is the main weakness?",
+      "opts": [
+       "It lacks a sponsor name",
+       "It is not specific, measurable or time-bound",
+       "It is too narrow in scope",
+       "It includes a balancing measure"
+      ],
+      "a": 1,
+      "why": "A good goal states a measurable target and a date, such as on-time shipping from a baseline to a target by a set month."
+     }
+    },
+    {
+     "title": "Standard work and 5S",
+     "minutes": 8,
+     "body": "<p>Once a team finds a better way, standard work captures it so it is done the same way every time, by every shift. 5S creates the organized, visual workplace that makes standard work easy to follow. Together they are the foundation for every other improvement.</p> <h3>What standard work contains</h3> <ul> <li><strong>Sequence:</strong> the steps in the best known order</li> <li><strong>Timing:</strong> how long each step should take, linked to customer demand where relevant</li> <li><strong>Key points:</strong> the quality, safety and \"knack\" points that make the step succeed</li> <li><strong>Standard inventory:</strong> the materials that should be on hand at the workstation</li> </ul> <p>Good standard work is short, visual and posted where the work happens. Photos beat paragraphs. It is written with the people who do the job and updated whenever someone finds a better way.</p> <h3>The 5S method</h3> <table><thead><tr><th>S</th><th>Meaning</th><th>Example in a clinic supply room</th></tr></thead><tbody> <tr><td>Sort</td><td>Remove what is not needed</td><td>Clear out expired and unused supplies</td></tr> <tr><td>Set in order</td><td>A place for everything, labelled</td><td>Label shelves by procedure type</td></tr> <tr><td>Shine</td><td>Clean and inspect</td><td>Wipe and check shelves weekly</td></tr> <tr><td>Standardize</td><td>Make the first three a routine</td><td>Visual minimum and maximum levels on each bin</td></tr> <tr><td>Sustain</td><td>Build the habit and audit</td><td>Monthly five-minute 5S check by rotating staff</td></tr> </tbody></table> <p>Many safety-focused organizations add a sixth S for Safety, checking for hazards as part of each step.</p> <h4>Worked example</h4> <p>A field service company's maintenance shop applies 5S to its tool crib. Before, technicians spent time each morning looking for torque wrenches and calibrated gauges. After sorting, shadow boards and a simple sign-out sheet, missing tools become visible at a glance. The shop then writes standard work for the morning truck-loading routine, with a photo of a correctly loaded truck. Crews leave for site earlier and with the right tools.</p> <h3>Why 5S fails</h3> <p>5S often becomes a one-time clean-up that fades within months. It sustains when it is tied to the work (people see that it saves them time), when leaders check it during gemba walks, and when the team owns the standards rather than having them imposed.</p>",
+     "takeaways": [
+      "Standard work captures the current best method and is the baseline for improvement.",
+      "5S creates a visual workplace where abnormal conditions stand out.",
+      "Sustain comes from ownership, routine checks and visible benefit."
+     ],
+     "apply": "Choose one workstation, desk area or supply room and run Sort and Set in order with the people who use it in under an hour. Then write a one-page visual standard for one routine task performed there.",
+     "check": {
+      "q": "A warehouse completed a 5S event six months ago, but the area is now cluttered again. Which step was most likely neglected?",
+      "opts": [
+       "Sort",
+       "Shine",
+       "Set in order",
+       "Sustain"
+      ],
+      "a": 3,
+      "why": "Sustain builds the routines, ownership and audits that keep the first four S's in place. Without it, 5S becomes a one-time clean-up."
+     }
+    },
+    {
+     "title": "PDCA, piloting and making change safely",
+     "minutes": 7,
+     "body": "<p>New ideas should be tested before they become the new standard. The Plan-Do-Check-Act (PDCA) cycle, popularized by W. Edwards Deming, is the simplest way to run a controlled experiment in a live operation. In high-stakes settings, it is also how you change processes without creating new risks.</p> <h3>The PDCA cycle</h3> <ol> <li><strong>Plan:</strong> state the problem, the change you will test, and what you predict will happen. Define how you will measure it.</li> <li><strong>Do:</strong> run the change on a small scale, such as one shift, one line or one clinic room.</li> <li><strong>Check:</strong> compare the results with your prediction and the baseline.</li> <li><strong>Act:</strong> adopt, adapt or abandon the change. If adopted, update the standard. Then plan the next cycle.</li> </ol> <h3>Designing a safe pilot</h3> <table><thead><tr><th>Question</th><th>Why it matters</th></tr></thead><tbody> <tr><td>Does the change need management of change review?</td><td>Required for changes to controlled processes, equipment or procedures in many high-hazard settings</td></tr> <tr><td>What is the smallest test that would teach us something?</td><td>Limits exposure if the idea does not work</td></tr> <tr><td>How will we reverse it quickly?</td><td>A rollback plan keeps operations safe</td></tr> <tr><td>Who must be informed before the test?</td><td>Avoids surprises across shifts and departments</td></tr> </tbody></table> <h4>Worked example</h4> <p>A medical imaging clinic wants to reduce late starts. <strong>Plan:</strong> the team predicts that calling patients the day before with prep instructions will cut late starts on morning appointments from about 1 in 4 to 1 in 10. <strong>Do:</strong> one staff member makes the calls for morning slots for two weeks. <strong>Check:</strong> late starts drop to about 1 in 8, but calls take longer than expected. <strong>Act:</strong> the team adapts by switching to a scripted text message with a callback option, then runs a second two-week cycle.</p> <h3>Scaling after the pilot</h3> <ul> <li>Only scale a change that has met its goal and been written into standard work</li> <li>Expect to adjust when moving to a different shift, site or product</li> <li>Keep measuring after rollout; pilots run with extra attention and results can drift</li> </ul>",
+     "takeaways": [
+      "PDCA turns ideas into small, controlled experiments.",
+      "Safe pilots include management of change, a small scope and a rollback plan.",
+      "Update standard work before scaling a successful change."
+     ],
+     "apply": "Choose one improvement idea from your backlog. Write a PDCA plan with a clear prediction, the smallest useful test, the measure you will check and a rollback plan, then run it within the next two weeks.",
+     "check": {
+      "q": "A PDCA test reduced errors on one shift, but staff found the new step awkward. What is the best Act decision?",
+      "opts": [
+       "Roll it out to all shifts immediately",
+       "Abandon the idea because staff disliked it",
+       "Adapt the step with staff input and run another cycle",
+       "Stop measuring because the goal was met"
+      ],
+      "a": 2,
+      "why": "Act includes adapting. Refining the change with the people doing the work and testing again builds a better standard before scaling."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Sustaining and Scaling the Gains",
+   "summary": "Build daily management, leadership routines and strategy deployment so improvement lasts and spreads, then plan your first 90 days.",
+   "steps": [
+    {
+     "title": "Tiered daily management and visual boards",
+     "minutes": 8,
+     "body": "<p>Improvement projects fix specific problems. Daily management is the system that catches new problems early and keeps processes performing at their new standard. It is the difference between organizations that improve once and those that keep improving.</p> <h3>Tiered huddles</h3> <p>Short, standing meetings at each level of the organization, held at the same time every day, connect the front line to leadership in hours rather than weeks.</p> <table><thead><tr><th>Tier</th><th>Who</th><th>Length</th><th>Focus</th></tr></thead><tbody> <tr><td>Tier 1</td><td>Front-line team and supervisor</td><td>10 to 15 minutes</td><td>Yesterday's performance, today's plan, problems needing help</td></tr> <tr><td>Tier 2</td><td>Supervisors and department manager</td><td>15 minutes</td><td>Issues escalated from Tier 1, cross-team problems</td></tr> <tr><td>Tier 3</td><td>Managers and senior leader</td><td>15 to 20 minutes</td><td>Escalations needing resources or decisions, site-wide trends</td></tr> </tbody></table> <p>In a small business, there may be only two tiers. The principle is the same: problems that cannot be solved at one level move up quickly, and answers come back down.</p> <h3>What goes on a visual board</h3> <ul> <li>SQDCP measures with simple red and green status against target</li> <li>Today's plan and staffing</li> <li>An issues list with owner and due date</li> <li>Improvement ideas in progress</li> </ul> <p>The board should let anyone walking by understand, within a minute, whether the team is having a good day and what help it needs.</p> <h4>Worked example</h4> <p>A regional distributor starts a 10-minute Tier 1 huddle at the start of each shift in the warehouse, and a Tier 2 huddle at 9:00 with the warehouse, purchasing and customer service leads. On Tuesday, the warehouse flags that a supplier's pallets arrive without labels. The issue reaches Tier 2 by 9:00 and purchasing calls the supplier that morning. Before tiered huddles, the same issue might have surfaced at a monthly meeting.</p> <h3>Keeping huddles effective</h3> <ol> <li>Start and end on time, standing up</li> <li>Focus on exceptions, not reporting everything that went well</li> <li>Every issue gets an owner and a date, or is escalated</li> <li>Review the issues list for overdue items every day</li> </ol>",
+     "takeaways": [
+      "Daily management sustains gains and catches new problems early.",
+      "Tiered huddles move issues up and answers down within hours.",
+      "Visual boards should show status and help needed at a glance."
+     ],
+     "apply": "Start a 10-minute daily huddle with one team for two weeks using a whiteboard with three SQDCP measures and an issues list. At the end, ask the team what to keep, change or drop.",
+     "check": {
+      "q": "In a Tier 1 huddle, a team raises a recurring parts shortage that they cannot solve themselves. What should happen?",
+      "opts": [
+       "Keep discussing it at Tier 1 until a solution emerges",
+       "Escalate it to Tier 2 with an owner responsible for bringing back the answer",
+       "Leave it for the monthly operations review",
+       "Remove it from the board to keep the huddle short"
+      ],
+      "a": 1,
+      "why": "Tiered daily management exists to escalate problems that need help beyond the team, quickly and with clear ownership."
+     }
+    },
+    {
+     "title": "Leader standard work and coaching for improvement",
+     "minutes": 8,
+     "body": "<p>A continuous improvement culture is built by what leaders do every day, not by what they say at town halls. Leader standard work makes those daily behaviours explicit and repeatable. Coaching routines then build problem-solving capability in every team.</p> <h3>What leader standard work looks like</h3> <p>Leader standard work is a short, written list of the routine activities each leadership level commits to, with times and frequency. The higher the level, the more of the time is flexible, but no level is exempt.</p> <table><thead><tr><th>Role</th><th>Example routine tasks</th></tr></thead><tbody> <tr><td>Supervisor</td><td>Run Tier 1 huddle, check two standard work steps on the floor, review issues list, coach one person on a problem</td></tr> <tr><td>Manager</td><td>Attend Tier 2, gemba walk on a rotating focus, review project progress weekly</td></tr> <tr><td>Senior leader</td><td>Lead Tier 3, weekly gemba walk, monthly review of improvement backlog and strategy deployment</td></tr> </tbody></table> <h3>Coaching with questions</h3> <p>Toyota Kata, described by Mike Rother, offers a practical coaching routine. The coach asks a short set of questions regularly, often daily, to help the learner work toward a target condition through small experiments. A simplified version:</p> <ol> <li>What is the target condition?</li> <li>What is the actual condition now?</li> <li>What obstacles are preventing you from reaching the target? Which one are you working on now?</li> <li>What is your next step, and what do you expect to happen?</li> <li>When can we see what you learned from that step?</li> </ol> <p>The power is in the repetition. Over weeks, the learner builds a habit of scientific thinking, and the coach resists the urge to give answers.</p> <h4>Worked example</h4> <p>A plant supervisor coaches a line lead whose target is reducing minor stops on a packaging line. Each day at 2:00 p.m., they spend 10 minutes at the line board using the five questions. Early on, the supervisor notices the lead jumping straight to solutions. By asking \"what do you expect to happen?\" each time, the lead begins making predictions and checking them, and the experiments become sharper.</p> <h3>Making it stick</h3> <ul> <li>Post leader standard work where others can see it</li> <li>Have each leader's manager check it periodically</li> <li>Protect coaching time on the calendar like any other meeting</li> </ul>",
+     "takeaways": [
+      "Culture is built by leaders' daily routines, not slogans.",
+      "Leader standard work makes routine leadership behaviours explicit.",
+      "Coaching with repeated questions builds problem-solving habits."
+     ],
+     "apply": "Write your own leader standard work for one week: daily, weekly and monthly tasks with times. Follow it for two weeks and note which items you skipped and why.",
+     "check": {
+      "q": "A manager wants to build problem-solving capability in her supervisors. Which approach best reflects coaching for improvement?",
+      "opts": [
+       "Solve their problems quickly so they can see good examples",
+       "Send them on a one-day external course",
+       "Meet them regularly and ask structured questions about their target, obstacles and next experiment",
+       "Review their KPIs at the monthly meeting"
+      ],
+      "a": 2,
+      "why": "Regular, structured coaching questions build the learner's own thinking. Giving answers or occasional reviews does not build the habit."
+     }
+    },
+    {
+     "title": "Scaling improvement across divisions",
+     "minutes": 8,
+     "body": "<p>Once a site or department has proven results, leaders naturally want to spread them. Scaling is harder than it looks. A solution that worked brilliantly in one place can fail in another because the context, people or volumes differ. Successful scaling spreads the thinking and the management system, not just the solution.</p> <h3>Strategy deployment (hoshin kanri)</h3> <p>Hoshin kanri, often called strategy deployment, aligns improvement work across the organization with a few breakthrough objectives. Its key practice is \"catchball\": objectives are passed down, teams respond with what they can contribute and what they need, and plans are adjusted until they are realistic and owned.</p> <ul> <li>Pick no more than three to five breakthrough objectives a year</li> <li>Translate each objective into measurable targets at each level</li> <li>Review progress monthly and adjust plans, not just report numbers</li> </ul> <h3>Three ways to spread a proven improvement</h3> <table><thead><tr><th>Approach</th><th>When it fits</th><th>Watch out for</th></tr></thead><tbody> <tr><td>Copy exactly</td><td>Sites with near-identical processes and equipment</td><td>Hidden local differences</td></tr> <tr><td>Adapt the principle</td><td>Similar problems in different contexts</td><td>Losing the key design features</td></tr> <tr><td>Teach the method</td><td>Different processes that need their own solutions</td><td>Slower initial results</td></tr> </tbody></table> <h3>A practical scaling sequence</h3> <ol> <li>Document the improvement: problem, root cause, solution, results and standard work</li> <li>Have the receiving team visit the original site and see it working</li> <li>Let the receiving team run its own assessment and PDCA cycles</li> <li>Assign a peer from the original site as a contact for questions</li> <li>Track results at each new site separately</li> </ol> <h4>Worked example</h4> <p>An energy services company with three yards cuts truck loading time at its Alberta yard using shadow boards and standard loading lists. Leadership first orders the other yards to copy it. One yard adopts it quickly; the other struggles because its crews service a different equipment mix. The company switches approach: the struggling yard's crew visits, then designs its own loading standard using the same principles. Loading time improves there too, and the crew owns the result.</p> <p>The lesson for SMEs: scale people's capability and the daily management system first, and solutions will follow.</p>",
+     "takeaways": [
+      "Scale the thinking and management system, not just the solution.",
+      "Strategy deployment aligns improvement with a few breakthrough objectives.",
+      "Let receiving teams see, adapt and own the improvement."
+     ],
+     "apply": "Identify one improvement that worked in one area of your organization. Decide whether it should be copied, adapted or taught elsewhere, and plan a visit for the receiving team to see it in action.",
+     "check": {
+      "q": "A solution that worked at one clinic is failing at a second clinic with a different patient mix. What is the best approach?",
+      "opts": [
+       "Enforce the original solution more strictly",
+       "Have the second clinic adapt the principle through its own assessment and PDCA cycles",
+       "Abandon the improvement at both clinics",
+       "Hire the first clinic's manager to run the second clinic"
+      ],
+      "a": 1,
+      "why": "Different contexts often need adapted solutions. Teaching the method and letting the team test locally builds ownership and a better fit."
+     }
+    },
+    {
+     "title": "Wrap-up: your 90-day OpEx action plan",
+     "minutes": 8,
+     "body": "<p>You now have a complete framework for operational excellence: assess where you are, engage stakeholders, transform priority processes, and sustain and scale the gains through daily management and leadership routines. The final step is turning that framework into a concrete plan you can start on Monday.</p> <h3>The framework at a glance</h3> <table><thead><tr><th>Phase</th><th>Key tools from this course</th></tr></thead><tbody> <tr><td>Assess</td><td>Maturity assessment, gemba walks, SIPOC, swim lanes, value stream map, 8 wastes, gap list</td></tr> <tr><td>Measure and analyze</td><td>SQDCP KPIs, OEE, run charts, 5 Whys, fishbone, DMAIC</td></tr> <tr><td>Engage and transform</td><td>Stakeholder map, RACI, ADKAR and Kotter, charters, standard work, 5S, PDCA</td></tr> <tr><td>Sustain and scale</td><td>Tiered huddles, visual boards, leader standard work, coaching, strategy deployment</td></tr> </tbody></table> <h3>A 90-day plan for an SME</h3> <ol> <li><strong>Days 1 to 30, Assess:</strong> run the maturity assessment with a mixed group, do three gemba walks, map one value stream, establish baselines for two or three KPIs, and agree on a prioritized gap list.</li> <li><strong>Days 31 to 60, Engage and start:</strong> write the case for change, map stakeholders, charter one improvement project with a sponsor, and launch a Tier 1 huddle with one team.</li> <li><strong>Days 61 to 90, Transform and sustain:</strong> complete root cause analysis, run PDCA pilots, update standard work, introduce leader standard work for supervisors, and review results against the baseline.</li> </ol> <h3>Questions to answer before you start</h3> <ul> <li>Who is the sponsor, and how much of their time is committed?</li> <li>Which one value stream will you assess first, and why?</li> <li>Which two or three KPIs will show whether you are making progress?</li> <li>How will front-line staff be involved from the first week?</li> <li>When will you review the plan, and who will be in the room?</li> </ul> <h4>Worked example</h4> <p>A 50-person precast concrete producer uses this plan. In month one, the assessment shows low scores in problem solving and performance measurement, and the value stream map points to long mould changeovers. In month two, the owner sponsors a changeover project and the yard starts a daily huddle. By day 90, changeovers are shorter, the huddle is catching material issues earlier, and the team chooses its next value stream.</p> <blockquote>Start small, start with facts, involve the people who do the work, and build the habit before you build the program.</blockquote> <p>Complete the final exam to earn your Chmltech certificate of completion, and revisit the labs as your operation matures.</p>",
+     "takeaways": [
+      "Operational excellence follows a clear path: assess, engage, transform, sustain.",
+      "A 90-day plan focused on one value stream is realistic for most SMEs.",
+      "Build daily habits alongside the first project so gains last."
+     ],
+     "apply": "Write your own 90-day plan using the three phases above, naming a sponsor, a first value stream, two or three KPIs and dates for each milestone. Share it with your leadership team and book the 30-day review now.",
+     "check": {
+      "q": "An SME leadership team has just finished this course and wants to launch improvement projects in all five departments next week. What would the 90-day approach recommend?",
+      "opts": [
+       "Launch all five projects to build momentum",
+       "Wait a full year to plan the program in detail",
+       "Hire an outside team to run all five projects",
+       "Assess one value stream, then charter one project and start a daily huddle"
+      ],
+      "a": 3,
+      "why": "Focusing on one value stream with one project and a daily huddle builds capability and proven results before expanding."
+     }
+    }
+   ]
+  }
+ ],
+ "labs": [
+  {
+   "id": "opex-maturity-assessment",
+   "type": "assessment",
+   "title": "Operational Excellence Maturity Assessment",
+   "intro": "Score your organization on seven dimensions of operational excellence to see your maturity profile and the areas holding you back.",
+   "after_step": 6,
+   "config": {
+    "scale": [
+     "Not started",
+     "Ad hoc",
+     "Defined",
+     "Managed",
+     "Optimized"
+    ],
+    "dimensions": [
+     {
+      "name": "Leadership and strategy deployment",
+      "question": "How clearly do leaders set a few improvement priorities, connect them to team targets and review progress regularly?",
+      "low": "Agree on no more than three improvement priorities for the year and share them with every supervisor.",
+      "high": "Use catchball with each team to align targets and review strategy deployment monthly."
+     },
+     {
+      "name": "Process standardization",
+      "question": "How consistently are key processes documented in current, visual standard work that people actually follow?",
+      "low": "Write simple visual standard work for your most error-prone process with the people who do it.",
+      "high": "Treat standards as living documents and track how often teams improve and update them."
+     },
+     {
+      "name": "Performance measurement and KPIs",
+      "question": "How well do teams see timely, balanced measures (safety, quality, delivery, cost, people) they can influence?",
+      "low": "Pick three SQDCP measures for one team and post them daily on a whiteboard.",
+      "high": "Add leading indicators and link team measures to site and company objectives."
+     },
+     {
+      "name": "Problem solving",
+      "question": "How systematically are problems traced to verified root causes and fixed so they do not return?",
+      "low": "Run a 5 Whys on one recurring problem and verify each answer with facts.",
+      "high": "Reserve DMAIC for complex problems and coach supervisors to lead PDCA cycles daily."
+     },
+     {
+      "name": "Workforce engagement and capability",
+      "question": "How actively are front-line staff involved in improving their own work, with time, training and recognition?",
+      "low": "Start capturing and responding to improvement ideas from one team every week.",
+      "high": "Develop internal coaches and give teams protected time for improvement."
+     },
+     {
+      "name": "Customer focus",
+      "question": "How well does every team understand what its internal or external customers value and measure performance against it?",
+      "low": "Ask three customers what matters most to them and share the answers with the team.",
+      "high": "Build customer requirements into process measures and review complaints for root causes."
+     },
+     {
+      "name": "Continuous improvement culture",
+      "question": "How embedded are daily routines such as huddles, gemba walks and leader standard work that keep improvement going?",
+      "low": "Launch a 10-minute daily huddle with one team and a visible issues list.",
+      "high": "Spread tiered huddles and leader standard work across divisions and audit them regularly."
+     }
+    ]
+   }
+  },
+  {
+   "id": "value-waste-sort",
+   "type": "classify",
+   "title": "Value-Added or Waste?",
+   "intro": "Sort real activities from manufacturing, energy and health care into value-added, necessary non-value-added and waste, then check the explanations.",
+   "after_step": 9,
+   "config": {
+    "categories": [
+     "Value-added",
+     "Necessary non-value-added",
+     "Waste"
+    ],
+    "items": [
+     {
+      "text": "Welding a frame to the customer's drawing",
+      "answer": 0,
+      "why": "It transforms the product in a way the customer is willing to pay for."
+     },
+     {
+      "text": "A clinician examining a patient and discussing treatment",
+      "answer": 0,
+      "why": "This is the core service the patient came for and directly improves their outcome."
+     },
+     {
+      "text": "Repairing a failed pump seal at a customer's site",
+      "answer": 0,
+      "why": "The customer is paying for the repair; it changes the equipment's condition as required."
+     },
+     {
+      "text": "Completing a confined space entry permit before tank inspection",
+      "answer": 1,
+      "why": "The customer does not pay for the permit itself, but it is required for safety and regulation. Make it fast, not absent."
+     },
+     {
+      "text": "Verifying a patient's identity before drawing blood",
+      "answer": 1,
+      "why": "A required safety check that adds no transformation but prevents serious errors. Keep it and make it reliable."
+     },
+     {
+      "text": "Calibrating pressure gauges on a regulated schedule",
+      "answer": 1,
+      "why": "Required to trust the measurements and meet compliance, though it does not change the product."
+     },
+     {
+      "text": "Operators walking to the tool crib several times a shift to find wrenches",
+      "answer": 2,
+      "why": "Motion waste. Point-of-use tool storage and 5S can eliminate most of this walking."
+     },
+     {
+      "text": "Machining extra parts ahead of any customer order to keep the machine busy",
+      "answer": 2,
+      "why": "Overproduction, often called the worst waste because it creates inventory, hides problems and ties up cash."
+     },
+     {
+      "text": "Patients waiting in the lobby for an exam room to be cleaned",
+      "answer": 2,
+      "why": "Waiting waste. Better room turnover and scheduling reduce it."
+     },
+     {
+      "text": "Retyping paper intake forms into the scheduling system",
+      "answer": 2,
+      "why": "Extra processing: the same information is handled twice. Capturing it once at the source removes the step."
+     },
+     {
+      "text": "Re-machining parts that failed final inspection",
+      "answer": 2,
+      "why": "Defect waste. The rework only exists because the part was not made right the first time."
+     },
+     {
+      "text": "Field crew idling while a supervisor drives out to sign a work order",
+      "answer": 2,
+      "why": "Waiting waste. Pre-approving permits or remote sign-off can remove it while keeping the control."
+     },
+     {
+      "text": "Skilled technicians spending hours on data entry instead of diagnostics",
+      "answer": 2,
+      "why": "Non-utilized talent: people's skills are used for low-value work that could be simplified or reassigned."
+     }
+    ]
+   }
+  },
+  {
+   "id": "oee-calculator",
+   "type": "calc",
+   "title": "OEE Calculator",
+   "intro": "Enter one shift of data from a machine, line or asset to calculate availability, performance, quality and overall OEE.",
+   "after_step": 12,
+   "config": {
+    "calc": "oee",
+    "note": "Focus your next improvement on the lowest of the three factors, and compare the asset with its own OEE over time rather than with other assets."
+   }
+  }
+ ],
+ "exam": [
+  {
+   "q": "A manufacturing plant's on-time delivery depends on a planner who personally expedites late orders every day. From an operational excellence perspective, what is the main risk?",
+   "opts": [
+    "Performance relies on heroics rather than a stable process",
+    "The planner may ask for a raise",
+    "Customers will stop ordering",
+    "The plant has too much inventory"
+   ],
+   "a": 0,
+   "why": "Results that depend on one person's extra effort are fragile and hide the process problems that create late orders."
+  },
+  {
+   "q": "A health care organization wants to remove a double-check on high-risk medications to save time. What is the most appropriate OpEx response?",
+   "opts": [
+    "Remove it for staff with more than five years' experience",
+    "Remove it and monitor incident reports",
+    "Move the check to the end of the day",
+    "Keep the check and redesign how it is done so it is faster and more reliable"
+   ],
+   "a": 3,
+   "why": "In high-stakes settings, safety controls are design constraints. OpEx improves the way the control is performed rather than removing it."
+  },
+  {
+   "q": "Which item belongs in the external failure category of the cost of poor quality?",
+   "opts": [
+    "Scrap found at final inspection",
+    "Operator training on a new procedure",
+    "A credit issued to a customer for a damaged shipment",
+    "Routine incoming material inspection"
+   ],
+   "a": 2,
+   "why": "External failures are discovered after the product or service reaches the customer, such as credits, returns and warranty claims."
+  },
+  {
+   "q": "During a maturity assessment, a leader rates performance measurement as Managed (4), but no team can show a current KPI board. What score is most defensible?",
+   "opts": [
+    "A lower score, because there is no visible evidence",
+    "4, because the leader knows the business best",
+    "5, because KPIs exist in the ERP",
+    "Skip the dimension until data is available"
+   ],
+   "a": 0,
+   "why": "Scores must be backed by evidence a visitor could see. Without it, the score should come down."
+  },
+  {
+   "q": "On a gemba walk, what is the best first action when you arrive at the work area?",
+   "opts": [
+    "Point out any 5S problems you notice",
+    "Ask the supervisor for the latest KPI report",
+    "Suggest solutions to the first problem you see",
+    "Observe the work for several minutes before asking questions"
+   ],
+   "a": 3,
+   "why": "Gemba walks start with observation so you see the real process before forming opinions or asking questions."
+  },
+  {
+   "q": "A team building a SIPOC lists the process steps first. What should it typically do next?",
+   "opts": [
+    "Detail every decision point in swim lanes",
+    "Calculate process cycle efficiency",
+    "List outputs and customers",
+    "Write standard work"
+   ],
+   "a": 2,
+   "why": "SIPOC is built from the middle out: process steps, then outputs and customers, then inputs and suppliers."
+  },
+  {
+   "q": "A repair order takes 5 working days (40 working hours) from arrival to shipment, with 4 hours of hands-on work. What is the process cycle efficiency?",
+   "opts": [
+    "10%",
+    "40%",
+    "4%",
+    "25%"
+   ],
+   "a": 0,
+   "why": "Process cycle efficiency is value-added time divided by lead time: 4 / 40 = 10%."
+  },
+  {
+   "q": "Nurses in a clinic spend part of each shift photocopying and filing forms. Which of the 8 wastes is the clearest fit?",
+   "opts": [
+    "Overproduction",
+    "Transportation",
+    "Inventory",
+    "Non-utilized talent"
+   ],
+   "a": 3,
+   "why": "Highly skilled staff doing clerical work is non-utilized talent; their skills could be applied to patient care."
+  },
+  {
+   "q": "Which is the best-written gap statement?",
+   "opts": [
+    "Changeovers are too slow",
+    "Changeovers on Line 2 average 80 minutes against a 30-minute target, costing about 5 hours of capacity a week",
+    "We need SMED training",
+    "Line 2 has problems with its operators"
+   ],
+   "a": 1,
+   "why": "A good gap statement describes the current state, the desired state and the impact in measurable terms."
+  },
+  {
+   "q": "A distribution centre measures pickers only on lines picked per hour. Picking errors start to rise. What is the best KPI fix?",
+   "opts": [
+    "Pair the speed measure with a picking accuracy measure",
+    "Raise the lines-per-hour target",
+    "Stop measuring pickers altogether",
+    "Measure errors only once a quarter"
+   ],
+   "a": 0,
+   "why": "Pairing measures prevents gaming. Speed is balanced by accuracy so teams optimize the right behaviour."
+  },
+  {
+   "q": "A machine has 400 minutes of planned time, 40 minutes of downtime, an ideal cycle time of 1 minute, 300 total parts and 285 good parts. What is its availability?",
+   "opts": [
+    "75%",
+    "95%",
+    "90%",
+    "83%"
+   ],
+   "a": 2,
+   "why": "Availability = run time / planned time = (400 - 40) / 400 = 90%."
+  },
+  {
+   "q": "Using the same machine (360 minutes run time, 1-minute ideal cycle, 300 total parts, 285 good), which factor is the largest loss?",
+   "opts": [
+    "Availability",
+    "Quality",
+    "All three are equal",
+    "Performance"
+   ],
+   "a": 3,
+   "why": "Performance = 300 / 360 = 83.3%, lower than availability (90%) and quality (95%), so speed loss is largest."
+  },
+  {
+   "q": "A supervisor wants to discipline a team after one bad day of quality results, though the run chart shows that level has occurred several times with no pattern. What does this suggest?",
+   "opts": [
+    "Common cause variation; reacting to it may make things worse",
+    "A special cause that needs investigation",
+    "The measurement system is broken",
+    "The target is set correctly"
+   ],
+   "a": 0,
+   "why": "Points within the normal range with no pattern are common cause variation. Improvement requires changing the process, not reacting to single points."
+  },
+  {
+   "q": "A 5 Whys analysis on a late shipment stops at \"the driver forgot to load one pallet.\" What should the team do?",
+   "opts": [
+    "Accept it and retrain the driver",
+    "Switch to a fishbone diagram and start over",
+    "Close the issue because it was a one-time event",
+    "Keep asking why the process allowed a pallet to be missed"
+   ],
+   "a": 3,
+   "why": "Human error is rarely the root cause. Asking why the process allowed it leads to error-proofing, such as a load checklist or staging lane."
+  },
+  {
+   "q": "A complex, high-impact scrap problem has unclear causes and several interacting factors. Which approach fits best?",
+   "opts": [
+    "A single PDCA cycle over one shift",
+    "A 5S event in the area",
+    "A DMAIC project with a charter, measured baseline and verified root causes",
+    "A new KPI board"
+   ],
+   "a": 2,
+   "why": "DMAIC is designed for complex problems with unknown causes and high stakes, using data to verify causes before solutions."
+  },
+  {
+   "q": "A RACI for a new procurement process lists four people as Consulted on every task and no front-line buyer as Responsible. What is the most important fix?",
+   "opts": [
+    "Make the front-line buyers Responsible for tasks they perform and trim unnecessary Consulted roles",
+    "Add more Informed roles",
+    "Remove the Accountable role",
+    "Make everyone Accountable"
+   ],
+   "a": 0,
+   "why": "Too many Consulted roles slow decisions, and front-line staff should be Responsible for the work they do so improvements are designed with them."
+  },
+  {
+   "q": "Using ADKAR, a team knows why a change is happening but sees no benefit for themselves and keeps arguing against it. Which element should a leader address first?",
+   "opts": [
+    "Knowledge",
+    "Desire",
+    "Ability",
+    "Reinforcement"
+   ],
+   "a": 1,
+   "why": "Awareness is present but desire is missing. Addressing their concerns and involving them in design builds desire before training."
+  },
+  {
+   "q": "A kaizen team cut changeover time in half, but first-piece rejects doubled. Which charter element would have flagged this early?",
+   "opts": [
+    "The sponsor's name",
+    "A longer timeline",
+    "A larger team",
+    "A balancing measure for first-piece quality"
+   ],
+   "a": 3,
+   "why": "A balancing measure protects against improvements in one area that create problems in another."
+  },
+  {
+   "q": "In a Tier 1 huddle, the team's board shows ten open issues, most overdue, with no owners. What is the best improvement to the huddle?",
+   "opts": [
+    "Make the huddle longer",
+    "Remove the issues list from the board",
+    "Assign an owner and date to each issue or escalate it, and review overdue items daily",
+    "Hold the huddle weekly instead"
+   ],
+   "a": 2,
+   "why": "Effective huddles give every issue an owner and date or escalate it, and they check overdue items every day."
+  },
+  {
+   "q": "A company wants to spread a successful loading standard from one yard to another that services different equipment. What is the best approach?",
+   "opts": [
+    "Let the receiving crew see the original, then adapt the principle through their own PDCA cycles",
+    "Mandate an exact copy and audit compliance",
+    "Wait until both yards have the same equipment",
+    "Hire a consultant to write a company-wide standard"
+   ],
+   "a": 0,
+   "why": "When contexts differ, teaching the method and letting the receiving team adapt builds ownership and a better-fitting solution."
+  }
+ ]
+}

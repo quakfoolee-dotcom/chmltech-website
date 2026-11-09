@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V3.8** (see `CHANGELOG.md`).
+Version: **V4.0** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -20,7 +20,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `404.html` | Not-found page |
 | `post/*.html` | Insights articles (one file per article, same address as on Wix) |
 | `<industry>.html`, `<solution>.html` | Industry and solution detail pages (for example `manufacturing.html`, `scaling-up.html`) |
-| `challenge-page/*.html` | Free course pages |
+| `challenge-page/*.html` | The 6 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`) |
 | `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 
@@ -71,4 +71,3 @@ Search the code for `TODO`:
 
 - **Social links:** the footer links point to the platforms' home pages. Replace them with Chmltech profile URLs.
 - **Booking:** you can replace the request form in `book.html` with an embedded scheduler such as Calendly or Microsoft Bookings.
-- **Free courses:** the step-by-step lessons of the 6 free programs were behind a Wix member login and are not in this repository. Course pages offer "Request access" until the lessons are added.

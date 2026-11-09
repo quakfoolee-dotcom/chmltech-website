@@ -1,0 +1,942 @@
+{
+  "id": "91ca0386-ec82-483d-8ec7-d6b13f02a0b5",
+  "title": "Digital Transformation and AI Readiness Strategy",
+  "tagline": "Build a practical, step-by-step roadmap from operational discovery to AI-ready processes that deliver measurable value.",
+  "summary": "A structured, practical framework for designing and deploying a digital transformation strategy that delivers measurable business value. Using Lean and Six Sigma principles, you will move through operational discovery, process mapping, optimization and AI integration, then build the data, systems and governance foundations an AI-ready organization needs. You finish with a prioritized roadmap and a 90-day action plan.",
+  "audience": [
+    "Owners and general managers of Canadian small and mid-sized businesses",
+    "Operations, finance and IT managers planning digital or AI initiatives",
+    "Continuous improvement leads and supervisors driving process change",
+    "Consultants and advisors supporting SME transformation"
+  ],
+  "outcomes": [
+    "Assess your organization's digital maturity and set measurable transformation objectives",
+    "Run an operational discovery and map processes using SIPOC, swim lanes and value stream mapping",
+    "Apply Lean and DMAIC to simplify and stabilize processes before automating them",
+    "Identify and classify opportunities for automation, AI augmentation and human-led work",
+    "Build data, systems integration and AI governance foundations, including Canadian privacy considerations",
+    "Prioritize initiatives into a phased roadmap, run pilots and lead change to sustain results"
+  ],
+  "modules": [
+    {
+      "title": "Foundations: Strategy Before Technology",
+      "summary": "Define what digital transformation means for your organization, why it must start from business value, and where you stand today.",
+      "steps": [
+        {
+          "title": "What digital transformation really means for an SME",
+          "minutes": 6,
+          "body": "<p>Digital transformation is often sold as a technology purchase: a new ERP, a cloud platform, an AI tool. In practice, it is a change in <strong>how the business creates and delivers value</strong>, with technology as the enabler. A new system that automates a broken process simply produces broken results faster.</p>\n<p>For a small or mid-sized business, transformation usually happens in three overlapping layers:</p>\n<ul>\n<li><strong>Digitization</strong> – converting paper and manual records into digital form (scanned work orders, electronic timesheets, digital forms at the clinic intake desk).</li>\n<li><strong>Digitalization</strong> – using digital tools to improve existing processes (a distributor using barcode scanning to cut picking errors, an engineering office using shared project templates).</li>\n<li><strong>Transformation</strong> – changing the operating model itself (offering customers a self-service portal, selling equipment uptime instead of spare parts, using predictive analytics to plan maintenance).</li>\n</ul>\n<p>Most SMEs do not need to leap to the third layer. The highest returns often come from doing the first two well and in the right order.</p>\n<h3>Why SMEs are different</h3>\n<p>Large enterprises have dedicated IT departments, change teams and multi-year budgets. A 40-person fabrication shop has an owner who wears five hats, a part-time IT contractor, and a handful of people who know where everything is. That changes the approach:</p>\n<ul>\n<li>Initiatives must pay back quickly and visibly.</li>\n<li>Key knowledge often lives in a few people's heads, so discovery matters more than documentation.</li>\n<li>Off-the-shelf software configured well usually beats custom builds.</li>\n<li>Every change competes with daily operations for the same people's time.</li>\n</ul>\n<h3>A worked example</h3>\n<p>Imagine a regional HVAC distributor that wants \"AI for sales.\" After a short discovery, the team finds that quotes take three days because pricing lives in four spreadsheets and approvals happen by email. The first real step is not AI: it is a single price book in the ERP and a simple approval workflow. Once quote data is clean and captured consistently, an AI assistant that drafts quotes becomes realistic. That sequence of <em>discover, optimize, then digitize and automate</em> is the backbone of this course.</p>\n<p>This course follows a structured roadmap: understand your starting point, map how work actually flows, remove waste using Lean and Six Sigma thinking, build data and system foundations, then introduce automation and AI where they add measurable value.</p>",
+          "takeaways": [
+            "Digital transformation changes how value is delivered; technology is the enabler, not the goal.",
+            "Digitization, digitalization and transformation are distinct layers; SMEs gain most by doing the first two well.",
+            "Discover and optimize processes before you automate them."
+          ],
+          "apply": "List three digital projects your organization has started or discussed in the last two years. For each, note whether it was digitization, digitalization or transformation, and whether it started from a business problem or a technology choice.",
+          "check": {
+            "q": "A distributor wants to buy an AI quoting tool, but pricing lives in four spreadsheets and approvals are by email. What is the best first step?",
+            "opts": [
+              "Consolidate pricing into one source and streamline the approval workflow",
+              "Buy the AI tool and let it learn from the spreadsheets",
+              "Hire a data scientist to build a custom model",
+              "Pause all digital work until a five-year strategy is written"
+            ],
+            "a": 0,
+            "why": "AI depends on clean, consistent data and a sound process. Fixing the price book and approval flow creates the foundation the AI tool would need anyway."
+          }
+        },
+        {
+          "title": "Building the business case: value, not technology",
+          "minutes": 7,
+          "body": "<p>Every digital initiative should answer one question first: <strong>what business outcome will improve, by how much, and how will we know?</strong> If the answer is \"we will be more modern,\" the initiative is not ready.</p>\n<h3>Start from the value drivers</h3>\n<p>Business value in an SME almost always traces back to a short list of drivers:</p>\n<table>\n<thead><tr><th>Value driver</th><th>Typical measures</th><th>Example initiative</th></tr></thead>\n<tbody>\n<tr><td>Revenue growth</td><td>Quote win rate, average order value, new customers</td><td>CRM with follow-up reminders</td></tr>\n<tr><td>Cost reduction</td><td>Labour hours per order, rework cost, overtime</td><td>Automated invoice capture</td></tr>\n<tr><td>Cash flow</td><td>Days sales outstanding, inventory turns</td><td>E-invoicing and online payment</td></tr>\n<tr><td>Quality and risk</td><td>Defect rate, safety incidents, audit findings</td><td>Digital inspection checklists</td></tr>\n<tr><td>Customer experience</td><td>On-time delivery, response time, complaints</td><td>Order status portal</td></tr>\n<tr><td>Capacity and resilience</td><td>Throughput, key-person dependency</td><td>Documented workflows in a shared system</td></tr>\n</tbody>\n</table>\n<h3>A simple business case structure</h3>\n<ol>\n<li><strong>Problem statement</strong> – what is happening, where, and what it costs today.</li>\n<li><strong>Target outcome</strong> – the measurable change you expect.</li>\n<li><strong>Options</strong> – including \"do nothing\" and a low-tech fix.</li>\n<li><strong>Costs</strong> – software, implementation, internal time, training, ongoing subscriptions.</li>\n<li><strong>Benefits and timing</strong> – when savings or gains begin and how they ramp up.</li>\n<li><strong>Risks and assumptions</strong> – what must be true for the benefits to appear.</li>\n</ol>\n<h3>Worked example</h3>\n<p>A clinic's front desk spends about 25 staff hours a week re-keying intake forms into the practice management system. At a loaded cost of $35 per hour, that is roughly $875 a week, or about $45,500 a year. A digital intake form that writes directly into the system costs $6,000 to set up and $300 a month. If it removes 80% of the re-keying, annual savings are about $36,400 less $3,600 in subscriptions, roughly $32,800. Payback is around two to three months, and the clinic also gains fewer transcription errors.</p>\n<p>Notice that the case counts <em>internal time</em> as a cost and includes a quality benefit. Strong business cases are honest about both. They also name an owner who is accountable for realizing the benefit, not just for installing the tool.</p>",
+          "takeaways": [
+            "Every initiative should link to a named business value driver and a measure.",
+            "Include internal time, training and subscriptions in costs, and compare against a low-tech option.",
+            "Assign an owner accountable for realizing benefits, not just delivering the project."
+          ],
+          "apply": "Pick one manual task that frustrates your team. Estimate the hours it consumes each week, multiply by a loaded hourly cost, and write a one-paragraph problem statement with a measurable target outcome.",
+          "check": {
+            "q": "Which element is most often missing from weak SME digital business cases?",
+            "opts": [
+              "The name of the software vendor",
+              "A detailed technical architecture diagram",
+              "A comparison with a 'do nothing' or low-tech option and the cost of internal time",
+              "A list of every feature the software offers"
+            ],
+            "a": 2,
+            "why": "Weak cases tend to compare only against an idealized future and ignore staff time. Including alternatives and internal effort makes the case realistic."
+          }
+        },
+        {
+          "title": "Assessing your digital maturity",
+          "minutes": 6,
+          "body": "<p>Before you plan where to go, you need an honest view of where you are. A <strong>digital maturity assessment</strong> scores your organization across several dimensions on a simple scale, revealing strengths to build on and gaps that will block progress.</p>\n<h3>A five-level scale</h3>\n<ol>\n<li><strong>Not started</strong> – no deliberate practice; things happen by habit or not at all.</li>\n<li><strong>Ad hoc</strong> – some good practices exist, but they depend on individuals.</li>\n<li><strong>Defined</strong> – practices are documented and applied consistently in most areas.</li>\n<li><strong>Managed</strong> – practices are measured and reviewed; decisions use data.</li>\n<li><strong>Optimized</strong> – continuous improvement is routine and the organization adapts quickly.</li>\n</ol>\n<h3>Dimensions to assess</h3>\n<ul>\n<li><strong>Strategy and leadership</strong> – is there a clear digital direction tied to business goals?</li>\n<li><strong>Processes</strong> – are core workflows documented, standardized and measured?</li>\n<li><strong>Data</strong> – is key data accurate, owned and accessible?</li>\n<li><strong>Systems and integration</strong> – do systems share data or do people re-key between them?</li>\n<li><strong>People and skills</strong> – can staff use current tools well and learn new ones?</li>\n<li><strong>Customer experience</strong> – can customers interact digitally where they want to?</li>\n<li><strong>Governance and security</strong> – are access, privacy and technology decisions controlled?</li>\n</ul>\n<h3>How to use the results</h3>\n<p>The value of an assessment is not the score; it is the conversation. Ask three or four people from different roles to score independently, then compare. If the owner rates data at 4 and the warehouse lead rates it at 2, that gap is itself a finding.</p>\n<p>Look for the <em>lowest</em> scores in foundational dimensions. AI and automation sit on top of processes, data and systems. A fabrication shop that scores 4 on strategy but 1 on data will struggle to deliver any analytics or AI ambitions until that foundation improves.</p>\n<h3>Worked example</h3>\n<p>An engineering office scores itself: strategy 3, processes 2, data 2, systems 2, people 3, customer experience 3, governance 1. The pattern suggests a motivated team with weak foundations. The sensible next moves are to standardize project set-up and document control (processes and data), and to put basic access and backup policies in place (governance) before expanding tools.</p>\n<p>The lab after this lesson lets you run this assessment yourself and see the results as a radar chart.</p>",
+          "takeaways": [
+            "Score maturity on several dimensions using a consistent five-level scale.",
+            "Differences between people's scores are valuable findings in themselves.",
+            "Weak foundations in processes, data and systems will limit any automation or AI ambition."
+          ],
+          "apply": "Ask three colleagues in different roles to score your organization on the seven dimensions from 1 to 5 without discussing first. Compare the results and note the two biggest disagreements.",
+          "check": {
+            "q": "A company scores 4 on strategy but 1 on data and 2 on systems. What does this most likely mean for its AI plans?",
+            "opts": [
+              "It is ready to deploy AI widely because leadership is committed",
+              "It should skip data work and buy an AI platform that cleans data automatically",
+              "The scores are unreliable and should be ignored",
+              "Its AI plans will be constrained until data and system foundations improve"
+            ],
+            "a": 3,
+            "why": "AI depends on accurate, accessible data and connected systems. Strong strategy alone cannot compensate for weak foundations."
+          }
+        },
+        {
+          "title": "Setting a vision and measurable objectives",
+          "minutes": 6,
+          "body": "<p>With a baseline in hand, leadership needs to state <strong>where the organization is heading</strong> and how progress will be measured. A digital vision for an SME should be short enough to remember and concrete enough to guide trade-offs.</p>\n<h3>From vision to objectives</h3>\n<p>A practical structure works in three layers:</p>\n<ul>\n<li><strong>Vision</strong> – one or two sentences describing the future state in business terms. For example: \"Customers can quote, order and track jobs with us online, and our team spends its time on engineering and service rather than paperwork.\"</li>\n<li><strong>Objectives</strong> – three to five outcome statements for the next 12 to 24 months.</li>\n<li><strong>Key results or KPIs</strong> – measurable indicators for each objective, with a baseline and a target.</li>\n</ul>\n<p>This mirrors the Objectives and Key Results (OKR) approach and works well alongside a Lean \"true north\" or hoshin planning approach where objectives cascade to teams.</p>\n<h3>Worked example</h3>\n<table>\n<thead><tr><th>Objective</th><th>Key result</th><th>Baseline</th><th>Target</th></tr></thead>\n<tbody>\n<tr><td>Faster quoting</td><td>Median quote turnaround</td><td>3 days</td><td>1 day</td></tr>\n<tr><td>Less administrative rework</td><td>Invoices needing correction</td><td>12 per month</td><td>3 per month</td></tr>\n<tr><td>Better visibility</td><td>Jobs with live status in the system</td><td>0%</td><td>90%</td></tr>\n<tr><td>Reduced key-person risk</td><td>Core processes documented and owned</td><td>2 of 10</td><td>8 of 10</td></tr>\n</tbody>\n</table>\n<p>Notice that each key result is something the business would care about even if no technology were involved. That keeps the programme honest.</p>\n<h3>Guidelines for good objectives</h3>\n<ol>\n<li>Express outcomes, not activities. \"Implement CRM\" is a project; \"increase quote follow-up rate\" is an outcome.</li>\n<li>Limit the number. Three to five objectives keep focus in a small organization.</li>\n<li>Record the baseline now. Without it, you cannot prove improvement later.</li>\n<li>Name an executive owner for each objective.</li>\n<li>Review quarterly and adjust targets as you learn.</li>\n</ol>\n<p>A clear vision also helps you say no. When a vendor pitches an attractive tool, ask which objective it advances. If none, it can wait.</p>",
+          "takeaways": [
+            "Express the vision in business terms customers and staff would recognize.",
+            "Use three to five outcome-based objectives, each with a baseline, target and owner.",
+            "Use the objectives to filter which initiatives get attention."
+          ],
+          "apply": "Draft a two-sentence digital vision for your organization and three objectives with one key result each. Record today's baseline for each key result, even if it is a rough estimate.",
+          "check": {
+            "q": "Which of these is the best-written objective for a digital programme?",
+            "opts": [
+              "Implement a new CRM by June",
+              "Become a digital leader in our industry",
+              "Raise quote follow-up within 48 hours from 40% to 85% of quotes",
+              "Train all staff on new software"
+            ],
+            "a": 2,
+            "why": "It names an outcome, a baseline and a target. The others describe activities or vague aspirations that cannot be measured."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Operational Discovery and Process Mapping",
+      "summary": "Learn how work really flows through your organization using interviews, gemba walks, SIPOC, swim lane maps and value stream mapping.",
+      "steps": [
+        {
+          "title": "Running an operational discovery",
+          "minutes": 7,
+          "body": "<p>Operational discovery is a short, structured investigation into how the business actually runs. Its purpose is to replace assumptions with evidence before anyone chooses a solution. In a typical SME, a focused discovery takes two to four weeks.</p>\n<h3>Discovery methods</h3>\n<ul>\n<li><strong>Stakeholder interviews</strong> – 45 to 60 minutes with leaders and front-line staff. Ask what slows them down, where errors originate and which workarounds they rely on.</li>\n<li><strong>Gemba walks</strong> – go to where the work happens. Watch an order move from the sales desk to the warehouse to shipping. Observe rather than ask.</li>\n<li><strong>Document and system review</strong> – collect forms, spreadsheets, reports and system screens. Count how many places the same data is entered.</li>\n<li><strong>Data sampling</strong> – pull a month of orders, tickets or work orders and look at volumes, cycle times and error patterns.</li>\n<li><strong>Pain point workshops</strong> – bring a cross-functional group together to list and group problems.</li>\n</ul>\n<h3>Good interview questions</h3>\n<ol>\n<li>Walk me through what you did with the last job or order you handled.</li>\n<li>Where do you wait for information or approvals?</li>\n<li>Which spreadsheets or notebooks do you keep that are not in the main system?</li>\n<li>What goes wrong most often, and what do you do when it happens?</li>\n<li>If you could change one thing about how work reaches you, what would it be?</li>\n</ol>\n<p>Asking about a specific recent example produces far more reliable information than asking how things \"usually\" work.</p>\n<h3>Worked example</h3>\n<p>Imagine a 60-person machine shop. Leadership believes the bottleneck is CNC capacity. Discovery interviews and a gemba walk reveal that jobs wait an average of two days for drawings to be released from engineering, and that the scheduler keeps a private spreadsheet because the ERP schedule is not trusted. The real constraint is information flow, not machines. A new machine would have cost hundreds of thousands of dollars and solved nothing.</p>\n<h3>Capturing findings</h3>\n<p>Record every finding in a simple log: the issue, where it occurs, who raised it, evidence, and estimated impact. Group findings into themes such as handoffs, data quality, approvals and system gaps. These themes feed the process maps and opportunity list you will build next.</p>\n<p>Finally, share a summary back with the people you interviewed. It builds trust and often surfaces corrections before you act on a misunderstanding.</p>",
+          "takeaways": [
+            "Combine interviews, gemba walks, document review and data sampling for a complete picture.",
+            "Ask about specific recent examples, not how work 'usually' happens.",
+            "Log findings with evidence and impact, then group them into themes."
+          ],
+          "apply": "Spend 30 minutes following one order, job or patient file through your organization. Note every handoff, wait and re-entry of data, and log at least five findings with where they occur.",
+          "check": {
+            "q": "During discovery, leaders say machine capacity is the bottleneck, but observation shows jobs wait two days for drawings. What should you conclude?",
+            "opts": [
+              "Buy another machine as originally planned",
+              "The constraint is likely information flow, which should be investigated before investing in capacity",
+              "Ignore the observation because leaders know the business best",
+              "Ask engineering to work overtime permanently"
+            ],
+            "a": 1,
+            "why": "Discovery exists to test assumptions with evidence. Waiting for drawings points to an information-flow constraint that extra machines would not fix."
+          }
+        },
+        {
+          "title": "Scoping processes with SIPOC",
+          "minutes": 6,
+          "body": "<p>Before mapping a process in detail, agree on its boundaries. <strong>SIPOC</strong> is a one-page Six Sigma tool that does exactly that. It stands for Suppliers, Inputs, Process, Outputs and Customers.</p>\n<h3>The five columns</h3>\n<ul>\n<li><strong>Suppliers</strong> – who or what provides the inputs (people, departments, vendors, systems).</li>\n<li><strong>Inputs</strong> – materials, information or requests that trigger and feed the process.</li>\n<li><strong>Process</strong> – five to seven high-level steps from start to finish.</li>\n<li><strong>Outputs</strong> – what the process produces.</li>\n<li><strong>Customers</strong> – who receives the outputs, internal or external.</li>\n</ul>\n<h3>Worked example: order-to-cash at a distributor</h3>\n<table>\n<thead><tr><th>Suppliers</th><th>Inputs</th><th>Process</th><th>Outputs</th><th>Customers</th></tr></thead>\n<tbody>\n<tr><td>Customer, sales rep</td><td>Purchase order, price list</td><td>1. Receive order</td><td>Sales order</td><td>Warehouse</td></tr>\n<tr><td>ERP</td><td>Stock levels</td><td>2. Check stock and credit</td><td>Approved order</td><td>Customer</td></tr>\n<tr><td>Warehouse staff</td><td>Pick list</td><td>3. Pick and pack</td><td>Packed shipment</td><td>Carrier</td></tr>\n<tr><td>Carrier</td><td>Shipping label</td><td>4. Ship</td><td>Proof of delivery</td><td>Customer</td></tr>\n<tr><td>Accounting</td><td>Shipment record</td><td>5. Invoice and collect</td><td>Invoice, payment</td><td>Customer, finance</td></tr>\n</tbody>\n</table>\n<h3>How to run a SIPOC session</h3>\n<ol>\n<li>Name the process and agree on the start trigger and end point.</li>\n<li>Fill in the Process column first with five to seven verbs.</li>\n<li>Work right to Outputs and Customers, then left to Inputs and Suppliers.</li>\n<li>Note which inputs are often late, incomplete or wrong.</li>\n<li>Agree what is in scope and what is not.</li>\n</ol>\n<p>SIPOC is fast, usually under an hour, and it prevents a common failure: a mapping workshop that sprawls into every connected process. It also makes the customer of each output visible, which is the starting point for Lean's definition of value.</p>\n<h3>Where digital opportunities appear</h3>\n<p>Even at this high level, SIPOC hints at opportunities. If purchase orders arrive as PDFs by email, e-ordering or document capture may help. If accounting depends on a shipment record that is entered manually, integration between warehouse and accounting may be the fix. Mark these as hypotheses to test during detailed mapping.</p>",
+          "takeaways": [
+            "SIPOC defines process boundaries, inputs, outputs and customers on one page.",
+            "Agree start and end points first, and fill in the process column with five to seven steps.",
+            "Problem inputs and manual handoffs in a SIPOC often point to digital opportunities."
+          ],
+          "apply": "Complete a SIPOC for one core process in your organization. Circle any input that is frequently late, incomplete or re-entered by hand.",
+          "check": {
+            "q": "What is the main purpose of a SIPOC in a digital transformation project?",
+            "opts": [
+              "To agree the scope and boundaries of a process before detailed mapping",
+              "To document every task and decision in detail",
+              "To calculate the return on investment for software",
+              "To assign roles using a responsibility matrix"
+            ],
+            "a": 0,
+            "why": "SIPOC is a high-level scoping tool. Detailed task-level mapping comes later, once boundaries are agreed."
+          }
+        },
+        {
+          "title": "Current-state process mapping with swim lanes",
+          "minutes": 7,
+          "body": "<p>A <strong>swim lane map</strong> (cross-functional flowchart) shows each step in a process, who performs it, and how work moves between roles. It is the most useful single picture for finding delays, rework and manual handoffs that digital tools can address.</p>\n<h3>Building the map</h3>\n<ol>\n<li><strong>Draw lanes</strong> for each role, team or system involved (for example: Customer, Sales, Engineering, Production, Accounting, ERP).</li>\n<li><strong>Place steps</strong> as boxes in the lane of whoever does them, from left to right in time order.</li>\n<li><strong>Add decisions</strong> as diamonds with labelled yes/no paths.</li>\n<li><strong>Connect with arrows</strong> and mark every handoff between lanes.</li>\n<li><strong>Annotate</strong> with data: cycle time, wait time, error rates, systems used and the number of times data is re-keyed.</li>\n</ol>\n<h3>Map what happens, not what should happen</h3>\n<p>The current-state map must reflect reality, including workarounds. If a supervisor prints the schedule, marks it up by hand and phones the changes to the floor, that belongs on the map. Mapping the official procedure hides the exact problems you are trying to find.</p>\n<p>Map with the people who do the work, using sticky notes on a wall or a shared whiteboard. Walk the process afterwards to verify.</p>\n<h3>What to look for</h3>\n<ul>\n<li><strong>Handoffs</strong> – each lane crossing is a chance for delay or lost information.</li>\n<li><strong>Loops</strong> – arrows that go backwards usually mean rework or missing information.</li>\n<li><strong>Duplicate entry</strong> – the same data typed into two systems.</li>\n<li><strong>Approval queues</strong> – steps where work waits for one person.</li>\n<li><strong>Shadow systems</strong> – personal spreadsheets, notebooks or whiteboards.</li>\n</ul>\n<h3>Worked example</h3>\n<p>An engineering office maps its change-request process. The map shows seven lane crossings, two loops back to the client for missing information, and data entered three times: in an email, a spreadsheet log and the project system. Average elapsed time is nine days, of which about one day is actual work. The map makes it obvious that the biggest gains will come from a complete intake form and a single log, not from faster engineers.</p>\n<p>Keep the map at a readable level of detail. If it no longer fits on one wall or screen, split it into sub-processes. Use pain-point markers (a red dot or flag) so the team can see problems at a glance.</p>",
+          "takeaways": [
+            "Swim lane maps show steps, roles, handoffs and decisions in one picture.",
+            "Map the real current state, including workarounds and shadow spreadsheets.",
+            "Handoffs, loops, duplicate entry and approval queues are prime improvement targets."
+          ],
+          "apply": "With two or three people who do the work, draw a swim lane map of one process on a wall or whiteboard. Count the lane crossings, backward loops and places where data is re-entered.",
+          "check": {
+            "q": "Why should a current-state map include informal workarounds like a printed, hand-marked schedule?",
+            "opts": [
+              "Workarounds make the map look more complete for auditors",
+              "Workarounds are always the most efficient way to work",
+              "They reveal the real problems and needs that the official procedure hides",
+              "They show which staff are not following procedure so they can be disciplined"
+            ],
+            "a": 2,
+            "why": "Workarounds exist because the official process or system fails people in some way. They point directly to the problems improvement should solve."
+          }
+        },
+        {
+          "title": "Value stream mapping and the eight wastes",
+          "minutes": 7,
+          "body": "<p>A swim lane map shows who does what. A <strong>value stream map (VSM)</strong> adds the flow of time and value, showing how much of the elapsed time is actually spent adding value for the customer. It is a core Lean tool and very effective for spotting where digital tools could remove delay.</p>\n<h3>Key VSM measures</h3>\n<ul>\n<li><strong>Process time</strong> – hands-on time for a step.</li>\n<li><strong>Wait time</strong> – time work sits between steps.</li>\n<li><strong>Lead time</strong> – total elapsed time from request to delivery.</li>\n<li><strong>Percent complete and accurate (%C&amp;A)</strong> – how often a step receives work that is usable without correction.</li>\n<li><strong>Process cycle efficiency</strong> – total process time divided by lead time.</li>\n</ul>\n<h3>The eight wastes (TIMWOODS)</h3>\n<table>\n<thead><tr><th>Waste</th><th>Office or digital example</th></tr></thead>\n<tbody>\n<tr><td>Transportation</td><td>Emailing files between people to move work forward</td></tr>\n<tr><td>Inventory</td><td>Backlogs of unprocessed invoices or quotes</td></tr>\n<tr><td>Motion</td><td>Switching between five screens to find a customer's history</td></tr>\n<tr><td>Waiting</td><td>Work held for an approval or missing information</td></tr>\n<tr><td>Overproduction</td><td>Reports nobody reads</td></tr>\n<tr><td>Over-processing</td><td>Three signatures on a low-value purchase</td></tr>\n<tr><td>Defects</td><td>Wrong part numbers, invoice errors, re-issued drawings</td></tr>\n<tr><td>Skills (unused talent)</td><td>Engineers doing data entry</td></tr>\n</tbody>\n</table>\n<h3>Worked example</h3>\n<p>A distributor maps its quote process. Steps: receive request (10 minutes), look up pricing (30 minutes), build quote (20 minutes), manager approval (10 minutes), send (5 minutes). Total process time is 75 minutes. But waits between steps add up to about 2.5 working days, giving a lead time of roughly 20 working hours. Process cycle efficiency is about 75 ÷ 1,200 minutes, or roughly 6%. The approval step has a %C&amp;A of 60%, meaning four in ten quotes come back for correction.</p>\n<p>The insight: speeding up the 20-minute quote build barely matters. The big wins are reducing waiting for approval and fixing the pricing lookup that causes errors.</p>\n<h3>Turning waste into opportunities</h3>\n<p>For each waste you find, ask whether it should be <strong>eliminated</strong> (stop doing it), <strong>simplified</strong> (fewer steps or approvals) or <strong>automated</strong> (a system does it). That sequence matters, and it is the subject of the next module.</p>",
+          "takeaways": [
+            "Value stream maps separate process time from wait time to reveal where lead time really goes.",
+            "Use TIMWOODS to name the eight wastes in office and digital work, not just on the shop floor.",
+            "Low percent complete and accurate at a step signals upstream quality problems."
+          ],
+          "apply": "Pick one process you mapped earlier. Estimate process time and wait time for each step, calculate process cycle efficiency, and identify at least three wastes using TIMWOODS.",
+          "check": {
+            "q": "A quote process has 75 minutes of process time and a lead time of 20 working hours. Where is the biggest improvement opportunity most likely to be?",
+            "opts": [
+              "Making the 20-minute quote-building step faster",
+              "Adding a review step to catch errors",
+              "Hiring more sales staff",
+              "Reducing wait times between steps, such as the approval queue"
+            ],
+            "a": 3,
+            "why": "Almost all of the lead time is waiting. Shortening waits and fixing rework will cut lead time far more than speeding up hands-on work."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Optimize First: Lean and Six Sigma Before Automation",
+      "summary": "Simplify and stabilize processes, measure baselines, and identify where automation, AI augmentation or human judgement fits best.",
+      "steps": [
+        {
+          "title": "Eliminate, simplify, standardize, then automate",
+          "minutes": 6,
+          "body": "<p>One of the most expensive mistakes in digital transformation is automating a process before improving it. The result is a faster, more rigid version of the same waste. A reliable sequence is: <strong>eliminate, simplify, standardize, then automate</strong>.</p>\n<h3>The sequence in practice</h3>\n<ol>\n<li><strong>Eliminate</strong> – remove steps, reports and approvals that add no value. Ask \"what would happen if we stopped doing this?\"</li>\n<li><strong>Simplify</strong> – combine steps, reduce handoffs, shorten forms, set approval thresholds.</li>\n<li><strong>Standardize</strong> – agree one best way, document it with standard work, templates and checklists, and make it visible.</li>\n<li><strong>Automate</strong> – only now, use software to execute the stable, standardized process.</li>\n</ol>\n<h3>Useful Lean tools at this stage</h3>\n<ul>\n<li><strong>5S for digital work</strong> – Sort old files, Set in order a folder structure, Shine by cleaning data, Standardize naming conventions, Sustain with periodic audits.</li>\n<li><strong>Standard work</strong> – a short documented sequence with timing and quality checks.</li>\n<li><strong>Error-proofing (poka-yoke)</strong> – mandatory fields, drop-down lists and validation rules that prevent mistakes.</li>\n<li><strong>Visual management</strong> – boards or dashboards that show status and problems at a glance.</li>\n</ul>\n<h3>Worked example</h3>\n<p>Imagine a fabrication shop's purchasing process. The current state has six steps and three approval signatures for every purchase, including $40 consumables. Applying the sequence:</p>\n<ul>\n<li><strong>Eliminate</strong> the second approval for anything under $500, and remove a weekly printed purchase report no one uses.</li>\n<li><strong>Simplify</strong> by giving supervisors a pre-approved catalogue for common consumables.</li>\n<li><strong>Standardize</strong> one requisition template with required fields (job number, supplier, cost code).</li>\n<li><strong>Automate</strong> routing in the accounting system: requests under $500 go straight to purchase order, larger ones route to the manager.</li>\n</ul>\n<p>The automated workflow is now simple to configure because the rules are clear. Had the shop automated the original six-step process, it would have hard-coded unnecessary approvals into software, making them harder to change later.</p>\n<h3>A test before you automate</h3>\n<p>Ask three questions: Is the process stable and performed the same way by different people? Are the rules clear enough to write down? Is the input data reasonably clean? If any answer is no, there is more Lean work to do first.</p>",
+          "takeaways": [
+            "Follow the sequence: eliminate, simplify, standardize, then automate.",
+            "Lean tools such as digital 5S, standard work and error-proofing prepare processes for automation.",
+            "Automate only processes that are stable, rule-based and fed by reasonably clean data."
+          ],
+          "apply": "Choose one process with several approvals or forms. List each step and decide whether it should be eliminated, simplified, standardized or automated. Identify at least one step you could stop doing this month.",
+          "check": {
+            "q": "A company wants to automate a purchasing process that requires three signatures even for small consumables. What should it do first?",
+            "opts": [
+              "Automate the process exactly as it exists to save time",
+              "Set approval thresholds and remove unnecessary approvals before automating",
+              "Replace the accounting system",
+              "Add a fourth signature for extra control"
+            ],
+            "a": 1,
+            "why": "Simplifying the approval rules first avoids hard-coding waste into software and makes the automated workflow easier to build and maintain."
+          }
+        },
+        {
+          "title": "Applying DMAIC to digital improvement",
+          "minutes": 7,
+          "body": "<p>When a problem is persistent and its causes are unclear, Six Sigma's <strong>DMAIC</strong> cycle provides a disciplined, data-driven approach. It works just as well for invoice errors or late shipments as for manufacturing defects, and it helps ensure that any technology you introduce targets a verified root cause.</p>\n<h3>The five phases</h3>\n<table>\n<thead><tr><th>Phase</th><th>Key question</th><th>Typical tools</th></tr></thead>\n<tbody>\n<tr><td>Define</td><td>What is the problem and who is affected?</td><td>Project charter, SIPOC, voice of the customer</td></tr>\n<tr><td>Measure</td><td>How big is it today?</td><td>Data collection plan, baseline, process map</td></tr>\n<tr><td>Analyze</td><td>What causes it?</td><td>Fishbone diagram, 5 Whys, Pareto chart</td></tr>\n<tr><td>Improve</td><td>What fixes the root cause?</td><td>Solution selection, pilots, error-proofing</td></tr>\n<tr><td>Control</td><td>How do we keep the gain?</td><td>Control charts, standard work, dashboards</td></tr>\n</tbody>\n</table>\n<h3>Worked example: invoice errors</h3>\n<p><strong>Define.</strong> A distributor issues about 400 invoices a month, and customers dispute many of them, delaying payment. The goal is to cut disputed invoices in half within four months.</p>\n<p><strong>Measure.</strong> A month of data shows 48 disputed invoices (12%). Each takes about 45 minutes to resolve.</p>\n<p><strong>Analyze.</strong> A Pareto chart of dispute reasons shows that wrong pricing accounts for 26 cases and wrong shipping quantity for 14; the rest are miscellaneous. The 5 Whys on pricing errors leads to sales reps overriding prices in the order screen using an outdated spreadsheet.</p>\n<p><strong>Improve.</strong> The team loads contract pricing into the ERP, restricts manual overrides to managers, and adds a validation check between shipped and invoiced quantities.</p>\n<p><strong>Control.</strong> A weekly dashboard tracks the dispute rate, and the price-book update becomes standard work with a named owner.</p>\n<h3>Why DMAIC matters for digital projects</h3>\n<ul>\n<li>It prevents solutions looking for problems: the ERP change was chosen because analysis pointed to it.</li>\n<li>It creates a baseline that proves benefits later.</li>\n<li>The Control phase makes sure gains survive staff changes and system updates.</li>\n</ul>\n<p>Not every problem needs full DMAIC. For simple, obvious fixes, a quick PDCA cycle is enough. Use DMAIC when the problem recurs, causes are disputed or the cost is significant.</p>",
+          "takeaways": [
+            "DMAIC moves from defining a problem to measuring, analyzing causes, improving and controlling.",
+            "Pareto charts and the 5 Whys help target technology at verified root causes.",
+            "Use full DMAIC for persistent, costly or disputed problems; use PDCA for simple fixes."
+          ],
+          "apply": "Pick one recurring error in your organization. Collect a few weeks of data on how often it happens and why, then draw a simple Pareto chart of the causes.",
+          "check": {
+            "q": "In DMAIC, during which phase would you build a Pareto chart of invoice dispute reasons?",
+            "opts": [
+              "Define",
+              "Measure",
+              "Analyze",
+              "Control"
+            ],
+            "a": 2,
+            "why": "The Analyze phase identifies and prioritizes causes. A Pareto chart shows which few causes account for most occurrences."
+          }
+        },
+        {
+          "title": "Baselines and KPIs that prove value",
+          "minutes": 6,
+          "body": "<p>If you do not measure before you change, you cannot prove the change worked. A <strong>baseline</strong> is the measured performance of a process before improvement. Paired with well-chosen KPIs, it turns digital transformation from a matter of opinion into a matter of evidence.</p>\n<h3>Types of measures</h3>\n<ul>\n<li><strong>Outcome measures</strong> – what the customer or business experiences: on-time delivery, quote turnaround, days sales outstanding.</li>\n<li><strong>Process measures</strong> – how the process performs internally: cycle time, first-pass yield, percent complete and accurate.</li>\n<li><strong>Balancing measures</strong> – what might get worse as a side effect: error rates when speed rises, staff overtime, customer complaints.</li>\n<li><strong>Adoption measures</strong> – whether people are using the new tool: logins, percentage of orders entered digitally.</li>\n</ul>\n<h3>Choosing good KPIs</h3>\n<ol>\n<li>Link each KPI to an objective from your vision.</li>\n<li>Prefer measures you can collect automatically or cheaply.</li>\n<li>Define the measure precisely: what counts, the start and stop points, and the data source.</li>\n<li>Use a few leading indicators (which predict results) alongside lagging ones (which confirm them).</li>\n<li>Limit each process to three to five KPIs.</li>\n</ol>\n<h3>Worked example</h3>\n<table>\n<thead><tr><th>KPI</th><th>Definition</th><th>Baseline</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>Order cycle time</td><td>Order received to shipped, in working hours</td><td>31 hours (median)</td><td>ERP timestamps</td></tr>\n<tr><td>Pick accuracy</td><td>Orders shipped without a line error</td><td>96.5%</td><td>Returns log</td></tr>\n<tr><td>Manual entry time</td><td>Staff hours per week re-keying orders</td><td>22 hours</td><td>Two-week time study</td></tr>\n<tr><td>Overtime (balancing)</td><td>Warehouse overtime hours per week</td><td>14 hours</td><td>Payroll</td></tr>\n</tbody>\n</table>\n<p>When the distributor later introduces barcode scanning and e-ordering, it can show that cycle time and manual entry fell while pick accuracy rose, and check that overtime did not spike during the transition.</p>\n<h3>Practical tips</h3>\n<p>Use medians rather than averages for cycle times, because a few extreme jobs can distort the average. Where no data exists, run a short manual time study for one or two weeks. A rough, honest baseline is far better than none. Finally, record how you measured, so the after-measurement uses the same method.</p>",
+          "takeaways": [
+            "Measure a baseline before making any change so benefits can be proven.",
+            "Combine outcome, process, balancing and adoption measures.",
+            "Define each KPI precisely and measure before and after the same way."
+          ],
+          "apply": "For one process you plan to improve, define three KPIs (one outcome, one process, one balancing). Record a baseline for each using system data or a one-week manual tally.",
+          "check": {
+            "q": "Why include a balancing measure such as overtime or error rate when improving cycle time?",
+            "opts": [
+              "To detect unintended negative side effects of the change",
+              "To make the dashboard look more comprehensive",
+              "Because balancing measures are required by accounting standards",
+              "To replace the need for a baseline"
+            ],
+            "a": 0,
+            "why": "Balancing measures check that improving one result has not quietly made something else worse."
+          }
+        },
+        {
+          "title": "Finding high-impact automation opportunities",
+          "minutes": 7,
+          "body": "<p>With processes mapped and baselines measured, you can identify where technology will create the most value. The aim is to judge each task on its characteristics, not on which tool is fashionable.</p>\n<h3>Three ways technology can help</h3>\n<ul>\n<li><strong>Automate</strong> – rule-based, repetitive, high-volume tasks with structured inputs. Examples: copying order data between systems, sending payment reminders, generating standard reports.</li>\n<li><strong>Augment with AI</strong> – tasks that involve unstructured information or pattern recognition, where a person stays in charge of the final decision. Examples: drafting quote responses, extracting data from varied supplier invoices, summarizing service tickets, flagging unusual transactions.</li>\n<li><strong>Keep human-led</strong> – tasks requiring judgement, empathy, accountability or negotiation. Examples: handling a difficult customer complaint, approving a safety deviation, hiring decisions.</li>\n</ul>\n<h3>Screening criteria</h3>\n<table>\n<thead><tr><th>Criterion</th><th>Favours automation</th><th>Favours human-led</th></tr></thead>\n<tbody>\n<tr><td>Volume</td><td>High, frequent</td><td>Rare, one-off</td></tr>\n<tr><td>Rules</td><td>Clear and stable</td><td>Ambiguous or changing</td></tr>\n<tr><td>Inputs</td><td>Structured, digital</td><td>Unstructured, verbal</td></tr>\n<tr><td>Consequence of error</td><td>Low, easily reversed</td><td>High, safety or legal</td></tr>\n<tr><td>Need for empathy or trust</td><td>Low</td><td>High</td></tr>\n</tbody>\n</table>\n<h3>Worked example</h3>\n<p>A clinic's intake desk reviews its tasks. Sending appointment reminders is high-volume and rule-based: <strong>automate</strong>. Reading faxed referral letters and pulling out key details is unstructured: <strong>augment with AI</strong>, with staff confirming each extraction. Calling a distressed patient to reschedule a cancelled procedure requires empathy: <strong>keep human-led</strong>.</p>\n<h3>Estimating impact</h3>\n<p>For each candidate, estimate annual hours saved (volume × minutes per task ÷ 60 × share automatable), error reduction, and effect on customer experience. A task taking 5 minutes, done 2,000 times a year, with 80% automatable, frees about 133 hours a year. Combine that with implementation effort to prioritize, which you will do in Module 4.</p>\n<p>Beware of automating tasks that should be eliminated. If a report is never read, the best automation is to stop producing it.</p>\n<p>The lab after this lesson gives you practice sorting real tasks into these three categories.</p>",
+          "takeaways": [
+            "Sort tasks into automate, augment with AI, or keep human-led based on their characteristics.",
+            "Volume, rule clarity, input structure, consequence of error and need for empathy guide the choice.",
+            "Estimate hours saved and error reduction to compare opportunities, and eliminate before automating."
+          ],
+          "apply": "List ten recurring tasks from a process you mapped. Classify each as automate, augment with AI, or keep human-led, and estimate annual hours for the top three candidates.",
+          "check": {
+            "q": "A clinic receives referral letters in many formats and staff must extract key details. Which approach fits best?",
+            "opts": [
+              "Fully automate with no human review",
+              "Keep fully manual because AI cannot read documents",
+              "Augment with AI to extract details, with staff confirming the results",
+              "Eliminate the task"
+            ],
+            "a": 2,
+            "why": "The inputs are unstructured and errors matter, so AI can speed extraction while a person verifies the output before it is used."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Building an AI-Ready Foundation",
+      "summary": "Put data, systems, governance and privacy foundations in place, then prioritize initiatives into a realistic roadmap.",
+      "steps": [
+        {
+          "title": "Data foundations: quality, ownership and master data",
+          "minutes": 7,
+          "body": "<p>AI and analytics are only as good as the data that feeds them. For most SMEs, the single biggest barrier to AI readiness is not a lack of tools but data that is incomplete, inconsistent or scattered across spreadsheets.</p>\n<h3>Dimensions of data quality</h3>\n<ul>\n<li><strong>Accuracy</strong> – does the data reflect reality? (Is the stock count right?)</li>\n<li><strong>Completeness</strong> – are required fields filled in?</li>\n<li><strong>Consistency</strong> – is the same customer spelled the same way in every system?</li>\n<li><strong>Timeliness</strong> – is the data up to date when people need it?</li>\n<li><strong>Uniqueness</strong> – are there duplicate records?</li>\n</ul>\n<h3>Master data matters most</h3>\n<p><strong>Master data</strong> is the core reference information the business runs on: customers, suppliers, items or parts, employees, price lists, and chart of accounts. If master data is wrong, every transaction built on it inherits the error. A duplicated customer record splits sales history; a wrong unit of measure on an item breaks inventory and costing.</p>\n<h3>Assign data ownership</h3>\n<p>Every major data set needs a named <strong>data owner</strong> (accountable for its quality and rules) and, where practical, a <strong>data steward</strong> (who maintains it day to day). In a small business, these may be the same person.</p>\n<table>\n<thead><tr><th>Data set</th><th>Owner</th><th>Key rule</th></tr></thead>\n<tbody>\n<tr><td>Customer master</td><td>Sales manager</td><td>No new account without tax number and credit approval</td></tr>\n<tr><td>Item master</td><td>Operations manager</td><td>Standard naming and unit of measure</td></tr>\n<tr><td>Supplier master</td><td>Controller</td><td>Bank details verified by phone before change</td></tr>\n<tr><td>Employee data</td><td>HR lead</td><td>Access limited to authorized staff</td></tr>\n</tbody>\n</table>\n<h3>Worked example</h3>\n<p>Imagine a building-supply distributor that wants demand forecasting. A data profile finds 18,000 item records, of which about 3,000 are inactive and several hundred are duplicates with slightly different descriptions. Sales history for one product is split across three item codes. Before any forecasting tool can help, the team merges duplicates, archives inactive items and introduces a naming standard. This clean-up takes six weeks and benefits purchasing, pricing and reporting immediately, well before forecasting goes live.</p>\n<h3>Getting started</h3>\n<ol>\n<li>Profile your top two or three data sets: count records, blanks and duplicates.</li>\n<li>Fix the worst issues and prevent recurrence with validation rules.</li>\n<li>Document definitions for key fields in a simple data dictionary.</li>\n<li>Review data quality monthly as a standing KPI.</li>\n</ol>",
+          "takeaways": [
+            "Data quality covers accuracy, completeness, consistency, timeliness and uniqueness.",
+            "Master data such as customers, items and suppliers deserves the most attention because errors spread.",
+            "Give every key data set a named owner, clear rules and a regular quality review."
+          ],
+          "apply": "Export your customer or item list and count blank key fields and likely duplicates. Name an owner for that data set and write three rules that would prevent the most common errors.",
+          "check": {
+            "q": "A distributor wants AI demand forecasting, but sales history for one product is split across three item codes. What should come first?",
+            "opts": [
+              "Launch the forecasting tool and let it average the codes",
+              "Buy more historical data from a third party",
+              "Switch to a different forecasting vendor",
+              "Clean up and merge duplicate item master records and add a naming standard"
+            ],
+            "a": 3,
+            "why": "Forecasting depends on accurate, consolidated history. Fixing master data is the prerequisite, and it brings immediate benefits elsewhere."
+          }
+        },
+        {
+          "title": "Systems and integration architecture",
+          "minutes": 7,
+          "body": "<p>Most SMEs run on a mix of systems: accounting software, perhaps an ERP, a CRM, email, spreadsheets, and specialist tools such as a scheduling system or a practice management system. AI readiness depends on these systems being able to <strong>share data reliably</strong> instead of relying on people to copy it.</p>\n<h3>Map your application landscape</h3>\n<p>Create a simple systems map: list every application, what data it holds, who uses it, and how data moves between systems. Mark each connection as:</p>\n<ul>\n<li><strong>Integrated</strong> – automatic, real-time or scheduled sync.</li>\n<li><strong>File-based</strong> – export and import of spreadsheets or CSV files.</li>\n<li><strong>Manual</strong> – someone re-types data.</li>\n</ul>\n<p>Manual connections are risk and cost; they are often the first integration targets.</p>\n<h3>Core architecture principles for SMEs</h3>\n<ol>\n<li><strong>One system of record per data type.</strong> Customers live in the CRM or ERP, not in both independently.</li>\n<li><strong>Prefer configuration over customization.</strong> Use standard features of cloud platforms; heavy custom code makes upgrades painful.</li>\n<li><strong>Choose systems with open APIs.</strong> An application programming interface lets systems exchange data and makes future AI tools easier to connect.</li>\n<li><strong>Use integration tools sensibly.</strong> Integration platforms and built-in connectors can link common systems without custom development.</li>\n<li><strong>Plan identity and access.</strong> Single sign-on and role-based access simplify security as systems multiply.</li>\n</ol>\n<h3>Worked example</h3>\n<table>\n<thead><tr><th>Connection</th><th>Current</th><th>Target</th></tr></thead>\n<tbody>\n<tr><td>Web store to accounting</td><td>Manual re-entry of orders</td><td>Built-in connector syncs orders hourly</td></tr>\n<tr><td>CRM to quoting</td><td>Copy and paste customer details</td><td>Quote created from CRM record</td></tr>\n<tr><td>Shop floor to ERP</td><td>Paper travellers keyed in weekly</td><td>Tablet data capture posts labour and quantities daily</td></tr>\n<tr><td>Payroll to accounting</td><td>CSV export</td><td>Keep as is (low volume, stable)</td></tr>\n</tbody>\n</table>\n<p>Notice the last row: not every connection needs integrating. Low-volume, stable file transfers may be good enough.</p>\n<h3>Cloud and AI readiness</h3>\n<p>Cloud-based systems generally make integration, remote access and AI features easier, but review data residency, backup and exit terms in contracts. Ask vendors how you can export your data if you leave. An AI-ready architecture is simply one where clean data is accessible, through controlled interfaces, to the tools that need it.</p>",
+          "takeaways": [
+            "Map every system and classify connections as integrated, file-based or manual.",
+            "Keep one system of record per data type and prefer configuration and open APIs.",
+            "Integrate where volume and error risk justify it; not every connection needs automation."
+          ],
+          "apply": "Draw a systems map of your organization showing each application and every data flow between them. Mark each flow as integrated, file-based or manual, and identify the two manual flows that cost the most time.",
+          "check": {
+            "q": "Which principle best supports long-term AI readiness when selecting new business software?",
+            "opts": [
+              "Choose the system with the most custom code so it fits exactly",
+              "Choose systems with open APIs and a clear system of record for each data type",
+              "Keep each department on its own separate tools",
+              "Avoid cloud systems entirely"
+            ],
+            "a": 1,
+            "why": "Open APIs and clear systems of record let clean data flow to new tools, including AI, without fragile workarounds."
+          }
+        },
+        {
+          "title": "Where AI fits: practical use cases for SMEs",
+          "minutes": 6,
+          "body": "<p>Artificial intelligence covers a broad family of techniques. For SME leaders, it helps to group practical AI into a few categories and match them to real business problems.</p>\n<h3>Practical AI categories</h3>\n<table>\n<thead><tr><th>Category</th><th>What it does</th><th>SME example</th></tr></thead>\n<tbody>\n<tr><td>Generative AI assistants</td><td>Draft, summarize and rewrite text</td><td>Drafting customer replies, summarizing meeting notes</td></tr>\n<tr><td>Document understanding</td><td>Extract data from invoices, forms, letters</td><td>Reading supplier invoices into accounting</td></tr>\n<tr><td>Prediction</td><td>Forecast quantities or likelihoods from history</td><td>Demand forecasting, late-payment risk</td></tr>\n<tr><td>Anomaly detection</td><td>Flag unusual patterns</td><td>Unusual expense claims, machine vibration changes</td></tr>\n<tr><td>Knowledge search</td><td>Answer questions from your own documents</td><td>Searching procedures, specifications and past projects</td></tr>\n<tr><td>Computer vision</td><td>Interpret images</td><td>Checking weld appearance, counting items on a pallet</td></tr>\n</tbody>\n</table>\n<h3>Choosing a first AI use case</h3>\n<p>A good first AI use case usually has these features:</p>\n<ul>\n<li>A clear, measurable pain point (time, errors or delay).</li>\n<li>Enough relevant data or documents already available.</li>\n<li>A person reviews the output before it affects customers.</li>\n<li>Low consequence if the AI is occasionally wrong.</li>\n<li>Available as a feature in tools you already use, or as a configurable product.</li>\n</ul>\n<h3>Worked example</h3>\n<p>Imagine an engineering consultancy whose engineers spend time hunting through old project folders for similar designs and calculations. A knowledge search assistant indexed on approved past reports lets them ask a question in plain language and see relevant documents. Engineers still check and own every calculation. The pilot measures search time before and after, and tracks how often results are useful.</p>\n<h3>Common pitfalls</h3>\n<ul>\n<li><strong>Starting with the hardest problem.</strong> Fully autonomous decisions are rarely a good first step.</li>\n<li><strong>Ignoring data access.</strong> An assistant cannot answer from documents it cannot reach or that are out of date.</li>\n<li><strong>No human review.</strong> Generative AI can produce confident but incorrect output; build review into the workflow.</li>\n<li><strong>Unmeasured pilots.</strong> Without a baseline, \"people like it\" is the only evidence.</li>\n</ul>\n<p>AI is most valuable in SMEs as a capable assistant that removes drudgery and speeds up skilled people, operating on top of clean data and well-designed processes.</p>",
+          "takeaways": [
+            "Group AI into practical categories such as generative assistants, document understanding, prediction and knowledge search.",
+            "Choose first use cases with clear pain, available data, human review and low consequence of error.",
+            "Build human review and measurement into every AI pilot."
+          ],
+          "apply": "Identify one task in your organization that fits each of two AI categories from the table. For the more promising one, write down the pain point, the data it needs and who would review its output.",
+          "check": {
+            "q": "Which is the strongest candidate for a first AI use case in an SME?",
+            "opts": [
+              "Using AI to draft replies to routine customer emails that staff review before sending",
+              "Letting AI approve credit limits automatically with no review",
+              "Replacing the safety officer's incident investigations with AI",
+              "Building a custom AI model from scratch with no existing data"
+            ],
+            "a": 0,
+            "why": "It addresses a clear, frequent task, uses available data, keeps a person reviewing output and has a low consequence if a draft is imperfect."
+          }
+        },
+        {
+          "title": "AI governance, risk and privacy",
+          "minutes": 7,
+          "body": "<p>Introducing AI and new data flows brings new responsibilities. <strong>AI governance</strong> is the set of policies, roles and controls that make sure AI is used safely, legally and in line with your values. For an SME, governance can be light, but it should not be absent.</p>\n<h3>Key risk areas</h3>\n<ul>\n<li><strong>Privacy</strong> – personal information about customers, patients or employees entered into AI tools.</li>\n<li><strong>Confidentiality</strong> – client drawings, pricing or contracts exposed to third-party services.</li>\n<li><strong>Accuracy</strong> – AI output that is wrong but sounds convincing.</li>\n<li><strong>Bias and fairness</strong> – AI that treats people differently based on characteristics it should not consider, for example in hiring.</li>\n<li><strong>Security</strong> – new accounts, integrations and data stores expand the attack surface.</li>\n<li><strong>Accountability</strong> – unclear ownership when an AI-assisted decision goes wrong.</li>\n</ul>\n<h3>Canadian privacy context</h3>\n<p>In Canada, most private-sector organizations handling personal information in commercial activities are subject to <strong>PIPEDA</strong> or substantially similar provincial legislation (British Columbia, Alberta and Quebec have their own private-sector privacy laws, and health information often has separate rules). Core principles include accountability, identifying purposes, consent, limiting collection, limiting use and disclosure, safeguards and openness. Before putting personal information into an AI tool, confirm the purpose is consistent with what people were told, and check where the vendor stores and processes the data. Seek qualified advice for specific legal questions.</p>\n<h3>A lightweight governance framework</h3>\n<ol>\n<li><strong>Acceptable use policy</strong> – which AI tools are approved, what data may and may not be entered.</li>\n<li><strong>Use-case register</strong> – a simple list of AI uses, their owner, data involved and risk level.</li>\n<li><strong>Risk tiers</strong> – low (drafting internal text), medium (customer-facing content with review), high (decisions affecting people's rights, safety or finances) requiring more scrutiny.</li>\n<li><strong>Human oversight</strong> – define who reviews AI output and when.</li>\n<li><strong>Vendor review</strong> – data handling, storage location, security and contract terms.</li>\n<li><strong>Periodic review</strong> – revisit uses and incidents at least twice a year.</li>\n</ol>\n<h3>Worked example</h3>\n<p>A 30-person accounting practice adopts an AI writing assistant. Its policy allows drafting general correspondence but forbids entering client names, tax identifiers or financial statements unless using an approved business tool with appropriate data protections. A partner owns the register, and staff complete a short training session before getting access.</p>",
+          "takeaways": [
+            "Governance covers privacy, confidentiality, accuracy, bias, security and accountability.",
+            "Canadian organizations must consider PIPEDA or provincial privacy laws before using personal information in AI tools.",
+            "A short acceptable use policy, use-case register and risk tiers give SMEs practical control."
+          ],
+          "apply": "Draft a one-page AI acceptable use policy for your organization: list approved tools, data that must never be entered, and who reviews AI output for customer-facing work.",
+          "check": {
+            "q": "An employee wants to paste client financial statements into a free public AI chatbot to summarize them. What is the best governance response?",
+            "opts": [
+              "Allow it because summaries save time",
+              "Allow it only on weekends",
+              "Prohibit it unless an approved tool with suitable data protections and a clear purpose is used",
+              "Ban all AI use in the organization permanently"
+            ],
+            "a": 2,
+            "why": "Confidential and personal client data needs approved tools, appropriate safeguards and a purpose consistent with privacy obligations. A blanket ban gives up legitimate benefits."
+          }
+        },
+        {
+          "title": "Prioritizing initiatives and building the roadmap",
+          "minutes": 7,
+          "body": "<p>By now you likely have a long list of possible initiatives: fix master data, integrate the web store, digitize shop-floor travellers, pilot an AI assistant, adopt e-invoicing. A <strong>roadmap</strong> sequences these into a realistic plan that the organization can absorb.</p>\n<h3>Step 1: Prioritize with a value-effort matrix</h3>\n<p>Score each initiative from 1 to 5 on <strong>business value</strong> (link to your objectives, hours saved, risk reduced) and <strong>effort</strong> (cost, internal time, complexity, change impact). Plot them on a 2x2:</p>\n<ul>\n<li><strong>Quick wins</strong> (high value, low effort) – do first to build momentum.</li>\n<li><strong>Strategic projects</strong> (high value, high effort) – plan carefully and phase.</li>\n<li><strong>Fill-ins</strong> (low value, low effort) – do when capacity allows.</li>\n<li><strong>Avoid or rethink</strong> (low value, high effort) – drop or reshape.</li>\n</ul>\n<p>Score as a group. The discussion about why one person rated something a 2 and another a 5 is often where the real insight lies.</p>\n<h3>Step 2: Respect dependencies</h3>\n<p>Some initiatives enable others. Clean item master data must come before demand forecasting; a CRM must exist before AI-drafted follow-ups. Draw arrows between dependent initiatives and sequence foundations first.</p>\n<h3>Step 3: Phase the roadmap</h3>\n<table>\n<thead><tr><th>Horizon</th><th>Focus</th><th>Example initiatives</th></tr></thead>\n<tbody>\n<tr><td>0–3 months</td><td>Quick wins and foundations</td><td>Approval thresholds, item master clean-up, AI acceptable use policy</td></tr>\n<tr><td>3–9 months</td><td>Core systems and integration</td><td>E-invoicing, web store to accounting connector, CRM roll-out</td></tr>\n<tr><td>9–18 months</td><td>Advanced and AI-enabled</td><td>Shop-floor data capture, demand forecasting pilot, knowledge search assistant</td></tr>\n</tbody>\n</table>\n<h3>Step 4: Check capacity</h3>\n<p>SMEs fail roadmaps by starting too much at once. Estimate internal hours for each initiative and compare against realistic availability. A useful rule is to limit active initiatives so that no key person is on more than two at a time.</p>\n<h3>Worked example</h3>\n<p>A fabrication shop scores cloud ERP as value 5, effort 5 (strategic); e-invoicing value 3, effort 2 (quick win); shop-floor data capture value 4, effort 3. Because shop-floor capture needs the new ERP to post into, it is sequenced after the ERP's core modules go live, while e-invoicing starts immediately.</p>\n<p>Use the matrix lab after this lesson to prioritize your own initiatives.</p>",
+          "takeaways": [
+            "Score initiatives on business value and effort, and plot them on a 2x2 to find quick wins and strategic projects.",
+            "Sequence foundations before the initiatives that depend on them.",
+            "Phase the roadmap over time horizons and limit work in progress to your real capacity."
+          ],
+          "apply": "List six to eight digital initiatives under discussion in your organization. Score each with two colleagues on value and effort from 1 to 5, note dependencies, and place them on a three-horizon roadmap.",
+          "check": {
+            "q": "An initiative scores high business value and high effort. How should it be treated on the roadmap?",
+            "opts": [
+              "Drop it immediately",
+              "Do it first because it has the highest value",
+              "Treat it as a fill-in when staff have spare time",
+              "Treat it as a strategic project: plan carefully, phase it and secure resources"
+            ],
+            "a": 3,
+            "why": "High-value, high-effort items are strategic projects. They deserve investment, but they need careful planning and phasing rather than an immediate rush."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Deploy, Lead Change and Sustain",
+      "summary": "Run disciplined pilots, lead people through change, track benefits and turn transformation into a habit of continuous improvement.",
+      "steps": [
+        {
+          "title": "Running pilots with PDCA",
+          "minutes": 6,
+          "body": "<p>Large, all-at-once rollouts are risky for SMEs. A <strong>pilot</strong> tests an initiative at small scale, with one team, site, product line or customer group, so you can learn cheaply before committing fully. The <strong>PDCA</strong> cycle (Plan, Do, Check, Act) gives pilots structure.</p>\n<h3>PDCA for a digital pilot</h3>\n<ul>\n<li><strong>Plan</strong> – define the hypothesis, scope, success criteria, baseline, duration and who is involved.</li>\n<li><strong>Do</strong> – run the pilot as planned, collecting data and feedback.</li>\n<li><strong>Check</strong> – compare results with the baseline and criteria; review what users experienced.</li>\n<li><strong>Act</strong> – adopt and scale, adjust and run another cycle, or stop.</li>\n</ul>\n<h3>Writing a pilot plan</h3>\n<ol>\n<li><strong>Hypothesis</strong>: \"If warehouse staff scan items at picking, pick errors will fall from 3.5% to below 1% without slowing throughput.\"</li>\n<li><strong>Scope</strong>: one shift, one zone, four weeks.</li>\n<li><strong>Success criteria</strong>: error rate, picks per hour, user feedback score.</li>\n<li><strong>Decision rule</strong>: define in advance what result leads to scale, adjust or stop.</li>\n<li><strong>Support</strong>: a named champion on the floor and a quick way to report problems.</li>\n</ol>\n<h3>Worked example</h3>\n<p>A clinic pilots digital intake forms for one physician's patients for six weeks. Baseline: 25 staff hours per week re-keying across all physicians, about 5 for this physician; 4% of records needing correction. Results: re-keying for the pilot group fell to about 1 hour per week; corrections fell to 1%. Feedback reveals older patients struggle with the tablet, so the clinic adds a staff-assisted option. The Act step is to scale to all physicians with that adjustment.</p>\n<h3>Pilot pitfalls</h3>\n<ul>\n<li><strong>Choosing an unrepresentative group</strong> – only the most enthusiastic users can hide adoption problems.</li>\n<li><strong>Running too long without a decision</strong> – \"pilot purgatory\" drains energy. Set an end date.</li>\n<li><strong>Measuring only the tool</strong> – also measure the process outcome and balancing measures.</li>\n<li><strong>Skipping the Act step</strong> – capture lessons and update the roadmap whether the pilot succeeds or not.</li>\n</ul>\n<p>A stopped pilot is not a failure if it prevents a larger, more expensive mistake. That is exactly what pilots are for.</p>",
+          "takeaways": [
+            "Pilots test initiatives at small scale before full commitment.",
+            "Use PDCA with a written hypothesis, baseline, success criteria and a predefined decision rule.",
+            "Set an end date, choose a representative group and act on the lessons."
+          ],
+          "apply": "Write a one-page pilot plan for one initiative from your roadmap, including hypothesis, scope, duration, success criteria, baseline and the decision rule for scaling or stopping.",
+          "check": {
+            "q": "Why should a pilot's decision rule be defined before the pilot starts?",
+            "opts": [
+              "So vendors can prepare their invoices",
+              "To avoid moving the goalposts and to make the scale, adjust or stop decision objective",
+              "Because PDCA does not allow any changes during the pilot",
+              "So the pilot can run indefinitely"
+            ],
+            "a": 1,
+            "why": "A predefined rule keeps the evaluation honest and prevents pilots from drifting without a clear decision."
+          }
+        },
+        {
+          "title": "Leading people through change",
+          "minutes": 7,
+          "body": "<p>Technology projects rarely fail because the software does not work. They fail because people do not adopt it, or they quietly return to the old way. Leading change deliberately is part of the work, not an afterthought.</p>\n<h3>The ADKAR model</h3>\n<p>ADKAR describes five outcomes each person needs to reach for change to stick:</p>\n<table>\n<thead><tr><th>Stage</th><th>Question for the individual</th><th>Leader actions</th></tr></thead>\n<tbody>\n<tr><td>Awareness</td><td>Why is this change happening?</td><td>Explain the business problem and the cost of not changing</td></tr>\n<tr><td>Desire</td><td>What is in it for me and the team?</td><td>Involve people in design; address concerns openly</td></tr>\n<tr><td>Knowledge</td><td>How do I do this?</td><td>Role-based training, job aids, practice environments</td></tr>\n<tr><td>Ability</td><td>Can I do it in real work?</td><td>Floor support, coaching, time to build skill</td></tr>\n<tr><td>Reinforcement</td><td>Will it last?</td><td>Recognition, measures, removing old workarounds</td></tr>\n</tbody>\n</table>\n<p>When adoption stalls, diagnose which stage is the barrier. Retraining someone who lacks desire will not help.</p>\n<h3>Kotter's perspective for leaders</h3>\n<p>Kotter's change model emphasizes creating urgency, building a guiding coalition, communicating a clear vision, removing obstacles, generating short-term wins and anchoring changes in culture. In an SME, the guiding coalition may be the owner, two supervisors and a respected senior technician.</p>\n<h3>Practical tactics for SMEs</h3>\n<ul>\n<li><strong>Involve front-line staff early</strong> in mapping and solution design.</li>\n<li><strong>Appoint champions</strong> in each team who get early access and help colleagues.</li>\n<li><strong>Address job security concerns honestly</strong>: explain how freed time will be used.</li>\n<li><strong>Train close to go-live</strong>, using real examples from your own work.</li>\n<li><strong>Retire the old way</strong> deliberately: archive the old spreadsheet once the new system is live.</li>\n<li><strong>Use a RACI</strong> to clarify who is responsible, accountable, consulted and informed for each change activity.</li>\n</ul>\n<h3>Worked example</h3>\n<p>Imagine a fabrication shop introducing tablet-based job tracking. Operators worry it is a way to monitor them. The owner explains the goal is accurate job costing and fewer missing travellers, involves two operators in choosing the screen layout, and commits that data will be used to improve quoting, not to discipline individuals. Adoption rises once operators see their feedback reflected in the design.</p>",
+          "takeaways": [
+            "Adoption, not installation, determines whether a digital initiative delivers value.",
+            "Use ADKAR to diagnose where individuals are stuck: awareness, desire, knowledge, ability or reinforcement.",
+            "Involve staff early, appoint champions, address concerns honestly and retire the old way."
+          ],
+          "apply": "For one upcoming change, rate each ADKAR stage for the most affected team on a 1 to 5 scale. Identify the weakest stage and plan two actions to strengthen it.",
+          "check": {
+            "q": "Staff have completed training on a new system and can use it, but keep reverting to their old spreadsheet. Which ADKAR stage most needs attention?",
+            "opts": [
+              "Awareness",
+              "Knowledge",
+              "Ability",
+              "Reinforcement"
+            ],
+            "a": 3,
+            "why": "They know how and are able, so the gap is reinforcement: recognizing use, measuring adoption and retiring the old spreadsheet."
+          }
+        },
+        {
+          "title": "Tracking benefits and sustaining the gains",
+          "minutes": 6,
+          "body": "<p>Go-live is not the finish line. Benefits appear only when the new way of working is used consistently and the gains are measured. <strong>Benefits realization</strong> is the discipline of tracking whether the business case actually comes true.</p>\n<h3>A benefits register</h3>\n<p>For each initiative, keep a simple register:</p>\n<table>\n<thead><tr><th>Benefit</th><th>KPI</th><th>Baseline</th><th>Target</th><th>Current</th><th>Owner</th></tr></thead>\n<tbody>\n<tr><td>Less invoice re-keying</td><td>Hours per week</td><td>18</td><td>4</td><td>6</td><td>Controller</td></tr>\n<tr><td>Faster payment</td><td>Days sales outstanding</td><td>52</td><td>40</td><td>45</td><td>Controller</td></tr>\n<tr><td>Fewer disputes</td><td>Disputed invoices per month</td><td>48</td><td>24</td><td>22</td><td>Sales manager</td></tr>\n</tbody>\n</table>\n<p>Review it monthly for the first six months, then quarterly. Where results lag, investigate: is it adoption, process design, data quality or an unrealistic target?</p>\n<h3>Control and sustain</h3>\n<p>Borrowing from the Control phase of DMAIC and from Lean's emphasis on standard work, sustain gains with:</p>\n<ul>\n<li><strong>Updated standard work</strong> and procedures that reflect the new process.</li>\n<li><strong>Visual management</strong> – dashboards or boards reviewed in short daily or weekly huddles.</li>\n<li><strong>Process ownership</strong> – a named owner for each improved process.</li>\n<li><strong>Audits</strong> – periodic checks that the process is followed and data stays clean.</li>\n<li><strong>Onboarding</strong> – new hires learn the new way from day one.</li>\n</ul>\n<h3>Building a continuous improvement culture</h3>\n<p>The organizations that benefit most from digital transformation treat it as an ongoing capability, not a one-time project. Practical habits include:</p>\n<ol>\n<li>A monthly improvement review where teams bring problems and ideas.</li>\n<li>A simple idea board or digital form, with visible follow-up.</li>\n<li>Regular reassessment of digital maturity, perhaps annually.</li>\n<li>Celebrating learning, including stopped pilots that saved money.</li>\n</ol>\n<h3>Worked example</h3>\n<p>After e-invoicing goes live, a distributor's register shows re-keying hours falling to 6 against a target of 4. Investigation finds two large customers still send paper purchase orders. The controller works with sales to move them to the portal, and the next quarter's review shows the target met. Without the register, the shortfall would have gone unnoticed.</p>",
+          "takeaways": [
+            "Track every initiative in a benefits register with baseline, target, current value and owner.",
+            "Sustain gains with standard work, visual management, process owners and audits.",
+            "Treat transformation as an ongoing capability supported by regular improvement habits."
+          ],
+          "apply": "Create a benefits register for one completed or current initiative. Fill in baseline, target and current values, and schedule a recurring monthly review with the owner.",
+          "check": {
+            "q": "Six months after go-live, a benefit is short of target. What is the most useful next step?",
+            "opts": [
+              "Investigate whether adoption, process design, data quality or the target is the cause",
+              "Declare the project a failure",
+              "Lower the target to match current results",
+              "Stop measuring the KPI"
+            ],
+            "a": 0,
+            "why": "Understanding why the gap exists leads to corrective action. Many shortfalls come from adoption or data issues that are fixable."
+          }
+        },
+        {
+          "title": "Wrap-up: your 90-day digital transformation action plan",
+          "minutes": 6,
+          "body": "<p>You now have a structured roadmap for digital transformation and AI readiness: assess, discover, optimize, build foundations, prioritize, pilot, lead change and sustain. This final lesson helps you turn that roadmap into action over the next 90 days.</p>\n<h3>The roadmap in one view</h3>\n<ol>\n<li><strong>Assess</strong> maturity and set a vision with measurable objectives.</li>\n<li><strong>Discover</strong> how work really flows using interviews, gemba walks, SIPOC and process maps.</li>\n<li><strong>Optimize</strong> with Lean and DMAIC: eliminate, simplify and standardize before automating.</li>\n<li><strong>Measure</strong> baselines and KPIs so benefits can be proven.</li>\n<li><strong>Build foundations</strong> in data, systems and governance.</li>\n<li><strong>Prioritize</strong> initiatives by value and effort, respecting dependencies and capacity.</li>\n<li><strong>Pilot</strong> with PDCA, then scale what works.</li>\n<li><strong>Lead change</strong> and <strong>sustain</strong> gains with a benefits register and continuous improvement habits.</li>\n</ol>\n<h3>A 90-day plan</h3>\n<table>\n<thead><tr><th>Weeks</th><th>Focus</th><th>Deliverables</th></tr></thead>\n<tbody>\n<tr><td>1–2</td><td>Baseline and alignment</td><td>Maturity assessment by 3–4 people, draft vision, 3–5 objectives</td></tr>\n<tr><td>3–5</td><td>Discovery</td><td>Interviews, one gemba walk, SIPOC and swim lane map for one core process, findings log</td></tr>\n<tr><td>6–7</td><td>Quick improvements</td><td>Two or three eliminate or simplify changes, baselines for key KPIs</td></tr>\n<tr><td>8–9</td><td>Foundations and prioritization</td><td>Systems map, data profile of one master data set, AI acceptable use policy, value-effort matrix</td></tr>\n<tr><td>10–12</td><td>First pilot and roadmap</td><td>One pilot plan launched, 18-month roadmap, benefits register</td></tr>\n</tbody>\n</table>\n<h3>Worked example</h3>\n<p>Imagine the owner of a 45-person distribution business following this plan. By week 5 the team has mapped order-to-cash and found that 20 staff hours a week go to re-keying web orders. By week 7, two redundant approvals are gone. By week 12, a web-store-to-accounting connector pilot is running in one product category with a clear decision rule, and the roadmap shows e-invoicing and CRM following in the next two quarters.</p>\n<h3>Keys to success</h3>\n<ul>\n<li>Start small and visible; momentum matters more than ambition in the first 90 days.</li>\n<li>Keep leadership attention steady with a short fortnightly review.</li>\n<li>Measure everything you change.</li>\n<li>Bring people with you; adoption is the real finish line.</li>\n</ul>\n<p>Complete the final exam to earn your Chmltech certificate of completion, then put your first two weeks of the plan in the calendar today.</p>",
+          "takeaways": [
+            "Digital transformation follows a sequence: assess, discover, optimize, build foundations, prioritize, pilot, lead change and sustain.",
+            "A focused 90-day plan builds momentum with visible quick wins and one well-run pilot.",
+            "Measurement and adoption determine whether value is delivered."
+          ],
+          "apply": "Copy the 90-day plan table and replace the deliverables with your own specific actions, owners and dates. Book the first two weeks' activities in your calendar and share the plan with one colleague who will hold you accountable.",
+          "check": {
+            "q": "In the first 90 days of a digital transformation programme for an SME, which approach is most likely to succeed?",
+            "opts": [
+              "Launch a full ERP replacement, CRM and AI programme simultaneously",
+              "Complete a five-year strategy before taking any action",
+              "Assess, discover, make a few quick improvements and launch one well-measured pilot",
+              "Wait for staff to propose tools on their own"
+            ],
+            "a": 2,
+            "why": "A focused start builds evidence and momentum while laying foundations, without overloading a small organization."
+          }
+        }
+      ]
+    }
+  ],
+  "labs": [
+    {
+      "id": "digital-maturity-assessment",
+      "type": "assessment",
+      "title": "Digital Maturity Self-Assessment",
+      "intro": "Score your organization on seven dimensions of digital maturity to see your profile on a radar chart and identify the foundations to strengthen first.",
+      "after_step": 3,
+      "config": {
+        "scale": [
+          "Not started",
+          "Ad hoc",
+          "Defined",
+          "Managed",
+          "Optimized"
+        ],
+        "dimensions": [
+          {
+            "name": "Strategy and leadership",
+            "question": "How clearly is your digital direction defined, linked to business goals and championed by leadership?",
+            "low": "Write a two-sentence digital vision and three measurable objectives with a named executive owner for each.",
+            "high": "Cascade objectives to teams and review progress quarterly against baselines."
+          },
+          {
+            "name": "Processes",
+            "question": "How well are your core workflows documented, standardized and measured?",
+            "low": "Map one core process as a swim lane diagram and remove at least one unnecessary step or approval.",
+            "high": "Use value stream mapping and DMAIC to target remaining waste before automating further."
+          },
+          {
+            "name": "Data",
+            "question": "How accurate, complete, owned and accessible is the data your key processes depend on?",
+            "low": "Profile your customer or item master for blanks and duplicates and assign a named data owner.",
+            "high": "Maintain a data dictionary and track data quality as a monthly KPI to support analytics and AI."
+          },
+          {
+            "name": "Systems and integration",
+            "question": "How well do your systems share data without manual re-entry between them?",
+            "low": "Draw a systems map and identify the two manual data flows that cost the most time.",
+            "high": "Standardize on systems of record with open APIs so new tools, including AI, can connect cleanly."
+          },
+          {
+            "name": "People and skills",
+            "question": "How confident and capable are staff in using current tools and learning new ones?",
+            "low": "Identify digital champions in each team and provide role-based training on the tools you already have.",
+            "high": "Build a structured learning path and involve staff in designing and piloting new solutions."
+          },
+          {
+            "name": "Customer experience",
+            "question": "How easily can customers interact with you digitally to request, order, track and pay?",
+            "low": "Ask five customers how they prefer to order and pay, and fix the most common friction point.",
+            "high": "Use customer data and feedback to personalize service and measure digital channel satisfaction."
+          },
+          {
+            "name": "Governance and security",
+            "question": "How well are access, privacy, backups and technology and AI decisions controlled?",
+            "low": "Put basic access controls, backups and a one-page AI acceptable use policy in place.",
+            "high": "Maintain an AI use-case register with risk tiers and review vendors and incidents twice a year."
+          }
+        ]
+      }
+    },
+    {
+      "id": "automate-augment-human",
+      "type": "classify",
+      "title": "Automate, Augment or Keep Human-Led?",
+      "intro": "Sort common SME tasks into the right category to practise judging where automation, AI assistance or human judgement fits best.",
+      "after_step": 12,
+      "config": {
+        "categories": [
+          "Automate",
+          "Augment with AI",
+          "Keep human-led"
+        ],
+        "items": [
+          {
+            "text": "Sending appointment or delivery reminders to customers",
+            "answer": 0,
+            "why": "High volume, clear rules and structured data make this ideal for straightforward automation."
+          },
+          {
+            "text": "Copying web store orders into the accounting system",
+            "answer": 0,
+            "why": "A repetitive, rule-based transfer of structured data that an integration or connector can handle reliably."
+          },
+          {
+            "text": "Generating the weekly sales-by-region report",
+            "answer": 0,
+            "why": "The data and format are fixed, so a scheduled report removes manual effort entirely."
+          },
+          {
+            "text": "Routing purchase requests under $500 straight to a purchase order",
+            "answer": 0,
+            "why": "Once the approval threshold is defined, the rule is clear and can be applied automatically."
+          },
+          {
+            "text": "Extracting key details from supplier invoices that arrive in many formats",
+            "answer": 1,
+            "why": "Unstructured documents suit AI extraction, but a person should verify amounts before posting."
+          },
+          {
+            "text": "Drafting replies to routine customer service emails",
+            "answer": 1,
+            "why": "AI can draft quickly from past responses, while staff review tone and accuracy before sending."
+          },
+          {
+            "text": "Summarizing long service tickets for the next technician",
+            "answer": 1,
+            "why": "Summarizing free text is a strength of AI, and the technician still reads the source when needed."
+          },
+          {
+            "text": "Flagging unusual expense claims for review",
+            "answer": 1,
+            "why": "Anomaly detection highlights patterns, but a person decides whether a flagged claim is actually a problem."
+          },
+          {
+            "text": "Searching past project reports for similar designs",
+            "answer": 1,
+            "why": "A knowledge search assistant speeds retrieval, while engineers judge relevance and own the design."
+          },
+          {
+            "text": "Handling a complaint from a long-standing customer after a failed delivery",
+            "answer": 2,
+            "why": "Empathy, relationship judgement and authority to make things right require a person."
+          },
+          {
+            "text": "Approving a deviation from a safety procedure on the shop floor",
+            "answer": 2,
+            "why": "Safety decisions carry high consequences and clear accountability, so they must stay human-led."
+          },
+          {
+            "text": "Deciding which candidate to hire for a supervisor role",
+            "answer": 2,
+            "why": "Hiring affects people's rights and carries bias risk; tools may support logistics, but the decision is human."
+          },
+          {
+            "text": "Negotiating annual pricing with a key supplier",
+            "answer": 2,
+            "why": "Negotiation depends on relationships, context and trade-offs that require human judgement."
+          }
+        ]
+      }
+    },
+    {
+      "id": "initiative-prioritization",
+      "type": "matrix",
+      "title": "Digital Initiative Prioritization Matrix",
+      "intro": "Rate typical SME digital initiatives on effort and business value, then adjust or add your own to see which are quick wins and which are strategic projects.",
+      "after_step": 17,
+      "config": {
+        "x": "Effort",
+        "y": "Business value",
+        "x_low": "Low effort",
+        "x_high": "High effort",
+        "y_low": "Low value",
+        "y_high": "High value",
+        "quadrants": {
+          "top_left": "Quick wins",
+          "top_right": "Strategic projects",
+          "bottom_left": "Fill-ins",
+          "bottom_right": "Avoid / rethink"
+        },
+        "items": [
+          {
+            "name": "Cloud ERP replacement",
+            "x": 5,
+            "y": 5
+          },
+          {
+            "name": "E-invoicing and online payment",
+            "x": 2,
+            "y": 4
+          },
+          {
+            "name": "CRM with quote follow-up reminders",
+            "x": 3,
+            "y": 4
+          },
+          {
+            "name": "Shop-floor data capture on tablets",
+            "x": 3,
+            "y": 4
+          },
+          {
+            "name": "Item master data clean-up",
+            "x": 2,
+            "y": 4
+          },
+          {
+            "name": "AI assistant for drafting customer emails",
+            "x": 1,
+            "y": 2
+          },
+          {
+            "name": "Custom-built AI demand forecasting model",
+            "x": 5,
+            "y": 2
+          },
+          {
+            "name": "Digital timesheets replacing paper",
+            "x": 1,
+            "y": 3
+          }
+        ]
+      }
+    }
+  ],
+  "exam": [
+    {
+      "q": "A manufacturer's owner wants to 'go digital' and asks which project to fund first. What should you ask before recommending any technology?",
+      "opts": [
+        "Which vendor is the market leader?",
+        "How many features does each system offer?",
+        "Which business outcome needs to improve, by how much, and how will it be measured?",
+        "What are competitors buying?"
+      ],
+      "a": 2,
+      "why": "Digital initiatives should start from a measurable business outcome; technology choice follows."
+    },
+    {
+      "q": "A clinic scans paper intake forms into PDFs and stores them in folders. Which layer of change is this?",
+      "opts": [
+        "Digitization",
+        "Digitalization",
+        "Business model transformation",
+        "Automation"
+      ],
+      "a": 0,
+      "why": "Converting paper records into digital form without changing the process is digitization."
+    },
+    {
+      "q": "Four managers complete a maturity assessment. The owner scores data quality 4; the warehouse lead scores it 2. What is the best interpretation?",
+      "opts": [
+        "Average the scores and move on",
+        "Use the owner's score as the most senior view",
+        "Treat the gap as a finding and explore why perceptions differ",
+        "Discard the warehouse lead's score as an outlier"
+      ],
+      "a": 2,
+      "why": "Different views often reveal hidden problems that the people closest to the work experience daily."
+    },
+    {
+      "q": "Which objective is best suited to tracking a digital programme's success?",
+      "opts": [
+        "Roll out Microsoft tools to all staff",
+        "Become more innovative",
+        "Hold monthly technology meetings",
+        "Cut median order-to-ship time from 31 to 16 working hours within 12 months"
+      ],
+      "a": 3,
+      "why": "It is outcome-based, has a baseline, a target and a time frame."
+    },
+    {
+      "q": "During discovery interviews, which question is likely to yield the most reliable information?",
+      "opts": [
+        "How does this process usually work?",
+        "Walk me through the last order you handled, step by step.",
+        "Do you like the current system?",
+        "What software should we buy?"
+      ],
+      "a": 1,
+      "why": "Anchoring on a specific recent example reduces guesswork and reveals real workarounds."
+    },
+    {
+      "q": "A team starts a mapping workshop and it sprawls across sales, purchasing and HR without finishing anything. Which tool would have prevented this?",
+      "opts": [
+        "A SIPOC agreeing scope and start and end points",
+        "A RACI matrix",
+        "A control chart",
+        "A benefits register"
+      ],
+      "a": 0,
+      "why": "SIPOC sets process boundaries before detailed mapping begins."
+    },
+    {
+      "q": "A swim lane map shows the same order details typed into email, a spreadsheet and the ERP. Which improvement target does this most clearly indicate?",
+      "opts": [
+        "Duplicate data entry that integration or a single system of record could remove",
+        "A need for more approvals",
+        "Insufficient staff training on email",
+        "Overproduction of finished goods"
+      ],
+      "a": 0,
+      "why": "Re-keying the same data in several places is waste and an error risk that integration can address."
+    },
+    {
+      "q": "A value stream map shows 2 hours of process time and a lead time of 5 working days. What does this low process cycle efficiency mainly indicate?",
+      "opts": [
+        "Staff work too slowly",
+        "The process has too few steps",
+        "Most of the lead time is waiting between steps",
+        "Customers are ordering too much"
+      ],
+      "a": 2,
+      "why": "When process time is a small share of lead time, waiting and queues dominate."
+    },
+    {
+      "q": "A report is produced every week by an administrator, but nobody reads it. What is the best course of action?",
+      "opts": [
+        "Automate the report so it takes less time",
+        "Add more charts to make it engaging",
+        "Move it to a monthly schedule and automate it",
+        "Stop producing the report"
+      ],
+      "a": 3,
+      "why": "Eliminate before you automate: automating unused output is still waste (overproduction)."
+    },
+    {
+      "q": "In DMAIC, a team has confirmed the dispute rate baseline and now uses the 5 Whys to find why prices are wrong. Which phase are they in?",
+      "opts": [
+        "Define",
+        "Measure",
+        "Analyze",
+        "Control"
+      ],
+      "a": 2,
+      "why": "Finding and verifying root causes is the work of the Analyze phase."
+    },
+    {
+      "q": "A warehouse introduces scanning to speed up picking. Which is the best balancing measure to track alongside pick speed?",
+      "opts": [
+        "Number of scanners purchased",
+        "Pick accuracy or error rate",
+        "Number of training sessions held",
+        "Website traffic"
+      ],
+      "a": 1,
+      "why": "A balancing measure checks that faster picking has not increased errors."
+    },
+    {
+      "q": "A distributor must classify 'calling a key customer after a major shipment error.' Which category fits best?",
+      "opts": [
+        "Automate",
+        "Augment with AI",
+        "Keep human-led",
+        "Eliminate"
+      ],
+      "a": 2,
+      "why": "Repairing a valued relationship requires empathy and judgement from a person."
+    },
+    {
+      "q": "A company wants AI demand forecasting, but its item master has many duplicates and inactive records. What should it do first?",
+      "opts": [
+        "Clean and govern item master data with a named owner",
+        "Buy a forecasting tool that claims to ignore bad data",
+        "Collect another year of history before acting",
+        "Forecast manually forever"
+      ],
+      "a": 0,
+      "why": "Forecasts built on duplicated or inaccurate master data will be unreliable; the clean-up also helps other processes."
+    },
+    {
+      "q": "When choosing new business software, which characteristic most improves future AI readiness?",
+      "opts": [
+        "Heavy customization to match current habits",
+        "The lowest possible first-year price",
+        "Open APIs and clear ownership of each data type",
+        "Running only on one office computer"
+      ],
+      "a": 2,
+      "why": "Open interfaces and systems of record let clean data reach new tools reliably."
+    },
+    {
+      "q": "A 25-person firm's payroll data is exported to accounting by CSV twice a month. The process is stable and error-free. What should the integration plan say?",
+      "opts": [
+        "Integrate it immediately as the top priority",
+        "Replace both payroll and accounting systems",
+        "Move payroll back to paper",
+        "Keep it as is for now and focus on higher-volume manual flows"
+      ],
+      "a": 3,
+      "why": "Not every connection needs integration; low-volume, stable transfers may already be good enough."
+    },
+    {
+      "q": "Staff want to use an AI chatbot to summarize documents containing customers' personal information. What should a Canadian SME confirm first?",
+      "opts": [
+        "That the chatbot is free",
+        "That the use fits the purposes people were told, privacy obligations such as PIPEDA, and the vendor's data handling",
+        "That the output looks professional",
+        "Nothing; summaries are always allowed"
+      ],
+      "a": 1,
+      "why": "Privacy laws require personal information to be used for identified purposes with appropriate safeguards, including when third-party tools process it."
+    },
+    {
+      "q": "On a value-effort matrix, e-invoicing scores value 4 and effort 2. Where does it fall and what does that suggest?",
+      "opts": [
+        "Quick win; schedule it early to build momentum",
+        "Strategic project; plan over 18 months",
+        "Fill-in; do only if spare time exists",
+        "Avoid; drop it"
+      ],
+      "a": 0,
+      "why": "High value with low effort is a quick win, ideal for the first roadmap horizon."
+    },
+    {
+      "q": "A pilot of digital intake forms has run for five months with no decision because 'results look promising.' What was most likely missing from the pilot plan?",
+      "opts": [
+        "A vendor contract",
+        "More tablets",
+        "A defined end date and decision rule for scale, adjust or stop",
+        "A larger marketing budget"
+      ],
+      "a": 2,
+      "why": "Without an end date and decision rule, pilots drift into 'pilot purgatory'."
+    },
+    {
+      "q": "Operators resist new job-tracking tablets because they fear being monitored, even though they understand why the change is happening. Which ADKAR stage is the main barrier?",
+      "opts": [
+        "Awareness",
+        "Knowledge",
+        "Ability",
+        "Desire"
+      ],
+      "a": 3,
+      "why": "They understand the reason but do not want the change; addressing concerns and involving them builds desire."
+    },
+    {
+      "q": "Six months after go-live, a benefits register shows re-keying hours above target because two customers still send paper orders. What does this example show?",
+      "opts": [
+        "Benefits registers are unnecessary once a system is live",
+        "Tracking benefits reveals fixable adoption gaps that would otherwise go unnoticed",
+        "The original target should be removed",
+        "The system failed and should be replaced"
+      ],
+      "a": 1,
+      "why": "Ongoing benefits tracking surfaces specific causes, such as adoption gaps, so they can be corrected."
+    }
+  ]
+}

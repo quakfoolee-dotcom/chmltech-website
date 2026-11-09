@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.0 — 2026-11-09
+- **Six free interactive courses**, rebuilt from scratch: AI Readiness; Digital Transformation & AI Readiness Strategy; Operational Excellence; Project Leadership; Workflow Automation; 5S Mastery. 135 lessons in total (about 48,000 words), keeping each original course's step count.
+- Each lesson has key takeaways, an "Apply it at work" exercise and a knowledge check with explanation.
+- 18 interactive labs (three per course): self-assessments with radar charts and tailored next steps, 2x2 prioritization and stakeholder matrices, sorting exercises with feedback, and calculators (automation ROI, OEE, earned value, cost of searching).
+- 20-question final exam per course (70% pass, unlimited retakes, explanations for wrong answers), unlocking a printable Chmltech certificate of completion.
+- Course player: outline sidebar, progress saved in the browser, resume where you left off, mobile-friendly. Course URLs are unchanged (`challenge-page/<id>`).
+- Course content is kept as JSON in `content/courses/` for future edits.
+- Money values in calculators show negatives as -$X.
+
 ## V3.8 — 2026-11-09
 - Forms switched from FormSubmit to Web3Forms (fixed access key, no per-page activation). Contact, Book Online and the Insights subscription all deliver through one key.
 - Submissions are sent as a simple FormData request (no CORS preflight); the honeypot field is renamed to `botcheck`.
