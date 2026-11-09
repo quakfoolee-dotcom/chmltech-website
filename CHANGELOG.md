@@ -1,5 +1,8 @@
 # Changelog
 
+## V3.3 — 2026-11-08
+- Removed duplicate images in 21 articles where the cover photo was repeated inside the article body. No picture now appears twice in an article.
+
 ## V3.2 — 2026-11-08
 - The 13 Insights articles without a usable photo each get a unique branded cover (logo-ring, dot-grid or circuit pattern, with category and title) in place of the shared placeholder icon. Files are in `assets/media/covers/`.
 - Every article now has its own social-sharing image (`og:image`, large Twitter card) instead of the generic logo.
