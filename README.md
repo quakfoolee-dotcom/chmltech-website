@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.6** (see `CHANGELOG.md`).
+Version: **V4.7** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -10,7 +10,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | File | Page |
 |---|---|
 | `index.html` | Home |
-| `industries.html` | Industries overview, linking to the 8 industry pages |
+| `industries.html` | Industries overview, linking to the 8 industry pages (content: `content/industries/*.json`) |
 | `solutions.html` | Core services and an overview of the 11 solution pages |
 | `training.html` | Free practice-exam library (search and filters) plus self-hosted mock exams |
 | `insights.html` | All articles with search, category filters and email subscription |

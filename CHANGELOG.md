@@ -1,5 +1,24 @@
 # Changelog
 
+## V4.7 — 2026-11-09
+- Redesigned all 8 industry pages with new writing built on the original Chmltech content: Energy & Chemicals, Natural Resources, Manufacturing, Health Care, Professional Services, Consumer Goods, Distribution & Warehousing, and Public Sector.
+- Each page has an animated header scene:
+  - **Energy & Chemicals:** a process plant with a column, a reactor, flowing pipes and a flare.
+  - **Natural Resources:** a mine site with a headframe, an ore conveyor and a haul truck.
+  - **Manufacturing:** a production line with a robotic arm, gears and an OEE gauge.
+  - **Health Care:** patient flow from check-in to discharge, with a heartbeat line.
+  - **Professional Services:** work moving from intake to delivery to billing, with utilization and realization bars.
+  - **Consumer Goods:** an order moving through pick, pack and ship to a delivery van.
+  - **Distribution & Warehousing:** warehouse racks with a moving forklift and a dock.
+  - **Public Sector:** service requests moving from request to review to resolved.
+- Each page also has two interactive diagrams (for example, a plant work-order flow with a fixable bottleneck, an OEE loss chart, and a PDCA cycle).
+- New sections on each page: overview, signs it's time to act, industry challenges, services, before/after scenarios, outcomes, why Chmltech, FAQs, related free courses, related articles and links to the other industries.
+- Claims refined:
+  - "3:1 return. Guaranteed." becomes "We aim for a return of at least 3:1 … we agree an ROI target with you", with the results note. This applies to Energy & Chemicals, Natural Resources, Health Care, Professional Services and Public Sector. The one-year timeframe on Natural Resources is removed.
+  - Manufacturing's "40% average increase in productivity" becomes measurable productivity gains tracked against your baseline KPIs.
+  - "Best in class", "top notch", "proven results", "powerful methodology" and claims about past clients are removed or reworded.
+  - Example figures are labelled as examples.
+
 ## V4.6 — 2026-11-09
 - Fixed headings that showed "&amp;" instead of "&": Energy & Chemicals, and Distribution & Warehousing. The Wix heading text is now decoded before it is re-encoded, and the site was checked for any other double-escaped text.
 
