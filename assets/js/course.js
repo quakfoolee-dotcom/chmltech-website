@@ -267,6 +267,14 @@
         return [['Planned value (PV)', money(PV)], ['Earned value (EV)', money(EV)], ['Cost variance (CV)', money(CV)], ['Schedule variance (SV)', money(SV)], ['CPI', fmt(CPI, 2) + (CPI && CPI < 1 ? ' (over budget)' : ' (on/under budget)')], ['SPI', fmt(SPI, 2) + (SPI && SPI < 1 ? ' (behind schedule)' : ' (on/ahead of schedule)')], ['Estimate at completion', money(EAC)]];
       }
     },
+    llm_cost: {
+      inputs: [['req', 'Requests per working day', 500, 1], ['tin', 'Input tokens per request (prompt + context)', 1500, 10], ['tout', 'Output tokens per request', 400, 10], ['pin', 'Price per million input tokens ($, check your provider)', 3, 0.01], ['pout', 'Price per million output tokens ($, check your provider)', 15, 0.01], ['days', 'Working days per month', 21, 1]],
+      calc: function (v) {
+        var reqs = v.req * v.days, tin = reqs * v.tin, tout = reqs * v.tout;
+        var cost = tin / 1e6 * v.pin + tout / 1e6 * v.pout, per = reqs ? cost / reqs : 0;
+        return [['Requests per month', fmt(reqs, 0)], ['Tokens per month', fmt((tin + tout) / 1e6, 1) + ' million'], ['Cost per request', '$' + fmt(per, 4)], ['Estimated monthly cost', cost < 1000 ? '$' + fmt(cost, 2) : money(cost)]];
+      }
+    },
     search_waste: {
       inputs: [['people', 'Number of people', 12, 1], ['mins', 'Minutes per person per day searching or walking for items', 20, 1], ['days', 'Working days per year', 230, 1], ['rate', 'Loaded hourly cost (CA$)', 40, 1]],
       calc: function (v) {

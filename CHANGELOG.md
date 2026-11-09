@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.2 — 2026-11-09
+- Three new free interactive courses, built the same way as the first six:
+  - **AI Agents for Business Operations:** 22 lessons. Labs: agent-fit sort, use-case risk/value matrix, agent readiness assessment.
+  - **Building Your AI Operating System:** 24 lessons. Labs: AI OS maturity assessment, prioritization matrix, value calculator.
+  - **Large Language Models (LLMs) for Business Leaders:** 21 lessons. Labs: LLM task sort, LLM cost calculator (new), responsible-use readiness assessment.
+- Each new course has 6 interactive diagrams, an animated header, a 20-question exam and a certificate. The site now has 9 free courses, 202 lessons and 27 labs.
+- New `llm_cost` calculator: requests, tokens and prices give monthly tokens, cost per request and monthly cost. Prices are entered by the learner.
+- The AI Operating System solution page links to the new AI OS course. Course lists are ordered with the AI courses first, and each course has its own icon.
+
 ## V4.1 — 2026-11-09
 - Animated header illustration on each of the six course pages: readiness radar, digital layers, turning gears with a trend line, Gantt chart, automation loop, 5S staircase.
 - 37 interactive illustrations inside lessons (6–7 per course), of six types:

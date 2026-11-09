@@ -1,0 +1,1143 @@
+{
+ "id": "building-your-ai-operating-system",
+ "title": "Building Your AI Operating System",
+ "tagline": "Plan and build one connected, governed AI layer across your systems, knowledge and teams.",
+ "summary": "A practical course for SME leaders who want to move beyond scattered AI tools. You will learn the six building blocks of an AI Operating System, how to choose an architecture, connect data, build a knowledge base, deploy assistants, agents and automation safely, and measure and scale the results with a 90-day plan.",
+ "audience": [
+  "Owners and general managers of small and mid-sized businesses",
+  "Operations, IT and continuous improvement leads asked to make AI work across the company",
+  "Managers already using AI tools who want them connected, governed and measured",
+  "Process owners preparing for an AI OS design or build project"
+ ],
+ "outcomes": [
+  "Explain why scattered AI tools fall short and describe the six building blocks of an AI OS",
+  "Assess AI OS maturity and map processes to find and prioritize use cases",
+  "Choose a vendor-neutral, model-agnostic architecture and a phased roadmap of thin slices",
+  "Plan governed data connections, a curated knowledge base and retrieval-based assistants",
+  "Design role-based assistants, agents and automations with security, audit trails, human oversight and testing",
+  "Measure adoption and value, set up ownership, and write a 90-day AI OS plan"
+ ],
+ "modules": [
+  {
+   "title": "Why an AI Operating System",
+   "summary": "Why tool-by-tool AI falls short, the six building blocks of an AI OS, and how the Discover and Map phases find where it will help.",
+   "steps": [
+    {
+     "title": "Why scattered AI tools fall short",
+     "minutes": 6,
+     "body": "<p>In most small and mid-sized businesses, AI arrives one tool at a time. The sales lead signs up for a writing assistant. Someone in accounting tries a receipt scanner. The operations manager pastes production notes into a public chatbot to draft a weekly summary. Each tool helps a little. Together they rarely add up to a better business.</p> <p>The reason is structural, not a matter of picking the wrong product. Scattered tools share four weaknesses.</p> <h3>Four weaknesses of tool-by-tool AI</h3> <ul> <li><strong>No shared context.</strong> Each tool sees only what a person pastes into it. None of them knows your price list, your SOPs or last month's quality issues, so answers are generic and people retype the same background again and again.</li> <li><strong>No connection to systems of record.</strong> The assistant can draft a reply about an order, but it cannot look up the order in the ERP or update the CRM. A person still copies data between screens.</li> <li><strong>No governance.</strong> Nobody knows which tools hold customer or employee data, who can see what, or what was decided with AI help. That is a privacy and quality risk, not just an IT tidiness issue.</li> <li><strong>No compounding.</strong> Improvements stay inside one person's habits. When that person leaves, the prompts, workarounds and know-how leave too.</li> </ul> <h3>A worked example</h3> <p>Imagine a 35-person industrial distributor. Inside sales uses a chatbot to draft quotes, but pricing lives in the ERP and special terms live in a manager's spreadsheet. Each quote still needs three systems open and a manual check. Customer service uses a different tool to summarize emails, but cannot see open orders. The owner asks, \"Is AI saving us anything?\" and nobody can answer, because nothing is measured.</p> <p>The same company with an <strong>AI Operating System</strong> would connect the assistant to the ERP price tables and the terms spreadsheet, apply the same access rules for every user, log what was generated, and track quote turnaround time on a dashboard. The model behind it might even be the same. The difference is the connected, governed layer around it.</p> <h3>From tools to a system</h3> <p>An AI OS does not replace your ERP, accounting or CRM. It sits across them as one layer that every assistant, automation and dashboard draws on. The rest of this course shows how to plan and build that layer in stages, without a large up-front project.</p>",
+     "takeaways": [
+      "Scattered AI tools lack shared context, system connections, governance and a way to compound gains.",
+      "The gap is usually the missing layer around the model, not the model itself.",
+      "An AI OS sits across existing systems; it does not replace them."
+     ],
+     "apply": "List every AI tool people in your organization use today, who uses it, and what data goes into it. Mark which ones touch customer or employee information and which ones connect to a system of record.",
+     "check": {
+      "q": "A distributor's staff use three different AI tools, each helpful on its own, but the owner cannot tell whether AI is saving anything. What is the most likely root cause?",
+      "opts": [
+       "The tools use models that are too small",
+       "Staff have not written long enough prompts",
+       "The tools are not connected, governed or measured as one system",
+       "The company has not bought enough licences"
+      ],
+      "a": 2,
+      "why": "The weakness of scattered tools is structural: no shared context, no system connections, no governance and no measurement, so gains cannot be seen or compounded."
+     }
+    },
+    {
+     "title": "The six building blocks of an AI OS",
+     "minutes": 7,
+     "body": "<p>An AI Operating System is one connected, governed layer that links a company's systems and data with knowledge, AI assistants, automation and decision support. It is easier to plan when you break it into six building blocks. Each block can start small and grow.</p> <table> <thead><tr><th>Building block</th><th>What it does</th><th>Example in an SME</th></tr></thead> <tbody> <tr><td><strong>Unified data layer</strong></td><td>Connects ERP, accounting, CRM, email and spreadsheets so other blocks can read (and sometimes write) live data.</td><td>Open orders, inventory and customer terms available through one governed connection.</td></tr> <tr><td><strong>Company knowledge base</strong></td><td>Holds curated documents: SOPs, policies, product specs, past proposals, with owners and versions.</td><td>The current welding procedure, not the 2019 draft on someone's desktop.</td></tr> <tr><td><strong>Assistants and agents</strong></td><td>Role-based AI helpers that answer, draft and, within limits, take actions using the data and knowledge.</td><td>A customer service assistant that drafts replies with the real order status.</td></tr> <tr><td><strong>Workflow automation</strong></td><td>Rules and triggers that move work between people and systems.</td><td>Supplier invoices extracted, matched to POs and routed for approval.</td></tr> <tr><td><strong>KPI and decision dashboards</strong></td><td>Shared measures, alerts and summaries that support decisions.</td><td>A weekly operations view with on-time delivery and an AI-written commentary.</td></tr> <tr><td><strong>Governance and security</strong></td><td>Access control, audit trails, human oversight, privacy and acceptable-use rules across every block.</td><td>Payroll data hidden from the sales assistant; every AI action logged.</td></tr> </tbody> </table> <h3>How the blocks depend on each other</h3> <p>The blocks are not independent purchases. Assistants are only as good as the data and knowledge they can reach. Automation needs reliable connections. Dashboards need the same definitions everyone else uses. Governance is not a seventh tool bolted on at the end; it is the foundation every other block sits on.</p> <p>There is also a human element that sits outside the six blocks: <strong>people and adoption</strong>. A technically complete AI OS that staff do not trust or use creates no value. The maturity lab after this lesson includes it as a seventh dimension for that reason.</p> <h3>Worked example</h3> <p>An engineering office of 20 people starts with three blocks: a knowledge base of past proposals and standard details, a proposal-drafting assistant for project managers, and basic governance (single sign-on, a project-level permission model, logging). Six months later it adds a connection to its project accounting system and a dashboard of proposal win rate and hours to draft. Same AI OS, more blocks switched on.</p>",
+     "takeaways": [
+      "The six blocks are data layer, knowledge base, assistants and agents, automation, dashboards, and governance and security.",
+      "Assistants and automation are only as good as the data, knowledge and governance beneath them.",
+      "People and adoption sit alongside the six blocks and decide whether any value is realized."
+     ],
+     "apply": "Sketch the six blocks on one page and, for each, write what already exists in your organization (even if informal) and who owns it. Circle the block that is weakest today.",
+     "check": {
+      "q": "Which statement best describes the role of governance and security in an AI OS?",
+      "opts": [
+       "An optional add-on once assistants are live",
+       "A foundation that applies across every other building block",
+       "A task handled only by the AI vendor",
+       "A dashboard that reports how many prompts were sent"
+      ],
+      "a": 1,
+      "why": "Governance and security underpin all blocks: access rules, audit trails and oversight must apply to data, knowledge, assistants, automation and dashboards alike."
+     }
+    },
+    {
+     "title": "The five-phase build approach",
+     "minutes": 6,
+     "body": "<p>Building an AI OS is a programme of small, connected projects, not a single big install. A simple five-phase approach keeps it practical: <strong>Discover, Map, Prioritize, Implement, Measure</strong>. Each phase has a clear output, and the last one feeds back into the first.</p> <table> <thead><tr><th>Phase</th><th>Key question</th><th>Main output</th></tr></thead> <tbody> <tr><td><strong>Discover</strong></td><td>How ready are we: data, systems, skills, governance?</td><td>AI OS maturity baseline and list of constraints</td></tr> <tr><td><strong>Map</strong></td><td>Where does work actually flow, and where does it hurt?</td><td>Process maps and a long list of use cases</td></tr> <tr><td><strong>Prioritize</strong></td><td>What do we build first, and on what architecture?</td><td>Target architecture and phased roadmap</td></tr> <tr><td><strong>Implement</strong></td><td>Can we deliver the core and first use cases safely?</td><td>Core platform, first connections, first assistants and automations, trained users</td></tr> <tr><td><strong>Measure</strong></td><td>Is it used, and is it creating value?</td><td>Adoption and KPI results, decision to expand</td></tr> </tbody> </table> <h3>Why the order matters</h3> <p>Skipping Discover leads to building on data that turns out to be unusable. Skipping Map leads to automating a broken process. Skipping Prioritize leads to a dozen half-built pilots. Skipping Measure leads to a system nobody can defend at budget time. The phases are a version of PDCA (Plan-Do-Check-Act) applied to a platform: Discover, Map and Prioritize are the Plan, Implement is the Do, and Measure is the Check and Act.</p> <h3>Thin slices, not big bangs</h3> <p>The most useful habit is to deliver a <strong>thin slice</strong> through several blocks at once. Rather than building the whole data layer before anyone sees an assistant, you connect just the data one use case needs, add just the documents it needs, wire up one assistant and measure it. The next slice reuses what the first one built.</p> <h3>Worked example</h3> <p>A clinic network with four locations runs Discover in two weeks (interviews and the maturity assessment), maps intake and referral processes in two more, and prioritizes an intake-summary assistant as its first slice. Implement takes six weeks: a governed connection to the scheduling system, a small knowledge base of intake policies, the assistant and staff training. Measure tracks intake time and staff use for a month, then the cycle repeats for referrals.</p>",
+     "takeaways": [
+      "The five phases are Discover, Map, Prioritize, Implement and Measure, repeated as a cycle.",
+      "Each phase has a concrete output; skipping one creates predictable failures.",
+      "Deliver thin slices that cut through several building blocks rather than one block at a time."
+     ],
+     "apply": "For one process you would like AI to help with, write a one-line answer to each phase's key question. Note which answers you do not yet know; those are your Discover and Map tasks.",
+     "check": {
+      "q": "A company wants to build its full data layer for a year before releasing any assistant. Which principle from this lesson does that plan ignore?",
+      "opts": [
+       "Model-agnostic design",
+       "Delivering thin slices across several building blocks",
+       "Using single sign-on",
+       "Writing an acceptable-use policy"
+      ],
+      "a": 1,
+      "why": "Thin slices connect only the data, documents and assistant one use case needs, so value and learning arrive early and later slices reuse the work."
+     }
+    },
+    {
+     "title": "Discover and Map: finding where an AI OS helps",
+     "minutes": 7,
+     "body": "<p>The first two phases turn a vague wish (\"we should use AI more\") into a concrete list of opportunities grounded in how work really happens. They use familiar process improvement tools.</p> <h3>Discover: establish the baseline</h3> <ul> <li><strong>Interview</strong> five to ten people across roles: what do they search for, re-key, chase or check every week?</li> <li><strong>Inventory systems and data</strong>: ERP, accounting, CRM, shared drives, email, key spreadsheets. Note who owns each and how it can be reached (export, API, nothing).</li> <li><strong>Inventory current AI use</strong>, including unofficial tools.</li> <li><strong>Score maturity</strong> across the six building blocks plus people and adoption.</li> </ul> <h3>Map: follow the work</h3> <p>A <strong>SIPOC</strong> (Suppliers, Inputs, Process, Outputs, Customers) gives a quick high-level view of a process. For the processes that matter most, a simple swim lane map or <strong>value stream map</strong> shows hand-offs, waits and rework. Mark every point where someone:</p> <ul> <li>looks for information in more than one place;</li> <li>copies data from one system to another;</li> <li>writes a routine document from scratch;</li> <li>waits for a decision that follows clear rules;</li> <li>builds a report by hand.</li> </ul> <p>Each mark is a candidate use case. Write it as a problem, not a tool: \"Quotes take two days because pricing and terms sit in different places,\" not \"Buy a quoting chatbot.\"</p> <h3>Worked example</h3> <p>A 50-person fabrication shop maps its order-to-delivery process. The map shows five candidate use cases:</p> <table> <thead><tr><th>Pain point</th><th>Building blocks involved</th></tr></thead> <tbody> <tr><td>Estimators search old jobs for similar parts</td><td>Knowledge base, assistant</td></tr> <tr><td>Purchase orders re-keyed from email into the ERP</td><td>Data layer, automation</td></tr> <tr><td>Supervisors hunt for the current work instruction</td><td>Knowledge base, assistant</td></tr> <tr><td>Weekly production report built by hand</td><td>Data layer, dashboard</td></tr> <tr><td>Customer status emails answered one by one</td><td>Data layer, assistant, governance</td></tr> </tbody> </table> <p>Tagging each use case with the building blocks it needs is the bridge to the next phase. You will quickly see that several use cases share the same foundations, such as a connection to the ERP, which makes that foundation a high-value early investment.</p>",
+     "takeaways": [
+      "Discover sets a baseline of systems, data, current AI use and maturity before anything is built.",
+      "Map uses SIPOC, swim lanes or value stream maps to find searching, re-keying, drafting, rule-based waits and manual reports.",
+      "Tag each use case with the building blocks it needs; shared foundations become early priorities."
+     ],
+     "apply": "Pick one core process and draw a SIPOC for it. Then walk the process with one person who does the work and mark every search, re-key, from-scratch document, rule-based wait and manual report.",
+     "check": {
+      "q": "Which is the best way to write a candidate use case found during mapping?",
+      "opts": [
+       "Buy a quoting chatbot",
+       "Use AI in sales",
+       "Quotes take two days because pricing and terms sit in different places",
+       "Upgrade to the newest model"
+      ],
+      "a": 2,
+      "why": "Use cases should be stated as business problems with a cause, so the solution can be chosen on merit rather than assumed up front."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Architecture and Roadmap",
+   "summary": "Choose how to assemble the AI OS, keep it model-agnostic, prioritize use cases and foundations, and set out a reference architecture and phased roadmap.",
+   "steps": [
+    {
+     "title": "Architecture options: build, buy or compose",
+     "minutes": 7,
+     "body": "<p>Once you know what you want the AI OS to do, you need to decide how to assemble it. There are three broad options, and most SMEs end up with a mix.</p> <table> <thead><tr><th>Option</th><th>What it means</th><th>Strengths</th><th>Watch-outs</th></tr></thead> <tbody> <tr><td><strong>Buy</strong></td><td>Use AI features inside software you already own or a single all-in-one platform.</td><td>Fast, low maintenance, vendor handles security updates.</td><td>Limited to that vendor's data and features; hard to connect across systems; lock-in.</td></tr> <tr><td><strong>Build</strong></td><td>Develop custom components with your own or contracted developers.</td><td>Fits your processes exactly; full control.</td><td>Needs skills you may not have; you own maintenance, security and support.</td></tr> <tr><td><strong>Compose</strong></td><td>Assemble proven components (identity, connectors, knowledge store, automation tool, model provider, dashboards) and configure them around your processes.</td><td>Balance of speed and fit; parts can be swapped.</td><td>Needs a clear architecture and an owner who keeps the pieces working together.</td></tr> </tbody> </table> <h3>A practical rule of thumb</h3> <ul> <li><strong>Buy</strong> where the process is standard and lives inside one system (for example, AI features in your accounting package for bank reconciliation).</li> <li><strong>Compose</strong> where the value comes from joining systems and knowledge (for example, a customer service assistant that needs the ERP, CRM and SOPs).</li> <li><strong>Build</strong> only small, specific pieces where nothing suitable exists and the process is a real differentiator.</li> </ul> <h3>Questions to ask any vendor or component</h3> <ol> <li>Can it connect to our systems through supported interfaces, and can we get our data out?</li> <li>Does it respect our existing user accounts and permissions?</li> <li>Does it keep logs we can review?</li> <li>Where is data stored and processed, and is it used to train anyone else's models?</li> <li>Can the underlying AI model be changed later?</li> </ol> <h3>Worked example</h3> <p>A regional distributor buys the AI features already offered in its CRM for email summaries, composes its quoting assistant from a connector to the ERP, a document store for terms and a model provider, and builds one small script that applies its unusual freight-pricing rules. Three options, one architecture, each choice made for a reason.</p>",
+     "takeaways": [
+      "Buy for standard single-system tasks, compose where value comes from joining systems, build only small differentiating pieces.",
+      "Composing gives speed and flexibility but needs a clear architecture and an owner.",
+      "Ask every vendor about connections, permissions, logs, data handling and model portability."
+     ],
+     "apply": "Take your top three candidate use cases and decide, for each, whether you would buy, compose or build it. Write one sentence of reasoning for each choice and one question you would ask a vendor.",
+     "check": {
+      "q": "A use case needs live order data from the ERP, customer history from the CRM and the company's returns policy. Which approach usually fits best?",
+      "opts": [
+       "Buy the AI feature in the CRM alone",
+       "Compose components around a connected data layer and knowledge base",
+       "Build a custom AI model from scratch",
+       "Ask staff to paste data into a public chatbot"
+      ],
+      "a": 1,
+      "why": "When value comes from joining several systems and documents, composing proven components around a governed data layer usually balances speed, fit and control."
+     }
+    },
+    {
+     "title": "Model-agnostic design",
+     "minutes": 6,
+     "body": "<p>AI models change quickly. New options appear, prices change, and a provider's terms or performance may shift. An AI OS should treat the model as a <strong>replaceable component</strong>, not the foundation. This is called model-agnostic design.</p> <h3>What model-agnostic means in practice</h3> <ul> <li><strong>Your assets live outside the model.</strong> Documents, data connections, prompts, test questions and logs belong to you and sit in your own stores, not inside one provider's account.</li> <li><strong>A thin layer sits between your applications and the model.</strong> Assistants call that layer, and the layer calls whichever model is configured. Switching models changes a setting, not every application.</li> <li><strong>Prompts and instructions are versioned.</strong> They are kept as managed text with owners, so they can be retested on a different model.</li> <li><strong>Quality is measured with your own test set.</strong> You compare models on your real tasks, not on a vendor's marketing.</li> <li><strong>Different tasks can use different models.</strong> A simple classification job may use a smaller, cheaper model, while drafting a technical proposal may justify a more capable one.</li> </ul> <h3>Why it matters for an SME</h3> <p>Lock-in is not only a cost risk. If your knowledge base, prompts and history are trapped in one product, you lose bargaining power and the ability to respond if that product's privacy terms no longer suit you. Model-agnostic design keeps those options open at little extra effort if it is planned from the start.</p> <h3>Worked example</h3> <p>An engineering office builds a proposal assistant. Its standard details and past proposals sit in the company's own document store. A small routing layer sends requests to the configured model. Twenty test questions, with good answers written by senior engineers, are stored alongside the prompts. When the office wants to try a different provider, it runs the twenty questions through both, compares scores and reviews a sample of answers. The switch takes an afternoon of testing rather than a rebuild.</p> <h3>Design checklist</h3> <ol> <li>Can we export our documents, prompts and logs in a standard format?</li> <li>Is there one place where the model choice is configured?</li> <li>Do we have a test set for each important assistant?</li> <li>Have we checked each provider's data-use and retention terms?</li> </ol>",
+     "takeaways": [
+      "Treat the AI model as a replaceable component, not the foundation of the system.",
+      "Keep documents, prompts, tests and logs in stores you control, behind a thin routing layer.",
+      "Compare models with your own test set on real tasks before switching."
+     ],
+     "apply": "For one AI tool you already use, check where its prompts, documents and history are stored and whether you could export them. Write down what it would take to switch to a different model or provider.",
+     "check": {
+      "q": "Which design choice best supports switching to a different AI model later?",
+      "opts": [
+       "Writing prompts directly inside each employee's personal chatbot account",
+       "Storing prompts, documents and test sets in company-controlled stores behind a routing layer",
+       "Choosing the provider with the most features today",
+       "Training staff on one provider's interface only"
+      ],
+      "a": 1,
+      "why": "When your assets sit outside the model and applications call a routing layer, changing models is a configuration and testing task rather than a rebuild."
+     }
+    },
+    {
+     "title": "Prioritizing building blocks and use cases",
+     "minutes": 7,
+     "body": "<p>After Discover and Map you will have more ideas than capacity. Prioritization decides what to build first. For an AI OS, it has a twist: you are choosing use cases <em>and</em> the foundations they need, and good foundations make later use cases cheaper.</p> <h3>Score value and effort</h3> <p>Rate each candidate from 1 to 5 on two axes, with the people who do the work in the room.</p> <ul> <li><strong>Business value</strong>: hours saved, errors avoided, faster response to customers, better decisions, lower risk.</li> <li><strong>Effort</strong>: data and connections needed, document clean-up, process change, training, governance work.</li> </ul> <p>Plot them on a 2x2: high value and low effort are <strong>quick wins</strong>; high value and high effort are <strong>strategic projects</strong>; low value and low effort are <strong>fill-ins</strong>; low value and high effort should be <strong>avoided or rethought</strong>.</p> <h3>Add the foundation test</h3> <p>Before you finalize, ask of each item: which building blocks does it need, and will it build something the next three use cases can reuse? A slightly harder use case that creates a governed ERP connection may be a better first choice than an easy one that creates nothing reusable.</p> <h3>Worked example</h3> <p>A 60-person food distributor scores six candidates:</p> <table> <thead><tr><th>Use case</th><th>Value</th><th>Effort</th><th>Reusable foundation</th></tr></thead> <tbody> <tr><td>SOP and policy Q&amp;A assistant</td><td>4</td><td>2</td><td>Knowledge base, permissions</td></tr> <tr><td>Supplier invoice capture and matching</td><td>4</td><td>3</td><td>ERP connection, automation</td></tr> <tr><td>Order status replies for customers</td><td>5</td><td>3</td><td>ERP connection, assistant</td></tr> <tr><td>Demand forecasting</td><td>4</td><td>5</td><td>Clean sales history</td></tr> <tr><td>Social media post drafting</td><td>2</td><td>1</td><td>None</td></tr> <tr><td>Weekly KPI pack with commentary</td><td>3</td><td>2</td><td>Data layer, dashboard</td></tr> </tbody> </table> <p>The team chooses the SOP assistant as the first quick win (it builds the knowledge base and permission model) and order status replies as the first strategic slice (it builds the ERP connection that invoice matching and the KPI pack will reuse). Forecasting is parked until sales history is cleaned.</p> <h3>Avoid common traps</h3> <ul> <li>Scoring alone at a desk rather than with the process owners.</li> <li>Letting the most enthusiastic person's idea skip scoring.</li> <li>Never re-scoring: as foundations are built, hard items get easier.</li> </ul>",
+     "takeaways": [
+      "Score each use case 1 to 5 on business value and effort with the people who do the work.",
+      "Prefer early use cases that build reusable foundations such as a governed ERP connection or knowledge base.",
+      "Re-score the list as foundations are built, because effort falls over time."
+     ],
+     "apply": "Score at least six candidate use cases from your own mapping on value and effort with two or three colleagues. For each, note which building blocks it needs and whether it creates a reusable foundation.",
+     "check": {
+      "q": "Two use cases have similar value. One is easy but creates nothing reusable; the other is slightly harder but builds a governed ERP connection that three other use cases need. Which is usually the better first strategic choice?",
+      "opts": [
+       "The easy one, because effort is all that matters",
+       "Neither, until every use case is fully scoped",
+       "The slightly harder one, because its foundation lowers the effort of later use cases",
+       "Whichever the most senior manager prefers"
+      ],
+      "a": 2,
+      "why": "In an AI OS, reusable foundations compound: building the ERP connection once makes several later use cases cheaper and faster."
+     }
+    },
+    {
+     "title": "Reference architecture and phased roadmap",
+     "minutes": 7,
+     "body": "<p>The Prioritize phase ends with two documents that guide every later decision: a one-page <strong>reference architecture</strong> and a <strong>phased roadmap</strong>.</p> <h3>The one-page reference architecture</h3> <p>Draw it in layers, from the bottom up:</p> <ol> <li><strong>Systems of record</strong>: ERP, accounting, CRM, scheduling, shared drives, email. These stay the source of truth.</li> <li><strong>Connection layer</strong>: the connectors or interfaces that read from and write to those systems, each with a named owner and a defined permission.</li> <li><strong>Knowledge layer</strong>: the curated document store and its search index.</li> <li><strong>AI services layer</strong>: the routing layer to one or more models, plus prompt and instruction management.</li> <li><strong>Experience layer</strong>: the assistants, automations and dashboards people actually use, ideally inside tools they already work in (email, chat, the ERP screen).</li> <li><strong>Governance band</strong>: identity and sign-on, permissions, logging, monitoring and review, drawn down the side because it touches every layer.</li> </ol> <p>Keep it vendor-neutral at first: boxes named by function, not by product. Then add the chosen products beside each box.</p> <h3>The phased roadmap</h3> <p>The roadmap sequences thin slices. Each wave delivers a use case people will notice and the foundations later waves reuse.</p> <table> <thead><tr><th>Wave</th><th>Use cases</th><th>Foundations built</th></tr></thead> <tbody> <tr><td>Wave 1 (first quarter)</td><td>SOP assistant</td><td>Sign-on, permission model, knowledge base, logging</td></tr> <tr><td>Wave 2</td><td>Order status replies</td><td>ERP read connection, customer service assistant</td></tr> <tr><td>Wave 3</td><td>Invoice capture and matching; KPI pack</td><td>Automation tool, ERP write with approval, dashboard</td></tr> <tr><td>Wave 4</td><td>Forecasting pilot</td><td>Cleaned sales history, evaluation process for predictions</td></tr> </tbody> </table> <h3>Decisions to record</h3> <ul> <li>Which system is the source of truth for each key data item (customer, item, price).</li> <li>Where AI may only read, and where it may write or act, and with what approval.</li> <li>Who owns each layer.</li> <li>Exit criteria for each wave: what must be true before the next one starts.</li> </ul> <p>Record these as short architecture decision notes: the decision, the options considered and the reason. Six months later, nobody will remember why the forecasting pilot waited, and the note will save an argument.</p>",
+     "takeaways": [
+      "The reference architecture runs from systems of record through connections, knowledge, AI services and experiences, with governance across all layers.",
+      "The roadmap sequences thin slices, each delivering a visible use case and reusable foundations.",
+      "Record sources of truth, read versus write rights, layer owners and wave exit criteria."
+     ],
+     "apply": "Draw a one-page reference architecture for your organization using function names only. Then place your top four use cases into three or four waves and list the foundations each wave builds.",
+     "check": {
+      "q": "In the reference architecture, why is governance drawn as a band down the side rather than as one layer?",
+      "opts": [
+       "Because it is optional",
+       "Because it applies to every layer, from connections to experiences",
+       "Because it is the vendor's responsibility",
+       "Because it only matters for dashboards"
+      ],
+      "a": 1,
+      "why": "Identity, permissions, logging and review apply to every layer, so they are drawn across the whole stack rather than in one place."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Data, Knowledge and Context",
+   "summary": "Connect systems of record, curate a company knowledge base, understand retrieval in plain terms and design what each assistant knows.",
+   "steps": [
+    {
+     "title": "Connecting systems and data",
+     "minutes": 7,
+     "body": "<p>The unified data layer is what lets an AI OS answer with facts rather than guesses. It does not mean moving all data into one new database. It means creating governed connections so assistants, automations and dashboards can reach the data they need from the systems that already hold it.</p> <h3>Three ways to connect</h3> <table> <thead><tr><th>Method</th><th>How it works</th><th>Good for</th></tr></thead> <tbody> <tr><td><strong>Live lookup</strong></td><td>The AI OS queries the system through its interface (API) at the moment of need.</td><td>Order status, stock levels, account balances</td></tr> <tr><td><strong>Scheduled sync</strong></td><td>Data is copied on a schedule (hourly, nightly) into a reporting store.</td><td>Dashboards, trend analysis, heavy queries</td></tr> <tr><td><strong>Event trigger</strong></td><td>A change in one system (new invoice, new ticket) starts an automation.</td><td>Workflow automation and alerts</td></tr> </tbody> </table> <h3>Principles for a sound data layer</h3> <ul> <li><strong>One source of truth per item.</strong> Decide whether the customer's address lives in the ERP or the CRM, and sync from there.</li> <li><strong>Least access.</strong> Each connection gets only the fields and actions it needs. A status assistant needs to read orders, not edit prices.</li> <li><strong>Read before write.</strong> Start with read-only connections. Add write access later, with approval steps and logging.</li> <li><strong>Named owners.</strong> Every connection has an owner who is told when it fails.</li> <li><strong>Fix the spreadsheets that matter.</strong> Key spreadsheets (price exceptions, job trackers) are often the real system of record. Give them a fixed structure and a home, or move them into a proper system.</li> </ul> <h3>Worked example</h3> <p>A 40-person fabrication shop measures how much time staff spend re-keying data between systems in a typical week:</p> <ul> <li>Customer POs from email into the ERP: 12 hours</li> <li>Job hours from paper timesheets into payroll: 6 hours</li> <li>Shipping details from the ERP into the carrier portal: 5 hours</li> <li>Weekly production report assembled in a spreadsheet: 4 hours</li> </ul> <p>That is 27 hours a week of re-keying, with error risk at every step. The PO entry is the biggest item and needs only two connections: read access to a shared order mailbox and a governed write into the ERP's sales order screen, with a person approving each order at first. The production report needs a nightly sync from the ERP into a reporting store, which the dashboard block will later reuse.</p> <p>Notice that data quality matters here too. If item codes in customer POs do not match ERP item codes, automation will fail or, worse, create wrong orders. A short clean-up of the cross-reference table is part of the connection work, not a separate project.</p>",
+     "takeaways": [
+      "The data layer connects existing systems; it does not require moving everything into a new database.",
+      "Use live lookups, scheduled syncs or event triggers depending on the job.",
+      "Apply one source of truth, least access, read before write and named owners to every connection."
+     ],
+     "apply": "For one week, ask three people to tally how often they copy data from one system to another and how long it takes. Rank the transfers by hours and identify the source of truth for each.",
+     "check": {
+      "q": "A new customer service assistant needs to tell customers where their order is. What is the most appropriate first connection to the ERP?",
+      "opts": [
+       "Full administrator access so it can fix problems",
+       "A read-only live lookup of order status fields",
+       "A nightly export of the entire database to a shared drive",
+       "Write access to prices and discounts"
+      ],
+      "a": 1,
+      "why": "Least access and read before write mean the assistant gets only the order status fields it needs, read-only, at the moment of need."
+     }
+    },
+    {
+     "title": "Building a company knowledge base",
+     "minutes": 7,
+     "body": "<p>The knowledge base is the AI OS's memory of how your company works: SOPs, policies, product specifications, standard details, price rules, past proposals and lessons learned. Assistants can only be as accurate as the documents they draw on, so the knowledge base is curated, not dumped.</p> <h3>Curate before you connect</h3> <p>Pointing an assistant at an entire shared drive is the fastest way to get confident wrong answers. Old drafts, duplicates and personal notes sit beside current procedures, and the AI cannot tell which one is authoritative. Start with a defined collection.</p> <ol> <li><strong>Choose the domain</strong> for the first use case, for example shop-floor work instructions.</li> <li><strong>Collect</strong> the documents and identify the current version of each.</li> <li><strong>Retire or archive</strong> superseded versions so they are not searchable.</li> <li><strong>Assign an owner</strong> to each document or folder, responsible for keeping it current.</li> <li><strong>Add simple metadata</strong>: title, owner, effective date, department, who may see it.</li> <li><strong>Set a review cycle</strong>, such as annual review or review on any process change.</li> </ol> <h3>Write for people and machines</h3> <ul> <li>Use clear headings and one topic per section; retrieval works on sections, not whole files.</li> <li>Put the key rule near the top: \"Torque to 45 N·m\" before the background.</li> <li>Spell out abbreviations once; the AI does not know your internal shorthand.</li> <li>Convert scanned images of text into real text where possible.</li> <li>Prefer one authoritative document over several partial ones.</li> </ul> <p>This is familiar territory for anyone who has run a <strong>5S</strong> programme: sort, set in order, shine, standardize and sustain apply to documents just as well as to tool boards.</p> <h3>Worked example</h3> <p>A clinic's intake team has 140 documents on a shared drive. A one-day sort finds 38 current documents, 61 superseded versions, 25 duplicates and 16 personal notes. The 38 current documents get owners and effective dates and become the intake knowledge collection. The rest are archived. When the intake assistant goes live, it answers from 38 trusted sources rather than 140 mixed ones, and the team knows exactly who to call when a policy changes.</p> <h3>Permissions belong in the knowledge base</h3> <p>Not every document is for every person. HR policies about individual cases, pricing margins or patient information must carry access labels so the assistant shows them only to people allowed to see them. The next lesson explains how retrieval respects those labels.</p>",
+     "takeaways": [
+      "Curate a defined collection of current documents rather than pointing AI at a whole shared drive.",
+      "Every document needs an owner, an effective date, access labels and a review cycle.",
+      "Write with clear headings, key rules first and no unexplained shorthand so retrieval finds the right section."
+     ],
+     "apply": "Pick one folder your team relies on and sort it into current, superseded, duplicate and personal. For the current documents, assign an owner and an effective date, and archive the rest.",
+     "check": {
+      "q": "Why is pointing an assistant at an entire, uncurated shared drive a poor first step?",
+      "opts": [
+       "It makes the assistant too slow",
+       "It costs more in licences",
+       "Old drafts and duplicates sit beside current procedures, so the assistant may answer confidently from the wrong one",
+       "Assistants cannot read shared drives"
+      ],
+      "a": 2,
+      "why": "Without curation the assistant cannot tell which version is authoritative, so it may quote superseded procedures with full confidence."
+     }
+    },
+    {
+     "title": "Retrieval explained plainly (RAG)",
+     "minutes": 7,
+     "body": "<p>Most business assistants answer questions about your company using a technique called <strong>retrieval-augmented generation</strong>, or RAG. The name sounds technical, but the idea is simple: <em>look it up first, then answer using what you found.</em></p> <h3>An analogy</h3> <p>Imagine a capable new hire who has read widely but knows nothing about your company. You would not ask them to answer a customer's warranty question from memory. You would hand them the warranty policy and say, \"Answer using this, and tell me which section you used.\" RAG does the same thing automatically.</p> <h3>The five steps</h3> <ol> <li><strong>Question.</strong> A user asks, for example, \"What is the return window for custom-cut items?\"</li> <li><strong>Search.</strong> The system searches the knowledge base for the most relevant sections. It usually searches by meaning, not just keywords, so \"return window\" can match \"returns must be requested within\".</li> <li><strong>Filter.</strong> Results the user is not allowed to see are removed, based on the access labels on each document.</li> <li><strong>Answer.</strong> The model receives the question plus the retrieved sections, with instructions to answer only from them.</li> <li><strong>Cite and log.</strong> The answer shows which documents it used, and the question, sources and answer are logged.</li> </ol> <h3>Why RAG is the default for an AI OS</h3> <ul> <li><strong>Current:</strong> update a document and the next answer reflects it; no retraining needed.</li> <li><strong>Checkable:</strong> citations let people verify the answer in seconds.</li> <li><strong>Permission-aware:</strong> filtering happens before the model sees anything.</li> <li><strong>Portable:</strong> the knowledge stays in your store, which supports model-agnostic design.</li> </ul> <h3>Where RAG goes wrong</h3> <table> <thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead> <tbody> <tr><td>Quotes an old policy</td><td>Superseded documents still searchable</td><td>Archive old versions; add effective dates</td></tr> <tr><td>\"I could not find that\"</td><td>Answer is in a scanned image or a long unstructured file</td><td>Convert to text; add headings</td></tr> <tr><td>Mixes two products' specs</td><td>Sections lack clear product labels</td><td>Add product names to headings and metadata</td></tr> <tr><td>Invents a plausible detail</td><td>Instructions do not require answering only from sources</td><td>Tighten instructions; test with tricky questions</td></tr> </tbody> </table> <p>Notice that most fixes are about the documents, not the AI. That is why the knowledge base lesson came first.</p>",
+     "takeaways": [
+      "RAG means look it up first, then answer using what was found, with citations.",
+      "The steps are question, search, filter by permission, answer from sources, then cite and log.",
+      "Most RAG errors are fixed by improving documents and instructions, not by changing the model."
+     ],
+     "apply": "Write ten real questions your staff ask about policies or procedures. For each, find the document and section that holds the answer. Any question you cannot source is a gap to fix before building an assistant.",
+     "check": {
+      "q": "An assistant keeps quoting last year's return policy. What is the most likely fix?",
+      "opts": [
+       "Switch to a larger model",
+       "Archive the superseded policy and add effective dates so only the current version is retrieved",
+       "Ask users to phrase questions differently",
+       "Turn off citations"
+      ],
+      "a": 1,
+      "why": "RAG answers from whatever it retrieves. If an outdated document is still searchable, it can be retrieved; removing it from the collection fixes the root cause."
+     }
+    },
+    {
+     "title": "Memory and context",
+     "minutes": 6,
+     "body": "<p>AI models do not remember anything between conversations on their own. Whatever an assistant \"knows\" in a given moment comes from the <strong>context</strong> it is given: instructions, the user's question, retrieved documents, data from connected systems and, sometimes, saved memory. Designing that context deliberately is one of the most important parts of an AI OS.</p> <h3>Four kinds of context</h3> <table> <thead><tr><th>Type</th><th>What it holds</th><th>Example</th></tr></thead> <tbody> <tr><td><strong>Instructions</strong></td><td>The assistant's role, tone, rules and limits</td><td>\"You help inside sales. Quote only prices from the price tool. Never offer discounts above 5% without approval.\"</td></tr> <tr><td><strong>Session context</strong></td><td>The current conversation</td><td>The customer and order discussed in the last few messages</td></tr> <tr><td><strong>Retrieved knowledge and data</strong></td><td>Documents and system records fetched for this request</td><td>The returns policy and the order's ship date</td></tr> <tr><td><strong>Saved memory</strong></td><td>Facts kept across sessions</td><td>A user's preferred report format; a customer's standing delivery instructions</td></tr> </tbody> </table> <h3>Good practice for memory</h3> <ul> <li><strong>Prefer systems of record.</strong> A customer's delivery instructions belong in the CRM, where everyone can see and correct them, not in an assistant's private memory.</li> <li><strong>Keep personal memory minimal and visible.</strong> If an assistant remembers user preferences, users should be able to see and delete them.</li> <li><strong>Never store what you would not want disclosed.</strong> Personal information in memory is still personal information under privacy law.</li> <li><strong>Expire what goes stale.</strong> Project memory should end when the project ends.</li> </ul> <h3>Context is limited, so choose well</h3> <p>Models can take in a lot of text, but more is not always better. Irrelevant material dilutes attention and raises cost. A focused context (the right three policy sections and the one relevant order) usually produces a better answer than an entire manual.</p> <h3>Worked example</h3> <p>An engineering office's proposal assistant receives: instructions describing the firm's proposal structure and rules; the client's request for proposal; the three most similar past proposals retrieved from the knowledge base; and the current rate table from the accounting system. It does not keep a private memory of clients. Client preferences discovered during a project are added to the CRM record by the project manager, so the next proposal, and the next person, benefits.</p>",
+     "takeaways": [
+      "What an assistant knows comes from its context: instructions, session, retrieved knowledge and data, and saved memory.",
+      "Shared facts belong in systems of record, not in an assistant's private memory.",
+      "Focused, relevant context usually beats dumping in as much text as possible."
+     ],
+     "apply": "Choose one assistant you plan to build and list exactly what goes into its context for a typical request: instructions, which documents, which data fields and any memory. Remove anything that is not needed for the answer.",
+     "check": {
+      "q": "A sales assistant learns that a customer requires deliveries before 10 a.m. Where should that fact be stored?",
+      "opts": [
+       "In the CRM customer record, where staff and other assistants can see and correct it",
+       "Only in the assistant's private memory",
+       "In a personal note on the salesperson's laptop",
+       "Nowhere; the assistant will remember it anyway"
+      ],
+      "a": 0,
+      "why": "Shared business facts belong in the system of record so they are visible, correctable and available to every person and assistant that needs them."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Assistants, Agents and Automation",
+   "summary": "Design role-based assistants and safe agents, apply proven automation patterns and build dashboards that support real decisions.",
+   "steps": [
+    {
+     "title": "Role-based assistants",
+     "minutes": 7,
+     "body": "<p>A general-purpose chatbot is a blank page. A <strong>role-based assistant</strong> is designed for a specific job: it knows the role's tasks, reaches the data and documents that role needs, follows that role's rules and fits into the tools that role already uses.</p> <h3>Designing an assistant: the role card</h3> <p>Before building, write a one-page role card.</p> <table> <thead><tr><th>Element</th><th>Example: customer service assistant</th></tr></thead> <tbody> <tr><td>Users</td><td>Four customer service representatives</td></tr> <tr><td>Top tasks</td><td>Answer order status questions; draft replies to complaints; look up return rules</td></tr> <tr><td>Data access</td><td>Read order status and shipments from the ERP; read customer contacts from the CRM</td></tr> <tr><td>Knowledge</td><td>Returns policy, warranty terms, standard reply templates</td></tr> <tr><td>Actions allowed</td><td>Draft emails for human review; no sending, no refunds</td></tr> <tr><td>Escalation</td><td>Hand to supervisor for refunds, legal threats or safety issues</td></tr> <tr><td>Success measure</td><td>Average reply time; share of drafts sent with minor or no edits</td></tr> </tbody> </table> <h3>Why role-based beats one giant assistant</h3> <ul> <li><strong>Better answers:</strong> narrower context means more relevant retrieval.</li> <li><strong>Safer permissions:</strong> each assistant gets only its role's access.</li> <li><strong>Clear ownership:</strong> the customer service manager owns this assistant, its rules and its measures.</li> <li><strong>Easier testing:</strong> you can write a test set of real tasks for one role.</li> </ul> <h3>Typical first assistants in an SME</h3> <ul> <li><strong>Procedures assistant</strong> for supervisors and operators (SOP and work instruction Q&amp;A).</li> <li><strong>Customer service assistant</strong> (status lookups and reply drafts).</li> <li><strong>Estimating or proposal assistant</strong> (finds similar past jobs, drafts scope text).</li> <li><strong>Finance assistant</strong> (explains variances, drafts collection emails from the aging report).</li> <li><strong>Manager's briefing assistant</strong> (summarizes the week's KPIs and exceptions).</li> </ul> <h3>Put it where people work</h3> <p>Adoption rises when the assistant appears inside existing tools, such as the email client, the team chat or a panel in the ERP, rather than in yet another browser tab. Ask users where they would naturally look for help and put it there.</p> <p>Finally, keep a human in the loop for anything that leaves the building or changes a record, at least until testing and experience show the assistant is reliable for that task.</p>",
+     "takeaways": [
+      "A role-based assistant is designed around one role's tasks, data, knowledge, rules and tools.",
+      "Write a role card covering users, tasks, access, knowledge, allowed actions, escalation and success measures.",
+      "Place assistants inside tools people already use and keep humans reviewing external or record-changing outputs."
+     ],
+     "apply": "Write a role card for the first assistant you would build. Review it with two people in that role and adjust the top tasks and escalation rules based on what they tell you.",
+     "check": {
+      "q": "Which element of a role card most directly limits the risk that an assistant takes an inappropriate action?",
+      "opts": [
+       "The list of users",
+       "The success measure",
+       "The actions allowed and escalation rules",
+       "The name of the assistant"
+      ],
+      "a": 2,
+      "why": "Allowed actions and escalation rules set what the assistant may do on its own and when it must hand over to a person."
+     }
+    },
+    {
+     "title": "Agents: tools, autonomy and human oversight",
+     "minutes": 7,
+     "body": "<p>An assistant answers and drafts. An <strong>agent</strong> goes further: given a goal, it plans steps and uses <strong>tools</strong> (look up a record, check stock, create a draft order, send a notification) to complete them. Agents can save real effort, but they need tighter design because they act.</p> <h3>Levels of autonomy</h3> <table> <thead><tr><th>Level</th><th>What the AI does</th><th>Human role</th></tr></thead> <tbody> <tr><td>1. Suggest</td><td>Recommends an action</td><td>Decides and acts</td></tr> <tr><td>2. Draft</td><td>Prepares the action (email, PO, record) ready to go</td><td>Reviews and approves each one</td></tr> <tr><td>3. Act with approval rules</td><td>Acts on routine cases within set limits; routes exceptions</td><td>Approves exceptions; samples routine cases</td></tr> <tr><td>4. Act and report</td><td>Acts and reports afterwards</td><td>Monitors logs and results</td></tr> </tbody> </table> <p>Most SME agents should start at level 1 or 2 and move up only with evidence from logs and testing. Level 4 is suitable only for low-risk, easily reversed tasks.</p> <h3>Design rules for safe agents</h3> <ul> <li><strong>Small, specific tools.</strong> \"Look up order status by order number\" is safer than \"run any database query\".</li> <li><strong>Limits in the tool, not just the instructions.</strong> If the agent may not approve purchases over $2,000, the purchase tool itself should refuse, not just the prompt.</li> <li><strong>Reversible first.</strong> Prefer actions that can be undone (draft, flag, notify) before ones that cannot (pay, delete, send externally).</li> <li><strong>Every action logged</strong> with what was asked, what the agent decided and which tool it used.</li> <li><strong>A clear stop.</strong> The agent stops and asks a person when information is missing or conflicting.</li> </ul> <h3>Worked example</h3> <p>A distributor builds a reorder agent. Each morning it checks items below their reorder point, looks up preferred suppliers and lead times, and <em>drafts</em> purchase orders (level 2). The buyer reviews the drafts in the ERP and releases them. After three months of logs show that drafts for a set of stable, low-value items are almost always released unchanged, the team moves those items to level 3: the agent releases them automatically within a spending limit enforced by the ERP, and the buyer reviews a weekly sample. New items, price changes and anything over the limit still come to the buyer.</p> <h3>Watch for untrusted input</h3> <p>Agents that read emails or web pages can be misled by instructions hidden in that content. Treat external text as data, never as commands, and keep sensitive tools behind human approval.</p>",
+     "takeaways": [
+      "Agents plan steps and use tools to act, so they need tighter design than assistants.",
+      "Start at suggest or draft autonomy and move up only with evidence from logs and testing.",
+      "Enforce limits in the tools themselves, prefer reversible actions and log every action."
+     ],
+     "apply": "Pick one routine task you would consider for an agent. Define its tools as narrowly as possible, choose a starting autonomy level, and write the evidence you would need before moving it up a level.",
+     "check": {
+      "q": "A purchasing agent must never approve orders over $2,000. Where should this limit be enforced most reliably?",
+      "opts": [
+       "Only in the agent's written instructions",
+       "In a staff memo",
+       "In the purchase tool or ERP itself, so it refuses orders over the limit",
+       "In a monthly report reviewed afterwards"
+      ],
+      "a": 2,
+      "why": "Instructions can be misread or bypassed; a limit enforced in the tool or system itself holds regardless of what the agent decides."
+     }
+    },
+    {
+     "title": "Workflow automation patterns",
+     "minutes": 7,
+     "body": "<p>Not everything in an AI OS needs AI. Much of the value comes from plain workflow automation: triggers, rules and hand-offs that move work without anyone chasing it. AI is added where a step needs reading, judging or writing that rules cannot handle.</p> <h3>Five patterns worth knowing</h3> <ol> <li><strong>Trigger and action.</strong> When something happens, do something. \"When a job is marked complete, create the invoice draft and notify accounting.\"</li> <li><strong>Extract and route.</strong> AI reads an unstructured input (email, PDF invoice, form), extracts fields, and routes the result. \"Read the supplier invoice, extract vendor, PO number and amount, send to matching.\"</li> <li><strong>Match and except.</strong> Compare records and handle only the mismatches. \"Three-way match invoice, PO and receipt; auto-approve matches within tolerance; send exceptions to a person.\"</li> <li><strong>Approval chain.</strong> Route decisions to the right person based on rules, with reminders and escalation. \"Purchases over $5,000 go to the operations manager; no response in two days escalates.\"</li> <li><strong>Scheduled summary.</strong> On a schedule, gather data and produce a report or alert. \"Every Monday at 7 a.m., summarize last week's late orders and email the supervisors.\"</li> </ol> <h3>Confidence-based routing</h3> <p>When AI extracts or classifies, it can be wrong. A good pattern is to route by confidence: high-confidence results that also pass business checks go straight through, while low-confidence or failed checks go to a person. Over time, review the exceptions to improve documents, rules and thresholds.</p> <h3>Worked example</h3> <p>A 45-person contractor receives about 400 supplier invoices a month by email. Today an accounts payable clerk keys each one, matches it to the PO, and walks exceptions to the project manager.</p> <table> <thead><tr><th>Step</th><th>Pattern</th><th>Who or what</th></tr></thead> <tbody> <tr><td>Invoice arrives in AP mailbox</td><td>Trigger and action</td><td>Automation</td></tr> <tr><td>Fields extracted</td><td>Extract and route</td><td>AI, with confidence score</td></tr> <tr><td>Matched to PO and receipt</td><td>Match and except</td><td>Automation via ERP connection</td></tr> <tr><td>Exceptions approved</td><td>Approval chain</td><td>Project manager</td></tr> <tr><td>Weekly AP exceptions report</td><td>Scheduled summary</td><td>Automation and dashboard</td></tr> </tbody> </table> <p>In the first version, every invoice still goes to the clerk for one-click review, which creates a queue at the review step. Once the team has evidence that matched, high-confidence invoices are reliable, those flow straight through and the clerk handles only exceptions.</p> <h3>Before you automate</h3> <p>Fix the process first. Automating a step that should not exist just produces waste faster. Use the process map from the Map phase to remove unnecessary approvals and hand-offs before wiring anything up.</p>",
+     "takeaways": [
+      "Much of the AI OS value comes from plain automation; add AI where steps need reading, judging or writing.",
+      "Know five patterns: trigger and action, extract and route, match and except, approval chain and scheduled summary.",
+      "Route AI outputs by confidence and business checks so people handle only the exceptions."
+     ],
+     "apply": "Take one process from your map and label each step with one of the five patterns, or 'remove'. Identify where AI is genuinely needed and where plain rules would do.",
+     "check": {
+      "q": "In confidence-based routing, which invoices should go straight through without human review?",
+      "opts": [
+       "All invoices, to save the most time",
+       "Only invoices from new suppliers",
+       "High-confidence extractions that also pass business checks such as a PO match within tolerance",
+       "Invoices over $10,000"
+      ],
+      "a": 2,
+      "why": "Straight-through processing is reserved for results that are both high-confidence and validated by business rules; everything else goes to a person."
+     }
+    },
+    {
+     "title": "KPI and decision dashboards",
+     "minutes": 6,
+     "body": "<p>The dashboard block turns the data layer into shared visibility. In an AI OS it does more than show charts: it combines agreed measures, alerts on exceptions, and AI-written commentary that explains what changed and why it might matter.</p> <h3>Start with decisions, not charts</h3> <p>For each dashboard, write down the decisions it supports and who makes them. A good test: if a number moved sharply tomorrow, who would act, and what would they do? If nobody, the number does not belong on the main view.</p> <table> <thead><tr><th>Audience</th><th>Decision</th><th>Measures</th></tr></thead> <tbody> <tr><td>Owner, weekly</td><td>Where to focus management attention</td><td>Sales vs target, gross margin, cash, on-time delivery</td></tr> <tr><td>Operations manager, daily</td><td>Which jobs or orders need intervention</td><td>Late orders, schedule attainment, quality holds</td></tr> <tr><td>Supervisor, per shift</td><td>Where to move people</td><td>Work in progress by station, downtime, staffing</td></tr> </tbody> </table> <h3>One definition for each measure</h3> <p>Dashboards fail when two people calculate \"on-time delivery\" differently. Keep a short <strong>measure dictionary</strong>: name, definition, formula, data source, owner and refresh frequency. Assistants that comment on KPIs should use the same definitions, so the AI and the dashboard never disagree.</p> <h3>Where AI adds value</h3> <ul> <li><strong>Narrative summaries:</strong> a short written explanation of the week's changes, drawn from the data, with links to the underlying figures.</li> <li><strong>Exception alerts:</strong> notify the right person when a measure crosses a threshold.</li> <li><strong>Questions in plain language:</strong> \"Which customers had more than two late orders this month?\" answered from the governed data, not guessed.</li> </ul> <p>Treat AI commentary as a draft interpretation. It should cite the figures it uses, and managers should be trained to check before acting on a surprising claim.</p> <h3>Worked example</h3> <p>A distributor's Monday pack used to take a coordinator four hours to build. Now a nightly sync feeds a dashboard with six agreed measures. At 7 a.m. Monday, an automation generates a one-page summary: what moved, the three largest late-order customers and two items where stock fell below safety level. The coordinator spends 30 minutes checking the summary and adding context the data cannot know, such as a supplier's plant shutdown, before it goes to the leadership team.</p>",
+     "takeaways": [
+      "Design dashboards from the decisions they support and the people who make them.",
+      "Keep a measure dictionary so dashboards and AI commentary use identical definitions.",
+      "AI commentary is a draft interpretation that cites figures and is checked by a person."
+     ],
+     "apply": "List the three decisions your leadership team makes most often each week. For each, write the measure that would inform it, its definition and its data source. Note where two people currently calculate it differently.",
+     "check": {
+      "q": "The AI-written weekly summary and the dashboard show different on-time delivery figures. What is the most likely root cause?",
+      "opts": [
+       "The AI model is too small",
+       "They use different definitions or data sources for the same measure",
+       "The dashboard refreshes too often",
+       "The summary is too short"
+      ],
+      "a": 1,
+      "why": "A single measure dictionary, used by both the dashboard and the assistant, prevents conflicting numbers caused by different definitions or sources."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Trust, Quality and Value",
+   "summary": "Secure the AI OS, keep audit trails and human oversight, apply Canadian privacy principles, test quality and measure value honestly.",
+   "steps": [
+    {
+     "title": "Security, permissions and access control",
+     "minutes": 7,
+     "body": "<p>Connecting AI to your systems and documents is powerful precisely because it reaches so much. That is also the risk. The security principle for an AI OS is simple: <strong>the AI should never let anyone see or do more than they could without it.</strong></p> <h3>Core controls</h3> <ul> <li><strong>Single identity.</strong> Users sign in with their company account (single sign-on), ideally with multi-factor authentication. No shared logins for AI tools.</li> <li><strong>Inherited permissions.</strong> The assistant acts on behalf of the user and inherits that user's access. If a supervisor cannot open the payroll folder, the assistant cannot retrieve from it for them.</li> <li><strong>Role-based access.</strong> Group permissions by role (sales, operations, finance, HR) rather than managing individuals one by one.</li> <li><strong>Least privilege for connections.</strong> Each system connection and agent tool has only the access its job needs.</li> <li><strong>Separate sensitive collections.</strong> HR case files, health information and pricing margins sit in separate, tightly labelled collections.</li> <li><strong>Protected secrets.</strong> Connection keys and passwords are stored in a secure vault, never in prompts, spreadsheets or code shared by email.</li> <li><strong>Approved tools only.</strong> An acceptable-use policy lists which AI tools may handle which classes of data, and staff know where to ask.</li> </ul> <h3>Classify your data</h3> <table> <thead><tr><th>Class</th><th>Examples</th><th>AI handling</th></tr></thead> <tbody> <tr><td>Public</td><td>Website content, published brochures</td><td>Any approved tool</td></tr> <tr><td>Internal</td><td>SOPs, internal reports</td><td>AI OS only, all staff</td></tr> <tr><td>Confidential</td><td>Customer contracts, pricing, financials</td><td>AI OS only, role-restricted</td></tr> <tr><td>Restricted</td><td>Personal information of employees, patients or customers; HR cases</td><td>AI OS only, named roles, logged, reviewed</td></tr> </tbody> </table> <h3>Worked example</h3> <p>A 30-person accounting firm sets up a knowledge assistant. During testing, a junior staff member asks, \"What salary did we offer the new manager?\" and the assistant answers from an HR offer letter that had been saved in a general folder. The fix is not a stronger instruction to the AI. It is to move HR documents into a restricted collection with HR-only access, so retrieval never returns them to other users. The team then reruns its test questions, including deliberate attempts to reach restricted content, and confirms they are refused.</p> <h3>Test permissions like a sceptic</h3> <p>Before go-live, have someone in each role try to retrieve information they should not see. Record the questions and keep them in the test set, so every later change is checked against them.</p>",
+     "takeaways": [
+      "An AI OS must never let anyone see or do more than they could without it.",
+      "Use single sign-on, inherited and role-based permissions, least-privilege connections and protected secrets.",
+      "Classify data and test permissions by deliberately trying to reach restricted content."
+     ],
+     "apply": "Classify the documents and data your first use case will touch as public, internal, confidential or restricted. Then write five questions a user should not be able to get answered and add them to your test set.",
+     "check": {
+      "q": "During testing, an assistant reveals salary details from an HR letter to a junior employee. What is the best fix?",
+      "opts": [
+       "Add a sentence to the instructions asking it not to discuss salaries",
+       "Remove the junior employee's access to the assistant",
+       "Turn off the assistant's citations",
+       "Move HR documents into a restricted collection that only HR can access, then retest"
+      ],
+      "a": 3,
+      "why": "Access should be enforced by permissions on the content itself, so retrieval never returns restricted documents to users who are not allowed to see them."
+     }
+    },
+    {
+     "title": "Audit trails, human oversight and PIPEDA",
+     "minutes": 7,
+     "body": "<p>Governance is what makes an AI OS trustworthy to staff, customers and auditors. Three elements carry most of the weight: audit trails, human oversight and privacy compliance.</p> <h3>Audit trails</h3> <p>Log enough to answer, months later, \"What did the AI do, for whom, based on what?\"</p> <ul> <li>Who asked, when, and through which assistant</li> <li>Which documents and data were retrieved</li> <li>What the AI produced or did, and which tools it used</li> <li>Who approved, edited or rejected it</li> </ul> <p>Set a retention period for logs and protect them like other confidential records, because they may contain personal information.</p> <h3>Human oversight</h3> <p>Decide in advance which outputs a person must review. A useful rule: <strong>human review is required for anything that leaves the organization, changes a financial or official record, or affects an individual's rights</strong> (hiring, discipline, credit, health). Reviewers need time and authority to reject outputs, otherwise review becomes a rubber stamp.</p> <h3>Privacy: PIPEDA in plain terms</h3> <p>For most private-sector organizations in Canada, the federal <em>Personal Information Protection and Electronic Documents Act</em> (PIPEDA) applies to personal information handled in commercial activities. Alberta, British Columbia and Quebec have their own private-sector privacy laws that may apply instead within those provinces. PIPEDA is built on fair information principles. Applied to an AI OS, the key ones are:</p> <table> <thead><tr><th>Principle</th><th>What it means for your AI OS</th></tr></thead> <tbody> <tr><td>Accountability</td><td>Name a person responsible for privacy across the AI OS.</td></tr> <tr><td>Identifying purposes and consent</td><td>Use personal information for the purposes people were told about; check before reusing it for new AI uses.</td></tr> <tr><td>Limiting collection, use and retention</td><td>Feed AI only the personal information the task needs; delete it when no longer needed.</td></tr> <tr><td>Safeguards</td><td>Protect data with access controls, encryption and vetted providers, including where data is processed.</td></tr> <tr><td>Openness and individual access</td><td>Be able to explain how AI is used and respond when someone asks what information you hold about them.</td></tr> </tbody> </table> <p>This is general guidance, not legal advice. For specific obligations, especially with health or employee information, consult a privacy professional.</p> <h3>Worked example</h3> <p>A clinic's intake assistant summarizes referral letters. The clinic names its office manager as privacy lead, confirms its provider does not use submitted data for training, limits the assistant to the fields needed for scheduling, keeps logs for a defined period, and requires a staff member to review every summary before it enters the patient record. It also updates its privacy notice to describe the use of AI in intake.</p>",
+     "takeaways": [
+      "Audit trails should answer who asked, what was retrieved, what the AI did and who approved it.",
+      "Require human review for outputs that leave the organization, change official records or affect individuals' rights.",
+      "Apply PIPEDA principles (or the applicable provincial law): accountability, purpose, limited use, safeguards and openness."
+     ],
+     "apply": "Write a one-page oversight rule for your first use case: what is logged, how long logs are kept, which outputs require human review and who is accountable for privacy. Have the accountable person sign off on it.",
+     "check": {
+      "q": "Which output most clearly requires human review before it is used?",
+      "opts": [
+       "An internal summary of a public trade article",
+       "A draft list of meeting agenda topics",
+       "A suggested filename for a document",
+       "An AI-drafted email to a customer explaining a credit decision on their account"
+      ],
+      "a": 3,
+      "why": "Outputs that leave the organization and affect an individual's interests, such as a credit decision, need human review before they are sent."
+     }
+    },
+    {
+     "title": "Evaluation and quality",
+     "minutes": 7,
+     "body": "<p>How do you know an assistant is good enough to use, and that it stays good after you change a document, a prompt or a model? You evaluate it, deliberately and repeatedly. This is quality control for AI, and it borrows directly from Six Sigma thinking: define, measure, analyse, improve and control.</p> <h3>Build a test set</h3> <p>A test set is a list of realistic questions or tasks with known good answers, written by people who do the work.</p> <ul> <li><strong>Common cases:</strong> the questions people ask every day.</li> <li><strong>Edge cases:</strong> unusual products, exceptions, conflicting rules.</li> <li><strong>Should-refuse cases:</strong> questions it should not answer, or information users should not see.</li> <li><strong>Not-in-the-documents cases:</strong> where the right answer is \"I could not find that, please ask the supervisor\".</li> </ul> <p>Twenty to fifty items is a practical start for one assistant.</p> <h3>Score what matters</h3> <table> <thead><tr><th>Criterion</th><th>Question</th></tr></thead> <tbody> <tr><td>Correct</td><td>Is the answer factually right according to our sources?</td></tr> <tr><td>Grounded</td><td>Does it cite the right document, without invented details?</td></tr> <tr><td>Complete</td><td>Does it include the key condition or exception?</td></tr> <tr><td>Safe</td><td>Does it refuse or escalate where it should?</td></tr> <tr><td>Useful</td><td>Could the user act on it without rewriting it?</td></tr> </tbody> </table> <p>Use a simple pass, partial or fail for each criterion. Set an acceptance threshold before testing, for example \"all should-refuse cases pass and at least 45 of 50 common cases are correct and grounded\".</p> <h3>The quality loop</h3> <ol> <li>Run the test set before go-live and record the baseline.</li> <li>Analyse failures: is the cause a missing document, poor structure, unclear instructions or a retrieval problem?</li> <li>Fix the root cause, usually in the documents or instructions.</li> <li>Rerun the full set to make sure the fix did not break something else.</li> <li>After go-live, add real failures reported by users to the set, and rerun it whenever documents, prompts or the model change.</li> </ol> <h3>Worked example</h3> <p>A fabrication shop's procedures assistant scores 38 of 50 on its first run. Eight failures trace to two work instructions that existed only as scanned images, three to a missing torque table, and one to a vague instruction about when to escalate. After converting the scans, adding the table and tightening the instruction, the rerun scores 48 of 50, and all should-refuse cases pass. The two remaining failures become a document clean-up task with an owner and date.</p> <h3>Monitor in production</h3> <p>Give users a quick thumbs-up or thumbs-down with an optional comment, and review flagged answers weekly. User feedback is the cheapest source of new test cases.</p>",
+     "takeaways": [
+      "Evaluate assistants with a test set of common, edge, should-refuse and not-in-the-documents cases.",
+      "Score correctness, grounding, completeness, safety and usefulness against a threshold set in advance.",
+      "Rerun the full test set whenever documents, prompts or the model change, and feed real failures back in."
+     ],
+     "apply": "Write ten test questions for your first assistant with the answer and source for each, including at least two it should refuse and one whose answer is not in the documents. Agree an acceptance threshold with the process owner.",
+     "check": {
+      "q": "After a document update, the team reruns only the one question that was failing and it now passes. What is the risk?",
+      "opts": [
+       "None; the fix is confirmed",
+       "The model may have become slower",
+       "Users may stop giving feedback",
+       "The change may have broken other answers that were not retested"
+      ],
+      "a": 3,
+      "why": "A full rerun acts as a regression test, catching answers that the fix accidentally made worse."
+     }
+    },
+    {
+     "title": "Measuring value",
+     "minutes": 6,
+     "body": "<p>An AI OS needs to earn its place in the budget. Measuring value starts before anything is built, with a baseline, and continues after go-live with both <strong>adoption</strong> and <strong>outcome</strong> measures.</p> <h3>Three layers of measures</h3> <table> <thead><tr><th>Layer</th><th>Question</th><th>Examples</th></tr></thead> <tbody> <tr><td>Adoption</td><td>Are people using it?</td><td>Weekly active users in the target role; share of tasks done with the assistant</td></tr> <tr><td>Process</td><td>Is the work better?</td><td>Cycle time, first-time-right rate, rework, queue length</td></tr> <tr><td>Business</td><td>Does it matter to results?</td><td>Hours redeployed, cost avoided, faster quotes won, fewer late orders</td></tr> </tbody> </table> <p>Adoption without process improvement means people are using it but it is not helping. Process improvement without adoption usually means a few enthusiasts are carrying it. You need both.</p> <h3>Estimate value honestly</h3> <p>For a first use case, a simple model is enough:</p> <ul> <li><strong>Hours of manual work</strong> per month on the task today (measure it; do not guess).</li> <li><strong>Loaded hourly cost</strong> of the people doing it.</li> <li><strong>Share realistically automatable</strong>, after allowing for review and exceptions.</li> <li><strong>One-time build cost</strong>: configuration, connections, document clean-up, testing, training.</li> <li><strong>Monthly running cost</strong>: subscriptions, model usage, support and the owner's time.</li> </ul> <h3>Worked example</h3> <p>A distributor's customer service team spends about 120 hours a month answering order status questions. At a loaded cost of $45 an hour, that is $5,400 a month. The team expects the assistant to handle 50% of that effort once review is included, so the gross saving is about $2,700 a month, or $32,400 a year. Running costs are estimated at $600 a month ($7,200 a year), leaving a net annual saving of about $25,200. With a one-time build cost of $15,000, payback is roughly seven months. These are example figures; your own baseline is what counts.</p> <h3>Count the benefits you cannot easily price</h3> <ul> <li>Faster, more consistent answers to customers.</li> <li>Knowledge captured from experienced staff before they retire.</li> <li>Better audit evidence and fewer privacy surprises.</li> <li>Foundations (connections, knowledge base) reused by later use cases.</li> </ul> <p>Report these alongside the numbers, but do not inflate them into dollars you cannot defend. Review actual results against the estimate at 30, 60 and 90 days, and adjust the roadmap accordingly.</p>",
+     "takeaways": [
+      "Measure adoption, process and business outcomes; any one alone can mislead.",
+      "Estimate value from measured hours, loaded cost, a realistic automatable share, build cost and running cost.",
+      "Report hard-to-price benefits separately and compare actual results with the estimate at 30, 60 and 90 days."
+     ],
+     "apply": "Measure the baseline hours, error rate and cycle time for your first use case over two weeks. Use the calculator lab to estimate annual savings and payback, and record the assumptions you used.",
+     "check": {
+      "q": "An assistant has many active users, but quote turnaround time has not changed. What does this most likely indicate?",
+      "opts": [
+       "People are using it, but it is not yet improving the process, so the cause needs investigating",
+       "The project is a full success",
+       "The model must be replaced immediately",
+       "Adoption measures are unnecessary"
+      ],
+      "a": 0,
+      "why": "Adoption without process improvement signals that the assistant is not removing the real delay; the root cause may be elsewhere in the workflow."
+     }
+    }
+   ]
+  },
+  {
+   "title": "Adoption, Ownership and Scale",
+   "summary": "Bring people with you, set up an operating model with clear owners, scale on reuse and leave with a 90-day plan.",
+   "steps": [
+    {
+     "title": "Adoption and change",
+     "minutes": 7,
+     "body": "<p>An AI OS changes how people work, and people are the last mile of every use case. A technically sound assistant that staff avoid creates no value. Plan adoption as deliberately as you plan architecture.</p> <h3>Use a change model</h3> <p><strong>ADKAR</strong> (Awareness, Desire, Knowledge, Ability, Reinforcement) is a practical lens for individuals. <strong>Kotter's</strong> steps, such as building a guiding coalition and creating short-term wins, help at the organization level. For an AI OS they translate into concrete actions:</p> <table> <thead><tr><th>ADKAR stage</th><th>AI OS action</th></tr></thead> <tbody> <tr><td>Awareness</td><td>Explain the business problem being solved and why now, in plain language</td></tr> <tr><td>Desire</td><td>Show what it removes from people's day; address job and monitoring concerns openly</td></tr> <tr><td>Knowledge</td><td>Role-specific training: what it is for, how to check outputs, when to escalate</td></tr> <tr><td>Ability</td><td>Practice on real tasks with a champion nearby during the first weeks</td></tr> <tr><td>Reinforcement</td><td>Share results, recognize good use, fix reported problems quickly</td></tr> </tbody> </table> <h3>Address the real concerns</h3> <ul> <li><strong>\"Will this replace me?\"</strong> Be honest about intent. If the goal is to redeploy time to higher-value work, say what that work is.</li> <li><strong>\"Is it watching me?\"</strong> Explain what is logged and why (quality and accountability), and who can see it.</li> <li><strong>\"What if it is wrong?\"</strong> Make clear that the user remains responsible for checking, and that reporting errors is valued, not punished.</li> </ul> <h3>Champions and co-design</h3> <p>Choose one or two respected people in each target role as <strong>champions</strong>. Involve them in mapping, writing the role card and building the test set. They become the first users, the first trainers and an honest channel for feedback. People trust a colleague's \"this actually helps\" more than any launch email.</p> <h3>Worked example</h3> <p>A clinic introduces an intake-summary assistant. Two intake coordinators help write the test questions and review early outputs. Training is a 45-minute session using real (de-identified) referral letters, followed by a one-page \"check before you accept\" card. For the first two weeks, a champion sits with each coordinator for their first few summaries. A weekly five-minute huddle reviews flagged outputs and announces fixes. Use rises steadily because staff can see their feedback changing the system.</p> <h3>Make the new way the standard way</h3> <p>Update standard work and SOPs to include the assistant, and retire the old workaround once the new path is stable. If both paths remain, people will drift back to the familiar one.</p>",
+     "takeaways": [
+      "Plan adoption deliberately using ADKAR for individuals and Kotter-style steps for the organization.",
+      "Address replacement, monitoring and error concerns honestly and early.",
+      "Use champions from each role, co-design with them and update standard work so the new way sticks."
+     ],
+     "apply": "Choose two champions for your first use case and invite them to help write its role card and test questions. Draft a one-page 'check before you accept' guide for users.",
+     "check": {
+      "q": "Six weeks after launch, staff still keep the old spreadsheet workaround alongside the new assistant. Which action best addresses this?",
+      "opts": [
+       "Update standard work to the new path and retire the workaround once the new process is stable",
+       "Add more features to the assistant",
+       "Send a reminder email to all staff",
+       "Remove all logging"
+      ],
+      "a": 0,
+      "why": "When both paths remain, people drift back to the familiar one; updating standard work and retiring the workaround makes the new way the standard."
+     }
+    },
+    {
+     "title": "Operating model and ownership",
+     "minutes": 7,
+     "body": "<p>An AI OS is not a project that ends at go-live. Documents change, systems are upgraded, models evolve and new use cases arrive. It needs an <strong>operating model</strong>: who owns what, how decisions are made and how work is requested and prioritized.</p> <h3>Key roles</h3> <table> <thead><tr><th>Role</th><th>Responsibilities</th><th>Typical SME holder</th></tr></thead> <tbody> <tr><td>Executive sponsor</td><td>Sets direction, approves roadmap and budget, removes blockers</td><td>Owner or general manager</td></tr> <tr><td>AI OS owner</td><td>Runs the platform day to day: backlog, vendors, connections, monitoring</td><td>Operations or IT lead, part-time</td></tr> <tr><td>Use-case owner</td><td>Owns an assistant or automation: its rules, test set and measures</td><td>Process owner (for example, customer service manager)</td></tr> <tr><td>Content owners</td><td>Keep their documents in the knowledge base current</td><td>Department leads and subject experts</td></tr> <tr><td>Privacy and security lead</td><td>Data classification, access reviews, incident handling</td><td>Office manager or IT lead, with outside advice as needed</td></tr> <tr><td>Champions</td><td>Support users, gather feedback, help test</td><td>Respected staff in each role</td></tr> </tbody> </table> <h3>Make it explicit with a RACI</h3> <p>For recurring activities, record who is <strong>R</strong>esponsible, <strong>A</strong>ccountable, <strong>C</strong>onsulted and <strong>I</strong>nformed. For example, for \"change an assistant's instructions\": the use-case owner is accountable, the AI OS owner is responsible for making the change, champions are consulted, and users are informed. Only one person should be accountable for each activity.</p> <h3>A light governance rhythm</h3> <ul> <li><strong>Weekly (30 minutes):</strong> AI OS owner and use-case owners review flagged outputs, incidents and the backlog.</li> <li><strong>Monthly:</strong> review adoption and KPI results, approve changes to permissions or autonomy levels.</li> <li><strong>Quarterly:</strong> sponsor reviews value, re-scores the use-case list and approves the next wave.</li> <li><strong>Annually:</strong> access review, privacy review and knowledge base clean-up.</li> </ul> <h3>A front door for requests</h3> <p>Give staff one simple way to propose a new use case or report a problem, such as a short form that asks for the business problem, who it affects and how often it happens. Requests are scored on the same value and effort matrix as the original roadmap, so the loudest voice does not set priorities.</p> <h3>Worked example</h3> <p>A 70-person manufacturer names its continuous improvement lead as AI OS owner for one day a week, with an outside partner for technical support. Each department lead owns its knowledge collection. The general manager chairs a quarterly review. When a supervisor asks for a maintenance-history assistant, the request goes through the front door, is scored, and is scheduled for the next wave rather than built in a hurry.</p>",
+     "takeaways": [
+      "An AI OS needs an ongoing operating model, not just a go-live date.",
+      "Name a sponsor, an AI OS owner, use-case owners, content owners, a privacy and security lead and champions.",
+      "Use a RACI, a regular review rhythm and a single front door for new requests."
+     ],
+     "apply": "Draft a RACI for four recurring AI OS activities: adding a document, changing an assistant's instructions, granting a new connection and approving a new use case. Make sure each has exactly one accountable person.",
+     "check": {
+      "q": "Who should usually be accountable for an assistant's rules, test set and success measures?",
+      "opts": [
+       "The AI vendor",
+       "The use-case owner, typically the manager of the process it supports",
+       "Every user equally",
+       "The newest member of the IT team"
+      ],
+      "a": 1,
+      "why": "The process owner understands the work and the outcomes, so they are best placed to be accountable for the assistant that supports it."
+     }
+    },
+    {
+     "title": "Scaling the AI OS",
+     "minutes": 6,
+     "body": "<p>Once the first waves are working, the question shifts from \"does this work?\" to \"how do we grow it without losing control?\" Scaling an AI OS means adding use cases, users and possibly sites while keeping quality, security and cost in check.</p> <h3>Scale on reuse</h3> <p>The strongest signal that your architecture is sound is that each new use case is cheaper than the last. Track what each wave reuses:</p> <ul> <li>Existing connections (the ERP read connection now serves four assistants).</li> <li>Existing knowledge collections, extended rather than duplicated.</li> <li>Standard patterns: a template role card, test set format and approval workflow.</li> <li>The same permission model and logging for every new component.</li> </ul> <p>If each new use case needs its own connections, its own document copy and its own security set-up, you are building scattered tools again inside a nicer wrapper.</p> <h3>Readiness gates for each new use case</h3> <ol> <li>Business problem and baseline documented.</li> <li>Data and documents available, owned and classified.</li> <li>Role card and autonomy level agreed.</li> <li>Test set written and acceptance threshold met.</li> <li>Training and champions in place.</li> <li>Measures and review date set.</li> </ol> <h3>Watch these as you grow</h3> <table> <thead><tr><th>Risk</th><th>Early sign</th><th>Response</th></tr></thead> <tbody> <tr><td>Knowledge sprawl</td><td>Duplicate or conflicting documents across collections</td><td>Annual clean-up; one owner per topic</td></tr> <tr><td>Permission drift</td><td>People keep access after changing roles</td><td>Role-based groups; quarterly access review</td></tr> <tr><td>Cost creep</td><td>Model usage rising faster than use</td><td>Usage monitoring per assistant; right-size models per task</td></tr> <tr><td>Quality drift</td><td>More negative feedback after changes</td><td>Rerun test sets on every change</td></tr> <tr><td>Owner overload</td><td>Backlog growing; fixes slowing</td><td>Add capacity or slow the roadmap</td></tr> </tbody> </table> <h3>Increase autonomy carefully</h3> <p>Scaling is also about moving proven use cases up the autonomy levels from earlier in the course. Do it one task at a time, with evidence from logs and test results, and with the ability to step back down quickly if quality falls.</p> <h3>Worked example</h3> <p>A distributor's first use case, order status replies, took ten weeks because it built the ERP connection and permission model. The second, a returns assistant, took four weeks, reusing both. The third, a weekly KPI summary, took three. The team publishes this trend in its quarterly review as evidence that the AI OS, not just individual assistants, is maturing.</p>",
+     "takeaways": [
+      "Scale on reuse: each new use case should be cheaper because it reuses connections, knowledge and patterns.",
+      "Apply the same readiness gates to every new use case.",
+      "Watch for knowledge sprawl, permission drift, cost creep, quality drift and owner overload."
+     ],
+     "apply": "For the use cases you have built or planned, list which connections, collections and patterns each reuses. Write the readiness gates you will apply to the next request.",
+     "check": {
+      "q": "Each new assistant at a company needs its own new connections, its own copy of documents and its own security set-up. What does this suggest?",
+      "opts": [
+       "The AI OS is scaling well",
+       "The models are too capable",
+       "Users are adopting too quickly",
+       "The company is rebuilding scattered tools rather than reusing a shared platform"
+      ],
+      "a": 3,
+      "why": "A sound AI OS makes each use case cheaper through reuse; rebuilding foundations each time recreates the tool-by-tool problem."
+     }
+    },
+    {
+     "title": "Wrap-up: your 90-day AI OS plan",
+     "minutes": 8,
+     "body": "<p>You now have the full picture: why scattered tools fall short, the six building blocks, the five phases, architecture choices, data and knowledge, assistants, agents and automation, security and governance, evaluation, value, adoption, ownership and scaling. The last step is to turn it into a plan you can start on Monday.</p> <h3>A 90-day plan in three phases</h3> <table> <thead><tr><th>Days</th><th>Focus</th><th>Outputs</th></tr></thead> <tbody> <tr><td>1–30</td><td>Discover and Map</td><td>Sponsor and AI OS owner named; inventory of systems, data and current AI use; maturity assessment; two or three processes mapped; acceptable-use policy issued</td></tr> <tr><td>31–60</td><td>Prioritize and prepare</td><td>Scored use-case matrix; one-page reference architecture; wave plan; first use case chosen with baseline, role card, data classification and test set; documents curated</td></tr> <tr><td>61–90</td><td>Implement and Measure</td><td>Core sign-on, permissions and logging; first connection and knowledge collection; first assistant or automation live with champions; first 30 days of adoption and outcome measures; next wave approved</td></tr> </tbody> </table> <h3>Choosing your first use case</h3> <p>The best first use case usually has these features:</p> <ul> <li>A clear, measured pain that people feel weekly.</li> <li>Data and documents that exist and can be made reliable quickly.</li> <li>Low risk if the AI is occasionally wrong, because a person reviews outputs.</li> <li>A motivated process owner and champions.</li> <li>Foundations that later use cases will reuse.</li> </ul> <h3>Signs you are on track at day 90</h3> <ol> <li>One use case is live, used by its target role and measured against a baseline.</li> <li>Everyone knows which AI tools are approved for which data.</li> <li>There is a named owner for the platform and for each component.</li> <li>The next wave is scored, scheduled and reuses what you built.</li> </ol> <h3>Common traps to avoid</h3> <ul> <li>Starting with the hardest, most impressive idea.</li> <li>Connecting AI to everything before curating anything.</li> <li>Treating governance as paperwork for later.</li> <li>Declaring success on usage alone.</li> </ul> <p>An AI Operating System is built the way good operations are built: one standard, measured, owned improvement at a time, each making the next one easier. Start small, build on solid foundations and let the results make the case for the next wave.</p>",
+     "takeaways": [
+      "Days 1–30 discover and map; days 31–60 prioritize and prepare; days 61–90 implement and measure.",
+      "Choose a first use case with measured pain, usable data, low risk, a motivated owner and reusable foundations.",
+      "At day 90, aim for one live, measured use case, clear rules and owners, and a scored next wave."
+     ],
+     "apply": "Write your own 90-day AI OS plan on one page using the three-phase table. Name the sponsor, the AI OS owner and the first use case, and book the day-30, day-60 and day-90 reviews in your calendar.",
+     "check": {
+      "q": "Which choice is most appropriate as the first use case in a 90-day AI OS plan?",
+      "opts": [
+       "A fully autonomous agent that approves all supplier payments",
+       "Company-wide demand forecasting with data that has not been audited",
+       "An SOP question-and-answer assistant for supervisors, with curated documents, human checking and a measured baseline",
+       "Connecting every system before choosing any use case"
+      ],
+      "a": 2,
+      "why": "A good first use case has measured pain, usable content, low risk with human review, and builds reusable foundations such as the knowledge base and permission model."
+     }
+    }
+   ]
+  }
+ ],
+ "labs": [
+  {
+   "id": "ai-os-maturity",
+   "type": "assessment",
+   "title": "AI OS maturity self-assessment",
+   "intro": "Rate your organization on the six building blocks of an AI OS plus people and adoption. The radar chart shows which foundations to strengthen first.",
+   "after_step": 2,
+   "config": {
+    "scale": [
+     "Not started",
+     "Ad hoc",
+     "Defined",
+     "Managed",
+     "Optimized"
+    ],
+    "dimensions": [
+     {
+      "name": "Unified data layer",
+      "question": "How well can approved tools reach live, reliable data from your ERP, accounting, CRM and key spreadsheets through governed connections?",
+      "low": "Inventory your systems, name a source of truth for customers, items and prices, and build one read-only connection for a priority use case.",
+      "high": "Extend proven connections to new use cases and add write access only with approval steps and logging."
+     },
+     {
+      "name": "Company knowledge base",
+      "question": "How curated, current and owned are the SOPs, policies, specs and past work that staff and assistants rely on?",
+      "low": "Sort one high-use folder into current and superseded documents, archive the old ones and give each current document an owner and effective date.",
+      "high": "Set review cycles and access labels for every collection and add user feedback as a trigger for updates."
+     },
+     {
+      "name": "Assistants and agents",
+      "question": "How far have you moved from personal chatbot use to role-based assistants with defined tasks, access and escalation rules?",
+      "low": "Write a role card for one assistant in one role and pilot it at draft-only autonomy with two champions.",
+      "high": "Use log and test evidence to raise autonomy for proven routine tasks, one task at a time."
+     },
+     {
+      "name": "Workflow automation",
+      "question": "How much routine movement of work between people and systems happens through reliable, monitored automation rather than manual chasing?",
+      "low": "Map one process, remove unnecessary steps, and automate a single trigger-and-action hand-off with a named owner.",
+      "high": "Introduce confidence-based routing so people handle only exceptions, and review exception trends monthly."
+     },
+     {
+      "name": "KPI and decision dashboards",
+      "question": "How well do shared dashboards, with agreed definitions, support the weekly and daily decisions your leaders make?",
+      "low": "List your leadership team's key weekly decisions and write a measure dictionary for the five measures that inform them.",
+      "high": "Add exception alerts and AI-drafted commentary that cites figures and is checked before it is shared."
+     },
+     {
+      "name": "Governance and security",
+      "question": "How well are access control, data classification, audit trails, human oversight and privacy obligations applied to AI use?",
+      "low": "Issue an acceptable-use policy, classify your data into four classes and require single sign-on for any approved AI tool.",
+      "high": "Run quarterly access reviews, keep permission tests in every test set and review logs on a regular rhythm."
+     },
+     {
+      "name": "People and adoption",
+      "question": "How prepared and willing are staff to use AI in their daily work, and how clearly is ownership of the AI OS defined?",
+      "low": "Name a sponsor and an AI OS owner, choose champions in one team and address job and monitoring concerns openly.",
+      "high": "Build AI use into standard work and training for every role and recognize teams that improve the system through feedback."
+     }
+    ]
+   }
+  },
+  {
+   "id": "ai-os-prioritization",
+   "type": "matrix",
+   "title": "AI OS use-case prioritization matrix",
+   "intro": "Rate each candidate use case for effort and business value to see your quick wins and strategic projects. Rename or add items to match your own mapping.",
+   "after_step": 7,
+   "config": {
+    "x": "Effort",
+    "y": "Business value",
+    "x_low": "Low effort",
+    "x_high": "High effort",
+    "y_low": "Low value",
+    "y_high": "High value",
+    "quadrants": {
+     "top_left": "Quick wins",
+     "top_right": "Strategic projects",
+     "bottom_left": "Fill-ins",
+     "bottom_right": "Avoid / rethink"
+    },
+    "items": [
+     {
+      "name": "SOP and policy Q&A assistant",
+      "x": 2,
+      "y": 4
+     },
+     {
+      "name": "Order status replies from ERP data",
+      "x": 3,
+      "y": 5
+     },
+     {
+      "name": "Supplier invoice capture and matching",
+      "x": 3,
+      "y": 4
+     },
+     {
+      "name": "Weekly KPI pack with commentary",
+      "x": 2,
+      "y": 3
+     },
+     {
+      "name": "Estimating assistant using past jobs",
+      "x": 4,
+      "y": 4
+     },
+     {
+      "name": "Demand forecasting",
+      "x": 5,
+      "y": 4
+     },
+     {
+      "name": "Social media post drafting",
+      "x": 1,
+      "y": 2
+     },
+     {
+      "name": "Fully autonomous payment approvals",
+      "x": 5,
+      "y": 2
+     }
+    ]
+   }
+  },
+  {
+   "id": "first-use-case-value",
+   "type": "calc",
+   "title": "First AI OS use case value calculator",
+   "intro": "Enter measured hours, costs and a realistic automatable share for your first use case to estimate annual savings, payback and three-year return.",
+   "after_step": 20,
+   "config": {
+    "calc": "automation_roi",
+    "note": "Use measured baseline hours and a conservative automatable share that allows for human review, then compare actual results with this estimate at 30, 60 and 90 days."
+   }
+  }
+ ],
+ "exam": [
+  {
+   "q": "A 30-person firm has staff using four different AI tools. Answers are generic and nobody knows which tools hold client data. What is the best first move toward an AI OS?",
+   "opts": [
+    "Inventory current AI use and data, then plan a connected, governed layer",
+    "Ban all AI tools permanently",
+    "Buy the tool with the most features for everyone",
+    "Ask each person to write longer prompts"
+   ],
+   "a": 0,
+   "why": "Discover starts with an inventory of current AI use and data; the fix for scattered tools is a connected, governed layer, not another tool."
+  },
+  {
+   "q": "Which of these is NOT one of the six building blocks of an AI OS?",
+   "opts": [
+    "Company knowledge base",
+    "Workflow automation",
+    "KPI and decision dashboards",
+    "A custom-trained AI model built from scratch"
+   ],
+   "a": 3,
+   "why": "The six blocks are the data layer, knowledge base, assistants and agents, automation, dashboards, and governance and security; a custom-trained model is not required."
+  },
+  {
+   "q": "A team skips the Map phase and automates its purchase approval process as it is today, with five approval steps. What risk does this create?",
+   "opts": [
+    "The automation will be too cheap",
+    "The model will forget the steps",
+    "Unnecessary steps are automated, producing waste faster",
+    "Dashboards will refresh too slowly"
+   ],
+   "a": 2,
+   "why": "Mapping first lets you remove unnecessary approvals and hand-offs; automating a broken process just speeds up the waste."
+  },
+  {
+   "q": "A distributor needs an assistant that combines ERP order data, CRM history and its returns policy. Its accounting package already offers AI bank reconciliation. Which mix fits best?",
+   "opts": [
+    "Build everything from scratch",
+    "Buy the accounting AI feature; compose the assistant from connectors, a knowledge store and a model provider",
+    "Use only the accounting package's AI for everything",
+    "Wait until one vendor offers everything"
+   ],
+   "a": 1,
+   "why": "Buy where a standard task lives in one system; compose where value comes from joining several systems and documents."
+  },
+  {
+   "q": "An office wants to compare a new AI provider with its current one for its proposal assistant. What makes this comparison fair and quick?",
+   "opts": [
+    "Reading each provider's marketing claims",
+    "Asking the most senior engineer which one feels better",
+    "Running both on the office's own stored test set of real questions and good answers",
+    "Choosing the one with the longest feature list"
+   ],
+   "a": 2,
+   "why": "Model-agnostic design keeps a company-owned test set, so models are compared on real tasks rather than marketing."
+  },
+  {
+   "q": "In a prioritization session, an easy use case builds nothing reusable, while a moderately harder one builds the ERP connection three others need. Both have similar value. What does the foundation test suggest?",
+   "opts": [
+    "Favour the use case that builds the reusable ERP connection",
+    "Always pick the easiest item",
+    "Pick neither until the full data layer is complete",
+    "Let the vendor decide"
+   ],
+   "a": 0,
+   "why": "Reusable foundations lower the effort of later use cases, so they often justify a slightly harder early choice."
+  },
+  {
+   "q": "Which item belongs in the connection layer of the reference architecture?",
+   "opts": [
+    "The customer service assistant's chat window",
+    "The ERP itself",
+    "The acceptable-use policy",
+    "A read-only interface to ERP order status with a named owner"
+   ],
+   "a": 3,
+   "why": "The connection layer holds the governed interfaces between systems of record and the rest of the AI OS, each with an owner and defined permissions."
+  },
+  {
+   "q": "A shop wants its dashboard to show trends in late orders over the past year. Which connection method suits this best?",
+   "opts": [
+    "A scheduled sync into a reporting store",
+    "A live lookup for every chart on every page view",
+    "An event trigger for each order",
+    "Copying figures by hand into a slide"
+   ],
+   "a": 0,
+   "why": "Scheduled syncs suit dashboards and trend analysis that need heavy queries over historical data."
+  },
+  {
+   "q": "An intake assistant gives confident but outdated answers. The team finds three versions of the same policy in the source folder. What should they do first?",
+   "opts": [
+    "Switch to a different model",
+    "Identify the current version, archive the others and add an owner and effective date",
+    "Tell staff to ignore the assistant",
+    "Add more folders to the search"
+   ],
+   "a": 1,
+   "why": "Curation fixes the root cause: only the current, owned version should be searchable."
+  },
+  {
+   "q": "In retrieval-augmented generation, when should documents a user is not allowed to see be removed?",
+   "opts": [
+    "After the answer is shown, if the user complains",
+    "Never; the instructions will stop disclosure",
+    "Before the model sees them, by filtering retrieved results on access labels",
+    "Only during the annual review"
+   ],
+   "a": 2,
+   "why": "Permission filtering happens between search and answer, so restricted content never reaches the model for that user."
+  },
+  {
+   "q": "A salesperson's assistant has quietly remembered dozens of customer preferences in its private memory. What is the main problem?",
+   "opts": [
+    "Shared business facts are hidden from colleagues and the system of record, and may include personal information",
+    "Memory makes the assistant too fast",
+    "Private memory is always required by law",
+    "The model will refuse to answer"
+   ],
+   "a": 0,
+   "why": "Shared facts belong in the CRM where they are visible and correctable, and stored personal information still carries privacy obligations."
+  },
+  {
+   "q": "A reorder agent has drafted purchase orders for three months, and logs show drafts for stable, low-value items are almost always released unchanged. What is a sensible next step?",
+   "opts": [
+    "Move all items, including new ones, to act-and-report",
+    "Remove the buyer's role entirely",
+    "Turn off logging to save cost",
+    "Move only those stable, low-value items to act-with-approval-rules within a system-enforced limit"
+   ],
+   "a": 3,
+   "why": "Autonomy is raised one task at a time on evidence, with limits enforced in the system and exceptions still going to a person."
+  },
+  {
+   "q": "An agent reads supplier emails. One email contains hidden text telling the agent to change the supplier's bank details. What design principle protects against this?",
+   "opts": [
+    "Treat external content as data, not commands, and keep sensitive actions behind human approval",
+    "Give the agent broader tools",
+    "Let the agent act and report afterwards",
+    "Store the email in private memory"
+   ],
+   "a": 0,
+   "why": "Instructions hidden in untrusted input are a known risk; sensitive actions such as payment details must stay behind human approval."
+  },
+  {
+   "q": "Which automation pattern best describes 'compare invoice, PO and receipt; approve matches within tolerance; send mismatches to a person'?",
+   "opts": [
+    "Scheduled summary",
+    "Trigger and action",
+    "Approval chain",
+    "Match and except"
+   ],
+   "a": 3,
+   "why": "Match and except compares records and routes only the mismatches for human handling."
+  },
+  {
+   "q": "Two managers report different gross margin figures for the same month, one from a dashboard and one from an AI summary. What prevents this recurring?",
+   "opts": [
+    "A larger model",
+    "More frequent refreshes",
+    "A measure dictionary used by both the dashboard and the assistant",
+    "Removing the AI summary"
+   ],
+   "a": 2,
+   "why": "Shared definitions and sources ensure dashboards and AI commentary report the same numbers."
+  },
+  {
+   "q": "A junior employee asks the knowledge assistant about a colleague's disciplinary case and receives an answer. Which principle was broken?",
+   "opts": [
+    "The AI let someone see more than they could without it",
+    "Model-agnostic design",
+    "Thin-slice delivery",
+    "Scheduled sync"
+   ],
+   "a": 0,
+   "why": "Inherited, role-based permissions should mean the assistant never reveals restricted HR content to someone without access to it."
+  },
+  {
+   "q": "A BC clinic plans to reuse patient intake information for a new AI analysis that patients were never told about. Under fair information principles, what should it do first?",
+   "opts": [
+    "Proceed, since the data is already collected",
+    "Check whether the new use fits the purposes identified to patients and whether consent or other steps are needed, seeking privacy advice",
+    "Delete all intake data",
+    "Move the data into private memory"
+   ],
+   "a": 1,
+   "why": "Privacy principles limit use to identified purposes; new uses of personal information need review, and a privacy professional should confirm the specific obligations."
+  },
+  {
+   "q": "Before launching a procedures assistant, a team builds a test set. Which set is most complete?",
+   "opts": [
+    "Only the ten most common questions",
+    "Questions written by the vendor",
+    "Questions chosen after launch based on complaints",
+    "Common, edge, should-refuse and not-in-the-documents cases, with answers written by people who do the work"
+   ],
+   "a": 3,
+   "why": "A balanced test set covers everyday questions, exceptions, refusals and gaps, with answers grounded in the work."
+  },
+  {
+   "q": "A use case's estimate assumed 70% of 100 monthly hours would be automated, but review and exceptions mean only about 40% is realized. What should the team do?",
+   "opts": [
+    "Hide the result until it improves",
+    "Update the value estimate with actual figures and investigate where review time goes",
+    "Stop measuring adoption",
+    "Double the build budget immediately"
+   ],
+   "a": 1,
+   "why": "Comparing actuals with the estimate at regular points keeps the business case honest and points to process fixes."
+  },
+  {
+   "q": "A company's fifth assistant takes as long to build as its first because it needed new connections, copied documents and a separate security set-up. Which operating-model fix helps most?",
+   "opts": [
+    "Hire a vendor for each assistant",
+    "Skip readiness gates to go faster",
+    "Remove the AI OS owner role",
+    "Apply standard patterns and reuse shared connections, collections and permissions through the AI OS owner and readiness gates"
+   ],
+   "a": 3,
+   "why": "Scaling depends on reuse of shared foundations and standard patterns, coordinated by a clear owner."
+  }
+ ],
+ "figures": [
+  {
+   "step": 2,
+   "type": "stack",
+   "title": "The six building blocks of an AI OS",
+   "caption": "Click each layer, from the governance foundation upward, to see what each building block contributes.",
+   "config": {
+    "top_label": "AI Operating System",
+    "layers": [
+     {
+      "label": "Governance & security",
+      "text": "Access control, audit trails, human oversight and privacy rules applied across every other block."
+     },
+     {
+      "label": "Unified data layer",
+      "text": "Governed connections to the ERP, accounting, CRM, email and key spreadsheets."
+     },
+     {
+      "label": "Knowledge base",
+      "text": "Curated SOPs, policies, specs and past work, each with an owner, an effective date and access labels."
+     },
+     {
+      "label": "Assistants & agents",
+      "text": "Role-based helpers that answer, draft and, within set limits, act using the data and knowledge."
+     },
+     {
+      "label": "Workflow automation",
+      "text": "Triggers, rules and approvals that move work between people and systems without chasing."
+     },
+     {
+      "label": "KPI dashboards",
+      "text": "Shared measures, exception alerts and AI-drafted commentary that support real decisions."
+     }
+    ]
+   }
+  },
+  {
+   "step": 6,
+   "type": "compare",
+   "title": "Locked to one model vs model-agnostic",
+   "caption": "Toggle between the two designs and notice that the difference is where your assets live, not which model you use.",
+   "config": {
+    "left": {
+     "title": "Locked to one model",
+     "points": [
+      "Prompts live in personal chatbot accounts",
+      "Documents uploaded into one vendor's product",
+      "No test set, so models cannot be compared",
+      "Switching means rebuilding every assistant"
+     ]
+    },
+    "right": {
+     "title": "Model-agnostic design",
+     "points": [
+      "Prompts versioned and owned by the company",
+      "Documents kept in a company-controlled store",
+      "Own test set used to compare models",
+      "Switching is a configuration and testing task"
+     ]
+    }
+   }
+  },
+  {
+   "step": 9,
+   "type": "bars",
+   "title": "Weekly hours spent re-keying data",
+   "caption": "Example values from the fabrication shop worked example: notice which transfer to connect first.",
+   "config": {
+    "unit": "h/week",
+    "items": [
+     {
+      "label": "POs email to ERP",
+      "value": 12,
+      "highlight": true
+     },
+     {
+      "label": "Timesheets to payroll",
+      "value": 6
+     },
+     {
+      "label": "ERP to carrier portal",
+      "value": 5
+     },
+     {
+      "label": "Production report",
+      "value": 4
+     }
+    ],
+    "note": "PO entry is the largest transfer and needs only two governed connections, so it is the natural first connection to build."
+   }
+  },
+  {
+   "step": 15,
+   "type": "flow",
+   "title": "Supplier invoice automation",
+   "caption": "Watch invoices queue at the review step, then click Fix the bottleneck to see confidence-based routing.",
+   "config": {
+    "steps": [
+     {
+      "label": "Invoice arrives",
+      "text": "An email to the AP mailbox triggers the workflow automatically."
+     },
+     {
+      "label": "Fields extracted",
+      "text": "AI reads vendor, PO number and amount and gives each field a confidence score."
+     },
+     {
+      "label": "Clerk reviews all",
+      "text": "In the first version every invoice waits for one-click review by the AP clerk."
+     },
+     {
+      "label": "Matched to PO",
+      "text": "The ERP connection matches the invoice to the PO and receipt within tolerance."
+     },
+     {
+      "label": "Exceptions approved",
+      "text": "Mismatches go to the project manager through an approval chain with reminders."
+     }
+    ],
+    "bottleneck": 2,
+    "fix_text": "Once evidence shows matched, high-confidence invoices are reliable, they flow straight through and the clerk reviews only exceptions."
+   }
+  },
+  {
+   "step": 19,
+   "type": "cycle",
+   "title": "The AI quality loop",
+   "caption": "Click each stage to see how a test set keeps an assistant accurate as documents, prompts and models change.",
+   "config": {
+    "center": "Quality loop",
+    "stages": [
+     {
+      "label": "Build test set",
+      "text": "Write common, edge, should-refuse and not-in-the-documents cases with answers from people who do the work."
+     },
+     {
+      "label": "Run and score",
+      "text": "Score each answer for correctness, grounding, completeness, safety and usefulness against a set threshold."
+     },
+     {
+      "label": "Analyse failures",
+      "text": "Find the root cause: a missing document, poor structure, unclear instructions or a retrieval problem."
+     },
+     {
+      "label": "Fix root cause",
+      "text": "Improve the documents or instructions first; change the model only if evidence points there."
+     },
+     {
+      "label": "Rerun full set",
+      "text": "Rerun every test to confirm the fix and catch anything it broke elsewhere."
+     },
+     {
+      "label": "Monitor and add",
+      "text": "Collect user feedback after go-live and add real failures to the test set."
+     }
+    ]
+   }
+  },
+  {
+   "step": 24,
+   "type": "timeline",
+   "title": "Your 90-day AI OS plan",
+   "caption": "Click each phase to see the outputs it should produce before you move to the next.",
+   "config": {
+    "phases": [
+     {
+      "label": "Days 1–30",
+      "title": "Discover and Map",
+      "items": [
+       "Sponsor and AI OS owner named",
+       "Systems, data and AI use inventoried",
+       "Maturity assessed; key processes mapped",
+       "Acceptable-use policy issued"
+      ]
+     },
+     {
+      "label": "Days 31–60",
+      "title": "Prioritize and prepare",
+      "items": [
+       "Use-case matrix scored",
+       "Reference architecture and wave plan",
+       "First use case: baseline, role card, test set",
+       "Documents curated and classified"
+      ]
+     },
+     {
+      "label": "Days 61–90",
+      "title": "Implement and Measure",
+      "items": [
+       "Sign-on, permissions and logging in place",
+       "First connection and assistant live",
+       "Adoption and outcomes measured",
+       "Next wave scored and approved"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}
