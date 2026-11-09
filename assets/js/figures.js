@@ -19,17 +19,31 @@
       var ax = 50 + R * Math.cos(a1), ay = 50 + R * Math.sin(a1), rot = -90 + i * 360 / n + 360 / n * 0.5 + 90;
       arrows += '<path d="M -2.2 -2 L 1.8 0 L -2.2 2" transform="translate(' + ax.toFixed(2) + ' ' + ay.toFixed(2) + ') rotate(' + rot.toFixed(1) + ')" class="cyc-arrow"/>';
     }
-    host.innerHTML = '<div class="fig-cycle"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="' + R + '" class="cyc-track"/><circle cx="50" cy="50" r="' + R + '" class="cyc-run" style="animation-duration:' + (n * 2.4) + 's"/>' + arrows + '</svg>' +
+    host.innerHTML = '<div class="fig-cycle"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="' + R + '" class="cyc-track"/><circle cx="50" cy="50" r="' + R + '" class="cyc-run" stroke-dasharray="' + (2 * Math.PI * R / n).toFixed(2) + ' ' + (2 * Math.PI * R).toFixed(2) + '"/>' + arrows + '</svg>' +
       '<div class="cyc-center">' + esc(c.center || '') + '</div>' + nodes + '</div><div class="fig-detail" aria-live="polite"></div>';
-    var show = detail(host), btns = host.querySelectorAll('.cyc-node'), cur = 0, timer = null;
+    var show = detail(host), btns = host.querySelectorAll('.cyc-node'), cur = 0, timer = null, wait = null;
+    var run = host.querySelector('.cyc-run'), step = 360 / n, rot = -90 - step;
+    // The green arc spans from the previous stage to the active one, so it always lands on the highlighted box.
+    function arc(i, animate) {
+      var target = -90 + i * step - step, d = ((target - rot) % 360 + 360) % 360;
+      rot += d;
+      run.style.transition = animate && !reduce ? 'transform .7s ease-in-out' : 'none';
+      run.style.transform = 'rotate(' + rot + 'deg)';
+    }
     function pick(i) {
       cur = i;
+      arc(i, true);
       Array.prototype.forEach.call(btns, function (b, k) { b.classList.toggle('is-on', k === i); b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
       show('Stage ' + (i + 1) + ': ' + st[i].label, st[i].text);
     }
-    host.addEventListener('click', function (e) { var b = e.target.closest('.cyc-node'); if (!b) return; clearInterval(timer); timer = null; pick(+b.getAttribute('data-i')); });
-    pick(0);
-    if (!reduce) timer = setInterval(function () { if (!host.isConnected || host.offsetParent === null) return; pick((cur + 1) % n); }, 2400);
+    function advance(i) {
+      // Slide the arc first, then highlight the box as the arc arrives.
+      arc(i, true); cur = i;
+      clearTimeout(wait); wait = setTimeout(function () { pick(i); }, 700);
+    }
+    host.addEventListener('click', function (e) { var b = e.target.closest('.cyc-node'); if (!b) return; clearInterval(timer); timer = null; clearTimeout(wait); pick(+b.getAttribute('data-i')); });
+    arc(0, false); pick(0);
+    if (!reduce) timer = setInterval(function () { if (!host.isConnected || host.offsetParent === null) return; advance((cur + 1) % n); }, 2400);
   }
 
   /* ---------------- flow ---------------- */

@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.9.3 — 2026-11-09
+- Cycle diagrams: the green arc is now synchronized with the highlighted (dark blue) stage. It used to spin on its own timer.
+  - The arc always spans from the previous stage to the active one.
+  - When the cycle advances, the arc slides forward to the next stage, and that stage highlights as the arc arrives.
+  - Clicking a stage moves the arc to it and stops the auto-advance.
+- This applies to every cycle diagram on the site: AI, Business Process Optimization, Manufacturing, Professional Services and the cycle diagrams in all 12 free courses.
+
 ## V4.9.2 — 2026-11-09
 - Consumer Goods header animation: the delivery truck now waits at the end of the conveyor while all three parcels are loaded. Each parcel drops into the truck and lights up a parcel icon on its side. When loading is complete, the truck drives off forward and a new truck pulls up for the next cycle (10-second loop).
 
