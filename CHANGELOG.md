@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.6 — 2026-11-09
+- Fixed headings that showed "&amp;" instead of "&": Energy & Chemicals, and Distribution & Warehousing. The Wix heading text is now decoded before it is re-encoded, and the site was checked for any other double-escaped text.
+
 ## V4.5 — 2026-11-09
 - Process Improvement page has a new "Why Chmltech" section with refined claims:
   - "Canada's leading Operations Improvement Firm" becomes "A Canadian operations improvement firm".
