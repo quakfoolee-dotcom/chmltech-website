@@ -1,5 +1,10 @@
 # Changelog
 
+## V3.4 — 2026-11-08
+- New solution: **AI Operating System** (`ai-operating-system.html`). Covers what an AI OS is, the six building blocks, the five-phase build approach, benefits, FAQs and related reading.
+- Animated SVG illustration: systems and data flow into the AI OS core, which delivers assistants, automations, KPIs and decisions under a governance layer. Motion is disabled for visitors who choose reduced motion.
+- New featured AI OS section on the Solutions page; AI OS added to the solutions grid, the home page solution list, the solution sidebars and the contact form topics.
+
 ## V3.3 — 2026-11-08
 - Removed duplicate images in 21 articles where the cover photo was repeated inside the article body. No picture now appears twice in an article.
 
