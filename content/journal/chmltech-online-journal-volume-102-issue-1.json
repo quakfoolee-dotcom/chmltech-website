@@ -1,0 +1,539 @@
+{
+ "slug": "chmltech-online-journal-volume-102-issue-1",
+ "volume": 102,
+ "issue": 1,
+ "published": "2023-06-13",
+ "revised": "2026-11-09",
+ "title": "Process Intensification and Efficiency Enhancement in Hydrogen Electrolysis Plants: A Deeper Look",
+ "short_title": "Efficiency Enhancement in Hydrogen Electrolysis",
+ "meta": "Electrolysis thermodynamics, correct AEL/PEM/SOEC reactions, efficiency definitions, overpotentials, pressurized operation, heat recovery and plant-level energy use.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Clean Energy Technology Innovation",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Water electrolysis powered by low-carbon electricity is expected to become a major route to low-emission hydrogen, but electricity dominates its production cost. The key engineering objective is therefore to minimize the specific electrical energy consumption per kilogram of hydrogen while maximizing the productivity of the stack. This paper reframes the concept of energy intensification as process intensification and efficiency enhancement and reviews the fundamentals needed to apply it. The thermodynamics of water splitting are presented, including the reversible voltage of 1.229 V, the thermoneutral voltage of 1.481 V and the corresponding minimum of 39.4 kWh kg<sup>−1</sup> on a higher-heating-value basis. The correct electrode reactions are given for alkaline, proton exchange membrane, solid oxide and anion exchange membrane electrolysis, and the four technologies are compared in terms of temperature, current density, catalysts, energy consumption and maturity. Cell voltage is decomposed into activation, ohmic and mass-transport overpotentials using Butler–Volmer and Tafel kinetics, and voltage, Faraday and system efficiencies are defined with explicit reference voltages and system boundaries. Strategies at cell, stack and plant level are assessed, including catalysts, membranes, temperature, pressurized operation, low-grade heat use and balance-of-plant design. Remaining challenges include capital cost, iridium dependence, degradation and dynamic operation with renewable power. The paper concludes that progress requires materials development together with plant-level engineering optimization.",
+ "keywords": [
+  "water electrolysis",
+  "green hydrogen",
+  "PEM electrolysis",
+  "alkaline electrolysis",
+  "solid oxide electrolysis",
+  "specific energy consumption",
+  "overpotential",
+  "process intensification"
+ ],
+ "corrections": [
+  "Electrode reactions corrected: the original labeled the cell 'alkaline' but paired the acidic (PEM) anode reaction 2H2O → O2 + 4H+ + 4e− with the alkaline cathode. Now given separately: AEL/AEM cathode 2H2O + 2e− → H2 + 2OH− (E° −0.828 V), anode 4OH− → O2 + 2H2O + 4e− (E° +0.401 V); PEM anode 2H2O → O2 + 4H+ + 4e− (E° +1.229 V), cathode 4H+ + 4e− → 2H2 (0 V); SOEC reactions added. The original anode E° labeled +1.23 V for the oxidation was a reduction potential and is now stated consistently.",
+  "Added thermoneutral voltage 1.481 V (ΔH/nF, HHV) alongside reversible voltage 1.229 V (ΔG/nF); added temperature dependence (≈ −0.85 mV/K) and Nernst pressure dependence.",
+  "'Energy intensification = increasing the energy input to maximize output' is a misdefinition; reframed as process intensification: reducing specific energy consumption (kWh/kg H2) and increasing stack productivity. Added SEC equation (Eq. 9: ≈ 26.6·V/ηF kWh/kg), theoretical 39.4 kWh/kg (HHV) and 33.3 kWh/kg (LHV), DOE PEM 2022 status 51 (stack)/55 (system) kWh/kg, IRENA system ranges.",
+  "Voltage efficiency redefined with explicit reference voltage (E_tn/V_cell for HHV basis or E_rev/V_cell for ΔG basis, plus LHV note), per Lamy & Millet; original 'V_ideal' was ambiguous.",
+  "Faraday efficiency formula stated properly (ηF = ṅH2,actual / (N·I/2F)); original described it as measuring how 'electrical energy' is converted, which is incorrect (it is a charge/current efficiency). Added production-rate example and crossover/shunt-current loss mechanisms.",
+  "Overall efficiency corrected: ηV·ηF describes only the stack; system efficiency must include balance-of-plant power (rectifiers, pumps, cooling, purification, water treatment, compression if in scope) — Eq. 16.",
+  "Pressurized electrolysis does not 'increase production rate' (rate is fixed by current via Faraday's law); corrected to: saves downstream mechanical compression at a small reversible-voltage penalty ((RT/2F)ln(p2/p1) ≈ 52 mV for 1→30 bar at 80 °C) with increased gas crossover and reduced Faraday efficiency at low load (Schalenbach et al.; Bensmann et al.).",
+  "Waste heat recovery 'to produce additional power' corrected: heat at ~50–80 °C has a Carnot limit of ~17% vs 20 °C ambient; established use is direct/district/process heat (van der Roest et al. 2023: ~14–15% of stack input usable, ~90% HHV total efficiency).",
+  "SOEC statement 'thermodynamic efficiency is increased at high temperature' clarified: electrical demand (ΔG) falls while total ΔH is nearly unchanged; benefit requires low-cost external heat.",
+  "MEA description corrected: the polymer membrane is the defining element of a PEM MEA, not an 'enhancement'; real enhancements listed (thinner/reinforced membranes, lower PGM loading, coated Ti PTLs).",
+  "Heading 'Energy-Intensive Hydrogen Production' and 'energy-intensive hydrogen electrolysis technologies' in Future Directions reworded (energy-intensive is the problem, not the goal).",
+  "Introduction corrected: hydrogen is not 'primarily produced through electrolysis' — in 2021 ~94 Mt demand was met almost entirely from unabated fossil fuels, <1 Mt low-emission (IEA Global Hydrogen Review 2022).",
+  "Added: AEL/PEM/SOEC/AEM comparison table (temperature, current density, pressure, SEC, catalysts, lifetime, maturity), overpotential breakdown V = E_rev + η_act + η_ohm + η_conc, Butler–Volmer and Tafel equations, ohmic ASR equation, SEC reference table, renewable coupling/dynamic operation and minimum load, stack degradation (DOE 4.8 mV/kh, 40,000 h), iridium constraint (DOE 0.8 → 0.03 g/kW; Minke et al. recycling ≥90%), and plant BOP (rectifiers, gas purification, water treatment, cooling, compression)."
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Hydrogen is increasingly regarded as an energy vector for decarbonizing sectors that are difficult to electrify directly, such as ammonia and methanol synthesis, refining, steelmaking, heavy transport and seasonal energy storage. Global hydrogen demand reached about 94 Mt in 2021. Almost all of it was produced from natural gas and coal without carbon capture, and less than 1 Mt qualified as low-emission hydrogen [1]. The IEA has noted that projects announced as of 2022 would correspond to roughly 134–240 GW of electrolyzer capacity by 2030 if all were realized [1]. Water electrolysis powered by low-carbon electricity is therefore expected to grow from a niche technology to a major industrial process, but in 2023 it was not yet the primary production route."
+    },
+    {
+     "p": "The cost of electrolytic hydrogen is dominated by electricity, so the central engineering question is not how much energy can be supplied to a plant. The question is how little electrical energy is needed per kilogram of hydrogen, and how intensively the expensive electrolyzer stack can be used. The first version of this article described \"energy intensification\" as increasing the energy input to a plant. That definition is incorrect and has been replaced here by the established concepts of process intensification and reduction of specific energy consumption (SEC, in kWh kg<sup>−1</sup> H<sub>2</sub>). This paper reviews the electrochemical fundamentals, the definitions of efficiency, the principal technologies, and the strategies at cell, stack and plant level that reduce SEC and capital cost per unit of production. The viewpoint is that of mid-2023."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Hydrogen Electrolysis: A Primer",
+   "blocks": [
+    {
+     "h3": "2.1 Thermodynamics of water splitting"
+    },
+    {
+     "p": "The overall reaction, written per mole of H<sub>2</sub>, is given in Eq. (1). At 25 °C and 1 bar with liquid water, the Gibbs energy change is ΔG° = 237.1 kJ mol<sup>−1</sup> and the enthalpy change is ΔH° = 285.8 kJ mol<sup>−1</sup>, which equals the higher heating value (HHV) of hydrogen [2, 3]."
+    },
+    {
+     "eq": "H<sub>2</sub>O(l) → H<sub>2</sub>(g) + ½O<sub>2</sub>(g)",
+     "n": 1
+    },
+    {
+     "p": "Two characteristic voltages follow from these quantities, with n = 2 electrons per H<sub>2</sub> and F = 96,485 C mol<sup>−1</sup>, as shown in Eqs. (2) and (3). The reversible voltage E<sub>rev</sub> is the minimum electrical work required when the remaining energy, TΔS, is supplied as heat from the surroundings. The thermoneutral voltage E<sub>tn</sub> is the voltage at which the electrical input covers the full enthalpy, so that the cell neither absorbs nor releases net heat [2, 4]."
+    },
+    {
+     "eq": "E<sub>rev</sub> = ΔG/(nF) = 237,100/(2 × 96,485) ≈ 1.229 V",
+     "n": 2
+    },
+    {
+     "eq": "E<sub>tn</sub> = ΔH/(nF) = 285,800/(2 × 96,485) ≈ 1.481 V",
+     "n": 3
+    },
+    {
+     "p": "At practical current densities, cells operate above E<sub>tn</sub> and generate heat that must be removed. E<sub>rev</sub> decreases with temperature by about 0.85 mV K<sup>−1</sup> for liquid water (ΔS/(nF)), and it depends on the partial pressures of products and the water activity through the Nernst equation, Eq. (4) [3, 5]."
+    },
+    {
+     "eq": "E<sub>rev</sub>(T, p) = E°<sub>rev</sub>(T) + (RT/(2F)) ln[(p<sub>H2</sub>/p<sup>0</sup>)(p<sub>O2</sub>/p<sup>0</sup>)<sup>½</sup> / a<sub>H2O</sub>]",
+     "n": 4
+    },
+    {
+     "h3": "2.2 Electrode reactions"
+    },
+    {
+     "p": "The half-reactions depend on the charge carrier in the electrolyte. The first version of this article labeled the reactions as alkaline but gave the acidic (PEM) anode reaction together with the alkaline cathode reaction. The correct pairs are as follows. In alkaline water electrolysis (AEL), and in anion exchange membrane (AEM) electrolysis, hydroxide ions carry the charge, as in Eqs. (5) and (6) [3, 6]."
+    },
+    {
+     "eq": "Cathode (reduction, AEL/AEM): 2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup>    (E° = −0.828 V vs. SHE)",
+     "n": 5
+    },
+    {
+     "eq": "Anode (oxidation, AEL/AEM): 4OH<sup>−</sup> → O<sub>2</sub> + 2H<sub>2</sub>O + 4e<sup>−</sup>    (E° = +0.401 V vs. SHE)",
+     "n": 6
+    },
+    {
+     "p": "In proton exchange membrane (PEM) electrolysis, protons migrate through a perfluorosulfonic acid membrane, as in Eqs. (7) and (8) [5, 7]."
+    },
+    {
+     "eq": "Anode (oxidation, PEM): 2H<sub>2</sub>O → O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>−</sup>    (E° = +1.229 V vs. SHE)",
+     "n": 7
+    },
+    {
+     "eq": "Cathode (reduction, PEM): 4H<sup>+</sup> + 4e<sup>−</sup> → 2H<sub>2</sub>    (E° = 0 V vs. SHE)",
+     "n": 8
+    },
+    {
+     "p": "In both cases the cell voltage is the difference between anode and cathode potentials, 1.229 V at standard conditions. The pH-dependent electrode potentials shift together, so the pH of the electrolyte does not change the thermodynamic cell voltage. In solid oxide electrolysis (SOEC), oxide ions (O<sup>2−</sup>) are conducted through a ceramic electrolyte: steam is reduced at the cathode (H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + O<sup>2−</sup>) and oxygen is evolved at the anode (2O<sup>2−</sup> → O<sub>2</sub> + 4e<sup>−</sup>) [8]."
+    },
+    {
+     "h3": "2.3 Technology comparison"
+    },
+    {
+     "p": "Table 1 compares the four technology families. AEL is the most mature and uses inexpensive nickel-based electrodes in 25–30 wt% KOH, but it operates at modest current densities. PEM electrolysis achieves high current densities, compact stacks and fast dynamic response, but it relies on platinum-group metals and titanium components. SOEC exploits high temperature to reduce the electrical energy demand. AEM electrolysis seeks to combine PGM-free catalysts with a membrane-based cell architecture but was at an early stage in 2023 [9, 10, 6, 8]."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Comparison of water electrolysis technologies (state of the art around 2020–2022). System specific energy consumption values are as reported by IRENA.",
+      "head": [
+       "Parameter",
+       "Alkaline (AEL)",
+       "PEM",
+       "Solid oxide (SOEC)",
+       "Anion exchange membrane (AEM)"
+      ],
+      "rows": [
+       [
+        "Charge carrier / electrolyte",
+        "OH<sup>−</sup>; 25–30 wt% KOH with porous diaphragm",
+        "H<sup>+</sup>; perfluorosulfonic acid membrane",
+        "O<sup>2−</sup>; yttria-stabilized zirconia",
+        "OH<sup>−</sup>; polymeric anion exchange membrane, dilute alkaline or pure water feed"
+       ],
+       [
+        "Operating temperature",
+        "70–90 °C",
+        "50–80 °C",
+        "700–850 °C",
+        "40–60 °C"
+       ],
+       [
+        "Typical current density",
+        "≈ 0.2–0.5 A cm<sup>−2</sup>",
+        "≈ 1–2 A cm<sup>−2</sup> (higher in development)",
+        "≈ 0.3–1 A cm<sup>−2</sup>",
+        "≈ 0.2–1 A cm<sup>−2</sup>"
+       ],
+       [
+        "Cell pressure",
+        "< 30 bar",
+        "< 70 bar",
+        "< 10 bar",
+        "< 35 bar"
+       ],
+       [
+        "System SEC, kWh kg<sup>−1</sup> H<sub>2</sub>",
+        "50–78",
+        "50–83",
+        "45–55 (plus heat)",
+        "57–69"
+       ],
+       [
+        "Anode / cathode catalysts",
+        "Ni-coated steel / Ni",
+        "IrO<sub>2</sub> / Pt on carbon",
+        "Perovskites (LSM, LSCF) / Ni–YSZ",
+        "Ni or NiFeCo alloys / Ni"
+       ],
+       [
+        "Stack lifetime (thousand hours)",
+        "≈ 60",
+        "≈ 50–80",
+        "< 20",
+        "> 5"
+       ],
+       [
+        "Maturity (2023)",
+        "Commercial, multi-MW to 100+ MW",
+        "Commercial, MW to tens of MW",
+        "Demonstration / early commercial",
+        "Laboratory to early pilot"
+       ]
+      ],
+      "note": "Sources: [10, 9, 5, 3, 8, 6]. Current density ranges are indicative and vary by manufacturer."
+     }
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Process Intensification and Specific Energy Consumption",
+   "blocks": [
+    {
+     "h3": "3.1 Definitions"
+    },
+    {
+     "p": "Process intensification refers to design and operating measures that make a process substantially smaller, cheaper or more energy-efficient for the same output. For electrolysis, it has two complementary objectives. The first is to reduce the specific energy consumption, i.e. the electrical energy per kilogram of hydrogen. The second is to raise the productivity of the capital-intensive stack, i.e. the current density and capacity factor at acceptable efficiency and lifetime. These objectives conflict because higher current density increases cell voltage. The optimum operating point therefore depends on the ratio of electricity cost to capital cost [9, 11]. Increasing the electrical energy input does not improve a plant; it raises hydrogen output only in proportion to current, and the SEC worsens as voltage rises."
+    },
+    {
+     "p": "By Faraday's law, the energy per kilogram of hydrogen is proportional to the cell voltage. Using M<sub>H2</sub> = 2.016 g mol<sup>−1</sup>, the stack SEC follows from Eq. (9), where η<sub>F</sub> is the Faraday efficiency (Section 3.4)."
+    },
+    {
+     "eq": "SEC<sub>stack</sub> = 2F V<sub>cell</sub> / (η<sub>F</sub> M<sub>H2</sub>) ≈ 26.6 × V<sub>cell</sub>/η<sub>F</sub>  [kWh kg<sup>−1</sup> H<sub>2</sub>, V<sub>cell</sub> in V]",
+     "n": 9
+    },
+    {
+     "p": "At the thermoneutral voltage, Eq. (9) gives 39.4 kWh kg<sup>−1</sup>, which equals the HHV of hydrogen; the LHV is 33.3 kWh kg<sup>−1</sup>. A PEM cell at 1.9 V and unit Faraday efficiency consumes about 50.5 kWh kg<sup>−1</sup>, consistent with the DOE 2022 status value of 51 kWh kg<sup>−1</sup> at stack level (Table 2) [12]."
+    },
+    {
+     "h3": "3.2 Cell voltage breakdown"
+    },
+    {
+     "p": "The operating cell voltage exceeds E<sub>rev</sub> because of irreversible losses. These are conventionally separated as in Eq. (10) into activation overpotentials at the anode and cathode, an ohmic loss and a mass-transport (concentration) overpotential [5, 7]."
+    },
+    {
+     "eq": "V<sub>cell</sub> = E<sub>rev</sub> + η<sub>act,a</sub> + |η<sub>act,c</sub>| + η<sub>ohm</sub> + η<sub>conc</sub>",
+     "n": 10
+    },
+    {
+     "p": "The activation overpotential is related to current density j by the Butler–Volmer equation, Eq. (11), where j<sub>0</sub> is the exchange current density and α<sub>a</sub>, α<sub>c</sub> are the anodic and cathodic transfer coefficients. At high overpotential one exponential term dominates and the expression reduces to the Tafel equation, Eq. (12), with Tafel slope b [5]."
+    },
+    {
+     "eq": "j = j<sub>0</sub> [exp(α<sub>a</sub>Fη/(RT)) − exp(−α<sub>c</sub>Fη/(RT))]",
+     "n": 11
+    },
+    {
+     "eq": "η<sub>act</sub> = b log<sub>10</sub>(j/j<sub>0</sub>),  b = 2.303RT/(αF)",
+     "n": 12
+    },
+    {
+     "p": "The oxygen evolution reaction (OER) is a four-electron process with a very low exchange current density and is the largest single kinetic loss in low-temperature electrolysis; the hydrogen evolution reaction on Pt in acid is much faster [5, 7]. The ohmic overpotential is linear in current density, as in Eq. (13), where the area-specific resistance ASR combines the membrane or electrolyte resistance (thickness δ divided by conductivity σ) with electronic and contact resistances in electrodes, porous transport layers and bipolar plates [5]."
+    },
+    {
+     "eq": "η<sub>ohm</sub> = j · ASR = j (δ/σ + R<sub>el</sub> + R<sub>contact</sub>)",
+     "n": 13
+    },
+    {
+     "p": "Mass-transport losses appear at high current density when gas bubbles block active sites or impede water access. In AEL, bubble coverage of electrodes and gas voids in the electrolyte gap add substantially to the ohmic resistance [3]."
+    },
+    {
+     "h3": "3.3 Voltage efficiency"
+    },
+    {
+     "p": "Voltage efficiency must be defined against an explicitly stated reference voltage, because the two common choices differ by about 20%. Eq. (14) gives the HHV-based definition, which uses the thermoneutral voltage, and the Gibbs-energy-based definition, which uses the reversible voltage [4]."
+    },
+    {
+     "eq": "η<sub>V,HHV</sub> = E<sub>tn</sub>/V<sub>cell</sub>,   η<sub>V,ΔG</sub> = E<sub>rev</sub>/V<sub>cell</sub>",
+     "n": 14
+    },
+    {
+     "p": "For a cell at 1.9 V, η<sub>V,HHV</sub> = 78% and η<sub>V,ΔG</sub> = 65%. An LHV-based value (1.254 V/V<sub>cell</sub>) is also used, especially in industrial and policy literature, and gives 66% for the same cell. Comparisons between sources are meaningful only on the same basis, and it is recommended to state the reference voltage, temperature and pressure explicitly [4]. All losses in Eq. (10) reduce voltage efficiency: catalysts address activation losses, thin membranes and zero-gap designs address ohmic losses, and electrode and flow-field engineering address mass-transport losses."
+    },
+    {
+     "h3": "3.4 Faraday efficiency"
+    },
+    {
+     "p": "Faraday (current) efficiency is the fraction of the charge passed that produces hydrogen delivered from the stack, as in Eq. (15), where ṅ<sub>H2</sub> is the measured molar production rate, I the stack current and N<sub>cells</sub> the number of series-connected cells."
+    },
+    {
+     "eq": "η<sub>F</sub> = ṅ<sub>H2,actual</sub> / (N<sub>cells</sub> I/(2F))",
+     "n": 15
+    },
+    {
+     "p": "Rearranged, Eq. (15) gives the production rate of a stack: ṅ<sub>H2</sub> = η<sub>F</sub> N<sub>cells</sub> I/(2F). For example, 100 cells at 1 A cm<sup>−2</sup> over 1 m<sup>2</sup> active area each (I = 10 kA) produce about 5.2 mol s<sup>−1</sup>, or 37.6 kg h<sup>−1</sup>, at η<sub>F</sub> = 1. Faraday losses arise mainly from gas crossover, in which permeated hydrogen recombines with oxygen or leaves with the oxygen stream, and in AEL also from parasitic shunt currents through the electrolyte manifolds. Because crossover depends on partial pressure rather than current, its relative effect is largest at low current density and at high pressure [13, 14]."
+    },
+    {
+     "h3": "3.5 System efficiency and specific energy consumption"
+    },
+    {
+     "p": "The product η<sub>V</sub>·η<sub>F</sub> describes only the stack. The plant-level efficiency must also include the power consumed by the balance of plant (BOP): transformer and rectifier losses, pumps, cooling, gas purification and drying, water treatment, controls and, where specified, compression. Eq. (16) defines system efficiency on a stated heating-value basis, where P<sub>stack</sub> and P<sub>BOP</sub> are electrical powers drawn at the plant boundary [4, 9]."
+    },
+    {
+     "eq": "η<sub>sys</sub> = ṁ<sub>H2</sub> · HHV / (P<sub>stack</sub> + P<sub>BOP</sub>) = 39.4 kWh kg<sup>−1</sup> / SEC<sub>sys</sub>",
+     "n": 16
+    },
+    {
+     "p": "Table 2 summarizes reference values. The difference of about 4 kWh kg<sup>−1</sup> (≈ 7%) between the DOE stack and system figures for PEM electrolysis indicates the magnitude of BOP losses in a well-designed system without compression. The most efficient commercial low-temperature systems operated at about 50–55 kWh kg<sup>−1</sup> in the early 2020s, within reported ranges of 50–83 kWh kg<sup>−1</sup>, with targets for 2050 below 45 kWh kg<sup>−1</sup> [12, 10]."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Reference values for the specific electrical energy consumption of water electrolysis.",
+      "head": [
+       "Case",
+       "SEC (kWh kg<sup>−1</sup> H<sub>2</sub>)",
+       "Efficiency"
+      ],
+      "rows": [
+       [
+        "Theoretical minimum at E<sub>rev</sub> = 1.229 V (heat supplied externally)",
+        "32.7",
+        "—"
+       ],
+       [
+        "Thermoneutral voltage 1.481 V (= HHV)",
+        "39.4",
+        "100% HHV"
+       ],
+       [
+        "PEM stack, DOE 2022 status (2.0 A cm<sup>−2</sup> at 1.9 V)",
+        "51",
+        "65% LHV"
+       ],
+       [
+        "PEM system, DOE 2022 status",
+        "55",
+        "61% LHV (72% HHV)"
+       ],
+       [
+        "PEM system, DOE 2026 target / ultimate target",
+        "51 / 46",
+        "65% / 72% LHV"
+       ],
+       [
+        "AEL and PEM systems, IRENA state of the art (2020)",
+        "50–78 / 50–83",
+        "—"
+       ],
+       [
+        "SOEC system, IRENA state of the art (2020)",
+        "45–55 (electricity only)",
+        "—"
+       ],
+       [
+        "All technologies, IRENA 2050 target",
+        "< 45 (SOEC < 40)",
+        "—"
+       ]
+      ],
+      "note": "Sources: [12, 10]; theoretical values calculated from Eq. (9). HHV efficiency of the DOE system figure calculated as 39.4/55."
+     }
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Strategies for Efficiency Enhancement",
+   "blocks": [
+    {
+     "h3": "4.1 Improvement of catalysts"
+    },
+    {
+     "p": "Improved electrocatalysts raise the exchange current density j<sub>0</sub> or lower the Tafel slope, which reduces activation losses through Eq. (12). In PEM cells the acidic, oxidizing anode environment limits OER catalysts to iridium-based oxides, while carbon-supported platinum is used at the cathode. Research therefore aims to increase iridium mass activity through high-surface-area, supported or mixed-oxide catalysts and thinner catalyst layers rather than to find a complete substitute [5, 7]. In AEL and AEM cells, nickel and Ni–Fe or Ni–Co based catalysts with high surface area (for example Raney-type or layered double hydroxide structures) are effective and inexpensive [3, 6]. Catalyst improvements must be assessed at relevant current densities and over thousands of hours, because initial activity gains can be lost to dissolution or restructuring (Section 6.2)."
+    },
+    {
+     "h3": "4.2 Electrolyte, membrane and temperature selection"
+    },
+    {
+     "p": "The electrolyte governs ionic conductivity, the operating temperature window and gas separation. Thinner PEM membranes (for example 50 µm instead of about 180 µm) reduce ohmic losses substantially but increase hydrogen crossover, especially under differential pressure [5, 13]. In AEL, zero-gap cell designs that press electrodes directly against thin diaphragms such as Zirfon reduce the ohmic resistance of the electrolyte gap, and operation at higher temperature increases KOH conductivity and catalyst activity [3, 14]."
+    },
+    {
+     "p": "High-temperature operation in SOEC has a thermodynamic as well as a kinetic effect. As T rises, ΔG falls while ΔH is nearly constant, so a larger share of the energy demand can be supplied as heat (TΔS). Electrode kinetics are fast at 700–850 °C, which allows operation near the thermoneutral point of about 1.3 V for steam. When steam is generated from external heat sources such as industrial waste heat or nuclear plants, the electrical SEC can fall below that of low-temperature technologies [8, 9]. The first version of this article stated that thermodynamic efficiency \"is increased\" at high temperature. More precisely, the electrical energy demand is reduced, while the total energy demand (electricity plus heat) is essentially unchanged. The gain is realized only when low-cost heat is available."
+    },
+    {
+     "h3": "4.3 Process optimization"
+    },
+    {
+     "p": "The main operating variables are current density, temperature, pressure and, for AEL, electrolyte concentration and flow. Raising the temperature reduces E<sub>rev</sub> and both activation and ohmic losses, but it accelerates membrane degradation in PEM cells; temperatures of 50–80 °C are typical [5, 15]. Current density sets the trade-off between stack capital cost and SEC. Techno-economic optimization generally favors higher current densities when electricity is cheap or the capacity factor is low, and lower current densities when electricity is expensive [9, 11]. Mathematical models that combine the polarization curve of Eq. (10) with thermal and degradation models, plant BOP and the electricity price profile are used to identify optimal operating windows and stack sizing [2, 9]."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Technological Innovations",
+   "blocks": [
+    {
+     "h3": "5.1 Membrane-electrode assembly and cell architecture"
+    },
+    {
+     "p": "In PEM electrolyzers the membrane-electrode assembly (MEA) consists of the proton-conducting membrane with anode and cathode catalyst layers on either side, typically as a catalyst-coated membrane. The MEA is sandwiched between porous transport layers (titanium on the anode side, carbon on the cathode side) and bipolar plates. The first version of this article described the MEA as consisting of the electrolyte, anode and cathode, and referred to \"the use of ion-conductive polymer membranes\" as an enhancement. Since the polymer membrane is the defining element of the PEM cell, the relevant enhancements are thinner and mechanically reinforced membranes, optimized ionomer content, lower-loaded but more active catalyst layers, and protective coatings (for example Pt or Au) on titanium porous transport layers and bipolar plates to limit passivation and contact resistance [5, 7, 15]. In AEL, the analogous developments are zero-gap configurations, advanced diaphragms and activated nickel electrodes [3, 14]."
+    },
+    {
+     "h3": "5.2 Pressurized electrolysis"
+    },
+    {
+     "p": "Pressurized electrolysis does not increase the hydrogen production rate. The rate is fixed by current through Faraday's law, Eq. (15). Its benefit is that hydrogen leaves the stack at elevated pressure, which reduces or eliminates the first stages of mechanical compression. The thermodynamic cost is a higher reversible voltage. From Eq. (4), raising only the hydrogen-side pressure from p<sub>1</sub> to p<sub>2</sub> increases E<sub>rev</sub> as given in Eq. (17)."
+    },
+    {
+     "eq": "ΔE<sub>rev</sub> = (RT/(2F)) ln(p<sub>2</sub>/p<sub>1</sub>)",
+     "n": 17
+    },
+    {
+     "p": "At 80 °C, raising the cathode pressure from 1 to 30 bar increases E<sub>rev</sub> by about 52 mV, about 3% of a 1.8 V cell voltage. This corresponds to about 1.4 kWh kg<sup>−1</sup>, which equals the ideal isothermal compression work at that temperature. Real multistage mechanical compressors require considerably more than the isothermal minimum. Electrochemical compression in the stack is therefore energetically attractive up to moderate pressures [16]. The penalty is increased gas crossover. Permeation rises with hydrogen partial pressure, reducing Faraday efficiency, particularly at low current density, and raising the hydrogen content of the oxygen stream towards the safety limit (the lower flammability limit of H<sub>2</sub> in O<sub>2</sub> is about 4 vol%) [13, 16]. Pressure-retaining stack and BOP designs also add cost. The optimum outlet pressure therefore depends on membrane properties, current density profile and the downstream pressure requirement [16, 9]."
+    },
+    {
+     "callout": "Pressurized operation does not produce hydrogen faster. It shifts compression work into the stack at a small voltage penalty (about 50 mV from 1 to 30 bar at 80 °C), and its benefit is limited by gas crossover at high pressure and low load."
+    },
+    {
+     "h3": "5.3 Waste heat recovery"
+    },
+    {
+     "p": "Every cell operating above E<sub>tn</sub> generates heat at a rate of (V<sub>cell</sub> − E<sub>tn</sub>)·I. At 1.9 V, about 22% of the stack electrical input is released as heat. In PEM and AEL systems this heat is available at only about 50–80 °C. The first version of this article proposed using it to produce additional power. That is not practical. Even an ideal Carnot engine operating between 80 °C and an ambient sink at 20 °C would convert only about 17% of the heat to work, and real low-temperature cycles achieve much less. The established use is direct heat supply. A study of a 2.5 MW<sub>el</sub> PEM electrolyzer found that about 14–15% of the stack electricity input could be delivered to heat consumers (with or without heat pumps or a district heating network), raising the total system efficiency to about 90% (HHV) [17]. For SOEC, heat integration works in the opposite direction: external heat is imported to generate steam, and high-temperature heat exchange between product and feed streams is essential to the efficiency of the system [8]."
+    },
+    {
+     "h3": "5.4 Plant-level balance of plant"
+    },
+    {
+     "p": "At plant scale, SEC and availability depend substantially on the BOP [9, 2]:"
+    },
+    {
+     "list": [
+      "<strong>Power conversion.</strong> Transformers and rectifiers (thyristor- or IGBT-based) convert AC grid or renewable power to the low-voltage, high-current DC required by stacks. Their efficiency, current ripple and power factor affect both energy losses and stack degradation, particularly at partial load [2, 10].",
+      "<strong>Gas treatment.</strong> Gas–liquid separators, deoxidizers (catalytic removal of O<sub>2</sub> from H<sub>2</sub>) and dryers (temperature- or pressure-swing adsorption) bring the product to the purity required by the application, for example fuel-cell grade. Dryer regeneration consumes a fraction of the product gas or heat [9].",
+      "<strong>Water treatment.</strong> Electrolysis consumes 8.9 kg of water per kg of H<sub>2</sub> stoichiometrically. PEM stacks require high-purity deionized water to avoid membrane contamination, so reverse osmosis and ion exchange units are standard [5, 7].",
+      "<strong>Thermal management.</strong> Pumps, heat exchangers and dry coolers or cooling towers remove the stack heat (Section 5.3) and maintain the temperature window; their parasitic load is part of P<sub>BOP</sub> in Eq. (16).",
+      "<strong>Compression and storage.</strong> Where delivery pressures exceed stack outlet pressure, mechanical compressors add typically several kWh kg<sup>−1</sup> depending on the pressure ratio; this should be reported separately from the electrolysis SEC [16, 9]."
+     ],
+     "ordered": false
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Challenges and Future Directions",
+   "blocks": [
+    {
+     "h3": "6.1 Cost and critical materials"
+    },
+    {
+     "p": "Capital cost, stack lifetime and electricity price together determine the levelized cost of hydrogen. Expert elicitation and learning-curve studies anticipated substantial reductions in electrolyzer capital cost through larger stacks, automated manufacturing and R&D [11, 10]. IRENA estimated that scaling plant size from 1 MW to 20 MW could reduce costs by more than one third [10]. For PEM electrolysis, iridium is the most serious material constraint. The DOE 2022 status total PGM loading was about 0.8 g kW<sup>−1</sup>, with an ultimate target of 0.03 g kW<sup>−1</sup> [12]. Minke et al. concluded that gigawatt-scale deployment is compatible with iridium supply only if loadings are reduced drastically and end-of-life recycling rates of at least 90% are achieved [18]. This constraint is a major motivation for AEM and improved AEL technologies, which avoid PGMs [6]."
+    },
+    {
+     "h3": "6.2 Durability and degradation"
+    },
+    {
+     "p": "Stack degradation appears as a gradual increase in cell voltage at constant current, and therefore as a rising SEC over the stack life. The DOE 2022 status for PEM stacks was an average degradation of 4.8 mV per 1000 h, with end of life defined as a 10% voltage increase and a lifetime of about 40,000 h [12]. The principal mechanisms in PEM cells are chemical and mechanical membrane thinning, catalyst dissolution and agglomeration (especially of iridium under dynamic potentials), passivation of titanium components, and contamination by cations from feed water [15]. In AEL, start–stop cycles can cause reverse currents that degrade electrodes [14]. SOEC degradation includes nickel migration in the fuel electrode and delamination at the oxygen electrode, and thermal cycling remains a constraint [8]. Durability must therefore be tested under the intended operating profile, including load cycling and shutdowns, and not only at constant load [12, 15]."
+    },
+    {
+     "h3": "6.3 Coupling with renewable power and dynamic operation"
+    },
+    {
+     "p": "When electrolyzers are coupled directly to wind or solar power, they operate at variable load and capacity factors that may be well below 50%. Low capacity factors raise the capital-cost share of the hydrogen price, and dynamic operation affects efficiency, gas purity and degradation. PEM systems respond to load changes within seconds and can operate over a wide load range. AEL systems are typically limited to a minimum load of roughly 10–40% of nominal, because at low current the constant rate of gas crossover raises the hydrogen content of the oxygen product towards the safety shutdown limit [14, 9]. At low load, rectifier efficiency and Faraday efficiency also decline, so system SEC is lowest at intermediate load rather than at minimum load [10, 13]. Design responses include oversizing the electrolyzer relative to the renewable source or vice versa, battery or hydrogen buffering, modular stacks that are switched on and off sequentially, and grid-connected operation that provides balancing services [9, 14]."
+    },
+    {
+     "h3": "6.4 Future directions"
+    },
+    {
+     "p": "Research and development priorities in 2023 included: (i) OER catalysts with high iridium mass activity and PGM-free alternatives for AEM; (ii) thinner, reinforced and more durable membranes with recombination catalysts to limit crossover; (iii) high-current-density PEM operation (above 3 A cm<sup>−2</sup>) without loss of efficiency or lifetime, in line with DOE targets [12]; (iv) SOEC durability and its integration with industrial heat and with downstream syntheses such as ammonia and synthetic fuels [8]; and (v) plant-level optimization that includes power electronics, BOP, compression, heat use and the electricity price profile rather than optimizing the stack in isolation [9, 17]. Policy and regulatory frameworks, including hydrogen certification and support for first-of-a-kind plants, will strongly influence the rate of deployment; the IEA noted in 2022 that only about 4% of announced low-emission hydrogen projects were under construction or had reached final investment decision [1]."
+    },
+    {
+     "p": "<strong>Note on subsequent developments (2026 revision).</strong> This paper reflects the information available in mid-2023. Electrolyzer deployment figures, cost estimates and DOE or IRENA targets have since been updated in later editions of the cited reports; readers should consult the current versions for up-to-date values. The technical corrections made in this revision concern the electrochemistry and efficiency definitions and do not depend on later data."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "The aim of efficiency enhancement in hydrogen electrolysis plants is to produce each kilogram of hydrogen with as little electrical energy, and as little stack capital, as practicable. It is not to increase the energy input. The thermodynamic reference points are 1.229 V (reversible) and 1.481 V (thermoneutral, corresponding to 39.4 kWh kg<sup>−1</sup> HHV). In 2023, practical stacks operated at about 1.7–2.0 V, and complete systems consumed roughly 50–55 kWh kg<sup>−1</sup> in good cases. Losses can be analyzed systematically through the overpotential breakdown, Butler–Volmer kinetics and Faraday's law, and efficiencies are meaningful only when their reference voltage and system boundary are stated."
+    },
+    {
+     "p": "Improved catalysts, thinner membranes and zero-gap designs reduce stack losses. Pressurized operation offsets downstream compression rather than increasing output. Low-grade waste heat is best used as heat rather than converted to power, and SOEC reduces electrical demand when external heat is available. At plant scale, rectifiers, gas treatment, water treatment, cooling and compression account for a significant share of energy use and cost. The main remaining challenges are capital cost, iridium use in PEM systems, durability under dynamic renewable operation, and system-level integration. Addressing them requires materials research together with process and plant engineering."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "International Energy Agency. (2022). Global Hydrogen Review 2022. IEA, Paris.",
+   "url": "https://www.iea.org/reports/global-hydrogen-review-2022"
+  },
+  {
+   "text": "Ursúa, A., Gandía, L. M., & Sanchis, P. (2012). Hydrogen production from water electrolysis: Current status and future trends. Proceedings of the IEEE, 100(2), 410–426.",
+   "url": "https://doi.org/10.1109/JPROC.2011.2156750"
+  },
+  {
+   "text": "Zeng, K., & Zhang, D. (2010). Recent progress in alkaline water electrolysis for hydrogen production and applications. Progress in Energy and Combustion Science, 36(3), 307–326.",
+   "url": "https://doi.org/10.1016/j.pecs.2009.11.002"
+  },
+  {
+   "text": "Lamy, C., & Millet, P. (2020). A critical review on the definitions used to calculate the energy efficiency coefficients of water electrolysis cells working under near ambient temperature conditions. Journal of Power Sources, 447, 227350.",
+   "url": "https://doi.org/10.1016/j.jpowsour.2019.227350"
+  },
+  {
+   "text": "Carmo, M., Fritz, D. L., Mergel, J., & Stolten, D. (2013). A comprehensive review on PEM water electrolysis. International Journal of Hydrogen Energy, 38(12), 4901–4934.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2013.01.151"
+  },
+  {
+   "text": "Miller, H. A., Bouzek, K., Hnat, J., Loos, S., Bernäcker, C. I., Weißgärber, T., Röntzsch, L., & Meier-Haack, J. (2020). Green hydrogen from anion exchange membrane water electrolysis: A review of recent developments in critical materials and operating conditions. Sustainable Energy & Fuels, 4(5), 2114–2133.",
+   "url": "https://doi.org/10.1039/C9SE01240K"
+  },
+  {
+   "text": "Shiva Kumar, S., & Himabindu, V. (2019). Hydrogen production by PEM water electrolysis – A review. Materials Science for Energy Technologies, 2(3), 442–454.",
+   "url": "https://doi.org/10.1016/j.mset.2019.03.002"
+  },
+  {
+   "text": "Hauch, A., Küngas, R., Blennow, P., Hansen, A. B., Hansen, J. B., Mathiesen, B. V., & Mogensen, M. B. (2020). Recent advances in solid oxide cell technology for electrolysis. Science, 370(6513), eaba6118.",
+   "url": "https://doi.org/10.1126/science.aba6118"
+  },
+  {
+   "text": "Buttler, A., & Spliethoff, H. (2018). Current status of water electrolysis for energy storage, grid balancing and sector coupling via power-to-gas and power-to-liquids: A review. Renewable and Sustainable Energy Reviews, 82, 2440–2454.",
+   "url": "https://doi.org/10.1016/j.rser.2017.09.003"
+  },
+  {
+   "text": "International Renewable Energy Agency. (2020). Green hydrogen cost reduction: Scaling up electrolysers to meet the 1.5 °C climate goal. IRENA, Abu Dhabi. ISBN 978-92-9260-295-6.",
+   "url": "https://www.irena.org/publications/2020/Dec/Green-hydrogen-cost-reduction"
+  },
+  {
+   "text": "Schmidt, O., Gambhir, A., Staffell, I., Hawkes, A., Nelson, J., & Few, S. (2017). Future cost and performance of water electrolysis: An expert elicitation study. International Journal of Hydrogen Energy, 42(52), 30470–30492.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2017.10.045"
+  },
+  {
+   "text": "U.S. Department of Energy, Hydrogen and Fuel Cell Technologies Office. (n.d.). Technical targets for proton exchange membrane electrolysis. Retrieved 2023 from energy.gov.",
+   "url": "https://www.energy.gov/eere/fuelcells/technical-targets-proton-exchange-membrane-electrolysis"
+  },
+  {
+   "text": "Schalenbach, M., Carmo, M., Fritz, D. L., Mergel, J., & Stolten, D. (2013). Pressurized PEM water electrolysis: Efficiency and gas crossover. International Journal of Hydrogen Energy, 38(35), 14921–14933.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2013.09.013"
+  },
+  {
+   "text": "Brauns, J., & Turek, T. (2020). Alkaline water electrolysis powered by renewable energy: A review. Processes, 8(2), 248.",
+   "url": "https://doi.org/10.3390/pr8020248"
+  },
+  {
+   "text": "Feng, Q., Yuan, X.-Z., Liu, G., Wei, B., Zhang, Z., Li, H., & Wang, H. (2017). A review of proton exchange membrane water electrolysis on degradation mechanisms and mitigation strategies. Journal of Power Sources, 366, 33–55.",
+   "url": "https://doi.org/10.1016/j.jpowsour.2017.09.006"
+  },
+  {
+   "text": "Bensmann, B., Hanke-Rauschenbach, R., Peña Arias, I. K., & Sundmacher, K. (2013). Energetic evaluation of high pressure PEM electrolyzer systems for intermediate storage of renewable energies. Electrochimica Acta, 110, 570–580.",
+   "url": "https://doi.org/10.1016/j.electacta.2013.05.102"
+  },
+  {
+   "text": "van der Roest, E., Bol, R., Fens, T., & van Wijk, A. (2023). Utilisation of waste heat from PEM electrolysers – Unlocking local optimisation. International Journal of Hydrogen Energy, 48(72), 27872–27891.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2023.03.374"
+  },
+  {
+   "text": "Minke, C., Suermann, M., Bensmann, B., & Hanke-Rauschenbach, R. (2021). Is iridium demand a potential bottleneck in the realization of large-scale PEM water electrolysis? International Journal of Hydrogen Energy, 46(46), 23581–23590.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2021.04.174"
+  }
+ ]
+}

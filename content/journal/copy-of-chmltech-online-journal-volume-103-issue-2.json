@@ -1,0 +1,498 @@
+{
+ "slug": "copy-of-chmltech-online-journal-volume-103-issue-2",
+ "volume": 103,
+ "issue": 2,
+ "published": "2023-06-17",
+ "revised": "2026-11-09",
+ "title": "Advancements in Machine Learning and Deep Learning for Intelligent Systems",
+ "short_title": "Machine Learning and Deep Learning for Intelligent Systems",
+ "meta": "A review of machine learning and deep learning for intelligent systems: RL, transfer learning, XAI, CNNs, LSTMs, Transformers, GANs, applications and challenges.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Machine learning (ML) and deep learning (DL) have become the principal technologies behind intelligent systems that perceive, decide and improve from data. This paper reviews their development and use from the perspective of mid-2023. It first traces machine learning from classical supervised and unsupervised methods, formulated as empirical risk minimization solved by gradient descent, to reinforcement learning, transfer learning and explainable AI, using landmark results such as deep Q-networks, AlphaGo and AlphaGo Zero as illustrations. It then describes the principal deep architectures, namely convolutional neural networks, long short-term memory networks, Transformers and generative adversarial networks, with their governing equations, representative models and limitations. The benefits of these methods for intelligent systems, including accuracy on well-defined tasks, automation, automatic feature learning, adaptability through retraining and fast inference, are assessed together with their qualifications, and applications in health care, finance, transportation, manufacturing, natural language processing and recommendation are surveyed. The paper then examines the main challenges: data quality and bias, interpretability, adversarial robustness, privacy and governance, computational and energy cost, and continual learning, and identifies corresponding research directions such as federated learning and interpretable-by-design models. It concludes that the value of ML and DL in intelligent systems depends as much on rigorous validation, efficiency and responsible governance as on new architectures.",
+ "keywords": [
+  "machine learning",
+  "deep learning",
+  "intelligent systems",
+  "convolutional neural networks",
+  "Transformers",
+  "reinforcement learning",
+  "explainable AI",
+  "transfer learning"
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Intelligent systems, meaning software and cyber-physical systems that perceive their environment, make decisions and improve with experience, increasingly rely on machine learning (ML) and its subfield deep learning (DL). ML methods infer predictive or decision rules from data rather than having them specified by hand, while DL methods use multi-layer neural networks that learn hierarchical representations directly from raw inputs such as pixels, audio samples or text [1]. Janiesch et al. describe the relationship as nested: DL is a family of ML methods, distinguished by its ability to learn features automatically, which is what allowed it to displace hand-engineered pipelines in perception tasks [2]."
+    },
+    {
+     "p": "The practical impact of these methods has been driven by three converging factors: large labeled and unlabeled datasets, parallel computing hardware, and algorithmic advances in network architecture and optimization [1, 3]. Together they have produced breakthroughs in computer vision, speech recognition, natural language processing (NLP), game playing and robotics, and they underpin applications in health care, finance, transportation and manufacturing [3, 4]."
+    },
+    {
+     "p": "This paper reviews these advancements from the perspective of mid-2023. Section 2 traces machine learning from classical supervised and unsupervised methods to reinforcement learning, transfer learning and explainable AI. Section 3 describes the principal deep architectures: convolutional, recurrent, Transformer and generative adversarial networks. Section 4 assesses the benefits of ML and DL for intelligent systems, Section 5 surveys applications, and Section 6 discusses challenges and research directions. Section 7 concludes. The aim is a technically accurate overview that states the strengths of these methods without overstating them."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Machine Learning: From Traditional to Modern Approaches",
+   "blocks": [
+    {
+     "h3": "2.1 Learning Paradigms and Optimization"
+    },
+    {
+     "p": "Machine learning is commonly divided into supervised learning, in which a model learns a mapping from inputs to labeled outputs; unsupervised learning, in which structure such as clusters or low-dimensional representations is discovered in unlabeled data; semi-supervised and self-supervised learning, which exploit unlabeled data to reduce the need for labels; and reinforcement learning, in which an agent learns from rewards [3, 5]. Classical supervised methods include linear and logistic regression, support vector machines, k-nearest neighbors, decision trees and ensembles of trees; classical unsupervised methods include k-means clustering and principal component analysis [3]."
+    },
+    {
+     "p": "Most supervised learning can be expressed as empirical risk minimization. For a classifier with parameters θ that outputs class probabilities <em>p</em><sub>θ</sub>(<em>y</em> | <em>x</em>), trained on <em>N</em> labeled examples (<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>), the standard objective is the average cross-entropy loss of Eq. (1) [5]."
+    },
+    {
+     "eq": "ℒ(θ) = −(1/<em>N</em>) Σ<sub><em>i</em>=1</sub><sup><em>N</em></sup> log <em>p</em><sub>θ</sub>(<em>y</em><sub><em>i</em></sub> | <em>x</em><sub><em>i</em></sub>)",
+     "n": 1
+    },
+    {
+     "p": "For differentiable models, Eq. (1) is minimized iteratively by gradient descent, Eq. (2), in which η is the learning rate. In practice the gradient is estimated on small random mini-batches (stochastic gradient descent) and refined by momentum or adaptive methods. For neural networks, the gradient of the loss with respect to every weight is computed efficiently by the backpropagation algorithm, which applies the chain rule layer by layer [6, 5]."
+    },
+    {
+     "eq": "θ<sub><em>t</em>+1</sub> = θ<sub><em>t</em></sub> − η ∇<sub>θ</sub>ℒ(θ<sub><em>t</em></sub>)",
+     "n": 2
+    },
+    {
+     "p": "Classical methods remain highly competitive on structured, tabular data, where features are already meaningful. A systematic review of ML classifiers for passenger mode-choice modeling in transportation, for example, found tree ensembles among the strongest performers, but also identified methodological weaknesses in how many studies sampled and validated their data, which can inflate reported accuracy [7]. Random forests, which average the predictions of many decision trees grown on bootstrap samples with random feature subsets, are a representative ensemble method [8]."
+    },
+    {
+     "h3": "2.2 Reinforcement Learning: Learning from Rewards and Actions"
+    },
+    {
+     "p": "In reinforcement learning (RL), an agent interacts with an environment by observing a state, taking an action and receiving a scalar reward. Its objective is a policy that maximizes the expected discounted return of Eq. (3), in which <em>r</em><sub><em>t</em></sub> is the reward at step <em>t</em> and the discount factor γ ∈ (0, 1) weights near-term rewards more heavily than distant ones [5]."
+    },
+    {
+     "eq": "<em>G</em><sub><em>t</em></sub> = Σ<sub><em>k</em>=0</sub><sup>∞</sup> γ<sup><em>k</em></sup> <em>r</em><sub><em>t</em>+<em>k</em>+1</sub>",
+     "n": 3
+    },
+    {
+     "p": "Combining RL with deep networks as function approximators produced several landmark results. The deep Q-network (DQN) learned to play 49 Atari 2600 games directly from screen pixels and game score, reaching a level comparable to a professional human games tester across the set [9]. AlphaGo, developed by DeepMind, combined policy and value networks with Monte Carlo tree search; its networks were trained first by supervised learning from human expert games and then by reinforcement learning from self-play, and it defeated the European Go champion by five games to none [10]. Its successor, AlphaGo Zero, learned without human game data, purely by self-play from random initialization, and defeated the earlier champion-defeating version of AlphaGo by 100 games to 0 [11]. These results showed the potential of RL for sequential decision-making, although such systems require very large numbers of simulated interactions, which limits direct application to physical systems where trials are costly or unsafe."
+    },
+    {
+     "h3": "2.3 Transfer Learning: Leveraging Pretrained Models"
+    },
+    {
+     "p": "Transfer learning reuses knowledge learned on a source task to improve learning on a target task, which is especially valuable when target data are scarce. Yosinski et al. quantified how transferable the features of deep convolutional networks are: features in early layers are general (resembling edge and color detectors), whereas features in later layers become increasingly specific to the source task, and initializing a network with transferred features followed by fine-tuning improved generalization [12]. In computer vision, networks pretrained on ImageNet such as VGG [13], ResNet [14] and Inception [15] became standard starting points: the classification head is replaced and the network is fine-tuned on the target data, often achieving strong accuracy with far fewer labeled images than training from scratch would require. The same principle, at much larger scale, underlies the pretrained language models discussed in Section 3.3."
+    },
+    {
+     "h3": "2.4 Explainable AI: Interpretable Machine Learning Models"
+    },
+    {
+     "p": "As models become more complex, users, regulators and engineers need to understand why a model reached a decision. Explainable AI (XAI) comprises two broad strategies. The first uses intrinsically interpretable models, such as sparse linear models, short rule lists or a single shallow decision tree, whose decision logic can be read directly. A random forest, by contrast, is not intrinsically interpretable: it aggregates hundreds of deep trees, and although it provides aggregate feature-importance measures, its individual decisions cannot be traced to a single readable rule path [8]. The second strategy applies post hoc explanation methods to black-box models. LIME fits a simple surrogate model in the neighborhood of an individual prediction [16], and SHAP attributes a prediction to input features using Shapley values from cooperative game theory, unifying several earlier attribution methods [17]."
+    },
+    {
+     "p": "Post hoc explanations are approximations and can be unfaithful to the model they explain. Rudin therefore argued that for high-stakes decisions, such as criminal justice or medical triage, practitioners should prefer inherently interpretable models where these achieve comparable accuracy, rather than explaining black boxes after the fact [18]."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Deep Learning: Neural Network Architectures",
+   "blocks": [
+    {
+     "p": "Deep learning uses networks composed of many layers of simple parameterized transformations, each followed by a nonlinearity, trained end to end by backpropagation and stochastic gradient descent [1]. Artificial neural networks were loosely inspired by biological neurons, but modern architectures are engineered computational graphs rather than models of the brain. The value of depth is that successive layers compose features into increasingly abstract representations, for example from edges to textures, parts and objects in images [1, 5]. Table 1 summarizes the principal architecture families."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Principal deep learning architecture families.",
+      "head": [
+       "Family",
+       "Core mechanism",
+       "Typical data",
+       "Representative models",
+       "Key limitation"
+      ],
+      "rows": [
+       [
+        "Convolutional neural network (CNN)",
+        "Local, weight-shared convolutions and pooling",
+        "Images, spectrograms, grids",
+        "LeNet-5, AlexNet, VGG, Inception, ResNet [19, 20, 13, 15, 14]",
+        "Limited global context without depth or attention"
+       ],
+       [
+        "Recurrent neural network (RNN), LSTM",
+        "Hidden state updated step by step; gated memory cell",
+        "Text, speech, time series",
+        "LSTM [21]",
+        "Sequential computation limits parallelism; long-range dependencies remain difficult"
+       ],
+       [
+        "Transformer",
+        "Self-attention over all positions",
+        "Text, and increasingly images and audio",
+        "Transformer encoder-decoder [22]",
+        "Attention cost grows quadratically with sequence length"
+       ],
+       [
+        "Generative adversarial network (GAN)",
+        "Generator and discriminator trained in a minimax game",
+        "Images and other high-dimensional data",
+        "GAN, StyleGAN [23, 24]",
+        "Unstable training and mode collapse"
+       ]
+      ],
+      "note": "Source: compiled from [1], [5] and the cited model papers."
+     }
+    },
+    {
+     "h3": "3.1 Convolutional Neural Networks: Image Understanding at Scale"
+    },
+    {
+     "p": "A convolutional neural network (CNN) exploits the spatial structure of images through layers that apply the same small filter at every position. For an input image <em>I</em> and a filter (kernel) <em>K</em>, the feature map is computed by the discrete two-dimensional operation of Eq. (4), which deep learning libraries implement as cross-correlation; a bias and nonlinearity follow, and pooling layers progressively reduce spatial resolution [5]."
+    },
+    {
+     "eq": "<em>S</em>(<em>i</em>, <em>j</em>) = Σ<sub><em>m</em></sub> Σ<sub><em>n</em></sub> <em>I</em>(<em>i</em> + <em>m</em>, <em>j</em> + <em>n</em>) <em>K</em>(<em>m</em>, <em>n</em>)",
+     "n": 4
+    },
+    {
+     "p": "Weight sharing reduces the number of parameters dramatically compared with a fully connected layer and builds in approximate translation equivariance. LeCun et al. demonstrated gradient-trained CNNs for handwritten character and document recognition in 1998 [19]. The ImageNet database, a large hierarchical collection of labeled images [25], made it possible to train much larger networks. In the 2012 ImageNet challenge, AlexNet, with 60 million parameters trained on graphics processors, achieved a top-5 test error of 15.3% against 26.2% for the second-best entry [20]. Deeper designs followed: VGG used stacks of 3 × 3 convolutions to reach 16–19 weight layers [13], Inception introduced multi-branch modules in a 22-layer network [15], and ResNet used identity shortcut connections to train networks of 152 layers, reaching 3.57% top-5 error with an ensemble and winning the 2015 classification challenge [14]. In 2015, He et al. reported a 4.94% top-5 error on ImageNet classification, below a commonly cited estimate of 5.1% for human annotators on that benchmark [26]."
+    },
+    {
+     "p": "CNNs serve as backbones for object detection, semantic segmentation and medical image analysis [4]. Image generation, by contrast, is performed by generative models such as GANs (Section 3.4), which typically use convolutional layers inside their generator and discriminator rather than being a direct capability of discriminative CNN classifiers."
+    },
+    {
+     "h3": "3.2 Recurrent Neural Networks: Modeling Sequential Data"
+    },
+    {
+     "p": "Recurrent neural networks (RNNs) process sequences by updating a hidden state at each time step from the current input and the previous state, so that information can persist across the sequence. When trained by backpropagation through time, simple RNNs suffer from vanishing or exploding gradients, which makes long-range dependencies hard to learn [21, 5]. The long short-term memory (LSTM) network of Hochreiter and Schmidhuber addressed this with a memory cell whose contents are modified additively under the control of multiplicative gates [21]. In the widely used form that includes a forget gate, the cell state evolves according to Eq. (5), in which <em>f</em><sub><em>t</em></sub>, <em>i</em><sub><em>t</em></sub> and <em>c̃</em><sub><em>t</em></sub> are the forget gate, input gate and candidate state, and ⊙ denotes element-wise multiplication [5]."
+    },
+    {
+     "eq": "<em>c</em><sub><em>t</em></sub> = <em>f</em><sub><em>t</em></sub> ⊙ <em>c</em><sub><em>t</em>−1</sub> + <em>i</em><sub><em>t</em></sub> ⊙ <em>c̃</em><sub><em>t</em></sub>",
+     "n": 5
+    },
+    {
+     "p": "The additive update allows gradients to flow across many time steps; the original paper showed learning across time lags exceeding 1,000 steps on synthetic tasks [21]. LSTMs were widely applied to speech recognition, machine translation, handwriting recognition and sentiment analysis [1, 4]. Their sequential computation, however, cannot be parallelized across time steps, which limits training throughput on long sequences."
+    },
+    {
+     "h3": "3.3 Transformers and Attention"
+    },
+    {
+     "p": "The Transformer, introduced by Vaswani et al. in 2017, removed recurrence entirely and relied on attention to relate every position of a sequence to every other [22]. Its core operation is scaled dot-product attention, Eq. (6), where queries <em>Q</em>, keys <em>K</em> and values <em>V</em> are linear projections of the input and <em>d</em><sub>k</sub> is the key dimension; several such attention heads are computed in parallel and their outputs concatenated."
+    },
+    {
+     "eq": "Attention(<em>Q</em>, <em>K</em>, <em>V</em>) = softmax(<em>Q</em><em>K</em><sup>T</sup> / √<em>d</em><sub>k</sub>) <em>V</em>",
+     "n": 6
+    },
+    {
+     "p": "Because all positions are processed simultaneously, Transformers train efficiently on parallel hardware. The original model achieved 28.4 BLEU on the WMT 2014 English-to-German translation task, improving on the best previous results, at a fraction of their training cost [22]. Transformers subsequently became the basis of large pretrained language models, extending transfer learning (Section 2.3) to NLP at scale, and by 2023 they were also widely used for vision, speech and multimodal tasks [4]. Their main computational drawback is that attention cost grows quadratically with sequence length."
+    },
+    {
+     "p": "Several design details make the architecture work in practice. Because attention itself is insensitive to token order, positional information is added to the input embeddings, in the original model through fixed sinusoidal encodings [22]. Each layer wraps its attention and feed-forward sublayers in residual connections followed by layer normalization, a design that, like the shortcut connections of ResNet [14], eases the optimization of deep stacks. The original model was an encoder-decoder for translation: the encoder applies bidirectional self-attention to the source sentence, while the decoder applies masked self-attention, so that each position sees only earlier outputs, together with cross-attention to the encoder states [22]. Later systems used the encoder or the decoder alone, the former for classification and retrieval and the latter for open-ended text generation, and the decoder-only form is the basis of the large language models that attracted wide attention in 2022 and 2023."
+    },
+    {
+     "h3": "3.4 Generative Adversarial Networks: Creating Realistic Content"
+    },
+    {
+     "p": "Generative adversarial networks (GANs), proposed by Goodfellow et al. in 2014, train two networks against each other: a generator <em>G</em> that maps random noise <em>z</em> to synthetic samples, and a discriminator <em>D</em> that estimates the probability that a sample is real [23]. Training solves the minimax problem of Eq. (7)."
+    },
+    {
+     "eq": "min<sub><em>G</em></sub> max<sub><em>D</em></sub> 𝔼<sub><em>x</em>∼<em>p</em><sub>data</sub></sub>[log <em>D</em>(<em>x</em>)] + 𝔼<sub><em>z</em>∼<em>p</em><sub><em>z</em></sub></sub>[log(1 − <em>D</em>(<em>G</em>(<em>z</em>)))]",
+     "n": 7
+    },
+    {
+     "p": "At the theoretical optimum the generator reproduces the data distribution and the discriminator outputs 1/2 everywhere [23]. In practice, training is delicate and can suffer from instability and mode collapse. StyleGAN introduced a style-based generator that controls image attributes at different scales and produced high-quality, photorealistic images of human faces [24]. Such capabilities have legitimate uses in design, entertainment and data augmentation, but they also enable synthetic media that can be misused, which is an ethical consideration discussed in Section 6."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "The Benefits of ML and DL in Intelligent Systems",
+   "blocks": [
+    {
+     "p": "The advancements described above provide several benefits for intelligent systems, each of which comes with qualifications:"
+    },
+    {
+     "list": [
+      "<strong>Accuracy on well-defined perception tasks.</strong> DL models have reached or exceeded estimated human-level performance on specific benchmarks, such as ImageNet classification [26]. Benchmark parity does not imply general human-level understanding: performance can fall sharply under distribution shift or adversarial perturbation (Section 6.3), and in language understanding high benchmark scores have not removed systematic errors [1].",
+      "<strong>Automation and efficiency.</strong> Learned models automate tasks that were previously manual, such as document classification, visual inspection and first-line customer support, increasing throughput and consistency [3]. Automated systems still need monitoring and escalation paths for cases they handle poorly.",
+      "<strong>Automatic feature learning.</strong> DL replaces hand-engineered features with representations learned from raw data, which lowers the effort of building systems for complex signals such as images, audio and text [2, 1].",
+      "<strong>Adaptability.</strong> Models can be retrained or fine-tuned as new data arrive, which allows systems to track changing conditions [3]. This requires deliberate retraining pipelines; most deployed models do not learn continuously by default, and naive sequential updating can cause catastrophic forgetting (Section 6.5).",
+      "<strong>Real-time decision-making.</strong> Once trained, many models perform inference in milliseconds, enabling applications such as fraud screening, predictive maintenance alarms and perception in driver-assistance systems [4]. Latency budgets on embedded hardware constrain model size."
+     ],
+     "ordered": false
+    },
+    {
+     "callout": "The benefits of ML and DL are largest on well-defined tasks with abundant representative data and clear performance measures. Where data are scarce, shift over time or decisions carry high stakes, validation, monitoring and interpretability become the deciding factors."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Applications of ML and DL in Intelligent Systems",
+   "blocks": [
+    {
+     "p": "ML and DL methods are applied across most sectors of the economy [3, 4]. Table 2 summarizes representative domains, typical tasks and the method families most often used."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Representative application domains of ML and DL in intelligent systems.",
+      "head": [
+       "Domain",
+       "Typical tasks",
+       "Common methods",
+       "Principal deployment concern"
+      ],
+      "rows": [
+       [
+        "Health care",
+        "Medical image analysis, diagnosis support, outcome prediction, drug discovery",
+        "CNNs, gradient-boosted trees, Transformers",
+        "Clinical validation, interpretability, patient privacy"
+       ],
+       [
+        "Finance",
+        "Credit scoring, fraud detection, risk modeling, algorithmic trading",
+        "Tree ensembles, anomaly detection, RNNs",
+        "Regulatory explainability, fairness, non-stationary markets"
+       ],
+       [
+        "Transportation and autonomous systems",
+        "Mode-choice and demand modeling, perception, motion planning for vehicles, drones and robots",
+        "Tree ensembles, CNNs, RL",
+        "Safety assurance, robustness to rare events"
+       ],
+       [
+        "Manufacturing",
+        "Visual quality inspection, predictive maintenance, process optimization",
+        "CNNs, time-series models, anomaly detection",
+        "Limited labeled fault data, integration with control systems"
+       ],
+       [
+        "Natural language processing",
+        "Speech recognition, translation, sentiment analysis, conversational agents",
+        "LSTMs, Transformers",
+        "Factual errors, bias, misuse"
+       ],
+       [
+        "Recommendation systems",
+        "Personalized product, media and content recommendations",
+        "Matrix factorization, deep embedding models",
+        "Feedback loops, filter bubbles, privacy"
+       ]
+      ],
+      "note": "Source: compiled from [3], [4], [7] and [1]."
+     }
+    },
+    {
+     "p": "In <strong>health care</strong>, CNNs are used to detect and segment abnormalities in radiological and pathological images, and predictive models estimate patient risk; these systems are generally positioned as decision support for clinicians rather than replacements [4]. In <strong>finance</strong>, classification and anomaly-detection models score credit applications and flag fraudulent transactions; the ability of ML to forecast asset prices is far more limited, because markets adapt to exploitable patterns [3]. In <strong>transportation</strong>, ML classifiers model travelers' mode choices for planning [7], while perception and control for autonomous vehicles, drones and robots combine CNN-based perception with planning and, in research settings, RL [9, 4]. In <strong>manufacturing</strong>, vision models inspect products for defects and sensor-based models predict equipment failures to schedule maintenance [3]. In <strong>NLP</strong>, recurrent and Transformer models power speech recognition, translation and dialogue systems [22, 1], and <strong>recommendation systems</strong> learn user and item representations from interaction histories to personalize content [3]."
+    },
+    {
+     "p": "Across these domains, the learned model is usually a small part of the deployed intelligent system. A production system also requires data pipelines that collect and validate inputs, monitoring that detects when incoming data drift away from the training distribution, procedures for periodic retraining and re-validation, and interfaces through which human operators can review, override or escalate decisions [2, 3]. Janiesch et al. emphasize that the business value of ML depends on embedding models in such socio-technical processes rather than on model accuracy alone [2]. For safety- or mission-critical uses, such as autonomous driving or clinical decision support, the system design must additionally define the operating conditions under which the model may be relied upon and the fallback behavior when those conditions are not met."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Challenges and Future Directions",
+   "blocks": [
+    {
+     "p": "Despite this progress, several challenges limit the reliable deployment of ML and DL in intelligent systems. Each also defines an active research direction."
+    },
+    {
+     "h3": "6.1 Data Quality, Quantity and Bias"
+    },
+    {
+     "p": "Deep models typically require large, representative labeled datasets, and they reproduce the biases present in those data. Errors in sampling and validation, such as allowing related records to appear in both training and test sets, can inflate reported performance, a problem documented in the transportation literature [7]. Transfer learning and self-supervised pretraining reduce label requirements [12], but careful dataset construction, documentation and out-of-sample validation remain essential."
+    },
+    {
+     "h3": "6.2 Interpretability and Explainability"
+    },
+    {
+     "p": "The opacity of deep networks complicates debugging, regulatory approval and user trust. Post hoc methods such as LIME and SHAP provide local explanations [16, 17], but their faithfulness to the underlying model is not assured, and for high-stakes decisions interpretable models are preferable where they perform comparably [18]. Research continues on explanation methods with verifiable fidelity and on architectures that are interpretable by design."
+    },
+    {
+     "h3": "6.3 Robustness and Security"
+    },
+    {
+     "p": "Neural networks can be highly sensitive to small, deliberately crafted input perturbations. Goodfellow et al. showed that such adversarial examples arise from the locally linear behavior of high-dimensional models and introduced the fast gradient sign method for generating them, as well as adversarial training as a partial defense [27]. Robustness to adversarial inputs, to natural distribution shift and to rare events is a prerequisite for safety-critical systems such as autonomous vehicles."
+    },
+    {
+     "h3": "6.4 Privacy, Ethics and Governance"
+    },
+    {
+     "p": "Training on personal data raises privacy risks and legal obligations, and algorithmic decisions can discriminate against groups underrepresented or misrepresented in the data. Federated learning, in which models are trained across devices that keep their data local and share only model updates, is one technical response; McMahan et al. reported that their federated averaging algorithm reduced the number of communication rounds by a factor of 10 to 100 compared with synchronized stochastic gradient descent [28]. Technical measures must be complemented by governance: impact assessments, auditing and clear accountability for automated decisions, as well as safeguards against misuse of generative models [23, 24]."
+    },
+    {
+     "h3": "6.5 Scalability, Energy and Continual Learning"
+    },
+    {
+     "p": "Training large models is computationally and energetically expensive. Strubell et al. estimated that training a large Transformer with neural architecture search could emit on the order of 284 t CO<sub>2</sub>-equivalent (626,155 lb), and recommended that researchers report training time and computational cost and prioritize efficient methods [29]. Research on efficient architectures, model compression, specialized hardware and distributed training addresses this cost. A related challenge is continual learning: networks trained sequentially on new tasks tend to forget earlier ones. Elastic weight consolidation mitigates this catastrophic forgetting by penalizing changes to weights important for previous tasks [30], and methods that update models incrementally from streaming data remain an important direction for systems in changing environments."
+    },
+    {
+     "h3": "6.6 Domain-Specific Systems and Integration with Other Technologies"
+    },
+    {
+     "p": "General-purpose models frequently underperform in specialized domains unless adapted with domain data and knowledge, for example physical constraints in engineering or clinical guidelines in medicine [4]. Integration with the Internet of Things (IoT) extends ML to sensor networks and edge devices, where federated and compressed models are particularly relevant [28, 3]. Combinations with other technologies, such as augmented reality interfaces, are promising but should be justified by concrete operational requirements rather than adopted for novelty."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "Machine learning and deep learning have transformed the capabilities of intelligent systems. Classical ML methods remain strong for structured data, while reinforcement learning, transfer learning and explainable AI have extended what learned systems can do and how they can be trusted [3, 11, 12]. Deep architectures, from CNNs and LSTMs to Transformers and GANs, have delivered major gains in perception, language and generative modeling [1, 22]."
+    },
+    {
+     "p": "These advances bring benefits in accuracy on well-defined tasks, automation, automatic feature learning, adaptability through retraining and fast inference, with applications in health care, finance, transportation, manufacturing, language technology and recommendation. They also bring challenges: dependence on large and representative data, limited interpretability, vulnerability to adversarial and distributional shifts, privacy and fairness risks, and substantial computational and energy costs [18, 27, 29]."
+    },
+    {
+     "p": "Progress will depend as much on rigorous validation, efficient methods and responsible governance as on new architectures. Intelligent systems that combine learned models with domain knowledge, careful evaluation and human oversight are best placed to deliver the value these methods promise while limiting their risks [2, 4]."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. Nature, 521(7553), 436–444.",
+   "url": "https://doi.org/10.1038/nature14539"
+  },
+  {
+   "text": "Janiesch, C., Zschech, P., & Heinrich, K. (2021). Machine learning and deep learning. Electronic Markets, 31(3), 685–695.",
+   "url": "https://doi.org/10.1007/s12525-021-00475-2"
+  },
+  {
+   "text": "Sarker, I. H. (2021). Machine learning: Algorithms, real-world applications and research directions. SN Computer Science, 2(3), 160.",
+   "url": "https://doi.org/10.1007/s42979-021-00592-x"
+  },
+  {
+   "text": "Sarker, I. H. (2021). Deep learning: A comprehensive overview on techniques, taxonomy, applications and research directions. SN Computer Science, 2(6), 420.",
+   "url": "https://doi.org/10.1007/s42979-021-00815-1"
+  },
+  {
+   "text": "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT Press.",
+   "url": "https://www.deeplearningbook.org/"
+  },
+  {
+   "text": "Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. Nature, 323(6088), 533–536.",
+   "url": "https://doi.org/10.1038/323533a0"
+  },
+  {
+   "text": "Hillel, T., Bierlaire, M., Elshafie, M. Z. E. B., & Jin, Y. (2021). A systematic review of machine learning classification methodologies for modelling passenger mode choice. Journal of Choice Modelling, 38, 100221.",
+   "url": "https://doi.org/10.1016/j.jocm.2020.100221"
+  },
+  {
+   "text": "Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5–32.",
+   "url": "https://doi.org/10.1023/A:1010933404324"
+  },
+  {
+   "text": "Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare, M. G., et al. (2015). Human-level control through deep reinforcement learning. Nature, 518(7540), 529–533.",
+   "url": "https://doi.org/10.1038/nature14236"
+  },
+  {
+   "text": "Silver, D., Huang, A., Maddison, C. J., Guez, A., Sifre, L., van den Driessche, G., et al. (2016). Mastering the game of Go with deep neural networks and tree search. Nature, 529(7587), 484–489.",
+   "url": "https://doi.org/10.1038/nature16961"
+  },
+  {
+   "text": "Silver, D., Schrittwieser, J., Simonyan, K., Antonoglou, I., Huang, A., Guez, A., et al. (2017). Mastering the game of Go without human knowledge. Nature, 550(7676), 354–359.",
+   "url": "https://doi.org/10.1038/nature24270"
+  },
+  {
+   "text": "Yosinski, J., Clune, J., Bengio, Y., & Lipson, H. (2014). How transferable are features in deep neural networks? Advances in Neural Information Processing Systems, 27, 3320–3328. arXiv:1411.1792.",
+   "url": "https://arxiv.org/abs/1411.1792"
+  },
+  {
+   "text": "Simonyan, K., & Zisserman, A. (2014). Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556 (published at ICLR 2015).",
+   "url": "https://arxiv.org/abs/1409.1556"
+  },
+  {
+   "text": "He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 770–778. arXiv:1512.03385.",
+   "url": "https://arxiv.org/abs/1512.03385"
+  },
+  {
+   "text": "Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D., Vanhoucke, V., & Rabinovich, A. (2015). Going deeper with convolutions. Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 1–9. arXiv:1409.4842.",
+   "url": "https://arxiv.org/abs/1409.4842"
+  },
+  {
+   "text": "Ribeiro, M. T., Singh, S., & Guestrin, C. (2016). \"Why should I trust you?\": Explaining the predictions of any classifier. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 1135–1144. arXiv:1602.04938.",
+   "url": "https://arxiv.org/abs/1602.04938"
+  },
+  {
+   "text": "Lundberg, S. M., & Lee, S.-I. (2017). A unified approach to interpreting model predictions. Advances in Neural Information Processing Systems, 30. arXiv:1705.07874.",
+   "url": "https://arxiv.org/abs/1705.07874"
+  },
+  {
+   "text": "Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead. Nature Machine Intelligence, 1(5), 206–215.",
+   "url": "https://doi.org/10.1038/s42256-019-0048-x"
+  },
+  {
+   "text": "LeCun, Y., Bottou, L., Bengio, Y., & Haffner, P. (1998). Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11), 2278–2324.",
+   "url": "https://doi.org/10.1109/5.726791"
+  },
+  {
+   "text": "Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2017). ImageNet classification with deep convolutional neural networks. Communications of the ACM, 60(6), 84–90 (originally published in Advances in Neural Information Processing Systems 25, 2012).",
+   "url": "https://doi.org/10.1145/3065386"
+  },
+  {
+   "text": "Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. Neural Computation, 9(8), 1735–1780.",
+   "url": "https://doi.org/10.1162/neco.1997.9.8.1735"
+  },
+  {
+   "text": "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30. arXiv:1706.03762.",
+   "url": "https://arxiv.org/abs/1706.03762"
+  },
+  {
+   "text": "Goodfellow, I. J., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., & Bengio, Y. (2014). Generative adversarial nets. Advances in Neural Information Processing Systems, 27. arXiv:1406.2661.",
+   "url": "https://arxiv.org/abs/1406.2661"
+  },
+  {
+   "text": "Karras, T., Laine, S., & Aila, T. (2019). A style-based generator architecture for generative adversarial networks. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 4401–4410. arXiv:1812.04948.",
+   "url": "https://arxiv.org/abs/1812.04948"
+  },
+  {
+   "text": "Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., & Fei-Fei, L. (2009). ImageNet: A large-scale hierarchical image database. 2009 IEEE Conference on Computer Vision and Pattern Recognition, 248–255.",
+   "url": "https://doi.org/10.1109/CVPR.2009.5206848"
+  },
+  {
+   "text": "He, K., Zhang, X., Ren, S., & Sun, J. (2015). Delving deep into rectifiers: Surpassing human-level performance on ImageNet classification. Proceedings of the IEEE International Conference on Computer Vision (ICCV), 1026–1034. arXiv:1502.01852.",
+   "url": "https://arxiv.org/abs/1502.01852"
+  },
+  {
+   "text": "Goodfellow, I. J., Shlens, J., & Szegedy, C. (2015). Explaining and harnessing adversarial examples. International Conference on Learning Representations (ICLR). arXiv:1412.6572.",
+   "url": "https://arxiv.org/abs/1412.6572"
+  },
+  {
+   "text": "McMahan, H. B., Moore, E., Ramage, D., Hampson, S., & Agüera y Arcas, B. (2017). Communication-efficient learning of deep networks from decentralized data. Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS), PMLR 54, 1273–1282. arXiv:1602.05629.",
+   "url": "https://arxiv.org/abs/1602.05629"
+  },
+  {
+   "text": "Strubell, E., Ganesh, A., & McCallum, A. (2019). Energy and policy considerations for deep learning in NLP. Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics, 3645–3650. arXiv:1906.02243.",
+   "url": "https://arxiv.org/abs/1906.02243"
+  },
+  {
+   "text": "Kirkpatrick, J., Pascanu, R., Rabinowitz, N., Veness, J., Desjardins, G., Rusu, A. A., et al. (2017). Overcoming catastrophic forgetting in neural networks. Proceedings of the National Academy of Sciences, 114(13), 3521–3526.",
+   "url": "https://doi.org/10.1073/pnas.1611835114"
+  }
+ ],
+ "corrections": [
+  "Original cited 'Decision tree algorithms, such as Random Forests' as interpretable models whose rules 'can be easily understood'. A random forest is an ensemble of many deep trees (Breiman, 2001) and is not intrinsically interpretable; corrected in Section 2.4, distinguishing single shallow trees from ensembles and adding LIME/SHAP and Rudin (2019).",
+  "Original stated AlphaGo 'defeated world champion Go players by learning the game through self-play and reinforcement learning'. AlphaGo (Silver et al., 2016) was trained first by supervised learning on human expert games and then by RL self-play, combined with Monte Carlo tree search; learning purely from self-play was AlphaGo Zero (Silver et al., 2017). Corrected in Section 2.2.",
+  "Original claimed ML/DL surpass 'human-level accuracy' in image recognition, speech processing and natural language understanding. Restricted to specific benchmarks (e.g., ImageNet top-5 error 4.94% vs ~5.1% human estimate, He et al., 2015) with explicit caveats on distribution shift and adversarial fragility (Section 4).",
+  "Original described deep neural networks as 'inspired by the structure of the human brain'. Corrected to 'loosely inspired by biological neurons' and clarified that modern architectures are engineered computational graphs (Section 3).",
+  "Original said CNNs 'perform complex image generation tasks'. Image generation is done by generative models (e.g., GANs) that use convolutional layers; discriminative CNN classifiers do not generate images. Corrected in Section 3.1.",
+  "Original implied ML/DL systems 'continually improve' and adapt automatically. Clarified that adaptation requires deliberate retraining and that naive sequential training causes catastrophic forgetting (Sections 4 and 6.5).",
+  "Original listed 'stock market forecasting' as an established finance application without qualification. Qualified that ML price forecasting is far more limited than credit scoring or fraud detection (Section 5).",
+  "Original omitted Transformers entirely despite discussing NLP and pretrained models. Added Section 3.3 with scaled dot-product attention and the original WMT 2014 result (Vaswani et al., 2017).",
+  "Original conclusion referred to applications in 'transportation and manufacturing' that were not discussed in the body. Added both domains to Section 5 and Table 2.",
+  "Original contained a duplicate 'In conclusion' paragraph at the end of Section 6 before the separate Conclusion section. Merged into a single Conclusion (Section 7).",
+  "Original challenges omitted robustness and energy cost. Added Section 6.3 (adversarial examples, Goodfellow et al., 2015) and Section 6.5 (energy, Strubell et al., 2019; continual learning, Kirkpatrick et al., 2017).",
+  "Original LSTM description was correct in essence; added the cell-state equation and noted the forget gate is part of the widely used later form, not the 1997 original.",
+  "Original reference list gave only titles and dates. All four were verified and retained with full bibliographic details and DOIs: Janiesch et al. (2021) Electronic Markets; Sarker (2021) SN Computer Science 2:160; Sarker (2021) SN Computer Science 2:420; Hillel et al. (2021) Journal of Choice Modelling 38:100221. Added 26 further verified references with inline citations."
+ ]
+}

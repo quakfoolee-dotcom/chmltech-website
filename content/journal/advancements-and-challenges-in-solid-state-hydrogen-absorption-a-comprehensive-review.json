@@ -1,0 +1,590 @@
+{
+ "slug": "advancements-and-challenges-in-solid-state-hydrogen-absorption-a-comprehensive-review",
+ "volume": 101,
+ "issue": 1,
+ "published": "2023-06-13",
+ "revised": "2026-11-09",
+ "title": "Advancements and Challenges in Solid-State Hydrogen Absorption: A Comprehensive Review",
+ "short_title": "Solid-State Hydrogen Absorption: A Review",
+ "meta": "Review of solid-state hydrogen storage: hydride thermodynamics and kinetics, metal, complex and chemical hydrides, physisorbents, DOE targets and tank heat management.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Clean Energy Technology Innovation",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Hydrogen has a high gravimetric energy density but a very low volumetric density under ambient conditions, so compact and safe storage remains a central obstacle to its wider use as an energy carrier. Solid-state storage, in which hydrogen is absorbed into a lattice as a hydride or adsorbed on a porous surface, can exceed the volumetric density of liquid hydrogen without high pressure. This review examines the principles that govern such storage, including pressure–composition isotherms, the van 't Hoff relation between plateau pressure, enthalpy and temperature, and the kinetic steps of dissociation, diffusion and phase nucleation. It then surveys the main material classes: intermetallic hydrides such as LaNi<sub>5</sub> and TiFe, magnesium and Mg<sub>2</sub>Ni, complex hydrides including alanates and borohydrides, chemical hydrides such as ammonia borane, and physisorbents such as activated carbons, graphene-derived materials and metal–organic frameworks. Representative capacities, enthalpies and operating temperatures are compared with U.S. Department of Energy system targets. Advances in catalysis (Nb<sub>2</sub>O<sub>5</sub> for MgH<sub>2</sub>, Ti for NaAlH<sub>4</sub>), nanostructuring and nanoconfinement, reactive hydride composites and computational screening are discussed, together with the persistent challenges of slow kinetics, limited reversibility, high operating temperature, weak physisorption binding and heat removal during refueling. The review concludes that no single material met the system targets in 2023, and that further progress depends on combining thermodynamic tuning with kinetic enhancement and on designing materials and tank heat exchangers together.",
+ "keywords": [
+  "hydrogen storage",
+  "metal hydrides",
+  "complex hydrides",
+  "van 't Hoff equation",
+  "magnesium hydride",
+  "physisorption",
+  "nanoconfinement",
+  "thermal management"
+ ],
+ "corrections": [
+  "LiAlH4 reaction 'LiAlH4 + 3H2 ↔ LiAl + 4H2' (unbalanced, chemically wrong) replaced by the correct stepwise decomposition 3LiAlH4 → Li3AlH6 + 2Al + 3H2 (5.3 wt%) and Li3AlH6 → 3LiH + Al + 3/2H2 (2.6 wt%); noted that LiAlH4 is metastable and not directly rehydrogenable (regeneration via THF adduct route, Graetz et al. 2008).",
+  "Ammonia borane 'NH3BH3 + H2 ↔ NH4BH4' (wrong direction and product) replaced by stepwise dehydrogenation NH3BH3 → [NH2BH2]n + H2 → [NHBH]n + 2H2 → BN + 3H2; stated 19.6 wt% H, ~6.5 wt% per step, exothermic release, no on-board rehydrogenation, off-board chemical regeneration.",
+  "'C + H2 ↔ CH2' removed as a description of physisorption; replaced with a Langmuir adsorption isotherm (Eq. 11) and discussion of 4–7 kJ/mol isosteric heats, the ~15 kJ/mol optimum (Bhatia & Myers), 77 K operation, surface-area scaling (Panella; Bénard & Chahine) and MOF-177 benchmark (Furukawa et al.).",
+  "Pure Mg capacity '1.2 wt%' corrected to 7.6 wt% (MgH2); Mg2NiH4 confirmed at 3.6 wt% but reframed: Ni alloying lowers |ΔH| (−64 vs −75 kJ/mol H2) and improves kinetics at the cost of capacity, rather than 'improving capacity'. Unsourced '90% release in 30 min vs hours' claim removed.",
+  "Van 't Hoff equation restated with explicit standard pressure and sign convention: ln(Peq/P0) = ΔHabs/(RT) − ΔSabs/R = −ΔHdes/(RT) + ΔSdes/R with ΔHabs < 0. The original text's interpretation ('equilibrium pressure inversely related to temperature and directly related to enthalpy') was wrong and was replaced: Peq rises exponentially with T, and a more stable hydride (larger |ΔH|) has a lower Peq. Added T(1 bar) = ΔH/ΔS and the ~39 kJ/mol requirement for a 1 bar plateau at room temperature.",
+  "Arrhenius explanation corrected (rate decreases exponentially with Ea, not 'inversely'); added that observed sorption rates also depend on driving force (P vs Peq) and the rate-controlling mechanism; added JMAK kinetics.",
+  "Pd diffusion data corrected: activation energy ~0.23 eV (not 0.3 eV) and D ≈ 10^-7 cm²/s at room temperature (not <10^-9 cm²/s), per Völkl & Alefeld; Pd is a fast hydrogen diffuser and is no longer used as the example of slow diffusion kinetics.",
+  "Unsourced nanostructured-Pd claims (0.9 wt% vs 0.6 wt%, <1 min vs hours) removed; replaced with sourced discussion of nanosize effects (narrowed miscibility gaps, de Jongh & Adelhelm). Pd capacity stated as PdH0.6–0.7 ≈ 0.6 wt%.",
+  "Complex hydrides 'up to 20 wt%' corrected: LiBH4 (18.5 wt% total H, ~13.9 wt% released to LiH + B) is the realistic top end; NaBH4 reclassified as a hydrolysis (single-use) carrier rather than a reversible absorber.",
+  "Interstitial hydrides '<2 wt%' retained for intermetallics (LaNi5H6 ≈ 1.4 wt%, TiFeH2 ≈ 1.9 wt%), but Ti was a wrong example: TiH2 holds ~4.0 wt% and is too stable for reversible ambient storage; text revised.",
+  "Graphene/graphene oxide claims (B/N-doped graphene 1.5 wt% at room temperature; GO absorbing hydrogen 'within a few seconds') could not be verified and were removed; replaced with sourced data (graphene-like nanosheets 1.2 wt% at 77 K/10 bar, ~0.1 wt% at 298 K, Srinivas et al.; GO frameworks ~1 wt% at 77 K/1 bar, Burress et al.; theory review, Tozzini & Pellegrini).",
+  "Unsupported 'LiAlH4 capacity decreases by ~50% after 10 cycles' removed (LiAlH4 is not directly reversible).",
+  "Unsupported 'Mg2Ni capacity decreases ~20% from 300 to 400 °C' removed and replaced with the thermodynamic explanation (approaching/exceeding plateau temperature at fixed pressure) and the heat-penalty calculation (MgH2 ≈ 37 MJ/kg H2 ≈ 31% of LHV).",
+  "DFT claim that capacity is governed by the density of states at the Fermi level replaced by a general, sourced description of DFT use (formation enthalpies, destabilization screening).",
+  "Statement that 'high temperatures can facilitate absorption but also lead to release' clarified as the van 't Hoff equilibrium; 'pressure-temperature swing' reframed accordingly.",
+  "Added: DOE onboard storage system targets (verified on the DOE page: 2020/2025/Ultimate 4.5/5.5/6.5 wt%, 0.030/0.040/0.050 kg/L, $10/9/8 per kWh, −40/85 °C, 5–12 bar, 1,500 cycles, 3–5 min fill) as Table 1; representative materials table (Table 2); sections on Nb2O5 catalysis of MgH2, Ti-doped NaAlH4 (correct two-step reaction, 5.6 wt%), reactive hydride composites (LiBH4/MgH2, ~25 kJ/mol destabilization, 11.4 wt%), nanoconfinement, and tank thermal management with heat-load equation (Eq. 13) and worked examples.",
+  "Introduction corrected: hydrogen is reactive but its storage problem is primarily low volumetric density; added quantitative comparison with 700 bar (~40 kg/m³) and liquid H2 (70.8 kg/m³)."
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Hydrogen is the lightest element and, per unit mass, one of the most energy-dense fuels available: its lower heating value is about 120 MJ kg<sup>−1</sup>, nearly three times that of gasoline, and its oxidation in a fuel cell or combustion engine produces water rather than carbon dioxide. Its volumetric energy density under ambient conditions, however, is extremely low. One kilogram of hydrogen occupies about 11 m<sup>3</sup> at 0 °C and 1 bar, and even the two mature physical storage options leave much to be desired: gas compressed to 700 bar reaches roughly 40 kg H<sub>2</sub> m<sup>−3</sup>, while liquid hydrogen at 20 K reaches 70.8 kg H<sub>2</sub> m<sup>−3</sup>, at the cost of heavy composite pressure vessels or a liquefaction energy demand equivalent to a large fraction of the stored energy [1, 2]."
+    },
+    {
+     "p": "Solid-state storage binds hydrogen to or within a solid, either as atoms dissolved in or chemically bonded to a host lattice (absorption, forming a hydride) or as molecules held on a surface by van der Waals forces (physisorption). Several metal hydrides contain more hydrogen per unit volume than liquid hydrogen itself, because the hydrogen atoms in the lattice are packed more densely than H<sub>2</sub> molecules in the liquid [1]. The practical difficulty is that a storage material must simultaneously offer high gravimetric and volumetric capacity, an equilibrium pressure of a few bar near the temperature of the available waste heat, fast and reversible kinetics over many cycles, tolerance to impurities, and manageable heat release during refueling. No known material meets all of these requirements at once."
+    },
+    {
+     "p": "This review examines the principles, the principal material classes, the main strategies developed to improve them, and the challenges that remain. The original scope of the article (thermodynamics and kinetics, materials, nanostructuring and alloying, and the challenges of kinetics, reversibility and operating temperature) is retained, but the treatment is expanded and several statements in the first version have been corrected against the primary literature. The viewpoint is that of mid-2023."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Principles of Solid-State Hydrogen Absorption",
+   "blocks": [
+    {
+     "h3": "2.1 Hydride formation and pressure–composition isotherms"
+    },
+    {
+     "p": "For a metal or intermetallic compound M, reversible hydride formation is commonly written per mole of hydrogen molecules as in Eq. (1), where the forward reaction is absorption (charging) and the reverse reaction is desorption (discharging)."
+    },
+    {
+     "eq": "M + (x/2) H<sub>2</sub>(g) ⇌ MH<sub>x</sub>(s)",
+     "n": 1
+    },
+    {
+     "p": "The process proceeds through several elementary steps: physisorption of H<sub>2</sub> on the surface, dissociation into chemisorbed H atoms, penetration into the subsurface, diffusion through the lattice as a dilute solid solution (the α phase), and, once the local concentration exceeds the solubility limit, nucleation and growth of the hydride (β) phase [1, 2]. In a pressure–composition isotherm the coexistence of the α and β phases appears as a plateau, at which the equilibrium pressure P<sub>eq</sub> is ideally independent of composition. The width of the plateau determines the reversible capacity; its height at a given temperature defines the thermodynamic operating window. Real materials show sloping plateaus and hysteresis between absorption and desorption, caused by lattice strain and defects."
+    },
+    {
+     "h3": "2.2 Thermodynamics: the van 't Hoff relation"
+    },
+    {
+     "p": "At the plateau, the condition ΔG = 0 for Eq. (1), written per mole of H<sub>2</sub>, yields the van 't Hoff relation in Eq. (2). Here ΔH<sub>abs</sub> and ΔS<sub>abs</sub> are the enthalpy and entropy of absorption per mole of H<sub>2</sub>, P<sup>0</sup> is the standard pressure (1 bar), R is the gas constant and T the absolute temperature."
+    },
+    {
+     "eq": "ln(P<sub>eq</sub>/P<sup>0</sup>) = ΔH<sub>abs</sub>/(RT) − ΔS<sub>abs</sub>/R = −ΔH<sub>des</sub>/(RT) + ΔS<sub>des</sub>/R",
+     "n": 2
+    },
+    {
+     "p": "Because hydride formation is exothermic, ΔH<sub>abs</sub> is negative. The entropy change is also negative and, for most metal hydrides, close to −130 J mol<sup>−1</sup> K<sup>−1</sup> per mole of H<sub>2</sub>, since it is dominated by the loss of the standard entropy of gaseous hydrogen [2]. Two consequences follow. First, P<sub>eq</sub> increases exponentially with temperature: a hydride that is stable at room temperature releases hydrogen when heated. Second, at a given temperature a more stable hydride (larger |ΔH|) has a lower plateau pressure. Setting P<sub>eq</sub> = 1 bar gives the temperature at which the hydride decomposes at atmospheric pressure, Eq. (3)."
+    },
+    {
+     "eq": "T(1 bar) = ΔH<sub>abs</sub>/ΔS<sub>abs</sub> = ΔH<sub>des</sub>/ΔS<sub>des</sub>",
+     "n": 3
+    },
+    {
+     "p": "With ΔS ≈ −130 J mol<sup>−1</sup> K<sup>−1</sup>, a plateau of 1 bar near room temperature requires |ΔH| ≈ 39 kJ mol<sup>−1</sup> H<sub>2</sub>, and a material that delivers hydrogen at a few bar to a proton exchange membrane fuel cell operating at about 80 °C requires |ΔH| in the range of roughly 30–45 kJ mol<sup>−1</sup> H<sub>2</sub> [1, 2]. Magnesium hydride, with ΔH<sub>abs</sub> ≈ −75 kJ mol<sup>−1</sup> H<sub>2</sub>, reaches 1 bar only near 300 °C [3]. This simple relation explains why the search for storage materials has been, to a large extent, a search for the right enthalpy."
+    },
+    {
+     "h3": "2.3 Kinetics"
+    },
+    {
+     "p": "The temperature dependence of each elementary rate constant is usually described by the Arrhenius relation, Eq. (4), where A is the pre-exponential factor and E<sub>a</sub> the apparent activation energy. The rate constant decreases exponentially as E<sub>a</sub> increases and increases exponentially with temperature."
+    },
+    {
+     "eq": "k = A exp(−E<sub>a</sub>/(RT))",
+     "n": 4
+    },
+    {
+     "p": "The observed sorption rate is not determined by k alone. It also depends on the thermodynamic driving force, often expressed through a pressure term such as (P − P<sub>eq</sub>)/P<sub>eq</sub> or ln(P/P<sub>eq</sub>), and on the mechanism that controls the rate: surface dissociation, diffusion through a growing hydride shell, or interface-controlled nucleation and growth. Isothermal transformation curves are frequently fitted with the Johnson–Mehl–Avrami–Kolmogorov expression, Eq. (5), where α is the reacted fraction, t is time and the exponent n reflects the dimensionality of growth and the nucleation mode [3, 4]."
+    },
+    {
+     "eq": "α(t) = 1 − exp[−(kt)<sup>n</sup>]",
+     "n": 5
+    },
+    {
+     "p": "Bulk diffusion is not intrinsically slow in every hydride-forming metal. Palladium is the classic counterexample: the activation energy for hydrogen diffusion in the α phase is about 0.23 eV (≈22 kJ mol<sup>−1</sup>), and the diffusion coefficient at room temperature is of the order of 10<sup>−7</sup> cm<sup>2</sup> s<sup>−1</sup> [5]. For magnesium, by contrast, the hydride phase forms a dense surface layer through which diffusion is very slow, and the surface oxide hinders H<sub>2</sub> dissociation; these two factors, rather than the Arrhenius term of a single step, explain the sluggish behavior of coarse-grained Mg [4]."
+    },
+    {
+     "h3": "2.4 Performance metrics and system targets"
+    },
+    {
+     "p": "Material capacities are usually quoted as the mass of hydrogen per mass of hydride (wt%) and as kilograms of hydrogen per cubic metre of hydride. A storage system, however, also includes the vessel, heat exchanger, valves, insulation and, for some concepts, a hydrogen buffer. System capacities are therefore always lower than material capacities. The U.S. Department of Energy (DOE) has set system-level targets for onboard storage in light-duty vehicles, summarized in Table 1 [6]. These targets are widely used as benchmarks beyond the automotive sector."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "U.S. DOE technical system targets for onboard hydrogen storage for light-duty fuel cell vehicles (selected parameters; values apply to the complete storage system, not the material).",
+      "head": [
+       "Parameter",
+       "2020",
+       "2025",
+       "Ultimate"
+      ],
+      "rows": [
+       [
+        "Gravimetric capacity, kWh kg<sup>−1</sup> (kg H<sub>2</sub> kg<sup>−1</sup> system)",
+        "1.5 (0.045)",
+        "1.8 (0.055)",
+        "2.2 (0.065)"
+       ],
+       [
+        "Volumetric capacity, kWh L<sup>−1</sup> (kg H<sub>2</sub> L<sup>−1</sup> system)",
+        "1.0 (0.030)",
+        "1.3 (0.040)",
+        "1.7 (0.050)"
+       ],
+       [
+        "Storage system cost, $ kWh<sup>−1</sup> (net)",
+        "10",
+        "9",
+        "8"
+       ],
+       [
+        "Min/max delivery temperature, °C",
+        "−40/85",
+        "−40/85",
+        "−40/85"
+       ],
+       [
+        "Min/max delivery pressure, bar (abs)",
+        "5/12",
+        "5/12",
+        "5/12"
+       ],
+       [
+        "Operational cycle life (1/4 tank to full), cycles",
+        "1,500",
+        "1,500",
+        "1,500"
+       ],
+       [
+        "System fill time (5 kg H<sub>2</sub>), min",
+        "3–5",
+        "3–5",
+        "3–5"
+       ]
+      ],
+      "note": "Source: [6]. Energy values are based on the lower heating value of hydrogen (33.3 kWh kg<sup>−1</sup>)."
+     }
+    },
+    {
+     "p": "The ultimate gravimetric target of 6.5 wt% at system level implies that a material would need to store substantially more than this, typically 8–10 wt% reversibly, once the mass of the containment and thermal management hardware is included. The delivery pressure window of 5–12 bar at temperatures up to 85 °C translates, through Eq. (2), into a narrow enthalpy window, and the 3–5 min fill time sets a demanding heat-removal requirement (Section 5.4)."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Materials for Solid-State Hydrogen Storage",
+   "blocks": [
+    {
+     "p": "Four broad classes of materials have been investigated: interstitial and intermetallic hydrides, magnesium-based hydrides, complex hydrides, and chemical hydrides, together with porous physisorbents such as activated carbons, graphene-derived materials and metal–organic frameworks (MOFs). Representative properties are compiled in Table 2 at the end of this section."
+    },
+    {
+     "h3": "3.1 Interstitial and intermetallic hydrides"
+    },
+    {
+     "p": "In interstitial hydrides, hydrogen atoms occupy tetrahedral or octahedral interstices of a metallic lattice. Palladium absorbs hydrogen readily at room temperature to form PdH<sub>x</sub> with x ≈ 0.6–0.7 at moderate pressure. Because Pd is heavy, this corresponds to only about 0.6 wt% hydrogen, so palladium is valuable as a model system, a membrane material and a catalyst, but not as a bulk storage medium. Titanium is a poor example of a low-capacity interstitial store: its dihydride TiH<sub>2</sub> contains about 4.0 wt% hydrogen, but it is so stable that it releases hydrogen only at several hundred degrees Celsius. The practically useful room-temperature materials are intermetallic compounds of the form AB<sub>5</sub> (for example LaNi<sub>5</sub>), AB<sub>2</sub> (Laves phases) and AB (for example TiFe), which combine a hydride-forming element A with a non-hydride-forming element B so as to tune the enthalpy into the 25–35 kJ mol<sup>−1</sup> H<sub>2</sub> range [1, 3]. Their reversible capacities are limited to below 2 wt% (LaNi<sub>5</sub>H<sub>6</sub> ≈ 1.4 wt%, TiFeH<sub>2</sub> ≈ 1.9 wt%), but they operate at ambient temperature with excellent cycle life, which makes them well suited to stationary storage, where mass is less critical than volume and safety."
+    },
+    {
+     "h3": "3.2 Magnesium and magnesium-based alloys"
+    },
+    {
+     "p": "Magnesium is light, abundant and inexpensive, and MgH<sub>2</sub> contains 7.6 wt% hydrogen with a volumetric density of about 110 kg H<sub>2</sub> m<sup>−3</sup> [1, 4]. Its disadvantages are thermodynamic (ΔH<sub>abs</sub> ≈ −75 kJ mol<sup>−1</sup> H<sub>2</sub>, so a temperature near 300 °C is needed for a desorption pressure of 1 bar) and kinetic (slow dissociation on oxidized surfaces and slow diffusion through MgH<sub>2</sub>) [3]. Alloying with nickel gives Mg<sub>2</sub>Ni, which forms Mg<sub>2</sub>NiH<sub>4</sub> with 3.6 wt% hydrogen and a less negative formation enthalpy of about −64 kJ mol<sup>−1</sup> H<sub>2</sub> [7]. Mg<sub>2</sub>Ni therefore absorbs and desorbs faster and at somewhat lower temperatures than pure Mg, but it stores less than half as much hydrogen. The trade-off between capacity and stability illustrated by this pair recurs throughout the field."
+    },
+    {
+     "h3": "3.3 Complex hydrides"
+    },
+    {
+     "p": "Complex hydrides are ionic or partly covalent compounds in which hydrogen is bound in complex anions such as [AlH<sub>4</sub>]<sup>−</sup>, [BH<sub>4</sub>]<sup>−</sup> or [NH<sub>2</sub>]<sup>−</sup>. Their attraction is high gravimetric capacity because they are built from light elements; their limitations are high decomposition temperatures, multistep reactions and, in many cases, poor reversibility [8]. The realistic upper end of the class is lithium borohydride, LiBH<sub>4</sub>, which contains 18.5 wt% hydrogen in total, of which about 13.9 wt% is released on decomposition to LiH and boron [8, 2]."
+    },
+    {
+     "p": "Alanates decompose in steps, not in a single reaction. For sodium alanate, the stepwise decomposition is shown in Eqs. (6) and (7). These two steps release 3.7 and 1.9 wt% hydrogen respectively, so the total reversible capacity is 5.6 wt%; reversible operation under moderate conditions became possible only after Bogdanović and Schwickardi showed in 1997 that titanium doping catalyzes both the dehydrogenation and the rehydrogenation [9, 10]."
+    },
+    {
+     "eq": "3NaAlH<sub>4</sub> ⇌ Na<sub>3</sub>AlH<sub>6</sub> + 2Al + 3H<sub>2</sub>",
+     "n": 6
+    },
+    {
+     "eq": "Na<sub>3</sub>AlH<sub>6</sub> ⇌ 3NaH + Al + (3/2)H<sub>2</sub>",
+     "n": 7
+    },
+    {
+     "p": "Lithium alanate follows the analogous sequence in Eqs. (8) and (9), releasing 5.3 and 2.6 wt% hydrogen respectively (7.9 wt% in total to LiH + Al); a further step, the decomposition of LiH, requires temperatures well above 400 °C and is not used for storage [8]. Unlike NaAlH<sub>4</sub>, LiAlH<sub>4</sub> is thermodynamically metastable at room temperature, so the first step cannot be reversed by applying practical hydrogen pressures. Rehydrogenation has been demonstrated only by indirect routes, for example by forming a LiAlH<sub>4</sub>·4THF adduct from LiH and Ti-catalyzed Al in tetrahydrofuran and then removing the solvent [11]."
+    },
+    {
+     "eq": "3LiAlH<sub>4</sub> → Li<sub>3</sub>AlH<sub>6</sub> + 2Al + 3H<sub>2</sub>",
+     "n": 8
+    },
+    {
+     "eq": "Li<sub>3</sub>AlH<sub>6</sub> → 3LiH + Al + (3/2)H<sub>2</sub>",
+     "n": 9
+    },
+    {
+     "p": "Sodium borohydride, NaBH<sub>4</sub> (10.8 wt% H), is thermally very stable and is used mainly as a hydrolysis fuel (NaBH<sub>4</sub> + 2H<sub>2</sub>O → NaBO<sub>2</sub> + 4H<sub>2</sub>), in which the borate product must be recycled off-board. It is therefore better classed as a single-use chemical hydrogen carrier than as a reversible absorber [8]."
+    },
+    {
+     "h3": "3.4 Chemical hydrides"
+    },
+    {
+     "p": "Chemical hydrides release hydrogen by irreversible, often exothermic, chemical reactions, and the spent material is regenerated chemically outside the vehicle or storage unit. Ammonia borane, NH<sub>3</sub>BH<sub>3</sub>, is the most studied example. It contains 19.6 wt% hydrogen and releases it stepwise on heating, as in Eq. (10): the first equivalent below about 120 °C, the second near 150 °C, and the third only above about 500 °C, each step corresponding to about 6.5 wt% [12, 13]."
+    },
+    {
+     "eq": "NH<sub>3</sub>BH<sub>3</sub> → (1/n)[NH<sub>2</sub>BH<sub>2</sub>]<sub>n</sub> + H<sub>2</sub> → (1/n)[NHBH]<sub>n</sub> + 2H<sub>2</sub> → BN + 3H<sub>2</sub>",
+     "n": 10
+    },
+    {
+     "p": "Dehydrogenation of ammonia borane is exothermic (about −21 kJ mol<sup>−1</sup> for the first step), so the spent fuel cannot be rehydrogenated by applying hydrogen pressure. Volatile byproducts such as borazine and ammonia must be removed before the gas reaches a fuel cell, and the energy efficiency of off-board regeneration remains the key economic uncertainty [12, 13]. Hydrazine (N<sub>2</sub>H<sub>4</sub>, 12.6 wt% H) is sometimes grouped with these carriers, but its toxicity restricts it to specialized applications."
+    },
+    {
+     "h3": "3.5 Physisorbents: carbons, graphene-derived materials and MOFs"
+    },
+    {
+     "p": "Physisorption stores molecular hydrogen on a surface without dissociation. No chemical reaction or hydride is involved, so a stoichiometric equation such as \"C + H<sub>2</sub> → CH<sub>2</sub>\" does not describe it. A more appropriate description is an adsorption isotherm, for example a Langmuir form, Eq. (11), where n is the adsorbed amount, n<sub>max</sub> the monolayer capacity and K(T) an equilibrium constant that depends on the adsorption enthalpy."
+    },
+    {
+     "eq": "n = n<sub>max</sub> K(T)P / [1 + K(T)P],  K(T) = K<sub>0</sub> exp(−ΔH<sub>ads</sub>/(RT))",
+     "n": 11
+    },
+    {
+     "p": "The isosteric heat of adsorption of H<sub>2</sub> on carbons and most MOFs is only about 4–7 kJ mol<sup>−1</sup>, which is comparable to RT at ambient temperature and therefore gives negligible uptake at 25 °C [14, 15]. Thermodynamic analysis indicates that an adsorption enthalpy of roughly 15 kJ mol<sup>−1</sup> would be needed for optimal delivery between typical charge and discharge pressures at room temperature [16]. Physisorbents are therefore operated at or near liquid-nitrogen temperature (77 K), where uptake scales approximately linearly with specific surface area; for carbons the empirical rule is roughly 1 wt% per 500 m<sup>2</sup> g<sup>−1</sup> at 77 K, and the best activated carbon in one systematic study (2560 m<sup>2</sup> g<sup>−1</sup>) reached 4.5 wt% [15, 17]. Among MOFs, MOF-177 shows an excess uptake of about 7.5 wt% at 77 K and 70 bar [18]. The low packing density of these powders, however, limits their volumetric capacity."
+    },
+    {
+     "p": "Graphene has been discussed as an idealized two-sided adsorbent with a theoretical surface area of about 2630 m<sup>2</sup> g<sup>−1</sup>, and theoretical studies predict higher capacities for metal-decorated or curved sheets; experimental room-temperature uptakes nevertheless remain low [19]. Graphene-like nanosheets prepared by reducing exfoliated graphite oxide (BET area 640 m<sup>2</sup> g<sup>−1</sup>) adsorbed about 1.2 wt% at 77 K and 10 bar but only about 0.1 wt% at 298 K, with isosteric heats of 4–5.9 kJ mol<sup>−1</sup> [20]. Graphene oxide itself is relevant chiefly as a precursor. Pillaring graphene oxide layers with benzene-diboronic acid linkers produced graphene oxide frameworks that adsorbed about 1 wt% hydrogen at 77 K and 1 bar [21]. No reliable evidence supports fast or high-capacity room-temperature hydrogen chemisorption on graphene oxide, so statements to that effect in the first version of this article have been withdrawn."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Representative solid-state hydrogen storage materials. Capacities are theoretical material values unless stated; enthalpies are per mole of H<sub>2</sub> for the reaction indicated.",
+      "head": [
+       "Material / reaction",
+       "Gravimetric H content (wt%)",
+       "Approx. volumetric density (kg H<sub>2</sub> m<sup>−3</sup>, material)",
+       "Typical operating temperature",
+       "ΔH (kJ mol<sup>−1</sup> H<sub>2</sub>)",
+       "Reversibility"
+      ],
+      "rows": [
+       [
+        "LaNi<sub>5</sub>H<sub>6</sub> (intermetallic, AB<sub>5</sub>)",
+        "1.4",
+        "≈ 95",
+        "Ambient; P<sub>eq</sub> ≈ 2 bar at 25 °C",
+        "≈ −31 (absorption)",
+        "Excellent; thousands of cycles"
+       ],
+       [
+        "TiFeH<sub>2</sub> (intermetallic, AB)",
+        "1.9",
+        "≈ 105",
+        "Ambient; P<sub>eq</sub> ≈ 5 bar at 30 °C",
+        "≈ −28 (absorption)",
+        "Good after activation"
+       ],
+       [
+        "Mg<sub>2</sub>NiH<sub>4</sub>",
+        "3.6",
+        "≈ 98",
+        "≈ 250–300 °C (1 bar near 280 °C)",
+        "≈ −64 (absorption)",
+        "Good"
+       ],
+       [
+        "MgH<sub>2</sub>",
+        "7.6",
+        "≈ 110",
+        "≈ 300 °C (1 bar near 280–300 °C)",
+        "≈ −75 (absorption)",
+        "Good with catalysts; slow when uncatalyzed"
+       ],
+       [
+        "NaAlH<sub>4</sub> → Na<sub>3</sub>AlH<sub>6</sub> → NaH + Al",
+        "5.6 (3.7 + 1.9)",
+        "≈ 70 (reversible part)",
+        "≈ 100–180 °C (Ti-doped)",
+        "≈ 37 and 47 (desorption, steps 1 and 2)",
+        "Reversible only when catalyzed (Ti)"
+       ],
+       [
+        "LiBH<sub>4</sub> → LiH + B",
+        "13.9 (18.5 total H)",
+        "≈ 120 (total H)",
+        "> 400 °C",
+        "≈ 74 (desorption)",
+        "Only under severe conditions"
+       ],
+       [
+        "2LiBH<sub>4</sub> + MgH<sub>2</sub> ⇌ 2LiH + MgB<sub>2</sub> + 4H<sub>2</sub>",
+        "11.4",
+        "—",
+        "≈ 300–450 °C (kinetically limited)",
+        "≈ 25 lower than LiBH<sub>4</sub> alone",
+        "Reversible (reactive hydride composite)"
+       ],
+       [
+        "NH<sub>3</sub>BH<sub>3</sub> (ammonia borane)",
+        "19.6 (≈ 6.5 per step)",
+        "≈ 145",
+        "≈ 100–150 °C for first two equivalents",
+        "Exothermic release (≈ −21 for step 1)",
+        "Not reversible on board; chemical regeneration"
+       ],
+       [
+        "Activated carbon, 2560 m<sup>2</sup> g<sup>−1</sup>",
+        "4.5 (77 K)",
+        "Low (bulk-density limited)",
+        "77 K",
+        "≈ 4–7 (isosteric heat)",
+        "Fully reversible"
+       ],
+       [
+        "MOF-177",
+        "≈ 7.5 excess (77 K, 70 bar)",
+        "Low (bulk-density limited)",
+        "77 K",
+        "≈ 4–7 (isosteric heat)",
+        "Fully reversible"
+       ]
+      ],
+      "note": "Sources: [1, 2, 3, 7, 10, 8, 26, 12, 17, 18, 14]. Volumetric densities are the author's estimates from crystallographic densities (±10%) and are given for orientation only; gravimetric values are calculated from stoichiometry."
+     }
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Recent Advancements in Solid-State Hydrogen Absorption",
+   "blocks": [
+    {
+     "p": "Research in the two decades before 2023 concentrated on four levers: catalysts and additives to accelerate kinetics; nanostructuring and nanoconfinement to shorten diffusion paths and, in the limit, alter thermodynamics; thermodynamic destabilization through reactive composites; and computational screening [22, 23]."
+    },
+    {
+     "h3": "4.1 Catalysts and additives"
+    },
+    {
+     "p": "For MgH<sub>2</sub>, high-energy ball milling with small amounts of transition-metal oxides has had the largest effect on kinetics. Barkhordarian et al. showed that nanocrystalline MgH<sub>2</sub> milled with a small fraction (of the order of 0.2–1 mol%) of Nb<sub>2</sub>O<sub>5</sub> absorbs and desorbs hydrogen within minutes at 250–300 °C, an improvement of more than an order of magnitude over uncatalyzed material [24]. The catalyst lowers the barrier for H<sub>2</sub> dissociation and recombination at the surface, and milling creates fresh surfaces, defects and short diffusion paths [4]. Catalysis does not change the reaction enthalpy, so catalyzed MgH<sub>2</sub> still requires about 300 °C for a 1 bar desorption pressure. For sodium alanate, a few mol% of Ti introduced as TiCl<sub>3</sub> or Ti-containing precursors enables reversible cycling of the two-step reaction in Eqs. (6) and (7) at temperatures between roughly 100 and 180 °C [9, 10]."
+    },
+    {
+     "h3": "4.2 Nanostructuring and nanoconfinement"
+    },
+    {
+     "p": "Reducing particle or grain size shortens diffusion distances and multiplies the number of nucleation sites, which improves sorption rates. Nanoconfinement, the infiltration of hydrides into porous carbon or oxide scaffolds, also limits particle growth and phase segregation during cycling [25]. Thermodynamic effects require much smaller dimensions: significant changes in the formation enthalpy of MgH<sub>2</sub> are predicted only for particles of a few nanometres, and the scaffold adds inactive mass that reduces system capacity [25]. Size effects in palladium also do not straightforwardly increase capacity. Small Pd nanoparticles typically show narrower miscibility gaps and changed plateau pressures relative to the bulk [25]. The first version of this article cited specific capacity and rate figures for nanostructured Pd (0.9 wt% within one minute versus 0.6 wt% over several hours for the bulk). No primary source could be identified for these figures, so they have been removed."
+    },
+    {
+     "h3": "4.3 Thermodynamic destabilization and reactive hydride composites"
+    },
+    {
+     "p": "A hydride that is too stable can be destabilized by adding a second component that forms a stable compound with the dehydrogenated product, thereby lowering the overall reaction enthalpy. The best-known example is the reactive hydride composite of LiBH<sub>4</sub> and MgH<sub>2</sub>, Eq. (12), in which the formation of MgB<sub>2</sub> reduces the dehydrogenation enthalpy by about 25 kJ mol<sup>−1</sup> H<sub>2</sub> relative to LiBH<sub>4</sub> alone and makes the system reversible, with a theoretical capacity of 11.4 wt% [26]."
+    },
+    {
+     "eq": "2LiBH<sub>4</sub> + MgH<sub>2</sub> ⇌ 2LiH + MgB<sub>2</sub> + 4H<sub>2</sub>",
+     "n": 12
+    },
+    {
+     "p": "In practice, reactive hydride composites still operate at 300–450 °C because the solid-state reactions between separate phases are slow and the mixtures can follow undesired paths. Thermodynamic destabilization therefore shifts the problem from thermodynamics to kinetics, and reactive composites are usually combined with catalysts and nanoconfinement [26, 22]. The same principle underlies alloying Mg with Ni (Section 3.2), where formation of Mg<sub>2</sub>NiH<sub>4</sub> lowers |ΔH| at the cost of capacity."
+    },
+    {
+     "h3": "4.4 Computational screening"
+    },
+    {
+     "p": "Density functional theory (DFT) calculations are now routinely used to estimate hydride formation enthalpies, identify thermodynamically favorable destabilization reactions and rationalize the effect of dopants on surface dissociation barriers, which narrows the experimental search space [22, 23]. The first version of this article stated that hydrogen absorption capacity is governed by the electronic density of states at the Fermi level. Electronic structure does influence metal–hydrogen bonding, but no single descriptor of this kind predicts storage capacity, which is set mainly by stoichiometry, crystal structure and the thermodynamic window. The statement has been replaced by the more general description above."
+    },
+    {
+     "callout": "Catalysts and nanostructuring accelerate hydrogen uptake and release but leave the reaction enthalpy, and hence the operating temperature, essentially unchanged. Only destabilization chemistry or extreme nanoconfinement alters the thermodynamics, and both usually reduce net capacity."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Challenges in Solid-State Hydrogen Absorption",
+   "blocks": [
+    {
+     "h3": "5.1 Slow kinetics"
+    },
+    {
+     "p": "Slow sorption remains a key barrier for Mg-based materials, complex hydrides and reactive composites. The rate-limiting steps are typically surface H<sub>2</sub> dissociation, diffusion through a product layer, and nucleation and growth of new phases that require long-range transport of metal atoms, as in the alanate reactions in Eqs. (6)–(9) [3, 8]. Bulk hydrogen diffusion in palladium, by contrast, is fast (Section 2.3), so palladium does not illustrate this problem. The established countermeasures are catalysts, ball milling, nanostructuring and nanoconfinement (Section 4). Their benefits can degrade during cycling as particles sinter or catalysts segregate [22]."
+    },
+    {
+     "h3": "5.2 Reversibility and cycle stability"
+    },
+    {
+     "p": "Reversibility is fundamentally a thermodynamic question for complex and chemical hydrides. Materials that are metastable (LiAlH<sub>4</sub>) or that dehydrogenate exothermically (NH<sub>3</sub>BH<sub>3</sub>) cannot be recharged by hydrogen pressure on board and must be regenerated chemically [11, 13]. For borohydrides, the formation of stable intermediates such as closo-borates and the loss of volatile boranes reduce reversible capacity [8]. The first version of this article quoted a 50% loss of LiAlH<sub>4</sub> capacity after 10 cycles. That figure was unsupported and misleading, because LiAlH<sub>4</sub> is not directly reversible, and it has been removed. For reversible metal hydrides, capacity fade arises from disproportionation, impurity poisoning (O<sub>2</sub>, H<sub>2</sub>O, CO) and particle decrepitation, which can impair bed heat transfer [3]."
+    },
+    {
+     "h3": "5.3 Operating temperature and the thermodynamic window"
+    },
+    {
+     "p": "High operating temperatures are a consequence of large |ΔH| through Eq. (3). They are not a side effect that can be removed by operating procedures. At a fixed charging pressure, raising the temperature towards or above the plateau temperature reduces the amount absorbed, because the material moves out of the two-phase region. This is the expected behavior predicted by Eq. (2), not a degradation mechanism. The first version of this article gave a specific 20% capacity loss for Mg<sub>2</sub>Ni between 300 and 400 °C. No source was found for this figure, and it has been replaced by this thermodynamic explanation. The heat required to release hydrogen is also an energy penalty. For MgH<sub>2</sub>, ΔH ≈ 75 kJ mol<sup>−1</sup> H<sub>2</sub> corresponds to about 37 MJ per kg H<sub>2</sub>, or roughly 31% of the hydrogen's lower heating value, which must be supplied at around 300 °C. For a fuel-cell vehicle, whose waste heat is available only below about 90 °C, this effectively rules out MgH<sub>2</sub> unless part of the hydrogen is burned [1, 3]."
+    },
+    {
+     "h3": "5.4 Thermal management in tank design"
+    },
+    {
+     "p": "Hydride formation releases heat, and the heat-removal rate during refueling is often the limiting factor in system design. The thermal power that must be removed while hydrogen is absorbed at mass flow ṁ<sub>H2</sub> is given by Eq. (13), where M<sub>H2</sub> = 2.016 g mol<sup>−1</sup>."
+    },
+    {
+     "eq": "Q̇ = ṁ<sub>H2</sub> |ΔH<sub>abs</sub>| / M<sub>H2</sub>",
+     "n": 13
+    },
+    {
+     "p": "Filling 5 kg of hydrogen in 5 min into a LaNi<sub>5</sub>-type hydride (|ΔH| ≈ 31 kJ mol<sup>−1</sup>) requires the removal of about 0.26 MW of heat; for MgH<sub>2</sub> (|ΔH| ≈ 75 kJ mol<sup>−1</sup>) filled in 3 min, the figure exceeds 1 MW. Because powder beds have low effective thermal conductivities, practical tanks require embedded heat exchangers (tubes, fins, metal foams), compacted pellets with expanded natural graphite, and careful bed geometry, all of which add mass and volume [27]. Model-based optimization of bed thickness, heat-exchanger layout and filling strategy is therefore an integral part of material selection, and system-level capacities can fall well below material values [27, 22]. Hydride expansion of 10–25% on absorption must also be accommodated to avoid vessel strain."
+    },
+    {
+     "h3": "5.5 Physisorbents at ambient temperature"
+    },
+    {
+     "p": "For carbons, graphene-derived materials and MOFs, the dominant challenge is the weak binding enthalpy (Section 3.5). Increasing pressure raises uptake only modestly at room temperature, and the first version of this article reported a 1.5 wt% room-temperature capacity for B- or N-doped graphene. That figure could not be confirmed in the primary experimental literature and has been removed. Theoretical work suggests that heteroatom doping, open metal sites or metal decoration could raise binding energies towards the optimal range of about 15 kJ mol<sup>−1</sup> [16, 19], and MOFs with exposed metal cations have shown higher initial isosteric heats [14]. Cryogenic operation at 77 K remains, as of 2023, the only route to several weight percent in physisorbents, and it requires a cryogenic vessel with associated insulation and boil-off management."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Outlook",
+   "blocks": [
+    {
+     "p": "No single material class met the DOE system targets in mid-2023. Intermetallic hydrides are technically mature, safe and reversible at ambient temperature but too heavy for vehicles. They are increasingly considered for stationary and backup storage, hydrogen compression and integration with electrolyzers and fuel cells, where their compactness and low operating pressure are advantages [22]. Magnesium-based and complex hydrides offer high capacity but need heat at 100–400 °C. They are best matched to applications with high-temperature waste heat, such as solid oxide fuel cells, or to thermochemical heat storage [23, 22]. Chemical hydrides and physisorbents face, respectively, off-board regeneration costs and cryogenic requirements."
+    },
+    {
+     "p": "Three research directions appear most promising: (i) combined strategies, such as nanoconfined reactive hydride composites with catalysts, that address thermodynamics and kinetics together; (ii) system-level co-design, in which heat-exchanger architecture, bed engineering and material selection are optimized together against realistic duty cycles; and (iii) materials discovery guided by computation and high-throughput experiments, aimed at enthalpies of 25–40 kJ mol<sup>−1</sup> H<sub>2</sub> in light-element frameworks [22, 23]. For engineering practice, Eq. (2) and Eq. (13) provide a first screening tool: any candidate should be checked for plateau pressure at the available heat-source temperature and for the heat load at the required fill or discharge rate before more detailed evaluation."
+    },
+    {
+     "p": "<strong>Note on subsequent developments (2026 revision).</strong> This review reflects the literature available in mid-2023. Readers should consult the current DOE storage targets page and recent reviews for updated targets and material data, as these are revised periodically. The corrections listed for this revision concern the 2023 text and do not depend on later results."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "Solid-state hydrogen storage stores hydrogen at volumetric densities comparable to or above those of liquid hydrogen without high pressure or cryogenic temperatures, but every known material requires a compromise among capacity, operating temperature, kinetics and reversibility. The thermodynamics of hydride formation, expressed by the van 't Hoff relation with negative absorption enthalpy and entropy, set the operating temperature. Kinetic limitations, governed by surface dissociation, diffusion and phase nucleation, can be addressed by catalysts such as Nb<sub>2</sub>O<sub>5</sub> for MgH<sub>2</sub> and Ti for NaAlH<sub>4</sub> and by nanostructuring. Reactive hydride composites and nanoconfinement can shift thermodynamics, usually at the expense of capacity or kinetics. Physisorbents such as activated carbons, graphene-derived materials and MOFs are fully reversible and fast but require cryogenic temperatures because of their weak binding enthalpies of about 4–7 kJ mol<sup>−1</sup>."
+    },
+    {
+     "p": "At system level, the mass and volume of the containment and the heat exchangers needed to remove absorption heat during refueling determine whether a promising material becomes a usable store. The next advances are therefore likely to come from integrated material and system design, assessed against quantified targets such as those of the DOE."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Schlapbach, L., & Züttel, A. (2001). Hydrogen-storage materials for mobile applications. Nature, 414(6861), 353–358.",
+   "url": "https://doi.org/10.1038/35104634"
+  },
+  {
+   "text": "Züttel, A. (2003). Materials for hydrogen storage. Materials Today, 6(9), 24–33.",
+   "url": "https://doi.org/10.1016/S1369-7021(03)00922-2"
+  },
+  {
+   "text": "Sakintuna, B., Lamari-Darkrim, F., & Hirscher, M. (2007). Metal hydride materials for solid hydrogen storage: A review. International Journal of Hydrogen Energy, 32(9), 1121–1140.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2006.11.022"
+  },
+  {
+   "text": "Jain, I. P., Lal, C., & Jain, A. (2010). Hydrogen storage in Mg: A most promising material. International Journal of Hydrogen Energy, 35(10), 5133–5144.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2009.08.088"
+  },
+  {
+   "text": "Völkl, J., & Alefeld, G. (1978). Diffusion of hydrogen in metals. In G. Alefeld & J. Völkl (Eds.), Hydrogen in Metals I (Topics in Applied Physics, Vol. 28, pp. 321–348). Springer.",
+   "url": "https://doi.org/10.1007/3540087052_51"
+  },
+  {
+   "text": "U.S. Department of Energy, Hydrogen and Fuel Cell Technologies Office. (n.d.). DOE technical targets for onboard hydrogen storage for light-duty vehicles. Retrieved 2023 from energy.gov.",
+   "url": "https://www.energy.gov/eere/fuelcells/doe-technical-targets-onboard-hydrogen-storage-light-duty-vehicles"
+  },
+  {
+   "text": "Reilly, J. J., & Wiswall, R. H. (1968). Reaction of hydrogen with alloys of magnesium and nickel and the formation of Mg<sub>2</sub>NiH<sub>4</sub>. Inorganic Chemistry, 7(11), 2254–2256.",
+   "url": "https://doi.org/10.1021/ic50069a016"
+  },
+  {
+   "text": "Orimo, S., Nakamori, Y., Eliseo, J. R., Züttel, A., & Jensen, C. M. (2007). Complex hydrides for hydrogen storage. Chemical Reviews, 107(10), 4111–4132.",
+   "url": "https://doi.org/10.1021/cr0501846"
+  },
+  {
+   "text": "Bogdanović, B., & Schwickardi, M. (1997). Ti-doped alkali metal aluminium hydrides as potential novel reversible hydrogen storage materials. Journal of Alloys and Compounds, 253–254, 1–9.",
+   "url": "https://doi.org/10.1016/S0925-8388(96)03049-6"
+  },
+  {
+   "text": "Bogdanović, B., Brand, R. A., Marjanović, A., Schwickardi, M., & Tölle, J. (2000). Metal-doped sodium aluminium hydrides as potential new hydrogen storage materials. Journal of Alloys and Compounds, 302(1–2), 36–58.",
+   "url": "https://doi.org/10.1016/S0925-8388(99)00663-5"
+  },
+  {
+   "text": "Graetz, J., Wegrzyn, J., & Reilly, J. J. (2008). Regeneration of lithium aluminum hydride. Journal of the American Chemical Society, 130(52), 17790–17794.",
+   "url": "https://doi.org/10.1021/ja805353w"
+  },
+  {
+   "text": "Stephens, F. H., Pons, V., & Baker, R. T. (2007). Ammonia–borane: The hydrogen source par excellence? Dalton Transactions, (25), 2613–2626.",
+   "url": "https://doi.org/10.1039/b703053c"
+  },
+  {
+   "text": "Staubitz, A., Robertson, A. P. M., & Manners, I. (2010). Ammonia-borane and related compounds as dihydrogen sources. Chemical Reviews, 110(7), 4079–4124.",
+   "url": "https://doi.org/10.1021/cr100088b"
+  },
+  {
+   "text": "Murray, L. J., Dincă, M., & Long, J. R. (2009). Hydrogen storage in metal–organic frameworks. Chemical Society Reviews, 38(5), 1294–1314.",
+   "url": "https://doi.org/10.1039/b802256a"
+  },
+  {
+   "text": "Bénard, P., & Chahine, R. (2007). Storage of hydrogen by physisorption on carbon and nanostructured materials. Scripta Materialia, 56(10), 803–808.",
+   "url": "https://doi.org/10.1016/j.scriptamat.2007.01.008"
+  },
+  {
+   "text": "Bhatia, S. K., & Myers, A. L. (2006). Optimum conditions for adsorptive storage. Langmuir, 22(4), 1688–1700.",
+   "url": "https://doi.org/10.1021/la0523816"
+  },
+  {
+   "text": "Panella, B., Hirscher, M., & Roth, S. (2005). Hydrogen adsorption in different carbon nanostructures. Carbon, 43(10), 2209–2214.",
+   "url": "https://doi.org/10.1016/j.carbon.2005.03.037"
+  },
+  {
+   "text": "Furukawa, H., Miller, M. A., & Yaghi, O. M. (2007). Independent verification of the saturation hydrogen uptake in MOF-177 and establishment of a benchmark for hydrogen adsorption in metal–organic frameworks. Journal of Materials Chemistry, 17(30), 3197–3204.",
+   "url": "https://doi.org/10.1039/b703608f"
+  },
+  {
+   "text": "Tozzini, V., & Pellegrini, V. (2013). Prospects for hydrogen storage in graphene. Physical Chemistry Chemical Physics, 15(1), 80–89.",
+   "url": "https://doi.org/10.1039/C2CP42538F"
+  },
+  {
+   "text": "Srinivas, G., Zhu, Y., Piner, R., Skipper, N., Ellerby, M., & Ruoff, R. (2010). Synthesis of graphene-like nanosheets and their hydrogen adsorption capacity. Carbon, 48(3), 630–635.",
+   "url": "https://doi.org/10.1016/j.carbon.2009.10.003"
+  },
+  {
+   "text": "Burress, J. W., Gadipelli, S., Ford, J., Simmons, J. M., Zhou, W., & Yildirim, T. (2010). Graphene oxide framework materials: Theoretical predictions and experimental results. Angewandte Chemie International Edition, 49(47), 8902–8904.",
+   "url": "https://doi.org/10.1002/anie.201003328"
+  },
+  {
+   "text": "Hirscher, M., Yartys, V. A., Baricco, M., Bellosta von Colbe, J., Blanchard, D., Bowman, R. C., et al. (2020). Materials for hydrogen-based energy storage – past, recent progress and future outlook. Journal of Alloys and Compounds, 827, 153548.",
+   "url": "https://doi.org/10.1016/j.jallcom.2019.153548"
+  },
+  {
+   "text": "Mohtadi, R., & Orimo, S. (2016). The renaissance of hydrides as energy materials. Nature Reviews Materials, 2, 16091.",
+   "url": "https://doi.org/10.1038/natrevmats.2016.91"
+  },
+  {
+   "text": "Barkhordarian, G., Klassen, T., & Bormann, R. (2003). Fast hydrogen sorption kinetics of nanocrystalline Mg using Nb<sub>2</sub>O<sub>5</sub> as catalyst. Scripta Materialia, 49(3), 213–217.",
+   "url": "https://doi.org/10.1016/S1359-6462(03)00259-8"
+  },
+  {
+   "text": "de Jongh, P. E., & Adelhelm, P. (2010). Nanosizing and nanoconfinement: New strategies towards meeting hydrogen storage goals. ChemSusChem, 3(12), 1332–1348.",
+   "url": "https://doi.org/10.1002/cssc.201000248"
+  },
+  {
+   "text": "Vajo, J. J., Skeith, S. L., & Mertens, F. (2005). Reversible storage of hydrogen in destabilized LiBH<sub>4</sub>. The Journal of Physical Chemistry B, 109(9), 3719–3722.",
+   "url": "https://doi.org/10.1021/jp040769o"
+  },
+  {
+   "text": "Mazzucco, A., Dornheim, M., Sloth, M., Jensen, T. R., Jensen, J. O., & Rokni, M. (2014). Bed geometries, fueling strategies and optimization of heat exchanger designs in metal hydride storage systems for automotive applications: A review. International Journal of Hydrogen Energy, 39(30), 17054–17074.",
+   "url": "https://doi.org/10.1016/j.ijhydene.2014.08.047"
+  }
+ ]
+}

@@ -1,5 +1,42 @@
 # Changelog
 
+## V4.12 — 2026-11-09
+- **Chmltech Online Journal:** all four journal articles were rewritten as full research papers, keeping their original URLs.
+
+| Vol./Issue | Title | Words | Equations | Tables | References |
+|---|---|---|---|---|---|
+| 103(1) | FrugalGPT and MultiModal-GPT: Advancements in Language Modeling | 3,800 | 8 | 2 | 24 |
+| 103(2) | Advancements in Machine Learning and Deep Learning for Intelligent Systems | 3,250 | 7 | 2 | 30 |
+| 102(1) | Process Intensification and Efficiency Enhancement in Hydrogen Electrolysis Plants: A Deeper Look | 3,500 | 17 | 2 | 18 |
+| 101(1) | Advancements and Challenges in Solid-State Hydrogen Absorption: A Comprehensive Review | 3,950 | 13 | 2 | 27 |
+
+- **New journal layout:**
+  - Masthead (journal, volume, issue, "Research article"), the paper title, and an author and affiliation block.
+  - Published and revised dates.
+  - Abstract box and keywords.
+  - Numbered sections and subsections, numbered equations, captioned tables and callouts.
+  - Clickable citations that jump to a numbered reference list with DOI or arXiv links.
+  - "How to cite this article", a contents sidebar, and a "Print or save as PDF" button with a clean print layout.
+  - Scholarly metadata (citation_* meta tags and ScholarlyArticle structured data).
+  - A "More from the journal" section.
+- **References:** every reference is a real, verified source. A spot check of 12 DOIs through Crossref and 8 arXiv IDs found no mismatches.
+- **Technical corrections to the originals** (each paper notes that it is a revised edition):
+  - Wrong reactions for LiAlH4, ammonia borane and graphene.
+  - The magnesium hydride capacity (7.6 wt%, not 1.2 wt%).
+  - The van 't Hoff interpretation.
+  - Unsupported nanostructure and graphene figures.
+  - Mixed-up alkaline and PEM electrode reactions.
+  - The definition of "energy intensification" and the title that used it.
+  - The claim that pressurized electrolysis raises production rate.
+  - Waste heat recovered "for power".
+  - How FrugalGPT and MultiModal-GPT actually work.
+  - AlphaGo's training.
+  - Random forest interpretability.
+  - Overstated "human-level" claims.
+- **Insights cards:** the journal cards show the real paper title plus the volume and issue in place of the "Chmltech Online Journal, Volume…" title.
+- **Duplicate title covers removed:** the 13 articles whose cover image only repeated the title (including the journal articles) no longer show that image under the page heading. It is still used for social sharing and on the cards.
+- **Source files:** paper content is in `content/journal/*.json`, with the format described in `content/journal/SPEC.md`.
+
 ## V4.11 — 2026-11-09
 - **Email address protection.** The address no longer appears in the page source on any page, so bots that harvest addresses for spam and phishing lists can't scrape it. It used to appear 683 times across 189 pages.
   - Visitors still see and click the real address: the site script rebuilds it in the browser.

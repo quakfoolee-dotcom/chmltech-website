@@ -1,0 +1,61 @@
+/* Chmltech Online Journal papers (V4.12) — loaded only on journal article pages */
+.j-hero{padding-bottom:64px}
+.j-masthead{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.j-masthead span+span{color:#C9D8EA}
+.j-masthead span+span::before{content:"·";margin-right:22px;color:#6F87A8}
+.j-title{font-size:clamp(30px,3.8vw,48px)!important;max-width:960px;line-height:1.12}
+.j-author{display:flex;flex-direction:column;gap:3px;color:#DCE6F2;font-size:15.5px;border-left:3px solid var(--green);padding-left:14px}
+.j-author strong{color:#fff;font-size:17px}
+.j-wrap{padding-top:52px}
+.j-paper{max-width:780px}
+.j-paper section > * + *{margin-top:1.05em}
+.j-paper section + section{margin-top:2.2em}
+.j-paper h2{scroll-margin-top:96px;margin-top:0}
+.j-paper h3{margin-top:1.5em!important}
+.j-num{color:var(--blue)}
+.j-abstract{background:#EEF3F8;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:22px 26px}
+.j-abstract h2{font-size:14px!important;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;color:var(--blue)}
+.j-abstract p{font-size:16.5px;line-height:1.7}
+.j-keywords{margin-top:12px;font-size:15px!important;color:#3A4A63}
+.j-eq{display:flex;align-items:center;gap:16px;margin:1.3em 0;padding:14px 18px;background:#fff;border:1px solid #DDE6F0;border-radius:8px;overflow-x:auto}
+.j-eq-body{flex:1;text-align:center;font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:19px;color:var(--ink);white-space:nowrap}
+.j-eq-body sub,.j-eq-body sup{font-size:.68em}
+.j-eq-n{font-size:15px;color:#5A6B82;flex:none}
+.j-table{margin:1.6em 0}
+.j-table figcaption{font-size:15px;margin-bottom:8px;color:#26324A;text-align:left}
+.j-table-scroll{overflow-x:auto;border:1px solid #DDE6F0;border-radius:8px;background:#fff}
+.j-table table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.45}
+.j-table th{background:var(--navy,#0B2A5A);color:#fff;text-align:left;padding:10px 12px;font-weight:600}
+.j-table td{padding:9px 12px;border-top:1px solid #E3EAF2;vertical-align:top}
+.j-table tr:nth-child(even) td{background:#F7F9FC}
+.j-table-note{font-size:13.5px!important;color:#5A6B82;margin-top:6px!important}
+.j-callout{border:1px solid #C6E19F;background:#F3F9EA;border-radius:10px;padding:14px 18px}
+.j-callout p{margin:0;font-size:16px}
+.j-cite{font-size:.92em;text-decoration:none;color:var(--blue)}
+.j-refs ol{padding-left:1.6em;font-size:14.5px;line-height:1.6}
+.j-refs li{margin-bottom:8px;overflow-wrap:anywhere}
+.j-refs li:target{background:#FFF5D6;border-radius:4px}
+.j-refs a{color:var(--blue)}
+.j-cite-box{border-top:1px solid #DDE6F0;padding-top:18px}
+.j-cite-box h2{font-size:18px!important}
+.j-cite-box p{font-size:15px}
+.j-revnote{color:#5A6B82}
+.j-toc{padding:22px}
+.j-toc ol{list-style:none;padding:0;margin:8px 0 0;font-size:14.5px;line-height:1.5}
+.j-toc li{margin:5px 0}
+.j-toc a{color:var(--ink);text-decoration:none}
+.j-toc a:hover{color:var(--blue);text-decoration:underline}
+@media (max-width:900px){.j-aside .j-toc{display:none}}
+@media print{
+  .site-header,.site-footer,.topbar,.j-aside,.j-related,.cta-band,.skip-link,[class*="quote"],section.dark:not(.j-hero){display:none!important}
+  body{background:#fff!important}
+  .j-hero{background:#fff!important;padding:0 0 12px!important}
+  .j-hero,.j-hero *{color:#000!important}
+  .crumbs{display:none}
+  .layout-aside{display:block!important}
+  .j-paper{max-width:none;font-size:11pt}
+  .j-eq,.j-table,.j-callout{break-inside:avoid}
+}
+.j-table tbody tr:first-child td{font-weight:400;background:#fff;color:inherit}
+.j-table tbody tr:nth-child(even) td{background:#F7F9FC}
+.j-table table{width:100%!important;display:table!important;margin:0!important}
