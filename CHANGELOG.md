@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.5 — 2026-11-09
+- Process Improvement page has a new "Why Chmltech" section with refined claims:
+  - "Canada's leading Operations Improvement Firm" becomes "A Canadian operations improvement firm".
+  - "3:1 ROI, guaranteed" becomes "Built to pay for itself: we aim for a return of at least 3:1". An ROI target is agreed per engagement and tracked on KPIs, with a results disclaimer.
+
 ## V4.4 — 2026-11-09
 - Rebuilt three solution pages with stronger writeups, each built on the original Chmltech content: Artificial Intelligence, Business Process Optimization and Process Improvement.
 - Animated header illustrations:
