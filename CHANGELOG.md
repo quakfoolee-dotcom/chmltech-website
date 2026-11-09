@@ -1,5 +1,24 @@
 # Changelog
 
+## V4.10 — 2026-11-09
+- Rebuilt the Lean Six Sigma Training page (`lean-six-sigma-training.html`) with new writing and design, in the same style as the other rebuilt solution pages.
+- **Animated header:** the DMAIC phases light up in turn. During Improve, the process curve narrows inside its spec limits and the out-of-spec defects disappear; Control holds the gain.
+- **Two interactive diagrams:**
+  - A DMAIC cycle: click each phase to see what participants do and which tools they use.
+  - A Lean vs. Six Sigma comparison.
+- **New sections:**
+  - Overview, and "Signs your team is ready"
+  - What the training includes: needs assessment, in-house belt training, live projects, coaching, KPIs, sustaining the gains
+  - The toolkit
+  - Training levels: White, Yellow, Green and Black Belt; Leadership and Champions; and a link to the free practice exams
+  - Typical training projects (illustrative before and after), outcomes, method, and learning by doing
+  - Why Chmltech, FAQs, related free courses and related Six Sigma articles
+- **Corrections to the old copy:**
+  - Removed four references to "Propel", another firm's name left over in the original text.
+  - Removed wording written for professional services firms, and the "manufacturing capacity" line.
+  - "3:1 return. Guaranteed." now uses the agreed ROI wording, with the results note.
+- Solution page section headings can now be set per page (toolkit, training levels, examples, outcomes, method).
+
 ## V4.9.4 — 2026-11-09
 - Natural Resources header animation: the haul truck now stops under the stockpile bin and takes the whole load before it leaves.
   - Ore falls from the chute into the truck, the bin empties, and the load heaps up in the truck bed in three stages.
