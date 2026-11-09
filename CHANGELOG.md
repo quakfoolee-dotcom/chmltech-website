@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.9.4 — 2026-11-09
+- Natural Resources header animation: the haul truck now stops under the stockpile bin and takes the whole load before it leaves.
+  - Ore falls from the chute into the truck, the bin empties, and the load heaps up in the truck bed in three stages.
+  - Once loading is done, the truck drives off forward. The bin refills from the conveyor while the truck is away (12-second loop).
+- The "Stockpile" label moved above the bin so the falling ore doesn't cover it.
+
 ## V4.9.3 — 2026-11-09
 - Cycle diagrams: the green arc is now synchronized with the highlighted (dark blue) stage. It used to spin on its own timer.
   - The arc always spans from the previous stage to the active one.
