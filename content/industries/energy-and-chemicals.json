@@ -69,34 +69,141 @@
  ],
  "figs": [
   {
-   "type": "flow",
-   "title": "Corrective maintenance work order flow",
-   "caption": "Watch work orders queue at planning, then click Fix the bottleneck to see the flow after improvement.",
+   "type": "swimlane",
+   "title": "Corrective maintenance, request to return to service",
+   "caption": "A swim lane view of a corrective work order. Watch jobs pile up at planning, then click Fix the bottleneck.",
    "config": {
+    "lanes": [
+     "Operations",
+     "Maintenance planning",
+     "Stores and safety",
+     "Maintenance crew"
+    ],
+    "cols": 7,
     "steps": [
      {
-      "label": "Notification raised",
-      "text": "An operator or inspector reports a defect on equipment in the unit."
+      "id": "spot",
+      "label": "Spot equipment issue",
+      "lane": 0,
+      "col": 0,
+      "seq": 1,
+      "text": "An operator notices a leak, a vibration or an alarm during rounds."
      },
      {
-      "label": "Planning and scoping",
-      "text": "A planner scopes the job, estimates labour and identifies parts, permits and isolations."
+      "id": "notify",
+      "label": "Raise notification",
+      "lane": 0,
+      "col": 1,
+      "seq": 2,
+      "text": "The operator raises a notification in the maintenance system. Notes are often brief and lack location or symptoms."
      },
      {
-      "label": "Parts and permits",
-      "text": "Materials are staged and work permits, isolations and any MOC reviews are completed."
+      "id": "plan",
+      "label": "Plan and scope job",
+      "lane": 1,
+      "col": 2,
+      "seq": 3,
+      "text": "Planners scope the job, estimate hours and identify parts and permits. With no standard job plans and unclear priorities, every request is planned from scratch and the backlog grows."
      },
      {
-      "label": "Scheduled execution",
-      "text": "Crews complete the job in a scheduled window with the unit prepared for safe work."
+      "id": "clarify",
+      "label": "Clarify the request",
+      "lane": 0,
+      "col": 2,
+      "seq": 4,
+      "text": "Incomplete notifications go back to operations for details, then return to the planning queue."
      },
      {
-      "label": "Close-out",
-      "text": "History, failure codes and lessons learned are recorded so reliability data improves."
+      "id": "kit",
+      "label": "Kit parts, issue permit",
+      "lane": 2,
+      "col": 3,
+      "seq": 5,
+      "text": "Stores kits the parts and safety issues the work permit and isolations."
+     },
+     {
+      "id": "schedule",
+      "label": "Schedule the work",
+      "lane": 1,
+      "col": 4,
+      "seq": 6,
+      "text": "The job is placed on the schedule and coordinated with operations."
+     },
+     {
+      "id": "execute",
+      "label": "Execute the repair",
+      "lane": 3,
+      "col": 5,
+      "seq": 7,
+      "text": "The crew completes the repair safely, with the right parts and permit in hand."
+     },
+     {
+      "id": "close",
+      "label": "Close out and record",
+      "lane": 1,
+      "col": 6,
+      "seq": 8,
+      "text": "Hours, parts and failure codes are recorded so reliability data improves over time."
+     },
+     {
+      "id": "return",
+      "label": "Return to service",
+      "lane": 0,
+      "col": 6,
+      "seq": 9,
+      "text": "Operations accepts the equipment back into service."
      }
     ],
-    "bottleneck": 1,
-    "fix_text": "Standard job plans, clear priority rules and a weekly scheduling meeting let planners keep ahead of incoming work instead of firefighting."
+    "links": [
+     [
+      "spot",
+      "notify"
+     ],
+     [
+      "notify",
+      "plan"
+     ],
+     [
+      "plan",
+      "kit"
+     ],
+     [
+      "kit",
+      "schedule"
+     ],
+     [
+      "schedule",
+      "execute"
+     ],
+     [
+      "execute",
+      "close"
+     ],
+     [
+      "close",
+      "return"
+     ]
+    ],
+    "bottleneck": "plan",
+    "loop": {
+     "step": "clarify",
+     "label": "incomplete request",
+     "after": "Checklist at source"
+    },
+    "chips": {
+     "before": [
+      "Backlog growing",
+      "Requests sent back for detail",
+      "Planners firefighting"
+     ],
+     "after": [
+      "Backlog under control",
+      "Standard job plans",
+      "Weekly schedule agreed"
+     ]
+    },
+    "fix_title": "Fixed: job plans, priority rules and a weekly schedule",
+    "fix_text": "A notification checklist gets the right details first time, standard job plans cover repeat work, and clear priority rules with a weekly scheduling meeting let planners keep ahead of incoming work instead of firefighting."
    }
   },
   {

@@ -69,6 +69,145 @@
  ],
  "figs": [
   {
+   "type": "swimlane",
+   "title": "A customer order through the plant",
+   "caption": "A swim lane view of a make-to-order job. Watch orders wait at changeover, then click Fix the bottleneck.",
+   "config": {
+    "lanes": [
+     "Sales",
+     "Production planning",
+     "Production line",
+     "Quality",
+     "Warehouse and shipping"
+    ],
+    "cols": 7,
+    "steps": [
+     {
+      "id": "order",
+      "label": "Confirm customer order",
+      "lane": 0,
+      "col": 0,
+      "seq": 1,
+      "text": "Sales confirms quantities, specifications and the promised date."
+     },
+     {
+      "id": "schedule",
+      "label": "Schedule the job",
+      "lane": 1,
+      "col": 1,
+      "seq": 2,
+      "text": "Planning sequences the job on the line and checks material availability."
+     },
+     {
+      "id": "stage",
+      "label": "Stage materials",
+      "lane": 4,
+      "col": 2,
+      "seq": 3,
+      "text": "The warehouse stages materials at the line."
+     },
+     {
+      "id": "change",
+      "label": "Change over the line",
+      "lane": 2,
+      "col": 3,
+      "seq": 4,
+      "text": "The line is stopped and set up for the next product. Long, unstandardized changeovers push the plant toward big batches and late orders."
+     },
+     {
+      "id": "firstoff",
+      "label": "First-piece approval",
+      "lane": 3,
+      "col": 3,
+      "seq": 5,
+      "text": "Quality checks the first piece. When it fails, settings are adjusted and the line waits for another approval."
+     },
+     {
+      "id": "run",
+      "label": "Run the order",
+      "lane": 2,
+      "col": 4,
+      "seq": 6,
+      "text": "The line runs the order at standard rate."
+     },
+     {
+      "id": "inspect",
+      "label": "Final inspection",
+      "lane": 3,
+      "col": 5,
+      "seq": 7,
+      "text": "Quality releases the finished goods."
+     },
+     {
+      "id": "ship",
+      "label": "Pack and ship",
+      "lane": 4,
+      "col": 6,
+      "seq": 8,
+      "text": "Goods are packed, labelled and shipped."
+     },
+     {
+      "id": "invoice",
+      "label": "Confirm and invoice",
+      "lane": 0,
+      "col": 6,
+      "seq": 9,
+      "text": "Sales confirms delivery and invoices the customer."
+     }
+    ],
+    "links": [
+     [
+      "order",
+      "schedule"
+     ],
+     [
+      "schedule",
+      "stage"
+     ],
+     [
+      "stage",
+      "change"
+     ],
+     [
+      "change",
+      "run"
+     ],
+     [
+      "run",
+      "inspect"
+     ],
+     [
+      "inspect",
+      "ship"
+     ],
+     [
+      "ship",
+      "invoice"
+     ]
+    ],
+    "bottleneck": "change",
+    "loop": {
+     "step": "firstoff",
+     "label": "first piece fails",
+     "after": "Right first time"
+    },
+    "chips": {
+     "before": [
+      "Long changeovers",
+      "First pieces rejected",
+      "Orders running late"
+     ],
+     "after": [
+      "Quick changeovers",
+      "Right first piece",
+      "Orders on time"
+     ]
+    },
+    "fix_title": "Fixed: SMED and standard settings",
+    "fix_text": "SMED moves setup work off the line while it is still running, and standard settings with a changeover checklist get the first piece right. The plant can run smaller batches and meet promised dates."
+   }
+  },
+  {
    "type": "bars",
    "title": "Where a line loses its available time",
    "caption": "Example values for a single packaging line over one shift; watch which loss is largest.",

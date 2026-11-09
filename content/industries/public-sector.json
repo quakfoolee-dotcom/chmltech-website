@@ -69,34 +69,130 @@
  ],
  "figs": [
   {
-   "type": "flow",
+   "type": "swimlane",
    "title": "A permit application, start to finish",
-   "caption": "Watch applications queue at the review step, then click Fix the bottleneck to see flow after improvement.",
+   "caption": "A swim lane view of a permit process. Watch applications wait at department reviews, then click Fix the bottleneck.",
    "config": {
+    "lanes": [
+     "Applicant",
+     "Intake staff",
+     "Planning reviewer",
+     "Referral departments",
+     "Approving manager"
+    ],
+    "cols": 7,
     "steps": [
      {
-      "label": "Application intake",
-      "text": "The application is received and checked for completeness."
+      "id": "apply",
+      "label": "Submit application",
+      "lane": 0,
+      "col": 0,
+      "seq": 1,
+      "text": "The applicant submits the application and drawings."
      },
      {
+      "id": "intake",
+      "label": "Log and check intake",
+      "lane": 1,
+      "col": 1,
+      "seq": 2,
+      "text": "Intake staff log the file and take the fee."
+     },
+     {
+      "id": "screen",
       "label": "Initial screening",
-      "text": "Staff confirm the application type and route it to the right reviewers."
+      "lane": 2,
+      "col": 2,
+      "seq": 3,
+      "text": "A planner screens the application against zoning and policy."
      },
      {
+      "id": "reviews",
       "label": "Department reviews",
-      "text": "Several departments review in sequence, each with its own queue."
+      "lane": 3,
+      "col": 3,
+      "seq": 4,
+      "text": "Engineering, fire and other departments review one after another, each with its own queue."
      },
      {
-      "label": "Decision",
-      "text": "The application is approved, approved with conditions or returned."
+      "id": "missing",
+      "label": "Request missing info",
+      "lane": 2,
+      "col": 3,
+      "seq": 5,
+      "text": "Reviewers find missing information. The file goes back to the applicant, then rejoins the review queue."
      },
      {
-      "label": "Notification",
-      "text": "The applicant is told the outcome and any next steps."
+      "id": "decide",
+      "label": "Make the decision",
+      "lane": 4,
+      "col": 4,
+      "seq": 6,
+      "text": "The approving manager signs off on the decision."
+     },
+     {
+      "id": "notify",
+      "label": "Issue notification",
+      "lane": 1,
+      "col": 5,
+      "seq": 7,
+      "text": "Intake staff issue the permit or the decision letter."
+     },
+     {
+      "id": "receive",
+      "label": "Receive permit",
+      "lane": 0,
+      "col": 6,
+      "seq": 8,
+      "text": "The applicant receives the permit and can start work."
      }
     ],
-    "bottleneck": 2,
-    "fix_text": "Running department reviews in parallel, with a completeness checklist at intake, cuts waiting time and reduces applications sent back for missing information."
+    "links": [
+     [
+      "apply",
+      "intake"
+     ],
+     [
+      "intake",
+      "screen"
+     ],
+     [
+      "screen",
+      "reviews"
+     ],
+     [
+      "reviews",
+      "decide"
+     ],
+     [
+      "decide",
+      "notify"
+     ],
+     [
+      "notify",
+      "receive"
+     ]
+    ],
+    "bottleneck": "reviews",
+    "loop": {
+     "step": "missing",
+     "label": "missing info",
+     "after": "Checklist at intake"
+    },
+    "chips": {
+     "before": [
+      "Reviews run one after another",
+      "Files sent back for missing info",
+      "Long waits for applicants"
+     ],
+     "after": [
+      "Reviews run in parallel",
+      "Complete at intake",
+      "Shorter, predictable waits"
+     ]
+    },
+    "fix_title": "Fixed: parallel reviews and a completeness checklist",
+    "fix_text": "A completeness checklist at intake stops incomplete files entering review, departments review in parallel against service standards, and applicants can see where their file is. Waiting time drops and fewer files are sent back."
    }
   },
   {

@@ -69,34 +69,142 @@
  ],
  "figs": [
   {
-   "type": "flow",
-   "title": "Inpatient discharge flow",
-   "caption": "Watch patients queue before discharge approval, then click Fix the bottleneck to see the improved flow.",
+   "type": "swimlane",
+   "title": "Inpatient discharge, ready to next admission",
+   "caption": "A swim lane view of a hospital discharge. Watch beds wait on the discharge order, then click Fix the bottleneck.",
    "config": {
+    "lanes": [
+     "Patient and family",
+     "Physician",
+     "Nursing unit",
+     "Pharmacy and transport",
+     "Bed management"
+    ],
+    "cols": 7,
     "steps": [
      {
-      "label": "Medically ready",
-      "text": "The care team decides the patient no longer needs acute care."
+      "id": "ready",
+      "label": "Confirm medically ready",
+      "lane": 1,
+      "col": 0,
+      "seq": 1,
+      "text": "On rounds, the physician confirms the patient is medically ready to go home."
      },
      {
-      "label": "Discharge order",
-      "text": "The physician writes the discharge order and prescriptions are prepared."
+      "id": "order",
+      "label": "Write discharge order",
+      "lane": 1,
+      "col": 1,
+      "seq": 2,
+      "text": "The discharge order and prescriptions are often written late in the day, after rounds and other urgent work, so the bed stays occupied."
      },
      {
-      "label": "Transport and home",
-      "text": "Family, transport or home care supports are confirmed for the patient."
+      "id": "page",
+      "label": "Page for the order",
+      "lane": 2,
+      "col": 1,
+      "seq": 3,
+      "text": "Nurses page and re-page the physician for the order, then wait for it to come back."
      },
      {
-      "label": "Bed turnover",
-      "text": "Environmental services clean the room and the bed is marked ready."
+      "id": "meds",
+      "label": "Prepare discharge meds",
+      "lane": 3,
+      "col": 2,
+      "seq": 4,
+      "text": "Pharmacy fills the discharge prescriptions and arranges any transport."
      },
      {
-      "label": "Next admission",
-      "text": "A patient waiting in emergency or recovery is moved into the bed."
+      "id": "teach",
+      "label": "Discharge teaching",
+      "lane": 2,
+      "col": 3,
+      "seq": 5,
+      "text": "Nursing explains medications, follow-up and warning signs."
+     },
+     {
+      "id": "ride",
+      "label": "Ride home arranged",
+      "lane": 0,
+      "col": 4,
+      "seq": 6,
+      "text": "Family confirms the ride home and any support at home."
+     },
+     {
+      "id": "leave",
+      "label": "Leave the hospital",
+      "lane": 0,
+      "col": 5,
+      "seq": 7,
+      "text": "The patient leaves the unit."
+     },
+     {
+      "id": "clean",
+      "label": "Clean and turn bed",
+      "lane": 4,
+      "col": 5,
+      "seq": 8,
+      "text": "Environmental services cleans the room and bed management marks it ready."
+     },
+     {
+      "id": "admit",
+      "label": "Admit next patient",
+      "lane": 4,
+      "col": 6,
+      "seq": 9,
+      "text": "The next patient moves up from emergency or recovery."
      }
     ],
-    "bottleneck": 1,
-    "fix_text": "Planning the expected discharge date at admission and holding a short morning discharge huddle get orders written earlier in the day."
+    "links": [
+     [
+      "ready",
+      "order"
+     ],
+     [
+      "order",
+      "meds"
+     ],
+     [
+      "meds",
+      "teach"
+     ],
+     [
+      "teach",
+      "ride"
+     ],
+     [
+      "ride",
+      "leave"
+     ],
+     [
+      "leave",
+      "clean"
+     ],
+     [
+      "clean",
+      "admit"
+     ]
+    ],
+    "bottleneck": "order",
+    "loop": {
+     "step": "page",
+     "label": "order not ready",
+     "after": "Planned at admission"
+    },
+    "chips": {
+     "before": [
+      "Orders written late in the day",
+      "Beds blocked for hours",
+      "Patients waiting in emergency"
+     ],
+     "after": [
+      "Expected date set at admission",
+      "Orders ready by the huddle",
+      "Beds free earlier"
+     ]
+    },
+    "fix_title": "Fixed: expected discharge date and a morning huddle",
+    "fix_text": "An expected discharge date is set at admission and a short morning discharge huddle confirms who is going home today. Orders and prescriptions are written earlier, pharmacy prepares ahead, and beds free up in time for the next admission."
    }
   },
   {

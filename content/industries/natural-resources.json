@@ -69,6 +69,133 @@
  ],
  "figs": [
   {
+   "type": "swimlane",
+   "title": "Haul truck repair, breakdown to production",
+   "caption": "A swim lane view of an unplanned repair. Watch the truck wait at stores, then click Fix the bottleneck.",
+   "config": {
+    "lanes": [
+     "Mine operations",
+     "Maintenance planning",
+     "Stores and supply",
+     "Suppliers",
+     "Maintenance crew"
+    ],
+    "cols": 7,
+    "steps": [
+     {
+      "id": "fail",
+      "label": "Truck breaks down",
+      "lane": 0,
+      "col": 0,
+      "seq": 1,
+      "text": "A haul truck stops in the pit, taking production capacity with it."
+     },
+     {
+      "id": "report",
+      "label": "Report the failure",
+      "lane": 0,
+      "col": 1,
+      "seq": 2,
+      "text": "The operator radios dispatch and a work order is raised."
+     },
+     {
+      "id": "diagnose",
+      "label": "Diagnose the fault",
+      "lane": 4,
+      "col": 2,
+      "seq": 3,
+      "text": "A mechanic diagnoses the fault and lists the parts needed."
+     },
+     {
+      "id": "plan",
+      "label": "Plan the repair",
+      "lane": 1,
+      "col": 3,
+      "seq": 4,
+      "text": "Planning confirms the job, labour and parts, and books the bay."
+     },
+     {
+      "id": "parts",
+      "label": "Find and issue parts",
+      "lane": 2,
+      "col": 4,
+      "seq": 5,
+      "text": "Stores searches for the parts. Critical spares are often out of stock or in the wrong location, so the truck sits idle."
+     },
+     {
+      "id": "expedite",
+      "label": "Expedite missing part",
+      "lane": 3,
+      "col": 4,
+      "seq": 6,
+      "text": "Missing parts are rush-ordered from the supplier at premium freight, then the job returns to the stores queue."
+     },
+     {
+      "id": "repair",
+      "label": "Repair and test",
+      "lane": 4,
+      "col": 5,
+      "seq": 7,
+      "text": "The crew repairs the truck and tests it before release."
+     },
+     {
+      "id": "back",
+      "label": "Back in production",
+      "lane": 0,
+      "col": 6,
+      "seq": 8,
+      "text": "The truck returns to the haul cycle."
+     }
+    ],
+    "links": [
+     [
+      "fail",
+      "report"
+     ],
+     [
+      "report",
+      "diagnose"
+     ],
+     [
+      "diagnose",
+      "plan"
+     ],
+     [
+      "plan",
+      "parts"
+     ],
+     [
+      "parts",
+      "repair"
+     ],
+     [
+      "repair",
+      "back"
+     ]
+    ],
+    "bottleneck": "parts",
+    "loop": {
+     "step": "expedite",
+     "label": "stock-out",
+     "after": "Spares on hand"
+    },
+    "chips": {
+     "before": [
+      "Trucks parked waiting for parts",
+      "Frequent stock-outs",
+      "Premium freight"
+     ],
+     "after": [
+      "Critical spares on hand",
+      "Parts kitted before the job",
+      "Backlog shrinking"
+     ]
+    },
+    "fix_title": "Fixed: critical spares and parts kitting",
+    "fix_text": "A critical spares list with min/max levels keeps key parts on the shelf, planners kit parts before the job starts, and planned component change-outs replace many breakdowns. Trucks stop waiting at stores."
+   }
+  },
+  {
    "type": "timeline",
    "title": "From backlog to scalable maintenance",
    "caption": "Click each phase to see the activities involved in moving from reactive to planned maintenance.",
