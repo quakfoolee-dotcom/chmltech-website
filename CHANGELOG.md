@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.7.2 — 2026-11-09
+- Fixed doubled labels in the "Typical scenarios" cards on all 8 industry pages. Cards showed "Before: Before: …" and "After: After: …"; each label now appears once. The page builder now strips a repeated label automatically.
+
 ## V4.7.1 — 2026-11-09
 - Fixed process-flow diagrams where step names touched the box edges (for example "Department reviews" and "Notification" on Public Sector). This affected 6 pages: Public Sector, Energy & Chemicals, Health Care, Professional Services, Distribution & Warehousing and Business Process Optimization.
 - On those pages, the flow diagram now gets the full width of the section, with the second diagram below it, instead of sharing a half-width column. Flow boxes have a little more inner room, and long words wrap cleanly.
