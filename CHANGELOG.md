@@ -1,5 +1,9 @@
 # Changelog
 
+## V3.2 — 2026-11-08
+- The 13 Insights articles without a usable photo each get a unique branded cover (logo-ring, dot-grid or circuit pattern, with category and title) in place of the shared placeholder icon. Files are in `assets/media/covers/`.
+- Every article now has its own social-sharing image (`og:image`, large Twitter card) instead of the generic logo.
+
 ## V3.1 — 2026-11-08
 - Primary address is now www.chmltech.com (DNS at IONOS points to GitHub Pages). Added a `CNAME` file.
 - Canonical URLs, Open Graph tags, sitemap.xml and robots.txt updated to www.chmltech.com.
