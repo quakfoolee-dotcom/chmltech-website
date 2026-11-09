@@ -32,3 +32,9 @@ Allowed inline HTML in any text: <sub> <sup> <em> <strong> <i> <b>. No other HTM
 - Cite each reference at least once; number references in order of first citation.
 - No marketing language, no "guaranteed", no claims about Chmltech clients. No "As an AI".
 - Numbers must be physically/technically correct (check thermodynamics, units, stoichiometry).
+
+## New papers (Volume 104, November 2026)
+- `published` and `revised` are both "2026-11-09" (a new paper, not a revision; the page then shows no revision note).
+- `corrections` is an empty list `[]` for new papers.
+- Viewpoint is November 2026. Recent developments (2024-2026) are welcome but every one must be cited to a verified source; never state a recent fact from memory without a source.
+- A citation helper that renumbers keyed citations is at `journal_build/jhelp.py` (write text with `[@key]`, it numbers references in order of first use). Use your own build script file name so parallel writers don't overwrite each other.

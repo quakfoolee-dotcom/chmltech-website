@@ -1,0 +1,596 @@
+{
+ "slug": "engineering-capex-and-opex-estimation-for-process-plants",
+ "volume": 104,
+ "issue": 4,
+ "published": "2026-11-09",
+ "revised": "2026-11-09",
+ "title": "Engineering CAPEX and OPEX Estimation for Process Plants: Methods, Accuracy and Trade-offs",
+ "short_title": "CAPEX and OPEX Estimation for Process Plants",
+ "meta": "Capital and operating cost estimation for process plants: AACE classes, six-tenths rule, Lang and module factors, CEPCI, cost of manufacture, NPV and Monte Carlo.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Clean Energy Technology Innovation",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Decisions to build, expand or modify process plants rest on estimates of capital expenditure (CAPEX) and operating expenditure (OPEX) that are made long before the design is complete and are therefore uncertain. This paper reviews the methods used to prepare such estimates and to evaluate them. It defines fixed capital, working capital and total capital investment, inside and outside battery limits, direct and indirect costs, and contingency, and it presents the AACE International Recommended Practice 18R-97 classification, in which the maturity of project definition determines the estimate class and expected accuracy, from about −50% to +100% for Class 5 to −3% to +15% for Class 1. Capacity-exponent scaling with the six-tenths rule, equipment-factored estimates using Lang and Hand factors, the module-factor method and detailed estimates are described with their ranges of validity, together with cost escalation by the Chemical Engineering Plant Cost Index and location adjustment. Operating costs are built up from raw materials, utilities, labour, maintenance, overheads, royalties and general expenses and combined in the cost-of-manufacture equation. Net present value, internal rate of return, payback, levelized cost and Monte Carlo analysis with P50 and P90 values are presented, followed by capital–operating cost trade-offs in heat recovery and equipment redundancy and an illustrative worked example. The paper concludes that the estimating method must match the decision and the definition available, and that an estimate is incomplete without its basis and accuracy range.",
+ "keywords": [
+  "capital cost estimation",
+  "operating cost",
+  "AACE estimate classes",
+  "Lang factor",
+  "six-tenths rule",
+  "CEPCI",
+  "cost of manufacture",
+  "Monte Carlo"
+ ],
+ "corrections": [],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Every decision to build, expand or modify a process plant rests on two numbers: how much it will cost to build and how much it will cost to run. Capital expenditure (CAPEX) is the one-time investment needed to design, procure, construct and commission the facility. Operating expenditure (OPEX) is the recurring cost of converting raw materials into products. Together with revenue, they determine whether a project creates value, which of several process alternatives should be pursued, and how much money must be raised and reserved for risk. Because these decisions are made long before a plant is designed in detail, the estimates on which they rest are necessarily uncertain. The engineering task is not to eliminate that uncertainty but to quantify it, to match the estimating method to the information available, and to communicate the result in a form that decision makers can use [1, 2, 3]."
+    },
+    {
+     "p": "Cost estimating in the process industries has a well-established methodology, much of which dates from the decades after the Second World War: capacity-exponent scaling, factored estimates based on purchased equipment cost, module-factor methods, and published cost indices. These methods remain in daily use, but they are often applied outside their range of validity, combined inconsistently, or reported as single-point values without the accuracy range that should accompany them. Retrospective studies of pioneer process plants have shown that early estimates tend to be optimistic, and that the shortfall is explained mainly by the novelty of the technology, the degree of project definition and plant complexity rather than by external events [4]."
+    },
+    {
+     "p": "This paper reviews the definitions, classification systems and methods used to estimate CAPEX and OPEX for chemical and process plants, the economic criteria used to evaluate them, and the treatment of uncertainty. It concludes with the trade-offs between capital and operating cost that recur in process design and with a worked, explicitly illustrative example. The perspective is that of the process engineer who prepares or reviews estimates during conceptual design, pilot-plant scale-up and front-end engineering design (FEED), rather than that of a professional cost estimator preparing a bid estimate."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Definitions and Structure of Capital Cost",
+   "blocks": [
+    {
+     "h3": "2.1 Fixed capital, working capital and total capital investment"
+    },
+    {
+     "p": "The total capital investment (TCI) of a project is the sum of the fixed capital investment (FCI), the working capital and, depending on the convention used, start-up costs, land and other owner's costs. Eq. (1) gives the basic structure."
+    },
+    {
+     "eq": "TCI = FCI + C<sub>WC</sub> + C<sub>SU</sub> + C<sub>land</sub>",
+     "n": 1
+    },
+    {
+     "p": "The FCI is the depreciable investment in the physical plant: equipment, bulk materials, installation, engineering and construction management, and contingency. Working capital (C<sub>WC</sub>) is the money tied up in raw material and product inventories, spare parts, accounts receivable less accounts payable, and cash needed to operate. It is recovered, at least in principle, at the end of the project and is therefore not depreciated. Peters et al. note that working capital commonly represents roughly 10–20% of total capital investment for chemical plants, although the actual value depends strongly on inventory policy and payment terms [3]. Land is likewise not depreciable [3, 5]."
+    },
+    {
+     "h3": "2.2 ISBL, OSBL, direct and indirect costs"
+    },
+    {
+     "p": "Process plants are conventionally divided by battery limits. The inside battery limits (ISBL) investment covers the process units themselves: equipment, piping, instrumentation and control, electrical, civil and structural work, insulation and painting within the process area. The outside battery limits (OSBL) or offsite investment covers utility generation and distribution, storage and loading, effluent treatment, flare and relief systems, buildings, roads and other site infrastructure shared by several units [2]. OSBL cost depends heavily on whether a plant is built on a greenfield site or integrated into an existing complex, which is one of the main reasons why capital costs quoted for nominally identical plants differ so widely."
+    },
+    {
+     "p": "A second division distinguishes direct costs, which are incurred for permanent physical installations (equipment, materials and construction labour), from indirect costs, which are incurred to execute the project: engineering and supervision, construction overheads, temporary facilities, contractor's fees, legal costs and contingency [3, 2]. Different organizations group these items differently, and published estimates are frequently not comparable for this reason alone. Rubin et al. documented the extent of this problem in power-plant and carbon-capture cost studies and proposed a common nomenclature that distinguishes bare erected cost, engineering and home-office costs, process contingency, project contingency and owner's costs, together with explicit statements of the cost year, location and financing assumptions [6]."
+    },
+    {
+     "h3": "2.3 Contingency"
+    },
+    {
+     "p": "Contingency is an allowance for costs that are expected to occur but cannot be identified individually at the time of the estimate: incomplete scope definition within the defined project, quantity growth, pricing uncertainty and estimating error. It is not an allowance for changes of scope, for extraordinary events or for escalation, which are treated separately [7, 6]. Process contingency, which reflects the technical maturity of the process, should be distinguished from project contingency, which reflects the level of design definition [6]. In the module-factor method of Turton et al., contingency and contractor's fee are applied as fixed fractions of bare module cost, as shown in Section 4.3 [1]; in more mature estimates contingency is determined by risk analysis (Section 7)."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Estimate Classification and Expected Accuracy",
+   "blocks": [
+    {
+     "p": "AACE International Recommended Practice 18R-97 provides the most widely used classification of cost estimates for the process industries [7]. It defines five classes, from Class 5 (concept screening) to Class 1 (check estimate or bid). The primary characteristic that determines the class is the maturity of the project definition deliverables, such as the process flow diagrams, heat and material balances, equipment lists, piping and instrument diagrams (P&IDs), plot plans and engineering specifications. The end use of the estimate, the estimating methodology and the expected accuracy are secondary characteristics that generally correlate with maturity but do not define it [7]."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Cost estimate classification matrix for the process industries according to AACE International Recommended Practice 18R-97.",
+      "head": [
+       "Class",
+       "Maturity of project definition (% of complete definition)",
+       "Typical end use",
+       "Typical estimating method",
+       "Expected accuracy range (low / high)"
+      ],
+      "rows": [
+       [
+        "Class 5",
+        "0–2%",
+        "Concept screening",
+        "Capacity factored, parametric models, judgment or analogy",
+        "L: −20% to −50%; H: +30% to +100%"
+       ],
+       [
+        "Class 4",
+        "1–15%",
+        "Study or feasibility",
+        "Equipment factored or parametric models",
+        "L: −15% to −30%; H: +20% to +50%"
+       ],
+       [
+        "Class 3",
+        "10–40%",
+        "Budget authorization or control",
+        "Semi-detailed unit costs with assembly-level line items",
+        "L: −10% to −20%; H: +10% to +30%"
+       ],
+       [
+        "Class 2",
+        "30–75%",
+        "Control or bid/tender",
+        "Detailed unit cost with forced detailed take-off",
+        "L: −5% to −15%; H: +5% to +20%"
+       ],
+       [
+        "Class 1",
+        "65–100%",
+        "Check estimate or bid/tender",
+        "Detailed unit cost with detailed take-off",
+        "L: −3% to −10%; H: +3% to +15%"
+       ]
+      ],
+      "note": "Source: [7]. In the 2020 revision the ranges represent the typical variation, at an 80% confidence interval, of actual costs from the estimate after application of contingency set to achieve roughly a 50% probability of overrun."
+     }
+    },
+    {
+     "p": "Three features of Table 1 are frequently misunderstood. First, the ranges are themselves ranges: depending on technical complexity, the quality of reference data and the treatment of contingency, a Class 5 estimate may be as broad as −50% to +100% or as narrow as −20% to +30% [7]. Second, the ranges are asymmetric, because cost outcomes are bounded below but not above; overruns larger than underruns should be expected. Third, the ranges apply to the estimate including contingency, and the AACE practice states explicitly that the accuracy of a particular estimate must be determined by risk analysis rather than read from the table [7]. The classes overlap, and a Class 5 estimate for a repeat plant with good historical data may be more accurate than a Class 3 estimate for a first-of-a-kind facility."
+    },
+    {
+     "p": "The empirical basis for these cautions is strong. In a statistical analysis of 44 pioneer plants built by 34 companies, Merrow et al. found that unanticipated inflation, regulatory changes, scope changes and external events such as weather and strikes were not the principal causes of cost underestimation. Most of the variation in estimating error was explained instead by the degree to which the plant's technology departed from that of prior plants, the degree of definition of the site and project, and plant complexity. More than half of the plants in the sample failed to reach their production targets in the second six months after start-up [4]."
+    },
+    {
+     "callout": "An estimate without its class, cost basis date, location and accuracy range is incomplete. A single number from a capacity-factored estimate should never be carried into a funding decision as though it were a Class 3 budget."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Capital Cost Estimating Methods by Project Stage",
+   "blocks": [
+    {
+     "h3": "4.1 Capacity-factored estimates and the six-tenths rule"
+    },
+    {
+     "p": "At the concept-screening stage, the cost of a new plant or equipment item is commonly obtained by scaling the known cost of a similar facility of different capacity, using the power law of Eq. (2)."
+    },
+    {
+     "eq": "C<sub>2</sub> = C<sub>1</sub> (S<sub>2</sub>/S<sub>1</sub>)<sup>n</sup>",
+     "n": 2
+    },
+    {
+     "p": "Here C<sub>1</sub> and C<sub>2</sub> are the costs of the reference and new plant, S<sub>1</sub> and S<sub>2</sub> are their capacities, and n is the capacity exponent. With n = 0.6, the familiar “six-tenths rule”, doubling capacity increases cost by a factor of 2<sup>0.6</sup> ≈ 1.52, which expresses the economy of scale that arises because vessel cost scales roughly with surface area while capacity scales with volume, and because instrumentation, engineering and many offsite items vary only weakly with size [2, 3]. Empirical studies have shown that real exponents vary widely between equipment types and plants, so that 0.6 is a rough average rather than a law [8, 9]. Equipment-specific exponents should therefore be used where available, and a default of 0.6 or 0.7 only where they are not [10]. The rule is valid only within the capacity range of the data on which it is based; beyond the maximum size of a single train, plants are built from parallel trains and the exponent approaches unity."
+    },
+    {
+     "h3": "4.2 Equipment-factored estimates: Lang and Hand factors"
+    },
+    {
+     "p": "Once an equipment list with approximate sizes is available, the plant cost can be estimated from the sum of purchased equipment costs, ΣC<sub>e</sub>, using an overall installation factor, as in Eq. (3)."
+    },
+    {
+     "eq": "C<sub>FC</sub> = F<sub>L</sub> ΣC<sub>e</sub>",
+     "n": 3
+    },
+    {
+     "p": "In the approach introduced by Lang in 1947–1948, the factor F<sub>L</sub> takes the values 3.10 for solids-processing plants, 3.63 for mixed solid–fluid plants and 4.74 for fluid-processing plants [11, 2]. Peters et al. tabulate analogous ratio factors on a delivered-equipment basis, of roughly 4 to 5 for fixed capital and somewhat higher values for total capital investment, which include working capital [3]. Because a single factor ignores differences in materials, pressure and equipment mix, the Lang method belongs to the Class 4 and Class 5 range. A recent recalibration against 92 process-plant projects of an Indonesian state-owned energy company between 2017 and 2022 found a strong correlation between total plant cost and total equipment cost and recommended a range of 3.00–5.33 for fluid-processing plants, illustrating both the persistence of the method and the width of its uncertainty [11]."
+    },
+    {
+     "p": "Hand refined the approach by applying separate installation factors to different classes of equipment, recognizing that the ratio of installed to purchased cost is different for, say, a pump and a distillation column [2, 12]. Brennan and Golonka showed that this ratio varies much more widely for individual equipment items than for entire plants, depending on equipment class, design, size, construction material and layout [12]. Aromada et al. compared seven factor methods for an amine-based carbon-capture plant and found that a uniform installation factor tends to overestimate the installed cost of very expensive equipment and underestimate that of inexpensive equipment, which motivates factors that vary with the cost of each item [13]. Tsagkari et al. reached a related conclusion for biorefineries: when six rapid estimating methods were applied to three well-documented processes, the results differed considerably, underlining that rapid methods must be used with an awareness of their basis [14]."
+    },
+    {
+     "h3": "4.3 Module-factor methods"
+    },
+    {
+     "p": "The module-factor method, which originates in the work of Guthrie and is presented in detail by Turton et al., estimates the installed cost of each equipment item, or bare module, separately [1]. The purchased cost of the item in carbon steel at near-ambient pressure, C<sub>p</sub><sup>0</sup>, is obtained from a correlation of the form log<sub>10</sub> C<sub>p</sub><sup>0</sup> = K<sub>1</sub> + K<sub>2</sub> log<sub>10</sub> A + K<sub>3</sub> (log<sub>10</sub> A)<sup>2</sup>, where A is the capacity or size parameter. It is then corrected for material of construction and pressure, and the total module and grassroots costs are obtained as in Eq. (4)."
+    },
+    {
+     "eq": "C<sub>BM</sub> = C<sub>p</sub><sup>0</sup> F<sub>BM</sub>;   C<sub>TM</sub> = 1.18 ΣC<sub>BM</sub>;   C<sub>GR</sub> = C<sub>TM</sub> + 0.50 ΣC<sub>BM</sub><sup>0</sup>",
+     "n": 4
+    },
+    {
+     "p": "For many items the bare module factor takes the form F<sub>BM</sub> = B<sub>1</sub> + B<sub>2</sub> F<sub>M</sub> F<sub>P</sub>, where F<sub>M</sub> and F<sub>P</sub> are the material and pressure factors. The factor 1.18 adds a contingency of 15% and a contractor's fee of 3% of bare module cost, and the term 0.50 ΣC<sub>BM</sub><sup>0</sup>, evaluated at base-case material and pressure, represents auxiliary facilities for a grassroots plant [1]. The method preserves the advantages of factoring while making the effect of alloy selection and design pressure visible, and it is well suited to the comparison of process alternatives during conceptual design. Towler and Sinnott present a comparable item-by-item factorial method based on ISBL installation factors [2]."
+    },
+    {
+     "h3": "4.4 Semi-detailed and detailed estimates"
+    },
+    {
+     "p": "As FEED progresses, factored estimates are replaced by estimates built from quantities and unit rates: vendor quotations for major equipment, material take-offs for piping, steel, concrete, cable and instruments from the P&IDs, layout and models, and labour hours derived from installation norms and site productivity. These semi-detailed (Class 3) and detailed (Class 2 and Class 1) estimates require far more engineering effort, but they are the only estimates that reflect the specific design, site and execution strategy [7, 2]. Factored estimates remain useful at these stages as independent checks."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Cost Escalation and Location Adjustment",
+   "blocks": [
+    {
+     "h3": "5.1 Cost indices"
+    },
+    {
+     "p": "Published equipment costs and the costs of reference plants refer to a particular date. They are brought to the cost basis of the estimate using a cost index I, as in Eq. (5)."
+    },
+    {
+     "eq": "C<sub>2</sub> = C<sub>1</sub> (I<sub>2</sub>/I<sub>1</sub>)",
+     "n": 5
+    },
+    {
+     "p": "The Chemical Engineering Plant Cost Index (CEPCI), introduced in 1963 and published by Chemical Engineering magazine, is the index most widely used for process plants. It is a composite of four sub-indexes, for equipment, construction labour, buildings, and engineering and supervision, each of which is a weighted sum of components that largely correspond to producer price indexes published by the U.S. Bureau of Labor Statistics [15]. Mignard showed that the CEPCI from 1958 to 2011 could be correlated within about 3% with the cumulative interest rate and the domestic oil price, using different constants for distinct periods, which reflects both macroeconomic shocks and revisions of the index [16]. Two limitations follow. The CEPCI is a U.S. index, so it does not account for exchange-rate movements or for local markets; and index corrections become unreliable over long periods because technology, productivity and design practice change. Ereev and Patel, citing Couper, suggest that the same cost data should not be index-corrected over periods longer than about ten years [10, 5]. Escalation into the future, during the execution period of the project, is a separate allowance and is not part of contingency [7]."
+    },
+    {
+     "h3": "5.2 Location factors"
+    },
+    {
+     "p": "Equipment cost correlations are usually based on U.S. Gulf Coast construction. Costs at other locations are obtained by applying a location factor, C<sub>loc</sub> = LF × C<sub>USGC</sub>, that reflects differences in labour rates and productivity, availability of local fabrication, import duties and freight, climate and regulatory requirements [2]. Location factors vary over time with exchange rates and local market conditions. Their sensitivity to labour cost alone is illustrated by Ereev and Patel, whose labour-related installation factors derived from 2009 construction labour cost data ranged from 0.06 for Bulgaria to 1.47 for Norway, relative to 1.00 for the United States [10]. Remote sites with short construction seasons, modular construction requirements or camp accommodation, such as many projects in northern Canada, may require location factors well above those of established industrial regions; such adjustments should be based on project-specific data rather than generic tables."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Operating Cost Estimation",
+   "blocks": [
+    {
+     "h3": "6.1 Components of operating cost"
+    },
+    {
+     "p": "Operating costs are conventionally grouped into direct manufacturing costs, which vary with production rate (raw materials, utilities, waste treatment, operating labour and its supervision, maintenance, operating supplies, laboratory charges, and royalties); fixed manufacturing costs, which are incurred regardless of production rate (depreciation, local taxes and insurance, and plant overhead); and general expenses (administration, distribution and selling, and research and development) [1, 3]. Raw materials usually dominate the operating cost of commodity chemical plants and are estimated from the material balance and contract or market prices. Utilities are estimated from the energy balance, including steam, cooling water, electricity, fuel and refrigeration at appropriate prices for each level. Operating labour is estimated from the number of operators per shift for each section of the plant and the number of shift teams needed to cover continuous operation [1]."
+    },
+    {
+     "p": "Where detailed information is unavailable, the remaining items are estimated as fractions of FCI, operating labour cost or total cost of manufacture. Table 2 summarizes the factors used by Turton et al., which are consistent with the ranges given by Peters et al. [1, 3, 17]."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Factors for estimating manufacturing cost items in the method of Turton et al. (C<sub>OL</sub> = operating labour cost; COM = cost of manufacture).",
+      "head": [
+       "Cost item",
+       "Range",
+       "Typical value"
+      ],
+      "rows": [
+       [
+        "Direct supervisory and clerical labour",
+        "0.10–0.25 C<sub>OL</sub>",
+        "0.18 C<sub>OL</sub>"
+       ],
+       [
+        "Maintenance and repairs",
+        "0.02–0.10 FCI",
+        "0.06 FCI"
+       ],
+       [
+        "Operating supplies",
+        "0.006–0.012 FCI",
+        "0.009 FCI"
+       ],
+       [
+        "Laboratory charges",
+        "0.10–0.20 C<sub>OL</sub>",
+        "0.15 C<sub>OL</sub>"
+       ],
+       [
+        "Patents and royalties",
+        "0–0.06 COM",
+        "0.03 COM"
+       ],
+       [
+        "Local taxes and insurance",
+        "0.014–0.05 FCI",
+        "0.032 FCI"
+       ],
+       [
+        "Plant overhead (0.50–0.70 of operating labour, supervision and maintenance)",
+        "0.59–0.826 C<sub>OL</sub> + 0.030–0.042 FCI",
+        "0.708 C<sub>OL</sub> + 0.036 FCI"
+       ],
+       [
+        "Administration",
+        "0.147–0.207 C<sub>OL</sub> + 0.0075–0.0105 FCI",
+        "0.177 C<sub>OL</sub> + 0.009 FCI"
+       ],
+       [
+        "Distribution and selling",
+        "0.02–0.20 COM",
+        "0.11 COM"
+       ],
+       [
+        "Research and development",
+        "—",
+        "0.05 COM"
+       ],
+       [
+        "Depreciation (simple approximation)",
+        "—",
+        "0.10 FCI"
+       ]
+      ],
+      "note": "Source: [1, 17]; comparable ranges in [3]. Factors are for preliminary estimates only and should be replaced by site-specific values as soon as they are available."
+     }
+    },
+    {
+     "h3": "6.2 Cost of manufacture"
+    },
+    {
+     "p": "Collecting the factors of Table 2 and solving for COM yields the compact expressions of Eq. (6), in which C<sub>UT</sub>, C<sub>WT</sub> and C<sub>RM</sub> are the annual costs of utilities, waste treatment and raw materials [1]."
+    },
+    {
+     "eq": "COM = 0.280 FCI + 2.73 C<sub>OL</sub> + 1.23 (C<sub>UT</sub> + C<sub>WT</sub> + C<sub>RM</sub>);   COM<sub>d</sub> = 0.180 FCI + 2.73 C<sub>OL</sub> + 1.23 (C<sub>UT</sub> + C<sub>WT</sub> + C<sub>RM</sub>)",
+     "n": 6
+    },
+    {
+     "p": "COM<sub>d</sub> excludes depreciation and is the appropriate quantity for cash-flow analysis, in which depreciation enters only through its effect on taxes. The coefficient 1.23 on raw materials and utilities arises because royalties, distribution and selling, and research and development are proportional to COM itself (1/0.81 ≈ 1.23). Eq. (6) shows that an FCI-related charge of about 18% per year is embedded in the cash operating cost through maintenance, insurance, overhead and administration; this is one of the mechanisms by which capital decisions propagate into operating cost [1]."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Economic Evaluation and Uncertainty",
+   "blocks": [
+    {
+     "h3": "7.1 Discounted cash flow"
+    },
+    {
+     "p": "Profitability criteria compare the time-distributed cash flows of a project. For year t, the after-tax cash flow during operation is given by Eq. (7), where R is revenue, D is the depreciation allowance and τ is the income tax rate; capital expenditure and working capital appear as negative cash flows in the construction years, and working capital and salvage value are recovered at the end of the project [1, 5]."
+    },
+    {
+     "eq": "CF<sub>t</sub> = (R<sub>t</sub> − COM<sub>d,t</sub> − D<sub>t</sub>)(1 − τ) + D<sub>t</sub>",
+     "n": 7
+    },
+    {
+     "p": "The net present value (NPV) at discount rate i and the internal rate of return (IRR), which is the discount rate at which NPV equals zero, follow from Eq. (8) for a project of N years."
+    },
+    {
+     "eq": "NPV = Σ<sub>t=0</sub><sup>N</sup> CF<sub>t</sub> / (1 + i)<sup>t</sup>;   0 = Σ<sub>t=0</sub><sup>N</sup> CF<sub>t</sub> / (1 + IRR)<sup>t</sup>",
+     "n": 8
+    },
+    {
+     "p": "A project is attractive when NPV > 0 at the organization's hurdle rate, or equivalently when IRR exceeds that rate for a conventional cash-flow profile. The simple payback period, the time needed for cumulative undiscounted cash flow to recover the investment, is easy to communicate but ignores the time value of money and the cash flows after payback; the discounted payback period partly corrects the first deficiency [1, 3]. NPV is the preferred criterion for choosing among mutually exclusive alternatives, because IRR can rank projects of different scale incorrectly and can be multiple-valued when cash flows change sign more than once [5]."
+    },
+    {
+     "h3": "7.2 Levelized cost"
+    },
+    {
+     "p": "For comparing technologies, especially in energy systems, the levelized cost of product (LCOP) expresses the constant price that would make NPV equal zero. In its simplest pre-tax, constant-dollar form it is obtained with the capital recovery factor (CRF), as in Eq. (9), where Q is annual production [18]."
+    },
+    {
+     "eq": "CRF = i(1 + i)<sup>N</sup> / [(1 + i)<sup>N</sup> − 1];   LCOP = (CRF × TCI + COM<sub>d</sub>) / Q",
+     "n": 9
+    },
+    {
+     "p": "Levelized costs are sensitive to the discount rate, plant life, capacity factor and tax treatment, and these assumptions must be stated with the result [18, 6]."
+    },
+    {
+     "h3": "7.3 Probabilistic estimates: Monte Carlo, P50 and P90"
+    },
+    {
+     "p": "Deterministic sensitivity analysis, in which one input is varied at a time, identifies the dominant variables but does not give the probability of an outcome. Monte Carlo simulation assigns probability distributions to uncertain inputs, such as equipment costs, installation factors, prices and plant availability, and propagates them through the cost and cash-flow model to obtain a distribution of outcomes [19]. The results are reported as percentiles: for a cost, P50 is the value with a 50% probability of not being exceeded and P90 the value with a 90% probability of not being exceeded. The difference between the base estimate and the P50 or P90 cost is a rational basis for setting contingency at the confidence level the organization chooses, which links the probabilistic analysis to the AACE definition of contingency [7]. Van der Spek et al. reviewed uncertainty analysis in techno-economic assessments and recommend that analysts characterize input uncertainties explicitly, distinguish technical from economic uncertainty, and report the distributions or ranges of results rather than single values [19]. Correlations between inputs, for example between steel prices and equipment costs, must be represented; treating correlated inputs as independent understates the spread of the result."
+    },
+    {
+     "callout": "The base-case NPV of a project is not its expected NPV. When cost distributions are skewed toward overrun, as Table 1 implies they are, the P50 outcome is worse than the deterministic base case."
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "CAPEX–OPEX Trade-offs in Process Design",
+   "blocks": [
+    {
+     "p": "Many design decisions exchange capital for operating cost, and the correct choice minimizes the total annualized cost (TAC) or, more completely, maximizes NPV. Eq. (10) expresses the TAC for a design variable x, such as heat exchanger area or column reflux ratio."
+    },
+    {
+     "eq": "TAC(x) = CRF × C<sub>cap</sub>(x) + C<sub>op</sub>(x)",
+     "n": 10
+    },
+    {
+     "p": "The classic example is heat recovery. Reducing the minimum approach temperature ΔT<sub>min</sub> in a heat exchanger network increases heat recovery and reduces hot and cold utility consumption, but increases the required exchanger area and capital cost, which tend toward infinity as ΔT<sub>min</sub> approaches zero. The pinch design method provided the energy targets for this trade-off [20], and subsequent work established capital cost targets that allow the optimum ΔT<sub>min</sub> to be identified before the network is designed [21]. The optimum shifts with utility prices and the cost of exchanger area: higher energy prices or carbon costs favour more area, while expensive alloys favour less."
+    },
+    {
+     "p": "Similar trade-offs include reflux ratio against number of stages in distillation; pipe diameter against pumping power; compressor staging and intercooling against power; insulation thickness against heat loss; and catalyst loading or reactor volume against conversion and recycle cost. Reliability decisions are also CAPEX–OPEX trade-offs. Installing a spare pump or compressor (for example, a 2 × 100% arrangement) adds capital and some maintenance cost, but reduces the expected production loss from unplanned outages. The economic comparison weighs the annualized cost of the spare against the expected value of lost margin, which is the product of the outage frequency, the repair time and the margin per hour, plus any safety or environmental consequences. For critical services in continuous plants the spare is usually justified; for inexpensive services with short repair times or intermediate storage, it may not be. Because Eq. (6) charges roughly 18% of FCI per year to cash operating cost, capital decisions that appear small at the equipment level can have a material effect on OPEX [1]."
+    }
+   ]
+  },
+  {
+   "num": "9",
+   "title": "Illustrative Worked Example",
+   "blocks": [
+    {
+     "p": "The following example is entirely illustrative. All plant data, prices, cost indices and factors other than those taken from the cited methods are hypothetical and were chosen only to demonstrate the calculation sequence. A company considers a new 80,000 t y<sup>−1</sup> fluid-processing plant. A Class 5 estimate is made from a reference plant of 50,000 t y<sup>−1</sup> whose FCI was $100 million. Scaling with n = 0.6 (Eq. 2) gives a factor of 1.6<sup>0.6</sup> = 1.326 and an FCI of $132.6 million at the reference date. Escalation with an assumed index ratio of 1.25 (Eq. 5) gives $165.7 million, and an assumed location factor of 1.05 gives $174.0 million. Applying the widest and narrowest Class 5 ranges of Table 1, the actual cost could plausibly lie anywhere between about $87 million and $348 million, or, for a well-understood technology, between about $139 million and $226 million."
+    },
+    {
+     "p": "As a Class 4 cross-check, a preliminary equipment list gives a delivered, escalated and location-adjusted purchased equipment cost of $37.0 million. With the Lang factor for fluid processing, Eq. (3) gives 4.74 × 37.0 = $175.4 million, consistent with the scaled estimate. An FCI of $175 million and working capital of 15% of FCI ($26.3 million) are adopted for the economic evaluation. Annual costs are taken as raw materials $45.0 million, utilities $6.0 million, waste treatment $1.0 million and operating labour $3.5 million, giving COM<sub>d</sub> = 0.180 × 175 + 2.73 × 3.5 + 1.23 × 52.0 = $105.0 million per year from Eq. (6). The product sells at $1,800 t<sup>−1</sup>, so annual revenue is $144.0 million. With straight-line depreciation over 10 years, a 25% tax rate, a two-year construction period with 40% and 60% of FCI spent in successive years, working capital invested in the second year and recovered at the end, and 15 operating years, the after-tax operating cash flow during the depreciation period is $33.6 million per year (Eq. 7). The results are summarized in Table 3."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Results of the illustrative example (hypothetical data; US$ million unless stated).",
+      "head": [
+       "Quantity",
+       "Value",
+       "Basis"
+      ],
+      "rows": [
+       [
+        "FCI, Class 5 (scaled, escalated, location-adjusted)",
+        "174.0",
+        "Eqs. (2) and (5); n = 0.6, I<sub>2</sub>/I<sub>1</sub> = 1.25, LF = 1.05"
+       ],
+       [
+        "FCI, Class 4 check (Lang)",
+        "175.4",
+        "Eq. (3); F<sub>L</sub> = 4.74, ΣC<sub>e</sub> = 37.0"
+       ],
+       [
+        "Total capital investment (FCI + working capital)",
+        "201.3",
+        "Eq. (1); working capital = 0.15 FCI"
+       ],
+       [
+        "Cost of manufacture without depreciation, COM<sub>d</sub>",
+        "105.0 y<sup>−1</sup>",
+        "Eq. (6)"
+       ],
+       [
+        "After-tax cash flow, years 1–10 of operation",
+        "33.6 y<sup>−1</sup>",
+        "Eq. (7); τ = 25%"
+       ],
+       [
+        "Simple payback from start-up",
+        "≈ 6.0 years",
+        "TCI / annual cash flow"
+       ],
+       [
+        "NPV at 10%",
+        "43.0",
+        "Eq. (8); discounted to start of construction"
+       ],
+       [
+        "IRR",
+        "13.6%",
+        "Eq. (8)"
+       ],
+       [
+        "NPV at 10% with product price −5.6% ($1,700 t<sup>−1</sup>)",
+        "1.5",
+        "Deterministic sensitivity"
+       ],
+       [
+        "Levelized cost of product (pre-tax, 10%, 15 years)",
+        "≈ $1,640 t<sup>−1</sup>",
+        "Eq. (9); CRF = 0.1315"
+       ],
+       [
+        "Monte Carlo FCI, P50 / P90",
+        "182 / 217",
+        "Triangular FCI distribution, −25% / +40%"
+       ],
+       [
+        "Monte Carlo NPV at 10%, P10 / P50 / P90",
+        "−69 / 11 / 87",
+        "20,000 trials; FCI, price and raw-material cost varied"
+       ],
+       [
+        "Probability of NPV < 0",
+        "≈ 43%",
+        "Monte Carlo"
+       ]
+      ],
+      "note": "Source: calculations by the author using the methods of [1, 7, 18, 19]. All input data are hypothetical."
+     }
+    },
+    {
+     "p": "For the Monte Carlo analysis, FCI was represented by a triangular distribution from −25% to +40% of the base value, product price by a triangular distribution from −15% to +10%, and raw-material cost by a triangular distribution from −10% to +15%, sampled independently. Two observations generalize beyond this example. First, the deterministic NPV of $43 million lies well above the P50 NPV of about $11 million, because the input distributions are skewed in the unfavourable direction. Second, a P90 FCI of $217 million implies that a contingency of about 24% above the base estimate would be needed to reach 90% confidence at this level of definition, whereas about 4% suffices for P50. The project would therefore justify further definition to narrow the cost range, in particular a Class 4 estimate built from equipment-specific factors and vendor budget prices for the major items, before a decision to proceed to FEED."
+    }
+   ]
+  },
+  {
+   "num": "10",
+   "title": "Good Practice and Common Pitfalls",
+   "blocks": [
+    {
+     "p": "Several practices recur in well-prepared estimates. The basis of every estimate should be documented: the class, the cost year and index, currency and exchange rate, location, scope boundaries (ISBL and OSBL), exclusions, and the contingency method [7, 6]. Process engineers should provide the estimator with consistent heat and material balances, equipment sizing, materials of construction and design pressures, since these drive the factors in Eq. (4). Estimates prepared during pilot-plant development deserve particular caution, because the technical novelty identified by Merrow et al. as the strongest predictor of cost growth is greatest at this stage, and because performance assumptions for first-of-a-kind plants tend to be optimistic [4]. Process contingency should be explicit and should reflect the development stage of the technology [6]."
+    },
+    {
+     "p": "Common pitfalls include applying the six-tenths rule over large capacity ranges or across different process configurations; escalating old data over long periods or across currencies with a U.S. index; applying a single Lang factor to a plant dominated by a few large, alloy-intensive items; omitting OSBL, owner's costs or start-up costs; double counting contingency in both factors and an explicit allowance; and presenting a deterministic NPV without a sensitivity or probabilistic analysis [2, 13, 10, 19]. On the operating side, the most frequent errors are underestimating utilities and waste treatment, assuming design capacity from the first year, and neglecting the FCI-related charges for maintenance, insurance and overheads that Eq. (6) makes explicit."
+    },
+    {
+     "callout": "Estimating effort should be proportional to the decision at stake. A Class 5 estimate supports screening, but the decision to commit capital requires the definition, and the accuracy range, of at least a Class 3 estimate."
+    }
+   ]
+  },
+  {
+   "num": "11",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "CAPEX and OPEX estimation for process plants combines a small number of well-established methods with a discipline of documentation and uncertainty analysis. The AACE classification links the maturity of project definition to the estimating method and expected accuracy, and it makes clear that accuracy ranges are asymmetric and must ultimately be established by risk analysis. Capacity-exponent scaling, Lang and Hand factors, and module-factor methods remain appropriate for screening and feasibility studies when applied within their range of validity, while semi-detailed and detailed estimates based on quantities are required for funding and control. Cost indices and location factors adjust estimates for time and place, but both lose reliability over long periods and for unusual locations. Operating cost is dominated by raw materials and utilities in commodity processes, but FCI-related charges for maintenance, insurance and overhead link capital and operating cost directly. Discounted cash-flow analysis, levelized cost and Monte Carlo simulation translate these estimates into decisions, and the trade-offs between capital and operating cost in heat recovery, separation and equipment redundancy should be resolved on the basis of total annualized cost or NPV. The worked example shows how a scaled estimate, a factored check, a cost-of-manufacture calculation and a probabilistic analysis together give a more honest picture of a project than any single number."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Turton, R., Shaeiwitz, J. A., Bhattacharyya, D., & Whiting, W. B. (2018). Analysis, Synthesis, and Design of Chemical Processes (5th ed.). Pearson/Prentice Hall.",
+   "url": "https://www.pearson.com/en-us/subject-catalog/p/analysis-synthesis-and-design-of-chemical-processes/P200000000651/9780134177403"
+  },
+  {
+   "text": "Towler, G., & Sinnott, R. (2022). Chemical Engineering Design: Principles, Practice and Economics of Plant and Process Design (3rd ed.). Butterworth-Heinemann/Elsevier.",
+   "url": "https://doi.org/10.1016/C2019-0-02025-0"
+  },
+  {
+   "text": "Peters, M. S., Timmerhaus, K. D., & West, R. E. (2003). Plant Design and Economics for Chemical Engineers (5th ed.). McGraw-Hill.",
+   "url": "https://highered.mheducation.com/sites/0072392665"
+  },
+  {
+   "text": "Merrow, E. W., Phillips, K. E., & Myers, C. W. (1981). Understanding Cost Growth and Performance Shortfalls in Pioneer Process Plants (Report R-2569-DOE). RAND Corporation, Santa Monica, CA.",
+   "url": "https://www.rand.org/pubs/reports/R2569.html"
+  },
+  {
+   "text": "Couper, J. R. (2003). Process Engineering Economics. CRC Press (Marcel Dekker).",
+   "url": "https://doi.org/10.1201/9780203911396"
+  },
+  {
+   "text": "Rubin, E. S., Short, C., Booras, G., Davison, J., Ekstrom, C., Matuszewski, M., & McCoy, S. (2013). A proposed methodology for CO<sub>2</sub> capture and storage cost estimates. International Journal of Greenhouse Gas Control, 17, 488–503.",
+   "url": "https://doi.org/10.1016/j.ijggc.2013.06.004"
+  },
+  {
+   "text": "AACE International. (2020). Cost estimate classification system – as applied in engineering, procurement, and construction for the process industries (Recommended Practice No. 18R-97, Rev. August 7, 2020). AACE International, Morgantown, WV.",
+   "url": "https://web.aacei.org/docs/default-source/toc/toc_18r-97.pdf"
+  },
+  {
+   "text": "Haldi, J., & Whitcomb, D. (1967). Economies of scale in industrial plants. Journal of Political Economy, 75(4, Part 1), 373–385.",
+   "url": "https://doi.org/10.1086/259293"
+  },
+  {
+   "text": "Tribe, M. A., & Alpine, R. L. W. (1986). Scale economies and the “0.6 rule”. Engineering Costs and Production Economics, 10(1), 271–278.",
+   "url": "https://doi.org/10.1016/0167-188X(86)90053-4"
+  },
+  {
+   "text": "Ereev, S. Y., & Patel, M. K. (2012). Standardized cost estimation for new technologies (SCENT) – methodology and tool. Journal of Business Chemistry, 9(1), 31–48.",
+   "url": "https://www.businesschemistry.org/wp-content/uploads/2020/09/3_JoBC_2012_Vol9_Iss1_EreevPatel.pdf"
+  },
+  {
+   "text": "Wijoseno, T. (2023). Modifying the Lang factor using process plant project data cost in PERTAMINA for more precision, valid, & reliable AACE Class 4 estimation purpose in Indonesia. PM World Journal, 12(6).",
+   "url": "https://pmworldlibrary.net/wp-content/uploads/2023/05/pmwj130-Jun2023-Wijoseno-modifying-the-lang-factor-for-better-cost-estimates.pdf"
+  },
+  {
+   "text": "Brennan, D. J., & Golonka, K. A. (2002). New factors for capital cost estimation in evolving process designs. Chemical Engineering Research and Design, 80(6), 579–586.",
+   "url": "https://doi.org/10.1205/026387602760312773"
+  },
+  {
+   "text": "Aromada, S. A., Eldrup, N. H., & Øi, L. E. (2021). Capital cost estimation of CO<sub>2</sub> capture plant using Enhanced Detailed Factor (EDF) method: Installation factors and plant construction characteristic factors. International Journal of Greenhouse Gas Control, 110, 103394.",
+   "url": "https://doi.org/10.1016/j.ijggc.2021.103394"
+  },
+  {
+   "text": "Tsagkari, M., Couturier, J.-L., Kokossis, A., & Dubois, J.-L. (2016). Early-stage capital cost estimation of biorefinery processes: A comparative study of heuristic techniques. ChemSusChem, 9(17), 2284–2297.",
+   "url": "https://doi.org/10.1002/cssc.201600309"
+  },
+  {
+   "text": "Chemical Engineering. (n.d.). The Chemical Engineering Plant Cost Index®. Access Intelligence. Retrieved November 2026.",
+   "url": "https://www.chemengonline.com/pci-home"
+  },
+  {
+   "text": "Mignard, D. (2014). Correlating the chemical engineering plant cost index with macro-economic indicators. Chemical Engineering Research and Design, 92(2), 285–294.",
+   "url": "https://doi.org/10.1016/j.cherd.2013.07.022"
+  },
+  {
+   "text": "Verrett, J. (2020). Foundations of Chemical and Biological Engineering I (open textbook, CC BY-SA 4.0), chapter “Costs of manufacturing”. BCcampus.",
+   "url": "https://pressbooks.bccampus.ca/chbe220/chapter/costs-of-manufacturing/"
+  },
+  {
+   "text": "Short, W., Packey, D. J., & Holt, T. (1995). A Manual for the Economic Evaluation of Energy Efficiency and Renewable Energy Technologies (NREL/TP-462-5173). National Renewable Energy Laboratory, Golden, CO.",
+   "url": "https://doi.org/10.2172/35391"
+  },
+  {
+   "text": "van der Spek, M., Fout, T., Garcia, M., Kuncheekanna, V. N., Matuszewski, M., McCoy, S., Morgan, J., Nazir, S. M., Ramirez, A., Roussanaly, S., & Rubin, E. S. (2020). Uncertainty analysis in the techno-economic assessment of CO<sub>2</sub> capture and storage technologies. Critical review and guidelines for use. International Journal of Greenhouse Gas Control, 100, 103113.",
+   "url": "https://doi.org/10.1016/j.ijggc.2020.103113"
+  },
+  {
+   "text": "Linnhoff, B., & Hindmarsh, E. (1983). The pinch design method for heat exchanger networks. Chemical Engineering Science, 38(5), 745–763.",
+   "url": "https://doi.org/10.1016/0009-2509(83)80185-7"
+  },
+  {
+   "text": "Ahmad, S., Linnhoff, B., & Smith, R. (1990). Cost optimum heat exchanger networks—2. Targets and design for detailed capital cost models. Computers & Chemical Engineering, 14(7), 751–767.",
+   "url": "https://doi.org/10.1016/0098-1354(90)87084-3"
+  }
+ ]
+}

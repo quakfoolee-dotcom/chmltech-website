@@ -1,5 +1,23 @@
 # Changelog
 
+## V4.14 — 2026-11-09
+- **Chmltech Online Journal, Volume 104:** six new research papers, published November 9, 2026, in the same research-paper format as the existing four.
+
+| Issue | Title | Words | Equations | Tables | References |
+|---|---|---|---|---|---|
+| 104(1) | AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI | 4,100 | 4 | 3 | 26 |
+| 104(2) | Multi-Agent AI Systems: Architectures, Coordination Patterns and Failure Modes | 3,550 | 5 | 3 | 28 |
+| 104(3) | Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis for Enterprise Knowledge Systems | 3,850 | 8 | 3 | 28 |
+| 104(4) | Engineering CAPEX and OPEX Estimation for Process Plants: Methods, Accuracy and Trade-offs | 4,350 | 10 | 3 | 21 |
+| 104(5) | Digital Twins in Chemical Process Plants: Architecture, Modeling Approaches and Applications | 3,900 | 8 | 3 | 29 |
+| 104(6) | Designing Machine Learning Systems: From Problem Framing to Production Operations | 3,650 | 6 | 3 | 30 |
+
+- **References:** all 162 references were verified against Crossref, arXiv, or the publisher or standards page. An independent spot check of 18 found no mismatches. The worked examples in 104(1), 104(4) and 104(5) use hypothetical data and are labelled as such. The figures in 104(4) and 104(5) were computed in Python.
+- **Where they appear:** the new papers show in Insights under "Chmltech Online Journal", on the home page's latest articles, in related-article lists and in the sitemap. Each has a branded Volume 104 cover for cards and social sharing.
+- **Builder changes:**
+  - `gen/journal_pages.py` now publishes journal papers written directly for this site, not only papers migrated from Wix.
+  - New papers show no "Revised" line or revision note.
+
 ## V4.13 — 2026-11-09
 - **Repeated pictures in Insights articles: full review.** All 122 articles were checked. Each cover was compared with every image in the article body, and each body image with the others. The check uses visual similarity, so it also catches the same picture saved as a different file or crop, which the V3.3 exact-file check missed.
   - **How to Reduce Costs with Proven Process Improvement Strategies:** removed the "Cost Reduction Strategy" image under the cover. It was a second copy of the cover picture.

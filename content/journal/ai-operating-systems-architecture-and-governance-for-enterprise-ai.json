@@ -1,0 +1,556 @@
+{
+ "slug": "ai-operating-systems-architecture-and-governance-for-enterprise-ai",
+ "volume": 104,
+ "issue": 1,
+ "published": "2026-11-09",
+ "revised": "2026-11-09",
+ "title": "AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI",
+ "short_title": "AI Operating Systems for Enterprise AI",
+ "meta": "A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Organizations that adopt large language models (LLMs) through isolated assistants and pilots accumulate fragmented prompts, data connections, credentials and costs that are difficult to govern. This paper develops the concept of an AI operating system (AI OS): a shared, organization-wide layer that mediates access to data, knowledge, models, tools and workflows, in the way that a conventional operating system mediates access to hardware and files. It reviews research that treats LLM runtimes as operating systems, notably MemGPT and AIOS, together with work on tool use, retrieval augmentation and the Model Context Protocol. A ten-layer reference architecture is proposed, covering data and integration, knowledge and retrieval, model access and routing, agents and tools, workflow orchestration, memory, identity and permissions, governance, evaluation and observability, and cost control, with the function, mechanisms and principal risks of each layer. The architecture is mapped to the NIST AI Risk Management Framework, ISO/IEC 42001:2023, the EU Artificial Intelligence Act and the OWASP Top 10 for LLM Applications 2025. Operating metrics are defined for routing, cost per successfully completed task, automation rate and end-to-end reliability, and a five-stage maturity model is proposed. A hypothetical SME invoice-processing example shows that human review can dominate total cost and that reliability improvements may matter more than cheaper models. The paper concludes that mediation of all model, tool and data access is the decision on which governance, security and cost control depend.",
+ "keywords": [
+  "AI operating system",
+  "enterprise AI architecture",
+  "AI governance",
+  "LLM agents",
+  "model routing",
+  "retrieval-augmented generation",
+  "prompt injection",
+  "Model Context Protocol"
+ ],
+ "corrections": [],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Most organizations first encounter large language models (LLMs) as isolated tools: a chat assistant used by individual staff, a document summarizer embedded in one application, or a pilot that automates a single workflow. Each such deployment carries its own prompts, data connections, credentials, logging conventions and cost profile. As the number of deployments grows, the organization accumulates a fragmented estate in which the same customer record is retrieved by several pipelines, the same policy is restated in several system prompts, and nobody can answer simple questions such as which models touch personal information or what the AI estate cost last month. The phenomenon is a generative-AI analogue of the hidden technical debt that Sculley et al. described for conventional machine learning systems, where the model code is a small fraction of a much larger body of configuration, data dependencies and glue code [1]."
+    },
+    {
+     "p": "This paper uses the term <em>AI operating system</em> (AI OS) for the shared, organization-wide layer that addresses this fragmentation. An AI OS is not a single product. It is an architectural pattern: a set of common services for data access, knowledge retrieval, model access and routing, tool execution, workflow orchestration, memory, identity and permissions, governance, evaluation, observability and cost control, on top of which individual AI applications and agents are built. The analogy to a conventional operating system is deliberate. An operating system abstracts hardware, schedules processes, isolates them from one another, mediates access to files and devices, and enforces permissions; an AI OS performs corresponding functions for models, agents, tools and enterprise data."
+    },
+    {
+     "p": "The analogy has research precedent. MemGPT treats the LLM context window as a scarce fast memory and manages movement of information between it and slower external storage, in the manner of virtual memory [2]. AIOS proposes an operating-system kernel for LLM agents that provides scheduling, context management, memory and storage management and access control as shared services [3]. These systems operate at the level of a single runtime, whereas the present paper extends the analogy to the enterprise level, where the dominant concerns are integration with existing systems, accountability and risk."
+    },
+    {
+     "p": "The contribution of the paper is threefold. First, it proposes a layered reference architecture for an enterprise AI OS and identifies, for each layer, its function, typical mechanisms and principal risks. Second, it maps the architecture onto published governance frameworks and security guidance and defines a small set of quantitative operating metrics. Third, it proposes a staged maturity model and illustrates the metrics with a clearly hypothetical worked example for a small or medium-sized enterprise (SME). Section 2 reviews related work; Section 3 presents the architecture; Section 4 addresses governance, evaluation and observability; Section 5 treats security; Section 6 presents the maturity model; Section 7 gives the worked example; Section 8 discusses limitations; and Section 9 concludes."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Background and Related Work",
+   "blocks": [
+    {
+     "h3": "2.1 The LLM-as-operating-system analogy"
+    },
+    {
+     "p": "MemGPT addresses the limited context window of LLMs through what its authors call virtual context management. The model is given a hierarchy of memory tiers, a bounded main context that it reads directly and external stores that it can search and write through function calls, and it uses interrupts to manage control flow between itself and the user. The authors evaluated the design on analysis of documents far larger than the underlying context window and on multi-session conversational agents that retain information across sessions [2]. The relevant lesson for enterprise architecture is that memory is a managed resource with explicit policies for what is kept in context, what is paged out and what is persisted."
+    },
+    {
+     "p": "AIOS approaches the analogy from the systems side. It isolates LLM and tool resources from agent applications in an AIOS kernel, which provides scheduling, context management, memory management, storage management and access control to running agents, and exposes those services through a software development kit. The authors reported up to 2.1× faster execution when serving agents built with several agent frameworks on AIOS, which they attribute to scheduling and resource management [3]. For an enterprise, the transferable idea is that agents should not hold raw, unmediated access to models, tools and data; access should pass through a shared layer that can queue, meter, authorize and log it."
+    },
+    {
+     "h3": "2.2 Tool use and agents"
+    },
+    {
+     "p": "An LLM becomes an agent when it can take actions rather than only produce text. Surveys of LLM-based autonomous agents describe a common anatomy comprising a profile or role, a memory module, a planning module and an action module that invokes tools [4]. ReAct interleaves free-text reasoning traces with actions such as search queries, so that observations returned by the environment inform subsequent reasoning [5]. Toolformer showed that a language model can learn in a self-supervised manner when to call external application programming interfaces (APIs), such as a calculator, a question-answering system, search engines, a translation system and a calendar, and how to incorporate their results [6]. Earlier, the MRKL architecture proposed a modular, neuro-symbolic system in which a router directs each input to the most suitable expert module, which may be a neural model or a symbolic component such as a calculator or database query [7]. Gorilla fine-tuned a model specifically for generating API calls and reported reduced hallucination of API usage compared with general-purpose models [8]. Together these works establish tool invocation as a central, and security-critical, capability of any AI OS."
+    },
+    {
+     "h3": "2.3 Retrieval augmentation"
+    },
+    {
+     "p": "Retrieval-augmented generation (RAG) combines a parametric model with a non-parametric memory, such as a dense vector index of documents, from which passages are retrieved and supplied to the generator [9]. A subsequent survey organizes the field into naive, advanced and modular RAG paradigms, distinguished by the sophistication of indexing, query rewriting, re-ranking and the composition of retrieval and generation modules [10]. Retrieval does not remove the need to manage context carefully: Liu et al. found that model performance can degrade significantly when relevant information is placed in the middle of a long input context rather than at its beginning or end, even for models designed for long contexts [11]. An enterprise knowledge layer therefore needs ranking and context-assembly policies, not merely a large index."
+    },
+    {
+     "h3": "2.4 Interoperability through the Model Context Protocol"
+    },
+    {
+     "p": "A practical obstacle to a shared AI layer has been the absence of a common interface between models and enterprise systems. The Model Context Protocol (MCP), introduced by Anthropic in November 2024 as an open standard for connecting AI assistants to the systems where data resides [12], addresses this obstacle. The specification defines JSON-RPC 2.0 messages exchanged between hosts (LLM applications), clients (connectors within a host) and servers (services that provide context and capabilities). Servers may expose resources, prompts and tools; clients may offer sampling, roots and elicitation to servers [13]. The specification also states security principles, including explicit user consent before tools are invoked and the instruction that descriptions of tool behavior be treated as untrusted unless obtained from a trusted server, while noting that the protocol itself cannot enforce these principles [13]. In AI OS terms, MCP is a candidate standard for the boundary between the agent layer and the integration layer, but enforcement remains the responsibility of the platform."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "A Reference Architecture",
+   "blocks": [
+    {
+     "h3": "3.1 Design principles"
+    },
+    {
+     "p": "The reference architecture rests on four principles. <strong>Mediation</strong>: agents and applications reach models, tools and data only through platform services that can authorize, meter and log each request, following the AIOS kernel concept [3] and the zero-trust principle that no request is trusted by virtue of its network location [14]. <strong>Separation of concerns</strong>: knowledge, models, tools and workflows are versioned and replaced independently, which limits the entanglement that Sculley et al. identified as a source of technical debt [1]. <strong>Least privilege</strong>: every agent acts under an identity whose permissions do not exceed those of the human or service on whose behalf it acts. <strong>Measurability</strong>: every unit of work produces a trace from which quality, cost and latency can be computed. Table 1 summarizes the resulting layers."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Reference architecture for an enterprise AI operating system: layers, functions, typical mechanisms and principal risks.",
+      "head": [
+       "Layer",
+       "Primary function",
+       "Typical mechanisms",
+       "Principal risks"
+      ],
+      "rows": [
+       [
+        "Data and integration",
+        "Governed access to systems of record",
+        "Connectors, APIs, MCP servers, change-data capture, data contracts",
+        "Stale or inconsistent data; over-broad credentials"
+       ],
+       [
+        "Knowledge and retrieval",
+        "Ground outputs in organizational content",
+        "Chunking, embeddings, hybrid search, re-ranking, access-filtered indexes",
+        "Leakage across permission boundaries; poor recall; context dilution"
+       ],
+       [
+        "Model access and routing",
+        "Select and call models",
+        "Model gateway, routers, cascades, caching, fallbacks",
+        "Vendor lock-in; quality regression after model updates"
+       ],
+       [
+        "Agent and tool",
+        "Execute actions through tools",
+        "Tool registry with schemas, ReAct-style loops, sandboxes",
+        "Excessive agency; injected instructions in tool output"
+       ],
+       [
+        "Workflow orchestration",
+        "Compose steps into durable processes",
+        "State machines, queues, retries, human-approval gates",
+        "Silent partial failure; compounding error"
+       ],
+       [
+        "Memory",
+        "Persist context across sessions",
+        "Session state, episodic and semantic stores, retention rules",
+        "Retention of personal data; memory poisoning"
+       ],
+       [
+        "Identity and permissions",
+        "Bind every action to an accountable principal",
+        "Single sign-on, delegated tokens, role- and attribute-based access control",
+        "Privilege escalation; confused-deputy behavior"
+       ],
+       [
+        "Governance",
+        "Policy, accountability and compliance",
+        "AI inventory, risk assessment, model cards, approval workflow",
+        "Unregistered shadow deployments"
+       ],
+       [
+        "Evaluation and observability",
+        "Measure quality, safety, latency",
+        "Test suites, LLM-as-judge with human calibration, traces",
+        "Unmeasured drift; biased automated judges"
+       ],
+       [
+        "Cost control",
+        "Allocate and bound spending",
+        "Token metering, budgets, quotas, routing policies",
+        "Unbounded consumption; unattributed spend"
+       ]
+      ],
+      "note": "Synthesized by the author from [2, 3, 13, 17, 24]."
+     }
+    },
+    {
+     "h3": "3.2 Data and integration layer"
+    },
+    {
+     "p": "The data and integration layer provides governed, read-and-write access to systems of record such as enterprise resource planning, customer relationship management, document management and email. Its central design decision is whether AI components call systems directly or through intermediary services that enforce data contracts, field-level masking and rate limits. Protocol standards such as MCP reduce the cost of building connectors by giving each system a uniform server interface [13], but the connector inherits whatever credentials it is given. The layer should therefore issue scoped credentials per connector and per caller rather than a single service account with broad rights."
+    },
+    {
+     "h3": "3.3 Knowledge and retrieval layer"
+    },
+    {
+     "p": "The knowledge layer turns documents, records and transcripts into retrievable context, following the RAG pattern [9]. Enterprise deployments typically need the advanced or modular forms described by Gao et al., including query rewriting, hybrid lexical and vector search and re-ranking [10]. Two enterprise-specific requirements dominate. First, retrieval must respect source permissions: a passage that a user cannot open in the source system must not be retrieved on that user's behalf. Permission filters should be applied at query time against the caller's identity rather than baked into separate indexes that drift out of date. Second, because models use information unevenly across long contexts [11], the layer should return a small number of highly ranked passages with provenance rather than maximizing the volume of retrieved text."
+    },
+    {
+     "h3": "3.4 Model access and routing layer"
+    },
+    {
+     "p": "A model gateway decouples applications from specific model providers and versions. Its most consequential function is routing. FrugalGPT demonstrated that an LLM cascade, which queries inexpensive models first and escalates only when a learned scorer rejects an answer, could match the performance of the best individual model on its benchmarks with up to 98% cost reduction [15]. RouteLLM trained routers on human preference data to choose between a stronger and a weaker model and reported cost reductions of more than a factor of two in some settings without loss of response quality [16]. The MRKL architecture had earlier proposed routing among heterogeneous expert modules [7]. A simple formalization of a threshold router selects, for input <em>x</em>, the cheapest model whose predicted quality meets a threshold:"
+    },
+    {
+     "eq": "m*(x) = arg min<sub>m ∈ M</sub> c<sub>m</sub>(x)  subject to  q̂<sub>m</sub>(x) ≥ τ",
+     "n": 1
+    },
+    {
+     "p": "where <em>M</em> is the set of available models, c<sub>m</sub>(x) is the expected cost of model <em>m</em> on input <em>x</em>, q̂<sub>m</sub>(x) is a predicted quality score and τ is a task-specific acceptance threshold. If no model satisfies the constraint, the request escalates to the strongest model or to a human. Eq. (1) makes explicit that a router is only as good as its quality predictor, which must be validated on the organization's own workload; published savings are workload-dependent and do not transfer automatically [15, 16]. The gateway also implements response caching, fallback on provider outage and pinning of model versions, so that a provider update does not silently change behavior in production."
+    },
+    {
+     "h3": "3.5 Agent and tool layer"
+    },
+    {
+     "p": "The agent layer hosts reasoning-and-acting loops of the ReAct type [5] together with a tool registry. Each registered tool should carry a machine-readable schema, an owner, a risk classification and a declaration of whether it reads, writes or performs irreversible actions. The registry allows the platform to present each agent with only the tools its task requires. Model fine-tuning for tool use can reduce malformed calls [6, 8], but schema validation of arguments at the platform boundary remains necessary because model output is not trustworthy input. Tools that execute code or reach external networks should run in sandboxes with constrained egress."
+    },
+    {
+     "h3": "3.6 Workflow orchestration"
+    },
+    {
+     "p": "Many enterprise tasks are not open-ended conversations but processes with defined steps, such as receiving a document, extracting fields, validating them against a system of record, obtaining approval and posting a transaction. Orchestration encodes such processes as explicit state machines in which some steps are performed by LLM agents and others by deterministic code or humans. Explicit orchestration provides durable state, retries with idempotency, timeouts and human-approval gates, and it confines model nondeterminism to the steps that require language understanding. A useful default is to let deterministic code control the flow and to call models for bounded subtasks, reserving free-form agent autonomy for tasks whose steps cannot be enumerated in advance."
+    },
+    {
+     "h3": "3.7 Memory"
+    },
+    {
+     "p": "Memory spans short-term session state, episodic records of past interactions and semantic stores of distilled facts. MemGPT illustrates explicit management of what enters the limited context and what is paged to external storage [2]. In an enterprise setting memory is also a data-protection concern: persisted memories may contain personal information and must be subject to retention schedules, access control and deletion on request. Memory written by an agent from untrusted content is also an attack surface, because an injected instruction stored today may be retrieved and acted upon later."
+    },
+    {
+     "h3": "3.8 Identity and permissions"
+    },
+    {
+     "p": "Every action taken by an agent should be attributable to an accountable principal. The zero-trust model, under which access decisions are made per request on the basis of authenticated identity and policy rather than network location [14], fits agent systems well. In practice this implies delegated, short-lived tokens that carry the identity of the requesting user, attribute-based policies that can express conditions such as amount limits, and a prohibition on agents using standing administrative credentials. Without delegation, an agent with broad service credentials can be induced to act as a confused deputy, performing on behalf of one user an action that only another principal is entitled to perform."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Governance, Evaluation and Observability",
+   "blocks": [
+    {
+     "h3": "4.1 Governance frameworks"
+    },
+    {
+     "p": "Three instruments provide the main external reference points as of late 2026. The NIST AI Risk Management Framework (AI RMF 1.0) organizes AI risk management into four functions, Govern, Map, Measure and Manage, and is voluntary and sector-neutral [17]. Its Generative AI Profile, published in July 2024, applies the framework to risks that are specific to or amplified by generative AI [18]. ISO/IEC 42001:2023 specifies requirements for establishing, implementing, maintaining and continually improving an AI management system within an organization of any size and is designed for certification [19]. The European Union's Artificial Intelligence Act, Regulation (EU) 2024/1689, entered into force on 1 August 2024 and applies generally from 2 August 2026, with certain provisions applying on other dates set out in Article 113; it establishes risk-based obligations that bear on organizations placing AI systems on the EU market or using them there [20]."
+    },
+    {
+     "p": "An AI OS makes these frameworks operable because it centralizes the evidence they require. The platform's inventory of models, tools, agents and workflows forms the system register that ISO/IEC 42001 and the Map function presuppose; per-deployment documentation in the style of model cards [21] records intended use, evaluation results and known limitations; and traces provide the measurement record for the Measure and Manage functions [17]. Governance implemented as platform policy, for example a rule that no workflow may call a write-capable tool without a registered owner and a passed evaluation, scales better than governance implemented as periodic manual review."
+    },
+    {
+     "h3": "4.2 Evaluation"
+    },
+    {
+     "p": "Evaluation should be multi-dimensional. The Holistic Evaluation of Language Models (HELM) project argued for measuring accuracy together with calibration, robustness, fairness, bias, toxicity and efficiency across many scenarios, rather than reporting a single score [22]. Enterprise evaluation adds task-specific criteria such as field-extraction accuracy, policy compliance and correct tool selection. Because human grading is expensive, many teams use a strong LLM as an automated judge. Zheng et al. found that a strong judge model could reach agreement with human preferences comparable to agreement between humans, but also documented position, verbosity and self-enhancement biases [23]. Automated judges should therefore be calibrated periodically against human-labeled samples drawn from production traffic, and evaluation suites should be rerun whenever a model, prompt, tool or retrieval index changes."
+    },
+    {
+     "h3": "4.3 Operating metrics"
+    },
+    {
+     "p": "Observability converts traces into a small set of metrics that can be tracked over time. The first is the fully loaded cost per successfully completed task:"
+    },
+    {
+     "eq": "C<sub>task</sub> = [ Σ<sub>i</sub> ( p<sub>in,i</sub> T<sub>in,i</sub> + p<sub>out,i</sub> T<sub>out,i</sub> ) + C<sub>tool</sub> + C<sub>human</sub> ] / N<sub>success</sub>",
+     "n": 2
+    },
+    {
+     "p": "where the sum runs over all model calls in a reporting period, p<sub>in,i</sub> and p<sub>out,i</sub> are the per-token prices of input and output tokens for call <em>i</em>, T<sub>in,i</sub> and T<sub>out,i</sub> are the corresponding token counts, C<sub>tool</sub> is the cost of tool and infrastructure usage, C<sub>human</sub> is the cost of human review and correction, and N<sub>success</sub> is the number of tasks completed correctly. Dividing by successful rather than attempted tasks penalizes systems that are cheap per call but fail often. The second metric is the automation rate:"
+    },
+    {
+     "eq": "A = N<sub>auto</sub> / N<sub>total</sub>",
+     "n": 3
+    },
+    {
+     "p": "where N<sub>auto</sub> is the number of tasks completed and accepted without human intervention and N<sub>total</sub> is the number of tasks received. The automation rate must always be reported together with a quality measure, since it can be raised trivially by removing review. The third metric is end-to-end reliability of a workflow composed of <em>k</em> steps with step success probabilities r<sub>j</sub>. Under an assumption of independence,"
+    },
+    {
+     "eq": "R = Π<sub>j=1</sub><sup>k</sup> r<sub>j</sub>,   r′<sub>j</sub> = 1 − (1 − r<sub>j</sub>)<sup>n<sub>j</sub></sup>",
+     "n": 4
+    },
+    {
+     "p": "where r′<sub>j</sub> is the effective success probability of step <em>j</em> when a reliable validator detects failure and permits up to n<sub>j</sub> independent attempts. Eq. (4) shows why long autonomous chains are fragile and why cheap validation is valuable. The independence assumption is optimistic: repeated attempts by the same model on the same input tend to fail in correlated ways, so measured retry gains are usually smaller than the formula suggests. Latency percentiles, escalation rates, refusal rates and evaluation scores by workflow complete the operating dashboard."
+    },
+    {
+     "h3": "4.4 Cost control"
+    },
+    {
+     "p": "Cost control combines metering, attribution and limits. Each model call should be tagged with the workflow, business unit and principal that caused it, so that Eq. (2) can be computed per workflow. Budgets and quotas at the gateway bound spending, and routing policies (Eq. (1)) direct routine traffic to inexpensive models. Limits also have a security function: the OWASP Top 10 for LLM Applications lists unbounded consumption as a distinct risk, covering both runaway cost and denial of service [24]."
+    },
+    {
+     "callout": "Cost per successfully completed task, not cost per token, is the economic metric that matters. In workflows with human review, review labor frequently exceeds model spending, so improvements in reliability can reduce total cost more than cheaper models do."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Security and Risk",
+   "blocks": [
+    {
+     "h3": "5.1 Prompt injection"
+    },
+    {
+     "p": "Prompt injection is the defining security problem of LLM-integrated systems. Perez and Ribeiro demonstrated goal hijacking and prompt leaking through adversarial user input [25]. Greshake et al. showed that the more serious threat is indirect: an adversary places instructions in content that the application will later retrieve, such as a web page, an email or a document, and the model executes them with the application's privileges. They demonstrated data theft, manipulation of application behavior and control over which APIs are called against real systems, and argued that LLM-integrated applications blur the boundary between data and instructions [26]. An AI OS amplifies this risk because it connects many data sources to many tools; a single poisoned document in the knowledge layer can reach every agent that retrieves it."
+    },
+    {
+     "p": "No published technique eliminates prompt injection, so the architecture must limit its consequences. Effective measures are structural: separating trusted instructions from untrusted content in prompts and in logs; giving agents that process untrusted content no access to write-capable or exfiltration-capable tools; requiring human approval for irreversible actions; constraining network egress; and validating tool arguments against schemas and policy before execution. The MCP specification's instruction to treat tool descriptions as untrusted unless obtained from a trusted server reflects the same principle at the protocol boundary [13]."
+    },
+    {
+     "h3": "5.2 Mapping risks to platform controls"
+    },
+    {
+     "p": "The OWASP Top 10 for LLM Applications 2025 provides a widely used risk catalogue [24]. Table 2 maps a selection of its entries to the architecture layers of Table 1 and to controls that a platform can enforce centrally. The mapping illustrates the main security argument for an AI OS: controls implemented once in the gateway, registry and identity layers apply to every application, whereas controls implemented separately in each application tend to be inconsistent."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Selected OWASP Top 10 for LLM Applications 2025 risks mapped to AI OS layers and platform-level controls.",
+      "head": [
+       "OWASP 2025 risk",
+       "Most exposed layers",
+       "Platform-level controls"
+      ],
+      "rows": [
+       [
+        "LLM01 Prompt Injection",
+        "Knowledge, agent and tool, memory",
+        "Separate trusted and untrusted content; restrict tools for agents reading untrusted input; approval gates"
+       ],
+       [
+        "LLM02 Sensitive Information Disclosure",
+        "Knowledge, memory, model access",
+        "Permission-filtered retrieval; masking; retention rules; provider data agreements"
+       ],
+       [
+        "LLM03 Supply Chain",
+        "Model access, agent and tool",
+        "Approved model and tool registry; version pinning; review of third-party servers"
+       ],
+       [
+        "LLM05 Improper Output Handling",
+        "Agent and tool, orchestration",
+        "Schema validation of tool arguments; treat model output as untrusted input"
+       ],
+       [
+        "LLM06 Excessive Agency",
+        "Agent and tool, identity",
+        "Least-privilege tool sets; delegated tokens; limits on amounts and scope"
+       ],
+       [
+        "LLM08 Vector and Embedding Weaknesses",
+        "Knowledge",
+        "Access control on indexes; provenance; ingestion screening"
+       ],
+       [
+        "LLM10 Unbounded Consumption",
+        "Model access, cost control",
+        "Quotas, budgets, rate limits, loop and step limits"
+       ]
+      ],
+      "note": "Risk identifiers and names from [24]; layer mapping and controls by the author."
+     }
+    },
+    {
+     "callout": "Because prompt injection cannot currently be prevented reliably at the model level, the decisive control is architectural: an agent that reads untrusted content should not simultaneously hold tools that can move money, change records or send data outside the organization."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Maturity Model and Phased Adoption",
+   "blocks": [
+    {
+     "p": "Organizations rarely build all layers of Table 1 at once. Table 3 proposes a five-stage maturity model derived from the architecture. The stages are cumulative and describe capabilities rather than elapsed time; an organization may be at different stages for different capabilities. The model is a planning aid proposed in this paper, not an empirically validated instrument."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Proposed five-stage maturity model for an enterprise AI operating system.",
+      "head": [
+       "Stage",
+       "Characteristics",
+       "Capabilities added",
+       "Exit criteria"
+      ],
+      "rows": [
+       [
+        "0 Ad hoc",
+        "Individual use of public assistants; no inventory",
+        "None shared",
+        "Acceptable-use policy issued; usage inventoried"
+       ],
+       [
+        "1 Managed access",
+        "Sanctioned assistant and model gateway",
+        "Single sign-on, gateway logging, data-handling rules",
+        "All model traffic passes through gateway"
+       ],
+       [
+        "2 Grounded assistance",
+        "Retrieval over internal content",
+        "Permission-filtered knowledge layer, evaluation suite",
+        "Retrieval quality measured; no permission leakage in tests"
+       ],
+       [
+        "3 Supervised automation",
+        "Workflows with tools and human approval",
+        "Tool registry, orchestration, delegated identity, cost attribution",
+        "Eq. (2)–(4) reported per workflow"
+       ],
+       [
+        "4 Governed autonomy",
+        "Agents act within policy without per-step approval",
+        "Policy engine, continuous evaluation, incident response, management system",
+        "Audit against chosen framework passed"
+       ]
+      ],
+      "note": "Proposed by the author; framework alignment with [17, 19]."
+     }
+    },
+    {
+     "p": "The progression reflects a deliberate ordering. Managed access comes first because it provides the inventory and logging on which all later governance depends. Retrieval precedes tool use because read-only grounding carries lower risk than write actions and allows the organization to build evaluation capability before automation raises the stakes. Supervised automation introduces tools under human approval, which generates labeled data on agent decisions that later justifies relaxing approval for low-risk actions. Governed autonomy is reached only for workflows whose measured reliability, as in Eq. (4), and risk classification warrant it. This sequencing aligns with the iterative Govern–Map–Measure–Manage cycle of the NIST framework [17] and the continual-improvement structure of ISO/IEC 42001 [19]."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Illustrative SME Scenario",
+   "blocks": [
+    {
+     "p": "This section applies the metrics to a hypothetical example. All figures are assumptions chosen for illustration; they do not describe any real organization, and the prices are not quotations from any provider. Consider a wholesale distributor with about 40 staff that processes 2,000 supplier invoices per month and has reached Stage 3 of Table 3 for invoice processing. Each invoice passes through a four-step workflow: document intake and classification, field extraction by a large model, validation against purchase orders by deterministic code assisted by a small model, and posting to the accounting system after any required human approval."
+    },
+    {
+     "p": "Assume that extraction consumes 6,000 input and 500 output tokens on a large model priced at $3 and $15 per million input and output tokens, giving $0.018 + $0.0075 = $0.0255 per invoice, and that validation consumes 2,000 input and 200 output tokens on a small model priced at $0.25 and $1.25 per million tokens, giving $0.00075. Tool and infrastructure costs are assumed to be $0.005 per invoice. Assume further that 15% of invoices are escalated for human review, each requiring 3 minutes of a clerk costed at $40 per hour, or $2.00 per escalated invoice and $0.30 averaged over all invoices. If 97% of invoices are completed correctly, Eq. (2) gives C<sub>task</sub> = ($0.0255 + $0.00075 + $0.005 + $0.30) / 0.97 ≈ $0.34 per invoice. Model tokens account for less than 8% of this cost; human review accounts for nearly 90%."
+    },
+    {
+     "p": "With 85% of invoices completed without intervention, Eq. (3) gives A = 0.85. Suppose the step reliabilities are 0.99, 0.98, 0.97 and 0.99. Eq. (4) gives R = 0.99 × 0.98 × 0.97 × 0.99 ≈ 0.932 for unattended operation. If the validation step is allowed a second independent attempt when a checksum fails, its effective reliability becomes 1 − 0.03<sup>2</sup> = 0.9991 and R rises to approximately 0.960, subject to the independence caveat in Section 4.3. Under these assumptions, the most effective improvement is not a cheaper model but a reduction in the escalation rate through better extraction on difficult layouts, since each percentage point of escalation removed saves about $0.02 per invoice, roughly the entire large-model cost."
+    },
+    {
+     "p": "The same scenario illustrates the governance controls. The extraction agent reads untrusted supplier documents and therefore holds no write-capable tools; posting is performed by deterministic code after validation and, above a value threshold, after human approval under the approver's own delegated identity. The workflow is registered in the inventory with an owner, an evaluation suite of labeled historical invoices and a documented model version, so that a model upgrade triggers re-evaluation before deployment."
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "Limitations and Open Problems",
+   "blocks": [
+    {
+     "p": "The architecture and maturity model in this paper are proposals synthesized from the literature and standards; they have not been validated empirically across a population of organizations. Several problems remain open. First, prompt injection lacks a general defense, and the structural mitigations of Section 5 reduce capability as well as risk [26, 24]. Second, evaluation of agentic workflows remains costly, and automated judges carry documented biases [23]. Third, routers and cascades depend on quality predictors whose calibration may degrade when models or traffic change [15, 16]. Fourth, the regulatory landscape continues to evolve; organizations should consult the current consolidated text of applicable instruments rather than secondary summaries [20]. Finally, interoperability standards such as MCP are recent, and their security model relies on implementers to enforce consent and authorization [13]."
+    },
+    {
+     "p": "There is also a risk of over-engineering. An SME with two AI workflows does not need every layer of Table 1 implemented as separate infrastructure; the layers are logical responsibilities that may be fulfilled by a small number of services or by configuration of commercial platforms. The value of the reference architecture lies in making each responsibility explicit so that none is omitted by default."
+    }
+   ]
+  },
+  {
+   "num": "9",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "As AI deployments multiply, organizations face a choice between a fragmented estate of independent assistants and agents and a shared layer that provides common services for data, knowledge, models, tools, workflows, memory, identity, governance, evaluation and cost. This paper has described the latter under the name AI operating system, building on research that treats LLM runtimes as operating systems [2, 3], on tool-use and retrieval research [5, 6, 9], on the Model Context Protocol as an interoperability standard [13], and on governance and security frameworks [17, 19, 24]."
+    },
+    {
+     "p": "Three conclusions follow. First, mediation of all model, tool and data access through platform services is the architectural decision on which governance, security and cost control depend. Second, the economic performance of an AI OS should be judged by cost per successfully completed task and by measured reliability, not by token prices, since human review and failure frequently dominate total cost. Third, adoption should proceed in stages that build inventory, grounding and evaluation capability before granting agents autonomy over consequential actions."
+    },
+    {
+     "callout": "An AI operating system is best understood as a set of explicit responsibilities rather than a product: every model call, tool action and retrieved document should pass through a layer that knows who requested it, whether it is permitted, what it cost and whether it was correct."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. Advances in Neural Information Processing Systems, 28.",
+   "url": "https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html"
+  },
+  {
+   "text": "Packer, C., Wooders, S., Lin, K., Fang, V., Patil, S. G., Stoica, I., & Gonzalez, J. E. (2023). MemGPT: Towards LLMs as operating systems. arXiv preprint arXiv:2310.08560.",
+   "url": "https://arxiv.org/abs/2310.08560"
+  },
+  {
+   "text": "Mei, K., Zhu, X., Xu, W., Hua, W., Jin, M., Li, Z., Xu, S., Ye, R., Ge, Y., & Zhang, Y. (2024). AIOS: LLM agent operating system. arXiv preprint arXiv:2403.16971 (published at COLM 2025).",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "Wang, L., Ma, C., Feng, X., Zhang, Z., Yang, H., Zhang, J., Chen, Z., Tang, J., Chen, X., Lin, Y., Zhao, W. X., Wei, Z., & Wen, J.-R. (2023). A survey on large language model based autonomous agents. arXiv preprint arXiv:2308.11432.",
+   "url": "https://arxiv.org/abs/2308.11432"
+  },
+  {
+   "text": "Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. International Conference on Learning Representations (ICLR). arXiv:2210.03629.",
+   "url": "https://arxiv.org/abs/2210.03629"
+  },
+  {
+   "text": "Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Cancedda, N., & Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. arXiv preprint arXiv:2302.04761.",
+   "url": "https://arxiv.org/abs/2302.04761"
+  },
+  {
+   "text": "Karpas, E., Abend, O., Belinkov, Y., Lenz, B., Lieber, O., Ratner, N., Shoham, Y., Bata, H., Levine, Y., Leyton-Brown, K., et al. (2022). MRKL systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning. arXiv preprint arXiv:2205.00445.",
+   "url": "https://arxiv.org/abs/2205.00445"
+  },
+  {
+   "text": "Patil, S. G., Zhang, T., Wang, X., & Gonzalez, J. E. (2023). Gorilla: Large language model connected with massive APIs. arXiv preprint arXiv:2305.15334.",
+   "url": "https://arxiv.org/abs/2305.15334"
+  },
+  {
+   "text": "Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33. arXiv:2005.11401.",
+   "url": "https://arxiv.org/abs/2005.11401"
+  },
+  {
+   "text": "Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2023). Retrieval-augmented generation for large language models: A survey. arXiv preprint arXiv:2312.10997.",
+   "url": "https://arxiv.org/abs/2312.10997"
+  },
+  {
+   "text": "Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the middle: How language models use long contexts. Transactions of the Association for Computational Linguistics, 12. arXiv:2307.03172.",
+   "url": "https://arxiv.org/abs/2307.03172"
+  },
+  {
+   "text": "Anthropic. (2024, November 25). Introducing the Model Context Protocol. Anthropic News.",
+   "url": "https://www.anthropic.com/news/model-context-protocol"
+  },
+  {
+   "text": "Model Context Protocol. (2025). Specification, version 2025-06-18. modelcontextprotocol.io.",
+   "url": "https://modelcontextprotocol.io/specification/2025-06-18"
+  },
+  {
+   "text": "Rose, S., Borchert, O., Mitchell, S., & Connelly, S. (2020). Zero trust architecture (NIST Special Publication 800-207). National Institute of Standards and Technology.",
+   "url": "https://doi.org/10.6028/NIST.SP.800-207"
+  },
+  {
+   "text": "Chen, L., Zaharia, M., & Zou, J. (2023). FrugalGPT: How to use large language models while reducing cost and improving performance. arXiv preprint arXiv:2305.05176.",
+   "url": "https://arxiv.org/abs/2305.05176"
+  },
+  {
+   "text": "Ong, I., Almahairi, A., Wu, V., Chiang, W.-L., Wu, T., Gonzalez, J. E., Kadous, M. W., & Stoica, I. (2024). RouteLLM: Learning to route LLMs with preference data. arXiv preprint arXiv:2406.18665.",
+   "url": "https://arxiv.org/abs/2406.18665"
+  },
+  {
+   "text": "National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1).",
+   "url": "https://doi.org/10.6028/NIST.AI.100-1"
+  },
+  {
+   "text": "National Institute of Standards and Technology. (2024). Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile (NIST AI 600-1).",
+   "url": "https://doi.org/10.6028/NIST.AI.600-1"
+  },
+  {
+   "text": "International Organization for Standardization & International Electrotechnical Commission. (2023). ISO/IEC 42001:2023 Information technology — Artificial intelligence — Management system (1st ed.).",
+   "url": "https://webstore.iec.ch/publication/90574"
+  },
+  {
+   "text": "European Parliament & Council of the European Union. (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L series.",
+   "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+  },
+  {
+   "text": "Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., & Gebru, T. (2019). Model cards for model reporting. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229.",
+   "url": "https://doi.org/10.1145/3287560.3287596"
+  },
+  {
+   "text": "Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., et al. (2023). Holistic evaluation of language models. Transactions on Machine Learning Research. arXiv:2211.09110.",
+   "url": "https://arxiv.org/abs/2211.09110"
+  },
+  {
+   "text": "Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Gonzalez, J. E., & Stoica, I. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. Advances in Neural Information Processing Systems 36, Datasets and Benchmarks Track. arXiv:2306.05685.",
+   "url": "https://arxiv.org/abs/2306.05685"
+  },
+  {
+   "text": "OWASP Foundation. (2024). OWASP Top 10 for LLM Applications 2025. OWASP Gen AI Security Project.",
+   "url": "https://genai.owasp.org/llm-top-10/"
+  },
+  {
+   "text": "Perez, F., & Ribeiro, I. (2022). Ignore previous prompt: Attack techniques for language models. NeurIPS ML Safety Workshop. arXiv:2211.09527.",
+   "url": "https://arxiv.org/abs/2211.09527"
+  },
+  {
+   "text": "Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., & Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec '23), 79–90.",
+   "url": "https://doi.org/10.1145/3605764.3623985"
+  }
+ ]
+}
