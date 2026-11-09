@@ -1,5 +1,8 @@
 # Changelog
 
+## V3.6 — 2026-11-09
+- Fixed the Insights category filters, search and "Show more", and the same controls on the Training exam library. Filtered-out cards were marked hidden but stayed visible because the card styles overrode the browser's hiding; a global `[hidden]{display:none}` rule fixes it.
+
 ## V3.5 — 2026-11-08
 - Forms now deliver by email: Contact, Book Online and the Insights subscription post to FormSubmit, which emails info@chmltech.com. They no longer depend on the visitor's email app.
 - Submission emails use a table layout and a clear subject, with Reply-To set to the visitor's email. The spam honeypot field is renamed to `_honey`.
