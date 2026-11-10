@@ -12,6 +12,7 @@ S_RISK = "iso-9001-risk-based-thinking-in-practice"
 S_AI = "iso-9001-and-ai-using-ai-tools-inside-a-quality-system"
 S_IMS = "integrated-management-system-iso-9001-14001-45001"
 S_MR = "iso-9001-management-review-that-leadership-finds-useful"
+S_DOC = "iso-9001-document-and-revision-control"
 
 SRC = {
  "iso": ("ISO: ISO 9001:2026, what businesses need to know", "https://www.iso.org/quality-management/iso-9001-2026"),
@@ -52,7 +53,8 @@ CAVEAT = note("This article is based on ISO's announcement and on summaries publ
 SERIES = lambda me: "<h2>More in this series</h2><ul>" + "".join(f"<li>{link(s, t)}</li>" for s, t in [
     (S_CHANGED, "ISO 9001:2026: what changed from 2015"), (S_PLAN, "Your ISO 9001:2026 transition plan"), (S_SMB, "ISO 9001 for small and mid-sized businesses"),
     (S_AUDIT, "Internal audits that find real problems"), (S_RISK, "Risk-based thinking in practice"), (S_AI, "ISO 9001 and AI"),
-    (S_IMS, "Integrating ISO 9001, ISO 14001 and ISO 45001"), (S_MR, "Management review that leadership finds useful")] if s != me) + "</ul>"
+    (S_IMS, "Integrating ISO 9001, ISO 14001 and ISO 45001"), (S_MR, "Management review that leadership finds useful"),
+    (S_DOC, "Document and revision control")] if s != me) + "</ul>"
 CTA = '<p><strong>Want a second pair of eyes?</strong> Chmltech helps Canadian organizations build, simplify and audit quality management systems. <a href="../book.html">Book a strategy call</a> or <a href="../contact.html">ask a question</a>.</p>'
 
 A = []
@@ -516,6 +518,119 @@ A.append(dict(slug=S_MR, title="Management Review That Leadership Finds Useful",
 {CTA}
 {sources(["sgs", "dnv"])}
 {SERIES(S_MR)}'''))
+
+A.append(dict(slug=S_DOC, title="Document and Revision Control Under ISO 9001: Keeping the Right Version in Use",
+ desc="How to meet ISO 9001 clause 7.5 for documents and records: revision schemes, approval, one master copy, external documents, retention and what auditors check.",
+ cats=["iso"], tags=["document control", "revision control", "ISO 9001", "clause 7.5", "records retention"],
+ body=f'''
+<p>A machinist builds a batch of parts to revision C of a drawing. The customer changed the design two weeks ago, and revision D is sitting in the engineer's inbox. The parts are scrapped, the delivery is late and nobody did anything unusual. That is what a failure of document control looks like: ordinary people, doing their jobs carefully, from the wrong information.</p>
+<p>Document control has a reputation as the dullest part of ISO 9001, a matter of headers, signatures and revision letters. Its purpose is simple and important: everyone who does the work uses the right, current information, and you can show what was done afterwards. This article explains what the standard requires, how to set up revision control that people follow, and how to keep it light enough for a small business.</p>
+<h2>Documents and records: two different jobs</h2>
+<p>ISO 9001 uses one term, <em>documented information</em>, for both, but it asks for two different kinds of control. The 2015 edition expressed the difference with two verbs, and the summaries of the 2026 edition report no substantive change to clause 7.</p>
+<table>
+<tr><th></th><th>Documents ("maintain")</th><th>Records ("retain")</th></tr>
+<tr><td>What they are</td><td>Instructions for what to do: procedures, work instructions, drawings, specifications, forms, the quality policy</td><td>Evidence of what was done: inspection results, calibration certificates, training records, audit reports, signed-off forms</td></tr>
+<tr><td>Do they change?</td><td>Yes. They are revised as the work changes.</td><td>No. A record is a fact about the past and must be protected from alteration.</td></tr>
+<tr><td>Main risk</td><td>Someone uses an out-of-date version</td><td>A record is lost, unreadable, altered or discarded too soon</td></tr>
+<tr><td>Main control</td><td>Approval, revision control, withdrawal of obsolete versions</td><td>Storage, protection, retention period, disposal</td></tr>
+</table>
+<p>A blank inspection form is a document. The same form filled in and signed is a record. Keeping that distinction clear removes most of the confusion about what needs a revision number.</p>
+<h2>What clause 7.5 requires</h2>
+<p>The requirements fit on one page. The summary below follows the 2015 wording; check the exact text in your copy of ISO 9001:2026.</p>
+<table>
+<tr><th>Requirement</th><th>In practice</th></tr>
+<tr><td>Keep the documented information the standard requires, and whatever else you decide is needed for the system to work (7.5.1)</td><td>You choose what to write down, based on your size, the complexity of your processes and the competence of your people</td></tr>
+<tr><td>Identify and describe it (7.5.2)</td><td>Title, reference number, revision, date, owner</td></tr>
+<tr><td>Use a suitable format and medium (7.5.2)</td><td>Language people read, a file type they can open, paper or electronic as suits the workplace</td></tr>
+<tr><td>Review and approve it for suitability and adequacy (7.5.2)</td><td>Someone competent checks it before release, and the approval is visible</td></tr>
+<tr><td>Make it available and suitable for use where and when needed (7.5.3)</td><td>The current version is at the point of use, not only in the office</td></tr>
+<tr><td>Protect it (7.5.3)</td><td>Against loss, improper use, loss of confidentiality and loss of integrity</td></tr>
+<tr><td>Control distribution, access, retrieval and use (7.5.3)</td><td>Who can see it, who can change it, and how people find it</td></tr>
+<tr><td>Control storage and preservation, including legibility (7.5.3)</td><td>Files that still open, paper that is still readable</td></tr>
+<tr><td>Control changes, for example by version control (7.5.3)</td><td>Revision identifiers, a record of what changed, withdrawal of old versions</td></tr>
+<tr><td>Control retention and disposition (7.5.3)</td><td>How long records are kept, and how they are disposed of</td></tr>
+<tr><td>Identify and control documents of external origin (7.5.3)</td><td>Customer drawings, standards, regulations, supplier data sheets</td></tr>
+<tr><td>Protect records from unintended alteration (7.5.3)</td><td>Read-only storage, signed PDFs, audit trails</td></tr>
+</table>
+<p>Notice what is absent: there is no requirement for a document control procedure, a master list in a particular format, wet-ink signatures or a numbering scheme. You design the method. The auditor checks that it works.</p>
+<h2>The life of a controlled document</h2>
+{fig(S_DOC, "The life cycle of a controlled document. An approved change request starts the loop again with a new revision.", "Diagram of eight steps. Top row: draft, review, approve, release. Release leads down to use at the point of work. Bottom row, right to left: change request, supersede when the new revision is released, archive for the retention period. A dashed arrow from change request back to draft is labeled approved change starts a new revision. A note says records are not revised but retained, protected and eventually disposed of.")}
+<p>Every controlled document has an owner, usually the manager of the process it describes. The owner decides when it needs changing, makes sure it is reviewed by people who know the work, and arranges approval. Anyone may propose a change; only the owner and the approver may make one.</p>
+<h2>A revision scheme people understand</h2>
+<p>Choose one scheme and use it everywhere. Two are common.</p>
+<table>
+<tr><th>Scheme</th><th>Example</th><th>Suits</th></tr>
+<tr><td>Letters for released revisions</td><td>Rev A, B, C … with drafts shown as A1, A2 before release</td><td>Drawings and specifications, especially where customers use the same convention</td></tr>
+<tr><td>Numbers</td><td>Rev 1, 2, 3 … with drafts as 1.1, 1.2</td><td>Procedures, work instructions and forms</td></tr>
+</table>
+<p>Whatever the scheme, three rules keep it reliable.</p>
+<ol>
+<li><strong>Every released change raises the revision.</strong> No "minor" edits to a released document without a new revision, or two different documents will exist with the same identifier.</li>
+<li><strong>The revision appears on every page,</strong> or on every sheet of a drawing, with the effective date.</li>
+<li><strong>Each document carries a short revision history:</strong> revision, date, what changed and why, and who approved it. "Updated" is not a description. "Torque for M8 bolts changed from 22 to 25 N·m per customer ECN 1142" is.</li>
+</ol>
+<p>Marking the changed text with a bar in the margin or a highlight in the first release of a new revision helps people see what is different, which is the first thing they need to know.</p>
+<h2>One master copy</h2>
+<p>Most document control failures come from copies. A procedure is printed, emailed, saved to a desktop or photographed on a phone, and from then on the copy no longer changes when the master does. The control is to have one master location for current documents, make it easy to reach from where people work, and treat everything else as uncontrolled.</p>
+<ul>
+<li><strong>Electronic master:</strong> a single shared library with version history and permissions, where most people can read and only owners can edit. Link to documents rather than attaching them to emails.</li>
+<li><strong>Paper at the point of use:</strong> if instructions must be on paper at a machine or in a vehicle, keep a list of where each controlled copy is, replace them all on revision and collect the old ones. Mark printouts that are not on the list "uncontrolled when printed", with the print date.</li>
+<li><strong>Obsolete versions:</strong> remove them from use. If you keep them for reference, mark them clearly as superseded and store them apart from current documents.</li>
+</ul>
+<h2>Documents from outside</h2>
+<p>Customer drawings and specifications, industry standards, regulations and supplier data sheets are documents you did not write but must work to. The standard requires you to identify and control them. Keep a register listing each one, its current revision or edition, where the master copy is, who is responsible for watching for updates, and how often they check. Customer drawings deserve the most care, because a revision issued by the customer must reach the shop floor before the next job starts. A drawing revision mix-up is one of the example risks in our article on <a href="post/iso-9001-risk-based-thinking-in-practice.html">risk-based thinking</a>.</p>
+<h2>Records: how long, and how protected</h2>
+<p>For records, set a retention period by type and write it down. The period should reflect what customers require by contract, what regulation requires and what you need to answer a complaint or a warranty claim. Examples for a small manufacturer might look like this; the right periods for you depend on your contracts and the law that applies to you.</p>
+<table>
+<tr><th>Record</th><th>Example retention</th><th>Reason</th></tr>
+<tr><td>Inspection and test results</td><td>Product life plus warranty period, or as the customer requires</td><td>Evidence of conformity if a claim arises</td></tr>
+<tr><td>Calibration records</td><td>At least as long as the inspection results that relied on the instrument</td><td>To show measurements were valid</td></tr>
+<tr><td>Training and competence records</td><td>Duration of employment plus a set period</td><td>Evidence that people were competent</td></tr>
+<tr><td>Internal audits, management reviews, corrective actions</td><td>At least one full certification cycle</td><td>Certification audits look back across the cycle</td></tr>
+<tr><td>Supplier evaluations</td><td>While the supplier is approved, plus a set period</td><td>Evidence of supplier control</td></tr>
+</table>
+<p>Protect records from change. Store completed forms as read-only files or signed PDFs, keep the audit trail switched on in electronic systems, and back them up. When the retention period ends, dispose of them deliberately, and securely if they contain personal or customer information.</p>
+<h2>A minimum setup for a small business</h2>
+<ol>
+<li>One shared folder or library for current controlled documents, with version history on and edit rights limited to owners.</li>
+<li>A master list: reference, title, current revision, effective date, owner. A spreadsheet is enough.</li>
+<li>A standard header or footer on every document showing reference, revision, date and approver.</li>
+<li>A revision history table at the end of each document.</li>
+<li>A separate archive folder for superseded revisions, read-only.</li>
+<li>A register of external documents with a named person for each.</li>
+<li>A one-page retention schedule for records.</li>
+</ol>
+<p>This can be set up in a few days with tools you already have. Specialized document management software helps as volume grows, particularly for approval workflows and electronic signatures, but it is not a requirement.</p>
+<h2>What an auditor will check</h2>
+<p>Auditors rarely start in the document library. They start at the workstation. Expect them to:</p>
+<ul>
+<li>pick up the instruction or drawing in use and compare its revision with the master list;</li>
+<li>look for unofficial copies, handwritten notes and photographs of instructions;</li>
+<li>ask an operator how they would know if the instruction had changed;</li>
+<li>trace a recent change from the request, through approval, to the revised document in use;</li>
+<li>check that a customer's latest drawing revision has reached production;</li>
+<li>ask for a record from two years ago and see how long it takes to find.</li>
+</ul>
+<p>Our article on <a href="post/iso-9001-internal-audits-that-find-real-problems.html">internal audits that find real problems</a> shows how to run the same checks yourself first.</p>
+<h2>Common failures</h2>
+<ul>
+<li><strong>Silent edits:</strong> a released document changed without raising the revision.</li>
+<li><strong>Copies everywhere:</strong> printouts and email attachments that outlive the master.</li>
+<li><strong>Customer revisions stuck in an inbox:</strong> no defined route from the customer to the shop floor.</li>
+<li><strong>Over-documentation:</strong> procedures for tasks that trained people do reliably, which then go out of date because nobody reads them.</li>
+<li><strong>Records that cannot be found:</strong> kept, but in personal folders and inboxes.</li>
+</ul>
+<p>AI tools can help with document control: drafting revisions, comparing versions and checking cross-references. Their output must still be reviewed and approved like any other draft. See <a href="post/iso-9001-and-ai-using-ai-tools-inside-a-quality-system.html">ISO 9001 and AI</a> for the controls.</p>
+<h2>Key points</h2>
+<ul>
+<li>Documents tell people what to do and are revised. Records show what was done and are protected from change.</li>
+<li>Clause 7.5 sets outcomes, not a method: the right version where it is needed, approved, protected, and traceable through its changes.</li>
+<li>One master location, one owner per document, and a revision raised on every released change prevent most failures.</li>
+<li>Control documents from customers and other outside sources as carefully as your own.</li>
+</ul>
+{CTA}
+{sources(['dnv', 'sgs'])}
+{SERIES(S_DOC)}'''))
 
 os.makedirs(OUT, exist_ok=True)
 for n, a in enumerate(A):

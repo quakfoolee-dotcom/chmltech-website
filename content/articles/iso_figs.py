@@ -170,3 +170,30 @@ ax.text(14, 96, "Inputs", ha="center", fontsize=9.8, color=BLUE, fontweight="600
 ax.text(50, 12, "If no decision changes anything,\nthe review has not done its job.", ha="center", va="center", fontsize=8.6, color=INK, linespacing=1.3)
 save(fig, "iso-9001-management-review-that-leadership-finds-useful")
 print("iso figures written")
+
+# 9 — document lifecycle (V4.21)
+fig, ax = canvas(8.8, 4.8)
+st = [(4, 62, "1  Draft", "author prepares or\nrevises; change marked", SKY, BLUE),
+      (28, 62, "2  Review", "process owner checks\nit matches the work", SKY, BLUE),
+      (52, 62, "3  Approve", "authorized person\nsigns; revision raised", ORANGEF, ORANGE),
+      (76, 62, "4  Release", "published to the one\nmaster location", GREENF, GREEN_D),
+      (76, 22, "5  Use", "current revision at the\npoint of use", GREENF, GREEN_D),
+      (52, 22, "6  Change request", "anyone can raise one;\nowner decides", PALE, "#9AB0C8"),
+      (28, 22, "7  Supersede", "when the new revision\nis released, old one\nwithdrawn", PALE, "#9AB0C8"),
+      (4, 22, "8  Archive", "kept for the retention\nperiod, then disposed", PALE, "#9AB0C8")]
+for x0, y0, h, t, f_, e_ in st:
+    box(ax, x0, y0, 20, 20, "", fill=f_, ec=e_, lw=1.2)
+    ax.text(x0 + 10, y0 + 14, h, ha="center", va="center", fontsize=9, color=NAVY, fontweight="600")
+    ax.text(x0 + 10, y0 + 6.5, t, ha="center", va="center", fontsize=7.6, color=INK, linespacing=1.2)
+for xa in (24.6, 48.6, 72.6):
+    arr(ax, (xa, 72), (xa + 2.8, 72), NAVY, lw=1.4, ms=9)
+arr(ax, (86, 61.4), (86, 42.6), NAVY, lw=1.4, ms=9)
+for xa in (75.4, 51.4, 27.4):
+    arr(ax, (xa, 32), (xa - 2.8, 32), NAVY, lw=1.4, ms=9)
+ax.plot([62, 62, 14], [42.6, 50, 50], color=ORANGE, lw=1.6, ls=(0, (4, 2)))
+arr(ax, (14, 50), (14, 61.4), ORANGE, lw=1.6, ms=10)
+ax.text(38, 52.5, "approved change starts a new revision", ha="center", va="bottom", fontsize=8.2, color=ORANGE)
+ax.text(50, 94, "One document, one owner, one current revision", ha="center", va="center", fontsize=10.5, color=NAVY, fontweight="600")
+ax.text(50, 9, "Records (evidence of what was done) are not revised: they are retained, protected and eventually disposed of.", ha="center", va="center", fontsize=8.4, color=INK)
+save(fig, "iso-9001-document-and-revision-control")
+print("doc figure written")

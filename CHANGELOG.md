@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.21 — 2026-11-09
+- **New ISO 9001 article: Document and Revision Control Under ISO 9001: Keeping the Right Version in Use.** It covers clause 7.5 requirements, documents compared with records, revision schemes, one master copy, documents from customers and other outside sources, records retention, a minimum setup for small businesses, and what auditors check. It includes a document life cycle diagram and four tables. The ISO category now has 10 articles.
+- The "More in this series" list on every ISO article now links to it.
+
 ## V4.20 — 2026-11-09
 - **Eight new ISO 9001 articles in Insights.** The ISO category grows from 1 to 9 articles. Each has a diagram, tables, sources and links to the rest of the series.
   1. ISO 9001:2026: What Changed from 2015 and What It Means for You
