@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.25 — 2026-11-09
+- **Track record added to the Projects page**, built from the owner's project register:
+  - 313 completed Digital Adoption Plans, 2022–2025, across 16 sectors and 6 provinces;
+  - charts of plans by sector (top 10, plus "Other"), by year, and by province (shown only where the location is known, 132 plans);
+  - a note on how sector and province were assigned, and a line on the 29 completed operations and strategy advisory projects.
+- Only aggregate counts are published (`content/dap_stats.json`). No client names, project IDs or advisor names are published.
+
 ## V4.24 — 2026-11-09
 - **Projects page rebuilt.** The Wix version only held template placeholders: four project names with "I'm a paragraph" text. The new page has:
   - a hero with three figures: 300+ Digital Adoption Plans for Canadian SMEs, FEED engineering in progress, and plant reviews with HAZOP;

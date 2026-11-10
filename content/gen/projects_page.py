@@ -1,7 +1,7 @@
 """Projects page (V4.24): engineering projects and the Digital Adoption Plan track record.
 
-Clients are described by sector only, as agreed with the owner. The breakdown of the 300+ plans
-(sector, province, year) is not published yet; when data/dap_stats.json exists it is rendered as a chart.
+Clients are described by sector only, as agreed with the owner. The 300+ plan track record is rendered from data/dap_stats.json
+(aggregate counts built from the owner's project register; no client names are published).
 """
 import json, os
 from service_pages import fig, esc
@@ -45,15 +45,27 @@ DAP_FIG = {"type": "timeline", "title": "What a Digital Adoption Plan covers", "
                {"label": "Phase 4", "title": "Roadmap", "items": ["Phased implementation plan", "Budget, risks and change management", "Measures of success"]}]}}
 
 
+def _bars(d, keep_order=False):
+    rows = list(d.items()) if keep_order else sorted(d.items(), key=lambda kv: (kv[0].startswith("Other"), -kv[1]))
+    top = max(v for _, v in rows)
+    return "".join(f'<div class="pj-bar"><span class="pj-bar-l">{esc(k)}</span><span class="pj-bar-t"><span style="width:{100 * v / top:.1f}%{';background:#9FB3C8' if k.startswith('Other') else ''}"></span></span><span class="pj-bar-v">{v}</span></div>' for k, v in rows)
+
+
 def stats_chart():
-    """Horizontal bar list of plans by sector, from data/dap_stats.json (added when the owner supplies the data)."""
+    """Track record of completed Digital Adoption Plans, from data/dap_stats.json (aggregates only; no client names)."""
     if not os.path.exists(STATS): return ""
     S = json.load(open(STATS))
-    rows = sorted(S.get("by_sector", {}).items(), key=lambda kv: -kv[1])
-    if not rows: return ""
-    top = max(v for _, v in rows)
-    bars = "".join(f'<div class="pj-bar"><span class="pj-bar-l">{esc(k)}</span><span class="pj-bar-t"><span style="width:{100 * v / top:.1f}%"></span></span><span class="pj-bar-v">{v}</span></div>' for k, v in rows)
-    return f'''<div class="card" style="padding:28px;margin-top:28px"><h3 style="font-size:20px">Plans by sector</h3><div class="pj-bars">{bars}</div>{f'<p class="count" style="margin-top:12px">{esc(S["note"])}</p>' if S.get("note") else ""}</div>'''
+    strip = (f'<div class="pj-stats"><div><strong>{S["total"]}</strong><span>completed plans</span></div><div><strong>{S["sectors"]}</strong><span>sectors</span></div>'
+             f'<div><strong>{S["provinces"]}</strong><span>provinces</span></div><div><strong>{esc(S["years"])}</strong><span>delivery period</span></div></div>')
+    return f'''{strip}
+  <div class="pj-charts">
+    <div class="card pj-chart"><h3 style="font-size:20px">Plans by sector</h3><div class="pj-bars">{_bars(S["by_sector"])}</div></div>
+    <div class="pj-side">
+      <div class="card pj-chart"><h3 style="font-size:20px">Plans by year</h3><div class="pj-bars">{_bars(S["by_year"], keep_order=True)}</div></div>
+      <div class="card pj-chart"><h3 style="font-size:20px">Plans by province</h3><p class="count" style="margin:2px 0 0">Where the location is known ({S["province_known"]} plans)</p><div class="pj-bars">{_bars(S["by_province"])}</div></div>
+    </div>
+  </div>
+  <p class="count" style="margin-top:14px">{esc(S["note"])} Chmltech has also completed {S["other_advisory"]} operations and strategy advisory projects since 2019.</p>'''
 
 
 def eng_card(P):
@@ -79,6 +91,14 @@ CSS = """<style>
 .pj-bar-t{height:12px;background:#E7EEF6;border-radius:6px;overflow:hidden}
 .pj-bar-t span{display:block;height:100%;background:#0B6FA4;border-radius:6px}
 .pj-bar-v{font-weight:700;text-align:right}
+.pj-stats{display:flex;flex-wrap:wrap;gap:16px 48px;margin:32px 0 20px}
+.pj-stats div{display:flex;flex-direction:column}
+.pj-stats strong{font-family:var(--font-head);font-size:40px;line-height:1;color:var(--navy,#0A2A55)}
+.pj-stats span{font-size:14px;color:var(--muted,#5A6B80)}
+.pj-charts{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:start}
+.pj-side{display:grid;gap:20px}
+.pj-chart{padding:26px}
+@media (max-width:900px){.pj-charts{grid-template-columns:1fr}}
 @media (max-width:640px){.pj-bar{grid-template-columns:1fr 40px}.pj-bar-t{grid-column:1/-1;grid-row:2}}
 </style>"""
 
