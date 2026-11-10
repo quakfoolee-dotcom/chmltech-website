@@ -1,5 +1,20 @@
 # Changelog
 
+## V4.19 — 2026-11-09
+- **Three new Chmltech Online Journal papers on Physical AI (Volume 105).** Each follows the journal format: abstract, numbered sections, equations, tables, three figures, 30 checked references, and a PDF download.
+
+| Issue | Paper | Figures |
+|---|---|---|
+| 105(1) | Physical AI: Foundations, Architectures and the Simulation-to-Reality Gap | The control stack and its update rates; growth of error with task length; domain randomization (schematic) |
+| 105(2) | Physical AI in Process Plants and Factories: Autonomous Inspection, Manipulation and Control | Where each application sits in the plant hierarchy; detection probability against inspection rounds; readiness by use case |
+| 105(3) | Safety, Reliability and Economics of Deploying Physical AI | Safety architecture for a learned component; task success against number of steps; NPV against intervention rate |
+
+- **References:** every DOI was checked against Crossref and every arXiv ID against arXiv. Standards and regulations link to the ISO, IEC and EUR-Lex pages.
+- **Worked numbers are the author's calculations** and are labelled as illustrative: the inspection-frequency model in 105(2), and the separation distance and cost model (payback 2.5 years, NPV about 235,000 USD in the base case) in 105(3). The readiness levels in 105(2) are the author's assessment.
+- **Categories:** all three are in Chmltech Online Journal and Artificial Intelligence; 105(2) is also in Digital Technology. A paper can now be filed under more than one subject.
+- **Ordering:** papers published on the same day now list newest volume and issue first.
+- Sources: `content/journal/*.json`, figure scripts `content/journal/figure-scripts/physai.py` and `place_physai.py`.
+
 ## V4.18 — 2026-11-09
 - **Journal has its own category.** The Chmltech Online Journal filter is now `insights.html#cat=chmltech-online-journal` (10 papers). Wix had stored it under the slug `clean-energy`, which didn't fit the AI papers.
   - Old links keep working: `#cat=clean-energy` and `insights/categories/clean-energy.html` both open the journal filter.

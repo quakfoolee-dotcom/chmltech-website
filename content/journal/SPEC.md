@@ -38,3 +38,6 @@ Allowed inline HTML in any text: <sub> <sup> <em> <strong> <i> <b>. No other HTM
 - `corrections` is an empty list `[]` for new papers.
 - Viewpoint is November 2026. Recent developments (2024-2026) are welcome but every one must be cited to a verified source; never state a recent fact from memory without a source.
 - A citation helper that renumbers keyed citations is at `journal_build/jhelp.py` (write text with `[@key]`, it numbers references in order of first use). Use your own build script file name so parallel writers don't overwrite each other.
+
+## Volume 105 (Physical AI, November 2026)
+- Same rules as the Volume 104 papers. Build scripts: `journal_build/build_v105_i1.py` to `build_v105_i3.py`; figures: `jfigs/physai.py`, placed by `jfigs/place_physai.py`.

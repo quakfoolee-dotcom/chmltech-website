@@ -1,0 +1,1607 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Safety, Reliability and Economics of Deploying Physical AI | Chmltech Ltd.</title>
+<meta name="description" content="Deploying physical AI: failure modes, functional safety standards and EU regulation, safety architecture, reliability statistics and a worked cost model.">
+<link rel="canonical" href="https://www.chmltech.com/post/safety-reliability-and-economics-of-deploying-physical-ai.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Safety, Reliability and Economics of Deploying Physical AI | Chmltech Ltd.">
+<meta property="og:description" content="Deploying physical AI: failure modes, functional safety standards and EU regulation, safety architecture, reliability statistics and a worked cost model.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/safety-reliability-and-economics-of-deploying-physical-ai.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/journal.css">
+<meta name="citation_title" content="Safety, Reliability and Economics of Deploying Physical AI">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/09">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="105">
+<meta name="citation_issue" content="3">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 105, Issue 3</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Safety, Reliability and Economics of Deploying Physical AI</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Burnaby, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 9, 2026</span><span>16 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Learned robot policies are now capable enough to be considered for industrial use, but capability does not establish that a system is safe, dependable or economic. This paper addresses those three questions for organizations deciding whether to deploy physical AI. It reviews the physical hazards of robots and the failure modes particular to learned components, including distribution shift, objective misspecification and the weaknesses of human supervision. It summarizes functional safety standards, the ISO 10218 robot safety standards and guidance on collaborative operation, and the European Union's Machinery Regulation and Artificial Intelligence Act as amended in 2026. A comparison of required safety integrity with observed task failure rates shows that a learned policy cannot be the component on which safety depends. The paper then describes the architecture that follows from this: a learned performance channel enclosed by a conventional safety-rated layer, with safety filters and separation monitoring. Reliability is treated quantitatively, covering the compounding of step failures, the number of failure-free trials needed to demonstrate a failure rate, and availability and intervention in service. A cost model relates net benefit to operating hours, availability and intervention, and a worked example shows a payback of 2.5 years becoming a loss at lower reliability or utilization. The paper concludes with a deployment framework that is conservative about safety and empirical about value.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> physical AI; robot safety; functional safety; ISO 10218; reliability; human–robot collaboration; automation economics; EU Machinery Regulation</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Industrial robots have a long safety record built on a simple principle: the robot's motion is programmed and predictable, and people are separated from it by guards and interlocks. More than 4.6 million industrial robots were in operation worldwide in 2024 [<a href="#ref-1" class="j-cite">1</a>], most of them under that principle. Physical AI changes both of its premises. A learned policy is not programmed line by line, and its behavior on an input unlike its training data cannot be fully predicted. At the same time, the applications that motivate learning, such as mobile inspection, the handling of varied objects and work alongside people, take the machine out of the guarded cell.</p><p>The capabilities of these systems have advanced quickly, but capability and dependability are different properties. The authors of a leading open vision-language-action model report success rates typically below 90% on the tasks they tested [<a href="#ref-2" class="j-cite">2</a>], whereas safety functions on machinery are specified in terms of dangerous failures per hour that are many orders of magnitude lower. An organization deciding whether to deploy physical AI must therefore answer three questions that a demonstration does not answer. Is it safe, and can that be shown to the standard that regulation requires? Is it reliable enough to be useful? And does it pay?</p><p>This paper addresses those questions in order. Section 2 reviews hazards and the failure modes particular to learned systems. Section 3 summarizes the standards and regulations that apply. Section 4 describes the safety architecture by which a learned component can be used without being relied upon for safety. Section 5 treats reliability: how it compounds, how much testing is needed to demonstrate it, and how it is measured in operation. Section 6 develops a cost model with a worked example, and Section 7 sets out a deployment framework.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Hazards and Failure Modes</h2><h3>2.1 Physical hazards</h3><p>The physical hazards of a robot are those of any powered machine: impact, crushing, shearing and entanglement, together with hazards from the tool or the payload. Haddadin and co-authors measured robot–human impacts experimentally and showed that injury severity depends strongly on whether the body part is free to recoil or is clamped against a fixed surface, and that severity indices borrowed from automotive crash testing transfer poorly to robots [<a href="#ref-3" class="j-cite">3</a>]. Clamping and contact with sharp tooling are therefore the cases that dominate risk assessment for close human–robot work. Surveys of human–robot collaboration in industry treat safety as the precondition for the other benefits of collaboration and review the sensing and control methods used to obtain it [<a href="#ref-4" class="j-cite">4</a>]. A mobile robot adds collision with people and vehicles in shared routes, and, in process plants, the possibility of striking equipment or becoming an ignition source.</p><h3>2.2 Failure modes of learned components</h3><p>Learned components fail in ways that conventional software does not. Amodei and co-authors identified five classes of problem: negative side effects, where the system achieves its objective by a route that damages something the objective did not mention; reward hacking, where it exploits a flaw in the objective; limited oversight, where correct behavior is too costly to check often; unsafe exploration; and lack of robustness to distributional shift [<a href="#ref-5" class="j-cite">5</a>]. The last is the most important in deployment. A policy trained on one set of objects, lighting conditions and layouts may act confidently and wrongly when these change, and nothing inside the policy signals that it has left familiar territory. Sinha and co-authors argue that the problem must be handled at system level, by detecting such inputs at run time and switching to a fallback, because no training procedure removes it [<a href="#ref-6" class="j-cite">6</a>].</p><h3>2.3 The system view</h3><p>Leveson's systems approach treats safety as a control problem: accidents arise not only from component failures but from unsafe interactions among components that each work as designed, and from inadequate enforcement of safety constraints [<a href="#ref-7" class="j-cite">7</a>]. The view suits physical AI, where the learned policy, the supervising person, the safety controller and the surrounding plant interact. Human supervision in particular cannot be assumed to be a reliable barrier. Bainbridge observed that automating a task leaves the operator to monitor for rare events and to take over in the most difficult situations, which are the tasks for which a person who is out of the loop is least prepared [<a href="#ref-8" class="j-cite">8</a>]. Parasuraman and co-authors proposed that the type and level of automation be chosen deliberately for each function, with human performance consequences as a primary criterion [<a href="#ref-9" class="j-cite">9</a>]. Table 1 lists the principal failure modes with their mitigations.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Failure modes of physical AI systems and corresponding mitigations.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Failure mode</th><th>Example</th><th>Mitigation</th></tr></thead><tbody><tr><td>Distribution shift</td><td>New packaging or lighting causes a wrong grasp or path</td><td>Run-time monitoring, defined operating domain, fallback behavior [<a href="#ref-6" class="j-cite">6</a>]</td></tr><tr><td>Objective misspecification</td><td>Robot meets its cycle-time target by moving unsafely fast</td><td>Hard limits outside the learned policy; review of reward and demonstrations [<a href="#ref-5" class="j-cite">5</a>]</td></tr><tr><td>Compounding error</td><td>Small deviations accumulate over a long task</td><td>Shorter task segments, recovery behaviors, checkpoints (Section 5.1)</td></tr><tr><td>Perception failure</td><td>Person or obstacle not detected</td><td>Independent safety-rated sensing for protective functions [<a href="#ref-10" class="j-cite">10</a>]</td></tr><tr><td>Unsafe interaction</td><td>Components each behave as designed but the combination is hazardous</td><td>System-level hazard analysis [<a href="#ref-7" class="j-cite">7</a>]</td></tr><tr><td>Supervisor out of the loop</td><td>Operator misses a rare event or takes over poorly</td><td>Design of the human role; alarms and handover [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-9" class="j-cite">9</a>]</td></tr><tr><td>Model update</td><td>Retrained model behaves differently in an untested case</td><td>Change control and revalidation (Section 7)</td></tr></tbody></table></div></figure></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Standards and Regulation</h2><h3>3.1 Functional safety</h3><p>Functional safety standards specify how reliable a safety function must be and how that reliability is to be achieved and shown. IEC 61508 defines safety integrity levels (SIL) for electrical, electronic and programmable systems; for a function operating continuously, SIL 2 corresponds to an average frequency of dangerous failure between 10<sup>−7</sup> and 10<sup>−6</sup> per hour [<a href="#ref-11" class="j-cite">11</a>]. ISO 13849-1 applies the same idea to machinery through performance levels (PL), and PL d covers the same band [<a href="#ref-10" class="j-cite">10</a>]. Protective functions on industrial robots, such as protective stops and speed and position limits, are typically required to reach this level. A dangerous failure rate below 10<sup>−6</sup> per hour means less than one such failure in about 114 years of continuous operation. Both standards obtain this integrity through architecture, diagnostics and a systematic development process, and both presume that the behavior of the safety function can be specified and verified.</p><h3>3.2 Robot standards</h3><p>ISO 10218 is the principal safety standard for industrial robots. Part 1 addresses the robot as supplied by its manufacturer and Part 2 addresses robot applications and cells as built by the integrator; revised editions of both parts were published in 2025 [<a href="#ref-12" class="j-cite">12</a>, <a href="#ref-13" class="j-cite">13</a>]. ISO/TS 15066 gives guidance for collaborative operation, in which people and robots share a workspace. It describes four methods: safety-rated monitored stop, hand guiding, speed and separation monitoring, and power and force limiting, the last with limits on contact force and pressure for different regions of the body [<a href="#ref-14" class="j-cite">14</a>]. None of these documents prohibits learned control. They require that the safety functions meet their specified integrity whatever the rest of the control system does.</p><h3>3.3 Regulation</h3><p>In the European Union, Regulation (EU) 2023/1230 on machinery replaces the Machinery Directive and applies from 20 January 2027. It addresses software and autonomous machinery explicitly, and it places safety components with self-evolving behavior that use machine learning among the products requiring conformity assessment by a third party [<a href="#ref-15" class="j-cite">15</a>]. The Artificial Intelligence Act establishes a risk-based framework in which an AI system that is a safety component of a product covered by harmonized legislation, including machinery, is classed as high-risk [<a href="#ref-16" class="j-cite">16</a>]. Because both instruments could apply to the same machine, an amending regulation adopted in July 2026 reorganized their relationship [<a href="#ref-17" class="j-cite">17</a>]. According to one analysis, the main technical requirements for high-risk AI in machinery are to be incorporated into the machinery framework by a delegated act due by August 2028, and the practical effect will depend on the content of that act [<a href="#ref-18" class="j-cite">18</a>]. Requirements in this area are therefore still settling, and manufacturers and users should confirm the current position for their jurisdiction.</p><p>Outside binding regulation, the AI Risk Management Framework of the U.S. National Institute of Standards and Technology organizes the management of AI risk under four functions, govern, map, measure and manage, and is widely used as a voluntary reference [<a href="#ref-19" class="j-cite">19</a>].</p><h3>3.4 The verification gap</h3><p>The difficulty is now apparent. A safety function must be shown to fail dangerously less often than once in a million hours. A learned policy that completes 99.9% of its tasks correctly, at 60 tasks per hour, fails about once in 17 hours. Not every task failure is dangerous, but the comparison shows that a learned policy cannot at present be the component on which safety depends: its failure rate is too high by several orders of magnitude, and its behavior cannot be specified completely enough to verify. The practical consequence is architectural.</p><aside class="j-callout"><p>Safety functions are specified at fewer than 10<sup>−6</sup> dangerous failures per hour. Current learned policies fail tasks at rates of the order of 10<sup>−2</sup> to 10<sup>−1</sup> per hour or more. The learned policy must therefore be kept outside the safety function.</p></aside></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Safety Architecture for Learned Components</h2><h3>4.1 Separation of performance and safety</h3><p>The established answer is to separate the system into a performance channel and a safety channel. Sha described the pattern for control software as using simplicity to control complexity: a complex, high-performance controller is allowed to operate only while a simple, verifiable monitor confirms that the system remains within a region from which a simple, verified controller can always recover it [<a href="#ref-20" class="j-cite">20</a>]. Applied to physical AI, the learned policy proposes actions; a safety-rated layer, built and certified by conventional means, limits speed, force and workspace, monitors separation from people, and commands a protective stop when a limit is approached. The learned policy can then be changed or retrained without reopening the safety case, provided the safety layer and its assumptions are unchanged. Figure 1 shows the arrangement.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 513.72 283.176" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Block diagram. Cameras and joint sensors feed a learned policy labeled performance channel, which sends a proposed action into a safety-rated layer. Inside that layer a safety filter limiting speed, force, workspace and separation passes a safe action to the drives and actuators, and safety-rated sensing such as scanners, light curtains and emergency stop feeds the filter and can command a protective stop directly. Below the policy, a run-time monitor for unfamiliar input and low confidence exchanges signals with the policy and asks a supervisor for help.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 283.176 
+L 513.72 283.176 
+L 513.72 0 
+L 0 0 
+L 0 283.176 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 267.9084 261.931608 
+L 391.4496 261.931608 
+Q 398.9826 261.931608 398.9826 257.856768 
+L 398.9826 30.752352 
+Q 398.9826 26.677512 391.4496 26.677512 
+L 267.9084 26.677512 
+Q 260.3754 26.677512 260.3754 30.752352 
+L 260.3754 257.856768 
+Q 260.3754 261.931608 267.9084 261.931608 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #f4f8ee; stroke: #4d7f12; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 280.7145 136.83402 
+L 378.6435 136.83402 
+Q 383.6655 136.83402 383.6655 134.11746 
+L 383.6655 83.8611 
+Q 383.6655 81.14454 378.6435 81.14454 
+L 280.7145 81.14454 
+Q 275.6925 81.14454 275.6925 83.8611 
+L 275.6925 134.11746 
+Q 275.6925 136.83402 280.7145 136.83402 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #ffffff; stroke: #4d7f12; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 280.7145 240.0633 
+L 378.6435 240.0633 
+Q 383.6655 240.0633 383.6655 237.34674 
+L 383.6655 192.5235 
+Q 383.6655 189.80694 378.6435 189.80694 
+L 280.7145 189.80694 
+Q 275.6925 189.80694 275.6925 192.5235 
+L 275.6925 237.34674 
+Q 275.6925 240.0633 280.7145 240.0633 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #ffffff; stroke: #4d7f12; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 329.679 188.856144 
+Q 329.679 163.592136 329.679 140.116982 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #4d7f12; stroke-width: 1.6; stroke-linecap: round"/>
+<path d="M 327.479 144.516982 
+L 329.679 140.116982 
+L 331.879 144.516982 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #4d7f12; stroke: #4d7f12; stroke-width: 1.6; stroke-linecap: round"/>
+</g>
+<g id="patch_6">
+<path d="M 14.5485 131.4009 
+L 72.3015 131.4009 
+Q 77.3235 131.4009 77.3235 128.68434 
+L 77.3235 89.29422 
+Q 77.3235 86.57766 72.3015 86.57766 
+L 14.5485 86.57766 
+Q 9.5265 86.57766 9.5265 89.29422 
+L 9.5265 128.68434 
+Q 9.5265 131.4009 14.5485 131.4009 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 104.9445 136.83402 
+L 187.8075 136.83402 
+Q 192.8295 136.83402 192.8295 134.11746 
+L 192.8295 83.8611 
+Q 192.8295 81.14454 187.8075 81.14454 
+L 104.9445 81.14454 
+Q 99.9225 81.14454 99.9225 83.8611 
+L 99.9225 134.11746 
+Q 99.9225 136.83402 104.9445 136.83402 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #cfe6f3; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 80.0856 108.98928 
+Q 88.623 108.98928 95.371546 108.98928 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #0b6fa4; stroke-width: 1.6; stroke-linecap: round"/>
+<path d="M 90.971546 106.78928 
+L 95.371546 108.98928 
+L 90.971546 111.18928 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-width: 1.6; stroke-linecap: round"/>
+</g>
+<g id="patch_9">
+<path d="M 195.5916 108.98928 
+Q 234.261 108.98928 271.141546 108.98928 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #0b6fa4; stroke-width: 1.6; stroke-linecap: round"/>
+<path d="M 266.741546 106.78928 
+L 271.141546 108.98928 
+L 266.741546 111.18928 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-width: 1.6; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 451.4625 136.83402 
+L 499.1715 136.83402 
+Q 504.1935 136.83402 504.1935 134.11746 
+L 504.1935 83.8611 
+Q 504.1935 81.14454 499.1715 81.14454 
+L 451.4625 81.14454 
+Q 446.4405 81.14454 446.4405 83.8611 
+L 446.4405 134.11746 
+Q 446.4405 136.83402 451.4625 136.83402 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_11">
+<path d="M 386.4276 108.98928 
+Q 415.053 108.98928 441.442332 108.98928 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #4d7f12; stroke-width: 2; stroke-linecap: round"/>
+<path d="M 437.042332 106.78928 
+L 441.442332 108.98928 
+L 437.042332 111.18928 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #4d7f12; stroke: #4d7f12; stroke-width: 2; stroke-linecap: round"/>
+</g>
+<g id="patch_12">
+<path d="M 475.317 217.65168 
+Q 475.317 177.989904 475.317 139.893376 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 473.117 144.293376 
+L 475.317 139.893376 
+L 477.517 144.293376 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_13">
+<path d="M 104.9445 234.63018 
+L 187.8075 234.63018 
+Q 192.8295 234.63018 192.8295 231.91362 
+L 192.8295 187.09038 
+Q 192.8295 184.37382 187.8075 184.37382 
+L 104.9445 184.37382 
+Q 99.9225 184.37382 99.9225 187.09038 
+L 99.9225 231.91362 
+Q 99.9225 234.63018 104.9445 234.63018 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #fbe6d8; stroke: #e07a3a; stroke-linejoin: miter"/>
+</g>
+<g id="patch_14">
+<path d="M 146.376 139.893376 
+Q 146.376 160.60392 146.376 181.314464 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 144.176 144.293376 
+L 146.376 139.893376 
+L 148.576 144.293376 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #e07a3a; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 148.576 176.914464 
+L 146.376 181.314464 
+L 144.176 176.914464 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #e07a3a; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_15">
+<path d="M 14.5485 231.91362 
+L 72.3015 231.91362 
+Q 77.3235 231.91362 77.3235 229.19706 
+L 77.3235 189.80694 
+Q 77.3235 187.09038 72.3015 187.09038 
+L 14.5485 187.09038 
+Q 9.5265 187.09038 9.5265 189.80694 
+L 9.5265 229.19706 
+Q 9.5265 231.91362 14.5485 231.91362 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_16">
+<path d="M 97.1604 209.502 
+Q 88.623 209.502 81.650848 209.502 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 86.050848 211.702 
+L 81.650848 209.502 
+L 86.050848 207.302 
+z
+" clip-path="url(#p21509ecef2)" style="fill: #e07a3a; stroke: #e07a3a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 386.4276 217.65168 
+L 475.317 217.65168 
+" clip-path="url(#p21509ecef2)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="329.679" y="44.712975" transform="rotate(-0 329.679 44.712975)">Safety-rated layer</text>
+</g>
+<g id="text_2">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="329.679" y="59.108401" transform="rotate(-0 329.679 59.108401)">conventional, verified, PL d</text>
+</g>
+<g id="text_3">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(306.187563 91.859785)">Safety filter</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(302.916875 104.883662)">speed · force</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(282.165344 117.846398)">workspace · separation</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(306.949469 131.139025)">Eqs. (1)–(2)</text>
+</g>
+<g id="text_4">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(287.264203 204.275571)">Safety-rated sensing</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(311.020359 217.261823)">scanners</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(286.433094 230.245388)">light curtains · e-stop</text>
+</g>
+<g id="text_5">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(24.871438 98.868335)">Cameras</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(34.616063 111.397592)">joint</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(26.998563 124.683788)">sensors</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(114.265688 97.871204)">Learned policy</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(116.420766 111.545139)">(performance</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(127.336078 125.462356)">channel)</text>
+</g>
+<g id="text_7">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(209.755772 87.973202)">proposed</text>
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(216.374709 99.769831)">action</text>
+</g>
+<g id="text_8">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(462.076437 98.934335)">Drives</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(467.552375 112.134592)">and</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(455.806438 125.2166)">actuators</text>
+</g>
+<g id="text_9">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(415.335947 88.898265)">safe</text>
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(411.730509 99.769831)">action</text>
+</g>
+<g id="text_10">
+<text style="font-size: 8.3px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="440.163" y="235.200265" transform="rotate(-0 440.163 235.200265)">protective stop</text>
+</g>
+<g id="text_11">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(111.127422 199.675576)">Run-time monitor</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(113.817609 211.899922)">unfamiliar input,</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(115.253406 225.73408)">low confidence</text>
+</g>
+<g id="text_12">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(21.373391 198.848498)">Supervisor</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(29.769141 212.235859)">(asked</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(26.308984 224.951346)">for help)</text>
+</g>
+<g id="text_13">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(50.965875 256.033446)">Improves task success and availability;</text>
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(68.463906 267.981743)">not part of the safety function</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p21509ecef2">
+<rect x="5.76" y="5.76" width="502.2" height="271.656"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Safety architecture for a learned component. The learned policy proposes actions in a performance channel; a conventional safety-rated layer filters them and can command a protective stop from its own sensing. A run-time monitor that detects unfamiliar inputs or low confidence improves task success but is not part of the safety function. <span class="j-fig-src">Drawn by the author, after [<a href="#ref-14" class="j-cite">14</a>, <a href="#ref-20" class="j-cite">20</a>, <a href="#ref-21" class="j-cite">21</a>].</span></figcaption></figure><h3>4.2 Safety filters</h3><p>A safety filter makes the separation precise. Let the safe set be the states <i>x</i> for which a function <i>h</i>(<i>x</i>) is non-negative. A control barrier function condition requires every applied action <i>u</i> to satisfy</p><div class="j-eq" role="math"><span class="j-eq-body">d<i>h</i>(<i>x</i>, <i>u</i>)/d<i>t</i> ≥ −α(<i>h</i>(<i>x</i>))</span><span class="j-eq-n">(1)</span></div><p>where α is an increasing function with α(0) = 0. The condition allows <i>h</i> to decrease only as fast as the remaining margin permits, so that a state inside the safe set stays inside it. The filter passes the action proposed by the policy if it satisfies Eq. (1) and otherwise replaces it with the closest action that does, found by solving a small optimization problem at each step [<a href="#ref-21" class="j-cite">21</a>]. Reviews of safe learning in robotics place such filters among the methods that give formal assurances, while noting that the assurances depend on the accuracy of the dynamic model used to evaluate the condition [<a href="#ref-22" class="j-cite">22</a>].</p><h3>4.3 Separation monitoring</h3><p>For work near people, speed and separation monitoring applies the same logic to distance. The robot must stop before a person can reach it, so the protective separation distance is</p><div class="j-eq" role="math"><span class="j-eq-body"><i>S</i><sub>p</sub> = <i>v</i><sub>h</sub>(<i>T</i><sub>r</sub> + <i>T</i><sub>s</sub>) + <i>v</i><sub>r</sub><i>T</i><sub>r</sub> + <i>S</i><sub>s</sub> + <i>C</i> + <i>Z</i></span><span class="j-eq-n">(2)</span></div><p>where <i>v</i><sub>h</sub> and <i>v</i><sub>r</sub> are the speeds of the person and the robot toward each other, <i>T</i><sub>r</sub> is the reaction time of the sensing and control system, <i>T</i><sub>s</sub> and <i>S</i><sub>s</sub> are the robot's stopping time and stopping distance, <i>C</i> is an allowance for intrusion before detection and <i>Z</i> covers position uncertainty [<a href="#ref-14" class="j-cite">14</a>]. As an illustration, with <i>v</i><sub>h</sub> = 1.6 m s<sup>−1</sup>, <i>v</i><sub>r</sub> = 1.0 m s<sup>−1</sup>, <i>T</i><sub>r</sub> = 0.1 s, <i>T</i><sub>s</sub> = 0.3 s, <i>S</i><sub>s</sub> = 0.15 m and <i>C</i> + <i>Z</i> = 0.20 m, the required distance is 0.64 + 0.10 + 0.15 + 0.20 = 1.09 m. The equation shows what a learned policy can and cannot influence: it may choose the path and the speed, but the distance at which the robot must slow or stop is fixed by measured stopping performance and by safety-rated sensing.</p><h3>4.4 Knowing when to ask</h3><p>A complementary measure is to have the learned component recognize its own uncertainty. Ren and co-authors used conformal prediction to calibrate a language-model planner so that the robot requests human help when its confidence is insufficient, with a statistical assurance on the task success rate and with fewer requests than simpler rules [<a href="#ref-23" class="j-cite">23</a>]. Run-time monitors that detect inputs unlike the training data serve the same purpose for perception and control [<a href="#ref-6" class="j-cite">6</a>]. These measures reduce task failures and unnecessary stops. They improve performance and availability, but because they are themselves learned or statistical, they supplement the safety layer and do not replace it.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Reliability</h2><h3>5.1 Compounding over steps</h3><p>A task that consists of <i>n</i> steps, each of which succeeds independently with probability <i>p</i>, is completed with probability</p><div class="j-eq" role="math"><span class="j-eq-body"><i>P</i><sub>task</sub> = <i>p</i><sup><i>n</i></sup></span><span class="j-eq-n">(3)</span></div><p>At <i>p</i> = 0.99, a 10-step task succeeds 90% of the time and a 50-step task only 61% of the time; at <i>p</i> = 0.999 the 50-step task succeeds 95% of the time. Long tasks therefore demand per-step reliability far above what short demonstrations reveal. The remedies are to shorten the chain, by dividing work into segments with checks between them, and to add recovery behaviors so that a failed step is retried instead of ending the task. Figure 2 plots Eq. (3) for three values of <i>p</i>.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 439.591426 310.463477" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Line chart of task success probability against number of steps from 1 to 100. With per-step success of 0.999 the curve falls slowly to about 0.90 at 100 steps and is marked 0.95 at 50 steps. With 0.99 it is marked 0.90 at 10 steps and 0.61 at 50 steps and falls to 0.37 at 100 steps. With 0.95 it falls below 0.1 by 50 steps.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 310.463477 
+L 439.591426 310.463477 
+L 439.591426 0 
+L 0 0 
+L 0 310.463477 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 45.631309 221.976 
+L 425.071309 221.976 
+L 425.071309 5.76 
+L 45.631309 5.76 
+L 45.631309 221.976 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 45.631309 221.976 
+L 45.631309 5.76 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mbf00dc2a87" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mbf00dc2a87" x="45.631309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="45.631309" y="239.147875" transform="rotate(-0 45.631309 239.147875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 121.519309 221.976 
+L 121.519309 5.76 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mbf00dc2a87" x="121.519309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="121.519309" y="239.147875" transform="rotate(-0 121.519309 239.147875)">20</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 197.407309 221.976 
+L 197.407309 5.76 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mbf00dc2a87" x="197.407309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="197.407309" y="239.147875" transform="rotate(-0 197.407309 239.147875)">40</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 273.295309 221.976 
+L 273.295309 5.76 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mbf00dc2a87" x="273.295309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="273.295309" y="239.147875" transform="rotate(-0 273.295309 239.147875)">60</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 349.183309 221.976 
+L 349.183309 5.76 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mbf00dc2a87" x="349.183309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="349.183309" y="239.147875" transform="rotate(-0 349.183309 239.147875)">80</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 425.071309 221.976 
+L 425.071309 5.76 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#mbf00dc2a87" x="425.071309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="425.071309" y="239.147875" transform="rotate(-0 425.071309 239.147875)">100</text>
+</g>
+</g>
+<g id="text_7">
+<g style="fill: #0b2a5a" transform="translate(160.538809 255.852465)">
+<text>
+<tspan x="0" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">N</tspan>
+<tspan x="7.910889" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">u</tspan>
+<tspan x="14.119629" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">m</tspan>
+<tspan x="23.317383" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">b</tspan>
+<tspan x="29.746582" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="35.868164" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="39.821045" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="42.77417" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="49.070068" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">f</tspan>
+<tspan x="52.956299" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="55.909424" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="61.45166" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="64.886719" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="71.008301" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">p</tspan>
+<tspan x="77.4375" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="82.979736" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="85.932861" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="88.47583" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="94.679443" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="97.632568" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="101.067627" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">h</tspan>
+<tspan x="107.276367" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="113.397949" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="116.351074" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="119.786133" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">a</tspan>
+<tspan x="125.682129" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="131.224365" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">k</tspan>
+<tspan x="136.987061" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">,</tspan>
+<tspan x="140.011963" y="-0" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="142.965088" y="-0" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #0b2a5a">n</tspan>
+</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 45.631309 221.976 
+L 425.071309 221.976 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="md22fb09121" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#md22fb09121" x="45.631309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="227.061938" transform="rotate(-0 38.631309 227.061938)">0.0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 45.631309 179.992311 
+L 425.071309 179.992311 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#md22fb09121" x="45.631309" y="179.992311" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="185.078248" transform="rotate(-0 38.631309 185.078248)">0.2</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 45.631309 138.008621 
+L 425.071309 138.008621 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#md22fb09121" x="45.631309" y="138.008621" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="143.094559" transform="rotate(-0 38.631309 143.094559)">0.4</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 45.631309 96.024932 
+L 425.071309 96.024932 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#md22fb09121" x="45.631309" y="96.024932" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="101.11087" transform="rotate(-0 38.631309 101.11087)">0.6</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 45.631309 54.041243 
+L 425.071309 54.041243 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#md22fb09121" x="45.631309" y="54.041243" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="59.12718" transform="rotate(-0 38.631309 59.12718)">0.8</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 45.631309 12.057553 
+L 425.071309 12.057553 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#md22fb09121" x="45.631309" y="12.057553" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="17.143491" transform="rotate(-0 38.631309 17.143491)">1.0</text>
+</g>
+</g>
+<g id="text_14">
+<g style="fill: #0b2a5a" transform="translate(15.931875 200.8605) rotate(-90)">
+<text>
+<tspan x="0" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">P</tspan>
+<tspan x="6.706055" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="10.658936" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="16.954834" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">b</tspan>
+<tspan x="23.384033" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">a</tspan>
+<tspan x="29.280029" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">b</tspan>
+<tspan x="35.709229" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="38.252197" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">l</tspan>
+<tspan x="40.795166" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="43.338135" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="46.773193" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">y</tspan>
+<tspan x="52.674316" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="55.627441" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="59.0625" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">h</tspan>
+<tspan x="65.27124" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="71.392822" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="74.345947" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="77.781006" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">a</tspan>
+<tspan x="83.677002" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="89.219238" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">k</tspan>
+<tspan x="94.981934" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="97.935059" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="103.477295" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">u</tspan>
+<tspan x="109.686035" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">c</tspan>
+<tspan x="115.68457" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">c</tspan>
+<tspan x="121.683105" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="127.804688" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="133.92627" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">d</tspan>
+<tspan x="140.355469" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="145.897705" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">,</tspan>
+<tspan x="148.922607" y="-0.109375" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="151.875732" y="-0.109375" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #0b2a5a">P</tspan>
+<tspan x="158.20752" y="1.46562" style="font-size: 7.35px; font-family: 'DejaVu Sans'; fill: #0b2a5a">t</tspan>
+<tspan x="161.08938" y="1.46562" style="font-size: 7.35px; font-family: 'DejaVu Sans'; fill: #0b2a5a">a</tspan>
+<tspan x="165.593408" y="1.46562" style="font-size: 7.35px; font-family: 'DejaVu Sans'; fill: #0b2a5a">s</tspan>
+<tspan x="169.422729" y="1.46562" style="font-size: 7.35px; font-family: 'DejaVu Sans'; fill: #0b2a5a">k</tspan>
+</text>
+</g>
+</g>
+</g>
+<g id="line2d_25">
+<path d="M 49.425709 12.267472 
+L 53.220109 12.47718 
+L 57.014509 12.686679 
+L 60.808909 12.895969 
+L 64.603309 13.105049 
+L 68.397709 13.313919 
+L 72.192109 13.522582 
+L 75.986509 13.731035 
+L 79.780909 13.93928 
+L 83.575309 14.147317 
+L 87.369709 14.355145 
+L 91.164109 14.562766 
+L 94.958509 14.770179 
+L 98.752909 14.977385 
+L 102.547309 15.184384 
+L 106.341709 15.391176 
+L 110.136109 15.59776 
+L 113.930509 15.804139 
+L 117.724909 16.01031 
+L 121.519309 16.216276 
+L 125.313709 16.422036 
+L 129.108109 16.62759 
+L 132.902509 16.832938 
+L 136.696909 17.038081 
+L 140.491309 17.243019 
+L 144.285709 17.447752 
+L 148.080109 17.65228 
+L 151.874509 17.856604 
+L 155.668909 18.060724 
+L 159.463309 18.264639 
+L 163.257709 18.46835 
+L 167.052109 18.671858 
+L 170.846509 18.875162 
+L 174.640909 19.078263 
+L 178.435309 19.281161 
+L 182.229709 19.483855 
+L 186.024109 19.686348 
+L 189.818509 19.888637 
+L 193.612909 20.090725 
+L 197.407309 20.29261 
+L 201.201709 20.494293 
+L 204.996109 20.695775 
+L 208.790509 20.897055 
+L 212.584909 21.098134 
+L 216.379309 21.299012 
+L 220.173709 21.499689 
+L 223.968109 21.700165 
+L 227.762509 21.900441 
+L 231.556909 22.100517 
+L 235.351309 22.300392 
+L 239.145709 22.500068 
+L 242.940109 22.699544 
+L 246.734509 22.89882 
+L 250.528909 23.097897 
+L 254.323309 23.296775 
+L 258.117709 23.495455 
+L 261.912109 23.693935 
+L 265.706509 23.892217 
+L 269.500909 24.090301 
+L 273.295309 24.288187 
+L 277.089709 24.485875 
+L 280.884109 24.683365 
+L 284.678509 24.880657 
+L 288.472909 25.077753 
+L 292.267309 25.274651 
+L 296.061709 25.471352 
+L 299.856109 25.667857 
+L 303.650509 25.864165 
+L 307.444909 26.060277 
+L 311.239309 26.256193 
+L 315.033709 26.451912 
+L 318.828109 26.647436 
+L 322.622509 26.842765 
+L 326.416909 27.037898 
+L 330.211309 27.232836 
+L 334.005709 27.42758 
+L 337.800109 27.622128 
+L 341.594509 27.816482 
+L 345.388909 28.010641 
+L 349.183309 28.204607 
+L 352.977709 28.398378 
+L 356.772109 28.591956 
+L 360.566509 28.78534 
+L 364.360909 28.97853 
+L 368.155309 29.171528 
+L 371.949709 29.364332 
+L 375.744109 29.556944 
+L 379.538509 29.749363 
+L 383.332909 29.94159 
+L 387.127309 30.133624 
+L 390.921709 30.325467 
+L 394.716109 30.517117 
+L 398.510509 30.708576 
+L 402.304909 30.899843 
+L 406.099309 31.09092 
+L 409.893709 31.281805 
+L 413.688109 31.472499 
+L 417.482509 31.663002 
+L 421.276909 31.853315 
+L 425.071309 32.043438 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<path d="M 49.425709 14.156738 
+L 53.220109 16.23493 
+L 57.014509 18.292341 
+L 60.808909 20.329178 
+L 64.603309 22.345646 
+L 68.397709 24.34195 
+L 72.192109 26.31829 
+L 75.986509 28.274867 
+L 79.780909 30.211878 
+L 83.575309 32.12952 
+L 87.369709 34.027984 
+L 91.164109 35.907465 
+L 94.958509 37.76815 
+L 98.752909 39.610228 
+L 102.547309 41.433886 
+L 106.341709 43.239307 
+L 110.136109 45.026674 
+L 113.930509 46.796168 
+L 117.724909 48.547966 
+L 121.519309 50.282246 
+L 125.313709 51.999184 
+L 129.108109 53.698952 
+L 132.902509 55.381722 
+L 136.696909 57.047665 
+L 140.491309 58.696949 
+L 144.285709 60.329739 
+L 148.080109 61.946202 
+L 151.874509 63.5465 
+L 155.668909 65.130795 
+L 159.463309 66.699247 
+L 163.257709 68.252014 
+L 167.052109 69.789254 
+L 170.846509 71.311122 
+L 174.640909 72.81777 
+L 178.435309 74.309353 
+L 182.229709 75.786019 
+L 186.024109 77.247919 
+L 189.818509 78.6952 
+L 193.612909 80.128008 
+L 197.407309 81.546488 
+L 201.201709 82.950783 
+L 204.996109 84.341035 
+L 208.790509 85.717385 
+L 212.584909 87.079971 
+L 216.379309 88.428931 
+L 220.173709 89.764402 
+L 223.968109 91.086518 
+L 227.762509 92.395413 
+L 231.556909 93.691218 
+L 235.351309 94.974066 
+L 239.145709 96.244086 
+L 242.940109 97.501405 
+L 246.734509 98.746151 
+L 250.528909 99.978449 
+L 254.323309 101.198425 
+L 258.117709 102.4062 
+L 261.912109 103.601898 
+L 265.706509 104.785639 
+L 269.500909 105.957543 
+L 273.295309 107.117728 
+L 277.089709 108.26631 
+L 280.884109 109.403407 
+L 284.678509 110.529133 
+L 288.472909 111.643602 
+L 292.267309 112.746926 
+L 296.061709 113.839217 
+L 299.856109 114.920584 
+L 303.650509 115.991139 
+L 307.444909 117.050987 
+L 311.239309 118.100237 
+L 315.033709 119.138995 
+L 318.828109 120.167365 
+L 322.622509 121.185451 
+L 326.416909 122.193357 
+L 330.211309 123.191183 
+L 334.005709 124.179031 
+L 337.800109 125.157001 
+L 341.594509 126.125191 
+L 345.388909 127.083699 
+L 349.183309 128.032622 
+L 352.977709 128.972056 
+L 356.772109 129.902095 
+L 360.566509 130.822834 
+L 364.360909 131.734366 
+L 368.155309 132.636782 
+L 371.949709 133.530175 
+L 375.744109 134.414633 
+L 379.538509 135.290247 
+L 383.332909 136.157104 
+L 387.127309 137.015293 
+L 390.921709 137.8649 
+L 394.716109 138.706011 
+L 398.510509 139.538711 
+L 402.304909 140.363084 
+L 406.099309 141.179213 
+L 409.893709 141.987181 
+L 413.688109 142.787069 
+L 417.482509 143.578958 
+L 421.276909 144.362929 
+L 425.071309 145.13906 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_27">
+<path d="M 49.425709 22.553476 
+L 53.220109 32.524602 
+L 57.014509 41.997172 
+L 60.808909 50.996113 
+L 64.603309 59.545108 
+L 68.397709 67.666652 
+L 72.192109 75.38212 
+L 75.986509 82.711814 
+L 79.780909 89.675023 
+L 83.575309 96.290072 
+L 87.369709 102.574368 
+L 91.164109 108.54445 
+L 94.958509 114.216027 
+L 98.752909 119.604026 
+L 102.547309 124.722625 
+L 106.341709 129.585293 
+L 110.136109 134.204829 
+L 113.930509 138.593387 
+L 117.724909 142.762518 
+L 121.519309 146.723192 
+L 125.313709 150.485832 
+L 129.108109 154.060341 
+L 132.902509 157.456124 
+L 136.696909 160.682118 
+L 140.491309 163.746812 
+L 144.285709 166.658271 
+L 148.080109 169.424158 
+L 151.874509 172.05175 
+L 155.668909 174.547962 
+L 159.463309 176.919364 
+L 163.257709 179.172196 
+L 167.052109 181.312386 
+L 170.846509 183.345567 
+L 174.640909 185.277088 
+L 178.435309 187.112034 
+L 182.229709 188.855232 
+L 186.024109 190.511271 
+L 189.818509 192.084507 
+L 193.612909 193.579082 
+L 197.407309 194.998928 
+L 201.201709 196.347781 
+L 204.996109 197.629192 
+L 208.790509 198.846533 
+L 212.584909 200.003006 
+L 216.379309 201.101656 
+L 220.173709 202.145373 
+L 223.968109 203.136904 
+L 227.762509 204.078859 
+L 231.556909 204.973716 
+L 235.351309 205.82383 
+L 239.145709 206.631439 
+L 242.940109 207.398667 
+L 246.734509 208.127534 
+L 250.528909 208.819957 
+L 254.323309 209.477759 
+L 258.117709 210.102671 
+L 261.912109 210.696337 
+L 265.706509 211.260321 
+L 269.500909 211.796105 
+L 273.295309 212.305099 
+L 277.089709 212.788644 
+L 280.884109 213.248012 
+L 284.678509 213.684412 
+L 288.472909 214.098991 
+L 292.267309 214.492841 
+L 296.061709 214.866999 
+L 299.856109 215.222449 
+L 303.650509 215.560127 
+L 307.444909 215.880921 
+L 311.239309 216.185675 
+L 315.033709 216.475191 
+L 318.828109 216.750231 
+L 322.622509 217.01152 
+L 326.416909 217.259744 
+L 330.211309 217.495557 
+L 334.005709 217.719579 
+L 337.800109 217.9324 
+L 341.594509 218.13458 
+L 345.388909 218.326651 
+L 349.183309 218.509118 
+L 352.977709 218.682462 
+L 356.772109 218.847139 
+L 360.566509 219.003582 
+L 364.360909 219.152203 
+L 368.155309 219.293393 
+L 371.949709 219.427523 
+L 375.744109 219.554947 
+L 379.538509 219.676 
+L 383.332909 219.791 
+L 387.127309 219.90025 
+L 390.921709 220.004037 
+L 394.716109 220.102635 
+L 398.510509 220.196304 
+L 402.304909 220.285289 
+L 406.099309 220.369824 
+L 409.893709 220.450133 
+L 413.688109 220.526426 
+L 417.482509 220.598905 
+L 421.276909 220.66776 
+L 425.071309 220.733172 
+" clip-path="url(#p504a565f62)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 45.631309 221.976 
+L 45.631309 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 45.631309 221.976 
+L 425.071309 221.976 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="94.958509" y="55.220549" transform="rotate(-0 94.958509 55.220549)">0.90</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="246.734509" y="86.577328" transform="rotate(-0 246.734509 86.577328)">0.61</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="246.734509" y="43.292237" transform="rotate(-0 246.734509 43.292237)">0.95</text>
+</g>
+<g id="line2d_28">
+<defs>
+<path id="mb40705be54" d="M 0 3.25 
+C 0.86191 3.25 1.688635 2.907559 2.298097 2.298097 
+C 2.907559 1.688635 3.25 0.86191 3.25 0 
+C 3.25 -0.86191 2.907559 -1.688635 2.298097 -2.298097 
+C 1.688635 -2.907559 0.86191 -3.25 0 -3.25 
+C -0.86191 -3.25 -1.688635 -2.907559 -2.298097 -2.298097 
+C -2.907559 -1.688635 -3.25 -0.86191 -3.25 0 
+C -3.25 0.86191 -2.907559 1.688635 -2.298097 2.298097 
+C -1.688635 2.907559 -0.86191 3.25 0 3.25 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#p504a565f62)">
+<use xlink:href="#mb40705be54" x="83.575309" y="32.12952" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_29">
+<g clip-path="url(#p504a565f62)">
+<use xlink:href="#mb40705be54" x="235.351309" y="94.974066" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_30">
+<g clip-path="url(#p504a565f62)">
+<use xlink:href="#mb40705be54" x="235.351309" y="22.300392" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="legend_1">
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="174.721543" y="282.48795" transform="rotate(-0 174.721543 282.48795)">Success probability per step</text>
+</g>
+<g id="line2d_31">
+<path d="M 116.268809 295.286973 
+L 125.768809 295.286973 
+L 135.268809 295.286973 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<g transform="translate(142.868809 298.611973)">
+<text>
+<tspan x="0" y="-0.96875" style="font-style: oblique; font-size: 9.5px; font-family: 'DejaVu Sans'">p</tspan>
+<tspan x="6.030273" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'"> </tspan>
+<tspan x="8.702148" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">=</tspan>
+<tspan x="14.987549" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'"> </tspan>
+<tspan x="17.659424" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">0</tspan>
+<tspan x="23.652588" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">.</tspan>
+<tspan x="26.389404" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">9</tspan>
+<tspan x="32.280518" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">9</tspan>
+<tspan x="38.171631" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">9</tspan>
+</text>
+</g>
+</g>
+<g id="line2d_32">
+<path d="M 205.948809 295.286973 
+L 215.448809 295.286973 
+L 224.948809 295.286973 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<g transform="translate(232.548809 298.611973)">
+<text>
+<tspan x="0" y="-0.96875" style="font-style: oblique; font-size: 9.5px; font-family: 'DejaVu Sans'">p</tspan>
+<tspan x="6.030273" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'"> </tspan>
+<tspan x="8.702148" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">=</tspan>
+<tspan x="14.987549" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'"> </tspan>
+<tspan x="17.659424" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">0</tspan>
+<tspan x="23.652588" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">.</tspan>
+<tspan x="26.389404" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">9</tspan>
+<tspan x="32.280518" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">9</tspan>
+</text>
+</g>
+</g>
+<g id="line2d_33">
+<path d="M 289.738809 295.286973 
+L 299.238809 295.286973 
+L 308.738809 295.286973 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_21">
+<g transform="translate(316.338809 298.611973)">
+<text>
+<tspan x="0" y="-0.96875" style="font-style: oblique; font-size: 9.5px; font-family: 'DejaVu Sans'">p</tspan>
+<tspan x="6.030273" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'"> </tspan>
+<tspan x="8.702148" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">=</tspan>
+<tspan x="14.987549" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'"> </tspan>
+<tspan x="17.659424" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">0</tspan>
+<tspan x="23.652588" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">.</tspan>
+<tspan x="26.389404" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">9</tspan>
+<tspan x="32.280518" y="-0.96875" style="font-size: 9.5px; font-family: 'Inter'">5</tspan>
+</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p504a565f62">
+<rect x="45.631309" y="5.76" width="379.44" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Probability that a task of <i>n</i> independent steps succeeds, Eq. (3), for three per-step success probabilities. The marked points are the values quoted in the text. <span class="j-fig-src">Author's calculation from Eq. (3).</span></figcaption></figure><h3>5.2 How much testing demonstrates reliability</h3><p>If <i>N</i> independent trials are run without a failure, the number needed to claim with confidence <i>C</i> that the true failure probability is no greater than <i>p</i><sub>0</sub> is</p><div class="j-eq" role="math"><span class="j-eq-body"><i>N</i> ≥ ln(1 − <i>C</i>) / ln(1 − <i>p</i><sub>0</sub>) ≈ 3 / <i>p</i><sub>0</sub>  for <i>C</i> = 0.95</span><span class="j-eq-n">(4)</span></div><p>The approximation is the rule of three: after <i>N</i> failure-free trials, the upper 95% confidence bound on the failure probability is about 3/<i>N</i> [<a href="#ref-24" class="j-cite">24</a>]. To support a claim of no more than one failure in 1,000 cycles, about 3,000 consecutive failure-free cycles are needed; for one in 100,000, about 300,000. Kalra and Paddock applied the same reasoning to automated vehicles and found that 275 million failure-free miles would be required to show, with 95% confidence, a fatality rate no higher than that of human drivers [<a href="#ref-25" class="j-cite">25</a>]. Koopman and Wagner concluded that testing alone is not a feasible way to assure systems based on machine learning, and that it must be combined with architectural measures such as a simple monitor that bounds the behavior of the complex function [<a href="#ref-26" class="j-cite">26</a>]. For physical AI the implication is the same. Task reliability at the level of one failure in a thousand can be demonstrated by testing; safety integrity cannot, and has to come from the architecture of Section 4.</p><h3>5.3 Reliability in operation</h3><p>In service, the relevant measures are availability and the rate of human intervention. Steady-state availability is</p><div class="j-eq" role="math"><span class="j-eq-body"><i>A</i> = MTBF / (MTBF + MTTR)</span><span class="j-eq-n">(5)</span></div><p>where MTBF is the mean time between failures that stop the system and MTTR is the mean time to restore it. Availability is one of the three factors of overall equipment effectiveness, with performance rate and quality rate, by which production equipment is commonly assessed [<a href="#ref-27" class="j-cite">27</a>]. For a learned system, many stoppages are not breakdowns but requests for help: a dropped part, an unrecognized object, a blocked path. Each is cleared by a person, locally or remotely. The fraction of a person's time consumed per hour of robot operation, here called the intervention fraction <i>f</i>, is the quantity that most directly links reliability to economics, and it should be measured during any trial.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Economics</h2><h3>6.1 Cost structure</h3><p>The investment in a physical AI system comprises the machine, its integration into the site, the safety system and its validation, and commissioning and training. Integration and safety together can be comparable to the cost of the robot itself. Annual costs comprise maintenance and spare parts, software licenses or subscriptions, energy, and the labor of supervision and intervention. A further recurring cost is particular to learned systems: data collection, retraining and revalidation whenever products, layouts or tasks change.</p><h3>6.2 A simple model</h3><p>For a system that substitutes for labor at an hourly cost <i>c</i><sub>L</sub>, the annual net benefit is</p><div class="j-eq" role="math"><span class="j-eq-body"><i>B</i> = <i>H</i> <i>A</i> <i>c</i><sub>L</sub> (1 − <i>f</i>) − <i>M</i></span><span class="j-eq-n">(6)</span></div><p>where <i>H</i> is the scheduled operating time per year, <i>A</i> the availability of Eq. (5), <i>f</i> the intervention fraction and <i>M</i> the annual cost of maintenance and software. The simple payback time is the investment <i>I</i> divided by <i>B</i>, and the net present value over a life of <i>n</i> years at discount rate <i>i</i> is [<a href="#ref-28" class="j-cite">28</a>]</p><div class="j-eq" role="math"><span class="j-eq-body">NPV = −<i>I</i> + <i>B</i> [1 − (1 + <i>i</i>)<sup>−<i>n</i></sup>] / <i>i</i></span><span class="j-eq-n">(7)</span></div><p>Equation (6) omits benefits that are real but site-specific, such as avoided injuries, improved quality, and the value of inspection data, and it should be extended with them where they can be estimated. Its purpose here is to show the structure: the benefit is proportional to operating hours and to availability, and it is eroded directly by intervention.</p><h3>6.3 Worked example</h3><p>Table 2 applies the model to a hypothetical mobile manipulation cell that tends machines in place of one operator per shift. All inputs are illustrative. In the base case, on two shifts with 90% availability and an intervention fraction of 0.10, the annual net benefit is 99,600 USD, the payback time is 2.5 years, and the NPV over seven years at 10% is about 235,000 USD. If availability falls to 70% and the intervention fraction rises to 0.30, values that are plausible for an immature system, the benefit falls to 48,400 USD, the payback lengthens to 5.2 years and the NPV becomes negative. On a single shift, even with the base-case reliability, the benefit is 34,800 USD and the NPV is about −81,000 USD.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Worked example: hypothetical mobile manipulation cell (illustrative inputs; USD).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Quantity</th><th>Base case</th><th>Low reliability</th><th>Single shift</th></tr></thead><tbody><tr><td>Investment <i>I</i></td><td>250,000</td><td>250,000</td><td>250,000</td></tr><tr><td>Scheduled hours <i>H</i> (h per year)</td><td>4,000</td><td>4,000</td><td>2,000</td></tr><tr><td>Availability <i>A</i></td><td>0.90</td><td>0.70</td><td>0.90</td></tr><tr><td>Intervention fraction <i>f</i></td><td>0.10</td><td>0.30</td><td>0.10</td></tr><tr><td>Labor cost <i>c</i><sub>L</sub> (per hour)</td><td>40</td><td>40</td><td>40</td></tr><tr><td>Maintenance and software <i>M</i> (per year)</td><td>30,000</td><td>30,000</td><td>30,000</td></tr><tr><td>Annual net benefit <i>B</i>, Eq. (6)</td><td>99,600</td><td>48,400</td><td>34,800</td></tr><tr><td>Simple payback (years)</td><td>2.5</td><td>5.2</td><td>7.2</td></tr><tr><td>NPV, 7 years at 10%, Eq. (7)</td><td>234,900</td><td>−14,400</td><td>−80,600</td></tr></tbody></table></div><p class="j-table-note">Author's calculation. Scheduled hours assume 250 days per year and 8 hours per shift.</p></figure><p>Two conclusions follow. Utilization dominates: the same machine that repays its cost in two and a half years on two shifts does not repay it at all on one. And reliability is an economic variable as much as a technical one, since availability and intervention together moved the result from clearly positive to negative. A vendor's quoted cycle time says little about either. Figure 3 shows the dependence of NPV on the intervention fraction for different shift patterns.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 459.879043 275.23318" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Line chart of net present value in thousand US dollars against intervention fraction from 0 to 0.5. Four straight lines slope downward: three shifts at 0.90 availability is highest and stays positive; two shifts at 0.90 availability crosses zero near 0.43; two shifts at 0.70 availability crosses zero near 0.27; one shift at 0.90 availability is negative throughout. Marked points: base case plus 235, low reliability minus 14, single shift minus 81.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 275.23318 
+L 459.879043 275.23318 
+L 459.879043 0 
+L 0 0 
+L 0 275.23318 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 55.709668 233.064 
+L 446.309668 233.064 
+L 446.309668 5.76 
+L 55.709668 5.76 
+L 55.709668 233.064 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 55.709668 233.064 
+L 55.709668 5.76 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m32c1e37778" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m32c1e37778" x="55.709668" y="233.064" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="55.709668" y="250.235875" transform="rotate(-0 55.709668 250.235875)">0.0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 133.829668 233.064 
+L 133.829668 5.76 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m32c1e37778" x="133.829668" y="233.064" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="133.829668" y="250.235875" transform="rotate(-0 133.829668 250.235875)">0.1</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 211.949668 233.064 
+L 211.949668 5.76 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m32c1e37778" x="211.949668" y="233.064" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="211.949668" y="250.235875" transform="rotate(-0 211.949668 250.235875)">0.2</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 290.069668 233.064 
+L 290.069668 5.76 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m32c1e37778" x="290.069668" y="233.064" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="290.069668" y="250.235875" transform="rotate(-0 290.069668 250.235875)">0.3</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 368.189668 233.064 
+L 368.189668 5.76 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m32c1e37778" x="368.189668" y="233.064" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="368.189668" y="250.235875" transform="rotate(-0 368.189668 250.235875)">0.4</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 446.309668 233.064 
+L 446.309668 5.76 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m32c1e37778" x="446.309668" y="233.064" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="446.309668" y="250.235875" transform="rotate(-0 446.309668 250.235875)">0.5</text>
+</g>
+</g>
+<g id="text_7">
+<g style="fill: #0b2a5a" transform="translate(120.179668 266.940465)">
+<text>
+<tspan x="0" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">I</tspan>
+<tspan x="2.819824" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="9.023438" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="12.458496" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="18.580078" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="22.532959" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">v</tspan>
+<tspan x="28.434082" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="34.555664" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="40.759277" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="44.194336" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="46.737305" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="53.033203" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="59.236816" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="62.189941" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">f</tspan>
+<tspan x="66.076172" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="70.029053" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">a</tspan>
+<tspan x="75.925049" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">c</tspan>
+<tspan x="81.923584" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="85.358643" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">i</tspan>
+<tspan x="87.901611" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="94.19751" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="100.401123" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="107.050781" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="110.003906" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">(</tspan>
+<tspan x="113.83374" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">p</tspan>
+<tspan x="120.262939" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="126.384521" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="130.337402" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="135.879639" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="142.175537" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">n</tspan>
+<tspan x="148.37915" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">-</tspan>
+<tspan x="153.20874" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">h</tspan>
+<tspan x="159.41748" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="165.713379" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">u</tspan>
+<tspan x="171.922119" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="175.875" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">s</tspan>
+<tspan x="181.417236" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="184.370361" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">p</tspan>
+<tspan x="190.799561" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">e</tspan>
+<tspan x="196.921143" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="200.874023" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a"> </tspan>
+<tspan x="203.827148" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="207.780029" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="214.075928" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">b</tspan>
+<tspan x="220.505127" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="226.801025" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">t</tspan>
+<tspan x="230.236084" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">-</tspan>
+<tspan x="235.065674" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">h</tspan>
+<tspan x="241.274414" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">o</tspan>
+<tspan x="247.570312" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">u</tspan>
+<tspan x="253.779053" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">r</tspan>
+<tspan x="257.731934" y="-0.890625" style="font-size: 10.5px; font-family: 'Inter'; fill: #0b2a5a">)</tspan>
+<tspan x="103.354248" y="-0.890625" style="font-style: oblique; font-size: 10.5px; font-family: 'DejaVu Sans'; fill: #0b2a5a">f</tspan>
+</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 55.709668 220.000552 
+L 446.309668 220.000552 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="ma817ea2506" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="220.000552" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="225.086489" transform="rotate(-0 48.709668 225.086489)">−200</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 55.709668 193.873655 
+L 446.309668 193.873655 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="193.873655" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="198.959593" transform="rotate(-0 48.709668 198.959593)">−100</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 55.709668 167.746759 
+L 446.309668 167.746759 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="167.746759" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="172.832696" transform="rotate(-0 48.709668 172.832696)">0</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 55.709668 141.619862 
+L 446.309668 141.619862 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="141.619862" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="146.7058" transform="rotate(-0 48.709668 146.7058)">100</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 55.709668 115.492966 
+L 446.309668 115.492966 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="115.492966" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="120.578903" transform="rotate(-0 48.709668 120.578903)">200</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 55.709668 89.366069 
+L 446.309668 89.366069 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="89.366069" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="94.452006" transform="rotate(-0 48.709668 94.452006)">300</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_25">
+<path d="M 55.709668 63.239172 
+L 446.309668 63.239172 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="63.239172" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="68.32511" transform="rotate(-0 48.709668 68.32511)">400</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_27">
+<path d="M 55.709668 37.112276 
+L 446.309668 37.112276 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="37.112276" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="42.198213" transform="rotate(-0 48.709668 42.198213)">500</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_29">
+<path d="M 55.709668 10.985379 
+L 446.309668 10.985379 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#ma817ea2506" x="55.709668" y="10.985379" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.709668" y="16.071317" transform="rotate(-0 48.709668 16.071317)">600</text>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="119.412" transform="rotate(-90 15.931875 119.412)">NPV, 7 years at 10% (thousand USD)</text>
+</g>
+</g>
+<g id="line2d_31">
+<path d="M 55.709668 167.746759 
+L 446.309668 167.746759 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<path d="M 62.880111 -1 
+L 446.309668 133.850594 
+L 446.309668 133.850594 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_33">
+<path d="M 55.709668 88.059791 
+L 446.309668 179.641397 
+L 446.309668 179.641397 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<path d="M 55.709668 128.762727 
+L 446.309668 199.992865 
+L 446.309668 199.992865 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke-dasharray: 9,5.4; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.8"/>
+</g>
+<g id="line2d_35">
+<path d="M 55.709668 179.641397 
+L 446.309668 225.4322 
+L 446.309668 225.4322 
+" clip-path="url(#p91c08b7167)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 55.709668 233.064 
+L 55.709668 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 55.709668 233.064 
+L 446.309668 233.064 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_5">
+<path d="M 144.504247 98.210645 
+Q 139.960514 101.686351 135.416782 105.162057 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(143.204068 79.42627)">Base case</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(143.204068 92.006319)">+235</text>
+</g>
+<g id="patch_6">
+<path d="M 296.575306 132.260384 
+Q 293.485684 150.896233 290.396062 169.532082 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="258.821668" y="124.472396" transform="rotate(-0 258.821668 124.472396)">Low reliability: −14</text>
+</g>
+<g id="patch_7">
+<path d="M 115.055786 206.747268 
+Q 123.719685 198.464636 132.383584 190.182004 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="71.333668" y="218.845488" transform="rotate(-0 71.333668 218.845488)">Single shift: −81</text>
+</g>
+<g id="line2d_36">
+<defs>
+<path id="m252db5652f" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#p91c08b7167)">
+<use xlink:href="#m252db5652f" x="133.829668" y="106.376112" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_37">
+<g clip-path="url(#p91c08b7167)">
+<use xlink:href="#m252db5652f" x="290.069668" y="171.500809" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_38">
+<g clip-path="url(#p91c08b7167)">
+<use xlink:href="#m252db5652f" x="133.829668" y="188.799557" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="legend_1">
+<g id="line2d_39">
+<path d="M 321.140762 19.42875 
+L 330.140762 19.42875 
+L 339.140762 19.42875 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_21">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="346.340762" y="22.57875" transform="rotate(-0 346.340762 22.57875)">Three shifts, A = 0.90</text>
+</g>
+<g id="line2d_40">
+<path d="M 321.140762 34.818398 
+L 330.140762 34.818398 
+L 339.140762 34.818398 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_22">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="346.340762" y="37.968398" transform="rotate(-0 346.340762 37.968398)">Two shifts, A = 0.90</text>
+</g>
+<g id="line2d_41">
+<path d="M 321.140762 50.208047 
+L 330.140762 50.208047 
+L 339.140762 50.208047 
+" style="fill: none; stroke-dasharray: 9,5.4; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.8"/>
+</g>
+<g id="text_23">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="346.340762" y="53.358047" transform="rotate(-0 346.340762 53.358047)">Two shifts, A = 0.70</text>
+</g>
+<g id="line2d_42">
+<path d="M 321.140762 65.597695 
+L 330.140762 65.597695 
+L 339.140762 65.597695 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_24">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="346.340762" y="68.747695" transform="rotate(-0 346.340762 68.747695)">One shift, A = 0.90</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p91c08b7167">
+<rect x="55.709668" y="5.76" width="390.6" height="227.304"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Net present value of the hypothetical cell of Table 2 against intervention fraction, from Eqs. (6) and (7), for one, two and three shifts at 90% availability and for two shifts at 70% availability. The marked points are the three cases of Table 2. <span class="j-fig-src">Author's calculation from Eqs. (6) and (7) with the inputs of Table 2.</span></figcaption></figure><h3>6.4 Evidence at the level of the economy</h3><p>Studies of conventional industrial robots give context. Graetz and Michaels, using data for 17 countries from 1993 to 2007, estimated that increased robot use raised annual labor productivity growth by about 0.36 percentage points [<a href="#ref-29" class="j-cite">29</a>]. Acemoglu and Restrepo, studying local labor markets in the United States, estimated that one additional robot per thousand workers reduced the employment-to-population ratio by 0.2 percentage points and wages by 0.42% [<a href="#ref-30" class="j-cite">30</a>]. These results concern programmed robots in earlier decades and need not carry over to learned systems, but they indicate that productivity gains are measurable and that effects on employment are a legitimate concern in planning a deployment.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> A Deployment Framework</h2><p>The preceding sections suggest the following sequence for an organization introducing a physical AI system.</p><ol><li>Define the operating domain: the objects, areas, lighting, speeds and presence of people for which the system is intended, and what it must do outside that domain.</li><li>Carry out a system-level hazard analysis that includes the learned policy, the safety layer, the supervising person and the surrounding process [<a href="#ref-7" class="j-cite">7</a>].</li><li>Assign every safety function to a conventional, safety-rated layer with a specified performance level, and confirm that no protective function depends on the learned policy [<a href="#ref-10" class="j-cite">10</a>, <a href="#ref-13" class="j-cite">13</a>].</li><li>Set quantitative reliability targets for the task, and derive the number of failure-free trials needed to demonstrate them from Eq. (4).</li><li>Run the system in a supervised trial, record availability and the intervention fraction, and evaluate Eq. (6) with measured values before committing to scale.</li><li>Design the human role explicitly, including training, alarm presentation and handover, so that supervision is a workable task [<a href="#ref-8" class="j-cite">8</a>].</li><li>Place model updates under change control. A retrained model is a modification: repeat the reliability tests, and confirm that the assumptions of the safety layer still hold.</li><li>Monitor in service for distribution shift and for trends in intervention rate, and define the conditions under which the system reverts to manual operation [<a href="#ref-6" class="j-cite">6</a>].</li></ol><p>The framework is deliberately conservative about safety and empirical about value. It treats the learned component as a source of performance that may be improved continually, inside a safety envelope that changes rarely and only with full verification.</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Conclusion</h2><p>Physical AI can be deployed safely with present technology, but not by trusting the learned policy. Safety functions on machinery are specified at dangerous failure rates below one in a million hours and must be verifiable; learned policies fail far more often and cannot be verified to that level, nor can testing alone demonstrate such rates. The workable architecture keeps the learned policy in a performance role and assigns protection to a conventional safety-rated layer of limits, monitoring and protective stops. Regulation in the European Union is moving to address machine learning in machinery explicitly, and its details were still being settled in 2026. Reliability is the link between the technical and the economic questions. It compounds over the steps of a task, it can be demonstrated statistically only to modest levels, and through availability and the intervention fraction it determines whether an installation pays. The worked example showed a payback of two and a half years turning into a loss with lower reliability or lower utilization. Organizations should therefore define the operating domain, separate safety from performance, measure availability and intervention in a supervised trial, and decide on the basis of those measurements.</p></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">International Federation of Robotics. (2025, September 25). Global robot demand in factories doubles over 10 years: World Robotics 2025 report – Industrial robots [Press release]. IFR, Frankfurt. <a href="https://ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10-years" rel="noopener" target="_blank">ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10</a></li><li id="ref-2">Kim, M. J., Pertsch, K., Karamcheti, S., Xiao, T., Balakrishna, A., Nair, S., Rafailov, R., Foster, E., Lam, G., Sanketi, P., et al. (2024). OpenVLA: An open-source vision-language-action model. arXiv preprint arXiv:2406.09246. <a href="https://arxiv.org/abs/2406.09246" rel="noopener" target="_blank">arxiv.org/abs/2406.09246</a></li><li id="ref-3">Haddadin, S., Albu-Schäffer, A., & Hirzinger, G. (2009). Requirements for safe robots: Measurements, analysis and new insights. The International Journal of Robotics Research, 28(11–12), 1507–1527. <a href="https://doi.org/10.1177/0278364909343970" rel="noopener" target="_blank">10.1177/0278364909343970</a></li><li id="ref-4">Villani, V., Pini, F., Leali, F., & Secchi, C. (2018). Survey on human–robot collaboration in industrial settings: Safety, intuitive interfaces and applications. Mechatronics, 55, 248–266. <a href="https://doi.org/10.1016/j.mechatronics.2018.02.009" rel="noopener" target="_blank">10.1016/j.mechatronics.2018.02.009</a></li><li id="ref-5">Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., & Mané, D. (2016). Concrete problems in AI safety. arXiv preprint arXiv:1606.06565. <a href="https://arxiv.org/abs/1606.06565" rel="noopener" target="_blank">arxiv.org/abs/1606.06565</a></li><li id="ref-6">Sinha, R., Sharma, A., Banerjee, S., Lew, T., Luo, R., Richards, S. M., Sun, Y., Schmerling, E., & Pavone, M. (2022). A system-level view on out-of-distribution data in robotics. arXiv preprint arXiv:2212.14020. <a href="https://arxiv.org/abs/2212.14020" rel="noopener" target="_blank">arxiv.org/abs/2212.14020</a></li><li id="ref-7">Leveson, N. G. (2012). Engineering a Safer World: Systems Thinking Applied to Safety. The MIT Press. <a href="https://doi.org/10.7551/mitpress/8179.001.0001" rel="noopener" target="_blank">10.7551/mitpress/8179.001.0001</a></li><li id="ref-8">Bainbridge, L. (1983). Ironies of automation. Automatica, 19(6), 775–779. <a href="https://doi.org/10.1016/0005-1098(83)90046-8" rel="noopener" target="_blank">10.1016/0005-1098(83)90046-8</a></li><li id="ref-9">Parasuraman, R., Sheridan, T. B., & Wickens, C. D. (2000). A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics – Part A: Systems and Humans, 30(3), 286–297. <a href="https://doi.org/10.1109/3468.844354" rel="noopener" target="_blank">10.1109/3468.844354</a></li><li id="ref-10">International Organization for Standardization. (2023). ISO 13849-1:2023 Safety of machinery – Safety-related parts of control systems – Part 1: General principles for design (4th ed.). ISO, Geneva. <a href="https://www.iso.org/standard/73481.html" rel="noopener" target="_blank">www.iso.org/standard/73481.html</a></li><li id="ref-11">International Electrotechnical Commission. (2010). IEC 61508-1:2010 Functional safety of electrical/electronic/programmable electronic safety-related systems – Part 1: General requirements (2nd ed.). IEC, Geneva. <a href="https://webstore.iec.ch/en/publication/5515" rel="noopener" target="_blank">webstore.iec.ch/en/publication/5515</a></li><li id="ref-12">International Organization for Standardization. (2025). ISO 10218-1:2025 Robotics – Safety requirements – Part 1: Industrial robots (3rd ed.). ISO, Geneva. <a href="https://www.iso.org/standard/73933.html" rel="noopener" target="_blank">www.iso.org/standard/73933.html</a></li><li id="ref-13">International Organization for Standardization. (2025). ISO 10218-2:2025 Robotics – Safety requirements – Part 2: Industrial robot applications and robot cells (2nd ed.). ISO, Geneva. <a href="https://www.iso.org/standard/73934.html" rel="noopener" target="_blank">www.iso.org/standard/73934.html</a></li><li id="ref-14">International Organization for Standardization. (2016). ISO/TS 15066:2016 Robots and robotic devices – Collaborative robots. ISO, Geneva. <a href="https://www.iso.org/standard/62996.html" rel="noopener" target="_blank">www.iso.org/standard/62996.html</a></li><li id="ref-15">European Parliament and Council. (2023). Regulation (EU) 2023/1230 of 14 June 2023 on machinery. Official Journal of the European Union, L 165, 1–102. <a href="https://eur-lex.europa.eu/eli/reg/2023/1230/oj" rel="noopener" target="_blank">eur-lex.europa.eu/eli/reg/2023/1230/oj</a></li><li id="ref-16">European Parliament and Council. (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L 2024/1689. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" rel="noopener" target="_blank">eur-lex.europa.eu/eli/reg/2024/1689/oj</a></li><li id="ref-17">European Parliament and Council. (2026). Regulation (EU) 2026/1744 of 8 July 2026 amending Regulations (EU) 2024/1689, (EU) 2018/1139 and (EU) 2023/1230 (Digital Omnibus on AI). Official Journal of the European Union. <a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj" rel="noopener" target="_blank">eur-lex.europa.eu/eli/reg/2026/1744/oj</a></li><li id="ref-18">Pendaries, M. (2026, August 6). Machinery Regulation 2023/1230: What the Digital Omnibus on AI changes. Eurogip, Paris. <a href="https://eurogip.fr/en/machinery-regulation-2023-1230-what-the-digital-omnibus-on-ai-changes/" rel="noopener" target="_blank">eurogip.fr/en/machinery-regulation-2023-1230-what-the-digital-omnibus-on-ai-chan</a></li><li id="ref-19">Tabassi, E. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1). National Institute of Standards and Technology, Gaithersburg, MD. <a href="https://doi.org/10.6028/NIST.AI.100-1" rel="noopener" target="_blank">10.6028/NIST.AI.100-1</a></li><li id="ref-20">Sha, L. (2001). Using simplicity to control complexity. IEEE Software, 18(4), 20–28. <a href="https://doi.org/10.1109/MS.2001.936213" rel="noopener" target="_blank">10.1109/MS.2001.936213</a></li><li id="ref-21">Ames, A. D., Xu, X., Grizzle, J. W., & Tabuada, P. (2017). Control barrier function based quadratic programs for safety critical systems. IEEE Transactions on Automatic Control, 62(8), 3861–3876. <a href="https://doi.org/10.1109/TAC.2016.2638961" rel="noopener" target="_blank">10.1109/TAC.2016.2638961</a></li><li id="ref-22">Brunke, L., Greeff, M., Hall, A. W., Yuan, Z., Zhou, S., Panerati, J., & Schoellig, A. P. (2022). Safe learning in robotics: From learning-based control to safe reinforcement learning. Annual Review of Control, Robotics, and Autonomous Systems, 5, 411–444. <a href="https://doi.org/10.1146/annurev-control-042920-020211" rel="noopener" target="_blank">10.1146/annurev-control-042920-020211</a></li><li id="ref-23">Ren, A. Z., Dixit, A., Bodrova, A., Singh, S., Tu, S., Brown, N., Xu, P., Takayama, L., Xia, F., Varley, J., et al. (2023). Robots that ask for help: Uncertainty alignment for large language model planners. arXiv preprint arXiv:2307.01928. <a href="https://arxiv.org/abs/2307.01928" rel="noopener" target="_blank">arxiv.org/abs/2307.01928</a></li><li id="ref-24">Hanley, J. A., & Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? Interpreting zero numerators. JAMA, 249(13), 1743–1745. <a href="https://doi.org/10.1001/jama.1983.03330370053031" rel="noopener" target="_blank">10.1001/jama.1983.03330370053031</a></li><li id="ref-25">Kalra, N., & Paddock, S. M. (2016). Driving to safety: How many miles of driving would it take to demonstrate autonomous vehicle reliability? Transportation Research Part A: Policy and Practice, 94, 182–193. <a href="https://doi.org/10.1016/j.tra.2016.09.010" rel="noopener" target="_blank">10.1016/j.tra.2016.09.010</a></li><li id="ref-26">Koopman, P., & Wagner, M. (2016). Challenges in autonomous vehicle testing and validation. SAE International Journal of Transportation Safety, 4(1), 15–24. <a href="https://doi.org/10.4271/2016-01-0128" rel="noopener" target="_blank">10.4271/2016-01-0128</a></li><li id="ref-27">Muchiri, P., & Pintelon, L. (2008). Performance measurement using overall equipment effectiveness (OEE): Literature review and practical application discussion. International Journal of Production Research, 46(13), 3517–3535. <a href="https://doi.org/10.1080/00207540601142645" rel="noopener" target="_blank">10.1080/00207540601142645</a></li><li id="ref-28">Towler, G., & Sinnott, R. (2022). Chemical Engineering Design: Principles, Practice and Economics of Plant and Process Design (3rd ed.). Butterworth-Heinemann/Elsevier. <a href="https://doi.org/10.1016/C2019-0-02025-0" rel="noopener" target="_blank">10.1016/C2019-0-02025-0</a></li><li id="ref-29">Graetz, G., & Michaels, G. (2018). Robots at work. The Review of Economics and Statistics, 100(5), 753–768. <a href="https://doi.org/10.1162/rest_a_00754" rel="noopener" target="_blank">10.1162/rest_a_00754</a></li><li id="ref-30">Acemoglu, D., & Restrepo, P. (2020). Robots and jobs: Evidence from US labor markets. Journal of Political Economy, 128(6), 2188–2244. <a href="https://doi.org/10.1086/705716" rel="noopener" target="_blank">10.1086/705716</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Safety, Reliability and Economics of Deploying Physical AI. <em>Chmltech Online Journal</em>, <em>105</em>(3). https://www.chmltech.com/post/safety-reliability-and-economics-of-deploying-physical-ai</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. Hazards and Failure Modes</a></li><li><a href="#sec-3">3. Standards and Regulation</a></li><li><a href="#sec-4">4. Safety Architecture for Learned Components</a></li><li><a href="#sec-5">5. Reliability</a></li><li><a href="#sec-6">6. Economics</a></li><li><a href="#sec-7">7. A Deployment Framework</a></li><li><a href="#sec-8">8. Conclusion</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 105, Issue 3</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence digital-technology" data-search="physical ai in process plants and factories: autonomous inspection, manipulation and control where physical ai applies in process plants and factories: inspection robots, learned grasping, reinforcement learning control and a readiness assessment by use. physical ai inspection robots robotic manipulation reinforcement learning process control plant autonomy self-driving laboratories technology readiness"><div class="thumb"><img src="../assets/media/covers/thumbs/physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span><span class="tag">Artificial Intelligence</span></div><h3><a href="../post/physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control.html">Physical AI in Process Plants and Factories: Autonomous Inspection, Manipulation and Control</a></h3><p class="muted">Where physical AI applies in process plants and factories: inspection robots, learned grasping, reinforcement learning control and a readiness…</p><p class="meta">Vol. 105, Issue 2 · Nov 9, 2026 · 16 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="physical ai: foundations, architectures and the simulation-to-reality gap foundations of physical ai: the perception-planning-control stack, reinforcement and imitation learning, vision-language-action models and the sim-to-real gap. physical ai embodied ai vision-language-action models sim-to-real transfer domain randomization imitation learning reinforcement learning world models"><div class="thumb"><img src="../assets/media/covers/thumbs/physical-ai-foundations-architectures-and-the-sim-to-real-gap.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span><span class="tag">Artificial Intelligence</span></div><h3><a href="../post/physical-ai-foundations-architectures-and-the-sim-to-real-gap.html">Physical AI: Foundations, Architectures and the Simulation-to-Reality Gap</a></h3><p class="muted">Foundations of physical AI: the perception-planning-control stack, reinforcement and imitation learning, vision-language-action models and the…</p><p class="meta">Vol. 105, Issue 1 · Nov 9, 2026 · 17 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="designing machine learning systems: from problem framing to production operations a review of end-to-end ml system design: problem framing, data, features, evaluation, a/b testing, deployment, drift monitoring, mlops and model documentation. machine learning systems mlops problem framing model evaluation calibration concept drift technical debt model cards"><div class="thumb"><img src="../assets/media/covers/thumbs/designing-machine-learning-systems-from-problem-framing-to-production.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span><span class="tag">Artificial Intelligence</span></div><h3><a href="../post/designing-machine-learning-systems-from-problem-framing-to-production.html">Designing Machine Learning Systems: From Problem Framing to Production Operations</a></h3><p class="muted">A review of end-to-end ML system design: problem framing, data, features, evaluation, A/B testing, deployment, drift monitoring, MLOps and model…</p><p class="meta">Vol. 104, Issue 6 · Nov 9, 2026 · 19 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol105-issue3.pdf" data-fname="Chmltech-Journal-Vol105-Issue3.pdf" data-title="Safety, Reliability and Economics of Deploying Physical AI" data-ref="Vol. 105, Issue 3">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 105, Issue 3</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Safety, Reliability and Economics of Deploying Physical AI</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Safety, Reliability and Economics of Deploying Physical AI", "name": "Safety, Reliability and Economics of Deploying Physical AI", "abstract": "Learned robot policies are now capable enough to be considered for industrial use, but capability does not establish that a system is safe, dependable or economic. This paper addresses those three questions for organizations deciding whether to deploy physical AI. It reviews the physical hazards of robots and the failure modes particular to learned components, including distribution shift, objective misspecification and the weaknesses of human supervision. It summarizes functional safety standards, the ISO 10218 robot safety standards and guidance on collaborative operation, and the European Union's Machinery Regulation and Artificial Intelligence Act as amended in 2026. A comparison of required safety integrity with observed task failure rates shows that a learned policy cannot be the component on which safety depends. The paper then describes the architecture that follows from this: a learned performance channel enclosed by a conventional safety-rated layer, with safety filters and separation monitoring. Reliability is treated quantitatively, covering the compounding of step failures, the number of failure-free trials needed to demonstrate a failure rate, and availability and intervention in service. A cost model relates net benefit to operating hours, availability and intervention, and a worked example shows a payback of 2.5 years becoming a loss at lower reliability or utilization. The paper concludes with a deployment framework that is conservative about safety and empirical about value.", "keywords": "physical AI, robot safety, functional safety, ISO 10218, reliability, human–robot collaboration, automation economics, EU Machinery Regulation", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "author": {"@type": "Person", "name": "Quak Foo Lee", "jobTitle": "Chief Technology Officer", "affiliation": {"@type": "Organization", "name": "Chmltech Ltd."}}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "3", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "105", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/safety-reliability-and-economics-of-deploying-physical-ai", "citation": ["International Federation of Robotics. (2025, September 25). Global robot demand in factories doubles over 10 years: World Robotics 2025 report – Industrial robots [Press release]. IFR, Frankfurt.", "Kim, M. J., Pertsch, K., Karamcheti, S., Xiao, T., Balakrishna, A., Nair, S., Rafailov, R., Foster, E., Lam, G., Sanketi, P., et al. (2024). OpenVLA: An open-source vision-language-action model. arXiv preprint arXiv:2406.09246.", "Haddadin, S., Albu-Schäffer, A., & Hirzinger, G. (2009). Requirements for safe robots: Measurements, analysis and new insights. The International Journal of Robotics Research, 28(11–12), 1507–1527.", "Villani, V., Pini, F., Leali, F., & Secchi, C. (2018). Survey on human–robot collaboration in industrial settings: Safety, intuitive interfaces and applications. Mechatronics, 55, 248–266.", "Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., & Mané, D. (2016). Concrete problems in AI safety. arXiv preprint arXiv:1606.06565.", "Sinha, R., Sharma, A., Banerjee, S., Lew, T., Luo, R., Richards, S. M., Sun, Y., Schmerling, E., & Pavone, M. (2022). A system-level view on out-of-distribution data in robotics. arXiv preprint arXiv:2212.14020.", "Leveson, N. G. (2012). Engineering a Safer World: Systems Thinking Applied to Safety. The MIT Press.", "Bainbridge, L. (1983). Ironies of automation. Automatica, 19(6), 775–779.", "Parasuraman, R., Sheridan, T. B., & Wickens, C. D. (2000). A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics – Part A: Systems and Humans, 30(3), 286–297.", "International Organization for Standardization. (2023). ISO 13849-1:2023 Safety of machinery – Safety-related parts of control systems – Part 1: General principles for design (4th ed.). ISO, Geneva.", "International Electrotechnical Commission. (2010). IEC 61508-1:2010 Functional safety of electrical/electronic/programmable electronic safety-related systems – Part 1: General requirements (2nd ed.). IEC, Geneva.", "International Organization for Standardization. (2025). ISO 10218-1:2025 Robotics – Safety requirements – Part 1: Industrial robots (3rd ed.). ISO, Geneva.", "International Organization for Standardization. (2025). ISO 10218-2:2025 Robotics – Safety requirements – Part 2: Industrial robot applications and robot cells (2nd ed.). ISO, Geneva.", "International Organization for Standardization. (2016). ISO/TS 15066:2016 Robots and robotic devices – Collaborative robots. ISO, Geneva.", "European Parliament and Council. (2023). Regulation (EU) 2023/1230 of 14 June 2023 on machinery. Official Journal of the European Union, L 165, 1–102.", "European Parliament and Council. (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L 2024/1689.", "European Parliament and Council. (2026). Regulation (EU) 2026/1744 of 8 July 2026 amending Regulations (EU) 2024/1689, (EU) 2018/1139 and (EU) 2023/1230 (Digital Omnibus on AI). Official Journal of the European Union.", "Pendaries, M. (2026, August 6). Machinery Regulation 2023/1230: What the Digital Omnibus on AI changes. Eurogip, Paris.", "Tabassi, E. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1). National Institute of Standards and Technology, Gaithersburg, MD.", "Sha, L. (2001). Using simplicity to control complexity. IEEE Software, 18(4), 20–28.", "Ames, A. D., Xu, X., Grizzle, J. W., & Tabuada, P. (2017). Control barrier function based quadratic programs for safety critical systems. IEEE Transactions on Automatic Control, 62(8), 3861–3876.", "Brunke, L., Greeff, M., Hall, A. W., Yuan, Z., Zhou, S., Panerati, J., & Schoellig, A. P. (2022). Safe learning in robotics: From learning-based control to safe reinforcement learning. Annual Review of Control, Robotics, and Autonomous Systems, 5, 411–444.", "Ren, A. Z., Dixit, A., Bodrova, A., Singh, S., Tu, S., Brown, N., Xu, P., Takayama, L., Xia, F., Varley, J., et al. (2023). Robots that ask for help: Uncertainty alignment for large language model planners. arXiv preprint arXiv:2307.01928.", "Hanley, J. A., & Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? Interpreting zero numerators. JAMA, 249(13), 1743–1745.", "Kalra, N., & Paddock, S. M. (2016). Driving to safety: How many miles of driving would it take to demonstrate autonomous vehicle reliability? Transportation Research Part A: Policy and Practice, 94, 182–193.", "Koopman, P., & Wagner, M. (2016). Challenges in autonomous vehicle testing and validation. SAE International Journal of Transportation Safety, 4(1), 15–24.", "Muchiri, P., & Pintelon, L. (2008). Performance measurement using overall equipment effectiveness (OEE): Literature review and practical application discussion. International Journal of Production Research, 46(13), 3517–3535.", "Towler, G., & Sinnott, R. (2022). Chemical Engineering Design: Principles, Practice and Economics of Plant and Process Design (3rd ed.). Butterworth-Heinemann/Elsevier.", "Graetz, G., & Michaels, G. (2018). Robots at work. The Review of Economics and Statistics, 100(5), 753–768.", "Acemoglu, D., & Restrepo, P. (2020). Robots and jobs: Evidence from US labor markets. Journal of Political Economy, 128(6), 2188–2244."]}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../projects.html">Projects</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/journal.js" defer></script>
+</body>
+</html>

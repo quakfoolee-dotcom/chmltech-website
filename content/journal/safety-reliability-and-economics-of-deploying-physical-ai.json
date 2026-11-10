@@ -1,0 +1,542 @@
+{
+ "slug": "safety-reliability-and-economics-of-deploying-physical-ai",
+ "volume": 105,
+ "issue": 3,
+ "published": "2026-11-09",
+ "revised": "2026-11-09",
+ "title": "Safety, Reliability and Economics of Deploying Physical AI",
+ "short_title": "Safety, Reliability and Economics of Physical AI",
+ "meta": "Deploying physical AI: failure modes, functional safety standards and EU regulation, safety architecture, reliability statistics and a worked cost model.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Learned robot policies are now capable enough to be considered for industrial use, but capability does not establish that a system is safe, dependable or economic. This paper addresses those three questions for organizations deciding whether to deploy physical AI. It reviews the physical hazards of robots and the failure modes particular to learned components, including distribution shift, objective misspecification and the weaknesses of human supervision. It summarizes functional safety standards, the ISO 10218 robot safety standards and guidance on collaborative operation, and the European Union's Machinery Regulation and Artificial Intelligence Act as amended in 2026. A comparison of required safety integrity with observed task failure rates shows that a learned policy cannot be the component on which safety depends. The paper then describes the architecture that follows from this: a learned performance channel enclosed by a conventional safety-rated layer, with safety filters and separation monitoring. Reliability is treated quantitatively, covering the compounding of step failures, the number of failure-free trials needed to demonstrate a failure rate, and availability and intervention in service. A cost model relates net benefit to operating hours, availability and intervention, and a worked example shows a payback of 2.5 years becoming a loss at lower reliability or utilization. The paper concludes with a deployment framework that is conservative about safety and empirical about value.",
+ "keywords": [
+  "physical AI",
+  "robot safety",
+  "functional safety",
+  "ISO 10218",
+  "reliability",
+  "human–robot collaboration",
+  "automation economics",
+  "EU Machinery Regulation"
+ ],
+ "corrections": [],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Industrial robots have a long safety record built on a simple principle: the robot's motion is programmed and predictable, and people are separated from it by guards and interlocks. More than 4.6 million industrial robots were in operation worldwide in 2024 [1], most of them under that principle. Physical AI changes both of its premises. A learned policy is not programmed line by line, and its behavior on an input unlike its training data cannot be fully predicted. At the same time, the applications that motivate learning, such as mobile inspection, the handling of varied objects and work alongside people, take the machine out of the guarded cell."
+    },
+    {
+     "p": "The capabilities of these systems have advanced quickly, but capability and dependability are different properties. The authors of a leading open vision-language-action model report success rates typically below 90% on the tasks they tested [2], whereas safety functions on machinery are specified in terms of dangerous failures per hour that are many orders of magnitude lower. An organization deciding whether to deploy physical AI must therefore answer three questions that a demonstration does not answer. Is it safe, and can that be shown to the standard that regulation requires? Is it reliable enough to be useful? And does it pay?"
+    },
+    {
+     "p": "This paper addresses those questions in order. Section 2 reviews hazards and the failure modes particular to learned systems. Section 3 summarizes the standards and regulations that apply. Section 4 describes the safety architecture by which a learned component can be used without being relied upon for safety. Section 5 treats reliability: how it compounds, how much testing is needed to demonstrate it, and how it is measured in operation. Section 6 develops a cost model with a worked example, and Section 7 sets out a deployment framework."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Hazards and Failure Modes",
+   "blocks": [
+    {
+     "h3": "2.1 Physical hazards"
+    },
+    {
+     "p": "The physical hazards of a robot are those of any powered machine: impact, crushing, shearing and entanglement, together with hazards from the tool or the payload. Haddadin and co-authors measured robot–human impacts experimentally and showed that injury severity depends strongly on whether the body part is free to recoil or is clamped against a fixed surface, and that severity indices borrowed from automotive crash testing transfer poorly to robots [3]. Clamping and contact with sharp tooling are therefore the cases that dominate risk assessment for close human–robot work. Surveys of human–robot collaboration in industry treat safety as the precondition for the other benefits of collaboration and review the sensing and control methods used to obtain it [4]. A mobile robot adds collision with people and vehicles in shared routes, and, in process plants, the possibility of striking equipment or becoming an ignition source."
+    },
+    {
+     "h3": "2.2 Failure modes of learned components"
+    },
+    {
+     "p": "Learned components fail in ways that conventional software does not. Amodei and co-authors identified five classes of problem: negative side effects, where the system achieves its objective by a route that damages something the objective did not mention; reward hacking, where it exploits a flaw in the objective; limited oversight, where correct behavior is too costly to check often; unsafe exploration; and lack of robustness to distributional shift [5]. The last is the most important in deployment. A policy trained on one set of objects, lighting conditions and layouts may act confidently and wrongly when these change, and nothing inside the policy signals that it has left familiar territory. Sinha and co-authors argue that the problem must be handled at system level, by detecting such inputs at run time and switching to a fallback, because no training procedure removes it [6]."
+    },
+    {
+     "h3": "2.3 The system view"
+    },
+    {
+     "p": "Leveson's systems approach treats safety as a control problem: accidents arise not only from component failures but from unsafe interactions among components that each work as designed, and from inadequate enforcement of safety constraints [7]. The view suits physical AI, where the learned policy, the supervising person, the safety controller and the surrounding plant interact. Human supervision in particular cannot be assumed to be a reliable barrier. Bainbridge observed that automating a task leaves the operator to monitor for rare events and to take over in the most difficult situations, which are the tasks for which a person who is out of the loop is least prepared [8]. Parasuraman and co-authors proposed that the type and level of automation be chosen deliberately for each function, with human performance consequences as a primary criterion [9]. Table 1 lists the principal failure modes with their mitigations."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Failure modes of physical AI systems and corresponding mitigations.",
+      "head": [
+       "Failure mode",
+       "Example",
+       "Mitigation"
+      ],
+      "rows": [
+       [
+        "Distribution shift",
+        "New packaging or lighting causes a wrong grasp or path",
+        "Run-time monitoring, defined operating domain, fallback behavior [6]"
+       ],
+       [
+        "Objective misspecification",
+        "Robot meets its cycle-time target by moving unsafely fast",
+        "Hard limits outside the learned policy; review of reward and demonstrations [5]"
+       ],
+       [
+        "Compounding error",
+        "Small deviations accumulate over a long task",
+        "Shorter task segments, recovery behaviors, checkpoints (Section 5.1)"
+       ],
+       [
+        "Perception failure",
+        "Person or obstacle not detected",
+        "Independent safety-rated sensing for protective functions [10]"
+       ],
+       [
+        "Unsafe interaction",
+        "Components each behave as designed but the combination is hazardous",
+        "System-level hazard analysis [7]"
+       ],
+       [
+        "Supervisor out of the loop",
+        "Operator misses a rare event or takes over poorly",
+        "Design of the human role; alarms and handover [8, 9]"
+       ],
+       [
+        "Model update",
+        "Retrained model behaves differently in an untested case",
+        "Change control and revalidation (Section 7)"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Standards and Regulation",
+   "blocks": [
+    {
+     "h3": "3.1 Functional safety"
+    },
+    {
+     "p": "Functional safety standards specify how reliable a safety function must be and how that reliability is to be achieved and shown. IEC 61508 defines safety integrity levels (SIL) for electrical, electronic and programmable systems; for a function operating continuously, SIL 2 corresponds to an average frequency of dangerous failure between 10<sup>−7</sup> and 10<sup>−6</sup> per hour [11]. ISO 13849-1 applies the same idea to machinery through performance levels (PL), and PL d covers the same band [10]. Protective functions on industrial robots, such as protective stops and speed and position limits, are typically required to reach this level. A dangerous failure rate below 10<sup>−6</sup> per hour means less than one such failure in about 114 years of continuous operation. Both standards obtain this integrity through architecture, diagnostics and a systematic development process, and both presume that the behavior of the safety function can be specified and verified."
+    },
+    {
+     "h3": "3.2 Robot standards"
+    },
+    {
+     "p": "ISO 10218 is the principal safety standard for industrial robots. Part 1 addresses the robot as supplied by its manufacturer and Part 2 addresses robot applications and cells as built by the integrator; revised editions of both parts were published in 2025 [12, 13]. ISO/TS 15066 gives guidance for collaborative operation, in which people and robots share a workspace. It describes four methods: safety-rated monitored stop, hand guiding, speed and separation monitoring, and power and force limiting, the last with limits on contact force and pressure for different regions of the body [14]. None of these documents prohibits learned control. They require that the safety functions meet their specified integrity whatever the rest of the control system does."
+    },
+    {
+     "h3": "3.3 Regulation"
+    },
+    {
+     "p": "In the European Union, Regulation (EU) 2023/1230 on machinery replaces the Machinery Directive and applies from 20 January 2027. It addresses software and autonomous machinery explicitly, and it places safety components with self-evolving behavior that use machine learning among the products requiring conformity assessment by a third party [15]. The Artificial Intelligence Act establishes a risk-based framework in which an AI system that is a safety component of a product covered by harmonized legislation, including machinery, is classed as high-risk [16]. Because both instruments could apply to the same machine, an amending regulation adopted in July 2026 reorganized their relationship [17]. According to one analysis, the main technical requirements for high-risk AI in machinery are to be incorporated into the machinery framework by a delegated act due by August 2028, and the practical effect will depend on the content of that act [18]. Requirements in this area are therefore still settling, and manufacturers and users should confirm the current position for their jurisdiction."
+    },
+    {
+     "p": "Outside binding regulation, the AI Risk Management Framework of the U.S. National Institute of Standards and Technology organizes the management of AI risk under four functions, govern, map, measure and manage, and is widely used as a voluntary reference [19]."
+    },
+    {
+     "h3": "3.4 The verification gap"
+    },
+    {
+     "p": "The difficulty is now apparent. A safety function must be shown to fail dangerously less often than once in a million hours. A learned policy that completes 99.9% of its tasks correctly, at 60 tasks per hour, fails about once in 17 hours. Not every task failure is dangerous, but the comparison shows that a learned policy cannot at present be the component on which safety depends: its failure rate is too high by several orders of magnitude, and its behavior cannot be specified completely enough to verify. The practical consequence is architectural."
+    },
+    {
+     "callout": "Safety functions are specified at fewer than 10<sup>−6</sup> dangerous failures per hour. Current learned policies fail tasks at rates of the order of 10<sup>−2</sup> to 10<sup>−1</sup> per hour or more. The learned policy must therefore be kept outside the safety function."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Safety Architecture for Learned Components",
+   "blocks": [
+    {
+     "h3": "4.1 Separation of performance and safety"
+    },
+    {
+     "p": "The established answer is to separate the system into a performance channel and a safety channel. Sha described the pattern for control software as using simplicity to control complexity: a complex, high-performance controller is allowed to operate only while a simple, verifiable monitor confirms that the system remains within a region from which a simple, verified controller can always recover it [20]. Applied to physical AI, the learned policy proposes actions; a safety-rated layer, built and certified by conventional means, limits speed, force and workspace, monitors separation from people, and commands a protective stop when a limit is approached. The learned policy can then be changed or retrained without reopening the safety case, provided the safety layer and its assumptions are unchanged. Figure 1 shows the arrangement."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-safety-architecture",
+      "caption": "Safety architecture for a learned component. The learned policy proposes actions in a performance channel; a conventional safety-rated layer filters them and can command a protective stop from its own sensing. A run-time monitor that detects unfamiliar inputs or low confidence improves task success but is not part of the safety function.",
+      "alt": "Block diagram. Cameras and joint sensors feed a learned policy labeled performance channel, which sends a proposed action into a safety-rated layer. Inside that layer a safety filter limiting speed, force, workspace and separation passes a safe action to the drives and actuators, and safety-rated sensing such as scanners, light curtains and emergency stop feeds the filter and can command a protective stop directly. Below the policy, a run-time monitor for unfamiliar input and low confidence exchanges signals with the policy and asks a supervisor for help.",
+      "source": "Drawn by the author, after [14, 20, 21]."
+     }
+    },
+    {
+     "h3": "4.2 Safety filters"
+    },
+    {
+     "p": "A safety filter makes the separation precise. Let the safe set be the states <i>x</i> for which a function <i>h</i>(<i>x</i>) is non-negative. A control barrier function condition requires every applied action <i>u</i> to satisfy"
+    },
+    {
+     "eq": "d<i>h</i>(<i>x</i>, <i>u</i>)/d<i>t</i> ≥ −α(<i>h</i>(<i>x</i>))",
+     "n": 1
+    },
+    {
+     "p": "where α is an increasing function with α(0) = 0. The condition allows <i>h</i> to decrease only as fast as the remaining margin permits, so that a state inside the safe set stays inside it. The filter passes the action proposed by the policy if it satisfies Eq. (1) and otherwise replaces it with the closest action that does, found by solving a small optimization problem at each step [21]. Reviews of safe learning in robotics place such filters among the methods that give formal assurances, while noting that the assurances depend on the accuracy of the dynamic model used to evaluate the condition [22]."
+    },
+    {
+     "h3": "4.3 Separation monitoring"
+    },
+    {
+     "p": "For work near people, speed and separation monitoring applies the same logic to distance. The robot must stop before a person can reach it, so the protective separation distance is"
+    },
+    {
+     "eq": "<i>S</i><sub>p</sub> = <i>v</i><sub>h</sub>(<i>T</i><sub>r</sub> + <i>T</i><sub>s</sub>) + <i>v</i><sub>r</sub><i>T</i><sub>r</sub> + <i>S</i><sub>s</sub> + <i>C</i> + <i>Z</i>",
+     "n": 2
+    },
+    {
+     "p": "where <i>v</i><sub>h</sub> and <i>v</i><sub>r</sub> are the speeds of the person and the robot toward each other, <i>T</i><sub>r</sub> is the reaction time of the sensing and control system, <i>T</i><sub>s</sub> and <i>S</i><sub>s</sub> are the robot's stopping time and stopping distance, <i>C</i> is an allowance for intrusion before detection and <i>Z</i> covers position uncertainty [14]. As an illustration, with <i>v</i><sub>h</sub> = 1.6 m s<sup>−1</sup>, <i>v</i><sub>r</sub> = 1.0 m s<sup>−1</sup>, <i>T</i><sub>r</sub> = 0.1 s, <i>T</i><sub>s</sub> = 0.3 s, <i>S</i><sub>s</sub> = 0.15 m and <i>C</i> + <i>Z</i> = 0.20 m, the required distance is 0.64 + 0.10 + 0.15 + 0.20 = 1.09 m. The equation shows what a learned policy can and cannot influence: it may choose the path and the speed, but the distance at which the robot must slow or stop is fixed by measured stopping performance and by safety-rated sensing."
+    },
+    {
+     "h3": "4.4 Knowing when to ask"
+    },
+    {
+     "p": "A complementary measure is to have the learned component recognize its own uncertainty. Ren and co-authors used conformal prediction to calibrate a language-model planner so that the robot requests human help when its confidence is insufficient, with a statistical assurance on the task success rate and with fewer requests than simpler rules [23]. Run-time monitors that detect inputs unlike the training data serve the same purpose for perception and control [6]. These measures reduce task failures and unnecessary stops. They improve performance and availability, but because they are themselves learned or statistical, they supplement the safety layer and do not replace it."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Reliability",
+   "blocks": [
+    {
+     "h3": "5.1 Compounding over steps"
+    },
+    {
+     "p": "A task that consists of <i>n</i> steps, each of which succeeds independently with probability <i>p</i>, is completed with probability"
+    },
+    {
+     "eq": "<i>P</i><sub>task</sub> = <i>p</i><sup><i>n</i></sup>",
+     "n": 3
+    },
+    {
+     "p": "At <i>p</i> = 0.99, a 10-step task succeeds 90% of the time and a 50-step task only 61% of the time; at <i>p</i> = 0.999 the 50-step task succeeds 95% of the time. Long tasks therefore demand per-step reliability far above what short demonstrations reveal. The remedies are to shorten the chain, by dividing work into segments with checks between them, and to add recovery behaviors so that a failed step is retried instead of ending the task. Figure 2 plots Eq. (3) for three values of <i>p</i>."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-task-success",
+      "caption": "Probability that a task of <i>n</i> independent steps succeeds, Eq. (3), for three per-step success probabilities. The marked points are the values quoted in the text.",
+      "alt": "Line chart of task success probability against number of steps from 1 to 100. With per-step success of 0.999 the curve falls slowly to about 0.90 at 100 steps and is marked 0.95 at 50 steps. With 0.99 it is marked 0.90 at 10 steps and 0.61 at 50 steps and falls to 0.37 at 100 steps. With 0.95 it falls below 0.1 by 50 steps.",
+      "source": "Author's calculation from Eq. (3)."
+     }
+    },
+    {
+     "h3": "5.2 How much testing demonstrates reliability"
+    },
+    {
+     "p": "If <i>N</i> independent trials are run without a failure, the number needed to claim with confidence <i>C</i> that the true failure probability is no greater than <i>p</i><sub>0</sub> is"
+    },
+    {
+     "eq": "<i>N</i> ≥ ln(1 − <i>C</i>) / ln(1 − <i>p</i><sub>0</sub>) ≈ 3 / <i>p</i><sub>0</sub>  for <i>C</i> = 0.95",
+     "n": 4
+    },
+    {
+     "p": "The approximation is the rule of three: after <i>N</i> failure-free trials, the upper 95% confidence bound on the failure probability is about 3/<i>N</i> [24]. To support a claim of no more than one failure in 1,000 cycles, about 3,000 consecutive failure-free cycles are needed; for one in 100,000, about 300,000. Kalra and Paddock applied the same reasoning to automated vehicles and found that 275 million failure-free miles would be required to show, with 95% confidence, a fatality rate no higher than that of human drivers [25]. Koopman and Wagner concluded that testing alone is not a feasible way to assure systems based on machine learning, and that it must be combined with architectural measures such as a simple monitor that bounds the behavior of the complex function [26]. For physical AI the implication is the same. Task reliability at the level of one failure in a thousand can be demonstrated by testing; safety integrity cannot, and has to come from the architecture of Section 4."
+    },
+    {
+     "h3": "5.3 Reliability in operation"
+    },
+    {
+     "p": "In service, the relevant measures are availability and the rate of human intervention. Steady-state availability is"
+    },
+    {
+     "eq": "<i>A</i> = MTBF / (MTBF + MTTR)",
+     "n": 5
+    },
+    {
+     "p": "where MTBF is the mean time between failures that stop the system and MTTR is the mean time to restore it. Availability is one of the three factors of overall equipment effectiveness, with performance rate and quality rate, by which production equipment is commonly assessed [27]. For a learned system, many stoppages are not breakdowns but requests for help: a dropped part, an unrecognized object, a blocked path. Each is cleared by a person, locally or remotely. The fraction of a person's time consumed per hour of robot operation, here called the intervention fraction <i>f</i>, is the quantity that most directly links reliability to economics, and it should be measured during any trial."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Economics",
+   "blocks": [
+    {
+     "h3": "6.1 Cost structure"
+    },
+    {
+     "p": "The investment in a physical AI system comprises the machine, its integration into the site, the safety system and its validation, and commissioning and training. Integration and safety together can be comparable to the cost of the robot itself. Annual costs comprise maintenance and spare parts, software licenses or subscriptions, energy, and the labor of supervision and intervention. A further recurring cost is particular to learned systems: data collection, retraining and revalidation whenever products, layouts or tasks change."
+    },
+    {
+     "h3": "6.2 A simple model"
+    },
+    {
+     "p": "For a system that substitutes for labor at an hourly cost <i>c</i><sub>L</sub>, the annual net benefit is"
+    },
+    {
+     "eq": "<i>B</i> = <i>H</i> <i>A</i> <i>c</i><sub>L</sub> (1 − <i>f</i>) − <i>M</i>",
+     "n": 6
+    },
+    {
+     "p": "where <i>H</i> is the scheduled operating time per year, <i>A</i> the availability of Eq. (5), <i>f</i> the intervention fraction and <i>M</i> the annual cost of maintenance and software. The simple payback time is the investment <i>I</i> divided by <i>B</i>, and the net present value over a life of <i>n</i> years at discount rate <i>i</i> is [28]"
+    },
+    {
+     "eq": "NPV = −<i>I</i> + <i>B</i> [1 − (1 + <i>i</i>)<sup>−<i>n</i></sup>] / <i>i</i>",
+     "n": 7
+    },
+    {
+     "p": "Equation (6) omits benefits that are real but site-specific, such as avoided injuries, improved quality, and the value of inspection data, and it should be extended with them where they can be estimated. Its purpose here is to show the structure: the benefit is proportional to operating hours and to availability, and it is eroded directly by intervention."
+    },
+    {
+     "h3": "6.3 Worked example"
+    },
+    {
+     "p": "Table 2 applies the model to a hypothetical mobile manipulation cell that tends machines in place of one operator per shift. All inputs are illustrative. In the base case, on two shifts with 90% availability and an intervention fraction of 0.10, the annual net benefit is 99,600 USD, the payback time is 2.5 years, and the NPV over seven years at 10% is about 235,000 USD. If availability falls to 70% and the intervention fraction rises to 0.30, values that are plausible for an immature system, the benefit falls to 48,400 USD, the payback lengthens to 5.2 years and the NPV becomes negative. On a single shift, even with the base-case reliability, the benefit is 34,800 USD and the NPV is about −81,000 USD."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Worked example: hypothetical mobile manipulation cell (illustrative inputs; USD).",
+      "head": [
+       "Quantity",
+       "Base case",
+       "Low reliability",
+       "Single shift"
+      ],
+      "rows": [
+       [
+        "Investment <i>I</i>",
+        "250,000",
+        "250,000",
+        "250,000"
+       ],
+       [
+        "Scheduled hours <i>H</i> (h per year)",
+        "4,000",
+        "4,000",
+        "2,000"
+       ],
+       [
+        "Availability <i>A</i>",
+        "0.90",
+        "0.70",
+        "0.90"
+       ],
+       [
+        "Intervention fraction <i>f</i>",
+        "0.10",
+        "0.30",
+        "0.10"
+       ],
+       [
+        "Labor cost <i>c</i><sub>L</sub> (per hour)",
+        "40",
+        "40",
+        "40"
+       ],
+       [
+        "Maintenance and software <i>M</i> (per year)",
+        "30,000",
+        "30,000",
+        "30,000"
+       ],
+       [
+        "Annual net benefit <i>B</i>, Eq. (6)",
+        "99,600",
+        "48,400",
+        "34,800"
+       ],
+       [
+        "Simple payback (years)",
+        "2.5",
+        "5.2",
+        "7.2"
+       ],
+       [
+        "NPV, 7 years at 10%, Eq. (7)",
+        "234,900",
+        "−14,400",
+        "−80,600"
+       ]
+      ],
+      "note": "Author's calculation. Scheduled hours assume 250 days per year and 8 hours per shift."
+     }
+    },
+    {
+     "p": "Two conclusions follow. Utilization dominates: the same machine that repays its cost in two and a half years on two shifts does not repay it at all on one. And reliability is an economic variable as much as a technical one, since availability and intervention together moved the result from clearly positive to negative. A vendor's quoted cycle time says little about either. Figure 3 shows the dependence of NPV on the intervention fraction for different shift patterns."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-npv-intervention",
+      "caption": "Net present value of the hypothetical cell of Table 2 against intervention fraction, from Eqs. (6) and (7), for one, two and three shifts at 90% availability and for two shifts at 70% availability. The marked points are the three cases of Table 2.",
+      "alt": "Line chart of net present value in thousand US dollars against intervention fraction from 0 to 0.5. Four straight lines slope downward: three shifts at 0.90 availability is highest and stays positive; two shifts at 0.90 availability crosses zero near 0.43; two shifts at 0.70 availability crosses zero near 0.27; one shift at 0.90 availability is negative throughout. Marked points: base case plus 235, low reliability minus 14, single shift minus 81.",
+      "source": "Author's calculation from Eqs. (6) and (7) with the inputs of Table 2."
+     }
+    },
+    {
+     "h3": "6.4 Evidence at the level of the economy"
+    },
+    {
+     "p": "Studies of conventional industrial robots give context. Graetz and Michaels, using data for 17 countries from 1993 to 2007, estimated that increased robot use raised annual labor productivity growth by about 0.36 percentage points [29]. Acemoglu and Restrepo, studying local labor markets in the United States, estimated that one additional robot per thousand workers reduced the employment-to-population ratio by 0.2 percentage points and wages by 0.42% [30]. These results concern programmed robots in earlier decades and need not carry over to learned systems, but they indicate that productivity gains are measurable and that effects on employment are a legitimate concern in planning a deployment."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "A Deployment Framework",
+   "blocks": [
+    {
+     "p": "The preceding sections suggest the following sequence for an organization introducing a physical AI system."
+    },
+    {
+     "list": [
+      "Define the operating domain: the objects, areas, lighting, speeds and presence of people for which the system is intended, and what it must do outside that domain.",
+      "Carry out a system-level hazard analysis that includes the learned policy, the safety layer, the supervising person and the surrounding process [7].",
+      "Assign every safety function to a conventional, safety-rated layer with a specified performance level, and confirm that no protective function depends on the learned policy [10, 13].",
+      "Set quantitative reliability targets for the task, and derive the number of failure-free trials needed to demonstrate them from Eq. (4).",
+      "Run the system in a supervised trial, record availability and the intervention fraction, and evaluate Eq. (6) with measured values before committing to scale.",
+      "Design the human role explicitly, including training, alarm presentation and handover, so that supervision is a workable task [8].",
+      "Place model updates under change control. A retrained model is a modification: repeat the reliability tests, and confirm that the assumptions of the safety layer still hold.",
+      "Monitor in service for distribution shift and for trends in intervention rate, and define the conditions under which the system reverts to manual operation [6]."
+     ],
+     "ordered": true
+    },
+    {
+     "p": "The framework is deliberately conservative about safety and empirical about value. It treats the learned component as a source of performance that may be improved continually, inside a safety envelope that changes rarely and only with full verification."
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "Physical AI can be deployed safely with present technology, but not by trusting the learned policy. Safety functions on machinery are specified at dangerous failure rates below one in a million hours and must be verifiable; learned policies fail far more often and cannot be verified to that level, nor can testing alone demonstrate such rates. The workable architecture keeps the learned policy in a performance role and assigns protection to a conventional safety-rated layer of limits, monitoring and protective stops. Regulation in the European Union is moving to address machine learning in machinery explicitly, and its details were still being settled in 2026. Reliability is the link between the technical and the economic questions. It compounds over the steps of a task, it can be demonstrated statistically only to modest levels, and through availability and the intervention fraction it determines whether an installation pays. The worked example showed a payback of two and a half years turning into a loss with lower reliability or lower utilization. Organizations should therefore define the operating domain, separate safety from performance, measure availability and intervention in a supervised trial, and decide on the basis of those measurements."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "International Federation of Robotics. (2025, September 25). Global robot demand in factories doubles over 10 years: World Robotics 2025 report – Industrial robots [Press release]. IFR, Frankfurt.",
+   "url": "https://ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10-years"
+  },
+  {
+   "text": "Kim, M. J., Pertsch, K., Karamcheti, S., Xiao, T., Balakrishna, A., Nair, S., Rafailov, R., Foster, E., Lam, G., Sanketi, P., et al. (2024). OpenVLA: An open-source vision-language-action model. arXiv preprint arXiv:2406.09246.",
+   "url": "https://arxiv.org/abs/2406.09246"
+  },
+  {
+   "text": "Haddadin, S., Albu-Schäffer, A., & Hirzinger, G. (2009). Requirements for safe robots: Measurements, analysis and new insights. The International Journal of Robotics Research, 28(11–12), 1507–1527.",
+   "url": "https://doi.org/10.1177/0278364909343970"
+  },
+  {
+   "text": "Villani, V., Pini, F., Leali, F., & Secchi, C. (2018). Survey on human–robot collaboration in industrial settings: Safety, intuitive interfaces and applications. Mechatronics, 55, 248–266.",
+   "url": "https://doi.org/10.1016/j.mechatronics.2018.02.009"
+  },
+  {
+   "text": "Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., & Mané, D. (2016). Concrete problems in AI safety. arXiv preprint arXiv:1606.06565.",
+   "url": "https://arxiv.org/abs/1606.06565"
+  },
+  {
+   "text": "Sinha, R., Sharma, A., Banerjee, S., Lew, T., Luo, R., Richards, S. M., Sun, Y., Schmerling, E., & Pavone, M. (2022). A system-level view on out-of-distribution data in robotics. arXiv preprint arXiv:2212.14020.",
+   "url": "https://arxiv.org/abs/2212.14020"
+  },
+  {
+   "text": "Leveson, N. G. (2012). Engineering a Safer World: Systems Thinking Applied to Safety. The MIT Press.",
+   "url": "https://doi.org/10.7551/mitpress/8179.001.0001"
+  },
+  {
+   "text": "Bainbridge, L. (1983). Ironies of automation. Automatica, 19(6), 775–779.",
+   "url": "https://doi.org/10.1016/0005-1098(83)90046-8"
+  },
+  {
+   "text": "Parasuraman, R., Sheridan, T. B., & Wickens, C. D. (2000). A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics – Part A: Systems and Humans, 30(3), 286–297.",
+   "url": "https://doi.org/10.1109/3468.844354"
+  },
+  {
+   "text": "International Organization for Standardization. (2023). ISO 13849-1:2023 Safety of machinery – Safety-related parts of control systems – Part 1: General principles for design (4th ed.). ISO, Geneva.",
+   "url": "https://www.iso.org/standard/73481.html"
+  },
+  {
+   "text": "International Electrotechnical Commission. (2010). IEC 61508-1:2010 Functional safety of electrical/electronic/programmable electronic safety-related systems – Part 1: General requirements (2nd ed.). IEC, Geneva.",
+   "url": "https://webstore.iec.ch/en/publication/5515"
+  },
+  {
+   "text": "International Organization for Standardization. (2025). ISO 10218-1:2025 Robotics – Safety requirements – Part 1: Industrial robots (3rd ed.). ISO, Geneva.",
+   "url": "https://www.iso.org/standard/73933.html"
+  },
+  {
+   "text": "International Organization for Standardization. (2025). ISO 10218-2:2025 Robotics – Safety requirements – Part 2: Industrial robot applications and robot cells (2nd ed.). ISO, Geneva.",
+   "url": "https://www.iso.org/standard/73934.html"
+  },
+  {
+   "text": "International Organization for Standardization. (2016). ISO/TS 15066:2016 Robots and robotic devices – Collaborative robots. ISO, Geneva.",
+   "url": "https://www.iso.org/standard/62996.html"
+  },
+  {
+   "text": "European Parliament and Council. (2023). Regulation (EU) 2023/1230 of 14 June 2023 on machinery. Official Journal of the European Union, L 165, 1–102.",
+   "url": "https://eur-lex.europa.eu/eli/reg/2023/1230/oj"
+  },
+  {
+   "text": "European Parliament and Council. (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L 2024/1689.",
+   "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+  },
+  {
+   "text": "European Parliament and Council. (2026). Regulation (EU) 2026/1744 of 8 July 2026 amending Regulations (EU) 2024/1689, (EU) 2018/1139 and (EU) 2023/1230 (Digital Omnibus on AI). Official Journal of the European Union.",
+   "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj"
+  },
+  {
+   "text": "Pendaries, M. (2026, August 6). Machinery Regulation 2023/1230: What the Digital Omnibus on AI changes. Eurogip, Paris.",
+   "url": "https://eurogip.fr/en/machinery-regulation-2023-1230-what-the-digital-omnibus-on-ai-changes/"
+  },
+  {
+   "text": "Tabassi, E. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1). National Institute of Standards and Technology, Gaithersburg, MD.",
+   "url": "https://doi.org/10.6028/NIST.AI.100-1"
+  },
+  {
+   "text": "Sha, L. (2001). Using simplicity to control complexity. IEEE Software, 18(4), 20–28.",
+   "url": "https://doi.org/10.1109/MS.2001.936213"
+  },
+  {
+   "text": "Ames, A. D., Xu, X., Grizzle, J. W., & Tabuada, P. (2017). Control barrier function based quadratic programs for safety critical systems. IEEE Transactions on Automatic Control, 62(8), 3861–3876.",
+   "url": "https://doi.org/10.1109/TAC.2016.2638961"
+  },
+  {
+   "text": "Brunke, L., Greeff, M., Hall, A. W., Yuan, Z., Zhou, S., Panerati, J., & Schoellig, A. P. (2022). Safe learning in robotics: From learning-based control to safe reinforcement learning. Annual Review of Control, Robotics, and Autonomous Systems, 5, 411–444.",
+   "url": "https://doi.org/10.1146/annurev-control-042920-020211"
+  },
+  {
+   "text": "Ren, A. Z., Dixit, A., Bodrova, A., Singh, S., Tu, S., Brown, N., Xu, P., Takayama, L., Xia, F., Varley, J., et al. (2023). Robots that ask for help: Uncertainty alignment for large language model planners. arXiv preprint arXiv:2307.01928.",
+   "url": "https://arxiv.org/abs/2307.01928"
+  },
+  {
+   "text": "Hanley, J. A., & Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? Interpreting zero numerators. JAMA, 249(13), 1743–1745.",
+   "url": "https://doi.org/10.1001/jama.1983.03330370053031"
+  },
+  {
+   "text": "Kalra, N., & Paddock, S. M. (2016). Driving to safety: How many miles of driving would it take to demonstrate autonomous vehicle reliability? Transportation Research Part A: Policy and Practice, 94, 182–193.",
+   "url": "https://doi.org/10.1016/j.tra.2016.09.010"
+  },
+  {
+   "text": "Koopman, P., & Wagner, M. (2016). Challenges in autonomous vehicle testing and validation. SAE International Journal of Transportation Safety, 4(1), 15–24.",
+   "url": "https://doi.org/10.4271/2016-01-0128"
+  },
+  {
+   "text": "Muchiri, P., & Pintelon, L. (2008). Performance measurement using overall equipment effectiveness (OEE): Literature review and practical application discussion. International Journal of Production Research, 46(13), 3517–3535.",
+   "url": "https://doi.org/10.1080/00207540601142645"
+  },
+  {
+   "text": "Towler, G., & Sinnott, R. (2022). Chemical Engineering Design: Principles, Practice and Economics of Plant and Process Design (3rd ed.). Butterworth-Heinemann/Elsevier.",
+   "url": "https://doi.org/10.1016/C2019-0-02025-0"
+  },
+  {
+   "text": "Graetz, G., & Michaels, G. (2018). Robots at work. The Review of Economics and Statistics, 100(5), 753–768.",
+   "url": "https://doi.org/10.1162/rest_a_00754"
+  },
+  {
+   "text": "Acemoglu, D., & Restrepo, P. (2020). Robots and jobs: Evidence from US labor markets. Journal of Political Economy, 128(6), 2188–2244.",
+   "url": "https://doi.org/10.1086/705716"
+  }
+ ]
+}

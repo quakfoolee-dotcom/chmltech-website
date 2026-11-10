@@ -30,7 +30,9 @@ def add_new_posts(POSTS, cat="chmltech-online-journal"):
         if slug in have: continue
         POSTS.append(dict(slug=slug, title=d["title"], date=d["published"][:10], author=d["author"]["name"], read="",
                           desc=d["meta"], cover=None, body="", cats=[cat], tags=d["keywords"][:10]))
-    POSTS.sort(key=lambda p: p["date"], reverse=True)
+    J = load()   # same-day papers: newest volume and issue first (V4.19)
+    rank = lambda p: (p["date"], (J[p["slug"]]["volume"], J[p["slug"]]["issue"]) if p["slug"] in J else (0, 0))
+    POSTS.sort(key=rank, reverse=True)
 
 
 JOURNAL_CAT = "chmltech-online-journal"
@@ -46,6 +48,10 @@ TOPIC = {
     "chmltech-online-journal-volume-102-issue-1": "esg",
     "engineering-capex-and-opex-estimation-for-process-plants": "operational-efficiency",
     "digital-twins-in-chemical-process-plants-architecture-modeling-and-applications": "digital-technology",
+    # Volume 105: Physical AI (V4.19). A list files the paper under more than one subject.
+    "physical-ai-foundations-architectures-and-the-sim-to-real-gap": "artificial-intelligence",
+    "physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control": ["artificial-intelligence", "digital-technology"],
+    "safety-reliability-and-economics-of-deploying-physical-ai": "artificial-intelligence",
 }
 
 
@@ -58,7 +64,8 @@ def apply_to_posts(POSTS):
         p["title"] = d["title"]; p["desc"] = d["meta"]
         p["read"] = f"{max(1, round(words(d) / 220))} min read"
         p["journal"] = f"Vol. {d['volume']}, Issue {d['issue']}"
-        p["cats"] = [JOURNAL_CAT] + ([TOPIC[p["slug"]]] if p["slug"] in TOPIC else [])
+        t = TOPIC.get(p["slug"], [])
+        p["cats"] = [JOURNAL_CAT] + ([t] if isinstance(t, str) else list(t))
     return J
 
 

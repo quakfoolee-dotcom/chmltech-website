@@ -1,0 +1,499 @@
+{
+ "slug": "physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control",
+ "volume": 105,
+ "issue": 2,
+ "published": "2026-11-09",
+ "revised": "2026-11-09",
+ "title": "Physical AI in Process Plants and Factories: Autonomous Inspection, Manipulation and Control",
+ "short_title": "Physical AI in Process Plants and Factories",
+ "meta": "Where physical AI applies in process plants and factories: inspection robots, learned grasping, reinforcement learning control and a readiness assessment by use.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Burnaby, BC, Canada"
+ },
+ "abstract": "Conventional automation in process plants and factories leaves to people the tasks that resist explicit programming: inspection rounds, the handling of varied objects, and the steering of units through disturbances. This paper examines where physical AI, meaning learned systems that sense and act in closed loop, applies to these tasks and how ready each application is, drawing on peer-reviewed field trials and reports from operating facilities. Applications are classified by what the system acts upon, namely itself, objects or the process, and are related to a six-level scale of plant autonomy. The constraints of industrial sites are set out, including hazardous-area certification, the existing control and safety hierarchy, and brownfield layouts. Autonomous inspection by mobile, legged and aerial robots is reviewed, with a simple model of the value of inspection frequency. Learned grasping, vision-language-action models, humanoids and self-driving laboratories are assessed for manipulation. Reinforcement learning for process control is compared with model predictive control, and reported cases on a distillation column, commercial cooling plants and a tokamak are examined together with the obstacles to wider adoption. An indicative readiness level is assigned to each application. The paper concludes that readiness falls as the consequence of failure rises, that inspection is the appropriate starting point, and that learned control is acceptable at present as a supervisory layer on single units within hard limits and beneath an independent safety system.",
+ "keywords": [
+  "physical AI",
+  "inspection robots",
+  "robotic manipulation",
+  "reinforcement learning",
+  "process control",
+  "plant autonomy",
+  "self-driving laboratories",
+  "technology readiness"
+ ],
+ "corrections": [],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Industrial robots are a mature technology. About 542,000 were installed worldwide in 2024, and the operational stock reached 4.66 million units [1]. Nearly all of them execute programmed motions in structured cells, where parts arrive in known positions and people are kept out. Process plants are automated in a different way: distributed control systems hold thousands of loops at their set points, and model predictive control, with several thousand reported applications by the early 2000s, coordinates the units above them [2]. In both settings, the work that remains manual is the work that resists explicit programming. Operators walk rounds to look, listen and read gauges. Workers pick mixed parts from bins, load machines and handle exceptions. Board operators steer units through disturbances and transitions that the installed controllers were not designed for."
+    },
+    {
+     "p": "Physical AI, meaning learned systems that sense and act in the physical world in closed loop, addresses this remainder. Its methods are reviewed in the companion paper in this volume; the present paper asks where they apply in process plants and factories, what evidence supports each application, and how ready each is for use. The emphasis is on evidence from operating facilities and peer-reviewed field trials, as distinct from demonstrations."
+    },
+    {
+     "p": "Section 2 classifies the applications and introduces levels of autonomy. Section 3 sets out the constraints that an industrial site imposes. Sections 4, 5 and 6 treat autonomous inspection, manipulation, and learned process control in turn. Section 7 gives a readiness assessment by use case, Section 8 gives implementation guidance, and Section 9 concludes."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Classification and Levels of Autonomy",
+   "blocks": [
+    {
+     "h3": "2.1 Three classes of application"
+    },
+    {
+     "p": "Applications of physical AI on an industrial site fall into three classes according to what the system acts upon. In inspection, a mobile robot acts on itself: it moves through the facility and positions sensors, but it does not alter the process. In manipulation, a robot acts on objects, such as parts, tools, samples and packages. In process control, a learned controller acts on the process itself through the existing valves and drives, with no robot involved. The classes differ in the consequences of failure, which rise from the first to the third, and this ordering largely explains their relative maturity."
+    },
+    {
+     "h3": "2.2 Levels of autonomy"
+    },
+    {
+     "p": "Gamer and co-authors proposed a taxonomy of plant autonomy with six levels, from 0 to 5, by analogy with the levels used for driving automation [3]. Table 1 gives a version adapted to the three classes above. The distinction that matters most in practice lies between Levels 2 and 4: whether a person must confirm each action, must only be available to intervene, or need not be present. Most deployed physical AI operates at Levels 2 and 3. A claim of autonomy is therefore incomplete without a statement of the situations it covers and of what the person is still expected to do."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Levels of autonomy for industrial plants, with examples for physical AI.",
+      "head": [
+       "Level",
+       "Description",
+       "Example"
+      ],
+      "rows": [
+       [
+        "0",
+        "No autonomy; people decide and act",
+        "Operator rounds; manual valve adjustment"
+       ],
+       [
+        "1",
+        "Assistance; the system informs, people act",
+        "Fixed camera flags a possible leak for review"
+       ],
+       [
+        "2",
+        "Occasional autonomy; the system acts on request in defined situations",
+        "Robot runs an inspection route when dispatched"
+       ],
+       [
+        "3",
+        "Limited autonomy; the system acts in defined situations and alerts people to confirm or take over",
+        "Scheduled robot rounds with remote supervision; learned controller within operator-set limits"
+       ],
+       [
+        "4",
+        "The system is in full control in defined situations; people supervise",
+        "Unattended inspection of a normally unmanned facility"
+       ],
+       [
+        "5",
+        "Autonomous operation in all situations",
+        "Not demonstrated for a complete plant"
+       ]
+      ],
+      "note": "Level definitions adapted from [3]; examples by the author."
+     }
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Constraints of the Industrial Environment",
+   "blocks": [
+    {
+     "p": "Four characteristics of industrial sites determine which research results transfer to them. The first is hazard. Many process areas are classified as potentially explosive atmospheres, in which every piece of electrical and mechanical equipment, including a robot with its batteries, motors and sensors, must be designed and certified so that it cannot become an ignition source; in the European Union this is required by Directive 2014/34/EU [4]. Certification constrains hardware choices and adds cost and lead time."
+    },
+    {
+     "p": "The second is the existing control hierarchy. A plant already has a regulatory control layer, an advanced control layer and an independent safety instrumented system. Physical AI enters as an addition to this hierarchy and has to respect it; in particular, a learned component should not be placed where it can defeat a safety function. Mobile robots add a further interface, since they move through areas where people work and where permits, isolations and traffic rules already govern access. The third is that most sites are brownfield. Layouts, stairs, doors and instruments were designed for people, which favors mobile platforms that can go where people go and read the instruments people read. The fourth is the standard of proof. Operations managers judge a system by its availability over months and its behavior in abnormal situations, and a success rate that would be publishable is often unacceptable in service."
+    },
+    {
+     "p": "A digital twin, in the sense of a plant model that exchanges data with the plant automatically in both directions [5], is closely related to physical AI in two ways. It is the natural simulator in which a learned controller is trained and tested before it touches the process, and it is the natural consumer of the data that inspection robots collect. Figure 1 places the three application classes within the plant hierarchy."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-plant-hierarchy",
+      "caption": "The three classes of physical AI application in relation to the existing plant hierarchy. (A) An inspection robot observes equipment and sends data to maintenance systems and the digital twin. (B) A manipulation robot handles objects. (C) A learned controller writes set points at the supervisory level, within limits. The safety instrumented system remains independent of all three.",
+      "alt": "Block diagram of a plant hierarchy with five stacked layers: operations and maintenance systems including the digital twin; supervisory control; regulatory control; field devices; and process equipment, materials and work areas. An independent safety instrumented system sits beside the control layers and acts on the process. An inspection robot at lower left observes the process and sends inspection data to the top layer. A manipulation robot at lower right handles objects. A learned controller at upper right sends set points within limits to the supervisory control layer.",
+      "source": "Drawn by the author from Sections 2 and 3."
+     }
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Autonomous Inspection",
+   "blocks": [
+    {
+     "h3": "4.1 Tasks and platforms"
+    },
+    {
+     "p": "Routine inspection in oil, gas and chemical facilities includes reading local gauges and valve positions, thermal imaging of electrical and rotating equipment, detecting leaks by gas sensing or sound, and visual checks for corrosion, damaged insulation and housekeeping problems. Reviews of robotics in onshore oil and gas facilities [6] and in infrastructure inspection generally [7] describe a progression from specialized devices, such as pipe crawlers and tank inspection vehicles, toward general mobile platforms. Drones extend coverage to flare stacks, tank roofs, pipe racks and other elevated structures, with the stated benefits of shorter inspection time, fewer personnel at height and access to hazardous locations; reliable automated defect detection from drone data remains an open problem [8]."
+    },
+    {
+     "p": "Legged robots suit multi-level plants because they climb stairs and step over obstructions. ANYmal, a quadruped designed for autonomous operation in such environments [9], was tested on an offshore converter platform in the North Sea, where it performed inspection tasks that otherwise require regular visits by personnel to a normally unmanned installation [10]. The motivation in such cases combines cost, the hazard of travel to the site, and the value of more frequent observation."
+    },
+    {
+     "h3": "4.2 Where learning enters"
+    },
+    {
+     "p": "Three components of an inspection robot are now commonly learned. The first is locomotion. Controllers trained by reinforcement learning in simulation, using only joint and inertial measurements, have crossed mud, snow, rubble and vegetation without having encountered those terrains in training [11]; this robustness is what makes legged platforms dependable on wet grating and cluttered floors. The second is perception for the inspection itself. Reading an analog gauge or locating a valve handle is a supervised vision task, but detecting that something is wrong is harder, because examples of defects are rare and varied. Unsupervised anomaly detection, which models normal appearance and flags deviations, was developed for this situation; the MVTec AD benchmark, with 15 categories of objects and textures, was created to evaluate such methods on industrial images [12]. The third is the use of the collected data. Regular, repeatable measurements from the same viewpoints are the input that machine-learning methods for predictive maintenance require and that manual rounds seldom provide [13]."
+    },
+    {
+     "h3": "4.3 The value of frequency"
+    },
+    {
+     "p": "A robot is not necessarily a better inspector than a person on any single round; its advantage is that rounds can be frequent and identical. If a developing fault is detected on a given round with probability <i>p</i><sub>d</sub>, and rounds are independent, the probability that it has been detected after <i>n</i> rounds is"
+    },
+    {
+     "eq": "<i>P</i><sub>n</sub> = 1 − (1 − <i>p</i><sub>d</sub>)<sup><i>n</i></sup>",
+     "n": 1
+    },
+    {
+     "p": "With <i>p</i><sub>d</sub> = 0.3, a single round finds the fault with probability 0.30, but four rounds within the fault's development time raise this to 0.76 and eight rounds to 0.94. The independence assumption fails for faults that the sensors cannot see at all, for which <i>p</i><sub>d</sub> is zero on every round, so Eq. (1) is an argument for frequency only where the sensing is capable in principle. It also shows why detection probability per round and the number of rounds per failure-development interval should be specified together when an inspection program is designed. Figure 2 plots Eq. (1) for three values of <i>p</i><sub>d</sub>."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-detection-rounds",
+      "caption": "Probability that a developing fault has been detected after <i>n</i> independent inspection rounds, Eq. (1), for three detection probabilities per round. The marked points are the values quoted in the text for <i>p</i><sub>d</sub> = 0.3.",
+      "alt": "Line chart of cumulative detection probability against number of inspection rounds from 0 to 12, for per-round detection probabilities of 0.1, 0.3 and 0.5. The curve for 0.3 is marked at 0.30 after one round, 0.76 after four rounds and 0.94 after eight rounds. The curve for 0.5 exceeds 0.9 after four rounds; the curve for 0.1 reaches about 0.72 after twelve rounds.",
+      "source": "Author's calculation from Eq. (1)."
+     }
+    },
+    {
+     "h3": "4.4 Limits"
+    },
+    {
+     "p": "Inspection robots have practical limits that should be stated alongside their benefits. They observe but do not intervene: a robot that finds a leaking flange still depends on a person to isolate and repair it. Their navigation relies on a map of the facility, so scaffolding, temporary barriers and parked equipment during a turnaround can block routes that were clear when the map was made. Endurance is set by battery capacity, which fixes the length of a round between visits to a charging station. Finally, an anomaly detector that raises too many false alarms is soon ignored, so the alarm rate presented to operators needs the same rationalization that is applied to process alarms. None of these limits is fundamental, but each has to be engineered for the site, and together they account for much of the effort of a deployment."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Manipulation in Factories and Laboratories",
+   "blocks": [
+    {
+     "h3": "5.1 From programmed motion to learned grasping"
+    },
+    {
+     "p": "A programmed robot repeats a trajectory accurately, which suffices when parts are fixtured. Learning becomes necessary when the objects, their positions or their condition vary. Picking mixed items from a bin is the standard example. The first Amazon Picking Challenge, in which 26 teams attempted to pick products from warehouse shelves, showed how far research systems then were from the task; the organizers' analysis recorded wide differences in approach and concluded that perception, grasping and system integration all remained unsolved for varied objects [14]. Subsequent progress came from training grasp-quality networks on large synthetic datasets. Mahler and co-authors trained policies for a suction cup and a parallel-jaw gripper entirely on synthetic data and reported that the resulting system cleared bins of up to 25 previously unseen objects with reliability above 95% at more than 300 mean picks per hour [15]. Training on synthetic data matters industrially because it removes the need to collect and label grasp attempts for every new product, although it introduces the simulation-to-reality gap discussed in the companion paper."
+    },
+    {
+     "p": "Two measures therefore describe a picking system: the rate of attempts and the fraction that succeed. The useful throughput is their product,"
+    },
+    {
+     "eq": "<i>Q</i> = <i>N</i><sub>a</sub> × <i>p</i><sub>s</sub>",
+     "n": 2
+    },
+    {
+     "p": "where <i>N</i><sub>a</sub> is attempts per hour and <i>p</i><sub>s</sub> is the success probability. Failed attempts also cost recovery time or human intervention, so the economic difference between 95% and 99.5% success is much larger than Eq. (2) alone suggests. This is the main reason that learned grasping entered service first in applications such as depalletizing and order picking, where a failed pick can simply be retried, and later in assembly, where a failure can damage a part."
+    },
+    {
+     "h3": "5.2 General-purpose manipulation and humanoids"
+    },
+    {
+     "p": "Vision-language-action models aim to replace task-specific engineering with a single model that is instructed in language and adapted with a small number of demonstrations. Their breadth is real, but their reliability is not yet at production level: the authors of OpenVLA report success rates typically below 90% on the tasks they tested [16]. For a factory, such models are at present best regarded as a way to shorten the engineering of a new task, to be followed by validation on that task, and not as a substitute for it."
+    },
+    {
+     "p": "Humanoid robots have attracted attention because existing workplaces are built for the human form. The International Federation of Robotics, in a 2025 position paper, stated that it remains uncertain if and when mass adoption of humanoids will take place, and that humanoids are expected to complement the robot types already on the market and not to replace them [17]. For most industrial tasks, a wheeled or fixed manipulator with an appropriate gripper remains the simpler and better-proven solution."
+    },
+    {
+     "h3": "5.3 Laboratory automation"
+    },
+    {
+     "p": "Laboratories combine manipulation with experimental decision-making. Burger and co-authors used a free-roaming mobile manipulator to operate standard laboratory instruments and to run a Bayesian search for improved photocatalysts without human intervention [18]. The A-Lab combined robotic solid-state synthesis with computed targets and active learning, and reported synthesizing 36 of 57 target compounds in 17 days of continuous operation [19]. Reviews of such self-driving laboratories identify hardware reliability, the handling of solids, and the integration of instruments from different vendors as the main obstacles to wider use [20]. For process development groups, the relevance is direct: the same approach can run screening and optimization campaigns for catalysts, formulations and operating conditions around the clock."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Learned Control of Processes",
+   "blocks": [
+    {
+     "h3": "6.1 The baseline"
+    },
+    {
+     "p": "Any learned controller in a process plant competes with an established baseline of proportional-integral-derivative loops under model predictive control (MPC). MPC handles multivariable interaction and constraints explicitly and has a long industrial record [2]. Its limitations are the effort of developing and maintaining the plant model, and its reliance on linear models identified around an operating point. Spielberg and co-authors describe the re-identification of models after performance degrades as complicated, resource-intensive and disruptive to operations, and proposed a deep reinforcement learning controller that adapts by interacting with the process as an alternative [21]."
+    },
+    {
+     "h3": "6.2 Reinforcement learning formulations"
+    },
+    {
+     "p": "Reinforcement learning (RL) treats control as the maximization of expected cumulative reward. For process applications the constrained form is the relevant one:"
+    },
+    {
+     "eq": "max<sub>π</sub> E<sub>π</sub>[ Σ<sub><i>t</i></sub> γ<sup><i>t</i></sup> <i>r</i>(<i>s</i><sub><i>t</i></sub>, <i>a</i><sub><i>t</i></sub>) ]  subject to  E<sub>π</sub>[ Σ<sub><i>t</i></sub> γ<sup><i>t</i></sup> <i>c</i><sub><i>i</i></sub>(<i>s</i><sub><i>t</i></sub>, <i>a</i><sub><i>t</i></sub>) ] ≤ <i>d</i><sub><i>i</i></sub>",
+     "n": 3
+    },
+    {
+     "p": "where <i>r</i> expresses the economic or tracking objective, each <i>c</i><sub><i>i</i></sub> is a cost associated with a constraint such as a quality or equipment limit, and <i>d</i><sub><i>i</i></sub> is its allowed level. Reviews of RL for process control conclude that it is attractive where the process is nonlinear, where models are costly to obtain, or where the objective is hard to express for MPC, and that it is better regarded as a complement to MPC than as a replacement [22]. They also record that, as of their writing, industrial applications were few in relation to the volume of simulation studies [23]. A constraint satisfied only in expectation, as in Eq. (3), is weaker than the hard constraints that MPC and safety systems enforce, which is one reason for that gap."
+    },
+    {
+     "h3": "6.3 Evidence from operating facilities"
+    },
+    {
+     "p": "Three reported cases show what has been achieved. In the first, a reinforcement learning algorithm controlled a distillation column at a chemical plant of ENEOS Materials in Japan, managing liquid levels while using waste heat as the heat source, a task previously performed by operators adjusting valves manually. The companies reported a continuous run of 35 days in early 2022, followed by operation over about a year through seasonal changes in ambient temperature, with product kept on specification, and the controller was then formally adopted for use on the unit. They also reported that the steam used to maintain the liquid level, and the carbon dioxide emissions associated with it, fell by 40% relative to manual control; the figure refers to that duty and not to the consumption of the whole plant [24]. The source is a press release by the supplier and the operator, and it concerns one column, but it is the clearest report of RL in direct control of a chemical process over a sustained period."
+    },
+    {
+     "p": "In the second case, RL controllers were applied to the chilled-water plants of two commercial facilities in live experiments and achieved energy savings of about 9% and 13%; the authors describe the difficulties they met in evaluation, in learning from historical data and in satisfying constraints [25]. In the third, a deep RL controller trained in simulation was used to shape and maintain plasma configurations in a tokamak, commanding the magnetic coils directly at high rate [26]. That case shows that simulation-trained controllers can transfer to a fast, unstable physical system when the simulator is accurate."
+    },
+    {
+     "h3": "6.4 Why adoption is slow"
+    },
+    {
+     "p": "Dulac-Arnold and co-authors list the difficulties that separate RL research from real systems, including learning from limited samples, delays in sensing and actuation, safety constraints that must not be violated during learning, partial observability, multiple objectives, the need to learn from logged data, real-time inference and the need for explainable policies [27]. Every item applies to a process unit. Exploration is the sharpest: a plant cannot be allowed to try poor actions in order to learn. Two responses are available. Offline RL learns from historical operating data without further interaction, but it is limited by what operators have done in the past and can overestimate the value of actions the data do not cover [28]. Training in a simulator or digital twin allows free exploration, but it transfers the problem to the fidelity of the model. Methods for safe learning, which bound the actions a learned controller may take or certify properties of the learned policy, are an active research area [29]."
+    },
+    {
+     "callout": "In the reported plant cases, the learned controller acts as a supervisory layer on a single unit, inside limits set by operators and beneath an independent safety system. That architecture, and not the learning algorithm, is what makes the application acceptable."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Readiness Assessment",
+   "blocks": [
+    {
+     "p": "Table 2 summarizes the applications discussed, with an indicative technology readiness level (TRL) on the nine-point scale, on which TRL 6 denotes a prototype demonstrated in a relevant environment and TRL 9 a system proven in operation [30]. The levels are the author's assessment as of November 2026, based on the evidence cited in Sections 4 to 6, and are given as ranges because readiness depends on the site and task. Figure 3 presents the same assessment graphically."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Indicative readiness of physical AI applications in process plants and factories (author's assessment, November 2026).",
+      "head": [
+       "Application",
+       "Indicative TRL",
+       "Basis",
+       "Main limitation"
+      ],
+      "rows": [
+       [
+        "Robot and drone inspection rounds, remotely supervised",
+        "8–9",
+        "Field operation on industrial sites [10, 8]",
+        "Hazardous-area certification; integration with maintenance systems"
+       ],
+       [
+        "Automated anomaly detection on inspection data",
+        "6–8",
+        "Industrial benchmarks and methods [12]",
+        "Rare and varied defects; false alarms"
+       ],
+       [
+        "Bin picking and depalletizing of varied items",
+        "8–9",
+        "Reliability above 95% on unseen objects [15]",
+        "Deformable, transparent and entangled items"
+       ],
+       [
+        "Self-driving laboratories",
+        "5–7",
+        "Multi-day autonomous campaigns [18, 19]",
+        "Hardware reliability; solids handling [20]"
+       ],
+       [
+        "Learned supervisory control of a single unit",
+        "6–8",
+        "Sustained operation on one column [24]; live trials [25]",
+        "Exploration, constraint assurance, model fidelity [27]"
+       ],
+       [
+        "General-purpose manipulation with VLA models",
+        "4–6",
+        "Success typically below 90% [16]",
+        "Reliability; validation effort per task"
+       ],
+       [
+        "General-purpose humanoid labor",
+        "4–6",
+        "Mass adoption uncertain [17]",
+        "Reliability, cost, safety certification"
+       ],
+       [
+        "Learned control replacing regulatory or safety layers",
+        "Not recommended",
+        "No supporting evidence found",
+        "Cannot be verified to the required integrity"
+       ]
+      ]
+     }
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-readiness",
+      "caption": "Indicative technology readiness ranges of the applications in Table 2, grouped by class. The assessment is the author's, as of November 2026.",
+      "alt": "Horizontal range chart of indicative technology readiness levels on a scale of 1 to 9. Robot and drone inspection rounds, 8 to 9. Anomaly detection on inspection data, 6 to 8. Bin picking and depalletizing, 8 to 9. Self-driving laboratories, 5 to 7. General-purpose manipulation with vision-language-action models, 4 to 6. General-purpose humanoid labor, 4 to 6. Learned supervisory control of one unit, 6 to 8. Dashed lines mark level 6, prototype in a relevant environment, and level 9, proven in operation.",
+      "source": "Author's assessment from Table 2; TRL scale after [30]."
+     }
+    },
+    {
+     "p": "Two patterns are visible. Readiness falls as the consequence of failure rises, from observing, through handling objects, to moving the process. And within each class, the applications that are ready are those in which a failure is cheap to detect and to retry. Both patterns suggest that reliability and its assurance limit deployment more than capability does; a companion paper in this volume treats that subject."
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "Implementation Guidance",
+   "blocks": [
+    {
+     "p": "The evidence reviewed supports a staged approach, beginning where failure is cheapest and where the data collected have value in their own right."
+    },
+    {
+     "list": [
+      "Begin with inspection. It does not alter the process, it yields a consistent data set, and Eq. (1) gives a simple basis for justifying round frequency.",
+      "Specify the level of autonomy from Table 1 for each use, including what the supervising person is expected to do and how the system hands over.",
+      "Resolve hazardous-area classification and equipment certification before selecting hardware, since it determines which platforms are admissible.",
+      "Connect robot data to the maintenance management system and the digital twin from the first day; inspection data that are not acted upon have no value.",
+      "For manipulation, choose tasks where a failed attempt can be retried without damage, and measure attempts per hour and success rate separately, as in Eq. (2).",
+      "For learned control, start on one unit in a supervisory role, train and test against a validated model, impose hard limits outside the learned controller, and keep the safety instrumented system independent.",
+      "Define acceptance criteria in advance as availability and intervention rate over a period of months, not as a success rate in a demonstration."
+     ],
+     "ordered": true
+    },
+    {
+     "p": "Skills are a further consideration. Operating these systems requires people who understand both the plant and the limits of learned models, and the roles of operators and maintenance technicians shift toward supervision, exception handling and data review. As with advanced process control, such a system needs a named owner within operations who is responsible for its performance after commissioning."
+    }
+   ]
+  },
+  {
+   "num": "9",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "Physical AI is entering process plants and factories through the tasks that conventional automation left to people. Autonomous inspection is the most mature application: mobile and legged robots operate on industrial sites, their locomotion is robust because it is learned, and their main contribution is frequent, repeatable observation. Learned grasping has made the handling of varied items a production technology where failures can be retried, while general-purpose manipulation and humanoids remain at the pilot stage. Learned process control has been shown to work on individual units under supervision, and its wider use is limited by the impossibility of free exploration on a plant and by the difficulty of assuring constraints. Across all three classes, readiness is governed by the consequence of failure and by the ability to demonstrate reliability, more than by what the systems can do on a good day. A site that begins with inspection, connects the resulting data to its maintenance and modeling systems, and extends autonomy step by step under explicit limits will gain the benefits available now while building the experience needed for what follows."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "International Federation of Robotics. (2025, September 25). Global robot demand in factories doubles over 10 years: World Robotics 2025 report – Industrial robots [Press release]. IFR, Frankfurt.",
+   "url": "https://ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10-years"
+  },
+  {
+   "text": "Qin, S. J., & Badgwell, T. A. (2003). A survey of industrial model predictive control technology. Control Engineering Practice, 11(7), 733–764.",
+   "url": "https://doi.org/10.1016/S0967-0661(02)00186-7"
+  },
+  {
+   "text": "Gamer, T., Hoernicke, M., Kloepper, B., Bauer, R., & Isaksson, A. J. (2020). The autonomous industrial plant – future of process engineering, operations and maintenance. Journal of Process Control, 88, 101–110.",
+   "url": "https://doi.org/10.1016/j.jprocont.2020.01.012"
+  },
+  {
+   "text": "European Parliament and Council. (2014). Directive 2014/34/EU of 26 February 2014 on the harmonisation of the laws of the Member States relating to equipment and protective systems intended for use in potentially explosive atmospheres. Official Journal of the European Union, L 96, 309–356.",
+   "url": "https://eur-lex.europa.eu/eli/dir/2014/34/oj"
+  },
+  {
+   "text": "Kritzinger, W., Karner, M., Traar, G., Henjes, J., & Sihn, W. (2018). Digital twin in manufacturing: A categorical literature review and classification. IFAC-PapersOnLine, 51(11), 1016–1022.",
+   "url": "https://doi.org/10.1016/j.ifacol.2018.08.474"
+  },
+  {
+   "text": "Shukla, A., & Karki, H. (2016). Application of robotics in onshore oil and gas industry—A review Part I. Robotics and Autonomous Systems, 75, 490–507.",
+   "url": "https://doi.org/10.1016/j.robot.2015.09.012"
+  },
+  {
+   "text": "Lattanzi, D., & Miller, G. (2017). Review of robotic infrastructure inspection systems. Journal of Infrastructure Systems, 23(3), 04017004.",
+   "url": "https://doi.org/10.1061/(ASCE)IS.1943-555X.0000353"
+  },
+  {
+   "text": "Nooralishahi, P., Ibarra-Castanedo, C., Deane, S., López, F., Pant, S., Genest, M., Avdelidis, N. P., & Maldague, X. P. V. (2021). Drone-based non-destructive inspection of industrial sites: A review and case studies. Drones, 5(4), 106.",
+   "url": "https://doi.org/10.3390/drones5040106"
+  },
+  {
+   "text": "Hutter, M., Gehring, C., Jud, D., Lauber, A., Bellicoso, C. D., Tsounis, V., Hwangbo, J., Bodie, K., Fankhauser, P., Bloesch, M., et al. (2016). ANYmal – a highly mobile and dynamic quadrupedal robot. 2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 38–44.",
+   "url": "https://doi.org/10.1109/IROS.2016.7758092"
+  },
+  {
+   "text": "Gehring, C., Fankhauser, P., Isler, L., Diethelm, R., Bachmann, S., Potz, M., Gerstenberg, L., & Hutter, M. (2021). ANYmal in the field: Solving industrial inspection of an offshore HVDC platform with a quadrupedal robot. In G. Ishigami & K. Yoshida (Eds.), Field and Service Robotics (Springer Proceedings in Advanced Robotics, Vol. 16, pp. 247–260). Springer.",
+   "url": "https://doi.org/10.1007/978-981-15-9460-1_18"
+  },
+  {
+   "text": "Lee, J., Hwangbo, J., Wellhausen, L., Koltun, V., & Hutter, M. (2020). Learning quadrupedal locomotion over challenging terrain. Science Robotics, 5(47), eabc5986.",
+   "url": "https://doi.org/10.1126/scirobotics.abc5986"
+  },
+  {
+   "text": "Bergmann, P., Fauser, M., Sattlegger, D., & Steger, C. (2019). MVTec AD — A comprehensive real-world dataset for unsupervised anomaly detection. 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 9584–9592.",
+   "url": "https://doi.org/10.1109/CVPR.2019.00982"
+  },
+  {
+   "text": "Carvalho, T. P., Soares, F. A. A. M. N., Vita, R., Francisco, R. da P., Basto, J. P., & Alcalá, S. G. S. (2019). A systematic literature review of machine learning methods applied to predictive maintenance. Computers & Industrial Engineering, 137, 106024.",
+   "url": "https://doi.org/10.1016/j.cie.2019.106024"
+  },
+  {
+   "text": "Correll, N., Bekris, K. E., Berenson, D., Brock, O., Causo, A., Hauser, K., Okada, K., Rodriguez, A., Romano, J. M., & Wurman, P. R. (2018). Analysis and observations from the first Amazon Picking Challenge. IEEE Transactions on Automation Science and Engineering, 15(1), 172–188.",
+   "url": "https://doi.org/10.1109/TASE.2016.2600527"
+  },
+  {
+   "text": "Mahler, J., Matl, M., Satish, V., Danielczuk, M., DeRose, B., McKinley, S., & Goldberg, K. (2019). Learning ambidextrous robot grasping policies. Science Robotics, 4(26), eaau4984.",
+   "url": "https://doi.org/10.1126/scirobotics.aau4984"
+  },
+  {
+   "text": "Kim, M. J., Pertsch, K., Karamcheti, S., Xiao, T., Balakrishna, A., Nair, S., Rafailov, R., Foster, E., Lam, G., Sanketi, P., et al. (2024). OpenVLA: An open-source vision-language-action model. arXiv preprint arXiv:2406.09246.",
+   "url": "https://arxiv.org/abs/2406.09246"
+  },
+  {
+   "text": "International Federation of Robotics. (2025, August 14). Humanoid robots: “Vision and reality” paper published by IFR [Press release]. IFR, Frankfurt.",
+   "url": "https://ifr.org/ifr-press-releases/news/humanoid-robots-vision-and-reality-paper-published-by-ifr"
+  },
+  {
+   "text": "Burger, B., Maffettone, P. M., Gusev, V. V., Aitchison, C. M., Bai, Y., Wang, X., Li, X., Alston, B. M., Li, B., Clowes, R., et al. (2020). A mobile robotic chemist. Nature, 583(7815), 237–241.",
+   "url": "https://doi.org/10.1038/s41586-020-2442-2"
+  },
+  {
+   "text": "Szymanski, N. J., Rendy, B., Fei, Y., Kumar, R. E., He, T., Milsted, D., McDermott, M. J., Gallant, M., Cubuk, E. D., Merchant, A., et al. (2023). An autonomous laboratory for the accelerated synthesis of inorganic materials. Nature, 624(7990), 86–91.",
+   "url": "https://doi.org/10.1038/s41586-023-06734-w"
+  },
+  {
+   "text": "Abolhasani, M., & Kumacheva, E. (2023). The rise of self-driving labs in chemical and materials sciences. Nature Synthesis, 2(6), 483–492.",
+   "url": "https://doi.org/10.1038/s44160-022-00231-0"
+  },
+  {
+   "text": "Spielberg, S., Tulsyan, A., Lawrence, N. P., Loewen, P. D., & Gopaluni, R. B. (2019). Toward self-driving processes: A deep reinforcement learning approach to control. AIChE Journal, 65(10), e16689.",
+   "url": "https://doi.org/10.1002/aic.16689"
+  },
+  {
+   "text": "Shin, J., Badgwell, T. A., Liu, K.-H., & Lee, J. H. (2019). Reinforcement learning – Overview of recent progress and implications for process control. Computers & Chemical Engineering, 127, 282–294.",
+   "url": "https://doi.org/10.1016/j.compchemeng.2019.05.029"
+  },
+  {
+   "text": "Nian, R., Liu, J., & Huang, B. (2020). A review on reinforcement learning: Introduction and applications in industrial process control. Computers & Chemical Engineering, 139, 106886.",
+   "url": "https://doi.org/10.1016/j.compchemeng.2020.106886"
+  },
+  {
+   "text": "Yokogawa Electric Corporation & ENEOS Materials Corporation. (2023, March 30). In a world first, Yokogawa's autonomous control AI is officially adopted for use at an ENEOS Materials chemical plant [Press release].",
+   "url": "https://www.yokogawa.com/us/news/press-releases/2023/2023-03-30/"
+  },
+  {
+   "text": "Luo, J., Paduraru, C., Voicu, O., Chervonyi, Y., Munns, S., Li, J., Qian, C., Dutta, P., Davis, J. Q., Wu, N., et al. (2022). Controlling commercial cooling systems using reinforcement learning. arXiv preprint arXiv:2211.07357.",
+   "url": "https://arxiv.org/abs/2211.07357"
+  },
+  {
+   "text": "Degrave, J., Felici, F., Buchli, J., Neunert, M., Tracey, B., Carpanese, F., Ewalds, T., Hafner, R., Abdolmaleki, A., de las Casas, D., et al. (2022). Magnetic control of tokamak plasmas through deep reinforcement learning. Nature, 602(7897), 414–419.",
+   "url": "https://doi.org/10.1038/s41586-021-04301-9"
+  },
+  {
+   "text": "Dulac-Arnold, G., Levine, N., Mankowitz, D. J., Li, J., Paduraru, C., Gowal, S., & Hester, T. (2021). Challenges of real-world reinforcement learning: Definitions, benchmarks and analysis. Machine Learning, 110(9), 2419–2468.",
+   "url": "https://doi.org/10.1007/s10994-021-05961-4"
+  },
+  {
+   "text": "Levine, S., Kumar, A., Tucker, G., & Fu, J. (2020). Offline reinforcement learning: Tutorial, review, and perspectives on open problems. arXiv preprint arXiv:2005.01643.",
+   "url": "https://arxiv.org/abs/2005.01643"
+  },
+  {
+   "text": "Brunke, L., Greeff, M., Hall, A. W., Yuan, Z., Zhou, S., Panerati, J., & Schoellig, A. P. (2022). Safe learning in robotics: From learning-based control to safe reinforcement learning. Annual Review of Control, Robotics, and Autonomous Systems, 5, 411–444.",
+   "url": "https://doi.org/10.1146/annurev-control-042920-020211"
+  },
+  {
+   "text": "Mankins, J. C. (2009). Technology readiness assessments: A retrospective. Acta Astronautica, 65(9–10), 1216–1223.",
+   "url": "https://doi.org/10.1016/j.actaastro.2009.03.058"
+  }
+ ]
+}
