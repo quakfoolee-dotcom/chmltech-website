@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.24 — 2026-11-09
+- **Projects page rebuilt.** The Wix version only held template placeholders: four project names with "I'm a paragraph" text. The new page has:
+  - a hero with three figures: 300+ Digital Adoption Plans for Canadian SMEs, FEED engineering in progress, and plant reviews with HAZOP;
+  - two featured engineering projects, with clients named by sector only: a commercial-scale FEED study for an advanced materials producer in BC, and an economics, HAZOP and P&ID review for a biodiesel producer;
+  - a Digital Adoption section with an interactive timeline of what a plan covers, and six technology areas;
+  - a "from plan to results" section that links to related services.
+- **Ready for the 300+ plan data:** adding `data/dap_stats.json` (`{"by_sector": {"Manufacturing": 85, ...}, "note": "..."}`) makes the page show a "Plans by sector" chart.
+
 ## V4.23 — 2026-11-09
 Fixes from the November 2026 site audit.
 - **Trademarked methods removed.** The EOS page is replaced by a new Leadership Operating System page built on general management practice. eos.html now redirects to it. The Scaling Up page is rewritten in our own words as "Scaling Your Business", and the coach claims are gone. The EOS practice exam is removed from the training library, which now lists 145 exams.

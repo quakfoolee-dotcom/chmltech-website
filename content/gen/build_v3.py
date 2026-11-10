@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from aios import aios_svg, AIOS_CSS, COMPONENTS, PHASES, BENEFITS, FAQ as AIOS_FAQ
 from courses_build import render_course, finalize_course_file, course_stats
-import service_pages, industry_pages, journal_pages, privacy_page, new_articles
+import service_pages, industry_pages, journal_pages, privacy_page, new_articles, projects_page
 
 OUT, DATA = sys.argv[1], sys.argv[2]
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -626,8 +626,8 @@ if pj:
         cards.append(f'<article class="article">{f"<div class=thumb><img src={chr(34)}{loc}{chr(34)} alt={chr(34)}{esc(nm)}{chr(34)} loading=lazy></div>" if loc else ""}<div class="body"><h3>{esc(nm)}</h3></div></article>')
     body = page_hero("Projects", "Projects", "Selected projects.", "A selection of process engineering, scale-up and operations projects delivered by Chmltech.")
     body += f'<section class="section"><div class="container"><div class="grid grid-2">{"".join(cards)}</div></div></section>'
-    page("projects.html", "Projects", "Selected process engineering, scale-up and operations projects by Chmltech Ltd.", body)
     ALL_PAGES.append("projects.html")
+projects_page.build(globals())  # V4.24: rebuilt Projects page (the Wix version held template placeholders)
 
 # ---------------------------------------------------------------- HOME: latest insights + training teaser
 home = open(os.path.join(OUT, "index.html")).read()
