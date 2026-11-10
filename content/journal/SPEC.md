@@ -7,7 +7,7 @@ One JSON file per paper: `journal/<slug>.json`. Must pass `python3 -I journal/va
 - `volume` (int), `issue` (int), `published` (YYYY-MM-DD, keep original), `revised` ("2026-11-09")
 - `title` (the paper's real title, not "Chmltech Online Journal, Volume…"), `short_title` (<= 60 chars, for cards)
 - `meta` (120-170 chars, plain text)
-- `author`: {"name": "Quak Foo Lee", "role": "Chief Technology Officer", "org": "Chmltech Ltd.", "division": "<as in original>", "location": "Burnaby, BC, Canada"}
+- `author`: {"name": "Quak Foo Lee", "role": "Chief Technology Officer", "org": "Chmltech Ltd.", "division": "<as in original>", "location": "Vancouver, BC, Canada"}
 - `abstract` (150-250 words, one paragraph, structured as background, scope, main points, conclusion)
 - `keywords` (5-8)
 - `sections`: list of {"num": "1", "title": "...", "blocks": [...]} — numbered 1..n; typically Introduction … Conclusion

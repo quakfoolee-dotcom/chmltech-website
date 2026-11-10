@@ -1,5 +1,21 @@
 # Changelog
 
+## V4.23 — 2026-11-09
+Fixes from the November 2026 site audit.
+- **Trademarked methods removed.** The EOS page is replaced by a new Leadership Operating System page built on general management practice. eos.html now redirects to it. The Scaling Up page is rewritten in our own words as "Scaling Your Business", and the coach claims are gone. The EOS practice exam is removed from the training library, which now lists 145 exams.
+- **Seven Wix-era solution pages rewritten:** ISO 9001, Leadership Operating System, Scaling Your Business, Project Portfolio Management, Operational Efficiency, Rapid Lean Assessment and Process Mapping. They now match the layout of the other solution pages and include interactive figures (a timeline, a comparison, a cycle, a stack, a flow and a swim lane).
+- **Unsupported claims removed:**
+  - "Guaranteed" (ISO 9001)
+  - "often in excess of 30% improvement to the bottom line" (Rapid Lean Assessment)
+  - "maps within 5 days" (Process Mapping)
+  - "proven Strategy Realization Model" and "world-class team on Day One" (Project Portfolio Management)
+  - The "3:1" return badge is replaced by "Results agreed up front" on all solution and industry pages.
+- **Testimonial removed:** the "Dora Bridges, CEO" quote carried over from the Wix template, which appeared on 15 pages, is gone.
+- **Bylines:** 22 posts credited to Sophie Maren, Aaron Blake, Lucas Grant or "ESG Consultant" are now credited to Quak Foo Lee.
+- **Location:** journal papers now give Vancouver, BC, matching the rest of the site.
+- **Typo:** process mapping now names BPMN correctly (Business Process Model and Notation).
+- **HTTPS:** HTTPS is now enforced in GitHub Pages, so all http addresses redirect to https.
+
 ## V4.22 — 2026-11-09
 - **Fixed:** "How APIs Can Revolutionize Your Marketing and Sales Efforts" no longer appears under Book Review. It had no category from Wix, and the automatic keyword rule for Book Review matched a "by Firstname Lastname" phrase in its description. That rule now looks at the title only. The article stays in Sales & Marketing and Digital Technology. Book Review now lists its 5 real book reviews.
 

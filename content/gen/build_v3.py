@@ -19,6 +19,10 @@ for a, b in [
     ('("energy-chemicals",', '("energy-and-chemicals",'),
     ('("distribution-warehousing",', '("distribution-and-warehousing",'),
     ('("iso-9001",', '("iso9001",'),
+    # V4.23: no trademarked growth method; the unverifiable Wix-template testimonial is removed
+    ('("scaling-up","Scaling Up","layers","Grow without the growing pains. We help leadership teams align strategy, people, execution and cash so the business can scale with control."',
+     '("scaling-up","Scaling Your Business","layers","Grow without the growing pains. We help you build the processes, systems, roles and cash discipline to scale with control."'),
+    ("QUOTE = '''", "QUOTE = '' and '''"),
     ('("ai-solutions",', '("artificial-intelligence",'),
     ("industries.html#{s}", "{s}.html"),
     ('solutions.html#{s}">{t}<span', '{s}.html">{t}<span'),
@@ -179,7 +183,7 @@ for slug, d in posts_raw.items():
         body = re.sub(r'<figure><img src="\.\./assets/media/' + re.escape(ln) + r'"[^>]*></figure>', "", body, count=1)
     if not cover:
         m2 = re.search(r'src="\.\./assets/media/([^"]+)"', body)
-    POSTS.append(dict(slug=slug, title=title, date=date, author=(d.get("author") or "Quak Foo Lee").replace("Quak Lee", "Quak Foo Lee"),
+    POSTS.append(dict(slug=slug, title=title, date=date, author="Quak Foo Lee",  # V4.23: Wix bylines (template names and "ESG Consultant") re-credited to the author
                       read=d.get("readTime", ""), desc=d.get("description", ""), cover=cover, body=body,
                       cats=post_cats.get(slug, []), tags=d.get("tags", [])[:10]))
 POSTS.sort(key=lambda p: p["date"], reverse=True)
@@ -376,8 +380,8 @@ for s, n, ic, d, *_ in INDUSTRIES:
 SOL_KEYS = {"scaling-up": ["strategy"], "business-process-optimization": ["process-improvement", "lean"], "operational-efficiency": ["operational-efficiency"],
             "process-mapping": ["process-improvement"], "process-improvement": ["process-improvement", "six-sigma"], "rapid-lean-assessment": ["lean"],
             "project-portfolio-management": ["project-management", "agile"], "iso9001": ["iso"], "lean-six-sigma-training": ["six-sigma", "lean"],
-            "artificial-intelligence": ["artificial-intelligence"], "eos": ["strategy"]}
-SOL_ALL = [(s, t) for s, t, *_ in SOLUTIONS] + [("eos", "Entrepreneurial Operating System (EOS)")]
+            "artificial-intelligence": ["artificial-intelligence"]}
+SOL_ALL = [(s, t) for s, t, *_ in SOLUTIONS]
 for s, t in SOL_ALL:
     aside = f'''<div class="card card-dark" style="padding:28px"><p class="eyebrow">Next step</p><h3 style="font-size:22px">Discuss {esc(t)}</h3><p>Book a strategy call and we will scope the right first step.</p><a class="btn" href="contact.html?service={t.replace("&amp;", "%26").replace(" ", "%20")}" style="align-self:flex-start">Enquire</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">All solutions</p><div class="index" style="grid-template-columns:1fr;border-top:0">{"".join(f'<a href="{s2}.html">{t2}<span aria-hidden="true">→</span></a>' for s2, t2 in SOL_ALL if s2 != s)}</div></div>'''
@@ -416,7 +420,7 @@ sol += f'''
   <div class="section-head"><div class="stack"><p class="eyebrow">All solutions</p><h2 class="h-lg">Focused solutions for specific problems.</h2></div><p>Not sure which fits? Book a call and we will point you to the right starting place.</p></div>
   <div class="grid grid-3">
   {"".join(f'<article class="card">{icon(ic)}<h3>{t}</h3><p class="muted">{d}</p><a class="more" href="{s}.html">Learn more →</a></article>' for s, t, ic, d, li in SOLUTIONS)}
-  <article class="card">{icon("users")}<h3>Entrepreneurial Operating System (EOS)</h3><p class="muted">Simple concepts and practical tools that help leadership teams get better at vision, traction and healthy teamwork.</p><a class="more" href="eos.html">Learn more →</a></article>
+  <article class="card">{icon("users")}<h3>Leadership Operating System</h3><p class="muted">A simple plan, 90-day priorities, a weekly scorecard and meeting rhythm, and clear roles, so the leadership team runs the business on one shared routine.</p><a class="more" href="leadership-operating-system.html">Learn more →</a></article>
   </div>
 </div></section>
 <section class="section"><div class="container">
@@ -432,7 +436,7 @@ sol = sol.replace('<section class="section sand" id="all-solutions"', f'''<secti
   {aios_svg(compact=True)}
 </div></section>
 <section class="section sand" id="all-solutions"''', 1)
-page("solutions.html", "Solutions", "AI readiness and strategy, digital transformation advisory, business process improvement, Lean Six Sigma, ISO 9001, process mapping, EOS and more from Chmltech Ltd.", sol)
+page("solutions.html", "Solutions", "AI readiness and strategy, digital transformation advisory, business process improvement, Lean Six Sigma, ISO 9001, process mapping, leadership operating systems and more from Chmltech Ltd.", sol)
 
 # ---------------------------------------------------------------- TRAINING: free practice exam library
 EXAM_BASE = "https://quakfoolee-dotcom.github.io/exam-library/"
@@ -702,6 +706,7 @@ redirect("book-online.html", "book.html", "Book Online")
 redirect("home.html", "index.html", "Home")
 
 service_pages.build(globals())
+redirect("eos.html", "leadership-operating-system.html", "Leadership Operating System")  # V4.23: EOS page withdrawn (trademark)
 privacy_page.build(globals())
 industry_pages.build(globals())
 
