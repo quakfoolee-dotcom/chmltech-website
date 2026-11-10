@@ -64,8 +64,7 @@ def stats_chart():
       <div class="card pj-chart"><h3 style="font-size:20px">Plans by year</h3><div class="pj-bars">{_bars(S["by_year"], keep_order=True)}</div></div>
       <div class="card pj-chart"><h3 style="font-size:20px">Plans by province</h3><p class="count" style="margin:2px 0 0">Where the location is known ({S["province_known"]} plans)</p><div class="pj-bars">{_bars(S["by_province"])}</div></div>
     </div>
-  </div>
-  <p class="count" style="margin-top:14px">{esc(S["note"])} Chmltech has also completed {S["other_advisory"]} operations and strategy advisory projects since 2019.</p>'''
+  </div>'''
 
 
 def eng_card(P):

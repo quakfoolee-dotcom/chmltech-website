@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.26 — 2026-11-09
+- Projects page: removed the footnote under the track-record charts (data basis and the advisory project count). The province chart keeps its "where the location is known" label.
+- Commits are now authored as Quak Foo Lee with the GitHub private noreply address.
+
 ## V4.25 — 2026-11-09
 - **Track record added to the Projects page**, built from the owner's project register:
   - 313 completed Digital Adoption Plans, 2022–2025, across 16 sectors and 6 provinces;
