@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.22 — 2026-11-09
+- **Fixed:** "How APIs Can Revolutionize Your Marketing and Sales Efforts" no longer appears under Book Review. It had no category from Wix, and the automatic keyword rule for Book Review matched a "by Firstname Lastname" phrase in its description. That rule now looks at the title only. The article stays in Sales & Marketing and Digital Technology. Book Review now lists its 5 real book reviews.
+
 ## V4.21 — 2026-11-09
 - **New ISO 9001 article: Document and Revision Control Under ISO 9001: Keeping the Right Version in Use.** It covers clause 7.5 requirements, documents compared with records, revision schemes, one master copy, documents from customers and other outside sources, records retention, a minimum setup for small businesses, and what auditors check. It includes a document life cycle diagram and four tables. The ISO category now has 10 articles.
 - The "More in this series" list on every ISO article now links to it.

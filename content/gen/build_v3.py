@@ -195,7 +195,8 @@ KW = [("artificial-intelligence", r"\bAI\b|artificial intelligence|machine learn
 for p in POSTS:
     if not p["cats"]:
         hay = p["title"] + " " + p["desc"] + " " + " ".join(p["tags"])
-        p["cats"] = [k for k, rx in KW if re.search(rx, hay, re.I)][:3] or ["operational-efficiency"]
+        # Book Review is decided from the title only: "by Firstname Lastname" in a description wrongly matched (V4.22)
+        p["cats"] = [k for k, rx in KW if re.search(rx, p["title"] if k == "book-review" else hay, re.I)][:3] or ["operational-efficiency"]
 CAT_COUNT = Counter(c for p in POSTS for c in p["cats"])
 for p in POSTS:
     p["gen"] = not (p["cover"] and p["cover"].replace("%7E", "~").startswith(("33d8e3_", "nsplsh_")))
