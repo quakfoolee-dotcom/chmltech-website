@@ -1,5 +1,19 @@
 # Changelog
 
+## V4.20 — 2026-11-09
+- **Eight new ISO 9001 articles in Insights.** The ISO category grows from 1 to 9 articles. Each has a diagram, tables, sources and links to the rest of the series.
+  1. ISO 9001:2026: What Changed from 2015 and What It Means for You
+  2. Your ISO 9001:2026 Transition Plan: A Step-by-Step Roadmap
+  3. ISO 9001 for Small and Mid-Sized Businesses: Getting Certified Without the Paperwork Burden
+  4. Internal Audits That Find Real Problems (also in Process Improvement)
+  5. Risk-Based Thinking in Practice: Risks, Opportunities and a Register People Use
+  6. ISO 9001 and AI: Using AI Tools Inside a Quality System (also in Artificial Intelligence)
+  7. One System, Three Standards: Integrating ISO 9001, ISO 14001 and ISO 45001 (also in ESG)
+  8. Management Review That Leadership Finds Useful
+- **The 2015 article now opens with an update note** pointing to the 2026 edition and the transition plan. Its original text is unchanged.
+- **Facts about ISO 9001:2026** (published 16 September 2026; 2015 certificates valid until 30 September 2029; clause changes) come from summaries by DNV, DQS and SGS, cited in each article. The articles say so and advise readers to check the standard and their certification body.
+- New source folder `content/articles/` (article JSON, `iso_articles.py`, `iso_figs.py`) and build step `gen/new_articles.py`.
+
 ## V4.19 — 2026-11-09
 - **Three new Chmltech Online Journal papers on Physical AI (Volume 105).** Each follows the journal format: abstract, numbered sections, equations, tables, three figures, 30 checked references, and a PDF download.
 

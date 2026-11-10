@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from aios import aios_svg, AIOS_CSS, COMPONENTS, PHASES, BENEFITS, FAQ as AIOS_FAQ
 from courses_build import render_course, finalize_course_file, course_stats
-import service_pages, industry_pages, journal_pages, privacy_page
+import service_pages, industry_pages, journal_pages, privacy_page, new_articles
 
 OUT, DATA = sys.argv[1], sys.argv[2]
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -183,6 +183,7 @@ for slug, d in posts_raw.items():
                       read=d.get("readTime", ""), desc=d.get("description", ""), cover=cover, body=body,
                       cats=post_cats.get(slug, []), tags=d.get("tags", [])[:10]))
 POSTS.sort(key=lambda p: p["date"], reverse=True)
+new_articles.add_posts(POSTS)  # Insights articles written for this site (V4.20)
 journal_pages.add_new_posts(POSTS)  # journal papers written for this site (V4.14)
 
 # fallback categories from keywords when the category map is incomplete
