@@ -21,7 +21,33 @@ T4 = "Safety Stock for Manufacturers: Raw Materials and Spare Parts"
 P = {1: f'<a href="{S1}.html">Post 1</a>', 2: f'<a href="{S2}.html">Post 2</a>',
      3: f'<a href="{S3}.html">Post 3</a>', 4: f'<a href="{S4}.html">Post 4</a>'}
 TPL = "../assets/downloads/Chmltech_Inventory_ABC_SafetyStock_Template.xlsx"
-TPL_LINK = f'<a href="{TPL}" download>free Excel template</a>'
+TPL_NAME = "Chmltech_Inventory_ABC_SafetyStock_Template.xlsx"
+
+
+def tpl_box(line):
+    """Download box for the template. The button opens the lead-capture form (assets/js/download.js);
+    without JavaScript it is a plain download link."""
+    return ('<div class="j-dl-box"><div><strong>Free Excel template</strong>'
+            f'<span>{line}</span></div><a class="btn" href="{TPL}" data-dl download>Download template</a></div>')
+
+
+DL_FORM = f'''<dialog class="j-dialog" id="dl" aria-labelledby="dl-title" data-file="{TPL}" data-fname="{TPL_NAME}" data-title="Inventory ABC and Safety Stock Template (Excel)" data-ref="Inventory template">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Insights · Free template</p>
+    <h2 class="h-md" id="dl-title">Download the template</h2>
+    <p class="muted j-dl-paper">Inventory ABC and Safety Stock Template (Excel workbook)</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="dl-name">Full name</label><input id="dl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="dl-email">Work email</label><input id="dl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech articles and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download template</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script src="../assets/js/download.js" defer></script>'''
 NAVY, BLUE, INK, MUTED, GRID, GREY, LIGHT, AXIS = ("#0B2A5A", "#0B6FA4", "#26324A", "#5A6475", "#E3E6EC",
                                                     "#A9B2C0", "#D3D9E2", "#8A93A3")
 Z = lambda sl: NormalDist().inv_cdf(sl)
@@ -241,9 +267,9 @@ def post1():
         ul(["Export 12 months of usage and current unit cost for every stocked item", "Calculate annual dollar usage and rank the list",
             "Add cumulative percentages and assign A, B and C classes", "Review the C list by hand for critical items",
             "Write a count, review and ordering policy for each class", "Put a date in the calendar to re-run the analysis"]),
-        f"<p>A {TPL_LINK} accompanies this series. It ranks and classifies your items automatically and includes the example data from this post.</p>",
+        tpl_box("A workbook accompanies this series. It ranks and classifies your items automatically and includes the example data from this post."),
         f"<p><strong>Next in the series:</strong> {P[2]} takes three items from this example and sets a safety stock and reorder point for each.</p>",
-        CLOSE])
+        CLOSE, DL_FORM])
 
 
 # ================= Post 2 =================
@@ -357,9 +383,9 @@ def post2():
             "Calculate the average and standard deviation of demand and of lead time", "Set a target service level for each ABC class",
             "Calculate safety stock with Method 3, and the reorder point", "Use average-max or min/max for C items and for lumpy demand",
             "Load the reorder points into your system and set a review date"]),
-        f"<p>The {TPL_LINK} for this series includes a safety stock calculator with all three methods, preloaded with the Northshore example.</p>",
+        tpl_box("The workbook for this series includes a safety stock calculator with all three methods, preloaded with the Northshore example."),
         f"<p><strong>Next in the series:</strong> {P[3]} applies ABC analysis to a manufacturer, where raw materials, work in progress and spare parts each need their own treatment.</p>",
-        CLOSE])
+        CLOSE, DL_FORM])
 
 
 # ================= Post 3 =================
@@ -435,9 +461,9 @@ def post3():
         ul(["List purchased items by pool: raw materials, packaging, spare parts", "Pull 12 months of consumption for materials, and three to five years for spares",
             "Run the ABC ranking by annual value", "Rate every item for criticality with production and maintenance",
             "Flag every vital item in class C and set a fixed minimum for it", "Check shelf life before raising any buffer", "Run a no-movement report for dead stock"]),
-        f"<p>The {TPL_LINK} for this series includes the Ridgeline example, with a criticality column and the combined policy for each item.</p>",
+        tpl_box("The workbook for this series includes the Ridgeline example, with a criticality column and the combined policy for each item."),
         f"<p><strong>Next in the series:</strong> {P[4]} sets safety stock for a manufacturer, where raw material demand comes from the production schedule and spare parts need a different method altogether.</p>",
-        CLOSE])
+        CLOSE, DL_FORM])
 
 
 # ================= Post 4 =================
@@ -535,11 +561,11 @@ def post4():
             "Where lead time dominates, look at shortening or stabilising it before adding stock",
             "For each vital spare, work out expected usage during one lead time and apply the Poisson method",
             "Check every buffer against shelf life and storage capacity", "Agree where each buffer sits, and remove duplicates"]),
-        f"<p>The {TPL_LINK} for this series includes the Ridgeline materials and a spare parts calculator using the Poisson method.</p>",
+        tpl_box("The workbook for this series includes the Ridgeline materials and a spare parts calculator using the Poisson method."),
         "<h2>The series in one place</h2>",
         ol([f'<a href="{S1}.html">{T1}</a>', f'<a href="{S2}.html">{T2}</a>', f'<a href="{S3}.html">{T3}</a>', f"{T4} (this post)"]),
         "<p>The thread through all four is the same. Find out which items matter, work out what is uncertain about each one, and put the buffer where the risk is.</p>",
-        CLOSE])
+        CLOSE, DL_FORM])
 
 
 ARTICLES = [
@@ -561,7 +587,7 @@ ARTICLES = [
 def main():
     for a in ARTICLES:
         body = a["body"]()
-        words = len(re.sub(r"<svg.*?</svg>", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<svg.*?</svg>", " ", body, flags=re.S))).split())
+        words = len(re.sub(r"<svg.*?</svg>", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<svg.*?</svg>|<dialog.*?</dialog>", " ", body, flags=re.S))).split())
         out = dict(slug=a["slug"], title=a["title"], desc=a["desc"], cats=["operational-efficiency", "process-improvement"], tags=a["tags"],
                    body=body, date="2026-11-11", author="Quak Foo Lee", read=f"{max(1, round(words / 230))} min read", order=a["order"],
                    cover_label=a["cover_label"], related=a["related"])

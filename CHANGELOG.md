@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.31 — 2026-11-11
+- **The inventory template now downloads through a short form**, like the journal PDFs. The four inventory articles show a "Free Excel template" box; its button asks for name, work email, company (optional) and an updates checkbox, then starts the download.
+  - Leads arrive by email with the subject "Inventory template download — Name".
+  - Details are remembered in the visitor's own browser, shared with the journal form, so a returning reader downloads in one click. Nothing is stored in the page, and other visitors see empty fields.
+  - If the form service can't be reached, the download still starts. Without JavaScript, the button is a plain download link.
+- New file `assets/js/download.js`. The form's styles moved into `assets/css/styles.css` so article pages can use them.
+- `robots.txt` now excludes `/assets/downloads/` from search engines, as it does the journal PDFs.
+- Privacy notice updated to cover template downloads as well as journal downloads.
+
 ## V4.30 — 2026-11-11
 - **New Insights series: inventory control (four articles).** Insights now lists 145 articles.
   - `post/abc-inventory-analysis`: ABC analysis explained, with a 20-item distributor example and a Pareto chart.
