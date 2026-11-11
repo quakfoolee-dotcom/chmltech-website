@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.36 — 2026-11-11
+- **OEE articles: the links at the foot of each article now follow reading order.** Links back to earlier articles sit on the left and the link to the next article sits on the right.
+  - Article 1: "Next: Post 2" moved from the left to the right.
+  - Article 3 (the last): "Back to Post 1" was on the right, where a reader expects "next". Both links back now sit together on the left.
+- The articles load `oee.css?v=4.36`, so returning visitors get the new layout without a manual refresh.
+
 ## V4.35 — 2026-11-11
 - **New Insights series: Overall Equipment Effectiveness (three articles).** Insights now lists 148 articles.
   - `post/what-oee-really-measures`: the three OEE factors, the six big losses and a worked example of one day on a packaging line (OEE 73.4%).

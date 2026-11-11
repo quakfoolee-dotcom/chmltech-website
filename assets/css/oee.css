@@ -29,3 +29,6 @@
 .prose .oee-takeaway{border-left:3px solid var(--blue);padding:4px 0 4px 18px}
 .prose .oee-next{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid var(--line-2);padding-top:16px;font-weight:600}
 .prose .oee-note{font-size:14px;color:var(--muted)}
+/* V4.36: links back sit on the left and the link to the next article on the right. */
+.prose .oee-next .oee-fwd{margin-left:auto;text-align:right}
+.prose .oee-next.oee-end{justify-content:flex-start;gap:12px 32px}
