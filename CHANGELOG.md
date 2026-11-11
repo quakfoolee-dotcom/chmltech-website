@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.29 — 2026-11-11
+- **New page: Funding finder (`funding.html`).** A searchable directory of 408 government funding programs for Canadian businesses, covering federal programs and all 13 provinces and territories:
+  - grants, repayable contributions, loans, tax credits, wage subsidies, vouchers, equity, rebates and advisory services;
+  - filters for jurisdiction (choosing a province also shows the federal programs available there, with a toggle), funding type, who can apply, industry, purpose and status (closed programs hidden unless "Show closed programs" is ticked), plus search and three sort orders;
+  - filter choices are saved in the page address, so a filtered view can be shared; on phones the filters open in a panel;
+  - every program card links to the official program page and shows when it was last checked.
+- **How the data was built:** research agents split by jurisdiction collected each program from its official government or agency page. A separate red team then re-checked every record against the official page: 419 records reviewed, 109 corrected and 11 dropped (no official confirmation that they are current, or businesses cannot apply). The data is in `content/grants.json`, last checked November 11, 2026.
+- The page carries a disclaimer: information only, confirm on the official page, Chmltech is not affiliated with any program.
+- "Funding" added to the main menu, and "Funding finder" to the footer and sitemap.
+- New files: `assets/css/grants.css`, `assets/js/grants.js` (no libraries, works without a server), `content/gen/grants_page.py`.
+
 ## V4.28 — 2026-11-11
 - **Shorter address for the BDC LIFT article.** It moved from `/post/bdc-lift-program-who-qualifies-and-how-to-prepare` to `/post/bdc-lift-program`. The Insights card, the sitemap, the cover files and the source file in `content/articles/` use the new name.
 - The old address redirects to the new one, so links shared earlier still work.

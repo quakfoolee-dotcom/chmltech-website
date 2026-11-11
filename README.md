@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.28** (see `CHANGELOG.md`).
+Version: **V4.29** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -16,6 +16,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `insights.html` | All articles with search, category filters and email subscription |
 | `courses.html` | Free online courses and paid one-hour sessions |
 | `book.html` | Book Online: free strategy call or paid session request |
+| `funding.html` | Funding finder: filterable directory of federal, provincial and territorial business funding programs (data: `content/grants.json`; script: `assets/js/grants.js`) |
 | `contact.html` | Contact form, details and FAQs |
 | `404.html` | Not-found page |
 | `post/*.html` | Insights articles (one file per article, same address as on Wix). The 10 Chmltech Online Journal papers use a research-paper layout (`assets/css/journal.css`; content: `content/journal/*.json`). |

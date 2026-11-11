@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from aios import aios_svg, AIOS_CSS, COMPONENTS, PHASES, BENEFITS, FAQ as AIOS_FAQ
 from courses_build import render_course, finalize_course_file, course_stats
-import service_pages, industry_pages, journal_pages, privacy_page, new_articles, projects_page
+import service_pages, industry_pages, journal_pages, privacy_page, new_articles, projects_page, grants_page
 
 OUT, DATA = sys.argv[1], sys.argv[2]
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -30,7 +30,9 @@ for a, b in [
     ('SERVICE_OPTIONS = ["AI Readiness &amp; AI Strategy"', 'SERVICE_OPTIONS = ["Corporate Strategy session (1 hr, CA$450)","Operational Consulting session (1 hr, CA$350)","Project Management session (1 hr, CA$250)","AI Readiness &amp; AI Strategy"'),
     ('<span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved.</span>', '<span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="privacy.html">Privacy</a></span>'),
     (r'f.write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")', r'f.write(f"User-agent: *\nAllow: /\nDisallow: /assets/journal/pdf/\nSitemap: {SITE_URL}/sitemap.xml\n")'),
-    ('<a href="courses.html">Courses</a>\n      <a href="insights.html">Insights</a>', '<a href="courses.html">Free courses</a>\n      <a href="training.html">Free practice exams</a>\n      <a href="insights.html">Insights</a>\n      <a href="projects.html">Projects</a>'),
+    ('<a href="courses.html">Courses</a>\n      <a href="insights.html">Insights</a>', '<a href="courses.html">Free courses</a>\n      <a href="training.html">Free practice exams</a>\n      <a href="insights.html">Insights</a>\n      <a href="funding.html">Funding finder</a>\n      <a href="projects.html">Projects</a>'),
+    # V4.27: funding finder in the primary navigation
+    ('("courses.html","Courses"),("contact.html","Contact")]', '("courses.html","Courses"),("funding.html","Funding"),("contact.html","Contact")]'),
 ]:
     assert a in src, a
     src = src.replace(a, b)
@@ -709,6 +711,7 @@ service_pages.build(globals())
 redirect("eos.html", "leadership-operating-system.html", "Leadership Operating System")  # V4.23: EOS page withdrawn (trademark)
 privacy_page.build(globals())
 industry_pages.build(globals())
+grants_page.build(globals())  # V4.27: funding finder (data/grants.json, red-team verified)
 
 # ---------------------------------------------------------------- sitemap
 with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
