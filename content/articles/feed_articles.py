@@ -181,13 +181,13 @@ def post1():
 # ───────────────────────── Post 2: the design basis ─────────────────────────
 HOURS = [(8000, "Continuous, 24/7"), (7000, "Continuous, longer shutdowns"), (6000, "Five days a week, 24 hours"), (4000, "Two shifts, five days")]
 SHORT = ["Continuous", "Longer shutdowns", "24 hours, five days", "Two shifts, five days"]
-RATE = lambda h: 5_000_000 / h
+RATE = lambda h: 50_000_000 / h
 COSTF = lambda h: (RATE(h) / RATE(8000)) ** 0.6
 
 
 def fig_rate():
-    s = ""; Y = lambda v: 230 - v * 0.14
-    for v in (0, 500, 1000):
+    s = ""; Y = lambda v: 230 - v * 0.014
+    for v in (0, 5000, 10000):
         s += f'<line x1="70" y1="{Y(v)}" x2="700" y2="{Y(v)}" stroke="{LINE}"/>' + txt(62, Y(v) + 4, f"{v:,}", "end", MUTED, 12)
     s += txt(16, 24, "Design rate, kg/h", fill=MUTED, fs=12)
     for i, (h, lab) in enumerate(HOURS):
@@ -195,8 +195,8 @@ def fig_rate():
         s += f'<rect x="{x}" y="{Y(r):.1f}" width="90" height="{230 - Y(r):.1f}" rx="4" fill="{BLUE if i == 0 else "#7FB2CF"}"/>'
         s += txt(x + 45, Y(r) - 8, f"{r:,.0f} kg/h", "middle", NAVY, 13, True)
         s += txt(x + 45, 250, f"{h:,} h/y", "middle", NAVY, 12.5, True) + txt(x + 45, 267, SHORT[i], "middle", MUTED, 11.5)
-    return svg("Bar chart of the design rate needed to make 5,000 tonnes a year at four operating schedules: 625 kg/h at 8,000 hours, "
-               "714 kg/h at 7,000 hours, 833 kg/h at 6,000 hours and 1,250 kg/h at 4,000 hours.", 720, 278, s)
+    return svg("Bar chart of the design rate needed to make 50,000 tonnes a year at four operating schedules: 6,250 kg/h at 8,000 hours, "
+               "7,143 kg/h at 7,000 hours, 8,333 kg/h at 6,000 hours and 12,500 kg/h at 4,000 hours.", 720, 278, s)
 
 
 def fig_ripple():
@@ -236,10 +236,10 @@ def post2():
 </table>
 <p>Most of these are business decisions, and only the owner can make them. The engineer's role is to ask for each one, explain what depends on it and record the answer.</p>
 <h2>Worked example: capacity and operating hours</h2>
-<p>Suppose the owner wants 5,000 tonnes of product a year. That figure does not set the size of the plant until the operating hours are fixed. Equipment is sized for an hourly rate:</p>
-<p class="oee-formula">Design rate = 5,000,000 kg ÷ 8,000 h = 625 kg/h</p>
+<p>Suppose the owner wants 50,000 tonnes of product a year. That figure does not set the size of the plant until the operating hours are fixed. Equipment is sized for an hourly rate:</p>
+<p class="oee-formula">Design rate = 50,000,000 kg ÷ 8,000 h = 6,250 kg/h</p>
 <p>A continuous plant typically runs about 8,000 hours a year, which leaves time for maintenance shutdowns. Fewer hours mean a higher hourly rate and larger equipment for the same annual output.</p>
-{fig(fig_rate(), 1, "Design rate needed to produce 5,000 tonnes a year at four operating schedules.")}
+{fig(fig_rate(), 1, "Design rate needed to produce 50,000 tonnes a year at four operating schedules.")}
 <p class="oee-cap">Table 2. Effect of operating hours on design rate and equipment cost</p>
 <table>
 <tr><th>Schedule</th><th class="num">Operating hours</th><th class="num">Design rate</th><th class="num">Rate against base</th><th class="num">Equipment cost against base</th></tr>
@@ -262,11 +262,11 @@ def post2():
 <p class="oee-cap">Table 4. Design basis summary for the example plant</p>
 <table>
 <tr><th>Item</th><th>Basis</th></tr>
-<tr><td>Capacity</td><td class="nw">5,000 t/y of product, turndown to 50%</td></tr>
+<tr><td>Capacity</td><td class="nw">50,000 t/y of product, turndown to 50%</td></tr>
 <tr><td>Operating schedule</td><td>8,000 h/y, continuous, one planned shutdown a year</td></tr>
-<tr><td>Design rate</td><td class="nw">625 kg/h</td></tr>
-<tr><td>Main feedstock</td><td>Delivered by tank truck, minimum purity 98%, 10 days of storage</td></tr>
-<tr><td>Product</td><td>Two grades, minimum purity 99.5%, packed in 1,000 kg totes</td></tr>
+<tr><td>Design rate</td><td class="nw">6,250 kg/h</td></tr>
+<tr><td>Main feedstock</td><td>Delivered by rail car and tank truck, minimum purity 98%, 10 days of storage</td></tr>
+<tr><td>Product</td><td>Two grades, minimum purity 99.5%, shipped in bulk and in 1,000 kg totes</td></tr>
 <tr><td>Site</td><td>Existing industrial site, design temperatures −30°C to 35°C</td></tr>
 <tr><td>Utilities from site</td><td>Power and natural gas. Cooling water, nitrogen and steam are in project scope.</td></tr>
 <tr><td>Operating philosophy</td><td>Automated control from one control room, spare pumps on critical services</td></tr>

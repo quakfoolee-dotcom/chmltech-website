@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.44 — 2026-11-11
+- **FEED series: the example plant's capacity is now 50,000 t/y (was 5,000 t/y)**, to suit the $100M cost.
+  - Post 2: the worked example, Figure 1 and Table 2 now use a design rate of 6,250 kg/h at 8,000 h/y (7,143, 8,333 and 12,500 kg/h at the shorter schedules). The percentage changes in rate and equipment cost are unchanged.
+  - Post 2, design basis summary: capacity and design rate updated; feedstock now arrives by rail car and tank truck, and product ships in bulk as well as in 1,000 kg totes.
+
 ## V4.43 — 2026-11-11
 - **FEED series: the worked example is now a $100M plant (was $20M).** All derived figures were scaled to match across the three articles.
   - Post 1: estimate ranges by class ($50M to $200M at Class 5, down to $90M to $115M at Class 1), Figure 2, and front-end spend ($2.75M to $4.5M before approval). The small-project example is now $5M (was $2M).
