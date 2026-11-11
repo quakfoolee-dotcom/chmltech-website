@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.39 — 2026-11-11
+- **Projects page: the Plant review card now lists seven scope items, the same number as the FEED card.** The three new items spell out work already in the review: improvement options compared by cost, benefit and payback; a review of safeguards with actions for each hazard; and a list of drawing discrepancies with the corrections needed. Two existing items were made more specific.
+- The two engineering cards are now the same height, and the "Related" links sit at the bottom of each card.
+
 ## V4.38 — 2026-11-11
 - **Projects page: track record revised** against the full list of past projects (372 project folders, 343 completed).
   - The key figures are now 313 completed plans, 340+ completed projects in total, 15 sectors and 6 provinces. The "2022–2025 delivery period" figure was removed.

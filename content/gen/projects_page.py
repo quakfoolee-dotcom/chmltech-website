@@ -23,9 +23,12 @@ ENGINEERING = [
          services=[("Process engineering and scale-up", "energy-and-chemicals.html"), ("Engineering CAPEX and OPEX", "post/engineering-capex-and-opex-estimation-for-process-plants.html")]),
     dict(sector="Biodiesel producer", title="Plant review: economics, HAZOP and P&ID assessment", status="In progress",
          summary="An independent review of an operating biodiesel plant, covering its economics, its process safety and the quality of its engineering drawings.",
-         scope=["Economic analysis of plant operations and improvement options",
-                "Hazard and operability study (HAZOP) of the process",
+         scope=["Economic analysis of plant operations: feedstock, yields, utilities and operating costs",
+                "Improvement options compared by cost, benefit and payback",
+                "Hazard and operability study (HAZOP) of the process, section by section",
+                "Review of existing safeguards and recommended actions for each hazard identified",
                 "Assessment of piping and instrumentation diagrams (P&IDs) against the plant as built and good practice",
+                "List of drawing discrepancies and the corrections needed",
                 "Prioritized recommendations for safety, reliability and cost"],
          services=[("Energy and chemicals", "energy-and-chemicals.html"), ("Process improvement", "process-improvement.html")]),
 ]
@@ -92,7 +95,7 @@ CSS = """<style>
 .pj-card{padding:32px}
 .pj-head{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .pj-sub{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--blue,#0B6FA4);margin:18px 0 6px}
-.pj-links{margin-top:16px;font-size:15px}
+.pj-links{margin-top:auto;padding-top:16px;font-size:15px}
 .pj-bars{display:grid;gap:10px;margin-top:14px}
 .pj-bar{display:grid;grid-template-columns:minmax(120px,220px) 1fr 48px;gap:12px;align-items:center;font-size:15px}
 .pj-bar-t{height:12px;background:#E7EEF6;border-radius:6px;overflow:hidden}
@@ -127,7 +130,7 @@ def build(ns):
 <section class="section" id="engineering" style="scroll-margin-top:84px"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Process engineering</p><h2 class="h-lg">From pilot plant to commercial design.</h2></div>
   <p class="lead" style="font-size:16px">Clients are described by sector to protect their confidentiality.</p></div>
-  <div class="grid grid-2" style="align-items:start">{"".join(eng_card(P) for P in ENGINEERING)}</div>
+  <div class="grid grid-2">{"".join(eng_card(P) for P in ENGINEERING)}</div>
 </div></section>
 
 <section class="section sand" id="digital" style="scroll-margin-top:84px"><div class="container">
