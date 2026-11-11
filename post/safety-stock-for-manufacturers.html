@@ -54,43 +54,43 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
-<p><em>Part 4 of 4 in the inventory control series.</em></p>
+<link rel="stylesheet" href="../assets/css/article-tables.css"><p><em>Part 4 of 4 in the inventory control series.</em></p>
 <p>A distributor does not know what customers will order next week. A manufacturer usually does know what the plant will consume next week, because the production schedule says so. That one difference changes where the risk sits, and so where the buffer belongs.</p>
-<p>In <a href="setting-safety-stock.html">Post 2</a> we set safety stock for a distributor using demand variability, lead time variability and a service level. In <a href="abc-analysis-for-manufacturers.html">Post 3</a> we classified 20 items at Ridgeline Coatings, a fictional manufacturer, by value and by criticality.</p>
-<p>This post sets buffers for five of those items. For raw materials, the <a href="setting-safety-stock.html">Post 2</a> formula still works, but the supplier becomes the main source of risk. For spare parts, the formula does not work at all, and we need a different method.</p>
+<p>In <a href="setting-safety-stock.html">Post&nbsp;2</a> we set safety stock for a distributor using demand variability, lead time variability and a service level. In <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a> we classified 20 items at Ridgeline Coatings, a fictional manufacturer, by value and by criticality.</p>
+<p>This post sets buffers for five of those items. For raw materials, the <a href="setting-safety-stock.html">Post&nbsp;2</a> formula still works, but the supplier becomes the main source of risk. For spare parts, the formula does not work at all, and we need a different method.</p>
 <h2>What is uncertain, pool by pool</h2>
 <p>Safety stock exists to cover uncertainty. So the first question for each pool is: what do we not know?</p>
 <table>
-<tr><th>Pool</th><th>What is known</th><th>What is uncertain</th><th>Method that fits</th></tr>
-<tr><td>Raw materials and packaging</td><td>Planned consumption, from the production schedule</td><td>Schedule changes, supplier lead time, rejected lots</td><td>The <a href="setting-safety-stock.html">Post 2</a> formula (Method 3), with attention on lead time</td></tr>
-<tr><td>Spare parts</td><td>Very little. Usage is a handful of units a year.</td><td>When the next failure happens</td><td>Poisson method, based on expected usage during one lead time</td></tr>
-<tr><td>Finished goods</td><td>Order history</td><td>Customer demand</td><td>The <a href="setting-safety-stock.html">Post 2</a> formula, exactly as for a distributor</td></tr>
+<tr><th style="white-space:nowrap">Pool</th><th style="white-space:nowrap">What is known</th><th style="white-space:nowrap">What is uncertain</th><th style="white-space:nowrap">Method that fits</th></tr>
+<tr><td style="white-space:nowrap">Raw materials and packaging</td><td>Planned consumption, from the production schedule</td><td>Schedule changes, supplier lead time, rejected lots</td><td>The <a href="setting-safety-stock.html">Post&nbsp;2</a> formula (Method 3), with attention on lead time</td></tr>
+<tr><td style="white-space:nowrap">Spare parts</td><td>Very little. Usage is a handful of units a year.</td><td>When the next failure happens</td><td>Poisson method, based on expected usage during one lead time</td></tr>
+<tr><td style="white-space:nowrap">Finished goods</td><td style="white-space:nowrap">Order history</td><td style="white-space:nowrap">Customer demand</td><td>The <a href="setting-safety-stock.html">Post&nbsp;2</a> formula, exactly as for a distributor</td></tr>
 </table>
 <p>For raw materials, measure demand variability as the week-to-week swing in <strong>actual consumption</strong>. That captures schedule changes, rush orders and rework in one number.</p>
 <h2>Raw materials: three Ridgeline examples</h2>
-<p>We use Method 3 from <a href="setting-safety-stock.html">Post 2</a>:</p>
+<p>We use Method 3 from <a href="setting-safety-stock.html">Post&nbsp;2</a>:</p>
 <p style="background:var(--sand);padding:14px 18px;border-radius:8px;font-family:Georgia,serif;font-size:17px;overflow-x:auto;white-space:nowrap">SS = Z &times; &radic;( L &times; &sigma;<sub>d</sub>&sup2; + d&sup2; &times; &sigma;<sub>L</sub>&sup2; )</p>
-<p>The three materials were chosen because <a href="abc-analysis-for-manufacturers.html">Post 3</a> gave each a different policy.</p>
+<p>The three materials were chosen because <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a> gave each a different policy.</p>
 <table>
-<tr><th>Input</th><th>RM-01 Epoxy resin</th><th>RM-03 Xylene solvent</th><th>RM-08 Dispersant additive</th></tr>
-<tr><td>Class and criticality</td><td>A, vital</td><td>A, essential</td><td>C, vital</td></tr>
-<tr><td>Average weekly consumption</td><td style="white-space:nowrap">3,462 kg</td><td style="white-space:nowrap">4,038 L</td><td style="white-space:nowrap">46 kg</td></tr>
+<tr><th style="white-space:nowrap">Input</th><th style="white-space:nowrap">RM-01 Epoxy resin</th><th style="white-space:nowrap">RM-03 Xylene solvent</th><th>RM-08 Dispersant additive</th></tr>
+<tr><td style="white-space:nowrap">Class and criticality</td><td style="white-space:nowrap">A, vital</td><td style="white-space:nowrap">A, essential</td><td style="white-space:nowrap">C, vital</td></tr>
+<tr><td style="white-space:nowrap">Average weekly consumption</td><td style="white-space:nowrap">3,462 kg</td><td style="white-space:nowrap">4,038 L</td><td style="white-space:nowrap">46 kg</td></tr>
 <tr><td>Standard deviation of weekly consumption</td><td style="white-space:nowrap">600 kg</td><td style="white-space:nowrap">700 L</td><td style="white-space:nowrap">12 kg</td></tr>
-<tr><td>Average lead time (weeks)</td><td style="white-space:nowrap">6</td><td style="white-space:nowrap">1</td><td style="white-space:nowrap">8</td></tr>
+<tr><td style="white-space:nowrap">Average lead time (weeks)</td><td style="white-space:nowrap">6</td><td style="white-space:nowrap">1</td><td style="white-space:nowrap">8</td></tr>
 <tr><td>Standard deviation of lead time (weeks)</td><td style="white-space:nowrap">1.5</td><td style="white-space:nowrap">0.2</td><td style="white-space:nowrap">2</td></tr>
-<tr><td>Target service level</td><td style="white-space:nowrap">99%</td><td style="white-space:nowrap">95%</td><td style="white-space:nowrap">99%</td></tr>
-<tr><td>Unit cost</td><td style="white-space:nowrap">$4.20</td><td style="white-space:nowrap">$1.35</td><td style="white-space:nowrap">$14.00</td></tr>
-<tr><td><strong>Safety stock</strong></td><td style="white-space:nowrap"><strong>12,554 kg</strong></td><td style="white-space:nowrap"><strong>1,759 L</strong></td><td style="white-space:nowrap"><strong>229 kg</strong></td></tr>
-<tr><td>Safety stock in weeks of use</td><td style="white-space:nowrap">3.6</td><td style="white-space:nowrap">0.4</td><td style="white-space:nowrap">5.0</td></tr>
-<tr><td>Safety stock value</td><td style="white-space:nowrap">$52,727</td><td style="white-space:nowrap">$2,375</td><td style="white-space:nowrap">$3,206</td></tr>
-<tr><td>Reorder point</td><td style="white-space:nowrap">33,324 kg</td><td style="white-space:nowrap">5,798 L</td><td style="white-space:nowrap">599 kg</td></tr>
+<tr><td style="white-space:nowrap">Target service level</td><td style="white-space:nowrap">99%</td><td style="white-space:nowrap">95%</td><td style="white-space:nowrap">99%</td></tr>
+<tr><td style="white-space:nowrap">Unit cost</td><td style="white-space:nowrap">$4.20</td><td style="white-space:nowrap">$1.35</td><td style="white-space:nowrap">$14.00</td></tr>
+<tr><td style="white-space:nowrap"><strong>Safety stock</strong></td><td style="white-space:nowrap"><strong>12,554 kg</strong></td><td style="white-space:nowrap"><strong>1,759 L</strong></td><td style="white-space:nowrap"><strong>229 kg</strong></td></tr>
+<tr><td style="white-space:nowrap">Safety stock in weeks of use</td><td style="white-space:nowrap">3.6</td><td style="white-space:nowrap">0.4</td><td style="white-space:nowrap">5.0</td></tr>
+<tr><td style="white-space:nowrap">Safety stock value</td><td style="white-space:nowrap">$52,727</td><td style="white-space:nowrap">$2,375</td><td style="white-space:nowrap">$3,206</td></tr>
+<tr><td style="white-space:nowrap">Reorder point</td><td style="white-space:nowrap">33,324 kg</td><td style="white-space:nowrap">5,798 L</td><td style="white-space:nowrap">599 kg</td></tr>
 </table>
 <h3>What the numbers show</h3>
 <p><strong>Lead time drives the buffer, not consumption.</strong> For epoxy resin, the lead time term in the formula is more than twelve times the demand term. Consumption is steady; the supplier is not. A delivery that slips from six weeks to nine does far more damage than a busy week in the plant.</p>
 <p><strong>A short lead time is worth more than a large buffer.</strong> Xylene and epoxy resin are both A items with similar weekly volumes. Xylene comes from a local supplier in one week and needs less than half a week of cover. Epoxy resin needs 3.6 weeks. Shortening or stabilising a lead time is often cheaper than holding stock against it.</p>
-<p><strong>Judgement still sits on top of the formula.</strong> The calculation gives 229 kg for the dispersant. Ridgeline holds a fixed minimum of 600 kg instead, as set out in <a href="abc-analysis-for-manufacturers.html">Post 3</a>. The reason is that the additive has a single supplier, and a plant shutdown at that supplier would not show up in any lead time history. The extra 371 kg costs $5,194, and 600 kg is still only three months of use, well inside the product's shelf life.</p>
+<p><strong>Judgement still sits on top of the formula.</strong> The calculation gives 229 kg for the dispersant. Ridgeline holds a fixed minimum of 600 kg instead, as set out in <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a>. The reason is that the additive has a single supplier, and a plant shutdown at that supplier would not show up in any lead time history. The extra 371 kg costs $5,194, and 600 kg is still only three months of use, well inside the product's shelf life.</p>
 <h2>Spare parts: a different method</h2>
-<p>Ridgeline uses about four disperser mechanical seals a year. In most weeks the usage is zero; now and then it is one. There is no meaningful average week and no useful standard deviation, so the <a href="setting-safety-stock.html">Post 2</a> formula has nothing to work with.</p>
+<p>Ridgeline uses about four disperser mechanical seals a year. In most weeks the usage is zero; now and then it is one. There is no meaningful average week and no useful standard deviation, so the <a href="setting-safety-stock.html">Post&nbsp;2</a> formula has nothing to work with.</p>
 <p>The question to ask instead is: <strong>how many could we need before a replacement arrives?</strong> The Poisson distribution answers it, and Excel has it built in.</p>
 <ol>
 <li><strong>Work out expected usage during one lead time.</strong> Annual usage &times; lead time in weeks &divide; 52. For the seal: 4 &times; 10 &divide; 52 = 0.77.</li>
@@ -103,13 +103,13 @@
 <h3>When the percentage misleads</h3>
 <p>Some vital spares fail once in ten years. The Poisson method will report that holding zero gives 95% coverage or better. Do not follow it. For these insurance spares, compare two numbers directly: the price of the part, and the cost of the outage if it fails with none on the shelf. If the outage costs more, hold one.</p>
 <h2>The five items together</h2>
-<table>
-<tr><th>Item</th><th>Policy from <a href="abc-analysis-for-manufacturers.html">Post 3</a></th><th>Method</th><th>Result</th><th>Value held</th></tr>
-<tr><td>RM-01 Epoxy resin</td><td>Tight control, protected supply</td><td>Method 3 at 99%</td><td>Safety stock 12,554 kg; reorder at 33,324 kg</td><td style="white-space:nowrap">$52,727</td></tr>
-<tr><td>RM-03 Xylene solvent</td><td>Tight control, lean stock</td><td>Method 3 at 95%</td><td>Safety stock 1,759 L; reorder at 5,798 L</td><td style="white-space:nowrap">$2,375</td></tr>
-<tr><td>RM-08 Dispersant additive</td><td>Never run out</td><td>Fixed minimum, set above the Method 3 result</td><td>Minimum 600 kg; reorder at 970 kg</td><td style="white-space:nowrap">$8,400</td></tr>
-<tr><td>SP-01 Mechanical seal</td><td>Never run out</td><td>Poisson at 95%</td><td>Reorder when 2 remain</td><td style="white-space:nowrap">$3,700</td></tr>
-<tr><td>SP-02 Gasket set</td><td>Never run out</td><td>Poisson at 99%, rounded up</td><td>Reorder when 10 remain</td><td style="white-space:nowrap">$400</td></tr>
+<table class="t-wide">
+<tr><th>Item</th><th>Policy from <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a></th><th>Method</th><th>Result</th><th>Value held</th></tr>
+<tr><td style="white-space:nowrap">RM-01 Epoxy resin</td><td>Tight control, protected supply</td><td style="white-space:nowrap">Method 3 at 99%</td><td>Safety stock 12,554 kg; reorder at 33,324 kg</td><td style="white-space:nowrap">$52,727</td></tr>
+<tr><td style="white-space:nowrap">RM-03 Xylene solvent</td><td>Tight control, lean stock</td><td style="white-space:nowrap">Method 3 at 95%</td><td>Safety stock 1,759 L; reorder at 5,798 L</td><td style="white-space:nowrap">$2,375</td></tr>
+<tr><td>RM-08 Dispersant additive</td><td style="white-space:nowrap">Never run out</td><td>Fixed minimum, set above the Method 3 result</td><td>Minimum 600 kg; reorder at 970 kg</td><td style="white-space:nowrap">$8,400</td></tr>
+<tr><td style="white-space:nowrap">SP-01 Mechanical seal</td><td style="white-space:nowrap">Never run out</td><td style="white-space:nowrap">Poisson at 95%</td><td style="white-space:nowrap">Reorder when 2 remain</td><td style="white-space:nowrap">$3,700</td></tr>
+<tr><td style="white-space:nowrap">SP-02 Gasket set</td><td style="white-space:nowrap">Never run out</td><td>Poisson at 99%, rounded up</td><td style="white-space:nowrap">Reorder when 10 remain</td><td style="white-space:nowrap">$400</td></tr>
 </table>
 <p>The buffers total about $67,600. The epoxy resin accounts for 78% of that, which is where a careful calculation earns its keep. The three vital C items are fully protected for $12,500.</p>
 <h3>Buffers that are not stock</h3>

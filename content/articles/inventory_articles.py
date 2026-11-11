@@ -18,8 +18,8 @@ T1 = "ABC Inventory Analysis: What It Is, How to Do It, and a Worked Example"
 T2 = "Setting Safety Stock Without Guessing: Three Methods and a Worked Example"
 T3 = "ABC Analysis for Manufacturers: Why Dollar Value Is Not Enough"
 T4 = "Safety Stock for Manufacturers: Raw Materials and Spare Parts"
-P = {1: f'<a href="{S1}.html">Post 1</a>', 2: f'<a href="{S2}.html">Post 2</a>',
-     3: f'<a href="{S3}.html">Post 3</a>', 4: f'<a href="{S4}.html">Post 4</a>'}
+P = {1: f'<a href="{S1}.html">Post&nbsp;1</a>', 2: f'<a href="{S2}.html">Post&nbsp;2</a>',
+     3: f'<a href="{S3}.html">Post&nbsp;3</a>', 4: f'<a href="{S4}.html">Post&nbsp;4</a>'}
 TPL = "../assets/downloads/Chmltech_Inventory_ABC_SafetyStock_Template.xlsx"
 TPL_NAME = "Chmltech_Inventory_ABC_SafetyStock_Template.xlsx"
 
@@ -59,14 +59,25 @@ money = lambda v: f"${v:,.0f}"
 NUM = re.compile(r"^(<strong>)?\$?[\d][\d,.]*%?(\s?(kg|L|units|weeks))?(</strong>)?$")
 
 
-def td(c):
-    """Quantities, money and percentages stay on one line (for example 180,000 kg)."""
-    return f'<td style="white-space:nowrap">{c}</td>' if NUM.match(str(c)) else f"<td>{c}</td>"
+def plain(c): return html.unescape(re.sub(r"<[^>]+>", "", str(c)))
 
 
-def tbl(rows):
-    out = ["<table>", "<tr>" + "".join(f"<th>{c}</th>" for c in rows[0]) + "</tr>"]
-    out += ["<tr>" + "".join(td(c) for c in r) + "</tr>" for r in rows[1:]]
+def td(c, tag="td", limit=22):
+    """Quantities, money, percentages and short labels stay on one line (180,000 kg; 3. Desirable)."""
+    keep = NUM.match(str(c)) or len(plain(c)) <= limit
+    return f'<{tag} style="white-space:nowrap">{c}</{tag}>' if keep else f"<{tag}>{c}</{tag}>"
+
+
+def tbl(rows, wide=False, first=None):
+    """Short cells never break across lines. In tables of up to four columns the row labels in the first
+    column get a longer allowance. wide=True marks a many-column table: smaller type and tighter cells
+    (assets/css/article-tables.css), and its headers may wrap. first overrides the first-column allowance
+    where the default would push the table wider than the page."""
+    first = first or (30 if len(rows[0]) <= 4 else 22)
+    cell = lambda c, i, tag="td": td(c, tag, first if i == 0 else 22)
+    head = "".join(f"<th>{c}</th>" if wide else cell(c, i, "th") for i, c in enumerate(rows[0]))
+    out = ['<table class="t-wide">' if wide else "<table>", "<tr>" + head + "</tr>"]
+    out += ["<tr>" + "".join(cell(c, i) for i, c in enumerate(r)) + "</tr>" for r in rows[1:]]
     return "\n".join(out + ["</table>"])
 
 
@@ -80,7 +91,8 @@ def formula(s):
 
 
 def part(n):
-    return f'<p><em>Part {n} of 4 in the inventory control series.</em></p>'
+    return ('<link rel="stylesheet" href="../assets/css/article-tables.css">'
+            f'<p><em>Part {n} of 4 in the inventory control series.</em></p>')
 
 
 CLOSE = ('<p><em>Chmltech Ltd. helps small and mid-sized businesses improve operations and adopt digital tools. '
@@ -249,7 +261,7 @@ def post1():
         "<p>Use cost, not selling price, because the aim is to manage money tied up in stock. If your costs are unreliable, fix the worst of them first; the ranking is only as good as the data behind it.</p>",
         "<h2>A worked example: a 20-item distributor</h2>",
         f"<p>Northshore Supply is a fictional distributor of packaging and safety products. It stocks 20 items with a combined annual usage of {money(total)} at cost. The table shows all five steps completed: usage and cost pulled, dollar usage calculated, items ranked, cumulative share added, and classes assigned.</p>",
-        tbl(rows),
+        tbl(rows, wide=True),
         "<p>The cut-offs used are 80% and 95% of cumulative value. Plotted as a Pareto chart, the pattern is easy to see.</p>",
         chart,
         "<p>Three things stand out:</p>",
@@ -428,11 +440,11 @@ def post3():
              ["Raw materials and packaging", "The production schedule. Usage follows what you plan to make.", "A delayed or cancelled batch, idle labour, late customer orders", "ABC by annual value consumed, plus criticality"],
              ["Spare parts and maintenance supplies", "Equipment wear and failure. Usage is low and irregular.", "Downtime on the equipment, and everything downstream of it", "Criticality first; value is almost irrelevant"],
              ["Work in progress", "Your own process and batch sizes", "Rarely a stockout; the cost is cash and floor space", "Leave out of ABC. Control it through scheduling."],
-             ["Finished goods", "Customer orders", "A lost or late sale", f"Standard ABC by sales, as in {P[1]}"]]),
+             ["Finished goods", "Customer orders", "A lost or late sale", f"Standard ABC by sales, as in {P[1]}"]], first=22),
         "<p>Two practical points follow. First, use <strong>consumption</strong>, the quantity issued to production or maintenance, not purchases. Purchases reflect when you bought, not what you used. Second, keep the unit of measure consistent. If resin is bought by the drum and issued by the kilogram, convert before you multiply.</p>",
         "<h2>A worked example: a coatings manufacturer</h2>",
         f"<p>Ridgeline Coatings is a fictional maker of industrial coatings. The list below covers 20 purchased items across raw materials, packaging and spare parts, with a combined annual usage of {money(total)}. It is ranked exactly as in {P[1]}, with cut-offs at 80% and 95% of cumulative value.</p>",
-        tbl(rows),
+        tbl(rows, wide=True),
         f"<p>The split looks familiar: {na} A items carry {pa:.1f}% of the value, {nb} B items carry {pb:.1f}%, and {nc} C items carry {pc:.1f}%. By the usual logic, the plant would now manage five items closely and put the bottom eleven on autopilot.</p>",
         "<h2>What the value ranking misses</h2>",
         "<p>Now mark the items that would stop production if they ran out. The plant's production and maintenance leads identify six.</p>",
@@ -551,7 +563,7 @@ def post4():
              ["RM-03 Xylene solvent", "Tight control, lean stock", "Method 3 at 95%", f"Safety stock {q(xy, xy['ss'])}; reorder at {q(xy, xy['rop'])}", money(vals[1])],
              ["RM-08 Dispersant additive", "Never run out", "Fixed minimum, set above the Method 3 result", f"Minimum {di_min} kg; reorder at {di_rop} kg", money(vals[2])],
              ["SP-01 Mechanical seal", "Never run out", "Poisson at 95%", "Reorder when 2 remain", money(vals[3])],
-             ["SP-02 Gasket set", "Never run out", "Poisson at 99%, rounded up", "Reorder when 10 remain", money(vals[4])]]),
+             ["SP-02 Gasket set", "Never run out", "Poisson at 99%, rounded up", "Reorder when 10 remain", money(vals[4])]], wide=True),
         f"<p>The buffers total about {money(round(tot, -2))}. The epoxy resin accounts for {vals[0] / tot:.0%} of that, which is where a careful calculation earns its keep. The three vital C items are fully protected for {money(sum(vals[2:]))}.</p>",
         "<h3>Buffers that are not stock</h3>",
         "<p>Inventory is one way to cover risk, and often the most expensive. Before adding stock to an A item, consider the alternatives.</p>",

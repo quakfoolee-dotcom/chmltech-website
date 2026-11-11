@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.34 — 2026-11-11
+- **Inventory articles: short table labels stay on one line.** Labels such as "3. Desirable", "Raw material" and "Reorder when 2 remain" no longer break across two lines. The rule covers every table in the four articles: cells of up to 22 characters, and row labels of up to 30 characters in tables with four columns or fewer.
+- The three widest tables (the two ranked item lists and the five-item results table) use slightly smaller type and tighter cells so everything fits the page width without sideways scrolling on a desktop screen. On narrow screens they scroll sideways, as before.
+- "Post 1" to "Post 4" links no longer split between the word and the number.
+- New file `assets/css/article-tables.css`, linked from the four articles.
+
 ## V4.33 — 2026-11-11
 - **Inventory articles: quantities stay on one line in tables.** A figure and its unit, such as "180,000 kg", no longer breaks across two lines. The same applies to money, percentages and other numeric cells in the four articles.
 
