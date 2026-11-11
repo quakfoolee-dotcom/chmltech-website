@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers | Chmltech Ltd.</title>
+<meta name="description" content="A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.">
+<link rel="canonical" href="https://www.chmltech.com/post/how-to-read-a-pfd-and-a-pid.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers | Chmltech Ltd.">
+<meta property="og:description" content="A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/how-to-read-a-pfd-and-a-pid.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a><a href="../insights.html#cat=project-management">Project Management</a></div>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 11, 2026</span><span>6 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose">
+<link rel="stylesheet" href="../assets/css/oee.css?v=4.45"><p>Two drawings come up in almost every review of a process plant: the process flow diagram (PFD) and the piping and instrumentation diagram (P&amp;ID). Owners, investors and operations managers are asked to comment on both, often without having been shown how to read them.</p>
+<p>This guide reads one small example on both drawings: a section that heats a feed liquid with steam before it enters a reactor. The same heater appears on the PFD and on the P&amp;ID, so you can see what each drawing adds.</p>
+<h2>The two drawings in one sentence each</h2>
+<ul>
+<li><strong>A PFD shows how the process works.</strong> It has the main equipment, the main streams and their flows, temperatures and pressures.</li>
+<li><strong>A P&amp;ID shows how the plant is built and controlled.</strong> It has every pipe, valve and instrument, and the control loops that connect them.</li>
+</ul>
+<h2>Reading the PFD</h2>
+<figure>
+<a href="../assets/media/pfd-pid/feed-heating-pfd.svg" target="_blank" rel="noopener"><img src="../assets/media/pfd-pid/feed-heating-pfd.svg" alt="Process flow diagram of a feed heating section. Feed from storage enters feed tank T-101, feed pump P-101 sends it through steam heater E-101, and it leaves for reactor R-101. Low pressure steam enters the heater and condensate leaves. A stream table lists flow, temperature and pressure for five numbered streams." width="860" height="770" style="width:100%;height:auto;border-radius:0;border:1px solid var(--line-2)"></a>
+<figcaption>Figure 1. Example PFD of a feed heating section, with its stream table. Select the drawing to open it full size.</figcaption>
+</figure>
+<p>Read a PFD in four steps.</p>
+<ol>
+<li><strong>Follow the main flow.</strong> It normally runs left to right. Here the feed enters tank T-101, pump P-101 raises its pressure, heater E-101 warms it, and it leaves for reactor R-101.</li>
+<li><strong>Identify the equipment.</strong> Each item has a tag. The letter gives the type and the number identifies the item.</li>
+<li><strong>Look up each stream.</strong> The numbers in diamonds refer to columns in the stream table.</li>
+<li><strong>Check that it balances.</strong> What goes into each item must come out.</li>
+</ol>
+<p class="oee-cap">Table 1. Common equipment tag letters</p>
+<table>
+<tr><th>Letter</th><th>Equipment</th><th>On the example</th></tr>
+<tr><td class="nw">T or TK</td><td>Storage tank</td><td>T-101, feed tank</td></tr>
+<tr><td class="nw">P</td><td>Pump</td><td>P-101, feed pump</td></tr>
+<tr><td class="nw">E</td><td>Heat exchanger</td><td>E-101, feed heater</td></tr>
+<tr><td class="nw">R</td><td>Reactor</td><td>R-101, on another sheet</td></tr>
+<tr><td class="nw">V or D</td><td>Pressure vessel or drum</td><td>None</td></tr>
+<tr><td class="nw">C</td><td>Column or compressor</td><td>None</td></tr>
+</table>
+<p>Letters vary between companies, so check the legend sheet that comes with the drawings.</p>
+<h3>Using the stream table</h3>
+<p>The stream table is where a PFD can be checked with a calculator. On the example:</p>
+<ul>
+<li><strong>Mass.</strong> The feed is 6,250&nbsp;kg/h in streams 1, 2 and 3. Nothing is added or lost. The steam in stream 4 equals the condensate in stream 5, at 350&nbsp;kg/h.</li>
+<li><strong>Pressure.</strong> The pump raises the feed from 0 to 4.0&nbsp;barg. The heater takes 0.5&nbsp;bar of that, leaving 3.5&nbsp;barg to reach the reactor.</li>
+<li><strong>Heat.</strong> The feed is heated from 20°C to 80°C. With a heat capacity of 2.0&nbsp;kJ/kg·K, that needs 6,250 × 2.0 × 60 = 750,000&nbsp;kJ/h, or 208&nbsp;kW. The steam supplies 350&nbsp;kg/h × 2,133&nbsp;kJ/kg = 746,550&nbsp;kJ/h, or 207&nbsp;kW. The two agree.</li>
+</ul>
+<p>If these checks fail on a real PFD, ask why before the drawing is used for anything else.</p>
+<h3>What the PFD leaves out</h3>
+<p>The PFD has no valves, no instruments and no pipe sizes. It does not show how the outlet temperature is held at 80°C or what happens if it rises. Those answers are on the P&amp;ID.</p>
+<h2>Reading the P&amp;ID</h2>
+<figure>
+<a href="../assets/media/pfd-pid/feed-heater-pid.svg" target="_blank" rel="noopener"><img src="../assets/media/pfd-pid/feed-heater-pid.svg" alt="Piping and instrumentation diagram of feed heater E-101. The process line has an isolation valve on each side of the heater, a temperature transmitter TT-101 and a relief valve PSV-102 on the outlet. Controller TIC-101 receives the temperature signal and positions steam control valve TV-101, which fails closed. The steam line has pressure gauge PI-201, and condensate leaves through steam trap ST-201. Each line carries a line number." width="860" height="665" style="width:100%;height:auto;border-radius:0;border:1px solid var(--line-2)"></a>
+<figcaption>Figure 2. Example P&amp;ID of the same heater, E-101. Select the drawing to open it full size.</figcaption>
+</figure>
+<p>The heater is the same item as on the PFD. The P&amp;ID adds everything needed to build, operate and maintain it.</p>
+<p class="oee-cap">Table 2. Symbols on the example P&amp;ID</p>
+<table>
+<tr><th>Symbol</th><th>Tag on the example</th><th>What it is</th></tr>
+<tr><td>Circle</td><td class="nw">PI-201, TT-101</td><td>An instrument mounted in the field, on or near the pipe</td></tr>
+<tr><td>Circle inside a square</td><td class="nw">TIC-101</td><td>A function in the control system, seen on the control room screens</td></tr>
+<tr><td>Two triangles, point to point</td><td>Not tagged</td><td>A manual valve, used here to isolate the heater</td></tr>
+<tr><td>Two triangles with an actuator on top</td><td class="nw">TV-101</td><td>A control valve, positioned by a signal</td></tr>
+<tr><td>Angled valve with a spring</td><td class="nw">PSV-102</td><td>A pressure relief valve, which opens by itself at its set pressure</td></tr>
+<tr><td>Square with a diagonal</td><td class="nw">ST-201</td><td>A steam trap, which lets condensate out and holds steam in</td></tr>
+<tr><td>Solid line</td><td class="nw">DN50-P-1003</td><td>A pipe</td></tr>
+<tr><td>Dashed line with an arrow</td><td>None</td><td>An instrument signal, pointing to the device that receives it</td></tr>
+</table>
+<h3>Reading an instrument tag</h3>
+<p>Instrument tags follow the ISA-5.1 standard. The first letter is what is measured. The letters after it say what the device does. The number identifies the loop.</p>
+<p class="oee-cap">Table 3. Instrument tag letters used on the example</p>
+<table>
+<tr><th>Tag</th><th>First letter</th><th>Following letters</th><th>Meaning</th></tr>
+<tr><td class="nw">TT-101</td><td>T, temperature</td><td>T, transmitter</td><td>Measures temperature and sends it to the control system</td></tr>
+<tr><td class="nw">TIC-101</td><td>T, temperature</td><td>I, indicator; C, controller</td><td>Displays the temperature and controls it</td></tr>
+<tr><td class="nw">TV-101</td><td>T, temperature</td><td>V, valve</td><td>The valve that the temperature loop moves</td></tr>
+<tr><td class="nw">PI-201</td><td>P, pressure</td><td>I, indicator</td><td>A pressure gauge read at the pipe</td></tr>
+<tr><td class="nw">PSV-102</td><td>P, pressure</td><td>S, safety; V, valve</td><td>A pressure relief valve</td></tr>
+</table>
+<p>Other common first letters are F for flow and L for level. Everything with the number 101 belongs to one control loop.</p>
+<h3>Tracing a control loop</h3>
+<p>A control loop has three parts: a measurement, a controller and a final element. Follow the dashed lines and their arrows.</p>
+<ol>
+<li><strong>TT-101</strong> measures the temperature of the feed leaving the heater.</li>
+<li><strong>TIC-101</strong> compares it with the set point of 80°C.</li>
+<li><strong>TV-101</strong> opens to admit more steam if the feed is too cold and closes if it is too hot.</li>
+</ol>
+<p>The note "FC" beside the valve means fail closed. If instrument air or the signal is lost, the valve shuts and the steam stops. For a heater that is the safe direction. Every control valve should show its failure position, and each one is worth asking about in a review.</p>
+<h3>Reading a line number</h3>
+<p>Each pipe has a line number that links the drawing to the line list and the piping specification.</p>
+<p class="oee-cap">Table 4. The parts of line number DN50-P-1003</p>
+<table>
+<tr><th>Part</th><th>Meaning</th><th>Other examples on the drawing</th></tr>
+<tr><td class="nw">DN50</td><td>Nominal pipe size, 50 mm (2 inch)</td><td>DN40 steam, DN25 condensate</td></tr>
+<tr><td class="nw">P</td><td>Service: process</td><td>LS, low pressure steam; C, condensate</td></tr>
+<tr><td class="nw">1003</td><td>Sequence number of the line</td><td>1004 after the heater</td></tr>
+</table>
+<p>The number changes from 1003 to 1004 across the heater because the fluid conditions change. Full line numbers often add a piping class and an insulation code. Formats differ between companies.</p>
+<h2>Five questions to ask in a P&amp;ID review</h2>
+<p>You do not need to be an engineer to ask useful questions. On the example:</p>
+<ol>
+<li><strong>Can this equipment be isolated for maintenance?</strong> Yes on the process side, with a manual valve on each side of the heater.</li>
+<li><strong>What protects it from overpressure?</strong> PSV-102. If both manual valves are shut with steam on, the trapped liquid heats and expands, and the relief valve opens at 6.0&nbsp;barg.</li>
+<li><strong>Where does the relief go?</strong> The drawing says "to safe location". Ask where that is.</li>
+<li><strong>What happens on loss of air or power?</strong> TV-101 fails closed and heating stops.</li>
+<li><strong>How does the operator know something is wrong?</strong> TIC-101 shows the temperature in the control room. This drawing has no high temperature alarm, which is a fair point to raise.</li>
+</ol>
+<h2>Side by side</h2>
+<p class="oee-cap">Table 5. What each drawing shows for the same heater</p>
+<table>
+<tr><th>Item</th><th>PFD</th><th>P&amp;ID</th></tr>
+<tr><td>Heater E-101</td><td>Shown, with duty</td><td>Shown</td></tr>
+<tr><td>Flows, temperatures, pressures</td><td>Stream table</td><td>Key values only</td></tr>
+<tr><td>Pipe sizes and line numbers</td><td>Not shown</td><td>Every line</td></tr>
+<tr><td>Manual valves</td><td>Not shown</td><td>Shown</td></tr>
+<tr><td>Control loop</td><td>Not shown</td><td>TT-101, TIC-101, TV-101</td></tr>
+<tr><td>Relief valve and steam trap</td><td>Not shown</td><td>PSV-102, ST-201</td></tr>
+</table>
+<p>The example is simplified for teaching. A real P&amp;ID of this heater would also show drains, vents, a bypass around the control valve and insulation. For where these drawings fit in a project, see <a href="what-a-feed-package-contains-and-what-each-document-decides.html">What a FEED Package Contains</a>.</p>
+<div class="oee-takeaway"><p><strong>Takeaway.</strong> Use the PFD to check that the process balances, and the P&amp;ID to check that the plant can be operated, maintained and kept safe. On both, start by following one line from end to end.</p></div>
+<p class="oee-note"><em>The drawings are illustrative examples and are not for construction. Symbols and tag formats vary between companies and standards.</em></p>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>PFD</span><span>P&amp;ID</span><span>ISA-5.1</span><span>instrument tags</span><span>control loop</span><span>process drawings</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 155 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering project-management" data-search="what a feed package contains, and what each document decides the documents in a feed package, what each one decides, how the class 3 estimate is built from them, and eight questions to ask before you approve the project. feed p&amp;id pfd class 3 estimate hazop basic engineering"><div class="thumb"><img src="../assets/media/covers/thumbs/what-a-feed-package-contains-and-what-each-document-decides.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Process Engineering</span><span class="tag">Project Management</span></div><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">FEED series · Part 3 of 3</p><h3><a href="../post/what-a-feed-package-contains-and-what-each-document-decides.html">What a FEED Package Contains, and What Each Document Decides</a></h3><p class="muted">The documents in a FEED package, what each one decides, how the Class 3 estimate is built from them, and eight questions to ask before you approve the project.</p><p class="meta">Nov 11, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering project-management" data-search="from concept to construction: the five stages of a process plant project the five stages of a process plant project, the decision at each gate, how accurate the cost estimate is at each stage, and how much to spend before committing. feed front-end loading stage-gate aace estimate classes capital projects"><div class="thumb"><img src="../assets/media/covers/thumbs/from-concept-to-construction-five-stages-of-a-process-plant-project.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Process Engineering</span><span class="tag">Project Management</span></div><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">FEED series · Part 1 of 3</p><h3><a href="../post/from-concept-to-construction-five-stages-of-a-process-plant-project.html">From Concept to Construction: The Five Stages of a Process Plant Project</a></h3><p class="muted">The five stages of a process plant project, the decision at each gate, how accurate the cost estimate is at each stage, and how much to spend before committing.</p><p class="meta">Nov 11, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering operational-efficiency" data-search="from pilot data to a mass and energy balance a worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram. mass balance energy balance scale-up operating cost yield process design"><div class="thumb"><img src="../assets/media/covers/thumbs/from-pilot-data-to-a-mass-and-energy-balance.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Process Engineering</span><span class="tag">Operational Efficiency</span></div><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 3 of 3</p><h3><a href="../post/from-pilot-data-to-a-mass-and-energy-balance.html">From Pilot Data to a Mass and Energy Balance</a></h3><p class="muted">A worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram.</p><p class="meta">Nov 11, 2026 · 4 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How to Read a PFD and a P&ID: A Guide for Owners and Managers", "datePublished": "2026-11-11", "author": {"@type": "Person", "name": "Quak Foo Lee"}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "mainEntityOfPage": "https://www.chmltech.com/post/how-to-read-a-pfd-and-a-pid", "description": "A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions."}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

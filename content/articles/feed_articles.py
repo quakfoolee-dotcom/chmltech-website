@@ -369,7 +369,7 @@ def post3():
 <tr><td class="nw">Used for</td><td>Heat and material balance, equipment sizing</td><td>Hazard review, cost estimate, construction, operation</td></tr>
 <tr><td class="nw">Owner should check</td><td>Capacity, feeds and products match the design basis</td><td>Operators can start, stop, isolate and maintain each item</td></tr>
 </table>
-<p>The sheet counts are for a plant of the example's size. The P&amp;IDs are the most important drawings in the package, because the hazard review, the estimate and the construction scope are all taken from them.</p>
+<p>The sheet counts are for a plant of the example's size. The P&amp;IDs are the most important drawings in the package, because the hazard review, the estimate and the construction scope are all taken from them. For a worked example of both drawings, see <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>.</p>
 <h2>How the Class 3 estimate is built</h2>
 <p>A Class 3 estimate is built up from the documents and is no longer factored from a single number. Each line has a source in the package.</p>
 {fig(fig_build(), 2, "Illustrative build-up of the $100M estimate for the example plant.")}
