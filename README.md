@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.34** (see `CHANGELOG.md`).
+Version: **V4.35** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -24,6 +24,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `challenge-page/*.html` | The 12 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`) |
 | `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
+| `assets/css/oee.css`, `assets/js/oee.js` | Styles and the three slider calculators (with live charts) used by the OEE article series |
 | `assets/downloads/` | Files offered for download from articles (for example the inventory template workbook) |
 
 Shared files: `assets/css/styles.css` (all styling, with brand colours as CSS variables at the top), `assets/js/main.js` (mobile menu, forms, insights filter) and `assets/img/` (logo, mark and icons).

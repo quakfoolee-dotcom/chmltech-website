@@ -1,0 +1,31 @@
+/* OEE article series (V4.35): calculators, live charts and result tiles.
+   Linked from the article body, so it never depends on a cached copy of styles.css. */
+.prose td.num,.prose th.num{text-align:right;white-space:nowrap}
+.prose td.nw,.prose th.nw{white-space:nowrap}
+.prose tr.oee-total td{font-weight:600;color:var(--ink);border-top:2px solid var(--ink)}
+.prose .oee-cap{font-size:14px;color:var(--muted);font-weight:600;margin-bottom:-.5em}
+.prose .oee-formula{font-family:var(--font-head);font-weight:600;color:var(--ink);background:var(--sand);padding:14px 18px;border-radius:8px}
+.prose .oee-sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.prose .oee-chart{overflow-x:auto}
+.prose .oee-chart svg{display:block;width:100%;min-width:560px;height:auto}
+.oee-chart text{font-family:var(--font-body);fill:#26324A;font-size:14px}
+.oee-chart text.m{fill:#5A6475}
+.oee-chart text.b{font-weight:600;fill:#0B2A5A}
+.oee-chart text.s{font-size:12.5px}
+.prose .oee-calc{background:var(--white);border:1px solid var(--line-2);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:18px}
+.prose .oee-calc h3{margin:0;font-size:20px}
+.prose .oee-hint{font-size:14px;color:var(--muted);line-height:1.5;margin:0}
+.oee-sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 24px}
+.oee-sl{display:flex;flex-direction:column;gap:4px;min-width:0}
+.oee-sl label{display:flex;justify-content:space-between;gap:8px;font-size:14px;line-height:1.4}
+.oee-sl output{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.oee-sl input[type=range]{width:100%;accent-color:var(--blue);margin:0}
+.oee-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px}
+.oee-tile{border-top:3px solid var(--line-2);padding-top:8px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.oee-tile.key{border-top-color:var(--green)}
+.oee-tile .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.3}
+.oee-tile .v{font-family:var(--font-head);font-size:24px;font-weight:600;color:var(--ink);line-height:1.2;font-variant-numeric:tabular-nums}
+.oee-tile .n{font-size:12.5px;color:var(--muted);line-height:1.35}
+.prose .oee-takeaway{border-left:3px solid var(--blue);padding:4px 0 4px 18px}
+.prose .oee-next{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid var(--line-2);padding-top:16px;font-weight:600}
+.prose .oee-note{font-size:14px;color:var(--muted)}

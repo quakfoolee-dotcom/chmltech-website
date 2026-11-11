@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>What OEE Really Measures: Where Your Production Hours Go | Chmltech Ltd.</title>
+<meta name="description" content="OEE shows how many scheduled hours became good product. The three factors, the six big losses, a worked example and a live calculator.">
+<link rel="canonical" href="https://www.chmltech.com/post/what-oee-really-measures.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="What OEE Really Measures: Where Your Production Hours Go | Chmltech Ltd.">
+<meta property="og:description" content="OEE shows how many scheduled hours became good product. The three factors, the six big losses, a worked example and a live calculator.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/what-oee-really-measures.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=operational-efficiency">Operational Efficiency</a><a href="../insights.html#cat=process-improvement">Process Improvement</a></div>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">What OEE Really Measures: Where Your Production Hours Go</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 11, 2026</span><span>6 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose">
+<link rel="stylesheet" href="../assets/css/oee.css"><p><em>Part 1 of 3 in the OEE series.</em></p>
+<p>The machine ran all day and the order is still short. Overall Equipment Effectiveness explains why, by showing how many of your scheduled hours turned into good product.</p>
+<p>Most plants know how many units they shipped. Far fewer know how many they could have shipped with the same machine, the same people and the same shifts. That gap is hidden capacity, and you are already paying for it.</p>
+<p>Overall Equipment Effectiveness (OEE) measures the gap. It is one percentage, built from three questions about a piece of equipment.</p>
+<h2>Three questions, one number</h2>
+<table>
+<tr><th>Factor</th><th>The question</th><th>How to calculate it</th></tr>
+<tr><td><strong>Availability</strong></td><td>Was the machine running when it was scheduled to run?</td><td>Operating time ÷ scheduled time</td></tr>
+<tr><td><strong>Performance</strong></td><td>When it ran, did it run at its ideal speed?</td><td>(Ideal cycle time × total units) ÷ operating time</td></tr>
+<tr><td><strong>Quality</strong></td><td>Of the units it made, how many were good the first time?</td><td>Good units ÷ total units</td></tr>
+</table>
+<p class="oee-formula">OEE = Availability × Performance × Quality</p>
+<p>Because the three factors multiply, OEE is also the share of scheduled time that produced good units at ideal speed. Everything else is a loss.</p>
+<h2>A worked example: one day on a packaging line</h2>
+<p>Take a line that runs two 8.5-hour shifts. Breaks and a shift meeting take 2 hours, so the line is scheduled for 15 hours. The machine is designed for one unit every 1.8 seconds, which is 2,000 units per hour.</p>
+<p>On this day the line lost 2.25 hours to a breakdown and two changeovers. While it ran, it averaged 1,800 units per hour. It made 22,950 units and 918 of them were rejected.</p>
+<p class="oee-cap">Table 1. The OEE calculation for the example day</p>
+<table>
+<tr><th>Step</th><th>Calculation</th><th class="num">Result</th></tr>
+<tr><td>Scheduled time</td><td>17.0 h total − 2.0 h planned stops</td><td class="num">15.00 h</td></tr>
+<tr><td>Operating time</td><td>15.0 h − 2.25 h downtime</td><td class="num">12.75 h</td></tr>
+<tr><td>Availability</td><td>12.75 ÷ 15.00</td><td class="num">85.0%</td></tr>
+<tr><td>Performance</td><td>22,950 units ÷ (2,000 units/h × 12.75 h)</td><td class="num">90.0%</td></tr>
+<tr><td>Quality</td><td>22,032 good ÷ 22,950 total</td><td class="num">96.0%</td></tr>
+<tr class="oee-total"><td>OEE</td><td>85.0% × 90.0% × 96.0%</td><td class="num">73.4%</td></tr>
+</table>
+<p>Each factor looks respectable on its own. Together they mean that only 11 of the 15 scheduled hours produced sellable product. The other 4 hours were paid for and lost.</p>
+<figure>
+<div class="oee-chart" id="oee-cascade"></div>
+<figcaption>Figure 1. Where the hours go. Each bar is what remains after the loss named on the right. The chart follows the sliders below.</figcaption>
+</figure>
+<div class="oee-calc" role="group" aria-labelledby="c1h">
+<h3 id="c1h">Try it: move the losses and watch OEE</h3>
+<p class="oee-hint">Fixed for this example: 17 hours of total time, 2 hours of planned stops and an ideal rate of 2,000 units per hour.</p>
+<div class="oee-sliders">
+<div class="oee-sl"><label for="p1-down">Downtime <output id="p1-down-o"></output></label><input type="range" id="p1-down" min="0" max="6" step="0.25" value="2.25"></div>
+<div class="oee-sl"><label for="p1-rate">Actual run rate <output id="p1-rate-o"></output></label><input type="range" id="p1-rate" min="1000" max="2000" step="10" value="1800"></div>
+<div class="oee-sl"><label for="p1-rej">Reject rate <output id="p1-rej-o"></output></label><input type="range" id="p1-rej" min="0" max="15" step="0.5" value="4"></div>
+</div>
+<div class="oee-tiles">
+<div class="oee-tile"><span class="k">Availability</span><span class="v" id="p1-A"></span></div>
+<div class="oee-tile"><span class="k">Performance</span><span class="v" id="p1-P"></span></div>
+<div class="oee-tile"><span class="k">Quality</span><span class="v" id="p1-Q"></span></div>
+<div class="oee-tile key"><span class="k">OEE</span><span class="v" id="p1-O"></span><span class="n" id="p1-units"></span></div>
+<div class="oee-tile"><span class="k">TEEP</span><span class="v" id="p1-T"></span><span class="n">against all 17 hours</span></div>
+</div>
+</div>
+<h2>The six big losses</h2>
+<p>Every lost hour falls into one of six categories. Naming them matters because each one has a different owner and a different fix.</p>
+<p class="oee-cap">Table 2. The six big losses and the factor each one reduces</p>
+<table>
+<tr><th>Factor</th><th>Loss</th><th>What it looks like on the floor</th></tr>
+<tr><td rowspan="2" class="nw"><span class="oee-sw" style="background:#C27712"></span>Availability</td><td>1. Equipment failure</td><td>Breakdowns, waiting for maintenance or parts</td></tr>
+<tr><td>2. Setup and adjustment</td><td>Changeovers, warm-up, material shortages</td></tr>
+<tr><td rowspan="2" class="nw"><span class="oee-sw" style="background:#5B5BD0"></span>Performance</td><td>3. Idling and minor stops</td><td>Jams, blocked sensors, stops under a few minutes that nobody logs</td></tr>
+<tr><td>4. Reduced speed</td><td>Running below the ideal rate because of wear, material or habit</td></tr>
+<tr><td rowspan="2" class="nw"><span class="oee-sw" style="background:#B43E3E"></span>Quality</td><td>5. Process defects</td><td>Scrap and rework during steady production</td></tr>
+<tr><td>6. Startup rejects</td><td>Scrap made after a start or changeover until the process settles</td></tr>
+</table>
+<h2>Four things that distort the number</h2>
+<ul>
+<li><strong>Planned stops are outside OEE.</strong> Breaks and planned maintenance are removed before the calculation starts. If you measure against all 17 hours instead, you get TEEP (Total Effective Equipment Performance), which is 64.8% here. Use OEE to judge how well the line runs. Use TEEP to judge whether you need more equipment or simply more scheduled hours.</li>
+<li><strong>The ideal cycle time must be the true best rate.</strong> If the standard is set at a comfortable speed, performance shows 100% and the speed loss disappears from view. Use the design rate or the best rate the line has sustained.</li>
+<li><strong>Three good scores multiply into a mediocre one.</strong> A line at 90% on every factor has an OEE of 72.9%. This is why a plant can feel busy and still fall short.</li>
+<li><strong>OEE is for machine-paced work.</strong> It suits automatic and semi-automatic equipment. Manual assembly has no fixed ideal cycle time, so labour productivity measures fit better there.</li>
+</ul>
+<p>A figure of 85% is often quoted as world class. Treat it as a reference point only. A line with frequent changeovers will never match a dedicated line, so the useful comparison is the same line against itself over time.</p>
+<div class="oee-takeaway"><p><strong>Takeaway.</strong> Before any improvement project, measure where the hours go for a few weeks. The 73.4% matters less than the split behind it: 2.25 hours of downtime, 1.3 hours of speed loss and half an hour of rejects.</p></div>
+<div class="oee-next"><a href="what-oee-losses-cost.html">Next: Post&nbsp;2, what those lost hours cost →</a></div>
+<noscript><p class="oee-note">The charts and calculator on this page need JavaScript. The tables show the worked example.</p></noscript>
+<p class="oee-note"><em>The line, its revenue and the project in this series are an illustrative example. The calculators are screening tools and do not replace a full financial analysis.</em></p>
+<script src="../assets/js/oee.js" defer></script>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>OEE</span><span>overall equipment effectiveness</span><span>six big losses</span><span>availability</span><span>TEEP</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 148 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="operational-efficiency process-improvement" data-search="what oee losses cost: putting dollars on downtime, speed and scrap turn oee losses into dollars and rank them. a worked example on a $3m line, what one oee point is worth, and a calculator for your own numbers. oee cost of downtime lost capacity contribution margin loss analysis"><div class="thumb"><img src="../assets/media/covers/thumbs/what-oee-losses-cost.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Operational Efficiency</span><span class="tag">Process Improvement</span></div><h3><a href="../post/what-oee-losses-cost.html">What OEE Losses Cost: Putting Dollars on Downtime, Speed and Scrap</a></h3><p class="muted">Turn OEE losses into dollars and rank them. A worked example on a $3M line, what one OEE point is worth, and a calculator for your own numbers.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement" data-search="does the oee project pay back? testing a $1m investment how to turn a promised oee gain into payback, net present value and cash flow, with a $1m worked example and a calculator to test the assumptions. oee return on investment payback period automation business case net present value"><div class="thumb"><img src="../assets/media/covers/thumbs/oee-project-payback.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Operational Efficiency</span><span class="tag">Process Improvement</span></div><h3><a href="../post/oee-project-payback.html">Does the OEE Project Pay Back? Testing a $1M Investment</a></h3><p class="muted">How to turn a promised OEE gain into payback, net present value and cash flow, with a $1M worked example and a calculator to test the assumptions.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency" data-search="production planning and scheduling for manufacturing  "><div class="thumb"><img src="../assets/media/thumbs/33d8e3_908285a63c9346ef94dea3c20500aab1.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Operational Efficiency</span></div><h3><a href="../post/production-planning-and-scheduling-for-manufacturing.html">Production Planning and Scheduling for Manufacturing</a></h3><p class="muted">Production planning increases your manufacturing efficiency. Adjust your production schedule based on inventory, resource and orders. Production…</p><p class="meta">Sep 2, 2021 · 6 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "What OEE Really Measures: Where Your Production Hours Go", "datePublished": "2026-11-11", "author": {"@type": "Person", "name": "Quak Foo Lee"}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "mainEntityOfPage": "https://www.chmltech.com/post/what-oee-really-measures", "description": "OEE shows how many scheduled hours became good product. The three factors, the six big losses, a worked example and a live calculator."}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

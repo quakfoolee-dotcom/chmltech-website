@@ -1,5 +1,15 @@
 # Changelog
 
+## V4.35 — 2026-11-11
+- **New Insights series: Overall Equipment Effectiveness (three articles).** Insights now lists 148 articles.
+  - `post/what-oee-really-measures`: the three OEE factors, the six big losses and a worked example of one day on a packaging line (OEE 73.4%).
+  - `post/what-oee-losses-cost`: the same losses in dollars on a $3.0M line, ranked two ways (share of the total loss, and the gain from fixing one factor alone), and what one OEE point is worth.
+  - `post/oee-project-payback`: the business case for a $1M project, with payback (3.6 years), ten-year net present value and cash flow after loan payments, plus a table testing margin and OEE gain.
+- **Each article has a slider calculator and a live chart** (hours cascade, revenue waterfall, cumulative cash). They run in the visitor's browser with no libraries. Without JavaScript, the tables still show the worked example and a short note explains what is missing.
+- Every mention of another article in the series links to it, and each article links to the next. Filed under Operational Efficiency and Process Improvement.
+- The example line, its revenue and the project are illustrative, and each article says so. Extra revenue is counted at a 50% contribution margin, not in full.
+- New files: `assets/css/oee.css`, `assets/js/oee.js` and the three source files in `content/articles/`, built with `content/gen/add_article.py`.
+
 ## V4.34 — 2026-11-11
 - **Inventory articles: short table labels stay on one line.** Labels such as "3. Desirable", "Raw material" and "Reorder when 2 remain" no longer break across two lines. The rule covers every table in the four articles: cells of up to 22 characters, and row labels of up to 30 characters in tables with four columns or fewer.
 - The three widest tables (the two ranked item lists and the five-item results table) use slightly smaller type and tighter cells so everything fits the page width without sideways scrolling on a desktop screen. On narrow screens they scroll sideways, as before.
