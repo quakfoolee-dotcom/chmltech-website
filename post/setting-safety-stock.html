@@ -87,21 +87,21 @@
 <p>Z converts a service level into a number of standard deviations. In Excel it is <code>=NORM.S.INV(service level)</code>.</p>
 <table>
 <tr><th>Service level</th><th>90%</th><th>95%</th><th>98%</th><th>99%</th><th>99.9%</th></tr>
-<tr><td>Z</td><td>1.28</td><td>1.64</td><td>2.05</td><td>2.33</td><td>3.09</td></tr>
+<tr><td>Z</td><td style="white-space:nowrap">1.28</td><td style="white-space:nowrap">1.64</td><td style="white-space:nowrap">2.05</td><td style="white-space:nowrap">2.33</td><td style="white-space:nowrap">3.09</td></tr>
 </table>
 <p>Keep the units consistent. If demand is measured per week, lead time must be in weeks too.</p>
 <h2>A worked example: three items from Northshore Supply</h2>
 <p>We take one item from each ABC class in <a href="abc-inventory-analysis.html">Post 1</a>. Average weekly demand is the annual usage divided by 52. The other figures come from Northshore's sales and purchase order history.</p>
 <table>
 <tr><th>Input</th><th>NS-101 Nitrile gloves (A)</th><th>NS-108 Hi-vis vest (B)</th><th>NS-111 Shop towels (C)</th></tr>
-<tr><td>Average weekly demand (units)</td><td>100</td><td>17.3</td><td>10</td></tr>
-<tr><td>Standard deviation of weekly demand</td><td>20</td><td>6</td><td>5</td></tr>
-<tr><td>Maximum weekly demand</td><td>140</td><td>30</td><td>22</td></tr>
-<tr><td>Average lead time (weeks)</td><td>4</td><td>3</td><td>2</td></tr>
-<tr><td>Standard deviation of lead time (weeks)</td><td>1.0</td><td>0.5</td><td>0.5</td></tr>
-<tr><td>Maximum lead time (weeks)</td><td>6</td><td>4</td><td>3</td></tr>
-<tr><td>Target service level</td><td>98%</td><td>95%</td><td>90%</td></tr>
-<tr><td>Unit cost</td><td>$62</td><td>$68</td><td>$44</td></tr>
+<tr><td>Average weekly demand (units)</td><td style="white-space:nowrap">100</td><td style="white-space:nowrap">17.3</td><td style="white-space:nowrap">10</td></tr>
+<tr><td>Standard deviation of weekly demand</td><td style="white-space:nowrap">20</td><td style="white-space:nowrap">6</td><td style="white-space:nowrap">5</td></tr>
+<tr><td>Maximum weekly demand</td><td style="white-space:nowrap">140</td><td style="white-space:nowrap">30</td><td style="white-space:nowrap">22</td></tr>
+<tr><td>Average lead time (weeks)</td><td style="white-space:nowrap">4</td><td style="white-space:nowrap">3</td><td style="white-space:nowrap">2</td></tr>
+<tr><td>Standard deviation of lead time (weeks)</td><td style="white-space:nowrap">1.0</td><td style="white-space:nowrap">0.5</td><td style="white-space:nowrap">0.5</td></tr>
+<tr><td>Maximum lead time (weeks)</td><td style="white-space:nowrap">6</td><td style="white-space:nowrap">4</td><td style="white-space:nowrap">3</td></tr>
+<tr><td>Target service level</td><td style="white-space:nowrap">98%</td><td style="white-space:nowrap">95%</td><td style="white-space:nowrap">90%</td></tr>
+<tr><td>Unit cost</td><td style="white-space:nowrap">$62</td><td style="white-space:nowrap">$68</td><td style="white-space:nowrap">$44</td></tr>
 </table>
 <h3>Step by step for the gloves, using Method 3</h3>
 <ol>
@@ -115,12 +115,12 @@
 <h3>Results for all three items</h3>
 <table>
 <tr><th>Result (units)</th><th>NS-101 Gloves (A)</th><th>NS-108 Vest (B)</th><th>NS-111 Towels (C)</th></tr>
-<tr><td>Method 1: Average-max</td><td>440</td><td>69</td><td>46</td></tr>
-<tr><td>Method 2: Demand variability only</td><td>83</td><td>18</td><td>10</td></tr>
-<tr><td><strong>Method 3: Demand and lead time</strong></td><td><strong>222</strong></td><td><strong>23</strong></td><td><strong>12</strong></td></tr>
-<tr><td>Reorder point (Method 3)</td><td>622</td><td>75</td><td>32</td></tr>
-<tr><td>Safety stock value (Method 3)</td><td>$13,764</td><td>$1,564</td><td>$528</td></tr>
-<tr><td>"Two weeks of everything" rule</td><td>200</td><td>35</td><td>20</td></tr>
+<tr><td>Method 1: Average-max</td><td style="white-space:nowrap">440</td><td style="white-space:nowrap">69</td><td style="white-space:nowrap">46</td></tr>
+<tr><td>Method 2: Demand variability only</td><td style="white-space:nowrap">83</td><td style="white-space:nowrap">18</td><td style="white-space:nowrap">10</td></tr>
+<tr><td><strong>Method 3: Demand and lead time</strong></td><td style="white-space:nowrap"><strong>222</strong></td><td style="white-space:nowrap"><strong>23</strong></td><td style="white-space:nowrap"><strong>12</strong></td></tr>
+<tr><td>Reorder point (Method 3)</td><td style="white-space:nowrap">622</td><td style="white-space:nowrap">75</td><td style="white-space:nowrap">32</td></tr>
+<tr><td>Safety stock value (Method 3)</td><td style="white-space:nowrap">$13,764</td><td style="white-space:nowrap">$1,564</td><td style="white-space:nowrap">$528</td></tr>
+<tr><td>"Two weeks of everything" rule</td><td style="white-space:nowrap">200</td><td style="white-space:nowrap">35</td><td style="white-space:nowrap">20</td></tr>
 </table>
 <p>Four lessons come out of this table.</p>
 <ul>
@@ -134,7 +134,7 @@
 <table>
 <tr><th>Class</th><th>Typical target</th><th>Reasoning</th></tr>
 <tr><td>A</td><td>97 to 99%</td><td>A stockout loses the most revenue, so aim high, but calculate carefully because the buffer is expensive</td></tr>
-<tr><td>B</td><td>95%</td><td>A solid default for items that matter but are not critical</td></tr>
+<tr><td>B</td><td style="white-space:nowrap">95%</td><td>A solid default for items that matter but are not critical</td></tr>
 <tr><td>C</td><td>90 to 95%</td><td>A stockout costs little, and a simple generous buffer is often enough</td></tr>
 </table>
 <p>The catch is that service gets more expensive the higher you go. The chart shows the safety stock value for the gloves at eight service levels.</p>

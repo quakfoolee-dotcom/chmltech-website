@@ -74,16 +74,16 @@
 <table>
 <tr><th>Input</th><th>RM-01 Epoxy resin</th><th>RM-03 Xylene solvent</th><th>RM-08 Dispersant additive</th></tr>
 <tr><td>Class and criticality</td><td>A, vital</td><td>A, essential</td><td>C, vital</td></tr>
-<tr><td>Average weekly consumption</td><td>3,462 kg</td><td>4,038 L</td><td>46 kg</td></tr>
-<tr><td>Standard deviation of weekly consumption</td><td>600 kg</td><td>700 L</td><td>12 kg</td></tr>
-<tr><td>Average lead time (weeks)</td><td>6</td><td>1</td><td>8</td></tr>
-<tr><td>Standard deviation of lead time (weeks)</td><td>1.5</td><td>0.2</td><td>2</td></tr>
-<tr><td>Target service level</td><td>99%</td><td>95%</td><td>99%</td></tr>
-<tr><td>Unit cost</td><td>$4.20</td><td>$1.35</td><td>$14.00</td></tr>
-<tr><td><strong>Safety stock</strong></td><td><strong>12,554 kg</strong></td><td><strong>1,759 L</strong></td><td><strong>229 kg</strong></td></tr>
-<tr><td>Safety stock in weeks of use</td><td>3.6</td><td>0.4</td><td>5.0</td></tr>
-<tr><td>Safety stock value</td><td>$52,727</td><td>$2,375</td><td>$3,206</td></tr>
-<tr><td>Reorder point</td><td>33,324 kg</td><td>5,798 L</td><td>599 kg</td></tr>
+<tr><td>Average weekly consumption</td><td style="white-space:nowrap">3,462 kg</td><td style="white-space:nowrap">4,038 L</td><td style="white-space:nowrap">46 kg</td></tr>
+<tr><td>Standard deviation of weekly consumption</td><td style="white-space:nowrap">600 kg</td><td style="white-space:nowrap">700 L</td><td style="white-space:nowrap">12 kg</td></tr>
+<tr><td>Average lead time (weeks)</td><td style="white-space:nowrap">6</td><td style="white-space:nowrap">1</td><td style="white-space:nowrap">8</td></tr>
+<tr><td>Standard deviation of lead time (weeks)</td><td style="white-space:nowrap">1.5</td><td style="white-space:nowrap">0.2</td><td style="white-space:nowrap">2</td></tr>
+<tr><td>Target service level</td><td style="white-space:nowrap">99%</td><td style="white-space:nowrap">95%</td><td style="white-space:nowrap">99%</td></tr>
+<tr><td>Unit cost</td><td style="white-space:nowrap">$4.20</td><td style="white-space:nowrap">$1.35</td><td style="white-space:nowrap">$14.00</td></tr>
+<tr><td><strong>Safety stock</strong></td><td style="white-space:nowrap"><strong>12,554 kg</strong></td><td style="white-space:nowrap"><strong>1,759 L</strong></td><td style="white-space:nowrap"><strong>229 kg</strong></td></tr>
+<tr><td>Safety stock in weeks of use</td><td style="white-space:nowrap">3.6</td><td style="white-space:nowrap">0.4</td><td style="white-space:nowrap">5.0</td></tr>
+<tr><td>Safety stock value</td><td style="white-space:nowrap">$52,727</td><td style="white-space:nowrap">$2,375</td><td style="white-space:nowrap">$3,206</td></tr>
+<tr><td>Reorder point</td><td style="white-space:nowrap">33,324 kg</td><td style="white-space:nowrap">5,798 L</td><td style="white-space:nowrap">599 kg</td></tr>
 </table>
 <h3>What the numbers show</h3>
 <p><strong>Lead time drives the buffer, not consumption.</strong> For epoxy resin, the lead time term in the formula is more than twelve times the demand term. Consumption is steady; the supplier is not. A delivery that slips from six weeks to nine does far more damage than a busy week in the plant.</p>
@@ -105,11 +105,11 @@
 <h2>The five items together</h2>
 <table>
 <tr><th>Item</th><th>Policy from <a href="abc-analysis-for-manufacturers.html">Post 3</a></th><th>Method</th><th>Result</th><th>Value held</th></tr>
-<tr><td>RM-01 Epoxy resin</td><td>Tight control, protected supply</td><td>Method 3 at 99%</td><td>Safety stock 12,554 kg; reorder at 33,324 kg</td><td>$52,727</td></tr>
-<tr><td>RM-03 Xylene solvent</td><td>Tight control, lean stock</td><td>Method 3 at 95%</td><td>Safety stock 1,759 L; reorder at 5,798 L</td><td>$2,375</td></tr>
-<tr><td>RM-08 Dispersant additive</td><td>Never run out</td><td>Fixed minimum, set above the Method 3 result</td><td>Minimum 600 kg; reorder at 970 kg</td><td>$8,400</td></tr>
-<tr><td>SP-01 Mechanical seal</td><td>Never run out</td><td>Poisson at 95%</td><td>Reorder when 2 remain</td><td>$3,700</td></tr>
-<tr><td>SP-02 Gasket set</td><td>Never run out</td><td>Poisson at 99%, rounded up</td><td>Reorder when 10 remain</td><td>$400</td></tr>
+<tr><td>RM-01 Epoxy resin</td><td>Tight control, protected supply</td><td>Method 3 at 99%</td><td>Safety stock 12,554 kg; reorder at 33,324 kg</td><td style="white-space:nowrap">$52,727</td></tr>
+<tr><td>RM-03 Xylene solvent</td><td>Tight control, lean stock</td><td>Method 3 at 95%</td><td>Safety stock 1,759 L; reorder at 5,798 L</td><td style="white-space:nowrap">$2,375</td></tr>
+<tr><td>RM-08 Dispersant additive</td><td>Never run out</td><td>Fixed minimum, set above the Method 3 result</td><td>Minimum 600 kg; reorder at 970 kg</td><td style="white-space:nowrap">$8,400</td></tr>
+<tr><td>SP-01 Mechanical seal</td><td>Never run out</td><td>Poisson at 95%</td><td>Reorder when 2 remain</td><td style="white-space:nowrap">$3,700</td></tr>
+<tr><td>SP-02 Gasket set</td><td>Never run out</td><td>Poisson at 99%, rounded up</td><td>Reorder when 10 remain</td><td style="white-space:nowrap">$400</td></tr>
 </table>
 <p>The buffers total about $67,600. The epoxy resin accounts for 78% of that, which is where a careful calculation earns its keep. The three vital C items are fully protected for $12,500.</p>
 <h3>Buffers that are not stock</h3>

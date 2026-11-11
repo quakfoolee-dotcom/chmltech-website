@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.33 — 2026-11-11
+- **Inventory articles: quantities stay on one line in tables.** A figure and its unit, such as "180,000 kg", no longer breaks across two lines. The same applies to money, percentages and other numeric cells in the four articles.
+
 ## V4.32 — 2026-11-11
 - **Fixed: the template download box and form could appear unstyled.** A browser that had visited the site before V4.31 kept its saved copy of `styles.css`, which lacked the new form styles: the box text ran together and the form filled the screen with a full-width close button.
 - The styles now live in their own file, `assets/css/download.css`, linked from the four inventory articles, so they load whatever copy of `styles.css` the browser holds. They are removed from `styles.css`.

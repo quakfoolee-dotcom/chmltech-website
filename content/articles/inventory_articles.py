@@ -56,9 +56,17 @@ money = lambda v: f"${v:,.0f}"
 
 
 # ---------- small HTML helpers ----------
+NUM = re.compile(r"^(<strong>)?\$?[\d][\d,.]*%?(\s?(kg|L|units|weeks))?(</strong>)?$")
+
+
+def td(c):
+    """Quantities, money and percentages stay on one line (for example 180,000 kg)."""
+    return f'<td style="white-space:nowrap">{c}</td>' if NUM.match(str(c)) else f"<td>{c}</td>"
+
+
 def tbl(rows):
     out = ["<table>", "<tr>" + "".join(f"<th>{c}</th>" for c in rows[0]) + "</tr>"]
-    out += ["<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows[1:]]
+    out += ["<tr>" + "".join(td(c) for c in r) + "</tr>" for r in rows[1:]]
     return "\n".join(out + ["</table>"])
 
 
@@ -399,7 +407,7 @@ def post3():
     spares = sum(p["v"] for p in pts if p["pool"] == "Spare part"); assert all(p["cls"] == "C" for p in pts if p["pool"] == "Spare part")
     hv = sum(p["v"] for p in hidden)
     rows = [["Rank", "Item", "Pool", "Annual usage", "Unit cost", "Annual value", "Cumulative %", "Class"]]
-    rows += [[p["i"] + 1, f'{p["sku"]} {E(p["item"])}', p["pool"], f'{p["units"]:,}{p["u"]}', f'${p["cost"]:,.2f}', money(p["v"]),
+    rows += [[p["i"] + 1, f'{p["sku"]} {E(p["item"])}', p["pool"], f'{p["units"]:,}{p["u"].replace(" ", "&nbsp;")}', f'${p["cost"]:,.2f}', money(p["v"]),
               f'{p["cum"]:.1f}%', p["cls"]] for p in pts]
     chart = pareto(pts, total, "Three of the six line-stopping items sit in the C tail", [0, 250000, 500000, 750000],
                    "Pareto chart of 20 purchased items ranked by annual value, with the six vital items highlighted. Epoxy resin, titanium dioxide "
