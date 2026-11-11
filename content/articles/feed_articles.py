@@ -294,17 +294,20 @@ def fig_flow():
              ("Define the plant", SAND, LINE, [["Equipment list", "and datasheets"], ["Plot plan", "and layout"], ["Electrical and", "instrument lists"], ["Vendor budget", "quotations"]]),
              ("Define the project", GREENF, "#A9C77E", [["Class 3 cost", "estimate"], ["Schedule"], ["Execution and", "contracting plan"], ["Risk register"]])]
     for r, (name, fill, st, bxs) in enumerate(tiers):
-        y = 30 + r * 104
+        y = 40 + r * 104
         s += txt(10, y - 8, name, fill=NAVY, fs=13, bold=True)
         for i, b in enumerate(bxs):
             x = 10 + i * 186
             s += box(x, y, 162, 52, b, fill=fill, stroke=st, fs=12.5, bold=False)
             if r == 0 and i < 3: s += arrow(x + 162, y + 26, x + 184, y + 26)
         if r < 2: s += arrow(370, y + 56, 370, y + 78, w=2)
-    s += f'<path d="M649,30 C649,8 463,8 463,28" fill="none" stroke="{NAVY}" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ah)"/>' + txt(556, 9, "actions", "middle", MUTED, 11.5)
+    # Feedback from the hazard review to the P&IDs: dashed line that runs straight down into a drawn arrowhead.
+    s += f'<path d="M649,40 V22 Q649,12 639,12 H473 Q463,12 463,22 V26" fill="none" stroke="{NAVY}" stroke-width="1.4" stroke-dasharray="4 3"/>'
+    s += f'<line x1="463" y1="24" x2="463" y2="32" stroke="{NAVY}" stroke-width="1.4"/><path d="M457.5,31 L468.5,31 L463,40 z" fill="{NAVY}"/>'
+    s += txt(556, 29, "actions", "middle", MUTED, 11.5)
     return svg("Three tiers of FEED documents. The process tier runs from the design basis through the heat and material balance and PFDs to the P&IDs "
                "and the hazard review, whose actions feed back into the P&IDs. The plant tier holds the equipment list, plot plan, electrical and instrument "
-               "lists and vendor quotations. The project tier holds the Class 3 estimate, schedule, execution plan and risk register.", 760, 296, s, 640)
+               "lists and vendor quotations. The project tier holds the Class 3 estimate, schedule, execution plan and risk register.", 760, 306, s, 640)
 
 
 def fig_build():
