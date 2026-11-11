@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.28 — 2026-11-11
+- **Shorter address for the BDC LIFT article.** It moved from `/post/bdc-lift-program-who-qualifies-and-how-to-prepare` to `/post/bdc-lift-program`. The Insights card, the sitemap, the cover files and the source file in `content/articles/` use the new name.
+- The old address redirects to the new one, so links shared earlier still work.
+
 ## V4.27 — 2026-11-11
 - **New Insights article: BDC's LIFT Program: Who Qualifies and How to Prepare.** It covers the two LIFT paths (digital transformation and AI; productivity and digitally enabled equipment), the minimum requirements for each, the Canadian supplier rule, what each plan must contain, how to apply and how to prepare. It includes a decision diagram and four tables. Filed under Digital Technology and Artificial Intelligence. Insights now lists 141 articles.
 - **Facts about LIFT** (revenue thresholds, eligible sectors, loan sizes, terms) come from BDC's three program pages as read on 11 November 2026. The launch date, program size and the 2.25% rate come from BetaKit's launch report; BDC's pages do not publish a rate. The article says so and tells readers to confirm terms with BDC.
