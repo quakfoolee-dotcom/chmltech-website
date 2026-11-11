@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.41 — 2026-11-11
+- **New Insights series: FEED (three articles), the first written for the Process Engineering category.** Insights now lists 151 articles, with 8 under Process Engineering.
+  - `post/from-concept-to-construction-five-stages-of-a-process-plant-project`: the five project stages and gates, estimate accuracy by AACE class on a $20M example, and typical front-end spend.
+  - `post/the-design-basis-ten-decisions-to-fix-before-engineering-starts`: the ten decisions in a design basis, a worked example of operating hours against design rate and equipment cost, and what a late change affects.
+  - `post/what-a-feed-package-contains-and-what-each-document-decides`: the FEED deliverables and what each decides, PFD and P&ID compared, the build-up of a Class 3 estimate, and eight review questions.
+- Each article has tables and inline SVG figures (seven figures in all) and links to the other two and to the CAPEX and OPEX journal paper. Links at the foot follow reading order.
+- The articles are filed under Process Engineering and Project Management and reuse `assets/css/oee.css` for table and layout styles.
+- New source file `content/articles/feed_articles.py` writes the three article files; the pages are built with `content/gen/add_article.py`.
+
 ## V4.40 — 2026-11-11
 - **Insights: new Process Engineering category.** It has its own filter chip and the address `insights.html#cat=process-engineering` (`insights/categories/process-engineering` redirects to it).
 - Five journal papers are now listed under it, in addition to their existing categories: CAPEX and OPEX Estimation for Process Plants, Hydrogen Electrolysis Plants, Solid-State Hydrogen Absorption, Digital Twins in Chemical Process Plants, and Physical AI in Process Plants and Factories.
