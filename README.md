@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.47** (see `CHANGELOG.md`).
+Version: **V4.48** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -26,6 +26,8 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 | `assets/css/oee.css`, `assets/js/oee.js` | Styles and the three slider calculators (with live charts) used by the OEE article series. The FEED series (`content/articles/feed_articles.py`) reuses the table and layout styles from `oee.css` |
+| `assets/js/scaleup.js` | The cooling-capacity calculator and chart in Part 1 of the scale-up series (source: `content/articles/process_eng_articles.py`) |
+| `assets/media/pfd-pid/` | The example PFD and P&ID drawings (SVG) used in the "How to read a PFD and a P&ID" article |
 | `assets/downloads/` | Files offered for download from articles (for example the inventory template workbook) |
 
 Shared files: `assets/css/styles.css` (all styling, with brand colours as CSS variables at the top), `assets/js/main.js` (mobile menu, forms, insights filter) and `assets/img/` (logo, mark and icons).

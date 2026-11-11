@@ -1,5 +1,17 @@
 # Changelog
 
+## V4.48 — 2026-11-11
+- **Four new Process Engineering articles.** Insights now lists 155 articles, with 12 under Process Engineering.
+  - **Scale-up series (three parts)**, shown with the series label:
+    - `post/scale-up-what-changes-from-lab-to-pilot-to-commercial`: why cooling capacity per cubic metre falls with size, a worked example at 1 L, 100 L and 10,000 L, and a slider calculator with a live chart.
+    - `post/what-a-pilot-plant-is-for`: the questions a pilot plant must answer, how large to build it, and the data to collect before shutting it down.
+    - `post/from-pilot-data-to-a-mass-and-energy-balance`: a 100 kg pilot batch scaled to a 5,000 t/y plant, with mass balance, energy balance and variable cost per kilogram.
+  - `post/how-to-read-a-pfd-and-a-pid`: one heater read on both drawings, covering equipment tags, the stream table, instrument symbols and tags, a control loop, line numbers and review questions.
+- **Example drawings:** a PFD of a feed heating section and a P&ID of its heater (Rev B), in `assets/media/pfd-pid/`. Each opens full size when selected.
+- New calculator script `assets/js/scaleup.js`. New source file `content/articles/process_eng_articles.py` writes the four article files.
+- FEED Part 3 now links to the PFD and P&ID article.
+- Home page: "Latest insights" shows the three scale-up articles in reading order; the button reads "All 155 articles".
+
 ## V4.47 — 2026-11-11
 - **Series articles now show their place in the series**, such as "FEED series · Part 1 of 3", so readers know where to start.
   - On cards: the label sits above the title on the Insights page, the home page and in related articles.
