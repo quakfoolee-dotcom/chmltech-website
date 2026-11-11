@@ -88,17 +88,17 @@ RANGES = [("Class 5", "Concept", 50, 100), ("Class 4", "Pre-FEED", 30, 50), ("Cl
 
 
 def fig_funnel():
-    X = lambda v: 190 + v * 11.2; s = ""
-    for v in (0, 10, 20, 30, 40):
+    X = lambda v: 190 + v * 2.24; s = ""
+    for v in (0, 50, 100, 150, 200):
         s += f'<line x1="{X(v)}" y1="28" x2="{X(v)}" y2="232" stroke="{LINE}"/>' + txt(X(v), 250, f"${v}M", "middle", MUTED, 12)
     for i, (c, st, lo, hi) in enumerate(RANGES):
-        y = 44 + i * 38; a, b = 20 * (1 - lo / 100), 20 * (1 + hi / 100)
+        y = 44 + i * 38; a, b = 100 * (1 - lo / 100), 100 * (1 + hi / 100)
         s += txt(10, y + 9, c, fill=NAVY, bold=True) + txt(70, y + 9, st, fill=MUTED, fs=12.5)
         s += f'<rect x="{X(a)}" y="{y - 6}" width="{X(b) - X(a):.1f}" height="22" rx="4" fill="{BLUE}" opacity="{0.45 + i * 0.12:.2f}"/>'
         s += txt(X(a) - 6, y + 9, f"${a:.0f}M", "end", NAVY, 12) + txt(X(b) + 6, y + 9, f"${b:.0f}M", "start", NAVY, 12)
-    s += f'<line x1="{X(20)}" y1="22" x2="{X(20)}" y2="232" stroke="{NAVY}" stroke-width="1.6" stroke-dasharray="5 4"/>' + txt(X(20), 16, "$20M estimate", "middle", NAVY, 12.5, True)
-    return svg("Range bars for a $20M estimate at each estimate class. Class 5 spans $10M to $40M, Class 4 $14M to $30M, Class 3 $16M to $26M, "
-               "Class 2 $17M to $24M and Class 1 $18M to $23M.", 720, 262, s)
+    s += f'<line x1="{X(100)}" y1="22" x2="{X(100)}" y2="232" stroke="{NAVY}" stroke-width="1.6" stroke-dasharray="5 4"/>' + txt(X(100), 16, "$100M estimate", "middle", NAVY, 12.5, True)
+    return svg("Range bars for a $100M estimate at each estimate class. Class 5 spans $50M to $200M, Class 4 $70M to $150M, Class 3 $80M to $130M, "
+               "Class 2 $85M to $120M and Class 1 $90M to $115M.", 720, 262, s)
 
 
 def fig_influence():
@@ -118,11 +118,11 @@ def fig_influence():
 
 
 def post1():
-    rows = "".join(f'<tr><td class="nw">{c}</td><td>{st}</td><td class="num">−{lo}% to +{hi}%</td><td class="num">${20 * (1 - lo / 100):.0f}M</td>'
-                   f'<td class="num">${20 * (1 + hi / 100):.0f}M</td><td class="num">${20 * (hi + lo) / 100:.0f}M</td></tr>' for c, st, lo, hi in RANGES)
+    rows = "".join(f'<tr><td class="nw">{c}</td><td>{st}</td><td class="num">−{lo}% to +{hi}%</td><td class="num">${100 * (1 - lo / 100):.0f}M</td>'
+                   f'<td class="num">${100 * (1 + hi / 100):.0f}M</td><td class="num">${100 * (hi + lo) / 100:.0f}M</td></tr>' for c, st, lo, hi in RANGES)
     return f"""{CSS}<p><em>Part 1 of 3 in the FEED series.</em></p>
 <p>Most of the cost of a process plant is fixed by decisions made on paper, long before any equipment is ordered. A stage-gate process puts those decisions in order. At each gate the owner asks one question and spends only enough to answer it.</p>
-<p>This series follows one example: a specialty chemical producer planning a new plant with a first estimate of $20M. This post covers the five stages. {L2} covers the design basis, and {L3} covers the FEED package.</p>
+<p>This series follows one example: a specialty chemical producer planning a new plant with a first estimate of $100M. This post covers the five stages. {L2} covers the design basis, and {L3} covers the FEED package.</p>
 <h2>The five stages</h2>
 <p>Companies use different names for the stages, but the sequence is the same. The first three are called front-end loading (FEL). FEED stands for front-end engineering design and is the last of them.</p>
 {fig(fig_stages(), 1, "The five stages and the gates between them. The largest commitment is made at the gate after FEED.")}
@@ -138,16 +138,16 @@ def post1():
 <p>Each gate has three possible outcomes: proceed, go back and rework, or stop. A project that stops at Gate 1 or Gate 2 has done its job. It cost little and prevented a larger loss.</p>
 <h2>How accurate is the estimate at each stage?</h2>
 <p>An estimate can only be as accurate as the design behind it. AACE International groups estimates into five classes by how much of the project is defined. Class 5 is the roughest and Class 1 is the most detailed. The ranges below are the widest typical values for process plants.</p>
-<p class="oee-cap">Table 2. Estimate classes applied to a $20M estimate</p>
+<p class="oee-cap">Table 2. Estimate classes applied to a $100M estimate</p>
 <table>
 <tr><th>Class</th><th>Stage</th><th class="num">Typical accuracy</th><th class="num">Low</th><th class="num">High</th><th class="num">Spread</th></tr>
 {rows}
 </table>
-{fig(fig_funnel(), 2, "The same $20M estimate at each class. The range is wider on the high side, because estimates miss scope more often than they add it.")}
+{fig(fig_funnel(), 2, "The same $100M estimate at each class. The range is wider on the high side, because estimates miss scope more often than they add it.")}
 <p>Two points follow from the table.</p>
 <ul>
-<li><strong>A Class 5 number is a screening figure.</strong> A $20M concept estimate means the plant will probably cost between $10M and $40M. It is enough to decide whether to study the project. It is too wide to set a budget.</li>
-<li><strong>Class 3 is the usual basis for approval.</strong> After FEED, the range narrows to about $16M to $26M. Most owners and lenders take the final investment decision at this point. For more on how these estimates are built, see <a href="{CAPEX}.html">Engineering CAPEX and OPEX Estimation for Process Plants</a>.</li>
+<li><strong>A Class 5 number is a screening figure.</strong> A $100M concept estimate means the plant will probably cost between $50M and $200M. It is enough to decide whether to study the project. It is too wide to set a budget.</li>
+<li><strong>Class 3 is the usual basis for approval.</strong> After FEED, the range narrows to about $80M to $130M. Most owners and lenders take the final investment decision at this point. For more on how these estimates are built, see <a href="{CAPEX}.html">Engineering CAPEX and OPEX Estimation for Process Plants</a>.</li>
 </ul>
 <h2>Why the early stages matter most</h2>
 <p>Early decisions are cheap to change and affect almost everything. A change of process route at the concept stage costs a few days of study. The same change during construction means scrapped equipment and rework.</p>
@@ -155,15 +155,15 @@ def post1():
 <p>By the final investment decision, the owner has spent a few percent of the project cost and has already fixed most of the final cost. Front-end work is therefore the least expensive place to reduce cost and risk.</p>
 <h2>How much to spend before committing</h2>
 <p>A common rule of thumb is that front-end work costs 3% to 5% of the installed cost, with FEED as the largest part. The percentages run higher on small or first-of-a-kind projects.</p>
-<p class="oee-cap">Table 3. Typical front-end spend for the $20M example</p>
+<p class="oee-cap">Table 3. Typical front-end spend for the $100M example</p>
 <table>
 <tr><th>Stage</th><th class="num">Share of installed cost</th><th class="num">Spend</th><th>What the money buys</th></tr>
-<tr><td class="nw">1. Concept</td><td class="num">0.25% to 0.5%</td><td class="num">$50,000 to $100,000</td><td>A decision to study the project or drop it</td></tr>
-<tr><td class="nw">2. Pre-FEED</td><td class="num">0.5% to 1%</td><td class="num">$100,000 to $200,000</td><td>One selected option and a design basis</td></tr>
-<tr><td class="nw">3. FEED</td><td class="num">2% to 3%</td><td class="num">$400,000 to $600,000</td><td>A defined plant, a Class 3 estimate and an execution plan</td></tr>
-<tr class="oee-total"><td>Total before approval</td><td class="num">2.75% to 4.5%</td><td class="num">$550,000 to $900,000</td><td></td></tr>
+<tr><td class="nw">1. Concept</td><td class="num">0.25% to 0.5%</td><td class="num">$250,000 to $500,000</td><td>A decision to study the project or drop it</td></tr>
+<tr><td class="nw">2. Pre-FEED</td><td class="num">0.5% to 1%</td><td class="num">$500,000 to $1,000,000</td><td>One selected option and a design basis</td></tr>
+<tr><td class="nw">3. FEED</td><td class="num">2% to 3%</td><td class="num">$2,000,000 to $3,000,000</td><td>A defined plant, a Class 3 estimate and an execution plan</td></tr>
+<tr class="oee-total"><td>Total before approval</td><td class="num">2.75% to 4.5%</td><td class="num">$2,750,000 to $4,500,000</td><td></td></tr>
 </table>
-<p>Compare that with the estimate range. Moving from Class 4 to Class 3 narrows the spread from $16M to $10M. The owner pays about $0.5M for FEED and removes $6M of uncertainty before committing $20M.</p>
+<p>Compare that with the estimate range. Moving from Class 4 to Class 3 narrows the spread from $80M to $50M. The owner pays about $2.5M for FEED and removes $30M of uncertainty before committing $100M.</p>
 <h2>Four common mistakes</h2>
 <ul>
 <li><strong>Skipping pre-FEED.</strong> The team designs the first option in detail and never compares it with the alternatives.</li>
@@ -172,8 +172,8 @@ def post1():
 <li><strong>Ordering equipment before the P&amp;IDs are frozen.</strong> Long-lead items bought early often need modification after the hazard review.</li>
 </ul>
 <h2>What smaller projects can do</h2>
-<p>A $2M project does not need five formal gates. Stages can be combined, and concept and pre-FEED often become one study. The questions should still be answered in the same order: business case, option, definition, then money.</p>
-<div class="oee-takeaway"><p><strong>Takeaway.</strong> Spend in stages and match the decision to the accuracy of the estimate. On a $20M plant, about $0.5M to $0.9M of front-end work takes the estimate from a range of $10M to $40M down to $16M to $26M.</p></div>
+<p>A $5M project does not need five formal gates. Stages can be combined, and concept and pre-FEED often become one study. The questions should still be answered in the same order: business case, option, definition, then money.</p>
+<div class="oee-takeaway"><p><strong>Takeaway.</strong> Spend in stages and match the decision to the accuracy of the estimate. On a $100M plant, about $2.75M to $4.5M of front-end work takes the estimate from a range of $50M to $200M down to $80M to $130M.</p></div>
 <div class="oee-next"><a class="oee-fwd" href="{S2}.html">Next: Post&nbsp;2, the design basis →</a></div>
 {NOTE}"""
 
@@ -227,7 +227,7 @@ def post2():
                   f'<td class="num">{"Base" if h == 8000 else f"+{(COSTF(h) - 1) * 100:.0f}%"}</td></tr>' for h, lab in HOURS)
     return f"""{CSS}<p><em>Part 2 of 3 in the FEED series.</em></p>
 <p>The design basis is a short document, usually 10 to 20 pages. It records the decisions that every other engineering document depends on. If one of them changes later, the change runs through the whole design.</p>
-<p>{L1} set out the five project stages. The design basis is drafted in pre-FEED and frozen at the start of FEED. This post lists the ten decisions it should contain, using the same $20M specialty chemical plant.</p>
+<p>{L1} set out the five project stages. The design basis is drafted in pre-FEED and frozen at the start of FEED. This post lists the ten decisions it should contain, using the same $100M specialty chemical plant.</p>
 <h2>The ten decisions</h2>
 <p class="oee-cap">Table 1. The ten decisions in a design basis</p>
 <table>
@@ -284,8 +284,8 @@ def post2():
 
 
 # ───────────────────────── Post 3: the FEED package ─────────────────────────
-BUILD = [("Equipment", 6.0, BLUE), ("Bulk materials", 3.0, "#7FB2CF"), ("Construction labour", 4.5, PURPLE),
-         ("Engineering and project management", 2.5, GREEND), ("Owner's and other indirect costs", 2.0, ORANGE), ("Contingency", 2.0, RED)]
+BUILD = [("Equipment", 30.0, BLUE), ("Bulk materials", 15.0, "#7FB2CF"), ("Construction labour", 22.5, PURPLE),
+         ("Engineering and project management", 12.5, GREEND), ("Owner's and other indirect costs", 10.0, ORANGE), ("Contingency", 10.0, RED)]
 
 
 def fig_flow():
@@ -319,8 +319,8 @@ def fig_build():
     for i, (n, v, c) in enumerate(BUILD):
         cx = 20 + (i % 2) * 350; cy = 96 + (i // 2) * 26
         s += f'<rect x="{cx}" y="{cy - 11}" width="12" height="12" rx="2" fill="{c}"/>' + txt(cx + 20, cy, f"{n}: ${v:g}M ({v / tot * 100:g}%)", fill=NAVY, fs=12.5)
-    return svg("Stacked bar of a $20M estimate: equipment $6M, bulk materials $3M, construction labour $4.5M, engineering and project management $2.5M, "
-               "owner's and other indirect costs $2M and contingency $2M.", 720, 164, s)
+    return svg("Stacked bar of a $100M estimate: equipment $30M, bulk materials $15M, construction labour $22.5M, engineering and project management $12.5M, "
+               "owner's and other indirect costs $10M and contingency $10M.", 720, 164, s)
 
 
 def post3():
@@ -343,7 +343,7 @@ def post3():
         "Planned hours by discipline", "Permits, spares, commissioning, owner's team", "Set from the risk register"]))
     return f"""{CSS}<p><em>Part 3 of 3 in the FEED series.</em></p>
 <p>FEED, or front-end engineering design, turns a selected concept into a defined plant. It ends with a package of documents that an owner can approve, a lender can review and a contractor can bid on.</p>
-<p>{L1} placed FEED as the third of five project stages. {L2} covered the design basis that FEED starts from. This post goes through what the package contains, using the same $20M specialty chemical plant.</p>
+<p>{L1} placed FEED as the third of five project stages. {L2} covered the design basis that FEED starts from. This post goes through what the package contains, using the same $100M specialty chemical plant.</p>
 <h2>What FEED has to produce</h2>
 <p>A FEED package answers three questions.</p>
 <ul>
@@ -367,14 +367,14 @@ def post3():
 <tr><th></th><th>Process flow diagram (PFD)</th><th>Piping and instrumentation diagram (P&amp;ID)</th></tr>
 <tr><td class="nw">Purpose</td><td>Shows how the process works</td><td>Shows how the plant is built and controlled</td></tr>
 <tr><td class="nw">Shows</td><td>Main equipment, main streams, key operating conditions</td><td>Every line, valve, instrument, control loop and relief device</td></tr>
-<tr><td class="nw">Typical count</td><td class="nw">5 to 10 sheets</td><td class="nw">30 to 60 sheets</td></tr>
+<tr><td class="nw">Typical count</td><td class="nw">10 to 20 sheets</td><td class="nw">80 to 150 sheets</td></tr>
 <tr><td class="nw">Used for</td><td>Heat and material balance, equipment sizing</td><td>Hazard review, cost estimate, construction, operation</td></tr>
 <tr><td class="nw">Owner should check</td><td>Capacity, feeds and products match the design basis</td><td>Operators can start, stop, isolate and maintain each item</td></tr>
 </table>
 <p>The sheet counts are for a plant of the example's size. The P&amp;IDs are the most important drawings in the package, because the hazard review, the estimate and the construction scope are all taken from them.</p>
 <h2>How the Class 3 estimate is built</h2>
 <p>A Class 3 estimate is built up from the documents and is no longer factored from a single number. Each line has a source in the package.</p>
-{fig(fig_build(), 2, "Illustrative build-up of the $20M estimate for the example plant.")}
+{fig(fig_build(), 2, "Illustrative build-up of the $100M estimate for the example plant.")}
 <p class="oee-cap">Table 3. Estimate build-up and the source of each line</p>
 <table>
 <tr><th>Cost element</th><th class="num">Amount</th><th class="num">Share</th><th>Where the number comes from</th></tr>

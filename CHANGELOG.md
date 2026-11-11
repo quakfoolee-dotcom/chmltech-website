@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.43 — 2026-11-11
+- **FEED series: the worked example is now a $100M plant (was $20M).** All derived figures were scaled to match across the three articles.
+  - Post 1: estimate ranges by class ($50M to $200M at Class 5, down to $90M to $115M at Class 1), Figure 2, and front-end spend ($2.75M to $4.5M before approval). The small-project example is now $5M (was $2M).
+  - Post 3: the estimate build-up (equipment $30M of $100M) in Figure 2 and Table 3. Typical sheet counts raised to 10 to 20 PFDs and 80 to 150 P&IDs for a plant of this size.
+- Percentages, accuracy ranges, plant capacity (5,000 t/y) and the design basis example are unchanged.
+
 ## V4.42 — 2026-11-11
 - **Home page: the "Latest insights" section now shows the three FEED articles**, in reading order, in place of the Physical AI papers.
 - The section heading is now "From Chmltech Insights" (was "From the Chmltech journal"), since the articles shown are not journal papers. The button reads "All 151 articles" (was 140).
