@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.42 — 2026-11-11
+- **Home page: the "Latest insights" section now shows the three FEED articles**, in reading order, in place of the Physical AI papers.
+- The section heading is now "From Chmltech Insights" (was "From the Chmltech journal"), since the articles shown are not journal papers. The button reads "All 151 articles" (was 140).
+
 ## V4.41 — 2026-11-11
 - **New Insights series: FEED (three articles), the first written for the Process Engineering category.** Insights now lists 151 articles, with 8 under Process Engineering.
   - `post/from-concept-to-construction-five-stages-of-a-process-plant-project`: the five project stages and gates, estimate accuracy by AACE class on a $20M example, and typical front-end spend.
