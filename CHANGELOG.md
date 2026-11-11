@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.46 — 2026-11-11
+- **FEED articles: every figure now fills the full width of the text column**, so figures line up with the tables and paragraphs. Each drawing is cropped to its content and scales with the column. The blank margins at the left and right of the seven figures are gone.
+
 ## V4.45 — 2026-11-11
 - **FEED and OEE articles: every table now fills the full width of the text column.** Narrow tables, such as the estimate classes table, used to stop short and leave a blank gap on the right. They now line up with the paragraphs and figures. Wide tables still scroll sideways on small screens.
 - The rule is in `assets/css/oee.css`; the six articles load it as `oee.css?v=4.45` so returning visitors get it without a manual refresh.

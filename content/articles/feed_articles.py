@@ -23,9 +23,10 @@ NOTE = ('<p class="oee-note"><em>The plant, its capacity and its costs in this s
         'The ranges and percentages are typical industry values and do not replace an estimate prepared for your project.</em></p>')
 
 
-def svg(label, w, h, inner, minw=560):
-    return (f'<svg role="img" aria-label="{label}" viewBox="0 0 {w} {h}" width="{w}" '
-            f'style="max-width:100%;height:auto;display:block;margin:0 auto;min-width:{minw}px" '
+def svg(label, w, h, inner, minw=560, x0=0):
+    """x0 and w crop the drawing to its content, and the SVG fills the text column, so figures line up with tables."""
+    return (f'<svg role="img" aria-label="{label}" viewBox="{x0} 0 {w} {h}" '
+            f'style="width:100%;height:auto;display:block;min-width:{minw}px" '
             f'xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13">{inner}</svg>')
 
 
@@ -80,7 +81,7 @@ def fig_stages():
     s += f'<path d="M10,176 v8 h432 v-8" fill="none" stroke="{BLUE}" stroke-width="1.5"/>' + txt(226, 204, "Front-end loading: decide what to build", "middle", BLUE, 13, True)
     s += f'<path d="M472,176 v8 h278 v-8" fill="none" stroke="{MUTED}" stroke-width="1.5"/>' + txt(611, 204, "Execution: build it", "middle", MUTED, 13, True)
     return svg("Five project stages in a row: concept, pre-FEED, FEED, detailed design with purchasing and construction, and commissioning. "
-               "A gate follows each of the first four stages. The gate after FEED is the final investment decision.", 760, 216, s, 640)
+               "A gate follows each of the first four stages. The gate after FEED is the final investment decision.", 742, 216, s, 640, x0=9)
 
 
 RANGES = [("Class 5", "Concept", 50, 100), ("Class 4", "Pre-FEED", 30, 50), ("Class 3", "FEED", 20, 30),
@@ -98,7 +99,7 @@ def fig_funnel():
         s += txt(X(a) - 6, y + 9, f"${a:.0f}M", "end", NAVY, 12) + txt(X(b) + 6, y + 9, f"${b:.0f}M", "start", NAVY, 12)
     s += f'<line x1="{X(100)}" y1="22" x2="{X(100)}" y2="232" stroke="{NAVY}" stroke-width="1.6" stroke-dasharray="5 4"/>' + txt(X(100), 16, "$100M estimate", "middle", NAVY, 12.5, True)
     return svg("Range bars for a $100M estimate at each estimate class. Class 5 spans $50M to $200M, Class 4 $70M to $150M, Class 3 $80M to $130M, "
-               "Class 2 $85M to $120M and Class 1 $90M to $115M.", 720, 262, s)
+               "Class 2 $85M to $120M and Class 1 $90M to $115M.", 680, 262, s, x0=10)
 
 
 def fig_influence():
@@ -114,7 +115,7 @@ def fig_influence():
     s += f'<path d="M60,250 C150,250 300,248 438,{Y(4.5):.1f} C500,{Y(8):.1f} 560,{Y(85):.1f} 690,30" fill="none" stroke="{ORANGE}" stroke-width="3"/>'
     s += txt(250, 78, "Ability to change the cost", fill=BLUE, bold=True) + txt(520, 200, "Money spent", fill=ORANGE, bold=True)
     return svg("Two curves across the five project stages. The ability to change the final cost starts near 100% and falls to about 20% by the "
-               "final investment decision. Cumulative spending stays under 5% until that decision, then rises steeply during design and construction.", 720, 282, s)
+               "final investment decision. Cumulative spending stays under 5% until that decision, then rises steeply during design and construction.", 676, 282, s, x0=17)
 
 
 def post1():
@@ -196,7 +197,7 @@ def fig_rate():
         s += txt(x + 45, Y(r) - 8, f"{r:,.0f} kg/h", "middle", NAVY, 13, True)
         s += txt(x + 45, 250, f"{h:,} h/y", "middle", NAVY, 12.5, True) + txt(x + 45, 267, SHORT[i], "middle", MUTED, 11.5)
     return svg("Bar chart of the design rate needed to make 50,000 tonnes a year at four operating schedules: 6,250 kg/h at 8,000 hours, "
-               "7,143 kg/h at 7,000 hours, 8,333 kg/h at 6,000 hours and 12,500 kg/h at 4,000 hours.", 720, 278, s)
+               "7,143 kg/h at 7,000 hours, 8,333 kg/h at 6,000 hours and 12,500 kg/h at 4,000 hours.", 686, 278, s, x0=15)
 
 
 def fig_ripple():
@@ -208,7 +209,7 @@ def fig_ripple():
         s += box(470, y, 170, 44, o, fill=SAND, stroke=LINE, fs=12.5, bold=False)
         s += f'<path d="M380,145 C425,145 425,{y + 22} 468,{y + 22}" fill="none" stroke="{NAVY}" stroke-width="1.4" marker-end="url(#ah)"/>'
     return svg("The design basis feeds the heat and material balance, which in turn feeds five groups of documents: PFDs and P&IDs, equipment sizes "
-               "and datasheets, utility loads, plot plan and layout, and the cost estimate and schedule.", 660, 292, s, 520)
+               "and datasheets, utility loads, plot plan and layout, and the cost estimate and schedule.", 622, 292, s, 520, x0=19)
 
 
 def post2():
@@ -307,7 +308,7 @@ def fig_flow():
     s += txt(556, 29, "actions", "middle", MUTED, 11.5)
     return svg("Three tiers of FEED documents. The process tier runs from the design basis through the heat and material balance and PFDs to the P&IDs "
                "and the hazard review, whose actions feed back into the P&IDs. The plant tier holds the equipment list, plot plan, electrical and instrument "
-               "lists and vendor quotations. The project tier holds the Class 3 estimate, schedule, execution plan and risk register.", 760, 306, s, 640)
+               "lists and vendor quotations. The project tier holds the Class 3 estimate, schedule, execution plan and risk register.", 722, 306, s, 640, x0=9)
 
 
 def fig_build():
@@ -317,10 +318,10 @@ def fig_build():
         s += f'<rect x="{x:.1f}" y="20" width="{w:.1f}" height="46" fill="{c}"/>' + txt(x + w / 2, 48, f"${v:g}M", "middle", "#fff", 13, True)
         x += w
     for i, (n, v, c) in enumerate(BUILD):
-        cx = 20 + (i % 2) * 350; cy = 96 + (i // 2) * 26
+        cx = 20 + (i % 2) * 330; cy = 96 + (i // 2) * 26
         s += f'<rect x="{cx}" y="{cy - 11}" width="12" height="12" rx="2" fill="{c}"/>' + txt(cx + 20, cy, f"{n}: ${v:g}M ({v / tot * 100:g}%)", fill=NAVY, fs=12.5)
     return svg("Stacked bar of a $100M estimate: equipment $30M, bulk materials $15M, construction labour $22.5M, engineering and project management $12.5M, "
-               "owner's and other indirect costs $10M and contingency $10M.", 720, 164, s)
+               "owner's and other indirect costs $10M and contingency $10M.", 680, 164, s, x0=20)
 
 
 def post3():
