@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.31** (see `CHANGELOG.md`).
+Version: **V4.32** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -63,7 +63,7 @@ The email address is never written into the page source, so address-harvesting b
 
 ## Article downloads (leads)
 
-- A download offered from an article (for example the inventory template in `assets/downloads/`) uses the same form as the journal PDFs: `assets/js/download.js` plus a `<dialog id="dl">` in the article body. Leads arrive with the subject "<data-ref> download — Name".
+- A download offered from an article (for example the inventory template in `assets/downloads/`) uses the same form as the journal PDFs: `assets/js/download.js`, `assets/css/download.css` and a `<dialog id="dl">` in the article body. Leads arrive with the subject "<data-ref> download — Name".
 - To change the wording or the file, edit `DL_FORM` and `tpl_box` in `content/articles/inventory_articles.py` and rebuild the articles.
 - These submissions count toward the same Web3Forms monthly limit.
 

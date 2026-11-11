@@ -27,7 +27,8 @@ TPL_NAME = "Chmltech_Inventory_ABC_SafetyStock_Template.xlsx"
 def tpl_box(line):
     """Download box for the template. The button opens the lead-capture form (assets/js/download.js);
     without JavaScript it is a plain download link."""
-    return ('<div class="j-dl-box"><div><strong>Free Excel template</strong>'
+    return ('<link rel="stylesheet" href="../assets/css/download.css">'
+            '<div class="j-dl-box"><div><strong>Free Excel template</strong>'
             f'<span>{line}</span></div><a class="btn" href="{TPL}" data-dl download>Download template</a></div>')
 
 

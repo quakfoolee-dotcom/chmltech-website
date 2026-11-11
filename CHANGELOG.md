@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.32 — 2026-11-11
+- **Fixed: the template download box and form could appear unstyled.** A browser that had visited the site before V4.31 kept its saved copy of `styles.css`, which lacked the new form styles: the box text ran together and the form filled the screen with a full-width close button.
+- The styles now live in their own file, `assets/css/download.css`, linked from the four inventory articles, so they load whatever copy of `styles.css` the browser holds. They are removed from `styles.css`.
+
 ## V4.31 — 2026-11-11
 - **The inventory template now downloads through a short form**, like the journal PDFs. The four inventory articles show a "Free Excel template" box; its button asks for name, work email, company (optional) and an updates checkbox, then starts the download.
   - Leads arrive by email with the subject "Inventory template download — Name".
