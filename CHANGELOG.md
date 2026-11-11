@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.27 — 2026-11-11
+- **New Insights article: BDC's LIFT Program: Who Qualifies and How to Prepare.** It covers the two LIFT paths (digital transformation and AI; productivity and digitally enabled equipment), the minimum requirements for each, the Canadian supplier rule, what each plan must contain, how to apply and how to prepare. It includes a decision diagram and four tables. Filed under Digital Technology and Artificial Intelligence. Insights now lists 141 articles.
+- **Facts about LIFT** (revenue thresholds, eligible sectors, loan sizes, terms) come from BDC's three program pages as read on 11 November 2026. The launch date, program size and the 2.25% rate come from BetaKit's launch report; BDC's pages do not publish a rate. The article says so and tells readers to confirm terms with BDC.
+- The article carries a note that it is general information, that Chmltech does not speak for BDC, and that BDC decides eligibility and approval.
+- New build step `content/gen/add_article.py <slug>`: adds one article from `content/articles/<slug>.json` without a full rebuild. It writes the post page, draws the cover and thumbnail, adds the card to `insights.html`, raises the article counts and updates `sitemap.xml`.
+
 ## V4.26 — 2026-11-09
 - Projects page: removed the footnote under the track-record charts (data basis and the advisory project count). The province chart keeps its "where the location is known" label.
 - Commits are now authored as Quak Foo Lee with the GitHub private noreply address.

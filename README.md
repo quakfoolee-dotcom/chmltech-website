@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.26** (see `CHANGELOG.md`).
+Version: **V4.27** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -68,9 +68,11 @@ The email address is never written into the page source, so address-harvesting b
 
 ## Adding a new article
 
-1. Copy any file in `post/` and rename it with the new article's slug.
-2. Replace the title, date, body and meta description.
-3. Add a card for it at the top of the list in `insights.html` (copy an existing `<article class="article">` block).
+1. Write `content/articles/<slug>.json` (copy an existing one: title, description, categories, tags, body HTML, date, author, read time).
+2. Run `python3 content/gen/add_article.py <slug>`. It writes `post/<slug>.html`, draws the cover, adds the card at the top of `insights.html`, raises the article counts and updates `sitemap.xml`.
+3. Add an entry to `CHANGELOG.md`.
+
+To do it by hand instead: copy any file in `post/`, replace the title, date, body and meta description, then add a card at the top of the list in `insights.html`.
 
 ## Leaving Wix: checklist
 
