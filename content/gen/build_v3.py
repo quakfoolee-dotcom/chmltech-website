@@ -30,9 +30,9 @@ for a, b in [
     ('SERVICE_OPTIONS = ["AI Readiness &amp; AI Strategy"', 'SERVICE_OPTIONS = ["Corporate Strategy session (1 hr, CA$450)","Operational Consulting session (1 hr, CA$350)","Project Management session (1 hr, CA$250)","AI Readiness &amp; AI Strategy"'),
     ('<span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved.</span>', '<span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="privacy.html">Privacy</a></span>'),
     (r'f.write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")', r'f.write(f"User-agent: *\nAllow: /\nDisallow: /assets/journal/pdf/\nSitemap: {SITE_URL}/sitemap.xml\n")'),
-    ('<a href="courses.html">Courses</a>\n      <a href="insights.html">Insights</a>', '<a href="courses.html">Free courses</a>\n      <a href="training.html">Free practice exams</a>\n      <a href="insights.html">Insights</a>\n      <a href="funding.html">Funding finder</a>\n      <a href="projects.html">Projects</a>'),
+    ('<a href="courses.html">Courses</a>\n      <a href="insights.html">Insights</a>', '<a href="courses.html">Free courses</a>\n      <a href="training.html">Free practice exams</a>\n      <a href="insights.html">Insights</a>\n      <a href="funding.html">Funding finder</a>\n      <a href="projects.html">Projects</a>\n      <a href="about.html">About Chmltech</a>'),
     # V4.27: funding finder in the primary navigation
-    ('("courses.html","Courses"),("contact.html","Contact")]', '("courses.html","Courses"),("funding.html","Funding"),("contact.html","Contact")]'),
+    ('("courses.html","Courses"),("contact.html","Contact")]', '("courses.html","Courses"),("funding.html","Funding"),("about.html","About"),("contact.html","Contact")]'),  # V4.37: About in the menu
 ]:
     assert a in src, a
     src = src.replace(a, b)
@@ -44,7 +44,7 @@ INDUSTRIES, SOLUTIONS, CORE, steps_html = ns["INDUSTRIES"], ns["SOLUTIONS"], ns[
 FORM_ENDPOINT, SITE_URL = ns["FORM_ENDPOINT"], ns["SITE_URL"]
 esc = lambda s: H.escape(s or "", quote=True)
 
-ALL_PAGES = ["", "industries.html", "solutions.html", "training.html", "insights.html", "courses.html", "book.html", "contact.html"]
+ALL_PAGES = ["", "industries.html", "solutions.html", "training.html", "insights.html", "courses.html", "book.html", "contact.html", "about.html"]
 
 def sub_page(fname, *a, **kw):
     """page() for files in sub-folders: rewrite relative links with ../ prefixes."""

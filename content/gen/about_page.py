@@ -1,0 +1,144 @@
+"""About page (about.html): Chmltech and its CEO, Quak Foo Lee.
+
+Stand-alone: run `python3 content/gen/about_page.py`. It takes the shared header from
+contact.html and the call-to-action and footer from ai-operating-system.html, so run it
+after any change to the site menu or footer. Portrait: assets/img/quak-foo-lee.jpg.
+"""
+import os, re
+site = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..") + os.sep
+c=open(site+'contact.html').read()
+a=open(site+'ai-operating-system.html').read()
+head=c[:c.index('<main id="main">')]
+tail=a[a.index('<section class="cta">'):]
+desc="Meet Quak Foo Lee, CEO and Principal Consultant of Chmltech Ltd. in Vancouver: a chemical engineer and Lean Six Sigma Black Belt who helps Canadian businesses improve operations with AI and digital tools."
+head=head.replace('Contact | Chmltech Ltd.','About | Chmltech Ltd.')
+head=re.sub(r'(name="description" content=")[^"]*',r'\g<1>'+desc,head)
+head=re.sub(r'(og:description" content=")[^"]*',r'\g<1>'+desc,head)
+head=head.replace('https://www.chmltech.com/contact.html','https://www.chmltech.com/about.html')
+head=head.replace('https://www.chmltech.com/assets/img/chmltech-mark.png','https://www.chmltech.com/assets/img/quak-foo-lee.jpg')
+head=head.replace(' aria-current="page"','')
+main='''<main id="main">
+<style>
+.ab-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:64px;align-items:center}
+.ab-photo{margin:0;position:relative;max-width:400px;justify-self:end;width:100%}
+.ab-photo img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 30px 60px -28px rgba(0,0,0,.7)}
+.ab-frame{display:block;position:relative}
+.ab-frame::before{content:"";position:absolute;inset:18px -18px -18px 18px;border:2px solid var(--green);border-radius:14px;opacity:.75}
+.ab-photo img{position:relative}
+.ab-photo figcaption{margin-top:38px;font-size:14.5px;color:var(--on-dark)}
+.ab-photo figcaption strong{display:block;font-family:var(--font-head);font-size:19px;color:#fff;font-weight:600}
+.ab-bio{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:start}
+.ab-bio .prose p{font-size:17.5px;line-height:1.7;margin:0 0 18px}
+.ab-facts{display:grid;gap:0;border-top:1px solid var(--line);margin:0;padding:0;list-style:none}
+.ab-facts li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.ab-facts span{color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:12.5px;padding-top:3px}
+.ab-facts li{grid-template-columns:120px 1fr}
+.ab-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ab-stats div{padding:28px 24px 28px 0;display:flex;flex-direction:column;gap:6px}
+.ab-stats div+div{padding-left:24px;border-left:1px solid var(--line)}
+.ab-stats strong{font-family:var(--font-head);font-size:38px;line-height:1;color:var(--navy);font-weight:600}
+.ab-stats span{font-size:14.5px;color:var(--muted)}
+.ab-time{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.ab-time li{display:grid;grid-template-columns:150px minmax(0,.9fr) minmax(0,1.6fr);gap:28px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+.ab-time b{font-family:var(--font-head);font-size:15px;color:var(--blue);font-weight:600;letter-spacing:.02em;padding-top:3px}
+.ab-time h3{font-size:19px;margin:0 0 4px}
+.ab-time .where{font-size:14.5px;color:var(--muted);margin:0}
+.ab-time p{margin:0;font-size:16px;line-height:1.6}
+.ab-creds{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ab-creds ul{margin:10px 0 0;padding-left:18px;font-size:15.5px;line-height:1.55;color:var(--body)}
+.ab-creds li{margin-bottom:6px}
+@media (max-width:900px){.ab-stats{grid-template-columns:1fr 1fr}.ab-stats div:nth-child(3){padding-left:0;border-left:0}.ab-stats div:nth-child(n+3){border-top:1px solid var(--line)}.ab-time li{grid-template-columns:1fr;gap:8px}.ab-creds{grid-template-columns:1fr}}
+@media (max-width:900px){.ab-hero,.ab-bio{grid-template-columns:1fr;gap:40px}.ab-photo{justify-self:start;max-width:320px}}
+</style>
+<section class="page-hero dark">
+  <div class="container ab-hero">
+    <div class="stack-lg">
+      <p class="crumbs"><a href="index.html">Home</a> / About</p>
+      <p class="eyebrow">About Chmltech</p>
+      <h1 class="h-xl">An engineer&#39;s approach to running a better business.</h1>
+      <p class="lead">Chmltech Ltd. is a Vancouver technology and management consulting firm, founded and led by Quak Foo Lee. We help Canadian small and medium-sized businesses improve how they operate, using process work, digital tools and AI.</p>
+      <div class="btn-row"><a class="btn" href="book.html">Book a Strategy Call</a><a class="btn btn-ghost-dark" href="projects.html">See our projects</a></div>
+    </div>
+    <figure class="ab-photo">
+      <span class="ab-frame"><img src="assets/img/quak-foo-lee.jpg" srcset="assets/img/quak-foo-lee-432.jpg 432w, assets/img/quak-foo-lee.jpg 864w" sizes="(max-width:900px) 320px, 400px" width="864" height="1080" alt="Portrait of Quak Foo Lee, CEO and Principal Consultant of Chmltech Ltd."></span>
+      <figcaption><strong>Quak Foo Lee</strong>CEO and Principal Consultant, Chmltech Ltd.</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="section"><div class="container ab-bio">
+  <div class="stack-lg">
+    <p class="eyebrow">Meet our CEO</p>
+    <h2 class="h-lg">Quak Foo Lee</h2>
+    <ul class="ab-facts">
+      <li><span>Title</span>CEO and Principal Consultant</li>
+      <li><span>Education</span>MASc, Chemical and Biological Engineering, University of British Columbia<br>Executive MBA, Strategic Leadership</li>
+      <li><span>Credentials</span>Lean Six Sigma Black Belt<br>Financial Modeling and Valuation Analyst (FMVA)</li>
+      <li><span>Languages</span>English, Mandarin, Cantonese</li>
+      <li><span>Based in</span>Vancouver, British Columbia</li>
+    </ul>
+  </div>
+  <div class="prose">
+    <p>Quak Foo Lee founded Chmltech in 2008. He is a chemical engineer with more than 15 years of experience across chemical engineering, business management and AI consulting.</p>
+    <p>He spent the first part of his career in process plants. He built and expanded a biodiesel plant, managed a pilot plant that turned biomass sugars into bio-glycols, and scaled up the production of quantum dots and graphene oxide from the lab bench to pilot scale. Along the way he ran operations, quality and safety programs, and hired and trained plant teams.</p>
+    <p>Process engineering teaches a simple habit: understand how the work flows before you change it. Quak now applies that habit to business operations. He maps how a company really works, finds where time and money are lost, and then recommends the systems, automation or AI that fix the cause.</p>
+    <p>Since 2019 he has advised Canadian small and medium-sized businesses on operational efficiency and digital technology, and he has delivered more than 300 Digital Adoption Plans. He also trains teams in Lean Six Sigma at Yellow, Green and Black Belt level.</p>
+    <p>Quak is now completing a Master of Science in AI Engineering. He writes the articles on the <a href="insights.html">Insights</a> page and builds the free <a href="courses.html">courses</a> and <a href="training.html">practice exams</a> on this site.</p>
+  </div>
+</div>
+<div class="container" style="margin-top:72px">
+  <div class="ab-stats">
+    <div><strong>2008</strong><span>Chmltech founded</span></div>
+    <div><strong>300+</strong><span>Digital Adoption Plans for Canadian SMEs</span></div>
+    <div><strong>1,000+</strong><span>days without a safety incident at a pilot plant he managed</span></div>
+    <div><strong>5 + 1</strong><span>technical publications and one patent</span></div>
+  </div>
+</div></section>
+<section class="section white"><div class="container">
+  <div class="stack" style="max-width:720px;margin-bottom:40px"><p class="eyebrow">Career</p><h2 class="h-lg">From the plant floor to the boardroom.</h2></div>
+  <ol class="ab-time">
+    <li><b>2019 to today</b><div><h3>Business and digital advisor</h3><p class="where">Canadian small and medium-sized businesses</p></div><p>Advises owners on operational efficiency, digital technology and AI. Delivered more than 300 Digital Adoption Plans. Teaches Lean Six Sigma and coaches executives.</p></li>
+    <li><b>2017 to 2022</b><div><h3>Process engineering leader</h3><p class="where">Hydrogen storage and advanced materials, BC</p></div><p>Designed the scale-up of graphene oxide production for hydrogen storage and cut water use in the process by more than 30%. Later returned as Director of Process Engineering.</p></li>
+    <li><b>2019 to 2021</b><div><h3>Engineering, quality and operations roles</h3><p class="where">Extraction and food processing, BC</p></div><p>Led engineering and quality management for an extraction company, and served as Vice President of Operations for a freeze-dried food producer.</p></li>
+    <li><b>2016 to 2017</b><div><h3>Director, Engineering and Research</h3><p class="where">Quantum dot materials, Vancouver</p></div><p>Built the engineering and research team, and designed the 10-times and 100-times scale-up of quantum dot production from bench to pilot batch.</p></li>
+    <li><b>2012 to 2016</b><div><h3>Plant Manager and R&amp;D Chemical Engineer</h3><p class="where">Bio-glycols pilot plant, Vancouver</p></div><p>Managed a pilot plant worth more than C$10 million and a team of over 20. The plant ran for more than 1,000 days without a safety or health incident. Introduced 5S, Kaizen and statistical process control.</p></li>
+    <li><b>2008 to 2012</b><div><h3>Vice President of Production</h3><p class="where">Biodiesel producer, BC</p></div><p>Built a biodiesel plant with a capacity of 5 million litres a year, then raised it to 25 million litres a year. Set up the quality system to meet ASTM and EN fuel standards.</p></li>
+    <li><b>2000 to 2008</b><div><h3>Research Chemical Engineer</h3><p class="where">University of British Columbia</p></div><p>Completed a Master of Applied Science and doctoral-level research on flow in pulp digesters. Published four journal papers and taught senior chemical engineering laboratories.</p></li>
+  </ol>
+</div></section>
+<section class="section"><div class="container">
+  <div class="stack" style="max-width:720px;margin-bottom:40px"><p class="eyebrow">Qualifications</p><h2 class="h-lg">Education, certifications and research.</h2></div>
+  <div class="ab-creds">
+    <article class="card"><h3>Education</h3><ul>
+      <li>Master of Science in AI Engineering, Quantic School of Business and Technology (in progress, 2026 to 2027)</li>
+      <li>Executive MBA in Strategic Leadership, Valar Institute (2025)</li>
+      <li>Master of Applied Science, Chemical and Biological Engineering, University of British Columbia (2003)</li>
+    </ul></article>
+    <article class="card"><h3>Certifications</h3><ul>
+      <li>Lean Six Sigma Black Belt</li>
+      <li>Financial Modeling and Valuation Analyst (FMVA), Corporate Finance Institute</li>
+      <li>Executive Management Certified (EMC)</li>
+      <li>Total Productive Maintenance Concept Certified (TPMC)</li>
+      <li>No Code AI and Machine Learning: Building Data Science Solutions</li>
+    </ul></article>
+    <article class="card"><h3>Publications and patent</h3><ul>
+      <li>Five technical publications, on pulp digester flow, wood chip packed beds, enzymatic hydrolysis for biofuels, and machine learning for intelligent systems</li>
+      <li>Patent: Processes to Create Multiple Value Streams from Biomass Sources</li>
+    </ul></article>
+  </div>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">What we do</p><h2 class="h-lg">Three areas of work.</h2></div><a class="btn btn-ghost" href="solutions.html">All solutions</a></div>
+  <div class="grid grid-3">
+    <article class="card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>AI and digital transformation</h3><p class="muted">AI readiness and strategy, digital adoption plans, software selection, and AI Operating Systems that connect your data, knowledge and workflows.</p><a class="more" href="artificial-intelligence.html">AI solutions →</a></article>
+    <article class="card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="6" height="6" rx="1"/><rect x="15" y="14" width="6" height="6" rx="1"/><path d="M9 7h4a2 2 0 0 1 2 2v5"/></svg><h3>Operations and process improvement</h3><p class="muted">Process mapping, lean assessments, quality management and practical roadmaps that help a business scale without adding waste.</p><a class="more" href="business-process-optimization.html">Process optimization →</a></article>
+    <article class="card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg><h3>Process engineering</h3><p class="muted">Front-end engineering design, scale-up from pilot to commercial plant, and plant reviews for energy, chemicals and advanced materials producers.</p><a class="more" href="projects.html">Engineering projects →</a></article>
+  </div>
+</div></section>
+<section class="section dark"><div class="container grid grid-2" style="align-items:center">
+  <div class="stack"><p class="eyebrow">How we work</p><h2 class="h-lg">What you can expect from us.</h2><p class="lead">You work directly with our principal consultant, from the first call to the final recommendation.</p></div>
+  <ul class="list-check" style="font-size:17px"><li>We map your current process before we recommend any tool</li><li>Recommendations are based on your own data and processes</li><li>Plans are phased, with quick wins first and costs stated clearly</li><li>We explain our work in plain language and train your team to carry it on</li></ul>
+</div></section>
+'''
+head=head.replace('<a href="about.html">About</a>','<a href="about.html" aria-current="page">About</a>',1)
+open(site+'about.html','w').write(head+main+tail)
+print('about.html written')

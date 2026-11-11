@@ -1,5 +1,17 @@
 # Changelog
 
+## V4.37 — 2026-11-11
+- **New page: About (`about.html`).** It introduces Chmltech and its CEO and Principal Consultant, Quak Foo Lee:
+  - a portrait, a fact list (title, education, credentials, languages, location) and a short biography;
+  - four key figures: founded 2008, 300+ Digital Adoption Plans, 1,000+ days without a safety incident at a pilot plant he managed, five publications and one patent;
+  - a career timeline of seven entries from 2000 to today. Past employers are described by sector, not by name; only the University of British Columbia is named;
+  - education, certifications, publications and the patent;
+  - three areas of work and how we work, then the standard call to action.
+- **Portrait:** `assets/img/quak-foo-lee.jpg` (864×1080) and `assets/img/quak-foo-lee-432.jpg` for small screens. The background of the original photo was replaced with a defocused brick wall, the colours were warmed and the shirt was darkened.
+- **"About" added to the main menu** (before Contact) on all 218 pages that have the menu, and "About Chmltech" added to the footer. The address is in the sitemap.
+- **Menu fit:** with nine links, the "Book Online" button wrapped onto two lines on screens between 981 and about 1060 pixels wide. The button now stays on one line, and the menu spacing is slightly tighter between 981 and 1120 pixels (`assets/css/styles.css`).
+- New source file `content/gen/about_page.py` writes the page. It copies the header from `contact.html` and the call to action and footer from `ai-operating-system.html`, so run it again after any change to the menu or footer. `content/gen/build_v3.py` now includes About in the menu, footer and sitemap.
+
 ## V4.36 — 2026-11-11
 - **OEE articles: the links at the foot of each article now follow reading order.** Links back to earlier articles sit on the left and the link to the next article sits on the right.
   - Article 1: "Next: Post 2" moved from the left to the right.
