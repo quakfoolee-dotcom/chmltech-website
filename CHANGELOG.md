@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.30 — 2026-11-11
+- **New Insights series: inventory control (four articles).** Insights now lists 145 articles.
+  - `post/abc-inventory-analysis`: ABC analysis explained, with a 20-item distributor example and a Pareto chart.
+  - `post/setting-safety-stock`: three safety stock methods, reorder points and service levels by ABC class, using three items from the first article.
+  - `post/abc-analysis-for-manufacturers`: adds a criticality rating to ABC for raw materials, packaging and spare parts, with a 20-item manufacturer example.
+  - `post/safety-stock-for-manufacturers`: safety stock for raw materials (lead time driven) and for spare parts (Poisson method).
+- Every mention of another article in the series links to it, and each article links to the next. Filed under Operational Efficiency and Process Improvement.
+- **Free Excel template:** `assets/downloads/Chmltech_Inventory_ABC_SafetyStock_Template.xlsx` (workbook V3), linked from all four articles. It holds both worked examples, an ABC classifier, a safety stock calculator and a spare parts calculator. Its figures match the articles.
+- The example companies (Northshore Supply and Ridgeline Coatings) are fictional, and each chart caption says the data is illustrative.
+- New source file `content/articles/inventory_articles.py`: it computes every table, chart and figure from the example data and writes the four article JSON files, which `content/gen/add_article.py` then builds.
+
 ## V4.29 — 2026-11-11
 - **New page: Funding finder (`funding.html`).** A searchable directory of 408 government funding programs for Canadian businesses, covering federal programs and all 13 provinces and territories:
   - grants, repayable contributions, loans, tax credits, wage subsidies, vouchers, equity, rebates and advisory services;
