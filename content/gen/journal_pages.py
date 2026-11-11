@@ -37,6 +37,7 @@ def add_new_posts(POSTS, cat="chmltech-online-journal"):
 
 JOURNAL_CAT = "chmltech-online-journal"
 # Each paper is listed under the journal and under its subject category (V4.18).
+# Process plant papers are also listed under Process Engineering (V4.40).
 TOPIC = {
     "chmltech-online-journal-volume-103-issue-1": "artificial-intelligence",
     "copy-of-chmltech-online-journal-volume-103-issue-2": "artificial-intelligence",
@@ -44,13 +45,13 @@ TOPIC = {
     "multi-agent-ai-systems-architectures-coordination-and-failure-modes": "artificial-intelligence",
     "retrieval-augmented-generation-design-evaluation-and-failure-analysis": "artificial-intelligence",
     "designing-machine-learning-systems-from-problem-framing-to-production": "artificial-intelligence",
-    "advancements-and-challenges-in-solid-state-hydrogen-absorption-a-comprehensive-review": "esg",
-    "chmltech-online-journal-volume-102-issue-1": "esg",
-    "engineering-capex-and-opex-estimation-for-process-plants": "operational-efficiency",
-    "digital-twins-in-chemical-process-plants-architecture-modeling-and-applications": "digital-technology",
+    "advancements-and-challenges-in-solid-state-hydrogen-absorption-a-comprehensive-review": ["process-engineering", "esg"],
+    "chmltech-online-journal-volume-102-issue-1": ["process-engineering", "esg"],
+    "engineering-capex-and-opex-estimation-for-process-plants": ["process-engineering", "operational-efficiency"],
+    "digital-twins-in-chemical-process-plants-architecture-modeling-and-applications": ["process-engineering", "digital-technology"],
     # Volume 105: Physical AI (V4.19). A list files the paper under more than one subject.
     "physical-ai-foundations-architectures-and-the-sim-to-real-gap": "artificial-intelligence",
-    "physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control": ["artificial-intelligence", "digital-technology"],
+    "physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control": ["artificial-intelligence", "digital-technology", "process-engineering"],
     "safety-reliability-and-economics-of-deploying-physical-ai": "artificial-intelligence",
 }
 

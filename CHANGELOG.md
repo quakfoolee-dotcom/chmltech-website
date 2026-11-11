@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.40 — 2026-11-11
+- **Insights: new Process Engineering category.** It has its own filter chip and the address `insights.html#cat=process-engineering` (`insights/categories/process-engineering` redirects to it).
+- Five journal papers are now listed under it, in addition to their existing categories: CAPEX and OPEX Estimation for Process Plants, Hydrogen Electrolysis Plants, Solid-State Hydrogen Absorption, Digital Twins in Chemical Process Plants, and Physical AI in Process Plants and Factories.
+- The first four show "Process Engineering" as their subject tag on cards across the site. The Physical AI paper keeps its "Artificial Intelligence" tag.
+- `process-engineering` added to the category lists in `content/gen/add_article.py`, `build_v3.py` and `journal_pages.py`, so new articles can use it.
+
 ## V4.39 — 2026-11-11
 - **Projects page: the Plant review card now lists seven scope items, the same number as the FEED card.** The three new items spell out work already in the review: improvement options compared by cost, benefit and payback; a review of safeguards with actions for each hazard; and a list of drawing discrepancies with the corrections needed. Two existing items were made more specific.
 - The two engineering cards are now the same height, and the "Related" links sit at the bottom of each card.

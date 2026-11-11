@@ -20,7 +20,7 @@ SHELL = "iso-9001-document-and-revision-control"      # an existing article used
 CAT_NAMES = {"process-improvement": "Process Improvement", "operational-efficiency": "Operational Efficiency",
              "artificial-intelligence": "Artificial Intelligence", "digital-technology": "Digital Technology",
              "marketing": "Sales & Marketing", "lean": "Lean", "chmltech-online-journal": "Chmltech Online Journal",
-             "change-management": "Change Management", "iso": "ISO", "six-sigma": "Six Sigma", "esg": "ESG",
+             "change-management": "Change Management", "iso": "ISO", "six-sigma": "Six Sigma", "process-engineering": "Process Engineering", "esg": "ESG",
              "strategy": "Strategy", "erp": "ERP", "project-management": "Project Management",
              "book-review": "Book Review", "agile": "Agile", "case-study": "Case Study"}
 E = lambda s: html.escape(s, quote=True)

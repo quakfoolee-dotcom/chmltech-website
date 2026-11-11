@@ -147,7 +147,7 @@ def load(kind):
 posts_raw, pages_raw, programs_raw, services_raw = load("post"), load("page"), load("program"), load("service")
 
 cat_map = json.load(open(os.path.join(WIX, "categories.json"))) if os.path.exists(os.path.join(WIX, "categories.json")) else {}
-CAT_NAMES = {"esg": "ESG", "lean": "Lean", "six-sigma": "Six Sigma", "process-improvement": "Process Improvement", "agile": "Agile", "iso": "ISO",
+CAT_NAMES = {"esg": "ESG", "lean": "Lean", "six-sigma": "Six Sigma", "process-engineering": "Process Engineering", "process-improvement": "Process Improvement", "agile": "Agile", "iso": "ISO",
              "change-management": "Change Management", "project-management": "Project Management", "case-study": "Case Study",
              "operational-efficiency": "Operational Efficiency", "marketing": "Sales & Marketing", "artificial-intelligence": "Artificial Intelligence",
              "artificial-intelligence-1": "Artificial Intelligence", "erp": "ERP", "digital-technology": "Digital Technology",
