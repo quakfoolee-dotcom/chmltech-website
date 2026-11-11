@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.49 — 2026-11-11
+- **Process Engineering articles: short table entries stay on one line.** In the PFD and P&ID article, "T, temperature" and the other tag letters no longer break across two lines, and the columns are wider to suit. The same rule was applied to short row labels, short headings and calculations in the scale-up and FEED articles.
+- The rule is a `nowrap` helper in `content/articles/feed_articles.py`, set per table. Every table still fits the text column.
+
 ## V4.48 — 2026-11-11
 - **Four new Process Engineering articles.** Insights now lists 155 articles, with 12 under Process Engineering.
   - **Scale-up series (three parts)**, shown with the series label:

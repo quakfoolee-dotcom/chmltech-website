@@ -5,7 +5,7 @@ Writes content/articles/<slug>.json for each article. Then run
         python3 content/gen/add_article.py <slug>
 for each slug to build the pages (see README, "Adding a new article").
 """
-import json, os, re
+import html, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NAVY, BLUE, GREEN, GREEND, ORANGE, PURPLE, RED = "#0B2A5A", "#0B6FA4", "#8DC63F", "#4D7F12", "#C27712", "#5B5BD0", "#B43E3E"
@@ -62,6 +62,25 @@ def smooth(pts):
         c2 = (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6)
         d += f" C{c1[0]:.1f},{c1[1]:.1f} {c2[0]:.1f},{c2[1]:.1f} {p2[0]},{p2[1]}"
     return d
+
+
+def nowrap(body, rules):
+    """Keep short table cells on one line. rules: (table number from 1, column from 0, longest text to keep whole)."""
+    tables = list(re.finditer(r"<table>.*?</table>", body, flags=re.S))
+    for tn, col, maxlen in rules:
+        t = tables[tn - 1].group(0); rows = []
+        for row in re.findall(r"<tr.*?</tr>", t, flags=re.S):
+            cells = list(re.finditer(r"<(t[dh])([^>]*)>(.*?)</\1>", row, flags=re.S))
+            if col < len(cells):
+                c = cells[col]; text = html.unescape(re.sub(r"<[^>]+>", "", c.group(3))).strip()
+                if 0 < len(text) <= maxlen and "nw" not in c.group(2) and 'class="num"' not in c.group(2):
+                    attrs = c.group(2).replace('class="', 'class="nw ') if 'class="' in c.group(2) else c.group(2) + ' class="nw"'
+                    row = row[:c.start()] + f"<{c.group(1)}{attrs}>{c.group(3)}</{c.group(1)}>" + row[c.end():]
+            rows.append(row)
+        it = iter(rows); new = re.sub(r"<tr.*?</tr>", lambda m: next(it), t, flags=re.S)
+        body = body.replace(t, new, 1)
+        tables = list(re.finditer(r"<table>.*?</table>", body, flags=re.S))
+    return body
 
 
 # ───────────────────────── Post 1: the five stages ─────────────────────────
@@ -402,10 +421,10 @@ def post3():
 ARTICLES = [
     dict(slug=S1, title="From Concept to Construction: The Five Stages of a Process Plant Project",
          desc="The five stages of a process plant project, the decision at each gate, how accurate the cost estimate is at each stage, and how much to spend before committing.",
-         tags=["FEED", "front-end loading", "stage-gate", "AACE estimate classes", "capital projects"], body=post1(), related=[S2, S3, CAPEX]),
+         tags=["FEED", "front-end loading", "stage-gate", "AACE estimate classes", "capital projects"], body=nowrap(post1(), [(1, 2, 22), (3, 0, 22)]), related=[S2, S3, CAPEX]),
     dict(slug=S2, title="The Design Basis: Ten Decisions to Fix Before Engineering Starts",
          desc="The ten decisions a design basis must record before FEED starts, with a worked example showing how operating hours alone change equipment cost.",
-         tags=["design basis", "FEED", "plant capacity", "six-tenths rule", "process design"], body=post2(), related=[S1, S3, CAPEX]),
+         tags=["design basis", "FEED", "plant capacity", "six-tenths rule", "process design"], body=nowrap(post2(), [(3, 0, 24), (3, 2, 24), (4, 0, 22)]), related=[S1, S3, CAPEX]),
     dict(slug=S3, title="What a FEED Package Contains, and What Each Document Decides",
          desc="The documents in a FEED package, what each one decides, how the Class 3 estimate is built from them, and eight questions to ask before you approve the project.",
          tags=["FEED", "P&ID", "PFD", "Class 3 estimate", "HAZOP", "basic engineering"], body=post3(), related=[S1, S2, CAPEX]),

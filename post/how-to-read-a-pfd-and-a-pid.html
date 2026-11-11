@@ -103,26 +103,26 @@
 <p>The heater is the same item as on the PFD. The P&amp;ID adds everything needed to build, operate and maintain it.</p>
 <p class="oee-cap">Table 2. Symbols on the example P&amp;ID</p>
 <table>
-<tr><th>Symbol</th><th>Tag on the example</th><th>What it is</th></tr>
+<tr><th>Symbol</th><th class="nw">Tag on the example</th><th>What it is</th></tr>
 <tr><td>Circle</td><td class="nw">PI-201, TT-101</td><td>An instrument mounted in the field, on or near the pipe</td></tr>
 <tr><td>Circle inside a square</td><td class="nw">TIC-101</td><td>A function in the control system, seen on the control room screens</td></tr>
-<tr><td>Two triangles, point to point</td><td>Not tagged</td><td>A manual valve, used here to isolate the heater</td></tr>
+<tr><td>Two triangles, point to point</td><td class="nw">Not tagged</td><td>A manual valve, used here to isolate the heater</td></tr>
 <tr><td>Two triangles with an actuator on top</td><td class="nw">TV-101</td><td>A control valve, positioned by a signal</td></tr>
 <tr><td>Angled valve with a spring</td><td class="nw">PSV-102</td><td>A pressure relief valve, which opens by itself at its set pressure</td></tr>
 <tr><td>Square with a diagonal</td><td class="nw">ST-201</td><td>A steam trap, which lets condensate out and holds steam in</td></tr>
 <tr><td>Solid line</td><td class="nw">DN50-P-1003</td><td>A pipe</td></tr>
-<tr><td>Dashed line with an arrow</td><td>None</td><td>An instrument signal, pointing to the device that receives it</td></tr>
+<tr><td>Dashed line with an arrow</td><td class="nw">None</td><td>An instrument signal, pointing to the device that receives it</td></tr>
 </table>
 <h3>Reading an instrument tag</h3>
 <p>Instrument tags follow the ISA-5.1 standard. The first letter is what is measured. The letters after it say what the device does. The number identifies the loop.</p>
 <p class="oee-cap">Table 3. Instrument tag letters used on the example</p>
 <table>
-<tr><th>Tag</th><th>First letter</th><th>Following letters</th><th>Meaning</th></tr>
-<tr><td class="nw">TT-101</td><td>T, temperature</td><td>T, transmitter</td><td>Measures temperature and sends it to the control system</td></tr>
-<tr><td class="nw">TIC-101</td><td>T, temperature</td><td>I, indicator; C, controller</td><td>Displays the temperature and controls it</td></tr>
-<tr><td class="nw">TV-101</td><td>T, temperature</td><td>V, valve</td><td>The valve that the temperature loop moves</td></tr>
-<tr><td class="nw">PI-201</td><td>P, pressure</td><td>I, indicator</td><td>A pressure gauge read at the pipe</td></tr>
-<tr><td class="nw">PSV-102</td><td>P, pressure</td><td>S, safety; V, valve</td><td>A pressure relief valve</td></tr>
+<tr><th>Tag</th><th class="nw">First letter</th><th class="nw">Following letters</th><th>Meaning</th></tr>
+<tr><td class="nw">TT-101</td><td class="nw">T, temperature</td><td class="nw">T, transmitter</td><td>Measures temperature and sends it to the control system</td></tr>
+<tr><td class="nw">TIC-101</td><td class="nw">T, temperature</td><td class="nw">I, indicator; C, controller</td><td>Displays the temperature and controls it</td></tr>
+<tr><td class="nw">TV-101</td><td class="nw">T, temperature</td><td class="nw">V, valve</td><td>The valve that the temperature loop moves</td></tr>
+<tr><td class="nw">PI-201</td><td class="nw">P, pressure</td><td class="nw">I, indicator</td><td>A pressure gauge read at the pipe</td></tr>
+<tr><td class="nw">PSV-102</td><td class="nw">P, pressure</td><td class="nw">S, safety; V, valve</td><td>A pressure relief valve</td></tr>
 </table>
 <p>Other common first letters are F for flow and L for level. Everything with the number 101 belongs to one control loop.</p>
 <h3>Tracing a control loop</h3>
