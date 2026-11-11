@@ -18,7 +18,7 @@ CAPEX = "engineering-capex-and-opex-estimation-for-process-plants"
 L1 = f'<a href="{S1}.html">Post&nbsp;1</a>'
 L2 = f'<a href="{S2}.html">Post&nbsp;2</a>'
 L3 = f'<a href="{S3}.html">Post&nbsp;3</a>'
-CSS = '<link rel="stylesheet" href="../assets/css/oee.css?v=4.36">'
+CSS = '<link rel="stylesheet" href="../assets/css/oee.css?v=4.45">'
 NOTE = ('<p class="oee-note"><em>The plant, its capacity and its costs in this series are an illustrative example. '
         'The ranges and percentages are typical industry values and do not replace an estimate prepared for your project.</em></p>')
 

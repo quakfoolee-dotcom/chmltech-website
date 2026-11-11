@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.45 — 2026-11-11
+- **FEED and OEE articles: every table now fills the full width of the text column.** Narrow tables, such as the estimate classes table, used to stop short and leave a blank gap on the right. They now line up with the paragraphs and figures. Wide tables still scroll sideways on small screens.
+- The rule is in `assets/css/oee.css`; the six articles load it as `oee.css?v=4.45` so returning visitors get it without a manual refresh.
+
 ## V4.44 — 2026-11-11
 - **FEED series: the example plant's capacity is now 50,000 t/y (was 5,000 t/y)**, to suit the $100M cost.
   - Post 2: the worked example, Figure 1 and Table 2 now use a design rate of 6,250 kg/h at 8,000 h/y (7,143, 8,333 and 12,500 kg/h at the shorter schedules). The percentage changes in rate and equipment cost are unchanged.

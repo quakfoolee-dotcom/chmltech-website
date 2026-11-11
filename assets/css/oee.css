@@ -32,3 +32,6 @@
 /* V4.36: links back sit on the left and the link to the next article on the right. */
 .prose .oee-next .oee-fwd{margin-left:auto;text-align:right}
 .prose .oee-next.oee-end{justify-content:flex-start;gap:12px 32px}
+/* V4.45: every table fills the text column, so narrow tables line up with the paragraphs and figures.
+   The table stays a scrolling block on small screens; its body stretches to the full width. */
+.prose table>tbody{display:table;width:100%;border-collapse:collapse}
