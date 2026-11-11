@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.38 — 2026-11-11
+- **Projects page: track record revised** against the full list of past projects (372 project folders, 343 completed).
+  - The key figures are now 313 completed plans, 340+ completed projects in total, 15 sectors and 6 provinces. The "2022–2025 delivery period" figure was removed.
+  - **Plans by sector:** Food & Beverage Manufacturing (8 plans) is now counted under Manufacturing, which rises from 27 to 35. "Other" is now 5 sectors and 37 plans.
+  - **"Plans by year" chart removed.** Most plans were delivered in 2023 and 2024, so the chart read as a decline.
+  - **"Plans by province" chart replaced with a list of the six provinces, without counts.** The location is known for fewer than half of the plans, so the counts were not reliable.
+  - **New card, "Beyond digital adoption":** 29 more completed advisory projects in sales and marketing, leadership and strategic planning. Leadership and Strategic planning link to their solution pages.
+- `content/dap_stats.json` now holds only the figures the page shows. `content/gen/projects_page.py` matches the published page.
+
 ## V4.37 — 2026-11-11
 - **New page: About (`about.html`).** It introduces Chmltech and its CEO and Principal Consultant, Quak Foo Lee:
   - a portrait, a fact list (title, education, credentials, languages, location) and a short biography;

@@ -1,4 +1,4 @@
-"""Projects page (V4.24): engineering projects and the Digital Adoption Plan track record.
+"""Projects page (V4.24, track record revised V4.38): engineering projects and the Digital Adoption Plan track record.
 
 Clients are described by sector only, as agreed with the owner. The 300+ plan track record is rendered from data/dap_stats.json
 (aggregate counts built from the owner's project register; no client names are published).
@@ -51,18 +51,26 @@ def _bars(d, keep_order=False):
     return "".join(f'<div class="pj-bar"><span class="pj-bar-l">{esc(k)}</span><span class="pj-bar-t"><span style="width:{100 * v / top:.1f}%{';background:#9FB3C8' if k.startswith('Other') else ''}"></span></span><span class="pj-bar-v">{v}</span></div>' for k, v in rows)
 
 
+ADVISORY = [("Sales and marketing", None), ("Leadership", "leadership-operating-system.html"), ("Strategic planning", "scaling-up.html")]
+
+
 def stats_chart():
-    """Track record of completed Digital Adoption Plans, from data/dap_stats.json (aggregates only; no client names)."""
+    """Track record of completed projects, from data/dap_stats.json (aggregates only; no client names).
+
+    V4.38: the charts of plans by year and by province were removed. Provinces are listed without counts,
+    and the other advisory projects (sales and marketing, leadership, strategic planning) have their own card."""
     if not os.path.exists(STATS): return ""
     S = json.load(open(STATS))
-    strip = (f'<div class="pj-stats"><div><strong>{S["total"]}</strong><span>completed plans</span></div><div><strong>{S["sectors"]}</strong><span>sectors</span></div>'
-             f'<div><strong>{S["provinces"]}</strong><span>provinces</span></div><div><strong>{esc(S["years"])}</strong><span>delivery period</span></div></div>')
+    strip = (f'<div class="pj-stats"><div><strong>{S["total"]}</strong><span>completed plans</span></div><div><strong>{esc(S["all_projects"])}</strong><span>completed projects in total</span></div>'
+             f'<div><strong>{S["sectors"]}</strong><span>sectors</span></div><div><strong>{S["provinces"]}</strong><span>provinces</span></div></div>')
+    provinces = "".join(f'<span class="tag">{esc(x)}</span>' for x in S["province_list"])
+    advisory = "".join("<li>" + (f'<a href="{u}">{esc(t)}</a>' if u else esc(t)) + "</li>" for t, u in ADVISORY)
     return f'''{strip}
   <div class="pj-charts">
     <div class="card pj-chart"><h3 style="font-size:20px">Plans by sector</h3><div class="pj-bars">{_bars(S["by_sector"])}</div></div>
     <div class="pj-side">
-      <div class="card pj-chart"><h3 style="font-size:20px">Plans by year</h3><div class="pj-bars">{_bars(S["by_year"], keep_order=True)}</div></div>
-      <div class="card pj-chart"><h3 style="font-size:20px">Plans by province</h3><p class="count" style="margin:2px 0 0">Where the location is known ({S["province_known"]} plans)</p><div class="pj-bars">{_bars(S["by_province"])}</div></div>
+      <div class="card pj-chart"><h3 style="font-size:20px">Where clients are based</h3><p class="count" style="margin:2px 0 0">Plans delivered for businesses in {S["provinces"]} provinces</p><div class="pj-tags">{provinces}</div></div>
+      <div class="card pj-chart" id="advisory"><h3 style="font-size:20px">Beyond digital adoption</h3><p class="pj-num"><strong>{S["other_advisory"]}</strong><span>more completed advisory projects, in three areas</span></p><ul class="list-check">{advisory}</ul></div>
     </div>
   </div>'''
 
@@ -97,6 +105,10 @@ CSS = """<style>
 .pj-charts{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:start}
 .pj-side{display:grid;gap:20px}
 .pj-chart{padding:26px}
+.pj-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pj-num{display:flex;align-items:baseline;gap:12px;margin:10px 0 14px}
+.pj-num strong{font-family:var(--font-head);font-size:40px;line-height:1;color:var(--navy,#0A2A55)}
+.pj-num span{font-size:15px;color:var(--muted,#5A6B80)}
 @media (max-width:900px){.pj-charts{grid-template-columns:1fr}}
 @media (max-width:640px){.pj-bar{grid-template-columns:1fr 40px}.pj-bar-t{grid-column:1/-1;grid-row:2}}
 </style>"""
