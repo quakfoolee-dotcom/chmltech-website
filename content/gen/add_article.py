@@ -35,12 +35,23 @@ def nice_date(d):
     return f"{date(y, m, dd):%b} {dd}, {y}"
 
 
+def series_label(a):
+    """'FEED series · Part 1 of 3' for an article with a "series" field (name, part, of); empty otherwise."""
+    sr = a.get("series")
+    return f'{sr["name"]} · Part {sr["part"]} of {sr["of"]}' if sr else ""
+
+
+CARD_SERIES = '<p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">'
+HERO_SERIES = '<p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">'
+
+
 def card(a, prefix=""):
     search = E(" ".join([a["title"], a["desc"], " ".join(a["tags"])]).lower())
     cats = "".join(f'<span class="tag">{E(CAT_NAMES[c])}</span>' for c in a["cats"])
+    ser = CARD_SERIES + E(series_label(a)) + "</p>" if a.get("series") else ""
     return (f'<article class="article" data-cats="{" ".join(a["cats"])}" data-search="{search}"><div class="thumb">'
             f'<img src="{prefix}assets/media/covers/thumbs/{a["slug"]}.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div>'
-            f'<div class="body"><div class="cats">{cats}</div><h3><a href="{prefix}post/{a["slug"]}.html">{E(a["title"])}</a></h3>'
+            f'<div class="body"><div class="cats">{cats}</div>{ser}<h3><a href="{prefix}post/{a["slug"]}.html">{E(a["title"])}</a></h3>'
             f'<p class="muted">{E(a["desc"])}</p><p class="meta">{nice_date(a["date"])} · {a["read"]}</p></div></article>')
 
 
@@ -64,6 +75,9 @@ def post_page(a, listing, total):
         else: tail = t
     head = re.sub(r'<div class="tags">.*?</div>',
                   '<div class="tags">' + "".join(f'<a href="../insights.html#cat={c}">{E(CAT_NAMES[c])}</a>' for c in a["cats"]) + "</div>", head, count=1)
+    if a.get("series"):                                    # series label between the category tags and the headline
+        head = head.replace('</div>\n    <h1', '</div>\n    ' + HERO_SERIES + E(series_label(a)) + '</p>\n    <h1', 1)
+        assert HERO_SERIES in head
     head = re.sub(r'<p class="post-meta">.*?</p>',
                   f'<p class="post-meta"><span>{E(a["author"])}</span><span>{nice_date(a["date"])}</span><span>{a["read"]}</span></p>', head, count=1)
     tail = re.sub(r'(<p class="eyebrow">Tags</p><div class="tags">).*?(</div>)',

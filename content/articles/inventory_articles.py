@@ -91,8 +91,8 @@ def formula(s):
 
 
 def part(n):
-    return ('<link rel="stylesheet" href="../assets/css/article-tables.css">'
-            f'<p><em>Part {n} of 4 in the inventory control series.</em></p>')
+    # The part number is shown as a series label above the headline and on cards (V4.47), set by "series" in main().
+    return '<link rel="stylesheet" href="../assets/css/article-tables.css">'
 
 
 CLOSE = ('<p><em>Chmltech Ltd. helps small and mid-sized businesses improve operations and adopt digital tools. '
@@ -611,7 +611,8 @@ def main():
         words = len(re.sub(r"<svg.*?</svg>", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<svg.*?</svg>|<dialog.*?</dialog>", " ", body, flags=re.S))).split())
         out = dict(slug=a["slug"], title=a["title"], desc=a["desc"], cats=["operational-efficiency", "process-improvement"], tags=a["tags"],
                    body=body, date="2026-11-11", author="Quak Foo Lee", read=f"{max(1, round(words / 230))} min read", order=a["order"],
-                   cover_label=a["cover_label"], related=a["related"])
+                   cover_label=a["cover_label"], related=a["related"],
+                   series=dict(name="Inventory series", part=ARTICLES.index(a) + 1, of=len(ARTICLES)))
         assert len(a["desc"]) <= 165, (a["slug"], len(a["desc"]))
         json.dump(out, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(a["slug"], words, "words,", out["read"])

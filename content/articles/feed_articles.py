@@ -121,8 +121,7 @@ def fig_influence():
 def post1():
     rows = "".join(f'<tr><td class="nw">{c}</td><td>{st}</td><td class="num">−{lo}% to +{hi}%</td><td class="num">${100 * (1 - lo / 100):.0f}M</td>'
                    f'<td class="num">${100 * (1 + hi / 100):.0f}M</td><td class="num">${100 * (hi + lo) / 100:.0f}M</td></tr>' for c, st, lo, hi in RANGES)
-    return f"""{CSS}<p><em>Part 1 of 3 in the FEED series.</em></p>
-<p>Most of the cost of a process plant is fixed by decisions made on paper, long before any equipment is ordered. A stage-gate process puts those decisions in order. At each gate the owner asks one question and spends only enough to answer it.</p>
+    return f"""{CSS}<p>Most of the cost of a process plant is fixed by decisions made on paper, long before any equipment is ordered. A stage-gate process puts those decisions in order. At each gate the owner asks one question and spends only enough to answer it.</p>
 <p>This series follows one example: a specialty chemical producer planning a new plant with a first estimate of $100M. This post covers the five stages. {L2} covers the design basis, and {L3} covers the FEED package.</p>
 <h2>The five stages</h2>
 <p>Companies use different names for the stages, but the sequence is the same. The first three are called front-end loading (FEL). FEED stands for front-end engineering design and is the last of them.</p>
@@ -226,8 +225,7 @@ def post2():
     rows = "".join(f'<tr><td class="nw">{i + 1}. {a}</td><td>{b}</td><td>{c}</td></tr>' for i, (a, b, c) in enumerate(dec))
     hrs = "".join(f'<tr><td>{lab}</td><td class="num">{h:,} h/y</td><td class="num">{RATE(h):,.0f} kg/h</td><td class="num">{"Base" if h == 8000 else f"+{(RATE(h) / RATE(8000) - 1) * 100:.0f}%"}</td>'
                   f'<td class="num">{"Base" if h == 8000 else f"+{(COSTF(h) - 1) * 100:.0f}%"}</td></tr>' for h, lab in HOURS)
-    return f"""{CSS}<p><em>Part 2 of 3 in the FEED series.</em></p>
-<p>The design basis is a short document, usually 10 to 20 pages. It records the decisions that every other engineering document depends on. If one of them changes later, the change runs through the whole design.</p>
+    return f"""{CSS}<p>The design basis is a short document, usually 10 to 20 pages. It records the decisions that every other engineering document depends on. If one of them changes later, the change runs through the whole design.</p>
 <p>{L1} set out the five project stages. The design basis is drafted in pre-FEED and frozen at the start of FEED. This post lists the ten decisions it should contain, using the same $100M specialty chemical plant.</p>
 <h2>The ten decisions</h2>
 <p class="oee-cap">Table 1. The ten decisions in a design basis</p>
@@ -342,8 +340,7 @@ def post3():
     brow = "".join(f'<tr><td>{n}</td><td class="num">${v * 1e6:,.0f}</td><td class="num">{v / tot * 100:g}%</td><td>{src}</td></tr>' for (n, v, _), src in zip(BUILD, [
         "Vendor budget quotations against datasheets", "Quantities taken from P&amp;IDs and layout", "Hours estimated from quantities and local rates",
         "Planned hours by discipline", "Permits, spares, commissioning, owner's team", "Set from the risk register"]))
-    return f"""{CSS}<p><em>Part 3 of 3 in the FEED series.</em></p>
-<p>FEED, or front-end engineering design, turns a selected concept into a defined plant. It ends with a package of documents that an owner can approve, a lender can review and a contractor can bid on.</p>
+    return f"""{CSS}<p>FEED, or front-end engineering design, turns a selected concept into a defined plant. It ends with a package of documents that an owner can approve, a lender can review and a contractor can bid on.</p>
 <p>{L1} placed FEED as the third of five project stages. {L2} covered the design basis that FEED starts from. This post goes through what the package contains, using the same $100M specialty chemical plant.</p>
 <h2>What FEED has to produce</h2>
 <p>A FEED package answers three questions.</p>
@@ -418,6 +415,7 @@ if __name__ == "__main__":
     for i, a in enumerate(ARTICLES):
         words = len(re.sub(r"<svg.*?</svg>|<[^>]+>", " ", a["body"], flags=re.S).split())
         a.update(cats=["process-engineering", "project-management"], date="2026-11-11", author="Quak Foo Lee",
-                 read=f"{max(1, round(words / 220))} min read", cover_label="Process Engineering")
+                 read=f"{max(1, round(words / 220))} min read", cover_label="Process Engineering",
+                 series=dict(name="FEED series", part=i + 1, of=len(ARTICLES)))
         json.dump(a, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(a["slug"], words, "words,", a["read"])

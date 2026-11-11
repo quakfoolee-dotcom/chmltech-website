@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.47 — 2026-11-11
+- **Series articles now show their place in the series**, such as "FEED series · Part 1 of 3", so readers know where to start.
+  - On cards: the label sits above the title on the Insights page, the home page and in related articles.
+  - On the article page: the label sits above the headline. It replaces the italic "Part 1 of 3 in the … series" line that opened the article text.
+  - Covers the ten series articles: FEED (3), OEE (3) and Inventory (4). Titles and web addresses are unchanged.
+- An article joins a series through a `series` field (name, part, of) in its `content/articles/<slug>.json`. `content/gen/add_article.py` writes the label on the article page and on new cards; the new `content/gen/series_labels.py` refreshes the label on existing cards across the site.
+
 ## V4.46 — 2026-11-11
 - **FEED articles: every figure now fills the full width of the text column**, so figures line up with the tables and paragraphs. Each drawing is cropped to its content and scales with the column. The blank margins at the left and right of the seven figures are gone.
 
