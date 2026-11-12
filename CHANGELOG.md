@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.57 — 2026-11-12
+- **Bing Webmaster Tools verification:** `msvalidate.01` meta tag added to the home page. Keep it, or Bing loses verification.
+
 ## V4.56 — 2026-11-12
 - **SEO pass across the site** (new script `content/gen/seo_pass.py`; run it after every build).
   - **Canonical URLs** now use the clean address without `.html` (226 pages), matching the sitemap and the old Wix links. Before, the canonical and the sitemap disagreed on every page. `og:url` added to match.

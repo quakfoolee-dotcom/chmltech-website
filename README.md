@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.56** (see `CHANGELOG.md`).
+Version: **V4.57** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -77,6 +77,7 @@ The email address is never written into the page source, so address-harvesting b
 
 - `content/gen/seo_pass.py` owns the canonical URLs (clean form, without `.html`), Open Graph and Twitter tags, JSON-LD structured data, `sitemap.xml` (with `lastmod`) and `llms.txt`. Edit it rather than the pages for site-wide SEO changes.
 - The raw exam apps in `exams/` carry `noindex, indexifembedded`, so search engines rank the exam pages that embed them, not the bare apps.
+- Search engine verification: Google Search Console uses a DNS TXT record at IONOS (keep it); Bing Webmaster Tools uses the `msvalidate.01` meta tag in `index.html` (keep it).
 - Redirect stubs (old Wix addresses) carry `noindex` and are left out of the sitemap.
 
 ## Deploy
