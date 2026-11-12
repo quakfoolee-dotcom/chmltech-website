@@ -1,0 +1,543 @@
+{
+ "slug": "agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption",
+ "volume": 105,
+ "issue": 6,
+ "published": "2026-11-12",
+ "revised": "2026-11-12",
+ "title": "Agent Readiness for Small and Mid-Sized Firms: Data Foundations, Process Documentation and Staged Adoption",
+ "short_title": "Agent Readiness for Small and Mid-Sized Firms",
+ "meta": "Why small firms lag larger ones in AI, and how to close the gap: data foundations, procedures as agent specifications, a readiness score and a gated roadmap.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Vancouver, BC, Canada"
+ },
+ "abstract": "AI adoption rises steeply with firm size. An analysis of U.S. Census Bureau survey data found that large manufacturers are 2.3 times more likely to use AI than small ones, and Statistics Canada reports that 27.8% of Canadian businesses with 100 or more employees used AI in the year to mid-2026, against 19.9% of those with one to four employees. The gap is wider still in the capabilities that make agents work: among AI users, the largest firms were roughly three times as likely to train staff and four times as likely to hire AI skills. This paper argues that the gap is less about budget than about three foundations that agentic AI depends on: accessible, trustworthy data; documented processes that can serve as an agent's specification; and a staged path that limits risk while evidence accumulates. It reviews the barriers that small and mid-sized enterprises face and the variation between adoption surveys, sets out minimum data foundations, shows how a standard operating procedure maps to an agent specification and how shadow-mode trials surface unwritten rules, and proposes a five-dimension readiness score with a worked example. It closes with a four-stage adoption roadmap with explicit gates and a simple payback model, designed for firms of roughly 20 to 500 employees.",
+ "keywords": [
+  "SME",
+  "AI readiness",
+  "agentic AI",
+  "data foundations",
+  "process documentation",
+  "staged adoption",
+  "manufacturing",
+  "digital adoption"
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "The size gap in AI adoption is one of the most consistent findings in the data. Digit Software's analysis of U.S. Census Bureau Business Trends and Outlook Survey responses from July 2022 to February 2026 found that 12.6% of manufacturers used AI, that 17.4% planned to, and that large manufacturers were 2.3 times more likely to use AI than small ones, with adoption among enterprise facilities averaging 28.8% [1, 2]. The OECD describes higher adoption in larger firms as a universal finding across the countries it reviewed [3]."
+    },
+    {
+     "p": "Canada shows the same gradient. In Statistics Canada's second-quarter 2026 survey, 19.2% of businesses had used AI to produce goods or deliver services in the previous 12 months, triple the 6.1% of two years earlier. The rate was 27.8% for businesses with 100 or more employees and 19.9% for those with one to four, and 41.4% of the smallest firms said AI was not relevant to them, against 21.3% of the largest [4]."
+    },
+    {
+     "p": "The gap matters more for agents than for chat assistants. A chat assistant needs a licence and a browser. An agent needs data it can reach, a process it can follow, permissions it can be trusted with, and someone who can supervise it. Those are organizational foundations, and they are where small and mid-sized enterprises (SMEs) are thinnest. This paper focuses on firms of roughly 20 to 500 employees, firms that have outgrown spreadsheets but have no dedicated data team, and treats readiness as a set of foundations to build in order rather than a single go or no-go decision."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Why SMEs Lag: The Barriers",
+   "blocks": [
+    {
+     "h3": "2.1 Capability, not just cost"
+    },
+    {
+     "p": "Statistics Canada's data show that the gap is widest in the capabilities around the technology. Among businesses that used AI, the largest firms were far more likely than the smallest to have invested in people (Table 1)."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Steps taken by Canadian businesses that used AI, by employment size, second quarter of 2026.",
+      "head": [
+       "Step taken by AI-using businesses",
+       "1–4 employees",
+       "100+ employees"
+      ],
+      "rows": [
+       [
+        "Trained existing employees on AI",
+        "24.0%",
+        "68.1%"
+       ],
+       [
+        "Trained existing executives on AI",
+        "15.6%",
+        "51.7%"
+       ],
+       [
+        "Hired employees with AI skills",
+        "8.2%",
+        "32.8%"
+       ],
+       [
+        "Used external consultants or vendors",
+        "10.7%",
+        "30.2%"
+       ]
+      ],
+      "note": "Source: Statistics Canada, Canadian Survey on Business Conditions, second quarter of 2026 [4]. Shares are of businesses that reported using AI in the previous 12 months."
+     }
+    },
+    {
+     "p": "Figure 1 plots the same data. The gap between the two points on each row is the capability gap, and the ratio shows how many times more often the largest firms took each step."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-capability-gap",
+      "caption": "Steps taken by AI-using businesses, firms with one to four employees against firms with 100 or more, with the ratio between them. The largest firms were 2.8 to 4.0 times as likely to take each step.",
+      "alt": "Dot chart with four rows. Trained existing employees: 24.0% for firms with 1 to 4 employees and 68.1% for firms with 100 or more, a ratio of 2.8. Trained executives: 15.6% and 51.7%, ratio 3.3. Hired employees with AI skills: 8.2% and 32.8%, ratio 4.0. Used external consultants or vendors: 10.7% and 30.2%, ratio 2.8.",
+      "source": "Drawn by the author from Table 1; data from Statistics Canada [4]."
+     }
+    },
+    {
+     "p": "The barriers firms name are mostly not about money. Across all businesses, cybersecurity or privacy concerns were the most cited barrier (13.4%), ahead of cost (10.6%); in manufacturing, 12.0% cited a lack of skilled workers [4]. In the Digit analysis, the share of manufacturers unsure whether to adopt AI rose from 9.2% to 14.4% as awareness grew, and the authors point to training and onboarding as a larger obstacle for smaller firms [1]."
+    },
+    {
+     "h3": "2.2 The foundations agents need"
+    },
+    {
+     "p": "Surveys of firms already deploying agents point to the same foundations. Data access and quality was the second most cited deployment challenge (42%) after integration (46%) in a 2025 survey of more than 500 technical leaders [5]. Deloitte found that even among organizations with scaled, multi-agent deployments, only 46% said their business processes were prepared, and it identified poorly documented processes and fragmented data and systems as recurring obstacles [6]. For an SME these findings translate into four practical barriers:"
+    },
+    {
+     "list": [
+      "<strong>Data trapped in spreadsheets and inboxes.</strong> Key facts (lead times, settings, customer terms) live in personal files rather than in systems an agent can query.",
+      "<strong>Processes held in people's heads.</strong> How quoting, scheduling or troubleshooting is actually done is tacit, so there is nothing to give an agent as instructions.",
+      "<strong>No one owns it.</strong> Without an internal owner with time and authority, pilots stall after the vendor demonstration.",
+      "<strong>Unclear risk tolerance.</strong> Owners worry, rightly, about data leaving the firm and about agents acting without oversight, but have no framework for deciding what is acceptable."
+     ],
+     "ordered": false
+    },
+    {
+     "h3": "2.3 Reading adoption statistics with care"
+    },
+    {
+     "p": "Adoption figures vary widely with what is asked and who is asked. A Bank of Canada staff paper notes that Canadian estimates of firm-level AI adoption range from about 15% for production use in Statistics Canada's survey to over 90% in some other surveys [7]. The Canadian Federation of Independent Business found that 45% of its members used generative AI to complete tasks, rising from 39% of firms with fewer than five employees to 60% and above for those with 20 to 49 [8]. In the United States, the Census Bureau broadened its core AI question in November 2025 from use in producing goods or services to use in any business function, so series before and after that date are not directly comparable; in the Bureau's April AI supplement, roughly 12% of manufacturing businesses reported using AI [9]."
+    },
+    {
+     "p": "The size gradient, however, appears in every source. In the European Union in 2025, 17.0% of small enterprises (10–49 employees), 30.4% of medium enterprises and 55.0% of large enterprises used AI, so a large firm was about 3.2 times as likely as a small one to use it [10]. The precise ratio depends on the survey; the direction does not. For SME owners the more useful question is not the national average but what the firms that adopted successfully had in place, which is the subject of Sections 3 to 5."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Data Foundations",
+   "blocks": [
+    {
+     "p": "An agent can only act on what it can read, and it acts with confidence on whatever it reads, right or wrong. Connectivity is weak even in large firms: MuleSoft's 2025 benchmark found that only 29% of an organization's applications are typically connected [11]. Data foundations for agents are therefore less about volume, the concern of machine-learning projects, and more about access, authority and freshness."
+    },
+    {
+     "h3": "3.1 Minimum data foundations"
+    },
+    {
+     "p": "Table 2 sets out the minimum standard for each foundation before an agent pilot, against a typical SME starting point."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Minimum data foundations before an agent pilot.",
+      "head": [
+       "Foundation",
+       "Minimum standard before an agent pilot",
+       "Typical SME starting point"
+      ],
+      "rows": [
+       [
+        "System of record",
+        "Each key entity (customer, item, order, asset) has one authoritative system",
+        "Item data split between the ERP and estimating spreadsheets"
+       ],
+       [
+        "Accessible interface",
+        "The system exposes an API, a database view or an MCP server the agent can call",
+        "Desktop ERP with no API; exports by email"
+       ],
+       [
+        "Data quality",
+        "Required fields complete; codes consistent; known error rate on the data the agent will use",
+        "Free-text part descriptions; duplicate customers"
+       ],
+       [
+        "Document control",
+        "Current SOPs, specifications and drawings in one controlled location with versions",
+        "Several copies on shared drives and laptops"
+       ],
+       [
+        "Access model",
+        "Users and roles defined in the systems, so an agent can inherit a user's limits",
+        "Shared logins on the shop-floor PC"
+       ],
+       [
+        "Data classification",
+        "A simple list of what may and may not leave the firm or reach an external AI service",
+        "No written policy"
+       ]
+      ],
+      "note": "Author's specification."
+     }
+    },
+    {
+     "h3": "3.2 Fix the data the first use case needs, not all of it"
+    },
+    {
+     "p": "SMEs often stall by treating data readiness as a firm-wide clean-up. A better rule is to choose the first agent use case, list the exact fields and documents it needs, and bring only those to the minimum standard. A quoting assistant needs clean item, cost and customer-term data; it does not need a clean maintenance history. Each subsequent use case extends the clean core, so the firm's data improves in the order of business value rather than in the order of convenience."
+    },
+    {
+     "h3": "3.3 Retrieval-ready documents"
+    },
+    {
+     "p": "Many SME use cases (answering staff questions on procedures, drafting quality responses, onboarding new operators) depend on documents rather than transactions. Agents retrieve these well only when each document is current, has a clear owner and date, uses consistent terminology and is divided into logical sections. Superseded versions left in the same folder are a leading cause of confidently wrong answers, because the agent cannot tell which copy is in force."
+    },
+    {
+     "h3": "3.4 A data check for the first use case"
+    },
+    {
+     "p": "Before a pilot starts, five questions can be answered in a short working session with the people who own the data:"
+    },
+    {
+     "list": [
+      "Which fields and documents will the agent read, and in which system does each live?",
+      "Who owns each of those sources and can correct an error in it?",
+      "What share of the records the agent will use are complete and correct? A sample of 50 recent records, checked by hand, is usually enough to tell.",
+      "How will the agent reach each source: an existing interface, a read-only database view, or a connector that still has to be built?",
+      "Which of the data may not leave the firm, and does the planned AI service keep it within those limits?"
+     ],
+     "ordered": true
+    },
+    {
+     "p": "Any question that cannot be answered marks a Stage 0 task. Answering them also gives the owner a realistic view of the effort before money is committed to a tool."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Process Documentation as an Agent Specification",
+   "blocks": [
+    {
+     "p": "A well-written standard operating procedure (SOP) is already most of an agent specification. What an agent adds to the SOP is precision about triggers, data, decision rules and limits. Firms that have documented their processes for ISO 9001, a digital adoption plan or a lean programme therefore start well ahead."
+    },
+    {
+     "h3": "4.1 From SOP to agent specification"
+    },
+    {
+     "p": "Table 3 maps each element of an SOP to the corresponding element of an agent specification, using customer order entry as the example."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Mapping a standard operating procedure to an agent specification, with a customer order entry example.",
+      "head": [
+       "SOP element",
+       "Agent specification element",
+       "Example: customer order entry"
+      ],
+      "rows": [
+       [
+        "Purpose and scope",
+        "Goal and boundaries",
+        "Enter standard-product orders received by email; not custom quotes"
+       ],
+       [
+        "Trigger",
+        "Event that starts the agent",
+        "New email to the orders inbox with a purchase order attached"
+       ],
+       [
+        "Inputs and records",
+        "Tools and data sources (read)",
+        "Read the PO PDF; look up customer, items and prices in the ERP"
+       ],
+       [
+        "Procedure steps",
+        "Ordered actions and tool calls (write)",
+        "Create a draft sales order in the ERP"
+       ],
+       [
+        "Decision rules",
+        "Explicit conditions",
+        "Price differs from contract by more than 2%: flag for review"
+       ],
+       [
+        "Exceptions",
+        "Escalation path",
+        "Unknown item or customer on credit hold: route to customer service"
+       ],
+       [
+        "Approvals and responsibilities",
+        "Human-in-the-loop points",
+        "Customer service releases each draft order"
+       ],
+       [
+        "Records",
+        "Audit trail",
+        "Log PO reference, draft order number and flags raised"
+       ],
+       [
+        "Performance measures",
+        "Success metrics",
+        "Entry time per order; draft acceptance rate; error rate"
+       ]
+      ],
+      "note": "Author's framework; the example is illustrative."
+     }
+    },
+    {
+     "h3": "4.2 Make tacit rules explicit"
+    },
+    {
+     "p": "The hardest part of the mapping is the decision-rule row. Experienced staff apply rules they have never written down, such as always shipping partial orders to a particular customer or extending a cure time in winter. A practical method is to run the agent in shadow mode for two to four weeks, drafting outputs that staff compare with their own work (Figure 2). Every disagreement is either an agent error or an unwritten rule; the second kind goes into the procedure. This improves the documentation whether or not the agent is eventually deployed."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-shadow-mode-loop",
+      "caption": "The shadow-mode loop. Each disagreement between the agent's draft and the staff's own work is traced to a cause: an agent error is fixed in its data, tools or instructions, and an unwritten rule is added to the procedure. Both are retested on the next cases.",
+      "alt": "Flowchart. The agent drafts in shadow mode; the draft is compared with the staff's own work; if they match, the agreement is logged. If not, the cause is identified: an agent error leads to fixing data, tools or instructions, and an unwritten rule leads to writing the rule into the SOP. Both paths loop back to retest on the next cases.",
+      "source": "Drawn by the author."
+     }
+    },
+    {
+     "h3": "4.3 Choose processes that suit agents"
+    },
+    {
+     "p": "Good first candidates are frequent, rule-based enough to document, tolerant of a draft-and-approve step, and measurable: order entry, quote preparation, supplier follow-up, maintenance request triage and document-control queries. Poor first candidates are rare, judgment-heavy or safety-critical in real time, such as process-upset response or final release of product."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "A Readiness Assessment Model",
+   "blocks": [
+    {
+     "p": "This paper proposes a simple readiness score across five dimensions, each rated from 1 (absent) to 4 (established). The score is a conversation tool for owners and advisers, not a benchmark; its value is in showing which foundation to build next."
+    },
+    {
+     "h3": "5.1 Dimensions and rating guide"
+    },
+    {
+     "p": "Table 4 gives the dimensions, their weights and the anchors for the lowest and highest ratings."
+    },
+    {
+     "table": {
+      "n": 4,
+      "caption": "Readiness dimensions, weights and rating anchors.",
+      "head": [
+       "Dimension",
+       "Weight",
+       "1 – Absent",
+       "4 – Established"
+      ],
+      "rows": [
+       [
+        "Data foundations",
+        "0.25",
+        "Key data in personal spreadsheets and email",
+        "One system of record per entity; known data quality"
+       ],
+       [
+        "Process documentation",
+        "0.25",
+        "Processes tacit, held by individuals",
+        "Current SOPs with decision rules and exceptions"
+       ],
+       [
+        "Systems and integration",
+        "0.20",
+        "No APIs; manual exports",
+        "Core systems reachable by API or MCP with role-based access"
+       ],
+       [
+        "People and ownership",
+        "0.15",
+        "No owner; no AI training",
+        "Named owner with time; staff trained; supervisor role defined"
+       ],
+       [
+        "Governance and security",
+        "0.15",
+        "No data or AI policy",
+        "Data classification, AI use policy, agent register"
+       ]
+      ],
+      "note": "Author's proposal; ratings 2 and 3 fall between the anchors shown."
+     }
+    },
+    {
+     "p": "The weighted score R and a readiness index I from 0 to 100% are given by Eq. (1):"
+    },
+    {
+     "eq": "R = Σ<sub>i</sub> w<sub>i</sub> s<sub>i</sub>,   I = (R − 1) / 3 × 100%",
+     "n": 1
+    },
+    {
+     "p": "where s<sub>i</sub> is the rating (1 to 4) and w<sub>i</sub> the weight of dimension i, with the five weights summing to 1. Three bands are suggested: below 40%, build foundations first; 40% to 65%, run a Stage 1 or Stage 2 pilot (Section 6); above 65%, consider Stage 3. Independently of the total, any dimension rated 1 should be raised to 2 before Stage 2, since one missing foundation can sink an otherwise strong pilot."
+    },
+    {
+     "h3": "5.2 Worked example (illustrative firm)"
+    },
+    {
+     "p": "An 80-person metal fabricator has an ERP, but quoting data lives partly in estimators' spreadsheets (data: 2). Its ISO 9001 procedures are current but lack written decision rules (process: 3). The ERP has a reporting database but no API (systems: 2). No one is assigned to AI and no staff have been trained (people: 1). There is an IT policy but no data classification (governance: 2)."
+    },
+    {
+     "p": "Applying Eq. (1) gives R = 0.25(2) + 0.25(3) + 0.20(2) + 0.15(1) + 0.15(2) = 2.10, and I = (2.10 − 1) / 3 × 100% ≈ 37%."
+    },
+    {
+     "p": "The firm sits just below the 40% band. The score points to a clear next step: appoint an owner and train a small team (people from 1 to 2), and classify the data the first use case would touch (governance from 2 to 3). Those two moves raise the index to about 47%, enough to start a Stage 1 pilot on quoting, the process its documentation already supports best."
+    },
+    {
+     "h3": "5.3 Using the score"
+    },
+    {
+     "p": "The score is most useful when it is assigned in a short workshop with the owner, the person who runs the target process and whoever looks after the firm's systems, and when each rating is backed by evidence: a named system of record, a current procedure, a working interface. Ratings given from memory tend to be optimistic, particularly for documentation and data quality. The score should be recorded with its date and repeated at each gate of the roadmap in Section 6, so that the firm can see whether its foundations are improving as fast as its use of agents. Two cautions apply. The weights are a starting point and can reasonably be changed, for example by raising governance for a firm that handles personal or regulated data. And the index should never be the only gate: a firm can score well overall and still be unready for a particular process if that process is undocumented."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "A Staged Adoption Roadmap",
+   "blocks": [
+    {
+     "p": "Staged adoption suits SMEs because each stage is cheap to stop, produces evidence for the next decision, and builds the foundation the next stage needs. Figure 3 sets out four stages separated by gates; the gate criteria are proposed defaults, to be tuned to each firm's risk tolerance."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-staged-roadmap",
+      "caption": "Staged adoption roadmap for agentic AI in SMEs. Autonomy rises one step at a time (read, then draft for approval, then act within limits), and each step is gated. Gate criteria are the author's proposed defaults.",
+      "alt": "Roadmap with four stages from left to right. Stage 0, foundations: clean the data the first use case needs, document the process, name an owner, set a data policy. Stage 1, assist: a read-only assistant and shadow-mode drafts. Stage 2, draft and approve: the agent writes drafts into the ERP or CMMS for a person to approve. Stage 3, act within limits: low-risk actions run automatically and a second agent is added. Gate 1 requires a readiness index of at least 40%, gate 2 shadow drafts matching staff work at least 90% of the time, and gate 3 sixty days of drafts with the error rate on target.",
+      "source": "Drawn by the author."
+     }
+    },
+    {
+     "h3": "6.1 What each stage delivers"
+    },
+    {
+     "list": [
+      "<strong>Stage 0, Foundations.</strong> One use case is chosen using the criteria in Section 4.3, its data brought to the minimum standard (Section 3.1), its procedure written or updated, an owner appointed and a one-page data and AI use policy adopted. Many firms find this stage pays for itself through cleaner data and clearer procedures, before any agent runs.",
+      "<strong>Stage 1, Assist.</strong> A read-only assistant is deployed over the documents and system data the use case needs, and the agent runs in shadow mode on the target process. Unwritten rules are captured as they surface (Section 4.2).",
+      "<strong>Stage 2, Draft and approve.</strong> The agent writes drafts into the system of record (a sales order, a work request, a supplier follow-up) that a person releases. Acceptance rate, edit rate, errors caught at approval and time saved are measured.",
+      "<strong>Stage 3, Act within limits.</strong> Low-risk, reversible actions run automatically, approval is kept for consequential ones, and a second agent is added on the same infrastructure. The security controls in the companion paper on agent identity in this volume apply from this stage at the latest."
+     ],
+     "ordered": false
+    },
+    {
+     "h3": "6.2 Why gates matter"
+    },
+    {
+     "p": "Gartner expects more than 40% of agentic AI projects to be cancelled by the end of 2027, mostly over cost, unclear value and weak risk controls [12]. Gates address all three: they cap spending until value is shown, they force value to be measured rather than assumed, and they make each increase in autonomy a deliberate decision backed by data."
+    },
+    {
+     "h3": "6.3 Funding and support"
+    },
+    {
+     "p": "Canadian SMEs can often fund Stage 0 and part of Stage 1 through public digital-adoption and innovation programmes, and through advisory support for digital and AI planning. Programme names, eligibility and funding levels change frequently, so firms should confirm current terms before planning around them."
+    },
+    {
+     "h3": "6.4 A simple business case for the first agent"
+    },
+    {
+     "p": "Each gate decision needs a business case that the owner can check. For a first agent that saves staff time, a simple payback period is enough, as in Eq. (2):"
+    },
+    {
+     "eq": "T<sub>payback</sub> = C<sub>impl</sub> / (H · w − C<sub>run</sub>)",
+     "n": 2
+    },
+    {
+     "p": "where C<sub>impl</sub> is the one-time implementation cost, H the staff hours saved per year, w the loaded hourly cost of those staff, and C<sub>run</sub> the yearly running cost (model usage, platform fees and support)."
+    },
+    {
+     "p": "<strong>Worked example (illustrative figures).</strong> The fabricator from Section 5.2 enters 25 standard orders a day, at about 12 minutes each. With the agent preparing draft orders, review takes about 3 minutes, saving 225 minutes (3.75 hours) a day, or 825 hours over 220 working days. At a loaded cost of $45 per hour, H · w = $37,125 a year. With running costs of $6,000 a year and an implementation cost of $25,000, Eq. (2) gives T<sub>payback</sub> = 25,000 / (37,125 − 6,000) ≈ 0.80 years, or about 10 months."
+    },
+    {
+     "p": "Two cautions apply. Saved hours have value only if the time is redeployed to other work, so H should count hours the owner will actually use. And the case should be re-run at each gate with measured, not estimated, acceptance and review times: if half the drafts need heavy editing, the saving shrinks and the payback lengthens. This is the discipline Gartner's cancellation forecast points to: a project whose value is measured at each step is far less likely to be cancelled for unclear value [12]."
+    },
+    {
+     "h3": "6.5 Common failure patterns"
+    },
+    {
+     "p": "The barriers in Section 2 show up in practice as a small number of recurring mistakes. Each maps to a stage or gate that would have caught it:"
+    },
+    {
+     "list": [
+      "<strong>A pilot without an owner.</strong> The tool is bought, the vendor sets it up, and use fades within weeks. Stage 0 requires a named owner with time before anything is installed.",
+      "<strong>The wrong first process.</strong> A judgment-heavy or rare process is chosen because it is painful, and the agent cannot be made reliable. The criteria in Section 4.3 steer the first use case to frequent, rule-based work.",
+      "<strong>Skipping shadow mode.</strong> The agent goes straight to drafting live records, and unwritten rules surface as errors in front of customers. Gate 2 requires shadow-mode agreement first.",
+      "<strong>Counting time saved but not used.</strong> The business case assumes savings that never turn into other work. Section 6.4 counts only hours that will be redeployed.",
+      "<strong>Scaling before the data is fixed.</strong> A second agent is added on top of the same data problems, which then affect both. Each new use case brings its own data check (Section 3.4)."
+     ],
+     "ordered": false
+    },
+    {
+     "p": "None of these mistakes is technical, which is consistent with the finding that the largest gap between small and large firms lies in people and process rather than in access to the technology [4]."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "The adoption gap between large and small firms is real, but its causes are mostly within an SME's reach. Large firms lead less because of budget than because they have the foundations agents need: data in systems rather than spreadsheets, documented processes, people trained and assigned, and policies that make risk decisions routine [4, 6]. An SME can build those foundations one use case at a time. A current SOP becomes most of an agent specification; shadow mode turns tacit rules into written ones; a five-dimension readiness score shows which foundation to build next; and a gated roadmap lets autonomy grow only as fast as evidence supports it. Firms that follow this path are likely to find that much of the return comes before the first agent goes live, through cleaner data and clearer processes."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Kronenberg, S. (2026, March 29; updated April 3). AI adoption in US manufacturing has quadrupled since 2023, but 87% haven't made the switch. Digit Software.",
+   "url": "https://www.digit-software.com/blog/study-ai-adoption-in-us-manufacturing"
+  },
+  {
+   "text": "Automation.com. (2026, May 6). Report: AI adoption in U.S. manufacturing has quadrupled, but 87% of facilities still haven't made the switch. <em>Automation.com</em>.",
+   "url": "https://www.automation.com/article/report-ai-adoption-us-manufacturing-quadrupled"
+  },
+  {
+   "text": "OECD. (2025). An overview of prior research on the diffusion of artificial intelligence in firms. In <em>The adoption of artificial intelligence in firms</em>. OECD Publishing.",
+   "url": "https://www.oecd.org/en/publications/the-adoption-of-artificial-intelligence-in-firms_f9ef33c3-en/full-report/an-overview-of-prior-research-on-the-diffusion-of-artificial-intelligence-in-firms_587fc708.html"
+  },
+  {
+   "text": "Do, V., Sood, S., &amp; Johnston, C. (2026, June 11). Analysis on artificial intelligence use by businesses in Canada, second quarter of 2026 (Catalogue no. 11-621-M). Statistics Canada.",
+   "url": "https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026010-eng.htm"
+  },
+  {
+   "text": "Anthropic. (2025, December 9). How enterprises are building AI agents in 2026 [Summary of the 2026 State of AI Agents Report, with Material].",
+   "url": "https://claude.com/resources/articles/how-enterprises-are-building-ai-agents-in-2026"
+  },
+  {
+   "text": "Engineering.com. (2026). Scaling AI agents is where things get complicated [Report on Deloitte's agentic AI survey]. <em>Engineering.com</em>.",
+   "url": "https://www.engineering.com/scaling-ai-agents-is-where-things-get-complicated/"
+  },
+  {
+   "text": "Chawla, C., &amp; Arnburg, C. (2026). Survey evidence on firm AI adoption and its implications (Staff Analytical Paper 2026-22). Bank of Canada.",
+   "url": "https://www.banqueducanada.ca/wp-content/uploads/2026/05/sap2026-22.pdf"
+  },
+  {
+   "text": "Canadian Federation of Independent Business. (2026). AI adoption [Research and economic analysis].",
+   "url": "https://www.cfib-fcei.ca/en/research-economic-analysis/ai-adoption"
+  },
+  {
+   "text": "Federal Reserve Bank of Minneapolis. (2026). AI adoption in business grows steadily but unevenly.",
+   "url": "https://www.minneapolisfed.org/article/2026/ai-adoption-in-business-grows-steadily-but-unevenly"
+  },
+  {
+   "text": "Eurostat. (2025, December). Use of artificial intelligence in enterprises [Statistics Explained; dataset isoc_eb_ai]. Retrieved November 12, 2026.",
+   "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php/Use_of_artificial_intelligence_in_enterprises"
+  },
+  {
+   "text": "Salesforce. (2025). Integration key as 93% of IT leaders turn to AI agents [MuleSoft 2025 Connectivity Benchmark Report announcement].",
+   "url": "https://www.salesforce.com/news/stories/connectivity-report-announcement-2025/"
+  },
+  {
+   "text": "Outlook Business. (2025, June). Over 40% of agentic AI projects will be scrapped by 2027, says Gartner. <em>Outlook Business</em>.",
+   "url": "https://www.outlookbusiness.com/amp/story/deeptech/artificial-intelligence/over-40-of-agentic-ai-projects-will-be-scrapped-by-2027-says-gartner"
+  }
+ ],
+ "corrections": []
+}

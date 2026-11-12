@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 NAVY, BLUE, BRIGHT, GREEN, GREEN_D, ORANGE, GREY, LIGHT = "#0B2A5A", "#0B6FA4", "#0A9AD8", "#8DC63F", "#4D7F12", "#E07A3A", "#8A94A6", "#DCE4EE"
 SERIES = [BLUE, GREEN_D, ORANGE, NAVY, BRIGHT, GREY]
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "journal", "figures")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "figures")   # content/journal/figures (V4.61)
 
 plt.rcParams.update({
     "svg.fonttype": "none", "font.family": ["Inter", "DejaVu Sans"], "font.size": 10.5,

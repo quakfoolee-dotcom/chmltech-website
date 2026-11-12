@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems</title>
+<meta name="description" content="How MCP and A2A connect AI agents to ERP, CRM and plant systems: the integration problem, both protocols, a reference architecture and an adoption path.">
+<link rel="canonical" href="https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems">
+<meta property="og:description" content="How MCP and A2A connect AI agents to ERP, CRM and plant systems: the integration problem, both protocols, a reference architecture and an adoption path.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<meta property="og:url" content="https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-12">
+<meta property="article:modified_time" content="2026-11-12">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems","item":"https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css">
+<meta name="citation_title" content="Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/12">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="105">
+<meta name="citation_issue" content="4">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="index.html">Home</a> / <a href="insights.html">Insights</a> / <a href="insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 105, Issue 4</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 12, 2026</span><span>14 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Integration with existing systems is now the most common barrier to deploying AI agents: in a 2025 survey of more than 500 technical leaders, 46% named it their primary challenge, ahead of data access and quality at 42%. This paper examines the open standards that aim to lower that barrier. The Model Context Protocol (MCP) standardizes how an agent discovers and calls tools and data; its 2026-07-28 revision made the protocol stateless, added an extensions framework and enterprise-managed authorization, and the protocol is now governed by the Linux Foundation's Agentic AI Foundation. The Agent2Agent (A2A) protocol, which reached a stable version 1.0 in 2026, standardizes how independent agents discover each other and delegate tasks. The paper explains the architecture of both, shows why a standard interface turns an N × M connector problem into an N + M one, and sets out a reference architecture for connecting agents to ERP, CRM and plant systems (manufacturing execution systems, historians and OPC UA servers) through a governed MCP gateway. It closes with design rules for staged writes, operational-technology zoning and protocol versioning, a worked downtime investigation, and a staged adoption path for mid-sized industrial firms. The central conclusion is that the standards remove much of the connector burden, but the value and the safety come from the architecture built around them.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> Model Context Protocol; Agent2Agent; agent interoperability; ERP integration; OPC UA; manufacturing execution systems; enterprise architecture</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>An AI agent is only as useful as the systems it can reach. A purchasing agent that cannot read open purchase orders in the ERP, or a maintenance agent that cannot see vibration trends in the plant historian, produces advice rather than work. For most firms the model is no longer the constraint. In a survey of more than 500 technical leaders published in December 2025, integration with existing systems was the most cited deployment challenge (46%), followed by data access and quality (42%) and change management (39%) [<a href="#ref-1" class="j-cite">1</a>]. The same survey found that 57% of organizations already run agents on multi-stage workflows, which multiplies the number of systems each agent must touch [<a href="#ref-1" class="j-cite">1</a>].</p><p>The cost of getting integration wrong is visible in the failure forecasts. Gartner expects more than 40% of agentic AI projects to be cancelled by the end of 2027, citing escalating costs, unclear business value and inadequate risk controls [<a href="#ref-2" class="j-cite">2</a>]. Gartner also advises against bolting agents onto legacy systems simply to tick a box [<a href="#ref-3" class="j-cite">3</a>]. Integration debt is one of the main ways a promising pilot becomes a cancelled project.</p><p>This paper is the first in a short Chmltech series on agentic AI in industrial and mid-market firms. It covers:</p><ol><li>Why point-to-point agent integration does not scale (Section 2).</li><li>The Model Context Protocol: architecture, primitives and the 2026-07-28 revision (Section 3).</li><li>Agent-to-agent protocols, chiefly A2A, and how they complement MCP (Section 4).</li><li>A reference architecture for ERP, CRM and plant-system integration (Section 5).</li><li>Design rules, risks and a staged adoption path (Section 6).</li></ol><p>Security, identity and audit are treated only where they shape the integration architecture; they are the subject of the companion paper on agent security and identity in this volume.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> The Integration Problem</h2><p>Enterprise application estates are large and loosely connected. MuleSoft's 2025 Connectivity Benchmark, a survey of 1,050 IT leaders, found that organizations run an average of 897 applications, with only 29% of them typically connected; firms already using agents ran even more applications, 1,103 on average [<a href="#ref-4" class="j-cite">4</a>]. Each agent that needs to act across this estate inherits the gaps.</p><h3>2.1 From N × M to N + M</h3><p>Before a common protocol, each agent framework needed its own connector to each system. With N agent hosts and M target systems, the number of custom connectors to build and maintain is given by Eq. (1):</p><div class="j-eq" role="math"><span class="j-eq-body">C<sub>custom</sub> = N × M</span><span class="j-eq-n">(1)</span></div><p>A standard interface lets each agent host implement one client and each system expose one server, so the count becomes Eq. (2):</p><div class="j-eq" role="math"><span class="j-eq-body">C<sub>standard</sub> = N + M</span><span class="j-eq-n">(2)</span></div><p><strong>Worked example (illustrative figures).</strong> A mid-sized manufacturer plans four agents (a desktop assistant, a maintenance agent, a scheduling agent and a customer-service agent) over six systems (ERP, CRM, MES, historian, CMMS and QMS). Point-to-point integration needs 4 × 6 = 24 connectors; a standard interface needs 4 + 6 = 10 adapters, a 58% reduction. The gap widens with every agent or system added, and it matters more for maintenance than for the first build, because a custom connector breaks whenever either side changes its API.</p><h3>2.2 Why agents make integration harder</h3><p>Agents differ from conventional integration clients in three ways that standard interfaces must address:</p><ul><li><strong>Discovery at run time.</strong> An agent chooses tools while reasoning, so it needs machine-readable descriptions of what each tool does, its inputs and its side effects, not just an endpoint.</li><li><strong>Delegated authority.</strong> An agent acts for a person or a team, so every call must carry whom it acts for and what it may do. A shared service account hides that.</li><li><strong>Long-running work.</strong> A batch reconciliation or a production reschedule can take minutes to hours, which a simple request-response interface handles poorly.</li></ul><p>The protocols in Sections 3 and 4 are best read as answers to these three needs.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> The Model Context Protocol</h2><p>MCP is an open protocol, first released by Anthropic in November 2024, that defines how AI applications connect to external tools, data and other applications in a client-server arrangement [<a href="#ref-5" class="j-cite">5</a>]. In December 2025 Anthropic donated it to the Agentic AI Foundation (AAIF), a new Linux Foundation body launched alongside OpenAI's AGENTS.md and Block's goose, which placed the protocol under vendor-neutral governance [<a href="#ref-6" class="j-cite">6</a>].</p><h3>3.1 Architecture and primitives</h3><p>An MCP <strong>host</strong> (a chat application, a development environment or an agent runtime) runs one <strong>client</strong> per connection; each client talks to an MCP <strong>server</strong> that wraps a system such as an ERP interface or a historian. Messages use JSON-RPC 2.0. Local servers typically run over standard input and output; remote servers run over HTTP [<a href="#ref-7" class="j-cite">7</a>]. Servers expose three main primitives, summarized in Table 1.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> MCP server primitives, with industrial examples.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Primitive</th><th>What it exposes</th><th>Industrial example</th></tr></thead><tbody><tr><td>Tools</td><td>Functions the model may call, with a JSON schema for inputs</td><td>get_open_work_orders(asset_id) on the CMMS</td></tr><tr><td>Resources</td><td>Read-only data addressed by URI</td><td>The current SOP for a reactor start-up</td></tr><tr><td>Prompts</td><td>Reusable, parameterized templates</td><td>A shift-handover summary template</td></tr></tbody></table></div><p class="j-table-note">Source: MCP specification [<a href="#ref-7" class="j-cite">7</a>]; examples by the author.</p></figure><p>The tool description is the contract the agent reasons over, so its wording, input schema and stated side effects decide whether the agent uses the tool correctly. Poorly described tools are a common source of wrong calls.</p><h3>3.2 The 2026-07-28 revision</h3><p>The July 2026 revision is the largest change since remote MCP launched and was aimed squarely at enterprise operation [<a href="#ref-5" class="j-cite">5</a>, <a href="#ref-8" class="j-cite">8</a>]:</p><ul><li><strong>Stateless requests.</strong> The initialize handshake and the protocol-level session are gone. Each request carries its protocol version and the client capabilities the server needs, so servers can sit behind ordinary load balancers and scale on existing Kubernetes tooling without sticky routing [<a href="#ref-5" class="j-cite">5</a>, <a href="#ref-8" class="j-cite">8</a>].</li><li><strong>Extensions framework.</strong> Optional capabilities are now formal extensions that are negotiated and versioned separately from the core protocol [<a href="#ref-8" class="j-cite">8</a>].</li><li><strong>Tasks as an extension.</strong> Long-running tool calls become asynchronous tasks with durable handles, so a client can resume polling after a crash instead of holding a connection open [<a href="#ref-5" class="j-cite">5</a>].</li><li><strong>Enterprise-managed authorization.</strong> An extension lets organizations govern access to MCP servers through their central identity provider; the revision also asks for the issuer (iss) parameter to be included and validated in authorization responses, which defends against OAuth mix-up attacks when one client talks to several servers [<a href="#ref-5" class="j-cite">5</a>].</li><li><strong>Deprecation policy.</strong> Features now move through a published lifecycle with at least 12 months between deprecation and removal, which gives implementers a planning horizon [<a href="#ref-5" class="j-cite">5</a>].</li></ul><p>For integrators the practical consequence is that MCP servers can now be run like any other stateless web service. Teams that built servers on session identifiers face a migration [<a href="#ref-5" class="j-cite">5</a>].</p><h3>3.3 Security model in brief</h3><p>MCP authorization is based on OAuth. The specification's security guidance forbids token passthrough: a server must not accept tokens that were not issued for it, and must not forward a client's token to a downstream interface, because doing so bypasses audience checks, rate limits and audit trails [<a href="#ref-9" class="j-cite">9</a>]. The design rule for integrators is that the MCP server obtains its own, narrowly scoped credential for each downstream system. The companion security paper treats this in depth.</p><h3>3.4 Writing tool descriptions agents use correctly</h3><p>Because the model chooses tools from their descriptions, a tool definition is a specification, not a comment. A good definition states what the tool does, when not to use it, the units and allowed ranges of each input, and its side effects. Table 2 shows the fields of a read-only historian query for one asset.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Example definition of a read-only historian tool (illustrative).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>name</td><td>get_tag_trend</td></tr><tr><td>description</td><td>Read-only. Returns time-stamped values of one historian tag for one asset. Use for trend and downtime analysis. Does not change any setpoint. Maximum window 7 days.</td></tr><tr><td>asset_id (string, required)</td><td>Asset number from the CMMS, for example P-2301</td></tr><tr><td>tag (string, required)</td><td>One of: flow, pressure, temperature, vibration</td></tr><tr><td>start, end (date-time, required)</td><td>Time window to return</td></tr></tbody></table></div><p class="j-table-note">Author's example, following the tool structure in the MCP specification [<a href="#ref-7" class="j-cite">7</a>].</p></figure><p>Three features of the example generalize. The first word of the description states the risk class. An enumeration replaces free-text tag names, so the model cannot request tags outside the curated set. And the stated limit of seven days is enforced again on the server, because a description guides the model but does not bind it.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Agent-to-Agent Protocols</h2><p>MCP connects an agent to tools. It does not define how two independent agents, built by different vendors and running under different owners, find each other and share work. The Agent2Agent (A2A) protocol fills that gap. Google developed it and contributed it to the Linux Foundation; in April 2026 the project reported more than 150 supporting organizations, a stable version 1.0 specification and integration into the major cloud platforms [<a href="#ref-10" class="j-cite">10</a>]. The Linux Foundation describes A2A and MCP as complementary [<a href="#ref-10" class="j-cite">10</a>].</p><h3>4.1 Core concepts</h3><ul><li><strong>Agent card.</strong> Each agent publishes a machine-readable description of its skills, its endpoint and the authentication it requires, so another agent can decide whether and how to call it.</li><li><strong>Task.</strong> The unit of delegated work, with a lifecycle (submitted, working, needing input, completed, failed) that both sides can track.</li><li><strong>Messages and artifacts.</strong> Agents exchange messages while a task runs and return artifacts (a document, a data set, a structured result) when it ends; long tasks can stream updates.</li></ul><p>The key design choice is opacity: an A2A caller sees another agent's declared skills and results, not its internal tools, prompts or memory. That suits work crossing an organizational or vendor boundary, where each party keeps control of its own systems.</p><h3>4.2 Choosing the right protocol</h3><p>Table 3 compares the two agent protocols with OPC UA, the established interface to industrial control systems.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> MCP, A2A and OPC UA compared.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Question</th><th>MCP</th><th>A2A</th><th>OPC UA</th></tr></thead><tbody><tr><td>What connects</td><td>An agent to a tool or data source</td><td>An agent to another agent</td><td>A client to industrial devices and control systems</td></tr><tr><td>Unit of exchange</td><td>Tool call, resource read</td><td>Task with messages and artifacts</td><td>Node read or write, subscription, method call</td></tr><tr><td>Who reasons</td><td>Only the calling agent</td><td>Both agents</td><td>Neither (deterministic)</td></tr><tr><td>Typical industrial use</td><td>Agent reads ERP orders and historian trends</td><td>Planning agent asks a supplier's agent for a delivery date</td><td>SCADA reads tag values from a PLC</td></tr><tr><td>Governance</td><td>Agentic AI Foundation (Linux Foundation)</td><td>Linux Foundation A2A project</td><td>OPC Foundation</td></tr></tbody></table></div><p class="j-table-note">Sources: [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>, <a href="#ref-10" class="j-cite">10</a>]; industrial examples by the author.</p></figure><p>The three are layers, not rivals. In a plant, OPC UA remains the deterministic interface to control systems; an MCP server can wrap a read-only view of it for agents; and A2A lets a plant-side agent hand a task to an agent run by another firm. Figure 1 shows how the three layers combine in one cross-company exchange.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 502.56 266.544" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Diagram in three horizontal layers. Top layer, agent to agent over A2A: a plant scheduling agent and a supplier&#x27;s order agent exchange a task. Middle layer, agent to tool over MCP: the scheduling agent calls an MES server and a historian server, and the supplier&#x27;s agent calls its own ERP server. Bottom layer, system to device over OPC UA: the historian reads PLC and SCADA data, read-only.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 266.544 
+L 502.56 266.544 
+L 502.56 0 
+L 0 0 
+L 0 266.544 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 137.1132 67.60332 
+L 257.418 67.60332 
+Q 262.3284 67.60332 262.3284 65.05308 
+L 262.3284 33.17508 
+Q 262.3284 30.62484 257.418 30.62484 
+L 137.1132 30.62484 
+Q 132.2028 30.62484 132.2028 33.17508 
+L 132.2028 65.05308 
+Q 132.2028 67.60332 137.1132 67.60332 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #cfe6f3; stroke: #0b6fa4; stroke-width: 1.4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 333.5292 67.60332 
+L 453.834 67.60332 
+Q 458.7444 67.60332 458.7444 65.05308 
+L 458.7444 33.17508 
+Q 458.7444 30.62484 453.834 30.62484 
+L 333.5292 30.62484 
+Q 328.6188 30.62484 328.6188 33.17508 
+L 328.6188 65.05308 
+Q 328.6188 67.60332 333.5292 67.60332 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #cfe6f3; stroke: #0b6fa4; stroke-width: 1.4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 265.233051 49.11408 
+Q 295.4736 49.11408 325.714149 49.11408 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 269.633051 51.31408 
+L 265.233051 49.11408 
+L 269.633051 46.91408 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 321.314149 46.91408 
+L 325.714149 49.11408 
+L 321.314149 51.31408 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_5">
+<path d="M 117.4716 151.76124 
+L 183.762 151.76124 
+Q 188.6724 151.76124 188.6724 149.211 
+L 188.6724 117.333 
+Q 188.6724 114.78276 183.762 114.78276 
+L 117.4716 114.78276 
+Q 112.5612 114.78276 112.5612 117.333 
+L 112.5612 149.211 
+Q 112.5612 151.76124 117.4716 151.76124 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 205.8588 151.76124 
+L 272.1492 151.76124 
+Q 277.0596 151.76124 277.0596 149.211 
+L 277.0596 117.333 
+Q 277.0596 114.78276 272.1492 114.78276 
+L 205.8588 114.78276 
+Q 200.9484 114.78276 200.9484 117.333 
+L 200.9484 149.211 
+Q 200.9484 151.76124 205.8588 151.76124 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 333.5292 151.76124 
+L 453.834 151.76124 
+Q 458.7444 151.76124 458.7444 149.211 
+L 458.7444 117.333 
+Q 458.7444 114.78276 453.834 114.78276 
+L 333.5292 114.78276 
+Q 328.6188 114.78276 328.6188 117.333 
+L 328.6188 149.211 
+Q 328.6188 151.76124 333.5292 151.76124 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 150.6168 68.24088 
+Q 150.6168 91.19304 150.6168 112.468149 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 152.8168 108.068149 
+L 150.6168 112.468149 
+L 148.4168 108.068149 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_9">
+<path d="M 239.004 68.24088 
+Q 239.004 91.19304 239.004 112.468149 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 241.204 108.068149 
+L 239.004 112.468149 
+L 236.804 108.068149 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 393.6816 68.24088 
+Q 393.6816 91.19304 393.6816 112.468149 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 395.8816 108.068149 
+L 393.6816 112.468149 
+L 391.4816 108.068149 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_11">
+<path d="M 196.038 238.4694 
+L 281.97 238.4694 
+Q 286.8804 238.4694 286.8804 235.91916 
+L 286.8804 204.04116 
+Q 286.8804 201.49092 281.97 201.49092 
+L 196.038 201.49092 
+Q 191.1276 201.49092 191.1276 204.04116 
+L 191.1276 235.91916 
+Q 191.1276 238.4694 196.038 238.4694 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 239.004 200.85336 
+Q 239.004 176.62608 239.004 154.075851 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 236.804 158.475851 
+L 239.004 154.075851 
+L 241.204 158.475851 
+z
+" clip-path="url(#p1ec1548770)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 15.5808 92.46816 
+L 486.9792 92.46816 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #dce4ee; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<path d="M 15.5808 174.07584 
+L 486.9792 174.07584 
+" clip-path="url(#p1ec1548770)" style="fill: none; stroke: #dce4ee; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="15.5808" y="46.376175" transform="rotate(-0 15.5808 46.376175)">Agent to agent</text>
+</g>
+<g id="text_2">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="15.5808" y="62.588966" transform="rotate(-0 15.5808 62.588966)">A2A</text>
+</g>
+<g id="text_3">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="15.5808" y="130.534095" transform="rotate(-0 15.5808 130.534095)">Agent to tool</text>
+</g>
+<g id="text_4">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="15.5808" y="146.746886" transform="rotate(-0 15.5808 146.746886)">MCP</text>
+</g>
+<g id="text_5">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="15.5808" y="214.692015" transform="rotate(-0 15.5808 214.692015)">System to device</text>
+</g>
+<g id="text_6">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="15.5808" y="230.904806" transform="rotate(-0 15.5808 230.904806)">OPC UA</text>
+</g>
+<g id="text_7">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="197.2656" y="51.572908" transform="rotate(-0 197.2656 51.572908)">Plant scheduling agent</text>
+</g>
+<g id="text_8">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="393.6816" y="51.572908" transform="rotate(-0 393.6816 51.572908)">Supplier's order agent</text>
+</g>
+<g id="text_9">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="295.4736" y="40.18824" transform="rotate(-0 295.4736 40.18824)">task</text>
+</g>
+<g id="text_10">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="150.6168" y="136.533094" transform="rotate(-0 150.6168 136.533094)">MES server</text>
+</g>
+<g id="text_11">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(220.028063 129.790345)">Historian</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(225.482906 142.517171)">server</text>
+</g>
+<g id="text_12">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="393.6816" y="135.735047" transform="rotate(-0 393.6816 135.735047)">Supplier ERP server</text>
+</g>
+<g id="text_13">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="401.0472" y="107.036281" transform="rotate(-0 401.0472 107.036281)">supplier's systems</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="239.004" y="223.241254" transform="rotate(-0 239.004 223.241254)">PLC · SCADA</text>
+</g>
+<g id="text_15">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="246.3696" y="179.718121" transform="rotate(-0 246.3696 179.718121)">read-only</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p1ec1548770">
+<rect x="5.76" y="5.76" width="491.04" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Protocol layers in a plant-to-supplier exchange. The plant's scheduling agent reads MES and historian data through MCP servers, the historian reads control systems over OPC UA, and the scheduling agent hands a delivery query to the supplier's agent over A2A without seeing the supplier's systems. <span class="j-fig-src">Drawn by the author.</span></figcaption></figure><h3>4.3 Vendor uptake</h3><p>Large application vendors are now building on both protocols. SAP has announced that agents built in Joule Studio will use MCP and A2A to draw on tools and third-party agents, and that bi-directional A2A will let outside agents call Joule agents inside enterprise processes; general availability of these A2A capabilities was planned for the fourth quarter of 2026 [<a href="#ref-11" class="j-cite">11</a>]. For a small or mid-sized firm on a mainstream ERP, this means agent interoperability will increasingly arrive as a vendor feature rather than a custom build, which shifts the integration task from writing connectors to governing them.</p><h3>4.4 Trust between agents</h3><p>A2A moves the trust question from which tools an agent may call to which outside agents it may deal with, and on what terms. Three practices keep that manageable. First, keep an allow-list of partner agents and pin each to a known endpoint and published agent card, rather than accepting any agent that presents a card. Second, authenticate each call with the method the partner's agent card declares, using credentials issued for that partnership alone. Third, put the commercial terms outside the protocol: what a partner's agent may request, what a reply commits either firm to, and who is liable for errors belong in the supply agreement, just as they do for electronic data interchange today. An A2A reply should be treated as an input to a decision, not as a decision.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Integrating with ERP, CRM and Plant Systems</h2><p>The recommended pattern places a single governed MCP gateway between all agent hosts and all system-facing MCP servers, and keeps the plant control layer out of reach of agents entirely (Figure 2). The layering follows the familiar ISA-95 model: business systems at Level 4, manufacturing operations (MES, historian, maintenance) at Level 3, and control systems at Level 2.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 502.56 355.248" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Layered architecture diagram. Agent hosts (an assistant, a maintenance agent and a scheduling agent) send MCP calls to one MCP gateway that applies identity, scoped tokens, a tool allow-list and an audit log. The gateway connects to enterprise systems at Level 4 (ERP and CRM MCP servers) and to plant DMZ servers at Level 3 (MES, historian, CMMS). PLC, SCADA and DCS at Level 2 feed the historian read-only over OPC UA, and no agent writes to the control layer. Supplier agents are reached over A2A.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 355.248 
+L 502.56 355.248 
+L 502.56 0 
+L 0 0 
+L 0 355.248 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 19.2636 75.36492 
+L 326.1636 75.36492 
+Q 331.074 75.36492 331.074 71.92764 
+L 331.074 18.6498 
+Q 331.074 15.21252 326.1636 15.21252 
+L 19.2636 15.21252 
+Q 14.3532 15.21252 14.3532 18.6498 
+L 14.3532 71.92764 
+Q 14.3532 75.36492 19.2636 75.36492 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 29.0844 70.209 
+L 110.106 70.209 
+Q 115.0164 70.209 115.0164 66.77172 
+L 115.0164 40.99212 
+Q 115.0164 37.55484 110.106 37.55484 
+L 29.0844 37.55484 
+Q 24.174 37.55484 24.174 40.99212 
+L 24.174 66.77172 
+Q 24.174 70.209 29.0844 70.209 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 132.2028 70.209 
+L 213.2244 70.209 
+Q 218.1348 70.209 218.1348 66.77172 
+L 218.1348 40.99212 
+Q 218.1348 37.55484 213.2244 37.55484 
+L 132.2028 37.55484 
+Q 127.2924 37.55484 127.2924 40.99212 
+L 127.2924 66.77172 
+Q 127.2924 70.209 132.2028 70.209 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 235.3212 70.209 
+L 316.3428 70.209 
+Q 321.2532 70.209 321.2532 66.77172 
+L 321.2532 40.99212 
+Q 321.2532 37.55484 316.3428 37.55484 
+L 235.3212 37.55484 
+Q 230.4108 37.55484 230.4108 40.99212 
+L 230.4108 66.77172 
+Q 230.4108 70.209 235.3212 70.209 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 372.8124 65.05308 
+L 483.2964 65.05308 
+Q 488.2068 65.05308 488.2068 61.6158 
+L 488.2068 32.39892 
+Q 488.2068 28.96164 483.2964 28.96164 
+L 372.8124 28.96164 
+Q 367.902 28.96164 367.902 32.39892 
+L 367.902 61.6158 
+Q 367.902 65.05308 372.8124 65.05308 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 332.3016 47.00736 
+Q 349.488 47.00736 364.997349 47.00736 
+" clip-path="url(#pf38d5fea21)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 360.597349 44.80736 
+L 364.997349 47.00736 
+L 360.597349 49.20736 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_8">
+<path d="M 19.2636 154.42236 
+L 483.2964 154.42236 
+Q 488.2068 154.42236 488.2068 150.98508 
+L 488.2068 111.45636 
+Q 488.2068 108.01908 483.2964 108.01908 
+L 19.2636 108.01908 
+Q 14.3532 108.01908 14.3532 111.45636 
+L 14.3532 150.98508 
+Q 14.3532 154.42236 19.2636 154.42236 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #cfe6f3; stroke: #0b6fa4; stroke-width: 1.6; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 172.7136 76.22424 
+Q 172.7136 91.692 172.7136 105.482709 
+" clip-path="url(#pf38d5fea21)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 174.9136 101.082709 
+L 172.7136 105.482709 
+L 170.5136 101.082709 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 19.2636 257.54076 
+L 227.9556 257.54076 
+Q 232.866 257.54076 232.866 254.10348 
+L 232.866 190.5138 
+Q 232.866 187.07652 227.9556 187.07652 
+L 19.2636 187.07652 
+Q 14.3532 187.07652 14.3532 190.5138 
+L 14.3532 254.10348 
+Q 14.3532 257.54076 19.2636 257.54076 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_11">
+<path d="M 29.0844 250.6662 
+L 115.0164 250.6662 
+Q 119.9268 250.6662 119.9268 247.22892 
+L 119.9268 221.44932 
+Q 119.9268 218.01204 115.0164 218.01204 
+L 29.0844 218.01204 
+Q 24.174 218.01204 24.174 221.44932 
+L 24.174 247.22892 
+Q 24.174 250.6662 29.0844 250.6662 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 132.2028 250.6662 
+L 218.1348 250.6662 
+Q 223.0452 250.6662 223.0452 247.22892 
+L 223.0452 221.44932 
+Q 223.0452 218.01204 218.1348 218.01204 
+L 132.2028 218.01204 
+Q 127.2924 218.01204 127.2924 221.44932 
+L 127.2924 247.22892 
+Q 127.2924 250.6662 132.2028 250.6662 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_13">
+<path d="M 274.6044 257.54076 
+L 483.2964 257.54076 
+Q 488.2068 257.54076 488.2068 254.10348 
+L 488.2068 190.5138 
+Q 488.2068 187.07652 483.2964 187.07652 
+L 274.6044 187.07652 
+Q 269.694 187.07652 269.694 190.5138 
+L 269.694 254.10348 
+Q 269.694 257.54076 274.6044 257.54076 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #dce4ee; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_14">
+<path d="M 284.4252 250.6662 
+L 338.4396 250.6662 
+Q 343.35 250.6662 343.35 247.22892 
+L 343.35 221.44932 
+Q 343.35 218.01204 338.4396 218.01204 
+L 284.4252 218.01204 
+Q 279.5148 218.01204 279.5148 221.44932 
+L 279.5148 247.22892 
+Q 279.5148 250.6662 284.4252 250.6662 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_15">
+<path d="M 353.1708 250.6662 
+L 407.1852 250.6662 
+Q 412.0956 250.6662 412.0956 247.22892 
+L 412.0956 221.44932 
+Q 412.0956 218.01204 407.1852 218.01204 
+L 353.1708 218.01204 
+Q 348.2604 218.01204 348.2604 221.44932 
+L 348.2604 247.22892 
+Q 348.2604 250.6662 353.1708 250.6662 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_16">
+<path d="M 421.9164 250.6662 
+L 475.9308 250.6662 
+Q 480.8412 250.6662 480.8412 247.22892 
+L 480.8412 221.44932 
+Q 480.8412 218.01204 475.9308 218.01204 
+L 421.9164 218.01204 
+Q 417.006 218.01204 417.006 221.44932 
+L 417.006 247.22892 
+Q 417.006 250.6662 421.9164 250.6662 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_17">
+<path d="M 123.6096 155.28168 
+Q 123.6096 170.74944 123.6096 184.540149 
+" clip-path="url(#pf38d5fea21)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 125.8096 180.140149 
+L 123.6096 184.540149 
+L 121.4096 180.140149 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_18">
+<path d="M 378.9504 155.28168 
+Q 378.9504 170.74944 378.9504 184.540149 
+" clip-path="url(#pf38d5fea21)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 381.1504 180.140149 
+L 378.9504 184.540149 
+L 376.7504 180.140149 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_19">
+<path d="M 274.6044 340.03548 
+L 483.2964 340.03548 
+Q 488.2068 340.03548 488.2068 336.5982 
+L 488.2068 307.38132 
+Q 488.2068 303.94404 483.2964 303.94404 
+L 274.6044 303.94404 
+Q 269.694 303.94404 269.694 307.38132 
+L 269.694 336.5982 
+Q 269.694 340.03548 274.6044 340.03548 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_20">
+<path d="M 378.9504 303.08472 
+Q 378.9504 280.7424 378.9504 260.077131 
+" clip-path="url(#pf38d5fea21)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 376.7504 264.477131 
+L 378.9504 260.077131 
+L 381.1504 264.477131 
+z
+" clip-path="url(#pf38d5fea21)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="25.4016" y="31.558131" transform="rotate(-0 25.4016 31.558131)">Agent hosts (MCP clients)</text>
+</g>
+<g id="text_2">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="69.5952" y="57.13242" transform="rotate(-0 69.5952 57.13242)">Assistant</text>
+</g>
+<g id="text_3">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(145.89285 50.477635)">Maintenance</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(160.940163 62.560705)">agent</text>
+</g>
+<g id="text_4">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(252.604125 49.583885)">Scheduling</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(264.058563 62.560705)">agent</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="428.0544" y="49.417672" transform="rotate(-0 428.0544 49.417672)">Supplier agents</text>
+</g>
+<g id="text_6">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="349.488" y="38.41416" transform="rotate(-0 349.488 38.41416)">A2A</text>
+</g>
+<g id="text_7">
+<text style="font-weight: 600; font-size: 11px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="251.28" y="126.628985" transform="rotate(-0 251.28 126.628985)">MCP gateway</text>
+</g>
+<g id="text_8">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="251.28" y="144.806486" transform="rotate(-0 251.28 144.806486)">identity · scoped tokens · tool allow-list · audit log</text>
+</g>
+<g id="text_9">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="180.0792" y="94.784041" transform="rotate(-0 180.0792 94.784041)">MCP calls</text>
+</g>
+<g id="text_10">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="25.4016" y="203.422131" transform="rotate(-0 25.4016 203.422131)">Enterprise systems (Level 4)</text>
+</g>
+<g id="text_11">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(52.526775 230.885335)">ERP MCP</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(58.829775 243.378843)">server</text>
+</g>
+<g id="text_12">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(153.911988 230.885335)">CRM MCP</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(161.948175 243.378843)">server</text>
+</g>
+<g id="text_13">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="280.7424" y="203.422131" transform="rotate(-0 280.7424 203.422131)">Plant DMZ servers (Level 3)</text>
+</g>
+<g id="text_14">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="311.4324" y="237.527745" transform="rotate(-0 311.4324 237.527745)">MES</text>
+</g>
+<g id="text_15">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="380.178" y="237.58962" transform="rotate(-0 380.178 237.58962)">Historian</text>
+</g>
+<g id="text_16">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="448.9236" y="237.527745" transform="rotate(-0 448.9236 237.527745)">CMMS</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="378.9504" y="325.26351" transform="rotate(-0 378.9504 325.26351)">PLC · SCADA · DCS (Level 2)</text>
+</g>
+<g id="text_18">
+<text style="font-size: 8.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="386.316" y="283.834441" transform="rotate(-0 386.316 283.834441)">OPC UA, read-only</text>
+</g>
+<g id="text_19">
+<text style="font-style: italic; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="251.28" y="325.190932" transform="rotate(-0 251.28 325.190932)">No agent writes to the control layer</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pf38d5fea21">
+<rect x="5.76" y="5.76" width="491.04" height="343.728"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Reference architecture for agent integration in an industrial firm. Agents reach ERP and CRM through one governed MCP gateway; plant data reaches agents only through Level 3 servers in the industrial DMZ, which read from control systems over OPC UA. <span class="j-fig-src">Drawn by the author.</span></figcaption></figure><h3>5.1 Enterprise systems (ERP and CRM)</h3><p>ERP and CRM vendors increasingly ship their own MCP servers and A2A endpoints (Section 4.3), so the integrator's main job is to decide which tools to expose, to whom, and with what write rights. Three rules work well:</p><ul><li><strong>Expose business operations, not tables.</strong> A tool named create_purchase_requisition_draft with a validated schema is safer and easier for the model to use than generic database access.</li><li><strong>Write through drafts.</strong> Agent writes create draft or pending records (a requisition, a quote, a credit memo) that the ERP's existing approval workflow releases. This reuses controls the business already trusts.</li><li><strong>Keep the system of record authoritative.</strong> Agents read master data from the ERP at call time rather than caching it in their own memory, so pricing, inventory and credit limits stay current.</li></ul><h3>5.2 Plant systems (MES, historian, CMMS and OPC UA)</h3><p>Industrial data platforms have begun to expose plant data over MCP. HighByte's Intelligence Hub, for example, connects to OPC UA servers, historians, SCADA and MES and can present a curated, contextualized model of that data to agents through an MCP server [<a href="#ref-12" class="j-cite">12</a>]. Other platforms let agents browse OPC UA address spaces and query historians to investigate quality or downtime events [<a href="#ref-13" class="j-cite">13</a>]. Community MCP servers for OPC UA and Modbus also exist, but they vary widely in maturity and should be treated as prototypes [<a href="#ref-14" class="j-cite">14</a>]. For plant integration we recommend:</p><ul><li><strong>Read-only by default.</strong> Agents read tags, trends, batch records and work orders. Any write (a setpoint, a recipe parameter, a mode change) stays with the control system and its operators.</li><li><strong>Contextualize before exposing.</strong> Raw tag names such as FIC-2301.PV mean little to a model. A hub that maps tags to assets, units and engineering limits gives the agent the context it needs and limits what it can see.</li><li><strong>Respect the zone model.</strong> MCP servers for plant data sit in the industrial DMZ and connect outward to the gateway; nothing in the enterprise network opens a path into the control network. This is consistent with the zones-and-conduits approach of ISA/IEC 62443.</li><li><strong>Write to Level 3, not Level 2.</strong> Where agents act on the plant, they act on operations records: raising a maintenance notification in the CMMS, proposing a schedule change in the MES, or opening a deviation in the QMS, each for a person to approve.</li></ul><h3>5.3 Integration patterns compared</h3><p>Table 4 groups the ways an agent can connect to these systems by risk and by the control that contains it.</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> Integration patterns for agents in an industrial firm, by risk and control.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Pattern</th><th>Agent can</th><th>Typical use</th><th>Risk</th><th>Control</th></tr></thead><tbody><tr><td>Read-only query</td><td>Read records and trends</td><td>Downtime analysis, order status</td><td>Low</td><td>Tool allow-list, row-level permissions</td></tr><tr><td>Staged write</td><td>Create drafts for approval</td><td>Requisitions, work requests, quotes</td><td>Medium</td><td>Existing approval workflow</td></tr><tr><td>Event-driven</td><td>React to alarms or status changes</td><td>Maintenance triage, late-order alerts</td><td>Medium</td><td>Rate limits, deduplication</td></tr><tr><td>Agent-to-agent (A2A)</td><td>Delegate a task to another agent</td><td>Supplier delivery confirmation</td><td>Medium to high</td><td>Pinned agent cards, contract terms</td></tr><tr><td>Direct control write</td><td>Change setpoints</td><td>Not recommended</td><td>High</td><td>Keep outside agent reach</td></tr></tbody></table></div><p class="j-table-note">Author's classification.</p></figure><h3>5.4 Worked example: a downtime investigation</h3><p>The following sequence shows the architecture in use. A production supervisor asks the maintenance agent why Line 2 lost output on the night shift.</p><ol><li>The agent host authenticates the supervisor and calls the gateway as the maintenance agent acting for that supervisor.</li><li>The gateway checks the agent's allow-list and forwards read-only calls to the MES server (line states and stop codes for the shift) and to the historian server (get_tag_trend for the line's main pump).</li><li>The historian server reads the contextualized pump tags, which its hub collects from the control system over OPC UA. Nothing is written to the control layer.</li><li>The agent finds a stop that coincides with a vibration rise and calls the CMMS server's create_work_request_draft tool, a staged write.</li><li>The supervisor reviews and releases the work request in the CMMS. Every call, from the first query to the release, sits in the gateway's audit log under one trace identifier.</li></ol><p>The agent saved the supervisor the cross-system search, but every action that changes a record still passed through a person and an existing workflow.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Design Guidance, Risks and Adoption Path</h2><h3>6.1 Design rules</h3><ol><li><strong>One gateway, many servers.</strong> Route every agent call through a single MCP gateway that authenticates the agent, attaches the user it acts for, enforces a per-agent tool allow-list and writes the audit record. Servers then stay simple and focused on one system.</li><li><strong>Treat tool descriptions as engineering documents.</strong> Each tool needs a clear name, a precise description, a strict input schema and a statement of side effects. Review them as carefully as a P&amp;ID: the agent will do exactly what the description lets it believe is safe.</li><li><strong>Prefer narrow tools to broad ones.</strong> Ten specific tools with validated inputs are easier to secure, test and audit than one tool that accepts free-form queries.</li><li><strong>Design for asynchronous work.</strong> Use the tasks extension for reconciliations, report generation and schedule optimizations, and persist task handles so work survives restarts [<a href="#ref-5" class="j-cite">5</a>].</li><li><strong>Pin protocol versions and plan migrations.</strong> MCP now has a 12-month deprecation window [<a href="#ref-5" class="j-cite">5</a>]. Record which revision each server implements and test against the next one before it becomes mandatory.</li><li><strong>Instrument end to end.</strong> Propagate trace identifiers from the agent through the gateway to each server so that a wrong answer or a failed action can be traced to the exact call.</li></ol><h3>6.2 Risks and limitations</h3><ul><li><strong>Untrusted tools and servers.</strong> A third-party MCP server is code running with access to the firm's data. Install only from known publishers, review tool descriptions for hidden instructions, and pin versions.</li><li><strong>Over-broad exposure.</strong> The ease of adding servers invites exposing more than a task needs. Every exposed tool widens the space for prompt-injection attacks, which the companion security paper addresses.</li><li><strong>Write-path immaturity.</strong> Reading from ERP and MES through MCP is well understood; production-grade write-back is less mature, which is another reason to write through drafts and approvals.</li><li><strong>Standards still moving.</strong> Both protocols changed materially in 2026. The vendor-neutral governance now in place lowers lock-in risk [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-10" class="j-cite">10</a>], but integrators should expect further revisions.</li></ul><h3>6.3 A staged adoption path for mid-sized firms</h3><p>Table 5 sets out four stages, each adding one dimension of capability.</p><figure class="j-table" id="table-5"><figcaption><strong>Table 5.</strong> A staged adoption path for agent integration in mid-sized firms.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Scope</th><th>Exit criterion</th></tr></thead><tbody><tr><td>1 Read-only pilot</td><td>One agent, two or three read-only servers (for example ERP orders and historian trends) behind a gateway</td><td>Users trust the answers; audit log complete</td></tr><tr><td>2 Staged writes</td><td>Add draft-creating tools that feed existing approvals</td><td>Approval rate and error rate tracked for 60 days</td></tr><tr><td>3 Multiple agents</td><td>Add maintenance or scheduling agents on the same gateway and servers</td><td>Connector count grows as N + M, not N × M</td></tr><tr><td>4 Cross-boundary</td><td>Use A2A with a supplier or customer agent for one bounded process</td><td>Contract terms and agent-card trust in place</td></tr></tbody></table></div><p class="j-table-note">Author's proposal; exit criteria are suggested defaults.</p></figure><p>The stages deliberately add capability one dimension at a time (read, then write, then more agents, then outside parties), so each step is reversible and the evidence from one stage justifies the next.</p><p>The choice of first systems matters as much as the choice of first agent. Good candidates are systems that already have a documented interface, a clear owner and data that people trust: in most mid-sized manufacturers this means the ERP's order and inventory data and the historian, rather than spreadsheets or a lightly used quality database. The first pilot should also include the gateway, even when only one agent and two servers are involved. Adding governance after several agents are in use is far harder than starting with it, because each later agent then has to be moved onto new credentials and a new audit path.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Conclusion</h2><p>Integration, not model capability, now decides whether an agent project reaches production. MCP and A2A give firms two complementary open standards: MCP for connecting an agent to tools and data, and A2A for delegating work between agents. Both moved to Linux Foundation governance and reached enterprise-ready revisions in 2026, which lowers the risk of building on them [<a href="#ref-5" class="j-cite">5</a>, <a href="#ref-6" class="j-cite">6</a>, <a href="#ref-8" class="j-cite">8</a>, <a href="#ref-10" class="j-cite">10</a>]. The standards alone do not make integration safe. The value comes from the architecture around them: one governed gateway, narrow and well-described tools, writes that pass through existing approvals, and a firm line that keeps agents out of the control layer. Firms that adopt in stages, starting with read-only access to one or two systems, can turn the N × M integration burden into an N + M one while keeping each step reversible.</p></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Anthropic. (2025, December 9). How enterprises are building AI agents in 2026 [Summary of the 2026 State of AI Agents Report, with Material]. <a href="https://claude.com/resources/articles/how-enterprises-are-building-ai-agents-in-2026" rel="noopener" target="_blank">claude.com/resources/articles/how-enterprises-are-building-ai-agents-in-2026</a></li><li id="ref-2">Outlook Business. (2025, June). Over 40% of agentic AI projects will be scrapped by 2027, says Gartner. <em>Outlook Business</em>. <a href="https://www.outlookbusiness.com/amp/story/deeptech/artificial-intelligence/over-40-of-agentic-ai-projects-will-be-scrapped-by-2027-says-gartner" rel="noopener" target="_blank">www.outlookbusiness.com/amp/story/deeptech/artificial-intelligence/over-40-of-ag</a></li><li id="ref-3">Morris, L. (2025). Gartner predicts most agentic AI projects will fail by 2027. <em>The National CIO Review</em>. <a href="https://nationalcioreview.com/articles-insights/extra-bytes/gartner-predicts-most-agentic-ai-projects-will-fail-by-2027/" rel="noopener" target="_blank">nationalcioreview.com/articles-insights/extra-bytes/gartner-predicts-most-agenti</a></li><li id="ref-4">Salesforce. (2025). Integration key as 93% of IT leaders turn to AI agents [MuleSoft 2025 Connectivity Benchmark Report announcement]. <a href="https://www.salesforce.com/news/stories/connectivity-report-announcement-2025/" rel="noopener" target="_blank">www.salesforce.com/news/stories/connectivity-report-announcement-2025/</a></li><li id="ref-5">Claburn, T. (2026, July 29). MCP gets an enterprise makeover. <em>The Register</em>. <a href="https://www.theregister.com/ai-and-ml/2026/07/29/mcp-gets-an-enterprise-makeover/5280027" rel="noopener" target="_blank">www.theregister.com/ai-and-ml/2026/07/29/mcp-gets-an-enterprise-makeover/5280027</a></li><li id="ref-6">MacQueen, A. (2025, December 9). Anthropic, OpenAI, and Block donate AI agent projects to new Linux Foundation body. <em>diginomica</em>. <a href="https://diginomica.com/anthropic-openai-and-block-donate-ai-agent-projects-new-linux-foundation-body" rel="noopener" target="_blank">diginomica.com/anthropic-openai-and-block-donate-ai-agent-projects-new-linux-fou</a></li><li id="ref-7">Agentic AI Foundation. (2026). Model Context Protocol specification, revision 2026-07-28. Retrieved November 12, 2026. <a href="https://modelcontextprotocol.io/specification/2026-07-28" rel="noopener" target="_blank">modelcontextprotocol.io/specification/2026-07-28</a></li><li id="ref-8">Agentic AI Foundation. (2026). MCP 2026 changes the rules [Blog post]. <a href="https://aaif.io/blog/mcp-2026-changes-the-rules" rel="noopener" target="_blank">aaif.io/blog/mcp-2026-changes-the-rules</a></li><li id="ref-9">Model Context Protocol. (2026). Security best practices. Retrieved November 12, 2026. <a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices" rel="noopener" target="_blank">modelcontextprotocol.io/specification/latest/basic/security_best_practices</a></li><li id="ref-10">The Linux Foundation. (2026, April 9). A2A Protocol surpasses 150 organizations, lands in major cloud platforms, and sees enterprise production use in first year [Press release]. <a href="https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year" rel="noopener" target="_blank">www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-</a></li><li id="ref-11">SAP. (2026). SAP Sapphire 2026 innovation news guide. <a href="https://www.sap.com/topics/events/sapphire/innovation-news-guide-2026" rel="noopener" target="_blank">www.sap.com/topics/events/sapphire/innovation-news-guide-2026</a></li><li id="ref-12">Novotek. (2026). Model Context Protocol (MCP): How to connect AI to OT systems. <a href="https://www.novotek.com/co-uk/news/model-context-protocol-mcp-how-to-connect-ai-to-ot-systems/" rel="noopener" target="_blank">www.novotek.com/co-uk/news/model-context-protocol-mcp-how-to-connect-ai-to-ot-sy</a></li><li id="ref-13">Shinde, S. (2026, January). Agentic AI reads OPC UA servers so you don't have to. FlowFuse. <a href="https://flowfuse.com/blog/2026/01/eliminate-opc-ua-bottleneck-ai-agents/" rel="noopener" target="_blank">flowfuse.com/blog/2026/01/eliminate-opc-ua-bottleneck-ai-agents/</a></li><li id="ref-14">eSEOspace. (2026, November). MCP for manufacturing. <a href="https://eseospace.com/blog/mcp-for-manufacturing/" rel="noopener" target="_blank">eseospace.com/blog/mcp-for-manufacturing/</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems. <em>Chmltech Online Journal</em>, <em>105</em>(4). https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. The Integration Problem</a></li><li><a href="#sec-3">3. The Model Context Protocol</a></li><li><a href="#sec-4">4. Agent-to-Agent Protocols</a></li><li><a href="#sec-5">5. Integrating with ERP, CRM and Plant Systems</a></li><li><a href="#sec-6">6. Design Guidance, Risks and Adoption Path</a></li><li><a href="#sec-7">7. Conclusion</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 105, Issue 4</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence digital-technology" data-search="agent readiness for small and mid-sized firms: data foundations, process documentation and staged adoption why small firms lag larger ones in ai, and how to close the gap: data foundations, procedures as agent specifications, a readiness score and a gated roadmap. sme ai readiness agentic ai data foundations process documentation staged adoption manufacturing digital adoption"><div class="thumb"><img src="../assets/media/covers/thumbs/agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span><span class="tag">Artificial Intelligence</span><span class="tag">Digital Technology</span></div><h3><a href="../post/agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption.html">Agent Readiness for Small and Mid-Sized Firms: Data Foundations, Process Documentation and Staged Adoption</a></h3><p class="muted">Why small firms lag larger ones in AI, and how to close the gap: data foundations, procedures as agent specifications, a readiness score and a gated roadmap.</p><p class="meta">Vol. 105, Issue 6 · Nov 12, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="agent security and identity: prompt injection, least-privilege tool access, agent credentials and audit trails a security model for tool-using ai agents: prompt injection, the lethal trifecta, agent identity and credentials, least-privilege tools and audit trails. agent security prompt injection least privilege non-human identity oauth audit trail ai governance model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/agent-security-and-identity-prompt-injection-least-privilege-credentials-audit.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span><span class="tag">Artificial Intelligence</span></div><h3><a href="../post/agent-security-and-identity-prompt-injection-least-privilege-credentials-audit.html">Agent Security and Identity: Prompt Injection, Least-Privilege Tool Access, Agent Credentials and Audit Trails</a></h3><p class="muted">A security model for tool-using AI agents: prompt injection, the lethal trifecta, agent identity and credentials, least-privilege tools and audit trails.</p><p class="meta">Vol. 105, Issue 5 · Nov 12, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="score versus cost per task: measuring the returns to reasoning effort in frontier language models how much better do language models get when you pay for more reasoning? score against measured cost per task for current models, as of november 2026. large language models reasoning effort cost per task test-time compute benchmark evaluation llm pricing cost-performance trade-off"><div class="thumb"><img src="../assets/media/covers/thumbs/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Chmltech Online Journal</span><span class="tag">Artificial Intelligence</span></div><h3><a href="../post/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.html">Score Versus Cost Per Task: Measuring the Returns to Reasoning Effort in Frontier Language Models</a></h3><p class="muted">How much better do language models get when you pay for more reasoning? Score against measured cost per task for current models, as of November 2026.</p><p class="meta">Vol. 104, Issue 7 · Nov 12, 2026 · 19 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol105-issue4.pdf" data-fname="Chmltech-Journal-Vol105-Issue4.pdf" data-title="Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems" data-ref="Vol. 105, Issue 4">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 105, Issue 4</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems", "name": "Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems", "abstract": "Integration with existing systems is now the most common barrier to deploying AI agents: in a 2025 survey of more than 500 technical leaders, 46% named it their primary challenge, ahead of data access and quality at 42%. This paper examines the open standards that aim to lower that barrier. The Model Context Protocol (MCP) standardizes how an agent discovers and calls tools and data; its 2026-07-28 revision made the protocol stateless, added an extensions framework and enterprise-managed authorization, and the protocol is now governed by the Linux Foundation's Agentic AI Foundation. The Agent2Agent (A2A) protocol, which reached a stable version 1.0 in 2026, standardizes how independent agents discover each other and delegate tasks. The paper explains the architecture of both, shows why a standard interface turns an N × M connector problem into an N + M one, and sets out a reference architecture for connecting agents to ERP, CRM and plant systems (manufacturing execution systems, historians and OPC UA servers) through a governed MCP gateway. It closes with design rules for staged writes, operational-technology zoning and protocol versioning, a worked downtime investigation, and a staged adoption path for mid-sized industrial firms. The central conclusion is that the standards remove much of the connector burden, but the value and the safety come from the architecture built around them.", "keywords": "Model Context Protocol, Agent2Agent, agent interoperability, ERP integration, OPC UA, manufacturing execution systems, enterprise architecture", "datePublished": "2026-11-12", "dateModified": "2026-11-12", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "4", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "105", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems", "citation": ["Anthropic. (2025, December 9). How enterprises are building AI agents in 2026 [Summary of the 2026 State of AI Agents Report, with Material].", "Outlook Business. (2025, June). Over 40% of agentic AI projects will be scrapped by 2027, says Gartner. Outlook Business.", "Morris, L. (2025). Gartner predicts most agentic AI projects will fail by 2027. The National CIO Review.", "Salesforce. (2025). Integration key as 93% of IT leaders turn to AI agents [MuleSoft 2025 Connectivity Benchmark Report announcement].", "Claburn, T. (2026, July 29). MCP gets an enterprise makeover. The Register.", "MacQueen, A. (2025, December 9). Anthropic, OpenAI, and Block donate AI agent projects to new Linux Foundation body. diginomica.", "Agentic AI Foundation. (2026). Model Context Protocol specification, revision 2026-07-28. Retrieved November 12, 2026.", "Agentic AI Foundation. (2026). MCP 2026 changes the rules [Blog post].", "Model Context Protocol. (2026). Security best practices. Retrieved November 12, 2026.", "The Linux Foundation. (2026, April 9). A2A Protocol surpasses 150 organizations, lands in major cloud platforms, and sees enterprise production use in first year [Press release].", "SAP. (2026). SAP Sapphire 2026 innovation news guide.", "Novotek. (2026). Model Context Protocol (MCP): How to connect AI to OT systems.", "Shinde, S. (2026, January). Agentic AI reads OPC UA servers so you don't have to. FlowFuse.", "eSEOspace. (2026, November). MCP for manufacturing."], "image": "https://www.chmltech.com/assets/media/covers/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/journal.js" defer></script>
+</body>
+</html>

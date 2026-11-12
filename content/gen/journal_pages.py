@@ -55,6 +55,10 @@ TOPIC = {
     "safety-reliability-and-economics-of-deploying-physical-ai": "artificial-intelligence",
     # Volume 104, Issue 7 (V4.53)
     "score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models": "artificial-intelligence",
+    # Volume 105, Issues 4-6: agentic AI (V4.61)
+    "agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems": ["artificial-intelligence", "digital-technology"],
+    "agent-security-and-identity-prompt-injection-least-privilege-credentials-audit": "artificial-intelligence",
+    "agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption": ["artificial-intelligence", "digital-technology"],
 }
 
 

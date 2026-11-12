@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.61 — 2026-11-12
+- **Three new Chmltech Online Journal papers on agentic AI, Volume 105, Issues 4–6** (published November 12, 2026; Division of Artificial Intelligence and Machine Learning):
+  - 105(4) *Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems* (`post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems`): 2 figures, 5 tables, 2 equations, 14 references. Filed under Artificial Intelligence and Digital Technology.
+  - 105(5) *Agent Security and Identity: Prompt Injection, Least-Privilege Tool Access, Agent Credentials and Audit Trails* (`post/agent-security-and-identity-prompt-injection-least-privilege-credentials-audit`): 2 figures, 4 tables, 2 equations, 17 references. Filed under Artificial Intelligence.
+  - 105(6) *Agent Readiness for Small and Mid-Sized Firms: Data Foundations, Process Documentation and Staged Adoption* (`post/agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption`): 3 figures (including a dot chart of the Statistics Canada capability gap), 4 tables, 2 equations, 12 references. Filed under Artificial Intelligence and Digital Technology.
+  - Each has a cover, a PDF download (`assets/journal/pdf/chmltech-journal-vol105-issue4.pdf` to `issue6.pdf`), an Insights card and a sitemap entry. Insights now lists 163 articles.
+  - Text written from the reviewed drafts; the editor's notes were removed, figures and equations renumbered in reading order, citations renumbered in order of first use, and a few paragraphs added to reach the journal's 3,000-word minimum (105(4) §6.3; 105(5) §3.5 and §5.4; 105(6) §3.4, §5.3 and §6.5). The JSON tool definition in 105(4) is shown as Table 2, since the journal format has no code blocks.
+- **Home page:** "Latest insights" now shows the three agentic AI papers in reading order; the button reads "All 163 articles".
+- **New source files:** `content/journal/agentic/` (the three papers as text, a small converter `jmark.py`, and `build.py`, which writes and checks the JSON) and `content/journal/figure-scripts/agentic.py` (the seven figures).
+- **Fix:** `content/journal/figure-scripts/style.py` now writes figures to `content/journal/figures/` (it pointed at a folder that no longer exists in this layout).
+
 ## V4.60 — 2026-11-12
 - **Owner opt-out for analytics:** opening any page with `?notrack=on` turns Microsoft Clarity off for that browser (a confirmation pops up); `?notrack=off` turns it back on. Saved in the browser, so it keeps working when the IP address changes. Built into the Clarity snippet in `seo_pass.py`; tested (loads normally, stops after opt-out, resumes after opt-in).
 
