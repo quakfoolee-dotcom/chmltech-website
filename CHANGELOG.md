@@ -1,6 +1,9 @@
 # Changelog
 
 ## V4.60 — 2026-11-12
+- **Owner opt-out for analytics:** opening any page with `?notrack=on` turns Microsoft Clarity off for that browser (a confirmation pops up); `?notrack=off` turns it back on. Saved in the browser, so it keeps working when the IP address changes. Built into the Clarity snippet in `seo_pass.py`; tested (loads normally, stops after opt-out, resumes after opt-in).
+
+## V4.60 — 2026-11-12
 - **New Insights series: Process safety (three articles)**, in the Process Engineering category with the series label. Insights now lists 160 articles, with 15 under Process Engineering.
   - `post/what-happens-if-the-cooling-fails-runaway-reactions`: adiabatic temperature rise, accumulation, MTSR and the five criticality classes, worked on the 10,000 L reactor from the scale-up series, with a calculator.
   - `post/a-worked-hazop-the-feed-heater-node-by-node`: a HAZOP of the feed heater E-101 with two nodes, worksheets and seven actions, and the P&ID before and after the study.

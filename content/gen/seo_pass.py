@@ -37,7 +37,15 @@ ORG_ID = f"{SITE}/#organization"
 PERSON_ID = f"{SITE}/about#quak-foo-lee"
 HOME_TITLE = "AI & Operations Consulting for Canadian SMEs | Chmltech Ltd."
 CLARITY_ID = "zcd5uqw2cz"  # Microsoft Clarity project (analytics); set to "" to remove from every page
-CLARITY = ('<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};'
+CLARITY = ('<script>(function(c,l,a,r,i,t,y){'
+           # Owner opt-out: visit any page with ?notrack=on once per browser to stop analytics there
+           # (?notrack=off turns it back on). Stored in this browser only.
+           'try{var q=new URLSearchParams(l.location.search).get("notrack");'
+           'if(q==="on")localStorage.setItem("chm_notrack","1");'
+           'if(q==="off")localStorage.removeItem("chm_notrack");'
+           'if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");'
+           'if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}'
+           'c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};'
            't=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;'
            'y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})'
            f'(window,document,"clarity","script","{CLARITY_ID}");</script>') if CLARITY_ID else ""
