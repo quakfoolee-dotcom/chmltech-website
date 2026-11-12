@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.58 — 2026-11-12
+- **Analytics: Microsoft Clarity** (project `zcd5uqw2cz`) on all 227 indexable pages, added by `seo_pass.py` (`CLARITY_ID`). Not added to redirect stubs, the 404 page or the embedded exam apps, so visits aren't counted twice.
+- **Privacy notice** updated (dated November 12, 2026): names Microsoft Clarity as a service provider, what it measures and that it hides form input; notes Clarity cookies and how to block them; the old "no analytics tracking" line now reads "no advertising or advertising tracking".
+- Bing Webmaster Tools verified by DNS CNAME at IONOS (the meta tag from V4.57 stays as a backup).
+
 ## V4.57 — 2026-11-12
 - **Bing Webmaster Tools verification:** `msvalidate.01` meta tag added to the home page. Keep it, or Bing loses verification.
 

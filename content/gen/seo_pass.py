@@ -20,6 +20,7 @@ are redirect stubs and are left alone):
      image in view, so it should load first).
   7. exams/*.html (the raw exam apps shown inside the exam pages): noindex, indexifembedded,
      with a canonical to the page that embeds them, so search engines rank the full page.
+  9. Microsoft Clarity analytics on every indexable page (CLARITY_ID below).
   8. Rebuilds sitemap.xml from the files (indexable pages only, clean URLs, lastmod) and
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
@@ -33,6 +34,11 @@ LINKEDIN = "https://www.linkedin.com/in/quak-foo-lee"
 ORG_ID = f"{SITE}/#organization"
 PERSON_ID = f"{SITE}/about#quak-foo-lee"
 HOME_TITLE = "AI & Operations Consulting for Canadian SMEs | Chmltech Ltd."
+CLARITY_ID = "zcd5uqw2cz"  # Microsoft Clarity project (analytics); set to "" to remove from every page
+CLARITY = ('<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};'
+           't=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;'
+           'y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})'
+           f'(window,document,"clarity","script","{CLARITY_ID}");</script>') if CLARITY_ID else ""
 
 SOLUTIONS = """ai-operating-system artificial-intelligence business-process-optimization iso9001
 leadership-operating-system lean-six-sigma-training operational-efficiency process-improvement
@@ -305,6 +311,10 @@ def process(rel, sitemap, llms):
     elif block:
         i = s.find("</head>"); s = s[:i] + block + "\n" + s[i:]; bump("JSON-LD added")
 
+    # 9. analytics (Microsoft Clarity), on indexable pages only
+    s = re.sub(r'<script>\(function\(c,l,a,r,i,t,y\).*?</script>\n?', "", s, flags=re.S)
+    if CLARITY:
+        i = s.find("</head>"); s = s[:i] + CLARITY + "\n" + s[i:]
     if s != orig: wr(rel, s); bump("pages changed")
 
     lastmod = mod if (is_post and mod) else git_date(rel)
