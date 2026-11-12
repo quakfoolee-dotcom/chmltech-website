@@ -1,5 +1,17 @@
 # Changelog
 
+## V4.56 — 2026-11-12
+- **SEO pass across the site** (new script `content/gen/seo_pass.py`; run it after every build).
+  - **Canonical URLs** now use the clean address without `.html` (226 pages), matching the sitemap and the old Wix links. Before, the canonical and the sitemap disagreed on every page. `og:url` added to match.
+  - **Titles:** 156 article and page titles over 60 characters drop the " | Chmltech Ltd." suffix, so the subject shows in full in search results (the site name comes from the new WebSite data instead). Home page title is now "AI & Operations Consulting for Canadian SMEs | Chmltech Ltd.".
+  - **Descriptions:** 58 meta descriptions over 160 characters cut at the last full sentence or word that fits.
+  - **Structured data (JSON-LD) on every indexable page:** WebSite and ProfessionalService (Vancouver, serving Canada) with the founder on the home page; AboutPage and Person (with LinkedIn) on About; ContactPage and FAQPage on Contact; Service on the 12 solution and 8 industry pages; Course on the 12 free courses; Quiz on the practice exams; CollectionPage on Insights, Training and Courses; BreadcrumbList below the home page. The 157 article schemas gain image, dateModified, an author link to About and the publisher logo.
+  - **Social sharing:** articles are `og:type` article with published and modified times; `twitter:card` added to 70 pages; `og:locale` en_CA.
+  - **Article cover images:** alt text is the article title and `fetchpriority="high"` (109 articles), for image search and faster first paint.
+  - **Exam apps** (`exams/*.html`, shown inside the exam pages): `noindex, indexifembedded` and a canonical to the page that embeds them, so the full page ranks rather than the bare app.
+  - **sitemap.xml** rebuilt from the files: 227 indexable pages, clean URLs, `lastmod` (article dates for articles) and priorities; redirect stubs excluded; `leadership-operating-system` added.
+  - **New `llms.txt`:** a plain-text guide to the site's pages and articles for AI search tools.
+
 ## V4.55 — 2026-11-12
 - **AnythingLLM article, Figure 2:** the dashed green "same database" line now joins the midpoint of the arrowhead's flat top, with a short solid stem, instead of running into the side of the triangle.
 

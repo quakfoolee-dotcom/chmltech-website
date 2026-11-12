@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.55** (see `CHANGELOG.md`).
+Version: **V4.56** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -59,6 +59,7 @@ The email address is never written into the page source, so address-harvesting b
 - `assets/js/main.js` rebuilds the real address and `mailto:` link in the visitor's browser.
 - Without JavaScript, the link shows the spelled-out form and opens the contact form.
 - After each build, run `node gen/journal_pdfs.js <site_dir> <journal_json_dir>` (journal PDFs), `python3 gen/dedupe_images.py <site_dir>` (removes repeated pictures in articles), then `python3 gen/protect_email.py <site_dir>`. It is safe to run twice. It reports any page that still contains the plain address.
+- **Last step after any build or new article:** run `python3 content/gen/seo_pass.py .` from the site root. It sets clean canonical URLs, social-sharing tags and structured data on every page, and rebuilds `sitemap.xml` and `llms.txt`. It is safe to run any number of times.
 
 ## Journal PDF downloads (leads)
 
@@ -71,6 +72,12 @@ The email address is never written into the page source, so address-harvesting b
 - A download offered from an article (for example the inventory template in `assets/downloads/`) uses the same form as the journal PDFs: `assets/js/download.js`, `assets/css/download.css` and a `<dialog id="dl">` in the article body. Leads arrive with the subject "<data-ref> download — Name".
 - To change the wording or the file, edit `DL_FORM` and `tpl_box` in `content/articles/inventory_articles.py` and rebuild the articles.
 - These submissions count toward the same Web3Forms monthly limit.
+
+## Search (SEO)
+
+- `content/gen/seo_pass.py` owns the canonical URLs (clean form, without `.html`), Open Graph and Twitter tags, JSON-LD structured data, `sitemap.xml` (with `lastmod`) and `llms.txt`. Edit it rather than the pages for site-wide SEO changes.
+- The raw exam apps in `exams/` carry `noindex, indexifembedded`, so search engines rank the exam pages that embed them, not the bare apps.
+- Redirect stubs (old Wix addresses) carry `noindex` and are left out of the sitemap.
 
 ## Deploy
 
