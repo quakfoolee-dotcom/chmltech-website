@@ -1,0 +1,4695 @@
+{
+ "as_of": "2026-11-11",
+ "default_benchmark": "aa_index",
+ "models": [
+  {
+   "id": "gpt-6-astra",
+   "name": "GPT-6 Astra",
+   "dev": "OpenAI",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-03",
+   "status": null,
+   "ctx": 1050000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "Apr 30, 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 10,
+   "pout": 50,
+   "pprov": "OpenAI API (first-party)",
+   "purl": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+   "surl": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+   "notes": "Price: Cached input $1; cache writes $12.5. Prompts >272K input tokens priced at 2x input/cache and 1.5x output for the full request. Batch/Flex 50% of Standard; Fast 2x. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 56.854,
+     "set": "Max",
+     "cost": 6.245,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1474.094,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 169.0,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 65.023,
+     "set": "Max",
+     "cost": 21.28,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 54.664,
+     "set": "Codex, Max",
+     "cost": 7.036,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 60.3,
+     "set": "Codex, Max",
+     "cost": 9.901,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1764.434,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 87.5,
+     "set": "Max",
+     "cost": 3.315,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 14.239,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 91.3,
+     "set": "Max",
+     "cost": 16.15,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 90.6,
+     "set": "Max",
+     "cost": 20.13,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 75.6,
+     "set": "Max",
+     "cost": 50.62,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 15514.702,
+     "set": null,
+     "cost": 810.4,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 83.0,
+     "set": "Max",
+     "cost": 0.6989,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1283.383,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "vectara": {
+     "v": 8.7,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "frontiermath": {
+     "v": 93.684,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 95.77,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 95.0,
+     "set": "Max",
+     "cost": 1.119,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gpt-6-1-sol",
+   "name": "GPT-6.1 Sol",
+   "dev": "OpenAI",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-29",
+   "status": null,
+   "ctx": 1050000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "Apr 30, 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 2,
+   "pout": 10,
+   "pprov": "OpenAI API (first-party)",
+   "purl": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+   "surl": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+   "notes": "Price: Cached input $0.1; cache writes $2.5. >272K input tokens: 2x input/cache, 1.5x output for full request. Fast 2x, Batch/Flex 50% lower, Ultrafast 6x. Regional processing +10%. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 54.609,
+     "set": "Max",
+     "cost": 1.272,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1482.067,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 168.48,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 63.944,
+     "set": "Max",
+     "cost": 3.614,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 54.128,
+     "set": "Codex, Max",
+     "cost": 1.505,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 60.91,
+     "set": "Codex, Max",
+     "cost": 1.922,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1743.016,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 82.1,
+     "set": "Max",
+     "cost": 0.8027,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 12.528,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 93.3,
+     "set": "Max",
+     "cost": 2.804,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 90.0,
+     "set": "Max",
+     "cost": 2.713,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 65.6,
+     "set": "Max",
+     "cost": 6.421,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 12860.612,
+     "set": null,
+     "cost": 130.1,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 82.7,
+     "set": "Max",
+     "cost": 0.1454,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1292.503,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 93.684,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 95.391,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 94.167,
+     "set": "Max",
+     "cost": 0.2537,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gpt-6-1-terra",
+   "name": "GPT-6.1 Terra",
+   "dev": "OpenAI",
+   "tier": "Mid-size",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-10-26",
+   "status": null,
+   "ctx": 1050000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": "Jun 01, 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 1,
+   "pout": 5,
+   "pprov": "OpenAI API (first-party)",
+   "purl": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+   "surl": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+   "notes": "Price: Cached input $0.05; cache writes $1.25 (30-min retention). >272K input tokens: 2x input/cache, 1.5x output. Batch/Flex 50% lower; Fast 2x. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 51.327,
+     "set": "Max",
+     "cost": 0.9611,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 167.67,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 60.536,
+     "set": "Max",
+     "cost": 2.939,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 48.224,
+     "set": "Codex, X-high",
+     "cost": 0.6908,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1678.503,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 89.2,
+     "set": "Max",
+     "cost": 1.298,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 12.103,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 93.1,
+     "set": "Max",
+     "cost": 1.95,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 79.1,
+     "set": "Max",
+     "cost": 1.462,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 56.2,
+     "set": "Max",
+     "cost": 6.146,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 9107.458,
+     "set": null,
+     "cost": 62.75,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 82.3,
+     "set": "Max",
+     "cost": 0.06285,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 90.877,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 94.318,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "gpt-6-luna",
+   "name": "GPT-6 Luna",
+   "dev": "OpenAI",
+   "tier": "Small and fast",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-22",
+   "status": null,
+   "ctx": 1050000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": "May 18, 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 0.1,
+   "pout": 0.5,
+   "pprov": "OpenAI API (first-party)",
+   "purl": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+   "surl": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+   "notes": "Price: Cached input $0.01; cache writes $0.125. >272K input tokens: 2x input/cache, 1.5x output. Batch/Flex 50%; Fast 2x. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 27.855,
+     "set": "Max",
+     "cost": 0.152,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 156.41,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 52.322,
+     "set": "Max",
+     "cost": 0.4501,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 31.216,
+     "set": "Codex, Max",
+     "cost": 0.1563,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 15.15,
+     "set": "Codex, Max",
+     "cost": 0.2186,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1577.475,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 70.8,
+     "set": "Max",
+     "cost": 0.1356,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 1.525,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 70.3,
+     "set": "Max",
+     "cost": 0.1932,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 48.5,
+     "set": "Max",
+     "cost": 0.4261,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 24.7,
+     "set": "Max",
+     "cost": 0.6669,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 73.4,
+     "set": "Max",
+     "cost": 0.01661,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 78.947,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 90.467,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 59.306,
+     "set": "Max",
+     "cost": 0.06181,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gpt-oss-120b",
+   "name": "gpt-oss-120b",
+   "dev": "OpenAI",
+   "tier": "Mid-size",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "117B total, 5.1B active",
+   "released": "2025-08-05",
+   "status": null,
+   "ctx": 131072,
+   "maxout": 65536,
+   "inp": [
+    "text"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode"
+   ],
+   "pin": 0.15,
+   "pout": 0.6,
+   "pprov": "OpenRouter listed price (matches Amazon Bedrock, Groq, Nebius, SiliconFlow, Together endpoint)",
+   "purl": "https://openrouter.ai/openai/gpt-oss-120b",
+   "surl": "https://huggingface.co/openai/gpt-oss-120b",
+   "notes": "Price: 26 endpoints listed; lowest input $0.03/M (Io Net, fp4). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 3.82,
+     "set": "High",
+     "cost": 0.3453,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 140.16,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vending": {
+     "v": -21.532,
+     "set": null,
+     "cost": 11.4,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "vectara": {
+     "v": 14.2,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "gpqa": {
+     "v": 75.758,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "gpt-oss-20b",
+   "name": "gpt-oss-20b",
+   "dev": "OpenAI",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "21B total, 3.6B active",
+   "released": null,
+   "status": null,
+   "ctx": 131072,
+   "maxout": 117964,
+   "inp": [
+    "text"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode"
+   ],
+   "pin": 0.03,
+   "pout": 0.13,
+   "pprov": "OpenRouter listed price (matches CoreWeave endpoint)",
+   "purl": "https://openrouter.ai/openai/gpt-oss-20b",
+   "surl": "https://huggingface.co/openai/gpt-oss-20b",
+   "notes": "Price: 11 endpoints listed; lowest input $0.018/M (Darkbloom, fp8).",
+   "s": {
+    "eci": {
+     "v": 134.97,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 60.795,
+     "set": "Medium",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "claude-fable-5-2",
+   "name": "Claude Fable 5.2",
+   "dev": "Anthropic",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-11-09",
+   "status": "Generally available",
+   "ctx": 1000000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "Jun 2026 (reliable knowledge cutoff)",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 8,
+   "pout": 40,
+   "pprov": "Anthropic Claude API (first-party)",
+   "purl": "https://platform.claude.com/docs/en/models/fable-5-2/overview",
+   "surl": "https://platform.claude.com/docs/en/models/fable-5-2/overview",
+   "notes": "Price: Cache read 0.025x base input ($0.20); 5m cache write $10, 1h $16. Batch 50% off. Fast mode $16/$80. Full 1M context at standard price.",
+   "s": {
+    "aa_index": {
+     "v": 64.564,
+     "set": "Max",
+     "cost": 26.54,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 173.44,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 71.309,
+     "set": "High",
+     "cost": 17.94,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "arena_webdev": {
+     "v": 1835.762,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 79.2,
+     "set": "X-high",
+     "cost": 13.89,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_browser": {
+     "v": 86.9,
+     "set": "X-high",
+     "cost": 3.443,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 94.5,
+     "set": "X-high",
+     "cost": 13.27,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 82.9,
+     "set": "X-high",
+     "cost": 160.9,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 81.5,
+     "set": "X-high",
+     "cost": 0.4983,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 95.088,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 93.876,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 93.75,
+     "set": "X-high",
+     "cost": 0.9832,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "claude-mythos-5-2",
+   "name": "Claude Mythos 5.2",
+   "dev": "Anthropic",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-11-09",
+   "status": "Limited access",
+   "ctx": 1000000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "Jun 2026 (reliable knowledge cutoff)",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 8,
+   "pout": 40,
+   "pprov": "Anthropic Claude API (first-party)",
+   "purl": "https://platform.claude.com/docs/en/models/mythos-5-2/overview",
+   "surl": "https://platform.claude.com/docs/en/models/mythos-5-2/overview",
+   "notes": "Price: Same pricing as Fable 5.2.",
+   "s": {}
+  },
+  {
+   "id": "claude-opus-5-5",
+   "name": "Claude Opus 5.5",
+   "dev": "Anthropic",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-22",
+   "status": "Generally available",
+   "ctx": 1000000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "Jun 2026 (reliable knowledge cutoff)",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 4,
+   "pout": 20,
+   "pprov": "Anthropic Claude API (first-party)",
+   "purl": "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+   "surl": "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+   "notes": "Price: Cache read $0.20 (0.05x); 5m write $5, 1h write $8. Batch 50% off. Fast mode $8/$40. Full 1M context at standard price.",
+   "s": {
+    "aa_index": {
+     "v": 59.106,
+     "set": "Max",
+     "cost": 10.04,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1506.072,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 168.54,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 70.143,
+     "set": "Max",
+     "cost": 24.77,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 61.653,
+     "set": "Claude Code, Max",
+     "cost": 11.42,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1814.282,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 87.1,
+     "set": "Max",
+     "cost": 8.611,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 19.956,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 88.4,
+     "set": "Max",
+     "cost": 15.19,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 88.9,
+     "set": "Max",
+     "cost": 9.112,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 72.8,
+     "set": "Max",
+     "cost": 83.92,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 9235.248,
+     "set": null,
+     "cost": 475.9,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 80.3,
+     "set": "Max",
+     "cost": 0.8146,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1295.279,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "vectara": {
+     "v": 9.9,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "frontiermath": {
+     "v": 91.228,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 90.593,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 93.333,
+     "set": "High",
+     "cost": 0.4079,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "claude-sonnet-5-5",
+   "name": "Claude Sonnet 5.5",
+   "dev": "Anthropic",
+   "tier": "Mid-size",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-28",
+   "status": "Generally available",
+   "ctx": 1000000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": "Jun 2026 (reliable knowledge cutoff)",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 2,
+   "pout": 10,
+   "pprov": "Anthropic Claude API (first-party)",
+   "purl": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+   "surl": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+   "notes": "Price: Cache read $0.10 (0.05x); 5m write $2.50, 1h write $4. Batch 50% off.",
+   "s": {
+    "aa_index": {
+     "v": 54.541,
+     "set": "Max",
+     "cost": 10.02,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1472.491,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 166.56,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 70.854,
+     "set": "Max",
+     "cost": 16.18,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 59.337,
+     "set": "Claude Code, Max",
+     "cost": 13.3,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1772.539,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 77.2,
+     "set": "Max",
+     "cost": 6.259,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 15.994,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 89.3,
+     "set": "Max",
+     "cost": 9.103,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 88.0,
+     "set": "Max",
+     "cost": 9.04,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 63.4,
+     "set": "Max",
+     "cost": 69.89,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 11165.278,
+     "set": null,
+     "cost": 218.7,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 59.5,
+     "set": "Max",
+     "cost": 0.5306,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1262.712,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 88.772,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 95.581,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 83.889,
+     "set": "X-high",
+     "cost": 0.5462,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "claude-haiku-5-5",
+   "name": "Claude Haiku 5.5",
+   "dev": "Anthropic",
+   "tier": "Small and fast",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-10-07",
+   "status": "Generally available",
+   "ctx": 1000000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": "Jun 2026 (reliable knowledge cutoff)",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 0.1,
+   "pout": 0.5,
+   "pprov": "Anthropic Claude API (first-party)",
+   "purl": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+   "surl": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+   "notes": "Price: Prompts up to 100,000 tokens: $0.10 in / $0.50 out; prompts over 100,000 tokens: $0.50 in / $2.50 out (whole request). Cache read $0.01. Batch 50% off.",
+   "s": {
+    "aa_index": {
+     "v": 36.485,
+     "set": "Max",
+     "cost": 0.411,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 160.43,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 58.727,
+     "set": "Max",
+     "cost": 3.175,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 37.35,
+     "set": "Claude Code, Max",
+     "cost": 2.674,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1593.837,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 77.6,
+     "set": "Max",
+     "cost": 1.17,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 0.426,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 69.5,
+     "set": "Max",
+     "cost": 0.6203,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 84.3,
+     "set": "Max",
+     "cost": 2.029,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 47.9,
+     "set": "Max",
+     "cost": 16.25,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 3602.463,
+     "set": null,
+     "cost": 11.13,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 53.1,
+     "set": "Max",
+     "cost": 0.03147,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 75.088,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 89.646,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 61.25,
+     "set": "X-high",
+     "cost": 0.08499,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gemini-4-carbon",
+   "name": "Gemini 4 Carbon",
+   "dev": "Google",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-10-28",
+   "status": "Generally available",
+   "ctx": 1048576,
+   "maxout": 65536,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 2.0,
+   "pout": 10.0,
+   "pprov": "Google Gemini Developer API (paid tier, first-party)",
+   "purl": "https://ai.google.dev/gemini-api/docs/models/gemini-4-carbon",
+   "surl": "https://ai.google.dev/gemini-api/docs/models/gemini-4-carbon",
+   "notes": "Price: $2.00/$10.00 through November 30, 2026; $4.00/$20.00 starting December 1, 2026. Output includes thinking tokens. Not on Free tier. Context caching $0.10 (implicit only). Price from https://ai.google.dev/gemini-api/docs/pricing#gemini-4-carbon Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 60.026,
+     "set": "High",
+     "cost": 7.756,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1525.955,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 169.76,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 70.45,
+     "set": "High",
+     "cost": 10.51,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 59.405,
+     "set": "Antigravity CLI, High",
+     "cost": 7.743,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1768.163,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 91.0,
+     "set": "High",
+     "cost": 6.462,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 16.631,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 80.0,
+     "set": "High",
+     "cost": 7.037,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 92.5,
+     "set": "High",
+     "cost": 5.003,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 72.7,
+     "set": "High",
+     "cost": 9.055,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 16484.207,
+     "set": null,
+     "cost": 369.8,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 86.5,
+     "set": "High",
+     "cost": 0.7056,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 90.526,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 96.528,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 94.167,
+     "set": "Medium",
+     "cost": 0.3752,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gemini-4-argon",
+   "name": "Gemini 4 Argon",
+   "dev": "Google",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-30",
+   "status": "Generally available",
+   "ctx": 1048576,
+   "maxout": 65536,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 2.0,
+   "pout": 10.0,
+   "pprov": "Google Gemini Developer API (paid tier, first-party)",
+   "purl": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon",
+   "surl": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon",
+   "notes": "Price: $2.00/$10.00 through November 30, 2026; $4.00/$20.00 starting December 1, 2026. Output includes thinking tokens. Price from https://ai.google.dev/gemini-api/docs/pricing#gemini-4-argon Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 50.412,
+     "set": "High",
+     "cost": 9.947,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1522.378,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 166.48,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 69.389,
+     "set": "High",
+     "cost": 13.37,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 53.246,
+     "set": "Antigravity CLI, High",
+     "cost": 11.73,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1682.063,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 85.7,
+     "set": "High",
+     "cost": 5.076,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 10.829,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 82.8,
+     "set": "High",
+     "cost": 6.377,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 86.8,
+     "set": "High",
+     "cost": 5.956,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 58.5,
+     "set": "High",
+     "cost": 8.875,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 13718.158,
+     "set": null,
+     "cost": 249.1,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 85.2,
+     "set": "High",
+     "cost": 0.2843,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vectara": {
+     "v": 12.1,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "frontiermath": {
+     "v": 85.965,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 96.402,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 91.25,
+     "set": "High",
+     "cost": 0.3249,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gemini-3-8-flash",
+   "name": "Gemini 3.8 Flash",
+   "dev": "Google",
+   "tier": "Mid-size",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-02",
+   "status": "Generally available",
+   "ctx": 1048576,
+   "maxout": 65536,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 0.75,
+   "pout": 3.75,
+   "pprov": "Google Gemini Developer API (paid tier, first-party)",
+   "purl": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
+   "surl": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
+   "notes": "Price: $0.75/$3.75 through December 31, 2026; $1.50/$7.50 starting January 1, 2027. Free tier available. Context caching $0.075. Price from https://ai.google.dev/gemini-api/docs/pricing#gemini-3.8-flash Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 30.847,
+     "set": "High",
+     "cost": 7.766,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1497.491,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 158.79,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 55.951,
+     "set": "High",
+     "cost": 5.026,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 33.272,
+     "set": "Antigravity SDK v0.1.12, High",
+     "cost": 2.511,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 18.18,
+     "set": "mini-SWE-agent, High",
+     "cost": 5.542,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1582.646,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 73.3,
+     "set": "High",
+     "cost": 2.296,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 2.384,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 45.1,
+     "set": "High",
+     "cost": 4.855,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 79.4,
+     "set": "High",
+     "cost": 2.632,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 16.5,
+     "set": "High",
+     "cost": 5.708,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 5093.793,
+     "set": null,
+     "cost": 69.95,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 54.0,
+     "set": "High",
+     "cost": 0.2377,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1293.074,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 68.421,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 95.391,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 89.167,
+     "set": "High",
+     "cost": 0.3997,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gemini-3-5-flash-lite",
+   "name": "Gemini 3.5 Flash-Lite",
+   "dev": "Google",
+   "tier": "Small and fast",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-07-21",
+   "status": "Generally available",
+   "ctx": 1048576,
+   "maxout": 65536,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 0.3,
+   "pout": 2.5,
+   "pprov": "Google Gemini Developer API (paid tier, first-party)",
+   "purl": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite",
+   "surl": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite",
+   "notes": "Price: Input $0.30 (text/image/video/audio); cache $0.03. Price from https://ai.google.dev/gemini-api/docs/pricing#gemini-3.5-flash-lite Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 11.656,
+     "set": null,
+     "cost": 0.6929,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 145.63,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arena_vision": {
+     "v": 1265.799,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 25.965,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 83.333,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 10.278,
+     "set": "High",
+     "cost": 0.139,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "gemma-4-31b",
+   "name": "Gemma 4 31B",
+   "dev": "Google",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "30.7B",
+   "released": "2026-04-02",
+   "status": null,
+   "ctx": 262144,
+   "maxout": 16384,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input"
+   ],
+   "pin": 0.2,
+   "pout": 0.4,
+   "pprov": "OpenRouter listed price (matches DeepInfra endpoint)",
+   "purl": "https://openrouter.ai/google/gemma-4-31b-it",
+   "surl": "https://huggingface.co/google/gemma-4-31B-it",
+   "notes": "Price: 18 endpoints listed; lowest input $0.1/M (KT, unknown). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 4.384,
+     "set": "Reasoning",
+     "cost": null,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 144.27,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "lb_coding": {
+     "v": 20.3,
+     "set": "Max",
+     "cost": 0.252,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_browser": {
+     "v": 0.0,
+     "set": "Max",
+     "cost": 0.2422,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 38.1,
+     "set": "Max",
+     "cost": 0.06964,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 8.5,
+     "set": "Max",
+     "cost": 0.9685,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 53.3,
+     "set": "Max",
+     "cost": 0.004565,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1264.813,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "vectara": {
+     "v": 7.4,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "gpqa": {
+     "v": 75.758,
+     "set": "Minimal",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "gemma-4-26b-a4b",
+   "name": "Gemma 4 26B A4B",
+   "dev": "Google",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "25.2B total (26B A4B MoE)",
+   "released": null,
+   "status": null,
+   "ctx": 262144,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input"
+   ],
+   "pin": 0.08,
+   "pout": 0.1,
+   "pprov": "OpenRouter listed price (matches Makora endpoint)",
+   "purl": "https://openrouter.ai/google/gemma-4-26b-a4b-it",
+   "surl": "https://huggingface.co/google/gemma-4-26B-A4B-it",
+   "notes": "Price: 15 endpoints listed; lowest input $0.012/M (PrimeIntellect, bf16).",
+   "s": {
+    "eci": {
+     "v": 141.64,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vectara": {
+     "v": 5.2,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "gpqa": {
+     "v": 73.232,
+     "set": "Minimal",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "grok-4-7",
+   "name": "Grok 4.7",
+   "dev": "xAI",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-09-21",
+   "status": null,
+   "ctx": 500000,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "May 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input"
+   ],
+   "pin": 2.0,
+   "pout": 6.0,
+   "pprov": "xAI API (first-party)",
+   "purl": "https://docs.x.ai/developers/models/grok-4.7",
+   "surl": "https://docs.x.ai/developers/models/grok-4.7",
+   "notes": "Price: < 200k prompt tokens; >= 200k prompt tokens billed at 2x for all tokens. Cached input $0.50. Batch 20% discount. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 35.485,
+     "set": "X-high",
+     "cost": 7.772,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 156.18,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 58.615,
+     "set": "X-high",
+     "cost": 11.63,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 46.597,
+     "set": "Grok Build, X-high",
+     "cost": 9.479,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 38.79,
+     "set": "Grok Build, X-high",
+     "cost": 11.16,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1640.952,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 73.1,
+     "set": "X-high",
+     "cost": 7.634,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 2.65,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 49.3,
+     "set": "X-high",
+     "cost": 5.881,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 89.5,
+     "set": "X-high",
+     "cost": 6.36,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 45.3,
+     "set": "X-high",
+     "cost": 34.21,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 10536.832,
+     "set": null,
+     "cost": 247.8,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 76.9,
+     "set": "X-high",
+     "cost": 0.488,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1248.918,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 52.982,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 92.74,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 61.389,
+     "set": "X-high",
+     "cost": 2.015,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "grok-build-0-1",
+   "name": "Grok Build 0.1",
+   "dev": "xAI",
+   "tier": "Mid-size",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": null,
+   "status": null,
+   "ctx": 256000,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input"
+   ],
+   "pin": 1.0,
+   "pout": 2.0,
+   "pprov": "xAI API (first-party)",
+   "purl": "https://docs.x.ai/developers/models/grok-build-0.1",
+   "surl": "https://docs.x.ai/developers/models/grok-build-0.1",
+   "notes": "Price: < 200k prompt tokens; >= 200k prompt tokens billed at 2x for all tokens. Cached input $0.20. Batch 20% discount.",
+   "s": {}
+  },
+  {
+   "id": "muse-wonder",
+   "name": "Muse Wonder",
+   "dev": "Meta",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-10-12",
+   "status": "Preview",
+   "ctx": 1048576,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 4.0,
+   "pout": 20.0,
+   "pprov": "Meta Model API (first-party)",
+   "purl": "https://dev.meta.ai/docs/muse-wonder",
+   "surl": "https://dev.meta.ai/docs/muse-wonder",
+   "notes": "Price: Standard mode; cached input $0.20; no long-context premium. Price from https://dev.meta.ai/docs/pricing-rate-limits Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 50.077,
+     "set": "Max",
+     "cost": null,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1510.957,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 161.68,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 66.787,
+     "set": "Max",
+     "cost": 6.81,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 58.88,
+     "set": "Muse Code, Max",
+     "cost": null,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1723.437,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 74.9,
+     "set": "Max",
+     "cost": 5.579,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 9.087,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 60.0,
+     "set": "Max",
+     "cost": 6.21,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 93.0,
+     "set": "Max",
+     "cost": 4.191,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 46.2,
+     "set": "Max",
+     "cost": 16.44,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "vending": {
+     "v": 12291.558,
+     "set": null,
+     "cost": null,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "lb_data": {
+     "v": 81.6,
+     "set": "Max",
+     "cost": 0.3657,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 82.105,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "muse-spark-1-3",
+   "name": "Muse Spark 1.3",
+   "dev": "Meta",
+   "tier": "Mid-size",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": null,
+   "status": null,
+   "ctx": 1048576,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 1.25,
+   "pout": 4.25,
+   "pprov": "Meta Model API (first-party)",
+   "purl": "https://dev.meta.ai/docs/muse-spark",
+   "surl": "https://dev.meta.ai/docs/muse-spark",
+   "notes": "Price: Standard mode; cached $0.15. Contributor mode (content used for training): $0.10 in / $0.20 out. Price from https://dev.meta.ai/docs/pricing-rate-limits",
+   "s": {
+    "arena_text": {
+     "v": 1496.315,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 158.24,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "aa_coding": {
+     "v": 45.708,
+     "set": "Muse Code, Max",
+     "cost": 3.91,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 14.85,
+     "set": "Muse Code, X-high",
+     "cost": null,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1655.089,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 84.4,
+     "set": "Max",
+     "cost": 1.372,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 2.213,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 30.9,
+     "set": "Max",
+     "cost": 2.985,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 82.5,
+     "set": "Max",
+     "cost": 3.124,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 47.9,
+     "set": "Max",
+     "cost": 11.26,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 79.6,
+     "set": "Max",
+     "cost": 0.1694,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1291.498,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 74.386,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "muse-ember",
+   "name": "Muse Ember",
+   "dev": "Meta",
+   "tier": "Small and fast",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-11-09",
+   "status": null,
+   "ctx": 1048576,
+   "maxout": 524288,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio",
+    "pdf"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Audio input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 0.1,
+   "pout": 0.5,
+   "pprov": "Meta Model API (first-party)",
+   "purl": "https://dev.meta.ai/docs/muse-ember",
+   "surl": "https://dev.meta.ai/docs/muse-ember",
+   "notes": "Price: Up to 200K input tokens; over 200K: $0.30 in / $1.50 out for whole request. Cached $0.004. Price from https://dev.meta.ai/docs/pricing-rate-limits Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 36.021,
+     "set": "Max",
+     "cost": 0.1359,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "vals": {
+     "v": 60.475,
+     "set": "Max",
+     "cost": 0.153,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 45.946,
+     "set": "Muse Code, Max",
+     "cost": null,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1608.597,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    }
+   }
+  },
+  {
+   "id": "muse-spark-open",
+   "name": "Muse Spark Open",
+   "dev": "Meta",
+   "tier": "Mid-size",
+   "access": "Open weights",
+   "license": null,
+   "params": "816B total, 42B active",
+   "released": "2026-10-15",
+   "status": null,
+   "ctx": 1048576,
+   "maxout": 262144,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Audio input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 1.25,
+   "pout": 4.25,
+   "pprov": "OpenRouter listed price (matches BaseTen, Modal, Nebius, Together endpoint)",
+   "purl": "https://openrouter.ai/meta/muse-spark-open",
+   "surl": "https://dev.meta.ai/docs/models",
+   "notes": "Price: 4 endpoints listed; lowest input $1.25/M (Modal, unknown). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 24.882,
+     "set": "X-high",
+     "cost": 2.018,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 155.42,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 48.567,
+     "set": "X-high",
+     "cost": 4.718,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 26.301,
+     "set": "Muse Code, X-high",
+     "cost": 3.543,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1526.307,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 55.1,
+     "set": "Max",
+     "cost": 1.73,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_browser": {
+     "v": 26.2,
+     "set": "Max",
+     "cost": 2.95,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 82.7,
+     "set": "Max",
+     "cost": 0.8635,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 12.1,
+     "set": "Max",
+     "cost": 5.497,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 60.2,
+     "set": "Max",
+     "cost": 0.04491,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 69.825,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 88.573,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 57.5,
+     "set": "X-high",
+     "cost": 0.7285,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "muse-glimmer-30b",
+   "name": "Muse Glimmer 30B",
+   "dev": "Meta",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "29.6B (incl. vision encoder)",
+   "released": "2026-08",
+   "status": null,
+   "ctx": 131072,
+   "maxout": 16384,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": "January 4, 2026",
+   "caps": [
+    "Image input"
+   ],
+   "pin": 0.3,
+   "pout": 1.2,
+   "pprov": "OpenRouter listed price (matches DeepInfra endpoint)",
+   "purl": "https://openrouter.ai/meta/muse-glimmer-30b",
+   "surl": "https://huggingface.co/meta-models/Muse-Glimmer-30B",
+   "notes": "Price: 1 endpoints listed; lowest input $0.3/M (DeepInfra, bf16).",
+   "s": {
+    "aa_index": {
+     "v": 6.341,
+     "set": "High",
+     "cost": 0.1695,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    }
+   }
+  },
+  {
+   "id": "mistral-large-4",
+   "name": "Mistral Large 4",
+   "dev": "Mistral AI",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "Mistral Ecosystem Open Weight License",
+   "params": "1.05T total, 52B active",
+   "released": "2026-11-05",
+   "status": "Generally available",
+   "ctx": 1000000,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 0.7,
+   "pout": 2.1,
+   "pprov": "Mistral API (first-party)",
+   "purl": "https://docs.mistral.ai/models/mistral-large-4-0",
+   "surl": "https://docs.mistral.ai/models/mistral-large-4-0",
+   "notes": "Price: Cached input $0.07.",
+   "s": {
+    "aa_index": {
+     "v": 26.125,
+     "set": "High",
+     "cost": 2.062,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 154.62,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "aa_coding": {
+     "v": 48.277,
+     "set": "Mistral Vibe, High",
+     "cost": 1.259,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1564.455,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 79.4,
+     "set": "High",
+     "cost": 0.5743,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": -6.085,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 17.4,
+     "set": "High",
+     "cost": 1.653,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 80.3,
+     "set": "High",
+     "cost": 0.8786,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 24.7,
+     "set": "High",
+     "cost": 3.86,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 76.6,
+     "set": "High",
+     "cost": 0.06327,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 58.596,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 88.068,
+     "set": "High",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "mistral-small-4",
+   "name": "Mistral Small 4",
+   "dev": "Mistral AI",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "119B total, 6.5B active",
+   "released": "2026-03-16",
+   "status": "Generally available",
+   "ctx": 256000,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input"
+   ],
+   "pin": 0.15,
+   "pout": 0.6,
+   "pprov": "Mistral API (first-party)",
+   "purl": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+   "surl": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+   "notes": null,
+   "s": {
+    "aa_index": {
+     "v": 4.297,
+     "set": "Reasoning",
+     "cost": 0.03991,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    }
+   }
+  },
+  {
+   "id": "command-a-plus",
+   "name": "Command A+",
+   "dev": "Cohere",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "218B total, 25B active",
+   "released": "2026-05-20",
+   "status": "Generally available",
+   "ctx": 128000,
+   "maxout": 64000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input"
+   ],
+   "pin": 2.5,
+   "pout": 10.0,
+   "pprov": "Cohere (first-party)",
+   "purl": "https://cohere.com/pricing",
+   "surl": "https://docs.cohere.com/docs/models",
+   "notes": "Price: Pricing card values; note OpenRouter lists cohere/command-a-plus (Cohere endpoint) at $0.30/$1.50 and 192,000 context - conflicts with cohere.com. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 6.241,
+     "set": null,
+     "cost": 0.0,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    }
+   }
+  },
+  {
+   "id": "nova-2-pro",
+   "name": "Amazon Nova 2 Pro",
+   "dev": "Amazon",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": null,
+   "status": "Preview",
+   "ctx": null,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Audio input",
+    "Video input"
+   ],
+   "pin": 1.25,
+   "pout": 10.0,
+   "pprov": "Amazon Bedrock (first-party)",
+   "purl": "https://aws.amazon.com/nova/pricing/",
+   "surl": "https://aws.amazon.com/nova/pricing/",
+   "notes": "Price: Standard tier, US East (N. Virginia), text input rate. Page renders prices from AWS price JSON (b0.p.awsstatic.com); values resolved from that JSON (publication 2026-11-11). Cache reads 75% less than on-demand input.",
+   "s": {}
+  },
+  {
+   "id": "nova-2-lite",
+   "name": "Amazon Nova 2 Lite",
+   "dev": "Amazon",
+   "tier": "Small and fast",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": null,
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 65536,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 0.3,
+   "pout": 2.5,
+   "pprov": "Amazon Bedrock (first-party)",
+   "purl": "https://aws.amazon.com/nova/pricing/",
+   "surl": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/what-is-nova-2.html",
+   "notes": "Price: Standard tier, US East (N. Virginia), text input rate. Page renders prices from AWS price JSON (b0.p.awsstatic.com); values resolved from that JSON (publication 2026-11-11). Cache reads 75% less than on-demand input.",
+   "s": {}
+  },
+  {
+   "id": "deepseek-v4-pro",
+   "name": "DeepSeek V4 Pro",
+   "dev": "DeepSeek",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "MIT",
+   "params": null,
+   "released": "2026-08-13",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 384000,
+   "inp": [
+    "text"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "1M+ token context"
+   ],
+   "pin": 1.32,
+   "pout": 3.96,
+   "pprov": "DeepSeek API (first-party)",
+   "purl": "https://api-docs.deepseek.com/quick_start/pricing",
+   "surl": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+   "notes": "Price: PEAK rate (cache miss). Off-peak: $0.66 in / $1.98 out. Cache hit $0.044 peak / $0.022 off-peak. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 23.063,
+     "set": "Max",
+     "cost": 1.769,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1464.008,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 155.94,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 52.974,
+     "set": "Max",
+     "cost": 2.5,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "arena_webdev": {
+     "v": 1581.154,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "vending": {
+     "v": 3284.52,
+     "set": null,
+     "cost": 289.0,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "vectara": {
+     "v": 8.6,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "frontiermath": {
+     "v": 64.561,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 91.667,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 61.25,
+     "set": "Max",
+     "cost": 0.5976,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "deepseek-v4-1-flash",
+   "name": "DeepSeek V4.1 Flash",
+   "dev": "DeepSeek",
+   "tier": "Mid-size",
+   "access": "Open weights",
+   "license": "MIT",
+   "params": "552B backbone (V4.1-Flash card; plus 196B Engram memory)",
+   "released": "2026-10-17",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 384000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 0.3,
+   "pout": 1.2,
+   "pprov": "DeepSeek API (first-party)",
+   "purl": "https://api-docs.deepseek.com/quick_start/pricing",
+   "surl": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+   "notes": "Price: PEAK rate (cache miss). Off-peak rates are half: $0.15 in / $0.6 out. Cache hit $0.006 peak / $0.003 off-peak. Peak hours 01:00-04:00 and 06:00-10:00 UTC Mon-Fri. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 32.59,
+     "set": "Max",
+     "cost": 0.6021,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1474.96,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 159.41,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 61.257,
+     "set": "Max",
+     "cost": 0.6575,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 47.3,
+     "set": "Codex, Max",
+     "cost": 0.3862,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1663.647,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 80.4,
+     "set": "Max",
+     "cost": 0.2595,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 2.074,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 67.2,
+     "set": "Max",
+     "cost": 0.3198,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 78.6,
+     "set": "Max",
+     "cost": 0.4033,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 38.8,
+     "set": "Max",
+     "cost": 1.418,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 79.5,
+     "set": "Max",
+     "cost": 0.03316,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1262.859,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "vectara": {
+     "v": 4.2,
+     "set": null,
+     "cost": null,
+     "url": "https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md"
+    },
+    "frontiermath": {
+     "v": 71.228,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 93.182,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 78.056,
+     "set": "Max",
+     "cost": 0.1631,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "qwen3-8-max",
+   "name": "Qwen3.8-Max",
+   "dev": "Alibaba (Qwen)",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": "2.4T total (MoE)",
+   "released": "2026-08-03",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 131000,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 2,
+   "pout": 6,
+   "pprov": "Alibaba Cloud Model Studio / QwenCloud (first-party, ap-southeast-1)",
+   "purl": "https://www.qwencloud.com/models/qwen3.8-max",
+   "surl": "https://www.qwencloud.com/models/qwen3.8-max",
+   "notes": "Price: Implicit cache input $0.25; batch $1/$3. Max input 991K. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 33.655,
+     "set": null,
+     "cost": 10.02,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1483.992,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 157.59,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "aa_coding": {
+     "v": 39.22,
+     "set": "Claude Code",
+     "cost": 3.796,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 26.97,
+     "set": "Claude Code, Max",
+     "cost": 14.05,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1675.815,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 60.9,
+     "set": "Max",
+     "cost": 1.987,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 0.326,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 49.4,
+     "set": "Max",
+     "cost": 3.777,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 72.8,
+     "set": "Max",
+     "cost": 2.592,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 26.6,
+     "set": "Max",
+     "cost": 16.59,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 78.4,
+     "set": "Max",
+     "cost": 0.2189,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1299.039,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 74.737,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 92.677,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "qwen3-8-flash-next",
+   "name": "Qwen3.8-Flash-Next",
+   "dev": "Alibaba (Qwen)",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Qwen Community License 1.0",
+   "params": "125B total, 6B active (+51B n-gram embedding, 4B MTP)",
+   "released": "2026-08-26",
+   "status": null,
+   "ctx": 262144,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input"
+   ],
+   "pin": null,
+   "pout": null,
+   "pprov": null,
+   "purl": null,
+   "surl": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+   "notes": "Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 28.575,
+     "set": null,
+     "cost": 0.5694,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_webdev": {
+     "v": 1623.513,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "arena_agent": {
+     "v": -4.664,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    }
+   }
+  },
+  {
+   "id": "qwen3-8-27b",
+   "name": "Qwen3.8 27B",
+   "dev": "Alibaba (Qwen)",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "27B",
+   "released": "2026-08-14",
+   "status": null,
+   "ctx": 262144,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input"
+   ],
+   "pin": 0.5,
+   "pout": 3,
+   "pprov": "Alibaba Cloud Model Studio (first-party)",
+   "purl": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+   "surl": "https://huggingface.co/Qwen/Qwen3.8-27B",
+   "notes": "Price: International (Singapore), 0<Token<=1M. OpenRouter Alibaba endpoint lists $0.425/$2.55 (discount?). Page last updated Nov 07, 2026. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 20.107,
+     "set": "X-high",
+     "cost": 3.53,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 152.64,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arena_webdev": {
+     "v": 1590.234,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 69.3,
+     "set": "Max",
+     "cost": 1.075,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": -4.605,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 24.2,
+     "set": "Max",
+     "cost": 1.434,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 61.3,
+     "set": "Max",
+     "cost": 1.208,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 15.9,
+     "set": "Max",
+     "cost": 7.77,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 76.6,
+     "set": "Max",
+     "cost": 0.08903,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arc2": {
+     "v": 42.361,
+     "set": "X-high",
+     "cost": 0.4469,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "kimi-k3-1-pro",
+   "name": "Kimi K3.1 Pro",
+   "dev": "Moonshot AI",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "Kimi K3.1 Pro license (other)",
+   "params": "2.8T total, 104B activated",
+   "released": "2026-10-23",
+   "status": null,
+   "ctx": 1048576,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 2.0,
+   "pout": 10.0,
+   "pprov": "Kimi API Platform (first-party)",
+   "purl": "https://platform.moonshot.ai/docs/pricing/chat",
+   "surl": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
+   "notes": "Price: Cached input $0.20; cache writes billed separately by TTL. Batch 60% of standard. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 46.453,
+     "set": null,
+     "cost": 3.681,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1483.019,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 161.37,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 62.52,
+     "set": "Max",
+     "cost": 6.44,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "arena_webdev": {
+     "v": 1687.663,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 67.8,
+     "set": "Max",
+     "cost": 1.395,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 5.237,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 75.9,
+     "set": "Max",
+     "cost": 1.841,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 82.1,
+     "set": "Max",
+     "cost": 3.4,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 38.7,
+     "set": "Max",
+     "cost": 6.094,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 79.1,
+     "set": "Max",
+     "cost": 0.2171,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 78.246,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 94.192,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "glm-5-3",
+   "name": "GLM-5.3",
+   "dev": "Z.ai",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "GLM-5.3 license (other)",
+   "params": null,
+   "released": "2026-08-18",
+   "status": null,
+   "ctx": null,
+   "maxout": null,
+   "inp": [
+    "text"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode"
+   ],
+   "pin": 1.4,
+   "pout": 4.4,
+   "pprov": "Z.ai API (first-party)",
+   "purl": "https://docs.z.ai/guides/overview/pricing",
+   "surl": "https://docs.z.ai/guides/overview/pricing",
+   "notes": "Price: Cached input $0.26; cached storage limited-time free. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 31.653,
+     "set": "Max",
+     "cost": 5.009,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1482.506,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 157.1,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 59.847,
+     "set": "Max",
+     "cost": 8.525,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 48.916,
+     "set": "Opencode, Max",
+     "cost": 5.231,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "tbench": {
+     "v": 41.21,
+     "set": "Claude Code, Max",
+     "cost": 8.266,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1622.292,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "arena_agent": {
+     "v": 0.993,
+     "set": "Max",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "vending": {
+     "v": 8163.61,
+     "set": null,
+     "cost": 127.9,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "frontiermath": {
+     "v": 68.772,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 90.909,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "glm-5-3-flash",
+   "name": "GLM-5.3-Flash",
+   "dev": "Z.ai",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "MIT",
+   "params": "320B total, 18B active",
+   "released": "2026-08-26",
+   "status": null,
+   "ctx": null,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input"
+   ],
+   "pin": 0.15,
+   "pout": 0.5,
+   "pprov": "Z.ai API (first-party)",
+   "purl": "https://docs.z.ai/guides/overview/pricing",
+   "surl": "https://docs.z.ai/guides/overview/pricing",
+   "notes": "Price: Cached input $0.03; cached storage limited-time free. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 27.804,
+     "set": null,
+     "cost": 0.5833,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1474.207,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "eci": {
+     "v": 153.82,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 50.861,
+     "set": "Max",
+     "cost": 2.049,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "tbench": {
+     "v": 35.45,
+     "set": "Claude Code, None",
+     "cost": 0.3598,
+     "url": "https://www.tbench.ai/"
+    },
+    "arena_webdev": {
+     "v": 1608.868,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 70.9,
+     "set": "Max",
+     "cost": 0.1696,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": -2.802,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 59.8,
+     "set": "Max",
+     "cost": 0.2151,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 73.9,
+     "set": "Max",
+     "cost": 0.2303,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 20.7,
+     "set": "Max",
+     "cost": 1.491,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 76.4,
+     "set": "Max",
+     "cost": 0.02428,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1271.853,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    },
+    "frontiermath": {
+     "v": 55.789,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 90.152,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 65.833,
+     "set": "Max",
+     "cost": 0.09332,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "minimax-m3-1-flash",
+   "name": "MiniMax-M3.1-Flash",
+   "dev": "MiniMax",
+   "tier": "Mid-size",
+   "access": "Open weights",
+   "license": "MiniMax Community License (other)",
+   "params": "~428B total, 23B active",
+   "released": "2026-10-19",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Video input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 0.15,
+   "pout": 0.6,
+   "pprov": "MiniMax API (first-party)",
+   "purl": "https://platform.minimax.io/docs/guides/pricing",
+   "surl": "https://platform.minimax.io/docs/guides/pricing",
+   "notes": "Price: Prompt caching read $0.015. Priority tier 1.5x. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 29.06,
+     "set": null,
+     "cost": 0.491,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "vals": {
+     "v": 53.781,
+     "set": "Max",
+     "cost": 0.6597,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "arena_webdev": {
+     "v": 1584.547,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 68.8,
+     "set": "Max",
+     "cost": 0.2373,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": -2.757,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 80.6,
+     "set": "Max",
+     "cost": 0.3106,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 76.7,
+     "set": "Max",
+     "cost": 0.29,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 25.7,
+     "set": "Max",
+     "cost": 1.299,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 71.4,
+     "set": "Max",
+     "cost": 0.01233,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    }
+   }
+  },
+  {
+   "id": "minimax-m3",
+   "name": "MiniMax-M3",
+   "dev": "MiniMax",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "MiniMax Community License (other)",
+   "params": "~428B total, ~23B activated",
+   "released": "2026-06-01",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 0.3,
+   "pout": 1.2,
+   "pprov": "MiniMax API (first-party)",
+   "purl": "https://platform.minimax.io/docs/guides/pricing",
+   "surl": "https://platform.minimax.io/docs/guides/pricing",
+   "notes": "Price: Page shows list $0.60/$2.40 struck through with \"Permanent 50% off\" -> $0.30/$1.20 for <=512k input tokens; >512k: $0.60/$2.40 after discount (list $1.20/$4.80). Priority tier list $0.90/$3.60. Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 18.879,
+     "set": null,
+     "cost": 1.285,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 147.74,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arena_agent": {
+     "v": -10.423,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "vending": {
+     "v": 2157.772,
+     "set": null,
+     "cost": null,
+     "url": "https://andonlabs.com/evals/vending-bench-2"
+    },
+    "gpqa": {
+     "v": 90.909,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "nemotron-3-ultra",
+   "name": "Nemotron 3 Ultra",
+   "dev": "NVIDIA",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "OpenMDW License 1.1",
+   "params": "550B total, 55B active",
+   "released": null,
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 182520,
+   "inp": [
+    "text"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "1M+ token context"
+   ],
+   "pin": 0.6,
+   "pout": 2.4,
+   "pprov": "OpenRouter listed price (matches BaseTen endpoint)",
+   "purl": "https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b",
+   "surl": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+   "notes": "Price: 6 endpoints listed; lowest input $0.4/M (DeepInfra, fp4).",
+   "s": {
+    "aa_index": {
+     "v": 11.759,
+     "set": "Reasoning",
+     "cost": 2.226,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 146.95,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arena_agent": {
+     "v": -14.373,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "gpqa": {
+     "v": 85.354,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    }
+   }
+  },
+  {
+   "id": "nemotron-3-5-super-vl",
+   "name": "Nemotron 3.5 Super VL",
+   "dev": "NVIDIA",
+   "tier": "Mid-size",
+   "access": "Open weights",
+   "license": "OpenMDW License 1.1",
+   "params": "120B total, 12B active",
+   "released": "2026-10-15",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 943718,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 0.15,
+   "pout": 0.47,
+   "pprov": "OpenRouter listed price (matches CoreWeave endpoint)",
+   "purl": "https://openrouter.ai/nvidia/nemotron-3.5-super-vl",
+   "surl": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16",
+   "notes": "Price: 10 endpoints listed; lowest input $0.06/M (Darkbloom, nvfp4). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 13.62,
+     "set": null,
+     "cost": 0.5196,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "lb_coding": {
+     "v": 54.1,
+     "set": "Max",
+     "cost": 0.4119,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_browser": {
+     "v": 21.6,
+     "set": "Max",
+     "cost": 0.4158,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 67.1,
+     "set": "Max",
+     "cost": 0.395,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 12.0,
+     "set": "Max",
+     "cost": 1.654,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 64.6,
+     "set": "Max",
+     "cost": 0.02199,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arc2": {
+     "v": 1.944,
+     "set": "Medium",
+     "cost": 0.01731,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "nemotron-3-5-lightning",
+   "name": "Nemotron 3.5 Lightning",
+   "dev": "NVIDIA",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "OpenMDW License 1.1",
+   "params": "30B total, 3B active",
+   "released": "2026-08-11",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 235929,
+   "inp": [
+    "text"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "1M+ token context"
+   ],
+   "pin": 0.07,
+   "pout": 0.2,
+   "pprov": "OpenRouter listed price (matches CoreWeave endpoint)",
+   "purl": "https://openrouter.ai/nvidia/nemotron-3.5-lightning",
+   "surl": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+   "notes": "Price: 4 endpoints listed; lowest input $0.025/M (Darkbloom, int4). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 5.535,
+     "set": null,
+     "cost": 0.3145,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    }
+   }
+  },
+  {
+   "id": "phi-4-reasoning-vision",
+   "name": "Phi-4-reasoning-vision 15B",
+   "dev": "Microsoft",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "MIT",
+   "params": "15B",
+   "released": "2026-03-04",
+   "status": null,
+   "ctx": 16384,
+   "maxout": null,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "Image input"
+   ],
+   "pin": null,
+   "pout": null,
+   "pprov": null,
+   "purl": null,
+   "surl": "https://huggingface.co/microsoft/Phi-4-reasoning-vision-15B",
+   "notes": null,
+   "s": {}
+  },
+  {
+   "id": "granite-4-2-8b",
+   "name": "Granite 4.2 8B",
+   "dev": "IBM",
+   "tier": "Small and fast",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "8B",
+   "released": "2026-08-25",
+   "status": null,
+   "ctx": 131072,
+   "maxout": 117964,
+   "inp": [
+    "text"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode"
+   ],
+   "pin": 0.06,
+   "pout": 0.25,
+   "pprov": "OpenRouter listed price (matches DeepInfra endpoint)",
+   "purl": "https://openrouter.ai/ibm-granite/granite-4.2-8b",
+   "surl": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+   "notes": "Price: 2 endpoints listed; lowest input $0.06/M (CoreWeave, bf16).",
+   "s": {
+    "aa_index": {
+     "v": 5.098,
+     "set": null,
+     "cost": 0.04046,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    }
+   }
+  },
+  {
+   "id": "mimo-v2-6-pro",
+   "name": "MiMo-V2.6-Pro",
+   "dev": "Xiaomi",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "MIT",
+   "params": "1.02T total, 42B activated",
+   "released": "2026-09-21",
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 131072,
+   "inp": [
+    "text",
+    "image",
+    "video",
+    "audio"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Audio input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 0.435,
+   "pout": 0.87,
+   "pprov": "Xiaomi endpoint as listed on OpenRouter",
+   "purl": "https://openrouter.ai/api/v1/models/xiaomi/mimo-v2.6-pro/endpoints",
+   "surl": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL",
+   "notes": "Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 29.89,
+     "set": null,
+     "cost": 0.2572,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "arena_text": {
+     "v": 1480.041,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/text"
+    },
+    "vals": {
+     "v": 57.813,
+     "set": null,
+     "cost": 0.4296,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "arena_webdev": {
+     "v": 1624.26,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 64.5,
+     "set": "High",
+     "cost": 0.2794,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": 2.332,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 77.3,
+     "set": "High",
+     "cost": 0.5857,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 84.8,
+     "set": "High",
+     "cost": 0.1737,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 36.4,
+     "set": "High",
+     "cost": 0.8867,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 72.3,
+     "set": "High",
+     "cost": 0.03856,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1247.441,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    }
+   }
+  },
+  {
+   "id": "step-5-preview",
+   "name": "Step 5 Preview",
+   "dev": "StepFun",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "StepFun Model License 1.0",
+   "params": "600B total, 27B active",
+   "released": null,
+   "status": "Preview",
+   "ctx": 1000000,
+   "maxout": 64000,
+   "inp": [
+    "text",
+    "image",
+    "video"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Video input",
+    "1M+ token context"
+   ],
+   "pin": 1.0,
+   "pout": 2.7,
+   "pprov": "StepFun endpoint as listed on OpenRouter",
+   "purl": "https://openrouter.ai/api/v1/models/stepfun/step-5-preview/endpoints",
+   "surl": "https://huggingface.co/stepfun-ai/Step-5-Preview",
+   "notes": null,
+   "s": {
+    "aa_index": {
+     "v": 28.528,
+     "set": null,
+     "cost": 2.345,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "vals": {
+     "v": 54.762,
+     "set": null,
+     "cost": 2.734,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 43.127,
+     "set": "Claude Code",
+     "cost": 1.84,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_webdev": {
+     "v": 1573.367,
+     "set": "High",
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/webdev"
+    },
+    "lb_coding": {
+     "v": 67.6,
+     "set": "Max",
+     "cost": 1.395,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": -3.425,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 24.8,
+     "set": "Max",
+     "cost": 3.354,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 75.5,
+     "set": "Max",
+     "cost": 1.339,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 19.4,
+     "set": "Max",
+     "cost": 9.055,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 63.5,
+     "set": "Max",
+     "cost": 0.0639,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_vision": {
+     "v": 1245.454,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/vision"
+    }
+   }
+  },
+  {
+   "id": "hy4",
+   "name": "Tencent Hy4",
+   "dev": "Tencent",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": null,
+   "status": null,
+   "ctx": 1048576,
+   "maxout": 65536,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "1M+ token context"
+   ],
+   "pin": 0.417,
+   "pout": 1.2505,
+   "pprov": "Tencent endpoint as listed on OpenRouter",
+   "purl": "https://openrouter.ai/api/v1/models/tencent/hy4/endpoints",
+   "surl": "https://openrouter.ai/api/v1/models/tencent/hy4/endpoints",
+   "notes": null,
+   "s": {
+    "aa_index": {
+     "v": 34.555,
+     "set": null,
+     "cost": 1.031,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "vals": {
+     "v": 59.353,
+     "set": null,
+     "cost": 1.72,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "arena_agent": {
+     "v": 4.659,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    }
+   }
+  },
+  {
+   "id": "inkling",
+   "name": "Inkling",
+   "dev": "Thinking Machines Lab",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "975B total, 41B active",
+   "released": "2026-07-15",
+   "status": null,
+   "ctx": 524288,
+   "maxout": 471859,
+   "inp": [
+    "text",
+    "image",
+    "audio"
+   ],
+   "reasoning": null,
+   "cutoff": null,
+   "caps": [
+    "Image input",
+    "Audio input"
+   ],
+   "pin": 1.0,
+   "pout": 4.05,
+   "pprov": "OpenRouter listed price (matches Together endpoint)",
+   "purl": "https://openrouter.ai/thinkingmachines/inkling",
+   "surl": "https://huggingface.co/thinkingmachines/Inkling",
+   "notes": "Price: 1 endpoints listed; lowest input $1.0/M (Together, unknown). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 12.478,
+     "set": "X-high",
+     "cost": 1.352,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 148.39,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 28.961,
+     "set": "0.99",
+     "cost": 1.848,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "lb_coding": {
+     "v": 48.7,
+     "set": null,
+     "cost": 2.169,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "arena_agent": {
+     "v": -17.074,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "lb_browser": {
+     "v": 12.0,
+     "set": null,
+     "cost": 2.508,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 60.3,
+     "set": null,
+     "cost": 1.892,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 9.8,
+     "set": null,
+     "cost": 10.86,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 72.8,
+     "set": null,
+     "cost": 0.1446,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "frontiermath": {
+     "v": 33.333,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "gpqa": {
+     "v": 88.258,
+     "set": "X-high",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "arc2": {
+     "v": 36.528,
+     "set": null,
+     "cost": 0.6421,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "beam-1-0",
+   "name": "Beam 1.0",
+   "dev": "Reflection AI",
+   "tier": "Frontier",
+   "access": "Open weights",
+   "license": "Apache 2.0",
+   "params": "501.3B total, 23.4B active",
+   "released": "2026-10-16",
+   "status": null,
+   "ctx": 152000,
+   "maxout": 943718,
+   "inp": [
+    "text"
+   ],
+   "reasoning": null,
+   "cutoff": "June 30, 2026",
+   "caps": [],
+   "pin": 0.3,
+   "pout": 1.0,
+   "pprov": "OpenRouter listed price (matches CoreWeave endpoint)",
+   "purl": "https://openrouter.ai/reflection/beam-1.0-501b-a23b",
+   "surl": "https://huggingface.co/reflection/Beam-1.0-501B-A23B",
+   "notes": "Price: 5 endpoints listed; lowest input $0.25/M (Nebius, fp4). Release date as listed by Artificial Analysis.",
+   "s": {
+    "aa_index": {
+     "v": 17.731,
+     "set": null,
+     "cost": 0.2844,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "eci": {
+     "v": 150.91,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip"
+    },
+    "vals": {
+     "v": 43.424,
+     "set": null,
+     "cost": null,
+     "url": "https://www.vals.ai/benchmarks/vals_index"
+    },
+    "aa_coding": {
+     "v": 20.479,
+     "set": "Mirror",
+     "cost": 0.3195,
+     "url": "https://artificialanalysis.ai/"
+    },
+    "arena_agent": {
+     "v": -6.415,
+     "set": null,
+     "cost": null,
+     "url": "https://arena.ai/leaderboard/agent"
+    },
+    "arc2": {
+     "v": 23.472,
+     "set": "X-high",
+     "cost": 0.6096,
+     "url": "https://arcprize.org/leaderboard"
+    }
+   }
+  },
+  {
+   "id": "ling-3-1-flash",
+   "name": "Ling 3.1 Flash",
+   "dev": "inclusionAI (Ant Group)",
+   "tier": "Mid-size",
+   "access": "Open weights",
+   "license": "MIT",
+   "params": "560B total, 25B active",
+   "released": null,
+   "status": null,
+   "ctx": 1000000,
+   "maxout": 262144,
+   "inp": [
+    "text"
+   ],
+   "reasoning": "Configurable",
+   "cutoff": null,
+   "caps": [
+    "Reasoning mode",
+    "1M+ token context"
+   ],
+   "pin": 0.045,
+   "pout": 0.135,
+   "pprov": "OpenRouter listed price (matches Novita endpoint)",
+   "purl": "https://openrouter.ai/inclusionai/ling-3.1-flash",
+   "surl": "https://huggingface.co/inclusionAI/Ling-3.1-flash",
+   "notes": "Price: 1 endpoints listed; lowest input $0.045/M (Novita, unknown).",
+   "s": {
+    "aa_index": {
+     "v": 29.57,
+     "set": null,
+     "cost": 3.185,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    }
+   }
+  }
+ ],
+ "benchmarks": [
+  {
+   "id": "aa_index",
+   "name": "Artificial Analysis Intelligence Index",
+   "short": "AA Intelligence Index",
+   "section": "General capability",
+   "unit": "points",
+   "hb": true,
+   "cost": true,
+   "what": "A combined score from nine independent evaluations of reasoning, knowledge, coding and agentic work, run by Artificial Analysis on each model.",
+   "caveat": "Cost per task is Artificial Analysis's weighted average API cost per Index task.",
+   "src": "Artificial Analysis",
+   "url": "https://artificialanalysis.ai/leaderboards/models",
+   "updated": "Nov 11, 2026",
+   "n": 42
+  },
+  {
+   "id": "arena_text",
+   "name": "Arena Text",
+   "short": "Arena Text",
+   "section": "General capability",
+   "unit": "Elo",
+   "hb": true,
+   "cost": false,
+   "what": "Human preference: people compare two anonymous answers to their own prompts and pick the better one. Ratings on an Elo-like scale; style control adjusts for answer length and formatting.",
+   "caveat": "Only the top 60 of the board are recorded, so smaller models may be missing.",
+   "src": "Arena (arena.ai)",
+   "url": "https://arena.ai/leaderboard/text",
+   "updated": "Nov 9, 2026",
+   "n": 16
+  },
+  {
+   "id": "eci",
+   "name": "Epoch Capabilities Index",
+   "short": "Epoch ECI",
+   "section": "General capability",
+   "unit": "points",
+   "hb": true,
+   "cost": false,
+   "what": "Epoch AI's single capability score, fitted across many benchmarks so models tested on different sets can be compared.",
+   "caveat": null,
+   "src": "Epoch AI",
+   "url": "https://epoch.ai/benchmarks",
+   "updated": "Nov 11, 2026",
+   "n": 32
+  },
+  {
+   "id": "vals",
+   "name": "Vals Index",
+   "short": "Vals Index",
+   "section": "Business and knowledge work",
+   "unit": "%",
+   "hb": true,
+   "cost": true,
+   "what": "Agentic tasks in finance, law, tax and software, weighted by each sector's share of US GDP, run by Vals AI.",
+   "caveat": "Cost per task is Vals's published cost per test.",
+   "src": "Vals AI",
+   "url": "https://www.vals.ai/benchmarks/vals_index",
+   "updated": "Nov 9, 2026",
+   "n": 26
+  },
+  {
+   "id": "aa_coding",
+   "name": "Artificial Analysis Coding Agent Index",
+   "short": "AA Coding Agent",
+   "section": "Coding and software",
+   "unit": "%",
+   "hb": true,
+   "cost": true,
+   "what": "Models run inside coding-agent tools on three evaluations: FrontierCode, SWE-Atlas QnA and Terminal-Bench v4. The tool used is shown with each score.",
+   "caveat": "Cost per task is Artificial Analysis's average API cost per task.",
+   "src": "Artificial Analysis",
+   "url": "https://artificialanalysis.ai/",
+   "updated": "Nov 11, 2026",
+   "n": 21
+  },
+  {
+   "id": "tbench",
+   "name": "Terminal-Bench 4.1",
+   "short": "Terminal-Bench",
+   "section": "Coding and software",
+   "unit": "%",
+   "hb": true,
+   "cost": true,
+   "what": "Real tasks in a computer terminal: building software, configuring systems, fixing environments. Share of tasks solved, run in named agent tools.",
+   "caveat": "Cost per task is derived: the board's total cost divided by its number of trials.",
+   "src": "Terminal-Bench (tbench.ai)",
+   "url": "https://www.tbench.ai/",
+   "updated": "Nov 11, 2026",
+   "n": 9
+  },
+  {
+   "id": "arena_webdev",
+   "name": "Arena WebDev",
+   "short": "Arena WebDev",
+   "section": "Coding and software",
+   "unit": "Elo",
+   "hb": true,
+   "cost": false,
+   "what": "Human preference for web apps the models build from a prompt, judged side by side.",
+   "caveat": "Only the top 60 of the board are recorded.",
+   "src": "Arena (arena.ai)",
+   "url": "https://arena.ai/leaderboard/webdev",
+   "updated": "Nov 10, 2026",
+   "n": 28
+  },
+  {
+   "id": "lb_coding",
+   "name": "LiveBench Coding",
+   "short": "LiveBench Coding",
+   "section": "Coding and software",
+   "unit": "points",
+   "hb": true,
+   "cost": true,
+   "what": "Fresh coding tasks released after model training cut-offs, scored automatically (0 to 100).",
+   "caveat": "Cost per task is derived: LiveBench's total suite cost divided by its task count, as the LiveBench site itself does.",
+   "src": "LiveBench",
+   "url": "https://livebench.ai/",
+   "updated": "Nov 6, 2026",
+   "n": 27
+  },
+  {
+   "id": "arena_agent",
+   "name": "Arena Agent",
+   "short": "Arena Agent",
+   "section": "Agents",
+   "unit": "%",
+   "hb": true,
+   "cost": false,
+   "what": "Real agent sessions on arena.ai: how much better each model does than a baseline at finishing users' multi-step tasks, from task outcomes and user feedback.",
+   "caveat": null,
+   "src": "Arena (arena.ai)",
+   "url": "https://arena.ai/leaderboard/agent",
+   "updated": "Nov 8, 2026",
+   "n": 29
+  },
+  {
+   "id": "lb_browser",
+   "name": "LiveBench Browser",
+   "short": "LiveBench Browser",
+   "section": "Agents",
+   "unit": "points",
+   "hb": true,
+   "cost": true,
+   "what": "Tasks completed by operating a web browser: navigating, filling forms and extracting information (0 to 100).",
+   "caveat": "Cost per task is derived: total suite cost divided by task count.",
+   "src": "LiveBench",
+   "url": "https://livebench.ai/",
+   "updated": "Nov 6, 2026",
+   "n": 27
+  },
+  {
+   "id": "lb_research",
+   "name": "LiveBench Research",
+   "short": "LiveBench Research",
+   "section": "Agents",
+   "unit": "points",
+   "hb": true,
+   "cost": true,
+   "what": "Multi-step research tasks that need searching, reading and combining sources (0 to 100).",
+   "caveat": "Cost per task is derived: total suite cost divided by task count.",
+   "src": "LiveBench",
+   "url": "https://livebench.ai/",
+   "updated": "Nov 6, 2026",
+   "n": 27
+  },
+  {
+   "id": "lb_long",
+   "name": "LiveBench Long Agentic",
+   "short": "LiveBench Long Agentic",
+   "section": "Agents",
+   "unit": "points",
+   "hb": true,
+   "cost": true,
+   "what": "Long tasks with many steps and tool calls, testing whether an agent stays on track (0 to 100).",
+   "caveat": "Cost per task is derived: total suite cost divided by task count.",
+   "src": "LiveBench",
+   "url": "https://livebench.ai/",
+   "updated": "Nov 6, 2026",
+   "n": 27
+  },
+  {
+   "id": "vending",
+   "name": "Vending-Bench 2",
+   "short": "Vending-Bench",
+   "section": "Agents",
+   "unit": "USD",
+   "hb": true,
+   "cost": true,
+   "what": "A simulated year running a vending-machine business: ordering stock, setting prices, dealing with suppliers. Score is the money left at the end (start: $500).",
+   "caveat": "Cost per task is the mean API cost of one full simulated year.",
+   "src": "Andon Labs",
+   "url": "https://andonlabs.com/evals/vending-bench-2",
+   "updated": "Nov 11, 2026",
+   "n": 15
+  },
+  {
+   "id": "lb_data",
+   "name": "LiveBench Data Analysis",
+   "short": "LiveBench Data",
+   "section": "Documents and data",
+   "unit": "points",
+   "hb": true,
+   "cost": true,
+   "what": "Table manipulation, joins and analysis questions on real data (0 to 100).",
+   "caveat": "Cost per task is derived: total suite cost divided by task count.",
+   "src": "LiveBench",
+   "url": "https://livebench.ai/",
+   "updated": "Nov 6, 2026",
+   "n": 27
+  },
+  {
+   "id": "arena_vision",
+   "name": "Arena Vision",
+   "short": "Arena Vision",
+   "section": "Documents and data",
+   "unit": "Elo",
+   "hb": true,
+   "cost": false,
+   "what": "Human preference on prompts that include images, such as charts, photos and screenshots.",
+   "caveat": "Only the top 60 of the board are recorded.",
+   "src": "Arena (arena.ai)",
+   "url": "https://arena.ai/leaderboard/vision",
+   "updated": "Nov 9, 2026",
+   "n": 14
+  },
+  {
+   "id": "vectara",
+   "name": "Vectara Hallucination Rate",
+   "short": "Hallucination rate",
+   "section": "Documents and data",
+   "unit": "%",
+   "hb": false,
+   "cost": false,
+   "what": "How often a model adds facts that are not in a document it is asked to summarise. Lower is better.",
+   "caveat": null,
+   "src": "Vectara",
+   "url": "https://github.com/vectara/hallucination-leaderboard",
+   "updated": "Oct 22, 2026",
+   "n": 8
+  },
+  {
+   "id": "frontiermath",
+   "name": "FrontierMath (Tiers 1-3)",
+   "short": "FrontierMath",
+   "section": "Reasoning, maths and science",
+   "unit": "%",
+   "hb": true,
+   "cost": false,
+   "what": "Hundreds of unpublished, expert-written maths problems that take specialists hours to solve, run by Epoch AI.",
+   "caveat": null,
+   "src": "Epoch AI",
+   "url": "https://epoch.ai/benchmarks",
+   "updated": "Nov 6, 2026",
+   "n": 24
+  },
+  {
+   "id": "gpqa",
+   "name": "GPQA Diamond",
+   "short": "GPQA Diamond",
+   "section": "Reasoning, maths and science",
+   "unit": "%",
+   "hb": true,
+   "cost": false,
+   "what": "Graduate-level biology, chemistry and physics questions written to resist web search, run by Epoch AI.",
+   "caveat": "Top models are close to the ceiling, so small gaps mean little.",
+   "src": "Epoch AI",
+   "url": "https://epoch.ai/benchmarks",
+   "updated": "Nov 6, 2026",
+   "n": 28
+  },
+  {
+   "id": "arc2",
+   "name": "ARC-AGI-2",
+   "short": "ARC-AGI-2",
+   "section": "Reasoning, maths and science",
+   "unit": "%",
+   "hb": true,
+   "cost": true,
+   "what": "Visual puzzles that are easy for people but need new reasoning for each task, run by the ARC Prize Foundation.",
+   "caveat": "Cost per task is ARC Prize's measured cost per task.",
+   "src": "ARC Prize",
+   "url": "https://arcprize.org/leaderboard",
+   "updated": "Nov 10, 2026",
+   "n": 20
+  }
+ ],
+ "groups": [
+  {
+   "id": "coding",
+   "name": "Coding agents",
+   "bench": "aa_coding",
+   "also": [
+    "tbench",
+    "lb_coding"
+   ],
+   "desc": "Agents that read a codebase, write and test changes, and work in the terminal, as in Claude Code, Codex or Cursor."
+  },
+  {
+   "id": "apps",
+   "name": "Web and app builders",
+   "bench": "arena_webdev",
+   "also": [
+    "lb_coding"
+   ],
+   "desc": "Tools that turn a description into a working web page or small app, judged by the people who asked for it."
+  },
+  {
+   "id": "browser",
+   "name": "Browser and computer use",
+   "bench": "lb_browser",
+   "also": [
+    "arena_agent"
+   ],
+   "desc": "Agents that operate a browser for you: navigating sites, filling forms and pulling information out."
+  },
+  {
+   "id": "research",
+   "name": "Research agents",
+   "bench": "lb_research",
+   "also": [
+    "frontiermath"
+   ],
+   "desc": "Agents that search, read many sources and pull the findings together into a cited answer."
+  },
+  {
+   "id": "long",
+   "name": "Long-running autonomous agents",
+   "bench": "vending",
+   "also": [
+    "lb_long",
+    "arena_agent"
+   ],
+   "desc": "Agents trusted with a goal over hours or days, making many decisions without a person checking each one."
+  },
+  {
+   "id": "business",
+   "name": "Business and knowledge work",
+   "bench": "vals",
+   "also": [
+    "aa_index"
+   ],
+   "desc": "Finance, legal, tax and analysis tasks of the kind office teams hand to an AI assistant."
+  },
+  {
+   "id": "data",
+   "name": "Documents and data analysis",
+   "bench": "lb_data",
+   "also": [
+    "vectara",
+    "arena_vision"
+   ],
+   "desc": "Working with spreadsheets, tables, reports and scanned documents, and staying faithful to the source."
+  },
+  {
+   "id": "assistant",
+   "name": "Everyday assistant and chat",
+   "bench": "arena_text",
+   "also": [
+    "aa_index"
+   ],
+   "desc": "Drafting, explaining and answering questions in conversation: what most staff use AI for day to day."
+  },
+  {
+   "id": "reasoning",
+   "name": "Hard reasoning, maths and science",
+   "bench": "frontiermath",
+   "also": [
+    "gpqa",
+    "arc2"
+   ],
+   "desc": "Problems that need long, careful reasoning: engineering calculations, proofs and technical analysis."
+  }
+ ],
+ "method_steps": [
+  [
+   "Gather from the source",
+   "Four research agents read each benchmark's own leaderboard or data file and each developer's model and price pages. Every value was copied as published, with the address it came from."
+  ],
+  [
+   "Use independent results only",
+   "Rankings use results run by the benchmark maintainers. Scores that developers report about their own models are not used, because settings and comparisons vary."
+  ],
+  [
+   "Match names carefully",
+   "Benchmarks spell model names differently. Names are matched to one entry per model. When a model appears at several reasoning-effort settings, it is ranked on its best setting, which is shown next to the score."
+  ],
+  [
+   "Red-team the result",
+   "A separate team of agents, which did not collect the data, re-checked values against the source pages and challenged name matches, prices and the frontier. Errors found were fixed or the value was removed."
+  ]
+ ],
+ "disclaimer": "Benchmarks measure narrow tasks under one set of conditions, and results move quickly as models and harnesses change. A model that ranks first here may not be the best on your own documents, processes or data. List prices change and some are introductory; open-weight prices depend on the host. Several well-known boards (SWE-bench, OSWorld, tau-bench, BFCL, METR and Aider) have not yet published results for most of the models listed, so they are not used to rank. This page is general information, not purchasing advice. Chmltech has no commercial relationship with any model developer or benchmark listed."
+}
