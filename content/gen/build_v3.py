@@ -32,7 +32,7 @@ for a, b in [
     (r'f.write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")', r'f.write(f"User-agent: *\nAllow: /\nDisallow: /assets/journal/pdf/\nSitemap: {SITE_URL}/sitemap.xml\n")'),
     ('<a href="courses.html">Courses</a>\n      <a href="insights.html">Insights</a>', '<a href="courses.html">Free courses</a>\n      <a href="training.html">Free practice exams</a>\n      <a href="insights.html">Insights</a>\n      <a href="funding.html">Funding finder</a>\n      <a href="projects.html">Projects</a>\n      <a href="about.html">About Chmltech</a>'),
     # V4.27: funding finder in the primary navigation
-    ('("courses.html","Courses"),("contact.html","Contact")]', '("courses.html","Courses"),("funding.html","Funding"),("llm-leaderboard.html","AI Models"),("about.html","About"),("contact.html","Contact")]'),  # V4.37: About in the menu
+    ('("courses.html","Courses"),("contact.html","Contact")]', '("courses.html","Courses"),("llm-leaderboard.html","AI Models"),("funding.html","Funding"),("about.html","About"),("contact.html","Contact")]'),  # V4.37: About in the menu
 ]:
     assert a in src, a
     src = src.replace(a, b)

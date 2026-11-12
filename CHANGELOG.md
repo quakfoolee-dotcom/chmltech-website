@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.51 — 2026-11-12
+- **Menu order:** "AI Models" moved between Courses and Funding on every page, grouping it with the free resources (Training, Insights, Courses). The build script's menu list is updated to match.
+
 ## V4.50 — 2026-11-12
 - **New page: LLM leaderboard** (`llm-leaderboard.html`, "AI Models" in the menu). A searchable database of 50 current large language models from 22 developers, as of November 12, 2026.
   - **Best by agent type:** nine cards rank the strongest models for coding agents, web and app builders, browser use, research, long-running agents, business work, documents and data, everyday chat, and hard reasoning, each on the independent benchmark closest to that job.
