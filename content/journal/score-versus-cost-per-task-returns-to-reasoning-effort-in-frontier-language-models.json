@@ -14,7 +14,7 @@
   "division": "Division of Artificial Intelligence and Machine Learning",
   "location": "Vancouver, BC, Canada"
  },
- "abstract": "Current large language models let the user choose a reasoning-effort setting, from low to maximum, and the setting changes how many tokens a task consumes. The price per million tokens is therefore a poor guide to what a task costs. This paper compares benchmark score with measured cost per task for current frontier and lower-cost models as of November 11, 2026. It draws on four sources that publish both quantities: a Vals AI study that ran seven models on the same tasks at three effort settings, Cognition's FrontierCode 2.0 coding benchmark, the ARC-AGI-2 reasoning benchmark and the Artificial Analysis Intelligence Index, with official list prices and Arena preference ratings as context. All values were collected from primary sources and re-checked field by field by an independent verifier. Uncertainty is estimated with binomial intervals, and each effort step is tested for a distinguishable change in score. Moving from the lowest to the highest setting typically multiplies cost per task by three to five. The lower steps often buy large, distinguishable gains, while the final step was within noise for six of seven models in the controlled study at 1.2 to 2.6 times the cost. On ARC-AGI-2, frontier models cluster between 90 and 95 percent and cannot be ranked. The paper concludes that effort should be treated as a tunable cost parameter, set by testing on a firm's own tasks rather than by default to the maximum.",
+ "abstract": "Current large language models let the user choose a reasoning-effort setting, from low to maximum, and the setting changes how many tokens a task consumes. The price per million tokens is therefore a poor guide to what a task costs. This paper compares benchmark score with measured cost per task for current frontier and lower-cost models as of November 11, 2026. It draws on four sources that publish both quantities: a Vals AI study that ran seven models on the same tasks at three effort settings, Cognition's FrontierCode 2.0 coding benchmark, the ARC-AGI-2 reasoning benchmark and the Artificial Analysis Intelligence Index, with official list prices and Arena preference ratings as context. All values were collected from primary sources, and an independent verifier re-checked the series used in the main results field by field. Uncertainty is estimated with binomial intervals, and each effort step is tested for a distinguishable change in score. Moving from the lowest to the highest setting typically multiplies cost per task by three to five. The lower steps often buy large, distinguishable gains, while the final step was within noise for six of seven models in the controlled study at 1.3 to 2.6 times the cost. On ARC-AGI-2, frontier models cluster between 90 and 95 percent and cannot be ranked. The paper concludes that effort should be treated as a tunable cost parameter, set by testing on a firm's own tasks rather than by default to the maximum.",
  "keywords": [
   "large language models",
   "reasoning effort",
@@ -31,7 +31,7 @@
    "title": "Introduction",
    "blocks": [
     {
-     "p": "For most of the period since large language models (LLMs) became commercial products, their cost was discussed in terms of a single number: the price per million tokens of input and output. That number has fallen quickly. The 2025 AI Index reported that the inference cost of reaching GPT-3.5-level performance fell more than 280-fold between November 2022 and October 2024 [1], and Epoch AI measured declines of up to 40-fold per year in the price of reaching fixed benchmark milestones, at rates that differ widely between tasks [2]. A later analysis using the same kinds of data found that while the price of a given level of performance falls by roughly 5 to 10 times per year, the price of running the newest frontier models has risen [3]."
+     "p": "For most of the period since large language models (LLMs) became commercial products, their cost was discussed in terms of a single number: the price per million tokens of input and output. That number has fallen quickly. The 2025 AI Index reported that the inference cost of reaching GPT-3.5-level performance fell more than 280-fold between November 2022 and October 2024 [1], and Epoch AI found that the price of reaching fixed benchmark milestones fell by between 9-fold and 900-fold per year, depending on the milestone [2]. A later analysis using the same kinds of data found that while the price of a given level of performance falls by roughly 5 to 10 times per year, the price of running the newest frontier models has risen [3]."
     },
     {
      "p": "The reason the two trends diverge is that the amount of work a model does on a task is no longer fixed. Current models from every major developer can reason at length before they answer, and the user can choose how long, through settings named low, medium, high, xhigh or max. Each step up generates more reasoning tokens, which are billed at the output price. The relevant economic quantity for a business is therefore not the price per token but the cost per task, and how that cost trades against the quality of the result. Kapoor et al. argued that agent benchmarks should report cost alongside accuracy for exactly this reason [4], and Erol et al. formalized the expected cost of obtaining one correct answer as an evaluation metric [5]."
@@ -77,16 +77,7 @@
      "h3": "2.2 Reasoning-effort settings across vendors"
     },
     {
-     "p": "Every vendor in this study exposes some control over reasoning, but the names and number of levels differ (Table 1). Anthropic and OpenAI offer five levels from low to max; Google offers three for its Gemini 4 models; DeepSeek, Moonshot and Zhipu offer low, high and max; and Meta adds a minimal level. Defaults also differ: a model called through its default setting may already be at medium, high or max. A setting with the same name is not the same amount of work across vendors, so comparisons in this paper are made between steps within one model, not between equally named settings of different models."
-    },
-    {
-     "h3": "2.3 Prior work on cost-aware evaluation"
-    },
-    {
-     "p": "The idea of trading cost against quality is not new. FrugalGPT showed that cascading queries from cheaper to more expensive models could match a strong model's accuracy at much lower cost [9]. Studies of inference scaling found that spending more computation at inference time, by sampling repeatedly or generating longer solutions, can raise accuracy along a predictable curve [10, 11]. The Holistic Agent Leaderboard standardized agent evaluation across models and scaffolds so that cost and accuracy could be compared on equal terms [12]."
-    },
-    {
-     "p": "Other work points to limits. Reasoning models can spend many tokens on trivial problems with little benefit [13], shorter reasoning chains can be more accurate than longer ones for the same question [14], disabling explicit thinking can remain competitive at matched token budgets [15], and on some tasks longer reasoning lowers accuracy [16]. Accuracy and token use also change in different ways as problems become harder [17]. A counterpoint is that small gains in per-step accuracy compound over long, multi-step tasks, so a gain that looks negligible on a single-answer benchmark may matter for long-running agents [18]. This paper adds current, cross-vendor measurements to that discussion. Table 1 summarizes the settings as published."
+     "p": "Every vendor in this study exposes some control over reasoning, but the names and number of levels differ (Table 1). Anthropic and OpenAI offer five levels from low to max, and some OpenAI models add a sixth, none; Google offers three for its Gemini 4 models; DeepSeek, Moonshot and Zhipu offer low, high and max; and Meta adds a minimal level. Defaults also differ: a model called through its default setting may already be at medium, high or max. A setting with the same name is not the same amount of work across vendors, so comparisons in this paper are made between steps within one model, not between equally named settings of different models. Table 1 summarizes the settings as published."
     },
     {
      "table": {
@@ -162,6 +153,15 @@
       ],
       "note": "Source: vendor documentation and price pages [6–8]; other vendors' pages are listed in the accompanying dataset. Equally named settings are not equivalent across vendors."
      }
+    },
+    {
+     "h3": "2.3 Prior work on cost-aware evaluation"
+    },
+    {
+     "p": "The idea of trading cost against quality is not new. FrugalGPT showed that cascading queries from cheaper to more expensive models could match a strong model's accuracy at much lower cost [9]. Studies of inference scaling found that spending more computation at inference time, by sampling repeatedly or generating longer solutions, can raise accuracy along a predictable curve [10, 11]. The Holistic Agent Leaderboard standardized agent evaluation across models and scaffolds, and found that higher reasoning effort reduced accuracy in most of its runs [12]."
+    },
+    {
+     "p": "Other work points to limits. Reasoning models can spend many tokens on trivial problems with little benefit [13], shorter reasoning chains can be more accurate than longer ones for the same question [14], disabling explicit thinking can remain competitive at matched token budgets [15], and on some tasks longer reasoning lowers accuracy [16]. Accuracy and token use also change in different ways as problems become harder [17]. A counterpoint is that small gains in per-step accuracy compound over long, multi-step tasks, so a gain that looks negligible on a single-answer benchmark may matter for long-running agents [18]. This paper adds current, cross-vendor measurements to that discussion."
     }
    ]
   },
@@ -176,7 +176,7 @@
      "p": "The analysis uses only sources that publish both a quality measure and a measured cost for each model and effort setting, and that make the underlying values available (Table 2). The primary source for the effort question is a study by Vals AI, which ran seven models on the same tasks from its Vals Index at three effort settings and published accuracy, standard errors and cost per test [19, 20]. Vals AI does not sell models, and because the tasks are identical across settings, differences between settings are not confounded by task selection. The study used about half of the tasks in each Vals Index benchmark, so its scores differ slightly from the main leaderboard."
     },
     {
-     "p": "For comparison across models, the paper uses FrontierCode 2.0, a coding benchmark run by Cognition, which publishes a data file with scores and cost per attempt for 29 models at their available settings [21]. ARC-AGI-2, run by the non-profit ARC Prize Foundation on a 120-task semi-private set, provides a reasoning benchmark at retail prices [22–24]. The Artificial Analysis Intelligence Index supplies cost per index task and blended list prices for 27 models [25, 26]. Official price pages supply list prices [6–8], and Arena supplies human-preference ratings, which measure preference rather than correctness and carry no cost data [27]."
+     "p": "For comparison across models, the paper uses FrontierCode 2.0, a coding benchmark run by Cognition, which publishes a data file with scores and cost per attempt for 31 models at their available settings, 29 of them at two or more settings [21]. ARC-AGI-2, run by the non-profit ARC Prize Foundation on a 120-task semi-private set, provides a reasoning benchmark at retail prices [22–24]. The Artificial Analysis Intelligence Index supplies cost per index task and blended list prices for 27 models [25, 26]. Official price pages supply list prices [6–8], and Arena supplies human-preference ratings with confidence intervals, which measure preference rather than correctness [27]. Arena publishes no prices; its Agent Arena table includes a median cost per task whose method is not documented, so it is not used here."
     },
     {
      "table": {
@@ -229,7 +229,7 @@
         "Arena",
         "LMArena",
         "Pairwise human preference ratings",
-        "None published",
+        "None, except an undocumented median cost per task in Agent Arena",
         "No"
        ]
       ],
@@ -240,7 +240,7 @@
      "h3": "3.2 Defining cost per task"
     },
     {
-     "p": "The cost per task in this paper is the operator's own figure, computed in each case from tokens consumed and list prices as in Eq. (1). The operators differ in detail: Cognition reports mean spend per attempt including public discounts [21], ARC Prize uses retail pricing [24], and Artificial Analysis weights task costs by the same weights as its index [25]. Because these definitions are not identical, costs from different sources are never placed on the same axis; each figure and table uses one source. Where an accuracy rate is available, the paper also reports cost per correct answer, following Erol et al. [5]:"
+     "p": "The cost per task in this paper is the operator's own figure, computed in each case from tokens consumed and list prices as in Eq. (1), with one exception explained in Section 5.2: for Claude Fable 5.2 on FrontierCode, the system-card costs are used. The operators differ in detail: Cognition reports mean spend per attempt including public discounts [21], ARC Prize uses retail pricing [24], and Artificial Analysis weights task costs by the same weights as its index [25]. Because these definitions are not identical, costs from different sources are never placed on the same axis; each figure and table uses one source. Where an accuracy rate is available, the paper also reports cost per correct answer, following Erol et al. [5]:"
     },
     {
      "eq": "C<sub>correct</sub> = C<sub>task</sub> / a",
@@ -253,14 +253,14 @@
      "h3": "3.3 Uncertainty"
     },
     {
-     "p": "None of the operators except Vals AI publishes an uncertainty interval, and none publishes task-level results. The paper therefore approximates the standard error of a score s (in percent) on n independent tasks by the binomial formula:"
+     "p": "Among the sources that report cost, only Vals AI publishes an uncertainty interval, and none publishes task-level results. The paper therefore approximates the standard error of a score s (in percent) on n independent tasks by the binomial formula:"
     },
     {
      "eq": "SE(s) = 100 · √( (s/100)·(1 − s/100) / n )",
      "n": 3
     },
     {
-     "p": "with a 95% interval of ±1.96 SE. For ARC-AGI-2, n = 120. FrontierCode runs each of its 132 tasks up to five times; the paper reports two bounds, a conservative one with n = 132 tasks and an optimistic one with n = 660 attempts, since attempts on the same task are not independent. For Vals AI, the published standard errors are used directly. Figure 2 shows how the interval narrows with the number of tasks: near a score of 50% on 132 tasks, the 95% interval is about ±8.5 points, so only large differences can be detected. A change between two effort settings is treated as distinguishable when"
+     "p": "with a 95% interval of ±1.96 SE. For ARC-AGI-2, n = 120. FrontierCode runs each of its 132 tasks up to five times; the paper reports two bounds, a conservative one with n = 132 tasks and an optimistic one with n = 660 attempts, since attempts on the same task are not independent. The data file suggests that some models were run fewer than five times per task, so the attempt bound is optimistic for those rows. For Vals AI, the published standard errors are used directly. Figure 2 shows how the interval narrows with the number of tasks: near a score of 50% on 132 tasks, the 95% interval is about ±8.5 points, so only large differences can be detected. A change between two effort settings is treated as distinguishable when"
     },
     {
      "fig": {
@@ -282,7 +282,7 @@
      "h3": "3.4 Collection and verification"
     },
     {
-     "p": "Data were collected on November 11, 2026, in four independent streams: Arena ratings, benchmarks that publish cost per task, official vendor prices, and independent indexes. Each recorded value carries the address of the page or data file it was read from. Values were taken from operators' data files by script wherever these existed, and no value was read off a chart image. A separate verifier, who had not seen the collectors' notes, then re-fetched the primary sources and compared 3,573 fields one by one. It found four errors, all in price metadata and one reference title, which were corrected; all benchmark and rating values matched their sources. A second reviewer examined the method, and its findings shaped the choice of anchor benchmarks and the treatment of uncertainty described above. The full dataset, with sources, corrections and both reviews, accompanies this paper."
+     "p": "Data were collected on November 11, 2026, in four independent streams: Arena ratings, benchmarks that publish cost per task, official vendor prices, and independent indexes. Each recorded value carries the address of the page or data file it was read from. Values were taken from operators' data files by script wherever these existed, and no value was read off a chart image. A separate verifier, who had not seen the collectors' notes, then re-fetched the primary sources and compared 3,573 fields one by one. The check covered every row of the Vals study, ARC-AGI-2, FrontierCode, the price table and the Arena ratings, 65 of the 181 Artificial Analysis rows, and samples of the other benchmarks. It found four errors, three in price data and one in a reference title, which were corrected; no checked benchmark or rating value differed from its source. A second reviewer examined the method, and its findings shaped the choice of anchor benchmarks and the treatment of uncertainty described above. The full dataset, with sources, corrections and both reviews, accompanies this paper."
     }
    ]
   },
@@ -294,7 +294,7 @@
      "h3": "4.1 The same tasks at three effort settings"
     },
     {
-     "p": "Figure 3 and Table 3 show the Vals AI study. For every model, accuracy rises from the lowest setting tested to the next, and cost rises with it. The size of the gain differs greatly. Opus 5.5 rose 12.2 points from low to high, Muse Spark 1.3 rose 13.1 points from minimal to high, and GLM-5.3 rose 10.7 points from low to high; each of these gains is distinguishable at 95%. The next step bought much less: Opus 5.5 gained 1.5 points from high to max while its cost per test rose 2.46 times, from $10.76 to $26.49, and GLM-5.3 gained 1.1 points for 1.31 times the cost."
+     "p": "Figure 3 and Table 3 show the Vals AI study. For every model, accuracy at the second setting tested is higher than at the lowest, but the size of the change differs greatly: for DeepSeek V4.1 Flash, Grok 4.7 and Gemini 4 Argon the first step is within noise, and for Gemini 4 Argon the cost per test fell. Opus 5.5 rose 12.2 points from low to high, Muse Spark 1.3 rose 13.1 points from minimal to high, and GLM-5.3 rose 10.7 points from low to high; each of these gains is distinguishable at 95%. The next step bought much less: Opus 5.5 gained 1.5 points from high to max while its cost per test rose 2.46 times, from $10.76 to $26.49, and GLM-5.3 gained 1.1 points for 1.31 times the cost."
     },
     {
      "table": {
@@ -456,7 +456,7 @@
         "$16.72"
        ]
       ],
-      "note": "Source: [19, 20]; cost per correct answer from Eq. (2). Costs at list prices on November 11, 2026."
+      "note": "Source: [19, 20]; cost per correct answer from Eq. (2). Costs are as computed by Vals AI at its own price basis; Vals does not state a price date."
      }
     },
     {
@@ -464,7 +464,7 @@
       "n": 3,
       "id": "fig2-vals-effort",
       "caption": "Accuracy against cost per test for seven models at three effort settings on the same Vals Index tasks. Bars are 95% intervals from Vals AI's standard errors; the cost axis is logarithmic.",
-      "alt": "Line chart of Vals Index accuracy from about 43 to 70 percent against cost per test from about 30 cents to 26 dollars on a logarithmic axis. Each of seven models has three connected points. DeepSeek V4.1 Flash rises from 54.6 to 61.3 percent below 60 cents. Opus 5.5 rises from 55.9 percent at 4.26 dollars to 68.1 at 10.76 and 69.6 at 26.49. Gemini 4 Argon's three points cluster near 68 percent and 9 to 11 dollars.",
+      "alt": "Line chart of Vals Index accuracy from about 43 to 70 percent against cost per test from about 30 cents to 26 dollars on a logarithmic axis. Each of seven models has three connected points. DeepSeek V4.1 Flash rises from 54.6 to 61.3 percent below 60 cents. Opus 5.5 rises from 55.9 percent at 4.26 dollars to 68.1 at 10.76 and 69.6 at 26.49. Gemini 4 Argon's three points cluster near 68 percent between 8.79 and 11.33 dollars.",
       "source": "Data from Vals AI [19, 20]."
      }
     },
@@ -622,19 +622,19 @@
      "h3": "4.2 Comparison across models on FrontierCode 2.0"
     },
     {
-     "p": "Figure 5 shows FrontierCode 2.0 for five models. Claude Fable 5.2 reached the highest score of any configuration, 49.1% at xhigh, at a cost of $14.19 per task. Its max setting scored 45.7% at $44.70, 3.15 times the cost of xhigh. The fall of 3.5 points is not distinguishable: z is −0.56 on the task bound and −1.26 on the attempt bound. Anthropic's system card also notes that 22 of the 660 attempts at max timed out and that the score would be 44.4% if those attempts were counted as zero [28]. The supportable conclusion is that max bought no measurable gain over xhigh at three times the cost, not that it performed worse."
+     "p": "Figure 5 shows FrontierCode 2.0 for five models. Claude Fable 5.2 reached the highest score of any configuration, 49.1% at xhigh, at a cost of $14.19 per task (system-card costs; see Section 5.2). Its max setting scored 45.7% at $44.70, 3.15 times the cost of xhigh. The fall of 3.4 points is not distinguishable: z is −0.56 on the task bound and −1.26 on the attempt bound. Anthropic's system card also notes that 22 of the 660 attempts at max timed out and that the score would be 44.4% if those attempts were counted as zero [28]. The supportable conclusion is that max bought no measurable gain over xhigh at three times the cost, not that it performed worse."
     },
     {
      "fig": {
       "n": 5,
       "id": "fig4-frontiercode",
-      "caption": "FrontierCode 2.0 score against cost per task for five models at each effort setting. Bars are conservative 95% intervals (n = 132). Hollow markers show Claude Fable 5.2 as costed in Cognition's data file and Gemini 4 Carbon at its price from December 1, 2026.",
+      "caption": "FrontierCode 2.0 score against cost per task for five models at each effort setting. Bars are conservative 95% intervals (n = 132). Hollow markers show Claude Fable 5.2 as costed in Cognition's data file and Gemini 4 Carbon recosted at its December 1, 2026 price, assuming Cognition used the introductory price.",
       "alt": "Line chart of score from about 15 to 49 percent against cost per task from about 75 cents to 56 dollars on a logarithmic axis. Claude Fable 5.2 rises from 34.2 percent at 2.10 dollars to 49.1 percent at 14.19, then falls to 45.7 percent at 44.70. Opus 5.5 rises from 14.7 percent at 75 cents to 45.5 percent at 12.82. GPT-6 Astra rises from 31.1 to 42.8 percent between 2.44 and 6.68 dollars. Gemini 4 Carbon's three points lie between 31.9 and 40.0 percent near 4 to 4.5 dollars. Claude Fable 5.1 rises from 20.6 to 32.4 percent. Most error bars overlap.",
       "source": "Data from Cognition [21]; Fable 5.2 costs per [28]."
      }
     },
     {
-     "p": "Table 5 tests the eighteen steps of the five models. Only one is distinguishable on the conservative bound, Opus 5.5 from low to medium (+15.4 points for 2.28 times the cost). Five more are distinguishable only on the optimistic attempt bound. Across all 29 models in the data file, 5 of 89 adjacent steps are distinguishable on the task bound and 32 on the attempt bound, and 12 steps lowered the score, none of them distinguishably on the task bound. Between generations, the difference is large: Fable 5.2 at xhigh scored 16.7 points above Fable 5.1 at xhigh (z = 2.8), at 1.63 times the cost per task."
+     "p": "Table 5 tests the eighteen steps of the five models. Only one is distinguishable on the conservative bound, Opus 5.5 from low to medium (+15.4 points for 2.28 times the cost). Five more are distinguishable only on the optimistic attempt bound. Across the 29 models in the data file with two or more settings, 5 of 90 adjacent steps are distinguishable on the task bound and 32 on the attempt bound, and 12 steps lowered the score, none of them distinguishably on the task bound. Between generations, the difference is large: Fable 5.2 at xhigh scored 16.7 points above Fable 5.1 at xhigh (z = 2.8), at 1.63 times the cost per task."
     },
     {
      "table": {
@@ -798,13 +798,13 @@
      }
     },
     {
-     "p": "Gemini 4 Carbon shows how a price change moves a model's position. Its price of $2 / $10 per million tokens is introductory and rises to $4 / $20 on December 1, 2026 [8]. Because every token price doubles, its cost per task on the same workload doubles too, which moves its best configuration from $4.04 to about $8.09 per task (hollow markers in Figure 5)."
+     "p": "Gemini 4 Carbon shows how a price change can move a model's position. Its price of $2 / $10 per million tokens is introductory and rises to $4 / $20 on December 1, 2026 [8]. Cognition does not state the price date of its costs. If they use the introductory price, the same workload will cost twice as much from December 1, because every token price doubles, moving the best configuration from $4.04 to about $8.09 per task (hollow markers in Figure 5)."
     },
     {
      "h3": "4.3 A benchmark near its ceiling: ARC-AGI-2"
     },
     {
-     "p": "ARC-AGI-2 was designed to be hard for AI systems [29], but current frontier models now score above 90% on its semi-private set: 18 of the 86 configurations in the data do so. At those scores the 95% interval on 120 tasks is about ±3.9 to ±5.4 points, so the remaining differences cannot be resolved. Figure 6 plots error rate rather than score, on a logarithmic axis, to make the last few points visible. GPT-6 Astra at max scored 95.0% at $1.12 per task, while GPT-6.1 Sol at high scored 91.7% at $0.13; the difference of 3.3 points (z ≈ 1.0) cost 8.3 times as much. In addition, 27 of the 86 costs are lower bounds, because ARC Prize notes that they include recorded usage only [22]. ARC-AGI-2 remains informative for smaller models, whose steps are large, but it cannot locate a point of diminishing returns for frontier models."
+     "p": "ARC-AGI-2 is the second version of the ARC-AGI benchmark of abstract reasoning puzzles [23], and current frontier models now score 90% or more on its semi-private set: 18 of the 86 configurations in the data do so. At those scores the 95% interval on 120 tasks is about ±3.9 to ±5.4 points, so the remaining differences cannot be resolved. Figure 6 plots error rate rather than score, on a logarithmic axis, to make the last few points visible. GPT-6 Astra at max scored 95.0% at $1.12 per task, while GPT-6.1 Sol at high scored 91.7% at $0.13; the difference of 3.3 points (z ≈ 1.0) cost 8.3 times as much. In addition, 27 of the 86 costs are lower bounds, because ARC Prize notes that they include recorded usage only [22]. ARC-AGI-2 remains informative for smaller models, whose steps are large, but it cannot locate a point of diminishing returns for frontier models."
     },
     {
      "fig": {
@@ -819,19 +819,19 @@
      "h3": "4.4 What list prices hide"
     },
     {
-     "p": "Figure 7 places each model's blended list price, as computed by Artificial Analysis from a 7:2:1 mix of cached, input and output tokens [25], against its cost per index task at each effort setting. Price and cost are correlated, but within a single model the cost per task varies widely with effort: across the 17 models with two or more settings, the highest setting cost a median of 3.2 times the lowest, and up to 29.8 times. Claude Fable 5.2 cost $3.10 per task at low and $26.54 at max on this index, for scores of 53.9 and 64.6. Gemini 4 Carbon cost more at low ($7.19) than at medium ($6.59) while scoring lower, so cost is not always monotonic in effort."
+     "p": "Figure 7 places each model's blended list price, as computed by Artificial Analysis from a 7:2:1 mix of cached, input and output tokens [25], against its cost per index task at each effort setting. Price and cost are correlated, but within a single model the cost per task varies widely with effort: across the 17 models with two or more reasoning settings (non-reasoning modes excluded), the highest setting cost a median of 3.2 times the lowest, and up to 29.8 times. Artificial Analysis already prices the Gemini 4 models at their post-introductory $4 / $20. Claude Fable 5.2 cost $3.10 per task at low and $26.54 at max on this index, for scores of 53.9 and 64.6. Gemini 4 Carbon cost more at low ($7.19) than at medium ($6.59) while scoring lower, so cost is not always monotonic in effort."
     },
     {
      "fig": {
       "n": 7,
       "id": "fig7-price-vs-task-cost",
       "caption": "Blended list price against cost per Intelligence Index task for 27 models; each vertical column is one model and its dots are its effort settings. Both axes are logarithmic.",
-      "alt": "Log-log scatter of blended list price from about 7 cents to 7 dollars per million tokens against cost per index task from half a cent to about 27 dollars. Prices and costs rise together, but most models form vertical columns spanning a factor of 3 to 30 in cost. Claude Fable 5.2 spans about 3 to 27 dollars, Claude Haiku 5.5 about 4 cents to 41 cents, and Gemini 4 Argon and Carbon share one price.",
+      "alt": "Log-log scatter of blended list price from about 7 cents to 8 dollars per million tokens against cost per index task from half a cent to about 27 dollars. Prices and costs rise together, and models with several settings form vertical columns spanning up to a factor of 30 in cost; ten models have a single setting. Claude Fable 5.2 spans about 3 to 27 dollars, Claude Haiku 5.5 about 4 cents to 41 cents, and Gemini 4 Argon and Carbon share one price.",
       "source": "Data from Artificial Analysis [25]."
      }
     },
     {
-     "p": "List prices also carry conditions that a comparison must record (Table 6). Several are temporary: Gemini 4 Carbon and Gemini 3.8 Flash are at introductory prices, and GPT-5.6 Sol at a promotional price until November 30, 2026 [7, 8]. Some double above a prompt-length threshold, and DeepSeek charges half its peak rate off-peak. A cost comparison is therefore valid only at a stated price date."
+     "p": "List prices also carry conditions that a comparison must record (Table 6). Several are temporary: Gemini 4 Carbon, Gemini 4 Argon and Gemini 3.8 Flash are at introductory prices, and GPT-5.6 Sol at a promotional price until November 30, 2026 [7, 8]. Some double above a prompt-length threshold, and DeepSeek charges half its peak rate off-peak. A cost comparison is therefore valid only at a stated price date."
     },
     {
      "table": {
@@ -878,13 +878,13 @@
         "GPT-6.1 Sol",
         "OpenAI",
         "$2 / $10",
-        ""
+        "Higher rates above 272K input tokens"
        ],
        [
         "GPT-6 Luna",
         "OpenAI",
         "$0.10 / $0.50",
-        ""
+        "Higher rates above 272K input tokens"
        ],
        [
         "GPT-5.6 Sol",
@@ -951,7 +951,7 @@
      "h3": "5.2 Reading vendor charts: the Fable 5.2 case"
     },
     {
-     "p": "The chart that prompted this study, a score-against-cost plot for FrontierCode 2.0, circulated on social media without attribution. It was traced to Figure 8.4.A of Anthropic's system card for Claude Fable 5.2, which states that Cognition ran the evaluation for every model and that each score is a single result without an uncertainty interval [28]. Two features of the published data deserve attention."
+     "p": "The chart that prompted this study, a score-against-cost plot for FrontierCode 2.0, was shared on social media without its source. It was traced to Figure 8.4.A of Anthropic's system card for Claude Fable 5.2, which states that Cognition ran the evaluation for every model and that each score is a single result without an uncertainty interval [28]. Two features of the published data deserve attention."
     },
     {
      "p": "First, there are two cost series for Fable 5.2 (Table 7). Cognition's data file lists costs exactly 1.25 times those in the system card at every setting, while the costs of other models agree between the two sources. The ratio equals the ratio of the list prices of Fable 5.1 and Fable 5.2 [6], which suggests, but does not establish, that the data file was priced at the older rate. This paper uses the system-card costs, which match the current price, and shows the alternative in Figure 5."
@@ -1014,7 +1014,7 @@
      }
     },
     {
-     "p": "Second, launch claims depend on which series is used (Table 8). The claim that Fable 5.2 at high matches the best score of Opus 5.5 at roughly half the cost holds on the system-card costs (0.52 times) but becomes about two-thirds on the data file (0.66 times) [30]. The claimed lead over GPT-6 Astra at similar cost is 2.5 points, well within the interval. Neither claim is wrong on its own terms, but both are more precise than the data allow. Readers should treat single-run benchmark charts from any vendor as indicative and look for the operator's own data."
+     "p": "Second, launch claims depend on which series is used (Table 8). The claim that Fable 5.2 at high matches the best score of Opus 5.5 at roughly half the cost holds on the system-card costs (0.52 times) but becomes about two-thirds on the data file (0.66 times) [29]. The claimed lead over GPT-6 Astra at similar cost is 2.5 points, well within the interval. Neither claim is wrong on its own terms, but both are more precise than the data allow. Readers should treat single-run benchmark charts from any vendor as indicative and look for the operator's own data."
     },
     {
      "table": {
@@ -1046,7 +1046,7 @@
         "Two runs with different harnesses; not directly comparable"
        ]
       ],
-      "note": "Claims from [30]; data from [21, 28]. z from Eq. (4) with the task bound."
+      "note": "Claims from [29]; data from [21, 28]. z from Eq. (4) with the task bound."
      }
     },
     {
@@ -1058,7 +1058,7 @@
       "<strong>Independence.</strong> Cognition, which runs FrontierCode, lists its own models on the same benchmark. Artificial Analysis includes a FrontierCode-derived component in its index [26], so the two are not independent confirmations.",
       "<strong>Noise.</strong> Without task-level data, the intervals here are approximations, and paired tests could detect smaller differences than Eq. (4).",
       "<strong>Coverage.</strong> Low-cost and open-weight models are thinly represented on the cost-reporting benchmarks, and models are tested at different settings in different sources.",
-      "<strong>Transfer.</strong> Benchmark cost per task is a lower bound for a business deployment, which adds retries, longer contexts, tool calls and human review. Caching also differs: in Artificial Analysis's run for Fable 5.2 at max, cache reads and writes accounted for about half of the total cost."
+      "<strong>Transfer.</strong> Benchmark cost per task is a lower bound for a business deployment, which adds retries, longer contexts, tool calls and human review. Caching also differs: in Artificial Analysis's run for Fable 5.2 at max, cache reads and writes accounted for about half of the total cost [30]."
      ],
      "ordered": false
     }
@@ -1103,7 +1103,7 @@
    "title": "Conclusion",
    "blocks": [
     {
-     "p": "Reasoning effort has made the cost of using a language model a variable that the user controls. On current evidence, moving from the lowest to the highest setting multiplies cost per task by about three to five, and much more for some models. The lower steps often buy large, measurable improvements; the highest steps usually buy improvements too small to detect on public benchmarks, at 1.1 to 3.2 times the cost of the step below. Frontier models now cluster so closely on some benchmarks that they cannot be ranked, and list prices, which are often temporary and differ in tokenization, are a weak guide to task cost."
+     "p": "Reasoning effort has made the cost of using a language model a variable that the user controls. On current evidence, moving from the lowest to the highest setting multiplies cost per task by about three to five, and much more for some models. The lower steps often buy large, measurable improvements; the highest steps usually buy changes too small to detect on public benchmarks, at 1.1 to 3.2 times the cost of the step below. Frontier models now cluster so closely on some benchmarks that they cannot be ranked, and list prices, which are often temporary and differ in tokenization, are a weak guide to task cost."
     },
     {
      "p": "These conclusions are bounded by the data: benchmarks of 120 to 132 tasks cannot detect small gains, operators define cost differently, and vendor charts rest on single runs. For a firm, the practical implication is straightforward. The effort setting should be chosen by testing on representative tasks, kept at the lowest level whose results are good enough, and revisited when prices or models change. Future work should use task-level data with paired tests and a single dated price sheet, and should extend the comparison to the low-cost and open-weight models that matter most to smaller firms."
@@ -1225,12 +1225,12 @@
    "url": "https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf"
   },
   {
-   "text": "Chollet, F., Knoop, M., Kamradt, G., & Landers, B. (2024). ARC Prize 2024: Technical Report. <em>arXiv preprint arXiv:2412.04604</em>.",
-   "url": "https://arxiv.org/abs/2412.04604"
-  },
-  {
    "text": "Anthropic. (2026, November 9). <em>Claude Fable and Mythos 5.2</em> [Product announcement].",
    "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+  },
+  {
+   "text": "Artificial Analysis. (2026). <em>Claude Fable 5.2</em> [Model page]. Retrieved November 11, 2026.",
+   "url": "https://artificialanalysis.ai/models/claude-fable-5-2"
   }
  ]
 }
