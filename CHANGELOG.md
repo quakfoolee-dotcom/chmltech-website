@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.52 — 2026-11-12
+- **LLM leaderboard: tables no longer cut off on the right.** The leaderboard table was up to 280px wider than its card, so the Released column was clipped. Now it fits at every width:
+  - Column headings and price lines wrap. The table has no fixed minimum width.
+  - From 901 to 1180px wide, where the filter sidebar leaves little room, Context and Released are hidden (as on phones) and model details stack in one column.
+  - On phones, cells are tighter and long names can break.
+- Checked at 390, 768, 1000, 1100, 1280 and 1440px on five benchmarks, in both views, with model details open: no table overflows.
+
 ## V4.51 — 2026-11-12
 - **Menu order:** "AI Models" moved between Courses and Funding on every page, grouping it with the free resources (Training, Insights, Courses). The build script's menu list is updated to match.
 

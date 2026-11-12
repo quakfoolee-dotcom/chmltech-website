@@ -27,7 +27,8 @@
 .ll-controls .gr-sort{flex:1 1 260px}
 .ll-controls .gr-sort select{flex:1;min-width:0;width:100%;max-width:100%;text-overflow:ellipsis}
 .ll-controls .gr-sort{min-width:0;max-width:100%}
-.ll-table td:nth-child(2){min-width:210px}
+.ll-table td:nth-child(2){min-width:170px}
+.ll-table td.num .ll-sub{white-space:normal}
 .ll-bench{background:var(--white);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;font-size:14.5px;color:var(--body);display:flex;flex-direction:column;gap:4px}
 .ll-bench strong{color:var(--ink);font-family:var(--font-head);font-size:16px}
 .ll-bench a{color:var(--blue);font-weight:600}
@@ -37,9 +38,10 @@
 
 /* ---------- leaderboard table ---------- */
 .ll-tablewrap{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow-x:auto}
-.ll-table{width:100%;border-collapse:collapse;font-size:15px;min-width:720px}
+.ll-table{width:100%;border-collapse:collapse;font-size:15px}
 .ll-table th,.ll-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
-.ll-table thead th{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;background:#FBFAF7;white-space:nowrap;position:sticky;top:0}
+.ll-table thead th{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;background:#FBFAF7;white-space:normal;position:sticky;top:0}
+.ll-table thead .ll-th{white-space:normal;text-align:inherit}
 .ll-table th.num,.ll-table td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .ll-th{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;background:none;border:0;padding:4px 0;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .ll-th::after{content:"";border:4px solid transparent;border-top-color:#B9C0CC;margin-top:5px}
@@ -108,6 +110,11 @@
 .ll-gloss td:first-child{color:var(--ink);font-weight:600}
 .ll-gloss a{color:var(--blue);font-weight:600}
 
+/* Two-column layout with the filter sidebar leaves the table little room between 901 and 1180px */
+@media (min-width:901px) and (max-width:1180px){
+  .ll-table .ll-hide-m{display:none}
+  .ll-dgrid{grid-template-columns:minmax(0,1fr)}
+}
 @media (max-width:900px){
   .ll-dgrid{grid-template-columns:minmax(0,1fr)}
   .ll-table{min-width:0}
@@ -121,9 +128,13 @@
   .ll-detail td{padding:16px 12px}
   .ll-bar{min-width:48px}
   .ll-table td:nth-child(2){min-width:0}
+  .ll-table td{overflow-wrap:anywhere}
   .ll-table th.num,.ll-table td.num{white-space:normal}
-  .ll-table th,.ll-table td{padding:10px 8px}
-  .ll-rank{width:28px}
+  .ll-table th,.ll-table td{padding:10px 6px}
+  .ll-table{font-size:14px}
+  .ll-table thead th{font-size:11px;letter-spacing:.04em}
+  .ll-rank{width:24px}
+  .ll-bar{min-width:36px}
 }
 .ll-warn{color:#8A4B00}
 .ll-pre{font-size:11px;font-weight:600;color:#8A4B00;margin-left:4px}
