@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.60 — 2026-11-12
+- **New Insights series: Process safety (three articles)**, in the Process Engineering category with the series label. Insights now lists 160 articles, with 15 under Process Engineering.
+  - `post/what-happens-if-the-cooling-fails-runaway-reactions`: adiabatic temperature rise, accumulation, MTSR and the five criticality classes, worked on the 10,000 L reactor from the scale-up series, with a calculator.
+  - `post/a-worked-hazop-the-feed-heater-node-by-node`: a HAZOP of the feed heater E-101 with two nodes, worksheets and seven actions, and the P&ID before and after the study.
+  - `post/management-of-change-for-small-plants`: what needs MOC, two worked examples (a faster addition and a lower-boiling solvent), a review scaled to risk and a one-page MOC form.
+- **New drawings** in `assets/media/pfd-pid/`: `feed-heater-hazop-nodes.svg` (the Rev B P&ID with the two HAZOP nodes) and `feed-heater-pid-revc.svg` (Rev C, with the HAZOP safeguards marked by revision triangles).
+- New calculator script `assets/js/runaway.js`. New source file `content/articles/safety_articles.py` writes the three article files.
+- Home page: "Latest insights" shows the three process safety articles in reading order; the button reads "All 160 articles".
+
 ## V4.59 — 2026-11-12
 - **Search keywords on the 31 main pages** (home, Solutions, Industries, the 12 solution and 8 industry pages, About, Training, Courses, Insights, AI Models, Contact, Book, Projects), from the new table `content/gen/seo_keywords.py`, applied by `seo_pass.py`.
   - **Titles** name the service, who it's for and the place, in the words buyers search with ("consulting/consultant", "small businesses", "Vancouver, BC"). Example: "Process Mapping Consultant | Vancouver, BC | Chmltech".

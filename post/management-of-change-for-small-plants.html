@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Management of Change for Small Plants</title>
+<meta name="description" content="How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants.">
+<link rel="canonical" href="https://www.chmltech.com/post/management-of-change-for-small-plants">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Management of Change for Small Plants">
+<meta property="og:description" content="How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/management-of-change-for-small-plants.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<meta property="og:url" content="https://www.chmltech.com/post/management-of-change-for-small-plants">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Management of Change for Small Plants","item":"https://www.chmltech.com/post/management-of-change-for-small-plants"}]}]}</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a><a href="../insights.html#cat=operational-efficiency">Operational Efficiency</a></div>
+    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Process safety series · Part 3 of 3</p>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Management of Change for Small Plants</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 12, 2026</span><span>5 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose">
+<link rel="stylesheet" href="../assets/css/oee.css?v=4.45"><p>Most process incidents do not start with a bad design. They start with a good design that was changed. A faster addition to gain capacity, a cheaper solvent, a temporary pipe to keep running during a repair: each looks small, and each can remove a safeguard that someone added for a reason.</p>
+<p>Management of change, or MOC, is the procedure that catches this. Before a change is made, someone who understands the design checks what it affects. MOC is an element of process safety management standards, including CSA&nbsp;Z767 in Canada and the OSHA process safety management rule in the United States.</p>
+<p><a href="what-happens-if-the-cooling-fails-runaway-reactions.html">Post&nbsp;1</a> and <a href="a-worked-hazop-the-feed-heater-node-by-node.html">Post&nbsp;2</a> built up the safeguards on one reactor and its feed heater. This post shows how quickly a change could undo them, and how a small plant can run MOC without a large safety department.</p>
+<h2>What counts as a change</h2>
+<p>The key test is whether the replacement is <strong>in kind</strong>: identical to what it replaces, or a different item that meets the same specification. A replacement in kind needs no MOC. Everything else does.</p>
+<p class="oee-cap">Table 1. Change or replacement in kind?</p>
+<table>
+<tr><th>Situation</th><th class="nw">Needs MOC?</th><th>Why</th></tr>
+<tr><td>Gasket replaced with the same specification</td><td class="nw">No</td><td>Replacement in kind</td></tr>
+<tr><td>Pump replaced with the same model</td><td class="nw">No</td><td>Replacement in kind</td></tr>
+<tr><td>Pump replaced with a larger model</td><td class="nw">Yes</td><td>Higher flow can exceed what the reactor can cool</td></tr>
+<tr><td>Addition time shortened</td><td class="nw">Yes</td><td>Changes the heat release rate and the accumulation</td></tr>
+<tr><td>Solvent from a new supplier, same specification</td><td class="nw">Usually no</td><td>Check the specification covers the properties that matter</td></tr>
+<tr><td>Different solvent</td><td class="nw">Yes</td><td>Changes the boiling point, MTT in Post&nbsp;1</td></tr>
+<tr><td>Alarm or trip set point changed</td><td class="nw">Yes</td><td>The safeguard no longer acts where the HAZOP assumed</td></tr>
+<tr><td>Trip bypassed to keep running</td><td class="nw">Yes</td><td>Removes a safeguard, even if only for a shift</td></tr>
+<tr><td>Temporary hose or pipe</td><td class="nw">Yes</td><td>Temporary changes need the same review, plus an end date</td></tr>
+</table>
+<h2>Worked example 1: a faster addition</h2>
+<p>The plant from the <a href="from-pilot-data-to-a-mass-and-energy-balance.html">scale-up series</a> runs 1,000 batches a year on an eight-hour cycle that includes a three-hour addition. Sales want more product. Cutting the addition to two hours shortens the cycle to 7 hours and gives about 1,143 batches a year, 14% more output without new equipment.</p>
+<p>The MOC review starts from the design numbers. The reaction releases 1.5&nbsp;GJ per batch. Spread over the addition time, that gives the average heat the jacket must remove.</p>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Bar chart of the average heat release during the addition: 208 kilowatts for a two hour addition, 167 for two and a half hours and 139 for three hours, against a jacket capacity of 154 kilowatts. Only the three hour addition is within the jacket capacity." viewBox="10 0 716 196" style="width:100%;height:auto;display:block;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="150.0" y1="20" x2="150.0" y2="170" stroke="#D9D5CA"/><text x="150.0" y="188" text-anchor="middle" font-size="12" fill="#5A6475">0 kW</text><line x1="260.0" y1="20" x2="260.0" y2="170" stroke="#D9D5CA"/><text x="260.0" y="188" text-anchor="middle" font-size="12" fill="#5A6475">50 kW</text><line x1="370.0" y1="20" x2="370.0" y2="170" stroke="#D9D5CA"/><text x="370.0" y="188" text-anchor="middle" font-size="12" fill="#5A6475">100 kW</text><line x1="480.0" y1="20" x2="480.0" y2="170" stroke="#D9D5CA"/><text x="480.0" y="188" text-anchor="middle" font-size="12" fill="#5A6475">150 kW</text><line x1="590.0" y1="20" x2="590.0" y2="170" stroke="#D9D5CA"/><text x="590.0" y="188" text-anchor="middle" font-size="12" fill="#5A6475">200 kW</text><line x1="700.0" y1="20" x2="700.0" y2="170" stroke="#D9D5CA"/><text x="700.0" y="188" text-anchor="middle" font-size="12" fill="#5A6475">250 kW</text><rect x="150" y="34" width="458.3" height="28" rx="4" fill="#B43E3E" opacity=".85"/><text x="140" y="47" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">2 h addition</text><text x="140" y="62" text-anchor="end" font-size="11.5" fill="#5A6475">Proposed</text><text x="616.3333333333334" y="53" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">208 kW</text><rect x="150" y="80" width="366.7" height="28" rx="4" fill="#B43E3E" opacity=".85"/><text x="140" y="93" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">2.5 h addition</text><text x="524.6666666666666" y="99" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">167 kW</text><rect x="150" y="126" width="305.6" height="28" rx="4" fill="#4D7F12" opacity=".85"/><text x="140" y="139" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">3 h addition</text><text x="140" y="154" text-anchor="end" font-size="11.5" fill="#5A6475">Current design</text><text x="447.55555555555554" y="145" text-anchor="end" font-size="12.5" fill="#fff" font-weight="600">139 kW</text><line x1="489.2" y1="16" x2="489.2" y2="172" stroke="#C27712" stroke-width="2.4" stroke-dasharray="7 4"/><text x="495.1734185510266" y="14" text-anchor="start" font-size="12.5" fill="#C27712" font-weight="600">Jacket can remove 154 kW</text></svg></div>
+<figcaption>Figure 1. Average heat release during the addition against the jacket capacity of 154&nbsp;kW. The two-hour addition exceeds it.</figcaption>
+</figure>
+<p class="oee-cap">Table 2. What the review finds for a two-hour addition</p>
+<table>
+<tr><th>Check</th><th>Three hours (current)</th><th>Two hours (proposed)</th><th>Source</th></tr>
+<tr><td>Average heat release</td><td class="nw">139 kW</td><td class="nw">208 kW</td><td>1.5 GJ over the addition time</td></tr>
+<tr><td>Jacket capacity</td><td class="nw">154 kW</td><td class="nw">154 kW</td><td><a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">Scale-up Part 1</a></td></tr>
+<tr><td>Temperature control</td><td>Holds 60 °C</td><td>Batch temperature rises</td><td>Heat release above capacity</td></tr>
+<tr><td>Accumulation</td><td class="nw">20%</td><td>Higher; needs new calorimetry</td><td>Faster feed, same reaction rate</td></tr>
+<tr><td>High flow trip (HAZOP action 7)</td><td>Set for three hours</td><td>Would have to be raised</td><td>Removes a safeguard</td></tr>
+</table>
+<p>The change is not safe as proposed. The review does not have to end with a refusal, though. It can point to options that are: a larger cooling capacity, a lower coolant temperature, or a second reactor. Each of those is a change with its own MOC.</p>
+<h2>Worked example 2: a cheaper solvent</h2>
+<p>Purchasing finds a solvent that does the same job at a lower price, but it boils at 95&nbsp;°C instead of 110&nbsp;°C. The process chemistry is unchanged.</p>
+<p>In <a href="what-happens-if-the-cooling-fails-runaway-reactions.html">Post&nbsp;1</a>, the boiling point is MTT. At normal accumulation the MTSR is 75&nbsp;°C, still below 95&nbsp;°C. But the margin to boiling falls from 35&nbsp;K to 20&nbsp;K, and the accumulation at which a cooling failure would reach boiling drops from 67% to 47%. A cold-feed event, the case found in <a href="a-worked-hazop-the-feed-heater-node-by-node.html">Post&nbsp;2</a>, now reaches boiling sooner. The condenser, the vent and the solvent recovery design all assumed the old boiling point.</p>
+<p>Nothing in this change looks like engineering, which is why it is easy to miss. That is the case for routing purchasing changes to raw materials through the MOC screen.</p>
+<h2>The MOC procedure</h2>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Management of change flow. A change request goes to a screen: if it is a replacement in kind it becomes a normal work order. Otherwise it goes through a hazard review scaled to risk, approval, implementation, updates to drawings, procedures and training, and a pre-start-up check before it is closed." viewBox="2 0 700 214" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><text x="4" y="18" text-anchor="start" font-size="12.5" fill="#5A6475">Every change goes through the screen. Only changes that are not like for like go on to the review.</text><rect x="10" y="40" width="130" height="56" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="75.0" y="64.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Change</text><text x="75.0" y="80.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">requested</text><line x1="140" y1="68" x2="168" y2="68" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><path d="M230,32 L292,68 L230,104 L168,68 Z" fill="#ffffff" stroke="#0B2A5A" stroke-width="1.6"/><text x="230" y="64" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">Replacement</text><text x="230" y="79" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">in kind?</text><line x1="292" y1="68" x2="338" y2="68" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)"/><text x="315" y="60" text-anchor="middle" font-size="12" fill="#5A6475">Yes</text><rect x="340" y="44" width="150" height="48" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="415.0" y="72.4" text-anchor="middle" font-size="12.5" fill="#0B2A5A">Normal work order</text><path d="M230,104 V122 Q230,130 222,130 H78 Q70,130 70,138 V146" fill="none" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)"/><text x="240" y="120" text-anchor="start" font-size="12" fill="#5A6475">No</text><rect x="10" y="148" width="122" height="58" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="71.0" y="173.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Hazard review</text><text x="71.0" y="189.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">scaled to risk</text><line x1="132" y1="177" x2="148" y2="177" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="150" y="148" width="122" height="58" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="211.0" y="181.4" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Approve</text><line x1="272" y1="177" x2="288" y2="177" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="290" y="148" width="122" height="58" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="351.0" y="181.4" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Implement</text><line x1="412" y1="177" x2="428" y2="177" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="430" y="148" width="122" height="58" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="491.0" y="173.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Update drawings,</text><text x="491.0" y="189.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">procedures, training</text><line x1="552" y1="177" x2="568" y2="177" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="570" y="148" width="122" height="58" rx="8" fill="#E4F1D3" stroke="#A9C77E"/><text x="631.0" y="173.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Pre-start-up</text><text x="631.0" y="189.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">check, then close</text></svg></div>
+<figcaption>Figure 2. A management of change procedure. The screen sends like-for-like work straight to maintenance, and the review is scaled to the risk of the change.</figcaption>
+</figure>
+<p>A small plant does not need a HAZOP for every change. Scale the review to the risk.</p>
+<p class="oee-cap">Table 3. Review level by type of change</p>
+<table>
+<tr><th>Type of change</th><th>Example</th><th>Review</th></tr>
+<tr><td>Low risk</td><td>A new instrument of a different make with the same range and function</td><td>Checklist, signed by the process engineer</td></tr>
+<tr><td>Medium risk</td><td>New alarm set point, different raw material supplier</td><td>"What if" review with an engineer and an operator</td></tr>
+<tr><td>High risk</td><td>Faster addition, new solvent, bypass of a trip</td><td>HAZOP of the affected nodes, approved by the plant manager</td></tr>
+</table>
+<h2>A one-page MOC form</h2>
+<p class="oee-cap">Table 4. Fields on a one-page MOC form</p>
+<table>
+<tr><th>Field</th><th>What to record</th></tr>
+<tr><td>Description</td><td>What will change, where, and why</td></tr>
+<tr><td>Permanent or temporary</td><td>For a temporary change, the date it must be removed</td></tr>
+<tr><td>Screen result</td><td>Replacement in kind, or the risk level for review</td></tr>
+<tr><td>Effects checked</td><td>Process conditions, safeguards, relief, materials, operating procedures, environment</td></tr>
+<tr><td>Review and findings</td><td>Who reviewed it, the method used and the actions</td></tr>
+<tr><td>Approval</td><td>Name, role and date</td></tr>
+<tr><td>Documents to update</td><td>P&amp;IDs, procedures, alarm and trip lists, training records</td></tr>
+<tr><td>Pre-start-up check</td><td>Installed as approved, people trained, documents updated</td></tr>
+<tr><td>Closed</td><td>Name and date</td></tr>
+</table>
+<h2>Five ways MOC fails in practice</h2>
+<ul>
+<li><strong>Temporary becomes permanent.</strong> A temporary change has no end date, so it is never reviewed again.</li>
+<li><strong>Small changes add up.</strong> Each change passes on its own, and together they remove the margin. Review the history of the unit, not only the latest request.</li>
+<li><strong>Drawings fall behind.</strong> The plant no longer matches the P&amp;ID, and the next HAZOP studies a plant that does not exist.</li>
+<li><strong>Purchasing and staffing changes skip the screen.</strong> A new supplier or a reduced crew can change the hazard as much as new pipework.</li>
+<li><strong>The operators are not told.</strong> A change is only complete when the people running the plant know what is different.</li>
+</ul>
+<div class="oee-takeaway"><p><strong>Takeaway.</strong> Screen every change, and scale the review to the risk. In the example, a two-hour addition would add 14% capacity but push the heat release to 208&nbsp;kW against a jacket that can remove 154&nbsp;kW.</p></div>
+<div class="oee-next oee-end"><a href="what-happens-if-the-cooling-fails-runaway-reactions.html">← Post&nbsp;1: runaway reactions</a><a href="a-worked-hazop-the-feed-heater-node-by-node.html">← Post&nbsp;2: a worked HAZOP</a></div>
+<p class="oee-note"><em>The reaction, temperatures and equipment in this series are an illustrative example. The calculations are screening estimates. They do not replace calorimetry testing, a formal hazard study or a design by a qualified engineer.</em></p>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>management of change</span><span>MOC</span><span>process safety</span><span>CSA Z767</span><span>HAZOP</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 160 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering operational-efficiency" data-search="what happens if the cooling fails: runaway reactions and mtsr how hot a reactor can get when cooling stops. adiabatic temperature rise, accumulation, mtsr and criticality classes, with a calculator. process safety runaway reaction mtsr criticality class reaction calorimetry semi-batch"><div class="thumb"><img src="../assets/media/covers/thumbs/what-happens-if-the-cooling-fails-runaway-reactions.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Process Engineering</span><span class="tag">Operational Efficiency</span></div><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 1 of 3</p><h3><a href="../post/what-happens-if-the-cooling-fails-runaway-reactions.html">What Happens If the Cooling Fails: Runaway Reactions and MTSR</a></h3><p class="muted">How hot a reactor can get when cooling stops. Adiabatic temperature rise, accumulation, MTSR and criticality classes, with a calculator.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering operational-efficiency" data-search="a worked hazop: the feed heater, node by node a hazop of one steam heater: guide words, two nodes, the worksheets, seven actions, and the p&amp;id before and after the study. hazop process safety p&amp;id iec 61882 safeguards hazard review"><div class="thumb"><img src="../assets/media/covers/thumbs/a-worked-hazop-the-feed-heater-node-by-node.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Process Engineering</span><span class="tag">Operational Efficiency</span></div><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 2 of 3</p><h3><a href="../post/a-worked-hazop-the-feed-heater-node-by-node.html">A Worked HAZOP: The Feed Heater, Node by Node</a></h3><p class="muted">A HAZOP of one steam heater: guide words, two nodes, the worksheets, seven actions, and the P&amp;ID before and after the study.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering operational-efficiency" data-search="from pilot data to a mass and energy balance a worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram. mass balance energy balance scale-up operating cost yield process design"><div class="thumb"><img src="../assets/media/covers/thumbs/from-pilot-data-to-a-mass-and-energy-balance.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><div class="cats"><span class="tag">Process Engineering</span><span class="tag">Operational Efficiency</span></div><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 3 of 3</p><h3><a href="../post/from-pilot-data-to-a-mass-and-energy-balance.html">From Pilot Data to a Mass and Energy Balance</a></h3><p class="muted">A worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram.</p><p class="meta">Nov 11, 2026 · 4 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Management of Change for Small Plants", "datePublished": "2026-11-12", "author": {"@type": "Person", "name": "Quak Foo Lee"}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."}, "mainEntityOfPage": "https://www.chmltech.com/post/management-of-change-for-small-plants", "description": "How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants."}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>
