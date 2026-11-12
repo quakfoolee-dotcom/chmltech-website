@@ -27,6 +27,8 @@ def fmt(v, unit):
         return "–"
     if unit == "%":
         return f"{v:.1f}%"
+    if unit == "USD":
+        return f"${round(v):,}"
     if abs(v) >= 100:
         return f"{round(v):,}"
     return f"{round(v, 1)}"
@@ -68,11 +70,11 @@ def shell():
 
 def meta(head, title, desc):
     full = f"{title} | Chmltech Ltd."
-    head = re.sub(r"<title>.*?</title>", f"<title>{esc(full)}</title>", head, 1)
-    head = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + esc(desc), head, 1)
-    head = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + esc(full), head, 1)
-    head = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + esc(desc), head, 1)
-    head = re.sub(r'(<link rel="canonical" href=")[^"]*', lambda m: m.group(1) + f"{SITE}/{FNAME}", head, 1)
+    head = re.sub(r"<title>.*?</title>", f"<title>{esc(full)}</title>", head, count=1)
+    head = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + esc(desc), head, count=1)
+    head = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + esc(full), head, count=1)
+    head = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + esc(desc), head, count=1)
+    head = re.sub(r'(<link rel="canonical" href=")[^"]*', lambda m: m.group(1) + f"{SITE}/{FNAME}", head, count=1)
     head = head.replace(f'<a href="{FNAME}">', f'<a href="{FNAME}" aria-current="page">', 1)
     return head
 

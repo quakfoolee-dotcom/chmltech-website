@@ -115,6 +115,7 @@ def tidy(setl):
     if not setl: return None
     t = re.sub(r"\b(compute|reasoning)_effort=", "", setl).replace("_", " ").strip()
     t = re.sub(r"\bx-?high\b", "X-high", t, flags=re.I)
+    if re.fullmatch(r"[\d.]+", t): t = "Effort " + t  # Vals lists some efforts as numbers
     return t[:1].upper() + t[1:] if t else None
 
 
@@ -198,7 +199,7 @@ def build():
                 cost = None
             setl = tidy(setting or (r.get("setting") or None))
             if r.get("scaffold") and bid in ("aa_coding", "tbench"):
-                setl = (r["scaffold"] + (", " + setl if setl else ""))
+                setl = tidy(r["scaffold"] + (", " + setl if setl else ""))
             cur = M[mid]["s"].get(bid)
             if cur is None or (v > cur["v"] if hb else v < cur["v"]):
                 M[mid]["s"][bid] = dict(v=round(v, 3), set=setl, cost=money_round(cost), url=r["source_url"])

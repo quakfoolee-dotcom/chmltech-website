@@ -25,7 +25,9 @@
 .ll-tab:focus-visible{outline:3px solid var(--blue-bright);outline-offset:-3px}
 .ll-controls{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-bottom:14px}
 .ll-controls .gr-sort{flex:1 1 260px}
-.ll-controls .gr-sort select{flex:1;min-width:0}
+.ll-controls .gr-sort select{flex:1;min-width:0;width:100%;max-width:100%;text-overflow:ellipsis}
+.ll-controls .gr-sort{min-width:0;max-width:100%}
+.ll-table td:nth-child(2){min-width:210px}
 .ll-bench{background:var(--white);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;font-size:14.5px;color:var(--body);display:flex;flex-direction:column;gap:4px}
 .ll-bench strong{color:var(--ink);font-family:var(--font-head);font-size:16px}
 .ll-bench a{color:var(--blue);font-weight:600}
@@ -118,4 +120,8 @@
   .ll-chartcard{padding:16px 12px 8px}
   .ll-detail td{padding:16px 12px}
   .ll-bar{min-width:48px}
+  .ll-table td:nth-child(2){min-width:0}
+  .ll-table th.num,.ll-table td.num{white-space:normal}
+  .ll-table th,.ll-table td{padding:10px 8px}
+  .ll-rank{width:28px}
 }
