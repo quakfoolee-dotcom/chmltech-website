@@ -53,6 +53,8 @@ TOPIC = {
     "physical-ai-foundations-architectures-and-the-sim-to-real-gap": "artificial-intelligence",
     "physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control": ["artificial-intelligence", "digital-technology", "process-engineering"],
     "safety-reliability-and-economics-of-deploying-physical-ai": "artificial-intelligence",
+    # Volume 104, Issue 7 (V4.53)
+    "score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models": "artificial-intelligence",
 }
 
 
