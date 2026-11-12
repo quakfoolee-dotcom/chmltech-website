@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.50 — 2026-11-12
+- **New page: LLM leaderboard** (`llm-leaderboard.html`, "AI Models" in the menu). A searchable database of 50 current large language models from 22 developers, as of November 12, 2026.
+  - **Best by agent type:** nine cards rank the strongest models for coding agents, web and app builders, browser use, research, long-running agents, business work, documents and data, everyday chat, and hard reasoning, each on the independent benchmark closest to that job.
+  - **Model explorer:** search and filter by model type, access (API or open weights), capability, developer, price and context window, then rank by any of 19 benchmarks. Each row opens the model's specifications, list price and every result with a link to its source.
+  - **Score vs cost:** a Pareto-frontier chart against blended price per million tokens or, where the benchmark publishes it, cost per task (each reasoning-effort setting plotted separately), with the frontier listed in a table.
+  - Methodology, benchmark glossary and disclaimer on the page.
+- **Data:** 473 benchmark results from Arena, Artificial Analysis, Epoch AI, Vals AI, LiveBench, Terminal-Bench, ARC Prize, Andon Labs (Vending-Bench) and Vectara, plus developer price lists. Collected by four research agents, then checked by two independent red-team agents.
+  - The red team re-checked all stored results and prices against the sources. No values were mis-copied. Fixed before publication: missed Terminal-Bench rows (Opus 5.5, Sonnet 5.5), the Muse Code-only "Muse Wonder Full" and the Mistral Large 4 preview kept apart from the API models, earlier DeepSeek snapshots excluded, full Arena boards instead of the top 60, Granite 4.2 8B and Hy4 prices corrected, introductory and peak prices flagged, derived costs labelled, confidence intervals and a pre-launch flag shown, and benchmark descriptions limited to what the sources state.
+- **Menu:** "AI Models" added after Funding on every page. Menu labels no longer wrap at narrow desktop widths.
+- `sitemap.xml` lists the new page.
+
 ## V4.49 — 2026-11-11
 - **Process Engineering articles: short table entries stay on one line.** In the PFD and P&ID article, "T, temperature" and the other tag letters no longer break across two lines, and the columns are wider to suit. The same rule was applied to short row labels, short headings and calculations in the scale-up and FEED articles.
 - The rule is a `nowrap` helper in `content/articles/feed_articles.py`, set per table. Every table still fits the text column.

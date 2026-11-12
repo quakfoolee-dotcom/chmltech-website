@@ -34,11 +34,11 @@ def fmt(v, unit):
     return f"{round(v, 1)}"
 
 
-def group(key, legend, values, counts, open_=False):
+def group(key, legend, values, counts, open_=False, note=""):
     opts = "".join(f'<label class="gr-opt"><input type="checkbox" name="{key}" value="{esc(v)}"><span class="gr-opt-l">{esc(v)}</span>'
                    f'<span class="gr-opt-n" data-n>{counts.get(v, 0)}</span></label>' for v in values)
     return (f'<details class="gr-group" data-group="{key}"{" open" if open_ else ""}><summary><span>{legend}</span><span class="gr-group-n" data-sel hidden></span></summary>'
-            f'<fieldset><legend class="visually-hidden">{legend}</legend><div class="gr-opts">{opts}</div></fieldset></details>')
+            f'<fieldset><legend class="visually-hidden">{legend}</legend>{note}<div class="gr-opts">{opts}</div></fieldset></details>')
 
 
 def radios(name, legend, opts):
@@ -83,13 +83,14 @@ def type_card(g, D):
     by = {b["id"]: b for b in D["benchmarks"]}
     b = by[g["bench"]]
     hb = b.get("hb", True)
-    rows = [(m, m["s"][b["id"]]["v"]) for m in D["models"] if b["id"] in m.get("s", {})]
-    rows.sort(key=lambda r: -r[1] if hb else r[1])
-    top = "".join(f'<li><b>{i + 1}</b><span>{esc(m["name"])}</span><em>{fmt(v, b.get("unit"))}</em></li>' for i, (m, v) in enumerate(rows[:5]))
+    rows = [(m, m["s"][b["id"]]) for m in D["models"] if b["id"] in m.get("s", {})]
+    rows.sort(key=lambda r: -r[1]["v"] if hb else r[1]["v"])
+    top = "".join(f'<li><b>{i + 1}</b><span>{esc(m["name"])}{"<small class=ll-pre title=\"" + esc(r["flag"]) + "\"> pre-launch</small>" if r.get("flag") else ""}</span>'
+                  f'<em>{fmt(r["v"], b.get("unit"))}</em></li>' for i, (m, r) in enumerate(rows[:5]))
     also = ", ".join(by[x]["short"] for x in g.get("also", []) if x in by)
     return (f'<article class="ll-type"><h3>{esc(g["name"])}</h3><p class="ll-type-desc">{esc(g["desc"])}</p>'
             f'<ol aria-label="Top five on {esc(b["name"])}">{top}</ol>'
-            f'<p class="ll-type-src">Ranked by {esc(b["name"])} ({esc(b["src"])}, {esc(b.get("updated") or "")}).'
+            f'<p class="ll-type-src">Ranked by {esc(b["name"])} ({esc(b["src"])}; {esc(b.get("updated") or "")}). {len(rows)} of the listed models have a result.'
             f'{" Also see: " + esc(also) + "." if also else ""}</p>'
             f'<button type="button" class="gr-link" data-bench="{esc(b["id"])}">See the full ranking</button></article>')
 
@@ -105,7 +106,8 @@ def build():
     devs = sorted({m["dev"] for m in M}, key=lambda d: (-sum(1 for m in M if m["dev"] == d), d))
     cd, ca, ct, cc = count(M, lambda m: m["dev"]), count(M, lambda m: m["access"]), count(M, lambda m: m["tier"]), count(M, lambda m: m.get("caps") or [])
     filters = "".join([
-        group("t", "Model type", [t for t in TIERS if ct.get(t)], ct, True),
+        group("t", "Model type", [t for t in TIERS if ct.get(t)], ct, True,
+              '<p class="gr-hint">The model\'s place in its developer\'s line-up (flagship, one step down, or small), not a capability score.</p>'),
         group("a", "Access", [a for a in ACCESS if ca.get(a)], ca, True),
         group("c", "Capability", [c for c in CAPS if cc.get(c)], cc),
         group("d", "Developer", devs, cd),
@@ -131,7 +133,7 @@ def build():
   <p class="crumbs"><a href="index.html">Home</a> / LLM leaderboard</p>
   <p class="eyebrow">LLM leaderboard</p>
   <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,56px)">Which AI model fits the job, and what does it cost?</h1>
-  <p class="lead">A searchable database of current large language models from {n_dev} developers. Compare them on independent benchmarks, find the strongest model for each kind of AI agent, and see which models give the most capability for the money. Every score and price links to its source.</p>
+  <p class="lead">A searchable database of current large language models from {n_dev} developers. Compare them on independent benchmarks, find the strongest model for each kind of AI agent, and see which models give the most capability for the money. Every score and price links to the page it came from.</p>
   <div class="stat-row"><div><strong>{n}</strong><span>models</span></div><div><strong>{len(B)}</strong><span>benchmarks</span></div><div><strong>{n_open}</strong><span>open-weight models</span></div><div><strong class="ll-stat-sm">{asof}</strong><span>data as of</span></div></div>
   <div class="btn-row"><a class="btn" href="#explorer">Search the models</a><a class="btn btn-ghost-dark" href="#agents">Best by agent type</a></div>
 </div></div></section>
@@ -174,8 +176,8 @@ def build():
         <th scope="col" class="num"><button type="button" class="ll-th" data-sort="blend">Price per 1M tokens</button></th>
         <th scope="col" class="num ll-hide-m"><button type="button" class="ll-th" data-sort="ctx">Context</button></th>
         <th scope="col" class="num ll-hide-m"><button type="button" class="ll-th" data-sort="released">Released</button></th>
-      </tr></thead><tbody id="ll-tbody"><tr><td colspan="6">Turn on JavaScript to search and rank the models. The full list is in the methodology section below.</td></tr></tbody></table></div>
-      <p class="ll-chartnote">Price is the blended list price per million tokens, weighted 3 input to 1 output, from the developer's own price list (or, for open-weight models, a named host). Select a row for specifications and every benchmark result with its source.</p></div>
+      </tr></thead><tbody id="ll-tbody"><tr><td colspan="6">Turn on JavaScript to search and rank the models.</td></tr></tbody></table></div>
+      <p class="ll-chartnote">Price is the blended list price per million tokens, weighted 3 input to 1 output. It comes from the developer's own price list; for open-weight models, and where no developer price list could be read, it is the price a named host lists on OpenRouter (shown as a secondary source in the details). Select a row for specifications and every benchmark result with its source.</p></div>
       <div id="ll-panel-chart" hidden><div class="ll-chartcard">
         <div class="ll-charthead"><h3 id="ll-chart-title">Score versus cost</h3>
           <label class="gr-sort"><span>Cost measure</span><select id="ll-axis"><option value="blend">Blended price per 1M tokens</option><option value="in">Input price per 1M tokens</option><option value="out">Output price per 1M tokens</option><option value="task">Cost per task (where published)</option></select></label></div>
@@ -215,7 +217,7 @@ def build():
           "dateModified": D["as_of"], "creator": {"@type": "Organization", "name": "Chmltech Ltd."}, "url": f"{SITE}/{FNAME}"}
     body += f'\n<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
     desc = (f"Compare {n} current large language models on independent benchmarks and price. Find the best model for coding, research, "
-            "browser and customer-service agents, and see the score-versus-cost Pareto frontier. Every number links to its source.")
+            "browser and business agents, and see the score-versus-cost Pareto frontier. Every number links to its source.")
     head, foot = shell()
     head = meta(head, "LLM Leaderboard: Compare AI Models by Score and Cost", desc)
     open(os.path.join(ROOT, FNAME), "w", encoding="utf-8").write(head + '<main id="main">\n' + body + "\n</main>" + foot)

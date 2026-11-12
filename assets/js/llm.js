@@ -52,6 +52,14 @@
     if (n >= 1e6) return (Math.round(n / 1e5) / 10) + "M";
     return Math.round(n / 1000) + "K";
   }
+  /* "95% CI 1516.36 to 1535.55" -> "95% CI 1,516 to 1,536"; "stderr 0.0128" on a fraction board -> "± 1.3" */
+  function ciText(c, b) {
+    var m = /^95% CI ([\d.-]+) to ([\d.-]+)$/.exec(c);
+    if (m) return "95% CI " + fmtScore(+m[1] * (b.unit === "%" && +m[2] <= 1 ? 100 : 1), b) + " to " + fmtScore(+m[2] * (b.unit === "%" && +m[2] <= 1 ? 100 : 1), b);
+    m = /^stderr ([\d.]+)$/.exec(c);
+    if (m) return "± " + (+m[1] * (b.unit === "%" && +m[1] < 1 && b.id !== "vals" ? 100 : 1)).toFixed(1) + " (std. error)";
+    return c;
+  }
   function month(d) {
     if (!d) return "–";
     var p = d.split("-"), M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -98,11 +106,11 @@
     if (s.x === "in") return m.pin;
     return m.blend;
   }
-  var XLABEL = { blend: "Blended price, US$ per 1M tokens (3 input : 1 output)", out: "Output price, US$ per 1M tokens", "in": "Input price, US$ per 1M tokens", task: "Cost per task, US$ (as published by the benchmark)" };
+  var XLABEL = { blend: "Blended price, US$ per 1M tokens (3 input : 1 output)", out: "Output price, US$ per 1M tokens", "in": "Input price, US$ per 1M tokens", task: "Cost per task, US$ (as published by the benchmark)", taskd: "Cost per task, US$ (derived from the published total)" };
 
   /* Pareto frontier: cheapest first, keep each model that beats every cheaper model's score. */
   function frontier(pts, bench) {
-    var a = pts.slice().sort(function (p, r) { return p.x - r.x || (better(p.y, r.y, bench) ? -1 : 1); });
+    var a = pts.slice().sort(function (p, r) { return p.x - r.x || (p.y === r.y ? 0 : better(p.y, r.y, bench) ? -1 : 1); });
     var out = [], best = null;
     a.forEach(function (p) { if (best === null || better(p.y, best, bench)) { out.push(p); best = p.y; } });
     return out;
@@ -128,7 +136,7 @@
     var rows = BENCH.filter(function (b) { return m.s && m.s[b.id]; }).map(function (b) {
       var r = m.s[b.id];
       return "<tr><td>" + esc(b.name) + (r.self ? '<span class="ll-self" title="Reported by the developer, not the benchmark maintainer">Developer-reported</span>' : "") +
-        (r.set ? '<span class="ll-sub">' + esc(r.set) + "</span>" : "") + '</td><td class="num">' + fmtScore(r.v, b) + '</td><td class="num">' + (r.cost != null ? money(r.cost) : "–") +
+        (r.set ? '<span class="ll-sub">' + esc(r.set) + "</span>" : "") + (r.flag ? '<span class="ll-sub ll-warn" title="' + esc(r.flag) + '">Pre-launch result</span>' : "") + '</td><td class="num">' + fmtScore(r.v, b) + (r.ci ? '<span class="ll-sub">' + esc(ciText(r.ci, b)) + "</span>" : "") + '</td><td class="num">' + (r.cost != null ? money(r.cost) + (b.derived ? '<span class="ll-sub">derived</span>' : "") : "–") +
         '</td><td><a href="' + esc(r.url) + '" target="_blank" rel="noopener" aria-label="Source for ' + esc(b.name) + '">Source</a></td></tr>';
     }).join("");
     return '<div class="ll-dgrid"><div><h4>Specifications</h4><dl class="ll-specs">' + dl + "</dl>" + (src.length ? '<p class="ll-note">' + src.join(" · ") + "</p>" : "") +
@@ -170,7 +178,7 @@
       h += '<tr class="ll-row' + (isFront ? " is-front" : "") + '" data-id="' + esc(m.id) + '">' +
         '<td class="ll-rank">' + (rank[m.id] || "–") + "</td>" +
         '<td><button type="button" class="ll-name" aria-expanded="' + (openId === m.id) + '">' + esc(m.name) + '</button><span class="ll-dev">' + esc(m.dev) + "</span>" + chips(m, isFront) + "</td>" +
-        '<td class="num">' + (v == null ? '<span class="ll-none">Not tested</span>' : '<span class="ll-score">' + fmtScore(v, bench) + "</span>" + (r.set ? '<span class="ll-sub">' + esc(r.set) + "</span>" : "") + '<span class="ll-bar"><i style="width:' + w + '%"></i></span>') + "</td>" +
+        '<td class="num">' + (v == null ? '<span class="ll-none">Not tested</span>' : '<span class="ll-score">' + fmtScore(v, bench) + "</span>" + (r.set ? '<span class="ll-sub">' + esc(r.set) + "</span>" : "") + (r.flag ? '<span class="ll-sub ll-warn">Pre-launch result</span>' : "") + '<span class="ll-bar"><i style="width:' + w + '%"></i></span>') + "</td>" +
         '<td class="num">' + (m.blend != null ? money(m.blend) + '<span class="ll-sub">' + money(m.pin) + " in / " + money(m.pout) + " out</span>" : '<span class="ll-none">–</span>') + "</td>" +
         '<td class="num ll-hide-m">' + ctx(m.ctx) + "</td>" +
         '<td class="num ll-hide-m">' + month(m.released) + "</td></tr>";
@@ -203,15 +211,21 @@
   function renderChart(list, s) {
     var bench = BY[s.b];
     var pts = [];
-    list.forEach(function (m) { var x = xval(m, s), y = score(m, s.b); if (x != null && x > 0 && y != null) pts.push({ m: m, x: x, y: y }); });
-    chartTitle.textContent = (bench.short || bench.name) + " versus " + (s.x === "task" ? "cost per task" : "price");
-    var missing = list.filter(function (m) { return score(m, s.b) != null; }).length - pts.length;
+    list.forEach(function (m) {
+      var r = m.s && m.s[s.b];
+      if (s.x === "task" && r && r.alt) { r.alt.forEach(function (a) { if (a[1] > 0) pts.push({ m: m, x: a[1], y: a[0], set: a[2] }); }); return; }
+      var x = xval(m, s), y = score(m, s.b); if (x != null && x > 0 && y != null) pts.push({ m: m, x: x, y: y, set: r && r.set });
+    });
+    chartTitle.textContent = (bench.short || bench.name) + " versus " + (s.x === "task" ? (bench.id === "tbench" ? "cost per trial" : "cost per task") : "price");
+    var plotted = {}; pts.forEach(function (p) { plotted[p.m.id] = 1; });
+    var missing = list.filter(function (m) { return score(m, s.b) != null && !plotted[m.id]; }).length;
     if (pts.length < 2) {
       chartEl.innerHTML = '<p class="ll-empty">Fewer than two models in this selection have both a result on this benchmark and a ' + (s.x === "task" ? "published cost per task" : "list price") + ". Choose another benchmark or cost measure, or remove a filter.</p>";
       frontEl.innerHTML = ""; return {};
     }
-    var fr = frontier(pts, bench), fid = {};
-    fr.forEach(function (p) { fid[p.m.id] = 1; });
+    var fr = frontier(pts, bench), fid = {}, mid = {};
+    function key(p) { return p.m.id + "|" + p.x + "|" + p.y; }
+    fr.forEach(function (p) { fid[key(p)] = 1; mid[p.m.id] = 1; });
     var W = Math.max(320, chartEl.clientWidth || 760), H = W < 520 ? 360 : 470, ml = 52, mr = 18, mt = 16, mb = 46;
     var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
     var x0 = Math.min.apply(null, xs) / 1.5, x1 = Math.max.apply(null, xs) * 1.5;
@@ -222,7 +236,7 @@
     ticksLin(yl, yh, 5).forEach(function (v) { g += '<line x1="' + ml + '" x2="' + (W - mr) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="#E4E1D8"/><text x="' + (ml - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + fmtScore(v, bench).replace(/\.0%/, "%") + "</text>"; });
     ticksLog(x0, x1).forEach(function (v) { g += '<line x1="' + X(v) + '" x2="' + X(v) + '" y1="' + mt + '" y2="' + (H - mb) + '" stroke="#EFEDE6"/><text x="' + X(v) + '" y="' + (H - mb + 18) + '" text-anchor="middle">' + tickMoney(v) + "</text>"; });
     g += '<line x1="' + ml + '" x2="' + (W - mr) + '" y1="' + (H - mb) + '" y2="' + (H - mb) + '" stroke="#B9C0CC"/>';
-    g += '<text class="ll-axt" x="' + ((ml + W - mr) / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + esc(XLABEL[s.x]) + " · log scale</text>";
+    g += '<text class="ll-axt" x="' + ((ml + W - mr) / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + esc(XLABEL[s.x === "task" && bench.derived ? "taskd" : s.x]) + " · log scale</text>";
     // frontier step line
     var d = "";
     fr.forEach(function (p, i) { d += (i ? "H" + X(p.x) + "V" + Y(p.y) : "M" + X(p.x) + "," + Y(p.y)); });
@@ -233,12 +247,12 @@
       var a = ' fill="' + col + '" stroke="#fff" stroke-width="2" opacity="' + (on ? 1 : 0.5) + '"';
       return open ? '<rect x="' + (cx - r) + '" y="' + (cy - r) + '" width="' + 2 * r + '" height="' + 2 * r + '" transform="rotate(45 ' + cx + " " + cy + ')"' + a + "/>" : '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '"' + a + "/>";
     }
-    pts.forEach(function (p) { if (!fid[p.m.id]) g += mark(p, false); });
+    pts.forEach(function (p) { if (!fid[key(p)]) g += mark(p, false); });
     fr.forEach(function (p) { g += mark(p, true); });
     // direct labels for frontier points, skipping any that would collide
     var boxes = [];
     fr.slice().reverse().forEach(function (p) {
-      var w = p.m.name.length * 6.6 + 6, cx = X(p.x), cy = Y(p.y);
+      var lab = p.m.name + (s.x === "task" && p.set ? " · " + p.set : ""), w = lab.length * 6.6 + 6, cx = X(p.x), cy = Y(p.y);
       var opts = [[cx - 9 - w, cy - 18, "end", cx - 9], [cx + 10, cy + 6, "start", cx + 10], [cx - 9 - w, cy + 6, "end", cx - 9]];
       for (var i = 0; i < opts.length; i++) {
         var b = { x: opts[i][0], y: opts[i][1], w: w, h: 15 };
@@ -246,7 +260,7 @@
         if (boxes.some(function (o) { return b.x < o.x + o.w && o.x < b.x + b.w && b.y < o.y + o.h && o.y < b.y + b.h; })) continue;
         if (pts.some(function (o) { return o !== p && X(o.x) > b.x - 6 && X(o.x) < b.x + w + 6 && Y(o.y) > b.y - 6 && Y(o.y) < b.y + 21; })) continue;
         boxes.push(b);
-        g += '<text class="ll-lab" x="' + opts[i][3] + '" y="' + (b.y + 12) + '" text-anchor="' + opts[i][2] + '" paint-order="stroke" stroke="#fff" stroke-width="3">' + esc(p.m.name) + "</text>";
+        g += '<text class="ll-lab" x="' + opts[i][3] + '" y="' + (b.y + 12) + '" text-anchor="' + opts[i][2] + '" paint-order="stroke" stroke="#fff" stroke-width="3">' + esc(lab) + "</text>";
         break;
       }
     });
@@ -261,11 +275,12 @@
     }
     function show(p) {
       if (!p) { tip.hidden = true; hl.setAttribute("visibility", "hidden"); return; }
-      var r = svg.getBoundingClientRect(), k = r.width / W, cx = X(p.x) * k, cy = Y(p.y) * k, rs = p.m.s[s.b];
+      var r = svg.getBoundingClientRect(), k = r.width / W, cx = X(p.x) * k, cy = Y(p.y) * k;
       hl.setAttribute("cx", X(p.x)); hl.setAttribute("cy", Y(p.y)); hl.setAttribute("visibility", "visible");
       tip.innerHTML = "<b>" + esc(p.m.name) + "</b><span>" + esc(p.m.dev) + " · " + esc(p.m.access) + "</span><br>" + esc(bench.short || bench.name) + ": " + fmtScore(p.y, bench) +
-        (rs.set ? " <span>(" + esc(rs.set) + ")</span>" : "") + "<br>" + (s.x === "task" ? "Cost per task: " : s.x === "blend" ? "Blended price: " : s.x === "out" ? "Output price: " : "Input price: ") + money(p.x) +
-        (fid[p.m.id] ? "<br><span>On the Pareto frontier</span>" : "");
+        (p.set ? " <span>(" + esc(p.set) + ")</span>" : "") + "<br>" + (s.x === "task" ? (bench.id === "tbench" ? "Cost per trial: " : "Cost per task: ") : s.x === "blend" ? "Blended price: " : s.x === "out" ? "Output price: " : "Input price: ") + money(p.x) +
+        (s.x !== "task" && p.m.pnote ? "<br><span>" + esc(p.m.pnote) + "</span>" : "") +
+        (fid[key(p)] ? "<br><span>On the Pareto frontier</span>" : "");
       tip.hidden = false;
       var tw = tip.offsetWidth, th = tip.offsetHeight, left = cx + 14, top = cy - th - 10;
       if (left + tw > r.width) left = cx - tw - 14;
@@ -278,15 +293,15 @@
     svg.addEventListener("click", function (ev) { var p = nearest(ev); pinned = p && pinned !== p ? p : null; show(pinned); });
     pinned = null;
     // frontier table
-    var t = '<h3>On the Pareto frontier (' + fr.length + ')</h3><div class="ll-tablewrap"><table class="ll-table"><thead><tr><th>Model</th><th class="num">' + esc(bench.short || bench.name) + '</th><th class="num">' + (s.x === "task" ? "Cost per task" : "Price per 1M tokens") + '</th><th class="num ll-hide-m">Step up from the cheaper option</th></tr></thead><tbody>';
+    var t = '<h3>On the Pareto frontier (' + fr.length + ')</h3><div class="ll-tablewrap"><table class="ll-table"><thead><tr><th>Model</th><th class="num">' + esc(bench.short || bench.name) + '</th><th class="num">' + (s.x === "task" ? (bench.id === "tbench" ? "Cost per trial" : "Cost per task") : "Price per 1M tokens") + '</th><th class="num ll-hide-m">Step up from the cheaper option</th></tr></thead><tbody>';
     fr.forEach(function (p, i) {
       var prev = fr[i - 1], step = "Cheapest in this list";
       if (prev) { var dy = Math.abs(p.y - prev.y), ratio = p.x / prev.x; step = (ratio >= 10 ? Math.round(ratio) : ratio.toFixed(1)) + "× the cost for " + (bench.hb === false ? "−" : "+") + fmtScore(dy, bench); }
-      t += '<tr><td><button type="button" class="ll-name" data-open="' + esc(p.m.id) + '">' + esc(p.m.name) + '</button><span class="ll-dev">' + esc(p.m.dev) + " · " + esc(p.m.access) + '</span></td><td class="num"><span class="ll-score">' + fmtScore(p.y, bench) + '</span></td><td class="num">' + money(p.x) + '</td><td class="num ll-hide-m">' + step + "</td></tr>";
+      t += '<tr><td><button type="button" class="ll-name" data-open="' + esc(p.m.id) + '">' + esc(p.m.name) + '</button><span class="ll-dev">' + esc(p.m.dev) + " · " + esc(p.m.access) + '</span></td><td class="num"><span class="ll-score">' + fmtScore(p.y, bench) + '</span>' + (p.set ? '<span class="ll-sub">' + esc(p.set) + '</span>' : '') + '</td><td class="num">' + money(p.x) + (s.x !== "task" && p.m.pnote ? '<span class="ll-sub ll-warn">Introductory or conditional price; see details</span>' : '') + '</td><td class="num ll-hide-m">' + step + "</td></tr>";
     });
-    t += "</tbody></table></div>" + '<p class="ll-chartnote">A model is on the frontier when no cheaper model in the current selection scores higher. ' + pts.length + " models are plotted" + (missing > 0 ? "; " + missing + " with a result but no " + (s.x === "task" ? "published cost per task" : "list price") + " are left out" : "") + ". Changing a filter redraws the frontier.</p>";
+    t += "</tbody></table></div>" + '<p class="ll-chartnote">A model is on the frontier when no cheaper model in the current selection scores higher. ' + pts.length + " models are plotted" + (missing > 0 ? "; " + missing + " with a result but no " + (s.x === "task" ? "published cost per task" : "list price") + " are left out" : "") + ". " + (s.x === "task" ? "Each published setting of a model is plotted as its own point. " : "Per-token price ignores how many tokens each setting uses; switch the cost measure to cost per task where a benchmark publishes it. ") + "Changing a filter redraws the frontier.</p>";
     frontEl.innerHTML = t;
-    return fid;
+    return mid;
   }
 
   /* ---------- filters UI ---------- */
@@ -350,7 +365,7 @@
     taskOpt.disabled = !bench.cost;
     if (!bench.cost && s.x === "task") { axisSel.value = "blend"; s.x = "blend"; }
     var list = MODELS.filter(function (m) { return pass(m, s); });
-    benchBox.innerHTML = "<strong>" + esc(bench.name) + "</strong><span>" + esc(bench.what) + (bench.caveat ? " " + esc(bench.caveat) : "") + '</span><span>Source: <a href="' + esc(bench.url) + '" target="_blank" rel="noopener">' + esc(bench.src) + "</a>" + (bench.updated ? " · results as of " + esc(bench.updated) : "") + (bench.hb === false ? " · lower is better" : "") + "</span>";
+    benchBox.innerHTML = "<strong>" + esc(bench.name) + "</strong><span>" + esc(bench.what) + (bench.caveat ? " " + esc(bench.caveat) : "") + '</span><span>Source: <a href="' + esc(bench.url) + '" target="_blank" rel="noopener">' + esc(bench.src) + "</a>" + (bench.updated ? " · " + esc(bench.updated) : "") + (bench.hb === false ? " · lower is better" : "") + "</span>";
     var fid = renderChart(list, s);
     var ranked = renderTable(list, s, fid);
     var shown = untested.checked ? ranked : list.length;

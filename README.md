@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.49** (see `CHANGELOG.md`).
+Version: **V4.50** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -17,6 +17,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `courses.html` | Free online courses and paid one-hour sessions |
 | `book.html` | Book Online: free strategy call or paid session request |
 | `funding.html` | Funding finder: filterable directory of federal, provincial and territorial business funding programs (data: `content/grants.json`; script: `assets/js/grants.js`) |
+| `llm-leaderboard.html` | LLM leaderboard (menu: AI Models): searchable database of current large language models with benchmark leaderboards, best-model-by-agent-type cards and a score-versus-cost Pareto chart. Data: `content/llm/llm.json`, built by `content/llm/build_dataset.py` from the research files in `content/llm/raw/` (method: `content/llm/SPEC.md`); page: `content/gen/llm_page.py`; script and styles: `assets/js/llm.js`, `assets/css/llm.css` |
 | `contact.html` | Contact form, details and FAQs |
 | `about.html` | About Chmltech and its CEO, with portrait, biography, career timeline and qualifications (script: `content/gen/about_page.py`) |
 | `404.html` | Not-found page |
@@ -104,3 +105,10 @@ Search the code for `TODO`:
 
 - **Social links:** the footer links point to the platforms' home pages. Replace them with Chmltech profile URLs.
 - **Booking:** you can replace the request form in `book.html` with an embedded scheduler such as Calendly or Microsoft Bookings.
+
+## Updating the LLM leaderboard
+
+1. Refresh the research files in `content/llm/raw/` (one set per source; schema in `content/llm/SPEC.md`). For the Arena Text, Vision and WebDev boards, run `python3 content/llm/arena_full.py <folder with Arena *.latest.parquet files>`.
+2. Add or change models and name aliases in `content/llm/catalog.py`. Matching rules are in `content/llm/match.py`.
+3. `python3 content/llm/build_dataset.py`, then `python3 content/gen/llm_page.py`.
+4. Have the result checked against the sources (red team) before publishing, and update the "data as of" date (`AS_OF` in `build_dataset.py`).
