@@ -25,6 +25,8 @@ are redirect stubs and are left alone):
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
 import html, json, os, re, subprocess, sys, datetime
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from seo_keywords import KEYWORDS
 
 ROOT = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else ".")
 SITE = "https://www.chmltech.com"
@@ -242,17 +244,24 @@ def process(rel, sitemap, llms):
     if 'rel="canonical"' not in head:
         head += f'<link rel="canonical" href="{url}">\n'; bump("canonical added")
 
-    # 3. title
+    # 3. title (keyword table first, then the long-title rule)
+    kw = KEYWORDS.get(rel, {})
     title = g(r"<title>(.*?)</title>", head)
-    if rel == "index.html": newt = HOME_TITLE
+    if kw.get("title"): newt = kw["title"]
+    elif rel == "index.html": newt = HOME_TITLE
     elif len(title) > 60 and title.endswith(BRAND): newt = title[: -len(BRAND)]
     else: newt = title
     if newt != title:
         head = re.sub(r"<title>.*?</title>", lambda m: f"<title>{esc(newt)}</title>", head, count=1, flags=re.S)
-        bump("title shortened"); title = newt
+        bump("title changed"); title = newt
+    head = set_meta(head, "property", "og:title", title.replace(BRAND, ""))
 
     # 4. description
     desc = g(r'<meta name="description" content="([^"]*)"', head)
+    if kw.get("desc") and desc != kw["desc"]:
+        desc = kw["desc"]
+        head = set_meta(head, "name", "description", desc)
+        head = set_meta(head, "property", "og:description", desc); bump("keyword description")
     if desc and len(desc) > 160:
         nd = trim_desc(desc)
         head = set_meta(head, "name", "description", nd)
@@ -298,6 +307,20 @@ def process(rel, sitemap, llms):
             return tag
         nb = re.sub(r'(?<=<div class="container post-cover">)<img\b[^>]*>', cover, body, count=1)
         if nb != body: bump("cover image alt/priority"); body = nb
+
+    # 10. keyword H1: search phrase as the H1, the old heading (slogan) kept just below it
+    if kw.get("h1"):
+        m = re.search(r"<h1\b([^>]*)>(.*?)</h1>", body, re.S)
+        if m and "data-kw" not in m.group(1):
+            old_h1 = m.group(2).strip()
+            slogan = kw.get("slogan", None)
+            slogan_html = esc(slogan) if slogan else (old_h1 if slogan is None else "")
+            rep = f'<h1{m.group(1)} data-kw="1">{esc(kw["h1"])}</h1>'
+            if slogan_html:
+                rep += f'<p class="hero-slogan">{slogan_html}</p>'
+            body = body[:m.start()] + rep + body[m.end():]; bump("keyword H1")
+    if kw.get("eyebrow"):
+        body = re.sub(r'<p class="eyebrow">[^<]*</p>', lambda m: f'<p class="eyebrow">{esc(kw["eyebrow"])}</p>', body, count=1)
 
     s = head + body
     # 5. structured data

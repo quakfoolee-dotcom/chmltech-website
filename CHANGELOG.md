@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.59 — 2026-11-12
+- **Search keywords on the 31 main pages** (home, Solutions, Industries, the 12 solution and 8 industry pages, About, Training, Courses, Insights, AI Models, Contact, Book, Projects), from the new table `content/gen/seo_keywords.py`, applied by `seo_pass.py`.
+  - **Titles** name the service, who it's for and the place, in the words buyers search with ("consulting/consultant", "small businesses", "Vancouver, BC"). Example: "Process Mapping Consultant | Vancouver, BC | Chmltech".
+  - **Main headings (H1)** now carry the search phrase, for example "Business process mapping services". The previous heading (the slogan) stays as the line just below it, in a new `.hero-slogan` style; on Training, Courses and Book, where it would repeat the new heading, it is replaced or dropped.
+  - **Meta descriptions** rewritten for 26 pages: search phrase first, under 160 characters, ending with what the visitor gets.
+  - **Home page:** eyebrow now reads "Vancouver, BC · Serving businesses across Canada"; title "AI & Operations Consulting in Vancouver, BC | Chmltech".
+- Checked at 1280px and 390px wide: headings wrap cleanly and nothing overlaps.
+
 ## V4.58 — 2026-11-12
 - **Analytics: Microsoft Clarity** (project `zcd5uqw2cz`) on all 227 indexable pages, added by `seo_pass.py` (`CLARITY_ID`). Not added to redirect stubs, the 404 page or the embedded exam apps, so visits aren't counted twice.
 - **Privacy notice** updated (dated November 12, 2026): names Microsoft Clarity as a service provider, what it measures and that it hides form input; notes Clarity cookies and how to block them; the old "no analytics tracking" line now reads "no advertising or advertising tracking".

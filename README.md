@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.58** (see `CHANGELOG.md`).
+Version: **V4.59** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -76,6 +76,7 @@ The email address is never written into the page source, so address-harvesting b
 ## Search (SEO)
 
 - `content/gen/seo_pass.py` owns the canonical URLs (clean form, without `.html`), Open Graph and Twitter tags, JSON-LD structured data, `sitemap.xml` (with `lastmod`) and `llms.txt`. Edit it rather than the pages for site-wide SEO changes.
+- **Search keywords:** `content/gen/seo_keywords.py` sets the title, main heading (H1) and meta description of the ~30 main pages (home, solutions, industries, About, Training, Courses, Insights and others). The old heading stays as the line just under the new H1 (style `.hero-slogan`). Edit the table there, never the pages, then run `seo_pass.py`.
 - The raw exam apps in `exams/` carry `noindex, indexifembedded`, so search engines rank the exam pages that embed them, not the bare apps.
 - **Analytics:** Microsoft Clarity (project `zcd5uqw2cz`, dashboard at clarity.microsoft.com) is added to every indexable page by `seo_pass.py` (`CLARITY_ID`). The privacy page names it.
 - Search engine verification: Google Search Console uses a DNS TXT record at IONOS (keep it); Bing Webmaster Tools uses a DNS CNAME record at IONOS (keep it); the `msvalidate.01` meta tag in `index.html` is a backup.
