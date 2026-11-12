@@ -1,5 +1,9 @@
 # Changelog
 
+## Draft (not released) — 2026-11-12
+- **New Insights article (draft, for review):** *Your Own Private AI Assistant: Building a Local LLM with AnythingLLM and Ollama* (`post/private-ai-assistant-on-your-own-pc-anythingllm-and-ollama.html`). Setup, AI providers, embedding model and max chunk length, vector database, text splitting, workspace retrieval settings, agent skills, accuracy testing and security. 10 inline SVG figures and 11 tables. Filed under Artificial Intelligence and Digital Technology. Insights would list 157 articles.
+- Source `content/articles/anythingllm_article.py` writes the article JSON; page built with `content/gen/add_article.py`.
+
 ## V4.53 — 2026-11-12
 - **New Chmltech Online Journal paper, Volume 104, Issue 7:** *Score Versus Cost Per Task: Measuring the Returns to Reasoning Effort in Frontier Language Models* (`post/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.html`).
   - Compares benchmark score with measured cost per task at each reasoning-effort setting, using the Vals AI effort study, Cognition's FrontierCode 2.0, ARC-AGI-2 and the Artificial Analysis Intelligence Index, with list prices and Arena as context. Data as of November 11, 2026.
