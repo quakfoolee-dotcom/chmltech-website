@@ -75,7 +75,10 @@ def fig_rag():
         x = 10 + i * 144
         s += box(x, 158, 120, 70, st, fill=ORANGEF if i in (0, 4) else WHITE, stroke=ORANGE, fs=12.5)
         if i < 4: s += arrow(x + 120, 193, x + 142, 193)
-    s += f'<path d="M650,104 C650,134 360,124 360,156" fill="none" stroke="{GREEND}" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ah)"/>'
+    # Dashed curve ends at the midpoint of the arrowhead's flat top, with a short solid stem so the join is clean
+    s += f'<path d="M650,104 C650,130 360,120 360,140" fill="none" stroke="{GREEND}" stroke-width="1.6" stroke-dasharray="5 4"/>'
+    s += f'<line x1="360" y1="139" x2="360" y2="146" stroke="{GREEND}" stroke-width="1.6"/>'
+    s += f'<path d="M353,146 L367,146 L360,157 z" fill="{NAVY}"/>'
     s += txt(505, 116, "same database", "middle", GREEND, 12, True)
     s += txt(358, 246, "Top 4 chunks above", "middle", MUTED, 12) + txt(358, 262, "the similarity threshold", "middle", MUTED, 12)
     s += txt(502, 246, "System prompt, chunks,", "middle", MUTED, 12) + txt(502, 262, "history and question", "middle", MUTED, 12)

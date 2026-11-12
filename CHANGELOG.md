@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.55 — 2026-11-12
+- **AnythingLLM article, Figure 2:** the dashed green "same database" line now joins the midpoint of the arrowhead's flat top, with a short solid stem, instead of running into the side of the triangle.
+
 ## V4.54 — 2026-11-12
 - **New Insights article:** *Your Own Private AI Assistant: Building a Local LLM with AnythingLLM and Ollama* (`post/private-ai-assistant-on-your-own-pc-anythingllm-and-ollama.html`). Setup, AI providers, embedding model and max chunk length, vector database, text splitting, workspace retrieval settings, agent skills, accuracy testing and security. 10 inline SVG figures and 11 tables. Filed under Artificial Intelligence and Digital Technology. Insights now lists 157 articles.
 - Source `content/articles/anythingllm_article.py` writes the article JSON; page built with `content/gen/add_article.py`.
