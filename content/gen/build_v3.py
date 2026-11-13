@@ -225,9 +225,10 @@ def thumb(p, prefix):
 def card(p, prefix=""):
     t = thumb(p, prefix)
     art = f'<div class="thumb"><img src="{t}" alt="" loading="lazy" decoding="async" width="600" height="338"></div>' if t else f'<div class="art">{icon("book", "")}</div>'
-    cats = "".join(f'<span class="tag">{esc(CAT_NAMES[c])}</span>' for c in p["cats"][:2])
+    main = next((c for c in p["cats"] if c != "chmltech-online-journal"), p["cats"][0])
+    cats = f'<p class="cat-label">{esc(CAT_NAMES[main])}</p>'
     return (f'<article class="article" data-cats="{" ".join(p["cats"])}" data-search="{esc((p["title"] + " " + p["desc"] + " " + " ".join(p["tags"])).lower())}">{art}'
-            f'<div class="body"><div class="cats">{cats}</div><h3><a href="{prefix}post/{p["slug"]}.html">{esc(p["title"])}</a></h3>'
+            f'<div class="body">{cats}<h3><a href="{prefix}post/{p["slug"]}.html">{esc(p["title"])}</a></h3>'
             f'<p class="muted">{esc(text_excerpt(p["desc"] or p["body"], 150))}</p><p class="meta">{esc(p["journal"]) + " · " if p.get("journal") else ""}{nice_date(p["date"])}{" · " + esc(p["read"]) if p["read"] else ""}</p></div></article>')
 
 SEARCH_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'

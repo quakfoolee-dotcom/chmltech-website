@@ -47,11 +47,12 @@ HERO_SERIES = '<p class="series" style="margin:0;font-size:15px;font-weight:600;
 
 def card(a, prefix=""):
     search = E(" ".join([a["title"], a["desc"], " ".join(a["tags"])]).lower())
-    cats = "".join(f'<span class="tag">{E(CAT_NAMES[c])}</span>' for c in a["cats"])
+    main = next((c for c in a["cats"] if c != "chmltech-online-journal"), a["cats"][0])
+    cats = f'<p class="cat-label">{E(CAT_NAMES[main])}</p>'
     ser = CARD_SERIES + E(series_label(a)) + "</p>" if a.get("series") else ""
     return (f'<article class="article" data-cats="{" ".join(a["cats"])}" data-search="{search}"><div class="thumb">'
             f'<img src="{prefix}assets/media/covers/thumbs/{a["slug"]}.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div>'
-            f'<div class="body"><div class="cats">{cats}</div>{ser}<h3><a href="{prefix}post/{a["slug"]}.html">{E(a["title"])}</a></h3>'
+            f'<div class="body">{cats}{ser}<h3><a href="{prefix}post/{a["slug"]}.html">{E(a["title"])}</a></h3>'
             f'<p class="muted">{E(a["desc"])}</p><p class="meta">{nice_date(a["date"])} · {a["read"]}</p></div></article>')
 
 
