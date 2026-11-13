@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.81 — 2026-11-13
+First 2025 release under the V8 audit plan: posts with untraceable statistics rewritten at their old addresses, original dates kept.
+- **Shopify and Lovable** (`how-shopify-and-lovable-are-empowering-…`): what the integration does and does not do, 2026 costs, fit table, launch checklist, alternatives, product-test example; incorrect "recommendations engine" claim removed.
+- **Sales process** (`6-essential-steps-to-streamline-and-enhance-your-sales-process`): six steps, stage table with entry rules and measures, qualifying questions, marketing hand-off, weekly pipeline review, worked example. *Why a strong sales process is essential* retired into it.
+- **Innovation** (`6-mckinsey-principles-…`): retitled *Six Practices to Build Creative Thinking and Innovation*; unsupported McKinsey attribution removed; idea log, measures, worked example.
+- **Operational agility** (`adapting-business-operations-…`): six levers, skills matrix, 90-day plan, demand-swing example, measures.
+- **Lean methodology** (`how-to-use-lean-methodology-…`): now JSON-built; five principles, eight wastes, value-added test (from V4.76), waste walk, value stream map figure, office Lean. Do not re-run `v476_inplace.py` LEAN edit.
+- **SEO vs GEO**: new section *Using AI tools in your SEO work*; *Boost your search rankings with AI-powered SEO* retired into it.
+- **5 steps to integrate AI**: worked distributor order-entry example and link to the agent-readiness guide (`content/articles/v481_inplace.py`).
+- Insights now lists 142 articles; chip counts, date order and internal links re-checked. Sources: `content/articles/v481_articles.py`, `content/articles/v481_extra.py`.
+
 ## V4.80 — 2026-11-13
 Last release for 2021–2023 posts under the V8 audit plan: every post from that period is now rewritten, merged or retired.
 - **Manufacturing strategy** (`customization-standardization-and-flexibility-…`): MTS, ATO/CTO, MTO, ETO compared; decoupling point figure; pump example; signs the strategy no longer fits; how to change.
