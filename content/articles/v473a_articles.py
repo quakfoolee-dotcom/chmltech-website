@@ -5,7 +5,8 @@
                       what-is-esg-investing (closely followed a syndicated personal-finance article; off-topic)
 2. post/the-ultimate-guide-to-choosing-the-right-erp-for-your-business   rewritten: choosing and implementing ERP
      retired into it: navigating-the-challenges-of-erp-implementation-common-pitfalls-and-how-to-avoid-them
-3. post/10-best-erp-systems-for-small-and-medium-sized-enterprises        refreshed: 10 ERP systems, pricing models, 2026
+3. post/10-best-erp-systems-for-small-and-medium-sized-enterprises        refreshed: 10 ERP systems grouped by company size, 2026
+     (Infor CloudSuite Industrial and Sage Intacct replaced by MRPeasy and ERPNext after an SME-fit check)
 4. post/how-to-measure-your-website-s-performance-using-google-analytics-a-comprehensive-guide   rewritten for GA4
 
 Usage:  python3 content/articles/v473a_articles.py
@@ -230,53 +231,69 @@ def erp():
 
 # ═════════════════════════ 3. Top 10 ERP ═════════════════════════
 def top():
-    rows = [
-        ("Microsoft Dynamics 365 Business Central", "Distributors, light manufacturers and service firms already on Microsoft 365", "Per user, per month", "US$80 Essentials, US$110 Premium (manufacturing), US$8 light user; list prices since 1 November 2025"),
-        ("Odoo", "Small firms wanting many modules at low licence cost; heavy reliance on partner quality", "Per user, per month; Community edition free", "Canadian Standard plan about C$44 per user per month at list (lower first-year promotional rate); Custom plan higher"),
-        ("Oracle NetSuite", "Fast-growing, multi-entity or e-commerce businesses", "Annual base licence plus per-user fees and modules", "No published price; quotes only"),
-        ("Acumatica", "Distribution, construction and manufacturing firms with many occasional users", "Resource-based; unlimited users", "No published price; based on modules and transaction volume"),
-        ("SAP Business One", "Small manufacturers and distributors wanting a mature package", "Subscription or perpetual, through partners", "Partner quotes"),
-        ("Sage Intacct", "Finance-led firms: multi-entity accounting, projects, services", "Subscription, by modules and users", "Partner quotes"),
-        ("Epicor Kinetic (formerly Epicor ERP)", "Discrete manufacturers, job shops and make-to-order", "Subscription", "Quotes only"),
-        ("Infor CloudSuite Industrial (SyteLine)", "Mid-sized manufacturers with complex production", "Subscription", "Quotes only"),
-        ("DELMIAworks (formerly IQMS)", "Plastics, medical and repetitive manufacturers needing ERP and MES together", "Subscription or perpetual", "Quotes only"),
-        ("SYSPRO", "Mid-sized manufacturers and distributors", "Subscription or perpetual", "Partner quotes"),
+    head = ["System", "Typical size", "Typical fit", "Pricing model", "Published price (checked November 2026)"]
+    small = [
+        ("Microsoft Dynamics 365 Business Central", "10–250 employees", "Distributors, light manufacturers and service firms already on Microsoft 365", "Per user, per month", "US$80 Essentials, US$110 Premium (manufacturing), US$8 light user; list prices since 1 November 2025"),
+        ("SAP Business One", "10–250 employees", "Small manufacturers and distributors wanting a mature package", "Subscription or perpetual, through partners", "Partner quotes"),
+        ("Odoo", "5–250 employees", "Small firms wanting many modules at low licence cost; results depend heavily on the partner", "Per user, per month; Community edition free", "Canadian Standard plan about C$44 per user per month at list (lower first-year promotional rate); Custom plan higher"),
+        ("MRPeasy", "10–200 employees", "Small manufacturers moving off spreadsheets: production planning, BOMs, stock and purchasing", "Per user, per month", "US$49 to US$149 per user per month, by plan"),
+        ("ERPNext", "1–250 employees", "Budget-conscious small businesses with technical help; fully open source", "Free software; pay for hosting and implementation", "Licence free; Frappe Cloud hosting from about US$5 a month, unlimited users"),
+    ]
+    mid = [
+        ("Oracle NetSuite", "50–500+ employees", "Fast-growing, multi-entity or e-commerce businesses; overkill for small, simple operations", "Annual base licence plus per-user fees and modules; around a 10-user minimum", "No published price; quotes only"),
+        ("Acumatica", "25–500+ employees", "Distribution, construction and manufacturing firms with many occasional users", "Resource-based; unlimited users", "No published price; based on modules and transaction volume"),
+        ("Epicor Kinetic (formerly Epicor ERP)", "50–1,000 employees", "Discrete manufacturers, job shops and make-to-order", "Subscription", "Quotes only"),
+        ("SYSPRO", "50–500 employees", "Manufacturers and distributors wanting a faster, lower-cost implementation", "Subscription or perpetual", "Partner quotes"),
+        ("DELMIAworks (formerly IQMS)", "50–500 employees", "Plastics, medical and repetitive manufacturers needing ERP and MES together", "Subscription or perpetual", "Quotes only"),
     ]
     body = f"""
-<p>This list was first published in 2023 with prices that are now out of date. It has been rewritten for 2026 with the pricing model of each system, the published price where one exists, and the kind of business each fits best. It is not a ranking: the right system depends on your processes, your industry and, above all, the implementation partner. For how to choose, see our guide to <a href="../post/{ERP}.html">choosing and implementing an ERP</a>.</p>
-<h2>Ten ERP systems small and mid-sized businesses shortlist</h2>
-{table(["System", "Typical fit", "Pricing model", "Published price (checked November 2026)"], rows)}
-<p>Prices are in the vendor's own currency and exclude implementation, which usually costs more than the first year's licences. Several vendors change list prices every year and offer first-year discounts, so treat the published figures as a starting point and get written quotes for the same scope.</p>
-<h2>What has changed since 2023</h2>
+<p>This list was first published in 2023 with prices that are now out of date. It has been rewritten for 2026 and checked against analyst and review data for company size, so that every system on it is one that small and mid-sized businesses actually buy. For each system it shows the typical company size, the kind of business it fits, how it is priced, and the published price where one exists. Typical sizes are approximate ranges drawn from analyst profiles and review data. It is not a ranking: the right system depends on your processes, your industry and, above all, the implementation partner. For how to choose, see our guide to <a href="../post/{ERP}.html">choosing and implementing an ERP</a>.</p>
+<h2>For small businesses (about 10 to 100 employees)</h2>
+{table(head, small)}
+<p>These five can be implemented by a small business in a few months with a modest budget. MRPeasy is a manufacturing system first, with lighter accounting, so many users keep their accounting package alongside it. ERPNext costs nothing to license, but implementation is where the money goes, and experienced partners are fewer in Canada than for Odoo or Business Central.</p>
+<h2>For mid-sized businesses (about 50 to 500 employees)</h2>
+{table(head, mid)}
+<p>These five suit businesses with more users, more sites or more complex production. They usually need a partner-led project of several months and a budget in the low to mid six figures including implementation. Smaller firms with simple operations will often pay for capability they do not use.</p>
+<h2>What changed from the 2023 list</h2>
 <ul>
+<li><strong>Two systems were replaced.</strong> Infor CloudSuite Industrial (SyteLine) is a capable manufacturing ERP, but Infor's mid-market target is 200 to 2,000 employees and even small deployments are estimated at six figures in the first year, so it is replaced by MRPeasy. Sage Intacct is excellent financial software but has no native manufacturing or warehouse management, so it is replaced by ERPNext. Service firms that mainly need strong accounting rather than a full ERP should still look at Sage Intacct.</li>
 <li><strong>Prices rose.</strong> Microsoft raised Business Central list prices on 1 November 2025, its first significant increase in more than five years: Essentials from US$70 to US$80 and Premium from US$100 to US$110 per user per month. Odoo also raises its regional prices periodically.</li>
 <li><strong>Names changed.</strong> Epicor ERP is now sold as Epicor Kinetic, and IQMS, bought by Dassault Systèmes in 2019, is now DELMIAworks.</li>
-<li><strong>Pricing models diverged.</strong> Per-user pricing (Business Central, Odoo, NetSuite) favours firms with a few heavy users. Acumatica's resource-based model, with unlimited users, favours firms where many people need occasional access, such as warehouse or field staff.</li>
+<li><strong>Pricing models diverged.</strong> Per-user pricing (Business Central, Odoo, MRPeasy, NetSuite) favours firms with a few heavy users. Acumatica's resource-based model and ERPNext's hosting-only cost favour firms where many people need occasional access.</li>
 <li><strong>AI features are now standard in sales pitches.</strong> Ask to see them working on your own data during the scripted demo, and ask whether they cost extra.</li>
 </ul>
 <h2>How to narrow the list</h2>
 <ol>
-<li><strong>Start with your industry.</strong> Manufacturers need production planning, bills of materials and shop-floor data; distributors need warehouse and pricing depth; project and service firms need project accounting.</li>
+<li><strong>Start with your size and growth plan.</strong> Choose from the group you will be in three years from now, not just today, to avoid replacing the system again.</li>
+<li><strong>Then your industry.</strong> Manufacturers need production planning, bills of materials and shop-floor data; distributors need warehouse and pricing depth; project and service firms need project accounting.</li>
 <li><strong>Check the local partner.</strong> A capable partner in your province with experience in your industry matters more than small feature differences.</li>
-<li><strong>Model five years of cost,</strong> including your own staff time, for two or three finalists.</li>
-<li><strong>Run the same scripted demo</strong> for each finalist using your own data.</li>
+<li><strong>Model five years of cost,</strong> including your own staff time, for two or three finalists, and run the same scripted demo for each using your own data.</li>
 </ol>
+<p>Below about 20 people, a full ERP is often premature. A good accounting package with an inventory or MRP add-on may be the better first step.</p>
 """ + src([
-        ("Alphavima: Business Central pricing guide (USD and CAD list prices, 2026)", "https://alphavima.com/blog/business-central-pricing-guide/"),
-        ("ERP Software Blog: Business Central cost and licensing by industry (September 2026)", "https://erpsoftwareblog.com/2026/09/business-central-cost-licensing-by-industry/"),
-        ("OEC.sh: Odoo pricing in Canada (from Odoo's Canadian price list, July 2026)", "https://oec.sh/odoo-pricing/canada"),
-        ("ERP Research: Acumatica pricing (resource-based, unlimited users)", "https://www.erpresearch.com/pricing/acumatica"),
-        ("Rand Group: How much does NetSuite cost? (2026)", "https://www.randgroup.com/insights/oracle-netsuite/how-much-does-netsuite-cost/"),
+        ("TechTarget: Evaluating today's 10 leading ERP software vendors", "https://www.techtarget.com/enterprise-software/feature/Evaluating-todays-10-leading-ERP-software-vendors"),
+        ("ERP Research: SAP Business One (target market)", "https://erpresearch.com/en-us/sap-business-one"),
+        ("ERP Research: Best ERP software 2026 by company size", "https://erpresearch.com/en-gb/best-erp"),
+        ("Alphavima: Business Central pricing guide (2026)", "https://alphavima.com/blog/business-central-pricing-guide/"),
+        ("OEC.sh: Odoo pricing in Canada (July 2026)", "https://oec.sh/odoo-pricing/canada"),
+        ("CostBench: MRPeasy pricing and alternatives (November 2026)", "https://costbench.com/software/manufacturing-erp/mrpeasy/alternatives/"),
+        ("ERP Research: ERPNext", "https://erpresearch.com/erp/erpnext"),
+        ("BrokenRubik: NetSuite for small businesses", "https://brokenrubik.com/blog/netsuite-for-small-businesses"),
+        ("ERP Research: Acumatica pricing", "https://www.erpresearch.com/pricing/acumatica"),
+        ("ERP Research: Epicor Kinetic", "https://www.erpresearch.com/pages/en-us/epicor-erp-kinetic"),
+        ("ERP Research: SYSPRO", "https://erpresearch.com/erp/syspro"),
+        ("ERP Research: Is Infor CloudSuite good for mid-market companies?", "https://www.erpresearch.com/en-us/blog/infor-erp-mid-market"),
+        ("ERP Research: Acumatica vs Sage Intacct", "https://www.erpresearch.com/compare/acumatica-vs-sage-intacct"),
         ("Dassault Systèmes: Completion of the IQMS acquisition (January 2019)", "https://www.3ds.com/newsroom/news-releases/dassault-systemes-completes-iqms-acquisition"),
     ]) + rel([
         (ERP, "Choosing and implementing an ERP for a small or mid-sized business"),
         ("understanding-erp-vs-mrp-a-comprehensive-comparison-of-manufacturing-systems", "ERP vs MRP"),
         ("top-10-inventory-management-software-a-comprehensive-comparison-guide", "Inventory management software compared"),
     ])
-    return dict(slug=TOP, title="10 ERP Systems for Small and Mid-Sized Businesses in 2026: Fit and Pricing Models",
-                desc="Ten ERP systems small and mid-sized businesses shortlist in 2026: who each fits, how each is priced, published prices, and how to narrow the list.",
-                cats=["erp"], tags=["ERP", "Business Central", "Odoo", "NetSuite", "Acumatica", "ERP pricing", "small business"],
-                body=body.strip(), date=DATE, author="Quak Foo Lee", read="4 min read", cover_label="ERP",
+    return dict(slug=TOP, title="10 ERP Systems for Small and Mid-Sized Businesses in 2026, Grouped by Company Size",
+                desc="Ten ERP systems for Canadian SMEs in 2026, split into small and mid-sized groups: typical company size, fit, pricing model and published prices.",
+                cats=["erp"], tags=["ERP", "Business Central", "SAP Business One", "Odoo", "MRPeasy", "ERPNext", "NetSuite", "Acumatica", "ERP pricing", "small business"],
+                body=body.strip(), date=DATE, author="Quak Foo Lee", read="5 min read", cover_label="ERP",
                 related=[ERP, "understanding-erp-vs-mrp-a-comprehensive-comparison-of-manufacturing-systems",
                          "top-10-inventory-management-software-a-comprehensive-comparison-guide"])
 
