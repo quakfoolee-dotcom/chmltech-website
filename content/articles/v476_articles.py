@@ -358,6 +358,7 @@ def fig_funnel():
 
 
 def fun():
+    from v480_articles import FUNNEL_5A   # V4.80: absorbs the Marketing 4.0 post
     stages = [
         ("TOFU: awareness", "People who have a problem but do not know you", "Useful articles, guides, short videos, search and social posts", "Visits from search, new visitors, time on page"),
         ("MOFU: consideration", "People comparing ways to solve it", "Checklists, templates, case studies, webinars, comparison pages", "Enquiries, downloads, newsletter sign-ups, qualified leads"),
@@ -374,7 +375,7 @@ def fun():
 <p>An engineering services firm tracks a year of numbers. They are illustrative.</p>
 {fig(fig_funnel(), 1, "A year of funnel numbers for an engineering services firm, with the conversion at each step.")}
 <p>Visits convert to enquiries at {rates[0]:.0%}, which is reasonable for a technical site. The weak step is the middle: only {rates[1]:.0%} of enquiries become qualified leads, because many enquiries are students, job seekers or out-of-scope requests, and real prospects wait days for a reply. Two changes target that step: a short qualifying question on the enquiry form, and a reply within one working day with a relevant case study. If qualified leads rise to 40% of enquiries, the same traffic gives about {new_q} qualified leads and, at the same later conversion rates, about {new_won} wins instead of {FUNNEL[-1][1]}. More traffic would have been the expensive way to get the same result.</p>
-<h2>Making the funnel work</h2>
+{FUNNEL_5A}<h2>Making the funnel work</h2>
 <ol>
 <li><strong>Put one number on each stage</strong> and review them monthly. <a href="../post/how-to-measure-your-website-s-performance-using-google-analytics-a-comprehensive-guide.html">Google Analytics 4</a> covers the top; your CRM covers the rest.</li>
 <li><strong>Fix the weakest step first.</strong> Doubling traffic into a leaking middle doubles the leak.</li>
