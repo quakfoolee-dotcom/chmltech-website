@@ -1,5 +1,18 @@
 # Changelog
 
+## V4.66 — 2026-11-13
+- **Older articles fixed or merged (SEO).**
+  - `post/boost-your-business-with-cdap-funding-support-for-digital-adoption` rewritten at the same address as *After CDAP: Where Canadian Businesses Find Digital and AI Funding in 2026* (CDAP closed to new applicants on February 19, 2024). Covers LIFT, the Regional AI Initiative, NRC IRAP, SR&ED, Scale AI, Ontario DMAP, Quebec ESSOR and Mitacs, with a "where to start" figure and a LIFT vs RAII table; links to the funding finder. This also covers the proposed "AI funding map" post, so the two do not compete in search.
+  - The two SEO vs GEO posts are merged. `post/the-key-differences-between-seo-and-geo-for-enhancing-your-online-presence` is rewritten as *SEO vs GEO: How to Be Found in Google and in AI Answers* (Google's 2025–2026 guidance on AI features, the KDD 2024 GEO paper, an eight-step checklist). `post/understanding-the-differences-between-seo-and-geo-strategies-for-online-success` (which used GEO to mean local search) is now a redirect to it: card removed, counts lowered, sitemap entry removed, links on other pages pointed to the new address.
+  - Dated notes at the top of `post/everything-you-need-to-know-about-iso-9001-2015-quality-management-system` (ISO 9001:2026 published; links to the 2026 posts) and the two 2025 posts on tariffs and the global economy (links to the Budget 2026 post).
+  - The LIFT article's related-reading link to the CDAP post uses its new title.
+- **Three new Insights articles (timely Canadian topics):**
+  - `post/canada-budget-2026-what-manufacturers-and-process-plants-should-know` (Strategy, Process Engineering): Productivity Mega Deduction, wider SR&ED, Clean Technology and Clean Electricity ITCs to 2040, Canada Growth Incentive, small business rollover; timeline figure and a deduction-timing chart.
+  - `post/sred-for-engineering-and-software-projects-what-changed-in-2026` (Process Engineering, Digital Technology): what changed in 2026, the five questions (figure), engineering and software examples, a worked claim, pre-claim approval.
+  - `post/clean-hydrogen-itc-explained-for-plant-owners` (Process Engineering, ESG): carbon intensity tiers and cliffs (figure), the 2034 cut-off (figure), validation and verification.
+  - Insights now lists 165 articles.
+- **New tools:** `content/gen/refresh_article.py` (rewrite an article at its old address and refresh its cards, or retire one into a redirect) and `content/gen/update_notes.py` (dated notes at the top of older articles). Sources: `content/articles/refresh_articles.py`, `content/articles/canada_2026_articles.py`.
+
 ## V4.65 — 2026-11-13
 - **Fix: browsers kept old stylesheets after a release.** Pages linked `styles.css`, `main.js` and the other stylesheets and scripts without a version, so returning visitors kept their cached copy; after V4.64 the new card label showed as plain text until the cache expired. Every link to `assets/css/*.css` and `assets/js/*.js` now carries `?v=` plus the first 8 characters of the file's MD5 hash, so the link changes only when the file does. New `content/gen/assetver.py`; `seo_pass.py` stamps all pages as its last step (234 pages). Generators that read an existing page as a template (`add_article.py`, `add_journal_paper.py`, `grants_page.py`, `industry_pages.py`, `llm_page.py`, `projects_page.py`, `service_pages.py`, `journal_pages.py`) remove the versions first so their text replacements still match. The hand-set `oee.css?v=4.45` is replaced by the hash.
 - Card label style confirmed as V4.64 (small, uppercase, brand blue).
