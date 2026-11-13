@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.92 — 2026-11-13
+- **Homepage Improvement cycle card:** a note under step 05, "↻ Back to 01 Discover: the cycle repeats", so the highlighted step reads as the outcome that feeds the next round rather than a selected or current step. Accessible label updated to match.
+
 ## V4.91 — 2026-11-13
 - **Homepage hero, option B:** diagonal navy-to-blue gradient with a soft highlight behind the Improvement cycle card; "Book a Strategy Call" in logo green with navy text (contrast 6.9:1); lighter outline on "Explore Solutions"; see-through cycle card. Homepage only (`.hero-b` in `assets/css/styles.css`, class added in `index.html`); other navy heroes unchanged.
 
