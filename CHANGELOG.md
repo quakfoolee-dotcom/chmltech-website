@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.75 — 2026-11-13
+- **Contents list on long Insights articles.** New `content/gen/article_toc.py`, run by `seo_pass.py` on every build. Posts with at least 5 main sections and 1,200 words get a Contents card at the top of the right sidebar (sticky on desktop, scrolls inside the card if long) and a collapsible "Contents" box at the top of the article below 1,000 px. Built from the `<h2>` headings (ids added where missing; an `<h2 data-toc-label>` can set the sidebar wording). 35 articles have one.
+- **50 KPIs:** the in-text Contents section is removed; the sidebar keeps the KPI counts per section.
+- **Change management toolkit:** the original numbered list stays as the introduction; the sidebar adds the comparison table, AI and data section and references.
+- **Journal contents lists:** tighter line height and more space between entries, so a heading that wraps reads as one entry.
+- Styles in `assets/css/styles.css` (`.a-toc`, `.a-toc-m`) and `assets/css/journal.css`.
+
 ## V4.74 — 2026-11-13
 Second half of the high-priority rewrites from the older-posts audit (five posts rewritten at their old addresses, two upgraded in place, five retired).
 - **Inventory software:** `post/top-10-inventory-management-software-a-comprehensive-comparison-guide` rewritten as *Inventory Management Software for Small Businesses in 2026: 10 Options Compared* (grouped by job: track, sell and ship, make, run the business; November 2026 list prices; TradeGecko removed; worked payback example of about 10 months; 1 figure). Retired into it: *Optimize Your Production Schedule with Katana MRP*.
