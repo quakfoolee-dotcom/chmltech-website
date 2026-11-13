@@ -133,12 +133,18 @@ def listing_page(a):
     # newest first: place the card before the first card with an older date (an old post rewritten keeps its place)
     grid = s.index('<div class="grid grid-3" data-items>')
     at = None
-    for m in re.finditer(r'<article class="article".*?<p class="meta">([A-Z][a-z]{2}) (\d+), (\d{4})', s[grid:], re.S):
+    for m in re.finditer(r'<article class="article"(?:(?!</article>).)*?<p class="meta">([A-Z][a-z]{2}) (\d+), (\d{4})', s[grid:], re.S):
         d = datetime.strptime(" ".join(m.groups()), "%b %d %Y").strftime("%Y-%m-%d")
         if d < a["date"]:
             at = grid + m.start(); break
-    if at is None:
-        s = s.replace('<div class="grid grid-3" data-items>\n  ', '<div class="grid grid-3" data-items>\n  ' + card(a), 1)
+    if at is None:                                         # oldest of all: after the last dated card
+        last = None
+        for m in re.finditer(r'<article class="article".*?</article>', s[grid:], re.S):
+            if '<p class="meta">' in m.group(0): last = m
+        if last is None:
+            s = s.replace('<div class="grid grid-3" data-items>\n  ', '<div class="grid grid-3" data-items>\n  ' + card(a), 1)
+        else:
+            at = grid + last.end(); s = s[:at] + card(a) + s[at:]
     else:
         s = s[:at] + card(a) + s[at:]
     return s, int(re.search(r">All \((\d+)\)<", s).group(1)), True
