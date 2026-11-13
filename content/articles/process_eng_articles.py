@@ -478,19 +478,19 @@ def post_pfd():
 
 
 ARTICLES = [
-    dict(slug=U1, title="Lab to Pilot to Commercial: What Changes When You Scale Up", cats=["process-engineering", "operational-efficiency"],
+    dict(slug=U1, title="Lab to Pilot to Commercial: What Changes When You Scale Up", cats=["process-engineering"],
          desc="Why a reaction that works in a flask can overheat in a plant reactor. Surface area, heat removal and mixing at three scales, with a calculator.",
          tags=["scale-up", "heat transfer", "jacketed reactor", "exothermic reaction", "mixing", "process design"], body=nowrap(post_s1(), [(2, 0, 30), (2, 1, 26)]), related=[U2, U3, FEED1],
          series=dict(name="Scale-up series", part=1, of=3)),
-    dict(slug=U2, title="What a Pilot Plant Is For: The Questions It Must Answer", cats=["process-engineering", "project-management"],
+    dict(slug=U2, title="What a Pilot Plant Is For: The Questions It Must Answer", cats=["process-engineering"],
          desc="A pilot plant exists to produce design data. Eight questions it should answer, how large to build it, and what to collect before shutting it down.",
          tags=["pilot plant", "scale-up", "process development", "mass balance", "design data"], body=nowrap(post_s2(), [(3, 0, 22)]), related=[U1, U3, FEED1],
          series=dict(name="Scale-up series", part=2, of=3)),
-    dict(slug=U3, title="From Pilot Data to a Mass and Energy Balance", cats=["process-engineering", "operational-efficiency"],
+    dict(slug=U3, title="From Pilot Data to a Mass and Energy Balance", cats=["process-engineering"],
          desc="A worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram.",
          tags=["mass balance", "energy balance", "scale-up", "operating cost", "yield", "process design"], body=nowrap(post_s3(), [(3, 1, 34)]), related=[U1, U2, FEED2],
          series=dict(name="Scale-up series", part=3, of=3)),
-    dict(slug=PF, title="How to Read a PFD and a P&ID: A Guide for Owners and Managers", cats=["process-engineering", "project-management"],
+    dict(slug=PF, title="How to Read a PFD and a P&ID: A Guide for Owners and Managers", cats=["process-engineering"],
          desc="A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.",
          tags=["PFD", "P&ID", "ISA-5.1", "instrument tags", "control loop", "process drawings"], body=nowrap(post_pfd(), [(2, 1, 22), (3, 1, 22), (3, 2, 30)]), related=[FEED3, FEED1, U3]),
 ]

@@ -616,7 +616,7 @@ def main():
     for a in ARTICLES:
         body = a["body"]()
         words = len(re.sub(r"<svg.*?</svg>", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<svg.*?</svg>|<dialog.*?</dialog>", " ", body, flags=re.S))).split())
-        out = dict(slug=a["slug"], title=a["title"], desc=a["desc"], cats=["operational-efficiency", "process-improvement"], tags=a["tags"],
+        out = dict(slug=a["slug"], title=a["title"], desc=a["desc"], cats=["operational-efficiency", "process-improvement", "inventory-management"], tags=a["tags"],
                    body=body, date="2026-11-11", author="Quak Foo Lee", read=f"{max(1, round(words / 230))} min read", order=a["order"],
                    cover_label=a["cover_label"], related=a["related"],
                    series=dict(name="Inventory series", part=ARTICLES.index(a) + 1, of=SERIES_OF))

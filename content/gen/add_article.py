@@ -23,7 +23,7 @@ CAT_NAMES = {"process-improvement": "Process Improvement", "operational-efficien
              "marketing": "Sales & Marketing", "lean": "Lean", "chmltech-online-journal": "Chmltech Online Journal",
              "change-management": "Change Management", "iso": "ISO", "six-sigma": "Six Sigma", "process-engineering": "Process Engineering", "esg": "ESG",
              "strategy": "Strategy", "erp": "ERP", "project-management": "Project Management",
-             "book-review": "Book Review", "agile": "Agile", "case-study": "Case Study"}
+             "book-review": "Book Review", "agile": "Agile", "case-study": "Case Study", "inventory-management": "Inventory Management"}
 E = lambda s: html.escape(s, quote=True)
 
 

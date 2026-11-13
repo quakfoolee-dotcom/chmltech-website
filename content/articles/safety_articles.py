@@ -409,15 +409,15 @@ def post3():
 
 
 ARTICLES = [
-    dict(slug=P1, title="What Happens If the Cooling Fails: Runaway Reactions and MTSR", cats=["process-engineering", "operational-efficiency"],
+    dict(slug=P1, title="What Happens If the Cooling Fails: Runaway Reactions and MTSR", cats=["process-engineering"],
          desc="How hot a reactor can get when cooling stops. Adiabatic temperature rise, accumulation, MTSR and criticality classes, with a calculator.",
          tags=["process safety", "runaway reaction", "MTSR", "criticality class", "reaction calorimetry", "semi-batch"],
          body=nowrap(post1(), [(3, 3, 44)]), related=[P2, P3, SCALE1], series=dict(name="Process safety series", part=1, of=3)),
-    dict(slug=P2, title="A Worked HAZOP: The Feed Heater, Node by Node", cats=["process-engineering", "operational-efficiency"],
+    dict(slug=P2, title="A Worked HAZOP: The Feed Heater, Node by Node", cats=["process-engineering"],
          desc="A HAZOP of one steam heater: guide words, two nodes, the worksheets, seven actions, and the P&ID before and after the study.",
          tags=["HAZOP", "process safety", "P&ID", "IEC 61882", "safeguards", "hazard review"],
          body=nowrap(post2(), [(1, 2, 44)]), related=[P1, P3, PFDPID], series=dict(name="Process safety series", part=2, of=3)),
-    dict(slug=P3, title="Management of Change for Small Plants", cats=["process-engineering", "operational-efficiency"],
+    dict(slug=P3, title="Management of Change for Small Plants", cats=["process-engineering"],
          desc="How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants.",
          tags=["management of change", "MOC", "process safety", "CSA Z767", "HAZOP"],
          body=nowrap(post3(), [(1, 1, 12)]), related=[P1, P2, SCALE3], series=dict(name="Process safety series", part=3, of=3)),

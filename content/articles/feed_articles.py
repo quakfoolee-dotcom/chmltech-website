@@ -433,7 +433,7 @@ ARTICLES = [
 if __name__ == "__main__":
     for i, a in enumerate(ARTICLES):
         words = len(re.sub(r"<svg.*?</svg>|<[^>]+>", " ", a["body"], flags=re.S).split())
-        a.update(cats=["process-engineering", "project-management"], date="2026-11-11", author="Quak Foo Lee",
+        a.update(cats=["process-engineering"], date="2026-11-11", author="Quak Foo Lee",
                  read=f"{max(1, round(words / 220))} min read", cover_label="Process Engineering",
                  series=dict(name="FEED series", part=i + 1, of=len(ARTICLES)))
         json.dump(a, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

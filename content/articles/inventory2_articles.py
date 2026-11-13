@@ -127,7 +127,7 @@ def post5():
 {CLOSE}"""
     body = nowrap(body, [(2, 0, 30)])
     return dict(slug=S5, title=T5, desc="How much to order each time: the economic order quantity, why its cost curve is flat, and when a truckload discount wins, on two worked materials.",
-                cats=["operational-efficiency", "process-improvement"], tags=["EOQ", "economic order quantity", "reorder point", "order quantity", "inventory management", "quantity discount"],
+                cats=["operational-efficiency", "process-improvement", "inventory-management"], tags=["EOQ", "economic order quantity", "reorder point", "order quantity", "inventory management", "quantity discount"],
                 body=body, date="2026-11-13", author="Quak Foo Lee", read="7 min read", cover_label="Inventory",
                 series=dict(name="Inventory series", part=5, of=6), related=[S4, S2, S6])
 
@@ -245,7 +245,7 @@ def post6():
 {CLOSE}"""
     body = nowrap(body, [(1, 0, 6), (2, 0, 10), (3, 0, 32)])
     return dict(slug=S6, title=T6, desc="A monthly sales and operations planning routine for small manufacturers: the five steps, a worked capacity plan for a seasonal peak, and the measures.",
-                cats=["operational-efficiency", "process-improvement"], tags=["S&OP", "sales and operations planning", "capacity planning", "demand planning", "production planning", "manufacturing"],
+                cats=["operational-efficiency", "process-improvement", "inventory-management"], tags=["S&OP", "sales and operations planning", "capacity planning", "demand planning", "production planning", "manufacturing"],
                 body=body, date="2026-11-13", author="Quak Foo Lee", read="7 min read", cover_label="Inventory",
                 series=dict(name="Inventory series", part=6, of=6), related=[S5, S4, OEE])
 
