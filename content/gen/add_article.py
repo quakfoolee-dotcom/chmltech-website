@@ -92,6 +92,9 @@ def post_page(a, listing, total):
         t = t.replace(SHELL, a["slug"])
         if part == "head": head = t
         else: tail = t
+    # the shell's <title> and og/twitter titles may be its short search title (seo_titles.py), so set them outright
+    head = re.sub(r"<title>.*?</title>", lambda m: f"<title>{E(a['title'])}</title>", head, count=1, flags=re.S)
+    head = re.sub(r'(<meta (?:property|name)="(?:og|twitter):title" content=")[^"]*"', lambda m: m.group(1) + E(a["title"]) + '"', head)
     head = re.sub(r'<div class="tags">.*?</div>',
                   '<div class="tags">' + "".join(f'<a href="../insights.html#cat={c}">{E(CAT_NAMES[c])}</a>' for c in a["cats"]) + "</div>", head, count=1)
     if a.get("series"):                                    # series label between the category tags and the headline

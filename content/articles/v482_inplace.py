@@ -279,7 +279,7 @@ def note(text):
 
 
 BOOKS = [(ATOMIC, "Atomic Habits"), (EMYTH, "The E-Myth Revisited"), (ONE, "The ONE Thing"), (FAST, "The Millionaire Fastlane"), (MONEY, "The Psychology of Money"),
-         (NVIDIA, "The Nvidia Way"), (ARTWAR, "The Art of the Deal vs The Art of War")]
+         (NVIDIA, "The Nvidia Way"), ("clear-thinking-by-shane-parrish-book-review-lessons-and-how-to-apply-them", "Clear Thinking"), (ARTWAR, "The Art of the Deal vs The Art of War")]
 
 
 def more_reviews(me, extra=""):

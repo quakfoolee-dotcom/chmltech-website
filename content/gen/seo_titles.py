@@ -14,6 +14,7 @@ POST_TITLES = {
     "6-essential-steps-to-streamline-and-enhance-your-sales-process": "How to Build and Streamline a Sales Process",
     "6-mckinsey-principles-to-unlock-creative-thinking-and-innovation": "Six Practices to Build Innovation in a Small Business",
     "8-mistakes-to-avoid-while-building-your-first-business-a-comprehensive-guide-for-new-entrepreneurs": "8 Mistakes to Avoid When Building Your First Business",
+    "clear-thinking-by-shane-parrish-book-review-lessons-and-how-to-apply-them": "Clear Thinking by Shane Parrish: Review and How to Apply",
     "abc-inventory-analysis": "ABC Inventory Analysis: How To, with a Worked Example",
     "adapting-business-operations-for-enhanced-agility-and-market-competitiveness": "Operational Agility for Small and Mid-Sized Businesses",
     "advancements-and-challenges-in-solid-state-hydrogen-absorption-a-comprehensive-review": "Solid-State Hydrogen Absorption: A Review",
