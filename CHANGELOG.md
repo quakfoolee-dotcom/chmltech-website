@@ -1,5 +1,17 @@
 # Changelog
 
+## V4.78 — 2026-11-13
+Third release of the V8 audit plan: 2023 digital and marketing posts rewritten in our own words as long-form guides, keeping their original publish dates.
+- **Measuring content marketing:** five measurement levels, quarterly review example, monthly scorecard, improving pages that already rank, AI answers, attribution.
+- **Choosing a CRM:** requirements checklist, 2026 price ranges, which option fits which business, payback example, data to migrate (CASL note), implementation, AI features.
+- **Instagram and social media** (2025 social media post retired into it): where links work in 2026, a social media plan, content that earns clicks, landing pages, UTM measurement, sample month, clinic example.
+- **Industrial IoT:** system figure, six uses, compressed-air worked example, examples by industry, costs, connectivity, security.
+- **Warehouse automation:** five levels, mobile-robot payback example, distributor roadmap, leasing vs purchase, safety, measures.
+- **Tesla case study** (2024 operations post retired into it): business model canvas, operations, 2025 results, what worked and what the decline shows, lessons for SMEs, build-your-own canvas.
+- **AI in customer service:** uses by risk, Moffatt v. Air Canada (2024 BCCRT 149), guardrails, email worked example, service measures, tool choices.
+- **AI and jobs in Canada:** WEF Future of Jobs 2025, Statistics Canada exposure estimates (figure) and March 2026 AI-use survey, sector table, employer plan, staff questions.
+- Insights now lists 149 articles; chip counts and date order re-checked. Sources: `content/articles/v478_articles.py`, `content/articles/v478_extra.py`.
+
 ## V4.77 — 2026-11-13
 Second release of the V8 audit plan: 2021–2023 process and manufacturing posts rewritten in our own words as long-form guides (about 1,000–1,300 words each plus tables), keeping their original publish dates.
 - **How to implement process improvements** (Part 2 retired into Part 1): signs a process needs improving, method selection, project choice, roles, an eight-step project, tools by step, a quote-turnaround example, pitfalls.
