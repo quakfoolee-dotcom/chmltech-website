@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.87 — 2026-11-13
+- **Course certificates:** wording changed from "has successfully completed the free Chmltech course" to "has successfully completed the Chmltech course" on all 12 courses. The courses themselves are still listed as free on the Courses page.
+
 ## V4.86 — 2026-11-13
 - **New book review:** `post/clear-thinking-by-shane-parrish-book-review-lessons-and-how-to-apply-them` (Book Review, Strategy): the book's five parts, four defaults, four strengths, safeguards and decision process (1 figure), strengths and weaknesses, six lessons for small businesses, a four-week implementation plan with safeguard rules and a decision-journal template, and two worked examples (replacing a key supplier; replacing the family car). Source: `content/articles/v484_articles.py`. Linked from the other seven book reviews.
 - **Fix:** `add_article.py` now sets a new post's `<title>` and og/twitter titles itself, since the shell page has carried a short search title since V4.82.
