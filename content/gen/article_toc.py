@@ -31,7 +31,7 @@ def text(h):
 
 def build(s):
     s = re.sub(r'\s*<div class="card a-toc" data-toc.*?</ol></div>', "", s, flags=re.S)
-    s = re.sub(r'\s*<details class="a-toc-m" data-toc.*?</details>', "", s, flags=re.S)
+    s = re.sub(r'<details class="a-toc-m" data-toc.*?</details>\n?', "", s, flags=re.S)
     m = re.search(r'(<article class="prose">)(.*?)(</article>)', s, re.S)
     if not m or '<aside class="aside-sticky">' not in s:
         return s, 0

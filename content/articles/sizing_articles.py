@@ -171,9 +171,10 @@ def fig_tank():
     levels = [("HHLL: high-high trip", H_T * 0.90, RED), ("HLL: high alarm", H_T * 0.85, ORANGE), ("NLL: normal", H_T * 0.55, BLUE),
               ("LLL: low alarm", 1.2, ORANGE), ("LLLL: low-low trip, pump stops", 0.8, RED)]
     s += f'<rect x="{x0 + 2}" y="{Y(H_T * 0.55):.1f}" width="{w - 4}" height="{ybot - Y(H_T * 0.55) - 2:.1f}" fill="{BLUE}" opacity=".18"/>'
+    nudge = {"HHLL: high-high trip": -4, "HLL: high alarm": 5, "LLL: low alarm": -4, "LLLL: low-low trip, pump stops": 5}
     for lab, h, col in levels:
         s += f'<line x1="{x0 - 14}" y1="{Y(h):.1f}" x2="{x0 + w + 14}" y2="{Y(h):.1f}" stroke="{col}" stroke-width="1.6" stroke-dasharray="6 4"/>'
-        s += txt(x0 + w + 22, Y(h) + 4, f"{lab}  {f1(h)} m", fill=col, fs=12.5, bold=True)
+        s += txt(x0 + w + 22, Y(h) + 4 + nudge.get(lab, 0), f"{lab}  {f1(h)} m", fill=col, fs=12.5, bold=True)
     s += txt(x0 + w / 2, ybot + 22, f"T-101: {f1(D_T)} m diameter × {f1(Hs)} m shell", "middle", NAVY, 13, True)
     s += f'<line x1="{x0 - 40}" y1="{Y(0.8):.1f}" x2="{x0 - 40}" y2="{Y(H_T * 0.85):.1f}" stroke="{GREEND}" stroke-width="2"/>'
     s += txt(x0 - 48, (Y(0.8) + Y(H_T * 0.85)) / 2, "working", "end", GREEND, 12.5, True)

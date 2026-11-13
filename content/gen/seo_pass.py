@@ -28,6 +28,9 @@ import html, json, os, re, subprocess, sys, datetime
 import assetver
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from seo_keywords import KEYWORDS
+from seo_titles import POST_TITLES
+for _slug, _t in POST_TITLES.items():
+    KEYWORDS.setdefault(f"post/{_slug}.html", {}).setdefault("title", _t)
 
 ROOT = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else ".")
 SITE = "https://www.chmltech.com"
