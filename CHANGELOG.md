@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.76 — 2026-11-13
+First release of the V8 audit plan: every 2021–2023 post is rewritten in our own words (no original wording kept).
+- **Rewritten posts keep their original publish date.** New `content/articles/original_dates.json`; `add_article.apply_dates()` keeps that date as `datePublished` and shows the article JSON's date as "Updated" on the page and as `dateModified`. Insights cards are placed by date (`listing_page`), not at the top; `refresh_article.py` always re-places the card. Original dates restored on the 13 posts rewritten in V4.66–V4.74 (for example 50 KPIs: Apr 1, 2023; Technical SEO: Mar 29, 2023). `legacy_fixes.py` no longer edits JSON-built posts.
+- **Seven merges rewritten at the old addresses** (`content/articles/v476_articles.py`): APIs for small businesses (3 posts retired into it; payback example; 1 figure), prompting AI models in 2026 (2 retired; reasoning models; 1 figure), the ten core values of process improvement (Part II retired; credits Boutros and Purdie), healthcare analytics and patient flow (CIHI June 2026 data; 1 figure), the marketing funnel with numbers (1 figure), scorecards and a meeting rhythm (1 figure), business process optimization (order example 6.8 h to 0.9 h; 1 figure).
+- **Two posts retired into existing articles with a new section** (`content/articles/v476_inplace.py`): *Identifying Non-Value Added Activities* into the Lean post ("three-question test"); *Revolutionizing Business Operations with AI* into the 5-steps AI post ("where AI helps and the data it needs").
+- Insights now lists 152 articles; chip counts and date order re-checked.
+
 ## V4.75 — 2026-11-13
 - **Contents list on long Insights articles.** New `content/gen/article_toc.py`, run by `seo_pass.py` on every build. Posts with at least 5 main sections and 1,200 words get a Contents card at the top of the right sidebar (sticky on desktop, scrolls inside the card if long) and a collapsible "Contents" box at the top of the article below 1,000 px. Built from the `<h2>` headings (ids added where missing; an `<h2 data-toc-label>` can set the sidebar wording). 35 articles have one.
 - **50 KPIs:** the in-text Contents section is removed; the sidebar keeps the KPI counts per section.
