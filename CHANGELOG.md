@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.90 — 2026-11-13
+- **The Art of the Deal vs The Art of War rewritten** as a two-book review (`post/the-art-of-the-deal-vs-the-art-of-war-…`, about 1,800 words): books at a glance, principle tables for each book, a nine-row head-to-head table, where they agree, a figure on when each book's advice fits, six lessons for small businesses, a negotiation preparation sheet, two worked examples (customer price-cut request; BC rent increase), criticisms and verdict. Reviews the books as business advice only. Original date kept (Apr 21, 2025). Source: `content/articles/v490_articles.py`.
+- Now filed under **Book Review** and Strategy: Book Review shows 9 articles.
+
 ## V4.89 — 2026-11-13
 - **Book covers on the reviews:** an "About the book" box at the top of the nine book reviews (Clear Thinking, Atomic Habits, The E-Myth Revisited, The ONE Thing, The Millionaire Fastlane, The Psychology of Money, The Nvidia Way, Predictable Revenue; both books on The Art of the Deal vs The Art of War): cover, title, author, publisher and year, link to the book page, credit line and alt text, plus schema.org Review/Book markup. Added on every build by `content/gen/book_box.py` (called from `seo_pass.py`); styles in `assets/css/styles.css`.
 - Covers supplied by Quak Foo Lee, resized to 450 px tall in `assets/media/books/`; where each came from is recorded in `assets/media/books/SOURCES.md`.
