@@ -107,6 +107,7 @@ def load():
         arts[slug] = dict(path=p, s=s, pub=pub.group(1) if pub else "", title=title,
                           desc=html.unescape(desc.group(1)) if desc else "", text=plain(re.sub(r"<p data-readnext>.*?</p>", "", m.group(2), flags=re.S)),
                           journal="j-paper" in s,
+                          built=os.path.exists(os.path.join(ROOT, "content", "articles", slug + ".json")),   # rewritten from JSON: not edited here (V4.76)
                           cats=re.findall(r'insights\.html#cat=([\w-]+)', s[:m.start()]))
     return arts
 
@@ -194,7 +195,7 @@ def main():
     rel = related(arts)
     nh = nr = 0
     for slug, a in arts.items():
-        if a["journal"] or not a["pub"] or a["pub"] >= CUTOFF: continue
+        if a["journal"] or a["built"] or not a["pub"] or a["pub"] >= CUTOFF: continue
         s = a["s"]; m = body_of(s)
         b, n = headings(m.group(2))
         # 2b. captions left behind when stock photos were dropped in the migration (V4.73)

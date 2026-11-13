@@ -45,18 +45,14 @@ def take_card(s, slug):
 
 
 def rewrite(slug):
-    a = json.load(open(os.path.join(A.ROOT, "content", "articles", slug + ".json"), encoding="utf-8"))
+    a = A.apply_dates(json.load(open(os.path.join(A.ROOT, "content", "articles", slug + ".json"), encoding="utf-8")))
     p = os.path.join(A.ROOT, "insights.html")
     s = assetver.strip(open(p, encoding="utf-8").read())
-    first = re.search(r'<div class="grid grid-3" data-items>\s*<article class="article".*?</article>', s, re.S).group(0)
-    if f'href="post/{slug}.html"' in first and A.card(a) in first:
-        print(f"{slug}: already at the top of Insights")
-    else:
-        s, cats = take_card(s, slug)
-        if cats: s = counts(s, cats, -1)
-        open(p, "w", encoding="utf-8").write(s)
+    s, cats = take_card(s, slug)                              # always re-placed: by date, not at the top (V4.76)
+    if cats: s = counts(s, cats, -1)
+    open(p, "w", encoding="utf-8").write(s)
     sys.argv = ["add_article.py", slug]
-    A.main()                                                  # writes the page and cover, adds the card on top
+    A.main()                                                  # writes the page and cover, adds the card in date order
     new = A.card(a, "../"); n = 0
     for f in pages():
         if f.endswith(os.sep + "insights.html"): continue

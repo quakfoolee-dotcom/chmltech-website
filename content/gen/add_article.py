@@ -13,7 +13,7 @@ SpaceGrotesk-Medium.ttf; without it the cover falls back to Inter or DejaVu.
 """
 import glob, html, json, os, re, sys
 import assetver
-from datetime import date
+from datetime import date, datetime
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 SITE = "https://www.chmltech.com"
@@ -62,6 +62,23 @@ def existing_card(slug, listing):
     return m.group(0).replace('src="assets/', 'src="../assets/').replace('href="post/', 'href="../post/') if m else ""
 
 
+_ORIG = None
+
+
+def apply_dates(a):
+    """An older post rewritten at its old address keeps its original publish date (content/articles/original_dates.json,
+    V4.76); the date in its JSON becomes the 'Updated' date. Returns a for chaining."""
+    global _ORIG
+    if _ORIG is None:
+        fp = os.path.join(ROOT, "content", "articles", "original_dates.json")
+        _ORIG = json.load(open(fp, encoding="utf-8")) if os.path.exists(fp) else {}
+    o = _ORIG.get(a["slug"])
+    if o and a["date"] != o:
+        a["updated"] = a.get("updated") or a["date"]
+        a["date"] = o
+    return a
+
+
 def post_page(a, listing, total):
     s = rd(f"post/{SHELL}.html")
     old = json.load(open(os.path.join(ROOT, "content", "articles", SHELL + ".json"), encoding="utf-8"))
@@ -81,13 +98,15 @@ def post_page(a, listing, total):
         head = head.replace('</div>\n    <h1', '</div>\n    ' + HERO_SERIES + E(series_label(a)) + '</p>\n    <h1', 1)
         assert HERO_SERIES in head
     head = re.sub(r'<p class="post-meta">.*?</p>',
-                  f'<p class="post-meta"><span>{E(a["author"])}</span><span>{nice_date(a["date"])}</span><span>{a["read"]}</span></p>', head, count=1)
+                  f'<p class="post-meta"><span>{E(a["author"])}</span><span>{nice_date(a["date"])}</span>'
+                  + (f'<span>Updated {nice_date(a["updated"])}</span>' if a.get("updated") else "") + f'<span>{a["read"]}</span></p>', head, count=1)
     tail = re.sub(r'(<p class="eyebrow">Tags</p><div class="tags">).*?(</div>)',
                   lambda m: m.group(1) + "".join(f"<span>{E(t)}</span>" for t in a["tags"]) + m.group(2), tail, count=1)
     rel = "".join(existing_card(sl, listing) for sl in a.get("related", []))
     tail = re.sub(r'(<div class="grid grid-3">).*?(</div>\n</div></section>\n<script type="application/ld\+json">)',
                   lambda m: m.group(1) + rel + m.group(2), tail, count=1, flags=re.S)
     ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": a["title"], "datePublished": a["date"],
+          **({"dateModified": a["updated"]} if a.get("updated") else {}),
           "author": {"@type": "Person", "name": a["author"]}, "publisher": {"@type": "Organization", "name": "Chmltech Ltd."},
           "mainEntityOfPage": f"{SITE}/post/{a['slug']}", "description": a["desc"]}
     tail = re.sub(r'<script type="application/ld\+json">.*?</script>',
@@ -111,7 +130,17 @@ def listing_page(a):
     s = bump(s, r'(<p class="lead">)(\d+)( articles on)')
     s = bump(s, r'(placeholder="Search )(\d+)( articles")')
     s = bump(s, r'(data-count aria-live="polite">)(\d+)( articles<)')
-    s = s.replace('<div class="grid grid-3" data-items>\n  ', '<div class="grid grid-3" data-items>\n  ' + card(a), 1)
+    # newest first: place the card before the first card with an older date (an old post rewritten keeps its place)
+    grid = s.index('<div class="grid grid-3" data-items>')
+    at = None
+    for m in re.finditer(r'<article class="article".*?<p class="meta">([A-Z][a-z]{2}) (\d+), (\d{4})', s[grid:], re.S):
+        d = datetime.strptime(" ".join(m.groups()), "%b %d %Y").strftime("%Y-%m-%d")
+        if d < a["date"]:
+            at = grid + m.start(); break
+    if at is None:
+        s = s.replace('<div class="grid grid-3" data-items>\n  ', '<div class="grid grid-3" data-items>\n  ' + card(a), 1)
+    else:
+        s = s[:at] + card(a) + s[at:]
     return s, int(re.search(r">All \((\d+)\)<", s).group(1)), True
 
 
@@ -123,7 +152,7 @@ def cover(a, fonts=None):
 def main():
     slug = sys.argv[1]
     fonts = sys.argv[sys.argv.index("--fonts") + 1] if "--fonts" in sys.argv else None
-    a = json.load(open(os.path.join(ROOT, "content", "articles", slug + ".json"), encoding="utf-8"))
+    a = apply_dates(json.load(open(os.path.join(ROOT, "content", "articles", slug + ".json"), encoding="utf-8")))
     listing, total, added = listing_page(a)
     post_page(a, rd("insights.html"), total)
     cover(a, fonts)
