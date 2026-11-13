@@ -269,7 +269,10 @@ def top():
 <li><strong>Check the local partner.</strong> A capable partner in your province with experience in your industry matters more than small feature differences.</li>
 <li><strong>Model five years of cost,</strong> including your own staff time, for two or three finalists, and run the same scripted demo for each using your own data.</li>
 </ol>
-<p>Below about 20 people, a full ERP is often premature. A good accounting package with an inventory or MRP add-on may be the better first step.</p>
+<h2>Before a full ERP: all-in-one suites for very small businesses</h2>
+<p>Below about 20 to 25 people, a full ERP is often premature. A suite of connected business apps, or a good accounting package with an inventory or MRP add-on, may be the better first step.</p>
+<p><strong>Zoho One</strong> is the leading example. It bundles more than 50 Zoho apps, including Books (accounting), Inventory, CRM, People (HR) and Projects, under one licence: US$37 per employee per month if every employee is licensed, or US$90 per user per month if only some are, both billed annually. Zoho has hosted Canadian customers' data in its own Toronto and Montreal data centres since November 2023, which matters to firms in health care, legal and financial services that must keep data in Canada.</p>
+<p>It fits service, retail and light distribution businesses that mainly need accounting, CRM and simple inventory. It is not a manufacturing ERP: Zoho Inventory handles bills of materials and work orders but has no MRP with capacity scheduling and no shop-floor execution. Businesses that grow into several legal entities, heavy inventory or real production usually move to one of the systems above, so plan the data structure with that move in mind.</p>
 """ + src([
         ("TechTarget: Evaluating today's 10 leading ERP software vendors", "https://www.techtarget.com/enterprise-software/feature/Evaluating-todays-10-leading-ERP-software-vendors"),
         ("ERP Research: SAP Business One (target market)", "https://erpresearch.com/en-us/sap-business-one"),
@@ -285,6 +288,9 @@ def top():
         ("ERP Research: Is Infor CloudSuite good for mid-market companies?", "https://www.erpresearch.com/en-us/blog/infor-erp-mid-market"),
         ("ERP Research: Acumatica vs Sage Intacct", "https://www.erpresearch.com/compare/acumatica-vs-sage-intacct"),
         ("Dassault Systèmes: Completion of the IQMS acquisition (January 2019)", "https://www.3ds.com/newsroom/news-releases/dassault-systemes-completes-iqms-acquisition"),
+        ("Aaxonix: Zoho One pricing 2026", "https://aaxonix.com/resources/?p=2582"),
+        ("Business Wire: Zoho launches data centres in Canada (November 2023)", "https://www.businesswire.com/news/home/20231102557441/en/Zoho-Launches-New-Data-Centers-in-Canada-Offering-Local-Businesses-Fast-Reliable-and-Secure-Access-to-their-Data"),
+        ("Ecosire: Odoo Enterprise vs Zoho One (manufacturing and inventory depth)", "https://ecosire.com/tools/erp-vs-erp/odoo-vs-zoho"),
     ]) + rel([
         (ERP, "Choosing and implementing an ERP for a small or mid-sized business"),
         ("understanding-erp-vs-mrp-a-comprehensive-comparison-of-manufacturing-systems", "ERP vs MRP"),
@@ -292,7 +298,7 @@ def top():
     ])
     return dict(slug=TOP, title="10 ERP Systems for Small and Mid-Sized Businesses in 2026, Grouped by Company Size",
                 desc="Ten ERP systems for Canadian SMEs in 2026, split into small and mid-sized groups: typical company size, fit, pricing model and published prices.",
-                cats=["erp"], tags=["ERP", "Business Central", "SAP Business One", "Odoo", "MRPeasy", "ERPNext", "NetSuite", "Acumatica", "ERP pricing", "small business"],
+                cats=["erp"], tags=["ERP", "Business Central", "SAP Business One", "Odoo", "MRPeasy", "ERPNext", "Zoho One", "NetSuite", "Acumatica", "ERP pricing", "small business"],
                 body=body.strip(), date=DATE, author="Quak Foo Lee", read="5 min read", cover_label="ERP",
                 related=[ERP, "understanding-erp-vs-mrp-a-comprehensive-comparison-of-manufacturing-systems",
                          "top-10-inventory-management-software-a-comprehensive-comparison-guide"])
