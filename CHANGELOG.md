@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.80 — 2026-11-13
+Last release for 2021–2023 posts under the V8 audit plan: every post from that period is now rewritten, merged or retired.
+- **Manufacturing strategy** (`customization-standardization-and-flexibility-…`): MTS, ATO/CTO, MTO, ETO compared; decoupling point figure; pump example; signs the strategy no longer fits; how to change.
+- **Shop-floor communication** (`10-effective-communication-strategies-for-manufacturing-companies`): tiered meetings figure, shift handover checklist, visual management, tier 1 board, moulding example, mistakes.
+- **Growing a small online store** (`10-proven-ways-to-boost-traffic-to-your-ecommerce-website`): channels compared, product pages, conversion basics, traffic-versus-conversion example, measurement, repeat customers (CASL), 90-day plan.
+- **Gap analysis** (`bridging-the-gap-…`): six-step figure, uses, worked operations example, tools, link to digital adoption plans.
+- **Retired:** the ISO 9001:2015 overview into *ISO 9001:2026: what changed from 2015*; *Marketing 4.0 and the customer journey* into the marketing funnel post (new 5A section).
+- Insights now lists 144 articles; chip counts and date order re-checked. Sources: `content/articles/v480_articles.py`, `content/articles/v480_extra.py`.
+
 ## V4.79 — 2026-11-13
 Fourth release of the V8 audit plan: six 2022–2023 posts rewritten or retired.
 - **Lead-to-cash** (`introduction-to-leads-to-cash-for-saas-self-serve-model`): rewritten for any business: seven-step figure, leaks and fixes, measures, order-to-cash cash-flow example, self-serve SaaS section, systems.
