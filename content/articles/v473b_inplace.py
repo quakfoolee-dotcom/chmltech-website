@@ -34,8 +34,8 @@ MODELS = [
     ("Agile change", "Team", "Small, frequent changes with feedback", "Digital and software change; continuous improvement", "Needs a stable direction to iterate toward"),
 ]
 
-AI_SECTION = f"""<h2 id="ai-and-data">Change in AI and data projects</h2>
-<p>AI tools and data projects fail more often from adoption than from technology. People worry about being replaced, do not trust outputs they cannot check, or simply carry on with the spreadsheet they know. The models above still apply; these five are the most useful for AI and data work, and two of them, the McKinsey Influence Model and Nudge theory, are not in the list of ten.</p>
+AI_SECTION = f"""<h2 id="ai-and-data">Change in AI, data and digital technology projects</h2>
+<p>New software, AI tools and data projects fail more often from adoption than from technology. The same is true of an ERP, CRM or new scheduling system: the software works, but people keep their old spreadsheets. People worry about being replaced, do not trust outputs they cannot check, or simply carry on with the spreadsheet they know. The models above still apply; these five are the most useful for AI and data work, and two of them, the McKinsey Influence Model and Nudge theory, are not in the list of ten.</p>
 {table(["Model", "Use it to", "What it looks like in an AI or data project"], [
     ("ADKAR", "Build each person's readiness", "Explain the business reason; show that the tool removes tedious work rather than jobs; train on real cases; recognise people who use it well"),
     ("Kotter's 8 steps", "Move from pilot to company-wide use", "A sponsor and a small guiding team, one or two quick wins with measured results, then process and policy changes that make the new way normal"),
@@ -90,19 +90,19 @@ def toolkit(b):
     # 2. one extra contents entry for the new section
     b = re.sub(r'<li><a href="#ai-and-data">[^<]*</a></li>', "", b)
     b = b.replace('Agile Change Management Model </a> </li></ol>',
-                  'Agile Change Management Model </a> </li><li><a href="#ai-and-data">Change in AI and data projects</a></li></ol>', 1)
+                  'Agile Change Management Model </a> </li><li><a href="#ai-and-data">Change in AI, data and digital technology projects</a></li></ol>', 1)
     # 3. comparison table before model 1, AI section before the conclusion
     cmp_html = ("<h2>The ten models at a glance</h2>\n<p>Use this table to shortlist one or two models, then read the detail below. "
                 "Most real projects combine an organization-level model, such as Kotter, with an individual-level one, such as ADKAR.</p>\n"
                 + table(["Model", "Focus", "Core idea", "Best for", "Watch for"], MODELS) + "\n")
     b = put(b, "compare", cmp_html, r'<h2 id="model-1">')
-    b = put(b, "ai", AI_SECTION, r'<h2>Conclusion</h2>')
+    b = put(b, "ai", AI_SECTION, r'<h2(?: id="[^"]*")?>Conclusion</h2>')
     return b
 
 
 def qms(b):
     b = re.sub(r'<figcaption>[^<]*</figcaption>', "", b)        # captions left behind when the stock photos were removed
-    return put(b, "iso", QMS_SECTION, r'<h2>Driving Operational Excellence')
+    return put(b, "iso", QMS_SECTION, r'<h2(?: id="[^"]*")?>Driving Operational Excellence')
 
 
 if __name__ == "__main__":

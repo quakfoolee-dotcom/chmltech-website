@@ -415,6 +415,7 @@ SCORE = [("New quotes sent", "Sales lead", 12, 14, True), ("Quote win rate (4-we
 
 
 def com():
+    from v479_articles import COM_SECTION   # V4.79: absorbs the alignment and OPS posts
     rows = [(m, o, str(t), str(a), "On track" if ok else "<strong>Off track</strong>") for m, o, t, a, ok in SCORE]
     body = f"""
 <p>Most communication problems in a growing business are not about people talking too little. They come from too many things being tracked in too many places, so nobody is sure what matters this week or whether the team is on track. This article replaces two earlier ones on this site, on communicating goals and performance and on closing team communication gaps, with one practical approach: a short list of goals, a weekly scorecard, and a regular meeting rhythm.</p>
@@ -434,7 +435,7 @@ def com():
 <li>Keep one source of truth: one scorecard, one issues list, one place for priorities.</li>
 <li>Celebrate finished priorities at the end of each quarter.</li>
 </ul>
-<h2>Common mistakes</h2>
+{COM_SECTION}<h2>Common mistakes</h2>
 <ul>
 <li>Measures nobody controls, or that change only monthly.</li>
 <li>Meetings that report status but never solve anything.</li>
