@@ -97,6 +97,17 @@ def clear():
 <li><strong>Learn:</strong> the journal entry is reviewed after 90 days.</li>
 </ul>
 <p>The example is illustrative; the point is that each default is named, and a reversible option with a stop signal is chosen over a dramatic one.</p>
+<h2>Worked example from daily life: replacing the family car</h2>
+<p>The same defaults show up at home. A couple's eight-year-old car needs a $2,500 repair. A neighbour has just bought a new SUV (social), the dealer offers a discount that ends on Saturday (emotion), one partner has always driven the same brand (ego and inertia), and the easiest path is to sign while at the dealership. Using the book's process:</p>
+<ul>
+<li><strong>Define:</strong> the problem is not "we need a new car" but "we need reliable transport for the next few years at a cost we are comfortable with".</li>
+<li><strong>Explore:</strong> repair the current car; buy a two- or three-year-old car; buy new; or go down to one car and use transit or car-sharing for the rest.</li>
+<li><strong>Evaluate:</strong> ask "and then what?" for each. A new car means a monthly payment for years and higher insurance; the repair buys perhaps two more years; a used car sits in between. Compare the total cost over five years, not the monthly payment.</li>
+<li><strong>Safeguard:</strong> a household rule that no purchase over $5,000 is signed on the day it is first discussed. The Saturday deadline is treated as the dealer's problem, not theirs.</li>
+<li><strong>Do it, with a margin:</strong> they repair the car, put the monthly amount a new-car payment would have cost into savings, and set a kill signal: if the car needs another repair over $1,500 in the next year, they buy used with the money set aside.</li>
+<li><strong>Learn:</strong> they write three lines in a notebook with the date, the reasons and the kill signal, and look at it when the next repair bill arrives.</li>
+</ul>
+<p>The figures are illustrative. Nothing here needs special tools: naming the defaults, sleeping on it, and agreeing in advance what would change the decision is most of the benefit.</p>
 <h2>Who should read it</h2>
 <p>Owners, managers and anyone who makes frequent decisions under time pressure. It suits readers who want a framework they can remember rather than a textbook on cognitive bias. Readers who already follow Farnam Street closely may prefer to skim the first half and read Parts 3 and 4 carefully.</p>
 <h2>Verdict</h2>
