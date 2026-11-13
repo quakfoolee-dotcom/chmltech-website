@@ -105,7 +105,7 @@ def load():
         title = html.unescape(re.search(r"<title>(.*?)</title>", s, re.S).group(1)).replace(" | Chmltech Ltd.", "")
         desc = re.search(r'name="description" content="([^"]*)', s)
         arts[slug] = dict(path=p, s=s, pub=pub.group(1) if pub else "", title=title,
-                          desc=html.unescape(desc.group(1)) if desc else "", text=plain(re.sub(r"<p data-readnext>.*?</p>", "", m.group(2), flags=re.S)),
+                          desc=html.unescape(desc.group(1)) if desc else "", text=plain(re.sub(r'<p data-readnext>.*?</p>|<details class="a-toc-m".*?</details>', "", m.group(2), flags=re.S)),
                           journal="j-paper" in s,
                           built=os.path.exists(os.path.join(ROOT, "content", "articles", slug + ".json")),   # rewritten from JSON: not edited here (V4.76)
                           cats=re.findall(r'insights\.html#cat=([\w-]+)', s[:m.start()]))

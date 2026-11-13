@@ -15,7 +15,7 @@ import glob, html, os, re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 MIN_SECTIONS = 5
-MIN_WORDS = 1200          # shorter posts are quick to scroll and do not need one
+MIN_WORDS = 1000          # shorter posts are quick to scroll and do not need one
 SKIP = {"contents", "related reading", "related articles"}          # never listed
 TAIL = {"sources", "references", "list of references"}             # listed, but not counted toward MIN_SECTIONS
 H2 = re.compile(r'<h2(\s[^>]*)?>(.*?)</h2>', re.S)

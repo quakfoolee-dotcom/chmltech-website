@@ -57,20 +57,30 @@
     <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
     <div class="tags"><a href="../insights.html#cat=operational-efficiency">Operational Efficiency</a></div>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Production Planning and Scheduling for Manufacturers: Planning Levels and Scheduling Rules</h1>
-    <p class="post-meta"><span>Quak Foo Lee</span><span>Sep 2, 2021</span><span>Updated Nov 13, 2026</span><span>6 min read</span></p>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Sep 2, 2021</span><span>Updated Nov 13, 2026</span><span>5 min read</span></p>
   </div>
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#four-levels-of-planning">Four levels of planning</a></li><li><a href="#make-to-stock-make-to-order-and-engineer-to-order">Make-to-stock, make-to-order and engineer-to-order</a></li><li><a href="#inputs-a-schedule-needs">Inputs a schedule needs</a></li><li><a href="#checking-load-against-capacity">Checking load against capacity</a></li><li><a href="#forward-and-backward-scheduling">Forward and backward scheduling</a></li><li><a href="#worked-example-which-job-goes-first">Worked example: which job goes first?</a></li><li><a href="#set-up-and-sequencing">Set-up and sequencing</a></li><li><a href="#tools-from-whiteboard-to-software">Tools: from whiteboard to software</a></li><li><a href="#a-weekly-planning-meeting">A weekly planning meeting</a></li><li><a href="#making-the-schedule-stick">Making the schedule stick</a></li><li><a href="#handling-rush-orders">Handling rush orders</a></li><li><a href="#measures-to-track">Measures to track</a></li></ol></details>
+
+
+
+
 <p>Production planning decides what to make and when; scheduling decides the order of jobs on each machine or line, day by day. Done well, they let a manufacturer promise realistic dates, keep inventory down and avoid the daily firefight of expediting. This article, first published in 2021, has been rewritten with the planning levels most manufacturers use and a worked example comparing common scheduling rules.</p>
-<h2>Four levels of planning</h2>
+<h2 id="four-levels-of-planning">Four levels of planning</h2>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Four levels of production planning, from long to short horizon. Sales and operations plan: monthly, 12 to 18 months, volumes by product family and staffing. Master production schedule: weekly, how many of each end product and when. Material requirements plan: weekly or daily, parts and materials to buy or make. Shop floor schedule: daily, which job runs on which machine and in what order." viewBox="0 0 742 214" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><rect x="14" y="12" width="250" height="40" rx="8" fill="#0B6FA4"/><text x="139" y="37" text-anchor="middle" font-size="13" fill="#fff" font-weight="600">Sales and operations plan</text><rect x="274" y="12" width="454" height="40" rx="8" fill="#E6F0F7" stroke="#0B6FA4"/><text x="288" y="37" text-anchor="start" font-size="12.3" fill="#0B2A5A">Monthly, 12–18 months: volumes by product family; staffing</text><rect x="32" y="62" width="250" height="40" rx="8" fill="#4D7F12"/><text x="157" y="87" text-anchor="middle" font-size="13" fill="#fff" font-weight="600">Master production schedule</text><rect x="292" y="62" width="436" height="40" rx="8" fill="#E4F1D3" stroke="#4D7F12"/><text x="306" y="87" text-anchor="start" font-size="12.3" fill="#0B2A5A">Weekly: how many of each end product, and when</text><rect x="50" y="112" width="250" height="40" rx="8" fill="#5B5BD0"/><text x="175" y="137" text-anchor="middle" font-size="13" fill="#fff" font-weight="600">Material requirements plan</text><rect x="310" y="112" width="418" height="40" rx="8" fill="#E7E7F8" stroke="#5B5BD0"/><text x="324" y="137" text-anchor="start" font-size="12.3" fill="#0B2A5A">Weekly or daily: parts and materials to buy or make</text><rect x="68" y="162" width="250" height="40" rx="8" fill="#C27712"/><text x="193" y="187" text-anchor="middle" font-size="13" fill="#fff" font-weight="600">Shop floor schedule</text><rect x="328" y="162" width="400" height="40" rx="8" fill="#FBEBD3" stroke="#C27712"/><text x="342" y="187" text-anchor="start" font-size="12.3" fill="#0B2A5A">Daily: which job runs on which machine, in what order</text></svg></div>
 <figcaption>Figure 1. Each level sets the limits for the one below it.</figcaption>
 </figure>
 <p>Small manufacturers often skip straight to the shop floor schedule. That works until demand changes, and then every day becomes a re-plan. Even a simple monthly <a href="../post/sales-and-operations-planning-for-small-manufacturers.html">sales and operations plan</a> and a weekly master schedule make the daily schedule far calmer.</p>
-<h2>Inputs a schedule needs</h2>
+<h2 id="make-to-stock-make-to-order-and-engineer-to-order">Make-to-stock, make-to-order and engineer-to-order</h2>
+<table>
+<tr><th>Strategy</th><th>What triggers production</th><th>Planning focus</th></tr>
+<tr><td>Make-to-stock</td><td>Forecast and stock levels</td><td>Forecast accuracy, finished goods safety stock, batch sizes</td></tr><tr><td>Make-to-order</td><td>A customer order for a standard product</td><td>Quoted lead times, component availability, capacity</td></tr><tr><td>Assemble-to-order</td><td>A customer order, built from stocked sub-assemblies</td><td>Sub-assembly stock and final assembly capacity</td></tr><tr><td>Engineer-to-order</td><td>A customer order that needs design work</td><td>Engineering capacity, long-lead materials, project milestones</td></tr>
+</table>
+<p>Many small manufacturers run a mix. Plan each product family according to its strategy rather than forcing one approach on everything.</p>
+<h2 id="inputs-a-schedule-needs">Inputs a schedule needs</h2>
 <ul>
 <li><strong>Orders and forecasts,</strong> with due dates the customer actually needs.</li>
 <li><strong>Routings:</strong> the steps each job goes through and the time each takes, including set-up.</li>
@@ -78,23 +88,49 @@
 <li><strong>Material availability,</strong> from the material plan and purchasing. See <a href="../post/demystifying-mrp-a-comprehensive-guide-to-the-material-requirements-planning-process.html">the MRP guide</a>.</li>
 <li><strong>The constraint:</strong> schedule the bottleneck first and the other steps around it. <a href="../post/things-you-need-to-know-about-the-theory-of-constraints-toc.html">The theory of constraints</a> explains why.</li>
 </ul>
-<h2>Worked example: which job goes first?</h2>
+<h2 id="checking-load-against-capacity">Checking load against capacity</h2>
+<p>Before sequencing jobs, check that next week's work fits. The table compares the hours of work scheduled at each work centre with the hours available; the figures are illustrative.</p>
+<table>
+<tr><th>Work centre</th><th>Hours of work</th><th>Hours available</th><th>Load</th></tr>
+<tr><td>Laser cutting</td><td>32</td><td>37.5</td><td>85%</td></tr><tr><td>Press brake</td><td>44</td><td>37.5</td><td><strong>117%</strong></td></tr><tr><td>Welding</td><td>60</td><td>75</td><td>80%</td></tr><tr><td>Paint</td><td>20</td><td>37.5</td><td>53%</td></tr>
+</table>
+<p>The press brake is loaded at 117%, so the schedule cannot be met as it stands. The options are overtime at the press brake, moving some jobs a week later, or splitting jobs so the most urgent part ships on time. Planning with finite capacity like this avoids promising dates the shop cannot meet.</p>
+<h2 id="forward-and-backward-scheduling">Forward and backward scheduling</h2>
+<p><strong>Forward scheduling</strong> starts each job as soon as possible and calculates when it will finish; it shows the earliest date you can promise. <strong>Backward scheduling</strong> starts from the due date and works back through the routing to find the latest start; it keeps inventory and work in progress low but leaves no slack. Many shops schedule backward from due dates and then check the result forward against capacity.</p>
+<h2 id="worked-example-which-job-goes-first">Worked example: which job goes first?</h2>
 <p>Five jobs wait for one machine. Job A takes 6 days and is due on day 8; B takes 2 days, due day 6; C takes 8, due day 18; D takes 3, due day 15; E takes 9, due day 23. Three common rules give different results.</p>
 <table>
 <tr><th>Rule</th><th>Order</th><th>Average days in the system</th><th>Jobs late</th><th>Total days late</th><th>Worst lateness (days)</th></tr>
 <tr><td>First come, first served</td><td>A → B → C → D → E</td><td>15.4</td><td>3 of 5</td><td>11</td><td>5</td></tr><tr><td>Shortest job first</td><td>B → D → A → C → E</td><td>13.0</td><td>3 of 5</td><td>9</td><td>5</td></tr><tr><td>Earliest due date</td><td>B → A → D → C → E</td><td>13.6</td><td>2 of 5</td><td>6</td><td>5</td></tr>
 </table>
 <p>Shortest job first gets jobs out of the door fastest on average, which keeps work in progress low. Earliest due date makes the fewest customers wait past their date. First come, first served feels fair but gives the longest average time and the most total lateness here. In practice many shops use earliest due date as the default, then adjust for set-up: running similar jobs together can save more time than any sequencing rule.</p>
-<h2>Making the schedule stick</h2>
+<h2 id="set-up-and-sequencing">Set-up and sequencing</h2>
+<p>Where changeovers are long, the order of jobs matters as much as the rule. Grouping jobs by material, colour, thickness or tooling into families, and running light-to-dark or thin-to-thick sequences, can save hours a week. Reducing the changeover itself, through a <a href="../post/perform-kaizen-event.html">set-up reduction Kaizen</a>, makes smaller batches and shorter lead times affordable.</p>
+<h2 id="tools-from-whiteboard-to-software">Tools: from whiteboard to software</h2>
+<table>
+<tr><th>Tool</th><th>Fits</th><th>Limits</th></tr>
+<tr><td>Whiteboard or spreadsheet</td><td>One or two work centres, a few dozen jobs a week</td><td>Hard to keep current; no link to materials</td></tr><tr><td>MRP or ERP scheduling</td><td>Material-driven planning, standard routings</td><td>Often assumes unlimited capacity unless set up for it</td></tr><tr><td>Advanced planning and scheduling (APS)</td><td>Many work centres, complex set-ups, frequent changes</td><td>Needs accurate routings and times; more cost and set-up</td></tr>
+</table>
+<h2 id="a-weekly-planning-meeting">A weekly planning meeting</h2>
+<p>Thirty minutes each week with sales, production, purchasing and the planner keeps the schedule real: review last week's adherence and misses, confirm next week's load against capacity, flag material shortages, and agree any priority changes before the frozen window starts.</p>
+<h2 id="making-the-schedule-stick">Making the schedule stick</h2>
 <ol>
 <li><strong>Freeze the next few days.</strong> Changes inside the frozen window need the production manager's approval.</li>
 <li><strong>Publish one schedule</strong> that everyone works from, on a board or screen at the line.</li>
 <li><strong>Track schedule adherence</strong> (jobs completed on the planned day) and on-time delivery weekly.</li>
 <li><strong>Review misses for causes:</strong> material late, machine down, wrong routing time. Fix the cause, not just the date.</li>
 </ol>
+<h2 id="handling-rush-orders">Handling rush orders</h2>
+<p>Every shop gets urgent orders. The damage comes from accepting them without seeing what they push out. A simple rule helps: before saying yes, check the load at the constraint for the days affected, name the jobs that will move, and get agreement from whoever owns those customers. Some shops keep a small amount of capacity unscheduled each week, perhaps five to ten percent at the constraint, for genuine rush work. If rush orders are routine, the real problem is usually quoted lead times that are too long or a forecast that misses predictable demand.</p>
+<h2 id="measures-to-track">Measures to track</h2>
+<table>
+<tr><th>Measure</th><th>What it tells you</th></tr>
+<tr><td>Schedule adherence</td><td>Share of jobs completed on the planned day; the discipline of the plan</td></tr><tr><td>On-time delivery</td><td>Share of orders shipped by the promised date; what the customer sees</td></tr><tr><td>Work in progress</td><td>Jobs or value started but not finished; high WIP means long lead times</td></tr><tr><td>Manufacturing lead time</td><td>Days from release to completion</td></tr><tr><td>Capacity utilization at the constraint</td><td>Whether the bottleneck is fully used</td></tr>
+</table>
 <h2>Related reading</h2><ul><li><a href="../post/sales-and-operations-planning-for-small-manufacturers.html">Sales and operations planning for small manufacturers</a></li><li><a href="../post/demystifying-mrp-a-comprehensive-guide-to-the-material-requirements-planning-process.html">Material requirements planning (MRP), explained</a></li><li><a href="../post/things-you-need-to-know-about-the-theory-of-constraints-toc.html">The theory of constraints</a></li></ul>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#four-levels-of-planning">Four levels of planning</a></li><li><a href="#make-to-stock-make-to-order-and-engineer-to-order">Make-to-stock, make-to-order and engineer-to-order</a></li><li><a href="#inputs-a-schedule-needs">Inputs a schedule needs</a></li><li><a href="#checking-load-against-capacity">Checking load against capacity</a></li><li><a href="#forward-and-backward-scheduling">Forward and backward scheduling</a></li><li><a href="#worked-example-which-job-goes-first">Worked example: which job goes first?</a></li><li><a href="#set-up-and-sequencing">Set-up and sequencing</a></li><li><a href="#tools-from-whiteboard-to-software">Tools: from whiteboard to software</a></li><li><a href="#a-weekly-planning-meeting">A weekly planning meeting</a></li><li><a href="#making-the-schedule-stick">Making the schedule stick</a></li><li><a href="#handling-rush-orders">Handling rush orders</a></li><li><a href="#measures-to-track">Measures to track</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>production planning</span><span>production scheduling</span><span>master production schedule</span><span>S&amp;OP</span><span>scheduling rules</span><span>manufacturing</span></div></div>
   </aside>

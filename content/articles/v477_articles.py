@@ -524,7 +524,11 @@ if __name__ == "__main__":
     od = json.load(open(op, encoding="utf-8")); od.update(ORIGINAL)
     note = od.pop("_note"); json.dump({"_note": note, **dict(sorted(od.items()))}, open(op, "w", encoding="utf-8"), indent=1)
     m, st, lg = mrp()
+    from v477_extra import expand
     for a in (pi(), kz(), s5(), toc(), pp(), m, evm(), ss()):
+        a = expand(a)                                         # long-form sections (V4.77 owner's request)
+        words = len(re.sub(r"<svg.*?</svg>|<[^>]+>", " ", a["body"], flags=re.S).split())
+        a["read"] = f"{max(4, round(words / 200))} min read"
         json.dump(a, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(a["slug"][:50], len(re.sub(r"<svg.*?</svg>|<[^>]+>", " ", a["body"], flags=re.S).split()), "words")
     for n, o in RULES: print(n, sched(o)[1:])
