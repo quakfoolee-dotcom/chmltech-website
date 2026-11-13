@@ -44,6 +44,9 @@ def main():
 
     def sub_page(path, title, desc, body):
         h = head.replace(E(old_title), E(title)).replace(old_title, E(title)).replace(E(old["meta"]), desc).replace(old["meta"], desc).replace(SHELL, slug)
+        # page links in the body are written root-relative; this page lives in post/, so they need "../" (V4.63 fix:
+        # the breadcrumb Home / Insights / Chmltech Online Journal links went to post/index.html and gave a 404)
+        body = re.sub(r'href="(?!\.\./|https?:|#|mailto:|/)([A-Za-z0-9_-]+\.html[^"]*)"', r'href="../\1"', body)
         wr(path, h + '<main id="main">\n' + body + "\n</main>" + tail)
 
     a = dict(slug=slug, title=re.sub("<[^>]+>", "", d["title"]), desc=d["meta"], tags=d["keywords"], date=d["published"][:10],
@@ -78,6 +81,8 @@ def main():
         sm = rd("sitemap.xml"); loc = f"  <url><loc>{SITE}/post/{slug}</loc></url>\n"
         if loc not in sm:
             i = sm.index(f"  <url><loc>{SITE}/post/"); wr("sitemap.xml", sm[:i] + loc + sm[i:])
+    import covers   # cover in the subject's motif, footer naming the volume and issue (V4.63)
+    covers.cover(slug, a["title"], a["cats"], jp.JOURNAL, f"Vol. {d['volume']}, Issue {d['issue']}")
     print(f"{slug}: page written, listing {'updated' if added else 'unchanged'} ({total} articles)")
 
 

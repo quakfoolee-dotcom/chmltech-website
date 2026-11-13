@@ -113,49 +113,10 @@ def listing_page(a):
     return s, int(re.search(r">All \((\d+)\)<", s).group(1)), True
 
 
-def cover(a, fonts):
-    from PIL import Image, ImageDraw, ImageFont
-    def font(names, size):
-        for n in names:
-            for d in [fonts, "/usr/share/fonts/opentype/inter", "/usr/share/fonts/truetype/dejavu"]:
-                if d and os.path.exists(os.path.join(d, n)): return ImageFont.truetype(os.path.join(d, n), size)
-        return ImageFont.load_default(size)
-    K = 2; W, H = 1200 * K, 675 * K
-    im = Image.new("RGB", (W, H), (11, 42, 89)); d = ImageDraw.Draw(im, "RGBA")
-    for gx in range(706, 1200, 34):                       # dot grid, brighter toward the ring centre
-        for gy in range(28, 675, 34):
-            r2 = ((gx - 995) ** 2 + (gy - 338) ** 2) ** 0.5
-            al = max(0.0, 1 - r2 / 330)
-            rad = (1.2 + 2.6 * al) * K
-            d.ellipse([gx * K - rad, gy * K - rad, gx * K + rad, gy * K + rad], fill=(10, 111, 164, int(40 + 150 * al)))
-    d.ellipse([(995 - 207) * K, (338 - 207) * K, (995 + 207) * K, (338 + 207) * K], outline=(141, 198, 63, 120), width=7 * K)
-    d.rounded_rectangle([80 * K, 64 * K, 152 * K, 70 * K], radius=3 * K, fill=(141, 198, 63, 255))
-    eye = font(["SpaceGrotesk-Medium.ttf", "Inter-Medium.otf", "DejaVuSans.ttf"], 22 * K)
-    x = 80 * K
-    for ch in a.get("cover_label", CAT_NAMES[a["cats"][0]]).upper():
-        d.text((x, 198 * K), ch, font=eye, fill=(141, 198, 63, 255)); x += d.textlength(ch, font=eye) + 4 * K
-    size = 62
-    while True:                                            # shrink the title until it fits in five lines
-        f = font(["SpaceGrotesk-SemiBold.ttf", "Inter-SemiBold.otf", "DejaVuSans-Bold.ttf"], size * K)
-        lines, cur = [], ""
-        for w in a["title"].split():
-            t = (cur + " " + w).strip()
-            if d.textlength(t, font=f) <= 640 * K: cur = t
-            else: lines.append(cur); cur = w
-        lines.append(cur)
-        if len(lines) <= 5 or size <= 40: break
-        size -= 4
-    y = 248 * K
-    for ln in lines:
-        d.text((80 * K, y), ln, font=f, fill=(255, 255, 255, 255)); y += int(size * 1.16) * K
-    mark = Image.open(os.path.join(ROOT, "assets/img/chmltech-mark.png")).convert("RGBA").resize((46 * K, 46 * K), Image.LANCZOS)
-    im.paste(mark, (80 * K, 578 * K), mark)
-    d = ImageDraw.Draw(im, "RGBA")
-    d.text((140 * K, 587 * K), "Chmltech Insights", font=font(["SpaceGrotesk-SemiBold.ttf", "Inter-SemiBold.otf", "DejaVuSans-Bold.ttf"], 23 * K), fill=(214, 224, 240, 255))
-    os.makedirs(os.path.join(ROOT, "assets/media/covers/thumbs"), exist_ok=True)
-    im.resize((1200, 675), Image.LANCZOS).save(os.path.join(ROOT, f"assets/media/covers/{a['slug']}.jpg"), quality=88, optimize=True)
-    im.resize((640, 360), Image.LANCZOS).save(os.path.join(ROOT, f"assets/media/covers/thumbs/{a['slug']}.jpg"), quality=84, optimize=True)
-
+def cover(a, fonts=None):
+    """Cover image for an Insights article; drawn by covers.py (one motif per subject family, V4.63). `fonts` is unused."""
+    import covers
+    covers.cover(a["slug"], a["title"], a["cats"], a.get("cover_label", CAT_NAMES[a["cats"][0]]))
 
 def main():
     slug = sys.argv[1]

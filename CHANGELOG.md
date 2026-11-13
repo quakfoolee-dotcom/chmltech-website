@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.63 — 2026-11-13
+- **Fix: breadcrumb links on four journal papers.** On Vol. 104(7) and Vol. 105(4)–(6), Home / Insights / Chmltech Online Journal pointed to `post/index.html` and `post/insights.html`, which gave "We could not find that page". `content/gen/add_journal_paper.py` now makes page links in the body relative to `post/`; the four pages are rebuilt. The other journal papers were built by the full pipeline and were not affected.
+- **Covers: one motif per subject family.** All 54 generated covers (17 journal papers, 37 Insights articles) are redrawn so that each subject has one recognisable picture: artificial intelligence = circuit traces; process engineering and ESG = process flow sketch; operational efficiency, process improvement, lean and six sigma = performance gauge; ISO, change and project management = target ring with check; digital technology and ERP = node network; strategy, marketing, case studies and book reviews = growth bars. The motif follows an article's first category; journal papers follow their subject category.
+  - Journal covers now show the paper's own title (14 older ones showed "Chmltech Online Journal, Volume N, Issue M") and a footer naming the volume and issue.
+  - Long titles shrink to fit above the footer (some overlapped it).
+  - New `content/gen/covers.py` draws every cover; `add_article.py` and `add_journal_paper.py` use it, so new articles and papers get their family's motif automatically. `content/gen/redraw_covers.py` redraws them all. The cover font (Space Grotesk, SIL Open Font License) is now in `content/gen/fonts/`.
+  - Photo cards (109 older articles) are unchanged.
+
 ## V4.62 — 2026-11-13
 - **Fix: citation links in journal papers now land on the right reference.** Clicking a citation such as [6] scrolled reference 6 to the very top of the window, where the sticky site header covered it, so the first visible entry was the next one (7). In-page targets in journal papers (references, sections, figures, tables and equations) now stop 128 px below the top of the window (`assets/css/journal.css`). Applies to all Chmltech Online Journal papers; tested by clicking references 1, 6 and 12 on two papers at desktop and phone widths.
 
