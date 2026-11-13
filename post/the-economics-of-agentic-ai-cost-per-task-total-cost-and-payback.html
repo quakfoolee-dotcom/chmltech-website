@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback</title>
+<meta name="description" content="Why falling token prices do not guarantee cheap agents: a cost-per-task model, the full cost of ownership, evidence on value, and a payback calculation.">
+<link rel="canonical" href="https://www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback">
+<meta property="og:description" content="Why falling token prices do not guarantee cheap agents: a cost-per-task model, the full cost of ownership, evidence on value, and a payback calculation.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<meta property="og:url" content="https://www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback","item":"https://www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=31376edc">
+<meta name="citation_title" content="The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/13">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="105">
+<meta name="citation_issue" content="8">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 105, Issue 8</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 13, 2026</span><span>14 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>The price of language model inference at a fixed level of capability has fallen by more than two orders of magnitude since 2022, yet analysts expect a large share of agentic AI projects to be cancelled because of cost and unclear value. This paper explains the gap. An agent does not pay for a prompt; it pays for a task, and a task can consume tens of thousands of tokens because each step re-reads the growing context. The paper develops a cost-per-task model in which input tokens grow quadratically with the number of steps, shows how prompt caching and batch processing change the result, and extends the model to a cost per accepted unit of work that includes human review and rework. It then sets out the full cost of ownership, including integration, evaluation, oversight and maintenance, and reviews experimental evidence on the value side, where measured productivity gains are real but uneven and depend on the task. A worked example for an accounts payable agent processing 2,000 invoices a month gives a cost per accepted invoice of about $0.63 against $4.00 by hand and a payback of about 9 months, and a sensitivity analysis shows that volume, manual handling time and build cost matter far more than token prices. The paper closes with practical rules for choosing models and use cases on economic grounds.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> agentic AI; AI economics; cost per task; total cost of ownership; inference cost; prompt caching; return on investment; productivity</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>By one measure, artificial intelligence has become very cheap. The 2025 AI Index reports that the cost of querying a model that scores at the level of GPT-3.5 on the MMLU benchmark fell from $20 per million tokens in November 2022 to $0.07 per million tokens by October 2024, a reduction of more than 280 times in about 18 months [<a href="#ref-1" class="j-cite">1</a>]. Epoch AI, tracking the price of reaching fixed performance thresholds on several benchmarks, found declines ranging from 9 to 900 times per year depending on the task [<a href="#ref-2" class="j-cite">2</a>].</p><p>By another measure, AI agents are proving expensive. In June 2025 Gartner predicted that over 40 percent of agentic AI projects would be cancelled by the end of 2027, citing escalating costs, unclear business value and inadequate risk controls, and observed that many use cases presented as agentic do not need an agentic implementation at all [<a href="#ref-3" class="j-cite">3</a>].</p><p>Both statements can be true because they measure different things. The first measures the price of a token at a fixed level of capability. The second reflects the cost of completing a business task with an agent, including everything around the model. This paper connects the two. Section 2 builds a cost-per-task model for an agent. Section 3 extends it to the cost of an accepted unit of work, including review and rework. Section 4 sets out the full cost of ownership. Section 5 reviews the evidence on value. Section 6 combines them in a payback calculation with a sensitivity analysis, and Section 7 draws practical rules.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Cost per task</h2><h3>2.1 Why an agent uses so many tokens</h3><p>A chat completion is a single call: a prompt goes in, an answer comes out. An agent works in a loop. At each step it reads its instructions, the tool definitions, the task and everything that has happened so far, decides on an action, calls a tool and appends the result to its context. Because most model APIs are stateless, each step re-sends the accumulated context as input. The cost of a task is therefore the sum over its steps:</p><div class="j-eq" role="math"><span class="j-eq-body">C<sub>task</sub> = Σ<sub>k</sub> ( n<sub>in,k</sub> · p<sub>in</sub> + n<sub>out,k</sub> · p<sub>out</sub> ) + C<sub>tools</sub></span><span class="j-eq-n">(1)</span></div><p>where <em>n</em><sub>in,k</sub> and <em>n</em><sub>out,k</sub> are the input and output tokens at step <em>k</em>, <em>p</em><sub>in</sub> and <em>p</em><sub>out</sub> the prices per token, and <em>C</em><sub>tools</sub> the cost of external services such as search or document recognition.</p><p>If the fixed part of the context (system prompt, tool definitions and task) is <em>c</em><sub>0</sub> tokens and each step adds <em>h</em> tokens of history, the input at step <em>k</em> is <em>c</em><sub>0</sub> + <em>h</em>(<em>k</em> − 1), and the total input over <em>s</em> steps is</p><div class="j-eq" role="math"><span class="j-eq-body">N<sub>in</sub> = s · c<sub>0</sub> + h · s(s − 1) / 2</span><span class="j-eq-n">(2)</span></div><p>The second term grows with the square of the number of steps. An agent that takes twice as many steps reads roughly four times as much history. This is the main reason why the cost of an agentic task can be orders of magnitude higher than the cost of a single prompt, even when the price per token is low.</p><h3>2.2 A worked example</h3><p>Consider an agent that processes a supplier invoice: it reads the document, looks up the purchase order and the receipt in the ERP system, checks prices and quantities, codes the invoice and prepares a posting. Table 1 sets out illustrative parameters. Prices of $3.00 per million input tokens and $15.00 per million output tokens are typical of a capable mid-tier model in 2026; they are assumptions, not a quotation for any provider.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Cost per task for an illustrative invoice-processing agent, from Eq. (1) and Eq. (2).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody><tr><td>Fixed context c<sub>0</sub> (instructions, tool definitions, task)</td><td>4,000 tokens</td></tr><tr><td>History added per step h</td><td>1,500 tokens</td></tr><tr><td>Steps per task s</td><td>8</td></tr><tr><td>Output per step</td><td>400 tokens</td></tr><tr><td>Total input tokens N<sub>in</sub>, Eq. (2)</td><td>74,000</td></tr><tr><td>Total output tokens</td><td>3,200</td></tr><tr><td>Input price / output price</td><td>$3.00 / $15.00 per million tokens</td></tr><tr><td>Tool calls (document recognition, search)</td><td>$0.01</td></tr><tr><td><strong>Cost per task, Eq. (1)</strong></td><td><strong>$0.280</strong></td></tr><tr><td><strong>Cost per task with prompt caching</strong></td><td><strong>$0.130</strong></td></tr></tbody></table></div><p class="j-table-note">Prices and token counts are illustrative assumptions.</p></figure><p>At $0.28 per invoice the run cost is small compared with the cost of a person doing the same work. The example nonetheless shows where the money goes: input tokens account for about 79 percent of the cost, almost all of it from re-reading context. Figure 1 shows how the cost grows with the number of steps.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 470.82541 264.14518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Line chart with the number of steps on the horizontal axis, from 1 to 20, and cost per task in dollars on the vertical axis. The uncached line curves upward, reaching about 1.20 dollars at 20 steps. The cached line rises much more slowly, to about 0.35 dollars at 20 steps. Markers show the eight-step example at about 0.28 dollars uncached and 0.13 dollars cached.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 264.14518 
+L 470.82541 264.14518 
+L 470.82541 0 
+L 0 0 
+L 0 264.14518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 45.631309 221.976 
+L 458.551309 221.976 
+L 458.551309 5.76 
+L 45.631309 5.76 
+L 45.631309 221.976 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 45.631309 221.976 
+L 45.631309 5.76 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mabcf52219b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mabcf52219b" x="45.631309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="45.631309" y="239.147875" transform="rotate(-0 45.631309 239.147875)">1</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 110.829203 221.976 
+L 110.829203 5.76 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mabcf52219b" x="110.829203" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="110.829203" y="239.147875" transform="rotate(-0 110.829203 239.147875)">4</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 197.75973 221.976 
+L 197.75973 5.76 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mabcf52219b" x="197.75973" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="197.75973" y="239.147875" transform="rotate(-0 197.75973 239.147875)">8</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 284.690256 221.976 
+L 284.690256 5.76 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mabcf52219b" x="284.690256" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="284.690256" y="239.147875" transform="rotate(-0 284.690256 239.147875)">12</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 371.620782 221.976 
+L 371.620782 5.76 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mabcf52219b" x="371.620782" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="371.620782" y="239.147875" transform="rotate(-0 371.620782 239.147875)">16</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 458.551309 221.976 
+L 458.551309 5.76 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#mabcf52219b" x="458.551309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="458.551309" y="239.147875" transform="rotate(-0 458.551309 239.147875)">20</text>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="252.091309" y="255.852465" transform="rotate(-0 252.091309 255.852465)">Agent steps per task</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 45.631309 221.976 
+L 458.551309 221.976 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="m2ff6582cdb" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="227.061937" transform="rotate(-0 38.631309 227.061937)">0.0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 45.631309 188.712 
+L 458.551309 188.712 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="188.712" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="193.797937" transform="rotate(-0 38.631309 193.797937)">0.2</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 45.631309 155.448 
+L 458.551309 155.448 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="155.448" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="160.533937" transform="rotate(-0 38.631309 160.533937)">0.4</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 45.631309 122.184 
+L 458.551309 122.184 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="122.184" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="127.269937" transform="rotate(-0 38.631309 127.269937)">0.6</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 45.631309 88.92 
+L 458.551309 88.92 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="88.92" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="94.005937" transform="rotate(-0 38.631309 94.005937)">0.8</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 45.631309 55.656 
+L 458.551309 55.656 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="55.656" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="60.741938" transform="rotate(-0 38.631309 60.741938)">1.0</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_25">
+<path d="M 45.631309 22.392 
+L 458.551309 22.392 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m2ff6582cdb" x="45.631309" y="22.392" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="38.631309" y="27.477937" transform="rotate(-0 38.631309 27.477937)">1.2</text>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="113.868" transform="rotate(-90 15.931875 113.868)">Cost per task ($)</text>
+</g>
+</g>
+<g id="line2d_27">
+<path d="M 45.631309 217.31904 
+L 67.36394 213.57684 
+L 89.096572 209.0862 
+L 110.829203 203.84712 
+L 132.561835 197.8596 
+L 154.294466 191.12364 
+L 176.027098 183.63924 
+L 197.75973 175.4064 
+L 219.492361 166.42512 
+L 241.224993 156.6954 
+L 262.957624 146.21724 
+L 284.690256 134.99064 
+L 306.422888 123.0156 
+L 328.155519 110.29212 
+L 349.888151 96.8202 
+L 371.620782 82.59984 
+L 393.353414 67.63104 
+L 415.086045 51.9138 
+L 436.818677 35.44812 
+L 458.551309 18.234 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<path d="M 45.631309 216.82008 
+L 67.36394 214.687026 
+L 89.096572 212.479128 
+L 110.829203 210.196386 
+L 132.561835 207.8388 
+L 154.294466 205.40637 
+L 176.027098 202.899096 
+L 197.75973 200.316978 
+L 219.492361 197.660016 
+L 241.224993 194.92821 
+L 262.957624 192.12156 
+L 284.690256 189.240066 
+L 306.422888 186.283728 
+L 328.155519 183.252546 
+L 349.888151 180.14652 
+L 371.620782 176.96565 
+L 393.353414 173.709936 
+L 415.086045 170.379378 
+L 436.818677 166.973976 
+L 458.551309 163.49373 
+" clip-path="url(#p50d7ce8a55)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 45.631309 221.976 
+L 45.631309 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 45.631309 221.976 
+L 458.551309 221.976 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_5">
+<path d="M 154.252144 124.617781 
+Q 175.356669 149.254167 196.461194 173.890553 
+" style="fill: none; stroke: #e07a3a; stroke-linecap: round"/>
+</g>
+<g id="text_16">
+<text style="font-size: 9.3px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #e07a3a" x="93.443098" y="118.8576" transform="rotate(-0 93.443098 118.8576)">Example, 8 steps: $0.28</text>
+</g>
+<g id="patch_6">
+<path d="M 248.102594 205.589759 
+Q 223.925175 203.057479 199.747757 200.525199 
+" style="fill: none; stroke: #0b6fa4; stroke-linecap: round"/>
+</g>
+<g id="text_17">
+<text style="font-size: 9.3px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="252.091309" y="213.66" transform="rotate(-0 252.091309 213.66)">$0.13 with caching</text>
+</g>
+<g id="line2d_29">
+<defs>
+<path id="m0cceab52f4" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p50d7ce8a55)">
+<use xlink:href="#m0cceab52f4" x="197.75973" y="175.4064" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_30">
+<defs>
+<path id="md1b336d75e" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#p50d7ce8a55)">
+<use xlink:href="#md1b336d75e" x="197.75973" y="200.316978" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="legend_1">
+<g id="line2d_31">
+<path d="M 54.181309 20.188125 
+L 63.681309 20.188125 
+L 73.181309 20.188125 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_18">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="80.781309" y="23.513125" transform="rotate(-0 80.781309 23.513125)">Without caching</text>
+</g>
+<g id="line2d_32">
+<path d="M 54.181309 36.432754 
+L 63.681309 36.432754 
+L 73.181309 36.432754 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="80.781309" y="39.757754" transform="rotate(-0 80.781309 39.757754)">With prompt caching</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p50d7ce8a55">
+<rect x="45.631309" y="5.76" width="412.92" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Cost per task against the number of agent steps, from Eq. (1) and Eq. (2), with and without prompt caching. Without caching the cost grows with the square of the number of steps because each step re-reads the history. Parameters as in Table 1. <span class="j-fig-src">Author's calculation from Eq. (1) and Eq. (2) with the parameters in Table 1.</span></figcaption></figure><h3>2.3 Three levers on run cost</h3><p><strong>Caching.</strong> Several providers allow the stable prefix of a prompt to be cached so that repeated reads are charged at a reduced rate. In Anthropic's published pricing, for example, reading from the cache costs 10 percent of the base input price, while writing to the cache costs somewhat more than a normal input token [<a href="#ref-4" class="j-cite">4</a>]. Because an agent's context is mostly a stable prefix plus a growing history, caching attacks exactly the quadratic term in Eq. (2). In the example it reduces the cost per task from $0.280 to about $0.130.</p><p><strong>Batching.</strong> Work that does not need an immediate answer, such as overnight document processing, can be sent through batch interfaces. OpenAI's Batch API, for example, offers a 50 percent discount in exchange for results within 24 hours [<a href="#ref-5" class="j-cite">5</a>].</p><p><strong>Model choice.</strong> The price difference between models of different sizes is often an order of magnitude or more. Kapoor and colleagues showed that agent evaluations that ignore cost can mislead, because simple, inexpensive designs often reach similar accuracy to complex ones at a fraction of the cost, and they argued that accuracy and cost should be reported together as a Pareto frontier [<a href="#ref-6" class="j-cite">6</a>]. A companion paper in this journal found the same pattern across frontier models: higher reasoning effort raises scores but with steeply diminishing returns per dollar [<a href="#ref-7" class="j-cite">7</a>]. Reasoning models also generate more output tokens per task, so a lower price per token does not always mean a lower price per task.</p><h3>2.4 Measuring rather than estimating</h3><p>Eq. (2) is a planning tool. In practice the number of steps varies from task to task: a clean invoice that matches its purchase order may take five steps, while one with a missing receipt and a price discrepancy may take fifteen, with several tool calls that return long documents. Because of the quadratic term, the expensive tail matters. A pilot should therefore log, for every task, the number of steps, the input and output tokens of each call, the tool calls made and the outcome. The distribution of cost per task, not only its average, then shows where design effort pays. Common findings are that a small share of difficult tasks consumes a large share of the tokens, that some tool calls return far more text than the agent needs, and that the agent sometimes repeats a lookup it has already made. Each of these has a direct fix: route difficult cases to a person early, trim tool outputs to the fields the agent uses, and give the agent a memory of what it has already retrieved. These fixes often reduce cost more than a change of model, and they also tend to improve accuracy, because a shorter, cleaner context is easier for the model to use.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Cost per accepted unit of work</h2><p>The run cost is only part of the cost of a completed task. Some of the agent's outputs are reviewed by a person, and some are wrong and must be redone. The cost that matters is the cost per accepted unit of work:</p><div class="j-eq" role="math"><span class="j-eq-body">C<sub>unit</sub> = C<sub>task</sub> + r · t<sub>rev</sub> · w + (1 − a) · c<sub>redo</sub></span><span class="j-eq-n">(3)</span></div><p>where <em>r</em> is the share of tasks reviewed, <em>t</em><sub>rev</sub> the review time, <em>w</em> the loaded hourly cost of the reviewer, <em>a</em> the share of tasks accepted, and <em>c</em><sub>redo</sub> the cost of doing a rejected task by hand. The comparison is with the cost of the task done entirely by a person, <em>c</em><sub>h</sub> = <em>t</em><sub>h</sub> · <em>w</em>.</p><p>Continuing the example, suppose a clerk takes 6 minutes per invoice at a loaded cost of $40 per hour, so <em>c</em><sub>h</sub> = $4.00. The agent's output is reviewed for 30 percent of invoices at 1.5 minutes each, adding $0.30 per invoice on average, and 5 percent are redone by hand, adding $0.20. With caching, Eq. (3) gives <em>C</em><sub>unit</sub> ≈ $0.63. Review and rework account for 79 percent of the cost of an accepted invoice; the model accounts for the rest.</p><aside class="j-callout"><p>For most business agents, the largest cost per task is not the model but the people around it: review, rework and exception handling. Reducing review effort through better evidence and calibrated autonomy usually saves more than switching to a cheaper model.</p></aside><p>This has two practical implications. First, the review share <em>r</em> is a design choice. A companion paper shows how to set it per action using the expected cost of errors and how to reduce it as evidence accumulates [<a href="#ref-8" class="j-cite">8</a>]. Second, the acceptance rate <em>a</em> depends on consistency as well as average accuracy. Yao and colleagues found that agents which succeed on a task once often fail on repeated attempts at the same task [<a href="#ref-9" class="j-cite">9</a>]; in production, every inconsistency becomes rework.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Total cost of ownership</h2><p>Eq. (3) gives the marginal cost of one unit of work. A business case also needs the fixed costs of building and running the agent. Table 2 lists the main components.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Components of the total cost of ownership of a business agent.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Component</th><th>What it covers</th><th>Often underestimated because</th></tr></thead><tbody><tr><td>Integration</td><td>Connecting the agent to the ERP, CRM, document store and identity system; API work; permissions</td><td>Legacy systems lack clean interfaces; Gartner cites integration as a cause of cancellation [<a href="#ref-3" class="j-cite">3</a>]</td></tr><tr><td>Data preparation</td><td>Cleaning master data, documenting procedures, building a knowledge base</td><td>The agent is only as good as the data it reads [<a href="#ref-10" class="j-cite">10</a>]</td></tr><tr><td>Evaluation</td><td>Building a test set of real cases, defining what correct means, running it on every change</td><td>It is ongoing, not a one-time task</td></tr><tr><td>Inference and tools</td><td>Model calls, search, document recognition, hosting</td><td>Volumes grow once the agent works</td></tr><tr><td>Oversight</td><td>Review time, exception handling, sampling</td><td>Treated as temporary but often permanent at some level</td></tr><tr><td>Maintenance</td><td>Model version changes, prompt and tool updates, regression testing, monitoring</td><td>Model providers retire versions on their own schedule</td></tr><tr><td>Risk</td><td>Incidents, rework of errors that reached customers or suppliers</td><td>Rare but costly; hard to estimate in advance</td></tr></tbody></table></div><p class="j-table-note">Compiled by the author.</p></figure><p>Two components deserve emphasis. Evaluation is a fixed asset: a set of a few hundred real cases with known correct outcomes, rerun whenever the model, the prompt or the tools change. Without it, a business cannot safely change models to take advantage of falling prices. Maintenance is recurring: model providers deprecate versions, and each upgrade requires a regression test. Both costs are modest compared with integration but are rarely in the original budget.</p><p>For the invoice example, the build cost assumed in Section 6 can be broken down as follows: about half for integration with the ERP system and the document store, including read and write permissions and a test environment; about a quarter for data preparation, mainly cleaning supplier and item master data and writing down the coding rules that experienced clerks apply from memory; and the remainder for an evaluation set of several hundred past invoices with their correct coding, plus the pilot itself. The fixed monthly cost covers hosting, monitoring dashboards, a share of an analyst's time to review exceptions and metrics, and periodic regression testing. None of these items depends much on the price of the model.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> The value side</h2><h3>5.1 What experiments show</h3><p>The best evidence on the value of generative AI at work comes from controlled studies. Brynjolfsson, Li and Raymond studied the staggered introduction of an AI assistant for over 5,000 customer support agents and found that it increased issues resolved per hour by 14 percent on average, and by 34 percent for novice and low-skilled workers, with little effect on the most experienced [<a href="#ref-11" class="j-cite">11</a>]. Noy and Zhang found in an online experiment with professional writing tasks that access to ChatGPT reduced the time taken by about 40 percent and raised output quality by about 18 percent [<a href="#ref-12" class="j-cite">12</a>]. Dell'Acqua and colleagues, in a field experiment with consultants, found that for tasks inside the AI's capability frontier, consultants with AI completed 12.2 percent more tasks, 25.1 percent more quickly and with more than 40 percent higher quality; for a task outside the frontier, those using AI were 19 percentage points less likely to reach a correct answer [<a href="#ref-13" class="j-cite">13</a>].</p><h3>5.2 What that means for a business case</h3><p>These studies support three cautions. Gains are concentrated in tasks well within the model's capabilities, and can turn negative outside them, which Dell'Acqua and colleagues called a jagged frontier [<a href="#ref-13" class="j-cite">13</a>]. Gains are larger for less experienced staff, so the benefit depends on who does the work today. And measured gains are per task; at the level of the economy, Acemoglu estimates that the total factor productivity effect of AI over ten years is likely to be modest, in part because the share of tasks that can be profitably automated is limited [<a href="#ref-14" class="j-cite">14</a>].</p><p>For a single business the most important point is that time saved is not money saved unless the time is used. If an agent saves a clerk three hours a day, the value is realized only if the business processes more volume without hiring, redeploys the clerk to work it needs done, or reduces overtime or contractor spend. A business case should state which of these will happen.</p><h3>5.3 Value beyond labour cost</h3><p>Labour time is the easiest benefit to measure but often not the largest. An accounts payable agent that posts invoices within a day rather than a week lets a business take early-payment discounts and avoid late fees, and gives a more current view of liabilities. A maintenance agent that drafts work orders from inspection notes shortens the time between finding a problem and fixing it. An agent that answers routine supplier or customer questions outside business hours improves response times without adding a shift. Agents can also reduce error rates where the human process is itself error-prone, for example in transcribing figures from documents. These benefits should be included in a business case where they can be measured, but each needs a baseline taken before the agent is introduced. Without a baseline, a business cannot show the benefit afterwards, and the case rests on the labour saving alone.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Payback</h2><h3>6.1 A simple payback model</h3><p>With the cost per unit from Eq. (3), a monthly volume <em>V</em>, fixed monthly costs <em>F</em> for hosting, monitoring and maintenance, and a one-time build cost <em>B</em>, the payback period in months, Eq. (4), is</p><div class="j-eq" role="math"><span class="j-eq-body">T<sub>payback</sub> = B / ( V · (c<sub>h</sub> − C<sub>unit</sub>) − F )</span><span class="j-eq-n">(4)</span></div><p>The denominator must be positive: if the savings per unit times the volume do not cover the fixed monthly costs, the agent never pays back.</p><p>For the invoice example, with <em>V</em> = 2,000 invoices a month, savings of $3.37 per invoice give gross savings of $6,740 a month. Fixed costs of $1,500 a month leave $5,240. A build cost of $45,000 for integration, data preparation and an evaluation set then pays back in about 8.6 months.</p><h3>6.2 What the result is sensitive to</h3><p>Figure 2 varies each input by a plausible range and shows the effect on the payback period. Volume dominates: at 1,000 invoices a month the payback period stretches to about two years, because the fixed costs are spread over fewer invoices. The time the work takes by hand and the build cost come next. Review share and rework matter less in this example because the agent's cost per invoice is already small relative to the human cost, though raising the review share from 30 to 60 percent still adds about a month. Token prices barely matter at this scale: doubling the price of the model changes the payback by a few days.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 588.826094 271.20968" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Horizontal bar chart centred on the base-case payback of about 8.6 months. Each bar shows the payback when one input moves to its low and high value. From largest to smallest effect: monthly volume from 4,000 to 1,000 invoices, about 4 to 24 months; human minutes per invoice from 9 to 4; build cost from 25,000 to 80,000 dollars; fixed monthly cost from 500 to 3,000 dollars; rework share from 2 to 15 percent; review share from 10 to 60 percent; token price from half to double, which is barely visible.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 271.20968 
+L 588.826094 271.20968 
+L 588.826094 0 
+L 0 0 
+L 0 271.20968 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 147.826094 229.0405 
+L 583.066094 229.0405 
+L 583.066094 7.2805 
+L 147.826094 7.2805 
+L 147.826094 229.0405 
+z
+" style="fill: none"/>
+</g>
+<g id="patch_3">
+<path d="M 278.090929 219.4309 
+L 288.311896 219.4309 
+L 288.311896 203.1685 
+L 278.090929 203.1685 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0a9ad8"/>
+</g>
+<g id="patch_4">
+<path d="M 271.859546 189.8629 
+L 298.593487 189.8629 
+L 298.593487 173.6005 
+L 271.859546 173.6005 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_5">
+<path d="M 275.481258 160.2949 
+L 305.385499 160.2949 
+L 305.385499 144.0325 
+L 275.481258 144.0325 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0a9ad8"/>
+</g>
+<g id="patch_6">
+<path d="M 259.932393 130.7269 
+L 334.878776 130.7269 
+L 334.878776 114.4645 
+L 259.932393 114.4645 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_7">
+<path d="M 221.994132 101.1589 
+L 385.163815 101.1589 
+L 385.163815 84.8965 
+L 221.994132 84.8965 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0a9ad8"/>
+</g>
+<g id="patch_8">
+<path d="M 225.207474 71.5909 
+L 406.302389 71.5909 
+L 406.302389 55.3285 
+L 225.207474 55.3285 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_9">
+<path d="M 206.218866 42.0229 
+L 521.931458 42.0229 
+L 521.931458 25.7605 
+L 206.218866 25.7605 
+z
+" clip-path="url(#pc8530ee6e4)" style="fill: #0a9ad8"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 147.826094 229.0405 
+L 147.826094 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m5c7dccb36d" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m5c7dccb36d" x="147.826094" y="229.0405" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="147.826094" y="246.212375" transform="rotate(-0 147.826094 246.212375)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 225.547522 229.0405 
+L 225.547522 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m5c7dccb36d" x="225.547522" y="229.0405" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="225.547522" y="246.212375" transform="rotate(-0 225.547522 246.212375)">5</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 303.268951 229.0405 
+L 303.268951 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m5c7dccb36d" x="303.268951" y="229.0405" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="303.268951" y="246.212375" transform="rotate(-0 303.268951 246.212375)">10</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 380.990379 229.0405 
+L 380.990379 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m5c7dccb36d" x="380.990379" y="229.0405" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="380.990379" y="246.212375" transform="rotate(-0 380.990379 246.212375)">15</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 458.711808 229.0405 
+L 458.711808 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m5c7dccb36d" x="458.711808" y="229.0405" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="458.711808" y="246.212375" transform="rotate(-0 458.711808 246.212375)">20</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 536.433237 229.0405 
+L 536.433237 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m5c7dccb36d" x="536.433237" y="229.0405" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="536.433237" y="246.212375" transform="rotate(-0 536.433237 246.212375)">25</text>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="365.446094" y="262.916965" transform="rotate(-0 365.446094 262.916965)">Payback period (months)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<defs>
+<path id="m75e959ac9e" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="211.2997" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="216.385638" transform="rotate(-0 140.826094 216.385638)">Token price</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_14">
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="181.7317" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="186.817637" transform="rotate(-0 140.826094 186.817637)">Review share</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_15">
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="152.1637" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="157.249638" transform="rotate(-0 140.826094 157.249638)">Rework share</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_16">
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="122.5957" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="127.681638" transform="rotate(-0 140.826094 127.681638)">Fixed cost per month</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_17">
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="93.0277" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="98.113638" transform="rotate(-0 140.826094 98.113638)">Build cost</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_18">
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="63.4597" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="68.545638" transform="rotate(-0 140.826094 68.545638)">Human minutes per invoice</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_19">
+<g>
+<use xlink:href="#m75e959ac9e" x="147.826094" y="33.8917" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="140.826094" y="38.977638" transform="rotate(-0 140.826094 38.977638)">Monthly volume</text>
+</g>
+</g>
+</g>
+<g id="line2d_20">
+<path d="M 281.328562 229.0405 
+L 281.328562 7.2805 
+" clip-path="url(#pc8530ee6e4)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.6"/>
+</g>
+<g id="patch_10">
+<path d="M 147.826094 229.0405 
+L 147.826094 7.2805 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_11">
+<path d="M 147.826094 229.0405 
+L 583.066094 229.0405 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_15">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="274.204858" y="214.500872" transform="rotate(-0 274.204858 214.500872)">½×</text>
+</g>
+<g id="text_16">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="292.197967" y="214.500872" transform="rotate(-0 292.197967 214.500872)">2×</text>
+</g>
+<g id="text_17">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="267.973475" y="184.932872" transform="rotate(-0 267.973475 184.932872)">10%</text>
+</g>
+<g id="text_18">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="302.479558" y="184.932872" transform="rotate(-0 302.479558 184.932872)">60%</text>
+</g>
+<g id="text_19">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="271.595187" y="155.364872" transform="rotate(-0 271.595187 155.364872)">2%</text>
+</g>
+<g id="text_20">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="309.27157" y="155.364872" transform="rotate(-0 309.27157 155.364872)">15%</text>
+</g>
+<g id="text_21">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="256.046321" y="125.796872" transform="rotate(-0 256.046321 125.796872)">$500</text>
+</g>
+<g id="text_22">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="338.764847" y="125.796872" transform="rotate(-0 338.764847 125.796872)">$3,000</text>
+</g>
+<g id="text_23">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="218.10806" y="96.228872" transform="rotate(-0 218.10806 96.228872)">$25k</text>
+</g>
+<g id="text_24">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="389.049886" y="96.228872" transform="rotate(-0 389.049886 96.228872)">$80k</text>
+</g>
+<g id="text_25">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="221.321403" y="66.660872" transform="rotate(-0 221.321403 66.660872)">9</text>
+</g>
+<g id="text_26">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="410.18846" y="66.660872" transform="rotate(-0 410.18846 66.660872)">4</text>
+</g>
+<g id="text_27">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="202.332794" y="37.092872" transform="rotate(-0 202.332794 37.092872)">4,000</text>
+</g>
+<g id="text_28">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4a5568" x="525.817529" y="37.092872" transform="rotate(-0 525.817529 37.092872)">1,000</text>
+</g>
+<g id="text_29">
+<text style="font-weight: 600; font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="287.546276" y="14.6725" transform="rotate(-0 287.546276 14.6725)">Base case 8.6 months</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pc8530ee6e4">
+<rect x="147.826094" y="7.2805" width="435.24" height="221.76"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Sensitivity of the payback period for the invoice example to each input, varied one at a time over the range shown. Volume, manual handling time and build cost dominate; the model's token price has little effect. <span class="j-fig-src">Author's calculation from Eq. (3) and Eq. (4) with the parameters in Section 6.1.</span></figcaption></figure><p>A related figure is the break-even volume: the monthly volume at which savings just cover the fixed monthly costs, so that the denominator of Eq. (4) is zero. It equals <em>F</em> / (<em>c</em><sub>h</sub> − <em>C</em><sub>unit</sub>), or about 445 invoices a month in the example. Below that volume the agent loses money every month whatever its build cost. The break-even volume is a quick screening test for candidate processes: a business that handles a few dozen of a given document a month is unlikely to justify a dedicated agent for it, though it may still benefit from a general assistant that its staff use for many small tasks.</p><p>This is consistent with the observation that projects fail on cost and value rather than on token prices [<a href="#ref-3" class="j-cite">3</a>]. A low-volume process will not pay back however cheap the model becomes, while a high-volume, well-structured process can pay back quickly even with an expensive model.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Practical rules</h2><p>The analysis suggests six rules for deciding where agents make economic sense.</p><ol><li><strong>Price the task, not the token.</strong> Estimate steps, context and output per task with Eq. (1) and Eq. (2), and measure them in a pilot. Count reasoning tokens.</li><li><strong>Keep loops short and contexts lean.</strong> Each extra step is paid for many times over. Summarize history, pass only the documents needed, and cache stable prefixes.</li><li><strong>Start with high-volume, rule-based work.</strong> Volume spreads the fixed costs; clear rules keep review and rework low. Low-volume, judgment-heavy tasks are poor first candidates.</li><li><strong>Budget for the people.</strong> Review, exceptions and rework are usually the largest variable cost. Design for evidence-based reduction of review.</li><li><strong>Build the evaluation set first.</strong> It is what allows a later switch to a cheaper or better model, which is how a business captures the price decline over time [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-6" class="j-cite">6</a>].</li><li><strong>Say where the saved time goes.</strong> A business case without a plan for the freed capacity counts savings that will not appear in the accounts.</li></ol><h3>7.1 When not to use an agent</h3><p>Gartner's observation that many use cases presented as agentic do not need an agentic implementation [<a href="#ref-3" class="j-cite">3</a>] has a simple economic basis. If a task follows fixed rules, has structured inputs and rarely varies, conventional automation (a script, a workflow rule or robotic process automation) does it at near-zero marginal cost and with no review. An agent adds value where inputs are unstructured, such as free-text emails and scanned documents, where the right action depends on judgment within known limits, or where the variety of cases is too large to write rules for. A useful test is to ask whether a competent person could write down the complete rule set in a day. If so, write the rules. If the rules would run to hundreds of exceptions, an agent may be the cheaper option, with the rules it does follow written into its instructions and tools.</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Conclusion</h2><p>The falling price of tokens is real, but it is not the price of a task. An agent pays for every step it takes and re-reads its growing context each time, so its run cost grows with the square of the number of steps unless caching is used. The run cost, however, is usually not the main cost. Review, rework, integration, evaluation and maintenance dominate, and the worked example shows that the payback of a typical business agent depends far more on volume and review effort than on the model's price. The evidence on value is encouraging for tasks within the model's capabilities and cautionary outside them. A business that prices tasks rather than tokens, starts with high-volume structured work, invests in evaluation and plans the use of freed time is well placed to be among the projects that continue.</p></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Stanford Institute for Human-Centered Artificial Intelligence. (2025). <em>The 2025 AI Index report</em>. Stanford University. <a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" rel="noopener" target="_blank">hai.stanford.edu/ai-index/2025-ai-index-report</a></li><li id="ref-2">Epoch AI. (2025, March). LLM inference prices have fallen rapidly but unequally across tasks [Data insight]. <a href="https://epoch.ai/blog/llm-inference-price-trends" rel="noopener" target="_blank">epoch.ai/blog/llm-inference-price-trends</a></li><li id="ref-3">Gartner. (2025, June 25). Gartner predicts over 40% of agentic AI projects will be canceled by end of 2027 [Press release]. <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" rel="noopener" target="_blank">www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-p</a></li><li id="ref-4">Anthropic. (2026). Prompt caching [Developer documentation]. Retrieved November 13, 2026. <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" rel="noopener" target="_blank">docs.claude.com/en/docs/build-with-claude/prompt-caching</a></li><li id="ref-5">OpenAI. (2026). Batch API [Developer documentation]. Retrieved November 13, 2026. <a href="https://platform.openai.com/docs/guides/batch" rel="noopener" target="_blank">platform.openai.com/docs/guides/batch</a></li><li id="ref-6">Kapoor, S., Stroebl, B., Siegel, Z. S., Nadgir, N., &amp; Narayanan, A. (2024). AI agents that matter. arXiv:2407.01502. <a href="https://arxiv.org/abs/2407.01502" rel="noopener" target="_blank">arxiv.org/abs/2407.01502</a></li><li id="ref-7">Lee, Q. F. (2026). Score versus cost per task: Measuring the returns to reasoning effort in frontier language models. <em>Chmltech Online Journal</em>, 104(7). <a href="https://www.chmltech.com/post/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models" rel="noopener" target="_blank">www.chmltech.com/post/score-versus-cost-per-task-returns-to-reasoning-effort-in-</a></li><li id="ref-8">Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. <em>Chmltech Online Journal</em>, 105(7). <a href="https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents" rel="noopener" target="_blank">www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-age</a></li><li id="ref-9">Yao, S., Shinn, N., Razavi, P., &amp; Narasimhan, K. (2024). τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045. <a href="https://arxiv.org/abs/2406.12045" rel="noopener" target="_blank">arxiv.org/abs/2406.12045</a></li><li id="ref-10">Lee, Q. F. (2026). Agent readiness for small and mid-sized firms: Data foundations, process documentation and staged adoption. <em>Chmltech Online Journal</em>, 105(6). <a href="https://www.chmltech.com/post/agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption" rel="noopener" target="_blank">www.chmltech.com/post/agent-readiness-for-small-and-mid-sized-firms-data-process</a></li><li id="ref-11">Brynjolfsson, E., Li, D., &amp; Raymond, L. (2025). Generative AI at work. <em>The Quarterly Journal of Economics</em>, 140(2), 889–942. <a href="https://doi.org/10.1093/qje/qjae044" rel="noopener" target="_blank">10.1093/qje/qjae044</a></li><li id="ref-12">Noy, S., &amp; Zhang, W. (2023). Experimental evidence on the productivity effects of generative artificial intelligence. <em>Science</em>, 381(6654), 187–192. <a href="https://doi.org/10.1126/science.adh2586" rel="noopener" target="_blank">10.1126/science.adh2586</a></li><li id="ref-13">Dell'Acqua, F., McFowland, E., Mollick, E. R., Lifshitz-Assaf, H., Kellogg, K., Rajendran, S., Krayer, L., Candelon, F., &amp; Lakhani, K. R. (2023). Navigating the jagged technological frontier: Field experimental evidence of the effects of AI on knowledge worker productivity and quality (Harvard Business School Working Paper 24-013). <a href="https://doi.org/10.2139/ssrn.4573321" rel="noopener" target="_blank">10.2139/ssrn.4573321</a></li><li id="ref-14">Acemoglu, D. (2025). The simple macroeconomics of AI. <em>Economic Policy</em>, 40(121), 13–58. <a href="https://doi.org/10.1093/epolic/eiae042" rel="noopener" target="_blank">10.1093/epolic/eiae042</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback. <em>Chmltech Online Journal</em>, <em>105</em>(8). https://www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. Cost per task</a></li><li><a href="#sec-3">3. Cost per accepted unit of work</a></li><li><a href="#sec-4">4. Total cost of ownership</a></li><li><a href="#sec-5">5. The value side</a></li><li><a href="#sec-6">6. Payback</a></li><li><a href="#sec-7">7. Practical rules</a></li><li><a href="#sec-8">8. Conclusion</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 105, Issue 8</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence strategy" data-search="the eu ai act for canadian businesses: scope, obligations after the digital omnibus and a practical compliance path when the eu ai act applies to a canadian business, what it requires after the 2026 digital omnibus, how canada&#x27;s own rules compare, and a compliance path. eu ai act digital omnibus ai regulation canada high-risk ai transparency ai governance iso/iec 42001"><div class="thumb"><img src="../assets/media/covers/thumbs/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.html">The EU AI Act for Canadian Businesses: Scope, Obligations After the Digital Omnibus and a Practical Compliance Path</a></h3><p class="muted">When the EU AI Act applies to a Canadian business, what it requires after the 2026 Digital Omnibus, how Canada&#x27;s own rules compare, and a compliance path.</p><p class="meta">Vol. 105, Issue 11 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="evaluating ai agents: why public benchmarks mislead and how to build your own evaluation why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost. ai agents evaluation benchmarks pass^k llm-as-a-judge reliability test sets regression testing"><div class="thumb"><img src="../assets/media/covers/thumbs/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.html">Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation</a></h3><p class="muted">Why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost.</p><p class="meta">Vol. 105, Issue 10 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence process-engineering operational-efficiency" data-search="agentic ai in manufacturing operations: use cases, architecture and safety boundaries where ai agents help in plants and factories: maintenance, downtime and quality use cases, an isa-95 architecture, and the safety lines agents must not cross. agentic ai manufacturing isa-95 maintenance oee functional safety opc ua industrial cybersecurity"><div class="thumb"><img src="../assets/media/covers/thumbs/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.html">Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries</a></h3><p class="muted">Where AI agents help in plants and factories: maintenance, downtime and quality use cases, an ISA-95 architecture, and the safety lines agents must not cross.</p><p class="meta">Vol. 105, Issue 9 · Nov 13, 2026 · 14 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol105-issue8.pdf" data-fname="Chmltech-Journal-Vol105-Issue8.pdf" data-title="The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback" data-ref="Vol. 105, Issue 8">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 105, Issue 8</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback", "name": "The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback", "abstract": "The price of language model inference at a fixed level of capability has fallen by more than two orders of magnitude since 2022, yet analysts expect a large share of agentic AI projects to be cancelled because of cost and unclear value. This paper explains the gap. An agent does not pay for a prompt; it pays for a task, and a task can consume tens of thousands of tokens because each step re-reads the growing context. The paper develops a cost-per-task model in which input tokens grow quadratically with the number of steps, shows how prompt caching and batch processing change the result, and extends the model to a cost per accepted unit of work that includes human review and rework. It then sets out the full cost of ownership, including integration, evaluation, oversight and maintenance, and reviews experimental evidence on the value side, where measured productivity gains are real but uneven and depend on the task. A worked example for an accounts payable agent processing 2,000 invoices a month gives a cost per accepted invoice of about $0.63 against $4.00 by hand and a payback of about 9 months, and a sensitivity analysis shows that volume, manual handling time and build cost matter far more than token prices. The paper closes with practical rules for choosing models and use cases on economic grounds.", "keywords": "agentic AI, AI economics, cost per task, total cost of ownership, inference cost, prompt caching, return on investment, productivity", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "8", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "105", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback", "citation": ["Stanford Institute for Human-Centered Artificial Intelligence. (2025). The 2025 AI Index report. Stanford University.", "Epoch AI. (2025, March). LLM inference prices have fallen rapidly but unequally across tasks [Data insight].", "Gartner. (2025, June 25). Gartner predicts over 40% of agentic AI projects will be canceled by end of 2027 [Press release].", "Anthropic. (2026). Prompt caching [Developer documentation]. Retrieved November 13, 2026.", "OpenAI. (2026). Batch API [Developer documentation]. Retrieved November 13, 2026.", "Kapoor, S., Stroebl, B., Siegel, Z. S., Nadgir, N., &amp; Narayanan, A. (2024). AI agents that matter. arXiv:2407.01502.", "Lee, Q. F. (2026). Score versus cost per task: Measuring the returns to reasoning effort in frontier language models. Chmltech Online Journal, 104(7).", "Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. Chmltech Online Journal, 105(7).", "Yao, S., Shinn, N., Razavi, P., &amp; Narasimhan, K. (2024). τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045.", "Lee, Q. F. (2026). Agent readiness for small and mid-sized firms: Data foundations, process documentation and staged adoption. Chmltech Online Journal, 105(6).", "Brynjolfsson, E., Li, D., &amp; Raymond, L. (2025). Generative AI at work. The Quarterly Journal of Economics, 140(2), 889–942.", "Noy, S., &amp; Zhang, W. (2023). Experimental evidence on the productivity effects of generative artificial intelligence. Science, 381(6654), 187–192.", "Dell'Acqua, F., McFowland, E., Mollick, E. R., Lifshitz-Assaf, H., Kellogg, K., Rajendran, S., Krayer, L., Candelon, F., &amp; Lakhani, K. R. (2023). Navigating the jagged technological frontier: Field experimental evidence of the effects of AI on knowledge worker productivity and quality (Harvard Business School Working Paper 24-013).", "Acemoglu, D. (2025). The simple macroeconomics of AI. Economic Policy, 40(121), 13–58."], "image": "https://www.chmltech.com/assets/media/covers/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+"""Chmltech Online Journal, Vol. 105, Issue 11 (V4.67): The EU AI Act for Canadian Businesses."""
+
+SLUG = "the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path"
+META = dict(
+    volume=105, issue=11,
+    title="The EU AI Act for Canadian Businesses: Scope, Obligations After the Digital Omnibus and a Practical Compliance Path",
+    short_title="The EU AI Act for Canadian Businesses",
+    meta="When the EU AI Act applies to a Canadian business, what it requires after the 2026 Digital Omnibus, how Canada's own rules compare, and a compliance path.",
+    keywords=["EU AI Act", "Digital Omnibus", "AI regulation", "Canada", "high-risk AI", "transparency", "AI governance", "ISO/IEC 42001"],
+)
+
+ABSTRACT = (
+    "The European Union's Artificial Intelligence Act applies to organizations outside the EU when they place AI systems on the EU market or "
+    "when the output of their AI systems is used in the EU. For Canadian businesses that sell software, equipment or services into Europe, it is "
+    "therefore a practical concern, and in the absence of comprehensive AI legislation in Canada it is also the most detailed reference point for "
+    "AI governance available. This paper explains when the Act applies to a Canadian business and in what role, summarizes the obligations by "
+    "risk tier and the timeline as amended by the Digital Omnibus on AI, which entered into force in July 2026 and moved the obligations for "
+    "high-risk systems to December 2027 and August 2028, and sets out the penalty regime. It contrasts the EU approach with Canada's, where the "
+    "proposed Artificial Intelligence and Data Act died in 2025, the national AI strategy of June 2026 favors adoption, and a new privacy bill "
+    "introduced in June 2026 addresses automated decisions. The paper proposes a six-step compliance path for small and mid-sized firms, from an "
+    "inventory of AI systems to a management system aligned with ISO/IEC 42001, and argues that most Canadian firms face modest obligations now "
+    "but should prepare early if they supply high-risk systems."
+)
+
+REFS = {
+    "euaia": ("European Parliament and Council of the European Union. (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). <em>Official Journal of the European Union</em>, L series.",
+              "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"),
+    "bradford": ("Bradford, A. (2020). <em>The Brussels effect: How the European Union rules the world</em>. Oxford University Press.",
+                 "https://doi.org/10.1093/oso/9780190088583.001.0001"),
+    "c27": ("Parliament of Canada. (2025). Bill C-27, Digital Charter Implementation Act, 2022 (44th Parliament, 1st Session) [LEGISinfo status].",
+            "https://www.parl.ca/legisinfo/en/bill/44-1/c-27"),
+    "aiforall": ("Blake, Cassels &amp; Graydon LLP. (2026, June). Canada's AI for All strategy: Key takeaways for businesses.",
+                 "https://www.blakes.com/insights/canada-s-ai-for-all-strategy-key-takeaways-for-businesses/"),
+    "c36": ("Innovation, Science and Economic Development Canada. (2026, June 15). Backgrounder: Government of Canada introduces legislation to protect Canadians' privacy in the digital age.",
+            "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/government-of-canada-introduces-legislation-to-protect-canadians-privacy-in-the-digital-age.html"),
+    "fasken": ("Fasken. (2026, June). Bill C-36: A third attempt at federal private-sector privacy reform.",
+               "https://www.fasken.com/en/knowledge/2026/06/bill-c-36"),
+    "omnibus": ("European Commission. (2026, May 7). EU agrees to simplify AI rules to boost innovation and ban 'nudification' apps to protect citizens [Press release].",
+                "https://digital-strategy.ec.europa.eu/en/news/eu-agrees-simplify-ai-rules-boost-innovation-and-ban-nudification-apps-protect-citizens"),
+    "wc": ("White &amp; Case LLP. (2026, July). EU AI Omnibus enters into force, amending the AI Act.",
+           "https://www.whitecase.com/insight-alert/eu-ai-omnibus-enters-force-amending-ai-act"),
+    "cuatre": ("Cuatrecasas. (2026, July 24). Digital Omnibus on AI has been published.",
+               "https://www.cuatrecasas.com/en/spain/intellectual-property/art/digital-omnibus-ai-has-been-published"),
+    "aos": ("A&amp;O Shearman. (2026, June). Digital Omnibus on AI: The trilogue deal is done – What made it, what didn't, and what changed?",
+            "https://edge.sitecorecloud.io/allenoveryllp1-aoshearmanwe0db-production-ecf3/media/project/aoshearman/pdf-downloads/insights/2026/06/ealert---digital-omnibus-on-ai---the-trilogue-deal-is-done.pdf"),
+    "prohib": ("European Commission. (2025, February 4). Commission publishes guidelines on prohibited artificial intelligence (AI) practices, as defined by the AI Act.",
+               "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-prohibited-artificial-intelligence-ai-practices-defined-ai-act"),
+    "code": ("Innovation, Science and Economic Development Canada. (2023). Voluntary code of conduct on the responsible development and management of advanced generative AI systems.",
+             "https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems"),
+    "iso42001": ("International Organization for Standardization. (2023). ISO/IEC 42001:2023 Information technology – Artificial intelligence – Management system.",
+                 "https://www.iso.org/standard/81230.html"),
+    "nist": ("National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1).",
+             "https://doi.org/10.6028/NIST.AI.100-1"),
+    "auto": ("Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. <em>Chmltech Online Journal</em>, 105(7).",
+             "https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents"),
+}
+
+BODY = r"""
+## Introduction
+
+Canadian businesses use and build artificial intelligence under a light domestic framework. The federal Artificial Intelligence and Data Act, proposed as part of Bill C-27 in 2022, died on the Order Paper when Parliament was prorogued in January 2025 [@c27]. The national AI strategy released in June 2026, *AI for All*, emphasizes adoption, skills and sovereign capacity [@aiforall], and the privacy bill that followed, Bill C-36, deliberately contains no stand-alone AI statute [@c36, @fasken].
+
+The European Union took the opposite approach. Its Artificial Intelligence Act, Regulation (EU) 2024/1689, entered into force on 1 August 2024 and sets binding, risk-based obligations for AI systems placed on the EU market or used in the EU [@euaia]. In 2026 the EU amended the Act through the Digital Omnibus on AI, which simplified several provisions and postponed the obligations for high-risk systems [@omnibus, @wc].
+
+For a Canadian business the EU Act matters in two ways. Directly, it applies to many firms that sell AI-enabled software, equipment or services to European customers. Indirectly, it is the most detailed public statement of what responsible AI practice looks like, and large customers increasingly expect suppliers to meet it whether or not the law requires them to. Bradford's account of the "Brussels effect" describes this pattern for earlier EU regulation, such as data protection, in which companies adopt EU rules globally because maintaining separate standards is costly [@bradford].
+
+This paper is written for Canadian small and mid-sized businesses. Section 2 explains when the Act applies and in what role. Section 3 summarizes obligations by risk tier and the amended timeline. Section 4 covers penalties. Section 5 describes the high-risk obligations in more detail. Section 6 compares the Canadian framework. Section 7 proposes a compliance path. It is not legal advice; firms with significant EU exposure should obtain it.
+
+## Does the Act apply to a Canadian business?
+
+### 2.1 Territorial scope
+
+Article 2 sets the Act's reach [@euaia]. It applies to:
+
+- providers that place AI systems on the market or put them into service in the EU, or place general-purpose AI models on the EU market, irrespective of whether they are established in the EU or in a third country;
+- deployers of AI systems that are established or located in the EU; and
+- providers and deployers established in a third country, where the output produced by the AI system is used in the EU.
+
+It also applies to importers and distributors, and to product manufacturers that place an AI system on the market together with their product under their own name. The third limb is the one that most often surprises non-EU firms: a Canadian business that never sells software in Europe may still be in scope if the results of its AI system are used there.
+
+### 2.2 Provider or deployer
+
+The Act assigns most obligations by role. A provider is the organization that develops an AI system, or has it developed, and places it on the market or puts it into service under its own name. A deployer is an organization that uses an AI system under its authority in the course of a professional activity [@euaia]. Providers carry the heavier obligations. A business that buys an AI product and uses it as intended is a deployer; one that builds an AI feature into its own product, or substantially modifies a system it bought, may become a provider. Table 1 applies these rules to common Canadian situations.
+
+TABLE Typical situations for Canadian businesses and the likely position under the EU AI Act. Indicative only; the outcome depends on the facts. || Based on Articles 2, 3 and 50 of [@euaia].
+Situation | Likely role | In scope? | Main obligations today
+Software company sells a product with an AI feature to EU customers | Provider | Yes | Transparency if the feature interacts with people or generates content; high-risk duties if the use is in Annex III
+Equipment maker exports machinery with an AI-based safety function to the EU | Provider (via product rules) | Yes | High-risk duties under Annex I from August 2028
+Canadian firm runs a chatbot on its website that EU visitors use | Provider of its own chatbot, or deployer of a vendor's | Likely, as output is used in the EU | Tell users they are talking to an AI
+Canadian parent screens job applicants for its EU subsidiary with an AI tool | Deployer | Yes | High-risk deployer duties for employment uses from December 2027
+Consultancy uses a general-purpose assistant internally for Canadian clients | Deployer | Generally no | None under the Act; good practice still applies
+Firm fine-tunes an open model and offers it to EU developers | Provider of a general-purpose AI model | Yes | General-purpose model obligations since August 2025
+
+### 2.3 Three common misconceptions
+
+Three misreadings of the scope rules come up often. The first is that a business with no office in Europe is outside the Act. Article 2 is drafted around where AI systems are placed on the market and where their output is used, not where the business is established, so a Canadian software company with European customers is in scope for the systems it sells them [@euaia].
+
+The second is that a business which only uses tools built by others has no obligations. A deployer has fewer obligations than a provider, but not none. Deployers in scope must take measures to support the AI literacy of their staff, must disclose deepfakes and certain AI-generated text, and carry specific duties when they use high-risk systems. A business also becomes a provider if it puts its own name on a system or modifies it substantially.
+
+The third is that anything involving AI is high-risk. Most business uses, such as drafting documents, summarizing meetings, forecasting demand or answering product questions, fall outside Annex III and outside Annex I product rules. They carry transparency duties if they interact with people or generate content, and otherwise only the literacy measures. Classification depends on the intended purpose of the system, not on the technology inside it.
+
+## Risk tiers and the amended timeline
+
+### 3.1 Four tiers
+
+The Act sorts AI uses into four tiers [@euaia]. **Prohibited practices**, listed in Article 5, include manipulative techniques that cause significant harm, social scoring, untargeted scraping of facial images and emotion recognition in workplaces and schools, with some exceptions; the Commission has published guidelines on their interpretation [@prohib]. **High-risk systems** are of two kinds: safety components of products covered by EU product legislation listed in Annex I, such as machinery, medical devices and lifts, and systems used in the areas listed in Annex III, including biometrics, critical infrastructure, education, employment, access to essential services such as credit, law enforcement, migration and justice. **Limited-risk systems** carry transparency obligations under Article 50. All other systems are **minimal risk** and carry no specific obligations beyond AI literacy. General-purpose AI models have their own chapter.
+
+### 3.2 The Digital Omnibus
+
+By late 2025 the implementation of the high-risk regime was behind schedule, with harmonized standards and national authorities not ready. The Commission proposed the Digital Omnibus on AI in November 2025; the European Parliament and the Council reached political agreement on 7 May 2026 [@omnibus]. The amending regulation was published in the Official Journal on 24 July 2026 and entered into force on 27 July 2026 [@cuatre, @wc]. Its main effects for businesses are:
+
+- fixed new dates for high-risk obligations: 2 December 2027 for stand-alone systems in Annex III and 2 August 2028 for systems embedded in Annex I products [@omnibus, @aos];
+- a short transition for marking AI-generated content under Article 50(2): providers of systems already on the market before 2 August 2026 must comply by 2 December 2026 [@aos];
+- a softer AI literacy duty: Article 4 now requires providers and deployers to take measures to support the AI literacy of their staff and others operating AI on their behalf, without guaranteeing any particular level for any individual [@cuatre]; and
+- extension of some simplifications for small and medium-sized enterprises to small mid-cap companies, including penalty caps [@aos].
+
+Figure 1 shows the resulting timeline and Table 2 summarizes the obligations by tier.
+
+FIG fig1-timeline || The EU AI Act timeline as amended by the Digital Omnibus on AI. Prohibitions, AI literacy and general-purpose model obligations already apply; transparency obligations apply from August 2026; high-risk obligations follow in December 2027 and August 2028. || Horizontal timeline from 2024 to 2029. Markers: 1 August 2024, the Act enters into force; 2 February 2025, prohibitions and AI literacy apply; 2 August 2025, general-purpose AI model obligations apply; 27 July 2026, the Digital Omnibus enters into force; 2 August 2026, transparency obligations and enforcement powers apply; 2 December 2026, marking of AI-generated content for systems already on the market; 2 December 2027, high-risk obligations for Annex III systems; 2 August 2028, high-risk obligations for Annex I products. || Drawn by the author from [@euaia], [@omnibus], [@aos] and [@wc].
+
+TABLE Obligations by tier for providers and deployers, with application dates after the Digital Omnibus. || Sources: [@euaia], [@aos], [@cuatre].
+Tier | Provider obligations | Deployer obligations | Applies from
+Prohibited (Art. 5) | Do not place on the market | Do not use | 2 February 2025
+All AI systems (Art. 4) | Measures to support staff AI literacy | Measures to support staff AI literacy | 2 February 2025; amended July 2026
+General-purpose AI models (Ch. V) | Technical documentation, copyright policy, training-data summary; more for systemic-risk models | — | 2 August 2025
+Limited risk (Art. 50) | Design chatbots to disclose that users are interacting with AI; mark synthetic content in a machine-readable way | Disclose deepfakes and emotion recognition; disclose AI-generated text published on matters of public interest unless editorially reviewed | 2 August 2026 (content marking for existing systems: 2 December 2026)
+High-risk, Annex III | Full provider duties (Section 5) | Use per instructions, human oversight, monitoring, log retention, worker information; impact assessment for some | 2 December 2027
+High-risk, Annex I | Full provider duties through product conformity assessment | As above | 2 August 2028
+
+For most Canadian SMEs that sell into Europe, the obligations in force now are modest: avoid prohibited practices, support staff AI literacy, and meet the Article 50 transparency duties for chatbots and generated content. The heavy obligations fall on providers of high-risk systems, and they now have until late 2027 or 2028.
+
+### 3.3 Article 50 in practice
+
+The transparency duties are short in the text but touch many products. A chatbot or voice assistant must be designed so that people know they are interacting with an AI system, unless that is obvious from the context. Systems that generate synthetic audio, images, video or text must mark their outputs in a machine-readable format so that they can be detected as artificially generated, with exceptions for features that only assist standard editing or do not substantially alter the input [@euaia]. Deployers that publish deepfakes must disclose them. In practice, the first duty is an interface decision, the second a technical one that usually relies on watermarking or metadata standards supported by the model or platform the business uses, and the third an editorial policy. A business should record which of its features fall under each duty and how it meets them, since that record is what it will show a customer or an authority that asks.
+
+## Penalties
+
+Article 99 sets maximum administrative fines in three bands [@euaia]. For each, the cap is the higher of a fixed amount and a share of total worldwide annual turnover for the preceding year:
+
+EQ Fine cap = max( F, s × worldwide annual turnover )
+
+with *F* = €35 million and *s* = 7 percent for prohibited practices, *F* = €15 million and *s* = 3 percent for most other obligations, and *F* = €7.5 million and *s* = 1 percent for supplying incorrect or misleading information to authorities. For small and medium-sized enterprises, Article 99 applies the lower of the two amounts instead of the higher, and the Digital Omnibus extends comparable caps to small mid-caps [@euaia, @aos]. For a Canadian SME with €10 million in turnover, Eq. (1) with the SME rule gives a maximum of €300,000 for a breach of a general obligation, against €15 million for a large firm. The amounts are maxima; authorities must consider the nature, gravity and duration of the infringement and the size of the operator.
+
+## High-risk obligations in more detail
+
+Providers of high-risk systems must, before placing them on the market, establish a risk management system covering the system's lifecycle (Article 9); meet data governance requirements for training, validation and test data (Article 10); prepare technical documentation (Article 11); design the system to log events automatically (Article 12); give deployers instructions and information (Article 13); design for effective human oversight (Article 14); achieve appropriate accuracy, robustness and cybersecurity (Article 15); operate a quality management system (Article 17); complete a conformity assessment (Article 43); and register the system in the EU database (Article 49) [@euaia]. A provider established outside the EU must appoint an authorized representative in the EU by written mandate before making a high-risk system available there (Article 22).
+
+Deployers of high-risk systems must use them in accordance with the instructions, assign human oversight to competent people, monitor operation, keep the automatically generated logs for at least six months, and inform workers' representatives and affected workers before using a high-risk system in the workplace (Article 26). Some deployers, including public bodies and firms using AI to assess creditworthiness or to price life and health insurance, must also carry out a fundamental rights impact assessment (Article 27) [@euaia].
+
+The human oversight requirement in Article 14 deserves particular attention because it shapes system design. It requires that the people assigned to oversight be able to understand the system's capacities and limits, remain aware of the tendency to over-rely on its output, interpret its output correctly, decide not to use it or override it, and interrupt it through a stop control [@euaia]. A companion paper discusses how to design approval steps and autonomy levels that meet these aims in practice, including for AI agents [@auto].
+
+Many Canadian firms build on general-purpose models offered by large providers. In that case the model provider carries the obligations for the model itself, including technical documentation and information that downstream providers need, while the Canadian firm that builds a system on the model and places it on the EU market is the provider of that system [@euaia]. The firm should obtain and keep the model provider's documentation, since it will need it to complete its own technical documentation if the system is high-risk, and should record which model version each release of its system uses.
+
+CALLOUT The quality management system required of high-risk providers in Article 17 overlaps heavily with an ISO 9001 quality system and an ISO/IEC 42001 AI management system. A firm that already runs either has a head start on documentation, risk management and corrective action.
+
+## Canada's framework compared
+
+Canada has no equivalent of the AI Act. Its framework in late 2026 consists of four elements.
+
+1. **No AI statute.** The proposed Artificial Intelligence and Data Act, which would have regulated "high-impact" systems, died with Bill C-27 when Parliament was prorogued in January 2025 [@c27]. The government has not reintroduced it.
+2. **A national strategy focused on adoption.** *AI for All*, released on 4 June 2026, commits more than $2 billion, sets a goal of raising business AI adoption sharply by 2034, and addresses trust mainly through privacy, online safety and transparency measures rather than an AI-specific regime [@aiforall].
+3. **Privacy reform with automated-decision provisions.** Bill C-36, introduced on 15 June 2026, would enact the Protecting Privacy and Consumer Data Act. It contains no stand-alone AI law but would increase transparency around automated decision systems, including those powered by AI, and require organizations to assess privacy risks before sending personal information outside Canada [@c36, @fasken].
+4. **Voluntary commitments.** The 2023 Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems sets out commitments on accountability, safety, fairness, transparency, human oversight and robustness for organizations that sign it [@code].
+
+Table 3 compares the two approaches.
+
+TABLE The EU and Canadian approaches to AI governance in late 2026. || Compiled by the author from [@euaia], [@c27], [@aiforall], [@c36], [@fasken] and [@code].
+Aspect | European Union | Canada
+Legal instrument | AI Act, a directly applicable regulation, amended by the Digital Omnibus | No AI statute; privacy bill C-36 before Parliament; voluntary code
+Approach | Risk tiers with binding obligations | Adoption-focused strategy; transparency through privacy law
+High-risk systems | Detailed provider and deployer duties from 2027–2028 | None specific
+Automated decisions about people | Covered by high-risk rules in listed areas and by data protection law | Transparency provisions proposed in C-36
+Generated content and chatbots | Disclosure and marking duties | Chatbot provisions proposed in online safety legislation
+Penalties | Up to €35 million or 7% of turnover | Under C-36, privacy-related penalties; none AI-specific
+
+For Canadian businesses the practical consequence is that the EU Act, together with international frameworks such as the NIST AI Risk Management Framework [@nist] and the ISO/IEC 42001 management system standard [@iso42001], provides the most complete available model of good practice. Aligning with it is a sound choice even for firms not legally bound, because it anticipates what customers, insurers and, eventually, Canadian regulators are likely to ask. Procurement questionnaires from large buyers already ask suppliers to list the AI in their products, explain how outputs are checked and describe who is accountable, and the answers a firm prepares for the EU Act serve those questionnaires as well.
+
+## A compliance path for Canadian SMEs
+
+The following six steps are proportionate for a small or mid-sized firm with some EU exposure. Figure 2 summarizes the first three as a decision flow.
+
+FIG fig2-decision-flow || Decision flow for a Canadian business: whether the AI Act applies, in what role, and which tier of obligations follows. || Flowchart. First question: does the business place an AI system on the EU market, or is its output used in the EU? If no, the Act does not apply, but the business should follow good practice. If yes, second question: is the business a provider or a deployer? Third question: is the use prohibited, high-risk, limited-risk or minimal? Prohibited leads to stop; high-risk leads to full duties by December 2027 or August 2028; limited-risk leads to transparency duties now; minimal leads to AI literacy measures only. || Drawn by the author from Articles 2, 5, 6 and 50 of [@euaia].
+
+1. **Inventory.** List every AI system the business builds, sells or uses, including AI features inside purchased software. For each, record its purpose, users, data and where its output is used.
+2. **Determine scope and role.** For each system, apply Article 2 and decide whether the business is a provider, a deployer or neither, using Table 1 as a guide.
+3. **Classify the tier.** Check each in-scope system against Article 5, Annexes I and III, and Article 50. Document the reasoning, including for systems judged not to be high-risk.
+4. **Meet today's obligations.** Make chatbots disclose that they are AI, mark generated media and text where required, and put AI literacy measures in place: short role-based training, written guidance on acceptable use and a named person to ask.
+5. **Plan for high-risk duties.** If any system is high-risk, plan the risk management, documentation, logging, oversight, quality management and conformity assessment work back from December 2027 or August 2028, and arrange an authorized representative in the EU if the business is a provider.
+6. **Manage it as a system.** Fold AI governance into an existing management system. A firm certified to ISO 9001 can extend it with the controls of ISO/IEC 42001, which provides a certifiable structure for AI policy, risk assessment, impact assessment and lifecycle controls [@iso42001].
+
+A worked example shows the scale of effort for a typical firm. A Vancouver software company with 40 staff sells a field-service application to customers in Germany and the Netherlands. The application includes a chat assistant that answers technicians' questions and a feature that drafts service reports. The company is a provider of both features. Neither use falls under Annex III, so neither is high-risk. Its obligations today are to make the assistant tell users that they are interacting with an AI system, to mark generated reports in a machine-readable way unless the feature only assists editing, and to take measures to support the AI literacy of the staff who build, sell and support the features. In practice that means an interface change, a metadata change, a short training module and a page of internal guidance, followed by an entry in its management system so the classification is reviewed when the product changes. If the company later added a feature that ranked job applicants for its customers, that feature would fall under Annex III and bring the full high-risk duties from December 2027.
+
+Throughout, the business should keep evidence: the inventory, the classification reasoning, the transparency measures, the training records and the decisions of whoever is accountable for AI. Under a risk-based law, a documented and reasonable judgment is the best protection when a classification is later questioned.
+
+Contracts deserve attention throughout. Deployers depend on the information providers give them under Article 13, and Canadian firms that resell or integrate third-party AI should confirm in writing which party is the provider, what documentation will be supplied and how incidents will be reported.
+
+## Conclusion
+
+The EU AI Act reaches Canadian businesses that sell AI systems into Europe or whose AI output is used there. After the Digital Omnibus, most of those businesses face modest obligations today: avoid prohibited practices, support AI literacy, and meet transparency duties for chatbots and generated content. Providers of high-risk systems face substantial duties, but now with fixed dates in December 2027 and August 2028, which give time to prepare if they start now. Canada has chosen a lighter path, relying on privacy reform, an adoption strategy and voluntary commitments. In that setting, a Canadian business that inventories its AI systems, understands its role and builds AI governance into its management system will be ready for European customers, for the expectations of large buyers at home and for whatever Canadian rules follow.
+"""

@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.67 — 2026-11-13
+- **Five new Chmltech Online Journal papers, Volume 105, Issues 7–11** (published November 13, 2026; Division of Artificial Intelligence and Machine Learning). Each has a cover, a PDF download (`assets/journal/pdf/chmltech-journal-vol105-issue7.pdf` to `issue11.pdf`, printed from the page with the running footer), an Insights card and a sitemap entry:
+  - 105(7) *Levels of Autonomy and Human-in-the-Loop Design for AI Agents* (`post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents`): 3 figures, 3 tables, 3 equations, 16 references.
+  - 105(8) *The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback* (`post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback`): 2 figures, 2 tables, 4 equations, 14 references. Filed under Artificial Intelligence and Strategy.
+  - 105(9) *Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries* (`post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries`): 3 figures, 3 tables, 2 equations, 16 references. Filed under Artificial Intelligence, Process Engineering and Operational Efficiency.
+  - 105(10) *Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation* (`post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation`): 2 figures, 2 tables, 3 equations, 16 references.
+  - 105(11) *The EU AI Act for Canadian Businesses: Scope, Obligations After the Digital Omnibus and a Practical Compliance Path* (`post/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path`): 2 figures, 3 tables, 1 equation, 15 references. Filed under Artificial Intelligence and Strategy.
+  - Sources: `content/journal/agentic/paper_v105_i7.py` to `paper_v105_i11.py`, built and checked by `content/journal/agentic/build_batch2.py`; figures by `content/journal/figure-scripts/agentic2.py`. `jmark.py` gains a `CALLOUT` block (the journal's key-point box; at most three per paper).
+- **New Insights article (ISO):** `post/iso-iec-42001-alongside-iso-9001-adding-ai-governance`, *ISO/IEC 42001 Alongside ISO 9001: Adding AI Governance to the Quality System You Already Have* (clause-by-clause comparison, the nine Annex A objectives, EU AI Act status, a 26-week plan as a figure). Source: `content/articles/iso42001_article.py`.
+- Insights now lists 171 articles.
+
 ## V4.66 — 2026-11-13
 - **Older articles fixed or merged (SEO).**
   - `post/boost-your-business-with-cdap-funding-support-for-digital-adoption` rewritten at the same address as *After CDAP: Where Canadian Businesses Find Digital and AI Funding in 2026* (CDAP closed to new applicants on February 19, 2024). Covers LIFT, the Regional AI Initiative, NRC IRAP, SR&ED, Scale AI, Ontario DMAP, Quebec ESSOR and Mitacs, with a "where to start" figure and a LIFT vs RAII table; links to the funding finder. This also covers the proposed "AI funding map" post, so the two do not compete in search.

@@ -7,6 +7,7 @@ Markup, one block per paragraph (blocks separated by a blank line):
   EQ <html>                numbered equation (numbers assigned in order)
   TABLE <caption> || <note>   followed by pipe rows; first row is the header
   FIG <id> || <caption> || <alt> || <source>   figure (numbers assigned in order)
+  CALLOUT <text>           key-point box (at most 3 per paper; V4.67)
   anything else            a paragraph
 Inline: **bold**, *italic*, citations [@key] or [@a, @b]. References are numbered in order of first citation
 in the body, and consecutive numbers are written as ranges (3–6).
@@ -39,6 +40,8 @@ def parse(src):
             t = {"n": tab_n, "caption": inline(cap.strip()), "head": rows[0], "rows": rows[1:]}
             if note.strip(): t["note"] = inline(note.strip())
             blocks.append({"table": t})
+        elif raw.startswith("CALLOUT "):
+            blocks.append({"callout": inline(" ".join(ln.strip() for ln in lines)[8:].strip())})
         elif raw.startswith("FIG "):
             fig_n += 1
             fid, cap, alt, srcl = [x.strip() for x in raw[4:].split("||")]
@@ -68,7 +71,7 @@ def number_refs(sections, refs):
     def walk(fn):
         for s in sections:
             for b in s["blocks"]:
-                for k in ("p",):
+                for k in ("p", "callout"):
                     if k in b: b[k] = fn(b[k])
                 if "list" in b: b["list"] = [fn(x) for x in b["list"]]
                 if "table" in b:

@@ -1,0 +1,2160 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence</title>
+<meta name="description" content="How much should an AI agent do on its own? Levels of autonomy, the failure modes of human review, a per-action risk rule and evidence-based promotion.">
+<link rel="canonical" href="https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence">
+<meta property="og:description" content="How much should an AI agent do on its own? Levels of autonomy, the failure modes of human review, a per-action risk rule and evidence-based promotion.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<meta property="og:url" content="https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence","item":"https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=31376edc">
+<meta name="citation_title" content="Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/13">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="105">
+<meta name="citation_issue" content="7">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 105, Issue 7</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 13, 2026</span><span>14 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>AI agents now complete multi-step tasks that once required a person at every step, and the length of task they can complete has been doubling roughly every seven months. How much an agent is allowed to do without a person is therefore a design decision rather than a property of the model. This paper reviews the levels-of-automation literature, from Sheridan and Verplank's ten levels and the four-stage model of Parasuraman, Sheridan and Wickens to SAE J3016 and a recent five-level framework for AI agents defined by the role of the user. It then summarizes why human oversight often fails in practice: the ironies of automation, loss of situation awareness, automation bias and approval fatigue. Building on that evidence, it proposes that autonomy be set per action rather than per agent, using four properties of the action: reversibility, impact, detectability and novelty. A simple expected-loss rule shows when an approval step pays for itself, and a capacity check shows when it will be rubber-stamped. The paper sets out what a reviewer must see, and how sampling, escalation and stop controls complement approval. It closes with an evidence-based promotion path in which an agent earns each level of autonomy through shadow-mode trials, with a statistical bound on the error rate, and loses it on defined triggers.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> AI agents; levels of autonomy; human-in-the-loop; human oversight; automation bias; approval workflows; risk management; EU AI Act</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Until recently, the question of how much an AI system should do on its own had a simple answer for most businesses: very little. A language model drafted text and a person decided what to do with it. AI agents change that. An agent plans a sequence of steps, calls tools, reads the results and continues until the task is done, and it can post an invoice, send an email or change a record without anyone pressing a button. The capability behind this is growing quickly. Researchers at METR measured the length of software and research tasks, in human working time, that frontier models complete with 50 percent reliability, and found that this time horizon has been doubling roughly every seven months since 2019 [<a href="#ref-1" class="j-cite">1</a>].</p><p>Capability, however, does not decide autonomy. Feng, McDonald and Zhang argue that the level of autonomy at which an agent operates is a deliberate design choice, separate from what the agent is able to do and from the environment it works in [<a href="#ref-2" class="j-cite">2</a>]. A highly capable agent can be deployed as an assistant that proposes and waits, and a modest one can be allowed to act alone on narrow, low-risk tasks. The question for a business is not "how good is the model?" but "which actions may this agent take without a person, and how do we know?"</p><p>This paper addresses that question. Section 2 reviews the levels-of-automation literature and maps it to agents. Section 3 summarizes the evidence on why human oversight often fails in practice. Section 4 proposes setting autonomy per action using four properties of the action, with a simple cost rule for when an approval step is worth its cost. Section 5 describes how to design the human checkpoint so that oversight is real. Section 6 sets out an evidence-based path for promoting an agent from one level to the next, and for demoting it.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Levels of automation: from teleoperators to agents</h2><h3>2.1 Classic scales</h3><p>The idea that automation comes in degrees is old. Sheridan and Verplank, studying the remote control of undersea vehicles, described ten levels running from a computer that offers no assistance, through one that suggests alternatives or executes a choice if the human approves, to one that acts entirely on its own and informs the human only if it decides to [<a href="#ref-3" class="j-cite">3</a>]. Their scale introduced the distinctions that still matter for agents: who generates the options, who selects one, who executes it, and whether the human is told.</p><p>Parasuraman, Sheridan and Wickens refined this into a two-dimensional model [<a href="#ref-4" class="j-cite">4</a>]. They separated four functions that a system can automate (information acquisition, information analysis, decision selection and action implementation) and argued that each can be automated to a different level. A system can gather and analyze information with high autonomy while leaving the decision to a person. Their central recommendation was that the right level for each function should be set by the consequences of errors and by human performance, not by what the technology makes possible.</p><p>The best-known scale today is SAE J3016 for driving automation, with six levels from no automation (Level 0) to full automation in all conditions (Level 5) [<a href="#ref-5" class="j-cite">5</a>]. Its key contribution is the notion of an operational design domain: a Level 4 vehicle drives itself without a human fallback, but only within defined conditions such as a mapped area or certain weather. Outside them the system must hand over or reach a safe state.</p><h3>2.2 A scale for AI agents</h3><p>Feng and colleagues propose five levels for AI agents defined by the role the user plays [<a href="#ref-2" class="j-cite">2</a>]. At Level 1 the user is an operator who directs the work and makes the decisions while the agent acts on command. At Level 2 the user is a collaborator who shares planning and execution with the agent. At Level 3 the user is a consultant whom the agent asks for input and preferences. At Level 4 the user is an approver whose consent is needed for certain actions, such as high-risk ones. At Level 5 the user is an observer who can monitor the agent and stop it but does not intervene in normal operation. Table 1 aligns these scales.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Correspondence between automation scales, as interpreted by the author. Levels are approximate equivalents rather than exact matches.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Agent level (user role)</th><th>Who decides and acts</th><th>Sheridan–Verplank level</th><th>SAE J3016 analogue</th></tr></thead><tbody><tr><td>L1 Operator</td><td>Human decides; agent executes on command</td><td>2–3: computer offers or narrows options</td><td>Level 0–1</td></tr><tr><td>L2 Collaborator</td><td>Human and agent share planning and execution</td><td>4: computer suggests one alternative</td><td>Level 1–2</td></tr><tr><td>L3 Consultant</td><td>Agent leads; asks the human for input and preferences</td><td>5: executes if the human approves</td><td>Level 2</td></tr><tr><td>L4 Approver</td><td>Agent acts; human approval required for defined actions</td><td>6: human has limited time to veto</td><td>Level 3</td></tr><tr><td>L5 Observer</td><td>Agent acts alone; human monitors and can stop it</td><td>7–10: informs the human after acting, or not at all</td><td>Level 4–5, within a design domain</td></tr></tbody></table></div><p class="j-table-note">Sources: [<a href="#ref-3" class="j-cite">3</a>], [<a href="#ref-4" class="j-cite">4</a>], [<a href="#ref-5" class="j-cite">5</a>], [<a href="#ref-2" class="j-cite">2</a>].</p></figure><p>The analogy with driving should not be pushed too far. A vehicle performs one task, driving, so a single level describes the system. An agent in a business performs many different actions with very different consequences: reading a record, drafting a reply, issuing a refund, deleting a file. A single autonomy level for the agent as a whole is therefore too coarse. The Parasuraman model, which assigns levels per function, is closer to what agents need, and Section 4 extends it to per-action levels.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Why human oversight fails</h2><p>The default response to agent risk is to put a human in the loop. Decades of research on automation show that this is necessary but not sufficient: a human in the loop provides real protection only under specific conditions.</p><h3>3.1 The ironies of automation</h3><p>Bainbridge observed that automation creates two ironies [<a href="#ref-6" class="j-cite">6</a>]. First, designers automate the tasks they can and leave the human to handle what they cannot, so the human is left with the hardest and rarest situations. Second, the human's role becomes monitoring, a task people perform poorly over long periods, and the skills needed to take over decay precisely because the automation usually works. Both apply to agents. If an agent handles routine invoices and escalates only the unusual ones, the clerk who reviews escalations sees only difficult cases while losing the daily practice that built their judgment.</p><h3>3.2 Out of the loop</h3><p>Endsley and Kiris showed experimentally that operators who monitored full automation were slower and less accurate when they had to take over than operators who had been working at an intermediate level of automation [<a href="#ref-7" class="j-cite">7</a>]. The cause was reduced situation awareness: the monitoring operator had not been building a model of the situation. For agents, the lesson is that a person who is asked to approve a single action at the end of a long chain, with no view of how the agent got there, cannot judge it well.</p><h3>3.3 Automation bias and complacency</h3><p>Parasuraman and Riley distinguished use, misuse, disuse and abuse of automation, where misuse means relying on automation when it should not be relied on [<a href="#ref-8" class="j-cite">8</a>]. A systematic review of automation bias in clinical decision support found that users frequently accepted incorrect advice, that errors of commission (following wrong advice) and omission (missing a problem the system did not flag) both occurred, and that the effect was stronger when workload was high and when users had greater trust in the system [<a href="#ref-9" class="j-cite">9</a>]. Lee and See framed the design goal as appropriate reliance: trust should match the automation's actual reliability in the situation at hand, which requires that the system make its reliability visible [<a href="#ref-10" class="j-cite">10</a>].</p><h3>3.4 Approval fatigue</h3><p>These findings combine in a pattern familiar to anyone who has deployed an approval workflow. When an agent is usually right, approvals become a formality. The reviewer sees a long queue of similar requests, the first hundred are correct, and the hundred-and-first is approved without being read. The approval step then adds delay and cost while providing little protection, and it creates a record that suggests oversight took place.</p><aside class="j-callout"><p>A human in the loop is a control only if the human has the information, the time and the incentive to say no. An approval step that is never declined is not evidence that the agent is safe; it may be evidence that the step is not working.</p></aside><p>The EU Artificial Intelligence Act reflects this research. For high-risk systems, Article 14 requires that the people assigned to oversight be able to understand the system's capacities and limitations, remain aware of the tendency to rely too much on its output, which the Act calls automation bias, correctly interpret the output, decide not to use it or override it, and interrupt the system through a stop button or similar procedure [<a href="#ref-11" class="j-cite">11</a>]. These are useful design requirements even where the Act does not apply.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Setting autonomy per action</h2><h3>4.1 Four properties of an action</h3><p>The appropriate level of autonomy depends on the action, not the agent. This paper proposes four properties for classifying each action an agent can take.</p><ol><li><strong>Reversibility.</strong> Can the action be undone fully and cheaply? A draft can be deleted; a payment to a third party, an email to a customer or a deleted record without a backup cannot.</li><li><strong>Impact.</strong> What is the worst plausible consequence, in money, safety, legal exposure or reputation? Impact can be bounded by limits, for example a maximum refund value.</li><li><strong>Detectability.</strong> If the action is wrong, how likely is the error to be caught before it causes harm, by a downstream check, a reconciliation or the recipient?</li><li><strong>Novelty.</strong> Is the situation within the range of cases on which the agent has been tested, or outside it? This is the agent equivalent of SAE's operational design domain [<a href="#ref-5" class="j-cite">5</a>].</li></ol><p>Table 2 applies these properties to common agent actions and gives a default level.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Example classification of agent actions and default autonomy level, proposed by the author for a typical small or mid-sized business. Levels refer to Table 1.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Action</th><th>Reversible</th><th>Impact</th><th>Default level</th></tr></thead><tbody><tr><td>Search records, summarize documents, answer internal questions</td><td>Yes (no change)</td><td>Low</td><td>L5 Observer</td></tr><tr><td>Draft an email, quote or work order for a person to send</td><td>Yes</td><td>Low</td><td>L4–L5</td></tr><tr><td>Update a non-financial field, such as a contact or a status</td><td>Mostly, with history</td><td>Low–medium</td><td>L4 with logging</td></tr><tr><td>Send a routine message to a customer or supplier</td><td>No</td><td>Medium</td><td>L3–L4, sampled</td></tr><tr><td>Post an invoice or issue a refund under a set limit</td><td>Partly, via reversal</td><td>Medium, bounded</td><td>L4; L5 below limit after promotion</td></tr><tr><td>Pay a new supplier, change bank details, approve a contract</td><td>No</td><td>High</td><td>L1–L2 with two-person rule</td></tr><tr><td>Change a production setpoint or a safety system</td><td>No</td><td>High, safety</td><td>Not delegated to the agent</td></tr></tbody></table></div><p class="j-table-note">Defaults are starting points; a business should adjust them to its own risk tolerance.</p></figure><p>The table encodes a few principles. Read-only actions can run with high autonomy because their only risk is a wrong answer, which is controlled by evaluation and by the reader. Actions with external effects need more oversight than internal ones. Impact can be capped by limits, which turns a high-impact action class into a bounded one. And some actions, notably those affecting physical safety, should not be delegated at all; an agent can advise on them through the systems people already use.</p><h3>4.2 When an approval step pays for itself</h3><p>An approval step has a cost: the reviewer's time and the delay. It also has a benefit: the errors it catches. A simple expected-loss comparison makes the trade-off explicit. Let <em>p</em> be the probability that the agent's action is wrong, <em>C</em> the cost of an error that reaches the world, <em>d</em><sub>a</sub> the probability that an error is caught without a reviewer (for example, by a downstream reconciliation), <em>d</em><sub>h</sub> the probability that it is caught with a reviewer, and <em>c</em><sub>r</sub> the cost of one review. Approval is worthwhile when the loss it avoids exceeds its cost:</p><div class="j-eq" role="math"><span class="j-eq-body">p · C · (d<sub>h</sub> − d<sub>a</sub>) &gt; c<sub>r</sub></span><span class="j-eq-n">(1)</span></div><p>Consider refunds. Suppose the agent is wrong on 2 percent of refunds, an uncaught wrong refund costs $300 on average, a monthly reconciliation would catch 30 percent of errors anyway, and an attentive reviewer catches 90 percent. The left side of Eq. (1) is 0.02 × 300 × 0.6 = $3.60 per refund. If a review takes two minutes of a clerk's time at $40 per hour, the cost is about $1.33, so approval pays. If the error rate falls to 0.5 percent after improvements, the benefit drops to $0.90 and approval no longer pays for small refunds; a sample review is better. The same arithmetic shows why limits matter: for a refund above $2,000 the benefit of approval is large even at a low error rate.</p><h3>4.3 Can the reviewers keep up?</h3><p>Eq. (1) assumes the reviewer's detection rate <em>d</em><sub>h</sub>. The research in Section 3 suggests that this rate falls when reviewers are overloaded or when nearly every request is correct [<a href="#ref-9" class="j-cite">9</a>]. A second check is therefore a capacity constraint. If an agent generates <em>N</em> approval requests per day, each needing <em>t</em> minutes of genuine attention, and the reviewers can give <em>T</em> minutes a day to approvals, then:</p><div class="j-eq" role="math"><span class="j-eq-body">N · t ≤ T</span><span class="j-eq-n">(2)</span></div><p>When Eq. (2) is violated, reviews will be rushed and <em>d</em><sub>h</sub> in Eq. (1) will fall toward <em>d</em><sub>a</sub>, eliminating the benefit. The remedies are to reduce <em>N</em> by raising autonomy for low-risk actions, to reduce <em>t</em> by presenting better evidence, or to replace blanket approval with sampling. Figure 1 shows the resulting regions.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 509.907207 296.951117" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Chart with the agent&#x27;s error rate on the horizontal axis, from 0.1 to 10 percent on a log scale, and the cost of an uncaught error on the vertical axis, from 10 to 10,000 dollars on a log scale. A downward-sloping line marks the break-even point of Eq. (1). Above the line the region is labelled approval pays; below it, sample and monitor. A band at high error rates is labelled approval queue exceeds capacity, fix the agent first.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 296.951117 
+L 509.907207 296.951117 
+L 509.907207 0 
+L 0 0 
+L 0 296.951117 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 69.464668 254.781937 
+L 493.544668 254.781937 
+L 493.544668 10.845937 
+L 69.464668 10.845937 
+L 69.464668 254.781937 
+z
+" style="fill: none"/>
+</g>
+<g id="FillBetweenPolyCollection_1">
+<defs>
+<path id="md80ce34dad" d="M 69.464668 -286.10518 
+L 69.464668 -232.90277 
+L 71.595723 -232.085564 
+L 73.726779 -231.268358 
+L 75.857834 -230.451152 
+L 77.988889 -229.633946 
+L 80.119944 -228.81674 
+L 82.251 -227.999534 
+L 84.382055 -227.182328 
+L 86.51311 -226.365122 
+L 88.644165 -225.547916 
+L 90.775221 -224.73071 
+L 92.906276 -223.913504 
+L 95.037331 -223.096297 
+L 97.168387 -222.279091 
+L 99.299442 -221.461885 
+L 101.430497 -220.644679 
+L 103.561552 -219.827473 
+L 105.692608 -219.010267 
+L 107.823663 -218.193061 
+L 109.954718 -217.375855 
+L 112.085773 -216.558649 
+L 114.216829 -215.741443 
+L 116.347884 -214.924237 
+L 118.478939 -214.107031 
+L 120.609995 -213.289825 
+L 122.74105 -212.472619 
+L 124.872105 -211.655413 
+L 127.00316 -210.838207 
+L 129.134216 -210.021001 
+L 131.265271 -209.203795 
+L 133.396326 -208.386589 
+L 135.527382 -207.569383 
+L 137.658437 -206.752177 
+L 139.789492 -205.934971 
+L 141.920547 -205.117765 
+L 144.051603 -204.300559 
+L 146.182658 -203.483353 
+L 148.313713 -202.666147 
+L 150.444768 -201.848941 
+L 152.575824 -201.031735 
+L 154.706879 -200.214529 
+L 156.837934 -199.397323 
+L 158.96899 -198.580117 
+L 161.100045 -197.762911 
+L 163.2311 -196.945705 
+L 165.362155 -196.128498 
+L 167.493211 -195.311292 
+L 169.624266 -194.494086 
+L 171.755321 -193.67688 
+L 173.886377 -192.859674 
+L 176.017432 -192.042468 
+L 178.148487 -191.225262 
+L 180.279542 -190.408056 
+L 182.410598 -189.59085 
+L 184.541653 -188.773644 
+L 186.672708 -187.956438 
+L 188.803763 -187.139232 
+L 190.934819 -186.322026 
+L 193.065874 -185.50482 
+L 195.196929 -184.687614 
+L 197.327985 -183.870408 
+L 199.45904 -183.053202 
+L 201.590095 -182.235996 
+L 203.72115 -181.41879 
+L 205.852206 -180.601584 
+L 207.983261 -179.784378 
+L 210.114316 -178.967172 
+L 212.245371 -178.149966 
+L 214.376427 -177.33276 
+L 216.507482 -176.515554 
+L 218.638537 -175.698348 
+L 220.769593 -174.881142 
+L 222.900648 -174.063936 
+L 225.031703 -173.24673 
+L 227.162758 -172.429524 
+L 229.293814 -171.612318 
+L 231.424869 -170.795112 
+L 233.555924 -169.977906 
+L 235.68698 -169.160699 
+L 237.818035 -168.343493 
+L 239.94909 -167.526287 
+L 242.080145 -166.709081 
+L 244.211201 -165.891875 
+L 246.342256 -165.074669 
+L 248.473311 -164.257463 
+L 250.604366 -163.440257 
+L 252.735422 -162.623051 
+L 254.866477 -161.805845 
+L 256.997532 -160.988639 
+L 259.128588 -160.171433 
+L 261.259643 -159.354227 
+L 263.390698 -158.537021 
+L 265.521753 -157.719815 
+L 267.652809 -156.902609 
+L 269.783864 -156.085403 
+L 271.914919 -155.268197 
+L 274.045975 -154.450991 
+L 276.17703 -153.633785 
+L 278.308085 -152.816579 
+L 280.43914 -151.999373 
+L 282.570196 -151.182167 
+L 284.701251 -150.364961 
+L 286.832306 -149.547755 
+L 288.963361 -148.730549 
+L 291.094417 -147.913343 
+L 293.225472 -147.096137 
+L 295.356527 -146.278931 
+L 297.487583 -145.461725 
+L 299.618638 -144.644519 
+L 301.749693 -143.827313 
+L 303.880748 -143.010107 
+L 306.011804 -142.1929 
+L 308.142859 -141.375694 
+L 310.273914 -140.558488 
+L 312.404969 -139.741282 
+L 314.536025 -138.924076 
+L 316.66708 -138.10687 
+L 318.798135 -137.289664 
+L 320.929191 -136.472458 
+L 323.060246 -135.655252 
+L 325.191301 -134.838046 
+L 327.322356 -134.02084 
+L 329.453412 -133.203634 
+L 331.584467 -132.386428 
+L 333.715522 -131.569222 
+L 335.846578 -130.752016 
+L 337.977633 -129.93481 
+L 340.108688 -129.117604 
+L 342.239743 -128.300398 
+L 344.370799 -127.483192 
+L 346.501854 -126.665986 
+L 348.632909 -125.84878 
+L 350.763964 -125.031574 
+L 352.89502 -124.214368 
+L 355.026075 -123.397162 
+L 357.15713 -122.579956 
+L 359.288186 -121.76275 
+L 361.419241 -120.945544 
+L 363.550296 -120.128338 
+L 365.681351 -119.311132 
+L 367.812407 -118.493926 
+L 369.943462 -117.67672 
+L 372.074517 -116.859514 
+L 374.205572 -116.042308 
+L 376.336628 -115.225102 
+L 378.467683 -114.407895 
+L 380.598738 -113.590689 
+L 382.729794 -112.773483 
+L 384.860849 -111.956277 
+L 386.991904 -111.139071 
+L 389.122959 -110.321865 
+L 391.254015 -109.504659 
+L 393.38507 -108.687453 
+L 395.516125 -107.870247 
+L 397.647181 -107.053041 
+L 399.778236 -106.235835 
+L 401.909291 -105.418629 
+L 404.040346 -104.601423 
+L 406.171402 -103.784217 
+L 408.302457 -102.967011 
+L 410.433512 -102.149805 
+L 412.564567 -101.332599 
+L 414.695623 -100.515393 
+L 416.826678 -99.698187 
+L 418.957733 -98.880981 
+L 421.088789 -98.063775 
+L 423.219844 -97.246569 
+L 425.350899 -96.429363 
+L 427.481954 -95.612157 
+L 429.61301 -94.794951 
+L 431.744065 -93.977745 
+L 433.87512 -93.160539 
+L 436.006176 -92.343333 
+L 438.137231 -91.526127 
+L 440.268286 -90.708921 
+L 442.399341 -89.891715 
+L 444.530397 -89.074509 
+L 446.661452 -88.257303 
+L 448.792507 -87.440096 
+L 450.923562 -86.62289 
+L 453.054618 -85.805684 
+L 455.185673 -84.988478 
+L 457.316728 -84.171272 
+L 459.447784 -83.354066 
+L 461.578839 -82.53686 
+L 463.709894 -81.719654 
+L 465.840949 -80.902448 
+L 467.972005 -80.085242 
+L 470.10306 -79.268036 
+L 472.234115 -78.45083 
+L 474.36517 -77.633624 
+L 476.496226 -76.816418 
+L 478.627281 -75.999212 
+L 480.758336 -75.182006 
+L 482.889392 -74.3648 
+L 485.020447 -73.547594 
+L 487.151502 -72.730388 
+L 489.282557 -71.913182 
+L 491.413613 -71.095976 
+L 493.544668 -70.27877 
+L 493.544668 -286.10518 
+L 493.544668 -286.10518 
+L 491.413613 -286.10518 
+L 489.282557 -286.10518 
+L 487.151502 -286.10518 
+L 485.020447 -286.10518 
+L 482.889392 -286.10518 
+L 480.758336 -286.10518 
+L 478.627281 -286.10518 
+L 476.496226 -286.10518 
+L 474.36517 -286.10518 
+L 472.234115 -286.10518 
+L 470.10306 -286.10518 
+L 467.972005 -286.10518 
+L 465.840949 -286.10518 
+L 463.709894 -286.10518 
+L 461.578839 -286.10518 
+L 459.447784 -286.10518 
+L 457.316728 -286.10518 
+L 455.185673 -286.10518 
+L 453.054618 -286.10518 
+L 450.923562 -286.10518 
+L 448.792507 -286.10518 
+L 446.661452 -286.10518 
+L 444.530397 -286.10518 
+L 442.399341 -286.10518 
+L 440.268286 -286.10518 
+L 438.137231 -286.10518 
+L 436.006176 -286.10518 
+L 433.87512 -286.10518 
+L 431.744065 -286.10518 
+L 429.61301 -286.10518 
+L 427.481954 -286.10518 
+L 425.350899 -286.10518 
+L 423.219844 -286.10518 
+L 421.088789 -286.10518 
+L 418.957733 -286.10518 
+L 416.826678 -286.10518 
+L 414.695623 -286.10518 
+L 412.564567 -286.10518 
+L 410.433512 -286.10518 
+L 408.302457 -286.10518 
+L 406.171402 -286.10518 
+L 404.040346 -286.10518 
+L 401.909291 -286.10518 
+L 399.778236 -286.10518 
+L 397.647181 -286.10518 
+L 395.516125 -286.10518 
+L 393.38507 -286.10518 
+L 391.254015 -286.10518 
+L 389.122959 -286.10518 
+L 386.991904 -286.10518 
+L 384.860849 -286.10518 
+L 382.729794 -286.10518 
+L 380.598738 -286.10518 
+L 378.467683 -286.10518 
+L 376.336628 -286.10518 
+L 374.205572 -286.10518 
+L 372.074517 -286.10518 
+L 369.943462 -286.10518 
+L 367.812407 -286.10518 
+L 365.681351 -286.10518 
+L 363.550296 -286.10518 
+L 361.419241 -286.10518 
+L 359.288186 -286.10518 
+L 357.15713 -286.10518 
+L 355.026075 -286.10518 
+L 352.89502 -286.10518 
+L 350.763964 -286.10518 
+L 348.632909 -286.10518 
+L 346.501854 -286.10518 
+L 344.370799 -286.10518 
+L 342.239743 -286.10518 
+L 340.108688 -286.10518 
+L 337.977633 -286.10518 
+L 335.846578 -286.10518 
+L 333.715522 -286.10518 
+L 331.584467 -286.10518 
+L 329.453412 -286.10518 
+L 327.322356 -286.10518 
+L 325.191301 -286.10518 
+L 323.060246 -286.10518 
+L 320.929191 -286.10518 
+L 318.798135 -286.10518 
+L 316.66708 -286.10518 
+L 314.536025 -286.10518 
+L 312.404969 -286.10518 
+L 310.273914 -286.10518 
+L 308.142859 -286.10518 
+L 306.011804 -286.10518 
+L 303.880748 -286.10518 
+L 301.749693 -286.10518 
+L 299.618638 -286.10518 
+L 297.487583 -286.10518 
+L 295.356527 -286.10518 
+L 293.225472 -286.10518 
+L 291.094417 -286.10518 
+L 288.963361 -286.10518 
+L 286.832306 -286.10518 
+L 284.701251 -286.10518 
+L 282.570196 -286.10518 
+L 280.43914 -286.10518 
+L 278.308085 -286.10518 
+L 276.17703 -286.10518 
+L 274.045975 -286.10518 
+L 271.914919 -286.10518 
+L 269.783864 -286.10518 
+L 267.652809 -286.10518 
+L 265.521753 -286.10518 
+L 263.390698 -286.10518 
+L 261.259643 -286.10518 
+L 259.128588 -286.10518 
+L 256.997532 -286.10518 
+L 254.866477 -286.10518 
+L 252.735422 -286.10518 
+L 250.604366 -286.10518 
+L 248.473311 -286.10518 
+L 246.342256 -286.10518 
+L 244.211201 -286.10518 
+L 242.080145 -286.10518 
+L 239.94909 -286.10518 
+L 237.818035 -286.10518 
+L 235.68698 -286.10518 
+L 233.555924 -286.10518 
+L 231.424869 -286.10518 
+L 229.293814 -286.10518 
+L 227.162758 -286.10518 
+L 225.031703 -286.10518 
+L 222.900648 -286.10518 
+L 220.769593 -286.10518 
+L 218.638537 -286.10518 
+L 216.507482 -286.10518 
+L 214.376427 -286.10518 
+L 212.245371 -286.10518 
+L 210.114316 -286.10518 
+L 207.983261 -286.10518 
+L 205.852206 -286.10518 
+L 203.72115 -286.10518 
+L 201.590095 -286.10518 
+L 199.45904 -286.10518 
+L 197.327985 -286.10518 
+L 195.196929 -286.10518 
+L 193.065874 -286.10518 
+L 190.934819 -286.10518 
+L 188.803763 -286.10518 
+L 186.672708 -286.10518 
+L 184.541653 -286.10518 
+L 182.410598 -286.10518 
+L 180.279542 -286.10518 
+L 178.148487 -286.10518 
+L 176.017432 -286.10518 
+L 173.886377 -286.10518 
+L 171.755321 -286.10518 
+L 169.624266 -286.10518 
+L 167.493211 -286.10518 
+L 165.362155 -286.10518 
+L 163.2311 -286.10518 
+L 161.100045 -286.10518 
+L 158.96899 -286.10518 
+L 156.837934 -286.10518 
+L 154.706879 -286.10518 
+L 152.575824 -286.10518 
+L 150.444768 -286.10518 
+L 148.313713 -286.10518 
+L 146.182658 -286.10518 
+L 144.051603 -286.10518 
+L 141.920547 -286.10518 
+L 139.789492 -286.10518 
+L 137.658437 -286.10518 
+L 135.527382 -286.10518 
+L 133.396326 -286.10518 
+L 131.265271 -286.10518 
+L 129.134216 -286.10518 
+L 127.00316 -286.10518 
+L 124.872105 -286.10518 
+L 122.74105 -286.10518 
+L 120.609995 -286.10518 
+L 118.478939 -286.10518 
+L 116.347884 -286.10518 
+L 114.216829 -286.10518 
+L 112.085773 -286.10518 
+L 109.954718 -286.10518 
+L 107.823663 -286.10518 
+L 105.692608 -286.10518 
+L 103.561552 -286.10518 
+L 101.430497 -286.10518 
+L 99.299442 -286.10518 
+L 97.168387 -286.10518 
+L 95.037331 -286.10518 
+L 92.906276 -286.10518 
+L 90.775221 -286.10518 
+L 88.644165 -286.10518 
+L 86.51311 -286.10518 
+L 84.382055 -286.10518 
+L 82.251 -286.10518 
+L 80.119944 -286.10518 
+L 77.988889 -286.10518 
+L 75.857834 -286.10518 
+L 73.726779 -286.10518 
+L 71.595723 -286.10518 
+L 69.464668 -286.10518 
+z
+"/>
+</defs>
+<g clip-path="url(#p75468693a0)">
+<use xlink:href="#md80ce34dad" x="0" y="296.951117" style="fill: #cfe6f3; fill-opacity: 0.7"/>
+</g>
+</g>
+<g id="FillBetweenPolyCollection_2">
+<defs>
+<path id="m7b6a320313" d="M 69.464668 -232.90277 
+L 69.464668 -42.16918 
+L 71.595723 -42.16918 
+L 73.726779 -42.16918 
+L 75.857834 -42.16918 
+L 77.988889 -42.16918 
+L 80.119944 -42.16918 
+L 82.251 -42.16918 
+L 84.382055 -42.16918 
+L 86.51311 -42.16918 
+L 88.644165 -42.16918 
+L 90.775221 -42.16918 
+L 92.906276 -42.16918 
+L 95.037331 -42.16918 
+L 97.168387 -42.16918 
+L 99.299442 -42.16918 
+L 101.430497 -42.16918 
+L 103.561552 -42.16918 
+L 105.692608 -42.16918 
+L 107.823663 -42.16918 
+L 109.954718 -42.16918 
+L 112.085773 -42.16918 
+L 114.216829 -42.16918 
+L 116.347884 -42.16918 
+L 118.478939 -42.16918 
+L 120.609995 -42.16918 
+L 122.74105 -42.16918 
+L 124.872105 -42.16918 
+L 127.00316 -42.16918 
+L 129.134216 -42.16918 
+L 131.265271 -42.16918 
+L 133.396326 -42.16918 
+L 135.527382 -42.16918 
+L 137.658437 -42.16918 
+L 139.789492 -42.16918 
+L 141.920547 -42.16918 
+L 144.051603 -42.16918 
+L 146.182658 -42.16918 
+L 148.313713 -42.16918 
+L 150.444768 -42.16918 
+L 152.575824 -42.16918 
+L 154.706879 -42.16918 
+L 156.837934 -42.16918 
+L 158.96899 -42.16918 
+L 161.100045 -42.16918 
+L 163.2311 -42.16918 
+L 165.362155 -42.16918 
+L 167.493211 -42.16918 
+L 169.624266 -42.16918 
+L 171.755321 -42.16918 
+L 173.886377 -42.16918 
+L 176.017432 -42.16918 
+L 178.148487 -42.16918 
+L 180.279542 -42.16918 
+L 182.410598 -42.16918 
+L 184.541653 -42.16918 
+L 186.672708 -42.16918 
+L 188.803763 -42.16918 
+L 190.934819 -42.16918 
+L 193.065874 -42.16918 
+L 195.196929 -42.16918 
+L 197.327985 -42.16918 
+L 199.45904 -42.16918 
+L 201.590095 -42.16918 
+L 203.72115 -42.16918 
+L 205.852206 -42.16918 
+L 207.983261 -42.16918 
+L 210.114316 -42.16918 
+L 212.245371 -42.16918 
+L 214.376427 -42.16918 
+L 216.507482 -42.16918 
+L 218.638537 -42.16918 
+L 220.769593 -42.16918 
+L 222.900648 -42.16918 
+L 225.031703 -42.16918 
+L 227.162758 -42.16918 
+L 229.293814 -42.16918 
+L 231.424869 -42.16918 
+L 233.555924 -42.16918 
+L 235.68698 -42.16918 
+L 237.818035 -42.16918 
+L 239.94909 -42.16918 
+L 242.080145 -42.16918 
+L 244.211201 -42.16918 
+L 246.342256 -42.16918 
+L 248.473311 -42.16918 
+L 250.604366 -42.16918 
+L 252.735422 -42.16918 
+L 254.866477 -42.16918 
+L 256.997532 -42.16918 
+L 259.128588 -42.16918 
+L 261.259643 -42.16918 
+L 263.390698 -42.16918 
+L 265.521753 -42.16918 
+L 267.652809 -42.16918 
+L 269.783864 -42.16918 
+L 271.914919 -42.16918 
+L 274.045975 -42.16918 
+L 276.17703 -42.16918 
+L 278.308085 -42.16918 
+L 280.43914 -42.16918 
+L 282.570196 -42.16918 
+L 284.701251 -42.16918 
+L 286.832306 -42.16918 
+L 288.963361 -42.16918 
+L 291.094417 -42.16918 
+L 293.225472 -42.16918 
+L 295.356527 -42.16918 
+L 297.487583 -42.16918 
+L 299.618638 -42.16918 
+L 301.749693 -42.16918 
+L 303.880748 -42.16918 
+L 306.011804 -42.16918 
+L 308.142859 -42.16918 
+L 310.273914 -42.16918 
+L 312.404969 -42.16918 
+L 314.536025 -42.16918 
+L 316.66708 -42.16918 
+L 318.798135 -42.16918 
+L 320.929191 -42.16918 
+L 323.060246 -42.16918 
+L 325.191301 -42.16918 
+L 327.322356 -42.16918 
+L 329.453412 -42.16918 
+L 331.584467 -42.16918 
+L 333.715522 -42.16918 
+L 335.846578 -42.16918 
+L 337.977633 -42.16918 
+L 340.108688 -42.16918 
+L 342.239743 -42.16918 
+L 344.370799 -42.16918 
+L 346.501854 -42.16918 
+L 348.632909 -42.16918 
+L 350.763964 -42.16918 
+L 352.89502 -42.16918 
+L 355.026075 -42.16918 
+L 357.15713 -42.16918 
+L 359.288186 -42.16918 
+L 361.419241 -42.16918 
+L 363.550296 -42.16918 
+L 365.681351 -42.16918 
+L 367.812407 -42.16918 
+L 369.943462 -42.16918 
+L 372.074517 -42.16918 
+L 374.205572 -42.16918 
+L 376.336628 -42.16918 
+L 378.467683 -42.16918 
+L 380.598738 -42.16918 
+L 382.729794 -42.16918 
+L 384.860849 -42.16918 
+L 386.991904 -42.16918 
+L 389.122959 -42.16918 
+L 391.254015 -42.16918 
+L 393.38507 -42.16918 
+L 395.516125 -42.16918 
+L 397.647181 -42.16918 
+L 399.778236 -42.16918 
+L 401.909291 -42.16918 
+L 404.040346 -42.16918 
+L 406.171402 -42.16918 
+L 408.302457 -42.16918 
+L 410.433512 -42.16918 
+L 412.564567 -42.16918 
+L 414.695623 -42.16918 
+L 416.826678 -42.16918 
+L 418.957733 -42.16918 
+L 421.088789 -42.16918 
+L 423.219844 -42.16918 
+L 425.350899 -42.16918 
+L 427.481954 -42.16918 
+L 429.61301 -42.16918 
+L 431.744065 -42.16918 
+L 433.87512 -42.16918 
+L 436.006176 -42.16918 
+L 438.137231 -42.16918 
+L 440.268286 -42.16918 
+L 442.399341 -42.16918 
+L 444.530397 -42.16918 
+L 446.661452 -42.16918 
+L 448.792507 -42.16918 
+L 450.923562 -42.16918 
+L 453.054618 -42.16918 
+L 455.185673 -42.16918 
+L 457.316728 -42.16918 
+L 459.447784 -42.16918 
+L 461.578839 -42.16918 
+L 463.709894 -42.16918 
+L 465.840949 -42.16918 
+L 467.972005 -42.16918 
+L 470.10306 -42.16918 
+L 472.234115 -42.16918 
+L 474.36517 -42.16918 
+L 476.496226 -42.16918 
+L 478.627281 -42.16918 
+L 480.758336 -42.16918 
+L 482.889392 -42.16918 
+L 485.020447 -42.16918 
+L 487.151502 -42.16918 
+L 489.282557 -42.16918 
+L 491.413613 -42.16918 
+L 493.544668 -42.16918 
+L 493.544668 -70.27877 
+L 493.544668 -70.27877 
+L 491.413613 -71.095976 
+L 489.282557 -71.913182 
+L 487.151502 -72.730388 
+L 485.020447 -73.547594 
+L 482.889392 -74.3648 
+L 480.758336 -75.182006 
+L 478.627281 -75.999212 
+L 476.496226 -76.816418 
+L 474.36517 -77.633624 
+L 472.234115 -78.45083 
+L 470.10306 -79.268036 
+L 467.972005 -80.085242 
+L 465.840949 -80.902448 
+L 463.709894 -81.719654 
+L 461.578839 -82.53686 
+L 459.447784 -83.354066 
+L 457.316728 -84.171272 
+L 455.185673 -84.988478 
+L 453.054618 -85.805684 
+L 450.923562 -86.62289 
+L 448.792507 -87.440096 
+L 446.661452 -88.257303 
+L 444.530397 -89.074509 
+L 442.399341 -89.891715 
+L 440.268286 -90.708921 
+L 438.137231 -91.526127 
+L 436.006176 -92.343333 
+L 433.87512 -93.160539 
+L 431.744065 -93.977745 
+L 429.61301 -94.794951 
+L 427.481954 -95.612157 
+L 425.350899 -96.429363 
+L 423.219844 -97.246569 
+L 421.088789 -98.063775 
+L 418.957733 -98.880981 
+L 416.826678 -99.698187 
+L 414.695623 -100.515393 
+L 412.564567 -101.332599 
+L 410.433512 -102.149805 
+L 408.302457 -102.967011 
+L 406.171402 -103.784217 
+L 404.040346 -104.601423 
+L 401.909291 -105.418629 
+L 399.778236 -106.235835 
+L 397.647181 -107.053041 
+L 395.516125 -107.870247 
+L 393.38507 -108.687453 
+L 391.254015 -109.504659 
+L 389.122959 -110.321865 
+L 386.991904 -111.139071 
+L 384.860849 -111.956277 
+L 382.729794 -112.773483 
+L 380.598738 -113.590689 
+L 378.467683 -114.407895 
+L 376.336628 -115.225102 
+L 374.205572 -116.042308 
+L 372.074517 -116.859514 
+L 369.943462 -117.67672 
+L 367.812407 -118.493926 
+L 365.681351 -119.311132 
+L 363.550296 -120.128338 
+L 361.419241 -120.945544 
+L 359.288186 -121.76275 
+L 357.15713 -122.579956 
+L 355.026075 -123.397162 
+L 352.89502 -124.214368 
+L 350.763964 -125.031574 
+L 348.632909 -125.84878 
+L 346.501854 -126.665986 
+L 344.370799 -127.483192 
+L 342.239743 -128.300398 
+L 340.108688 -129.117604 
+L 337.977633 -129.93481 
+L 335.846578 -130.752016 
+L 333.715522 -131.569222 
+L 331.584467 -132.386428 
+L 329.453412 -133.203634 
+L 327.322356 -134.02084 
+L 325.191301 -134.838046 
+L 323.060246 -135.655252 
+L 320.929191 -136.472458 
+L 318.798135 -137.289664 
+L 316.66708 -138.10687 
+L 314.536025 -138.924076 
+L 312.404969 -139.741282 
+L 310.273914 -140.558488 
+L 308.142859 -141.375694 
+L 306.011804 -142.1929 
+L 303.880748 -143.010107 
+L 301.749693 -143.827313 
+L 299.618638 -144.644519 
+L 297.487583 -145.461725 
+L 295.356527 -146.278931 
+L 293.225472 -147.096137 
+L 291.094417 -147.913343 
+L 288.963361 -148.730549 
+L 286.832306 -149.547755 
+L 284.701251 -150.364961 
+L 282.570196 -151.182167 
+L 280.43914 -151.999373 
+L 278.308085 -152.816579 
+L 276.17703 -153.633785 
+L 274.045975 -154.450991 
+L 271.914919 -155.268197 
+L 269.783864 -156.085403 
+L 267.652809 -156.902609 
+L 265.521753 -157.719815 
+L 263.390698 -158.537021 
+L 261.259643 -159.354227 
+L 259.128588 -160.171433 
+L 256.997532 -160.988639 
+L 254.866477 -161.805845 
+L 252.735422 -162.623051 
+L 250.604366 -163.440257 
+L 248.473311 -164.257463 
+L 246.342256 -165.074669 
+L 244.211201 -165.891875 
+L 242.080145 -166.709081 
+L 239.94909 -167.526287 
+L 237.818035 -168.343493 
+L 235.68698 -169.160699 
+L 233.555924 -169.977906 
+L 231.424869 -170.795112 
+L 229.293814 -171.612318 
+L 227.162758 -172.429524 
+L 225.031703 -173.24673 
+L 222.900648 -174.063936 
+L 220.769593 -174.881142 
+L 218.638537 -175.698348 
+L 216.507482 -176.515554 
+L 214.376427 -177.33276 
+L 212.245371 -178.149966 
+L 210.114316 -178.967172 
+L 207.983261 -179.784378 
+L 205.852206 -180.601584 
+L 203.72115 -181.41879 
+L 201.590095 -182.235996 
+L 199.45904 -183.053202 
+L 197.327985 -183.870408 
+L 195.196929 -184.687614 
+L 193.065874 -185.50482 
+L 190.934819 -186.322026 
+L 188.803763 -187.139232 
+L 186.672708 -187.956438 
+L 184.541653 -188.773644 
+L 182.410598 -189.59085 
+L 180.279542 -190.408056 
+L 178.148487 -191.225262 
+L 176.017432 -192.042468 
+L 173.886377 -192.859674 
+L 171.755321 -193.67688 
+L 169.624266 -194.494086 
+L 167.493211 -195.311292 
+L 165.362155 -196.128498 
+L 163.2311 -196.945705 
+L 161.100045 -197.762911 
+L 158.96899 -198.580117 
+L 156.837934 -199.397323 
+L 154.706879 -200.214529 
+L 152.575824 -201.031735 
+L 150.444768 -201.848941 
+L 148.313713 -202.666147 
+L 146.182658 -203.483353 
+L 144.051603 -204.300559 
+L 141.920547 -205.117765 
+L 139.789492 -205.934971 
+L 137.658437 -206.752177 
+L 135.527382 -207.569383 
+L 133.396326 -208.386589 
+L 131.265271 -209.203795 
+L 129.134216 -210.021001 
+L 127.00316 -210.838207 
+L 124.872105 -211.655413 
+L 122.74105 -212.472619 
+L 120.609995 -213.289825 
+L 118.478939 -214.107031 
+L 116.347884 -214.924237 
+L 114.216829 -215.741443 
+L 112.085773 -216.558649 
+L 109.954718 -217.375855 
+L 107.823663 -218.193061 
+L 105.692608 -219.010267 
+L 103.561552 -219.827473 
+L 101.430497 -220.644679 
+L 99.299442 -221.461885 
+L 97.168387 -222.279091 
+L 95.037331 -223.096297 
+L 92.906276 -223.913504 
+L 90.775221 -224.73071 
+L 88.644165 -225.547916 
+L 86.51311 -226.365122 
+L 84.382055 -227.182328 
+L 82.251 -227.999534 
+L 80.119944 -228.81674 
+L 77.988889 -229.633946 
+L 75.857834 -230.451152 
+L 73.726779 -231.268358 
+L 71.595723 -232.085564 
+L 69.464668 -232.90277 
+z
+"/>
+</defs>
+<g clip-path="url(#p75468693a0)">
+<use xlink:href="#m7b6a320313" x="0" y="296.951117" style="fill: #e4f1d3; fill-opacity: 0.9"/>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 409.165469 254.781937 
+L 493.544668 254.781937 
+L 493.544668 10.845937 
+L 409.165469 10.845937 
+z
+" clip-path="url(#p75468693a0)" style="fill: #f8dedb; opacity: 0.8"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 69.464668 254.781937 
+L 69.464668 10.845937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mc389a69c21" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mc389a69c21" x="69.464668" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="69.464668" y="271.953812" transform="rotate(-0 69.464668 271.953812)">0.1%</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 170.633459 254.781937 
+L 170.633459 10.845937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mc389a69c21" x="170.633459" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="170.633459" y="271.953812" transform="rotate(-0 170.633459 271.953812)">0.3%</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 281.504668 254.781937 
+L 281.504668 10.845937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mc389a69c21" x="281.504668" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="281.504668" y="271.953812" transform="rotate(-0 281.504668 271.953812)">1%</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 382.673459 254.781937 
+L 382.673459 10.845937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mc389a69c21" x="382.673459" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="382.673459" y="271.953812" transform="rotate(-0 382.673459 271.953812)">3%</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 493.544668 254.781937 
+L 493.544668 10.845937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mc389a69c21" x="493.544668" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="493.544668" y="271.953812" transform="rotate(-0 493.544668 271.953812)">10%</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<defs>
+<path id="mbad2f72be9" d="M 0 0 
+L 0 2 
+" style="stroke: #4a5568; stroke-width: 0.6"/>
+</defs>
+<g>
+<use xlink:href="#mbad2f72be9" x="133.295068" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_12">
+<g>
+<use xlink:href="#mbad2f72be9" x="197.125469" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_13">
+<g>
+<use xlink:href="#mbad2f72be9" x="217.674268" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_14">
+<g>
+<use xlink:href="#mbad2f72be9" x="234.463859" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_15">
+<g>
+<use xlink:href="#mbad2f72be9" x="248.659256" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_11">
+<g id="line2d_16">
+<g>
+<use xlink:href="#mbad2f72be9" x="260.955869" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_12">
+<g id="line2d_17">
+<g>
+<use xlink:href="#mbad2f72be9" x="271.80225" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_13">
+<g id="line2d_18">
+<g>
+<use xlink:href="#mbad2f72be9" x="345.335068" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_14">
+<g id="line2d_19">
+<g>
+<use xlink:href="#mbad2f72be9" x="409.165469" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_15">
+<g id="line2d_20">
+<g>
+<use xlink:href="#mbad2f72be9" x="429.714268" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_16">
+<g id="line2d_21">
+<g>
+<use xlink:href="#mbad2f72be9" x="446.503859" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_17">
+<g id="line2d_22">
+<g>
+<use xlink:href="#mbad2f72be9" x="460.699256" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_18">
+<g id="line2d_23">
+<g>
+<use xlink:href="#mbad2f72be9" x="472.995869" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_19">
+<g id="line2d_24">
+<g>
+<use xlink:href="#mbad2f72be9" x="483.84225" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="281.504668" y="288.658402" transform="rotate(-0 281.504668 288.658402)">Agent error rate, p</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_25">
+<path d="M 69.464668 254.781937 
+L 493.544668 254.781937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<defs>
+<path id="md067678577" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#md067678577" x="69.464668" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="62.464668" y="259.867875" transform="rotate(-0 62.464668 259.867875)">$10</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_27">
+<path d="M 69.464668 173.469937 
+L 493.544668 173.469937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#md067678577" x="69.464668" y="173.469937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="62.464668" y="178.555875" transform="rotate(-0 62.464668 178.555875)">$100</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_29">
+<path d="M 69.464668 92.157937 
+L 493.544668 92.157937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#md067678577" x="69.464668" y="92.157937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="62.464668" y="97.243875" transform="rotate(-0 62.464668 97.243875)">$1,000</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_31">
+<path d="M 69.464668 10.845937 
+L 493.544668 10.845937 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#md067678577" x="69.464668" y="10.845937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="62.464668" y="15.931875" transform="rotate(-0 62.464668 15.931875)">$10,000</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_33">
+<defs>
+<path id="m6fd005b241" d="M 0 0 
+L -2 0 
+" style="stroke: #4a5568; stroke-width: 0.6"/>
+</defs>
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="230.304586" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_34">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="215.986254" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_35">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="205.827235" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_36">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="197.947289" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_37">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="191.508903" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_38">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="186.065326" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_39">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="181.349884" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_40">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="177.190571" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_13">
+<g id="line2d_41">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="148.992586" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_14">
+<g id="line2d_42">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="134.674254" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_15">
+<g id="line2d_43">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="124.515235" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_16">
+<g id="line2d_44">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="116.635289" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_17">
+<g id="line2d_45">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="110.196903" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_18">
+<g id="line2d_46">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="104.753326" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_19">
+<g id="line2d_47">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="100.037884" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_20">
+<g id="line2d_48">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="95.878571" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_21">
+<g id="line2d_49">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="67.680586" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_22">
+<g id="line2d_50">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="53.362254" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_23">
+<g id="line2d_51">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="43.203235" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_24">
+<g id="line2d_52">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="35.323289" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_25">
+<g id="line2d_53">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="28.884903" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_26">
+<g id="line2d_54">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="23.441326" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_27">
+<g id="line2d_55">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="18.725884" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_28">
+<g id="line2d_56">
+<g>
+<use xlink:href="#m6fd005b241" x="69.464668" y="14.566571" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="132.813937" transform="rotate(-90 15.931875 132.813937)">Cost of an uncaught error, C</text>
+</g>
+</g>
+<g id="line2d_57">
+<path d="M 69.464668 64.048347 
+L 493.544668 226.672347 
+L 493.544668 226.672347 
+" clip-path="url(#p75468693a0)" style="fill: none; stroke: #0b2a5a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 69.464668 254.781937 
+L 69.464668 10.845937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_5">
+<path d="M 69.464668 254.781937 
+L 493.544668 254.781937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_12">
+<text style="font-weight: 600; font-size: 11px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="153.843867" y="53.362254" transform="rotate(-0 153.843867 53.362254)">Approval pays</text>
+</g>
+<g id="text_13">
+<text style="font-weight: 600; font-size: 11px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="112.746269" y="226.938864" transform="rotate(-0 112.746269 226.938864)">Sample and monitor</text>
+</g>
+<g id="text_14">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #c0392b" transform="translate(416.622463 38.021343)">Approval queue</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #c0392b" transform="translate(411.353947 48.910991)">exceeds capacity:</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #c0392b" transform="translate(413.864807 59.80064)">fix the agent first</text>
+</g>
+<g id="patch_6">
+<path d="M 309.975602 87.990335 
+Q 273.105786 107.194348 236.23597 126.39836 
+" style="fill: none; stroke: #0b2a5a; stroke-linecap: round"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="285.997647" y="82.892976" transform="rotate(-0 285.997647 82.892976)">Break-even, Eq. (1)</text>
+</g>
+<g id="patch_7">
+<path d="M 387.367808 101.295259 
+Q 367.135191 117.362364 346.902573 133.429469 
+" style="fill: none; stroke: #e07a3a; stroke-linecap: round"/>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(369.495617 84.988922)">Refund example:</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(369.495617 95.878571)">2% errors, $300</text>
+</g>
+<g id="line2d_58">
+<defs>
+<path id="m2ecaeb85b9" d="M 0 4 
+C 1.060812 4 2.078319 3.578535 2.828427 2.828427 
+C 3.578535 2.078319 4 1.060812 4 0 
+C 4 -1.060812 3.578535 -2.078319 2.828427 -2.828427 
+C 2.078319 -3.578535 1.060812 -4 0 -4 
+C -1.060812 -4 -2.078319 -3.578535 -2.828427 -2.828427 
+C -3.578535 -2.078319 -4 -1.060812 -4 0 
+C -4 1.060812 -3.578535 2.078319 -2.828427 2.828427 
+C -2.078319 3.578535 -1.060812 4 0 4 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p75468693a0)">
+<use xlink:href="#m2ecaeb85b9" x="345.335068" y="134.674254" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p75468693a0">
+<rect x="69.464668" y="10.845937" width="424.08" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Where each form of oversight fits, as a function of the agent's error rate and the impact of an error. Approval pays above the curve given by Eq. (1); below it, sampling or monitoring is cheaper. The shaded band marks where the approval volume would exceed reviewer capacity under Eq. (2). Illustrative parameters from the refund example. <span class="j-fig-src">Author's calculation from Eq. (1) and Eq. (2), with c<sub>r</sub> = $1.33, d<sub>h</sub> = 0.9 and d<sub>a</sub> = 0.3.</span></figcaption></figure></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Designing the human checkpoint</h2><p>If approval is required, it should be designed so that the reviewer can actually exercise judgment. Five design elements follow from the research in Section 3.</p><h3>5.1 Show the evidence, not just the action</h3><p>The reviewer should see what the agent proposes to do, the inputs it used, the rule or precedent it relied on, and anything unusual about the case. For a change to a record, this means a before-and-after comparison. For a payment, it means the invoice, the purchase order and the receipt side by side, with discrepancies highlighted. This addresses the situation awareness problem identified by Endsley and Kiris [<a href="#ref-7" class="j-cite">7</a>] and lets the reviewer calibrate trust to the case at hand rather than to the agent in general [<a href="#ref-10" class="j-cite">10</a>].</p><h3>5.2 Ask for a decision, not a click</h3><p>Interfaces that default to approval encourage automation bias. Requiring the reviewer to confirm the specific value that matters (the amount, the recipient) or to choose between approve, edit and reject with no default makes it harder to approve without reading. Recording the reason for each rejection gives the data needed to improve the agent.</p><h3>5.3 Sample what is not approved</h3><p>Actions that run without approval should be sampled. A daily random sample of autonomous actions, reviewed with the same care as an approval, measures the agent's real error rate and keeps reviewers familiar with normal cases, which counters Bainbridge's second irony [<a href="#ref-6" class="j-cite">6</a>]. Sampling can be weighted toward higher-value or more novel cases.</p><h3>5.4 Escalate on signals, not only on categories</h3><p>The agent should escalate to a person when it meets conditions it was not tested on: a missing document, a value outside the historical range, conflicting instructions, a counterparty it has not seen, or low confidence in its own output. Anthropic's guidance on building agents recommends this kind of explicit stopping condition and human checkpoint, together with starting from the simplest design that works [<a href="#ref-12" class="j-cite">12</a>].</p><h3>5.5 Make stopping easy and logging complete</h3><p>Every agent should have a stop control that takes effect immediately, a way to roll back recent actions where they are reversible, and an audit log that records each action, its inputs, the identity under which it ran and who approved it. These are the operational counterpart of the oversight requirements in Article 14 of the EU AI Act [<a href="#ref-11" class="j-cite">11</a>] and of the MANAGE function in the NIST AI Risk Management Framework, which calls for mechanisms to supersede, disengage or deactivate AI systems that perform outside their intended use [<a href="#ref-13" class="j-cite">13</a>]. The identity and logging design is covered in detail in a companion paper [<a href="#ref-14" class="j-cite">14</a>].</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Earning autonomy with evidence</h2><h3>6.1 Reliability is not a single number</h3><p>An agent that completes a task correctly once may not complete it correctly every time. Yao and colleagues introduced the pass^k metric, the probability that an agent succeeds on all of <em>k</em> independent attempts at the same task, and found that even strong agents were inconsistent: in a simulated retail customer-service domain, a leading model succeeded on all eight attempts in fewer than 25 percent of tasks [<a href="#ref-15" class="j-cite">15</a>]. For autonomy decisions, consistency matters more than peak performance, because an autonomous agent repeats the same kind of action thousands of times.</p><h3>6.2 How many clean trials are enough?</h3><p>Promotion to a higher level of autonomy should rest on observed performance in conditions close to production. The most practical method is a shadow-mode trial, in which the agent prepares each action, a person does the work as usual, and the two are compared. A useful statistical guide is the rule of three [<a href="#ref-16" class="j-cite">16</a>]: if <em>n</em> independent trials produce no errors, the upper bound of the 95 percent confidence interval on the true error rate is approximately</p><div class="j-eq" role="math"><span class="j-eq-body">p<sub>95</sub> ≈ 3 / n</span><span class="j-eq-n">(3)</span></div><p>For example, 300 shadow-mode invoices with no material error support a claim that the error rate is below about 1 percent with 95 percent confidence. Thirty clean trials support only a claim below 10 percent. Eq. (3) gives a minimum trial size for any target error rate and makes plain why a short pilot cannot justify full autonomy. Figure 2 plots the bound.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 566.180684 264.14518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Line chart with the number of consecutive error-free trials on the horizontal axis, from 10 to 1,000 on a log scale, and the 95 percent upper bound on the error rate on the vertical axis, from 0.3 to 30 percent on a log scale. The line falls steadily. Marked points: 30 trials gives 10 percent, 100 gives 3 percent, 300 gives 1 percent and 1,000 gives 0.3 percent.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 264.14518 
+L 566.180684 264.14518 
+L 566.180684 0 
+L 0 0 
+L 0 264.14518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 55.361855 221.976 
+L 468.281855 221.976 
+L 468.281855 5.76 
+L 55.361855 5.76 
+L 55.361855 221.976 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 55.361855 221.976 
+L 55.361855 5.76 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mf4b8d8932b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mf4b8d8932b" x="55.361855" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="55.361855" y="239.147875" transform="rotate(-0 55.361855 239.147875)">10</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 153.86831 221.976 
+L 153.86831 5.76 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mf4b8d8932b" x="153.86831" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="153.86831" y="239.147875" transform="rotate(-0 153.86831 239.147875)">30</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 261.821855 221.976 
+L 261.821855 5.76 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mf4b8d8932b" x="261.821855" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="261.821855" y="239.147875" transform="rotate(-0 261.821855 239.147875)">100</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 360.32831 221.976 
+L 360.32831 5.76 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mf4b8d8932b" x="360.32831" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="360.32831" y="239.147875" transform="rotate(-0 360.32831 239.147875)">300</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 468.281855 221.976 
+L 468.281855 5.76 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mf4b8d8932b" x="468.281855" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="468.281855" y="239.147875" transform="rotate(-0 468.281855 239.147875)">1,000</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<defs>
+<path id="m7a000c7a3b" d="M 0 0 
+L 0 2 
+" style="stroke: #4a5568; stroke-width: 0.6"/>
+</defs>
+<g>
+<use xlink:href="#m7a000c7a3b" x="117.512508" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_12">
+<g>
+<use xlink:href="#m7a000c7a3b" x="179.663161" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_13">
+<g>
+<use xlink:href="#m7a000c7a3b" x="199.671203" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_14">
+<g>
+<use xlink:href="#m7a000c7a3b" x="216.018963" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_15">
+<g>
+<use xlink:href="#m7a000c7a3b" x="229.840797" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_11">
+<g id="line2d_16">
+<g>
+<use xlink:href="#m7a000c7a3b" x="241.813814" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_12">
+<g id="line2d_17">
+<g>
+<use xlink:href="#m7a000c7a3b" x="252.374764" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_13">
+<g id="line2d_18">
+<g>
+<use xlink:href="#m7a000c7a3b" x="323.972508" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_14">
+<g id="line2d_19">
+<g>
+<use xlink:href="#m7a000c7a3b" x="386.123161" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_15">
+<g id="line2d_20">
+<g>
+<use xlink:href="#m7a000c7a3b" x="406.131203" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_16">
+<g id="line2d_21">
+<g>
+<use xlink:href="#m7a000c7a3b" x="422.478963" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_17">
+<g id="line2d_22">
+<g>
+<use xlink:href="#m7a000c7a3b" x="436.300797" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_18">
+<g id="line2d_23">
+<g>
+<use xlink:href="#m7a000c7a3b" x="448.273814" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_19">
+<g id="line2d_24">
+<g>
+<use xlink:href="#m7a000c7a3b" x="458.834764" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="261.821855" y="255.852465" transform="rotate(-0 261.821855 255.852465)">Consecutive error-free trials, n</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_25">
+<path d="M 55.361855 205.001813 
+L 468.281855 205.001813 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<defs>
+<path id="m678a44dd34" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m678a44dd34" x="55.361855" y="205.001813" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.361855" y="210.08775" transform="rotate(-0 48.361855 210.08775)">0.3%</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_27">
+<path d="M 55.361855 154.599301 
+L 468.281855 154.599301 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m678a44dd34" x="55.361855" y="154.599301" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.361855" y="159.685239" transform="rotate(-0 48.361855 159.685239)">1%</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_29">
+<path d="M 55.361855 108.60755 
+L 468.281855 108.60755 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m678a44dd34" x="55.361855" y="108.60755" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.361855" y="113.693487" transform="rotate(-0 48.361855 113.693487)">3%</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_31">
+<path d="M 55.361855 58.205038 
+L 468.281855 58.205038 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m678a44dd34" x="55.361855" y="58.205038" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.361855" y="63.290976" transform="rotate(-0 48.361855 63.290976)">10%</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_33">
+<path d="M 55.361855 12.213286 
+L 468.281855 12.213286 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m678a44dd34" x="55.361855" y="12.213286" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="48.361855" y="17.299224" transform="rotate(-0 48.361855 17.299224)">30%</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_35">
+<defs>
+<path id="m84987c6b0e" d="M 0 0 
+L -2 0 
+" style="stroke: #4a5568; stroke-width: 0.6"/>
+</defs>
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_36">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="192.958435" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_37">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="183.616866" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_38">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="175.984248" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_39">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="169.530962" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_40">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="163.940871" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_41">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="159.010061" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_13">
+<g id="line2d_42">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="125.581737" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_14">
+<g id="line2d_43">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="96.564172" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_15">
+<g id="line2d_44">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="87.222603" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_16">
+<g id="line2d_45">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="79.589985" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_17">
+<g id="line2d_46">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="73.136699" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_18">
+<g id="line2d_47">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="67.546608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_19">
+<g id="line2d_48">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="62.615798" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_20">
+<g id="line2d_49">
+<g>
+<use xlink:href="#m84987c6b0e" x="55.361855" y="29.187474" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="113.868" transform="rotate(-90 15.931875 113.868)">95% upper bound on error rate</text>
+</g>
+</g>
+<g id="line2d_50">
+<path d="M 55.361855 12.213286 
+L 468.281855 205.001813 
+L 468.281855 205.001813 
+" clip-path="url(#p212cb76a8c)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 55.361855 221.976 
+L 55.361855 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 55.361855 221.976 
+L 468.281855 221.976 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_13">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="161.86831" y="52.205038" transform="rotate(-0 161.86831 52.205038)">30 trials → 10%</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="269.821855" y="102.60755" transform="rotate(-0 269.821855 102.60755)">100 trials → 3%</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="368.32831" y="148.599301" transform="rotate(-0 368.32831 148.599301)">300 trials → 1%</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="476.281855" y="199.001813" transform="rotate(-0 476.281855 199.001813)">1000 trials → 0.3%</text>
+</g>
+<g id="line2d_51">
+<defs>
+<path id="mb3e651de6b" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#p212cb76a8c)">
+<use xlink:href="#mb3e651de6b" x="153.86831" y="58.205038" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_52">
+<g clip-path="url(#p212cb76a8c)">
+<use xlink:href="#mb3e651de6b" x="261.821855" y="108.60755" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_53">
+<g clip-path="url(#p212cb76a8c)">
+<use xlink:href="#mb3e651de6b" x="360.32831" y="154.599301" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_54">
+<g clip-path="url(#p212cb76a8c)">
+<use xlink:href="#mb3e651de6b" x="468.281855" y="205.001813" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p212cb76a8c">
+<rect x="55.361855" y="5.76" width="412.92" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Upper 95 percent confidence bound on the error rate after a run of trials with no errors, from Eq. (3). Thirty clean trials bound the error rate below about 10 percent; three hundred, below about 1 percent. <span class="j-fig-src">Author's calculation from Eq. (3) [<a href="#ref-16" class="j-cite">16</a>].</span></figcaption></figure><p>Two cautions apply. Eq. (3) assumes the trials are independent and representative; a month of trials in a quiet season may not represent year-end. And errors are not equally serious, so the trial should count material errors against the target and track minor ones separately.</p><h3>6.3 A promotion and demotion path</h3><p>Combining these elements gives a promotion path for each action class (Figure 3). An action starts at the level in Table 2 or one level lower. It is promoted when three conditions hold: the number of trials meets the bound from Eq. (3) for the target error rate, the errors that did occur were minor and have been fixed, and the business owner of the process signs off. Promotion is one level at a time.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 513.72 277.632" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Staircase diagram with four steps from left to right: shadow mode, where the agent drafts and a person does the work; approve, where the agent acts after approval; act and sample, where the agent acts and a sample is reviewed; and act and monitor. Each step up is labelled with its gate: enough clean trials for the target error rate, all approval rejections explained, sample error rate on target for a set period. A return arrow from the top back down is labelled demotion triggers: material error, input outside the tested range, model or tool change, process change.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 277.632 
+L 513.72 277.632 
+L 513.72 0 
+L 0 0 
+L 0 277.632 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 29.6145 240.60384 
+L 117.4995 240.60384 
+Q 122.5215 240.60384 122.5215 237.94272 
+L 122.5215 199.35648 
+Q 122.5215 196.69536 117.4995 196.69536 
+L 29.6145 196.69536 
+Q 24.5925 196.69536 24.5925 199.35648 
+L 24.5925 237.94272 
+Q 24.5925 240.60384 29.6145 240.60384 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-width: 1.3; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 124.2792 196.562304 
+Q 133.5699 192.304512 141.031109 188.885149 
+" clip-path="url(#pd8955b5c4f)" style="fill: none; stroke: #4d7f12; stroke-width: 1.8; stroke-linecap: round"/>
+<path d="M 136.11459 188.718292 
+L 141.031109 188.885149 
+L 137.947712 192.71825 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #4d7f12; stroke: #4d7f12; stroke-width: 1.8; stroke-linecap: round"/>
+</g>
+<g id="patch_4">
+<path d="M 147.6315 195.3648 
+L 235.5165 195.3648 
+Q 240.5385 195.3648 240.5385 192.70368 
+L 240.5385 154.11744 
+Q 240.5385 151.45632 235.5165 151.45632 
+L 147.6315 151.45632 
+Q 142.6095 151.45632 142.6095 154.11744 
+L 142.6095 192.70368 
+Q 142.6095 195.3648 147.6315 195.3648 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #cfe6f3; stroke: #0b6fa4; stroke-width: 1.3; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 242.2962 151.323264 
+Q 251.5869 147.065472 259.048109 143.646109 
+" clip-path="url(#pd8955b5c4f)" style="fill: none; stroke: #4d7f12; stroke-width: 1.8; stroke-linecap: round"/>
+<path d="M 254.13159 143.479252 
+L 259.048109 143.646109 
+L 255.964712 147.47921 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #4d7f12; stroke: #4d7f12; stroke-width: 1.8; stroke-linecap: round"/>
+</g>
+<g id="patch_6">
+<path d="M 265.6485 150.12576 
+L 353.5335 150.12576 
+Q 358.5555 150.12576 358.5555 147.46464 
+L 358.5555 108.8784 
+Q 358.5555 106.21728 353.5335 106.21728 
+L 265.6485 106.21728 
+Q 260.6265 106.21728 260.6265 108.8784 
+L 260.6265 147.46464 
+Q 260.6265 150.12576 265.6485 150.12576 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #e4f1d3; stroke: #0b6fa4; stroke-width: 1.3; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 360.3132 106.084224 
+Q 369.6039 101.826432 377.065109 98.407069 
+" clip-path="url(#pd8955b5c4f)" style="fill: none; stroke: #4d7f12; stroke-width: 1.8; stroke-linecap: round"/>
+<path d="M 372.14859 98.240212 
+L 377.065109 98.407069 
+L 373.981712 102.24017 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #4d7f12; stroke: #4d7f12; stroke-width: 1.8; stroke-linecap: round"/>
+</g>
+<g id="patch_8">
+<path d="M 383.6655 104.88672 
+L 471.5505 104.88672 
+Q 476.5725 104.88672 476.5725 102.2256 
+L 476.5725 63.63936 
+Q 476.5725 60.97824 471.5505 60.97824 
+L 383.6655 60.97824 
+Q 378.6435 60.97824 378.6435 63.63936 
+L 378.6435 102.2256 
+Q 378.6435 104.88672 383.6655 104.88672 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #d6ebc0; stroke: #0b6fa4; stroke-width: 1.3; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 73.557 249.25248 
+Q 73.557 245.393856 73.557 243.324086 
+" clip-path="url(#pd8955b5c4f)" style="fill: none; stroke: #c0392b; stroke-width: 1.6; stroke-linecap: round"/>
+<path d="M 71.357 247.724086 
+L 73.557 243.324086 
+L 75.757 247.724086 
+z
+" clip-path="url(#pd8955b5c4f)" style="fill: #c0392b; stroke: #c0392b; stroke-width: 1.6; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 487.872 88.25472 
+L 502.938 88.25472 
+L 502.938 253.24416 
+L 73.557 253.24416 
+L 73.557 247.92192 
+" clip-path="url(#pd8955b5c4f)" style="fill: none; stroke: #c0392b; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="73.557" y="213.698957" transform="rotate(-0 73.557 213.698957)">Shadow mode</text>
+</g>
+<g id="text_2">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(48.454781 223.081786)">agent drafts,</text>
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(30.301594 234.675509)">person does the work</text>
+</g>
+<g id="text_3">
+<text style="font-weight: 600; font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="128.799" y="182.72448" transform="rotate(-0 128.799 182.72448)">Gate 1</text>
+</g>
+<g id="text_4">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.574" y="168.459917" transform="rotate(-0 191.574 168.459917)">Approve</text>
+</g>
+<g id="text_5">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(160.532719 177.842746)">agent acts after</text>
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(174.407813 189.436469)">approval</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 600; font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="246.816" y="137.48544" transform="rotate(-0 246.816 137.48544)">Gate 2</text>
+</g>
+<g id="text_7">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="309.591" y="123.220877" transform="rotate(-0 309.591 123.220877)">Act and sample</text>
+</g>
+<g id="text_8">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(287.596125 132.242769)">agent acts;</text>
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(276.108469 144.297835)">sample reviewed</text>
+</g>
+<g id="text_9">
+<text style="font-weight: 600; font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="364.833" y="92.2464" transform="rotate(-0 364.833 92.2464)">Gate 3</text>
+</g>
+<g id="text_10">
+<text style="font-weight: 600; font-size: 9.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="427.608" y="77.981837" transform="rotate(-0 427.608 77.981837)">Act and monitor</text>
+</g>
+<g id="text_11">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(405.613125 87.003729)">agent acts;</text>
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(394.613063 99.862701)">metrics watched</text>
+</g>
+<g id="text_12">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="15.804" y="25.607605" transform="rotate(-0 15.804 25.607605)">Gates</text>
+</g>
+<g id="text_13">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="15.804" y="43.36357" transform="rotate(-0 15.804 43.36357)">1  error-free trials ≥ 3 ÷ target error rate, Eq. (3)</text>
+</g>
+<g id="text_14">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="15.804" y="60.66085" transform="rotate(-0 15.804 60.66085)">2  every rejection explained; error rate on target</text>
+</g>
+<g id="text_15">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="15.804" y="77.95813" transform="rotate(-0 15.804 77.95813)">3  sampled error rate on target for a set period</text>
+</g>
+<g id="text_16">
+<text style="font-weight: 600; font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #c0392b" x="286.992" y="268.678656" transform="rotate(-0 286.992 268.678656)">Demotion: material error · untested input · model, tool or instruction change · process change</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pd8955b5c4f">
+<rect x="5.76" y="5.76" width="502.2" height="266.112"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Evidence-based promotion path for one action class. The agent moves up one level at a time when the gate criteria are met, and moves down automatically on any demotion trigger. Gate criteria are the author's proposed defaults. <span class="j-fig-src">Drawn by the author.</span></figcaption></figure><p>Demotion should be automatic. An agent returns to the previous level when a material error occurs, when its inputs move outside the range it was tested on, or when anything in its configuration changes: a new model version, a changed tool, revised instructions or a change to the business process. Each of these invalidates the evidence that justified the current level, much as a change outside its operational design domain requires a driving system to hand back control [<a href="#ref-5" class="j-cite">5</a>]. Treating changes as demotion triggers also gives a natural place for regression testing.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Example promotion record for an accounts payable agent posting supplier invoices. Figures are illustrative.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Stage</th><th>Duration</th><th>Volume</th><th>Material errors</th><th>Decision</th></tr></thead><tbody><tr><td>Shadow mode</td><td>6 weeks</td><td>340 invoices</td><td>0 (3 minor coding differences)</td><td>Promote to approve; error rate bound ≈ 0.9%</td></tr><tr><td>Approve</td><td>8 weeks</td><td>610 invoices</td><td>1 (duplicate invoice, caught by reviewer)</td><td>Fix duplicate check; extend trial</td></tr><tr><td>Approve, after fix</td><td>6 weeks</td><td>450 invoices</td><td>0</td><td>Promote to act and sample for invoices under $5,000 matched to a purchase order</td></tr><tr><td>Act and sample</td><td>Ongoing</td><td>10% weekly sample</td><td>Tracked monthly</td><td>Above $5,000 and unmatched invoices stay at approve</td></tr></tbody></table></div><p class="j-table-note">Trial sizes follow Eq. (3).</p></figure><p>Table 3 illustrates the path for an accounts payable agent. The record it produces is also the evidence an auditor, a customer or a regulator will want to see: what the agent was allowed to do, on what basis, and how that changed over time.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Conclusion</h2><p>Autonomy is a design decision, and it should be made per action rather than per agent. The levels-of-automation literature offers a vocabulary for that decision, and the research on human oversight explains why the default answer, a human in the loop, so often fails: reviewers lose situation awareness, defer to the system and fall behind the queue.</p><p>The approach proposed here has four parts. Classify each action by reversibility, impact, detectability and novelty, and set a default level. Require approval only where Eq. (1) shows it pays for itself and Eq. (2) shows reviewers can keep up, and use sampling and monitoring elsewhere. Design the checkpoint so the reviewer sees evidence and makes a real decision. And let the agent earn autonomy through trials sized by the rule of three, one level at a time, with automatic demotion when the evidence no longer holds. Together these make oversight proportionate, keep people in the loops where they add value, and produce a record that shows why an agent is trusted to do what it does.</p></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Kwa, T., West, B., Becker, J., Deng, A., Garcia, K., Hasin, M., et al. (2025). Measuring AI ability to complete long tasks. arXiv:2503.14499. <a href="https://arxiv.org/abs/2503.14499" rel="noopener" target="_blank">arxiv.org/abs/2503.14499</a></li><li id="ref-2">Feng, K. J. K., McDonald, D. W., &amp; Zhang, A. X. (2025). Levels of autonomy for AI agents. arXiv:2506.12469. Knight First Amendment Institute, AI and Democratic Freedoms series. <a href="https://arxiv.org/abs/2506.12469" rel="noopener" target="_blank">arxiv.org/abs/2506.12469</a></li><li id="ref-3">Sheridan, T. B., &amp; Verplank, W. L. (1978). Human and computer control of undersea teleoperators (Technical report). MIT Man-Machine Systems Laboratory. <a href="https://apps.dtic.mil/sti/citations/ADA057655" rel="noopener" target="_blank">apps.dtic.mil/sti/citations/ADA057655</a></li><li id="ref-4">Parasuraman, R., Sheridan, T. B., &amp; Wickens, C. D. (2000). A model for types and levels of human interaction with automation. <em>IEEE Transactions on Systems, Man, and Cybernetics, Part A</em>, 30(3), 286–297. <a href="https://doi.org/10.1109/3468.844354" rel="noopener" target="_blank">10.1109/3468.844354</a></li><li id="ref-5">SAE International. (2021). Taxonomy and definitions for terms related to driving automation systems for on-road motor vehicles (SAE J3016_202104). <a href="https://www.sae.org/standards/content/j3016_202104/" rel="noopener" target="_blank">www.sae.org/standards/content/j3016_202104/</a></li><li id="ref-6">Bainbridge, L. (1983). Ironies of automation. <em>Automatica</em>, 19(6), 775–779. <a href="https://doi.org/10.1016/0005-1098(83)90046-8" rel="noopener" target="_blank">10.1016/0005-1098(83)90046-8</a></li><li id="ref-7">Endsley, M. R., &amp; Kiris, E. O. (1995). The out-of-the-loop performance problem and level of control in automation. <em>Human Factors</em>, 37(2), 381–394. <a href="https://doi.org/10.1518/001872095779064555" rel="noopener" target="_blank">10.1518/001872095779064555</a></li><li id="ref-8">Parasuraman, R., &amp; Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. <em>Human Factors</em>, 39(2), 230–253. <a href="https://doi.org/10.1518/001872097778543886" rel="noopener" target="_blank">10.1518/001872097778543886</a></li><li id="ref-9">Goddard, K., Roudsari, A., &amp; Wyatt, J. C. (2012). Automation bias: A systematic review of frequency, effect mediators, and mitigators. <em>Journal of the American Medical Informatics Association</em>, 19(1), 121–127. <a href="https://doi.org/10.1136/amiajnl-2011-000089" rel="noopener" target="_blank">10.1136/amiajnl-2011-000089</a></li><li id="ref-10">Lee, J. D., &amp; See, K. A. (2004). Trust in automation: Designing for appropriate reliance. <em>Human Factors</em>, 46(1), 50–80. <a href="https://doi.org/10.1518/hfes.46.1.50_30392" rel="noopener" target="_blank">10.1518/hfes.46.1.50_30392</a></li><li id="ref-11">European Parliament and Council of the European Union. (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). <em>Official Journal of the European Union</em>, L series. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" rel="noopener" target="_blank">eur-lex.europa.eu/eli/reg/2024/1689/oj</a></li><li id="ref-12">Schluntz, E., &amp; Zhang, B. (2024, December 19). Building effective agents. Anthropic. <a href="https://www.anthropic.com/engineering/building-effective-agents" rel="noopener" target="_blank">www.anthropic.com/engineering/building-effective-agents</a></li><li id="ref-13">National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1). <a href="https://doi.org/10.6028/NIST.AI.100-1" rel="noopener" target="_blank">10.6028/NIST.AI.100-1</a></li><li id="ref-14">Lee, Q. F. (2026). Agent security and identity: Prompt injection, least-privilege tool access, agent credentials and audit trails. <em>Chmltech Online Journal</em>, 105(5). <a href="https://www.chmltech.com/post/agent-security-and-identity-prompt-injection-least-privilege-credentials-audit" rel="noopener" target="_blank">www.chmltech.com/post/agent-security-and-identity-prompt-injection-least-privile</a></li><li id="ref-15">Yao, S., Shinn, N., Razavi, P., &amp; Narasimhan, K. (2024). τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045. <a href="https://arxiv.org/abs/2406.12045" rel="noopener" target="_blank">arxiv.org/abs/2406.12045</a></li><li id="ref-16">Hanley, J. A., &amp; Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? Interpreting zero numerators. <em>JAMA</em>, 249(13), 1743–1745. <a href="https://doi.org/10.1001/jama.1983.03330370053031" rel="noopener" target="_blank">10.1001/jama.1983.03330370053031</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence. <em>Chmltech Online Journal</em>, <em>105</em>(7). https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. Levels of automation: from teleoperators to agents</a></li><li><a href="#sec-3">3. Why human oversight fails</a></li><li><a href="#sec-4">4. Setting autonomy per action</a></li><li><a href="#sec-5">5. Designing the human checkpoint</a></li><li><a href="#sec-6">6. Earning autonomy with evidence</a></li><li><a href="#sec-7">7. Conclusion</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 105, Issue 7</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence strategy" data-search="the eu ai act for canadian businesses: scope, obligations after the digital omnibus and a practical compliance path when the eu ai act applies to a canadian business, what it requires after the 2026 digital omnibus, how canada&#x27;s own rules compare, and a compliance path. eu ai act digital omnibus ai regulation canada high-risk ai transparency ai governance iso/iec 42001"><div class="thumb"><img src="../assets/media/covers/thumbs/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.html">The EU AI Act for Canadian Businesses: Scope, Obligations After the Digital Omnibus and a Practical Compliance Path</a></h3><p class="muted">When the EU AI Act applies to a Canadian business, what it requires after the 2026 Digital Omnibus, how Canada&#x27;s own rules compare, and a compliance path.</p><p class="meta">Vol. 105, Issue 11 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="evaluating ai agents: why public benchmarks mislead and how to build your own evaluation why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost. ai agents evaluation benchmarks pass^k llm-as-a-judge reliability test sets regression testing"><div class="thumb"><img src="../assets/media/covers/thumbs/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.html">Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation</a></h3><p class="muted">Why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost.</p><p class="meta">Vol. 105, Issue 10 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence process-engineering operational-efficiency" data-search="agentic ai in manufacturing operations: use cases, architecture and safety boundaries where ai agents help in plants and factories: maintenance, downtime and quality use cases, an isa-95 architecture, and the safety lines agents must not cross. agentic ai manufacturing isa-95 maintenance oee functional safety opc ua industrial cybersecurity"><div class="thumb"><img src="../assets/media/covers/thumbs/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.html">Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries</a></h3><p class="muted">Where AI agents help in plants and factories: maintenance, downtime and quality use cases, an ISA-95 architecture, and the safety lines agents must not cross.</p><p class="meta">Vol. 105, Issue 9 · Nov 13, 2026 · 14 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol105-issue7.pdf" data-fname="Chmltech-Journal-Vol105-Issue7.pdf" data-title="Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence" data-ref="Vol. 105, Issue 7">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 105, Issue 7</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence", "name": "Levels of Autonomy and Human-in-the-Loop Design for AI Agents: Matching Oversight to Risk and Earning Autonomy with Evidence", "abstract": "AI agents now complete multi-step tasks that once required a person at every step, and the length of task they can complete has been doubling roughly every seven months. How much an agent is allowed to do without a person is therefore a design decision rather than a property of the model. This paper reviews the levels-of-automation literature, from Sheridan and Verplank's ten levels and the four-stage model of Parasuraman, Sheridan and Wickens to SAE J3016 and a recent five-level framework for AI agents defined by the role of the user. It then summarizes why human oversight often fails in practice: the ironies of automation, loss of situation awareness, automation bias and approval fatigue. Building on that evidence, it proposes that autonomy be set per action rather than per agent, using four properties of the action: reversibility, impact, detectability and novelty. A simple expected-loss rule shows when an approval step pays for itself, and a capacity check shows when it will be rubber-stamped. The paper sets out what a reviewer must see, and how sampling, escalation and stop controls complement approval. It closes with an evidence-based promotion path in which an agent earns each level of autonomy through shadow-mode trials, with a statistical bound on the error rate, and loses it on defined triggers.", "keywords": "AI agents, levels of autonomy, human-in-the-loop, human oversight, automation bias, approval workflows, risk management, EU AI Act", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "7", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "105", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents", "citation": ["Kwa, T., West, B., Becker, J., Deng, A., Garcia, K., Hasin, M., et al. (2025). Measuring AI ability to complete long tasks. arXiv:2503.14499.", "Feng, K. J. K., McDonald, D. W., &amp; Zhang, A. X. (2025). Levels of autonomy for AI agents. arXiv:2506.12469. Knight First Amendment Institute, AI and Democratic Freedoms series.", "Sheridan, T. B., &amp; Verplank, W. L. (1978). Human and computer control of undersea teleoperators (Technical report). MIT Man-Machine Systems Laboratory.", "Parasuraman, R., Sheridan, T. B., &amp; Wickens, C. D. (2000). A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics, Part A, 30(3), 286–297.", "SAE International. (2021). Taxonomy and definitions for terms related to driving automation systems for on-road motor vehicles (SAE J3016_202104).", "Bainbridge, L. (1983). Ironies of automation. Automatica, 19(6), 775–779.", "Endsley, M. R., &amp; Kiris, E. O. (1995). The out-of-the-loop performance problem and level of control in automation. Human Factors, 37(2), 381–394.", "Parasuraman, R., &amp; Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. Human Factors, 39(2), 230–253.", "Goddard, K., Roudsari, A., &amp; Wyatt, J. C. (2012). Automation bias: A systematic review of frequency, effect mediators, and mitigators. Journal of the American Medical Informatics Association, 19(1), 121–127.", "Lee, J. D., &amp; See, K. A. (2004). Trust in automation: Designing for appropriate reliance. Human Factors, 46(1), 50–80.", "European Parliament and Council of the European Union. (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L series.", "Schluntz, E., &amp; Zhang, B. (2024, December 19). Building effective agents. Anthropic.", "National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0) (NIST AI 100-1).", "Lee, Q. F. (2026). Agent security and identity: Prompt injection, least-privilege tool access, agent credentials and audit trails. Chmltech Online Journal, 105(5).", "Yao, S., Shinn, N., Razavi, P., &amp; Narasimhan, K. (2024). τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045.", "Hanley, J. A., &amp; Lippman-Hand, A. (1983). If nothing goes wrong, is everything all right? Interpreting zero numerators. JAMA, 249(13), 1743–1745."], "image": "https://www.chmltech.com/assets/media/covers/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+</body>
+</html>

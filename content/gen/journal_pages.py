@@ -60,6 +60,12 @@ TOPIC = {
     "agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems": ["artificial-intelligence", "digital-technology"],
     "agent-security-and-identity-prompt-injection-least-privilege-credentials-audit": "artificial-intelligence",
     "agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption": ["artificial-intelligence", "digital-technology"],
+    # Volume 105, Issues 7-11: agents in practice and regulation (V4.67)
+    "levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents": "artificial-intelligence",
+    "the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback": ["artificial-intelligence", "strategy"],
+    "agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries": ["artificial-intelligence", "process-engineering", "operational-efficiency"],
+    "evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation": "artificial-intelligence",
+    "the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path": ["artificial-intelligence", "strategy"],
 }
 
 

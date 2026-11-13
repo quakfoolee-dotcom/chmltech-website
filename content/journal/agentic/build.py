@@ -27,7 +27,7 @@ def texts(d):
     for s in d["sections"]:
         yield s["title"]
         for b in s["blocks"]:
-            for k in ("p", "h3", "eq"):
+            for k in ("p", "h3", "eq", "callout"):
                 if k in b: yield b[k]
             if "list" in b: yield from b["list"]
             if "table" in b:

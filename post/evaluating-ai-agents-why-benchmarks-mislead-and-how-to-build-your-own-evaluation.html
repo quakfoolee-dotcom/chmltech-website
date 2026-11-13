@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation</title>
+<meta name="description" content="Why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost.">
+<link rel="canonical" href="https://www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation">
+<meta property="og:description" content="Why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<meta property="og:url" content="https://www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation","item":"https://www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=31376edc">
+<meta name="citation_title" content="Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/13">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="105">
+<meta name="citation_issue" content="10">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 105, Issue 10</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 13, 2026</span><span>14 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Benchmark scores shape which AI agents businesses buy and deploy, yet recent work shows that they can be badly wrong. In April 2026 researchers at the University of California, Berkeley reported an automated agent that reached near-perfect scores on eight widely cited agent benchmarks without solving a single task, by exploiting weaknesses in how scores were computed. An earlier audit of ten agentic benchmarks found flaws that could under- or overestimate performance by up to 100 percent in relative terms. This paper explains what public agent benchmarks measure and why their scores mislead: weak graders, tasks unlike a business's own, scaffold effects, single-run scoring that hides inconsistency, missing cost data and biased automated judges. It then sets out how a business can build its own evaluation: a task set drawn from real cases, an outcome definition for each task, a grader isolated from the agent, repeated runs to measure reliability with the pass^k metric, confidence intervals sized to the decision, and cost and safety cases alongside accuracy. Worked calculations show that around 400 tasks are needed to estimate a 90 percent success rate to within three percentage points. The paper closes with how evaluation results should gate deployment, autonomy and model changes.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> AI agents; evaluation; benchmarks; pass^k; LLM-as-a-judge; reliability; test sets; regression testing</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>When a business chooses a model or an agent product, the first numbers it sees are benchmark scores. Vendors publish them, analysts compare them and leaderboards rank them. The implicit promise is that a higher score means a more capable system.</p><p>In April 2026 a team at the University of California, Berkeley put that promise to an adversarial test. They built an automated agent that analyzes how a benchmark computes its score and looks for ways to inflate it, and pointed it at eight of the most widely cited agent benchmarks. Without solving a single task, and in most cases without calling a language model at all, it reached near-perfect scores on seven of them and 73 percent on the eighth [<a href="#ref-1" class="j-cite">1</a>]. On SWE-bench Verified, a ten-line configuration file that forced the test framework to report every test as passed was enough. On Terminal-Bench, wrapping a system utility so that it returned the expected output produced a perfect score on all 89 tasks [<a href="#ref-1" class="j-cite">1</a>]. The researchers did not claim that published results were fraudulent; their point was that the benchmarks could not distinguish a capable agent from one that manipulated the grader.</p><p>A year earlier, Zhu and colleagues had audited ten popular agentic benchmarks against a checklist of good practice and found that seven had flaws in how outcomes were judged and seven had flaws in task setup, with errors that could under- or overestimate performance by up to 100 percent in relative terms [<a href="#ref-2" class="j-cite">2</a>].</p><p>This paper draws the practical consequences for a business. Section 2 describes what public agent benchmarks measure. Section 3 explains why their scores mislead. Section 4 sets out how to build an evaluation from a business's own work, with the statistics needed to size it. Section 5 covers automated judges, and Section 6 explains how evaluation results should drive decisions about deployment, autonomy and model changes.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> What public agent benchmarks measure</h2><p>Agent benchmarks differ from earlier language-model tests in that the model acts in an environment over many steps, and success is judged by the outcome rather than by a single answer. Table 1 summarizes five influential examples.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Five widely used agent benchmarks.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Benchmark</th><th>Environment</th><th>Tasks</th><th>How success is judged</th></tr></thead><tbody><tr><td>SWE-bench</td><td>Real GitHub repositories</td><td>2,294 issues from 12 Python projects (500 in the human-validated Verified subset)</td><td>The agent's code change makes the project's tests pass</td></tr><tr><td>WebArena</td><td>Self-hosted websites: shopping, forum, code hosting, content management</td><td>812 tasks</td><td>Checks on the final page state or the returned answer</td></tr><tr><td>OSWorld</td><td>Real desktop operating systems and applications</td><td>369 tasks</td><td>Scripts that inspect the final state of files and applications</td></tr><tr><td>GAIA</td><td>Open web and tools</td><td>466 questions</td><td>Exact match against a short reference answer</td></tr><tr><td>τ-bench</td><td>Simulated customer service (retail, airline) with a simulated user and policies</td><td>Retail and airline task sets</td><td>Final database state compared with the goal state; reliability over repeated runs</td></tr></tbody></table></div><p class="j-table-note">Sources: [<a href="#ref-3" class="j-cite">3</a>], [<a href="#ref-4" class="j-cite">4</a>], [<a href="#ref-5" class="j-cite">5</a>], [<a href="#ref-6" class="j-cite">6</a>], [<a href="#ref-7" class="j-cite">7</a>].</p></figure><p>These benchmarks were major advances. SWE-bench, for example, replaced artificial coding puzzles with real issues from real projects [<a href="#ref-3" class="j-cite">3</a>], and τ-bench introduced the pass^k metric, which measures whether an agent succeeds on all of <em>k</em> repeated attempts at the same task [<a href="#ref-7" class="j-cite">7</a>]. Their limitations come from the difficulty of judging open-ended outcomes automatically and at scale.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Why benchmark scores mislead</h2><h3>3.1 The grader can be fooled</h3><p>Most benchmarks run the agent and the grader in the same environment, so the agent can, in principle, alter what the grader sees. The Berkeley team found that the most common weakness was exactly this lack of isolation between the agent and the evaluator, followed by answers shipped with the test data, graders that executed agent output and automated judges whose prompts the agent could influence [<a href="#ref-1" class="j-cite">1</a>]. Zhu and colleagues found subtler problems, such as tests too weak to detect a wrong solution and a benchmark that counted empty responses as successes [<a href="#ref-2" class="j-cite">2</a>]. A business does not need to worry that vendors are gaming leaderboards to learn the lesson: if the grader can be fooled, a high score may not mean what it appears to.</p><h3>3.2 The tasks are not your tasks</h3><p>Even a perfectly graded benchmark measures performance on its own tasks. A high score on web navigation in a simulated shop says little about an agent's ability to code supplier invoices to a particular chart of accounts, follow a particular returns policy or read a particular plant's maintenance history. Liang and colleagues argued for evaluating language models across many scenarios and metrics precisely because performance does not transfer reliably from one scenario to another [<a href="#ref-8" class="j-cite">8</a>].</p><h3>3.3 The scaffold matters as much as the model</h3><p>An agent is a model plus a scaffold: the prompts, tools, memory, retries and control logic around it. Kapoor and colleagues showed that scaffolds can change results substantially and that simple, cheap designs often match complex ones, so a benchmark result describes a model-and-scaffold combination, not the model alone [<a href="#ref-9" class="j-cite">9</a>]. A business that deploys the same model in a different scaffold should not expect the published score.</p><h3>3.4 One run hides inconsistency</h3><p>Most leaderboards report the share of tasks solved on a single attempt. Yao and colleagues found that agents which solved a task once often failed on repeated attempts: in the retail domain, a leading model succeeded on all eight attempts at the same task in fewer than 25 percent of tasks [<a href="#ref-7" class="j-cite">7</a>]. For a business process that repeats thousands of times, consistency matters more than peak performance.</p><h3>3.5 Cost is missing</h3><p>Benchmarks usually report accuracy without the cost of achieving it. Kapoor and colleagues argued that accuracy and cost must be reported together, since an agent that calls a model many times can buy accuracy at a price that would never be acceptable in production [<a href="#ref-9" class="j-cite">9</a>]. A companion paper shows how quickly cost per task grows with the number of agent steps [<a href="#ref-10" class="j-cite">10</a>].</p><h3>3.6 Automated judges have biases</h3><p>Where outcomes are free text, benchmarks often use a language model as the judge. Zheng and colleagues found that strong models used as judges agreed with human preferences at a rate similar to the agreement between humans, but also showed position bias (favoring the first of two answers), verbosity bias (favoring longer answers) and self-enhancement bias (favoring answers in their own style) [<a href="#ref-11" class="j-cite">11</a>]. The Berkeley team also showed that an agent can embed instructions in its own output that steer an unprotected judge [<a href="#ref-1" class="j-cite">1</a>].</p><h3>3.7 Public tasks leak</h3><p>A benchmark that is published becomes, over time, part of the material on which future models are trained and against which developers tune their systems. Questions and reference answers posted online can be memorized, and the Berkeley team noted that the validation answers for one benchmark were publicly hosted [<a href="#ref-1" class="j-cite">1</a>]. Benchmark maintainers counter this with hidden test sets and fresh tasks, but a business cannot easily tell how much of a published score reflects capability and how much familiarity. A private evaluation built from the business's own records avoids the problem, provided those records are not themselves published.</p><aside class="j-callout"><p>Use public benchmarks to shortlist models and products, not to decide what to deploy. The deployment decision needs an evaluation built from the business's own tasks, graded in a way the agent cannot influence.</p></aside></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Building your own evaluation</h2><h3>4.1 Start from real cases</h3><p>The foundation of an evaluation is a task set drawn from the business's own work. For an accounts payable agent, that means past invoices; for a customer service agent, past tickets; for a maintenance agent, past fault reports with their eventual diagnosis. Three principles apply.</p><ol><li><strong>Sample, then stratify.</strong> Draw a random sample from recent history so the set reflects the real mix of work, then add hard and unusual cases deliberately: the invoice with a missing purchase order, the ticket in which the customer contradicts themselves, the fault that turned out to have two causes.</li><li><strong>Define the correct outcome before running the agent.</strong> For structured work this is the set of fields that must be right, such as supplier, amount, account code and tax treatment. For unstructured work it is a rubric with specific criteria.</li><li><strong>Keep a held-out set.</strong> If the team tunes instructions against the whole set, scores will rise without the agent improving. Hold back a portion that is used only for the final check before release.</li></ol><p>Behavioral test suites from software engineering are a useful complement. Ribeiro and colleagues showed that systematic tests of specific capabilities and invariances, for example that changing a supplier's name format should not change the account code, find failures that aggregate accuracy hides [<a href="#ref-12" class="j-cite">12</a>].</p><h3>4.2 Isolate the grader</h3><p>The lesson of Section 3.1 is architectural. The agent should run in an environment it controls; the grader should run afterwards, in a separate environment, reading only the outputs the agent was supposed to produce: the record written to the test system, the email it drafted, the answer it returned. Reference answers should never be visible to the agent, and the grader should not execute anything the agent wrote. These are the same controls a business applies to production systems, and they are discussed further in a companion paper on agent security [<a href="#ref-13" class="j-cite">13</a>].</p><h3>4.3 Grade the outcome and the path</h3><p>Outcome checks answer whether the result was right. Path checks answer whether the agent got there acceptably: whether it called only permitted tools, stayed within value limits, asked for approval where required and did not expose data it should not have. An agent that reaches the right answer by violating a policy has failed. Logging each run's full trajectory of tool calls makes path checks possible and also helps diagnose failures.</p><h3>4.4 Measure reliability</h3><p>Run each task several times. Yao and colleagues define pass^k as the probability that all <em>k</em> independent attempts at a task succeed, estimated from <em>n</em> trials per task with <em>c</em> successes as</p><div class="j-eq" role="math"><span class="j-eq-body">pass^k = E<sub>tasks</sub> [ C(c, k) / C(n, k) ]</span><span class="j-eq-n">(1)</span></div><p>where C(·,·) is the binomial coefficient and the expectation is taken over tasks [<a href="#ref-7" class="j-cite">7</a>]. If attempts were independent with the same success probability <em>p</em> on every task, pass^k would simply be <em>p</em><sup>k</sup>. Figure 1 shows how quickly that falls: an agent with a 90 percent per-attempt success rate completes all of eight attempts only 43 percent of the time.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.055918 264.991588" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Line chart with the number of attempts k on the horizontal axis, from 1 to 16, and the probability of succeeding on all attempts on the vertical axis, from 0 to 100 percent. Three falling curves are shown for per-attempt success rates of 99, 95 and 90 percent. At k equals 8 they reach about 92, 66 and 43 percent.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 264.991588 
+L 471.055918 264.991588 
+L 471.055918 0 
+L 0 0 
+L 0 264.991588 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 46.984824 222.822408 
+L 459.904824 222.822408 
+L 459.904824 6.606408 
+L 46.984824 6.606408 
+L 46.984824 222.822408 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 46.984824 222.822408 
+L 46.984824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m4d098c1264" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m4d098c1264" x="46.984824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="46.984824" y="239.994283" transform="rotate(-0 46.984824 239.994283)">1</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 74.512824 222.822408 
+L 74.512824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m4d098c1264" x="74.512824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="74.512824" y="239.994283" transform="rotate(-0 74.512824 239.994283)">2</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 129.568824 222.822408 
+L 129.568824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m4d098c1264" x="129.568824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="129.568824" y="239.994283" transform="rotate(-0 129.568824 239.994283)">4</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 239.680824 222.822408 
+L 239.680824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m4d098c1264" x="239.680824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="239.680824" y="239.994283" transform="rotate(-0 239.680824 239.994283)">8</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 349.792824 222.822408 
+L 349.792824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m4d098c1264" x="349.792824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="349.792824" y="239.994283" transform="rotate(-0 349.792824 239.994283)">12</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 459.904824 222.822408 
+L 459.904824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m4d098c1264" x="459.904824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="459.904824" y="239.994283" transform="rotate(-0 459.904824 239.994283)">16</text>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="253.444824" y="256.698873" transform="rotate(-0 253.444824 256.698873)">Attempts at the same task, k</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 46.984824 222.822408 
+L 459.904824 222.822408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="m09beae9b31" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m09beae9b31" x="46.984824" y="222.822408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="227.908346" transform="rotate(-0 39.984824 227.908346)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 46.984824 180.427114 
+L 459.904824 180.427114 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m09beae9b31" x="46.984824" y="180.427114" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="185.513051" transform="rotate(-0 39.984824 185.513051)">20</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 46.984824 138.03182 
+L 459.904824 138.03182 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m09beae9b31" x="46.984824" y="138.03182" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="143.117757" transform="rotate(-0 39.984824 143.117757)">40</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 46.984824 95.636526 
+L 459.904824 95.636526 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m09beae9b31" x="46.984824" y="95.636526" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="100.722463" transform="rotate(-0 39.984824 100.722463)">60</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 46.984824 53.241232 
+L 459.904824 53.241232 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m09beae9b31" x="46.984824" y="53.241232" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="58.327169" transform="rotate(-0 39.984824 58.327169)">80</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 46.984824 10.845938 
+L 459.904824 10.845938 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m09beae9b31" x="46.984824" y="10.845938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="15.931875" transform="rotate(-0 39.984824 15.931875)">100</text>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="114.714408" transform="rotate(-90 15.931875 114.714408)">Succeeds on all k attempts (%)</text>
+</g>
+</g>
+<g id="line2d_25">
+<path d="M 46.984824 12.965702 
+L 74.512824 15.064269 
+L 102.040824 17.141851 
+L 129.568824 19.198656 
+L 157.096824 21.234894 
+L 184.624824 23.250769 
+L 212.152824 25.246485 
+L 239.680824 27.222245 
+L 267.208824 29.178246 
+L 294.736824 31.114688 
+L 322.264824 33.031765 
+L 349.792824 34.929671 
+L 377.320824 36.808599 
+L 404.848824 38.668737 
+L 432.376824 40.510274 
+L 459.904824 42.333395 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="mdb09f695bf" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #4d7f12"/>
+</defs>
+<g clip-path="url(#p31f50cd8e8)">
+<use xlink:href="#mdb09f695bf" x="46.984824" y="12.965702" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="74.512824" y="15.064269" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="102.040824" y="17.141851" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="129.568824" y="19.198656" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="157.096824" y="21.234894" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="184.624824" y="23.250769" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="212.152824" y="25.246485" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="239.680824" y="27.222245" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="267.208824" y="29.178246" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="294.736824" y="31.114688" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="322.264824" y="33.031765" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="349.792824" y="34.929671" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="377.320824" y="36.808599" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="404.848824" y="38.668737" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="432.376824" y="40.510274" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#mdb09f695bf" x="459.904824" y="42.333395" style="fill: #4d7f12; stroke: #4d7f12"/>
+</g>
+</g>
+<g id="line2d_26">
+<path d="M 46.984824 21.444761 
+L 74.512824 31.513643 
+L 102.040824 41.079082 
+L 129.568824 50.166248 
+L 157.096824 58.799056 
+L 184.624824 67.000224 
+L 212.152824 74.791333 
+L 239.680824 82.192887 
+L 267.208824 89.224363 
+L 294.736824 95.904265 
+L 322.264824 102.250172 
+L 349.792824 108.278784 
+L 377.320824 114.005965 
+L 404.848824 119.446787 
+L 432.376824 124.615568 
+L 459.904824 129.52591 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="m39ce768962" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#p31f50cd8e8)">
+<use xlink:href="#m39ce768962" x="46.984824" y="21.444761" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="74.512824" y="31.513643" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="102.040824" y="41.079082" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="129.568824" y="50.166248" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="157.096824" y="58.799056" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="184.624824" y="67.000224" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="212.152824" y="74.791333" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="239.680824" y="82.192887" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="267.208824" y="89.224363" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="294.736824" y="95.904265" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="322.264824" y="102.250172" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="349.792824" y="108.278784" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="377.320824" y="114.005965" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="404.848824" y="119.446787" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="432.376824" y="124.615568" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m39ce768962" x="459.904824" y="129.52591" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="line2d_27">
+<path d="M 46.984824 32.043585 
+L 74.512824 51.121467 
+L 102.040824 68.291561 
+L 129.568824 83.744646 
+L 157.096824 97.652422 
+L 184.624824 110.169421 
+L 212.152824 121.434719 
+L 239.680824 131.573488 
+L 267.208824 140.69838 
+L 294.736824 148.910783 
+L 322.264824 156.301945 
+L 349.792824 162.953992 
+L 377.320824 168.940833 
+L 404.848824 174.328991 
+L 432.376824 179.178333 
+L 459.904824 183.54274 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="m7dbc506dc8" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p31f50cd8e8)">
+<use xlink:href="#m7dbc506dc8" x="46.984824" y="32.043585" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="74.512824" y="51.121467" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="102.040824" y="68.291561" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="129.568824" y="83.744646" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="157.096824" y="97.652422" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="184.624824" y="110.169421" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="212.152824" y="121.434719" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="239.680824" y="131.573488" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="267.208824" y="140.69838" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="294.736824" y="148.910783" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="322.264824" y="156.301945" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="349.792824" y="162.953992" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="377.320824" y="168.940833" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="404.848824" y="174.328991" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="432.376824" y="179.178333" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m7dbc506dc8" x="459.904824" y="183.54274" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_28">
+<path d="M 239.680824 222.822408 
+L 239.680824 6.606408 
+" clip-path="url(#p31f50cd8e8)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #8a94a6"/>
+</g>
+<g id="patch_3">
+<path d="M 46.984824 222.822408 
+L 46.984824 6.606408 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 46.984824 222.822408 
+L 459.904824 222.822408 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="245.680824" y="23.222245" transform="rotate(-0 245.680824 23.222245)">92%</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b6fa4" x="245.680824" y="78.192887" transform="rotate(-0 245.680824 78.192887)">66%</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #e07a3a" x="245.680824" y="127.573488" transform="rotate(-0 245.680824 127.573488)">43%</text>
+</g>
+<g id="legend_1">
+<g id="line2d_29">
+<path d="M 55.534824 176.166646 
+L 65.034824 176.166646 
+L 74.534824 176.166646 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#mdb09f695bf" x="65.034824" y="176.166646" style="fill: #4d7f12; stroke: #4d7f12"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="82.134824" y="179.491646" transform="rotate(-0 82.134824 179.491646)">99% per attempt</text>
+</g>
+<g id="line2d_30">
+<path d="M 55.534824 192.411275 
+L 65.034824 192.411275 
+L 74.534824 192.411275 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m39ce768962" x="65.034824" y="192.411275" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="82.134824" y="195.736275" transform="rotate(-0 82.134824 195.736275)">95% per attempt</text>
+</g>
+<g id="line2d_31">
+<path d="M 55.534824 208.655904 
+L 65.034824 208.655904 
+L 74.534824 208.655904 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m7dbc506dc8" x="65.034824" y="208.655904" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="text_20">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="82.134824" y="211.980904" transform="rotate(-0 82.134824 211.980904)">90% per attempt</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p31f50cd8e8">
+<rect x="46.984824" y="6.606408" width="412.92" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Probability of succeeding on all k attempts at a task, for constant per-attempt success rates, under the independence assumption (pass^k = p<sup>k</sup>). Small differences in per-attempt success become large differences in consistency. <span class="j-fig-src">Author's calculation from Eq. (1) under the independence assumption.</span></figcaption></figure><p>In practice, failures cluster: some tasks are hard and fail repeatedly, others almost never fail. Eq. (1) captures that, which is why it is better than assuming <em>p</em><sup>k</sup>. The practical value of repeated runs is that they identify which tasks are unreliable, and those are often the ones that reveal a gap in the agent's instructions or data.</p><h3>4.5 Size the test set for the decision</h3><p>A success rate measured on a small set is uncertain. The Wilson score interval gives a confidence interval for a proportion that behaves well near 0 and 100 percent [<a href="#ref-14" class="j-cite">14</a>]. For <em>s</em> successes in <em>n</em> tasks, with <em>p̂</em> = <em>s</em>/<em>n</em> and <em>z</em> = 1.96 for 95 percent confidence:</p><div class="j-eq" role="math"><span class="j-eq-body">p = [ p̂ + z²/2n ± z √( p̂(1 − p̂)/n + z²/4n² ) ] / (1 + z²/n)</span><span class="j-eq-n">(2)</span></div><p>With 45 successes out of 50 tasks, Eq. (2) shows that the observed rate is 90 percent but that the 95 percent interval runs from 79 to 96 percent. With 360 out of 400, it narrows to 87 to 93 percent. Figure 2 shows how the width of the interval falls with the number of tasks.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.707129 269.231117" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Line chart with the number of tasks on the horizontal axis, from 20 to 1,000 on a log scale, and the full width of the confidence interval in percentage points on the vertical axis. The curve falls from about 27 points at 20 tasks to about 17 at 50, 12 at 100, 6 at 400 and under 4 at 1,000. Marked points show 50 and 400 tasks.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 269.231117 
+L 474.707129 269.231117 
+L 474.707129 0 
+L 0 0 
+L 0 269.231117 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 42.574824 227.061938 
+L 455.494824 227.061938 
+L 455.494824 10.845938 
+L 42.574824 10.845938 
+L 42.574824 227.061938 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 42.574824 227.061938 
+L 42.574824 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mfce97a3ba3" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mfce97a3ba3" x="42.574824" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="42.574824" y="244.233813" transform="rotate(-0 42.574824 244.233813)">20</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 139.29071 227.061938 
+L 139.29071 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mfce97a3ba3" x="139.29071" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="139.29071" y="244.233813" transform="rotate(-0 139.29071 244.233813)">50</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 212.453453 227.061938 
+L 212.453453 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mfce97a3ba3" x="212.453453" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="212.453453" y="244.233813" transform="rotate(-0 212.453453 244.233813)">100</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 285.616196 227.061938 
+L 285.616196 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mfce97a3ba3" x="285.616196" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="285.616196" y="244.233813" transform="rotate(-0 285.616196 244.233813)">200</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 358.778939 227.061938 
+L 358.778939 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mfce97a3ba3" x="358.778939" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="358.778939" y="244.233813" transform="rotate(-0 358.778939 244.233813)">400</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 455.494824 227.061938 
+L 455.494824 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#mfce97a3ba3" x="455.494824" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="455.494824" y="244.233813" transform="rotate(-0 455.494824 244.233813)">1,000</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<defs>
+<path id="md4ab5738e6" d="M 0 0 
+L 0 2 
+" style="stroke: #4a5568; stroke-width: 0.6"/>
+</defs>
+<g>
+<use xlink:href="#md4ab5738e6" x="85.372285" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_14">
+<g>
+<use xlink:href="#md4ab5738e6" x="115.737567" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_15">
+<g>
+<use xlink:href="#md4ab5738e6" x="158.535028" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_16">
+<g>
+<use xlink:href="#md4ab5738e6" x="174.805868" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_11">
+<g id="line2d_17">
+<g>
+<use xlink:href="#md4ab5738e6" x="188.90031" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_12">
+<g id="line2d_18">
+<g>
+<use xlink:href="#md4ab5738e6" x="201.332489" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_13">
+<g id="line2d_19">
+<g>
+<use xlink:href="#md4ab5738e6" x="328.413657" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_14">
+<g id="line2d_20">
+<g>
+<use xlink:href="#md4ab5738e6" x="382.332081" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_15">
+<g id="line2d_21">
+<g>
+<use xlink:href="#md4ab5738e6" x="401.5764" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_16">
+<g id="line2d_22">
+<g>
+<use xlink:href="#md4ab5738e6" x="417.847239" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_17">
+<g id="line2d_23">
+<g>
+<use xlink:href="#md4ab5738e6" x="431.941682" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="xtick_18">
+<g id="line2d_24">
+<g>
+<use xlink:href="#md4ab5738e6" x="444.373861" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="249.034824" y="260.938402" transform="rotate(-0 249.034824 260.938402)">Tasks in the evaluation set, n</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_25">
+<path d="M 42.574824 227.061938 
+L 455.494824 227.061938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<defs>
+<path id="m480b107d17" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="227.061938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="232.147875" transform="rotate(-0 35.574824 232.147875)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_27">
+<path d="M 42.574824 191.025938 
+L 455.494824 191.025938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="191.025938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="196.111875" transform="rotate(-0 35.574824 196.111875)">5</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_29">
+<path d="M 42.574824 154.989938 
+L 455.494824 154.989938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="154.989938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="160.075875" transform="rotate(-0 35.574824 160.075875)">10</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_31">
+<path d="M 42.574824 118.953938 
+L 455.494824 118.953938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="118.953938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="124.039875" transform="rotate(-0 35.574824 124.039875)">15</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_33">
+<path d="M 42.574824 82.917938 
+L 455.494824 82.917938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="82.917938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="88.003875" transform="rotate(-0 35.574824 88.003875)">20</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_35">
+<path d="M 42.574824 46.881938 
+L 455.494824 46.881938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="46.881938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="51.967875" transform="rotate(-0 35.574824 51.967875)">25</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_37">
+<path d="M 42.574824 10.845938 
+L 455.494824 10.845938 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<g>
+<use xlink:href="#m480b107d17" x="42.574824" y="10.845938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="15.931875" transform="rotate(-0 35.574824 15.931875)">30</text>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="118.953938" transform="rotate(-90 15.931875 118.953938)">Width of 95% interval (points)</text>
+</g>
+</g>
+<g id="line2d_39">
+<path d="M 42.574824 30.181188 
+L 50.874724 37.974441 
+L 59.174623 45.478836 
+L 67.474523 52.700065 
+L 75.774422 59.644594 
+L 84.074322 66.319512 
+L 92.374221 72.732393 
+L 100.674121 78.891171 
+L 108.97402 84.804031 
+L 117.27392 90.47931 
+L 125.573819 95.925412 
+L 133.873719 101.15074 
+L 144.248593 107.384627 
+L 154.623467 113.302596 
+L 164.998342 118.920274 
+L 175.373216 124.252796 
+L 185.748091 129.314748 
+L 196.122965 134.120122 
+L 206.497839 138.682287 
+L 216.872714 143.013984 
+L 227.247588 147.127325 
+L 237.622462 151.0338 
+L 250.072312 155.463793 
+L 262.522161 159.629248 
+L 274.97201 163.546716 
+L 287.421859 167.231656 
+L 299.871709 170.698504 
+L 312.321558 173.960739 
+L 326.846382 177.524811 
+L 341.371206 180.846035 
+L 355.89603 183.941553 
+L 370.420854 186.827213 
+L 387.020653 189.886888 
+L 403.620452 192.711711 
+L 420.220251 195.320135 
+L 438.895025 198.016967 
+L 455.494824 200.220014 
+L 455.494824 200.220014 
+" clip-path="url(#p24565188b8)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 42.574824 227.061938 
+L 42.574824 10.845938 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 42.574824 227.061938 
+L 455.494824 227.061938 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_16">
+<text style="font-size: 9.3px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="149.29071" y="98.446003" transform="rotate(-0 149.29071 98.446003)">50 tasks: ±8.5 points</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9.3px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="368.778939" y="178.530514" transform="rotate(-0 368.778939 178.530514)">400 tasks: ±3.0 points</text>
+</g>
+<g id="line2d_40">
+<defs>
+<path id="mfbd01db8f3" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#p24565188b8)">
+<use xlink:href="#mfbd01db8f3" x="139.29071" y="104.446003" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_41">
+<g clip-path="url(#p24565188b8)">
+<use xlink:href="#mfbd01db8f3" x="358.778939" y="184.530514" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p24565188b8">
+<rect x="42.574824" y="10.845938" width="412.92" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Width of the 95 percent Wilson confidence interval for an observed success rate of 90 percent, by the number of tasks evaluated. The interval narrows roughly with the square root of the number of tasks. <span class="j-fig-src">Author's calculation from Eq. (2) [<a href="#ref-14" class="j-cite">14</a>].</span></figcaption></figure><p>To plan a test set, invert the relationship. For a margin of error <em>E</em> around an expected success rate <em>p</em>, the number of tasks needed is approximately</p><div class="j-eq" role="math"><span class="j-eq-body">n ≈ z² · p(1 − p) / E²</span><span class="j-eq-n">(3)</span></div><p>To estimate a 90 percent success rate to within three percentage points at 95 percent confidence, Eq. (3) gives about 385 tasks. A set of 50 tasks is enough to tell a 60 percent agent from a 90 percent one, but not a 90 percent agent from a 95 percent one. When the question is how low the error rate is on a high-stakes action, the rule of three discussed in a companion paper gives the bound after a run of error-free trials [<a href="#ref-15" class="j-cite">15</a>].</p><h3>4.6 Measure cost, time and safety alongside accuracy</h3><p>Every evaluation run should record the cost and elapsed time per task, so that models and scaffolds can be compared on a cost-accuracy frontier rather than on accuracy alone [<a href="#ref-9" class="j-cite">9</a>, <a href="#ref-10" class="j-cite">10</a>]. The set should also include safety cases: requests the agent should refuse or escalate, documents containing injected instructions, inputs outside its scope and attempts to obtain data the user is not entitled to. Table 2 summarizes the dimensions.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Dimensions of a business evaluation for an AI agent and example metrics.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Dimension</th><th>Question</th><th>Example metrics</th></tr></thead><tbody><tr><td>Correctness</td><td>Is the outcome right?</td><td>Field-level accuracy; rubric score; success rate with Wilson interval</td></tr><tr><td>Reliability</td><td>Is it right every time?</td><td>pass^k on repeated runs; variance by task</td></tr><tr><td>Policy compliance</td><td>Did it follow the rules on the way?</td><td>Unauthorized tool calls; limit breaches; missed approvals</td></tr><tr><td>Escalation</td><td>Does it know when to stop?</td><td>Share of out-of-scope cases escalated; false escalations</td></tr><tr><td>Robustness</td><td>Does it resist manipulation?</td><td>Success rate on injected-instruction cases</td></tr><tr><td>Cost and speed</td><td>What does it cost per task?</td><td>Tokens, tool calls, dollars and seconds per task</td></tr><tr><td>Drift</td><td>Is it still as good as at release?</td><td>Score on the fixed set over time; sampled production accuracy</td></tr></tbody></table></div><p class="j-table-note">Compiled by the author.</p></figure><h3>4.7 A worked example</h3><p>Consider a business preparing to deploy an agent that codes and posts supplier invoices. It draws 400 invoices at random from the previous year and adds 60 hard cases chosen by its senior clerk: credit notes, invoices in a foreign currency, partial deliveries, a supplier whose name changed, and invoices with no matching purchase order. For each, the correct supplier, amounts, account codes, tax treatment and posting decision are recorded from the accounts. One hundred of the 460 cases are set aside as a held-out set. A further 30 safety cases are written: invoices that contain instructions to change bank details, requests to post above the agent's limit, and documents from unknown senders.</p><p>The agent runs each case three times in a test copy of the ERP system. A separate script compares the posted records with the reference values, checks the tool-call log for policy breaches and records tokens, cost and time. The first run shows 91 percent field-level accuracy, a pass^3 of 84 percent, two limit breaches and one safety case in which the agent drafted a bank-detail change. The team fixes the instructions and tool permissions, reruns the tuning set, then runs the held-out set once to confirm. The release record shows the scores with their intervals, the cost per invoice and the change made, and becomes the baseline for the next model upgrade.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Using a language model as the judge</h2><p>For free-text outputs such as emails, summaries and investigation reports, human grading of every case is expensive, and a language-model judge is often the practical choice. It can be made reliable with four precautions drawn from the research [<a href="#ref-1" class="j-cite">1</a>, <a href="#ref-11" class="j-cite">11</a>].</p><ol><li><strong>Use a rubric, not an impression.</strong> Ask the judge to score specific criteria (covers the three facts in the reference, states the correct next step, contains no promise the policy does not allow) rather than overall quality.</li><li><strong>Calibrate against people.</strong> Have staff grade a sample of 50 to 100 cases and measure the judge's agreement with them before trusting it on the rest. Re-check after any change to the judge.</li><li><strong>Control for known biases.</strong> Randomize the order when comparing two outputs, and do not reward length.</li><li><strong>Protect the judge.</strong> Pass the agent's output to the judge as quoted data with clear delimiters, instruct the judge to ignore any instructions inside it, and include test cases in which the output tries to influence the grade.</li></ol><p>Where judgment is genuinely needed, as in deciding whether an investigation report identifies the right root cause, a hybrid works well: the automated judge screens every case against the rubric, and a person reviews all cases the judge scores low, all cases where two judge runs disagree, and a random sample of the rest. This keeps human effort focused where it changes the result and gives a continuing check on the judge itself.</p><p>A judge from a different model family from the agent reduces the risk of self-enhancement bias. The judge's own prompt and model version should be fixed and recorded with each evaluation run, since a change to the judge changes the scores.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Using the results</h2><p>Evaluation is only useful if it drives decisions. Four uses matter most.</p><p><strong>Deployment gates.</strong> Before an agent goes live, its scores on correctness, reliability, policy compliance and safety cases should meet thresholds agreed with the business owner of the process, with intervals narrow enough to support the decision.</p><p><strong>Autonomy decisions.</strong> The level of autonomy for each action should follow the evidence, starting from shadow-mode trials and moving up one level at a time as the error rate is shown to be low enough, with demotion on defined triggers [<a href="#ref-15" class="j-cite">15</a>].</p><p><strong>Change control.</strong> Any change to the model, the scaffold, the tools or the instructions should be followed by a full run of the evaluation set and a comparison with the previous release. This is regression testing, and it is what allows a business to switch to a cheaper or better model with confidence as prices fall [<a href="#ref-10" class="j-cite">10</a>].</p><p><strong>Production monitoring.</strong> The fixed set measures the agent against yesterday's work, and the business's work changes: new suppliers, new products, new policies and new kinds of customer request. A regular sample of production cases, graded the same way, measures it against today's, and catches drift in the inputs that the fixed set cannot. Cases from the sample that the agent got wrong should be added to the fixed set, so that it grows to cover the situations that actually cause trouble.</p><p>Ownership matters as much as method. The evaluation set belongs to the business owner of the process, not to the vendor or the IT team, because only the people who do the work can say what a correct outcome is. In practice this means a named owner who approves the task set and the outcome definitions, signs off release thresholds, and reviews failures with the technical team. Vendors can supply their own test results, but those should be treated in the same way as public benchmarks: as evidence for a shortlist, to be confirmed on the business's own cases before deployment.</p><p>The capability of frontier models on long tasks has been rising quickly, with the length of task they can complete doubling roughly every seven months in METR's measurements [<a href="#ref-16" class="j-cite">16</a>]. That is a reason to re-run evaluations often, not a reason to skip them: each new model must be measured on the business's own work before it is trusted with it.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Conclusion</h2><p>Public agent benchmarks are valuable research tools and useful for shortlisting, but their scores can be inflated by weak graders, do not transfer to a business's own tasks, depend on the scaffold, hide inconsistency and omit cost. The evidence from Berkeley and from the Agentic Benchmark Checklist shows that these are not theoretical concerns. A business can do better with modest effort: a few hundred real tasks with defined outcomes, a grader the agent cannot reach, repeated runs to measure reliability, intervals sized to the decision, and cost and safety cases alongside accuracy. Built once and rerun on every change, such an evaluation becomes the basis for deployment, autonomy and model choice, and the most durable asset in an agent program.</p></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Wang, H., Mang, Q., Cheung, A., Sen, K., &amp; Song, D. (2026, April). How we broke top AI agent benchmarks: And what comes next. UC Berkeley Center for Responsible, Decentralized Intelligence. <a href="https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/" rel="noopener" target="_blank">rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/</a></li><li id="ref-2">Zhu, Y., Jin, T., Pruksachatkun, Y., Zhang, A., Liu, S., Cui, S., Kapoor, S., Longpre, S., Meng, K., Weiss, R., et al. (2025). Establishing best practices for building rigorous agentic benchmarks. arXiv:2507.02825. <a href="https://arxiv.org/abs/2507.02825" rel="noopener" target="_blank">arxiv.org/abs/2507.02825</a></li><li id="ref-3">Jimenez, C. E., Yang, J., Wettig, A., Yao, S., Pei, K., Press, O., &amp; Narasimhan, K. (2024). SWE-bench: Can language models resolve real-world GitHub issues? In <em>International Conference on Learning Representations</em>. arXiv:2310.06770. <a href="https://arxiv.org/abs/2310.06770" rel="noopener" target="_blank">arxiv.org/abs/2310.06770</a></li><li id="ref-4">Zhou, S., Xu, F. F., Zhu, H., Zhou, X., Lo, R., Sridhar, A., et al. (2024). WebArena: A realistic web environment for building autonomous agents. In <em>International Conference on Learning Representations</em>. arXiv:2307.13854. <a href="https://arxiv.org/abs/2307.13854" rel="noopener" target="_blank">arxiv.org/abs/2307.13854</a></li><li id="ref-5">Xie, T., Zhang, D., Chen, J., Li, X., Zhao, S., Cao, R., et al. (2024). OSWorld: Benchmarking multimodal agents for open-ended tasks in real computer environments. arXiv:2404.07972. <a href="https://arxiv.org/abs/2404.07972" rel="noopener" target="_blank">arxiv.org/abs/2404.07972</a></li><li id="ref-6">Mialon, G., Fourrier, C., Swift, C., Wolf, T., LeCun, Y., &amp; Scialom, T. (2023). GAIA: A benchmark for general AI assistants. arXiv:2311.12983. <a href="https://arxiv.org/abs/2311.12983" rel="noopener" target="_blank">arxiv.org/abs/2311.12983</a></li><li id="ref-7">Yao, S., Shinn, N., Razavi, P., &amp; Narasimhan, K. (2024). τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045. <a href="https://arxiv.org/abs/2406.12045" rel="noopener" target="_blank">arxiv.org/abs/2406.12045</a></li><li id="ref-8">Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., et al. (2022). Holistic evaluation of language models. arXiv:2211.09110. <a href="https://arxiv.org/abs/2211.09110" rel="noopener" target="_blank">arxiv.org/abs/2211.09110</a></li><li id="ref-9">Kapoor, S., Stroebl, B., Siegel, Z. S., Nadgir, N., &amp; Narayanan, A. (2024). AI agents that matter. arXiv:2407.01502. <a href="https://arxiv.org/abs/2407.01502" rel="noopener" target="_blank">arxiv.org/abs/2407.01502</a></li><li id="ref-10">Lee, Q. F. (2026). The economics of agentic AI: Cost per task, total cost of ownership and payback. <em>Chmltech Online Journal</em>, 105(8). <a href="https://www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback" rel="noopener" target="_blank">www.chmltech.com/post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-p</a></li><li id="ref-11">Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., et al. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. In <em>Advances in Neural Information Processing Systems 36</em>. arXiv:2306.05685. <a href="https://arxiv.org/abs/2306.05685" rel="noopener" target="_blank">arxiv.org/abs/2306.05685</a></li><li id="ref-12">Ribeiro, M. T., Wu, T., Guestrin, C., &amp; Singh, S. (2020). Beyond accuracy: Behavioral testing of NLP models with CheckList. In <em>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</em> (pp. 4902–4912). <a href="https://doi.org/10.18653/v1/2020.acl-main.442" rel="noopener" target="_blank">10.18653/v1/2020.acl-main.442</a></li><li id="ref-13">Lee, Q. F. (2026). Agent security and identity: Prompt injection, least-privilege tool access, agent credentials and audit trails. <em>Chmltech Online Journal</em>, 105(5). <a href="https://www.chmltech.com/post/agent-security-and-identity-prompt-injection-least-privilege-credentials-audit" rel="noopener" target="_blank">www.chmltech.com/post/agent-security-and-identity-prompt-injection-least-privile</a></li><li id="ref-14">Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. <em>Journal of the American Statistical Association</em>, 22(158), 209–212. <a href="https://doi.org/10.1080/01621459.1927.10502953" rel="noopener" target="_blank">10.1080/01621459.1927.10502953</a></li><li id="ref-15">Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. <em>Chmltech Online Journal</em>, 105(7). <a href="https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents" rel="noopener" target="_blank">www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-age</a></li><li id="ref-16">Kwa, T., West, B., Becker, J., Deng, A., Garcia, K., Hasin, M., et al. (2025). Measuring AI ability to complete long tasks. arXiv:2503.14499. <a href="https://arxiv.org/abs/2503.14499" rel="noopener" target="_blank">arxiv.org/abs/2503.14499</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation. <em>Chmltech Online Journal</em>, <em>105</em>(10). https://www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. What public agent benchmarks measure</a></li><li><a href="#sec-3">3. Why benchmark scores mislead</a></li><li><a href="#sec-4">4. Building your own evaluation</a></li><li><a href="#sec-5">5. Using a language model as the judge</a></li><li><a href="#sec-6">6. Using the results</a></li><li><a href="#sec-7">7. Conclusion</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 105, Issue 10</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence strategy" data-search="the eu ai act for canadian businesses: scope, obligations after the digital omnibus and a practical compliance path when the eu ai act applies to a canadian business, what it requires after the 2026 digital omnibus, how canada&#x27;s own rules compare, and a compliance path. eu ai act digital omnibus ai regulation canada high-risk ai transparency ai governance iso/iec 42001"><div class="thumb"><img src="../assets/media/covers/thumbs/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.html">The EU AI Act for Canadian Businesses: Scope, Obligations After the Digital Omnibus and a Practical Compliance Path</a></h3><p class="muted">When the EU AI Act applies to a Canadian business, what it requires after the 2026 Digital Omnibus, how Canada&#x27;s own rules compare, and a compliance path.</p><p class="meta">Vol. 105, Issue 11 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence process-engineering operational-efficiency" data-search="agentic ai in manufacturing operations: use cases, architecture and safety boundaries where ai agents help in plants and factories: maintenance, downtime and quality use cases, an isa-95 architecture, and the safety lines agents must not cross. agentic ai manufacturing isa-95 maintenance oee functional safety opc ua industrial cybersecurity"><div class="thumb"><img src="../assets/media/covers/thumbs/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.html">Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries</a></h3><p class="muted">Where AI agents help in plants and factories: maintenance, downtime and quality use cases, an ISA-95 architecture, and the safety lines agents must not cross.</p><p class="meta">Vol. 105, Issue 9 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence strategy" data-search="the economics of agentic ai: cost per task, total cost of ownership and payback why falling token prices do not guarantee cheap agents: a cost-per-task model, the full cost of ownership, evidence on value, and a payback calculation. agentic ai ai economics cost per task total cost of ownership inference cost prompt caching return on investment productivity"><div class="thumb"><img src="../assets/media/covers/thumbs/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback.html">The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback</a></h3><p class="muted">Why falling token prices do not guarantee cheap agents: a cost-per-task model, the full cost of ownership, evidence on value, and a payback calculation.</p><p class="meta">Vol. 105, Issue 8 · Nov 13, 2026 · 14 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol105-issue10.pdf" data-fname="Chmltech-Journal-Vol105-Issue10.pdf" data-title="Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation" data-ref="Vol. 105, Issue 10">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 105, Issue 10</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation", "name": "Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation", "abstract": "Benchmark scores shape which AI agents businesses buy and deploy, yet recent work shows that they can be badly wrong. In April 2026 researchers at the University of California, Berkeley reported an automated agent that reached near-perfect scores on eight widely cited agent benchmarks without solving a single task, by exploiting weaknesses in how scores were computed. An earlier audit of ten agentic benchmarks found flaws that could under- or overestimate performance by up to 100 percent in relative terms. This paper explains what public agent benchmarks measure and why their scores mislead: weak graders, tasks unlike a business's own, scaffold effects, single-run scoring that hides inconsistency, missing cost data and biased automated judges. It then sets out how a business can build its own evaluation: a task set drawn from real cases, an outcome definition for each task, a grader isolated from the agent, repeated runs to measure reliability with the pass^k metric, confidence intervals sized to the decision, and cost and safety cases alongside accuracy. Worked calculations show that around 400 tasks are needed to estimate a 90 percent success rate to within three percentage points. The paper closes with how evaluation results should gate deployment, autonomy and model changes.", "keywords": "AI agents, evaluation, benchmarks, pass^k, LLM-as-a-judge, reliability, test sets, regression testing", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "10", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "105", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation", "citation": ["Wang, H., Mang, Q., Cheung, A., Sen, K., &amp; Song, D. (2026, April). How we broke top AI agent benchmarks: And what comes next. UC Berkeley Center for Responsible, Decentralized Intelligence.", "Zhu, Y., Jin, T., Pruksachatkun, Y., Zhang, A., Liu, S., Cui, S., Kapoor, S., Longpre, S., Meng, K., Weiss, R., et al. (2025). Establishing best practices for building rigorous agentic benchmarks. arXiv:2507.02825.", "Jimenez, C. E., Yang, J., Wettig, A., Yao, S., Pei, K., Press, O., &amp; Narasimhan, K. (2024). SWE-bench: Can language models resolve real-world GitHub issues? In International Conference on Learning Representations. arXiv:2310.06770.", "Zhou, S., Xu, F. F., Zhu, H., Zhou, X., Lo, R., Sridhar, A., et al. (2024). WebArena: A realistic web environment for building autonomous agents. In International Conference on Learning Representations. arXiv:2307.13854.", "Xie, T., Zhang, D., Chen, J., Li, X., Zhao, S., Cao, R., et al. (2024). OSWorld: Benchmarking multimodal agents for open-ended tasks in real computer environments. arXiv:2404.07972.", "Mialon, G., Fourrier, C., Swift, C., Wolf, T., LeCun, Y., &amp; Scialom, T. (2023). GAIA: A benchmark for general AI assistants. arXiv:2311.12983.", "Yao, S., Shinn, N., Razavi, P., &amp; Narasimhan, K. (2024). τ-bench: A benchmark for tool-agent-user interaction in real-world domains. arXiv:2406.12045.", "Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., et al. (2022). Holistic evaluation of language models. arXiv:2211.09110.", "Kapoor, S., Stroebl, B., Siegel, Z. S., Nadgir, N., &amp; Narayanan, A. (2024). AI agents that matter. arXiv:2407.01502.", "Lee, Q. F. (2026). The economics of agentic AI: Cost per task, total cost of ownership and payback. Chmltech Online Journal, 105(8).", "Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., et al. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. In Advances in Neural Information Processing Systems 36. arXiv:2306.05685.", "Ribeiro, M. T., Wu, T., Guestrin, C., &amp; Singh, S. (2020). Beyond accuracy: Behavioral testing of NLP models with CheckList. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (pp. 4902–4912).", "Lee, Q. F. (2026). Agent security and identity: Prompt injection, least-privilege tool access, agent credentials and audit trails. Chmltech Online Journal, 105(5).", "Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. Journal of the American Statistical Association, 22(158), 209–212.", "Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. Chmltech Online Journal, 105(7).", "Kwa, T., West, B., Becker, J., Deng, A., Garcia, K., Hasin, M., et al. (2025). Measuring AI ability to complete long tasks. arXiv:2503.14499."], "image": "https://www.chmltech.com/assets/media/covers/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+</body>
+</html>

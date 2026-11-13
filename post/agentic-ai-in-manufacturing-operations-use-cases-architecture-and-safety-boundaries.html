@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries</title>
+<meta name="description" content="Where AI agents help in plants and factories: maintenance, downtime and quality use cases, an ISA-95 architecture, and the safety lines agents must not cross.">
+<link rel="canonical" href="https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries">
+<meta property="og:description" content="Where AI agents help in plants and factories: maintenance, downtime and quality use cases, an ISA-95 architecture, and the safety lines agents must not cross.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<meta property="og:url" content="https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries","item":"https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=31376edc">
+<meta name="citation_title" content="Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/13">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="105">
+<meta name="citation_issue" content="9">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 105, Issue 9</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 13, 2026</span><span>14 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Manufacturers have adopted AI more slowly than many other sectors, yet plants generate large volumes of operational information in maintenance systems, historians, manufacturing execution systems and shift logs that people spend much of their time reading, summarizing and acting on. This paper argues that the near-term role of AI agents in manufacturing lies in that information work around production rather than in control of the process itself. It maps agents onto the ISA-95 functional hierarchy and sets a boundary: agents operate at the business and operations levels, read data from the control level through read-only interfaces, and never write to control systems or form part of a safety instrumented system. It reviews nine use cases, examines two in depth (drafting maintenance work orders and analyzing downtime), and quantifies the effect of faster diagnosis on availability using the relation between mean time between failures and mean time to repair. It then proposes a reference architecture aligned with ISA/IEC 62443 zones and conduits, catalogs agent-specific hazards such as prompt injection through free-text records and loss of operator skill, and recommends treating changes to an agent as changes under management of change. The paper closes with a staged implementation path and a set of plant metrics for judging results.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> agentic AI; manufacturing; ISA-95; maintenance; OEE; functional safety; OPC UA; industrial cybersecurity</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Manufacturing has been slower to adopt AI than many other sectors. An analysis of U.S. Census Bureau survey data from 2022 to early 2026 found that 12.6 percent of manufacturers used AI and that large manufacturers were more than twice as likely to use it as small ones [<a href="#ref-1" class="j-cite">1</a>]. Part of the reason is caution well earned: a plant is a physical system in which errors can injure people, damage equipment and release material, and plant engineers are rightly skeptical of software that behaves differently from one run to the next.</p><p>Yet much of the work in a plant is not control. Operators write shift logs and read the previous shift's. Maintenance planners turn operator notes and alarm histories into work orders. Engineers search old reports to find out why a pump failed last time. Quality staff assemble evidence for nonconformance reports. Supervisors explain yesterday's downtime to managers. This is information work, done by skilled people reading and writing across several systems, and it is the kind of work at which language-model agents are already useful.</p><p>This paper sets out where AI agents fit in manufacturing operations, and where they do not. Section 2 maps agents onto the ISA-95 hierarchy and defines a boundary. Section 3 reviews use cases and examines two in depth, with a calculation of the value of faster diagnosis. Section 4 proposes a reference architecture. Section 5 catalogs the hazards specific to agents in a plant and the controls for each. Section 6 outlines an implementation path and the metrics that show whether it is working.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Where agents fit: the ISA-95 hierarchy</h2><h3>2.1 The functional levels</h3><p>The ISA-95 standard, published internationally as IEC 62264, describes manufacturing systems as a hierarchy of functional levels [<a href="#ref-2" class="j-cite">2</a>]. Levels 0 to 2 cover the physical process, sensors and actuators, and the control systems that run it: programmable logic controllers (PLCs), distributed control systems (DCS) and supervisory control and data acquisition (SCADA). Level 3 covers manufacturing operations management, including production execution, maintenance management, quality and the process historian. Level 4 covers business planning and logistics in the enterprise resource planning (ERP) system. The levels differ in their time scales, from milliseconds at Level 1 to days and weeks at Level 4, and in their consequences: an error at Level 1 can act on the process within seconds.</p><p>Process safety adds a separate layer. A safety instrumented system (SIS) takes the process to a safe state when a hazardous condition is detected. IEC 61511 requires that each safety instrumented function be specified, designed, verified and validated to a required safety integrity level, with defined behavior under defined conditions [<a href="#ref-3" class="j-cite">3</a>]. A language model, whose output can vary with small changes in its input, cannot meet that requirement and has no place inside a safety function.</p><h3>2.2 The boundary</h3><p>From these considerations follows a boundary, summarized in Table 1 and Figure 1. Agents operate at Levels 3 and 4, where the work is information work and the time scales allow a person to review. They may read data from Level 2, such as process values and alarm histories, but only through read-only interfaces such as OPC UA subscriptions or the historian [<a href="#ref-4" class="j-cite">4</a>]. They do not write to Levels 0 to 2, and they are never part of the SIS or of the response to safety alarms. A companion paper on interoperability standards reaches the same conclusion from the protocol side [<a href="#ref-5" class="j-cite">5</a>].</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> What an AI agent may do at each ISA-95 level, as proposed by the author.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Level</th><th>Typical systems</th><th>Agent may</th><th>Agent may not</th></tr></thead><tbody><tr><td>4 Business planning</td><td>ERP, supply chain, finance</td><td>Read; draft orders, quotes and reports; act within limits after promotion</td><td>Commit spend or contracts above set limits</td></tr><tr><td>3 Operations management</td><td>MES, CMMS, historian, LIMS, quality system</td><td>Read; draft work orders, reports and investigations; update records after approval</td><td>Release product or close safety-related work without a person</td></tr><tr><td>2 Supervisory control</td><td>SCADA, DCS operator stations</td><td>Read process values and alarm history through read-only interfaces</td><td>Change setpoints, modes or alarm settings</td></tr><tr><td>0–1 Process and basic control</td><td>Sensors, actuators, PLCs</td><td>Nothing directly</td><td>Any write access</td></tr><tr><td>Safety instrumented system</td><td>Logic solver, safety sensors and final elements</td><td>Nothing</td><td>Any role in a safety function</td></tr></tbody></table></div><p class="j-table-note">Levels from [<a href="#ref-2" class="j-cite">2</a>]; safety requirements from [<a href="#ref-3" class="j-cite">3</a>].</p></figure><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 502.56 288.72" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Stacked diagram of the ISA-95 levels from Level 4 business planning at the top, through Level 3 operations management and Level 2 supervisory control, to Levels 0 and 1 process and basic control at the bottom, with the safety instrumented system drawn as a separate column beside the control levels. A shaded zone covering Levels 3 and 4 is labelled agents operate here. A one-way arrow from Level 2 up to the agent zone is labelled read-only. A barrier line between Level 3 and Level 2 is labelled no agent writes below this line.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 288.72 
+L 502.56 288.72 
+L 502.56 0 
+L 0 0 
+L 0 288.72 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 10.6704 133.272 
+L 374.04 133.272 
+L 374.04 11.304 
+L 10.6704 11.304 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #e4f1d3; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 33.9948 72.981 
+L 350.7156 72.981 
+Q 355.626 72.981 355.626 70.209 
+L 355.626 43.875 
+Q 355.626 41.103 350.7156 41.103 
+L 33.9948 41.103 
+Q 29.0844 41.103 29.0844 43.875 
+L 29.0844 70.209 
+Q 29.0844 72.981 33.9948 72.981 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 33.9948 122.877 
+L 350.7156 122.877 
+Q 355.626 122.877 355.626 120.105 
+L 355.626 90.999 
+Q 355.626 88.227 350.7156 88.227 
+L 33.9948 88.227 
+Q 29.0844 88.227 29.0844 90.999 
+L 29.0844 120.105 
+Q 29.0844 122.877 33.9948 122.877 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 33.9948 214.353 
+L 350.7156 214.353 
+Q 355.626 214.353 355.626 211.581 
+L 355.626 182.475 
+Q 355.626 179.703 350.7156 179.703 
+L 33.9948 179.703 
+Q 29.0844 179.703 29.0844 182.475 
+L 29.0844 211.581 
+Q 29.0844 214.353 33.9948 214.353 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 33.9948 272.565 
+L 350.7156 272.565 
+Q 355.626 272.565 355.626 269.793 
+L 355.626 237.915 
+Q 355.626 235.143 350.7156 235.143 
+L 33.9948 235.143 
+Q 29.0844 235.143 29.0844 237.915 
+L 29.0844 269.793 
+Q 29.0844 272.565 33.9948 272.565 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 397.3644 272.565 
+L 483.2964 272.565 
+Q 488.2068 272.565 488.2068 269.793 
+L 488.2068 182.475 
+Q 488.2068 179.703 483.2964 179.703 
+L 397.3644 179.703 
+Q 392.454 179.703 392.454 182.475 
+L 392.454 269.793 
+Q 392.454 272.565 397.3644 272.565 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #f8dedb; stroke: #c0392b; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 261.1008 179.01 
+Q 261.1008 151.29 261.1008 125.582461 
+" clip-path="url(#pb28ae0eafb)" style="fill: none; stroke: #0b6fa4; stroke-width: 1.8; stroke-linecap: round"/>
+<path d="M 258.9008 129.982461 
+L 261.1008 125.582461 
+L 263.3008 129.982461 
+z
+" clip-path="url(#pb28ae0eafb)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-width: 1.8; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 10.6704 145.746 
+L 491.8896 145.746 
+" clip-path="url(#pb28ae0eafb)" style="fill: none; stroke: #c0392b; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="20.4912" y="27.9215" transform="rotate(-0 20.4912 27.9215)">Agents operate here</text>
+</g>
+<g id="text_2">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="192.3552" y="59.63743" transform="rotate(-0 192.3552 59.63743)">Level 4  Business planning and logistics: ERP</text>
+</g>
+<g id="text_3">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="192.3552" y="108.14743" transform="rotate(-0 192.3552 108.14743)">Level 3  Operations management: MES · CMMS · historian · LIMS · quality</text>
+</g>
+<g id="text_4">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #c0392b" x="20.4912" y="156.834" transform="rotate(-0 20.4912 156.834)">No agent writes below this line</text>
+</g>
+<g id="text_5">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="192.3552" y="199.660539" transform="rotate(-0 192.3552 199.660539)">Level 2  Supervisory control: SCADA · DCS operator stations</text>
+</g>
+<g id="text_6">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="192.3552" y="256.467984" transform="rotate(-0 192.3552 256.467984)">Levels 0–1  Process, sensors, actuators, PLCs</text>
+</g>
+<g id="text_7">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(426.183525 201.401754)">Safety</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(411.31665 215.901158)">instrumented</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(424.480556 228.239156)">system</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(440.3304 239.746061)"/>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(411.90165 255.660855)">no agent role</text>
+</g>
+<g id="text_8">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(270.9216 160.193727)">read-only</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(270.9216 172.447211)">(historian, OPC UA)</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pb28ae0eafb">
+<rect x="5.76" y="5.76" width="491.04" height="277.2"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> The proposed boundary for AI agents in a plant. Agents work at ISA-95 Levels 3 and 4 and may read Level 2 data through read-only interfaces. They have no write path to the control levels and no role in the safety instrumented system. <span class="j-fig-src">Drawn by the author, after the ISA-95 hierarchy [<a href="#ref-2" class="j-cite">2</a>].</span></figcaption></figure><h3>2.3 Why not let the agent adjust the process?</h3><p>It is tempting to go one step further and let an agent that has diagnosed a problem correct it, for example by lowering a feed rate when a reactor runs hot. There are four reasons not to. First, the plant already has systems designed for this: the basic control layer and, where installed, advanced process control act within seconds and within limits that engineers have tested. Second, operators work within an alarm and procedure system that tells them what to do and in what order; an agent acting in parallel would confuse who is responsible for the process at that moment. Third, an agent's reasoning can vary between runs and can be led astray by misleading inputs, so its actions cannot be verified in advance the way a control strategy can. Fourth, every change to how a process is run is subject to management of change; a general-purpose agent able to change setpoints would be an unmanaged change waiting to happen. The right role for the agent is to give the operator better information faster, through the systems the operator already uses.</p><p>The boundary does not mean that AI has no role in control. Advanced process control and model predictive control are well established, and research prototypes have shown language-model agents planning and executing operations on a modular production system through defined skill interfaces [<a href="#ref-6" class="j-cite">6</a>]. Those systems, however, are engineered, tested and validated control applications. The boundary proposed here applies to general-purpose agents deployed by operations staff, which is where most manufacturers will meet agentic AI first.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Use cases</h2><h3>3.1 A catalog</h3><p>Table 2 lists nine use cases that fall within the boundary, with the systems each reads and writes, a suggested starting autonomy level using the scale in a companion paper [<a href="#ref-7" class="j-cite">7</a>], and a measure of value.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Use cases for AI agents in manufacturing operations. Autonomy levels: L5 observer (agent acts, person monitors), L4 approver (person approves defined actions), L3 consultant.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Use case</th><th>Reads</th><th>Writes</th><th>Start at</th><th>Value measure</th></tr></thead><tbody><tr><td>Shift handover summary</td><td>Shift logs, alarms, historian, open work orders</td><td>Draft summary</td><td>L4</td><td>Handover time; issues carried over</td></tr><tr><td>Downtime and loss analysis</td><td>MES downtime records, historian, OEE data</td><td>Draft report</td><td>L5 (read-only)</td><td>Time to explain losses; actions taken</td></tr><tr><td>Maintenance work order drafting</td><td>Operator notes, alarms, asset history, manuals</td><td>Draft work order in CMMS</td><td>L4</td><td>Time from fault to work order; first-time fix rate</td></tr><tr><td>Troubleshooting assistant</td><td>Manuals, past work orders, P&IDs, procedures</td><td>Nothing</td><td>L5 (read-only)</td><td>Mean time to repair</td></tr><tr><td>Quality deviation investigation</td><td>Batch records, LIMS results, historian</td><td>Draft nonconformance report</td><td>L4</td><td>Investigation cycle time</td></tr><tr><td>Spare parts and consumables</td><td>CMMS usage, ERP stock, lead times</td><td>Draft purchase requisition</td><td>L4</td><td>Stock-outs; expediting cost</td></tr><tr><td>Procedure and MOC drafting</td><td>Existing SOPs, P&IDs, change request</td><td>Draft document</td><td>L3</td><td>Document cycle time</td></tr><tr><td>Scheduling what-if analysis</td><td>Orders, capacities, scheduler</td><td>Scenarios for planner</td><td>L3</td><td>Planner time; schedule adherence</td></tr><tr><td>Control code assistance (offline)</td><td>Engineering project, standards</td><td>Draft code for engineer review</td><td>L3</td><td>Engineering hours</td></tr></tbody></table></div><p class="j-table-note">Compiled by the author.</p></figure><p>Two of these deserve comment. Control code assistance is an engineering task, done offline in the engineering tool, with the engineer reviewing, testing and commissioning the result as with any code; Siemens and Schaeffler have described generating PLC code from natural language in this way [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-9" class="j-cite">9</a>]. It sits within the boundary because nothing reaches the plant without the normal engineering and change process. Scheduling what-if analysis uses the agent to set up and explain scenarios run by a proper scheduling or optimization tool; the agent does not produce the schedule itself.</p><h3>3.2 In depth: maintenance work orders</h3><p>When an operator notices a problem, such as a pump running hot or a conveyor tripping, the path to a repair usually runs through a short note in a shift log or a call to maintenance, followed by a planner writing a work order in the computerized maintenance management system (CMMS). Information is lost at each step. The note may not name the asset tag; the planner may not see the alarm history; the technician may arrive without the right parts.</p><p>An agent can close these gaps. Given the operator's note, it identifies the asset from the plant hierarchy, pulls the last month of related alarms and process values from the historian, retrieves the asset's recent work orders and the manufacturer's troubleshooting section, and drafts a work order with the asset, a description of the symptoms with the data, likely causes based on history, suggested parts and the applicable safety precautions and isolation procedure. A planner reviews and releases it. The agent never decides that equipment is safe to work on; the isolation and permit process is unchanged.</p><p>The benefit shows up in three places. The time from fault report to released work order falls, because the planner starts from a complete draft rather than a phone call. The technician arrives better prepared, which raises the first-time fix rate and cuts the trips back to the stores. And the work order history becomes more useful over time, because each record names the asset correctly and describes symptoms with data, so the next diagnosis, by a person or an agent, has better material to work from. The last effect compounds: many plants find that the weakest part of their maintenance data is the free-text history, and an agent that writes consistent, structured descriptions improves it with every job. A plant should nonetheless check a sample of agent-drafted work orders each week, since a consistent format can hide a consistent error.</p><h3>3.3 In depth: downtime analysis</h3><p>Overall equipment effectiveness (OEE) is the product of availability, performance and quality [<a href="#ref-10" class="j-cite">10</a>]:</p><div class="j-eq" role="math"><span class="j-eq-body">OEE = A × P × Q</span><span class="j-eq-n">(1)</span></div><p>Eq. (1) makes the agent's job concrete: each recorded loss belongs to one of the three factors, so the agent can attribute every lost hour to availability (stops and changeovers), performance (slow running and minor stops) or quality (scrap and rework), and show which factor moved since the previous week. Most plants record downtime events, but many struggle to turn them into action: the reason codes are inconsistent, free-text comments are long, and the analysis is a monthly spreadsheet exercise. An agent with read-only access to the downtime records and the historian can produce a daily loss summary that groups events by cause, links them to process conditions, flags recurring patterns and drafts questions for the morning meeting. The agent's contribution is speed and consistency; the people in the meeting still decide what to do.</p><h3>3.4 In depth: quality deviations</h3><p>When a batch fails a specification or a customer complaint arrives, quality staff must assemble the batch record, laboratory results, process data for the relevant period, raw material certificates and any deviations or changes during production, then write an investigation that identifies a root cause and corrective actions. Much of the elapsed time goes on finding and lining up that evidence. An agent can do the gathering: it pulls the batch genealogy from the MES, the results from the laboratory information system, the trends of the critical process parameters from the historian and any open change requests, and drafts a nonconformance report with a timeline and a list of candidate causes, each tied to the evidence for and against it. The quality engineer then does the part that requires judgment: testing the candidate causes, deciding on the root cause and approving the corrective action. The agent must not release or reject product, and its draft must make clear which statements come from records and which are inferences.</p><h3>3.5 The value of faster diagnosis</h3><p>Availability for a repairable asset can be approximated from the mean time between failures (MTBF) and the mean time to repair (MTTR):</p><div class="j-eq" role="math"><span class="j-eq-body">A = MTBF / (MTBF + MTTR)</span><span class="j-eq-n">(2)</span></div><p>MTTR includes the time to diagnose a fault, find the information and fetch parts, not only the repair itself. Suppose a packaging line fails on average every 40 running hours and takes 2 hours to restore. Eq. (2) gives an availability of 95.2 percent. If a troubleshooting assistant and better work orders cut 30 minutes from the average diagnosis, MTTR falls to 1.5 hours and availability rises to 96.4 percent, a gain of 1.1 percentage points. Over 6,000 planned hours a year that is about 69 additional running hours. At $1,200 of output per running hour and an 18 percent contribution margin, the gain is worth about $14,871 a year, before any reduction in repeat failures. Figure 2 shows how the gain varies with the time saved and the failure frequency.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 461.495176 264.14518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Line chart with minutes of diagnosis saved per failure on the horizontal axis, from 0 to 60, and the gain in availability in percentage points on the vertical axis. Three rising lines are shown for mean times between failures of 20, 40 and 100 hours, all with a mean time to repair of 2 hours before improvement. The 20-hour line rises most steeply, reaching about 4.3 points at 60 minutes; the 40-hour line reaches about 2.3 points and the 100-hour line about 1.0 point. The worked example at 30 minutes and 40 hours shows about 1.1 points.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 264.14518 
+L 461.495176 264.14518 
+L 461.495176 0 
+L 0 0 
+L 0 264.14518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 36.246934 221.976 
+L 449.166934 221.976 
+L 449.166934 5.76 
+L 36.246934 5.76 
+L 36.246934 221.976 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 36.246934 221.976 
+L 36.246934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="me8fbe9a94b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#me8fbe9a94b" x="36.246934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="36.246934" y="239.147875" transform="rotate(-0 36.246934 239.147875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 105.066934 221.976 
+L 105.066934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#me8fbe9a94b" x="105.066934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="105.066934" y="239.147875" transform="rotate(-0 105.066934 239.147875)">10</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 173.886934 221.976 
+L 173.886934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#me8fbe9a94b" x="173.886934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="173.886934" y="239.147875" transform="rotate(-0 173.886934 239.147875)">20</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 242.706934 221.976 
+L 242.706934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#me8fbe9a94b" x="242.706934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="242.706934" y="239.147875" transform="rotate(-0 242.706934 239.147875)">30</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 311.526934 221.976 
+L 311.526934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#me8fbe9a94b" x="311.526934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="311.526934" y="239.147875" transform="rotate(-0 311.526934 239.147875)">40</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 380.346934 221.976 
+L 380.346934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#me8fbe9a94b" x="380.346934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="380.346934" y="239.147875" transform="rotate(-0 380.346934 239.147875)">50</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 449.166934 221.976 
+L 449.166934 5.76 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#me8fbe9a94b" x="449.166934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="449.166934" y="239.147875" transform="rotate(-0 449.166934 239.147875)">60</text>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="242.706934" y="255.852465" transform="rotate(-0 242.706934 255.852465)">Diagnosis time saved per failure (minutes)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_15">
+<path d="M 36.246934 221.976 
+L 449.166934 221.976 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<defs>
+<path id="m283579f4f0" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m283579f4f0" x="36.246934" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="227.061937" transform="rotate(-0 29.246934 227.061937)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_17">
+<path d="M 36.246934 174.972522 
+L 449.166934 174.972522 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m283579f4f0" x="36.246934" y="174.972522" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="180.058459" transform="rotate(-0 29.246934 180.058459)">1</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_19">
+<path d="M 36.246934 127.969043 
+L 449.166934 127.969043 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m283579f4f0" x="36.246934" y="127.969043" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="133.054981" transform="rotate(-0 29.246934 133.054981)">2</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_21">
+<path d="M 36.246934 80.965565 
+L 449.166934 80.965565 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m283579f4f0" x="36.246934" y="80.965565" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="86.051503" transform="rotate(-0 29.246934 86.051503)">3</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_23">
+<path d="M 36.246934 33.962087 
+L 449.166934 33.962087 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m283579f4f0" x="36.246934" y="33.962087" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="39.048024" transform="rotate(-0 29.246934 39.048024)">4</text>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="113.868" transform="rotate(-90 15.931875 113.868)">Availability gain (percentage points)</text>
+</g>
+</g>
+<g id="line2d_25">
+<path d="M 36.246934 221.976 
+L 39.687934 220.35681 
+L 43.128934 218.736392 
+L 46.569934 217.114745 
+L 50.010934 215.491867 
+L 53.451934 213.867758 
+L 56.892934 212.242416 
+L 60.333934 210.615839 
+L 63.774934 208.988026 
+L 67.215934 207.358976 
+L 70.656934 205.728686 
+L 74.097934 204.097157 
+L 77.538934 202.464386 
+L 80.979934 200.830372 
+L 84.420934 199.195113 
+L 87.861934 197.558609 
+L 91.302934 195.920857 
+L 94.743934 194.281856 
+L 98.184934 192.641605 
+L 101.625934 191.000103 
+L 105.066934 189.357347 
+L 108.507934 187.713338 
+L 111.948934 186.068072 
+L 115.389934 184.421548 
+L 118.830934 182.773766 
+L 122.271934 181.124724 
+L 125.712934 179.47442 
+L 129.153934 177.822853 
+L 132.594934 176.170021 
+L 136.035934 174.515923 
+L 139.476934 172.860558 
+L 142.917934 171.203923 
+L 146.358934 169.546019 
+L 149.799934 167.886842 
+L 153.240934 166.226392 
+L 156.681934 164.564667 
+L 160.122934 162.901666 
+L 163.563934 161.237387 
+L 167.004934 159.571829 
+L 170.445934 157.904991 
+L 173.886934 156.23687 
+L 177.327934 154.567465 
+L 180.768934 152.896775 
+L 184.209934 151.224799 
+L 187.650934 149.551534 
+L 191.091934 147.87698 
+L 194.532934 146.201135 
+L 197.973934 144.523997 
+L 201.414934 142.845565 
+L 204.855934 141.165838 
+L 208.296934 139.484813 
+L 211.737934 137.80249 
+L 215.178934 136.118867 
+L 218.619934 134.433942 
+L 222.060934 132.747714 
+L 225.501934 131.060181 
+L 228.942934 129.371343 
+L 232.383934 127.681196 
+L 235.824934 125.989741 
+L 239.265934 124.296974 
+L 242.706934 122.602896 
+L 246.147934 120.907504 
+L 249.588934 119.210796 
+L 253.029934 117.512772 
+L 256.470934 115.813429 
+L 259.911934 114.112767 
+L 263.352934 112.410783 
+L 266.793934 110.707476 
+L 270.234934 109.002844 
+L 273.675934 107.296887 
+L 277.116934 105.589602 
+L 280.557934 103.880988 
+L 283.998934 102.171043 
+L 287.439934 100.459766 
+L 290.880934 98.747155 
+L 294.321934 97.033208 
+L 297.762934 95.317925 
+L 301.203934 93.601303 
+L 304.644934 91.883341 
+L 308.085934 90.164038 
+L 311.526934 88.443391 
+L 314.967934 86.7214 
+L 318.408934 84.998062 
+L 321.849934 83.273376 
+L 325.290934 81.547341 
+L 328.731934 79.819955 
+L 332.172934 78.091216 
+L 335.613934 76.361122 
+L 339.054934 74.629673 
+L 342.495934 72.896866 
+L 345.936934 71.162701 
+L 349.377934 69.427174 
+L 352.818934 67.690286 
+L 356.259934 65.952033 
+L 359.700934 64.212415 
+L 363.141934 62.47143 
+L 366.582934 60.729076 
+L 370.023934 58.985352 
+L 373.464934 57.240256 
+L 376.905934 55.493787 
+L 380.346934 53.745942 
+L 383.787934 51.99672 
+L 387.228934 50.24612 
+L 390.669934 48.49414 
+L 394.110934 46.740778 
+L 397.551934 44.986033 
+L 400.992934 43.229903 
+L 404.433934 41.472387 
+L 407.874934 39.713482 
+L 411.315934 37.953187 
+L 414.756934 36.191501 
+L 418.197934 34.428421 
+L 421.638934 32.663947 
+L 425.079934 30.898076 
+L 428.520934 29.130807 
+L 431.961934 27.362139 
+L 435.402934 25.592068 
+L 438.843934 23.820595 
+L 442.284934 22.047717 
+L 445.725934 20.273432 
+L 449.166934 18.497739 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<path d="M 36.246934 221.976 
+L 39.687934 221.087625 
+L 43.128934 220.198897 
+L 46.569934 219.309817 
+L 50.010934 218.420383 
+L 53.451934 217.530596 
+L 56.892934 216.640456 
+L 60.333934 215.749961 
+L 63.774934 214.859113 
+L 67.215934 213.967911 
+L 70.656934 213.076354 
+L 74.097934 212.184443 
+L 77.538934 211.292177 
+L 80.979934 210.399556 
+L 84.420934 209.50658 
+L 87.861934 208.613249 
+L 91.302934 207.719561 
+L 94.743934 206.825518 
+L 98.184934 205.931119 
+L 101.625934 205.036364 
+L 105.066934 204.141252 
+L 108.507934 203.245784 
+L 111.948934 202.349958 
+L 115.389934 201.453776 
+L 118.830934 200.557236 
+L 122.271934 199.660338 
+L 125.712934 198.763083 
+L 129.153934 197.86547 
+L 132.594934 196.967499 
+L 136.035934 196.069169 
+L 139.476934 195.170481 
+L 142.917934 194.271433 
+L 146.358934 193.372027 
+L 149.799934 192.472262 
+L 153.240934 191.572137 
+L 156.681934 190.671652 
+L 160.122934 189.770808 
+L 163.563934 188.869603 
+L 167.004934 187.968038 
+L 170.445934 187.066112 
+L 173.886934 186.163826 
+L 177.327934 185.261179 
+L 180.768934 184.35817 
+L 184.209934 183.4548 
+L 187.650934 182.551069 
+L 191.091934 181.646975 
+L 194.532934 180.74252 
+L 197.973934 179.837702 
+L 201.414934 178.932522 
+L 204.855934 178.026979 
+L 208.296934 177.121073 
+L 211.737934 176.214804 
+L 215.178934 175.308171 
+L 218.619934 174.401175 
+L 222.060934 173.493815 
+L 225.501934 172.586091 
+L 228.942934 171.678003 
+L 232.383934 170.76955 
+L 235.824934 169.860733 
+L 239.265934 168.951551 
+L 242.706934 168.042003 
+L 246.147934 167.13209 
+L 249.588934 166.221812 
+L 253.029934 165.311168 
+L 256.470934 164.400158 
+L 259.911934 163.488781 
+L 263.352934 162.577038 
+L 266.793934 161.664929 
+L 270.234934 160.752452 
+L 273.675934 159.839609 
+L 277.116934 158.926398 
+L 280.557934 158.01282 
+L 283.998934 157.098873 
+L 287.439934 156.184559 
+L 290.880934 155.269877 
+L 294.321934 154.354826 
+L 297.762934 153.439406 
+L 301.203934 152.523618 
+L 304.644934 151.60746 
+L 308.085934 150.690933 
+L 311.526934 149.774036 
+L 314.967934 148.85677 
+L 318.408934 147.939134 
+L 321.849934 147.021127 
+L 325.290934 146.10275 
+L 328.731934 145.184002 
+L 332.172934 144.264884 
+L 335.613934 143.345394 
+L 339.054934 142.425533 
+L 342.495934 141.5053 
+L 345.936934 140.584696 
+L 349.377934 139.663719 
+L 352.818934 138.74237 
+L 356.259934 137.820649 
+L 359.700934 136.898555 
+L 363.141934 135.976088 
+L 366.582934 135.053248 
+L 370.023934 134.130034 
+L 373.464934 133.206447 
+L 376.905934 132.282486 
+L 380.346934 131.358151 
+L 383.787934 130.433442 
+L 387.228934 129.508358 
+L 390.669934 128.582899 
+L 394.110934 127.657065 
+L 397.551934 126.730857 
+L 400.992934 125.804272 
+L 404.433934 124.877312 
+L 407.874934 123.949977 
+L 411.315934 123.022265 
+L 414.756934 122.094176 
+L 418.197934 121.165711 
+L 421.638934 120.23687 
+L 425.079934 119.307651 
+L 428.520934 118.378055 
+L 431.961934 117.448081 
+L 435.402934 116.51773 
+L 438.843934 115.587001 
+L 442.284934 114.655893 
+L 445.725934 113.724407 
+L 449.166934 112.792543 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_27">
+<path d="M 36.246934 221.976 
+L 39.687934 221.599484 
+L 43.128934 221.222906 
+L 46.569934 220.846266 
+L 50.010934 220.469565 
+L 53.451934 220.092803 
+L 56.892934 219.715978 
+L 60.333934 219.339093 
+L 63.774934 218.962145 
+L 67.215934 218.585136 
+L 70.656934 218.208065 
+L 74.097934 217.830933 
+L 77.538934 217.453739 
+L 80.979934 217.076483 
+L 84.420934 216.699166 
+L 87.861934 216.321786 
+L 91.302934 215.944345 
+L 94.743934 215.566843 
+L 98.184934 215.189278 
+L 101.625934 214.811652 
+L 105.066934 214.433964 
+L 108.507934 214.056214 
+L 111.948934 213.678402 
+L 115.389934 213.300529 
+L 118.830934 212.922593 
+L 122.271934 212.544596 
+L 125.712934 212.166536 
+L 129.153934 211.788415 
+L 132.594934 211.410232 
+L 136.035934 211.031987 
+L 139.476934 210.65368 
+L 142.917934 210.275311 
+L 146.358934 209.89688 
+L 149.799934 209.518387 
+L 153.240934 209.139832 
+L 156.681934 208.761215 
+L 160.122934 208.382536 
+L 163.563934 208.003795 
+L 167.004934 207.624992 
+L 170.445934 207.246127 
+L 173.886934 206.8672 
+L 177.327934 206.48821 
+L 180.768934 206.109158 
+L 184.209934 205.730045 
+L 187.650934 205.350869 
+L 191.091934 204.97163 
+L 194.532934 204.59233 
+L 197.973934 204.212968 
+L 201.414934 203.833543 
+L 204.855934 203.454056 
+L 208.296934 203.074506 
+L 211.737934 202.694895 
+L 215.178934 202.315221 
+L 218.619934 201.935485 
+L 222.060934 201.555686 
+L 225.501934 201.175825 
+L 228.942934 200.795902 
+L 232.383934 200.415917 
+L 235.824934 200.035869 
+L 239.265934 199.655758 
+L 242.706934 199.275586 
+L 246.147934 198.89535 
+L 249.588934 198.515053 
+L 253.029934 198.134693 
+L 256.470934 197.75427 
+L 259.911934 197.373785 
+L 263.352934 196.993237 
+L 266.793934 196.612627 
+L 270.234934 196.231955 
+L 273.675934 195.851219 
+L 277.116934 195.470422 
+L 280.557934 195.089561 
+L 283.998934 194.708638 
+L 287.439934 194.327653 
+L 290.880934 193.946604 
+L 294.321934 193.565494 
+L 297.762934 193.18432 
+L 301.203934 192.803084 
+L 304.644934 192.421785 
+L 308.085934 192.040423 
+L 311.526934 191.658999 
+L 314.967934 191.277512 
+L 318.408934 190.895962 
+L 321.849934 190.51435 
+L 325.290934 190.132674 
+L 328.731934 189.750936 
+L 332.172934 189.369135 
+L 335.613934 188.987271 
+L 339.054934 188.605345 
+L 342.495934 188.223355 
+L 345.936934 187.841303 
+L 349.377934 187.459187 
+L 352.818934 187.077009 
+L 356.259934 186.694768 
+L 359.700934 186.312464 
+L 363.141934 185.930097 
+L 366.582934 185.547667 
+L 370.023934 185.165174 
+L 373.464934 184.782618 
+L 376.905934 184.399999 
+L 380.346934 184.017317 
+L 383.787934 183.634572 
+L 387.228934 183.251764 
+L 390.669934 182.868892 
+L 394.110934 182.485958 
+L 397.551934 182.10296 
+L 400.992934 181.7199 
+L 404.433934 181.336776 
+L 407.874934 180.953589 
+L 411.315934 180.570339 
+L 414.756934 180.187026 
+L 418.197934 179.803649 
+L 421.638934 179.42021 
+L 425.079934 179.036707 
+L 428.520934 178.653141 
+L 431.961934 178.269511 
+L 435.402934 177.885818 
+L 438.843934 177.502062 
+L 442.284934 177.118243 
+L 445.725934 176.73436 
+L 449.166934 176.350414 
+" clip-path="url(#pdf8c2e9dcd)" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 36.246934 221.976 
+L 36.246934 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 36.246934 221.976 
+L 449.166934 221.976 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_5">
+<path d="M 352.955626 200.993847 
+Q 298.788487 184.804021 244.621347 168.614195 
+" style="fill: none; stroke: #0b2a5a; stroke-linecap: round"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9.3px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="318.408934" y="212.575304" transform="rotate(-0 318.408934 212.575304)">Worked example: +1.1 points</text>
+</g>
+<g id="text_16">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="442.284934" y="76.265217" transform="rotate(-0 442.284934 76.265217)">MTTR before = 2 h</text>
+</g>
+<g id="line2d_28">
+<defs>
+<path id="mabd02939a7" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#pdf8c2e9dcd)">
+<use xlink:href="#mabd02939a7" x="242.706934" y="168.042003" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="legend_1">
+<g id="line2d_29">
+<path d="M 44.796934 20.188125 
+L 54.296934 20.188125 
+L 63.796934 20.188125 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_17">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="71.396934" y="23.513125" transform="rotate(-0 71.396934 23.513125)">MTBF 20 h</text>
+</g>
+<g id="line2d_30">
+<path d="M 44.796934 36.432754 
+L 54.296934 36.432754 
+L 63.796934 36.432754 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_18">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="71.396934" y="39.757754" transform="rotate(-0 71.396934 39.757754)">MTBF 40 h</text>
+</g>
+<g id="line2d_31">
+<path d="M 44.796934 52.677383 
+L 54.296934 52.677383 
+L 63.796934 52.677383 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="71.396934" y="56.002383" transform="rotate(-0 71.396934 56.002383)">MTBF 100 h</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pdf8c2e9dcd">
+<rect x="36.246934" y="5.76" width="412.92" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Availability gain from shorter diagnosis, from Eq. (2), for three failure frequencies. Assets that fail more often gain more from each minute saved. The marker shows the worked example. <span class="j-fig-src">Author's calculation from Eq. (2).</span></figcaption></figure><p>The calculation explains why troubleshooting and work order use cases tend to pay back well on assets that fail often and are slow to diagnose, and poorly on reliable assets where the repair itself dominates.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Reference architecture</h2><h3>4.1 Layers and conduits</h3><p>ISA/IEC 62443, the series of standards for the security of industrial automation and control systems, organizes a plant network into zones with defined security requirements connected by controlled conduits [<a href="#ref-11" class="j-cite">11</a>]. An agent deployment should fit that model rather than create new paths around it. Figure 3 shows a reference architecture.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 513.72 344.16" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Layered network diagram. At the top, the enterprise zone holds the agents and an ERP tool server. Below, a plant DMZ holds tool servers for the CMMS, the MES and quality system, and a historian replica. Below a firewall, the control zone holds SCADA, DCS and PLCs, and the safety instrumented system sits in its own zone. A one-way arrow carries process data from the control zone to the historian replica in the DMZ. Agents call the tool servers through a gateway that applies identity, scoped permissions and an audit log. No arrow leads from the agents to the control zone.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 344.16 
+L 513.72 344.16 
+L 513.72 0 
+L 0 0 
+L 0 344.16 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 10.782 105.552 
+L 502.938 105.552 
+L 502.938 12.4128 
+L 10.782 12.4128 
+z
+" clip-path="url(#pf678781591)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 10.782 211.9968 
+L 502.938 211.9968 
+L 502.938 118.8576 
+L 10.782 118.8576 
+z
+" clip-path="url(#pf678781591)" style="fill: #f4f7fb; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 10.782 331.7472 
+L 502.938 331.7472 
+L 502.938 225.3024 
+L 10.782 225.3024 
+z
+" clip-path="url(#pf678781591)" style="fill: #eef1f4; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 39.6585 93.078 
+L 182.7855 93.078 
+Q 187.8075 93.078 187.8075 89.7516 
+L 187.8075 54.8244 
+Q 187.8075 51.498 182.7855 51.498 
+L 39.6585 51.498 
+Q 34.6365 51.498 34.6365 54.8244 
+L 34.6365 89.7516 
+Q 34.6365 93.078 39.6585 93.078 
+z
+" clip-path="url(#pf678781591)" style="fill: #cfe6f3; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 230.4945 99.7308 
+L 353.5335 99.7308 
+Q 358.5555 99.7308 358.5555 96.4044 
+L 358.5555 48.1716 
+Q 358.5555 44.8452 353.5335 44.8452 
+L 230.4945 44.8452 
+Q 225.4725 44.8452 225.4725 48.1716 
+L 225.4725 96.4044 
+Q 225.4725 99.7308 230.4945 99.7308 
+z
+" clip-path="url(#pf678781591)" style="fill: #ffffff; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 391.1985 86.4252 
+L 484.1055 86.4252 
+Q 489.1275 86.4252 489.1275 83.0988 
+L 489.1275 58.1508 
+Q 489.1275 54.8244 484.1055 54.8244 
+L 391.1985 54.8244 
+Q 386.1765 54.8244 386.1765 58.1508 
+L 386.1765 83.0988 
+Q 386.1765 86.4252 391.1985 86.4252 
+z
+" clip-path="url(#pf678781591)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 189.063 72.288 
+Q 206.64 72.288 222.539949 72.288 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 218.139949 70.088 
+L 222.539949 72.288 
+L 218.139949 74.488 
+z
+" clip-path="url(#pf678781591)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_9">
+<path d="M 359.811 70.6248 
+Q 372.366 70.6248 383.243949 70.6248 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 378.843949 68.4248 
+L 383.243949 70.6248 
+L 378.843949 72.8248 
+z
+" clip-path="url(#pf678781591)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 39.6585 199.5228 
+L 127.5435 199.5228 
+Q 132.5655 199.5228 132.5655 196.1964 
+L 132.5655 157.9428 
+Q 132.5655 154.6164 127.5435 154.6164 
+L 39.6585 154.6164 
+Q 34.6365 154.6164 34.6365 157.9428 
+L 34.6365 196.1964 
+Q 34.6365 199.5228 39.6585 199.5228 
+z
+" clip-path="url(#pf678781591)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_11">
+<path d="M 150.1425 199.5228 
+L 238.0275 199.5228 
+Q 243.0495 199.5228 243.0495 196.1964 
+L 243.0495 157.9428 
+Q 243.0495 154.6164 238.0275 154.6164 
+L 150.1425 154.6164 
+Q 145.1205 154.6164 145.1205 157.9428 
+L 145.1205 196.1964 
+Q 145.1205 199.5228 150.1425 199.5228 
+z
+" clip-path="url(#pf678781591)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 270.6705 199.5228 
+L 358.5555 199.5228 
+Q 363.5775 199.5228 363.5775 196.1964 
+L 363.5775 157.9428 
+Q 363.5775 154.6164 358.5555 154.6164 
+L 270.6705 154.6164 
+Q 265.6485 154.6164 265.6485 157.9428 
+L 265.6485 196.1964 
+Q 265.6485 199.5228 270.6705 199.5228 
+z
+" clip-path="url(#pf678781591)" style="fill: #ffffff; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_13">
+<path d="M 266.904 100.5624 
+Q 175.2525 127.1736 85.211537 153.317177 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 90.050467 154.203043 
+L 85.211537 153.317177 
+L 88.823587 149.977553 
+z
+" clip-path="url(#pf678781591)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_14">
+<path d="M 286.992 100.5624 
+Q 240.5385 127.1736 195.540192 152.951184 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 200.451671 152.673022 
+L 195.540192 152.951184 
+L 198.264551 148.855104 
+z
+" clip-path="url(#pf678781591)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_15">
+<path d="M 307.08 100.5624 
+Q 310.8465 127.1736 314.377976 152.124299 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+<path d="M 315.939643 147.459409 
+L 314.377976 152.124299 
+L 311.583064 148.076031 
+z
+" clip-path="url(#pf678781591)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.5; stroke-linecap: round"/>
+</g>
+<g id="patch_16">
+<path d="M 39.6585 312.6204 
+L 233.0055 312.6204 
+Q 238.0275 312.6204 238.0275 309.294 
+L 238.0275 267.714 
+Q 238.0275 264.3876 233.0055 264.3876 
+L 39.6585 264.3876 
+Q 34.6365 264.3876 34.6365 267.714 
+L 34.6365 309.294 
+Q 34.6365 312.6204 39.6585 312.6204 
+z
+" clip-path="url(#pf678781591)" style="fill: #eef3f9; stroke: #9ab0c8; stroke-linejoin: miter"/>
+</g>
+<g id="patch_17">
+<path d="M 371.1105 319.2732 
+L 484.1055 319.2732 
+Q 489.1275 319.2732 489.1275 315.9468 
+L 489.1275 261.0612 
+Q 489.1275 257.7348 484.1055 257.7348 
+L 371.1105 257.7348 
+Q 366.0885 257.7348 366.0885 261.0612 
+L 366.0885 315.9468 
+Q 366.0885 319.2732 371.1105 319.2732 
+z
+" clip-path="url(#pf678781591)" style="fill: #f8dedb; stroke: #c0392b; stroke-linejoin: miter"/>
+</g>
+<g id="patch_18">
+<path d="M 206.64 263.556 
+Q 251.838 231.9552 295.38668 201.507545 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b6fa4; stroke-width: 1.8; stroke-linecap: round"/>
+<path d="M 290.520038 202.225736 
+L 295.38668 201.507545 
+L 293.041248 205.831773 
+z
+" clip-path="url(#pf678781591)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-width: 1.8; stroke-linecap: round"/>
+</g>
+<g id="line2d_1">
+<path d="M 10.782 218.6496 
+L 502.938 218.6496 
+" clip-path="url(#pf678781591)" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="18.315" y="29.931925" transform="rotate(-0 18.315 29.931925)">Enterprise zone</text>
+</g>
+<g id="text_2">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="18.315" y="136.376725" transform="rotate(-0 18.315 136.376725)">Plant DMZ</text>
+</g>
+<g id="text_3">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="18.315" y="242.821525" transform="rotate(-0 18.315 242.821525)">Control zone</text>
+</g>
+<g id="text_4">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="111.222" y="74.846594" transform="rotate(-0 111.222 74.846594)">AI agents</text>
+</g>
+<g id="text_5">
+<text style="font-weight: 600; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(273.4185 67.962465)">Gateway</text>
+<text style="font-weight: 600; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(234.851812 81.346973)">identity · scopes · audit log</text>
+</g>
+<g id="text_6">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="437.652" y="73.702659" transform="rotate(-0 437.652 73.702659)">ERP tool server</text>
+</g>
+<g id="text_7">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(69.933047 173.682216)">CMMS</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(61.9075 186.650999)">tool server</text>
+</g>
+<g id="text_8">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(161.269953 172.902841)">MES and quality</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(172.3915 186.650999)">tool server</text>
+</g>
+<g id="text_9">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(296.480437 173.742685)">Historian</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(300.929594 185.926718)">replica</text>
+</g>
+<g id="text_10">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #0b2a5a" x="497.916" y="214.65792" transform="rotate(-0 497.916 214.65792)">firewall</text>
+</g>
+<g id="text_11">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="136.332" y="291.952945" transform="rotate(-0 136.332 291.952945)">SCADA · DCS · PLCs</text>
+</g>
+<g id="text_12">
+<text style="font-weight: 600; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(413.7755 277.63093)">Safety</text>
+<text style="font-weight: 600; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(382.632437 290.942563)">instrumented system</text>
+<text style="font-weight: 600; font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(403.920187 304.611008)">(own zone)</text>
+</g>
+<g id="text_13">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(261.882 233.046616)">one-way</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b6fa4" transform="translate(261.882 245.2608)">process data</text>
+</g>
+<g id="text_14">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #c0392b" transform="translate(358.084406 132.179298)">No path from agents</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #c0392b" transform="translate(361.869328 145.4688)">to the control zone</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pf678781591">
+<rect x="5.76" y="5.76" width="502.2" height="332.64"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Reference architecture for AI agents in a plant. Agents run in the enterprise or a plant DMZ and reach plant systems only through tool servers with scoped, logged permissions. Process data reaches them through the historian or a read-only OPC UA interface; there is no path from the agents to the control network. <span class="j-fig-src">Drawn by the author, following the zone and conduit model of ISA/IEC 62443 [<a href="#ref-11" class="j-cite">11</a>].</span></figcaption></figure><p>Four design choices matter most.</p><ol><li><strong>Agents call tools, not systems.</strong> Each plant system is exposed to agents through a tool server, for example a Model Context Protocol server [<a href="#ref-12" class="j-cite">12</a>], that offers a small set of named operations such as "get asset history" or "create draft work order". The tool server, not the agent, holds the system credentials and enforces what each agent may do.</li><li><strong>Process data flows one way.</strong> Agents read process data from a historian replica or a read-only OPC UA interface in the DMZ. No tool offers a write to the control network, so no instruction an agent receives can cause one.</li><li><strong>Writes go to drafts.</strong> Where an agent writes to a Level 3 or 4 system, it writes a draft or a record in a pending state that a person releases, until the action has been promoted on evidence [<a href="#ref-7" class="j-cite">7</a>].</li><li><strong>Everything is logged.</strong> The gateway records each tool call, its inputs and outputs, and the identity of the agent and of the person who approved any action.</li></ol><h3>4.2 Data the agent needs</h3><p>Agents in a plant are only as useful as the context they can reach. The most valuable sources are often the least structured: free-text work order histories, old incident reports and the experience written into procedures. A plant that has invested in a digital twin or a well-structured asset hierarchy gives an agent a much better map to work from [<a href="#ref-13" class="j-cite">13</a>]. A plant without one can start by cleaning the asset register and linking it to drawings and manuals, which is useful whether or not an agent follows.</p><h3>4.3 Models and hosting</h3><p>Plant use cases are rarely sensitive to latency, since a work order drafted in thirty seconds rather than three is no less useful, but they are often sensitive to confidentiality. Recipes, process conditions and supplier terms may be trade secrets or subject to customer agreements. A plant should classify its data and decide which classes may be sent to an external model provider under contract, which must stay within its own cloud tenancy, and which require a model running on its own hardware. Smaller open-weight models running locally are often adequate for retrieval and drafting tasks over a plant's own documents, while harder reasoning tasks may justify a larger hosted model for non-confidential data. Whatever the choice, an evaluation set of real plant cases should be run before and after any change of model, because behavior on plant terminology and abbreviations can differ markedly between models.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Hazards and controls</h2><p>Agents introduce hazards that conventional plant software does not. Table 3 lists the main ones with their controls.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Hazards specific to AI agents in manufacturing operations and proposed controls.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Hazard</th><th>Example</th><th>Control</th></tr></thead><tbody><tr><td>Action on the process</td><td>An agent asked to "fix the high temperature" tries to change a setpoint</td><td>No write path to Levels 0–2 (Section 4); setpoint changes stay with operators under existing procedures</td></tr><tr><td>Wrong advice followed</td><td>Agent suggests an incorrect isolation point</td><td>Agent never authorizes work on equipment; permit-to-work and isolation procedures unchanged; advice cites its sources</td></tr><tr><td>Prompt injection through records</td><td>A supplier document or log entry contains text that redirects the agent</td><td>Treat retrieved text as data; limit tools; approval for actions; monitoring [<a href="#ref-14" class="j-cite">14</a>]</td></tr><tr><td>Loss of operator and planner skill</td><td>Staff stop reading alarm histories because the summary does it</td><td>Rotate manual analysis; review samples; keep training [<a href="#ref-15" class="j-cite">15</a>]</td></tr><tr><td>Unmanaged change</td><td>A new model version or edited instructions change behavior silently</td><td>Agent changes go through management of change and regression testing [<a href="#ref-16" class="j-cite">16</a>]</td></tr><tr><td>Confidential data leaving the site</td><td>Process recipes sent to an external model</td><td>Data classification; approved providers; local models where required</td></tr></tbody></table></div><p class="j-table-note">Compiled by the author.</p></figure><p>Two of these deserve emphasis. First, prompt injection: Greshake and colleagues showed that instructions hidden in content an LLM-integrated application retrieves, rather than typed by its user, can redirect its behavior [<a href="#ref-14" class="j-cite">14</a>]. In a plant, free text is everywhere: shift logs, supplier certificates, emails attached to work orders. The architecture in Section 4 limits the damage by ensuring that the worst an injected instruction can do is draft something a person must release.</p><p>Second, skill. Bainbridge's ironies of automation apply with particular force in a plant, where the rare abnormal situation is the one that matters most [<a href="#ref-15" class="j-cite">15</a>]. If an agent writes every shift summary and every loss analysis, operators and engineers may lose the habit of reading the raw data, and with it the feel for the process that lets them spot what the summary missed. Plants should keep some analysis manual, review samples of the agent's work in team meetings, and treat the agent's output as a starting point.</p><aside class="j-callout"><p>Treat the agent itself as plant equipment under management of change. A new model version, a changed tool or edited instructions can change its behavior as surely as a new valve trim changes a loop. Review, test and document the change before it goes live.</p></aside></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Implementation and metrics</h2><p>A staged approach limits risk while evidence builds.</p><ol><li><strong>Read-only assistant.</strong> Start with a troubleshooting assistant or a daily loss summary that reads manuals, work order history and downtime records and writes nothing. Measure use and usefulness.</li><li><strong>Drafts in shadow mode.</strong> Have the agent draft work orders or handover summaries alongside the people who do them now, and compare. Fix gaps in data and instructions.</li><li><strong>Drafts for release.</strong> Let the agent's drafts go into the CMMS or MES in a pending state for a planner or supervisor to release.</li><li><strong>Limited autonomy.</strong> Promote specific low-risk actions, such as routine consumable requisitions under a value limit, on the evidence of the earlier stages [<a href="#ref-7" class="j-cite">7</a>].</li></ol><p>Each stage needs a named owner from operations, not only from IT. The maintenance planner who will release agent-drafted work orders should help write the agent's instructions and choose the test cases, since they know what a good work order looks like and which details are often missing. Operators and technicians should be told what the agent does and does not do, and shown how to flag a poor answer. Feedback from the floor, captured in a simple form, is the fastest way to find the gaps in the data and procedures the agent depends on.</p><p>The metrics should be plant metrics, not AI metrics: mean time to repair and the share of it spent on diagnosis; time from fault report to released work order; first-time fix rate; the share of downtime with a confirmed cause; investigation cycle time; and availability and OEE on the lines concerned [<a href="#ref-10" class="j-cite">10</a>]. Each needs a baseline taken before the pilot starts.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Conclusion</h2><p>The case for AI agents in manufacturing rests on the information work that surrounds production, not on control of the process. Mapped onto ISA-95, that work sits at Levels 3 and 4, where agents can read widely, draft for people to release and, with evidence, take limited low-risk actions. The boundary below them is firm: read-only access to process data, no writes to control systems and no role in safety functions. Within that boundary, use cases such as maintenance work orders, troubleshooting and downtime analysis offer measurable value, and the calculation in Section 3 shows how even modest reductions in diagnosis time raise availability. An architecture that follows the zone and conduit model, a clear view of agent-specific hazards and the discipline of management of change let plants capture that value without compromising the safety and reliability their operations depend on.</p></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Kronenberg, S. (2026, March 29; updated April 3). AI adoption in US manufacturing has quadrupled since 2023, but 87% haven't made the switch. Digit Software. <a href="https://www.digit-software.com/blog/study-ai-adoption-in-us-manufacturing" rel="noopener" target="_blank">www.digit-software.com/blog/study-ai-adoption-in-us-manufacturing</a></li><li id="ref-2">International Society of Automation. (2026). ISA-95 standard: Enterprise-control system integration (ANSI/ISA-95; IEC 62264). <a href="https://www.isa.org/standards-and-publications/isa-standards/isa-95-standard" rel="noopener" target="_blank">www.isa.org/standards-and-publications/isa-standards/isa-95-standard</a></li><li id="ref-3">International Electrotechnical Commission. (2017). IEC 61511-1:2016+AMD1:2017 CSV. Functional safety – Safety instrumented systems for the process industry sector – Part 1: Framework, definitions, system, hardware and application programming requirements. <a href="https://webstore.iec.ch/en/publication/61289" rel="noopener" target="_blank">webstore.iec.ch/en/publication/61289</a></li><li id="ref-4">OPC Foundation. (2026). Unified Architecture [Technology overview]. <a href="https://opcfoundation.org/about/opc-technologies/opc-ua/" rel="noopener" target="_blank">opcfoundation.org/about/opc-technologies/opc-ua/</a></li><li id="ref-5">Lee, Q. F. (2026). Agent interoperability standards: The Model Context Protocol, agent-to-agent protocols and integration with ERP, CRM and plant systems. <em>Chmltech Online Journal</em>, 105(4). <a href="https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems" rel="noopener" target="_blank">www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-sys</a></li><li id="ref-6">Xia, Y., Shenoy, M., Jazdi, N., &amp; Weyrich, M. (2023). Towards autonomous system: Flexible modular production system enhanced with large language model agents. In <em>2023 IEEE 28th International Conference on Emerging Technologies and Factory Automation (ETFA)</em>. <a href="https://doi.org/10.1109/ETFA54631.2023.10275362" rel="noopener" target="_blank">10.1109/ETFA54631.2023.10275362</a></li><li id="ref-7">Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. <em>Chmltech Online Journal</em>, 105(7). <a href="https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents" rel="noopener" target="_blank">www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-age</a></li><li id="ref-8">Siemens AG. (2023, October 31). Siemens and Microsoft partner to drive cross-industry AI adoption [Press release]. <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:89b84c68-fcea-4d6d-8180-678d4663e55b/HQCOPR202310306800EN.pdf" rel="noopener" target="_blank">assets.new.siemens.com/siemens/assets/api/uuid:89b84c68-fcea-4d6d-8180-678d4663e</a></li><li id="ref-9">Automation World. (2024, October 18). Schaeffler brings Siemens Industrial Copilot to its shop floor. <a href="https://automationworld.com/factory/digital-transformation/news/55235167/schaeffler-brings-siemens-industrial-copilot-to-its-shop-floor" rel="noopener" target="_blank">automationworld.com/factory/digital-transformation/news/55235167/schaeffler-brin</a></li><li id="ref-10">Lee, Q. F. (2026). What OEE really measures: Where your production hours go. Chmltech Insights. <a href="https://www.chmltech.com/post/what-oee-really-measures" rel="noopener" target="_blank">www.chmltech.com/post/what-oee-really-measures</a></li><li id="ref-11">International Society of Automation. (2026). ISA/IEC 62443 series of standards: Industrial automation and control systems security. <a href="https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards" rel="noopener" target="_blank">www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-sta</a></li><li id="ref-12">Model Context Protocol. (2025). Specification [Version 2025-06-18]. <a href="https://modelcontextprotocol.io/specification/2025-06-18" rel="noopener" target="_blank">modelcontextprotocol.io/specification/2025-06-18</a></li><li id="ref-13">Lee, Q. F. (2026). Digital twins in chemical process plants: Architecture, modeling approaches and applications. <em>Chmltech Online Journal</em>, 104(5). <a href="https://www.chmltech.com/post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications" rel="noopener" target="_blank">www.chmltech.com/post/digital-twins-in-chemical-process-plants-architecture-mode</a></li><li id="ref-14">Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., &amp; Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. arXiv:2302.12173. <a href="https://arxiv.org/abs/2302.12173" rel="noopener" target="_blank">arxiv.org/abs/2302.12173</a></li><li id="ref-15">Bainbridge, L. (1983). Ironies of automation. <em>Automatica</em>, 19(6), 775–779. <a href="https://doi.org/10.1016/0005-1098(83)90046-8" rel="noopener" target="_blank">10.1016/0005-1098(83)90046-8</a></li><li id="ref-16">Lee, Q. F. (2026). Management of change for small plants. Chmltech Insights. <a href="https://www.chmltech.com/post/management-of-change-for-small-plants" rel="noopener" target="_blank">www.chmltech.com/post/management-of-change-for-small-plants</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries. <em>Chmltech Online Journal</em>, <em>105</em>(9). https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. Where agents fit: the ISA-95 hierarchy</a></li><li><a href="#sec-3">3. Use cases</a></li><li><a href="#sec-4">4. Reference architecture</a></li><li><a href="#sec-5">5. Hazards and controls</a></li><li><a href="#sec-6">6. Implementation and metrics</a></li><li><a href="#sec-7">7. Conclusion</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 105, Issue 9</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence strategy" data-search="the eu ai act for canadian businesses: scope, obligations after the digital omnibus and a practical compliance path when the eu ai act applies to a canadian business, what it requires after the 2026 digital omnibus, how canada&#x27;s own rules compare, and a compliance path. eu ai act digital omnibus ai regulation canada high-risk ai transparency ai governance iso/iec 42001"><div class="thumb"><img src="../assets/media/covers/thumbs/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path.html">The EU AI Act for Canadian Businesses: Scope, Obligations After the Digital Omnibus and a Practical Compliance Path</a></h3><p class="muted">When the EU AI Act applies to a Canadian business, what it requires after the 2026 Digital Omnibus, how Canada&#x27;s own rules compare, and a compliance path.</p><p class="meta">Vol. 105, Issue 11 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="evaluating ai agents: why public benchmarks mislead and how to build your own evaluation why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost. ai agents evaluation benchmarks pass^k llm-as-a-judge reliability test sets regression testing"><div class="thumb"><img src="../assets/media/covers/thumbs/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation.html">Evaluating AI Agents: Why Public Benchmarks Mislead and How to Build Your Own Evaluation</a></h3><p class="muted">Why agent benchmark scores can be gamed or misleading, and how a business can build its own evaluation: real tasks, isolated graders, reliability and cost.</p><p class="meta">Vol. 105, Issue 10 · Nov 13, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence strategy" data-search="the economics of agentic ai: cost per task, total cost of ownership and payback why falling token prices do not guarantee cheap agents: a cost-per-task model, the full cost of ownership, evidence on value, and a payback calculation. agentic ai ai economics cost per task total cost of ownership inference cost prompt caching return on investment productivity"><div class="thumb"><img src="../assets/media/covers/thumbs/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-economics-of-agentic-ai-cost-per-task-total-cost-and-payback.html">The Economics of Agentic AI: Cost per Task, Total Cost of Ownership and Payback</a></h3><p class="muted">Why falling token prices do not guarantee cheap agents: a cost-per-task model, the full cost of ownership, evidence on value, and a payback calculation.</p><p class="meta">Vol. 105, Issue 8 · Nov 13, 2026 · 14 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol105-issue9.pdf" data-fname="Chmltech-Journal-Vol105-Issue9.pdf" data-title="Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries" data-ref="Vol. 105, Issue 9">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 105, Issue 9</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries", "name": "Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries", "abstract": "Manufacturers have adopted AI more slowly than many other sectors, yet plants generate large volumes of operational information in maintenance systems, historians, manufacturing execution systems and shift logs that people spend much of their time reading, summarizing and acting on. This paper argues that the near-term role of AI agents in manufacturing lies in that information work around production rather than in control of the process itself. It maps agents onto the ISA-95 functional hierarchy and sets a boundary: agents operate at the business and operations levels, read data from the control level through read-only interfaces, and never write to control systems or form part of a safety instrumented system. It reviews nine use cases, examines two in depth (drafting maintenance work orders and analyzing downtime), and quantifies the effect of faster diagnosis on availability using the relation between mean time between failures and mean time to repair. It then proposes a reference architecture aligned with ISA/IEC 62443 zones and conduits, catalogs agent-specific hazards such as prompt injection through free-text records and loss of operator skill, and recommends treating changes to an agent as changes under management of change. The paper closes with a staged implementation path and a set of plant metrics for judging results.", "keywords": "agentic AI, manufacturing, ISA-95, maintenance, OEE, functional safety, OPC UA, industrial cybersecurity", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "9", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "105", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries", "citation": ["Kronenberg, S. (2026, March 29; updated April 3). AI adoption in US manufacturing has quadrupled since 2023, but 87% haven't made the switch. Digit Software.", "International Society of Automation. (2026). ISA-95 standard: Enterprise-control system integration (ANSI/ISA-95; IEC 62264).", "International Electrotechnical Commission. (2017). IEC 61511-1:2016+AMD1:2017 CSV. Functional safety – Safety instrumented systems for the process industry sector – Part 1: Framework, definitions, system, hardware and application programming requirements.", "OPC Foundation. (2026). Unified Architecture [Technology overview].", "Lee, Q. F. (2026). Agent interoperability standards: The Model Context Protocol, agent-to-agent protocols and integration with ERP, CRM and plant systems. Chmltech Online Journal, 105(4).", "Xia, Y., Shenoy, M., Jazdi, N., &amp; Weyrich, M. (2023). Towards autonomous system: Flexible modular production system enhanced with large language model agents. In 2023 IEEE 28th International Conference on Emerging Technologies and Factory Automation (ETFA).", "Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. Chmltech Online Journal, 105(7).", "Siemens AG. (2023, October 31). Siemens and Microsoft partner to drive cross-industry AI adoption [Press release].", "Automation World. (2024, October 18). Schaeffler brings Siemens Industrial Copilot to its shop floor.", "Lee, Q. F. (2026). What OEE really measures: Where your production hours go. Chmltech Insights.", "International Society of Automation. (2026). ISA/IEC 62443 series of standards: Industrial automation and control systems security.", "Model Context Protocol. (2025). Specification [Version 2025-06-18].", "Lee, Q. F. (2026). Digital twins in chemical process plants: Architecture, modeling approaches and applications. Chmltech Online Journal, 104(5).", "Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., &amp; Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. arXiv:2302.12173.", "Bainbridge, L. (1983). Ironies of automation. Automatica, 19(6), 775–779.", "Lee, Q. F. (2026). Management of change for small plants. Chmltech Insights."], "image": "https://www.chmltech.com/assets/media/covers/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+</body>
+</html>

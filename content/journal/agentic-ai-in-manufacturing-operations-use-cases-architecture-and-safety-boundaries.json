@@ -1,0 +1,486 @@
+{
+ "slug": "agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries",
+ "volume": 105,
+ "issue": 9,
+ "published": "2026-11-13",
+ "revised": "2026-11-13",
+ "title": "Agentic AI in Manufacturing Operations: Use Cases, Architecture and Safety Boundaries",
+ "short_title": "Agentic AI in Manufacturing Operations",
+ "meta": "Where AI agents help in plants and factories: maintenance, downtime and quality use cases, an ISA-95 architecture, and the safety lines agents must not cross.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Vancouver, BC, Canada"
+ },
+ "abstract": "Manufacturers have adopted AI more slowly than many other sectors, yet plants generate large volumes of operational information in maintenance systems, historians, manufacturing execution systems and shift logs that people spend much of their time reading, summarizing and acting on. This paper argues that the near-term role of AI agents in manufacturing lies in that information work around production rather than in control of the process itself. It maps agents onto the ISA-95 functional hierarchy and sets a boundary: agents operate at the business and operations levels, read data from the control level through read-only interfaces, and never write to control systems or form part of a safety instrumented system. It reviews nine use cases, examines two in depth (drafting maintenance work orders and analyzing downtime), and quantifies the effect of faster diagnosis on availability using the relation between mean time between failures and mean time to repair. It then proposes a reference architecture aligned with ISA/IEC 62443 zones and conduits, catalogs agent-specific hazards such as prompt injection through free-text records and loss of operator skill, and recommends treating changes to an agent as changes under management of change. The paper closes with a staged implementation path and a set of plant metrics for judging results.",
+ "keywords": [
+  "agentic AI",
+  "manufacturing",
+  "ISA-95",
+  "maintenance",
+  "OEE",
+  "functional safety",
+  "OPC UA",
+  "industrial cybersecurity"
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Manufacturing has been slower to adopt AI than many other sectors. An analysis of U.S. Census Bureau survey data from 2022 to early 2026 found that 12.6 percent of manufacturers used AI and that large manufacturers were more than twice as likely to use it as small ones [1]. Part of the reason is caution well earned: a plant is a physical system in which errors can injure people, damage equipment and release material, and plant engineers are rightly skeptical of software that behaves differently from one run to the next."
+    },
+    {
+     "p": "Yet much of the work in a plant is not control. Operators write shift logs and read the previous shift's. Maintenance planners turn operator notes and alarm histories into work orders. Engineers search old reports to find out why a pump failed last time. Quality staff assemble evidence for nonconformance reports. Supervisors explain yesterday's downtime to managers. This is information work, done by skilled people reading and writing across several systems, and it is the kind of work at which language-model agents are already useful."
+    },
+    {
+     "p": "This paper sets out where AI agents fit in manufacturing operations, and where they do not. Section 2 maps agents onto the ISA-95 hierarchy and defines a boundary. Section 3 reviews use cases and examines two in depth, with a calculation of the value of faster diagnosis. Section 4 proposes a reference architecture. Section 5 catalogs the hazards specific to agents in a plant and the controls for each. Section 6 outlines an implementation path and the metrics that show whether it is working."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Where agents fit: the ISA-95 hierarchy",
+   "blocks": [
+    {
+     "h3": "2.1 The functional levels"
+    },
+    {
+     "p": "The ISA-95 standard, published internationally as IEC 62264, describes manufacturing systems as a hierarchy of functional levels [2]. Levels 0 to 2 cover the physical process, sensors and actuators, and the control systems that run it: programmable logic controllers (PLCs), distributed control systems (DCS) and supervisory control and data acquisition (SCADA). Level 3 covers manufacturing operations management, including production execution, maintenance management, quality and the process historian. Level 4 covers business planning and logistics in the enterprise resource planning (ERP) system. The levels differ in their time scales, from milliseconds at Level 1 to days and weeks at Level 4, and in their consequences: an error at Level 1 can act on the process within seconds."
+    },
+    {
+     "p": "Process safety adds a separate layer. A safety instrumented system (SIS) takes the process to a safe state when a hazardous condition is detected. IEC 61511 requires that each safety instrumented function be specified, designed, verified and validated to a required safety integrity level, with defined behavior under defined conditions [3]. A language model, whose output can vary with small changes in its input, cannot meet that requirement and has no place inside a safety function."
+    },
+    {
+     "h3": "2.2 The boundary"
+    },
+    {
+     "p": "From these considerations follows a boundary, summarized in Table 1 and Figure 1. Agents operate at Levels 3 and 4, where the work is information work and the time scales allow a person to review. They may read data from Level 2, such as process values and alarm histories, but only through read-only interfaces such as OPC UA subscriptions or the historian [4]. They do not write to Levels 0 to 2, and they are never part of the SIS or of the response to safety alarms. A companion paper on interoperability standards reaches the same conclusion from the protocol side [5]."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "What an AI agent may do at each ISA-95 level, as proposed by the author.",
+      "head": [
+       "Level",
+       "Typical systems",
+       "Agent may",
+       "Agent may not"
+      ],
+      "rows": [
+       [
+        "4 Business planning",
+        "ERP, supply chain, finance",
+        "Read; draft orders, quotes and reports; act within limits after promotion",
+        "Commit spend or contracts above set limits"
+       ],
+       [
+        "3 Operations management",
+        "MES, CMMS, historian, LIMS, quality system",
+        "Read; draft work orders, reports and investigations; update records after approval",
+        "Release product or close safety-related work without a person"
+       ],
+       [
+        "2 Supervisory control",
+        "SCADA, DCS operator stations",
+        "Read process values and alarm history through read-only interfaces",
+        "Change setpoints, modes or alarm settings"
+       ],
+       [
+        "0–1 Process and basic control",
+        "Sensors, actuators, PLCs",
+        "Nothing directly",
+        "Any write access"
+       ],
+       [
+        "Safety instrumented system",
+        "Logic solver, safety sensors and final elements",
+        "Nothing",
+        "Any role in a safety function"
+       ]
+      ],
+      "note": "Levels from [2]; safety requirements from [3]."
+     }
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-isa95-boundary",
+      "caption": "The proposed boundary for AI agents in a plant. Agents work at ISA-95 Levels 3 and 4 and may read Level 2 data through read-only interfaces. They have no write path to the control levels and no role in the safety instrumented system.",
+      "alt": "Stacked diagram of the ISA-95 levels from Level 4 business planning at the top, through Level 3 operations management and Level 2 supervisory control, to Levels 0 and 1 process and basic control at the bottom, with the safety instrumented system drawn as a separate column beside the control levels. A shaded zone covering Levels 3 and 4 is labelled agents operate here. A one-way arrow from Level 2 up to the agent zone is labelled read-only. A barrier line between Level 3 and Level 2 is labelled no agent writes below this line.",
+      "source": "Drawn by the author, after the ISA-95 hierarchy [2]."
+     }
+    },
+    {
+     "h3": "2.3 Why not let the agent adjust the process?"
+    },
+    {
+     "p": "It is tempting to go one step further and let an agent that has diagnosed a problem correct it, for example by lowering a feed rate when a reactor runs hot. There are four reasons not to. First, the plant already has systems designed for this: the basic control layer and, where installed, advanced process control act within seconds and within limits that engineers have tested. Second, operators work within an alarm and procedure system that tells them what to do and in what order; an agent acting in parallel would confuse who is responsible for the process at that moment. Third, an agent's reasoning can vary between runs and can be led astray by misleading inputs, so its actions cannot be verified in advance the way a control strategy can. Fourth, every change to how a process is run is subject to management of change; a general-purpose agent able to change setpoints would be an unmanaged change waiting to happen. The right role for the agent is to give the operator better information faster, through the systems the operator already uses."
+    },
+    {
+     "p": "The boundary does not mean that AI has no role in control. Advanced process control and model predictive control are well established, and research prototypes have shown language-model agents planning and executing operations on a modular production system through defined skill interfaces [6]. Those systems, however, are engineered, tested and validated control applications. The boundary proposed here applies to general-purpose agents deployed by operations staff, which is where most manufacturers will meet agentic AI first."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Use cases",
+   "blocks": [
+    {
+     "h3": "3.1 A catalog"
+    },
+    {
+     "p": "Table 2 lists nine use cases that fall within the boundary, with the systems each reads and writes, a suggested starting autonomy level using the scale in a companion paper [7], and a measure of value."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Use cases for AI agents in manufacturing operations. Autonomy levels: L5 observer (agent acts, person monitors), L4 approver (person approves defined actions), L3 consultant.",
+      "head": [
+       "Use case",
+       "Reads",
+       "Writes",
+       "Start at",
+       "Value measure"
+      ],
+      "rows": [
+       [
+        "Shift handover summary",
+        "Shift logs, alarms, historian, open work orders",
+        "Draft summary",
+        "L4",
+        "Handover time; issues carried over"
+       ],
+       [
+        "Downtime and loss analysis",
+        "MES downtime records, historian, OEE data",
+        "Draft report",
+        "L5 (read-only)",
+        "Time to explain losses; actions taken"
+       ],
+       [
+        "Maintenance work order drafting",
+        "Operator notes, alarms, asset history, manuals",
+        "Draft work order in CMMS",
+        "L4",
+        "Time from fault to work order; first-time fix rate"
+       ],
+       [
+        "Troubleshooting assistant",
+        "Manuals, past work orders, P&IDs, procedures",
+        "Nothing",
+        "L5 (read-only)",
+        "Mean time to repair"
+       ],
+       [
+        "Quality deviation investigation",
+        "Batch records, LIMS results, historian",
+        "Draft nonconformance report",
+        "L4",
+        "Investigation cycle time"
+       ],
+       [
+        "Spare parts and consumables",
+        "CMMS usage, ERP stock, lead times",
+        "Draft purchase requisition",
+        "L4",
+        "Stock-outs; expediting cost"
+       ],
+       [
+        "Procedure and MOC drafting",
+        "Existing SOPs, P&IDs, change request",
+        "Draft document",
+        "L3",
+        "Document cycle time"
+       ],
+       [
+        "Scheduling what-if analysis",
+        "Orders, capacities, scheduler",
+        "Scenarios for planner",
+        "L3",
+        "Planner time; schedule adherence"
+       ],
+       [
+        "Control code assistance (offline)",
+        "Engineering project, standards",
+        "Draft code for engineer review",
+        "L3",
+        "Engineering hours"
+       ]
+      ],
+      "note": "Compiled by the author."
+     }
+    },
+    {
+     "p": "Two of these deserve comment. Control code assistance is an engineering task, done offline in the engineering tool, with the engineer reviewing, testing and commissioning the result as with any code; Siemens and Schaeffler have described generating PLC code from natural language in this way [8, 9]. It sits within the boundary because nothing reaches the plant without the normal engineering and change process. Scheduling what-if analysis uses the agent to set up and explain scenarios run by a proper scheduling or optimization tool; the agent does not produce the schedule itself."
+    },
+    {
+     "h3": "3.2 In depth: maintenance work orders"
+    },
+    {
+     "p": "When an operator notices a problem, such as a pump running hot or a conveyor tripping, the path to a repair usually runs through a short note in a shift log or a call to maintenance, followed by a planner writing a work order in the computerized maintenance management system (CMMS). Information is lost at each step. The note may not name the asset tag; the planner may not see the alarm history; the technician may arrive without the right parts."
+    },
+    {
+     "p": "An agent can close these gaps. Given the operator's note, it identifies the asset from the plant hierarchy, pulls the last month of related alarms and process values from the historian, retrieves the asset's recent work orders and the manufacturer's troubleshooting section, and drafts a work order with the asset, a description of the symptoms with the data, likely causes based on history, suggested parts and the applicable safety precautions and isolation procedure. A planner reviews and releases it. The agent never decides that equipment is safe to work on; the isolation and permit process is unchanged."
+    },
+    {
+     "p": "The benefit shows up in three places. The time from fault report to released work order falls, because the planner starts from a complete draft rather than a phone call. The technician arrives better prepared, which raises the first-time fix rate and cuts the trips back to the stores. And the work order history becomes more useful over time, because each record names the asset correctly and describes symptoms with data, so the next diagnosis, by a person or an agent, has better material to work from. The last effect compounds: many plants find that the weakest part of their maintenance data is the free-text history, and an agent that writes consistent, structured descriptions improves it with every job. A plant should nonetheless check a sample of agent-drafted work orders each week, since a consistent format can hide a consistent error."
+    },
+    {
+     "h3": "3.3 In depth: downtime analysis"
+    },
+    {
+     "p": "Overall equipment effectiveness (OEE) is the product of availability, performance and quality [10]:"
+    },
+    {
+     "eq": "OEE = A × P × Q",
+     "n": 1
+    },
+    {
+     "p": "Eq. (1) makes the agent's job concrete: each recorded loss belongs to one of the three factors, so the agent can attribute every lost hour to availability (stops and changeovers), performance (slow running and minor stops) or quality (scrap and rework), and show which factor moved since the previous week. Most plants record downtime events, but many struggle to turn them into action: the reason codes are inconsistent, free-text comments are long, and the analysis is a monthly spreadsheet exercise. An agent with read-only access to the downtime records and the historian can produce a daily loss summary that groups events by cause, links them to process conditions, flags recurring patterns and drafts questions for the morning meeting. The agent's contribution is speed and consistency; the people in the meeting still decide what to do."
+    },
+    {
+     "h3": "3.4 In depth: quality deviations"
+    },
+    {
+     "p": "When a batch fails a specification or a customer complaint arrives, quality staff must assemble the batch record, laboratory results, process data for the relevant period, raw material certificates and any deviations or changes during production, then write an investigation that identifies a root cause and corrective actions. Much of the elapsed time goes on finding and lining up that evidence. An agent can do the gathering: it pulls the batch genealogy from the MES, the results from the laboratory information system, the trends of the critical process parameters from the historian and any open change requests, and drafts a nonconformance report with a timeline and a list of candidate causes, each tied to the evidence for and against it. The quality engineer then does the part that requires judgment: testing the candidate causes, deciding on the root cause and approving the corrective action. The agent must not release or reject product, and its draft must make clear which statements come from records and which are inferences."
+    },
+    {
+     "h3": "3.5 The value of faster diagnosis"
+    },
+    {
+     "p": "Availability for a repairable asset can be approximated from the mean time between failures (MTBF) and the mean time to repair (MTTR):"
+    },
+    {
+     "eq": "A = MTBF / (MTBF + MTTR)",
+     "n": 2
+    },
+    {
+     "p": "MTTR includes the time to diagnose a fault, find the information and fetch parts, not only the repair itself. Suppose a packaging line fails on average every 40 running hours and takes 2 hours to restore. Eq. (2) gives an availability of 95.2 percent. If a troubleshooting assistant and better work orders cut 30 minutes from the average diagnosis, MTTR falls to 1.5 hours and availability rises to 96.4 percent, a gain of 1.1 percentage points. Over 6,000 planned hours a year that is about 69 additional running hours. At $1,200 of output per running hour and an 18 percent contribution margin, the gain is worth about $14,871 a year, before any reduction in repeat failures. Figure 2 shows how the gain varies with the time saved and the failure frequency."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-mttr-availability",
+      "caption": "Availability gain from shorter diagnosis, from Eq. (2), for three failure frequencies. Assets that fail more often gain more from each minute saved. The marker shows the worked example.",
+      "alt": "Line chart with minutes of diagnosis saved per failure on the horizontal axis, from 0 to 60, and the gain in availability in percentage points on the vertical axis. Three rising lines are shown for mean times between failures of 20, 40 and 100 hours, all with a mean time to repair of 2 hours before improvement. The 20-hour line rises most steeply, reaching about 4.3 points at 60 minutes; the 40-hour line reaches about 2.3 points and the 100-hour line about 1.0 point. The worked example at 30 minutes and 40 hours shows about 1.1 points.",
+      "source": "Author's calculation from Eq. (2)."
+     }
+    },
+    {
+     "p": "The calculation explains why troubleshooting and work order use cases tend to pay back well on assets that fail often and are slow to diagnose, and poorly on reliable assets where the repair itself dominates."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Reference architecture",
+   "blocks": [
+    {
+     "h3": "4.1 Layers and conduits"
+    },
+    {
+     "p": "ISA/IEC 62443, the series of standards for the security of industrial automation and control systems, organizes a plant network into zones with defined security requirements connected by controlled conduits [11]. An agent deployment should fit that model rather than create new paths around it. Figure 3 shows a reference architecture."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-plant-architecture",
+      "caption": "Reference architecture for AI agents in a plant. Agents run in the enterprise or a plant DMZ and reach plant systems only through tool servers with scoped, logged permissions. Process data reaches them through the historian or a read-only OPC UA interface; there is no path from the agents to the control network.",
+      "alt": "Layered network diagram. At the top, the enterprise zone holds the agents and an ERP tool server. Below, a plant DMZ holds tool servers for the CMMS, the MES and quality system, and a historian replica. Below a firewall, the control zone holds SCADA, DCS and PLCs, and the safety instrumented system sits in its own zone. A one-way arrow carries process data from the control zone to the historian replica in the DMZ. Agents call the tool servers through a gateway that applies identity, scoped permissions and an audit log. No arrow leads from the agents to the control zone.",
+      "source": "Drawn by the author, following the zone and conduit model of ISA/IEC 62443 [11]."
+     }
+    },
+    {
+     "p": "Four design choices matter most."
+    },
+    {
+     "list": [
+      "<strong>Agents call tools, not systems.</strong> Each plant system is exposed to agents through a tool server, for example a Model Context Protocol server [12], that offers a small set of named operations such as \"get asset history\" or \"create draft work order\". The tool server, not the agent, holds the system credentials and enforces what each agent may do.",
+      "<strong>Process data flows one way.</strong> Agents read process data from a historian replica or a read-only OPC UA interface in the DMZ. No tool offers a write to the control network, so no instruction an agent receives can cause one.",
+      "<strong>Writes go to drafts.</strong> Where an agent writes to a Level 3 or 4 system, it writes a draft or a record in a pending state that a person releases, until the action has been promoted on evidence [7].",
+      "<strong>Everything is logged.</strong> The gateway records each tool call, its inputs and outputs, and the identity of the agent and of the person who approved any action."
+     ],
+     "ordered": true
+    },
+    {
+     "h3": "4.2 Data the agent needs"
+    },
+    {
+     "p": "Agents in a plant are only as useful as the context they can reach. The most valuable sources are often the least structured: free-text work order histories, old incident reports and the experience written into procedures. A plant that has invested in a digital twin or a well-structured asset hierarchy gives an agent a much better map to work from [13]. A plant without one can start by cleaning the asset register and linking it to drawings and manuals, which is useful whether or not an agent follows."
+    },
+    {
+     "h3": "4.3 Models and hosting"
+    },
+    {
+     "p": "Plant use cases are rarely sensitive to latency, since a work order drafted in thirty seconds rather than three is no less useful, but they are often sensitive to confidentiality. Recipes, process conditions and supplier terms may be trade secrets or subject to customer agreements. A plant should classify its data and decide which classes may be sent to an external model provider under contract, which must stay within its own cloud tenancy, and which require a model running on its own hardware. Smaller open-weight models running locally are often adequate for retrieval and drafting tasks over a plant's own documents, while harder reasoning tasks may justify a larger hosted model for non-confidential data. Whatever the choice, an evaluation set of real plant cases should be run before and after any change of model, because behavior on plant terminology and abbreviations can differ markedly between models."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Hazards and controls",
+   "blocks": [
+    {
+     "p": "Agents introduce hazards that conventional plant software does not. Table 3 lists the main ones with their controls."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Hazards specific to AI agents in manufacturing operations and proposed controls.",
+      "head": [
+       "Hazard",
+       "Example",
+       "Control"
+      ],
+      "rows": [
+       [
+        "Action on the process",
+        "An agent asked to \"fix the high temperature\" tries to change a setpoint",
+        "No write path to Levels 0–2 (Section 4); setpoint changes stay with operators under existing procedures"
+       ],
+       [
+        "Wrong advice followed",
+        "Agent suggests an incorrect isolation point",
+        "Agent never authorizes work on equipment; permit-to-work and isolation procedures unchanged; advice cites its sources"
+       ],
+       [
+        "Prompt injection through records",
+        "A supplier document or log entry contains text that redirects the agent",
+        "Treat retrieved text as data; limit tools; approval for actions; monitoring [14]"
+       ],
+       [
+        "Loss of operator and planner skill",
+        "Staff stop reading alarm histories because the summary does it",
+        "Rotate manual analysis; review samples; keep training [15]"
+       ],
+       [
+        "Unmanaged change",
+        "A new model version or edited instructions change behavior silently",
+        "Agent changes go through management of change and regression testing [16]"
+       ],
+       [
+        "Confidential data leaving the site",
+        "Process recipes sent to an external model",
+        "Data classification; approved providers; local models where required"
+       ]
+      ],
+      "note": "Compiled by the author."
+     }
+    },
+    {
+     "p": "Two of these deserve emphasis. First, prompt injection: Greshake and colleagues showed that instructions hidden in content an LLM-integrated application retrieves, rather than typed by its user, can redirect its behavior [14]. In a plant, free text is everywhere: shift logs, supplier certificates, emails attached to work orders. The architecture in Section 4 limits the damage by ensuring that the worst an injected instruction can do is draft something a person must release."
+    },
+    {
+     "p": "Second, skill. Bainbridge's ironies of automation apply with particular force in a plant, where the rare abnormal situation is the one that matters most [15]. If an agent writes every shift summary and every loss analysis, operators and engineers may lose the habit of reading the raw data, and with it the feel for the process that lets them spot what the summary missed. Plants should keep some analysis manual, review samples of the agent's work in team meetings, and treat the agent's output as a starting point."
+    },
+    {
+     "callout": "Treat the agent itself as plant equipment under management of change. A new model version, a changed tool or edited instructions can change its behavior as surely as a new valve trim changes a loop. Review, test and document the change before it goes live."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Implementation and metrics",
+   "blocks": [
+    {
+     "p": "A staged approach limits risk while evidence builds."
+    },
+    {
+     "list": [
+      "<strong>Read-only assistant.</strong> Start with a troubleshooting assistant or a daily loss summary that reads manuals, work order history and downtime records and writes nothing. Measure use and usefulness.",
+      "<strong>Drafts in shadow mode.</strong> Have the agent draft work orders or handover summaries alongside the people who do them now, and compare. Fix gaps in data and instructions.",
+      "<strong>Drafts for release.</strong> Let the agent's drafts go into the CMMS or MES in a pending state for a planner or supervisor to release.",
+      "<strong>Limited autonomy.</strong> Promote specific low-risk actions, such as routine consumable requisitions under a value limit, on the evidence of the earlier stages [7]."
+     ],
+     "ordered": true
+    },
+    {
+     "p": "Each stage needs a named owner from operations, not only from IT. The maintenance planner who will release agent-drafted work orders should help write the agent's instructions and choose the test cases, since they know what a good work order looks like and which details are often missing. Operators and technicians should be told what the agent does and does not do, and shown how to flag a poor answer. Feedback from the floor, captured in a simple form, is the fastest way to find the gaps in the data and procedures the agent depends on."
+    },
+    {
+     "p": "The metrics should be plant metrics, not AI metrics: mean time to repair and the share of it spent on diagnosis; time from fault report to released work order; first-time fix rate; the share of downtime with a confirmed cause; investigation cycle time; and availability and OEE on the lines concerned [10]. Each needs a baseline taken before the pilot starts."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "The case for AI agents in manufacturing rests on the information work that surrounds production, not on control of the process. Mapped onto ISA-95, that work sits at Levels 3 and 4, where agents can read widely, draft for people to release and, with evidence, take limited low-risk actions. The boundary below them is firm: read-only access to process data, no writes to control systems and no role in safety functions. Within that boundary, use cases such as maintenance work orders, troubleshooting and downtime analysis offer measurable value, and the calculation in Section 3 shows how even modest reductions in diagnosis time raise availability. An architecture that follows the zone and conduit model, a clear view of agent-specific hazards and the discipline of management of change let plants capture that value without compromising the safety and reliability their operations depend on."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Kronenberg, S. (2026, March 29; updated April 3). AI adoption in US manufacturing has quadrupled since 2023, but 87% haven't made the switch. Digit Software.",
+   "url": "https://www.digit-software.com/blog/study-ai-adoption-in-us-manufacturing"
+  },
+  {
+   "text": "International Society of Automation. (2026). ISA-95 standard: Enterprise-control system integration (ANSI/ISA-95; IEC 62264).",
+   "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-95-standard"
+  },
+  {
+   "text": "International Electrotechnical Commission. (2017). IEC 61511-1:2016+AMD1:2017 CSV. Functional safety – Safety instrumented systems for the process industry sector – Part 1: Framework, definitions, system, hardware and application programming requirements.",
+   "url": "https://webstore.iec.ch/en/publication/61289"
+  },
+  {
+   "text": "OPC Foundation. (2026). Unified Architecture [Technology overview].",
+   "url": "https://opcfoundation.org/about/opc-technologies/opc-ua/"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Agent interoperability standards: The Model Context Protocol, agent-to-agent protocols and integration with ERP, CRM and plant systems. <em>Chmltech Online Journal</em>, 105(4).",
+   "url": "https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems"
+  },
+  {
+   "text": "Xia, Y., Shenoy, M., Jazdi, N., &amp; Weyrich, M. (2023). Towards autonomous system: Flexible modular production system enhanced with large language model agents. In <em>2023 IEEE 28th International Conference on Emerging Technologies and Factory Automation (ETFA)</em>.",
+   "url": "https://doi.org/10.1109/ETFA54631.2023.10275362"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents. <em>Chmltech Online Journal</em>, 105(7).",
+   "url": "https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents"
+  },
+  {
+   "text": "Siemens AG. (2023, October 31). Siemens and Microsoft partner to drive cross-industry AI adoption [Press release].",
+   "url": "https://assets.new.siemens.com/siemens/assets/api/uuid:89b84c68-fcea-4d6d-8180-678d4663e55b/HQCOPR202310306800EN.pdf"
+  },
+  {
+   "text": "Automation World. (2024, October 18). Schaeffler brings Siemens Industrial Copilot to its shop floor.",
+   "url": "https://automationworld.com/factory/digital-transformation/news/55235167/schaeffler-brings-siemens-industrial-copilot-to-its-shop-floor"
+  },
+  {
+   "text": "Lee, Q. F. (2026). What OEE really measures: Where your production hours go. Chmltech Insights.",
+   "url": "https://www.chmltech.com/post/what-oee-really-measures"
+  },
+  {
+   "text": "International Society of Automation. (2026). ISA/IEC 62443 series of standards: Industrial automation and control systems security.",
+   "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards"
+  },
+  {
+   "text": "Model Context Protocol. (2025). Specification [Version 2025-06-18].",
+   "url": "https://modelcontextprotocol.io/specification/2025-06-18"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Digital twins in chemical process plants: Architecture, modeling approaches and applications. <em>Chmltech Online Journal</em>, 104(5).",
+   "url": "https://www.chmltech.com/post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications"
+  },
+  {
+   "text": "Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., &amp; Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. arXiv:2302.12173.",
+   "url": "https://arxiv.org/abs/2302.12173"
+  },
+  {
+   "text": "Bainbridge, L. (1983). Ironies of automation. <em>Automatica</em>, 19(6), 775–779.",
+   "url": "https://doi.org/10.1016/0005-1098(83)90046-8"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Management of change for small plants. Chmltech Insights.",
+   "url": "https://www.chmltech.com/post/management-of-change-for-small-plants"
+  }
+ ],
+ "corrections": []
+}
