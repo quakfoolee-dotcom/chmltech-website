@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.86 — 2026-11-13
+- **New book review:** `post/clear-thinking-by-shane-parrish-book-review-lessons-and-how-to-apply-them` (Book Review, Strategy): the book's five parts, four defaults, four strengths, safeguards and decision process (1 figure), strengths and weaknesses, six lessons for small businesses, a four-week implementation plan with safeguard rules and a decision-journal template, and two worked examples (replacing a key supplier; replacing the family car). Source: `content/articles/v484_articles.py`. Linked from the other seven book reviews.
+- **Fix:** `add_article.py` now sets a new post's `<title>` and og/twitter titles itself, since the shell page has carried a short search title since V4.82.
+- Insights now lists 143 articles.
+
 ## V4.85 — 2026-11-13
 - **Certificate signature:** the italic text placeholder on all 12 course certificates is replaced by a handwritten-style signature image, `assets/img/signature-quak-foo-lee.svg` (option A). It is drawn as vector paths in ink blue, so it prints sharply and needs no web font. Source font: Mrs Saint Delafield (SIL Open Font License), kept in `content/gen/fonts/`; redraw with `content/gen/signature_svg.py`. Applied by `content/gen/cert_v485.py`.
 
