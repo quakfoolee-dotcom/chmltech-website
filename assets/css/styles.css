@@ -371,3 +371,12 @@ p{margin:0}
 .book-box .bb-title{font-size:16.5px!important;font-weight:600}
 .book-box .bb-muted{color:var(--muted,#5A6475)}
 @media (max-width:520px){.book-box .bb-row{gap:14px}.prose .book-box figure{flex-basis:96px}.prose .book-box figure img{width:96px}}
+
+/* V4.91 homepage hero, option B: navy-to-blue gradient, green main button, glass cycle card */
+.hero-b{background:radial-gradient(ellipse 55% 65% at 82% 38%,rgba(20,94,156,.45),rgba(20,94,156,0) 70%),linear-gradient(135deg,#061833 0%,#0B2A5A 48%,#0E4C82 100%)}
+.hero-b .btn:not(.btn-ghost-dark){background:var(--green);border-color:var(--green);color:var(--navy)!important}
+.hero-b .btn:not(.btn-ghost-dark):hover{background:#A3D65E;border-color:#A3D65E}
+.hero-b .btn-ghost-dark{border-color:#8FA6C8}
+.hero-b .cycle{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+.hero-b .cycle-step{background:rgba(255,255,255,.08)}
+.hero-b .cycle-step.last{background:var(--paper)}
