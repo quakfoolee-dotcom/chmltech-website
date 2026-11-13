@@ -353,11 +353,41 @@
   function initCert(view) {
     var input = view.querySelector('[data-cert-name]'), nameEl = view.querySelector('[data-cert-out-name]'), dateEl = view.querySelector('[data-cert-date]');
     if (state.exam.name) input.value = state.exam.name;
-    function upd() { nameEl.textContent = input.value.trim() || 'Your name'; state.exam.name = input.value.trim(); save(); }
+    var idEl = view.querySelector('[data-cert-id]'), cert = view.querySelector('.certificate');
     var d = state.exam.date ? new Date(state.exam.date + 'T12:00:00') : new Date();
+    var ymd = state.exam.date || d.toISOString().slice(0, 10);
+    // Course code from the certificate's course title: initials of the main words (before any colon), e.g. LLMBL.
+    var titleEl = view.querySelector('.cert-course'), title = (titleEl ? titleEl.textContent : DATA.id).split(':')[0].replace(/\([^)]*\)/g, ' ');
+    var code = title.split(/[\s-]+/).filter(function (w) { return w && !/^(for|and|the|of|via|your|a|an|to|in|&)$/i.test(w); })
+      .map(function (w) { return w.charAt(0); }).join('').toUpperCase().slice(0, 5) || 'CRS';
+    // Certificate number: CHM-<course initials>-<2-digit year>-<6-character check code from course + name + date>.
+    function certId(name) {
+      var s = DATA.id + '|' + name.toLowerCase().replace(/\s+/g, ' ') + '|' + ymd, h = 2166136261;
+      for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+      return 'CHM-' + code + '-' + ymd.slice(2, 4) + '-' + ('000000' + h.toString(36).toUpperCase()).slice(-6);
+    }
+    function upd() {
+      var name = input.value.trim();
+      nameEl.textContent = name || 'Your name'; state.exam.name = name; save();
+      if (idEl) idEl.textContent = name ? certId(name) : 'CHM-' + code + '-' + ymd.slice(2, 4) + '-······';
+    }
     dateEl.textContent = d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
     input.oninput = upd; upd();
-    view.querySelector('[data-print]').onclick = function () { window.print(); };
+    // Printing: copy the certificate into a top-level holder so the print stylesheet can hide the rest of the
+    // page entirely (one page, not several). Runs for the button and for Ctrl/Cmd+P.
+    function preparePrint() {
+      if (!cert || location.hash !== '#certificate') return;
+      var holder = document.getElementById('cert-print');
+      if (!holder) { holder = document.createElement('div'); holder.id = 'cert-print'; document.body.appendChild(holder); }
+      holder.innerHTML = ''; holder.appendChild(cert.cloneNode(true));
+      document.documentElement.classList.add('cert-printing');
+    }
+    if (!initCert.bound) {
+      window.addEventListener('beforeprint', preparePrint);
+      window.addEventListener('afterprint', function () { document.documentElement.classList.remove('cert-printing'); });
+      initCert.bound = true;
+    }
+    view.querySelector('[data-print]').onclick = function () { preparePrint(); window.print(); };
   }
 
   refreshProgress();

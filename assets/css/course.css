@@ -125,15 +125,23 @@
 .certificate img{width:150px;height:auto}
 .cert-kicker{font-size:13px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--blue)}
 .cert-name{font-family:var(--font-head);font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--ink);border-bottom:2px solid var(--line-2);padding:0 24px 8px;min-width:60%}
-.cert-course{font-family:var(--font-head);font-size:clamp(18px,2.2vw,24px);font-weight:600;color:var(--ink);max-width:80%}
-.cert-foot{display:flex;justify-content:space-between;width:80%;margin-top:18px;font-size:13px;color:var(--muted)}
+.cert-course{font-family:var(--font-head);font-size:clamp(18px,2.2vw,24px);font-weight:600;color:var(--ink);max-width:90%;text-wrap:balance}
+.cert-foot{display:grid;grid-template-columns:1fr 1.3fr 1fr;align-items:end;gap:24px;width:88%;margin-top:46px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.cert-col{display:block}
 .cert-foot strong{display:block;color:var(--ink);font-size:14px}
-@media (max-width:640px){.certificate{padding:32px 18px;aspect-ratio:auto}.cert-foot{flex-direction:column;gap:10px}}
+.cert-sign{border-top:1.5px solid var(--ink);padding-top:8px;position:relative}
+.cert-sig-name{position:absolute;left:0;right:0;bottom:calc(100% + 4px);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:26px;line-height:1;color:var(--navy)}
+[data-cert-id]{font-variant-numeric:tabular-nums;letter-spacing:.03em;white-space:nowrap}
+#cert-print{display:none}
+@media (max-width:640px){.certificate{padding:32px 18px;aspect-ratio:auto}.cert-foot{grid-template-columns:1fr;gap:18px;width:100%}.cert-sign{margin-top:34px}}
 @media print{
-  @page{size:landscape;margin:12mm}
-  body *{visibility:hidden}
-  .certificate,.certificate *{visibility:visible}
-  .certificate{position:fixed;inset:0;margin:auto;width:100%;height:100%;aspect-ratio:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:landscape;margin:10mm}
+  html.cert-printing,html.cert-printing body{background:#fff!important;margin:0!important;padding:0!important}
+  html.cert-printing body>*:not(#cert-print){display:none!important}
+  html.cert-printing #cert-print{display:block!important}
+  #cert-print .certificate{box-sizing:border-box;width:100%;height:188mm;margin:0;aspect-ratio:auto;padding:12mm 16mm;gap:10px;break-inside:avoid;page-break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #cert-print .cert-name{font-size:40px}
+  #cert-print .cert-course{font-size:22px}
 }
 .lab-wide .lab-visual{position:static;max-width:760px}
 .matrix-table td:first-child{min-width:220px}

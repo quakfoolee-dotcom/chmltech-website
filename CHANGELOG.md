@@ -1,5 +1,12 @@
 # Changelog
 
+## V4.84 — 2026-11-13
+- **Course certificates (all 12 free courses):** "Print or save as PDF" now gives a single landscape page (it printed the certificate four times on four pages). Checked on Letter and A4. Printing a lesson page is no longer blanked out by the certificate print rules.
+- **Signature line** added: Quak Foo Lee, CEO and Principal Consultant, Chmltech Ltd.
+- **Certificate number** added, e.g. `CHM-LLMBL-26-0M3HW6`: course code from the title, 2-digit year, and a 6-character check code worked out from the course, learner name and completion date. It is a reference number only; nothing is stored on a server, so it cannot be looked up online.
+- Footer is now three aligned columns (date · signature · certificate no.); long course titles wrap more evenly.
+- Applied by `content/gen/cert_v484.py` (course pages are patched in place; re-running is safe). Player changes in `assets/js/course.js` and `assets/css/course.css`.
+
 ## V4.83 — 2026-11-13
 - **Unused images removed:** 269 old Wix photos and thumbnails in `assets/media/` that no page, stylesheet or generator references any more (left behind by the V4.71–V4.82 rewrites and new covers). `assets/media` drops from 32 MB to 15 MB. The files remain in git history if ever needed. Internal image links re-checked: none broken.
 
