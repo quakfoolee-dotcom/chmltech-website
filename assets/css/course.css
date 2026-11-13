@@ -130,7 +130,7 @@
 .cert-col{display:block}
 .cert-foot strong{display:block;color:var(--ink);font-size:14px}
 .cert-sign{border-top:1.5px solid var(--ink);padding-top:8px;position:relative}
-.cert-sig-name{position:absolute;left:0;right:0;bottom:calc(100% + 4px);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:26px;line-height:1;color:var(--navy)}
+.certificate img.cert-sig-img{position:absolute;left:50%;bottom:calc(100% - 6px);transform:translateX(-50%);width:auto;height:58px;max-width:96%}
 [data-cert-id]{font-variant-numeric:tabular-nums;letter-spacing:.03em;white-space:nowrap}
 #cert-print{display:none}
 @media (max-width:640px){.certificate{padding:32px 18px;aspect-ratio:auto}.cert-foot{grid-template-columns:1fr;gap:18px;width:100%}.cert-sign{margin-top:34px}}

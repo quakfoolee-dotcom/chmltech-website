@@ -16,7 +16,7 @@ OLD = ('<div class="cert-foot"><span><strong data-cert-date></strong>Date comple
        '<span><strong>Chmltech Ltd.</strong>www.chmltech.com</span></div>')
 NEW = ('<div class="cert-foot">'
        '<span class="cert-col"><strong data-cert-date></strong>Date completed<br>&nbsp;</span>'
-       '<span class="cert-col cert-sign"><span class="cert-sig-name">Quak Foo Lee</span>'
+       '<span class="cert-col cert-sign"><img class="cert-sig-img" src="../assets/img/signature-quak-foo-lee.svg" alt="Signature of Quak Foo Lee" width="240" height="66">'
        '<strong>Quak Foo Lee</strong>CEO and Principal Consultant<br>Chmltech Ltd.</span>'
        '<span class="cert-col"><strong data-cert-id>CHM-0000</strong>Certificate no.<br>www.chmltech.com</span>'
        '</div>')

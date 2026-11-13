@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.85 — 2026-11-13
+- **Certificate signature:** the italic text placeholder on all 12 course certificates is replaced by a handwritten-style signature image, `assets/img/signature-quak-foo-lee.svg` (option A). It is drawn as vector paths in ink blue, so it prints sharply and needs no web font. Source font: Mrs Saint Delafield (SIL Open Font License), kept in `content/gen/fonts/`; redraw with `content/gen/signature_svg.py`. Applied by `content/gen/cert_v485.py`.
+
 ## V4.84 — 2026-11-13
 - **Course certificates (all 12 free courses):** "Print or save as PDF" now gives a single landscape page (it printed the certificate four times on four pages). Checked on Letter and A4. Printing a lesson page is no longer blanked out by the certificate print rules.
 - **Signature line** added: Quak Foo Lee, CEO and Principal Consultant, Chmltech Ltd.
