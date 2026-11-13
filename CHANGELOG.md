@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.82 — 2026-11-13
+Last release of the V8 audit plan: every post published before November 2026 is now rewritten, merged, retired or fixed.
+- **Last 26 older posts fixed in place** (`content/articles/v482_inplace.py`): about 70 untraceable statistics removed or reworded (kept with a source: Bain/Reichheld on retention, Gallup on engagement, Housel on Buffett); anecdotes with numbers marked illustrative; filler openers and closers rewritten. Added worked examples (first principles, revenue, scenario analysis), three figures (dashboard, OODA vs PDCA, AI readiness scorecard), Google Business Profile steps (local SEO), PPM two-part series notes, book-review cross-links and quiz links, and links to funding, EOS, KPI, OEE, gap analysis and agent-readiness pages.
+- **The Nvidia Way** now credits Tae Kim's book (2024) and moves to Book Review, Strategy and AI.
+- **Search titles:** `content/gen/seo_titles.py` gives 95 posts a `<title>` under 60 characters; headings and JSON-LD headlines unchanged. Applied by `seo_pass.py`.
+- **Covers:** `content/gen/v482_covers.py` replaces the last 26 old Wix photos with subject-family covers (cards, og:image, JSON-LD); the old photo banner on those posts is removed.
+- **Alt text** added to the last two body images without one.
+- **Figures:** site-wide check for text outside boxes or overlapping; tank level labels separated (`sizing_articles.py`).
+- **Fix:** `article_toc.py` no longer adds a blank line to long posts on every build.
+- Insights still lists 142 articles; chip counts, date order and links re-checked.
+
 ## V4.81.1 — 2026-11-13
 - **Lead-to-cash figure:** Invoice and Cash box text wrapped to three lines so it stays inside the boxes (`content/articles/v479_articles.py`).
 
