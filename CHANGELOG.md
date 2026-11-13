@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.68 — 2026-11-13
+- **New Insights series: Commissioning (three articles)**, Process Engineering, on the FEED/scale-up example plant: `post/from-mechanical-completion-to-handover-the-commissioning-sequence` (sequence figure, systemization table), `post/the-pre-startup-safety-review-what-to-check-before-start-up` (PSSR scope from 29 CFR 1910.119(i); the seven E-101 HAZOP actions reviewed with a go/no-go decision), `post/first-run-to-steady-state-start-up-punch-list-and-performance-test` (start-up ramp figure, punch list categories, mass balance closure, yield guarantee with measurement uncertainty). Source: `content/articles/commissioning_articles.py`.
+- **New Insights series: Equipment sizing (three articles)** on the feed section T-101 → P-101 → E-101: `post/sizing-a-pump-head-npsh-and-power` (head build-up to the 4.0 barg on the PFD, system curve figure, NPSH, motor), `post/sizing-a-heat-exchanger-duty-lmtd-and-area` (208 kW duty, LMTD 90.3 K, area and tube layout, temperature profile figure), `post/sizing-a-tank-holdup-levels-and-wall-thickness` (holdup, level settings figure, API 650 one-foot method). Source: `content/articles/sizing_articles.py`.
+- **New article:** `post/pressure-relief-basics-what-a-psv-protects-against` (overpressure causes, accumulation limits figure, R-101 fire case per API 521, common mistakes). Same source file.
+- **Inventory series extended to six parts:** `post/reorder-point-and-eoq-when-to-order-and-how-much` (EOQ for two Ridgeline materials, cost-curve figure, truckload discount test) and `post/sales-and-operations-planning-for-small-manufacturers` (monthly cycle, Ridgeline spring-peak capacity plan figure, measures). Source: `content/articles/inventory2_articles.py`. Parts 1–4 now read "Part n of 6"; Post 4's series list and "Next" line link to the new parts (`inventory_articles.py`).
+- **Home page:** "Latest insights" shows Budget 2026, the EU AI Act paper and Commissioning Part 1; the button reads "All 180 articles".
+- Insights now lists 180 articles.
+
 ## V4.67 — 2026-11-13
 - **Five new Chmltech Online Journal papers, Volume 105, Issues 7–11** (published November 13, 2026; Division of Artificial Intelligence and Machine Learning). Each has a cover, a PDF download (`assets/journal/pdf/chmltech-journal-vol105-issue7.pdf` to `issue11.pdf`, printed from the page with the running footer), an Insights card and a sitemap entry:
   - 105(7) *Levels of Autonomy and Human-in-the-Loop Design for AI Agents* (`post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents`): 3 figures, 3 tables, 3 equations, 16 references.

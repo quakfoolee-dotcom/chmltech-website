@@ -14,6 +14,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 E = lambda s: html.escape(str(s), quote=True)
 S1, S2, S3, S4 = ("abc-inventory-analysis", "setting-safety-stock",
                   "abc-analysis-for-manufacturers", "safety-stock-for-manufacturers")
+# Parts 5 and 6 (V4.68) are written by inventory2_articles.py
+S5, S6 = "reorder-point-and-eoq-when-to-order-and-how-much", "sales-and-operations-planning-for-small-manufacturers"
+T5 = "Reorder Point and EOQ: When to Order and How Much"
+T6 = "Sales and Operations Planning for Small Manufacturers: One Plan, Once a Month"
+SERIES_OF = 6
 T1 = "ABC Inventory Analysis: What It Is, How to Do It, and a Worked Example"
 T2 = "Setting Safety Stock Without Guessing: Three Methods and a Worked Example"
 T3 = "ABC Analysis for Manufacturers: Why Dollar Value Is Not Enough"
@@ -584,8 +589,10 @@ def post4():
             "Check every buffer against shelf life and storage capacity", "Agree where each buffer sits, and remove duplicates"]),
         tpl_box("The workbook for this series includes the Ridgeline materials and a spare parts calculator using the Poisson method."),
         "<h2>The series in one place</h2>",
-        ol([f'<a href="{S1}.html">{T1}</a>', f'<a href="{S2}.html">{T2}</a>', f'<a href="{S3}.html">{T3}</a>', f"{T4} (this post)"]),
-        "<p>The thread through all four is the same. Find out which items matter, work out what is uncertain about each one, and put the buffer where the risk is.</p>",
+        ol([f'<a href="{S1}.html">{T1}</a>', f'<a href="{S2}.html">{T2}</a>', f'<a href="{S3}.html">{T3}</a>', f"{T4} (this post)",
+            f'<a href="{S5}.html">{T5}</a>', f'<a href="{S6}.html">{T6}</a>']),
+        "<p>The thread through the series is the same. Find out which items matter, work out what is uncertain about each one, and put the buffer where the risk is.</p>",
+        f'<p><strong>Next in the series:</strong> <a href="{S5}.html">Post&nbsp;5</a> decides how much to order each time, and <a href="{S6}.html">Post&nbsp;6</a> ties inventory to a monthly sales and operations plan.</p>',
         CLOSE, DL_FORM])
 
 
@@ -612,7 +619,7 @@ def main():
         out = dict(slug=a["slug"], title=a["title"], desc=a["desc"], cats=["operational-efficiency", "process-improvement"], tags=a["tags"],
                    body=body, date="2026-11-11", author="Quak Foo Lee", read=f"{max(1, round(words / 230))} min read", order=a["order"],
                    cover_label=a["cover_label"], related=a["related"],
-                   series=dict(name="Inventory series", part=ARTICLES.index(a) + 1, of=len(ARTICLES)))
+                   series=dict(name="Inventory series", part=ARTICLES.index(a) + 1, of=SERIES_OF))
         assert len(a["desc"]) <= 165, (a["slug"], len(a["desc"]))
         json.dump(out, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(a["slug"], words, "words,", out["read"])

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>First Run to Steady State: Start-Up, the Punch List and the Performance Test</title>
+<meta name="description" content="How a process plant goes from first feed to design rate: a stepped start-up, punch list categories, mass balance closure and testing a yield guarantee.">
+<link rel="canonical" href="https://www.chmltech.com/post/first-run-to-steady-state-start-up-punch-list-and-performance-test">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="First Run to Steady State: Start-Up, the Punch List and the Performance Test">
+<meta property="og:description" content="How a process plant goes from first feed to design rate: a stepped start-up, punch list categories, mass balance closure and testing a yield guarantee.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/first-run-to-steady-state-start-up-punch-list-and-performance-test.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<meta property="og:url" content="https://www.chmltech.com/post/first-run-to-steady-state-start-up-punch-list-and-performance-test">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"First Run to Steady State: Start-Up, the Punch List and the Performance Test","item":"https://www.chmltech.com/post/first-run-to-steady-state-start-up-punch-list-and-performance-test"}]}]}</script>
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Commissioning series · Part 3 of 3</p>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">First Run to Steady State: Start-Up, the Punch List and the Performance Test</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 13, 2026</span><span>7 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose">
+<link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf">
+<p>The pre-startup safety review in <a href="the-pre-startup-safety-review-what-to-check-before-start-up.html">Part&nbsp;2</a> has said "go". This part covers what happens next: bringing the plant from its first feed to steady operation at design rate, managing the punch list, and proving with a performance test that the plant does what it was bought to do.</p>
+<h2>Start-up: step by step, with holds</h2>
+<p>A plant is not taken to full rate in one move. It is brought up in steps, with a hold at each step to confirm that it behaves as expected before going further. Figure&nbsp;1 shows a typical ramp for the example plant.</p>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Chart of plant rate against time. Zero for the first six hours while utilities are brought in, the plant is inerted and solvent is circulated and heated. First feed at 30 percent, held until 24 hours; then 50 percent to 48 hours with a check of the balances; 75 percent to 66 hours while loops are tuned; then 100 percent design rate, after which the performance test follows." viewBox="0 0 700 282" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="80" y1="230.0" x2="680" y2="230.0" stroke="#D9D5CA"/><text x="72" y="234.0" text-anchor="end" font-size="12" fill="#5A6475">0%</text><line x1="80" y1="182.5" x2="680" y2="182.5" stroke="#D9D5CA"/><text x="72" y="186.5" text-anchor="end" font-size="12" fill="#5A6475">25%</text><line x1="80" y1="135.0" x2="680" y2="135.0" stroke="#D9D5CA"/><text x="72" y="139.0" text-anchor="end" font-size="12" fill="#5A6475">50%</text><line x1="80" y1="87.5" x2="680" y2="87.5" stroke="#D9D5CA"/><text x="72" y="91.5" text-anchor="end" font-size="12" fill="#5A6475">75%</text><line x1="80" y1="40.0" x2="680" y2="40.0" stroke="#D9D5CA"/><text x="72" y="44.0" text-anchor="end" font-size="12" fill="#5A6475">100%</text><text x="80.0" y="250" text-anchor="middle" font-size="12" fill="#5A6475">0 h</text><text x="200.0" y="250" text-anchor="middle" font-size="12" fill="#5A6475">24 h</text><text x="320.0" y="250" text-anchor="middle" font-size="12" fill="#5A6475">48 h</text><text x="440.0" y="250" text-anchor="middle" font-size="12" fill="#5A6475">72 h</text><text x="560.0" y="250" text-anchor="middle" font-size="12" fill="#5A6475">96 h</text><text x="680.0" y="250" text-anchor="middle" font-size="12" fill="#5A6475">120 h</text><polyline fill="none" stroke="#0B6FA4" stroke-width="2.6" points="80.0,230.0 110.0,230.0 120.0,173.0 200.0,173.0 210.0,135.0 320.0,135.0 330.0,87.5 410.0,87.5 420.0,40.0 680.0,40.0"/><text x="130.0" y="212.8" text-anchor="start" font-size="12" fill="#0B2A5A" font-weight="600">0–6 h: utilities, inerting, solvent circulation and heat-up</text><text x="160.0" y="163.0" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">First feed at 30%</text><text x="265.0" y="125.0" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">Hold: check balances</text><text x="370.0" y="77.5" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">Hold: tune loops</text><text x="550.0" y="30.0" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">Design rate; performance test follows</text><text x="380" y="272" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Hours from first feed preparation</text></svg></div>
+<figcaption>Figure 1. An illustrative start-up ramp from first feed to design rate, with holds to check balances and tune control loops.</figcaption>
+</figure>
+<ol>
+<li><strong>Utilities and preparation.</strong> Steam, cooling water, nitrogen and power are on. Equipment is purged with nitrogen so that no air remains where flammable material will go. Solvent is circulated and heated to operating temperature.</li>
+<li><strong>First feed at reduced rate.</strong> A lower rate gives time to respond and smaller consequences if something is wrong. Operators and engineers watch temperatures, pressures and levels against expected values.</li>
+<li><strong>Holds to check.</strong> At each step, a quick mass balance confirms that what goes in comes out. Control loops tuned on solvent are retuned on process material. Analyses confirm product quality.</li>
+<li><strong>Design rate.</strong> Once the plant runs steadily at design rate, the performance test can be scheduled.</li>
+</ol>
+<p>The start-up procedure, with these steps and their hold criteria, is one of the documents the PSSR confirmed was ready. During start-up, deviations from it are handled through the start-up team's own change process, not improvised.</p>
+<h2>The punch list</h2>
+<p>Every project ends with a list of things not quite finished. The punch list sorts them by when they must be done:</p>
+<table>
+<tr><th>Category</th><th>Meaning</th><th>Example</th></tr>
+<tr><td class="nw">A</td><td>Must be done before start-up of the system</td><td>Missing pipe support on the P-101 discharge</td></tr>
+<tr><td class="nw">B</td><td>Must be done before handover or the performance test, but not before start-up</td><td>Insulation on a section of steam line</td></tr>
+<tr><td class="nw">C</td><td>Can be done after handover</td><td>Paint touch-up; permanent labels to replace temporary ones</td></tr>
+</table>
+<p>The categories need discipline. An item moved from A to B to start on time is a decision with risk attached, and should be agreed by the same people who signed the PSSR. A long tail of category C items after handover is normal; a long tail of B items usually means the performance test will be delayed.</p>
+<h2>The performance test</h2>
+<p>The performance test proves the plant meets its design basis and the contractor's or licensor's guarantees. Typical guaranteed items are capacity, yield or conversion, product quality, and consumption of utilities such as steam, power and cooling water per tonne of product. The test conditions, duration, measurements and acceptance criteria should be written into the contract long before the test, not negotiated on the day.</p>
+<h3>Mass balance closure</h3>
+<p>The first check on test data is whether the mass balance closes. Over the test period, total mass out should equal total mass in:</p>
+<p>Closure = Σ mass out / Σ mass in</p>
+<p>If 1,000&nbsp;t went in and 982&nbsp;t of measured streams came out, closure is 98.2%. The missing 18&nbsp;t is either an unmeasured stream (a vent, a drain, a sample) or measurement error. A closure within a few percent is typical for a well-instrumented plant; the parties should agree the acceptable band in advance. Data reconciliation, which adjusts measured flows within their uncertainties so that balances close, makes the best use of imperfect data and is described in the <a href="digital-twins-in-chemical-process-plants-architecture-modeling-and-applications.html">digital twins paper</a>.</p>
+<h3>Testing a yield guarantee</h3>
+<p>The scale-up series set a design yield of 87% from pilot data (<a href="from-pilot-data-to-a-mass-and-energy-balance.html">from pilot data to a mass and energy balance</a>). Suppose the contract guarantees that yield, and a 72-hour test measures 792&nbsp;t of reactant fed and 698&nbsp;t of product made, on a basis where full conversion would give one tonne of product per tonne of reactant. The measured yield is 88.2%.</p>
+<p>Is that above the guarantee? Every measurement has uncertainty. If the feed meter, the product weighing and the product assay each have a relative standard uncertainty of 1.0%, 1.0% and 0.5%, the combined relative uncertainty of the yield is the root of the sum of squares:</p>
+<p>u<sub>yield</sub> = √(0.010² + 0.010² + 0.005²) = 1.5%</p>
+<p>That is about ±1.3 percentage points at one standard uncertainty, or ±2.6 at about 95% confidence. The measured 88.2% is 1.2 points above the 87% guarantee, which is within the measurement uncertainty. Whether the guarantee is met then depends on what the contract says about uncertainty: whether the measured value is compared directly, or a tolerance is allowed. This is why test procedures specify the meters, their calibration before the test and how uncertainty is treated.</p>
+<h2>Handover</h2>
+<p>When the performance test is accepted and category A and B items are closed, the plant is handed over to operations. The handover package includes as-built drawings, the process safety information, operating and maintenance procedures, vendor manuals, spare parts, training records, the remaining punch list and the performance test report. Many of these documents started life in the <a href="what-a-feed-package-contains-and-what-each-document-decides.html">FEED package</a>; handover is where they become the plant's operating record.</p>
+<h2>Key points</h2>
+<ul>
+<li>Start up in steps from a reduced rate, with holds to check balances, tune loops and confirm quality.</li>
+<li>Sort the punch list by when items must be done, and treat moving an item to a later category as a risk decision.</li>
+<li>Write the performance test into the contract early: guarantees, duration, measurements and acceptance criteria.</li>
+<li>Check mass balance closure first, and agree how measurement uncertainty is treated before the test.</li>
+</ul>
+<p>This completes the Commissioning series. For the earlier stages of the same plant, see the <a href="from-concept-to-construction-five-stages-of-a-process-plant-project.html">FEED series</a> and the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a>.</p>
+<p class="oee-note"><em>The plant, schedule and numbers in this series are an illustrative example. Commissioning and start-up must follow your own procedures, the vendors' instructions and the regulations that apply where you operate.</em></p>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>start-up</span><span>punch list</span><span>performance test</span><span>mass balance closure</span><span>yield guarantee</span><span>commissioning</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 180 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="from mechanical completion to handover: the commissioning sequence how a process plant is commissioned: the stages from mechanical completion to handover, systemization, pre-commissioning checks and who leads when. commissioning mechanical completion pre-commissioning systemization start-up process plant"><div class="thumb"><img src="../assets/media/covers/thumbs/from-mechanical-completion-to-handover-the-commissioning-sequence.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Commissioning series · Part 1 of 3</p><h3><a href="../post/from-mechanical-completion-to-handover-the-commissioning-sequence.html">From Mechanical Completion to Handover: The Commissioning Sequence</a></h3><p class="muted">How a process plant is commissioned: the stages from mechanical completion to handover, systemization, pre-commissioning checks and who leads when.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="the pre-startup safety review: what to check before hazardous materials go in what a pre-startup safety review covers, who should do it, how hazop actions are closed or deferred, and a worked go/no-go decision for a feed section. pssr pre-startup safety review process safety hazop actions commissioning start-up"><div class="thumb"><img src="../assets/media/covers/thumbs/the-pre-startup-safety-review-what-to-check-before-start-up.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Commissioning series · Part 2 of 3</p><h3><a href="../post/the-pre-startup-safety-review-what-to-check-before-start-up.html">The Pre-Startup Safety Review: What to Check Before Hazardous Materials Go In</a></h3><p class="muted">What a pre-startup safety review covers, who should do it, how HAZOP actions are closed or deferred, and a worked go/no-go decision for a feed section.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering operational-efficiency" data-search="from pilot data to a mass and energy balance a worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram. mass balance energy balance scale-up operating cost yield process design"><div class="thumb"><img src="../assets/media/covers/thumbs/from-pilot-data-to-a-mass-and-energy-balance.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 3 of 3</p><h3><a href="../post/from-pilot-data-to-a-mass-and-energy-balance.html">From Pilot Data to a Mass and Energy Balance</a></h3><p class="muted">A worked example that scales a 100 kg pilot batch to a 5,000 t/y plant: mass balance, energy balance, utility loads and variable cost per kilogram.</p><p class="meta">Nov 11, 2026 · 4 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "First Run to Steady State: Start-Up, the Punch List and the Performance Test", "datePublished": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/first-run-to-steady-state-start-up-punch-list-and-performance-test", "description": "How a process plant goes from first feed to design rate: a stepped start-up, punch list categories, mass balance closure and testing a yield guarantee.", "image": "https://www.chmltech.com/assets/media/covers/first-run-to-steady-state-start-up-punch-list-and-performance-test.jpg", "dateModified": "2026-11-13"}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+</body>
+</html>
