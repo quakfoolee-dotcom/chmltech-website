@@ -1,4 +1,4 @@
-"""Add a dated "update" note at the top of older articles whose subject has moved on (V4.66).
+"""Add a dated "update" note at the top of older articles whose subject has moved on (V4.66; GA4 note V4.71).
 
 Usage:  python3 content/gen/update_notes.py
 
@@ -27,6 +27,13 @@ NOTES = {
         '<strong>Written in 2025.</strong> The operating advice below still applies; the economic outlook is that of early 2025. '
         'For the 2026 tax measures that reward productivity investment, see '
         '<a href="canada-budget-2026-what-manufacturers-and-process-plants-should-know.html">Budget 2026: what manufacturers and process plants should know</a>.'),
+    "how-to-measure-your-website-s-performance-using-google-analytics-a-comprehensive-guide": (
+        "ga4",
+        '<strong>Written in 2023 for Universal Analytics.</strong> Google stopped processing data in standard Universal Analytics '
+        'properties on 1 July 2023 and removed access in July 2024; Google Analytics 4 (GA4) is now the only version. The ideas below '
+        'still apply, but some names have changed: GA4 records everything as events, goals are now <em>key events</em> (called '
+        'conversions until March 2024), and engagement rate is the main measure in place of bounce rate. For how to be found in '
+        'search and AI answers, see <a href="the-key-differences-between-seo-and-geo-for-enhancing-your-online-presence.html">SEO vs GEO</a>.'),
 }
 
 

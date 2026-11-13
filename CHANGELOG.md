@@ -1,5 +1,16 @@
 # Changelog
 
+## V4.71 — 2026-11-13
+First release from the audit of the 115 Insights posts published before November 2026 (`Chmltech_Old_Posts_Audit_V1.xlsx`, kept outside the repo).
+- **Visible errors fixed.**
+  - *Top 10 Inventory Management Software:* removed the opening paragraph, which was the AI writing prompt left in by mistake ("In this post, you could list and compare…").
+  - *Optimize Your Production Schedule with Katana MRP:* the product name was misspelled "Kanata" (title, heading, description, text and its cards). The address keeps `kanata-mrp` so links still work.
+  - *Measure your website with Google Analytics:* dated note at the top (written for Universal Analytics, shut down July 2023; GA4 key events and engagement rate), linking the SEO vs GEO post.
+- **Two posts retired to redirects:** *Case Study: Two pf the Keys to Walmart's Success* (106 words around a video lost in the Wix move) → the Tesla business model canvas post; *Five Ways that ESG Creates Value* (closely followed a 2019 McKinsey Quarterly article of the same title) → ESG Frameworks and Standards. Insights now lists 178 articles; chip counts re-checked.
+- **Real headings on 52 older posts.** Paragraphs that held only bold text are now `<h2>` (or `<h3>` for labels ending in a colon); posts with `<h3>` but no `<h2>` had them promoted; ALL-CAPS headings set in normal capitals. 361 headings in all.
+- **"Read next" links on 113 older posts:** a closing paragraph linking three related articles (TF-IDF similarity, same category first, skipping posts due to be merged) and the matching service page; the two book reviews with exams link their exam. The "Related articles" cards under each post now show the same three articles.
+- New script `content/gen/legacy_fixes.py` (safe to re-run); `refresh_article.py --retire` now works when the target is a migrated post with no JSON; GA4 note added to `update_notes.py`.
+
 ## V4.70 — 2026-11-13
 - **CAPEX/OPEX journal paper is Process Engineering only.** `post/engineering-capex-and-opex-estimation-for-process-plants` (Online Journal 104) drops Operational Efficiency; it keeps Chmltech Online Journal + Process Engineering. Card `data-cats` updated on all 23 pages that show it; the Operational Efficiency chip now reads 41. Persisted in `TOPIC` in `content/gen/journal_pages.py`.
 - Decided with the owner: the other multi-category journal papers (Agentic AI in Manufacturing, Physical AI, Digital Twins, the two hydrogen papers) and the Canada 2026 articles (Budget 2026, SR&ED, Clean Hydrogen ITC) keep their extra categories, since they are cross-disciplinary rather than engineering how-to posts. No borderline inventory posts join the Inventory Management filter.

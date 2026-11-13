@@ -13,7 +13,7 @@ Usage:
 Use the first form for an old (migrated) article that has been rewritten under the same address, so links and
 search rankings are kept. Both forms are safe to run twice. Run seo_pass.py afterwards, as for any build.
 """
-import glob, json, os, re, sys
+import glob, html, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import add_article as A
 import assetver
@@ -74,7 +74,11 @@ STUB = ('<!doctype html><html lang="en-CA"><head><meta charset="utf-8"><title>{t
 
 
 def retire(old, new):
-    na = json.load(open(os.path.join(A.ROOT, "content", "articles", new + ".json"), encoding="utf-8"))
+    jp = os.path.join(A.ROOT, "content", "articles", new + ".json")
+    if os.path.exists(jp): na = json.load(open(jp, encoding="utf-8"))
+    else:                                                     # a migrated article has no JSON: take the page title
+        t = open(os.path.join(A.ROOT, "post", new + ".html"), encoding="utf-8").read()
+        na = {"title": html.unescape(re.search(r"<title>(.*?)(?: \| Chmltech Ltd\.)?</title>", t, re.S).group(1))}
     p = os.path.join(A.ROOT, "insights.html")
     s = assetver.strip(open(p, encoding="utf-8").read())
     s, cats = take_card(s, old)
