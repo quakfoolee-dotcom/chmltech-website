@@ -27,6 +27,14 @@ NOTES = {
         '<strong>Written in 2025.</strong> The operating advice below still applies; the economic outlook is that of early 2025. '
         'For the 2026 tax measures that reward productivity investment, see '
         '<a href="canada-budget-2026-what-manufacturers-and-process-plants-should-know.html">Budget 2026: what manufacturers and process plants should know</a>.'),
+    "change-management-toolkit-the-top-10-models-and-how-to-choose-the-right-one-for-your-organization": (
+        "v473",
+        '<strong>Updated November 2026.</strong> Added a comparison table of the ten models and a section on '
+        '<a href="#ai-and-data">change in AI and data projects</a>, which replaces our separate article on change models for AI and data leaders.'),
+    "building-effective-quality-management-systems": (
+        "v473",
+        '<strong>Updated November 2026.</strong> Added links to our ISO 9001 series, including '
+        '<a href="iso-9001-2026-what-changed-from-2015.html">what changed in ISO 9001:2026</a>.'),
 }
 
 

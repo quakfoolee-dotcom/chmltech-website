@@ -55,6 +55,8 @@ SKIP = {
     "why-a-strong-sales-process-is-essential-and-how-it-helps-increase-revenue",
     # retired in V4.71
     "case-study-two-pf-the-keys-to-walmart-s-success", "five-ways-that-esg-creates-value",
+    # retired in V4.73
+    "optimize-your-production-schedule-with-kanata-mrp",
 }
 
 # Book reviews with a matching exam page.
@@ -137,6 +139,12 @@ def headings(b):
     return b, n
 
 
+def orphan_captions(b):
+    """Remove <figcaption> elements that are not inside a <figure>: the migration dropped the images but kept their captions."""
+    parts = re.split(r'(<figure\b.*?</figure>)', b, flags=re.S)
+    return "".join(x if x.startswith("<figure") else re.sub(r'<figcaption>[^<]*</figcaption>', "", x) for x in parts)
+
+
 def related(arts):
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.metrics.pairwise import cosine_similarity
@@ -189,6 +197,8 @@ def main():
         if a["journal"] or not a["pub"] or a["pub"] >= CUTOFF: continue
         s = a["s"]; m = body_of(s)
         b, n = headings(m.group(2))
+        # 2b. captions left behind when stock photos were dropped in the migration (V4.73)
+        b = orphan_captions(b)
         if n: nh += 1; print(f"headings: {slug} ({n})")
         # 3. read-next paragraph
         b = re.sub(r'\s*<p data-readnext>.*?</p>', "", b, flags=re.S)
