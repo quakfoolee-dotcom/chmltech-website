@@ -30,8 +30,8 @@ ORIGINAL = {L2C: "2023-03-11", SRV: "2023-03-12", PR: "2023-03-20"}
 # ═════════════════════════ 1. Lead to cash ═════════════════════════
 def fig_l2c():
     return steps_fig([("Lead", ["Enquiry or", "trial sign-up"]), ("Qualify", ["Fit, need,", "budget, timing"]), ("Quote", ["Price, terms,", "approval"]),
-                      ("Order", ["Contract or PO;", "set up account"]), ("Deliver", ["Ship, install,", "or provision"]), ("Invoice", ["Accurate, on time,", "right terms"]),
-                      ("Cash", ["Collect; apply", "payment; follow up"])],
+                      ("Order", ["Contract or PO;", "set up account"]), ("Deliver", ["Ship, install,", "or provision"]), ("Invoice", ["Accurate,", "on time, with", "right terms"]),
+                      ("Cash", ["Collect and", "apply payment;", "follow up"])],
                      "The lead-to-cash process in seven steps: lead, from an enquiry, web form or trial sign-up; qualify for fit, need, budget and "
                      "timing; quote with price, terms and approval; order through a contract or purchase order and account set-up; deliver by "
                      "shipping, installing or provisioning; invoice accurately, on time and on the right terms; and collect cash, apply the payment "

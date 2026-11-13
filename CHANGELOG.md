@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.81.1 — 2026-11-13
+- **Lead-to-cash figure:** Invoice and Cash box text wrapped to three lines so it stays inside the boxes (`content/articles/v479_articles.py`).
+
 ## V4.81 — 2026-11-13
 First 2025 release under the V8 audit plan: posts with untraceable statistics rewritten at their old addresses, original dates kept.
 - **Shopify and Lovable** (`how-shopify-and-lovable-are-empowering-…`): what the integration does and does not do, 2026 costs, fit table, launch checklist, alternatives, product-test example; incorrect "recommendations engine" claim removed.
