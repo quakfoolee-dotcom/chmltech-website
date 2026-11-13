@@ -511,8 +511,7 @@ def kpi():
     sections = ""
     for sec, rows in KPIS.items():
         sid = re.sub(r"[^a-z]+", "-", sec.lower()).strip("-")
-        sections += f'<h2 id="{sid}">{sec}</h2>\n' + table(["KPI", "What it shows", "Formula", "Example"], [list(r) for r in rows]) + "\n"
-    toc = "".join(f'<li><a href="#{re.sub(r"[^a-z]+", "-", s.lower()).strip("-")}">{s} ({len(r)})</a></li>' for s, r in KPIS.items())
+        sections += f'<h2 id="{sid}" data-toc-label="{sec} ({len(rows)})">{sec}</h2>\n' + table(["KPI", "What it shows", "Formula", "Example"], [list(r) for r in rows]) + "\n"
     types = [
         ("Leading", "Predicts a result before it happens", "Late purchase orders this week"),
         ("Lagging", "Reports a result after it happened", "On-time delivery last month"),
@@ -525,12 +524,6 @@ def kpi():
     ]
     body = f"""
 <p>A key performance indicator (KPI) is a measure that shows whether you are making progress toward a specific business goal. This list of 50 was first published in 2023. It has been revised: formulas are now given for every KPI, several worked examples have been corrected (return on investment was calculated on revenue instead of gain, and Net Promoter Score was described as a percentage of customers), and duplicates have been removed. Two shorter articles on types of KPIs and on KPIs for individual team members have also been folded into this one.</p>
-<h2>Contents</h2>
-<ul>
-<li><a href="#types">Types of KPIs</a></li>
-{toc}
-<li><a href="#cascade">KPIs for each team member</a></li>
-</ul>
 <h2 id="types">Types of KPIs</h2>
 <p>Most KPI types come in pairs. The useful habit is to pair a lagging KPI, which tells you whether you got there, with one or two leading KPIs, which tell you early enough to act.</p>
 {table(["Type", "What it means", "Example"], types)}

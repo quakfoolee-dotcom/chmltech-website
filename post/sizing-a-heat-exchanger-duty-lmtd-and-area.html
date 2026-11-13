@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/sizing-a-heat-exchanger-duty-lmtd-and-area">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-13">
@@ -64,13 +64,15 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf">
 <p><a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> sized pump P-101. This part sizes the heater it feeds: E-101, a shell-and-tube exchanger that uses low-pressure steam to warm the reactor feed. The method is the same for most heaters and coolers: find the duty, find the temperature driving force, choose an overall heat transfer coefficient, and calculate the area.</p>
-<h2>Step 1: the duty</h2>
+<h2 id="step-1-the-duty">Step 1: the duty</h2>
 <p>The feed of 6,250&nbsp;kg/h is heated from 20&nbsp;°C to 80&nbsp;°C with a heat capacity of 2.0&nbsp;kJ/kg·K:</p>
 <p>Q = ṁ × c<sub>p</sub> × ΔT = 6,250 × 2.0 × 60 / 3,600 = <strong>208&nbsp;kW</strong></p>
 <p>That matches the stream table in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>. The steam needed is the duty divided by the latent heat of steam at 3.0&nbsp;barg, about 2,133&nbsp;kJ/kg: roughly 352&nbsp;kg/h.</p>
-<h2>Step 2: the driving force (LMTD)</h2>
+<h2 id="step-2-the-driving-force-lmtd">Step 2: the driving force (LMTD)</h2>
 <p>Heat flows because the steam is hotter than the feed. The difference is not constant along the exchanger, so the design uses the <strong>log mean temperature difference</strong>:</p>
 <p>LMTD = (ΔT<sub>1</sub> − ΔT<sub>2</sub>) / ln(ΔT<sub>1</sub> / ΔT<sub>2</sub>)</p>
 <p>Steam at 3.0&nbsp;barg condenses at about 143.6&nbsp;°C. At the feed inlet the difference is 123.6&nbsp;K; at the outlet it is 63.6&nbsp;K. The LMTD is <strong>90.3&nbsp;K</strong>. Because the steam condenses at one temperature, flow direction does not matter and no correction factor is needed. For two liquids, a multi-pass exchanger needs a correction factor, F, applied to the LMTD.</p>
@@ -78,13 +80,13 @@
 <div style="overflow-x:auto"><svg role="img" aria-label="Temperature against position along the heater. Steam condenses at a constant 143.6 degrees Celsius. The feed rises from 20 to 80 degrees along a curve. The temperature difference is 123.6 kelvin at the feed inlet and 63.6 kelvin at the outlet, giving a log mean of 90.3 kelvin." viewBox="0 0 700 280" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="90" y1="240.0" x2="650" y2="240.0" stroke="#D9D5CA"/><text x="82" y="244.0" text-anchor="end" font-size="12" fill="#5A6475">0 °C</text><line x1="90" y1="187.5" x2="650" y2="187.5" stroke="#D9D5CA"/><text x="82" y="191.5" text-anchor="end" font-size="12" fill="#5A6475">40 °C</text><line x1="90" y1="135.0" x2="650" y2="135.0" stroke="#D9D5CA"/><text x="82" y="139.0" text-anchor="end" font-size="12" fill="#5A6475">80 °C</text><line x1="90" y1="82.5" x2="650" y2="82.5" stroke="#D9D5CA"/><text x="82" y="86.5" text-anchor="end" font-size="12" fill="#5A6475">120 °C</text><line x1="90" y1="30.0" x2="650" y2="30.0" stroke="#D9D5CA"/><text x="82" y="34.0" text-anchor="end" font-size="12" fill="#5A6475">160 °C</text><line x1="90" y1="51.525000000000006" x2="650" y2="51.525000000000006" stroke="#C27712" stroke-width="2.6"/><text x="370.0" y="41.525000000000006" text-anchor="middle" font-size="12.5" fill="#C27712" font-weight="600">Condensing steam at 3.0 barg: 143.6 °C</text><polyline fill="none" stroke="#0B6FA4" stroke-width="2.6" points="90.0,213.8 95.6,212.7 101.2,211.6 106.8,210.5 112.4,209.5 118.0,208.4 123.6,207.4 129.2,206.4 134.8,205.4 140.4,204.3 146.0,203.3 151.6,202.3 157.2,201.3 162.8,200.3 168.4,199.3 174.0,198.4 179.6,197.4 185.2,196.4 190.8,195.5 196.4,194.5 202.0,193.6 207.6,192.6 213.2,191.7 218.8,190.8 224.4,189.8 230.0,188.9 235.6,188.0 241.2,187.1 246.8,186.2 252.4,185.3 258.0,184.4 263.6,183.6 269.2,182.7 274.8,181.8 280.4,180.9 286.0,180.1 291.6,179.2 297.2,178.4 302.8,177.6 308.4,176.7 314.0,175.9 319.6,175.1 325.2,174.2 330.8,173.4 336.4,172.6 342.0,171.8 347.6,171.0 353.2,170.2 358.8,169.5 364.4,168.7 370.0,167.9 375.6,167.1 381.2,166.4 386.8,165.6 392.4,164.8 398.0,164.1 403.6,163.3 409.2,162.6 414.8,161.9 420.4,161.1 426.0,160.4 431.6,159.7 437.2,159.0 442.8,158.3 448.4,157.6 454.0,156.9 459.6,156.2 465.2,155.5 470.8,154.8 476.4,154.1 482.0,153.4 487.6,152.7 493.2,152.1 498.8,151.4 504.4,150.7 510.0,150.1 515.6,149.4 521.2,148.8 526.8,148.1 532.4,147.5 538.0,146.9 543.6,146.2 549.2,145.6 554.8,145.0 560.4,144.4 566.0,143.7 571.6,143.1 577.2,142.5 582.8,141.9 588.4,141.3 594.0,140.7 599.6,140.1 605.2,139.6 610.8,139.0 616.4,138.4 622.0,137.8 627.6,137.2 633.2,136.7 638.8,136.1 644.4,135.6 650.0,135.0"/><text x="437.2" y="180.625" text-anchor="middle" font-size="12.5" fill="#0B6FA4" font-weight="600">Feed: 20 → 80 °C</text><line x1="98" y1="51.525000000000006" x2="98" y2="213.75" stroke="#0B2A5A" stroke-width="1.4" stroke-dasharray="4 3"/><text x="104" y="132.6375" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">ΔT₁ = 123.6 K</text><line x1="642" y1="51.525000000000006" x2="642" y2="135.0" stroke="#0B2A5A" stroke-width="1.4" stroke-dasharray="4 3"/><text x="636" y="93.2625" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">ΔT₂ = 63.6 K</text><text x="370" y="268" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Position along the exchanger (feed inlet → outlet)</text></svg></div>
 <figcaption>Figure 1. Temperature profiles in E-101. The steam stays at its condensing temperature; the feed approaches it along a curve, so the driving force shrinks toward the outlet.</figcaption>
 </figure>
-<h2>Step 3: the overall coefficient (U)</h2>
+<h2 id="step-3-the-overall-coefficient-u">Step 3: the overall coefficient (U)</h2>
 <p>U combines every resistance between the steam and the feed: the condensing film, the tube wall, the liquid film inside the tubes and any fouling. For preliminary sizing, engineers use typical values for the service. For condensing steam heating a light organic liquid in a shell-and-tube exchanger, a few hundred W/m²·K is typical; this example uses <strong>500&nbsp;W/m²·K</strong>. The liquid side controls, so tube velocity matters more than the steam side.</p>
-<h2>Step 4: the area</h2>
+<h2 id="step-4-the-area">Step 4: the area</h2>
 <p>From Q = U × A × LMTD:</p>
 <p>A = 208,333 / (500 × 90.3) = <strong>4.61&nbsp;m²</strong></p>
 <p>Add a margin for fouling and uncertainty in U. With 20%, the design area is 5.54&nbsp;m². Margins are better stated as a fouling factor in the U calculation, which makes the reason visible; a flat percentage is acceptable at this stage if the design basis says so.</p>
-<h2>Step 5: lay out the tubes</h2>
+<h2 id="step-5-lay-out-the-tubes">Step 5: lay out the tubes</h2>
 <p>The area has to fit a geometry that also gives a sensible tube velocity. With ¾" tubes (inside diameter 15.8&nbsp;mm) and a target of about 1.0&nbsp;m/s, the feed needs 11 tubes per pass. With two tube passes that is 22 tubes, and the area requires a tube length of about <strong>4.2&nbsp;m</strong>. A standard length of 4.5&nbsp;m gives a little more area.</p>
 <table>
 <tr><th class="nw">Item</th><th>E-101 value</th></tr>
@@ -97,14 +99,14 @@
 <tr><td class="nw">Area, required / design</td><td>4.61 / 5.54&nbsp;m²</td></tr>
 <tr><td class="nw">Tubes</td><td>22 × ¾" OD, 2 passes, 4.5&nbsp;m long</td></tr>
 </table>
-<h2>What to check next</h2>
+<h2 id="what-to-check-next">What to check next</h2>
 <ul>
 <li><strong>Tube-side pressure drop.</strong> <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> allowed 50&nbsp;kPa. At about 1&nbsp;m/s in two short passes the real figure will be well under that; the vendor's rating confirms it.</li>
 <li><strong>Control.</strong> Steam flow is controlled by a valve on the steam inlet, as on the <a href="a-worked-hazop-the-feed-heater-node-by-node.html">HAZOP's P&amp;ID</a>. At low load, the shell pressure can fall below the condensate return pressure and the exchanger floods with condensate (stall). The condensate system must be designed for it.</li>
 <li><strong>Overpressure.</strong> The tube side runs at about 3.5&nbsp;barg and the shell at 3.0&nbsp;barg. A burst tube would push feed into the shell. Whether that needs a relief device is one of the cases in <a href="pressure-relief-basics-what-a-psv-protects-against.html">pressure relief basics</a>.</li>
 <li><strong>Rating by the vendor.</strong> Preliminary sizing gives the area and layout to request quotes. The vendor's thermal rating, with actual film coefficients, is what the purchase order is based on.</li>
 </ul>
-<h2>Key points</h2>
+<h2 id="key-points">Key points</h2>
 <ul>
 <li>Duty first: Q = ṁ c<sub>p</sub> ΔT, and check it against the stream table.</li>
 <li>The driving force is the log mean temperature difference, corrected for flow arrangement where needed.</li>

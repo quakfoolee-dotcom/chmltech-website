@@ -343,3 +343,18 @@ p{margin:0}
 @media (max-width:960px){.dark .list-check li{color:var(--on-dark)}
 .dark .list-check li::before{background-color:rgba(141,198,63,.18)}
 .feature-split{grid-template-columns:minmax(0,1fr)}}
+/* V4.75: contents list on long Insights articles (content/gen/article_toc.py) */
+.a-toc{padding:22px 24px;gap:6px}
+.a-toc ol,.a-toc-m ol{list-style:none;padding:0;margin:4px 0 0;font-size:14.5px;line-height:1.35}
+.a-toc ol{max-height:calc(100vh - 200px);overflow-y:auto}
+.a-toc li,.a-toc-m li{margin:0 0 9px}
+.a-toc a,.a-toc-m a{color:var(--ink);text-decoration:none}
+.a-toc a:hover,.a-toc-m a:hover{color:var(--blue);text-decoration:underline}
+.prose h2[id]{scroll-margin-top:100px}
+.a-toc-m{display:none}
+@media (max-width:1000px){
+  .a-toc{display:none}
+  .a-toc-m{display:block;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 18px;margin:0 0 28px}
+  .a-toc-m summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  .a-toc-m ol{margin-top:12px}
+}

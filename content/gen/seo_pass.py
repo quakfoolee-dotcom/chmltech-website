@@ -399,6 +399,8 @@ def write_llms(entries):
     wr("llms.txt", "\n".join(out))
 
 def main():
+    import article_toc
+    print(f"contents lists: {article_toc.run(ROOT)} articles")
     sm, ll = [], []
     for rel in pages():
         process(rel, sm, ll)

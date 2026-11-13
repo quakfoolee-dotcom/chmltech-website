@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/clean-hydrogen-itc-explained-for-plant-owners">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-13">
@@ -62,10 +62,14 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#the-basics">The basics</a></li><li><a href="#the-rate-set-by-carbon-intensity">The rate: set by carbon intensity</a></li><li><a href="#the-cliffs-why-the-design-basis-matters">The cliffs: why the design basis matters</a></li><li><a href="#the-calendar-schedule-risk-is-credit-risk">The calendar: schedule risk is credit risk</a></li><li><a href="#the-claim-is-checked-against-operation">The claim is checked against operation</a></li><li><a href="#other-rules-to-know">Other rules to know</a></li><li><a href="#key-points">Key points</a></li><li><a href="#sources">Sources</a></li></ol></details>
+
+
+
+
 <p>The Clean Hydrogen Investment Tax Credit can return up to 40 percent of the capital cost of a hydrogen plant in cash. For a plant owner weighing an electrolyzer, a reformer with carbon capture or a pyrolysis unit, it is often the difference between a project that pencils out and one that does not.</p>
 <p>It is also a credit with sharp edges. The rate depends on a carbon intensity threshold, the credit shrinks for a plant that starts up a year late, and the claim is checked against actual operation for years afterwards. This article explains how the credit works from an engineering point of view: what sets the rate, what can move it, and what to design for.</p>
-<h2>The basics</h2>
+<h2 id="the-basics">The basics</h2>
 <ul>
 <li><strong>What it is:</strong> a refundable credit on the capital cost of eligible clean hydrogen property, claimed by a taxable Canadian corporation on its tax return. Refundable means it is paid out even if the company owes no tax.</li>
 <li><strong>What it covers:</strong> equipment used to produce hydrogen in a qualified clean hydrogen project, and at a lower rate, equipment that converts the clean hydrogen into ammonia. Natural Resources Canada's Technical and Equipment Guidance lists what counts.</li>
@@ -73,7 +77,7 @@
 <li><strong>When:</strong> property acquired and available for use from 28 March 2023. The rate halves for property that becomes available for use in 2034, and the credit ends after 2034.</li>
 <li><strong>Who decides:</strong> NRCan reviews the project plan and the carbon intensity model. The CRA handles the claim, audit and compliance.</li>
 </ul>
-<h2>The rate: set by carbon intensity</h2>
+<h2 id="the-rate-set-by-carbon-intensity">The rate: set by carbon intensity</h2>
 <p>The rate depends on the expected carbon intensity (CI) of the hydrogen, measured in kilograms of CO₂ equivalent per kilogram of hydrogen, from cradle to the plant gate. It includes upstream emissions, such as those from the electricity or natural gas you buy, up to the point the hydrogen leaves the plant.</p>
 <table>
 <tr><th class="nw">Expected carbon intensity</th><th class="num">Before 2034</th><th class="num">In 2034</th><th class="num">After 2034</th></tr>
@@ -84,7 +88,7 @@
 <tr><td class="nw">Clean ammonia equipment</td><td class="num">15%</td><td class="num">7.5%</td><td class="num">Nil</td></tr>
 </table>
 <p>These are the full rates, which require the business to elect to meet the labour requirements: prevailing wages and apprentice hours on the project. A business that does not elect them gets 10 percentage points less.</p>
-<h2>The cliffs: why the design basis matters</h2>
+<h2 id="the-cliffs-why-the-design-basis-matters">The cliffs: why the design basis matters</h2>
 <p>The rate does not slide. It steps. Take an illustrative electrolysis project with $30 million of eligible property.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Step chart of the Clean Hydrogen ITC rate against expected carbon intensity. Below 0.75 kilograms of CO2 equivalent per kilogram of hydrogen, 40 percent, worth 12 million dollars on a 30 million dollar project. From 0.75 to under 2, 25 percent, 7.5 million dollars. From 2 to under 4, 15 percent, 4.5 million dollars. At 4 or above, nil. A line in each step marks half the rate, which applies to property that becomes available for use in 2034." viewBox="10 0 720 266" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="80" y1="220.0" x2="700" y2="220.0" stroke="#D9D5CA"/><text x="72" y="224.0" text-anchor="end" font-size="12" fill="#5A6475">0%</text><line x1="80" y1="178.0" x2="700" y2="178.0" stroke="#D9D5CA"/><text x="72" y="182.0" text-anchor="end" font-size="12" fill="#5A6475">10%</text><line x1="80" y1="136.0" x2="700" y2="136.0" stroke="#D9D5CA"/><text x="72" y="140.0" text-anchor="end" font-size="12" fill="#5A6475">20%</text><line x1="80" y1="94.0" x2="700" y2="94.0" stroke="#D9D5CA"/><text x="72" y="98.0" text-anchor="end" font-size="12" fill="#5A6475">30%</text><line x1="80" y1="52.0" x2="700" y2="52.0" stroke="#D9D5CA"/><text x="72" y="56.0" text-anchor="end" font-size="12" fill="#5A6475">40%</text><rect x="80" y="52.0" width="93.0" height="168.0" fill="#4D7F12" opacity=".8"/><text x="126.5" y="44.0" text-anchor="middle" font-size="12.5" fill="#4D7F12" font-weight="600">40% · $12.0M</text><rect x="80" y="136.0" width="93.0" height="2.5" fill="#0B2A5A"/><rect x="173.0" y="115.0" width="155.0" height="105.0" fill="#0B6FA4" opacity=".8"/><text x="250.5" y="107.0" text-anchor="middle" font-size="12.5" fill="#0B6FA4" font-weight="600">25% · $7.5M</text><rect x="173.0" y="167.5" width="155.0" height="2.5" fill="#0B2A5A"/><rect x="328" y="157.0" width="248" height="63.0" fill="#C27712" opacity=".8"/><text x="452.0" y="149.0" text-anchor="middle" font-size="12.5" fill="#C27712" font-weight="600">15% · $4.5M</text><rect x="328" y="188.5" width="248" height="2.5" fill="#0B2A5A"/><rect x="576" y="220.0" width="124" height="0.0" fill="#5A6475" opacity=".8"/><text x="80" y="238" text-anchor="middle" font-size="12" fill="#0B2A5A">0</text><text x="173.0" y="238" text-anchor="middle" font-size="12" fill="#0B2A5A">0.75</text><text x="328" y="238" text-anchor="middle" font-size="12" fill="#0B2A5A">2</text><text x="576" y="238" text-anchor="middle" font-size="12" fill="#0B2A5A">4</text><text x="700" y="238" text-anchor="middle" font-size="12" fill="#0B2A5A">5</text><text x="390" y="256" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Expected carbon intensity, kg CO₂e per kg H₂</text><text x="638.0" y="203.2" text-anchor="middle" font-size="12.5" fill="#5A6475" font-weight="600">Nil</text><rect x="470" y="10" width="26" height="3" fill="#0B2A5A"/><text x="502" y="15" text-anchor="start" font-size="12" fill="#0B2A5A">Rate if available for use in 2034 (half)</text></svg></div>
@@ -98,7 +102,7 @@
 <li><strong>Utilization.</strong> Start-ups, turndown and standby can raise the average CI per kilogram produced.</li>
 </ul>
 <p>Design with margin. If the base case sits just under a threshold, a modest change in the power mix or the capture rate can drop the project a tier.</p>
-<h2>The calendar: schedule risk is credit risk</h2>
+<h2 id="the-calendar-schedule-risk-is-credit-risk">The calendar: schedule risk is credit risk</h2>
 <p>The rate depends on when the property becomes available for use, not when you order it. A project that slips can lose half its credit, or all of it.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Bar chart of the credit on a 30 million dollar project below 0.75 kilograms carbon intensity, by the year it becomes available for use. 2033: 12 million dollars at 40 percent. 2034: 6 million dollars at 20 percent. 2035: no credit." viewBox="0 0 740 176" style="width:100%;height:auto;display:block;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><text x="196" y="42" text-anchor="end" font-size="13.5" fill="#0B2A5A" font-weight="600">Available for use in 2033</text><rect x="210" y="20" width="330.0" height="34" rx="4" fill="#4D7F12"/><text x="550.0" y="42" text-anchor="start" font-size="13" fill="#4D7F12" font-weight="600">$12.0M credit (40%)</text><text x="196" y="94" text-anchor="end" font-size="13.5" fill="#0B2A5A" font-weight="600">Slips into 2034</text><rect x="210" y="72" width="165.0" height="34" rx="4" fill="#C27712"/><text x="385.0" y="94" text-anchor="start" font-size="13" fill="#C27712" font-weight="600">$6.0M credit (20%)</text><text x="196" y="146" text-anchor="end" font-size="13.5" fill="#0B2A5A" font-weight="600">Slips into 2035</text><rect x="210" y="124" width="2" height="34" rx="4" fill="#B43E3E"/><text x="220.0" y="146" text-anchor="start" font-size="13" fill="#B43E3E" font-weight="600">No credit</text></svg></div>
@@ -106,7 +110,7 @@
 </figure>
 <p>For a project starting engineering now, 2033 looks distant. It is not. A hydrogen plant still needs <a href="from-concept-to-construction-five-stages-of-a-process-plant-project.html">FEED, permitting, procurement of long-lead equipment, construction and commissioning</a>. Electrolyzer stacks, compressors and transformers can carry long delivery times. Build the 2034 cut-off into the schedule as a hard constraint, with float.</p>
 <p>Budget 2026 extended the Clean Technology and Clean Electricity ITCs to property available for use before 2041. The summaries we reviewed do not show the same extension for the Clean Hydrogen ITC. Industry groups, including the Canadian Hydrogen Association, have asked for changes, so check the current rules before you lock in a schedule.</p>
-<h2>The claim is checked against operation</h2>
+<h2 id="the-claim-is-checked-against-operation">The claim is checked against operation</h2>
 <p>The credit is paid on expected carbon intensity, before the plant runs. It is then tested against what the plant actually does. The main steps:</p>
 <ol>
 <li><strong>Project plan and CI model.</strong> Submit the project plan and the expected CI, modelled with NRCan's carbon intensity guidance and workbook, through NRCan's portal.</li>
@@ -115,13 +119,13 @@
 <li><strong>Verification.</strong> During a compliance period after start-up, the actual CI is verified against the tier you claimed. If the plant runs dirtier than claimed, part of the credit can be recovered.</li>
 </ol>
 <p>Recapture can also apply if the property is later converted to another use, disposed of or exported. Read NRCan's Validation and Verification Guidance before the design is frozen, so the plant is metered and the data are kept in the form verification needs.</p>
-<h2>Other rules to know</h2>
+<h2 id="other-rules-to-know">Other rules to know</h2>
 <ul>
 <li><strong>One credit per property.</strong> Property claimed under the Clean Hydrogen ITC cannot also earn the Clean Technology ITC or another clean economy credit.</li>
 <li><strong>Other government money.</strong> Grants and other assistance reduce the capital cost on which the credit is calculated.</li>
 <li><strong>Ammonia.</strong> The 15 percent ammonia rate needs hydrogen with a CI below 4. EY's summary notes that the hydrogen and ammonia must be produced by the same taxpayer.</li>
 </ul>
-<h2>Key points</h2>
+<h2 id="key-points">Key points</h2>
 <ul>
 <li>The Clean Hydrogen ITC pays 15 to 40 percent of eligible capital cost, set by the expected carbon intensity of the hydrogen.</li>
 <li>The tiers are cliffs. A small change in CI can move millions of dollars, so design with margin below the threshold.</li>
@@ -130,10 +134,11 @@
 </ul>
 <p><strong>Planning a hydrogen project?</strong> Chmltech's process engineers have worked on hydrogen production, storage and scale-up. We prepare design bases, mass and energy balances and FEED packages that hold up to review. <a href="../book.html">Book a strategy call</a>.</p>
 <p style="font-size:15px"><em>The project and costs in this article are an illustrative example. This is general information, not tax advice. NRCan and the CRA set the rules and decide eligibility. Confirm the current rules and your project's position with a tax advisor.</em></p>
-<h2>Sources</h2><ul><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/corporations/business-tax-credits/clean-economy-itc/clean-hydrogen-itc/claiming-credit-ch-itc/calculate.html" rel="noopener" target="_blank">CRA: Calculating the credit, Clean Hydrogen ITC</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/corporations/business-tax-credits/clean-economy-itc/clean-hydrogen-itc.html" rel="noopener" target="_blank">CRA: Clean Hydrogen Investment Tax Credit</a></li><li><a href="https://www.pbo-dpb.ca/en/publications/LEG-2324-021-S--investment-tax-credit-clean-hydrogen--credit-impot-investissement-hydrogene-propre" rel="noopener" target="_blank">Parliamentary Budget Officer: Investment tax credit for clean hydrogen</a></li><li><a href="https://www.ey.com/en_ca/technical/tax/tax-alerts/2024/tax-alert-2024-no-21" rel="noopener" target="_blank">EY: Canada's proposed clean hydrogen investment tax credit</a></li><li><a href="https://gowlingwlg.com/en/insights-resources/articles/2026/federal-budget-2026" rel="noopener" target="_blank">Gowling WLG: Federal Budget 2026</a></li><li><a href="https://canadah2.ca/wp-content/uploads/2026/08/2026-08-05-FINAL-Multi-Industry-Letter-on-Clean-Economy-ITCs-1.pdf" rel="noopener" target="_blank">Canadian Hydrogen Association: letter on clean economy ITCs (August 2026)</a></li></ul>
+<h2 id="sources">Sources</h2><ul><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/corporations/business-tax-credits/clean-economy-itc/clean-hydrogen-itc/claiming-credit-ch-itc/calculate.html" rel="noopener" target="_blank">CRA: Calculating the credit, Clean Hydrogen ITC</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/corporations/business-tax-credits/clean-economy-itc/clean-hydrogen-itc.html" rel="noopener" target="_blank">CRA: Clean Hydrogen Investment Tax Credit</a></li><li><a href="https://www.pbo-dpb.ca/en/publications/LEG-2324-021-S--investment-tax-credit-clean-hydrogen--credit-impot-investissement-hydrogene-propre" rel="noopener" target="_blank">Parliamentary Budget Officer: Investment tax credit for clean hydrogen</a></li><li><a href="https://www.ey.com/en_ca/technical/tax/tax-alerts/2024/tax-alert-2024-no-21" rel="noopener" target="_blank">EY: Canada's proposed clean hydrogen investment tax credit</a></li><li><a href="https://gowlingwlg.com/en/insights-resources/articles/2026/federal-budget-2026" rel="noopener" target="_blank">Gowling WLG: Federal Budget 2026</a></li><li><a href="https://canadah2.ca/wp-content/uploads/2026/08/2026-08-05-FINAL-Multi-Industry-Letter-on-Clean-Economy-ITCs-1.pdf" rel="noopener" target="_blank">Canadian Hydrogen Association: letter on clean economy ITCs (August 2026)</a></li></ul>
 <h2>Related reading</h2><ul><li><a href="../post/chmltech-online-journal-volume-102-issue-1.html">Process intensification in hydrogen electrolysis plants</a></li><li><a href="../post/the-design-basis-ten-decisions-to-fix-before-engineering-starts.html">The design basis: ten decisions to fix before engineering starts</a></li><li><a href="../post/canada-budget-2026-what-manufacturers-and-process-plants-should-know.html">Budget 2026: what manufacturers and process plants should know</a></li></ul>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#the-basics">The basics</a></li><li><a href="#the-rate-set-by-carbon-intensity">The rate: set by carbon intensity</a></li><li><a href="#the-cliffs-why-the-design-basis-matters">The cliffs: why the design basis matters</a></li><li><a href="#the-calendar-schedule-risk-is-credit-risk">The calendar: schedule risk is credit risk</a></li><li><a href="#the-claim-is-checked-against-operation">The claim is checked against operation</a></li><li><a href="#other-rules-to-know">Other rules to know</a></li><li><a href="#key-points">Key points</a></li><li><a href="#sources">Sources</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>Clean Hydrogen ITC</span><span>hydrogen</span><span>carbon intensity</span><span>electrolysis</span><span>CCUS</span><span>investment tax credit</span><span>process plant</span></div></div>
   </aside>

@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/a-worked-hazop-the-feed-heater-node-by-node">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-12">
@@ -64,9 +64,11 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf"><p>A HAZOP, short for hazard and operability study, is a structured way of asking what could go wrong with a design. A small team takes the P&amp;ID one section at a time and applies a fixed set of guide words to each. The method is described in the international standard IEC&nbsp;61882.</p>
 <p><a href="what-happens-if-the-cooling-fails-runaway-reactions.html">Post&nbsp;1</a> showed how hot a reactor could get if its cooling failed. This post runs a HAZOP on a smaller and simpler item: the steam-heated feed heater E-101 from <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>. It heats the feed that goes to that reactor. <a href="management-of-change-for-small-plants.html">Post&nbsp;3</a> covers what happens to the design after the study.</p>
-<h2>How a HAZOP works</h2>
+<h2 id="how-a-hazop-works">How a HAZOP works</h2>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Five steps in a row: choose a node, apply a guide word, find causes and consequences, list the safeguards, and agree actions. A dashed arrow loops back to the guide word step for the next guide word and node." viewBox="4 0 716 168" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><rect x="10" y="40" width="124" height="64" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="72.0" y="68.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">1. Choose a</text><text x="72.0" y="84.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">node</text><line x1="134" y1="72" x2="154" y2="72" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="156" y="40" width="124" height="64" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="218.0" y="68.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">2. Apply a</text><text x="218.0" y="84.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">guide word</text><line x1="280" y1="72" x2="300" y2="72" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="302" y="40" width="124" height="64" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="364.0" y="68.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">3. Find causes</text><text x="364.0" y="84.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">and consequences</text><line x1="426" y1="72" x2="446" y2="72" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="448" y="40" width="124" height="64" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="510.0" y="68.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">4. List the</text><text x="510.0" y="84.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">safeguards</text><line x1="572" y1="72" x2="592" y2="72" stroke="#0B2A5A" stroke-width="1.8" marker-end="url(#ah)"/><rect x="594" y="40" width="124" height="64" rx="8" fill="#E4F1D3" stroke="#A9C77E"/><text x="656.0" y="68.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">5. Agree</text><text x="656.0" y="84.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">actions</text><path d="M598,104 V128 Q598,138 588,138 H162 Q152,138 152,128 V114" fill="none" stroke="#0B2A5A" stroke-width="1.4" stroke-dasharray="4 3"/><line x1="152" y1="118" x2="152" y2="114" stroke="#0B2A5A" stroke-width="1.4"/><path d="M146.5,115 L157.5,115 L152,105 z" fill="#0B2A5A"/><text x="375" y="158" text-anchor="middle" font-size="12.5" fill="#5A6475">Next guide word, then the next node</text></svg></div>
 <figcaption>Figure 1. The HAZOP sequence. The team repeats steps 2 to 5 for every guide word, then moves to the next node.</figcaption>
@@ -83,7 +85,7 @@
 <tr><td class="nw">Other than</td><td>Something different happens</td><td>A leak, a wrong material, start-up and shutdown</td></tr>
 </table>
 <p>The team needs at least a facilitator, a scribe, a process engineer, an experienced operator and an instrument or control engineer. A drawing the size of this one takes two to three hours.</p>
-<h2>The nodes</h2>
+<h2 id="the-nodes">The nodes</h2>
 <figure>
 <a href="../assets/media/pfd-pid/feed-heater-hazop-nodes.svg" target="_blank" rel="noopener"><img src="../assets/media/pfd-pid/feed-heater-hazop-nodes.svg" alt="The Rev B feed heater P&amp;ID with two HAZOP nodes highlighted. Node 1, in orange, is the steam supply through TV-101 into the shell and the condensate leaving through steam trap ST-201. Node 2, in green, is the feed through the heater tubes to the reactor, including relief valve PSV-102." width="860" height="665" style="width:100%;height:auto;border-radius:0;border:1px solid var(--line-2)"></a>
 <figcaption>Figure 2. The feed heater P&amp;ID divided into two nodes. Select the drawing to open it full size.</figcaption>
@@ -92,7 +94,7 @@
 <li><strong>Node 1: steam supply and condensate.</strong> Intent: supply 350&nbsp;kg/h of steam at 3.0&nbsp;barg to heat the feed to 80&nbsp;°C, and return the condensate.</li>
 <li><strong>Node 2: feed through the heater.</strong> Intent: pass 6,250&nbsp;kg/h of feed from P-101 through the tubes to reactor R-101.</li>
 </ul>
-<h2>Node 1: steam supply and condensate</h2>
+<h2 id="node-1-steam-supply-and-condensate">Node 1: steam supply and condensate</h2>
 <p class="oee-cap">Table 2. HAZOP worksheet, node 1</p>
 <table>
 <tr><th>Deviation</th><th>Possible causes</th><th>Consequences</th><th>Existing safeguards</th><th class="num">Action</th></tr>
@@ -100,14 +102,14 @@
 </table>
 <p>The first row shows the most common finding in a HAZOP. The control loop that could cause the deviation is listed as the safeguard against it. If TT-101 fails reading low, TIC-101 opens the steam valve, so TIC-101 cannot also be what protects against overheating. A safeguard must be independent of the cause.</p>
 <p>The second row connects to <a href="what-happens-if-the-cooling-fails-runaway-reactions.html">Post&nbsp;1</a>. A heater fault that looks harmless, a cold feed, slows the reaction in R-101 while the feed carries on. Reactant accumulates, and the MTSR rises with it.</p>
-<h2>Node 2: feed through the heater</h2>
+<h2 id="node-2-feed-through-the-heater">Node 2: feed through the heater</h2>
 <p class="oee-cap">Table 3. HAZOP worksheet, node 2</p>
 <table>
 <tr><th>Deviation</th><th>Possible causes</th><th>Consequences</th><th>Existing safeguards</th><th class="num">Action</th></tr>
 <tr><td>No flow</td><td>P-101 stops, or both manual valves are closed while steam is on</td><td>Liquid trapped in the tubes is heated, expands and can boil. Overpressure of the tubes and line.</td><td>PSV-102, set at 6.0 barg</td><td class="num">5</td></tr><tr><td>Reverse flow</td><td>P-101 stops while R-101 is under pressure</td><td>Reactor contents flow back through E-101 towards the feed tank, where they may react.</td><td>None</td><td class="num">6</td></tr><tr><td>More flow</td><td>Feed pump speed raised; flow control on the reactor P&amp;ID fails</td><td>Addition faster than three hours. Heat release exceeds jacket capacity (see Post&nbsp;1).</td><td>Flow control on the reactor P&amp;ID (outside this node)</td><td class="num">7</td></tr><tr><td>Less flow</td><td>Partial blockage, pump wear</td><td>TIC-101 reduces the steam to match. Addition takes longer, which is the safe direction.</td><td>TIC-101</td><td class="num">None</td></tr>
 </table>
 <p>Not every deviation needs an action. Less flow is handled by the existing control loop and moves the process in the safe direction, so the team records it and moves on.</p>
-<h2>The actions</h2>
+<h2 id="the-actions">The actions</h2>
 <p class="oee-cap">Table 4. Action list</p>
 <table>
 <tr><th class="num">No.</th><th>Action</th><th>Result</th></tr>
@@ -118,7 +120,7 @@
 <a href="../assets/media/pfd-pid/feed-heater-pid-revc.svg" target="_blank" rel="noopener"><img src="../assets/media/pfd-pid/feed-heater-pid-revc.svg" alt="The feed heater P&amp;ID at Rev C. New items are marked with a revision triangle: steam shutoff valve XV-103, temperature transmitter TT-103 and trip TSHH-103, high and low temperature alarms on TIC-101, and a check valve on the outlet line." width="1000" height="770" style="width:100%;height:auto;border-radius:0;border:1px solid var(--line-2)"></a>
 <figcaption>Figure 3. The P&amp;ID after the HAZOP, Rev C. New items carry a revision triangle. Select the drawing to open it full size.</figcaption>
 </figure>
-<h2>Five rules for a useful HAZOP</h2>
+<h2 id="five-rules-for-a-useful-hazop">Five rules for a useful HAZOP</h2>
 <ul>
 <li><strong>Use a current, complete P&amp;ID.</strong> The study is only as good as the drawing. Freeze it before the meeting.</li>
 <li><strong>Record causes, not just deviations.</strong> "More temperature" is not a finding. "TV-101 fails open" is.</li>

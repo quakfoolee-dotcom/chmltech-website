@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/setting-safety-stock">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-11">
@@ -63,12 +63,16 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#what-safety-stock-is">What safety stock is</a></li><li><a href="#three-methods-from-simple-to-rigorous">Three methods, from simple to rigorous</a></li><li><a href="#a-worked-example-three-items-from-northshore-supply">A worked example: three items from Northshore Supply</a></li><li><a href="#choosing-a-service-level-for-each-class">Choosing a service level for each class</a></li><li><a href="#practical-cautions">Practical cautions</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#dl-title">Download the template</a></li></ol></details>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/article-tables.css?v=8ad79c2e">
 <p>Ask how a business sets its safety stock and the usual answer is a rule of thumb: "we keep two weeks of everything." It is easy to remember and easy to apply. It is also wrong for most items.</p>
 <p>A flat rule ignores the two things that create the need for a buffer: how much demand swings, and how reliable the supplier is. An item with steady sales and a dependable supplier needs very little. An item with erratic sales and a supplier who is sometimes two weeks late needs a lot. "Two weeks" gives both the same cover.</p>
 <p>In <a href="abc-inventory-analysis.html">Post&nbsp;1</a> we used ABC analysis to find which items matter most at Northshore Supply, a fictional distributor. This post sets a safety stock and reorder point for three of those items, one from each class, and shows what the flat rule gets wrong.</p>
-<h2>What safety stock is</h2>
+<h2 id="what-safety-stock-is">What safety stock is</h2>
 <p>Safety stock is the extra inventory you hold to cover the gap between what you expected and what actually happened during a supplier's lead time. It is not the stock you plan to sell; it is the cushion underneath it.</p>
 <p>It feeds directly into the <strong>reorder point</strong>, the stock level at which you place the next order:</p>
 <p style="background:var(--sand);padding:14px 18px;border-radius:8px;font-family:Georgia,serif;font-size:17px;overflow-x:auto;white-space:nowrap">Reorder point = (average demand &times; lead time) + safety stock</p>
@@ -80,7 +84,7 @@
 <tr><td style="white-space:nowrap">Target service level</td><td>How often are you willing to run out?</td><td>A business decision, set by ABC class</td></tr>
 </table>
 <p>A 95% service level means that in 95 out of 100 replenishment cycles, stock lasts until the next delivery arrives. The other five times, you run short. Service level is a choice, and a higher one always costs more stock.</p>
-<h2>Three methods, from simple to rigorous</h2>
+<h2 id="three-methods-from-simple-to-rigorous">Three methods, from simple to rigorous</h2>
 <h3>Method 1: Average-max</h3>
 <p>This needs no statistics. Take your worst realistic case and subtract the normal case.</p>
 <p style="background:var(--sand);padding:14px 18px;border-radius:8px;font-family:Georgia,serif;font-size:17px;overflow-x:auto;white-space:nowrap">SS = (max weekly demand &times; max lead time) &minus; (average weekly demand &times; average lead time)</p>
@@ -100,7 +104,7 @@
 <tr><td style="white-space:nowrap">Z</td><td style="white-space:nowrap">1.28</td><td style="white-space:nowrap">1.64</td><td style="white-space:nowrap">2.05</td><td style="white-space:nowrap">2.33</td><td style="white-space:nowrap">3.09</td></tr>
 </table>
 <p>Keep the units consistent. If demand is measured per week, lead time must be in weeks too.</p>
-<h2>A worked example: three items from Northshore Supply</h2>
+<h2 id="a-worked-example-three-items-from-northshore-supply">A worked example: three items from Northshore Supply</h2>
 <p>We take one item from each ABC class in <a href="abc-inventory-analysis.html">Post&nbsp;1</a>. Average weekly demand is the annual usage divided by 52. The other figures come from Northshore's sales and purchase order history.</p>
 <table>
 <tr><th style="white-space:nowrap">Input</th><th>NS-101 Nitrile gloves (A)</th><th style="white-space:nowrap">NS-108 Hi-vis vest (B)</th><th style="white-space:nowrap">NS-111 Shop towels (C)</th></tr>
@@ -139,7 +143,7 @@
 <li><strong>The flat rule puts stock in the wrong place.</strong> Two weeks is 10% too little for the gloves, about 50% too much for the vests and 67% too much for the towels.</li>
 <li><strong>The right buffers do not cost more.</strong> Method 3 holds $15,856 across the three items; the flat rule holds $15,660. The money is nearly the same, but it now sits where the risk is.</li>
 </ul>
-<h2>Choosing a service level for each class</h2>
+<h2 id="choosing-a-service-level-for-each-class">Choosing a service level for each class</h2>
 <p>Service level is where ABC analysis and safety stock meet. A common starting policy looks like this.</p>
 <table>
 <tr><th style="white-space:nowrap">Class</th><th style="white-space:nowrap">Typical target</th><th style="white-space:nowrap">Reasoning</th></tr>
@@ -151,14 +155,14 @@
 <figure style="overflow-x:auto"><svg role="img" aria-label="Bar chart of safety stock value for nitrile gloves at eight service levels, rising from $6,944 at 85% to $20,646 at 99.9%. The 98% target used in the example is $13,764." viewBox="0 0 720 340" width="720" style="max-width:100%;height:auto;display:block;margin:0 auto;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="12"><text x="40" y="26" font-size="16" font-weight="600" fill="#0B2A5A">Each extra point of service costs more than the last</text><text x="40" y="46" fill="#5A6475">Safety stock value for NS-101 nitrile gloves at each service level, Method 3</text><rect x="57.6" y="214.1" width="44.8" height="61.9" fill="#A9B2C0"/><text x="80.0" y="206.1" text-anchor="middle" fill="#26324A">$6,944</text><text x="80.0" y="294" text-anchor="middle" fill="#26324A">85%</text><text x="80.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">112 units</text><rect x="137.6" y="199.2" width="44.8" height="76.8" fill="#A9B2C0"/><text x="160.0" y="191.2" text-anchor="middle" fill="#26324A">$8,618</text><text x="160.0" y="294" text-anchor="middle" fill="#26324A">90%</text><text x="160.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">139 units</text><rect x="217.6" y="177.6" width="44.8" height="98.4" fill="#A9B2C0"/><text x="240.0" y="169.6" text-anchor="middle" fill="#26324A">$11,036</text><text x="240.0" y="294" text-anchor="middle" fill="#26324A">95%</text><text x="240.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">178 units</text><rect x="297.6" y="163.8" width="44.8" height="112.2" fill="#A9B2C0"/><text x="320.0" y="155.8" text-anchor="middle" fill="#26324A">$12,586</text><text x="320.0" y="294" text-anchor="middle" fill="#26324A">97%</text><text x="320.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">203 units</text><rect x="377.6" y="153.3" width="44.8" height="122.7" fill="#0B6FA4"/><text x="400.0" y="145.3" text-anchor="middle" fill="#26324A" font-weight="600">$13,764</text><text x="400.0" y="294" text-anchor="middle" fill="#26324A">98%</text><text x="400.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">222 units</text><rect x="457.6" y="137.3" width="44.8" height="138.7" fill="#A9B2C0"/><text x="480.0" y="129.3" text-anchor="middle" fill="#26324A">$15,562</text><text x="480.0" y="294" text-anchor="middle" fill="#26324A">99%</text><text x="480.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">251 units</text><rect x="537.6" y="122.4" width="44.8" height="153.6" fill="#A9B2C0"/><text x="560.0" y="114.4" text-anchor="middle" fill="#26324A">$17,236</text><text x="560.0" y="294" text-anchor="middle" fill="#26324A">99.5%</text><text x="560.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">278 units</text><rect x="617.6" y="92.0" width="44.8" height="184.0" fill="#A9B2C0"/><text x="640.0" y="84.0" text-anchor="middle" fill="#26324A">$20,646</text><text x="640.0" y="294" text-anchor="middle" fill="#26324A">99.9%</text><text x="640.0" y="310" text-anchor="middle" font-size="11" fill="#5A6475">333 units</text><line x1="40" x2="680" y1="276" y2="276" stroke="#8A93A3"/></svg><figcaption>Illustrative data for a fictional distributor: NS-101, $62 unit cost. The blue bar is the 98% target used in the example.</figcaption></figure>
 <p>Moving from 95% to 99.9% nearly doubles the buffer, from $11,036 to $20,646. The last step alone, from 99% to 99.9%, costs $5,084 for less than one point of service. No level reaches 100%, because the formula has no upper limit.</p>
 <p>The same step is cheap on a C item. Raising the shop towels from 90% to 99% adds 9 cases, or $396. That is why many businesses do the careful calculation only for A and B items, and give C items a generous flat buffer. The effort goes where a wrong answer costs real money.</p>
-<h2>Practical cautions</h2>
+<h2 id="practical-cautions">Practical cautions</h2>
 <p><strong>Lumpy demand breaks the formula.</strong> Methods 2 and 3 assume demand is spread roughly evenly around its average. An item that sells nothing for five weeks and then 40 in one week does not behave that way. As a rough test, if the standard deviation is larger than the average, do not trust the statistical result. Use average-max or a simple min/max instead.</p>
 <p><strong>Measure real lead time.</strong> Use the date the goods were received, not the date the supplier promised. Count from the day you placed the order, and include your own receiving and put-away time.</p>
 <p><strong>Remove one-off events.</strong> A single project order or a one-time promotion inflates the standard deviation for a year. Take it out before you calculate, and note that you did.</p>
 <p><strong>Safety stock does not fix a biased forecast.</strong> If demand is consistently above forecast, the problem is the forecast. Safety stock covers random swings, not a steady error in one direction.</p>
 <p><strong>Compare the reorder point to the right number.</strong> Use stock on hand plus stock already on order, less any customer backorders. Checking on-hand alone leads to double ordering.</p>
 <p><strong>Review on a schedule.</strong> Recalculate A items every quarter, B items twice a year and C items once a year. Recalculate immediately when you change supplier or a lead time shifts.</p>
-<h2>Your checklist</h2>
+<h2 id="your-checklist">Your checklist</h2>
 <ul>
 <li>Pull 12 months of weekly demand for your A and B items</li>
 <li>Pull order and receipt dates for the last 10 to 20 purchase orders per item</li>
@@ -190,6 +194,7 @@
 <script src="../assets/js/download.js?v=810c4bf2" defer></script>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-safety-stock-is">What safety stock is</a></li><li><a href="#three-methods-from-simple-to-rigorous">Three methods, from simple to rigorous</a></li><li><a href="#a-worked-example-three-items-from-northshore-supply">A worked example: three items from Northshore Supply</a></li><li><a href="#choosing-a-service-level-for-each-class">Choosing a service level for each class</a></li><li><a href="#practical-cautions">Practical cautions</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#dl-title">Download the template</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>safety stock</span><span>reorder point</span><span>service level</span><span>lead time</span><span>inventory management</span></div></div>
   </aside>

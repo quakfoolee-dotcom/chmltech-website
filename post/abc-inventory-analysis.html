@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/abc-inventory-analysis">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-11">
@@ -63,12 +63,16 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#what-abc-analysis-is">What ABC analysis is</a></li><li><a href="#how-to-do-it-in-five-steps">How to do it in five steps</a></li><li><a href="#a-worked-example-a-20-item-distributor">A worked example: a 20-item distributor</a></li><li><a href="#what-to-do-with-each-class">What to do with each class</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#dl-title">Download the template</a></li></ol></details>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/article-tables.css?v=8ad79c2e">
 <p>Most warehouses manage every item the same way. The $62 case of gloves that sells 100 times a week gets the same count schedule, the same reorder routine and the same attention as the box of blades that sells twice a week.</p>
 <p>That feels fair, but it is expensive. The buyer's time is spread thin across hundreds of items, so the few that drive the business get no more care than the many that barely matter. The usual result is stockouts on the fast movers and cash tied up in the slow ones.</p>
 <p>ABC analysis fixes this with one afternoon of spreadsheet work. It sorts your inventory into three classes, so you can put tight control where the money is and simple rules everywhere else. This post explains the method and walks through a full example for a distributor.</p>
-<h2>What ABC analysis is</h2>
+<h2 id="what-abc-analysis-is">What ABC analysis is</h2>
 <p>ABC analysis ranks inventory items by how much money flows through each one in a year, then splits the ranked list into three classes. It applies the Pareto principle: a small share of items accounts for a large share of the value.</p>
 <p>The measure is <strong>annual dollar usage</strong>: units sold or consumed in a year, multiplied by unit cost. A cheap item that moves in huge volume can outrank an expensive item that rarely moves.</p>
 <table>
@@ -78,7 +82,7 @@
 <tr><td style="white-space:nowrap">C</td><td style="white-space:nowrap">50 to 60%</td><td style="white-space:nowrap">About 5%</td><td>The long tail of low-value items</td></tr>
 </table>
 <p>These ranges are guides, not rules. Your own split depends on your product mix, and the goal is a useful grouping, not a perfect 80/20.</p>
-<h2>How to do it in five steps</h2>
+<h2 id="how-to-do-it-in-five-steps">How to do it in five steps</h2>
 <p>You need a spreadsheet and two numbers per item: units used in the last 12 months, and unit cost.</p>
 <ol>
 <li><strong>Pull the data.</strong> Export every stocked item with its 12-month usage and current unit cost. Use a full year so seasonal items are not misjudged.</li>
@@ -88,7 +92,7 @@
 <li><strong>Assign classes.</strong> Set your cut-offs and label each item. A common starting point is A up to 80% of cumulative value, B from 80% to 95%, and C for the rest.</li>
 </ol>
 <p>Use cost, not selling price, because the aim is to manage money tied up in stock. If your costs are unreliable, fix the worst of them first; the ranking is only as good as the data behind it.</p>
-<h2>A worked example: a 20-item distributor</h2>
+<h2 id="a-worked-example-a-20-item-distributor">A worked example: a 20-item distributor</h2>
 <p>Northshore Supply is a fictional distributor of packaging and safety products. It stocks 20 items with a combined annual usage of $1,413,000 at cost. The table shows all five steps completed: usage and cost pulled, dollar usage calculated, items ranked, cumulative share added, and classes assigned.</p>
 <table class="t-wide">
 <tr><th>Rank</th><th>SKU</th><th>Item</th><th>Annual units</th><th>Unit cost</th><th>Annual usage</th><th>% of total</th><th>Cumulative %</th><th>Class</th></tr>
@@ -122,7 +126,7 @@
 <li><strong>Ten C items carry $77,690, or 5.5%.</strong> Half the item list, and half the counting and ordering effort, is spent on one-twentieth of the value.</li>
 </ul>
 <p>Notice that rank and unit cost are not the same thing. The pallet strapping kit is the most expensive item at $165, yet it lands in class B. Stretch wrap costs $24.50 and ranks second, because volume counts as much as price.</p>
-<h2>What to do with each class</h2>
+<h2 id="what-to-do-with-each-class">What to do with each class</h2>
 <p>The classes only pay off when each one gets a different level of control. The table below is a practical starting policy.</p>
 <table>
 <tr><th style="white-space:nowrap">Practice</th><th style="white-space:nowrap">A items</th><th style="white-space:nowrap">B items</th><th style="white-space:nowrap">C items</th></tr>
@@ -133,13 +137,13 @@
 <tr><td style="white-space:nowrap">Who decides</td><td>Buyer or manager reviews each order</td><td>Buyer approves system suggestions</td><td>Automatic, or delegated to the warehouse</td></tr>
 </table>
 <p>The logic is simple. A items justify a person's attention because a small error costs real money. C items do not, so the cheapest control that prevents stockouts is the right one. Holding a little extra of a C item costs almost nothing; spending an hour a week managing it costs more than the item is worth.</p>
-<h2>Common mistakes</h2>
+<h2 id="common-mistakes">Common mistakes</h2>
 <p><strong>Classifying on dollar value alone.</strong> Some low-value items are critical. If one customer buys their A items from you only because you also stock a particular C item, running out of it costs far more than its ranking suggests. Review the C list by hand and flag the exceptions.</p>
 <p><strong>Running it once.</strong> Products rise and fade, costs change, and customers come and go. Re-run the analysis at least once a year, and every six months if your range changes quickly.</p>
 <p><strong>Using too short a period.</strong> Three months of data will misclassify anything seasonal. Use 12 months, and for new items use a forecast until they have a history.</p>
 <p><strong>Changing the labels but not the behaviour.</strong> The analysis is worth nothing if every item is still counted and reordered the same way afterwards. Write the class policies down and build them into the routine.</p>
 <p><strong>Ignoring how steady the demand is.</strong> Two A items with the same annual value can behave very differently. One sells the same amount every week; the other swings between nothing and a truckload. ABC tells you which items matter. It does not tell you how much buffer each one needs. That depends on demand variability and supplier lead time, which is the subject of <a href="setting-safety-stock.html">the next post</a> on safety stock.</p>
-<h2>Your checklist</h2>
+<h2 id="your-checklist">Your checklist</h2>
 <ul>
 <li>Export 12 months of usage and current unit cost for every stocked item</li>
 <li>Calculate annual dollar usage and rank the list</li>
@@ -170,6 +174,7 @@
 <script src="../assets/js/download.js?v=810c4bf2" defer></script>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-abc-analysis-is">What ABC analysis is</a></li><li><a href="#how-to-do-it-in-five-steps">How to do it in five steps</a></li><li><a href="#a-worked-example-a-20-item-distributor">A worked example: a 20-item distributor</a></li><li><a href="#what-to-do-with-each-class">What to do with each class</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#dl-title">Download the template</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>ABC analysis</span><span>inventory management</span><span>Pareto analysis</span><span>inventory classification</span><span>cycle counting</span></div></div>
   </aside>

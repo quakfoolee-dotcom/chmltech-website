@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/sizing-a-tank-holdup-levels-and-wall-thickness">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-13">
@@ -64,15 +64,17 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf">
 <p><a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> and <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> sized the pump and heater in the feed section. This part sizes the tank they draw from: T-101, an atmospheric storage tank that holds the feed and decouples the reactor from deliveries. A tank seems simple, but its size, its level settings and its wall thickness each come from a different question.</p>
-<h2>Step 1: how much holdup?</h2>
+<h2 id="step-1-how-much-holdup">Step 1: how much holdup?</h2>
 <p>Holdup is set by what the tank has to absorb. For a feed tank, the usual questions are: how long must the plant keep running if a delivery is late, how big is a delivery, and how much time do operators need to respond to an alarm. This example takes 8 hours of feed at full rate:</p>
 <p>Working volume = 6,250&nbsp;kg/h × 8&nbsp;h / 850&nbsp;kg/m³ = <strong>58.8&nbsp;m³</strong></p>
 <p>Not all of a tank is usable. The bottom is below the pump suction, and the top is reserved for alarms, trips and vapour space. Allowing for 80% of the total volume to be usable, the tank needs about <strong>73.5&nbsp;m³</strong>. If deliveries arrive by tanker, also check that one full delivery fits above the normal level; that can govern instead.</p>
-<h2>Step 2: shape</h2>
+<h2 id="step-2-shape">Step 2: shape</h2>
 <p>For a vertical tank, the diameter is often fixed by the space available and the height follows. With a 4.0&nbsp;m diameter, the height needed is 5.85&nbsp;m, rounded up to a 6.0&nbsp;m shell. A height of one to two diameters is common for tanks of this size.</p>
-<h2>Step 3: level settings</h2>
+<h2 id="step-3-level-settings">Step 3: level settings</h2>
 <p>A tank's levels are as much a part of its design as its volume. Each one has a job, and the gaps between them give operators time to act.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Vertical tank T-101, 4.0 metres in diameter with a 6.0 metre shell, with five level settings marked from bottom to top: low-low trip at 0.8 metres, low alarm at 1.2 metres, normal level at 3.2 metres, high alarm at 5.0 metres and high-high trip at 5.3 metres. The working volume lies between the low-low and high levels." viewBox="40 0 720 300" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><rect x="220" y="30" width="220" height="240" fill="#E6F0F7" stroke="#0B2A5A" stroke-width="2"/><rect x="222" y="141.3" width="216" height="126.7" fill="#0B6FA4" opacity=".18"/><line x1="206" y1="59.4" x2="454" y2="59.4" stroke="#B43E3E" stroke-width="1.6" stroke-dasharray="6 4"/><text x="462" y="63.353751790138574" text-anchor="start" font-size="12.5" fill="#B43E3E" font-weight="600">HHLL: high-high trip  5.3 m</text><line x1="206" y1="71.1" x2="454" y2="71.1" stroke="#C27712" stroke-width="1.6" stroke-dasharray="6 4"/><text x="462" y="75.0563211351309" text-anchor="start" font-size="12.5" fill="#C27712" font-weight="600">HLL: high alarm  5.0 m</text><line x1="206" y1="141.3" x2="454" y2="141.3" stroke="#0B6FA4" stroke-width="1.6" stroke-dasharray="6 4"/><text x="462" y="145.27173720508466" text-anchor="start" font-size="12.5" fill="#0B6FA4" font-weight="600">NLL: normal  3.2 m</text><line x1="206" y1="222.0" x2="454" y2="222.0" stroke="#C27712" stroke-width="1.6" stroke-dasharray="6 4"/><text x="462" y="226.0" text-anchor="start" font-size="12.5" fill="#C27712" font-weight="600">LLL: low alarm  1.2 m</text><line x1="206" y1="238.0" x2="454" y2="238.0" stroke="#B43E3E" stroke-width="1.6" stroke-dasharray="6 4"/><text x="462" y="242.0" text-anchor="start" font-size="12.5" fill="#B43E3E" font-weight="600">LLLL: low-low trip, pump stops  0.8 m</text><text x="330.0" y="292" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">T-101: 4.0 m diameter × 6.0 m shell</text><line x1="180" y1="238.0" x2="180" y2="71.1" stroke="#4D7F12" stroke-width="2"/><text x="172" y="154.52816056756546" text-anchor="end" font-size="12.5" fill="#4D7F12" font-weight="600">working</text><text x="172" y="170.52816056756546" text-anchor="end" font-size="12.5" fill="#4D7F12" font-weight="600">volume</text></svg></div>
@@ -87,20 +89,20 @@
 <tr><td class="nw">Low-low (LLLL)</td><td class="nw">0.8&nbsp;m</td><td>Trip: stops P-101 before it loses suction</td></tr>
 </table>
 <p>The low-low trip protects the pump from running dry, and its height must keep enough liquid above the pump for the NPSH calculated in <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a>. The high-high trip protects against overfill, which is one of the most common causes of tank incidents. Both are candidates for the independent protection layers examined in a <a href="a-worked-hazop-the-feed-heater-node-by-node.html">HAZOP</a>.</p>
-<h2>Step 4: wall thickness</h2>
+<h2 id="step-4-wall-thickness">Step 4: wall thickness</h2>
 <p>Atmospheric storage tanks in North America are commonly designed to API 650, which sets the shell thickness of each course from the liquid head it has to hold. The one-foot method gives the required thickness of the bottom course as:</p>
 <p>t = 4.9 × D × (H − 0.3) × G / S<sub>d</sub> + CA</p>
 <p>with t in mm, D the diameter and H the liquid height in metres, G the specific gravity, S<sub>d</sub> the allowable stress in MPa and CA the corrosion allowance. For T-101, with G = 0.85, S<sub>d</sub> = 137&nbsp;MPa and a 1.5&nbsp;mm corrosion allowance:</p>
 <p>t = 4.9 × 4.0 × (6.0 − 0.3) × 0.85 / 137 + 1.5 = <strong>2.2&nbsp;mm</strong></p>
 <p>That is less than the minimum shell thickness the standard sets for a tank of this diameter, 5&nbsp;mm, so the minimum governs. For small tanks this is usual: the walls are thicker than the liquid pressure needs, for handling, welding and stiffness. Pressure vessels, such as reactor R-101, are designed to a different code, ASME Section VIII, which uses a different formula based on the internal design pressure.</p>
-<h2>What else the tank needs</h2>
+<h2 id="what-else-the-tank-needs">What else the tank needs</h2>
 <ul>
 <li><strong>Venting.</strong> An atmospheric tank breathes as it fills, empties and warms. Vents are sized for normal breathing and for emergency venting in a fire, so the tank is not pressurized or pulled into vacuum.</li>
 <li><strong>Containment.</strong> A bund or dike sized to hold the tank's contents, with allowance for rainfall, as local regulations require.</li>
 <li><strong>Inerting.</strong> A flammable feed may need a nitrogen blanket so that the vapour space never contains an ignitable mixture.</li>
 <li><strong>Nozzles.</strong> Inlet, outlet, drain, vent, level instruments, temperature and a manway, each located and sized on the tank drawing.</li>
 </ul>
-<h2>Key points</h2>
+<h2 id="key-points">Key points</h2>
 <ul>
 <li>Holdup comes from what the tank must absorb: late deliveries, delivery size and operator response time.</li>
 <li>Usable volume is less than total volume; allow for the space below the pump suction and above the high levels.</li>

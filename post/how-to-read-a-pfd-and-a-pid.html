@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/how-to-read-a-pfd-and-a-pid">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-11">
@@ -62,15 +62,19 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#the-two-drawings-in-one-sentence-each">The two drawings in one sentence each</a></li><li><a href="#reading-the-pfd">Reading the PFD</a></li><li><a href="#reading-the-p-id">Reading the P&amp;ID</a></li><li><a href="#five-questions-to-ask-in-a-p-id-review">Five questions to ask in a P&amp;ID review</a></li><li><a href="#side-by-side">Side by side</a></li></ol></details>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf"><p>Two drawings come up in almost every review of a process plant: the process flow diagram (PFD) and the piping and instrumentation diagram (P&amp;ID). Owners, investors and operations managers are asked to comment on both, often without having been shown how to read them.</p>
 <p>This guide reads one small example on both drawings: a section that heats a feed liquid with steam before it enters a reactor. The same heater appears on the PFD and on the P&amp;ID, so you can see what each drawing adds.</p>
-<h2>The two drawings in one sentence each</h2>
+<h2 id="the-two-drawings-in-one-sentence-each">The two drawings in one sentence each</h2>
 <ul>
 <li><strong>A PFD shows how the process works.</strong> It has the main equipment, the main streams and their flows, temperatures and pressures.</li>
 <li><strong>A P&amp;ID shows how the plant is built and controlled.</strong> It has every pipe, valve and instrument, and the control loops that connect them.</li>
 </ul>
-<h2>Reading the PFD</h2>
+<h2 id="reading-the-pfd">Reading the PFD</h2>
 <figure>
 <a href="../assets/media/pfd-pid/feed-heating-pfd.svg" target="_blank" rel="noopener"><img src="../assets/media/pfd-pid/feed-heating-pfd.svg" alt="Process flow diagram of a feed heating section. Feed from storage enters feed tank T-101, feed pump P-101 sends it through steam heater E-101, and it leaves for reactor R-101. Low pressure steam enters the heater and condensate leaves. A stream table lists flow, temperature and pressure for five numbered streams." width="860" height="770" style="width:100%;height:auto;border-radius:0;border:1px solid var(--line-2)"></a>
 <figcaption>Figure 1. Example PFD of a feed heating section, with its stream table. Select the drawing to open it full size.</figcaption>
@@ -103,7 +107,7 @@
 <p>If these checks fail on a real PFD, ask why before the drawing is used for anything else.</p>
 <h3>What the PFD leaves out</h3>
 <p>The PFD has no valves, no instruments and no pipe sizes. It does not show how the outlet temperature is held at 80°C or what happens if it rises. Those answers are on the P&amp;ID.</p>
-<h2>Reading the P&amp;ID</h2>
+<h2 id="reading-the-p-id">Reading the P&amp;ID</h2>
 <figure>
 <a href="../assets/media/pfd-pid/feed-heater-pid.svg" target="_blank" rel="noopener"><img src="../assets/media/pfd-pid/feed-heater-pid.svg" alt="Piping and instrumentation diagram of feed heater E-101. The process line has an isolation valve on each side of the heater, a temperature transmitter TT-101 and a relief valve PSV-102 on the outlet. Controller TIC-101 receives the temperature signal and positions steam control valve TV-101, which fails closed. The steam line has pressure gauge PI-201, and condensate leaves through steam trap ST-201. Each line carries a line number." width="860" height="665" style="width:100%;height:auto;border-radius:0;border:1px solid var(--line-2)"></a>
 <figcaption>Figure 2. Example P&amp;ID of the same heater, E-101. Select the drawing to open it full size.</figcaption>
@@ -151,7 +155,7 @@
 <tr><td class="nw">1003</td><td>Sequence number of the line</td><td>1004 after the heater</td></tr>
 </table>
 <p>The number changes from 1003 to 1004 across the heater because the fluid conditions change. Full line numbers often add a piping class and an insulation code. Formats differ between companies.</p>
-<h2>Five questions to ask in a P&amp;ID review</h2>
+<h2 id="five-questions-to-ask-in-a-p-id-review">Five questions to ask in a P&amp;ID review</h2>
 <p>You do not need to be an engineer to ask useful questions. On the example:</p>
 <ol>
 <li><strong>Can this equipment be isolated for maintenance?</strong> Yes on the process side, with a manual valve on each side of the heater.</li>
@@ -160,7 +164,7 @@
 <li><strong>What happens on loss of air or power?</strong> TV-101 fails closed and heating stops.</li>
 <li><strong>How does the operator know something is wrong?</strong> TIC-101 shows the temperature in the control room. This drawing has no high temperature alarm, which is a fair point to raise.</li>
 </ol>
-<h2>Side by side</h2>
+<h2 id="side-by-side">Side by side</h2>
 <p class="oee-cap">Table 5. What each drawing shows for the same heater</p>
 <table>
 <tr><th>Item</th><th>PFD</th><th>P&amp;ID</th></tr>
@@ -176,6 +180,7 @@
 <p class="oee-note"><em>The drawings are illustrative examples and are not for construction. Symbols and tag formats vary between companies and standards.</em></p>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#the-two-drawings-in-one-sentence-each">The two drawings in one sentence each</a></li><li><a href="#reading-the-pfd">Reading the PFD</a></li><li><a href="#reading-the-p-id">Reading the P&amp;ID</a></li><li><a href="#five-questions-to-ask-in-a-p-id-review">Five questions to ask in a P&amp;ID review</a></li><li><a href="#side-by-side">Side by side</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>PFD</span><span>P&amp;ID</span><span>ISA-5.1</span><span>instrument tags</span><span>control loop</span><span>process drawings</span></div></div>
   </aside>

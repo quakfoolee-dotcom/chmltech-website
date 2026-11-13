@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/what-happens-if-the-cooling-fails-runaway-reactions">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-12">
@@ -64,9 +64,11 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf"><p>Every exothermic reactor is designed to remove its heat of reaction. The safety question is what happens when that stops: a pump trips, a cooling water valve sticks, or the power fails. The answer depends on how much heat is still to come and how hot it can make the batch.</p>
 <p>This series uses examples from earlier posts. This part takes the 10,000&nbsp;L reactor from the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a>. <a href="a-worked-hazop-the-feed-heater-node-by-node.html">Post&nbsp;2</a> runs a HAZOP on the feed heater from <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>, and <a href="management-of-change-for-small-plants.html">Post&nbsp;3</a> shows how a small change can undo both.</p>
-<h2>Four temperatures decide the outcome</h2>
+<h2 id="four-temperatures-decide-the-outcome">Four temperatures decide the outcome</h2>
 <p>A cooling failure assessment compares four temperatures. The method is widely used in the fine chemical and pharmaceutical industries and was set out by Francis Stoessel.</p>
 <p class="oee-cap">Table 1. The four temperatures in a cooling failure assessment</p>
 <table>
@@ -77,11 +79,11 @@
 <tr><td class="nw">TD24</td><td>The temperature at which a decomposition, with no cooling, would take 24 hours to reach its maximum rate. Measured by thermal stability tests</td><td class="num">150 °C</td></tr>
 </table>
 <p>The first is set by the process. MTT comes from the equipment and the solvent. TD24 comes from laboratory tests on the reaction mixture. MTSR is calculated.</p>
-<h2>Step 1: the adiabatic temperature rise</h2>
+<h2 id="step-1-the-adiabatic-temperature-rise">Step 1: the adiabatic temperature rise</h2>
 <p>If no heat leaves the reactor, all the heat of reaction goes into warming the batch. The rise in temperature is:</p>
 <p class="oee-formula">ΔT<sub>ad</sub> = heat of reaction ÷ heat capacity = 150 kJ/kg ÷ 2.0 kJ/kg·K = 75 K</p>
 <p>The reaction and heat capacity are the ones used in the scale-up series. If the whole reaction could still happen after the cooling fails, the batch would climb 75&nbsp;K above its starting temperature.</p>
-<h2>Step 2: how much reaction is still to come</h2>
+<h2 id="step-2-how-much-reaction-is-still-to-come">Step 2: how much reaction is still to come</h2>
 <p>In the plant the reactant is added over three hours, so at any moment only part of it is in the reactor unreacted. That unreacted part is called the accumulation. Only the accumulated reactant can still release heat if the feed stops when the cooling fails.</p>
 <p class="oee-formula">MTSR = process temperature + accumulation × ΔT<sub>ad</sub></p>
 <p>Reaction calorimetry measures the accumulation during the addition. In the example the highest value is 20%:</p>
@@ -91,7 +93,7 @@
 <figcaption>Figure 1. The same reaction run two ways. Adding the reactant over three hours keeps the possible temperature rise to 15&nbsp;K.</figcaption>
 </figure>
 <p>Had all the reactant been charged at once, as in a simple lab procedure, the accumulation would be 100% and the MTSR 135&nbsp;°C. The batch would reach its boiling point.</p>
-<h2>Step 3: place the result in a criticality class</h2>
+<h2 id="step-3-place-the-result-in-a-criticality-class">Step 3: place the result in a criticality class</h2>
 <p>The order of the four temperatures gives a criticality class from 1 to 5.</p>
 <p class="oee-cap">Table 2. Criticality classes for a cooling failure</p>
 <table>
@@ -99,7 +101,7 @@
 <tr><td class="nw">Class 1</td><td class="nw">MTSR &lt; MTT &lt; TD24</td><td>Neither boiling nor decomposition is reached. Avoid holding the batch hot for long.</td></tr><tr><td class="nw">Class 2</td><td class="nw">MTSR &lt; TD24 &lt; MTT</td><td>Boiling is not reached, but decomposition starts below the boiling point. Avoid long holds.</td></tr><tr><td class="nw">Class 3</td><td class="nw">MTT &lt; MTSR &lt; TD24</td><td>The batch boils before it can decompose. Condenser and vent must handle boiling at full rate.</td></tr><tr><td class="nw">Class 4</td><td class="nw">MTT &lt; TD24 &lt; MTSR</td><td>Boiling comes first, but decomposition can follow. Evaporative cooling must be proven.</td></tr><tr><td class="nw">Class 5</td><td class="nw">TD24 &lt; MTT, TD24 &lt; MTSR</td><td>Decomposition starts before boiling. Boiling gives no protection. Change the process.</td></tr>
 </table>
 <p>With the three-hour addition, the example is Class&nbsp;1: 75&nbsp;°C is well below both the boiling point and TD24. Charged all at once it would be Class&nbsp;3. The batch would boil, and the condenser and vent would have to cope with the remaining third of the reaction heat, about 0.5&nbsp;GJ, boiling off around 1,250&nbsp;kg of solvent.</p>
-<h2>Accumulation is the number to protect</h2>
+<h2 id="accumulation-is-the-number-to-protect">Accumulation is the number to protect</h2>
 <p>The semi-batch result holds only while the reaction keeps up with the feed. If the reaction slows and the feed carries on, unreacted material builds up and the MTSR rises with it.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Line chart of MTSR against accumulation. MTSR rises in a straight line from 60 °C at 0% to 135 °C at 100%. Normal operation, at 20%, gives 75 °C. The batch reaches its boiling point of 110 °C at 67% accumulation." viewBox="10 0 692 290" style="width:100%;height:auto;display:block;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="80" y1="240.0" x2="680" y2="240.0" stroke="#D9D5CA"/><text x="72" y="244.0" text-anchor="end" font-size="12" fill="#5A6475">40 °C</text><line x1="80" y1="208.0" x2="680" y2="208.0" stroke="#D9D5CA"/><text x="72" y="212.0" text-anchor="end" font-size="12" fill="#5A6475">60 °C</text><line x1="80" y1="176.0" x2="680" y2="176.0" stroke="#D9D5CA"/><text x="72" y="180.0" text-anchor="end" font-size="12" fill="#5A6475">80 °C</text><line x1="80" y1="144.0" x2="680" y2="144.0" stroke="#D9D5CA"/><text x="72" y="148.0" text-anchor="end" font-size="12" fill="#5A6475">100 °C</text><line x1="80" y1="112.0" x2="680" y2="112.0" stroke="#D9D5CA"/><text x="72" y="116.0" text-anchor="end" font-size="12" fill="#5A6475">120 °C</text><line x1="80" y1="80.0" x2="680" y2="80.0" stroke="#D9D5CA"/><text x="72" y="84.0" text-anchor="end" font-size="12" fill="#5A6475">140 °C</text><line x1="80" y1="48.0" x2="680" y2="48.0" stroke="#D9D5CA"/><text x="72" y="52.0" text-anchor="end" font-size="12" fill="#5A6475">160 °C</text><text x="80" y="262" text-anchor="middle" font-size="12" fill="#5A6475">0%</text><text x="200" y="262" text-anchor="middle" font-size="12" fill="#5A6475">20%</text><text x="320" y="262" text-anchor="middle" font-size="12" fill="#5A6475">40%</text><text x="440" y="262" text-anchor="middle" font-size="12" fill="#5A6475">60%</text><text x="560" y="262" text-anchor="middle" font-size="12" fill="#5A6475">80%</text><text x="680" y="262" text-anchor="middle" font-size="12" fill="#5A6475">100%</text><text x="380" y="282" text-anchor="middle" font-size="12.5" fill="#5A6475">Unreacted reactant in the reactor when cooling fails (accumulation)</text><rect x="480.0" y="64.0" width="200.0" height="64.0" fill="#B43E3E" opacity=".08"/><line x1="80" y1="64.0" x2="680" y2="64.0" stroke="#5B5BD0" stroke-width="2" stroke-dasharray="7 4"/><text x="86" y="57.0" text-anchor="start" font-size="12.5" fill="#5B5BD0" font-weight="600">TD24 150 °C</text><line x1="80" y1="128.0" x2="680" y2="128.0" stroke="#0B6FA4" stroke-width="2" stroke-dasharray="7 4"/><text x="86" y="121.0" text-anchor="start" font-size="12.5" fill="#0B6FA4" font-weight="600">Boiling point 110 °C</text><line x1="80" y1="208.0" x2="680" y2="88.0" stroke="#0B2A5A" stroke-width="3"/><circle cx="200" cy="184.0" r="6" fill="#4D7F12"/><text x="210" y="202.0" text-anchor="start" font-size="12.5" fill="#4D7F12" font-weight="600">Normal operation: 20%, 75 °C</text><circle cx="480.0" cy="128.0" r="6" fill="#B43E3E"/><text x="489.99999999999994" y="148.0" text-anchor="start" font-size="12.5" fill="#B43E3E" font-weight="600">Boiling reached at 67%</text><text x="676" y="78.0" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">135 °C</text></svg></div>
@@ -140,7 +142,7 @@
 <figcaption>Figure 3. The four temperatures for your inputs. The coloured bar shows how far the batch could heat up after a cooling failure.</figcaption>
 </figure>
 </div>
-<h2>What this assessment does not cover</h2>
+<h2 id="what-this-assessment-does-not-cover">What this assessment does not cover</h2>
 <ul>
 <li><strong>Gas generation.</strong> A reaction or decomposition that releases gas can pressurise the reactor well below the temperatures above. Gas release must be measured separately.</li>
 <li><strong>Relief sizing.</strong> A Class&nbsp;3 or 4 result means the vent must be sized for boiling or two-phase flow. That is a specialist calculation.</li>

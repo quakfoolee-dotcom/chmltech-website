@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/pressure-relief-basics-what-a-psv-protects-against">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-13">
@@ -63,9 +63,11 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf">
 <p>A pressure relief valve sits quietly on a vessel for years and may never lift. It is still one of the most important pieces of equipment in a plant, because it is the last line of defence when everything else has failed. Owners and managers see relief valves on every P&amp;ID and in every inspection report. This article explains what they protect against, how engineers decide which scenario sets their size, and where the common mistakes are.</p>
-<h2>What a relief device does</h2>
+<h2 id="what-a-relief-device-does">What a relief device does</h2>
 <p>Every pressure vessel has a <strong>maximum allowable working pressure</strong> (MAWP), set by its design code. A relief device opens before the pressure goes much above it, and releases enough fluid to stop the pressure rising further. Codes allow the pressure to rise a little above the MAWP while the device is relieving. That rise is called accumulation, and its limit depends on the case.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Horizontal bars for reactor R-101. Normal operating pressure 1.0 barg. Relief valve set pressure equal to the MAWP, 3.0 barg. Maximum pressure while relieving: 3.3 barg for a single relief device (10 percent accumulation), 3.48 barg for multiple devices (16 percent) and 3.63 barg for a fire case (21 percent)." viewBox="0 0 740 208" style="width:100%;height:auto;display:block;min-width:620px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="330.0" y1="14" x2="330.0" y2="190" stroke="#D9D5CA"/><text x="330.0" y="204" text-anchor="middle" font-size="11.5" fill="#5A6475">0 barg</text><line x1="420.0" y1="14" x2="420.0" y2="190" stroke="#D9D5CA"/><text x="420.0" y="204" text-anchor="middle" font-size="11.5" fill="#5A6475">1 barg</text><line x1="510.0" y1="14" x2="510.0" y2="190" stroke="#D9D5CA"/><text x="510.0" y="204" text-anchor="middle" font-size="11.5" fill="#5A6475">2 barg</text><line x1="600.0" y1="14" x2="600.0" y2="190" stroke="#D9D5CA"/><text x="600.0" y="204" text-anchor="middle" font-size="11.5" fill="#5A6475">3 barg</text><line x1="690.0" y1="14" x2="690.0" y2="190" stroke="#D9D5CA"/><text x="690.0" y="204" text-anchor="middle" font-size="11.5" fill="#5A6475">4 barg</text><text x="320" y="37" text-anchor="end" font-size="12.5" fill="#0B6FA4" font-weight="600">Normal operating pressure</text><rect x="330.0" y="24" width="90.0" height="20" rx="3" fill="#0B6FA4" opacity=".85"/><text x="426.0" y="39" text-anchor="start" font-size="12" fill="#0B6FA4" font-weight="600">1 barg</text><text x="320" y="71" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">Set pressure = MAWP</text><rect x="330.0" y="58" width="270.0" height="20" rx="3" fill="#0B2A5A" opacity=".85"/><text x="606.0" y="73" text-anchor="start" font-size="12" fill="#0B2A5A" font-weight="600">3 barg</text><text x="320" y="105" text-anchor="end" font-size="12.5" fill="#C27712" font-weight="600">Max. while relieving: single device (+10%)</text><rect x="330.0" y="92" width="297.0" height="20" rx="3" fill="#C27712" opacity=".85"/><text x="633.0" y="107" text-anchor="start" font-size="12" fill="#C27712" font-weight="600">3.3 barg</text><text x="320" y="139" text-anchor="end" font-size="12.5" fill="#5B5BD0" font-weight="600">Max. while relieving: multiple devices (+16%)</text><rect x="330.0" y="126" width="313.2" height="20" rx="3" fill="#5B5BD0" opacity=".85"/><text x="649.2" y="141" text-anchor="start" font-size="12" fill="#5B5BD0" font-weight="600">3.48 barg</text><text x="320" y="173" text-anchor="end" font-size="12.5" fill="#B43E3E" font-weight="600">Max. while relieving: fire case (+21%)</text><rect x="330.0" y="160" width="326.7" height="20" rx="3" fill="#B43E3E" opacity=".85"/><text x="662.7" y="175" text-anchor="start" font-size="12" fill="#B43E3E" font-weight="600">3.63 barg</text><line x1="600.0" y1="14" x2="600.0" y2="190" stroke="#0B2A5A" stroke-width="1.4" stroke-dasharray="5 4"/></svg></div>
@@ -78,7 +80,7 @@
 <tr><td class="nw">Fire exposure</td><td>21%</td></tr>
 </table>
 <p>These are the limits used with the ASME pressure vessel code and API Standard 521, the main guide to relief and depressuring systems for process plants. Your jurisdiction's pressure equipment regulator adopts the code and inspects against it.</p>
-<h2>What can cause overpressure</h2>
+<h2 id="what-can-cause-overpressure">What can cause overpressure</h2>
 <p>API 521 lists the causes an engineer must consider for each piece of equipment. The main ones:</p>
 <table>
 <tr><th class="nw">Cause</th><th>What happens</th><th>Example in the feed section</th></tr>
@@ -92,7 +94,7 @@
 <tr><td class="nw">Utility failure</td><td>Power, air or cooling water fails and several of the above happen together</td><td>Plant-wide power failure</td></tr>
 </table>
 <p>Not every cause is credible for every item. A tube rupture into a shell whose design pressure is high enough to contain the tube-side pressure, for example, does not need a relief device. API 521 sets criteria for that judgement. The point is that each cause is considered and the reasoning written down, usually in a relief load summary for each device.</p>
-<h2>Choosing the governing case</h2>
+<h2 id="choosing-the-governing-case">Choosing the governing case</h2>
 <p>For each device, the engineer calculates the relief load, in kg/h, for every credible cause. The largest sets the size of the valve. That is the <strong>governing case</strong>. For a vessel full of liquid that can boil, the fire case often governs. Here is the calculation for R-101.</p>
 <h3>Fire case for R-101</h3>
 <p>R-101 is the 10&nbsp;m³ reactor from the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a>, about 2.34&nbsp;m in diameter. API 521 estimates the heat absorbed from a pool fire, where there is adequate drainage and fire-fighting, as:</p>
@@ -101,20 +103,20 @@
 <p>Insulation that stays in place in a fire lowers F and the relief load. Draining the vessel to a safe location, or depressuring it, can also reduce what the relief device has to handle. These are design choices that the relief study should record.</p>
 <h3>Why the fire case may not govern</h3>
 <p>For R-101, the runaway case may be worse. A runaway reaction generates heat much faster than a fire and may also generate gas, and the vented stream is often a two-phase mixture of liquid and vapour, which needs a much larger device than vapour alone. Sizing for runaway reactions uses specialist methods based on calorimetry data, developed largely through the Design Institute for Emergency Relief Systems. That is why the <a href="what-happens-if-the-cooling-fails-runaway-reactions.html">runaway reaction post</a> treats prevention as the first priority: a relief system sized for a runaway is large, expensive and still a last resort.</p>
-<h2>Set pressure and where the relief goes</h2>
+<h2 id="set-pressure-and-where-the-relief-goes">Set pressure and where the relief goes</h2>
 <ul>
 <li><strong>Set pressure</strong> is normally at or below the MAWP. The gap between the normal operating pressure and the set pressure must be large enough that the valve does not simmer or lift during normal swings. A ratio of operating to set pressure of about 90% or less is a common guide for spring-loaded valves.</li>
 <li><strong>Discharge.</strong> Relief from flammable or toxic service goes to a closed system: a knock-out drum, then a flare or a scrubber. Steam or air may vent to a safe location. The discharge piping and its back pressure must be checked, because back pressure changes how much a valve can pass.</li>
 <li><strong>Inlet piping.</strong> The pressure loss in the line from the vessel to the valve must be small, typically no more than 3% of the set pressure, or the valve can chatter and fail to relieve.</li>
 </ul>
-<h2>Common mistakes</h2>
+<h2 id="common-mistakes">Common mistakes</h2>
 <ol>
 <li><strong>The relief study is not updated.</strong> A new pump with a higher shutoff head, a larger control valve or a new feed can create a case the device was never sized for. Every <a href="management-of-change-for-small-plants.html">management of change</a> should ask whether relief loads change.</li>
 <li><strong>Isolation valves left closed.</strong> Block valves under relief devices are allowed only with administrative controls, such as car-sealed open. A closed block valve removes the protection entirely.</li>
 <li><strong>Thermal relief forgotten.</strong> A small, cheap valve on a line or exchanger that can be blocked in and heated is easy to leave off.</li>
 <li><strong>No inspection.</strong> Relief valves must be tested and overhauled at intervals set by the jurisdiction and the service. A valve stuck by corrosion or polymer will not open.</li>
 </ol>
-<h2>Key points</h2>
+<h2 id="key-points">Key points</h2>
 <ul>
 <li>A relief device is set at or below the vessel's MAWP, and the code allows 10%, 16% or 21% accumulation above it depending on the case.</li>
 <li>Every credible cause of overpressure is considered and the largest relief load sets the size: the governing case.</li>

@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/the-design-basis-ten-decisions-to-fix-before-engineering-starts">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-11">
@@ -64,16 +64,18 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf"><p>The design basis is a short document, usually 10 to 20 pages. It records the decisions that every other engineering document depends on. If one of them changes later, the change runs through the whole design.</p>
 <p><a href="from-concept-to-construction-five-stages-of-a-process-plant-project.html">Post&nbsp;1</a> set out the five project stages. The design basis is drafted in pre-FEED and frozen at the start of FEED. This post lists the ten decisions it should contain, using the same $100M specialty chemical plant.</p>
-<h2>The ten decisions</h2>
+<h2 id="the-ten-decisions">The ten decisions</h2>
 <p class="oee-cap">Table 1. The ten decisions in a design basis</p>
 <table>
 <tr><th>Decision</th><th>What to fix</th><th>What it drives</th></tr>
 <tr><td class="nw">1. Capacity</td><td>Annual production, in tonnes of saleable product. Minimum rate the plant must run at (turndown).</td><td>Size of every item of equipment</td></tr><tr><td class="nw">2. Operating schedule</td><td>Hours per year, shifts, planned shutdowns.</td><td>Hourly design rate, staffing</td></tr><tr><td class="nw">3. Feedstocks</td><td>Specification of each raw material, its range of quality and how it is delivered.</td><td>Reactor design, purification steps, storage</td></tr><tr><td class="nw">4. Products</td><td>Specification and grades of each product, by-products and how they leave the site.</td><td>Separation and finishing equipment, packaging</td></tr><tr><td class="nw">5. Site conditions</td><td>Location, design temperatures, elevation, seismic and wind data, soil conditions.</td><td>Cooling design, structures, winterization</td></tr><tr><td class="nw">6. Utilities</td><td>What the site supplies and at what conditions: power, steam, cooling water, nitrogen, compressed air.</td><td>New utility systems or tie-ins</td></tr><tr><td class="nw">7. Battery limits</td><td>What is inside the project and what is outside. Every tie-in point.</td><td>Scope and cost estimate</td></tr><tr><td class="nw">8. Codes and permits</td><td>Design codes, provincial and municipal rules, emission and effluent limits.</td><td>Materials, safety systems, treatment units</td></tr><tr><td class="nw">9. Operating philosophy</td><td>Batch or continuous, level of automation, spare equipment, days of storage.</td><td>Control system, equipment count, tank sizes</td></tr><tr><td class="nw">10. Future expansion and margins</td><td>Allowance for later capacity, design margins on equipment, plant life.</td><td>Plot space, line and utility sizing</td></tr>
 </table>
 <p>Most of these are business decisions, and only the owner can make them. The engineer's role is to ask for each one, explain what depends on it and record the answer.</p>
-<h2>Worked example: capacity and operating hours</h2>
+<h2 id="worked-example-capacity-and-operating-hours">Worked example: capacity and operating hours</h2>
 <p>Suppose the owner wants 50,000 tonnes of product a year. That figure does not set the size of the plant until the operating hours are fixed. Equipment is sized for an hourly rate:</p>
 <p class="oee-formula">Design rate = 50,000,000 kg ÷ 8,000 h = 6,250 kg/h</p>
 <p>A continuous plant typically runs about 8,000 hours a year, which leaves time for maintenance shutdowns. Fewer hours mean a higher hourly rate and larger equipment for the same annual output.</p>
@@ -87,7 +89,7 @@
 <tr><td>Continuous, 24/7</td><td class="num">8,000 h/y</td><td class="num">6,250 kg/h</td><td class="num">Base</td><td class="num">Base</td></tr><tr><td>Continuous, longer shutdowns</td><td class="num">7,000 h/y</td><td class="num">7,143 kg/h</td><td class="num">+14%</td><td class="num">+8%</td></tr><tr><td>Five days a week, 24 hours</td><td class="num">6,000 h/y</td><td class="num">8,333 kg/h</td><td class="num">+33%</td><td class="num">+19%</td></tr><tr><td>Two shifts, five days</td><td class="num">4,000 h/y</td><td class="num">12,500 kg/h</td><td class="num">+100%</td><td class="num">+52%</td></tr>
 </table>
 <p>The cost column uses the six-tenths rule, in which equipment cost rises with capacity to the power of 0.6. It is an approximation for screening. Even so, the choice between 8,000 and 6,000 hours changes the equipment cost by about 19%, and it is made in one line of the design basis.</p>
-<h2>Why a late change costs so much</h2>
+<h2 id="why-a-late-change-costs-so-much">Why a late change costs so much</h2>
 <p>The design basis sits at the start of a chain. It sets the heat and material balance, and the balance sets the documents that follow.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="The design basis feeds the heat and material balance, which in turn feeds five groups of documents: PFDs and P&IDs, equipment sizes and datasheets, utility loads, plot plan and layout, and the cost estimate and schedule." viewBox="19 0 622 292" style="width:100%;height:auto;display:block;min-width:520px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><rect x="20" y="110" width="150" height="70" rx="8" fill="#0B2A5A" stroke="#0B2A5A"/><text x="95.0" y="150.2" text-anchor="middle" font-size="15" fill="#fff" font-weight="600">Design basis</text><rect x="230" y="110" width="150" height="70" rx="8" fill="#E6F0F7" stroke="#9AB0C8"/><text x="305.0" y="141.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Heat and material</text><text x="305.0" y="157.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">balance</text><line x1="170" y1="145" x2="228" y2="145" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)"/><rect x="470" y="12" width="170" height="44" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="555.0" y="38.4" text-anchor="middle" font-size="12.5" fill="#0B2A5A">PFDs and P&amp;IDs</text><path d="M380,145 C425,145 425,34 468,34" fill="none" stroke="#0B2A5A" stroke-width="1.4" marker-end="url(#ah)"/><rect x="470" y="68" width="170" height="44" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="555.0" y="86.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A">Equipment sizes</text><text x="555.0" y="102.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A">and datasheets</text><path d="M380,145 C425,145 425,90 468,90" fill="none" stroke="#0B2A5A" stroke-width="1.4" marker-end="url(#ah)"/><rect x="470" y="124" width="170" height="44" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="555.0" y="150.4" text-anchor="middle" font-size="12.5" fill="#0B2A5A">Utility loads</text><path d="M380,145 C425,145 425,146 468,146" fill="none" stroke="#0B2A5A" stroke-width="1.4" marker-end="url(#ah)"/><rect x="470" y="180" width="170" height="44" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="555.0" y="198.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A">Plot plan and</text><text x="555.0" y="214.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A">layout</text><path d="M380,145 C425,145 425,202 468,202" fill="none" stroke="#0B2A5A" stroke-width="1.4" marker-end="url(#ah)"/><rect x="470" y="236" width="170" height="44" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="555.0" y="254.1" text-anchor="middle" font-size="12.5" fill="#0B2A5A">Cost estimate</text><text x="555.0" y="270.6" text-anchor="middle" font-size="12.5" fill="#0B2A5A">and schedule</text><path d="M380,145 C425,145 425,258 468,258" fill="none" stroke="#0B2A5A" stroke-width="1.4" marker-end="url(#ah)"/></svg></div>
@@ -101,7 +103,7 @@
 <tr><td class="nw">Detailed design</td><td>All of the above, plus vendor quotations, piping and structural design</td><td class="nw">High: months of delay</td></tr>
 <tr><td class="nw">Construction</td><td>Purchased equipment replaced or modified, installed work removed</td><td class="nw">Very high</td></tr>
 </table>
-<h2>What a completed design basis looks like</h2>
+<h2 id="what-a-completed-design-basis-looks-like">What a completed design basis looks like</h2>
 <p>For the example plant, the summary page might read as follows.</p>
 <p class="oee-cap">Table 4. Design basis summary for the example plant</p>
 <table>
@@ -116,7 +118,7 @@
 <tr><td class="nw">Operating philosophy</td><td>Automated control from one control room, spare pumps on critical services</td></tr>
 <tr><td class="nw">Expansion</td><td>Plot space and utility headers sized for a second train</td></tr>
 </table>
-<h2>Three rules for managing it</h2>
+<h2 id="three-rules-for-managing-it">Three rules for managing it</h2>
 <ul>
 <li><strong>The owner signs it.</strong> A signed design basis is the agreed starting point. Later changes go through a formal change request with a cost and schedule estimate.</li>
 <li><strong>Open items are listed.</strong> Any value still unknown is marked as a hold, with a named person and a date. A hold that is still open at the end of FEED becomes a risk in the estimate.</li>

@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/private-ai-assistant-on-your-own-pc-anythingllm-and-ollama">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-12">
@@ -62,12 +62,16 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#what-you-are-building">What you are building</a></li><li><a href="#training-the-model-what-actually-happens">&quot;Training&quot; the model: what actually happens</a></li><li><a href="#step-1-install-ollama-and-pull-two-models">Step 1: Install Ollama and pull two models</a></li><li><a href="#step-2-install-anythingllm-and-choose-the-ai-provider">Step 2: Install AnythingLLM and choose the AI provider</a></li><li><a href="#step-3-the-embedding-model-and-its-maximum-chunk-length">Step 3: The embedding model and its maximum chunk length</a></li><li><a href="#step-4-the-vector-database">Step 4: The vector database</a></li><li><a href="#step-5-text-splitting-and-chunking">Step 5: Text splitting and chunking</a></li><li><a href="#step-6-create-a-workspace-and-tune-retrieval">Step 6: Create a workspace and tune retrieval</a></li><li><a href="#step-7-agent-skills">Step 7: Agent skills</a></li><li><a href="#accuracy-testing-and-fixing-answers">Accuracy: testing and fixing answers</a></li><li><a href="#security-what-stays-private-and-what-you-must-still-do">Security: what stays private, and what you must still do</a></li><li><a href="#the-checklist">The checklist</a></li></ol></details>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf"><p>A private AI assistant that answers questions from your own documents no longer needs a cloud subscription or a data-sharing agreement. A recent desktop PC with a mid-range graphics card can run a capable open model, read your procedures, reports and contracts, and answer with citations, without a byte leaving the building.</p>
 <p>This guide builds one on a single Windows PC with two free tools: <strong>Ollama</strong>, which runs the models, and <strong>AnythingLLM Desktop</strong>, which handles the documents, the chat and the agents. It covers each setting that decides how well the assistant works: the AI provider, the embedding model, the maximum embedding chunk length, the vector database, the text splitter, agent skills, and finally accuracy and security.</p>
 <p class="oee-note"><em>Written against AnythingLLM Desktop v1.19 and Ollama 0.40 in November 2026. Menu names move between releases; the settings themselves have been stable.</em></p>
 
-<h2>What you are building</h2>
+<h2 id="what-you-are-building">What you are building</h2>
 <p>AnythingLLM is the front end. It stores your documents, splits them into chunks, keeps their vectors in a built-in database and runs the chat. It does not run the model itself in this setup: it sends requests to Ollama on the same PC, which loads the models onto the graphics card.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Block diagram of one Windows PC. AnythingLLM Desktop holds workspaces, a document collector, the text splitter, the agent and the built-in LanceDB vector database, all saved to a local storage folder. It talks to Ollama at 127.0.0.1 port 11434, which runs the gemma4 12B chat model and the embeddinggemma embedding model on the RTX 5070 GPU. Cloud services are shown outside the PC, dashed, as optional." viewBox="2 0 720 410" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><rect x="10" y="30" width="700" height="300" rx="12" fill="#FFFFFF" stroke="#0B2A5A" stroke-width="1.6"/><text x="26" y="52" text-anchor="start" font-size="13" fill="#0B2A5A" font-weight="600">Your Windows PC: nothing below this line needs the internet</text><rect x="26" y="66" width="404" height="248" rx="10" fill="#E6F0F7" stroke="#9AB0C8"/><text x="40" y="88" text-anchor="start" font-size="13" fill="#0B6FA4" font-weight="600">AnythingLLM Desktop (the front end)</text><rect x="40" y="100" width="116" height="54" rx="8" fill="#FFFFFF" stroke="#9AB0C8"/><text x="98.0" y="123.0" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">Workspaces</text><text x="98.0" y="140.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">and chat</text><rect x="170" y="100" width="116" height="54" rx="8" fill="#FFFFFF" stroke="#9AB0C8"/><text x="228.0" y="123.0" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">Document</text><text x="228.0" y="140.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">collector</text><rect x="300" y="100" width="116" height="54" rx="8" fill="#FFFFFF" stroke="#9AB0C8"/><text x="358.0" y="123.0" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">Text splitter</text><text x="358.0" y="140.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">(chunking)</text><rect x="40" y="176" width="116" height="54" rx="8" fill="#FFFFFF" stroke="#9AB0C8"/><text x="98.0" y="199.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">Agent and</text><text x="98.0" y="216.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">skills</text><rect x="170" y="176" width="246" height="54" rx="8" fill="#E4F1D3" stroke="#4D7F12"/><text x="293.0" y="199.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">LanceDB vector database</text><text x="293.0" y="216.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">(built in, files on disk)</text><rect x="40" y="250" width="376" height="50" rx="8" fill="#ECE9E1" stroke="#D9D5CA"/><text x="228.0" y="279.4" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Storage folder: documents, vectors, chats, settings</text><line x1="286" y1="127" x2="298" y2="127" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)"/><line x1="358" y1="154" x2="358" y2="174" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)"/><rect x="452" y="66" width="242" height="248" rx="10" fill="#FBEBD3" stroke="#C27712"/><text x="466" y="88" text-anchor="start" font-size="13" fill="#C27712" font-weight="600">Ollama (the model runner)</text><text x="466" y="106" text-anchor="start" font-size="12" fill="#5A6475">http://127.0.0.1:11434</text><rect x="466" y="120" width="214" height="62" rx="8" fill="#FFFFFF" stroke="#C27712"/><text x="573.0" y="147.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">Chat model</text><text x="573.0" y="164.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">gemma4:12b on the RTX 5070</text><rect x="466" y="198" width="214" height="62" rx="8" fill="#FFFFFF" stroke="#C27712"/><text x="573.0" y="225.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">Embedding model</text><text x="573.0" y="242.1" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">embeddinggemma</text><text x="573" y="290" text-anchor="middle" font-size="12" fill="#5A6475">GPU: 12 GB VRAM</text><line x1="416" y1="140" x2="464" y2="150" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/><line x1="416" y1="214" x2="464" y2="226" stroke="#0B2A5A" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/><rect x="60" y="356" width="600" height="44" rx="10" fill="none" stroke="#5A6475" stroke-dasharray="6 4"/><text x="360" y="383" text-anchor="middle" font-size="12.5" fill="#5A6475">Optional and off by default here: cloud LLMs, web browsing, MCP servers, telemetry</text><line x1="360" y1="332" x2="360" y2="354" stroke="#5A6475" stroke-width="1.4" stroke-dasharray="4 3"/></svg></div>
@@ -85,7 +89,7 @@
 <tr><td class="nw">Text splitter</td><td>1,000 characters, 20 overlap</td><td>The defaults, and a sound starting point</td></tr>
 </table>
 
-<h2>"Training" the model: what actually happens</h2>
+<h2 id="training-the-model-what-actually-happens">"Training" the model: what actually happens</h2>
 <p>People ask how to train their local model on their documents. In almost every case the answer is: you do not. AnythingLLM uses <strong>retrieval-augmented generation (RAG)</strong>. The model's weights never change. Instead, for each question the most relevant passages of your documents are found and placed in front of the model, which writes its answer from them.</p>
 <table>
 <tr><th>Approach</th><th>What changes</th><th>Effort</th><th>Use it for</th></tr>
@@ -100,7 +104,7 @@
 <figcaption>Figure 2. The two halves of RAG. Ingestion runs once for each document; retrieval runs for every question, against the same database.</figcaption>
 </figure>
 
-<h2>Step 1: Install Ollama and pull two models</h2>
+<h2 id="step-1-install-ollama-and-pull-two-models">Step 1: Install Ollama and pull two models</h2>
 <p>Install Ollama for Windows from ollama.com. It runs in the background and listens on <code>http://127.0.0.1:11434</code>. Then, in a terminal, download a chat model and an embedding model:</p>
 <pre><code>ollama pull gemma4:12b
 ollama pull embeddinggemma
@@ -116,7 +120,7 @@ ollama ps</code></pre>
 </table>
 <p class="oee-note"><em>Rule of thumb only: a 4-bit model needs roughly 0.6&nbsp;GB per billion parameters, plus room for the context window.</em></p>
 
-<h2>Step 2: Install AnythingLLM and choose the AI provider</h2>
+<h2 id="step-2-install-anythingllm-and-choose-the-ai-provider">Step 2: Install AnythingLLM and choose the AI provider</h2>
 <p>Download AnythingLLM Desktop from anythingllm.com and run the installer. No account is needed. The first-run wizard asks for an LLM provider; you can change every choice later under <strong>Settings &gt; AI Providers</strong>.</p>
 <p>AnythingLLM can call many providers. The choice decides where your questions and document snippets are sent.</p>
 <table>
@@ -136,7 +140,7 @@ ollama ps</code></pre>
 <figcaption>Figure 3. The LLM settings with Ollama selected. Simplified redrawing of the AnythingLLM screen; field layout differs slightly by version.</figcaption>
 </figure>
 
-<h2>Step 3: The embedding model and its maximum chunk length</h2>
+<h2 id="step-3-the-embedding-model-and-its-maximum-chunk-length">Step 3: The embedding model and its maximum chunk length</h2>
 <p>The embedding model turns text into a vector: a list of numbers that places similar meanings close together. Every chunk of every document is embedded once; every question is embedded when it is asked, and the nearest chunks are retrieved. Retrieval quality depends more on the embedder than most people expect.</p>
 <p>Under <strong>Settings &gt; AI Providers &gt; Embedder</strong>, choose Ollama and select <strong>embeddinggemma</strong>. Ollama lists chat and embedding models in the same dropdown, so make sure you pick the embedder.</p>
 <figure>
@@ -155,7 +159,7 @@ ollama ps</code></pre>
 </table>
 <p class="oee-takeaway">Changing the embedding model makes every stored vector meaningless, because the old and new models place text in different spaces. Pick the embedder before you load your library, and re-embed everything if you change it.</p>
 
-<h2>Step 4: The vector database</h2>
+<h2 id="step-4-the-vector-database">Step 4: The vector database</h2>
 <p>The vector database stores each chunk's vector next to its original text and finds the nearest ones to a question. AnythingLLM ships with <strong>LanceDB</strong> built in. It needs no configuration, keeps its files inside AnythingLLM's storage folder, and handles libraries of many thousands of documents on one PC.</p>
 <table>
 <tr><th>Option</th><th>Where it runs</th><th>When to choose it</th></tr>
@@ -166,7 +170,7 @@ ollama ps</code></pre>
 </table>
 <p>Like the embedder, a change of vector database starts with an empty store, and every document has to be embedded again.</p>
 
-<h2>Step 5: Text splitting and chunking</h2>
+<h2 id="step-5-text-splitting-and-chunking">Step 5: Text splitting and chunking</h2>
 <p>Before a document is embedded it is cut into chunks. Each chunk becomes one vector, and chunks, not whole documents, are what the model sees when it answers. AnythingLLM uses a recursive splitter: it tries to cut at a paragraph break, then at a line break, then at a space, and splits a word only as a last resort. Two settings control it, under <strong>Settings &gt; AI Providers &gt; Text Splitter &amp; Chunking</strong>.</p>
 <ul>
 <li><strong>Text Chunk Size</strong>: the maximum length of a chunk, in characters (not tokens). The default is 1,000, about 250 tokens.</li>
@@ -191,7 +195,7 @@ ollama ps</code></pre>
 <p>Three practical points. Change one setting at a time and test with the same questions. New settings apply only to documents embedded afterwards, so remove and re-add documents to compare. And raise the overlap to 10% to 20% of the chunk size (100 to 200 characters at the default) for procedures and contracts, where one sentence often depends on the one before it.</p>
 <p>Clean input matters as much as the numbers. Scanned PDFs without a text layer, multi-column layouts, and tables flattened into a stream of numbers all produce poor chunks. Converting important documents to clean text or Markdown before uploading usually helps more than any slider.</p>
 
-<h2>Step 6: Create a workspace and tune retrieval</h2>
+<h2 id="step-6-create-a-workspace-and-tune-retrieval">Step 6: Create a workspace and tune retrieval</h2>
 <p>A workspace is a separate assistant with its own documents, system prompt and settings. The model can only see documents embedded in that workspace. Create one per subject (for example "Plant procedures" and "Client contracts") rather than one for everything; a smaller pool of chunks gives cleaner matches.</p>
 <p>Drag documents into the workspace and choose <strong>Move to Workspace</strong> to embed them. Then open the workspace settings:</p>
 <table>
@@ -210,7 +214,7 @@ ollama ps</code></pre>
 <figcaption>Figure 8. Everything sent to the model shares one context window. Long chats crowd out document chunks first.</figcaption>
 </figure>
 
-<h2>Step 7: Agent skills</h2>
+<h2 id="step-7-agent-skills">Step 7: Agent skills</h2>
 <p>A normal chat only answers. An agent can act: search the documents again, summarize a whole file, browse the web, save a file, query a database or call another program. Start one by typing <code>@agent</code> in a chat. Under <strong>Settings &gt; Agent Skills</strong> each skill has its own switch.</p>
 <table>
 <tr><th>Skill</th><th>What it does</th><th>For a private document assistant</th></tr>
@@ -231,7 +235,7 @@ ollama ps</code></pre>
 <p>Beyond the built-in skills, AnythingLLM can load <strong>custom skills</strong> (small JavaScript programs placed in the <code>plugins/agent-skills</code> folder of its storage directory), connect to <strong>MCP servers</strong> that expose other tools, and run <strong>Agent Flows</strong>, fixed step-by-step workflows built without code. Its intelligent tool selection sends only the tools relevant to each request to the model, which keeps prompts short for local models.</p>
 <p>Agents ask more of the model than plain Q&amp;A: it has to decide which tool to call and format the call correctly. A 12-billion-parameter model handles simple, single-tool requests well and becomes unreliable on long multi-step tasks. If the agent ignores its tools, try a model trained for tool use or a larger one before blaming the settings.</p>
 
-<h2>Accuracy: testing and fixing answers</h2>
+<h2 id="accuracy-testing-and-fixing-answers">Accuracy: testing and fixing answers</h2>
 <p>Do not judge a setup on three questions. Write 20 to 30 questions whose answers you know and whose source page you can name. Run them after every change and record, for each one, whether the right chunk was retrieved (shown in the citations) and whether the answer was right. Those are two different failures with different fixes.</p>
 <table>
 <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
@@ -247,7 +251,7 @@ ollama ps</code></pre>
 <p class="oee-takeaway">A local assistant can still be wrong, fluently. Keep a person accountable for any answer that feeds a decision, and make the assistant show its sources so that person can check them in seconds.</p>
 <p>For a deeper treatment of retrieval design and evaluation, see the journal paper <a href="retrieval-augmented-generation-design-evaluation-and-failure-analysis.html">Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis</a>.</p>
 
-<h2>Security: what stays private, and what you must still do</h2>
+<h2 id="security-what-stays-private-and-what-you-must-still-do">Security: what stays private, and what you must still do</h2>
 <p>With Ollama, the built-in embedder or an Ollama embedder, and LanceDB, your documents, vectors, chats and model inference all stay on the PC. That removes the largest risk of cloud AI. It does not make the setup secure by itself.</p>
 <figure>
 <div style="overflow-x:auto"><svg role="img" aria-label="Two panels. Stays on the PC: documents and parsed text, chunks and vectors, chat history, model weights and inference, and settings. Can leave the PC if switched on: a cloud LLM or embedder, web browsing and scraping, MCP servers and custom skills, the Gmail, Calendar and Outlook skills, anonymous telemetry, and an Ollama server opened to the network." viewBox="4 0 720 270" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B2A5A"/></marker></defs><rect x="10" y="10" width="420" height="250" rx="12" fill="#E4F1D3" stroke="#4D7F12" stroke-width="1.6"/><text x="26" y="34" text-anchor="start" font-size="13" fill="#4D7F12" font-weight="600">Stays on the PC with the setup in this article</text><text x="30" y="64" text-anchor="start" font-size="12.5" fill="#0B2A5A">✓  Your documents and their parsed text</text><text x="30" y="90" text-anchor="start" font-size="12.5" fill="#0B2A5A">✓  Chunks and vectors (LanceDB)</text><text x="30" y="116" text-anchor="start" font-size="12.5" fill="#0B2A5A">✓  Questions, answers and chat history</text><text x="30" y="142" text-anchor="start" font-size="12.5" fill="#0B2A5A">✓  Model weights and every inference (Ollama)</text><text x="30" y="168" text-anchor="start" font-size="12.5" fill="#0B2A5A">✓  Settings, workspaces and system prompts</text><text x="26" y="210" text-anchor="start" font-size="12.5" fill="#4D7F12" font-weight="600">Protect it like any local data:</text><text x="26" y="232" text-anchor="start" font-size="12.5" fill="#0B2A5A">disk encryption, a Windows sign-in, backups.</text><rect x="452" y="10" width="258" height="250" rx="12" fill="#FBEBD3" stroke="#C27712" stroke-width="1.6" stroke-dasharray="6 4"/><text x="468" y="34" text-anchor="start" font-size="13" fill="#C27712" font-weight="600">Can leave the PC if you turn it on</text><text x="472" y="64" text-anchor="start" font-size="12.5" fill="#0B2A5A">!  A cloud LLM or embedder</text><text x="472" y="90" text-anchor="start" font-size="12.5" fill="#0B2A5A">!  Web browsing and scraping</text><text x="472" y="116" text-anchor="start" font-size="12.5" fill="#0B2A5A">!  MCP servers and custom skills</text><text x="472" y="142" text-anchor="start" font-size="12.5" fill="#0B2A5A">!  Gmail, Calendar, Outlook skills</text><text x="472" y="168" text-anchor="start" font-size="12.5" fill="#0B2A5A">!  Anonymous telemetry</text><text x="472" y="194" text-anchor="start" font-size="12.5" fill="#0B2A5A">!  Ollama opened to the network</text><text x="468" y="232" text-anchor="start" font-size="12.5" fill="#C27712" font-weight="600">Each is a deliberate choice.</text></svg></div>
@@ -267,7 +271,7 @@ ollama ps</code></pre>
 <tr><td class="nw">Backups and updates</td><td>Back up AnythingLLM's storage folder with your other data, and keep both apps updated.</td></tr>
 </table>
 
-<h2>The checklist</h2>
+<h2 id="the-checklist">The checklist</h2>
 <ol>
 <li>Install Ollama, pull a chat model that fits your VRAM and an embedding model, and confirm 100% GPU with <code>ollama ps</code>.</li>
 <li>Install AnythingLLM Desktop. Set the LLM provider to Ollama and match the context window.</li>
@@ -282,6 +286,7 @@ ollama ps</code></pre>
 <p class="oee-note"><em>Settings screens in this article are simplified redrawings, not screenshots, and some field names vary by version. Hardware guidance is a rule of thumb; check the model's page for its actual memory use.</em></p>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-you-are-building">What you are building</a></li><li><a href="#training-the-model-what-actually-happens">&quot;Training&quot; the model: what actually happens</a></li><li><a href="#step-1-install-ollama-and-pull-two-models">Step 1: Install Ollama and pull two models</a></li><li><a href="#step-2-install-anythingllm-and-choose-the-ai-provider">Step 2: Install AnythingLLM and choose the AI provider</a></li><li><a href="#step-3-the-embedding-model-and-its-maximum-chunk-length">Step 3: The embedding model and its maximum chunk length</a></li><li><a href="#step-4-the-vector-database">Step 4: The vector database</a></li><li><a href="#step-5-text-splitting-and-chunking">Step 5: Text splitting and chunking</a></li><li><a href="#step-6-create-a-workspace-and-tune-retrieval">Step 6: Create a workspace and tune retrieval</a></li><li><a href="#step-7-agent-skills">Step 7: Agent skills</a></li><li><a href="#accuracy-testing-and-fixing-answers">Accuracy: testing and fixing answers</a></li><li><a href="#security-what-stays-private-and-what-you-must-still-do">Security: what stays private, and what you must still do</a></li><li><a href="#the-checklist">The checklist</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>AnythingLLM</span><span>Ollama</span><span>local LLM</span><span>RAG</span><span>embeddings</span><span>vector database</span><span>AI agents</span><span>AI security</span></div></div>
   </aside>

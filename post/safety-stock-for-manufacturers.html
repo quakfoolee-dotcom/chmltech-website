@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/styles.css?v=e7538ed5">
+<link rel="stylesheet" href="../assets/css/styles.css?v=ab02bd4a">
 <meta property="og:url" content="https://www.chmltech.com/post/safety-stock-for-manufacturers">
 <meta property="og:locale" content="en_CA">
 <meta property="article:published_time" content="2026-11-11">
@@ -63,12 +63,16 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#what-is-uncertain-pool-by-pool">What is uncertain, pool by pool</a></li><li><a href="#raw-materials-three-ridgeline-examples">Raw materials: three Ridgeline examples</a></li><li><a href="#spare-parts-a-different-method">Spare parts: a different method</a></li><li><a href="#the-five-items-together">The five items together</a></li><li><a href="#cautions-for-the-plant-floor">Cautions for the plant floor</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#the-series-in-one-place">The series in one place</a></li><li><a href="#dl-title">Download the template</a></li></ol></details>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/article-tables.css?v=8ad79c2e">
 <p>A distributor does not know what customers will order next week. A manufacturer usually does know what the plant will consume next week, because the production schedule says so. That one difference changes where the risk sits, and so where the buffer belongs.</p>
 <p>In <a href="setting-safety-stock.html">Post&nbsp;2</a> we set safety stock for a distributor using demand variability, lead time variability and a service level. In <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a> we classified 20 items at Ridgeline Coatings, a fictional manufacturer, by value and by criticality.</p>
 <p>This post sets buffers for five of those items. For raw materials, the <a href="setting-safety-stock.html">Post&nbsp;2</a> formula still works, but the supplier becomes the main source of risk. For spare parts, the formula does not work at all, and we need a different method.</p>
-<h2>What is uncertain, pool by pool</h2>
+<h2 id="what-is-uncertain-pool-by-pool">What is uncertain, pool by pool</h2>
 <p>Safety stock exists to cover uncertainty. So the first question for each pool is: what do we not know?</p>
 <table>
 <tr><th style="white-space:nowrap">Pool</th><th style="white-space:nowrap">What is known</th><th style="white-space:nowrap">What is uncertain</th><th style="white-space:nowrap">Method that fits</th></tr>
@@ -77,7 +81,7 @@
 <tr><td style="white-space:nowrap">Finished goods</td><td style="white-space:nowrap">Order history</td><td style="white-space:nowrap">Customer demand</td><td>The <a href="setting-safety-stock.html">Post&nbsp;2</a> formula, exactly as for a distributor</td></tr>
 </table>
 <p>For raw materials, measure demand variability as the week-to-week swing in <strong>actual consumption</strong>. That captures schedule changes, rush orders and rework in one number.</p>
-<h2>Raw materials: three Ridgeline examples</h2>
+<h2 id="raw-materials-three-ridgeline-examples">Raw materials: three Ridgeline examples</h2>
 <p>We use Method 3 from <a href="setting-safety-stock.html">Post&nbsp;2</a>:</p>
 <p style="background:var(--sand);padding:14px 18px;border-radius:8px;font-family:Georgia,serif;font-size:17px;overflow-x:auto;white-space:nowrap">SS = Z &times; &radic;( L &times; &sigma;<sub>d</sub>&sup2; + d&sup2; &times; &sigma;<sub>L</sub>&sup2; )</p>
 <p>The three materials were chosen because <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a> gave each a different policy.</p>
@@ -99,7 +103,7 @@
 <p><strong>Lead time drives the buffer, not consumption.</strong> For epoxy resin, the lead time term in the formula is more than twelve times the demand term. Consumption is steady; the supplier is not. A delivery that slips from six weeks to nine does far more damage than a busy week in the plant.</p>
 <p><strong>A short lead time is worth more than a large buffer.</strong> Xylene and epoxy resin are both A items with similar weekly volumes. Xylene comes from a local supplier in one week and needs less than half a week of cover. Epoxy resin needs 3.6 weeks. Shortening or stabilising a lead time is often cheaper than holding stock against it.</p>
 <p><strong>Judgement still sits on top of the formula.</strong> The calculation gives 229 kg for the dispersant. Ridgeline holds a fixed minimum of 600 kg instead, as set out in <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a>. The reason is that the additive has a single supplier, and a plant shutdown at that supplier would not show up in any lead time history. The extra 371 kg costs $5,194, and 600 kg is still only three months of use, well inside the product's shelf life.</p>
-<h2>Spare parts: a different method</h2>
+<h2 id="spare-parts-a-different-method">Spare parts: a different method</h2>
 <p>Ridgeline uses about four disperser mechanical seals a year. In most weeks the usage is zero; now and then it is one. There is no meaningful average week and no useful standard deviation, so the <a href="setting-safety-stock.html">Post&nbsp;2</a> formula has nothing to work with.</p>
 <p>The question to ask instead is: <strong>how many could we need before a replacement arrives?</strong> The Poisson distribution answers it, and Excel has it built in.</p>
 <ol>
@@ -112,7 +116,7 @@
 <p>The gasket set works the same way. Usage is 60 a year with a two-week lead time, so expected usage per lead time is 2.3 sets. A reorder point of six gives 99% coverage. Ridgeline rounds up to ten, because the extra four sets cost $160.</p>
 <h3>When the percentage misleads</h3>
 <p>Some vital spares fail once in ten years. The Poisson method will report that holding zero gives 95% coverage or better. Do not follow it. For these insurance spares, compare two numbers directly: the price of the part, and the cost of the outage if it fails with none on the shelf. If the outage costs more, hold one.</p>
-<h2>The five items together</h2>
+<h2 id="the-five-items-together">The five items together</h2>
 <table class="t-wide">
 <tr><th>Item</th><th>Policy from <a href="abc-analysis-for-manufacturers.html">Post&nbsp;3</a></th><th>Method</th><th>Result</th><th>Value held</th></tr>
 <tr><td style="white-space:nowrap">RM-01 Epoxy resin</td><td>Tight control, protected supply</td><td style="white-space:nowrap">Method 3 at 99%</td><td>Safety stock 12,554 kg; reorder at 33,324 kg</td><td style="white-space:nowrap">$52,727</td></tr>
@@ -130,13 +134,13 @@
 <li><strong>Supplier-held stock.</strong> Ask the supplier to hold a reserve for you, or to place consignment stock on your site that you pay for as you use it.</li>
 <li><strong>Shared spares.</strong> For expensive spares, check whether the equipment vendor stocks the part locally, or whether a sister plant holds one you can borrow.</li>
 </ul>
-<h2>Cautions for the plant floor</h2>
+<h2 id="cautions-for-the-plant-floor">Cautions for the plant floor</h2>
 <p><strong>Shelf life sets a ceiling.</strong> The most you will ever hold is roughly the reorder point plus one order quantity. Check that the plant will use that amount before it expires, and issue the oldest lot first.</p>
 <p><strong>Storage sets a ceiling too.</strong> A bulk solvent tank holds what it holds. Safety stock plus a full delivery has to fit in the tank, the silo or the rated flammables storage. If it does not, the answer is smaller and more frequent deliveries, not a bigger buffer.</p>
 <p><strong>Count rejected lots as late deliveries.</strong> If a resin lot fails incoming inspection, the usable material arrives when the replacement does. Record that as the lead time. Otherwise the history flatters the supplier and the buffer comes out too small.</p>
 <p><strong>Do not buffer the same risk four times.</strong> Purchasing adds safety stock, planning adds safety lead time, production pads the schedule and sales asks for finished goods cover. Each is reasonable alone. Together they tie up cash against one risk. Decide where the buffer sits and remove the others.</p>
 <p><strong>Take spare parts usage from maintenance records.</strong> Purchase history shows when spares were bought, not when they were fitted. Work orders give the true usage rate, and they also show which failures are becoming more frequent.</p>
-<h2>Your checklist</h2>
+<h2 id="your-checklist">Your checklist</h2>
 <ul>
 <li>Pull weekly consumption and receipt history for every vital and class A material</li>
 <li>Calculate safety stock with Method 3, and note whether demand or lead time dominates</li>
@@ -146,7 +150,7 @@
 <li>Agree where each buffer sits, and remove duplicates</li>
 </ul>
 <link rel="stylesheet" href="../assets/css/download.css?v=117d81c3"><div class="j-dl-box"><div><strong>Free Excel template</strong><span>The workbook for this series includes the Ridgeline materials and a spare parts calculator using the Poisson method.</span></div><a class="btn" href="../assets/downloads/Chmltech_Inventory_ABC_SafetyStock_Template.xlsx" data-dl download>Download template</a></div>
-<h2>The series in one place</h2>
+<h2 id="the-series-in-one-place">The series in one place</h2>
 <ol>
 <li><a href="abc-inventory-analysis.html">ABC Inventory Analysis: What It Is, How to Do It, and a Worked Example</a></li>
 <li><a href="setting-safety-stock.html">Setting Safety Stock Without Guessing: Three Methods and a Worked Example</a></li>
@@ -177,6 +181,7 @@
 <script src="../assets/js/download.js?v=810c4bf2" defer></script>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-is-uncertain-pool-by-pool">What is uncertain, pool by pool</a></li><li><a href="#raw-materials-three-ridgeline-examples">Raw materials: three Ridgeline examples</a></li><li><a href="#spare-parts-a-different-method">Spare parts: a different method</a></li><li><a href="#the-five-items-together">The five items together</a></li><li><a href="#cautions-for-the-plant-floor">Cautions for the plant floor</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#the-series-in-one-place">The series in one place</a></li><li><a href="#dl-title">Download the template</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>safety stock</span><span>spare parts</span><span>Poisson method</span><span>raw materials</span><span>lead time</span></div></div>
   </aside>
