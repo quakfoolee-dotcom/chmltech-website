@@ -1,5 +1,14 @@
 # Changelog
 
+## V4.79 — 2026-11-13
+Fourth release of the V8 audit plan: six 2022–2023 posts rewritten or retired.
+- **Lead-to-cash** (`introduction-to-leads-to-cash-for-saas-self-serve-model`): rewritten for any business: seven-step figure, leaks and fixes, measures, order-to-cash cash-flow example, self-serve SaaS section, systems.
+- **On-premises server or cloud?** (`physical-servers-vs-cloud-servers-…`): comparison, Windows Server 2016 end of support (Jan 12, 2027), five-year cost example (server cheaper by about $14,000; what the cloud premium buys), when local still makes sense, safe migration steps.
+- **Predictable Revenue** (`how-to-build-a-predictable-and-scalable-sales-model-…`): rewritten as a book review in our own words; roles figure, small-team lessons, pipeline calculation, what has changed (CASL, AI). Now under Book Review and Sales & Marketing.
+- **Retired:** *Alignment of business needs* and *Organizational Performance System* into the goals and scorecards post (new section "Aligning work with what the business needs"); *Navigating change with digital technology* into the change management toolkit (AI section widened to digital technology projects).
+- `v473b_inplace.py` anchors now tolerate heading ids added by the contents list.
+- Insights now lists 146 articles; chip counts and date order re-checked. Source: `content/articles/v479_articles.py`.
+
 ## V4.78 — 2026-11-13
 Third release of the V8 audit plan: 2023 digital and marketing posts rewritten in our own words as long-form guides, keeping their original publish dates.
 - **Measuring content marketing:** five measurement levels, quarterly review example, monthly scorecard, improving pages that already rank, AI answers, attribution.
