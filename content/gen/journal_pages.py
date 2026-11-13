@@ -48,7 +48,7 @@ TOPIC = {
     "designing-machine-learning-systems-from-problem-framing-to-production": "artificial-intelligence",
     "advancements-and-challenges-in-solid-state-hydrogen-absorption-a-comprehensive-review": ["process-engineering", "esg"],
     "chmltech-online-journal-volume-102-issue-1": ["process-engineering", "esg"],
-    "engineering-capex-and-opex-estimation-for-process-plants": ["process-engineering", "operational-efficiency"],
+    "engineering-capex-and-opex-estimation-for-process-plants": "process-engineering",  # Process Engineering only (V4.70)
     "digital-twins-in-chemical-process-plants-architecture-modeling-and-applications": ["process-engineering", "digital-technology"],
     # Volume 105: Physical AI (V4.19). A list files the paper under more than one subject.
     "physical-ai-foundations-architectures-and-the-sim-to-real-gap": "artificial-intelligence",
