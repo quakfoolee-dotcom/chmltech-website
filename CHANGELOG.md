@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.83 — 2026-11-13
+- **Unused images removed:** 269 old Wix photos and thumbnails in `assets/media/` that no page, stylesheet or generator references any more (left behind by the V4.71–V4.82 rewrites and new covers). `assets/media` drops from 32 MB to 15 MB. The files remain in git history if ever needed. Internal image links re-checked: none broken.
+
 ## V4.82 — 2026-11-13
 Last release of the V8 audit plan: every post published before November 2026 is now rewritten, merged, retired or fixed.
 - **Last 26 older posts fixed in place** (`content/articles/v482_inplace.py`): about 70 untraceable statistics removed or reworded (kept with a source: Bain/Reichheld on retention, Gallup on engagement, Housel on Buffett); anecdotes with numbers marked illustrative; filler openers and closers rewritten. Added worked examples (first principles, revenue, scenario analysis), three figures (dashboard, OODA vs PDCA, AI readiness scorecard), Google Business Profile steps (local SEO), PPM two-part series notes, book-review cross-links and quiz links, and links to funding, EOS, KPI, OEE, gap analysis and agent-readiness pages.
