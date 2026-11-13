@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.88 — 2026-11-13
+- **Final exam, one question at a time (all 12 courses):** header "Question n of 20", answered count and progress bar; **Next** is disabled until an answer is picked; **Back** to change earlier answers; the last question's button is **Submit exam**. Right/wrong is shown only after submitting: score first, then a full review of all 20 questions (your answer, and the correct answer with its explanation where wrong). An unfinished attempt is saved in the browser, so a reload returns to the same question; Retake starts a fresh shuffled attempt.
+- **Fix:** long questions no longer cross the top border of the white question box (the question was a fieldset legend drawn on the border; it is now normal text inside the box).
+- Player changes in `assets/js/course.js` (`buildExam`) and `assets/css/course.css`; no change to course content.
+
 ## V4.87 — 2026-11-13
 - **Course certificates:** wording changed from "has successfully completed the free Chmltech course" to "has successfully completed the Chmltech course" on all 12 courses. The courses themselves are still listed as free on the Courses page.
 

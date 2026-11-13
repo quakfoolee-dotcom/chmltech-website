@@ -1,4 +1,4 @@
-/* Chmltech free course player (V4). Lessons are static HTML; labs, exam and progress are driven here. */
+/* Chmltech free course player (V4; one-question exam V4.88). Lessons are static HTML; labs, exam and progress are driven here. */
 (function () {
   'use strict';
   var root = document.querySelector('[data-course]');
@@ -312,41 +312,67 @@
     var host = view.querySelector('[data-exam-host]'); if (!host) return;
     if (examBuilt) return; examBuilt = true; buildExam(host);
   }
-  function buildExam(host) {
-    var order = shuffle(DATA.exam.map(function (_, i) { return i; }));
-    var h = '<form class="exam-form" novalidate>';
-    order.forEach(function (qi, n) {
-      var q = DATA.exam[qi];
-      h += '<fieldset class="exam-q" data-q="' + qi + '"><legend><b>' + (n + 1) + '.</b> ' + esc(q.q) + '</legend>';
-      q.opts.forEach(function (o, k) { var id = 'ex-' + qi + '-' + k; h += '<label for="' + id + '"><input type="radio" name="ex-' + qi + '" id="' + id + '" value="' + k + '"> ' + esc(o) + '</label>'; });
-      h += '<p class="exam-why" hidden></p></fieldset>';
-    });
-    h += '<div class="btn-row" style="align-items:center"><button class="btn" type="submit">Submit exam</button><span class="exam-msg" aria-live="polite"></span></div></form><div class="exam-result" aria-live="polite"></div>';
-    host.innerHTML = h;
-    var form = host.querySelector('form'), result = host.querySelector('.exam-result');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var unanswered = DATA.exam.filter(function (_, qi) { return !form.querySelector('input[name="ex-' + qi + '"]:checked'); }).length;
-      if (unanswered) { form.querySelector('.exam-msg').textContent = unanswered + ' question' + (unanswered > 1 ? 's' : '') + ' still unanswered.'; return; }
-      var right = 0;
-      Array.prototype.forEach.call(form.querySelectorAll('.exam-q'), function (fs) {
-        var qi = +fs.getAttribute('data-q'), q = DATA.exam[qi], p = +form.querySelector('input[name="ex-' + qi + '"]:checked').value, ok = p === q.a;
-        if (ok) right++;
-        fs.classList.toggle('is-right', ok); fs.classList.toggle('is-wrong', !ok);
-        var why = fs.querySelector('.exam-why'); why.hidden = ok;
-        if (!ok) why.innerHTML = '<strong>Correct answer: ' + esc(q.opts[q.a]) + '.</strong> ' + esc(q.why);
-        Array.prototype.forEach.call(fs.querySelectorAll('input'), function (i) { i.disabled = true; });
+  // One question at a time (V4.88). Next is enabled once an answer is picked; Back lets learners change answers.
+  // Right/wrong and explanations are shown only after Submit, as a full review. An unfinished attempt is saved.
+  function buildExam(host, fresh) {
+    var N = DATA.exam.length, run = !fresh && state.exam.run;
+    if (!run || !run.order || run.order.length !== N) run = { order: shuffle(DATA.exam.map(function (_, i) { return i; })), ans: {}, pos: 0 };
+    state.exam.run = run; save();
+    host.innerHTML = '<div class="exam-runner"><div class="exam-top"><span class="exam-count" aria-live="polite"></span><span class="exam-answered"></span></div>' +
+      '<div class="exam-bar" aria-hidden="true"><span></span></div><div class="exam-card"></div>' +
+      '<div class="exam-nav"><button type="button" class="btn btn-ghost" data-back>Back</button><button type="button" class="btn" data-next>Next</button></div></div>' +
+      '<div class="exam-result" aria-live="polite"></div>';
+    var runner = host.querySelector('.exam-runner'), card = host.querySelector('.exam-card'), back = host.querySelector('[data-back]'),
+      next = host.querySelector('[data-next]'), result = host.querySelector('.exam-result');
+    function answered() { return Object.keys(run.ans).length; }
+    function render(focus) {
+      var n = run.pos, qi = run.order[n], q = DATA.exam[qi], h = '<div class="exam-q" role="group" aria-labelledby="exq-' + qi + '"><p class="exam-qtext" id="exq-' + qi + '"><b>' + (n + 1) + '.</b> ' + esc(q.q) + '</p>';
+      q.opts.forEach(function (o, k) {
+        var id = 'ex-' + qi + '-' + k;
+        h += '<label for="' + id + '"><input type="radio" name="ex-' + qi + '" id="' + id + '" value="' + k + '"' + (run.ans[qi] === k ? ' checked' : '') + '> ' + esc(o) + '</label>';
       });
-      var score = right / DATA.exam.length, passed = score >= PASS;
-      state.exam.best = Math.max(state.exam.best || 0, right); if (passed) { state.exam.passed = true; state.exam.date = state.exam.date || new Date().toISOString().slice(0, 10); }
-      save(); refreshProgress();
-      form.querySelector('[type=submit]').hidden = true; form.querySelector('.exam-msg').textContent = '';
-      result.innerHTML = '<div class="exam-score ' + (passed ? 'pass' : 'fail') + '"><strong>' + right + ' / ' + DATA.exam.length + ' (' + Math.round(score * 100) + '%)</strong><span>' +
-        (passed ? 'You passed. Well done!' : 'The pass mark is ' + Math.round(PASS * 100) + '%. Review the explanations above, then try again.') + '</span>' +
-        '<div class="btn-row">' + (passed ? '<a class="btn" href="#certificate">Get your certificate</a>' : '') + '<button type="button" class="btn btn-ghost" data-retake>Retake the exam</button></div></div>';
-      result.querySelector('[data-retake]').addEventListener('click', function () { buildExam(host); window.scrollTo(0, host.getBoundingClientRect().top + window.pageYOffset - 120); });
-      result.scrollIntoView({ block: 'center' });
+      card.innerHTML = h + '</div>';
+      host.querySelector('.exam-count').textContent = 'Question ' + (n + 1) + ' of ' + N;
+      host.querySelector('.exam-answered').textContent = answered() + ' of ' + N + ' answered';
+      host.querySelector('.exam-bar span').style.width = Math.round(100 * answered() / N) + '%';
+      back.disabled = n === 0;
+      next.textContent = n === N - 1 ? 'Submit exam' : 'Next';
+      next.disabled = run.ans[qi] === undefined;
+      Array.prototype.forEach.call(card.querySelectorAll('input'), function (inp) {
+        inp.addEventListener('change', function () {
+          run.ans[qi] = +inp.value; save(); next.disabled = false;
+          host.querySelector('.exam-answered').textContent = answered() + ' of ' + N + ' answered';
+          host.querySelector('.exam-bar span').style.width = Math.round(100 * answered() / N) + '%';
+        });
+      });
+      if (focus) { card.querySelector('.exam-qtext').setAttribute('tabindex', '-1'); card.querySelector('.exam-qtext').focus({ preventScroll: true });
+        var top = runner.getBoundingClientRect().top + window.pageYOffset - 120; if (window.pageYOffset > top) window.scrollTo(0, top); }
+    }
+    back.addEventListener('click', function () { if (run.pos > 0) { run.pos--; save(); render(true); } });
+    next.addEventListener('click', function () {
+      if (run.ans[run.order[run.pos]] === undefined) return;
+      if (run.pos < N - 1) { run.pos++; save(); render(true); } else submit();
     });
+    function submit() {
+      var right = 0, rev = '';
+      run.order.forEach(function (qi, n) {
+        var q = DATA.exam[qi], p = run.ans[qi], ok = p === q.a; if (ok) right++;
+        rev += '<div class="exam-q ' + (ok ? 'is-right' : 'is-wrong') + '"><p class="exam-qtext"><b>' + (n + 1) + '.</b> ' + esc(q.q) + '</p>' +
+          '<p class="exam-mark">' + (ok ? '✓ Correct' : '✗ Incorrect') + '</p><p class="exam-yours">Your answer: ' + esc(q.opts[p]) + '</p>' +
+          (ok ? '' : '<p class="exam-why"><strong>Correct answer: ' + esc(q.opts[q.a]) + '.</strong> ' + esc(q.why) + '</p>') + '</div>';
+      });
+      var score = right / N, passed = score >= PASS;
+      state.exam.best = Math.max(state.exam.best || 0, right); if (passed) { state.exam.passed = true; state.exam.date = state.exam.date || new Date().toISOString().slice(0, 10); }
+      delete state.exam.run; save(); refreshProgress();
+      runner.hidden = true;
+      result.innerHTML = '<div class="exam-score ' + (passed ? 'pass' : 'fail') + '"><strong>' + right + ' / ' + N + ' (' + Math.round(score * 100) + '%)</strong><span>' +
+        (passed ? 'You passed. Well done!' : 'The pass mark is ' + Math.round(PASS * 100) + '%. Review the explanations below, then try again.') + '</span>' +
+        '<div class="btn-row">' + (passed ? '<a class="btn" href="#certificate">Get your certificate</a>' : '') + '<button type="button" class="btn btn-ghost" data-retake>Retake the exam</button></div></div>' +
+        '<h3 class="exam-review-h">Review your answers</h3><div class="exam-review">' + rev + '</div>';
+      result.querySelector('[data-retake]').addEventListener('click', function () { buildExam(host, true); window.scrollTo(0, host.getBoundingClientRect().top + window.pageYOffset - 120); });
+      window.scrollTo(0, result.getBoundingClientRect().top + window.pageYOffset - 120);
+    }
+    render(false);
   }
 
   /* ---------- certificate ---------- */

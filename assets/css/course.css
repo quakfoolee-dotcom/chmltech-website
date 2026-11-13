@@ -106,12 +106,25 @@
 .lab-score{font-weight:600}
 
 /* Exam */
-.exam-form{display:flex;flex-direction:column;gap:18px}
+.exam-runner{max-width:820px}
+.exam-top{display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.exam-answered{font-weight:500;color:var(--muted)}
+.exam-bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.exam-bar span{display:block;height:100%;width:0;background:var(--green);transition:width .25s}
 .exam-q{border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:0;background:var(--white)}
-.exam-q legend{font-weight:600;font-size:16px;padding:0;margin-bottom:6px}
+.exam-qtext{font-weight:600;font-size:16.5px;line-height:1.5;color:var(--ink);margin:0 0 8px}
+.exam-qtext:focus{outline:none}
+.exam-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.exam-nav .btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
 .exam-q.is-right{border-color:var(--green-dark)}
 .exam-q.is-wrong{border-color:#C24141;background:#FFF8F8}
-.exam-why{margin-top:12px;font-size:14.5px;color:#8A1C1C}
+.exam-mark{margin:4px 0 0;font-weight:600;font-size:14.5px}
+.is-right .exam-mark{color:var(--green-dark)}
+.is-wrong .exam-mark{color:#C24141}
+.exam-yours{margin:4px 0 0;font-size:14.5px;color:var(--body)}
+.exam-why{margin-top:10px;font-size:14.5px;color:#8A1C1C}
+.exam-review-h{margin:34px 0 14px}
+.exam-review{display:flex;flex-direction:column;gap:14px}
 .exam-msg{color:#8A1C1C;font-weight:500}
 .exam-score{margin-top:28px;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:10px}
 .exam-score strong{font-family:var(--font-head);font-size:36px}
