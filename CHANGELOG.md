@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.72 — 2026-11-13
+Second release from the older-posts audit: two clusters of overlapping posts merged into one main post each.
+- **Operational efficiency:** `post/how-to-increase-operational-efficiency-for-small-business` rewritten as *Operational Efficiency for Small Businesses: A Practical Guide* (four measures, five-step improvement loop, eight wastes, worked order-to-ship example with payback; 2 figures, sources). Merged and retired to redirects: *7 Ways Operational Efficiency Can Help Reduce Costs*, *Boosting Business Success with Operations Efficiency*, *Improving Operational Efficiency: Technology, KPIs and Integration*.
+- **AI agents:** `post/ai-agents-101-and-how-to-use-them-to-improve-efficiency` rewritten as *AI Agents for Small Businesses: What They Are, Where They Help and How to Start* (assistants vs workflows vs agents, uses by function, worked quote-request example, guardrails, 90-day plan; 2 figures; Statistics Canada 2026 adoption data; links to the agent journal papers). Merged and retired: *Maximizing Business Efficiency with AI Agents*, *Unlocking the Power of Agentic AI for Small Business*, *How AI Agents Are Revolutionizing Business*.
+- Insights now lists 172 articles; chip counts re-checked. `legacy_fixes.py` re-run so "Read next" links and Related cards skip the retired addresses. Source: `content/articles/pillar_articles.py`.
+
 ## V4.71 — 2026-11-13
 First release from the audit of the 115 Insights posts published before November 2026 (`Chmltech_Old_Posts_Audit_V1.xlsx`, kept outside the repo).
 - **Visible errors fixed.**
