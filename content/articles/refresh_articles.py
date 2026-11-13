@@ -196,7 +196,7 @@ def seo():
 <li><strong>Publish what only you know.</strong> Worked examples, original data, real costs and lessons from projects. A rewrite of what is already online gives an AI no reason to cite you.</li>
 <li><strong>Check the answers yourself.</strong> Once a month, ask your customers' top five questions in Google AI Mode, ChatGPT and Perplexity. Note who is cited. Keep the log, because the answers change.</li>
 </ol>
-<h2>What not to spend money on</h2>
+{SEO_AI}<h2>What not to spend money on</h2>
 <ul>
 <li><strong>"AI-only" rewrites of pages that already rank.</strong> Google says no special optimization is needed for its AI features.</li>
 <li><strong>Separate pages for every variant of a question.</strong> Thin, repetitive pages help neither SEO nor GEO.</li>
@@ -227,6 +227,9 @@ def seo():
                 related=["what-is-technical-seo-basics-and-10-best-practices",
                          "maximize-your-visibility-with-these-local-seo-tips-for-small-businesses",
                          "boost-your-search-rankings-with-ai-powered-seo-strategies"])
+
+
+from v481_articles import SEO_AI
 
 
 if __name__ == "__main__":
