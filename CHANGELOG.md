@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.89 — 2026-11-13
+- **Book covers on the reviews:** an "About the book" box at the top of the nine book reviews (Clear Thinking, Atomic Habits, The E-Myth Revisited, The ONE Thing, The Millionaire Fastlane, The Psychology of Money, The Nvidia Way, Predictable Revenue; both books on The Art of the Deal vs The Art of War): cover, title, author, publisher and year, link to the book page, credit line and alt text, plus schema.org Review/Book markup. Added on every build by `content/gen/book_box.py` (called from `seo_pass.py`); styles in `assets/css/styles.css`.
+- Covers supplied by Quak Foo Lee, resized to 450 px tall in `assets/media/books/`; where each came from is recorded in `assets/media/books/SOURCES.md`.
+- `legacy_fixes.py` ignores the box when comparing posts, so it stays idempotent.
+
 ## V4.88 — 2026-11-13
 - **Final exam, one question at a time (all 12 courses):** header "Question n of 20", answered count and progress bar; **Next** is disabled until an answer is picked; **Back** to change earlier answers; the last question's button is **Submit exam**. Right/wrong is shown only after submitting: score first, then a full review of all 20 questions (your answer, and the correct answer with its explanation where wrong). An unfinished attempt is saved in the browser, so a reload returns to the same question; Retake starts a fresh shuffled attempt.
 - **Fix:** long questions no longer cross the top border of the white question box (the question was a fieldset legend drawn on the border; it is now normal text inside the box).
