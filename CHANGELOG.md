@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.73 — 2026-11-13
+First half of the high-priority rewrites from the older-posts audit (four posts rewritten at their old addresses, three retired).
+- **ESG:** `post/esg-frameworks-and-standards` rewritten as *ESG Reporting Frameworks in 2026: A Guide for Canadian Small and Mid-Sized Businesses* (ISSB and TCFD consolidation, CSSB CSDS 1 and 2 and the paused CSA rule, OSFI B-15, EU CSRD Omnibus and the VSME value-chain cap, Competition Act green claims after Bill C-15; 1 figure). Retired into it: *ESG 2022: the transformation of the C-suite* and *What is ESG investing?* (opening and headings followed a syndicated personal-finance article).
+- **ERP guide:** `post/the-ultimate-guide-to-choosing-the-right-erp-for-your-business` rewritten as *Choosing and Implementing an ERP for a Small or Mid-Sized Business* (process-first requirements, scripted demos, weighted scorecard, five-year cost example, pitfalls; 1 figure). Retired into it: *Navigating the challenges of ERP implementation*. Now also under Digital Technology.
+- **Top 10 ERP:** `post/10-best-erp-systems-for-small-and-medium-sized-enterprises` rewritten with 2026 pricing models and published prices, grouped by company size after an SME-fit check (small: Business Central, SAP Business One, Odoo, MRPeasy, ERPNext; mid-sized: NetSuite, Acumatica, Epicor Kinetic, SYSPRO, DELMIAworks). Infor CloudSuite Industrial and Sage Intacct replaced; new section on Zoho One for very small businesses.
+- **GA4:** `post/how-to-measure-your-website-s-performance-using-google-analytics-a-comprehensive-guide` rewritten for Google Analytics 4 (key events, engaged sessions, set-up checklist, six monthly reports, worked example; 1 figure). The V4.71 dated note is removed from `update_notes.py`.
+- Insights now lists 169 articles; chip counts re-checked. Source: `content/articles/v473a_articles.py`.
+
 ## V4.72 — 2026-11-13
 Second release from the older-posts audit: two clusters of overlapping posts merged into one main post each.
 - **Operational efficiency:** `post/how-to-increase-operational-efficiency-for-small-business` rewritten as *Operational Efficiency for Small Businesses: A Practical Guide* (four measures, five-step improvement loop, eight wastes, worked order-to-ship example with payback; 2 figures, sources). Merged and retired to redirects: *7 Ways Operational Efficiency Can Help Reduce Costs*, *Boosting Business Success with Operations Efficiency*, *Improving Operational Efficiency: Technology, KPIs and Integration*.
