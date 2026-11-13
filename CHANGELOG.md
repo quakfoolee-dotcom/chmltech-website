@@ -1,5 +1,8 @@
 # Changelog
 
+## V4.62 — 2026-11-13
+- **Fix: citation links in journal papers now land on the right reference.** Clicking a citation such as [6] scrolled reference 6 to the very top of the window, where the sticky site header covered it, so the first visible entry was the next one (7). In-page targets in journal papers (references, sections, figures, tables and equations) now stop 128 px below the top of the window (`assets/css/journal.css`). Applies to all Chmltech Online Journal papers; tested by clicking references 1, 6 and 12 on two papers at desktop and phone widths.
+
 ## V4.61 — 2026-11-12
 - **Three new Chmltech Online Journal papers on agentic AI, Volume 105, Issues 4–6** (published November 12, 2026; Division of Artificial Intelligence and Machine Learning):
   - 105(4) *Agent Interoperability Standards: The Model Context Protocol, Agent-to-Agent Protocols and Integration with ERP, CRM and Plant Systems* (`post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems`): 2 figures, 5 tables, 2 equations, 14 references. Filed under Artificial Intelligence and Digital Technology.

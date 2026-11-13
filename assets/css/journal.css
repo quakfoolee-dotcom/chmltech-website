@@ -11,6 +11,8 @@
 .j-paper section > * + *{margin-top:1.05em}
 .j-paper section + section{margin-top:2.2em}
 .j-paper h2{scroll-margin-top:96px;margin-top:0}
+/* V4.62: in-page targets (references, figures, tables, equations, sections) land below the sticky site header */
+.j-paper [id],.j-refs li{scroll-margin-top:calc(var(--j-header,112px) + 16px)}
 .j-paper h3{margin-top:1.5em!important}
 .j-num{color:var(--blue)}
 .j-abstract{background:#EEF3F8;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:22px 26px}
