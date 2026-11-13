@@ -404,6 +404,8 @@ def write_llms(entries):
 def main():
     import article_toc
     print(f"contents lists: {article_toc.run(ROOT)} articles")
+    import book_box
+    print(f"book boxes: {book_box.run(ROOT)} reviews")
     sm, ll = [], []
     for rel in pages():
         process(rel, sm, ll)
