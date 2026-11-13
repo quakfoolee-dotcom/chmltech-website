@@ -25,6 +25,7 @@ are redirect stubs and are left alone):
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
 import html, json, os, re, subprocess, sys, datetime
+import assetver
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from seo_keywords import KEYWORDS
 
@@ -402,6 +403,7 @@ def main():
     for rel in pages():
         process(rel, sm, ll)
     write_sitemap(sm); write_llms(ll)
+    print(f"asset versions: {assetver.stamp_all(ROOT)} pages updated")
     print(f"sitemap.xml: {len(sm)} URLs; llms.txt written")
     for k, v in sorted(stats.items()): print(f"  {k}: {v}")
 

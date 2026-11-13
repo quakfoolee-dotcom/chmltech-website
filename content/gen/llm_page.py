@@ -9,6 +9,7 @@ plus the gr- filter classes in assets/css/grants.css.
 Run: python3 content/gen/llm_page.py   (from the site root)
 """
 import json, os, re, html as H, datetime
+import assetver
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -59,7 +60,7 @@ def count(models, f):
 
 def shell():
     """Header and footer from funding.html, so navigation and footer stay identical to the rest of the site."""
-    s = open(os.path.join(ROOT, "funding.html"), encoding="utf-8").read()
+    s = open(os.path.join(ROOT, "funding.html"), encoding="utf-8").read(); s = assetver.strip(s)
     head, rest = s.split('<main id="main">', 1)
     foot = rest.split("</main>", 1)[1]
     head = head.replace(' aria-current="page"', "")

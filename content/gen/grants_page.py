@@ -8,6 +8,7 @@ Page styles: assets/css/grants.css (gr- prefix).
 Integration (build_v3.py): import grants_page; grants_page.build(globals())
 """
 import json, os, datetime, html as H
+import assetver
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "data", "grants.json")
@@ -202,7 +203,7 @@ def build(ns):
             "tax credits and wage subsidies, with eligibility, amounts and links to official program pages.")
     page(FNAME, "Funding and Grants for Canadian Businesses", desc, b, cta=False)
     fp = os.path.join(OUT, FNAME)
-    s = open(fp, encoding="utf-8").read()
+    s = open(fp, encoding="utf-8").read(); s = assetver.strip(s)
     s = s.replace("</head>", '<link rel="stylesheet" href="assets/css/grants.css">\n</head>', 1)
     s = s.replace('<script src="assets/js/main.js" defer></script>', '<script src="assets/js/main.js" defer></script>\n<script src="assets/js/grants.js" defer></script>', 1)
     open(fp, "w", encoding="utf-8").write(s)

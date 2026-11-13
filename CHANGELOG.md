@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.65 — 2026-11-13
+- **Fix: browsers kept old stylesheets after a release.** Pages linked `styles.css`, `main.js` and the other stylesheets and scripts without a version, so returning visitors kept their cached copy; after V4.64 the new card label showed as plain text until the cache expired. Every link to `assets/css/*.css` and `assets/js/*.js` now carries `?v=` plus the first 8 characters of the file's MD5 hash, so the link changes only when the file does. New `content/gen/assetver.py`; `seo_pass.py` stamps all pages as its last step (234 pages). Generators that read an existing page as a template (`add_article.py`, `add_journal_paper.py`, `grants_page.py`, `industry_pages.py`, `llm_page.py`, `projects_page.py`, `service_pages.py`, `journal_pages.py`) remove the versions first so their text replacements still match. The hand-set `oee.css?v=4.45` is replaced by the hash.
+- Card label style confirmed as V4.64 (small, uppercase, brand blue).
+
 ## V4.64 — 2026-11-13
 - **Article cards: one subject label instead of category chips.** Cards on the home page, Insights, the journal listing and the related-article lists on post pages showed every category as a pill chip (up to three stacked), which competed with the title, repeated "Chmltech Online Journal" already shown on the cover and meta line, and started titles at different heights across a row. Each card now shows one small uppercase label with its subject (the first category that is not the journal category), above the series line where there is one. 715 cards in 185 pages updated; `add_article.py` and `build_v3.py` generate the new label. New `.article .cat-label` style in `assets/css/styles.css`. Category filters (`data-cats`) and the full category list on each article page are unchanged.
 

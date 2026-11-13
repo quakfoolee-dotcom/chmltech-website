@@ -1,5 +1,6 @@
 """Chmltech Online Journal papers in research-paper format (V4.12). Content: journal/<slug>.json (see journal/SPEC.md)."""
 import datetime, glob, json, os, re
+import assetver
 
 SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "journal")
 JOURNAL = "Chmltech Online Journal"
@@ -204,7 +205,7 @@ def build(ns):
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'''
         title_txt = re.sub("<[^>]+>", "", d["title"])
         sub_page(f"post/{slug}.html", title_txt, esc(d["meta"]), body)
-        fp = os.path.join(OUT, "post", slug + ".html"); h = open(fp).read()
+        fp = os.path.join(OUT, "post", slug + ".html"); h = open(fp).read(); h = assetver.strip(h)
         h = h.replace(f'<meta property="og:image" content="{SITE_URL}/assets/img/chmltech-mark.png">',
                       f'<meta property="og:image" content="{SITE_URL}/assets/media/covers/{slug}.jpg">\n<meta name="twitter:card" content="summary_large_image">', 1)
         h = h.replace("</head>", '<link rel="stylesheet" href="../assets/css/journal.css">\n</head>', 1)

@@ -12,6 +12,7 @@ The cover uses Space Grotesk. Pass --fonts with a folder holding SpaceGrotesk-Se
 SpaceGrotesk-Medium.ttf; without it the cover falls back to Inter or DejaVu.
 """
 import glob, html, json, os, re, sys
+import assetver
 from datetime import date
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
@@ -26,7 +27,7 @@ CAT_NAMES = {"process-improvement": "Process Improvement", "operational-efficien
 E = lambda s: html.escape(s, quote=True)
 
 
-def rd(p): return open(os.path.join(ROOT, p), encoding="utf-8").read()
+def rd(p): return assetver.strip(open(os.path.join(ROOT, p), encoding="utf-8").read())
 def wr(p, s): open(os.path.join(ROOT, p), "w", encoding="utf-8").write(s)
 
 

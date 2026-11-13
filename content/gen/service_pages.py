@@ -1,5 +1,6 @@
 """Rich solution pages with animated heroes and interactive figures (V4.4). Called from build_v3.py with its namespace."""
 import json, os, html as H
+import assetver
 from service_art import svc_art
 
 esc = lambda s: H.escape(s or "", quote=True)
@@ -320,7 +321,7 @@ def build(ns):
 {related_posts_html(P["cats"])}
 {QUOTE}'''
         page(f"{slug}.html", P["title"], esc(P["meta"]), b)
-        fp = os.path.join(OUT, f"{slug}.html"); s = open(fp).read()
+        fp = os.path.join(OUT, f"{slug}.html"); s = open(fp).read(); s = assetver.strip(s)
         s = s.replace("</head>", '<link rel="stylesheet" href="assets/css/course.css">\n</head>', 1)
         s = s.replace('<script src="assets/js/main.js" defer></script>', '<script src="assets/js/main.js" defer></script>\n<script src="assets/js/figures.js" defer></script>\n<script src="assets/js/svc.js" defer></script>', 1)
         open(fp, "w").write(s)

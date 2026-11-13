@@ -4,6 +4,7 @@ Clients are described by sector only, as agreed with the owner. The 300+ plan tr
 (aggregate counts built from the owner's project register; no client names are published).
 """
 import json, os
+import assetver
 from service_pages import fig, esc
 from industry_art import industry_art
 
@@ -157,7 +158,7 @@ def build(ns):
     <li><a href="energy-and-chemicals.html" style="color:#fff">Energy and chemicals</a></li></ul></div>
 </div></section>'''
     page("projects.html", "Projects", "Chmltech projects: commercial-scale FEED engineering, plant reviews with HAZOP and P&ID assessment, and 300+ Digital Adoption Plans for Canadian SMEs.", b)
-    fp = os.path.join(OUT, "projects.html"); s = open(fp).read()
+    fp = os.path.join(OUT, "projects.html"); s = open(fp).read(); s = assetver.strip(s)
     s = s.replace("</head>", '<link rel="stylesheet" href="assets/css/course.css">\n</head>', 1)
     s = s.replace('<script src="assets/js/main.js" defer></script>', '<script src="assets/js/main.js" defer></script>\n<script src="assets/js/figures.js" defer></script>\n<script src="assets/js/svc.js" defer></script>', 1)
     open(fp, "w").write(s)

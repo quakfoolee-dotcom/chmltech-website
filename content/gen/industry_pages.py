@@ -1,5 +1,6 @@
 """Rich industry pages with animated scenes and interactive figures (V4.7). Content: industries/<slug>.json."""
 import json, os, re
+import assetver
 clean = lambda x, w: re.sub(rf"^\s*{w}:\s*", "", x)
 from service_pages import fig, esc
 from industry_art import industry_art
@@ -68,7 +69,7 @@ def build(ns):
 </div></section>
 {QUOTE}'''
         page(f"{slug}.html", P["title"], esc(P["meta"]), b)
-        fp = os.path.join(OUT, f"{slug}.html"); s = open(fp).read()
+        fp = os.path.join(OUT, f"{slug}.html"); s = open(fp).read(); s = assetver.strip(s)
         s = s.replace("</head>", '<link rel="stylesheet" href="assets/css/course.css">\n</head>', 1)
         s = s.replace('<script src="assets/js/main.js" defer></script>', '<script src="assets/js/main.js" defer></script>\n<script src="assets/js/figures.js" defer></script>\n<script src="assets/js/svc.js" defer></script>', 1)
         open(fp, "w").write(s)

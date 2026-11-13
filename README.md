@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.64** (see `CHANGELOG.md`).
+Version: **V4.65** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -60,7 +60,7 @@ The email address is never written into the page source, so address-harvesting b
 - `assets/js/main.js` rebuilds the real address and `mailto:` link in the visitor's browser.
 - Without JavaScript, the link shows the spelled-out form and opens the contact form.
 - After each build, run `node gen/journal_pdfs.js <site_dir> <journal_json_dir>` (journal PDFs), `python3 gen/dedupe_images.py <site_dir>` (removes repeated pictures in articles), then `python3 gen/protect_email.py <site_dir>`. It is safe to run twice. It reports any page that still contains the plain address.
-- **Last step after any build or new article:** run `python3 content/gen/seo_pass.py .` from the site root. It sets clean canonical URLs, social-sharing tags and structured data on every page, and rebuilds `sitemap.xml` and `llms.txt`. It is safe to run any number of times.
+- **Last step after any build or new article:** run `python3 content/gen/seo_pass.py .` from the site root. It sets clean canonical URLs, social-sharing tags and structured data on every page, and rebuilds `sitemap.xml` and `llms.txt`. It is safe to run any number of times. It also stamps every stylesheet and script link with a content hash (`?v=…`, `content/gen/assetver.py`) so browsers fetch changed files at once; never add `?v=` by hand.
 
 ## Journal PDF downloads (leads)
 
