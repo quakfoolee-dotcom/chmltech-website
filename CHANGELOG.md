@@ -1,5 +1,17 @@
 # Changelog
 
+## V4.74 — 2026-11-13
+Second half of the high-priority rewrites from the older-posts audit (five posts rewritten at their old addresses, two upgraded in place, five retired).
+- **Inventory software:** `post/top-10-inventory-management-software-a-comprehensive-comparison-guide` rewritten as *Inventory Management Software for Small Businesses in 2026: 10 Options Compared* (grouped by job: track, sell and ship, make, run the business; November 2026 list prices; TradeGecko removed; worked payback example of about 10 months; 1 figure). Retired into it: *Optimize Your Production Schedule with Katana MRP*.
+- **Technical SEO:** `post/what-is-technical-seo-basics-and-10-best-practices` rewritten (crawl to index pipeline, ten practices with where to check each, INP replacing FID, mobile-first indexing, AI Overviews and Google-Extended; 1 figure). Retired into it: *The Ultimate Guide to SEO and Google Search*.
+- **Cybersecurity:** `post/cybersecurity-for-small-businesses-tips-and-best-practices` rewritten around the Cyber Centre's 13 baseline controls, with a 90-day plan, CyberSecure Canada, CPCSC Level 1 (April 2026) and PIPEDA breach reporting (1 figure).
+- **Process documentation:** `post/essentials-of-effective-process-documentation` rewritten (four documentation levels, six steps, AI drafting with review; swim lane figure of a quote-to-order process, also as a PNG download at `assets/downloads/Chmltech_Swim_Lane_Quote_to_Order.png`). Now also under Process Improvement.
+- **50 KPIs:** `post/50-must-track-kpis-for-business-success-from-finance-to-product-development` rewritten with a formula and example for every KPI; corrected ROI (gain, not revenue), NPS (promoters minus detractors), DSO (days) and inventory turnover (COGS); duplicates removed; types of KPIs and a cascade figure added. Retired into it: *Do You Have the Right KPIs Set for Each Team Member?* and *Understanding 12 Types of Key Performance Indicators*.
+- **Change management toolkit (in place):** broken contents links repaired, comparison table of the ten models, new section on change in AI and data projects (ADKAR, Kotter, Lewin, McKinsey Influence Model, Nudge theory), dated note. Retired into it: *5 Change Models Every AI & Data Leader Should Know*.
+- **Building Effective Quality Management Systems (in place):** section linking the ISO 9001 series, dated note.
+- **Leftover photo captions removed:** 18 captions without images in 9 older posts (`legacy_fixes.py`, new `orphan_captions`).
+- Insights now lists 164 articles; chip counts re-checked. Sources: `content/articles/v473b_articles.py`, `content/articles/v473b_inplace.py`.
+
 ## V4.73 — 2026-11-13
 First half of the high-priority rewrites from the older-posts audit (four posts rewritten at their old addresses, three retired).
 - **ESG:** `post/esg-frameworks-and-standards` rewritten as *ESG Reporting Frameworks in 2026: A Guide for Canadian Small and Mid-Sized Businesses* (ISSB and TCFD consolidation, CSSB CSDS 1 and 2 and the paused CSA rule, OSFI B-15, EU CSRD Omnibus and the VSME value-chain cap, Competition Act green claims after Bill C-15; 1 figure). Retired into it: *ESG 2022: the transformation of the C-suite* and *What is ESG investing?* (opening and headings followed a syndicated personal-finance article).
