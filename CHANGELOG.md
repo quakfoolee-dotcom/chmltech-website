@@ -1,5 +1,19 @@
 # Changelog
 
+## V4.77 — 2026-11-13
+Second release of the V8 audit plan: 2021–2023 process and manufacturing posts rewritten in our own words as long-form guides (about 1,000–1,300 words each plus tables), keeping their original publish dates.
+- **How to implement process improvements** (Part 2 retired into Part 1): signs a process needs improving, method selection, project choice, roles, an eight-step project, tools by step, a quote-turnaround example, pitfalls.
+- **Kaizen events:** types, team, charter, preparation checklist, five-day agenda (figure) and day-by-day plan, changeover and office examples, facilitator tips, 30-60-90 day check.
+- **5S in service businesses:** each step in detail, service examples, an eight-week roll-out, digital 5S, a monthly audit with a worked score.
+- **Theory of constraints:** line capacity chart, finding the constraint, five focusing steps in practice, value of an hour at the bottleneck, overtime decision, throughput accounting, TOC vs Lean vs Six Sigma, a service example.
+- **Production planning and scheduling:** planning levels (figure), production strategies, load-versus-capacity check, forward and backward scheduling, three scheduling rules compared, set-up sequencing, tools, rush orders, measures.
+- **MRP explained:** dependent demand, BOM levels, gross-to-net logic, a worked stool-and-legs netting example, lot-sizing comparison, capacity planning and MRP II, exception messages, implementation steps.
+- **ERP vs MRP:** scope figure, comparison, day-to-day differences, five-year cost example ($93,000 vs $249,000), vendor questions, accounting link, data readiness, timelines.
+- **Six Sigma tools:** roles and belts, DMAIC figure and deliverables, tools by phase, Pareto, fishbone, DPMO and Cp/Cpk worked examples, control charts, when not to use it.
+- **Agile category removed:** it held one post (the PPM maturity article), which stays under Project Management; `insights/categories/agile.html` now redirects to Project Management.
+- **Build fixes:** a rewritten post older than every other card is placed at the end of Insights, not the top; the date match no longer spans cards; `legacy_fixes.py` ignores the mobile contents box when comparing articles, so it stays stable after `seo_pass.py`; contents list threshold lowered to 1,000 words (66 articles).
+- Insights now lists 151 articles; chip counts and date order re-checked. Sources: `content/articles/v477_articles.py`, `content/articles/v477_extra.py`.
+
 ## V4.76 — 2026-11-13
 First release of the V8 audit plan: every 2021–2023 post is rewritten in our own words (no original wording kept).
 - **Rewritten posts keep their original publish date.** New `content/articles/original_dates.json`; `add_article.apply_dates()` keeps that date as `datePublished` and shows the article JSON's date as "Updated" on the page and as `dateModified`. Insights cards are placed by date (`listing_page`), not at the top; `refresh_article.py` always re-places the card. Original dates restored on the 13 posts rewritten in V4.66–V4.74 (for example 50 KPIs: Apr 1, 2023; Technical SEO: Mar 29, 2023). `legacy_fixes.py` no longer edits JSON-built posts.
