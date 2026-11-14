@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.15 — 2026-11-14
+- **Insights "Start here": new priority "Size and specify process equipment".** The three Equipment sizing posts (pump, heat exchanger, tank) were not in any reading list. The new list, for engineers, runs: How to Read a PFD and a P&ID; From Pilot Data to a Mass and Energy Balance; Sizing a Pump; Sizing a Heat Exchanger; Sizing a Tank; Pressure Relief Basics; Engineering CAPEX and OPEX Estimation. It links to the FEED and Process Design course and the Process Engineering filter, and can be opened directly at `insights#goal-equipment`.
+- The panel now has 13 priorities and its lists cover 85 of the 146 articles. Source: `content/insights/finder.json`.
+
 ## V5.14 — 2026-11-14
 - **Insights: "Start here" panel.** A new panel sits above the search and topic filters and asks "What is your next business priority?". Twelve priority buttons (for example "Improve cash flow and get paid sooner", "Reduce inventory without stockouts", "Prepare for ISO 9001 certification") each open a reading list of 5 to 8 articles in a suggested order, with read time, topic, series label and the total reading time. Under each list are a link to the matching free course where one exists (8 of 12), the funding finder for the funding list, and a link that applies the topic filter in the list below. The lists cover 82 of the 146 articles.
 - **Series shelf.** The eight article series (quote to cash, inventory, OEE, FEED, scale-up, process safety, equipment sizing, commissioning) appear as cards with the number of parts, total minutes, a one-line description and "Start at Part 1".
