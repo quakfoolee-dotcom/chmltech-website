@@ -1,0 +1,34 @@
+<p>Figure 2 shows the finished E-101 at work, drawn as a U-tube exchanger: 11 U-tubes give 11 tubes in each of the two passes. Change the feed flow, the steam pressure or the fouling and watch the outlet temperature respond.</p>
+<figure class="hx3d" id="hx3d">
+<div class="hx3d-box">
+<div class="hx3d-stage">
+<canvas role="img" aria-label="3D model of heat exchanger E-101, a horizontal U-tube shell-and-tube heater cut in half. Feed enters the lower half of the channel at 20 degrees Celsius, flows along the lower tubes, turns through the U-bends and returns along the upper tubes, warming as it goes. Steam enters the top of the shell, condenses on the tubes, and the condensate drains from the bottom of the shell."></canvas>
+<svg class="hx3d-lines" aria-hidden="true"></svg>
+<span class="hx3d-drag" aria-hidden="true">Drag to turn</span>
+<p class="hx3d-nogl" id="hx3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="hx3d-panel">
+<div class="hx3d-sliders">
+<div class="hx3d-sl"><label for="hx3d-flow">Feed flow <output id="hx3d-flow-o" for="hx3d-flow">6,250 kg/h</output></label><input type="range" id="hx3d-flow" min="3000" max="9500" step="50" value="6250"></div>
+<div class="hx3d-sl"><label for="hx3d-steam">Steam pressure <output id="hx3d-steam-o" for="hx3d-steam">3.0 barg</output></label><input type="range" id="hx3d-steam" min="1" max="5" step="0.1" value="3"></div>
+<div class="hx3d-sl"><label for="hx3d-foul">Fouling: U reduced by <output id="hx3d-foul-o" for="hx3d-foul">0%</output></label><input type="range" id="hx3d-foul" min="0" max="30" step="1" value="0"></div>
+</div>
+<div class="hx3d-cells">
+<div class="hx3d-cell hx3d-key"><span class="k">Feed outlet</span><strong id="hx3d-tout">80.0 °C</strong></div>
+<div class="hx3d-cell"><span class="k">Duty</span><strong id="hx3d-q">208 kW</strong></div>
+<div class="hx3d-cell"><span class="k">LMTD</span><strong id="hx3d-lmtd">90.3 K</strong></div>
+<div class="hx3d-cell"><span class="k">Steam condensed</span><strong id="hx3d-ms">352 kg/h</strong></div>
+<div class="hx3d-cell"><span class="k">Condensate out</span><strong id="hx3d-tc">143.6 °C</strong></div>
+<div class="hx3d-cell"><span class="k">Tube velocity</span><strong id="hx3d-v">0.95 m/s</strong></div>
+</div>
+<p class="hx3d-note">Condensate leaves as saturated liquid. Condensing releases latent heat without a change in temperature, so the condensate matches the steam's <span id="hx3d-tsn">143.6 °C</span>.</p>
+<div class="hx3d-foot">
+<p class="hx3d-say" id="hx3d-say" aria-live="polite">Design point from the worked example: 6,250 kg/h heated from 20 to 80 °C needs 208 kW and about 352 kg/h of steam.</p>
+<button type="button" class="hx3d-btn" id="hx3d-reset">Back to design point</button>
+<button type="button" class="hx3d-btn" id="hx3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="hx3d-legend" aria-hidden="true"><li><i class="grad"></i>Liquid temperature, 20 °C to 160 °C</li><li><i class="ln"></i>Streamlines</li><li><i style="background:#FFE9DC"></i>Steam (gas)</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. E-101 as a U-tube exchanger, cut in half and drawn shortened; the real tubes are 4.5 m long. The model holds the area at the required 4.61 m² and U at 500 W/m²·K, so its starting point reproduces the worked example. Liquids are coloured by temperature, with streamlines showing the feed's path through the channel. Steam is a gas cloud that turns to liquid where it condenses; the condensate is taken to leave as saturated liquid, at the steam's condensing temperature. Part shapes are simplified.</figcaption>
+</figure>

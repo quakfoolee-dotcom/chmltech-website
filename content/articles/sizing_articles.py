@@ -14,6 +14,17 @@ Usage:  python3 content/articles/sizing_articles.py
 """
 import json, math, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def fig3d(name):
+    """Interactive 3D figure (V5.17): the markup lives in content/articles/fig3d/<name>.html."""
+    return open(os.path.join(HERE, "fig3d", name + ".html"), encoding="utf-8").read().rstrip("\n") + "\n"
+
+
+def js3d(script):
+    """Script tags for a 3D figure: the vendored three.js build, then the figure's own script."""
+    return ('\n<script src="../assets/js/vendor/three-r128.min.js" defer></script>'
+            f'\n<script src="../assets/js/{script}.js" defer></script>')
 sys.path.insert(0, HERE)
 from feed_articles import (nowrap, svg, fig, box, txt, arrow, DEFS, CSS, NAVY, BLUE, GREEN, GREEND, ORANGE, PURPLE, RED,
                            MUTED, LINE, SAND, PALE, GREENF, ORANGEF)
@@ -234,7 +245,7 @@ def part1():
 <p>With the tank open to atmosphere, a vapour pressure of {f1(PV / 1000)}&nbsp;kPa at 20&nbsp;°C, {f1(Z_SUC_MIN)}&nbsp;m of liquid at low level and {f2(DP_S / (RHO * G))}&nbsp;m of suction friction, NPSHa is about <strong>{f1(NPSHA)}&nbsp;m</strong>. A small pump of this kind typically needs {f1(NPSHR)}&nbsp;m. The margin is ample. It shrinks quickly if the liquid is hot or volatile, which is why NPSH is checked at the worst case: lowest tank level, highest liquid temperature, highest flow.</p>
 <h2>Step 5: power and motor</h2>
 <p>Hydraulic power is P = ρ g Q H. At rated flow and head that is {f2(P_HYD)}&nbsp;kW. Small centrifugal pumps are not very efficient. At {f0(ETA * 100)}%, the shaft power is about {f2(P_SHAFT)}&nbsp;kW. The motor is sized for the end of the pump curve, not the rated point. Allowing about 25% for that and a margin, the next standard size, {MOTOR:g}&nbsp;kW, is a reasonable selection. The PFD in the earlier article shows P-101 delivering 4.0&nbsp;barg; the build-up above arrives at {f2(P_DIS / 1e5)}&nbsp;barg, which is how a number on a PFD is checked.</p>
-<h2>The data sheet</h2>
+{fig3d("pump")}<h2>The data sheet</h2>
 <table>
 <tr><th>Item</th><th>P-101 value</th></tr>
 <tr><td>Service</td><td>Reactor feed, T-101 to R-101 via E-101</td></tr>
@@ -255,7 +266,7 @@ def part1():
 <li>Size the motor for the end of the pump curve, and check shutoff head against the design pressure downstream.</li>
 </ul>
 <p>Next: {L[2]} sizes the heater, E-101.</p>
-{NOTE}"""
+{NOTE}{js3d("pm3d")}"""
     body = nowrap(body, [(1, 0, 34), (1, 1, 6), (2, 0, 34)])
     return dict(slug=Z1, title="Sizing a Pump: Head, NPSH and Power, Worked Step by Step",
                 desc="How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.",
@@ -296,7 +307,7 @@ def part2():
 <tr><td>Area, required / design</td><td>{f2(A_REQ)} / {f2(A_DES)}&nbsp;m²</td></tr>
 <tr><td>Tubes</td><td>{N_TUBES} × ¾" OD, 2 passes, {math.ceil(L_TUBE * 2) / 2:.1f}&nbsp;m long</td></tr>
 </table>
-<h2>What to check next</h2>
+{fig3d("hx")}<h2>What to check next</h2>
 <ul>
 <li><strong>Tube-side pressure drop.</strong> {L[1]} allowed 50&nbsp;kPa. At about 1&nbsp;m/s in two short passes the real figure will be well under that; the vendor's rating confirms it.</li>
 <li><strong>Control.</strong> Steam flow is controlled by a valve on the steam inlet, as on the <a href="{HAZOP}.html">HAZOP's P&amp;ID</a>. At low load, the shell pressure can fall below the condensate return pressure and the exchanger floods with condensate (stall). The condensate system must be designed for it.</li>
@@ -311,7 +322,7 @@ def part2():
 <li>The area must fit a layout that gives a sensible tube velocity.</li>
 </ul>
 <p>Next: {L[3]} sizes the feed tank, T-101.</p>
-{NOTE}"""
+{NOTE}{js3d("hx3d")}"""
     body = nowrap(body, [(1, 0, 26)])
     return dict(slug=Z2, title="Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step",
                 desc="How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.",
@@ -348,7 +359,7 @@ def part3():
 <p>with t in mm, D the diameter and H the liquid height in metres, G the specific gravity, S<sub>d</sub> the allowable stress in MPa and CA the corrosion allowance. For T-101, with G = {f2(GS)}, S<sub>d</sub> = {f0(SD)}&nbsp;MPa and a {f1(CA)}&nbsp;mm corrosion allowance:</p>
 <p>t = 4.9 × {f1(D_T)} × ({f1(H_T_SEL)} − 0.3) × {f2(GS)} / {f0(SD)} + {f1(CA)} = <strong>{f1(T_SHELL)}&nbsp;mm</strong></p>
 <p>That is less than the minimum shell thickness the standard sets for a tank of this diameter, {f0(T_MIN)}&nbsp;mm, so the minimum governs. For small tanks this is usual: the walls are thicker than the liquid pressure needs, for handling, welding and stiffness. Pressure vessels, such as reactor R-101, are designed to a different code, ASME Section VIII, which uses a different formula based on the internal design pressure.</p>
-<h2>What else the tank needs</h2>
+{fig3d("tank")}<h2>What else the tank needs</h2>
 <ul>
 <li><strong>Venting.</strong> An atmospheric tank breathes as it fills, empties and warms. Vents are sized for normal breathing and for emergency venting in a fire, so the tank is not pressurized or pulled into vacuum.</li>
 <li><strong>Containment.</strong> A bund or dike sized to hold the tank's contents, with allowance for rainfall, as local regulations require.</li>
@@ -363,7 +374,7 @@ def part3():
 <li>For small atmospheric tanks, the code minimum often sets the wall thickness, not the liquid head.</li>
 </ul>
 <p>This completes the series. For what protects this equipment if things go wrong, see <a href="{RLF}.html">pressure relief basics</a>.</p>
-{NOTE}"""
+{NOTE}{js3d("tk3d")}"""
     body = nowrap(body, [(1, 0, 18), (1, 1, 8)])
     return dict(slug=Z3, title="Sizing a Tank: Holdup, Level Settings and Wall Thickness",
                 desc="How a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and API 650 shell thickness, on a worked feed tank.",
@@ -386,6 +397,7 @@ def relief():
 <tr><td>Fire exposure</td><td>21%</td></tr>
 </table>
 <p>These are the limits used with the ASME pressure vessel code and API Standard 521, the main guide to relief and depressuring systems for process plants. Your jurisdiction's pressure equipment regulator adopts the code and inspects against it.</p>
+{fig3d("psv")}
 <h2>What can cause overpressure</h2>
 <p>API 521 lists the causes an engineer must consider for each piece of equipment. The main ones:</p>
 <table>
@@ -430,7 +442,7 @@ def relief():
 <li>Keep the relief study current through management of change, and keep the devices inspected.</li>
 </ul>
 <p><strong>Need a relief study reviewed?</strong> Chmltech's process engineers prepare design bases, HAZOPs and relief load summaries for small and mid-sized plants. <a href="../book.html">Book a strategy call</a>.</p>
-<p class="oee-note"><em>The vessel and numbers in this article are an illustrative example. Relief systems must be designed by a qualified engineer to the applicable codes and the requirements of your jurisdiction.</em></p>"""
+<p class="oee-note"><em>The vessel and numbers in this article are an illustrative example. Relief systems must be designed by a qualified engineer to the applicable codes and the requirements of your jurisdiction.</em></p>{js3d("psv3d")}"""
     body = nowrap(body, [(1, 0, 26), (2, 0, 20)])
     return dict(slug=RLF, title="Pressure Relief Basics: What a PSV Protects Against and How the Relief Case Is Chosen",
                 desc="What a pressure relief valve protects against, the causes of overpressure, how the governing case is chosen, a worked fire case, and common mistakes.",

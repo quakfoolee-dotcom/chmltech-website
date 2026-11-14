@@ -1,0 +1,35 @@
+<p>Most relief devices on process vessels are spring-loaded valves. A spring holds a disc down on a nozzle until the pressure under the disc is high enough to lift it. Figure 2 shows one on R-101.</p>
+<figure class="psv3d" id="psv3d">
+<div class="psv3d-box">
+<div class="psv3d-stage">
+<canvas role="img" aria-label="3D model of a spring-loaded pressure relief valve, cut in half. Gas from the vessel fills the inlet nozzle under the disc. A spring presses the disc onto the nozzle. When the vessel pressure reaches the 3 barg set pressure the disc lifts and gas flows out through the side outlet to the flare or scrubber. The valve closes again at about 2.8 barg."></canvas>
+<svg class="psv3d-lines" aria-hidden="true"></svg>
+<span class="psv3d-tag" id="psv3d-tin">From vessel R-101 · <b id="psv3d-pin">1.00 barg</b></span>
+<span class="psv3d-tag" id="psv3d-tout">To flare or scrubber</span>
+<span class="psv3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="psv3d-chip" id="psv3d-chip">Closed</span>
+<p class="psv3d-nogl" id="psv3d-nogl" hidden>This browser cannot show the 3D model. The controls below still step through the event.</p>
+</div>
+<div class="psv3d-panel">
+<div class="psv3d-ctl">
+<button type="button" class="psv3d-btn" id="psv3d-run">Run an overpressure event</button>
+<button type="button" class="psv3d-btn psv3d-ghost" id="psv3d-names" aria-pressed="true">Part names</button>
+</div>
+<div class="psv3d-slider">
+<label for="psv3d-p">Vessel pressure <output id="psv3d-po" for="psv3d-p">1.00 barg</output></label>
+<div class="psv3d-track"><input type="range" id="psv3d-p" min="0.5" max="3.4" step="0.01" value="1"><i style="--v:1;background:#5EC8FF"></i><i style="--v:2.8;background:#C9D2DE"></i><i style="--v:3;background:#8DC63F"></i><i style="--v:3.3;background:#FF7A5C"></i></div>
+<ul class="psv3d-key"><li><i style="background:#5EC8FF"></i>1.0 normal</li><li><i style="background:#C9D2DE"></i>2.8 reseats</li><li><i style="background:#8DC63F"></i>3.0 set pressure = MAWP</li><li><i style="background:#FF7A5C"></i>3.3 limit while relieving</li></ul>
+</div>
+<div class="psv3d-cells">
+<div class="psv3d-cell psv3d-forces"><span class="k">Forces on the disc</span>
+<div class="psv3d-force"><span>Gas pushing up</span><i><b id="psv3d-fp"></b></i></div>
+<div class="psv3d-force"><span>Spring pushing down</span><i><b id="psv3d-fs" class="s"></b></i></div>
+</div>
+<div class="psv3d-cell"><span class="k">Valve lift</span><strong id="psv3d-lift">0%</strong></div>
+<div class="psv3d-cell"><span class="k">Flow to flare</span><strong id="psv3d-flow">None</strong></div>
+</div>
+<p class="psv3d-say" id="psv3d-say" aria-live="polite">Normal operation at 1 barg. The spring presses the disc onto the nozzle and the valve is shut tight.</p>
+</div>
+</div>
+<figcaption>Figure 2. Inside a spring-loaded relief valve on R-101, cut in half. Run the overpressure event or drag the pressure slider. The valve opens at the 3 barg set pressure, relieves to the flare or scrubber, and reseats at about 2.8 barg. Part shapes are simplified.</figcaption>
+</figure>

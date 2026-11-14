@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.16** (see `CHANGELOG.md`).
+Version: **V5.17** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -29,6 +29,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 | `assets/css/oee.css`, `assets/js/oee.js` | Styles and the three slider calculators (with live charts) used by the OEE article series. The FEED series (`content/articles/feed_articles.py`) reuses the table and layout styles from `oee.css` |
 | `assets/js/oee3d.js` | The 3D "OEE as a volume" box (Figure 2 of `post/what-oee-really-measures.html`); follows that article's sliders. Styles are in `assets/css/oee.css`. |
+| `assets/js/psv3d.js`, `hx3d.js`, `pm3d.js`, `tk3d.js` | Interactive 3D models (Figure 2) in the pressure relief, heat exchanger, pump and tank articles. They need `assets/js/vendor/three-r128.min.js`. Figure markup: `content/articles/fig3d/`, inserted by `content/articles/sizing_articles.py`; styles: the V5.17 blocks in `assets/css/oee.css`. |
 | `assets/sim/q2c-factory.html`, `assets/js/q2c.js`, `assets/js/vendor/` | The quote-to-cash series (source: `content/articles/q2c_articles.py`). `assets/sim/q2c-factory.html` is the 3D factory simulator: one self-contained page holding the simulation model and the 3D scene, not indexed on its own. Part 2 embeds it in a frame with `#embed` on the address (no header; it reports its height to the article). `q2c.js` sizes that frame and runs the payback calculator in Part 3. `vendor/` holds Three.js r128 and its OrbitControls (MIT licence, `three-LICENSE.txt`), used only by the simulator. The figures quoted in the three articles are the simulator's results at its starting settings (`DAYS` and `RESULTS` in `q2c_articles.py`); if the model's defaults change, rerun it and update them. |
 | `assets/js/scaleup.js` | The cooling-capacity calculator and chart in Part 1 of the scale-up series (source: `content/articles/process_eng_articles.py`) |
 | `assets/js/runaway.js` | The cooling failure (MTSR) calculator in Part 1 of the process safety series (source: `content/articles/safety_articles.py`) |

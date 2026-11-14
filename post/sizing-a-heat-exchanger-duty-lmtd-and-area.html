@@ -63,10 +63,11 @@
 </section>
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
-  <article class="prose">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#step-1-the-duty">Step 1: the duty</a></li><li><a href="#step-2-the-driving-force-lmtd">Step 2: the driving force (LMTD)</a></li><li><a href="#step-3-the-overall-coefficient-u">Step 3: the overall coefficient (U)</a></li><li><a href="#step-4-the-area">Step 4: the area</a></li><li><a href="#step-5-lay-out-the-tubes">Step 5: lay out the tubes</a></li><li><a href="#what-to-check-next">What to check next</a></li><li><a href="#key-points">Key points</a></li></ol></details>
 
 
-<link rel="stylesheet" href="../assets/css/oee.css?v=d310ec38">
+
+<link rel="stylesheet" href="../assets/css/oee.css?v=12a6a829">
 <p><a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> sized pump P-101. This part sizes the heater it feeds: E-101, a shell-and-tube exchanger that uses low-pressure steam to warm the reactor feed. The method is the same for most heaters and coolers: find the duty, find the temperature driving force, choose an overall heat transfer coefficient, and calculate the area.</p>
 <h2 id="step-1-the-duty">Step 1: the duty</h2>
 <p>The feed of 6,250&nbsp;kg/h is heated from 20&nbsp;°C to 80&nbsp;°C with a heat capacity of 2.0&nbsp;kJ/kg·K:</p>
@@ -99,6 +100,40 @@
 <tr><td class="nw">Area, required / design</td><td>4.61 / 5.54&nbsp;m²</td></tr>
 <tr><td class="nw">Tubes</td><td>22 × ¾" OD, 2 passes, 4.5&nbsp;m long</td></tr>
 </table>
+<p>Figure 2 shows the finished E-101 at work, drawn as a U-tube exchanger: 11 U-tubes give 11 tubes in each of the two passes. Change the feed flow, the steam pressure or the fouling and watch the outlet temperature respond.</p>
+<figure class="hx3d" id="hx3d">
+<div class="hx3d-box">
+<div class="hx3d-stage">
+<canvas role="img" aria-label="3D model of heat exchanger E-101, a horizontal U-tube shell-and-tube heater cut in half. Feed enters the lower half of the channel at 20 degrees Celsius, flows along the lower tubes, turns through the U-bends and returns along the upper tubes, warming as it goes. Steam enters the top of the shell, condenses on the tubes, and the condensate drains from the bottom of the shell."></canvas>
+<svg class="hx3d-lines" aria-hidden="true"></svg>
+<span class="hx3d-drag" aria-hidden="true">Drag to turn</span>
+<p class="hx3d-nogl" id="hx3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="hx3d-panel">
+<div class="hx3d-sliders">
+<div class="hx3d-sl"><label for="hx3d-flow">Feed flow <output id="hx3d-flow-o" for="hx3d-flow">6,250 kg/h</output></label><input type="range" id="hx3d-flow" min="3000" max="9500" step="50" value="6250"></div>
+<div class="hx3d-sl"><label for="hx3d-steam">Steam pressure <output id="hx3d-steam-o" for="hx3d-steam">3.0 barg</output></label><input type="range" id="hx3d-steam" min="1" max="5" step="0.1" value="3"></div>
+<div class="hx3d-sl"><label for="hx3d-foul">Fouling: U reduced by <output id="hx3d-foul-o" for="hx3d-foul">0%</output></label><input type="range" id="hx3d-foul" min="0" max="30" step="1" value="0"></div>
+</div>
+<div class="hx3d-cells">
+<div class="hx3d-cell hx3d-key"><span class="k">Feed outlet</span><strong id="hx3d-tout">80.0 °C</strong></div>
+<div class="hx3d-cell"><span class="k">Duty</span><strong id="hx3d-q">208 kW</strong></div>
+<div class="hx3d-cell"><span class="k">LMTD</span><strong id="hx3d-lmtd">90.3 K</strong></div>
+<div class="hx3d-cell"><span class="k">Steam condensed</span><strong id="hx3d-ms">352 kg/h</strong></div>
+<div class="hx3d-cell"><span class="k">Condensate out</span><strong id="hx3d-tc">143.6 °C</strong></div>
+<div class="hx3d-cell"><span class="k">Tube velocity</span><strong id="hx3d-v">0.95 m/s</strong></div>
+</div>
+<p class="hx3d-note">Condensate leaves as saturated liquid. Condensing releases latent heat without a change in temperature, so the condensate matches the steam's <span id="hx3d-tsn">143.6 °C</span>.</p>
+<div class="hx3d-foot">
+<p class="hx3d-say" id="hx3d-say" aria-live="polite">Design point from the worked example: 6,250 kg/h heated from 20 to 80 °C needs 208 kW and about 352 kg/h of steam.</p>
+<button type="button" class="hx3d-btn" id="hx3d-reset">Back to design point</button>
+<button type="button" class="hx3d-btn" id="hx3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="hx3d-legend" aria-hidden="true"><li><i class="grad"></i>Liquid temperature, 20 °C to 160 °C</li><li><i class="ln"></i>Streamlines</li><li><i style="background:#FFE9DC"></i>Steam (gas)</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. E-101 as a U-tube exchanger, cut in half and drawn shortened; the real tubes are 4.5 m long. The model holds the area at the required 4.61 m² and U at 500 W/m²·K, so its starting point reproduces the worked example. Liquids are coloured by temperature, with streamlines showing the feed's path through the channel. Steam is a gas cloud that turns to liquid where it condenses; the condensate is taken to leave as saturated liquid, at the steam's condensing temperature. Part shapes are simplified.</figcaption>
+</figure>
 <h2 id="what-to-check-next">What to check next</h2>
 <ul>
 <li><strong>Tube-side pressure drop.</strong> <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> allowed 50&nbsp;kPa. At about 1&nbsp;m/s in two short passes the real figure will be well under that; the vendor's rating confirms it.</li>
@@ -115,8 +150,11 @@
 </ul>
 <p>Next: <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a> sizes the feed tank, T-101.</p>
 <p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
+<script src="../assets/js/vendor/three-r128.min.js" defer></script>
+<script src="../assets/js/hx3d.js?v=703fc8a5" defer></script>
   </article>
   <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-the-duty">Step 1: the duty</a></li><li><a href="#step-2-the-driving-force-lmtd">Step 2: the driving force (LMTD)</a></li><li><a href="#step-3-the-overall-coefficient-u">Step 3: the overall coefficient (U)</a></li><li><a href="#step-4-the-area">Step 4: the area</a></li><li><a href="#step-5-lay-out-the-tubes">Step 5: lay out the tubes</a></li><li><a href="#what-to-check-next">What to check next</a></li><li><a href="#key-points">Key points</a></li></ol></div>
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>heat exchanger sizing</span><span>LMTD</span><span>overall heat transfer coefficient</span><span>shell and tube</span><span>steam heater</span><span>process design</span></div></div>
   </aside>

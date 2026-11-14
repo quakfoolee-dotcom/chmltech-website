@@ -1,5 +1,14 @@
 # Changelog
 
+## V5.17 — 2026-11-14
+- **Four process engineering articles gain an interactive 3D model (each as a new Figure 2).** All are cut open or clear so the inside is visible, can be dragged to turn, and recalculate from the article's own worked example.
+  - **Pressure relief basics:** a spring-loaded relief valve cut in half. An overpressure event plays on a loop (1 barg normal, lifts at the 3 barg set pressure, reseats at about 2.8 barg); a pressure slider lets the reader trigger it; a panel compares gas force with spring force.
+  - **Sizing a heat exchanger:** E-101 as a U-tube exchanger. Feed is a liquid coloured by temperature with streamlines through the channel; steam is a gas cloud that condenses and drains. Sliders for feed flow, steam pressure and fouling recalculate outlet temperature, duty, LMTD, steam use, condensate temperature and tube velocity (80.0 °C, 208 kW, 90.3 K, 352 kg/h at the design point).
+  - **Sizing a pump:** P-101 with a clear front cover and clear piping. Streamlines coloured by pressure run from the suction pipe through the impeller and volute, up the discharge and through the control valve, which is downstream of the pump. Sliders for valve opening, VFD speed, tank level and liquid temperature re-solve the operating point on the article's pump and system curves, with a live chart; cavitation appears when NPSH available falls below NPSH required.
+  - **Sizing a tank:** T-101 cut in half with its five level settings. The level is simulated with time speeded up; a tanker delivery falls in as a realistic stream; alarms and trips act as in the article; the liquid is coloured by hydrostatic pressure.
+- Illustrative assumptions (stated in each caption): relief valve reseat pressure; toluene's vapour pressure curve for the feed above 20 °C, the NPSH required and power curves, and 3,500 rpm full speed for the pump; a 30 m³ delivery at 30 m³/h for the tank. Streamlines are schematic and part shapes are simplified.
+- New scripts `assets/js/psv3d.js`, `hx3d.js`, `pm3d.js`, `tk3d.js`; they use the vendored `assets/js/vendor/three-r128.min.js`, loaded only on these four pages. Styles are the four V5.17 blocks at the end of `assets/css/oee.css`. The figure markup lives in `content/articles/fig3d/` and is inserted by `content/articles/sizing_articles.py`, so regenerating the articles keeps the figures.
+
 ## V5.16 — 2026-11-14
 - **Insights "Start here": the Chmltech Online Journal is now covered.** Twelve of the 22 journal papers were in no reading list.
   - New priority **"Apply AI on the plant floor"**: Agentic AI in Manufacturing Operations, the three Physical AI papers and Digital Twins in Chemical Process Plants (`insights#goal-plant-ai`).

@@ -1,0 +1,38 @@
+<p>Figure 2 shows P-101 running, with a clear front cover so the flow is visible. The control valve sits downstream of the pump, on the discharge line. Move the valve, the pump speed, the tank level or the liquid temperature and watch the operating point, the pressures and the NPSH margin respond.</p>
+<figure class="pm3d" id="pm3d">
+<div class="pm3d-box">
+<div class="pm3d-stage">
+<canvas role="img" aria-label="3D model of pump P-101, a horizontal end-suction centrifugal pump driven by an electric motor, shown with a clear front cover. Liquid enters along the shaft axis at low pressure, is flung outward by the rotating impeller, collects in the spiral volute casing and leaves upward through the discharge nozzle at high pressure. The discharge line then passes through a control valve downstream of the pump. A variable frequency drive beside the motor sets the pump speed. Colours show pressure rising from suction to discharge, and streamlines show the path of the liquid."></canvas>
+<svg class="pm3d-lines" aria-hidden="true"></svg>
+<span class="pm3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="pm3d-chip" id="pm3d-chip">Running normally</span>
+<p class="pm3d-nogl" id="pm3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="pm3d-panel">
+<div class="pm3d-top">
+<div class="pm3d-sliders">
+<div class="pm3d-sl"><label for="pm3d-valve">Control valve opening <output id="pm3d-valve-o" for="pm3d-valve">60%</output></label><input type="range" id="pm3d-valve" min="15" max="100" step="1" value="60"></div>
+<div class="pm3d-sl"><label for="pm3d-speed">Pump speed (VFD) <output id="pm3d-speed-o" for="pm3d-speed">100% · 60 Hz · 3,500 rpm</output></label><input type="range" id="pm3d-speed" min="40" max="100" step="1" value="100"></div>
+<div class="pm3d-sl"><label for="pm3d-level">Tank level above the pump <output id="pm3d-level-o" for="pm3d-level">1.0 m</output></label><input type="range" id="pm3d-level" min="0.3" max="4" step="0.1" value="1"></div>
+<div class="pm3d-sl"><label for="pm3d-temp">Liquid temperature <output id="pm3d-temp-o" for="pm3d-temp">20 °C</output></label><input type="range" id="pm3d-temp" min="20" max="108" step="1" value="20"></div>
+</div>
+<div class="pm3d-chart"><svg id="pm3d-svg" viewBox="0 0 300 190" role="img" aria-label="Head against flow: the pump curve, the system curve for the chosen valve opening, and the operating point where they cross."></svg></div>
+</div>
+<div class="pm3d-cells">
+<div class="pm3d-cell pm3d-key"><span class="k">Flow</span><strong id="pm3d-q">8.09 m³/h</strong></div>
+<div class="pm3d-cell"><span class="k">Head</span><strong id="pm3d-h">46.9 m</strong></div>
+<div class="pm3d-cell"><span class="k">Discharge</span><strong id="pm3d-pd">3.98 barg</strong></div>
+<div class="pm3d-cell"><span class="k">Valve pressure drop</span><strong id="pm3d-dpv">120 kPa</strong></div>
+<div class="pm3d-cell"><span class="k">NPSH avail. / req.</span><strong id="pm3d-npsh">12.6 / 2.5 m</strong></div>
+<div class="pm3d-cell"><span class="k">Shaft power</span><strong id="pm3d-pw">1.95 kW</strong></div>
+</div>
+<div class="pm3d-foot">
+<p class="pm3d-say" id="pm3d-say" aria-live="polite">Design point: with the valve at its design opening the pump delivers the rated 8.1 m³/h at 46.9 m, and NPSH available is 12.6 m against 2.5 m required.</p>
+<button type="button" class="pm3d-btn" id="pm3d-reset">Back to design point</button>
+<button type="button" class="pm3d-btn" id="pm3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="pm3d-legend" aria-hidden="true"><li><i class="grad"></i>Pressure, 0 to 5 barg</li><li><i class="ln"></i>Streamlines</li><li><i class="bub"></i>Vapour bubbles (cavitation)</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. P-101 as an end-suction centrifugal pump with a clear front cover and clear piping. The flow control valve is on the discharge line, downstream of the pump. The pump and system curves are the ones in Figure 1, with the control valve treated as a fixed opening; the VFD moves the pump curve by the affinity laws. Full speed is taken as 3,500 rpm (a 2-pole motor at 60 Hz); the impeller is drawn in slow motion, turning in proportion to the VFD speed. The vapour pressure curve above 20 °C, the NPSH required curve and the power curve are illustrative assumptions. The streamlines and pressure colours are schematic, and part shapes are simplified.</figcaption>
+</figure>

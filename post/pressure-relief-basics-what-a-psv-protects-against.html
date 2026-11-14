@@ -82,7 +82,7 @@
 
 
 
-<link rel="stylesheet" href="../assets/css/oee.css?v=d310ec38">
+<link rel="stylesheet" href="../assets/css/oee.css?v=12a6a829">
 <p>A pressure relief valve sits quietly on a vessel for years and may never lift. It is still one of the most important pieces of equipment in a plant, because it is the last line of defence when everything else has failed. Owners and managers see relief valves on every P&amp;ID and in every inspection report. This article explains what they protect against, how engineers decide which scenario sets their size, and where the common mistakes are.</p>
 <h2 id="what-a-relief-device-does">What a relief device does</h2>
 <p>Every pressure vessel has a <strong>maximum allowable working pressure</strong> (MAWP), set by its design code. A relief device opens before the pressure goes much above it, and releases enough fluid to stop the pressure rising further. Codes allow the pressure to rise a little above the MAWP while the device is relieving. That rise is called accumulation, and its limit depends on the case.</p>
@@ -97,6 +97,41 @@
 <tr><td class="nw">Fire exposure</td><td>21%</td></tr>
 </table>
 <p>These are the limits used with the ASME pressure vessel code and API Standard 521, the main guide to relief and depressuring systems for process plants. Your jurisdiction's pressure equipment regulator adopts the code and inspects against it.</p>
+<p>Most relief devices on process vessels are spring-loaded valves. A spring holds a disc down on a nozzle until the pressure under the disc is high enough to lift it. Figure 2 shows one on R-101.</p>
+<figure class="psv3d" id="psv3d">
+<div class="psv3d-box">
+<div class="psv3d-stage">
+<canvas role="img" aria-label="3D model of a spring-loaded pressure relief valve, cut in half. Gas from the vessel fills the inlet nozzle under the disc. A spring presses the disc onto the nozzle. When the vessel pressure reaches the 3 barg set pressure the disc lifts and gas flows out through the side outlet to the flare or scrubber. The valve closes again at about 2.8 barg."></canvas>
+<svg class="psv3d-lines" aria-hidden="true"></svg>
+<span class="psv3d-tag" id="psv3d-tin">From vessel R-101 · <b id="psv3d-pin">1.00 barg</b></span>
+<span class="psv3d-tag" id="psv3d-tout">To flare or scrubber</span>
+<span class="psv3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="psv3d-chip" id="psv3d-chip">Closed</span>
+<p class="psv3d-nogl" id="psv3d-nogl" hidden>This browser cannot show the 3D model. The controls below still step through the event.</p>
+</div>
+<div class="psv3d-panel">
+<div class="psv3d-ctl">
+<button type="button" class="psv3d-btn" id="psv3d-run">Run an overpressure event</button>
+<button type="button" class="psv3d-btn psv3d-ghost" id="psv3d-names" aria-pressed="true">Part names</button>
+</div>
+<div class="psv3d-slider">
+<label for="psv3d-p">Vessel pressure <output id="psv3d-po" for="psv3d-p">1.00 barg</output></label>
+<div class="psv3d-track"><input type="range" id="psv3d-p" min="0.5" max="3.4" step="0.01" value="1"><i style="--v:1;background:#5EC8FF"></i><i style="--v:2.8;background:#C9D2DE"></i><i style="--v:3;background:#8DC63F"></i><i style="--v:3.3;background:#FF7A5C"></i></div>
+<ul class="psv3d-key"><li><i style="background:#5EC8FF"></i>1.0 normal</li><li><i style="background:#C9D2DE"></i>2.8 reseats</li><li><i style="background:#8DC63F"></i>3.0 set pressure = MAWP</li><li><i style="background:#FF7A5C"></i>3.3 limit while relieving</li></ul>
+</div>
+<div class="psv3d-cells">
+<div class="psv3d-cell psv3d-forces"><span class="k">Forces on the disc</span>
+<div class="psv3d-force"><span>Gas pushing up</span><i><b id="psv3d-fp"></b></i></div>
+<div class="psv3d-force"><span>Spring pushing down</span><i><b id="psv3d-fs" class="s"></b></i></div>
+</div>
+<div class="psv3d-cell"><span class="k">Valve lift</span><strong id="psv3d-lift">0%</strong></div>
+<div class="psv3d-cell"><span class="k">Flow to flare</span><strong id="psv3d-flow">None</strong></div>
+</div>
+<p class="psv3d-say" id="psv3d-say" aria-live="polite">Normal operation at 1 barg. The spring presses the disc onto the nozzle and the valve is shut tight.</p>
+</div>
+</div>
+<figcaption>Figure 2. Inside a spring-loaded relief valve on R-101, cut in half. Run the overpressure event or drag the pressure slider. The valve opens at the 3 barg set pressure, relieves to the flare or scrubber, and reseats at about 2.8 barg. Part shapes are simplified.</figcaption>
+</figure>
 <h2 id="what-can-cause-overpressure">What can cause overpressure</h2>
 <p>API 521 lists the causes an engineer must consider for each piece of equipment. The main ones:</p>
 <table>
@@ -142,6 +177,8 @@
 </ul>
 <p><strong>Need a relief study reviewed?</strong> Chmltech's process engineers prepare design bases, HAZOPs and relief load summaries for small and mid-sized plants. <a href="../book.html">Book a strategy call</a>.</p>
 <p class="oee-note"><em>The vessel and numbers in this article are an illustrative example. Relief systems must be designed by a qualified engineer to the applicable codes and the requirements of your jurisdiction.</em></p>
+<script src="../assets/js/vendor/three-r128.min.js" defer></script>
+<script src="../assets/js/psv3d.js?v=0c102261" defer></script>
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-a-relief-device-does">What a relief device does</a></li><li><a href="#what-can-cause-overpressure">What can cause overpressure</a></li><li><a href="#choosing-the-governing-case">Choosing the governing case</a></li><li><a href="#set-pressure-and-where-the-relief-goes">Set pressure and where the relief goes</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></div>
