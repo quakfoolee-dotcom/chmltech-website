@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="assets/css/styles.css?v=e15e3c9f">
+<link rel="stylesheet" href="assets/css/styles.css?v=5d910b36">
 <meta property="og:url" content="https://www.chmltech.com/">
 <meta property="og:locale" content="en_CA">
 <meta name="twitter:card" content="summary_large_image">
@@ -50,18 +50,37 @@
   </div>
 </header>
 <main id="main">
-<section class="hero dark hero-b">
-  <div class="container hero-grid">
-    <div class="stack-lg">
+<section class="hero dark hero3d" id="hero">
+  <div class="container hero3d-grid">
+    <div class="stack-lg hero3d-copy">
       <p class="eyebrow">Vancouver, BC · Serving businesses across Canada</p>
       <h1 class="h-xl" data-kw="1">AI and operations consulting for Canadian small businesses</h1><p class="hero-slogan">AI, digital transformation &amp; operational excellence, engineered to last.</p>
       <p class="lead">We help businesses redesign processes, adopt AI, select the right systems, automate workflows, and build KPI-driven operations.</p>
       <div class="btn-row"><a class="btn" href="book.html">Book a Strategy Call</a><a class="btn btn-ghost-dark" href="solutions.html">Explore Solutions</a></div>
     </div>
-    <div class="cycle" role="img" aria-label="The Chmltech approach: Discover, Map, Prioritize, Implement, Measure, then back to Discover">
-      <div class="cycle-head"><span>Improvement cycle</span><span>5 stages</span></div>
-      <div class="cycle-step"><b>01</b><strong>Discover</strong><span>Goals, pain points, data, systems</span></div><div class="cycle-step"><b>02</b><strong>Map</strong><span>Current-state process &amp; info flows</span></div><div class="cycle-step"><b>03</b><strong>Prioritize</strong><span>Quick wins, automation, AI use cases</span></div><div class="cycle-step"><b>04</b><strong>Implement</strong><span>Systems, workflows, KPIs, training</span></div><div class="cycle-step last"><b>05</b><strong>Measure</strong><span>Dashboards &amp; continuous improvement</span></div><div class="cycle-loop"><span class="ar" aria-hidden="true">↻</span><span>Back to 01 Discover: the cycle repeats</span></div>
+    <div class="orbit-col">
+      <div class="orbit" id="orbit" role="group" aria-label="The Chmltech improvement cycle: Discover, Map, Prioritize, Implement, Measure, then back to Discover">
+        <canvas aria-hidden="true"></canvas>
+        <button type="button" class="orbit-label" id="orbit-s1" data-i="0"><b>01</b><span>Discover</span></button>
+        <button type="button" class="orbit-label" id="orbit-s2" data-i="1"><b>02</b><span>Map</span></button>
+        <button type="button" class="orbit-label" id="orbit-s3" data-i="2"><b>03</b><span>Prioritize</span></button>
+        <button type="button" class="orbit-label" id="orbit-s4" data-i="3"><b>04</b><span>Implement</span></button>
+        <button type="button" class="orbit-label" id="orbit-s5" data-i="4"><b>05</b><span>Measure</span></button>
+      </div>
+      <div class="orbit-readout" id="orbit-readout">
+        <div class="orbit-readout-head"><span>Improvement cycle</span><span id="orbit-count">Stage 01 of 05</span></div>
+        <div class="orbit-readout-body"><strong id="orbit-name">Discover</strong><span id="orbit-desc">Goals, pain points, data, systems</span></div>
+        <div class="orbit-bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      </div>
     </div>
+  </div>
+  <div class="container">
+    <dl class="hero-stats">
+      <div><dt>300+</dt><dd>Digital Adoption Plans for Canadian SMEs</dd></div>
+      <div><dt>8</dt><dd>Industries served, from energy to public sector</dd></div>
+      <div><dt>140+</dt><dd>Insights articles and journal papers</dd></div>
+      <div><dt>16,800+</dt><dd>Free practice exam questions</dd></div>
+    </dl>
   </div>
 </section>
 <section class="strip" aria-label="Industries">
@@ -169,5 +188,6 @@
   </div>
 </footer>
 <script src="assets/js/main.js?v=7ac1c777" defer></script>
+<script src="assets/js/hero3d.js?v=e94ead27" defer></script>
 </body>
 </html>

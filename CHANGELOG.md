@@ -1,5 +1,10 @@
 # Changelog
 
+## V5.3 — 2026-11-13
+- **Home page: 3D animated hero.** The static improvement-cycle card is replaced by a live 3D scene: a rotating wireframe globe with data pulses, and an orbit carrying the five stages (Discover, Map, Prioritize, Implement, Measure). The active stage comes to the front every few seconds and a panel below shows its name and description; visitors can click a stage, and the scene tilts with the mouse. Stage names sit beneath their circle; the two stages on the far side go behind the globe with the name above the circle.
+- **Figures bar** closing the hero: 300+ Digital Adoption Plans, 8 industries, 140+ Insights articles and journal papers, 16,800+ free practice exam questions (rounded-down figures, so they stay true as content is added).
+- No library: `assets/js/hero3d.js` is a small 2D-canvas perspective renderer (about 13 KB). It pauses when off-screen or in a background tab and shows a still frame under `prefers-reduced-motion`. Styles: the "V5.3 homepage 3D hero" block at the end of `assets/css/styles.css`. Headline, slogan, buttons and all sections below the hero are unchanged.
+
 ## V5.2 — 2026-11-13
 - **New free course: Choosing ERP and Business Software** (`challenge-page/choosing-erp-and-business-software`): 16 lessons in four modules (Do You Need New Software?, Requirements and the Market, Decide and Contract, Implement and Get Value) covering signs of outgrown systems, ERP/CRM/WMS/MES, suite vs best of breed, process mapping, business case, scenario requirements, shortlisting vendors and partners, focused RFPs, scripted demos, weighted scoring, five-year TCO, contract terms, implementation approach, governance, data migration, testing, training, go-live and a roadmap; 6 interactive figures; 3 labs (which-system sort, fit vs cost matrix, TCO calculator); 20-question exam and certificate. Source: `content/courses/src/erp_selection.py`.
 - **Course finder:** Intermediate / Digital & automation; added to the Digital Automation path after Digital Automation for SMEs. The site has **21 free courses**.

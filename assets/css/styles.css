@@ -384,3 +384,60 @@ p{margin:0}
 /* V4.92 cycle card: loop note under step 05 */
 .cycle-loop{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#C9D6EA;padding:2px 4px 0 18px}
 .cycle-loop .ar{font-size:18px;color:var(--green);line-height:1}
+
+/* ---------- V5.3 homepage 3D hero (replaces the .hero-b cycle card; script: assets/js/hero3d.js) ----------
+   Layout idea: copy left, a live 3D "operations core" right, a figures bar closing the hero.
+   Tokens reuse the site palette; the only additions are the two below. */
+:root{--hero-deep:#04122A;--hero-hair:rgba(255,255,255,.14)}
+.hero3d{position:relative;overflow:hidden;padding:84px 0 0;
+  background:radial-gradient(ellipse 46% 62% at 76% 40%,rgba(16,104,170,.46),rgba(16,104,170,0) 72%),
+             linear-gradient(135deg,var(--hero-deep) 0%,#0B2A5A 56%,#0D447A 100%)}
+.hero3d .btn:not(.btn-ghost-dark){background:var(--green);border-color:var(--green);color:var(--navy)!important}
+.hero3d .btn:not(.btn-ghost-dark):hover{background:#A3D65E;border-color:#A3D65E}
+.hero3d .btn-ghost-dark{border-color:#8FA6C8}
+.hero3d-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:48px;align-items:center}
+.hero3d-copy{position:relative;z-index:2}
+.orbit-col{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.orbit{position:relative;width:100%;max-width:560px;aspect-ratio:1/.8}
+.orbit{isolation:isolate}
+.orbit canvas{z-index:1;position:absolute;left:-20%;top:-25%;width:140%;height:150%;pointer-events:none}
+.orbit-label{position:absolute;left:0;top:0;display:flex;align-items:baseline;gap:7px;padding:5px 11px;border-radius:999px;
+  border:1px solid transparent;background:rgba(6,24,51,.88);color:#DCE7F5;font:600 13.5px/1.2 var(--font-head);letter-spacing:.01em;
+  white-space:nowrap;cursor:pointer;will-change:transform,opacity;transition:background .3s,border-color .3s,color .3s}
+.orbit-label{z-index:2}
+.orbit:not(.is-live) .orbit-label{visibility:hidden}
+.orbit-label.is-back{z-index:0;background:rgba(6,24,51,.55)}
+.orbit-label b{font-size:11.5px;letter-spacing:.08em;color:var(--green)}
+.orbit-label:hover{border-color:rgba(255,255,255,.4);color:#fff}
+.orbit-label.is-active{background:rgba(141,198,63,.16);border-color:rgba(141,198,63,.6);color:#fff}
+.orbit-readout{position:relative;z-index:2;width:100%;max-width:440px;display:flex;flex-direction:column;gap:10px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:18px 22px 20px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.orbit-readout-head{display:flex;justify-content:space-between;gap:12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9FB2CC;font-variant-numeric:tabular-nums}
+.orbit-readout-body{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;min-height:30px}
+.orbit-readout-body strong{font-family:var(--font-head);font-size:22px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.orbit-readout-body span{font-size:14.5px;color:#B4C2D6}
+.orbit-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.orbit-bar i{height:3px;border-radius:2px;background:rgba(255,255,255,.16);transition:background .4s}
+.orbit-bar i.on{background:var(--green)}
+.hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:68px 0 0;border-top:1px solid var(--hero-hair)}
+.hero-stats div{padding:26px 24px 32px;border-left:1px solid var(--hero-hair);display:flex;flex-direction:column;gap:6px}
+.hero-stats div:first-child{border-left:0;padding-left:0}
+.hero-stats dt{font-family:var(--font-head);font-weight:600;font-size:clamp(30px,3.1vw,42px);line-height:1;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums}
+.hero-stats dd{margin:0;font-size:14.5px;line-height:1.45;color:var(--on-dark);max-width:230px}
+@media (max-width:980px){
+  .hero3d{padding-top:64px}
+  .hero3d-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .orbit{max-width:460px}
+  .hero-stats{margin-top:48px}
+}
+@media (max-width:760px){
+  .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-stats div{padding:22px 16px 24px}
+  .hero-stats div:nth-child(odd){border-left:0;padding-left:0}
+  .hero-stats div:nth-child(n+3){border-top:1px solid var(--hero-hair)}
+}
+@media (max-width:560px){
+  .orbit-label:not(.is-active) span{display:none}
+  .orbit-label{padding:4px 8px}
+}
