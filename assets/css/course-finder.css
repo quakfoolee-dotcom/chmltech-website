@@ -6,6 +6,7 @@
 .finder-intro .stack{max-width:680px}
 .finder-intro .btn-row{margin:0}
 .finder .btn-ghost{background:var(--white)}
+.finder .btn-ghost:hover,.finder .btn-ghost:focus-visible{background:var(--ink);color:var(--white)!important}
 /* progress */
 .finder-progress{display:flex;align-items:center;gap:16px;font-size:14px;font-weight:600;color:var(--muted)}
 .finder-bar{flex:1;height:6px;background:var(--sand);border-radius:999px;overflow:hidden}

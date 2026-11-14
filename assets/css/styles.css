@@ -251,7 +251,7 @@ p{margin:0}
 .prose blockquote{margin:1.6em 0;padding:4px 0 4px 20px;border-left:3px solid var(--blue);color:var(--ink);font-size:19px}
 .prose table{border-collapse:collapse;width:100%;font-size:15px;display:block;overflow-x:auto}
 .prose th,.prose td{border:1px solid var(--line-2);padding:10px 12px;text-align:left;vertical-align:top}
-.prose th,.prose tr:first-child td{background:var(--sand);font-weight:600}
+.prose th,.prose table:not(:has(thead)) tr:first-child td{background:var(--sand);font-weight:600}
 .prose hr{border:0;border-top:1px solid var(--line-2);margin:2em 0}
 .prose pre{background:var(--navy-deep);color:#E3F2FA;padding:16px;border-radius:8px;overflow-x:auto;font-size:14px}
 .layout-aside{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:64px;align-items:start}

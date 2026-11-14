@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.7 — 2026-11-13
+- **Fix: course finder buttons.** The outlined buttons in the course finder ("Browse all courses", "Retake the quiz") turned white-on-white on hover, so their text disappeared. Hover now shows white text on navy (`assets/css/course-finder.css`).
+- **Fix: tables.** A site-wide rule styled the first row of every table as a header, so in tables that already have a header row the first data row looked like a second header (shaded and bold). The header style now applies only to tables without a header row (`assets/css/styles.css`). Affects all course lessons and articles with tables; older tables that rely on first-row header styling are unchanged.
+
 ## V5.6 — 2026-11-13
 - **New free course: Private and Local AI for SMEs** (`challenge-page/private-and-local-ai-for-smes`): 16 lessons in four modules (Why Private AI, Setting Up, Running It Safely, Value and Roadmap) covering the cloud-to-local spectrum, when local AI makes sense, open-weight models and licences, quantization and hardware sizing, Ollama, LM Studio, llama.cpp, Open WebUI and AnythingLLM, choosing models with your own test set, RAG and how to make it accurate, security, privacy, desktop vs team server, limits and the hybrid approach, SME use cases, cost vs cloud, local agents and MCP, and a 90-day pilot; 6 interactive figures; 3 labs (where-should-this-run sort, first-use-case matrix, local vs cloud cost calculator); 20-question exam and certificate. Links to the Insights AnythingLLM and Ollama article. Source: `content/courses/src/local_ai.py`.
 - **Course finder:** Intermediate / AI; added to the AI Builder and Cyber Safe Business paths. The site has **24 free courses**.
