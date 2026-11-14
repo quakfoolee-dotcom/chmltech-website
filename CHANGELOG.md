@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.4 — 2026-11-13
+- **New free course: Sales and Operations Planning (S&OP) for SMEs** (`challenge-page/sales-and-operations-planning`): 16 lessons in four modules (S&OP Foundations, Demand Planning, Supply Planning, Integrate and Decide) covering planning levels, product families, time fences, the monthly cycle, unconstrained demand plans, accuracy, bias and forecast value added, big customers and new products, rough-cut capacity, level vs chase, materials and suppliers, inventory and backlog targets, the financial view, pre-S&OP scenarios, the executive meeting and a six-cycle roadmap; 6 interactive figures; 3 labs (which-step sort, rough-cut capacity calculator, capacity-gap options matrix); 20-question exam and certificate. Source: `content/courses/src/sop.py`.
+- **Course finder:** Intermediate / Operations; added to the Inventory and Supply path after Inventory Management. The site has **22 free courses**.
+
 ## V5.3 — 2026-11-13
 - **Home page: 3D animated hero.** The static improvement-cycle card is replaced by a live 3D scene: a rotating wireframe globe with data pulses, and an orbit carrying the five stages (Discover, Map, Prioritize, Implement, Measure). The active stage comes to the front every few seconds and a panel below shows its name and description; visitors can click a stage, and the scene tilts with the mouse. Stage names sit beneath their circle; the two stages on the far side go behind the globe with the name above the circle.
 - **Figures bar** closing the hero: 300+ Digital Adoption Plans, 8 industries, 140+ Insights articles and journal papers, 16,800+ free practice exam questions (rounded-down figures, so they stay true as content is added).
