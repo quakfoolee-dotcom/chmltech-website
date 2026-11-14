@@ -16,7 +16,8 @@
   "operational-excellence": {"level": 2, "topic": "ops"},
   "project-leadership":     {"level": 2, "topic": "ops"},
   "lean-six-sigma":         {"level": 2, "topic": "ops"},
-  "inventory-management":   {"level": 1, "topic": "ops"}
+  "inventory-management":   {"level": 1, "topic": "ops"},
+  "oee-equipment-effectiveness": {"level": 2, "topic": "ops"}
  },
  "paths": {
   "ai-starter":  {"name": "AI Starter", "blurb": "Learn what AI can and can't do, use it safely every day, then see how it fits your business.", "ai": true,
@@ -30,14 +31,14 @@
   "supply":      {"name": "Inventory and Supply", "blurb": "Hold the right stock at the right time, then remove the process problems that cause shortages and excess.",
                   "courses": ["inventory-management", "lean-six-sigma", "workflow-automation"]},
   "operations":  {"name": "Operations Improver", "blurb": "Organize the workplace, cut waste and lift performance, then run the improvement as a project.",
-                  "courses": ["5s-mastery", "operational-excellence", "lean-six-sigma", "project-leadership"]},
+                  "courses": ["5s-mastery", "operational-excellence", "oee-equipment-effectiveness", "lean-six-sigma", "project-leadership"]},
   "project":     {"name": "Improvement Project Leader", "blurb": "Lead an improvement project from assessment to sustained results, with the tools to run it well.",
                   "courses": ["operational-excellence", "lean-six-sigma", "project-leadership", "5s-mastery"]}
  },
  "goal_path": {"stock": "supply", "ai-use": "ai-starter", "ai-strategy": "ai-leader", "ai-build": "ai-builder", "automate": "automation", "ops": "operations", "project": "project"},
  "beginner_intro": "ai-awareness",
  "industry_names": {"mfg": "manufacturing and process industries", "dist": "distribution, logistics and retail", "services": "service businesses"},
- "industry_extra": {"mfg": "operational-excellence", "dist": "inventory-management", "services": "digital-automation"},
+ "industry_extra": {"mfg": "oee-equipment-effectiveness", "dist": "inventory-management", "services": "digital-automation"},
  "questions": [
   {"id": "role", "q": "Which best describes your role?", "opts": [
     ["leader", "Owner, executive or general manager"],

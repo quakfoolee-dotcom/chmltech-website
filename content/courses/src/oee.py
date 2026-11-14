@@ -1,0 +1,491 @@
+"""Source for content/courses/oee-equipment-effectiveness.json (run: python3 content/courses/src/oee.py)."""
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _common import step, E, write
+
+M1 = [
+step("What OEE measures and why it matters", 6, """
+<p><strong>Overall equipment effectiveness (OEE)</strong> answers one question: of the time a machine or line was scheduled to run, what share produced good product at full speed? It multiplies three factors:</p>
+<p><strong>OEE = Availability × Performance × Quality</strong></p>
+<table><thead><tr><th>Factor</th><th>Question</th><th>Losses it captures</th></tr></thead><tbody>
+<tr><td>Availability</td><td>Was it running when it was scheduled to?</td><td>Breakdowns, changeovers, waiting for material or operators</td></tr>
+<tr><td>Performance</td><td>When running, was it running at its ideal speed?</td><td>Minor stops, slow cycles, reduced speed</td></tr>
+<tr><td>Quality</td><td>Was what it made good the first time?</td><td>Scrap, rework, start-up rejects</td></tr>
+</tbody></table>
+<p>There is a simpler equivalent: OEE = (good units × ideal cycle time) ÷ planned production time. It is the share of scheduled time that would have been needed to make the good output at full speed, with no stops. An OEE of 60% means 40% of scheduled time was lost somewhere.</p>
+<h3>Why it matters</h3>
+<p>Many plants believe they are capacity-constrained and plan to buy another machine or add a shift. OEE often shows a large hidden capacity inside the existing equipment: time lost to stops, slow running and scrap. Recovering part of it can deliver more output for far less money than new equipment, and it reveals exactly where the losses are.</p>
+<h3>Where to use it</h3>
+<p>OEE suits repetitive equipment with a definable ideal rate: packaging lines, CNC machines, presses, moulding, filling, bottling, extrusion and similar. It is most valuable on the <strong>bottleneck</strong>, the equipment that limits the whole plant's output, because every hour gained there is an hour gained for the business. The Insights article <a href="../post/what-oee-really-measures.html">What OEE really measures</a> covers the concept in more depth.</p>
+""", ["OEE = Availability × Performance × Quality.", "It shows the share of scheduled time that produced good output at full speed.", "Use it first on the bottleneck, where gains become extra output."],
+ "List the three pieces of equipment in your operation that most often limit output. Which one would you measure OEE on first, and why?",
+ "A line has OEE of 65%. What does this mean?", ["The line runs 65% of the 24-hour day", "65% of the product is good", "Good output at full speed took 65% of the scheduled time; 35% was lost", "Operators work at 65% effort"], 2,
+ "OEE is the share of planned production time that was effectively used to make good product at ideal speed."),
+step("Availability: is it running when it should be?", 7, """
+<p>Availability compares the time the equipment actually ran with the time it was scheduled to run.</p>
+<p><strong>Availability = run time ÷ planned production time</strong></p>
+<p><strong>Planned production time</strong> is the shift time minus planned breaks and periods when no production was scheduled, such as no orders or planned maintenance (more on what to exclude in a later lesson). <strong>Run time</strong> is planned production time minus stop time.</p>
+<h3>What counts as a stop</h3>
+<p>Availability losses are stops long enough to be recorded with a reason. Many plants use a threshold, such as five minutes, with shorter stops counted as minor stops under performance. Typical availability losses:</p>
+<ul><li>Breakdowns and equipment failures.</li>
+<li>Changeovers and setups between products.</li>
+<li>Waiting for materials, operators, quality approval or maintenance.</li>
+<li>Upstream starving or downstream blocking, if you count them here; decide once and be consistent.</li></ul>
+<h3>Example</h3>
+<p>An eight-hour shift has a 30-minute meal break, so planned production time is 450 minutes. The line stopped for a 25-minute changeover and a 20-minute jam. Run time is 450 − 45 = 405 minutes. Availability = 405 ÷ 450 = 90%.</p>
+<h3>Changeovers belong in OEE</h3>
+<p>Some plants leave changeovers out of OEE because "they are planned". Do not. A changeover is time the equipment could have produced. Counting it keeps changeover reduction visible, and changeover time is often one of the largest and most fixable losses.</p>
+""", ["Availability = run time ÷ planned production time.", "Set a threshold between recorded stops and minor stops, and keep it consistent.", "Count changeovers as availability losses so they stay visible."],
+ "For one shift on your bottleneck, list each stop over five minutes with its duration and reason. Calculate availability.",
+ "Planned production time is 400 minutes and the machine stopped for 60 minutes. What is availability?", ["15%", "60%", "85%", "94%"], 2,
+ "Run time = 400 − 60 = 340; availability = 340 ÷ 400 = 85%."),
+step("Performance: is it running at full speed?", 7, """
+<p>Performance compares what the equipment actually produced in its run time with what it could have produced at its <strong>ideal cycle time</strong>.</p>
+<p><strong>Performance = (ideal cycle time × total units) ÷ run time</strong></p>
+<p>Total units include good and bad. The ideal cycle time is the fastest the equipment can reliably make one unit of that product under good conditions, from the equipment design rating or the best sustained rate you have demonstrated. Do not use the average or the "standard" rate that already includes losses; that hides the performance gap you want to see.</p>
+<h3>What performance losses look like</h3>
+<ul><li><strong>Minor stops:</strong> brief jams, misfeeds, sensor trips and blocked chutes, often under five minutes and rarely recorded. They add up quickly.</li>
+<li><strong>Reduced speed:</strong> running below the ideal rate because of material problems, worn equipment, operator caution or habit.</li></ul>
+<h3>Example</h3>
+<p>Continuing the example: the line ran 405 minutes. The ideal cycle time is 0.5 minutes per unit (120 units an hour), and it made 700 units. Performance = (0.5 × 700) ÷ 405 = 350 ÷ 405 ≈ 86.4%. About 55 minutes of run time were lost to minor stops and slow running that nobody logged.</p>
+<h3>A check on your numbers</h3>
+<p>Performance above 100% means the ideal cycle time is set too slow. Fix it rather than capping the result. If products have different ideal rates, calculate the ideal time for each product's units and add them up.</p>
+""", ["Performance = ideal cycle time × total units ÷ run time.", "Use a true ideal rate, not a standard that already includes losses.", "Minor stops and slow running are often large and unrecorded."],
+ "Find the ideal cycle time for your bottleneck's most common product, from the design rating or the best sustained hour. Compare it with the rate used in your plans.",
+ "A machine ran for 300 minutes with an ideal cycle time of 0.25 minutes and made 1,000 units. What is performance?", ["33%", "83%", "120%", "75%"], 1,
+ "(0.25 × 1,000) ÷ 300 = 250 ÷ 300 ≈ 83%."),
+step("Quality: good the first time", 6, """
+<p>Quality compares the good units with all the units produced.</p>
+<p><strong>Quality = good units ÷ total units</strong></p>
+<p><strong>Good</strong> means good the first time: units that passed without rework. Reworked units count as bad for OEE even if they are eventually shipped, because the equipment's time to make them the first time was wasted and the rework uses more time and labour.</p>
+<h3>Quality losses</h3>
+<ul><li><strong>Start-up rejects:</strong> scrap made while warming up, after a changeover or after a stop, until the process stabilizes.</li>
+<li><strong>Production rejects:</strong> scrap and rework during stable running.</li></ul>
+<p>Start-up losses are often treated as normal and never measured. On lines with frequent changeovers they can be a large share of all scrap.</p>
+<h3>Completing the example</h3>
+<p>Of the 700 units made, 672 were good first time. Quality = 672 ÷ 700 = 96%.</p>
+<p>OEE = 90% × 86.4% × 96% ≈ 74.6%. Check with the simple formula: good units × ideal cycle time ÷ planned production time = 672 × 0.5 ÷ 450 = 336 ÷ 450 ≈ 74.7%. The small difference is rounding.</p>
+<p>Notice how three factors that each look respectable multiply into an OEE well below any of them. That is why OEE is useful: it shows the combined effect of all losses in one number. Use the lab after this lesson to calculate OEE from one shift of your own data.</p>
+""", ["Quality = good-first-time units ÷ total units.", "Reworked units count as bad for OEE.", "Three good-looking factors multiply into a much lower OEE."],
+ "Count good-first-time, reworked and scrapped units on your bottleneck for one shift, including start-up scrap. Calculate quality and then OEE.",
+ "A line made 1,000 units: 920 good first time, 50 reworked and shipped, 30 scrapped. What is quality for OEE?", ["92%", "97%", "100%", "95%"], 0,
+ "Only good-first-time units count: 920 ÷ 1,000 = 92%."),
+]
+
+M2 = [
+step("The six big losses", 7, """
+<p>The total productive maintenance (TPM) tradition groups equipment losses into <strong>six big losses</strong>, two for each OEE factor. Classifying every loss into one of the six makes Pareto analysis and improvement focus straightforward.</p>
+<table><thead><tr><th>OEE factor</th><th>Big loss</th><th>Examples</th></tr></thead><tbody>
+<tr><td rowspan="2">Availability</td><td>Equipment failure (breakdowns)</td><td>Motor failure, broken tooling, hydraulic leak</td></tr>
+<tr><td>Setup and adjustments</td><td>Changeovers, tool changes, warm-up, first-piece approval</td></tr>
+<tr><td rowspan="2">Performance</td><td>Idling and minor stops</td><td>Jams, misfeeds, sensor trips, blocked product</td></tr>
+<tr><td>Reduced speed</td><td>Running below ideal rate because of wear, material or habit</td></tr>
+<tr><td rowspan="2">Quality</td><td>Start-up rejects</td><td>Scrap until the process stabilizes after start-up or changeover</td></tr>
+<tr><td>Production rejects</td><td>Scrap and rework during stable production</td></tr>
+</tbody></table>
+<h3>Turn time into a loss waterfall</h3>
+<p>Express every loss in minutes of equipment time. Start with planned production time, subtract each loss in turn and finish with <strong>fully productive time</strong>: the time it would take to make the good units at ideal speed. A waterfall chart of the six losses shows where the time goes at a glance and makes the biggest loss obvious.</p>
+<p>Quality losses can be converted to time as rejected units × ideal cycle time; performance losses as run time minus (total units × ideal cycle time).</p>
+<p>The lab after this lesson asks you to classify common losses. Getting the categories right matters: a jam logged as a breakdown sends maintenance after the wrong problem.</p>
+""", ["The six big losses split each OEE factor into two causes.", "Express all losses in minutes to compare them.", "A loss waterfall makes the biggest loss obvious."],
+ "Take one week of your bottleneck's losses and sort them into the six big losses in minutes. Which loss is largest?",
+ "Scrap produced while the line stabilizes after a changeover is which big loss?", ["Equipment failure", "Reduced speed", "Start-up rejects", "Idling and minor stops"], 2,
+ "Scrap made until the process stabilizes after start-up or changeover is a start-up reject, a quality loss."),
+step("Planned time, utilization and TEEP", 7, """
+<p>OEE measures how well equipment uses the time it was <strong>scheduled</strong> to run. It does not tell you how much of the calendar is scheduled. Two more measures complete the picture.</p>
+<table><thead><tr><th>Measure</th><th>Calculation</th><th>Answers</th></tr></thead><tbody>
+<tr><td>Utilization (loading)</td><td>Planned production time ÷ all calendar time</td><td>How much of the week do we schedule the equipment?</td></tr>
+<tr><td>OEE</td><td>Availability × Performance × Quality</td><td>How well do we use the scheduled time?</td></tr>
+<tr><td>TEEP</td><td>OEE × Utilization</td><td>How much of all calendar time produces good units at full speed?</td></tr>
+</tbody></table>
+<h3>Example</h3>
+<p>A line runs two eight-hour shifts, five days a week, with breaks excluded: about 75 planned hours out of 168 in a week, a utilization of about 45%. With OEE of 70%, TEEP is about 31%. The line has two very different sources of extra capacity: improve OEE within the current schedule, or schedule more time.</p>
+<h3>What to exclude from planned time</h3>
+<p>Decide once and write it down. Common exclusions are planned breaks, no orders, planned preventive maintenance windows and planned shutdowns. Everything else, including changeovers, waiting for material and unplanned maintenance, stays in planned time as a loss. Be wary of definitions that quietly exclude awkward losses: they raise OEE on paper while hiding the problem.</p>
+<h3>Which measure for which decision</h3>
+<p>Use OEE to drive daily improvement on the shop floor. Use TEEP and utilization when deciding whether to add shifts, buy equipment or outsource: those decisions are about total capacity, not just how well scheduled time is used.</p>
+""", ["Utilization is scheduled time over calendar time; TEEP = OEE × utilization.", "Write down what is excluded from planned time and keep it consistent.", "Use OEE for daily improvement and TEEP for capacity decisions."],
+ "Calculate your bottleneck's utilization for last month: planned production hours divided by calendar hours. Combine it with OEE to estimate TEEP.",
+ "A machine has OEE of 80% and is scheduled 50% of calendar time. What is its TEEP?", ["40%", "50%", "80%", "130%"], 0,
+ "TEEP = OEE × utilization = 80% × 50% = 40%."),
+step("Benchmarks and common pitfalls", 7, """
+<p>An OEE of 85 percent is often quoted as "world class", usually broken down as 90 percent availability, 95 percent performance and 99.9 percent quality. Treat it as a rough reference, not a target for every machine. Many plants that measure OEE honestly for the first time find it well below that, and that is normal.</p>
+<h3>Compare equipment with itself</h3>
+<p>OEE depends on product mix, batch sizes, how many changeovers the schedule requires and how ideal cycle times and planned time are defined. A filling line making one product for a week and a CNC cell making forty different parts will never have comparable OEE. The useful comparison is each piece of equipment against its own baseline over time.</p>
+<h3>Pitfalls that make OEE misleading</h3>
+<ul><li><strong>Generous ideal cycle times:</strong> using a slow "standard" rate makes performance look high and hides speed losses.</li>
+<li><strong>Excluding losses from planned time:</strong> calling changeovers or material shortages "planned" inflates availability.</li>
+<li><strong>Counting rework as good:</strong> hides quality losses.</li>
+<li><strong>Averaging OEE across machines:</strong> a simple average gives a slow machine the same weight as the bottleneck. Weight by time, or focus on the bottleneck.</li>
+<li><strong>Using OEE to judge operators:</strong> people will protect themselves by bending definitions. OEE should point at losses and causes, not at people.</li>
+<li><strong>Chasing OEE on non-bottlenecks:</strong> raising OEE on equipment with spare capacity may just build inventory.</li></ul>
+<h3>Honesty first</h3>
+<p>A lower but honest OEE that shows where time is lost is far more valuable than a high number nobody trusts. When you introduce OEE, explain that the first figure will probably look low and that the point is to find and remove losses.</p>
+""", ["Treat 85% as a rough reference, not a universal target.", "Compare each machine with its own history.", "Avoid generous ideal rates, hidden exclusions and using OEE to blame people."],
+ "Write down your OEE definitions: ideal cycle time source, planned time exclusions, stop threshold and how rework is counted. Share them with the team before you start measuring.",
+ "Why is comparing the OEE of a high-mix CNC cell with a single-product filling line misleading?", ["CNC machines cannot be measured", "Filling lines never stop", "Mix, changeovers and definitions differ, so the numbers are not comparable", "OEE only applies to food plants"], 2,
+ "OEE depends heavily on product mix, changeover frequency and definitions, so each machine is best compared with itself."),
+step("What lost time is worth", 8, """
+<p>To decide which losses to attack and how much to spend, convert lost time into money. The answer depends on one question: <strong>is this equipment a bottleneck?</strong></p>
+<h3>On a bottleneck with sellable demand</h3>
+<p>If the equipment limits output and customers would buy more, an hour recovered becomes an hour of extra sales. Its value is the <strong>contribution margin</strong> of the extra units: selling price minus the variable costs of making them (materials, energy, consumables, variable labour and freight). Do not use full revenue, and do not use the full-cost margin that includes fixed overhead already paid for. The Insights article <a href="../post/what-oee-losses-cost.html">What OEE losses cost</a> works through this in detail.</p>
+<p>Example: a bottleneck makes 120 units an hour at ideal rate, and each extra unit sold brings $2.50 of contribution margin. One hour recovered is worth up to 120 × $2.50 = $300. Recovering 400 hours a year is worth up to $120,000 a year, but only if the extra units are sold.</p>
+<h3>On a non-bottleneck, or without extra demand</h3>
+<p>Extra output that cannot be sold is just inventory. Here the value of better OEE comes from <strong>cost avoidance</strong>:</p>
+<ul><li>Fewer overtime hours or a shift no longer needed.</li>
+<li>A machine purchase that can be deferred or avoided.</li>
+<li>Less scrap: material, energy and disposal costs.</li>
+<li>Less expediting and fewer late deliveries.</li></ul>
+<h3>Scrap is valued differently</h3>
+<p>A scrapped unit loses its materials and processing cost even on a non-bottleneck. On a bottleneck it also loses the margin of the unit that could have been made in its place. Count both where they apply, but never count the same benefit twice.</p>
+""", ["Recovered bottleneck time is worth the contribution margin of extra units sold.", "On non-bottlenecks the value is cost avoidance: overtime, capital, scrap.", "Do not use full revenue, and do not double count."],
+ "Calculate the contribution margin per hour of your bottleneck at ideal rate. Ask sales whether extra output could be sold, and which customers or products would take it.",
+ "A non-bottleneck machine's OEE rises from 60% to 70%, but sales cannot use more output. Where does the value come from?", ["Contribution margin on the extra units", "Full revenue of the extra units", "There is never any value", "Cost avoidance such as less overtime, scrap or capital spending"], 3,
+ "Without extra sales, the benefit comes from avoided costs, not from margin on extra output."),
+]
+
+M3 = [
+step("Starting to collect OEE data", 7, """
+<p>You do not need sensors or software to start measuring OEE. A well-designed paper or tablet form, filled in during the shift, is enough for the first months and teaches the team what matters.</p>
+<h3>What to record each shift</h3>
+<table><thead><tr><th>Data</th><th>Who records it</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Shift start and end, breaks, no-order time</td><td>Operator or supervisor</td><td>Gives planned production time</td></tr>
+<tr><td>Each stop over the threshold: start, end, reason code</td><td>Operator</td><td>Gives availability losses by reason</td></tr>
+<tr><td>Product run and its ideal cycle time</td><td>Pre-printed or from the schedule</td><td>Gives performance</td></tr>
+<tr><td>Total units and good-first-time units</td><td>Operator or counter</td><td>Gives quality and performance</td></tr>
+<tr><td>Comments on unusual events</td><td>Operator</td><td>Context for the daily review</td></tr>
+</tbody></table>
+<h3>Design the form with operators</h3>
+<p>Operators know which stops happen and what to call them. Involve them in designing the form and the reason codes, keep it to one page, and make it quick: tick boxes and times, not paragraphs. A form that takes more than a few minutes per shift will be filled in at the end of the shift from memory.</p>
+<h3>Start on one machine</h3>
+<p>Begin with the bottleneck. Run the form for two to four weeks before drawing conclusions, so the data covers different products, shifts and conditions. Expect the first week's data to be patchy; review it daily with the operators, fix confusing codes and thank people for recording problems honestly.</p>
+<h3>Hourly counts reveal hidden losses</h3>
+<p>Adding a simple hourly output count, written on a board next to the target for that hour, is one of the most effective additions. It shows when performance drops and prompts the question "what happened in that hour?" while the answer is still fresh.</p>
+""", ["Start with a simple shift form; sensors can come later.", "Design the form and reason codes with operators.", "Hourly counts against target expose hidden performance losses."],
+ "Draft a one-page OEE shift form for your bottleneck with the five data groups above. Ask two operators to review it before you start.",
+ "Why involve operators in designing the OEE form and reason codes?", ["They know which stops occur and what to call them, so data is accurate and the form gets used", "It removes the need for supervision", "Operators must approve all purchases", "It makes OEE higher"], 0,
+ "Operator input gives practical codes and a quick form that is filled in accurately during the shift."),
+step("Downtime reason codes and Pareto analysis", 7, """
+<p>OEE tells you how much time is lost. <strong>Reason codes</strong> tell you why. Good codes turn a pile of stop records into a Pareto chart that points improvement at the biggest causes.</p>
+<h3>Designing reason codes</h3>
+<ul><li><strong>Two levels:</strong> a category (breakdown, changeover, material, quality, minor stop, other) and a specific reason within it (for example breakdown → conveyor motor, sealing jaw, vision system).</li>
+<li><strong>Short list:</strong> 10 to 25 codes per machine is usually enough. Too many and people pick the first one; too few and the data says nothing.</li>
+<li><strong>Clear definitions</strong> with examples, so two operators would code the same stop the same way.</li>
+<li><strong>Limit "other":</strong> if "other" exceeds about 10 percent of stop time, review the comments and add codes.</li></ul>
+<h3>From codes to action</h3>
+<p>After two to four weeks, sum stop minutes by code and sort them. Typically a handful of reasons account for most lost time. Then drill down: for the top reason, look at when it happens (product, shift, time since changeover) and ask why using 5 Whys or a fishbone.</p>
+<table><thead><tr><th>Reason</th><th>Minutes in 4 weeks</th><th>Share</th></tr></thead><tbody>
+<tr><td>Changeover</td><td>1,860</td><td>36%</td></tr>
+<tr><td>Labeller jams</td><td>1,120</td><td>22%</td></tr>
+<tr><td>Waiting for materials</td><td>780</td><td>15%</td></tr>
+<tr><td>Sealing jaw failures</td><td>640</td><td>12%</td></tr>
+<tr><td>All others</td><td>760</td><td>15%</td></tr>
+</tbody></table>
+<p>In this example the first two reasons account for 58 percent of lost time, so they become the first improvement projects. Count frequency as well as minutes: many short stops of one type may matter more to operators than one long one, and have different causes.</p>
+""", ["Use two-level reason codes with clear definitions.", "Keep 'other' small and review it.", "Pareto by minutes and by frequency, then drill into the top reasons."],
+ "Draft two-level reason codes for your bottleneck: five categories and up to five reasons in each. Write a one-line definition for each reason.",
+ "'Other' accounts for 30% of recorded stop time. What should you do?", ["Ignore it; it is too varied to analyze", "Review the comments behind 'other' and add or clarify codes", "Delete those records", "Rename 'other' to 'miscellaneous'"], 1,
+ "A large 'other' category hides causes; reviewing the comments usually reveals missing or unclear codes."),
+step("Automating data capture", 7, """
+<p>Once manual tracking has shown where the losses are and the team trusts the definitions, automatic data capture can make OEE more accurate and less work.</p>
+<h3>Options from simple to advanced</h3>
+<table><thead><tr><th>Option</th><th>What it captures</th><th>Considerations</th></tr></thead><tbody>
+<tr><td>Counter or sensor on the output</td><td>Units made, running or stopped, cycle times</td><td>Cheap; shows minor stops that manual logs miss</td></tr>
+<tr><td>Signals from the machine controller (PLC)</td><td>Run state, fault codes, counts, speeds</td><td>Needs controls expertise; fault codes rarely match business reasons one to one</td></tr>
+<tr><td>OEE or monitoring software with an operator tablet</td><td>Automatic states and counts; operators add reasons for stops</td><td>The usual sweet spot for SMEs; many subscription products exist</td></tr>
+<tr><td>Manufacturing execution system (MES)</td><td>OEE plus scheduling, quality, traceability and labour</td><td>Larger investment; justify on more than OEE alone</td></tr>
+</tbody></table>
+<h3>Automation catches minor stops</h3>
+<p>The biggest surprise when automatic capture starts is usually minor stops. Stops of 20 seconds to two minutes are almost never logged by hand but can add up to hours a shift. Seeing them by time and product is often the first big improvement opportunity.</p>
+<h3>People still provide the why</h3>
+<p>Sensors know that the machine stopped, not why. Keep operators adding reason codes for stops above the threshold, with a quick touchscreen list. Plan for network access, cybersecurity on connected machines and who maintains the system.</p>
+<h3>Before buying</h3>
+<p>Prove the value with manual data first, define what you will do with the information, and pilot on one line. A dashboard nobody acts on is just another screen.</p>
+""", ["Start manual; automate once definitions are trusted.", "Automatic capture reveals minor stops that manual logs miss.", "Operators still provide stop reasons; plan for network and cybersecurity."],
+ "List what manual OEE tracking has not shown you clearly. Decide whether a simple counter or monitoring software would close that gap, and what you would do with the data.",
+ "What does automatic data capture usually reveal that manual logs miss?", ["The ideal cycle time", "The product mix", "Planned break times", "Frequent short minor stops"], 3,
+ "Short stops are rarely recorded by hand but are captured by sensors, often revealing a large performance loss."),
+step("Visual boards and shift reviews", 7, """
+<p>Data only helps if people look at it and act. Simple routines around a visual board turn OEE into daily improvement.</p>
+<h3>The production board</h3>
+<p>Place a board at the line showing, for each hour: target output, actual output, the gap and the reason for any gap. Add the shift's OEE, the top three losses and open actions with owners. Anyone walking past can see in seconds whether the line is on track and what is being done.</p>
+<h3>A tiered daily review</h3>
+<table><thead><tr><th>Tier</th><th>Who</th><th>When and how long</th><th>Focus</th></tr></thead><tbody>
+<tr><td>1</td><td>Operators and team lead</td><td>Start of shift, 10 minutes</td><td>Yesterday's results, top loss, today's plan, safety</td></tr>
+<tr><td>2</td><td>Supervisors, maintenance, quality, planning</td><td>Daily, 15 minutes</td><td>Issues across lines, support needed, escalations</td></tr>
+<tr><td>3</td><td>Plant manager and leads</td><td>Weekly, 30 minutes</td><td>Trends, bigger projects, resources</td></tr>
+</tbody></table>
+<h3>Rules that make it work</h3>
+<ul><li>Stand at the board; keep to time.</li>
+<li>Every significant loss gets an owner and a date, or is escalated to the next tier.</li>
+<li>Review actions from the last meeting first.</li>
+<li>Celebrate improvements and thank people for raising problems.</li></ul>
+<p>The aim is a fast loop: a loss happens, it is visible within hours, a cause is found and a fix is tried within days. Monthly OEE reports alone are too slow; by the time they are read, the details are forgotten.</p>
+""", ["Hourly target-versus-actual boards make gaps visible at once.", "Run short tiered reviews: shift, daily, weekly.", "Every significant loss gets an owner and date or is escalated."],
+ "Sketch a production board for your bottleneck and an agenda for a 10-minute start-of-shift review. Run it for one week and note what changes.",
+ "What is the main weakness of relying on a monthly OEE report alone?", ["It is too detailed", "Losses are found too late to remember their causes and act quickly", "It costs more than daily reviews", "It shows only availability"], 1,
+ "Fast daily loops catch causes while details are fresh; monthly reports are too slow to drive day-to-day improvement."),
+]
+
+M4 = [
+step("Choosing where to improve first", 6, """
+<p>With a few weeks of data, pick improvement targets deliberately. Three questions guide the choice.</p>
+<ol><li><strong>Which equipment?</strong> Start with the bottleneck, where recovered time becomes extra output. If there is no clear bottleneck, choose the equipment with the most overtime, late orders or scrap cost.</li>
+<li><strong>Which loss?</strong> Use the six-loss waterfall and reason-code Pareto. Pick the biggest loss that the team can realistically influence.</li>
+<li><strong>Which method?</strong> Match the method to the loss.</li></ol>
+<table><thead><tr><th>Biggest loss</th><th>Methods that fit</th></tr></thead><tbody>
+<tr><td>Breakdowns</td><td>Autonomous maintenance, preventive maintenance, root cause analysis of repeat failures</td></tr>
+<tr><td>Changeovers</td><td>SMED, standard changeover work, scheduling to reduce changeovers</td></tr>
+<tr><td>Minor stops</td><td>Observation, 5 Whys on frequent stops, cleaning and adjustment standards</td></tr>
+<tr><td>Reduced speed</td><td>Find what limits the rate: material, wear, settings, operator confidence</td></tr>
+<tr><td>Start-up rejects</td><td>Standard start-up settings, pre-heating, first-piece approval</td></tr>
+<tr><td>Production rejects</td><td>DMAIC problem solving, process parameter control</td></tr>
+</tbody></table>
+<h3>Small teams, short cycles</h3>
+<p>Form a small team of operators, maintenance and an engineer or supervisor for each focused improvement. Give it one loss, a measurable target and four to eight weeks. Results on one loss build the credibility to tackle the next.</p>
+<p>Waiting for materials or operators is an OEE loss whose cause usually sits outside the machine, in scheduling, supply or staffing. Raise it through the daily review rather than asking maintenance to fix it.</p>
+""", ["Start with the bottleneck and its biggest controllable loss.", "Match the method to the type of loss.", "Use small cross-functional teams with one loss and a target."],
+ "Using your loss data, choose one equipment, one loss and one method. Write a one-line target, such as 'cut changeover time on line 2 from 60 to 35 minutes in eight weeks'.",
+ "The biggest loss on a bottleneck is changeover time. Which method fits best?", ["More operator training on safety", "Buying a second machine immediately", "Adding a final inspection station", "SMED quick changeover"], 3,
+ "Changeover losses are addressed directly by SMED and standard changeover work."),
+step("Reducing breakdowns: autonomous and preventive maintenance", 8, """
+<p>Breakdowns are rarely random. Most have early signs: loose bolts, leaks, wear, dirt, heat, noise and vibration. <strong>Total productive maintenance (TPM)</strong> aims to catch these signs early and remove their causes, with operators and maintenance working together.</p>
+<h3>Autonomous maintenance</h3>
+<p>Operators take on basic care of their equipment: cleaning, inspecting, lubricating and tightening. Cleaning is inspection: wiping down a machine reveals cracks, leaks and loose parts before they cause failures. Typical steps:</p>
+<ol><li>Initial clean and inspection, tagging every abnormality.</li>
+<li>Eliminate sources of contamination and hard-to-clean areas.</li>
+<li>Set clean, inspect and lubricate standards with simple checklists and visual aids.</li>
+<li>Train operators to understand the equipment and spot problems.</li></ol>
+<p>Maintenance technicians then focus on skilled work instead of routine checks.</p>
+<h3>Planned and preventive maintenance</h3>
+<p>Planned maintenance schedules work before failure: time-based (every 500 hours), usage-based (every 100,000 cycles) or condition-based (when vibration, temperature or wear crosses a limit). Use your breakdown history to set priorities: components that fail repeatedly need either a better maintenance task or a design change.</p>
+<h3>Learn from every significant failure</h3>
+<p>For each breakdown over a set duration, record the failed component and ask why it failed, not only how it was repaired. Track mean time between failures (MTBF) and mean time to repair (MTTR) for the bottleneck. Rising MTBF shows prevention is working; falling MTTR shows better spares, tools and procedures.</p>
+<p>Maintenance and operating work on equipment must follow your lockout and safety procedures; autonomous maintenance tasks should be limited to work operators are trained and authorized to do safely.</p>
+""", ["Most breakdowns have early warning signs that daily care can catch.", "Operators clean, inspect and lubricate; maintenance focuses on skilled work.", "Analyze significant failures and track MTBF and MTTR."],
+ "Run a 30-minute clean-and-inspect on your bottleneck with an operator and a technician. Tag every abnormality and decide who fixes each.",
+ "What does rising mean time between failures (MTBF) on the bottleneck indicate?", ["Repairs are taking longer", "The machine is running slower", "Failures are becoming less frequent", "Quality is falling"], 2,
+ "Higher MTBF means longer intervals between failures, a sign that prevention is working."),
+step("Quick changeover with SMED", 8, """
+<p>Changeovers are often the largest availability loss on high-mix equipment. <strong>SMED</strong> (single-minute exchange of die), developed by Shigeo Shingo, is a structured way to cut them. The goal of "single minute" means under ten minutes; even halving a long changeover is a large gain.</p>
+<h3>The SMED steps</h3>
+<ol><li><strong>Observe and record:</strong> film a complete changeover and list every task with its time, from the last good part of the old product to the first good part at full speed of the new one.</li>
+<li><strong>Separate internal and external tasks:</strong> internal tasks can only be done with the machine stopped; external tasks can be done while it runs.</li>
+<li><strong>Move external tasks out:</strong> fetch tools, dies, materials and paperwork, pre-heat, and pre-set before the machine stops, using a checklist and a changeover cart.</li>
+<li><strong>Convert internal to external:</strong> pre-assemble parts, use standard heights so tools need no shimming, pre-set settings off-line.</li>
+<li><strong>Streamline what remains:</strong> quick clamps instead of bolts, one-turn fasteners, eliminate adjustments with fixed stops, work in parallel with two people.</li>
+<li><strong>Standardize:</strong> write the new method as standard work and train every shift.</li></ol>
+<h3>Example</h3>
+<p>A packaging line's 70-minute changeover was filmed. Twenty-five minutes went to fetching parts and tools, finding the right settings and waiting for first-article approval. A changeover cart, a settings sheet per product and a quicker approval routine cut it to 40 minutes, with no capital spending. Quick clamps on the forming section later brought it to 28 minutes.</p>
+<h3>Use the time well</h3>
+<p>Shorter changeovers can be taken as extra running time or as more frequent changeovers with smaller batches, which cuts inventory and improves responsiveness. Decide which matters more for this equipment.</p>
+""", ["SMED separates internal from external setup tasks and moves external ones out.", "Convert internal tasks to external, then streamline what remains.", "Use the saved time for more output or for smaller batches."],
+ "Film one changeover on your bottleneck. List the tasks, mark each internal or external and identify three tasks that could be done before the machine stops.",
+ "Which is an example of converting an internal setup task to an external one?", ["Running the machine faster after the changeover", "Pre-heating the new die while the machine still runs the previous product", "Skipping first-piece inspection", "Adding a second shift"], 1,
+ "Pre-heating while the machine still runs moves work out of the stopped time."),
+step("Minor stops, speed losses and start-up scrap", 7, """
+<p>Performance and quality losses are often the least visible and the most persistent. They respond to careful observation and small, specific fixes.</p>
+<h3>Minor stops</h3>
+<p>Minor stops are short and frequent: a carton jams, a sensor misreads, product tips over on a conveyor. Each takes seconds to clear, so nobody logs it, but dozens a shift can cost an hour. To attack them:</p>
+<ul><li>Stand at the machine for an hour and tally every stop by location and type.</li>
+<li>Pick the most frequent and ask why five times: worn guide rail, dirty sensor, inconsistent material, wrong setting.</li>
+<li>Fix the cause and set a cleaning or adjustment standard so it stays fixed.</li></ul>
+<h3>Reduced speed</h3>
+<p>Ask why the equipment is not run at its ideal rate. Common answers: it jams at higher speed, a particular material runs badly, the operator was told years ago to slow it down, or a worn component limits it. Test speed increases in small steps, with maintenance and quality present, and fix what breaks at each step.</p>
+<h3>Start-up and changeover scrap</h3>
+<p>Track scrap for the first period after each start-up or changeover separately. Standard start-up settings per product, pre-heating, checked materials and a clear first-piece approval routine often cut it sharply.</p>
+<h3>Production rejects</h3>
+<p>Scrap and rework during stable running are process problems. Use the DMAIC method from the Lean Six Sigma Foundations course: measure, find the verified causes, fix and control.</p>
+""", ["Observe and tally minor stops; fix the most frequent cause.", "Find out why equipment runs below ideal rate and test increases carefully.", "Standardize start-up settings to cut start-up scrap."],
+ "Stand at your bottleneck for one hour and tally every stop under five minutes by type and location. Pick the most frequent and ask why five times.",
+ "A line runs 20% below its ideal rate because 'it was always run that way'. What is the best next step?", ["Accept it as the true ideal rate", "Run it at full speed immediately without checks", "Test speed increases in small steps with maintenance and quality, fixing what limits each step", "Replace the machine"], 2,
+ "Careful step-wise speed trials find and fix what actually limits the rate."),
+]
+
+M5 = [
+step("Valuing an OEE improvement", 7, """
+<p>Before investing in an OEE programme or a specific fix, estimate what it is worth. The method from the earlier lesson on lost time applies to the gain.</p>
+<h3>Extra output on a bottleneck</h3>
+<p>Extra good units per year = (target OEE − current OEE) × planned production hours × ideal rate per hour.</p>
+<p>Example: a bottleneck runs 4,000 planned hours a year with an ideal rate of 120 units an hour. Raising OEE from 55% to 65% gives 0.10 × 4,000 × 120 = 48,000 extra good units a year. At $2.50 contribution margin per extra unit sold, that is up to $120,000 a year, if the market will take the extra units.</p>
+<h3>Capacity freed for the same output</h3>
+<p>If demand is fixed, higher OEE means the same output in fewer hours. Hours needed at the new OEE = current hours × current OEE ÷ target OEE. Here, 4,000 × 55 ÷ 65 ≈ 3,385 hours, so about 615 hours a year are freed. Their value depends on what you do with them: cut overtime, drop a weekend shift, delay a new machine or take on new work.</p>
+<h3>Other benefits</h3>
+<ul><li>Lower scrap: material, energy and disposal savings.</li>
+<li>Less expediting, better on-time delivery and fewer penalties.</li>
+<li>Lower maintenance cost per unit as breakdowns fall.</li></ul>
+<h3>Be conservative</h3>
+<p>Count only benefits the business will actually realize, say how each is calculated, and ask finance to agree the method. A believable estimate of $80,000 beats an inflated $300,000 that nobody trusts. The lab after the next lesson calculates extra units, freed hours, value and payback.</p>
+""", ["Extra units = OEE gain × planned hours × ideal rate.", "With fixed demand, value the hours freed through overtime, shifts or capital avoided.", "Count only realizable benefits and agree the method with finance."],
+ "Estimate the extra good units a year from a 5-point OEE gain on your bottleneck. Then estimate the hours freed if demand stays the same, and what you would do with them.",
+ "A bottleneck runs 3,000 hours a year at an ideal rate of 100 units an hour. OEE rises from 60% to 70%. How many extra good units a year is that?", ["3,000", "30,000", "300,000", "21,000"], 1,
+ "0.10 × 3,000 × 100 = 30,000 extra good units a year."),
+step("Building the business case and payback", 7, """
+<p>Some OEE improvements cost almost nothing: changeover carts, settings sheets, cleaning standards. Others need money: quick-release tooling, new sensors, a monitoring system, a rebuild of worn equipment or a maintenance contractor. For those, build a short business case.</p>
+<h3>What the business case contains</h3>
+<table><thead><tr><th>Section</th><th>Content</th></tr></thead><tbody>
+<tr><td>Problem</td><td>Current OEE, the targeted loss in hours, and its effect on output, overtime or delivery</td></tr>
+<tr><td>Proposal</td><td>The change, its cost and timeline</td></tr>
+<tr><td>Benefits</td><td>Expected OEE gain and its value, with the method agreed with finance</td></tr>
+<tr><td>Payback and return</td><td>One-time cost ÷ monthly benefit; simple return over three years</td></tr>
+<tr><td>Risks and assumptions</td><td>Demand to sell extra output, staffing, installation downtime</td></tr>
+<tr><td>Measurement</td><td>How and when the result will be checked</td></tr>
+</tbody></table>
+<h3>Payback example</h3>
+<p>A $40,000 changeover upgrade on a bottleneck is expected to lift OEE from 55% to 65%, worth $120,000 a year in contribution margin. Payback is $40,000 ÷ ($120,000 ÷ 12) = 4 months. Even at half the expected benefit, payback is 8 months, which makes the decision robust. The Insights article <a href="../post/oee-project-payback.html">OEE project payback</a> walks through a larger worked example.</p>
+<h3>Funding</h3>
+<p>Larger productivity projects may qualify for government programmes or financing. Check the Funding page on this site for programmes that support productivity and technology adoption, and confirm eligibility directly with each programme before relying on it.</p>
+<h3>Close the loop</h3>
+<p>After implementation, measure the OEE gain and the realized benefit against the business case. Sharing honest results, good or bad, makes the next business case more credible.</p>
+""", ["Build a short business case for improvements that need money.", "Payback = one-time cost ÷ monthly benefit; test it at half the expected benefit.", "Measure results against the case after implementation."],
+ "Write a one-page business case for one OEE improvement on your bottleneck, using the six sections above. Calculate payback at the expected and at half the expected benefit.",
+ "A $30,000 fix is expected to bring $60,000 a year in benefits. What is the simple payback?", ["6 months", "2 months", "12 months", "24 months"], 0,
+ "Payback = $30,000 ÷ ($60,000 ÷ 12) = $30,000 ÷ $5,000 = 6 months."),
+step("Sustaining gains: standards, TPM and daily management", 7, """
+<p>OEE gains fade if nothing holds them: settings drift, cleaning standards slip, new operators learn shortcuts and a key person leaves. Sustaining needs structure.</p>
+<h3>Standards</h3>
+<ul><li>Standard work for operation, changeover, start-up and cleaning, with photos, posted at the machine.</li>
+<li>Settings sheets for each product, kept current and controlled.</li>
+<li>Clean, inspect and lubricate checklists with owners and frequencies.</li></ul>
+<h3>Routines</h3>
+<ul><li>Daily tiered reviews of OEE and the top losses, as covered earlier.</li>
+<li>Weekly review of open actions and the loss Pareto.</li>
+<li>Monthly review of trends, MTBF and MTTR and the improvement pipeline.</li>
+<li>Regular audits of standards, with findings closed out.</li></ul>
+<h3>Skills</h3>
+<p>Cross-train operators on changeovers and basic care. Train team leads to run the daily review and basic problem solving. Make sure maintenance knowledge is written down, not held by one person.</p>
+<h3>Watch the definitions</h3>
+<p>When OEE suddenly improves, check that nothing changed in how it is calculated: a new ideal rate, a new exclusion from planned time or a change in what counts as good. Keep a log of definition changes with dates.</p>
+<h3>Spread what works</h3>
+<p>Once the bottleneck is stable at a better level, a new bottleneck may appear elsewhere. Apply the same approach there, reusing the forms, codes and standards that worked.</p>
+""", ["Hold gains with standards for operation, changeover, start-up and cleaning.", "Keep the daily, weekly and monthly review routines running.", "Log definition changes so OEE improvements are real."],
+ "List the standards and routines that would need to exist for your bottleneck's gains to last a year. Mark which already exist and which you need to create.",
+ "OEE jumps from 62% to 75% in one week with no improvement work. What should you check first?", ["Whether the OEE definitions or ideal rates changed", "Whether operators should be rewarded", "Whether to buy more machines", "Nothing; accept the result"], 0,
+ "Sudden changes without improvement work often come from changed definitions, which must be checked and logged."),
+step("Your 90-day OEE programme", 7, """
+<p>A focused 90-day programme on one bottleneck is a practical way to prove OEE's value and build the habits to spread it.</p>
+<table><thead><tr><th>Days</th><th>Focus</th><th>Main actions</th></tr></thead><tbody>
+<tr><td>1–30</td><td>Define and measure</td><td>Choose the bottleneck; agree definitions (ideal rate, planned time, stop threshold, good units); design the shift form and reason codes with operators; collect data daily; start an hourly board</td></tr>
+<tr><td>31–60</td><td>Analyze and improve</td><td>Build the six-loss waterfall and reason Pareto; pick the biggest loss; run a focused improvement (SMED, clean-and-inspect or minor-stop attack); start tier 1 and 2 daily reviews</td></tr>
+<tr><td>61–90</td><td>Sustain and value</td><td>Write standards for the improvements; measure the OEE gain and its value; agree it with finance; plan the next loss and the next machine</td></tr>
+</tbody></table>
+<h3>Measures to report</h3>
+<ul><li>Weekly OEE with availability, performance and quality.</li>
+<li>Minutes lost by top reason.</li>
+<li>Actions opened and closed.</li>
+<li>Output, overtime and scrap cost on the bottleneck.</li></ul>
+<h3>Signs it is working</h3>
+<p>Operators raise problems and suggest fixes, maintenance plans more work and fights fewer fires, the daily review is short and practical, and the biggest loss at day 90 is different from the one at day 30.</p>
+<h3>Related courses</h3>
+<p>The Operational Excellence course places OEE in a wider improvement programme; the Lean Six Sigma Foundations course gives you DMAIC for stubborn quality losses; and the 5S course builds the clean, organized workplace that autonomous maintenance depends on.</p>
+""", ["Run a 90-day programme on one bottleneck: measure, improve, sustain.", "Report OEE factors, top losses, actions and money measures weekly.", "Success shows in behaviour as well as in the number."],
+ "Put the 90-day plan into your calendar with names and dates for each phase, and choose the four measures you will report each week.",
+ "At day 90, which sign best shows the OEE programme is working?", ["OEE is exactly 85%", "The OEE report is longer", "Operators no longer record stops", "The biggest loss has changed because the first one was reduced"], 3,
+ "When the top loss shifts, the first target was reduced and the improvement loop is working."),
+]
+
+course = dict(
+ id="oee-equipment-effectiveness",
+ title="OEE: Measuring and Improving Equipment Effectiveness",
+ tagline="Measure OEE honestly, find where equipment time is lost and recover hidden capacity with a business case that adds up.",
+ summary="A practical OEE course for plant managers, supervisors, maintenance leads and engineers in small and mid-sized manufacturers. You will learn to calculate availability, performance and quality correctly, classify the six big losses, avoid the pitfalls that make OEE misleading and put a value on lost time. You will then set up data collection, reason codes and daily reviews, attack breakdowns, changeovers and minor stops, build a business case and run a 90-day OEE programme on your bottleneck.",
+ audience=["Plant managers and production supervisors responsible for output and delivery",
+           "Maintenance leads and technicians working to reduce breakdowns",
+           "Manufacturing and process engineers improving equipment performance",
+           "Owners and general managers deciding between OEE improvement and new equipment"],
+ outcomes=["Calculate availability, performance, quality and OEE correctly, and explain TEEP",
+           "Classify losses into the six big losses and build a loss waterfall",
+           "Set up honest OEE data collection with reason codes and Pareto analysis",
+           "Reduce breakdowns, changeovers, minor stops and start-up scrap with fitting methods",
+           "Value OEE gains with contribution margin or cost avoidance and calculate payback",
+           "Run daily reviews and a 90-day OEE programme that sustains its gains"],
+ modules=[
+  dict(title="What OEE Measures", summary="OEE and its three factors: availability, performance and quality, with one worked example carried through.", steps=M1),
+  dict(title="Losses, Benchmarks and Value", summary="The six big losses, utilization and TEEP, benchmarks and pitfalls, and what lost time is worth on and off the bottleneck.", steps=M2),
+  dict(title="Measuring OEE", summary="Manual data collection, reason codes and Pareto analysis, automatic data capture and daily visual reviews.", steps=M3),
+  dict(title="Improving OEE", summary="Choosing targets, autonomous and preventive maintenance, SMED quick changeover, and minor stops, speed and start-up losses.", steps=M4),
+  dict(title="Business Case and Sustaining", summary="Valuing an OEE gain, building a business case with payback, sustaining gains and a 90-day programme.", steps=M5)],
+ labs=[
+  dict(id="oee-shift-calculator", type="calc", title="OEE calculator for one shift", after_step=4,
+       intro="Enter one shift of data from a machine or line to calculate availability, performance, quality and OEE.",
+       config=dict(calc="oee", note="Use the true ideal cycle time, count changeovers as downtime and count reworked units as not good. Compare the result with the same equipment over time.")),
+  dict(id="oee-six-losses", type="classify", title="Which OEE factor does this loss reduce?", after_step=5,
+       intro="Classify twelve real losses from a packaging line and a machining cell by the OEE factor they reduce, then check your answers.",
+       config=dict(categories=["Availability", "Performance", "Quality"], items=[
+        dict(text="A 45-minute breakdown of the main drive motor", answer=0, why="A recorded stop from equipment failure reduces availability."),
+        dict(text="A 35-minute changeover between two products", answer=0, why="Setup and changeover time is an availability loss."),
+        dict(text="The line waits 20 minutes for packaging material", answer=0, why="A stop while scheduled to run reduces availability, even though the cause is outside the machine."),
+        dict(text="Tool change on a CNC machine that takes 15 minutes", answer=0, why="A setup or adjustment stop is an availability loss."),
+        dict(text="Dozens of 30-second carton jams during the shift", answer=1, why="Short, unrecorded stops are minor stops, a performance loss."),
+        dict(text="The filler runs at 80 bottles a minute against an ideal of 100", answer=1, why="Running below ideal rate is reduced speed, a performance loss."),
+        dict(text="Operators slow the line when a new material lot arrives", answer=1, why="Deliberately running slower is reduced speed."),
+        dict(text="A sensor trips and resets itself several times an hour", answer=1, why="Brief self-clearing stops are minor stops."),
+        dict(text="Scrap made in the first ten minutes after a changeover", answer=2, why="Start-up rejects reduce quality."),
+        dict(text="Parts reworked because of burrs, then shipped", answer=2, why="Reworked units are not good first time, so they reduce quality."),
+        dict(text="Underfilled bottles rejected by the checkweigher", answer=2, why="Rejected product during stable running is a quality loss."),
+        dict(text="Labels printed crooked and the cases relabelled", answer=2, why="Product that needs rework is not good first time."),
+       ])),
+  dict(id="oee-value-calculator", type="calc", title="What an OEE gain is worth", after_step=18,
+       intro="Enter your current and target OEE, planned hours, ideal rate, contribution margin and the one-time cost to estimate extra units, freed hours, annual value and payback.",
+       config=dict(calc="oee_value", note="Annual value assumes the extra units can be sold at the contribution margin you enter. If demand is fixed, value the freed hours as avoided overtime, shifts or capital instead.")),
+ ],
+ figures=[
+  dict(step=1, type="stack", title="How OEE builds up", caption="Click each layer, from the bottom up, to see how losses reduce scheduled time to fully productive time.",
+       config=dict(top_label="Fully productive time", layers=[
+        dict(label="Planned production time", text="Shift time minus planned breaks and no-order periods."),
+        dict(label="Run time", text="Planned time minus breakdowns, changeovers and waiting: availability."),
+        dict(label="Net run time", text="Run time minus minor stops and slow running: performance."),
+        dict(label="Fully productive time", text="Net run time minus scrap and rework: quality. Its share of planned time is OEE.")])),
+  dict(step=5, type="bars", title="Where one week's planned time went", caption="Hours lost to each of the six big losses in one week on a packaging line with 75 planned hours. Changeovers and minor stops are the biggest.",
+       config=dict(unit="hours", items=[dict(label="Breakdowns", value=4.5), dict(label="Changeovers", value=9, highlight=True), dict(label="Minor stops", value=7, highlight=True), dict(label="Reduced speed", value=3.5), dict(label="Start-up scrap", value=2), dict(label="Production rejects", value=0.5)],
+        note="Fully productive time is 75 − 26.5 = 48.5 hours, so OEE is about 65%. Two losses account for 16 of the 26.5 lost hours.")),
+  dict(step=6, type="compare", title="OEE vs TEEP", caption="Toggle between the two measures and see which decisions each one supports.",
+       config=dict(left=dict(title="OEE", points=["Based on scheduled (planned) time", "Shows how well that time is used", "Drives daily improvement on the floor", "Not changed by adding shifts"]),
+                   right=dict(title="TEEP", points=["Based on all calendar time", "Equals OEE × utilization", "Supports capacity and investment decisions", "Rises when more time is scheduled"]))),
+  dict(step=12, type="cycle", title="The daily loss loop", caption="Click each stage to see how a loss becomes a fix within days, not months.",
+       config=dict(center="Daily", stages=[
+        dict(label="Record", text="Operators log stops with reason codes and hourly output against target."),
+        dict(label="Review", text="The start-of-shift meeting looks at yesterday's top loss."),
+        dict(label="Assign", text="Each significant loss gets an owner and a date, or is escalated."),
+        dict(label="Fix", text="The team finds the cause and tries a countermeasure."),
+        dict(label="Standardize", text="What works becomes standard work, and the next loss moves to the top.")])),
+  dict(step=15, type="flow", title="A changeover before SMED", caption="Watch the changeover tasks flow, then click 'Fix the bottleneck' to see the effect of moving external work out of the stop.",
+       config=dict(steps=[
+        dict(label="Stop", text="Last good unit of the old product."),
+        dict(label="Fetch parts", text="Operator walks to the store for the change parts and tools."),
+        dict(label="Swap", text="Remove and fit change parts with bolts and shims."),
+        dict(label="Adjust", text="Trial runs and adjustments until settings are right."),
+        dict(label="Approve", text="First good unit at full speed is approved.")], bottleneck=1,
+        fix_text="A changeover cart prepared while the line still runs removes the walk for parts, the biggest single block of stopped time.")),
+  dict(step=20, type="timeline", title="A 90-day OEE programme on one bottleneck", caption="Click each phase to see its main actions.",
+       config=dict(phases=[
+        dict(label="Days 1–30", title="Define and measure", items=["Choose the bottleneck", "Agree definitions", "Shift form and reason codes", "Hourly board"]),
+        dict(label="Days 31–60", title="Analyze and improve", items=["Loss waterfall and Pareto", "Focused improvement on the top loss", "Daily tiered reviews"]),
+        dict(label="Days 61–90", title="Sustain and value", items=["Standards for the improvements", "Measure gain and value with finance", "Plan the next loss and machine"])])),
+ ],
+ exam=[
+  E("What is the formula for OEE?", ["Availability × Performance × Quality", "Availability + Performance + Quality", "Good units ÷ calendar time", "Run time ÷ shift time"], 0, "OEE multiplies the three factors."),
+  E("Planned production time is 450 minutes and stops total 90 minutes. What is availability?", ["20%", "70%", "80%", "90%"], 2, "(450 − 90) ÷ 450 = 80%."),
+  E("Which ideal cycle time should be used for performance?", ["The average cycle time last month", "The fastest reliable rate the equipment can sustain for that product", "The standard rate used in costing", "Whatever gives 100% performance"], 1, "A true ideal rate reveals speed and minor-stop losses; standards that include losses hide them."),
+  E("A line made 800 units: 760 good first time and 40 reworked and shipped. What is quality for OEE?", ["100%", "90%", "105%", "95%"], 3, "Only good-first-time units count: 760 ÷ 800 = 95%."),
+  E("Availability is 90%, performance 90% and quality 90%. What is OEE?", ["90%", "81%", "73%", "270%"], 2, "0.9 × 0.9 × 0.9 ≈ 0.729, about 73%."),
+  E("Which pair are both performance losses among the six big losses?", ["Idling and minor stops; reduced speed", "Breakdowns; changeovers", "Start-up rejects; production rejects", "Breakdowns; reduced speed"], 0, "Minor stops and reduced speed are the two performance losses."),
+  E("Why should changeovers be counted in OEE rather than excluded as planned time?", ["Because changeovers never happen on bottlenecks", "To raise the OEE figure", "Because they are time the equipment could have produced, and counting them keeps reduction visible", "Because auditors require it"], 2, "Excluding changeovers hides one of the largest and most fixable losses."),
+  E("A machine has OEE of 75% and is scheduled 40% of calendar time. What is its TEEP?", ["30%", "40%", "75%", "115%"], 0, "TEEP = OEE × utilization = 75% × 40% = 30%."),
+  E("Which decision is TEEP most useful for?", ["Choosing today's top loss to fix", "Whether to add shifts or buy equipment", "Designing reason codes", "Setting the ideal cycle time"], 1, "TEEP reflects total calendar capacity, which is what capacity and investment decisions need."),
+  E("Why is a simple average of OEE across all machines misleading?", ["OEE cannot be averaged", "It always overstates performance", "Machines with no losses are excluded", "It gives a slow, low-impact machine the same weight as the bottleneck"], 3, "Unweighted averages hide where losses matter most."),
+  E("On a bottleneck with sellable demand, recovered hours should be valued at:", ["Full selling price of the extra units", "The contribution margin of the extra units sold", "Zero", "The operator's hourly wage"], 1, "Extra sales bring contribution margin: price minus variable costs."),
+  E("Extra output on a non-bottleneck cannot be sold. Where does the value of higher OEE come from?", ["Full revenue of the extra units", "Contribution margin on the units", "There is no possible value", "Cost avoidance such as less overtime, scrap or capital spending"], 3, "Without extra sales, the benefit is avoided cost."),
+  E("'Other' is 35% of recorded downtime. What is the best response?", ["Review the comments and add or clarify reason codes", "Ignore it", "Delete the records", "Increase the stop threshold"], 0, "A large 'other' category hides causes and signals missing or unclear codes."),
+  E("What does automatic data capture most often reveal for the first time?", ["Planned break times", "The product names", "The shift schedule", "Frequent short minor stops"], 3, "Sensors capture short stops that are rarely logged by hand."),
+  E("In SMED, what is an external setup task?", ["A task done by an outside contractor", "A task that can be done while the machine is still running", "A task that requires the machine to be stopped", "A task done after the first good unit"], 1, "External tasks can be done without stopping the machine and should be moved out of the stop."),
+  E("What is a key principle of autonomous maintenance?", ["Operators replace all maintenance staff", "Maintenance is done only after failures", "Cleaning is inspection: operators clean and inspect to catch early signs of failure", "Machines are run until a scheduled overhaul"], 2, "Operator care catches loose parts, leaks and wear before they cause breakdowns."),
+  E("A line has many short jams at the infeed. What is the best first step?", ["Observe and tally the stops by location and type, then ask why for the most frequent", "Buy a new machine", "Slow the line permanently", "Add an inspector at the end of the line"], 0, "Direct observation and root cause analysis of the most frequent stop is the most effective start."),
+  E("Planned hours are 5,000 a year, ideal rate 60 units an hour, and OEE rises from 50% to 60%. How many extra good units a year?", ["3,000", "300,000", "50,000", "30,000"], 3, "0.10 × 5,000 × 60 = 30,000."),
+  E("A $50,000 improvement is expected to bring $100,000 a year in benefits. What is the payback?", ["2 months", "6 months", "12 months", "24 months"], 1, "$50,000 ÷ ($100,000 ÷ 12) = 6 months."),
+  E("OEE improves sharply with no improvement work. What should be checked first?", ["Whether operators deserve a bonus", "Whether the market has grown", "Whether definitions such as ideal rate or planned time exclusions changed", "Whether the bottleneck moved to another plant"], 2, "Sudden unexplained changes often come from changed definitions, which should be checked and logged."),
+ ],
+)
+
+if __name__ == "__main__":
+    write(course, "oee-equipment-effectiveness", __file__)
