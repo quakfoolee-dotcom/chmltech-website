@@ -35,3 +35,27 @@
 /* V4.45: every table fills the text column, so narrow tables line up with the paragraphs and figures.
    The table stays a scrolling block on small screens; its body stretches to the full width. */
 .prose table>tbody{display:table;width:100%;border-collapse:collapse}
+/* V5.12: OEE as a 3D volume, Figure 2 of "What OEE Really Measures" (script: assets/js/oee3d.js). */
+.prose .oee3d{margin:0}
+.oee3d-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);background:var(--navy-deep);border:1px solid #1E3D6E;border-radius:14px;overflow:hidden;color:#F6F5F1}
+.oee3d-stage{position:relative;aspect-ratio:1/.92;min-width:0}
+.oee3d-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.oee3d-stage canvas.is-drag{cursor:grabbing}
+.oee3d-drag{position:absolute;left:14px;top:12px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#9FB2CC;pointer-events:none}
+.oee3d-side{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px 22px 22px 20px;border-left:1px solid #1E3D6E;background:rgba(255,255,255,.04);min-width:0}
+.prose .oee3d-side p{margin:0}
+.oee3d-k{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#9FB2CC}
+.oee3d-big{display:flex;flex-direction:column;gap:4px}
+.oee3d-big span{font-family:var(--font-head);font-weight:600;font-size:clamp(38px,5vw,50px);line-height:1;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums}
+.oee3d-big small{font-size:13.5px;line-height:1.4;color:#B4C2D6}
+.oee3d-eq{font-family:var(--font-head);font-size:15px;font-weight:600;color:#DCE7F5;font-variant-numeric:tabular-nums}
+.prose ul.oee3d-legend{list-style:none;margin:4px 0 0;padding:12px 0 0;border-top:1px solid #1E3D6E;display:flex;flex-direction:column;gap:9px}
+.prose .oee3d-legend li{display:grid;grid-template-columns:12px minmax(0,1fr) auto 52px;align-items:center;gap:9px;margin:0;padding:0;font-size:14px;line-height:1.3;color:#DCE7F5}
+.oee3d-legend li::before{content:none!important}
+.oee3d-legend i{width:12px;height:12px;border-radius:3px}
+.oee3d-legend b{font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+.oee3d-legend em{font-style:normal;font-size:12.5px;color:#9FB2CC;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:640px){
+  .oee3d-body{grid-template-columns:minmax(0,1fr)}
+  .oee3d-side{border-left:0;border-top:1px solid #1E3D6E}
+}

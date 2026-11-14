@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.12 — 2026-11-14
+- **"What OEE Really Measures": OEE as a 3D box (new Figure 2).** Inside the "Try it" calculator, OEE is drawn as a volume. The dashed cube is the 15 scheduled hours at ideal speed with no rejects; its width is availability, its depth is performance and its height is quality. Downtime, speed loss and quality loss are coloured slabs cut off the cube, and the blue box that remains is OEE. The box and its side panel (OEE, the three factors, each loss in % and hours) follow the article's existing three sliders; the reader can drag the box to turn it.
+- No library: `assets/js/oee3d.js` is a small 2D-canvas perspective renderer. It pauses when off-screen and shows a still frame under `prefers-reduced-motion`. Styles are the V5.12 block at the end of `assets/css/oee.css`. The figure is also in the article source, `content/articles/what-oee-really-measures.json`. The rest of the article is unchanged.
+
 ## V5.11 — 2026-11-13
 - **Training search box** now reads "Search exams" with no number, so it cannot go out of date when exams are added. The exam count still shows in the hero stat, the "All (N)" chip and the result count beside the search box.
 

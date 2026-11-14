@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.11** (see `CHANGELOG.md`).
+Version: **V5.12** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -28,6 +28,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `exams/<category>/*.html` | The practice-exam library (147 standalone exams in 10 category folders), moved here in V5.8 from the `exam-library` repository. Catalog: `content/gen/exam_cats.json`. To add an exam: put the file in its category folder, add it to `exam_cats.json` and its card to `training.html`, then run `seo_pass.py` (adds the canonical URL, description, analytics and sitemap entry). The old `quakfoolee-dotcom.github.io/exam-library/` addresses redirect here |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 | `assets/css/oee.css`, `assets/js/oee.js` | Styles and the three slider calculators (with live charts) used by the OEE article series. The FEED series (`content/articles/feed_articles.py`) reuses the table and layout styles from `oee.css` |
+| `assets/js/oee3d.js` | The 3D "OEE as a volume" box (Figure 2 of `post/what-oee-really-measures.html`); follows that article's sliders. Styles are in `assets/css/oee.css`. |
 | `assets/js/scaleup.js` | The cooling-capacity calculator and chart in Part 1 of the scale-up series (source: `content/articles/process_eng_articles.py`) |
 | `assets/js/runaway.js` | The cooling failure (MTSR) calculator in Part 1 of the process safety series (source: `content/articles/safety_articles.py`) |
 | `assets/media/pfd-pid/` | The example PFD and P&ID drawings (SVG) used in the "How to read a PFD and a P&ID" article |

@@ -64,7 +64,7 @@
 
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose">
-<link rel="stylesheet" href="../assets/css/oee.css?v=598d6ccf"><p>The machine ran all day and the order is still short. Overall Equipment Effectiveness explains why, by showing how many of your scheduled hours turned into good product.</p>
+<link rel="stylesheet" href="../assets/css/oee.css?v=d310ec38"><p>The machine ran all day and the order is still short. Overall Equipment Effectiveness explains why, by showing how many of your scheduled hours turned into good product.</p>
 <p>Most plants know how many units they shipped. Far fewer know how many they could have shipped with the same machine, the same people and the same shifts. That gap is hidden capacity, and you are already paying for it.</p>
 <p>Overall Equipment Effectiveness (OEE) measures the gap. It is one percentage, built from three questions about a piece of equipment.</p>
 <h2>Three questions, one number</h2>
@@ -97,6 +97,23 @@
 <div class="oee-calc" role="group" aria-labelledby="c1h">
 <h3 id="c1h">Try it: move the losses and watch OEE</h3>
 <p class="oee-hint">Fixed for this example: 17 hours of total time, 2 hours of planned stops and an ideal rate of 2,000 units per hour.</p>
+<figure class="oee3d" id="oee3d">
+<div class="oee3d-body">
+<div class="oee3d-stage"><canvas role="img" aria-label="3D box showing OEE as a volume. The outer cube is the scheduled time at ideal speed with no rejects. Its width is availability, its depth is performance and its height is quality. Downtime, speed loss and quality loss each cut a slab off the cube; the blue box that remains is OEE. The values are listed beside the box."></canvas><span class="oee3d-drag" aria-hidden="true">Drag to turn</span></div>
+<div class="oee3d-side">
+<p class="oee3d-k">OEE = the blue box</p>
+<p class="oee3d-big"><span id="oee3d-O">73.4%</span><small>of scheduled time made good units at ideal speed</small></p>
+<p class="oee3d-eq"><span id="oee3d-A">85.0%</span> × <span id="oee3d-P">90.0%</span> × <span id="oee3d-Q">96.0%</span></p>
+<ul class="oee3d-legend">
+<li><i style="background:#3CA0E6"></i><span>Good output</span><b id="oee3d-g">73.4%</b><em id="oee3d-gh">11.02 h</em></li>
+<li><i style="background:#E8A03C"></i><span>Downtime</span><b id="oee3d-d">15.0%</b><em id="oee3d-dh">2.25 h</em></li>
+<li><i style="background:#8C8CF5"></i><span>Speed loss</span><b id="oee3d-s">8.5%</b><em id="oee3d-sh">1.28 h</em></li>
+<li><i style="background:#EE6E6E"></i><span>Quality loss</span><b id="oee3d-q">3.1%</b><em id="oee3d-qh">0.46 h</em></li>
+</ul>
+</div>
+</div>
+<figcaption>Figure 2. OEE as a volume. The cube is the 15 scheduled hours at ideal speed with no rejects. Each loss cuts a slab off it, and the blue box that remains is OEE. The box follows the sliders below.</figcaption>
+</figure>
 <div class="oee-sliders">
 <div class="oee-sl"><label for="p1-down">Downtime <output id="p1-down-o"></output></label><input type="range" id="p1-down" min="0" max="6" step="0.25" value="2.25"></div>
 <div class="oee-sl"><label for="p1-rate">Actual run rate <output id="p1-rate-o"></output></label><input type="range" id="p1-rate" min="1000" max="2000" step="10" value="1800"></div>
@@ -135,6 +152,7 @@
 <noscript><p class="oee-note">The charts and calculator on this page need JavaScript. The tables show the worked example.</p></noscript>
 <p class="oee-note"><em>The line, its revenue and the project in this series are an illustrative example. The calculators are screening tools and do not replace a full financial analysis.</em></p>
 <script src="../assets/js/oee.js?v=70a799e4" defer></script>
+<script src="../assets/js/oee3d.js?v=aaa17e84" defer></script>
   </article>
   <aside class="aside-sticky">
     <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
