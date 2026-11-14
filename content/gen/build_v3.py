@@ -483,7 +483,7 @@ tr = page_hero("Training", "Free training", "Free practice exams for technical a
 tr += f'''
 <section class="section" id="library" style="scroll-margin-top:84px;padding-top:64px"><div class="container" data-list="exams" data-page-size="30">
   <div class="toolbar">
-    <label class="search"><span class="visually-hidden">Search practice exams</span>{SEARCH_SVG}<input type="search" placeholder="Search {n_exams} exams" data-search-input></label>
+    <label class="search"><span class="visually-hidden">Search practice exams</span>{SEARCH_SVG}<input type="search" placeholder="Search exams" data-search-input></label>
     <span class="count" data-count aria-live="polite">{n_exams} exams</span>
   </div>
   <div class="chips" role="group" aria-label="Filter by category">{ex_chips}</div>

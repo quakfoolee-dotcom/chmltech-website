@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.11 — 2026-11-13
+- **Training search box** now reads "Search exams" with no number, so it cannot go out of date when exams are added. The exam count still shows in the hero stat, the "All (N)" chip and the result count beside the search box.
+
 ## V5.10 — 2026-11-13
 - **Fix: Training search box.** The placeholder still read "Search 145 exams" after the library grew to 147 in V5.9; it and the initial result count now read 147. When adding an exam by hand, update four numbers on `training.html`: the hero stat, the "All (N)" and category chips, the search placeholder and the result count.
 
