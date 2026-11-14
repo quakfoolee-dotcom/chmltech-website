@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.2 — 2026-11-13
+- **New free course: Choosing ERP and Business Software** (`challenge-page/choosing-erp-and-business-software`): 16 lessons in four modules (Do You Need New Software?, Requirements and the Market, Decide and Contract, Implement and Get Value) covering signs of outgrown systems, ERP/CRM/WMS/MES, suite vs best of breed, process mapping, business case, scenario requirements, shortlisting vendors and partners, focused RFPs, scripted demos, weighted scoring, five-year TCO, contract terms, implementation approach, governance, data migration, testing, training, go-live and a roadmap; 6 interactive figures; 3 labs (which-system sort, fit vs cost matrix, TCO calculator); 20-question exam and certificate. Source: `content/courses/src/erp_selection.py`.
+- **Course finder:** Intermediate / Digital & automation; added to the Digital Automation path after Digital Automation for SMEs. The site has **21 free courses**.
+
 ## V5.1 — 2026-11-13
 - **New free course: Data and Dashboards for SMEs** (`challenge-page/data-and-dashboards-for-smes`): 16 lessons in four modules (Foundations, Spreadsheets Done Right, Dashboards, Using Data Well) covering KPIs and KPI trees, data sources and quality, tidy data, XLOOKUP, pivot tables, Power Query, spreadsheet error prevention, dashboard design, chart choice, BI tools and star schemas, automated refresh, data-driven meetings, simple analysis and governance; 6 interactive figures; 3 labs (useful KPI / vanity / unclear sort, which-reports-to-automate matrix, data maturity self-assessment); 20-question exam and certificate. Source: `content/courses/src/data_dashboards.py`.
 - **Course finder:** Beginner / Digital & automation; added to the Owner Essentials path. The site has **20 free courses**.
