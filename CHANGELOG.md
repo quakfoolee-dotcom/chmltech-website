@@ -1,5 +1,11 @@
 # Changelog
 
+## V5.9 — 2026-11-13
+- **Training: one library, no duplicates.** The "More free practice: Mock exams, guides and quizzes" section is removed. Of its 25 pages (migrated from Wix), 17 were the same exam as one in the library and 6 were older or shorter versions of a library exam, so each of those old addresses now redirects to the library exam. The map is in `content/gen/exam_redirects.json`.
+- **Two exams added to the library** because they existed only in that section: **AI Product Architect Scenario Exam** (AI & Agents, 100 questions) and **NPPE Drill Exam I** (Project & Agile, 100 questions). The library now has **147 exams** and 17,045+ questions; counts updated on Training and Courses.
+- The 25 old pages (for example `iso-9001-case-study-exam.html`) stay as redirect pages so old links and search results keep working; their embedded copies in `exams/*.html` are deleted. Links to them from four articles (Atomic Habits review, Psychology of Money review, scale-up Part 1, mass and energy balance) now point straight to the library exams, with sources updated.
+- `sitemap.xml`: 370 → 347 URLs (25 redirected pages out, 2 library exams in).
+
 ## V5.8 — 2026-11-13
 - **Practice exams now open on chmltech.com.** The 145 exams in the Training library were hosted in a separate repository and opened at `quakfoolee-dotcom.github.io/exam-library/...`. They now live in this site under `exams/<category>/` (10 category folders), so visitors stay on `www.chmltech.com`, for example `www.chmltech.com/exams/quality-lean/ISO_9001_Case_Study_Exam_100Q_V3.html`. File names are unchanged.
 - **Links updated:** all 145 exam links on `training.html` and the Reactor Design Exam link in the process safety article (`post/what-happens-if-the-cooling-fails-runaway-reactions.html`), with their sources (`content/gen/build_v3.py`, `content/articles/safety_articles.py` and the article JSON). No page links to github.io for an exam any more.

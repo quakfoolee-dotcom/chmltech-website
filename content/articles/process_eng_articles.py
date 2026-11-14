@@ -136,7 +136,7 @@ def post_s1():
 <li><strong>Gradual addition only works if the reaction keeps up.</strong> If the reactant accumulates unreacted and then reacts all at once, the heat arrives faster than the feed rate suggests. Reaction calorimetry shows whether this can happen.</li>
 <li><strong>Cooling failure must be assessed separately.</strong> This post covers normal operation. The temperature the batch could reach with no cooling at all is a process safety question and needs its own study.</li>
 </ul>
-<p>To practise the calculations, try the free <a href="../scale-up-exam.html">Engineering Scale Up Exam&nbsp;I</a> and the <a href="../engineering-scale-up-calc-exam-iii.html">Scale Up Calc Exam&nbsp;III</a>.</p>
+<p>To practise the calculations, try the free <a href="../exams/process-chemeng/Commercial_Scale_Up_Chemical_Engineering_Case_Exam_100.html">Engineering Scale Up Exam&nbsp;I</a> and the <a href="../exams/process-chemeng/Commercial_Scale_Up_Calculations_Exam_100.html">Scale Up Calc Exam&nbsp;III</a>.</p>
 <div class="oee-takeaway"><p><strong>Takeaway.</strong> Cooling capacity per cubic metre falls as the reactor grows. In the example it drops from {geom(0.001)[3]:,.0f} to {geom(10)[3]:.1f}&nbsp;kW/m³, and a one-hour lab reaction needs at least {GEN / geom(10)[3]:.1f} hours of controlled addition at 10,000&nbsp;L.</p></div>
 <div class="oee-next"><a class="oee-fwd" href="{U2}.html">Next: Post&nbsp;2, what a pilot plant is for →</a></div>
 <noscript><p class="oee-note">The calculator on this page needs JavaScript. The tables show the worked example.</p></noscript>
@@ -355,7 +355,7 @@ def post_s3():
 <tr><td>Consumption per kilogram of product</td><td>Operating cost estimate and the business case</td></tr>
 </table>
 <p>These figures become the design basis and the heat and material balance for front-end engineering. The FEED series picks up from here, starting with <a href="{FEED2}.html">the design basis</a>.</p>
-<p>To practise balance calculations, try the free <a href="../mass-momentum-energy-exam.html">Mass, Momentum &amp; Energy Exam</a>.</p>
+<p>To practise balance calculations, try the free <a href="../exams/process-chemeng/ChemEng_Mass_Momentum_Energy_Exam_50.html">Mass, Momentum &amp; Energy Exam</a>.</p>
 <div class="oee-takeaway"><p><strong>Takeaway.</strong> Scale the pilot balance to the commercial batch, check that it closes, then add the energy balance and prices. In the example, a {YMEAN:.0f}% yield and a three-hour addition lead to a 10&nbsp;m³ batch, {(b['W'] + b['SW']) * NB / 1000:,.0f}&nbsp;t/y of waste and a variable cost of ${CTOT:.2f} per kilogram.</p></div>
 <div class="oee-next oee-end"><a href="{U1}.html">← Post&nbsp;1: what changes when you scale up</a><a href="{U2}.html">← Post&nbsp;2: what a pilot plant is for</a></div>
 {NOTE}"""
