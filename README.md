@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V4.92** (see `CHANGELOG.md`).
+Version: **V4.93** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -14,7 +14,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `solutions.html` | Core services and an overview of the 11 solution pages |
 | `training.html` | Free practice-exam library (search and filters) plus self-hosted mock exams |
 | `insights.html` | All articles with search, category filters and email subscription |
-| `courses.html` | Free online courses and paid one-hour sessions |
+| `courses.html` | Free online courses and paid one-hour sessions, with the "Find your course" quiz and level/topic filters (data: `content/courses/finder.json`; run `content/gen/course_finder.py .` after changing it or adding a course; script and styles: `assets/js/course-finder.js`, `assets/css/course-finder.css`) |
 | `book.html` | Book Online: free strategy call or paid session request |
 | `funding.html` | Funding finder: filterable directory of federal, provincial and territorial business funding programs (data: `content/grants.json`; script: `assets/js/grants.js`) |
 | `llm-leaderboard.html` | LLM leaderboard (menu: AI Models): searchable database of current large language models with benchmark leaderboards, best-model-by-agent-type cards and a score-versus-cost Pareto chart. Data: `content/llm/llm.json`, built by `content/llm/build_dataset.py` from the research files in `content/llm/raw/` (method: `content/llm/SPEC.md`); page: `content/gen/llm_page.py`; script and styles: `assets/js/llm.js`, `assets/css/llm.css` |

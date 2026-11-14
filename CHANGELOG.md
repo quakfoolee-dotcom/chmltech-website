@@ -1,5 +1,13 @@
 # Changelog
 
+## V4.93 — 2026-11-13
+- **Course finder on the Courses page:** a "Find your course" card under the hero (hero button "Find your course"). Five one-at-a-time questions (role, goal, AI experience, industry, how much to take on); Next is enabled only after an answer is picked, with Back to change answers.
+- **Result:** a named learning path (AI Starter, AI Strategy for Leaders, AI Builder, Digital Automation, Operations Improver, Improvement Project Leader) with a "Start here" course, the next courses in order (the next two if the visitor wants one course; the whole path otherwise), an industry tip where relevant, and a soft "Book a free strategy call" link. New-to-AI visitors get AI Awareness first; visitors who have built AI tools skip the beginner courses; leaders on the operations path start with Operational Excellence.
+- Recommended courses get an "In your path" badge in the course list. The answers are kept only in the visitor's browser, so a returning visitor sees their path again (with "Retake the quiz").
+- **Filters:** Level (Beginner / Intermediate / Advanced) and Topic (AI / Digital & automation / Operations) chips above the course grid with a "Showing n of 12" count; each course card now shows its level.
+- **Analytics:** Microsoft Clarity events `finder_start`, `finder_complete`, `finder_retake`, `finder_start_course`, and tags `finder_path` and `finder_course`, so you can see which paths and courses people pick.
+- **Adding a course later:** give it a level and topic in `content/courses/finder.json`, add it to one or more paths, then run `python3 content/gen/course_finder.py .` and `seo_pass.py`. Files: `content/gen/course_finder.py`, `assets/js/course-finder.js`, `assets/css/course-finder.css`.
+
 ## V4.92 — 2026-11-13
 - **Homepage Improvement cycle card:** a note under step 05, "↻ Back to 01 Discover: the cycle repeats", so the highlighted step reads as the outcome that feeds the next round rather than a selected or current step. Accessible label updated to match.
 
