@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.10 — 2026-11-13
+- **Fix: Training search box.** The placeholder still read "Search 145 exams" after the library grew to 147 in V5.9; it and the initial result count now read 147. When adding an exam by hand, update four numbers on `training.html`: the hero stat, the "All (N)" and category chips, the search placeholder and the result count.
+
 ## V5.9 — 2026-11-13
 - **Training: one library, no duplicates.** The "More free practice: Mock exams, guides and quizzes" section is removed. Of its 25 pages (migrated from Wix), 17 were the same exam as one in the library and 6 were older or shorter versions of a library exam, so each of those old addresses now redirects to the library exam. The map is in `content/gen/exam_redirects.json`.
 - **Two exams added to the library** because they existed only in that section: **AI Product Architect Scenario Exam** (AI & Agents, 100 questions) and **NPPE Drill Exam I** (Project & Agile, 100 questions). The library now has **147 exams** and 17,045+ questions; counts updated on Training and Courses.
