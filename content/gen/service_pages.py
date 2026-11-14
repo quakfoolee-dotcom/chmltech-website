@@ -154,7 +154,7 @@ PAGES = {
        ("Will our operations be disrupted?", "We work alongside your team and plan changes around operating needs. Most work happens through observation, workshops and small, tested changes."),
        ("What will our people learn?", "Process mapping, waste identification, problem solving, standard work and running operations with KPIs. These skills remain after the project."),
        ("How do we know it worked?", "We set a KPI baseline at the start and track service level, productivity, speed and quality through the program, so results are measurable.")],
-  courses=["b4b6581a-31f8-43f9-8796-268c83448b9f", "ac58bd83-591d-4c25-9aac-71755f469d3c", "25c5f60e-3f55-43a1-9c15-345dfc5b8f7f", "e385a42b-5aaf-457f-9957-e8d19fee8cc0"],
+  courses=["lean-six-sigma-foundations", "b4b6581a-31f8-43f9-8796-268c83448b9f", "ac58bd83-591d-4c25-9aac-71755f469d3c", "e385a42b-5aaf-457f-9957-e8d19fee8cc0"],
   cats=["process-improvement", "lean", "six-sigma"],
  ),
  "lean-six-sigma-training": dict(
@@ -234,7 +234,7 @@ PAGES = {
        ("Do participants receive a certificate?", "Participants who complete their training receive a certificate of completion from Chmltech. If you need certification from an external body, we can help you plan for it."),
        ("What is the difference between the belt levels?", "White and Yellow Belts build awareness and support projects. Green Belts lead projects in their own area. Black Belts lead larger, cross-functional projects and coach others."),
        ("Can we combine training with a process improvement project?", "Yes. Many clients train a team while we work alongside them on a priority process, so learning and results happen together.")],
-  courses=["b4b6581a-31f8-43f9-8796-268c83448b9f", "ac58bd83-591d-4c25-9aac-71755f469d3c", "25c5f60e-3f55-43a1-9c15-345dfc5b8f7f", "e385a42b-5aaf-457f-9957-e8d19fee8cc0"],
+  courses=["lean-six-sigma-foundations", "b4b6581a-31f8-43f9-8796-268c83448b9f", "ac58bd83-591d-4c25-9aac-71755f469d3c", "25c5f60e-3f55-43a1-9c15-345dfc5b8f7f"],
   cats=["six-sigma"],
 ),
 }

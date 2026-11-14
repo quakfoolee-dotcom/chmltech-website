@@ -1,0 +1,566 @@
+"""Source for content/courses/feed-process-design.json (run: python3 content/courses/src/feed_process_design.py)."""
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _common import step, E, write
+
+M1 = [
+step("From concept to construction: the project stages", 7, """
+<p>Process plant projects move through a series of stages, each ending in a <strong>gate</strong>: a decision to continue, change course or stop. Each stage spends more money and fixes more decisions. The stage names vary between companies, but the logic is the same.</p>
+<table><thead><tr><th>Stage</th><th>Main question</th><th>Typical outputs</th></tr></thead><tbody>
+<tr><td>Concept (identify)</td><td>Is there an opportunity worth studying?</td><td>Process idea, rough capacity, order-of-magnitude cost</td></tr>
+<tr><td>Feasibility / pre-FEED (select)</td><td>Which option should we develop?</td><td>Options compared, selected technology and site, preliminary balances</td></tr>
+<tr><td>FEED (define)</td><td>What exactly will we build, for how much, and when?</td><td>Design basis, PFDs, P&amp;IDs, equipment datasheets, hazard reviews, cost estimate for investment decision</td></tr>
+<tr><td>Detailed engineering (execute)</td><td>How is every part built and installed?</td><td>Construction drawings, specifications, procurement</td></tr>
+<tr><td>Construction and commissioning</td><td>Is it built correctly and does it work?</td><td>Mechanical completion, commissioning, start-up, handover</td></tr>
+</tbody></table>
+<h3>Why the early stages matter most</h3>
+<p>The ability to influence cost and performance is highest at the start, when changes are made on paper, and falls quickly once equipment is ordered and steel is up. The cost of a change rises at the same time: moving a line on a P&amp;ID during FEED takes an hour; moving it after the pipe is installed takes cutting, welding, re-testing and schedule delay. Front-end work is cheap insurance against expensive surprises later.</p>
+<h3>About this course</h3>
+<p>This course explains how front-end engineering works so owners, project managers and engineers can plan, review and use FEED well. It is educational. It does not replace a qualified engineering team or the codes, standards and regulators that apply to your project. The Insights article <a href="../post/from-concept-to-construction-five-stages-of-a-process-plant-project.html">From concept to construction</a> covers the stages in more depth.</p>
+""", ["Projects pass through stage gates: concept, select, define (FEED), execute, operate.", "Influence over cost is highest early; the cost of change rises later.", "Front-end work is cheap insurance against expensive changes in construction."],
+ "Place a project you know on the stage-gate path. Which gate has it passed, and which decisions were made, or skipped, at each one?",
+ "Why is it far cheaper to make a design change during FEED than during construction?", ["Engineers are paid less during FEED", "Changes are made on paper before equipment is ordered and installed", "Codes do not apply during FEED", "Construction crews refuse changes"], 1,
+ "Early changes affect drawings and documents only; later changes need rework of purchased and installed equipment."),
+step("What FEED is and why it pays", 7, """
+<p><strong>Front-end engineering design (FEED)</strong>, sometimes called basic engineering or the define stage, develops the selected process into a design complete enough to estimate cost reliably, plan the schedule, identify the main risks and support the <strong>final investment decision (FID)</strong>.</p>
+<h3>What FEED fixes and what it leaves for later</h3>
+<table><thead><tr><th>Fixed in FEED</th><th>Left for detailed engineering</th></tr></thead><tbody>
+<tr><td>Process design: balances, PFDs, operating conditions</td><td>Isometric piping drawings</td></tr>
+<tr><td>P&amp;IDs at a reviewed, near-final level</td><td>Structural and foundation design details</td></tr>
+<tr><td>Equipment sizes, materials and process datasheets</td><td>Vendor detailed drawings and fabrication</td></tr>
+<tr><td>Plot plan and major layout</td><td>Cable schedules and wiring details</td></tr>
+<tr><td>Control philosophy and safety systems concept</td><td>Control system configuration and programming</td></tr>
+<tr><td>Hazard reviews (HAZID, HAZOP of the P&amp;IDs)</td><td>Detailed constructability and installation sequences</td></tr>
+<tr><td>Cost estimate and schedule for FID</td><td>Construction work packages</td></tr>
+</tbody></table>
+<h3>Why it pays</h3>
+<ul><li><strong>Better estimates:</strong> FEED typically moves the cost estimate to an accuracy suitable for funding decisions, which lenders and boards expect.</li>
+<li><strong>Fewer late changes:</strong> decisions are made while they are cheap to change.</li>
+<li><strong>Earlier procurement:</strong> long-lead equipment can be specified and sometimes ordered.</li>
+<li><strong>Safer design:</strong> hazards are found and designed out on paper.</li>
+<li><strong>Competitive bids:</strong> a complete FEED package lets contractors bid on the same scope.</li></ul>
+<p>Cutting FEED short to save time or money is one of the most common reasons projects overrun later. The Insights article <a href="../post/what-a-feed-package-contains-and-what-each-document-decides.html">What a FEED package contains</a> lists the documents in detail.</p>
+""", ["FEED develops the selected design enough for a reliable estimate and the investment decision.", "It fixes the process, P&IDs, equipment and layout; details come later.", "A short-changed FEED is a common cause of overruns."],
+ "List the documents your organization would expect at the end of FEED. Compare your list with the table and mark any gaps.",
+ "What is the main decision that FEED is designed to support?", ["Which contractor builds the foundations", "The colour scheme of the plant", "The final investment decision", "The operator shift pattern"], 2,
+ "FEED produces the design definition, estimate and schedule needed for the final investment decision."),
+step("Roles, contracts and the owner's job", 7, """
+<p>Several parties contribute to FEED, and the contract structure shapes how they work together.</p>
+<table><thead><tr><th>Party</th><th>Role</th></tr></thead><tbody>
+<tr><td>Owner</td><td>Defines what is needed, makes decisions, approves the design, funds the project and will operate the plant</td></tr>
+<tr><td>Engineering contractor</td><td>Performs FEED engineering across disciplines: process, mechanical, piping, electrical, instrumentation, civil</td></tr>
+<tr><td>Technology licensor</td><td>Provides the process design package for licensed technology, with performance guarantees</td></tr>
+<tr><td>Owner's engineer</td><td>Independent engineering support that reviews and represents the owner's interests</td></tr>
+<tr><td>Vendors</td><td>Provide equipment data, quotes and drawings for key equipment</td></tr>
+<tr><td>Regulators and authorities</td><td>Approve permits, pressure equipment registration and other requirements</td></tr>
+</tbody></table>
+<h3>Common contracting models after FEED</h3>
+<ul><li><strong>EPC (engineering, procurement and construction):</strong> one contractor delivers the plant, often lump sum. The owner gets cost certainty but pays for the contractor's risk, and the FEED must be solid enough to bid on.</li>
+<li><strong>EPCM (engineering, procurement and construction management):</strong> the contractor engineers and manages on the owner's behalf; the owner holds construction contracts and more cost risk, with more control.</li>
+<li><strong>Owner-managed:</strong> common for smaller projects; the owner coordinates engineering firms and contractors directly.</li></ul>
+<h3>The owner's job in FEED</h3>
+<p>FEED is not something to hand over and collect at the end. The owner must provide the design basis inputs, answer questions quickly, make decisions on options, involve operations and maintenance staff in reviews, and approve key documents. Slow owner decisions are a common cause of FEED delays. Name one owner's representative with authority to decide, and agree a weekly decision log with the engineering team.</p>
+""", ["Owner, engineers, licensors, vendors and regulators each play a role.", "EPC, EPCM and owner-managed models allocate risk and control differently.", "The owner must decide promptly and involve operations throughout FEED."],
+ "For a project you know, name who filled each role in the table. Which role was missing or unclear, and what effect did it have?",
+ "What is a common cause of delay in FEED that the owner controls?", ["The engineering software", "Weather on site", "Vendor shipping", "Slow decisions and late design basis inputs"], 3,
+ "FEED depends on owner inputs and decisions; slow answers stall engineering across disciplines."),
+step("The design basis: decisions to fix first", 8, """
+<p>The <strong>design basis</strong> is the document that records the assumptions and requirements every engineer designs to. Agreeing it at the start of FEED prevents rework later, because a change in capacity or feed composition ripples through every calculation and drawing.</p>
+<h3>What a design basis covers</h3>
+<table><thead><tr><th>Topic</th><th>Examples of decisions</th></tr></thead><tbody>
+<tr><td>Capacity and turndown</td><td>Design throughput, operating hours per year, minimum stable rate</td></tr>
+<tr><td>Feedstocks</td><td>Composition ranges, impurities, supply conditions</td></tr>
+<tr><td>Products and specifications</td><td>Purity, quality limits, packaging or delivery form</td></tr>
+<tr><td>Site conditions</td><td>Elevation, temperature extremes, seismic zone, snow and wind loads, soil</td></tr>
+<tr><td>Utilities</td><td>Available power, steam, cooling water, instrument air, nitrogen and their conditions</td></tr>
+<tr><td>Design margins</td><td>Margins on flow, heat duty and pressure; how they are applied</td></tr>
+<tr><td>Codes, standards and owner specifications</td><td>Which editions apply; owner preferences for equipment and materials</td></tr>
+<tr><td>Environmental limits</td><td>Air emissions, effluent, noise, waste handling</td></tr>
+<tr><td>Battery limits</td><td>Exactly where the project's scope starts and ends</td></tr>
+<tr><td>Operating philosophy</td><td>Continuous or batch, staffing, automation level, maintenance approach, sparing</td></tr>
+</tbody></table>
+<h3>Margins: agree them once</h3>
+<p>If each discipline adds its own safety margin, the plant ends up oversized and expensive. Agree in the design basis where margins apply and how large they are, and record the reason. Oversized equipment is not always safer: pumps and control valves that run far below their design point can operate poorly.</p>
+<h3>Keep it controlled</h3>
+<p>Issue the design basis with a revision number, have the owner sign it off and route any change through a formal change process with an impact check on cost and schedule. The Insights article <a href="../post/the-design-basis-ten-decisions-to-fix-before-engineering-starts.html">The design basis: ten decisions</a> goes through each in more detail.</p>
+""", ["The design basis records the assumptions every engineer designs to.", "Agree design margins once, centrally, with reasons.", "Control the design basis with revisions, sign-off and change management."],
+ "Draft the headings of a design basis for a project you know. Mark which decisions were firm at the start of FEED and which were still open.",
+ "Why should design margins be agreed centrally in the design basis?", ["To make the plant as large as possible", "To avoid stacked margins that oversize equipment and raise cost", "Because codes forbid margins", "So vendors can choose their own margins"], 1,
+ "When each discipline adds its own margin, they stack; agreeing them once keeps the design right-sized."),
+]
+
+M2 = [
+step("Mass and energy balances", 8, """
+<p>Every process design starts with the <strong>mass and energy balance</strong>: what goes in, what comes out and what happens in between, stream by stream. It is the foundation for sizing every piece of equipment and every utility.</p>
+<h3>The principles</h3>
+<ul><li><strong>Mass balance:</strong> at steady state, mass in = mass out for every unit and for the whole plant. For reacting systems, balance each element or use reaction stoichiometry and conversion.</li>
+<li><strong>Energy balance:</strong> heat in + work in = heat out + work out + change in enthalpy. It gives heating and cooling duties, which size exchangers and utilities.</li></ul>
+<h3>Where the data come from</h3>
+<p>For established processes, data come from licensors, literature and process simulators. For new or scaled-up processes, they come from <strong>pilot plant</strong> and laboratory work: conversions, selectivities, yields, residence times, heats of reaction and physical properties. Gaps in data are a major FEED risk. Identify them early and decide whether to fill them with more testing or carry them as a design margin.</p>
+<h3>The stream table</h3>
+<p>The balance is presented as a <strong>stream table</strong>: for each numbered stream, its flow, composition, temperature, pressure and phase. Stream numbers link the table to the process flow diagram.</p>
+<table><thead><tr><th>Stream</th><th>1 Feed</th><th>2 Reactor outlet</th><th>3 Product</th><th>4 Recycle</th></tr></thead><tbody>
+<tr><td>Mass flow (kg/h)</td><td>1,000</td><td>1,400</td><td>950</td><td>400</td></tr>
+<tr><td>Temperature (°C)</td><td>25</td><td>180</td><td>40</td><td>60</td></tr>
+<tr><td>Pressure (barg)</td><td>3</td><td>10</td><td>1</td><td>11</td></tr>
+</tbody></table>
+<p>Check the balance closes: here feed (1,000 kg/h) equals product (950) plus a 50 kg/h purge not shown, and the reactor outlet equals feed plus recycle. A balance that does not close points to an error or a missing stream.</p>
+<h3>Cases, not just one point</h3>
+<p>Design for more than the normal case: maximum and minimum throughput, start-up, different feed compositions and summer and winter conditions. Equipment is sized to the governing case for each item. The Insights article <a href="../post/from-pilot-data-to-a-mass-and-energy-balance.html">From pilot data to a mass and energy balance</a> works through an example.</p>
+""", ["Mass and energy balances are the foundation for sizing everything.", "Pilot and lab data fill gaps for new or scaled-up processes; gaps are a major risk.", "Check the balance closes, and design for several operating cases."],
+ "Take a simple process you know and sketch its main streams. Write a stream table with mass flows and check that inputs equal outputs.",
+ "A balance does not close: inputs exceed outputs by 5%. What does this most likely mean?", ["The plant is creating mass", "An error or a missing stream, such as a purge, vent or loss", "Normal for all processes", "The energy balance is wrong"], 1,
+ "At steady state mass is conserved, so an imbalance signals an error or an unaccounted stream."),
+step("The process flow diagram", 7, """
+<p>The <strong>process flow diagram (PFD)</strong> shows how the process works: the major equipment, the main process streams and how they connect, the key operating conditions and the main control loops. It is the bridge between the balance and the detailed design.</p>
+<h3>What a PFD shows, and what it leaves out</h3>
+<table><thead><tr><th>Shown</th><th>Not shown</th></tr></thead><tbody>
+<tr><td>Major equipment with tag numbers and key data (duty, size, design conditions)</td><td>Every valve, drain, vent and small line</td></tr>
+<tr><td>Main process streams with numbers linked to the stream table</td><td>Pipe sizes and line numbers</td></tr>
+<tr><td>Main utility connections (steam, cooling water)</td><td>Every instrument</td></tr>
+<tr><td>Key control loops (flow, level, temperature, pressure)</td><td>Safety relief devices in detail</td></tr>
+<tr><td>Operating temperatures and pressures at key points</td><td>Spare equipment details</td></tr>
+</tbody></table>
+<h3>Reading a PFD</h3>
+<p>Follow the main stream from feed to product. At each piece of equipment, ask what it does to the stream: heat it, react it, separate it, pump it. Note recycles and purges, which often control how impurities build up. Look at the control loops: what is being controlled and what is manipulated.</p>
+<h3>Why the PFD matters in FEED</h3>
+<p>The PFD is where process options are compared and fixed: one reactor or two in series, which separation method, how heat is recovered between streams. Changes are easy at this stage. Once P&amp;IDs and equipment datasheets are developed from the PFD, changes become slower and costlier, so review the PFD carefully with operations and the owner before moving on. The Insights article <a href="../post/how-to-read-a-pfd-and-a-pid.html">How to read a PFD and a P&amp;ID</a> has worked drawings.</p>
+""", ["A PFD shows major equipment, main streams, conditions and key controls.", "Stream numbers link the PFD to the stream table.", "Fix process options on the PFD before P&IDs and datasheets are developed."],
+ "Find a PFD from your workplace or a public example. Trace the main stream from feed to product and list what each piece of equipment does to it.",
+ "Which item normally appears on a PFD but not in full detail?", ["Every drain valve", "Pipe isometrics", "Key control loops for flow, level, temperature and pressure", "Cable schedules"], 2,
+ "PFDs show the main control loops; individual valves, instruments and pipe details are developed on the P&IDs."),
+step("Equipment sizing and process datasheets", 8, """
+<p>With balances and the PFD fixed, the process engineer sizes each piece of equipment and records the requirements on a <strong>process datasheet</strong>. Mechanical engineers and vendors then complete the mechanical design.</p>
+<h3>What gets sized, and the key inputs</h3>
+<table><thead><tr><th>Equipment</th><th>Key sizing inputs</th><th>Typical outputs</th></tr></thead><tbody>
+<tr><td>Vessels and drums</td><td>Flow, residence or hold-up time, phases, liquid levels</td><td>Diameter, height, nozzles, design pressure and temperature</td></tr>
+<tr><td>Heat exchangers</td><td>Duty, inlet and outlet temperatures, allowable pressure drop, fouling</td><td>Type, area, design conditions</td></tr>
+<tr><td>Pumps</td><td>Flow, suction and discharge conditions, fluid properties</td><td>Rated flow, differential head, NPSH available, driver power estimate</td></tr>
+<tr><td>Compressors and blowers</td><td>Flow, inlet conditions, pressure ratio</td><td>Type, power estimate, stages</td></tr>
+<tr><td>Reactors</td><td>Kinetics or pilot data, residence time, heat removal</td><td>Volume, cooling or heating surface, internals</td></tr>
+<tr><td>Columns</td><td>Separation required, vapour-liquid data</td><td>Stages, diameter, internals</td></tr>
+</tbody></table>
+<h3>An example: heat exchanger duty and area</h3>
+<p>To cool 10,000 kg/h of a liquid with heat capacity 2.5 kJ/kg·K from 120 °C to 50 °C, the duty is Q = m × c<sub>p</sub> × ΔT = (10,000 ÷ 3,600) × 2.5 × 70 ≈ 486 kW. Area follows from Q = U × A × LMTD, with the overall coefficient U from experience or detailed rating. The Insights article <a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area.html">Sizing a heat exchanger</a> completes the calculation.</p>
+<h3>Design conditions</h3>
+<p>Each item needs a <strong>design pressure</strong> and <strong>design temperature</strong> above the maximum it could see in operation, upsets and start-up, set by an agreed method. They drive wall thickness, flange ratings, relief settings and cost, so set them carefully and consistently.</p>
+<h3>Long-lead and critical equipment</h3>
+<p>Flag equipment with long delivery times, such as compressors, large or alloy vessels, specialty reactors and large electrical equipment, so vendor quotes and data come in early.</p>
+""", ["Size each item from the balance and record it on a process datasheet.", "Design pressure and temperature must cover upsets and start-up, set consistently.", "Flag long-lead equipment early to get vendor data and quotes."],
+ "Pick one pump or exchanger in a process you know. List the inputs needed to size it and find which ones you could get from the stream table.",
+ "A liquid of 3,600 kg/h with cp 2.0 kJ/kg·K is heated from 20 °C to 70 °C. What is the duty?", ["100 kW", "50 kW", "360 kW", "7,200 kW"], 0,
+ "Q = (3,600 ÷ 3,600) × 2.0 × 50 = 100 kW."),
+step("Utilities, offsites and battery limits", 7, """
+<p>A process unit cannot run without <strong>utilities</strong> and <strong>offsites</strong>. They are often a large part of the total installed cost, and they are easy to underestimate when attention is on the main process.</p>
+<table><thead><tr><th>System</th><th>Typical FEED questions</th></tr></thead><tbody>
+<tr><td>Electrical power</td><td>Total load, largest motor start, available supply, substation or utility upgrade, backup power</td></tr>
+<tr><td>Steam and heating</td><td>Pressure levels, boiler size, condensate return, or electric or hot oil alternatives</td></tr>
+<tr><td>Cooling</td><td>Cooling water or towers, air coolers, chillers; design temperatures for summer</td></tr>
+<tr><td>Instrument and plant air</td><td>Demand, dryness, compressor sparing</td></tr>
+<tr><td>Nitrogen and inert gas</td><td>Purging, blanketing, supply by tank or generator</td></tr>
+<tr><td>Water and effluent</td><td>Raw and process water quality; effluent treatment and discharge limits</td></tr>
+<tr><td>Storage and handling</td><td>Feed and product tanks, silos, loading and unloading, containment</td></tr>
+<tr><td>Flare, vents and emissions</td><td>Relief disposal, emission control, permits</td></tr>
+<tr><td>Buildings and services</td><td>Control room, laboratory, warehouse, fire protection</td></tr>
+</tbody></table>
+<h3>Utility balances</h3>
+<p>Sum each utility's demand from every consumer in each operating case, including start-up and peak cases, and compare with what is available. For a project on an existing site, a utility constraint such as limited electrical supply can drive cost and schedule more than the process itself, because utility upgrades can take a long time to arrange.</p>
+<h3>Battery limits</h3>
+<p>Define exactly where the project's scope ends: each line, cable and service crossing the boundary, with its conditions at the tie-in point. Unclear battery limits cause gaps, where nobody designs a needed item, and overlaps, where two parties design the same thing. A battery limit table, signed off by both sides, prevents both.</p>
+""", ["Utilities and offsites are a large, often underestimated part of cost.", "Build utility balances for every operating case, including start-up and peaks.", "Define battery limits and tie-in conditions in a signed table."],
+ "List every utility and service the process you know needs. For each, note the source and whether its capacity has been confirmed for the new load.",
+ "What problem does a clear battery limit table prevent?", ["Corrosion", "Pump cavitation", "Late vendor drawings", "Gaps and overlaps in scope between parties"], 3,
+ "Defining each tie-in and its conditions ensures nothing is missed or designed twice."),
+]
+
+M3 = [
+step("Piping and instrumentation diagrams", 8, """
+<p>The <strong>piping and instrumentation diagram (P&amp;ID)</strong> is the central engineering document of a process plant. It shows every piece of equipment, line, valve, instrument and control and safety function, and how they connect. Operators, engineers, maintenance staff and hazard reviews all rely on it for the life of the plant.</p>
+<h3>What a P&amp;ID shows</h3>
+<ul><li>All equipment with tags, including spares and packaged units.</li>
+<li>All process and utility lines with line numbers that encode size, service, sequence and piping class.</li>
+<li>Manual valves, control valves and their fail positions, check valves, drains and vents.</li>
+<li>Instruments and their functions using standard symbols and tag letters, commonly based on ISA-5.1.</li>
+<li>Pressure relief devices with set pressures.</li>
+<li>Interlocks and safety instrumented functions.</li>
+<li>Specification breaks, insulation and heat tracing, and sample points.</li></ul>
+<h3>Reading instrument tags</h3>
+<p>The first letter is the measured variable and the following letters the function. <strong>FIC-101</strong> is a flow indicating controller; <strong>LT-205</strong> a level transmitter; <strong>PSV-301</strong> a pressure safety valve; <strong>TAH</strong> a temperature alarm high. Learn the common letters and most P&amp;IDs become readable.</p>
+<h3>P&amp;ID development in FEED</h3>
+<p>P&amp;IDs go through several issues: for review, for HAZOP, after HAZOP and approved for design. Each review adds detail and resolves comments. By the end of FEED they should be stable enough that detailed engineering adds detail rather than changing the design. After that, any change follows management of change.</p>
+<p>Operators and maintenance staff should review P&amp;IDs before the HAZOP: they spot missing drains, unreachable valves and isolation that does not allow safe maintenance. The lab after this lesson tests which FEED document records which decision.</p>
+""", ["The P&ID shows every line, valve, instrument and safety function.", "Instrument tags follow a standard letter code, such as FIC or PSV.", "P&IDs mature through reviews and HAZOP before detailed engineering."],
+ "Take one P&ID sheet and decode five instrument tags. Then check whether every piece of equipment can be isolated and drained for maintenance.",
+ "On a P&ID, what is LT-205?", ["A level transmitter", "A line tag", "A low temperature alarm", "A lift truck"], 0,
+ "The first letter L is level and T is transmitter: LT is a level transmitter."),
+step("Control philosophy, alarms and interlocks", 7, """
+<p>How the plant will be operated and controlled is decided in FEED and recorded in a <strong>control philosophy</strong> (or control narrative) and related documents.</p>
+<h3>What the control philosophy covers</h3>
+<ul><li>The level of automation and what operators do manually.</li>
+<li>The main control loops and strategies: what is measured and what is adjusted to hold each key variable.</li>
+<li>Start-up, normal operation, shutdown and emergency shutdown sequences.</li>
+<li>The control system architecture: basic process control system (BPCS), any separate safety instrumented system (SIS), and links to packaged equipment controls.</li>
+<li>Operator interface, alarm philosophy and data historian.</li></ul>
+<h3>Alarms</h3>
+<p>An alarm should require an operator action. Too many alarms, or alarms that come in floods during upsets, lead operators to miss the important ones. An alarm philosophy sets rules for when an alarm is justified, how it is prioritized and how operators should respond. Recognized practices for alarm management, such as ISA-18.2, give a structured approach.</p>
+<h3>Interlocks and cause-and-effect charts</h3>
+<p>Interlocks take automatic action when a condition occurs: trip the feed pump on high-high level, close the fuel valve on low air flow. A <strong>cause-and-effect chart</strong> lists causes (initiating conditions) in rows and effects (actions) in columns, with a mark where a cause triggers an effect. It is a compact, reviewable record of all automatic actions and is used later to program and test the system.</p>
+<h3>Separate control from safety</h3>
+<p>Normal control keeps the process at target. Safety functions bring it to a safe state when control fails. Where a safety function is needed to reduce risk to a tolerable level, it is typically implemented in an independent SIS designed to a recognized standard such as IEC 61511, covered later in the course.</p>
+""", ["The control philosophy defines automation, control strategies and operating sequences.", "Every alarm should require an operator action; avoid alarm floods.", "Cause-and-effect charts record all automatic actions for review and testing."],
+ "Write a cause-and-effect chart with three causes and three effects for a simple tank and pump. Check that each high-high or low-low condition has a defined action.",
+ "What is the main purpose of a cause-and-effect chart?", ["To show pipe routing", "To list instrument prices", "To record which conditions trigger which automatic actions", "To schedule construction"], 2,
+ "It maps initiating causes to automatic effects, making interlock logic easy to review and test."),
+step("Lists, layouts and the 3D model", 7, """
+<p>Alongside the drawings, FEED produces lists and layouts that turn the design into quantities for estimating, procurement and construction planning.</p>
+<table><thead><tr><th>Document</th><th>Contents</th><th>Used for</th></tr></thead><tbody>
+<tr><td>Equipment list</td><td>Every item with tag, service, size, design conditions, material, power</td><td>Estimate, procurement, electrical load list</td></tr>
+<tr><td>Line list</td><td>Every line with size, service, design conditions, piping class, insulation, test pressure</td><td>Piping estimate, stress review, pressure testing</td></tr>
+<tr><td>Instrument index</td><td>Every instrument with tag, type, service and location</td><td>Instrument estimate and specification</td></tr>
+<tr><td>Electrical load list</td><td>Every electrical consumer and its power</td><td>Sizing transformers, switchgear and supply</td></tr>
+<tr><td>Plot plan</td><td>Location of equipment, buildings, roads and boundaries</td><td>Layout, safety distances, construction access</td></tr>
+<tr><td>Hazardous area classification</td><td>Zones where flammable atmospheres may occur</td><td>Selecting electrical equipment</td></tr>
+</tbody></table>
+<h3>Layout decisions with lasting effects</h3>
+<p>The plot plan affects safety, operation, maintenance and cost for decades. Consider:</p>
+<ul><li>Separation distances between hazardous equipment, occupied buildings and site boundaries.</li>
+<li>Prevailing wind for gas releases and the location of control rooms and air intakes.</li>
+<li>Access for cranes, maintenance, tube bundle pulling and emergency response.</li>
+<li>Gravity flow and pump suction requirements, which may fix equipment elevations.</li>
+<li>Space for future expansion.</li></ul>
+<h3>3D models</h3>
+<p>Many FEED projects build a 3D model of the main equipment and large piping. Model reviews with operations and maintenance catch access problems that are hard to see on 2D drawings, such as a valve that can only be reached with a ladder.</p>
+""", ["Lists turn the design into quantities for estimates and procurement.", "Plot plan decisions affect safety, operability and cost for decades.", "3D model reviews with operations catch access problems early."],
+ "Review a plot plan or layout you know against the five layout considerations. Note one improvement you would raise in a review.",
+ "Which FEED document is used to select suitable electrical equipment in areas where flammable gas may be present?", ["Line list", "Equipment list", "Plot plan", "Hazardous area classification"], 3,
+ "Hazardous area classification defines the zones that determine what electrical equipment may be installed."),
+step("Codes, standards and approvals in Canada", 8, """
+<p>Process plants in Canada are designed and built under provincial and federal requirements, with recognized codes and standards adopted by reference. FEED must identify what applies early, because some approvals take months.</p>
+<table><thead><tr><th>Area</th><th>Typical codes, standards and bodies</th></tr></thead><tbody>
+<tr><td>Pressure equipment</td><td>CSA B51 (boiler, pressure vessel and pressure piping code), ASME Boiler and Pressure Vessel Code Section VIII for vessels, ASME B31.3 for process piping; provincial safety authorities such as Technical Safety BC or ABSA in Alberta</td></tr>
+<tr><td>Design registration</td><td>Pressure vessels, boilers and many fittings need a Canadian Registration Number (CRN) for each province where they are used</td></tr>
+<tr><td>Pressure relief</td><td>ASME Section VIII requirements for overpressure protection; API 520 and API 521 commonly used for sizing and relief system design</td></tr>
+<tr><td>Electrical</td><td>Canadian Electrical Code, including Section 18 for hazardous locations; CSA-certified equipment</td></tr>
+<tr><td>Instrumentation and safety systems</td><td>ISA-5.1 symbols; IEC 61511 for safety instrumented systems</td></tr>
+<tr><td>Buildings and fire</td><td>National and provincial building and fire codes</td></tr>
+<tr><td>Environment</td><td>Provincial environmental permits for air emissions, effluent and waste; federal requirements where they apply</td></tr>
+<tr><td>Professional practice</td><td>Engineering is regulated by provincial associations, such as Engineers and Geoscientists BC, APEGA and PEO; engineering documents are authenticated by registered professionals as each province requires</td></tr>
+</tbody></table>
+<h3>What FEED should produce</h3>
+<ul><li>A <strong>codes and standards list</strong> naming editions, agreed with the owner.</li>
+<li>A <strong>regulatory and permitting plan</strong> with lead times, required studies and responsibilities.</li>
+<li>Early meetings with authorities on novel aspects, such as new technology or unusual materials.</li></ul>
+<p>Requirements differ between provinces and change over time, and some sites have specific municipal or Indigenous consultation requirements. Confirm the current requirements for your project with the authorities and qualified professionals involved; this table is an orientation, not a compliance checklist.</p>
+""", ["Identify applicable codes, standards and approvals early in FEED.", "Pressure equipment in Canada needs registration such as CRNs, province by province.", "Build a permitting plan with lead times, and confirm requirements with authorities."],
+ "Draft a codes and standards list and a permitting timeline for a project you know. Mark which approvals have the longest lead times.",
+ "A pressure vessel built for a plant in BC will later be moved to Alberta. What must be checked?", ["Nothing; Canadian registration is national", "Only the paint colour", "Its registration (CRN) and requirements for the new province", "The vessel's warranty only"], 2,
+ "Design registration is provincial, so the vessel needs to be registered for use in Alberta and meet that province's requirements."),
+]
+
+M4 = [
+step("Process hazard analysis: HAZID and HAZOP", 8, """
+<p>FEED is the best time to find and design out hazards. Two structured reviews are common.</p>
+<h3>HAZID</h3>
+<p>A <strong>hazard identification</strong> review early in FEED looks at the whole facility: the materials, site, layout, external events and major hazard scenarios such as fires, explosions and toxic releases. It shapes layout, separation distances and the overall safety concept.</p>
+<h3>HAZOP</h3>
+<p>A <strong>hazard and operability study</strong> examines the P&amp;IDs line by line. The plant is split into <strong>nodes</strong>, sections with a defined design intent. For each node, the team applies <strong>guidewords</strong> to process <strong>parameters</strong> to generate deviations:</p>
+<table><thead><tr><th>Guideword</th><th>Parameter</th><th>Deviation</th></tr></thead><tbody>
+<tr><td>No</td><td>Flow</td><td>No flow to the heater</td></tr>
+<tr><td>More</td><td>Pressure</td><td>High pressure in the separator</td></tr>
+<tr><td>Less</td><td>Temperature</td><td>Low temperature at the reactor inlet</td></tr>
+<tr><td>Reverse</td><td>Flow</td><td>Backflow from the reactor into the feed tank</td></tr>
+<tr><td>Other than</td><td>Composition</td><td>Wrong material delivered to the feed tank</td></tr>
+</tbody></table>
+<p>For each credible deviation the team records causes, consequences, existing safeguards and, where safeguards are not enough, recommendations. Each recommendation gets an owner and is tracked to closure.</p>
+<h3>Running a good HAZOP</h3>
+<ul><li>An experienced, independent facilitator and a scribe.</li>
+<li>Process, operations, instrumentation, mechanical and safety participants.</li>
+<li>P&amp;IDs at the HAZOP issue, with the design basis, cause-and-effect charts and datasheets available.</li>
+<li>Realistic scheduling: tired teams miss things, so keep sessions to a sensible length.</li></ul>
+<p>HAZOP also covers operability: start-up, shutdown, maintenance and sampling. Many recommendations improve how the plant will be run, not only its safety. The Insights article <a href="../post/a-worked-hazop-the-feed-heater-node-by-node.html">A worked HAZOP</a> walks through a node in detail. The lab after this lesson asks you to place hazard scenarios on a risk grid.</p>
+""", ["HAZID reviews facility-wide hazards early; HAZOP examines P&IDs node by node.", "Guidewords applied to parameters generate deviations to analyze.", "Track every recommendation to closure with an owner."],
+ "Choose one line or vessel you know. Apply the guidewords No, More, Less and Reverse to flow and pressure, and write one cause and one safeguard for each deviation.",
+ "In a HAZOP, what does applying the guideword 'Reverse' to 'Flow' produce?", ["High flow", "No flow", "Backflow, in the opposite direction to the design intent", "Wrong composition"], 2,
+ "Reverse flow is a deviation where material flows backwards, for example into a feed tank."),
+step("Relief and overpressure protection", 8, """
+<p>Every piece of equipment that could be overpressured needs protection. FEED identifies the <strong>overpressure scenarios</strong>, sizes the relief devices and designs the system that safely disposes of what they release.</p>
+<h3>Common overpressure scenarios</h3>
+<ul><li><strong>Blocked outlet:</strong> a valve closes downstream while a pump or compressor keeps feeding.</li>
+<li><strong>External fire:</strong> heat input to a vessel causes liquid to boil and pressure to rise.</li>
+<li><strong>Control valve failure:</strong> a valve fails open and lets a high-pressure source into a lower-pressure system.</li>
+<li><strong>Tube rupture:</strong> high-pressure fluid leaks into the low-pressure side of a heat exchanger.</li>
+<li><strong>Utility failure:</strong> loss of cooling water or power, which can stop condensers or cooling.</li>
+<li><strong>Runaway reaction:</strong> an exothermic reaction accelerates beyond cooling capacity.</li>
+<li><strong>Thermal expansion:</strong> liquid trapped between closed valves is heated.</li></ul>
+<h3>Relief design steps</h3>
+<ol><li>List credible scenarios for each piece of equipment.</li>
+<li>Calculate the required relief rate for each; the largest credible case governs the size.</li>
+<li>Select and size the device, a pressure safety valve or rupture disc, commonly using methods in API 520 and API 521.</li>
+<li>Design the inlet and outlet piping so pressure losses do not stop the device from working properly.</li>
+<li>Design the disposal system: to atmosphere where safe and allowed, or to a closed system, knock-out drum, flare or scrubber.</li></ol>
+<h3>Runaway reactions need special care</h3>
+<p>Relief for runaway reactions can involve two-phase flow and very large rates. Get reaction calorimetry data and specialist input early. The Insights articles on <a href="../post/what-happens-if-the-cooling-fails-runaway-reactions.html">runaway reactions</a> and <a href="../post/pressure-relief-basics-what-a-psv-protects-against.html">pressure relief basics</a> cover these topics further.</p>
+<p>Relief design is a specialist, code-governed task. It must be done and checked by qualified engineers.</p>
+""", ["Identify every credible overpressure scenario for each item.", "The largest credible relief rate governs the device size.", "Design the inlet, outlet and disposal system, not just the valve."],
+ "For one vessel you know, list which of the seven overpressure scenarios are credible and which relief device protects it today.",
+ "Which relief scenario often requires specialist data such as reaction calorimetry?", ["Thermal expansion of a short pipe", "Runaway reaction", "Blocked outlet on a water pump", "Instrument air failure"], 1,
+ "Runaway reactions can produce very large, two-phase relief loads that need specialist data and methods."),
+step("Layers of protection and safety instrumented systems", 7, """
+<p>No single safeguard is perfect. Process safety relies on several independent <strong>layers of protection</strong>, each able to stop a hazard scenario from becoming an incident.</p>
+<table><thead><tr><th>Layer</th><th>Example</th></tr></thead><tbody>
+<tr><td>Inherently safer design</td><td>Smaller inventory of hazardous material; lower pressure; less hazardous solvent</td></tr>
+<tr><td>Basic process control</td><td>Level controller keeps the tank within normal range</td></tr>
+<tr><td>Alarms and operator response</td><td>High-level alarm with a defined operator action and enough time to act</td></tr>
+<tr><td>Safety instrumented function</td><td>Independent high-high level trip that stops the feed pump</td></tr>
+<tr><td>Physical protection</td><td>Relief valve, rupture disc, overflow to a safe location</td></tr>
+<tr><td>Mitigation</td><td>Dikes and bunds, fire protection, gas detection</td></tr>
+<tr><td>Emergency response</td><td>Site and community response plans</td></tr>
+</tbody></table>
+<h3>Inherently safer design comes first</h3>
+<p>The most reliable layer is a hazard that is not there. During FEED, ask whether you can eliminate, reduce, substitute or simplify: store less, operate at milder conditions, choose a less hazardous material, or design equipment that cannot be overpressured. These choices are cheap on paper and expensive later.</p>
+<h3>LOPA and SIL</h3>
+<p><strong>Layer of protection analysis (LOPA)</strong> takes high-consequence scenarios from the HAZOP and checks, semi-quantitatively, whether the independent layers reduce the frequency to a tolerable level. If not, a safety instrumented function may be needed, with a <strong>safety integrity level (SIL)</strong> that sets how reliable it must be. Safety instrumented systems for the process industry are commonly designed under IEC 61511, which covers the whole lifecycle from specification to testing and maintenance.</p>
+<p>A layer only counts if it is independent of the cause and of the other layers. A high-level alarm from the same transmitter that failed and caused the overflow is not independent.</p>
+""", ["Process safety relies on several independent protection layers.", "Inherently safer design is the most reliable layer and cheapest in FEED.", "LOPA tests whether layers are enough; SIL sets the reliability of a safety function."],
+ "For one hazardous scenario you know, list its protection layers and check whether each is truly independent of the cause and of the others.",
+ "A high-level alarm uses the same transmitter whose failure causes the tank to overfill. Can it count as an independent layer for that scenario?", ["No, because it fails along with the cause", "Yes, alarms always count", "Yes, if the operator is experienced", "Only at night"], 0,
+ "A layer must be independent of the initiating cause; a shared failed transmitter defeats both."),
+step("Constructability, operability and maintainability", 7, """
+<p>A plant can be safe and correctly sized on paper and still be hard to build, run and maintain. FEED reviews these qualities while changes are still cheap.</p>
+<h3>Constructability</h3>
+<ul><li>Can equipment be transported to site (road limits, bridges, rail) and lifted into place?</li>
+<li>Can parts be modularized or pre-assembled off-site to reduce site work and schedule risk?</li>
+<li>Is there laydown space and crane access?</li>
+<li>Does the sequence allow tie-ins to an operating plant with minimum shutdown time?</li></ul>
+<h3>Operability</h3>
+<ul><li>Can operators start up, shut down and handle upsets with the controls and instruments provided?</li>
+<li>Are sample points, sight glasses and local indicators where operators need them?</li>
+<li>Is the operating window wide enough for real feed variations?</li></ul>
+<h3>Maintainability</h3>
+<ul><li>Can each item be isolated, drained, purged and made safe for maintenance?</li>
+<li>Is there access for removing exchanger bundles, pump motors and agitators?</li>
+<li>Are spares, sparing philosophy and maintenance intervals defined?</li></ul>
+<p>The best reviewers are experienced operators and maintenance technicians from a similar plant. Hold structured reviews on the P&amp;IDs and the 3D model, and record actions like HAZOP recommendations.</p>
+<h3>Change control starts in FEED</h3>
+<p>Once key documents are approved, changes should go through a design change process: describe the change, assess impact on safety, cost and schedule, get approval and update every affected document. The same discipline continues through detailed engineering, construction and operation as management of change. The Insights article <a href="../post/management-of-change-for-small-plants.html">Management of change for small plants</a> covers the operating phase.</p>
+""", ["Review constructability, operability and maintainability during FEED.", "Involve experienced operators and maintenance technicians in reviews.", "Control changes to approved documents through a design change process."],
+ "Choose one piece of equipment in a plant you know. Check it against the three lists above and write the one improvement you would have asked for in FEED.",
+ "Who are usually the best reviewers of operability and maintainability in FEED?", ["The estimators", "Experienced operators and maintenance technicians", "The legal team", "Equipment vendors' sales staff"], 1,
+ "People who have run and maintained similar plants spot practical problems that designers can miss."),
+]
+
+M5 = [
+step("Cost estimates and contingency", 8, """
+<p>A cost estimate is only as good as the design behind it. The AACE International recommended practice 18R-97 defines estimate classes for process industries by how complete the project definition is.</p>
+<table><thead><tr><th>Class</th><th>Typical stage</th><th>Project definition</th><th>Typical accuracy range</th></tr></thead><tbody>
+<tr><td>Class 5</td><td>Concept screening</td><td>0–2%</td><td>Low −20% to −50%; high +30% to +100%</td></tr>
+<tr><td>Class 4</td><td>Feasibility</td><td>1–15%</td><td>Low −15% to −30%; high +20% to +50%</td></tr>
+<tr><td>Class 3</td><td>Budget authorization (end of FEED)</td><td>10–40%</td><td>Low −10% to −20%; high +10% to +30%</td></tr>
+<tr><td>Class 2</td><td>Control or bid</td><td>30–75%</td><td>Low −5% to −15%; high +5% to +20%</td></tr>
+<tr><td>Class 1</td><td>Check estimate or bid</td><td>65–100%</td><td>Low −3% to −10%; high +3% to +15%</td></tr>
+</tbody></table>
+<p>The ranges are wide and asymmetric: estimates are more likely to come in under-scoped than over. The actual range for a project depends on its technical and execution risks.</p>
+<h3>What a FEED estimate includes</h3>
+<ul><li>Equipment costs from vendor quotes for major items and estimating data for the rest.</li>
+<li>Bulk materials: piping, steel, concrete, electrical, instrumentation, from the lists and layouts.</li>
+<li>Construction labour, productivity and site conditions.</li>
+<li>Indirect costs: engineering, construction management, temporary facilities, commissioning, spares, owner's costs.</li>
+<li><strong>Contingency:</strong> an amount for costs that will occur within the defined scope but cannot be itemized yet.</li></ul>
+<h3>Contingency and escalation</h3>
+<p>Contingency covers uncertainty within scope; it is not for scope changes. Base it on a risk analysis rather than a fixed percentage habit. Separately, allow for <strong>escalation</strong>: price changes between the estimate date and when money is spent. The lab after this lesson shows the plausible range around a base estimate for each class.</p>
+""", ["AACE 18R-97 links estimate class to the maturity of project definition.", "A FEED estimate is typically Class 3, with a range such as −10/−20% to +10/+30%.", "Contingency covers uncertainty within scope; escalation and scope changes are separate."],
+ "For a project you know, identify the estimate class at each gate. Was the contingency based on a risk analysis or a habit?",
+ "What is contingency in a project cost estimate meant to cover?", ["Scope added after approval", "Costs within the defined scope that cannot yet be itemized", "Inflation only", "The owner's profit"], 1,
+ "Contingency covers uncertainty within the defined scope; scope changes and escalation are handled separately."),
+step("Schedule, procurement and long-lead items", 7, """
+<p>FEED produces a project schedule that the investment decision relies on. The critical path in process projects often runs through engineering and procurement of a few key items, not through construction.</p>
+<h3>Typical long-lead items</h3>
+<ul><li>Compressors and large rotating equipment.</li>
+<li>Large, thick-walled or alloy pressure vessels and reactors.</li>
+<li>Specialty heat exchangers.</li>
+<li>Large transformers, switchgear and utility connections.</li>
+<li>Control and safety systems, when highly customized.</li>
+<li>Items made from specialty materials with limited supply.</li></ul>
+<p>Lead times change with market conditions, so get current vendor quotes during FEED rather than relying on past experience.</p>
+<h3>Early procurement</h3>
+<p>To protect the schedule, the owner may authorize ordering long-lead equipment before FID. This commits money early and is only sensible when the design of that item is firm and the risk of cancellation is acceptable. Cancellation terms should be agreed with the vendor.</p>
+<h3>The FEED schedule should show</h3>
+<ul><li>Engineering durations and key document issues.</li>
+<li>Vendor data dependencies: detailed engineering needs certified vendor drawings.</li>
+<li>Procurement of each major item, from enquiry to delivery.</li>
+<li>Permits and approvals with their lead times.</li>
+<li>Construction, mechanical completion, commissioning and start-up.</li>
+<li>Planned shutdowns for tie-ins on existing sites.</li></ul>
+<h3>Realism over optimism</h3>
+<p>Compare the schedule with similar completed projects. Optimistic durations become a problem later, when costs are committed. Identify the critical path and the few items that, if late, delay everything, and manage them closely.</p>
+""", ["The critical path often runs through engineering and long-lead equipment.", "Get current vendor lead times during FEED.", "Consider early procurement only for firm designs with acceptable cancellation risk."],
+ "List the three longest-lead items for a project you know and check their current delivery times with vendors. Are they on the critical path?",
+ "When is ordering long-lead equipment before the final investment decision most sensible?", ["Always, to save time", "Never", "When the equipment's design is firm and cancellation risk and terms are acceptable", "Only for small pumps"], 2,
+ "Early ordering commits money, so it suits firm designs where the schedule benefit outweighs the cancellation risk."),
+step("The FEED package and the investment decision", 7, """
+<p>At the end of FEED, the deliverables are assembled into a <strong>FEED package</strong> that supports the investment decision and becomes the basis for detailed engineering or for EPC bids.</p>
+<h3>Typical contents</h3>
+<table><thead><tr><th>Group</th><th>Documents</th></tr></thead><tbody>
+<tr><td>Basis</td><td>Design basis, codes and standards list, battery limit table</td></tr>
+<tr><td>Process</td><td>Mass and energy balances, PFDs, process datasheets, utility balances</td></tr>
+<tr><td>Engineering</td><td>P&amp;IDs, equipment list, line list, instrument index, electrical load list, single-line diagram, plot plan, hazardous area classification</td></tr>
+<tr><td>Control and safety</td><td>Control philosophy, cause-and-effect charts, HAZID and HAZOP reports with action status, relief study</td></tr>
+<tr><td>Commercial</td><td>Class 3 cost estimate, schedule, procurement plan, vendor quotes</td></tr>
+<tr><td>Execution</td><td>Execution plan, risk register, permitting plan, contracting strategy</td></tr>
+</tbody></table>
+<h3>The FEED gate review</h3>
+<p>Before FID, a review, ideally with people independent of the project team, checks:</p>
+<ul><li>Is the design complete enough for the estimate class claimed?</li>
+<li>Are HAZOP and other review actions closed or tracked?</li>
+<li>Are the main risks identified with owners and responses?</li>
+<li>Are schedule and cost realistic compared with similar projects?</li>
+<li>Do the economics still work at the high end of the estimate range?</li></ul>
+<h3>The risk register</h3>
+<p>List each significant risk with its likelihood, impact, owner and response: avoid, reduce, transfer or accept. Typical FEED-stage risks include scale-up uncertainty, feedstock variability, long-lead delivery, permitting delays, labour availability and interface risks on existing sites.</p>
+<p>A decision not to proceed is a legitimate outcome of FEED. Stopping a weak project before construction is far cheaper than finishing it.</p>
+""", ["The FEED package collects basis, process, engineering, safety, commercial and execution documents.", "An independent gate review tests completeness, risks and realism before FID.", "Stopping a weak project at FEED is a valid and valuable result."],
+ "Use the table as a checklist for a project you know. Mark which documents existed at FID and which were missing.",
+ "Which question belongs in a FEED gate review before the investment decision?", ["Do the economics still work at the high end of the estimate range?", "Which colour should the control room be?", "Who will win the construction bid?", "How many operators will retire next year?"], 0,
+ "Testing economics against the upper estimate range shows whether the project is robust to cost overrun."),
+step("From FEED to start-up, and your FEED checklist", 7, """
+<p>After FID, the project moves into execution. Knowing what follows helps you make FEED complete.</p>
+<table><thead><tr><th>Phase</th><th>What happens</th><th>How FEED quality shows</th></tr></thead><tbody>
+<tr><td>Detailed engineering</td><td>Construction drawings, specifications, vendor documents</td><td>Few changes to P&amp;IDs and equipment; steady progress</td></tr>
+<tr><td>Procurement</td><td>Equipment and bulk materials ordered and expedited</td><td>Accurate quantities; no surprise long-lead items</td></tr>
+<tr><td>Construction</td><td>Site work, installation, testing</td><td>Fewer field changes and rework</td></tr>
+<tr><td>Mechanical completion and commissioning</td><td>Systems checked, tested and commissioned</td><td>Systems and documents ready; operators trained</td></tr>
+<tr><td>Pre-startup safety review and start-up</td><td>Confirm readiness, then introduce process materials</td><td>Design and procedures match; HAZOP actions closed</td></tr>
+<tr><td>Performance test and handover</td><td>Show the plant meets design and guarantees</td><td>The design basis was right</td></tr>
+</tbody></table>
+<h3>A FEED checklist for owners</h3>
+<ul><li>Design basis signed off and under change control.</li>
+<li>Pilot and data gaps identified and resolved or covered by margins.</li>
+<li>Balances closed for all key cases; utilities confirmed.</li>
+<li>P&amp;IDs through HAZOP with actions tracked; relief study done.</li>
+<li>Operations and maintenance staff took part in reviews.</li>
+<li>Codes, standards and permitting plan agreed.</li>
+<li>Class 3 estimate with risk-based contingency; realistic schedule with long-lead items.</li>
+<li>Risk register with owners; independent gate review completed.</li></ul>
+<p>The Insights articles on <a href="../post/from-mechanical-completion-to-handover-the-commissioning-sequence.html">commissioning</a>, the <a href="../post/the-pre-startup-safety-review-what-to-check-before-start-up.html">pre-startup safety review</a> and <a href="../post/first-run-to-steady-state-start-up-punch-list-and-performance-test.html">start-up and performance testing</a> continue the story. This course is educational; real projects need qualified engineers and must meet the codes and regulations that apply.</p>
+""", ["FEED quality shows later as fewer changes, accurate procurement and smooth start-up.", "Use an owner's FEED checklist before the investment decision.", "Real projects need qualified engineers and applicable codes and regulations."],
+ "Score a recent or planned project against the eight checklist items. Pick the two weakest and decide what to do before the next gate.",
+ "Which is the clearest sign during detailed engineering that FEED was done well?", ["Many P&ID changes", "The estimate class is Class 5", "Field changes increase", "Steady progress with few changes to P&IDs and major equipment"], 3,
+ "A solid FEED means detailed engineering adds detail rather than redesigning, so changes are few."),
+]
+
+course = dict(
+ id="feed-and-process-design",
+ title="FEED and Process Design Fundamentals",
+ tagline="Understand front-end engineering for process plants: from design basis and balances to P&IDs, HAZOP, estimates and the investment decision.",
+ summary="A practical introduction to front-end engineering design (FEED) for owners, project managers and engineers of process plants in chemicals, energy, food, materials and similar industries. You will learn the project stage gates, the design basis, mass and energy balances, PFDs, equipment sizing, P&IDs, control philosophy and Canadian codes and approvals, then process hazard analysis, relief, layers of protection, cost estimate classes, schedule and the FEED package that supports the investment decision. The course is educational and does not replace qualified engineering or the codes and regulations that apply to a project.",
+ audience=["Owners and managers planning a new plant, expansion or major modification",
+           "Project managers and engineers joining a FEED or front-end team",
+           "Process, mechanical and instrumentation engineers early in their careers",
+           "Operations and maintenance leaders who review designs before construction"],
+ outcomes=["Explain the stage-gate path and what FEED decides before the investment decision",
+           "Set out a design basis and read mass and energy balances, PFDs and stream tables",
+           "Read P&IDs, instrument tags, control philosophies and cause-and-effect charts",
+           "Identify Canadian codes, standards and approvals that shape process plant design",
+           "Describe HAZID, HAZOP, relief design and layers of protection",
+           "Interpret estimate classes and contingency, and judge a FEED package at the gate review"],
+ modules=[
+  dict(title="Projects and FEED", summary="The project stages and gates, what FEED fixes and why it pays, roles and contracts, and the design basis.", steps=M1),
+  dict(title="Process Definition", summary="Mass and energy balances, process flow diagrams, equipment sizing and datasheets, and utilities, offsites and battery limits.", steps=M2),
+  dict(title="Engineering Documents", summary="P&IDs, control philosophy and interlocks, lists and layouts, and the codes, standards and approvals that apply in Canada.", steps=M3),
+  dict(title="Safety and Risk", summary="HAZID and HAZOP, relief and overpressure protection, layers of protection and safety instrumented systems, and constructability, operability and maintainability.", steps=M4),
+  dict(title="Cost, Schedule and the Decision", summary="Estimate classes and contingency, schedule and long-lead procurement, the FEED package and gate review, and the path to start-up.", steps=M5)],
+ labs=[
+  dict(id="feed-which-document", type="classify", title="Which document decides it?", after_step=9,
+       intro="Sort twelve design decisions by the FEED document where they are first fixed: the design basis, the PFD or the P&ID. Then check your answers.",
+       config=dict(categories=["Design basis", "PFD and balances", "P&ID"], items=[
+        dict(text="The plant's design capacity and annual operating hours", answer=0, why="Capacity and operating hours are fundamental assumptions recorded in the design basis."),
+        dict(text="Site winter design temperature and seismic zone", answer=0, why="Site conditions are design basis inputs."),
+        dict(text="Which edition of the pressure vessel code applies", answer=0, why="Applicable codes and editions are fixed in the design basis."),
+        dict(text="The agreed design margin on heat exchanger duties", answer=0, why="Margins should be set once, centrally, in the design basis."),
+        dict(text="Whether the reactor effluent is cooled before or after the flash drum", answer=1, why="Process configuration and sequence are decided on the PFD."),
+        dict(text="The recycle rate and purge needed to control impurity build-up", answer=1, why="Recycle and purge flows come from the mass balance shown with the PFD."),
+        dict(text="Operating temperature and pressure at the reactor outlet", answer=1, why="Key operating conditions are shown on the PFD and stream table."),
+        dict(text="Heat duty of the feed preheater", answer=1, why="Duties come from the energy balance that supports the PFD."),
+        dict(text="Set pressure of the pressure safety valve on the separator", answer=2, why="Relief devices and their set pressures are shown on the P&ID."),
+        dict(text="Location of drain and vent valves on the pump suction line", answer=2, why="Drains, vents and small valves are developed on the P&ID."),
+        dict(text="Fail position of the feed control valve on loss of air", answer=2, why="Valve fail positions are shown on the P&ID."),
+        dict(text="Which level transmitter trips the feed pump on high-high level", answer=2, why="Instruments and interlocks are shown on the P&ID and in the cause-and-effect chart."),
+       ])),
+  dict(id="feed-risk-matrix", type="matrix", title="Ranking hazard scenarios", after_step=13,
+       intro="Place seven hazard scenarios from a HAZOP on a likelihood and consequence grid to see which need urgent risk reduction, which need further review and which are tolerable with existing safeguards.",
+       config=dict(x="Likelihood", y="Consequence", x_low="Rare", x_high="Likely", y_low="Minor", y_high="Severe",
+        quadrants=dict(top_left="Review: severe but rare", top_right="Reduce risk now", bottom_left="Tolerable; monitor", bottom_right="Reduce if practicable"),
+        items=[dict(name="Runaway reaction on cooling water loss", x=2, y=5),
+               dict(name="Feed tank overfill with flammable liquid", x=4, y=4),
+               dict(name="Pump seal leak of hot oil", x=4, y=3),
+               dict(name="Heat exchanger tube rupture to low-pressure side", x=2, y=4),
+               dict(name="Sample point spill of non-hazardous water", x=4, y=1),
+               dict(name="Instrument air dryer failure", x=3, y=2),
+               dict(name="Backflow of reactor contents to feed tank", x=3, y=4)])),
+  dict(id="feed-estimate-range", type="calc", title="Estimate class and plausible cost range", after_step=17,
+       intro="Enter a base cost estimate, its class and the contingency carried to see the typical accuracy range for that class and the plausible low and high costs.",
+       config=dict(calc="estimate_range", note="Ranges use the midpoints of the typical spans in AACE 18R-97 for process industries (for example Class 3: about −15% to +20%). A real project's range depends on its own technical and execution risks.")),
+ ],
+ figures=[
+  dict(step=1, type="timeline", title="Process plant project stages", caption="Click each stage to see its main question and outputs. Each stage ends at a gate.",
+       config=dict(phases=[
+        dict(label="Concept", title="Identify", items=["Is the opportunity worth studying?", "Order-of-magnitude cost", "Class 5 estimate"]),
+        dict(label="Feasibility", title="Select", items=["Compare options", "Select technology and site", "Class 4 estimate"]),
+        dict(label="FEED", title="Define", items=["Design basis, PFDs, P&IDs", "HAZID and HAZOP", "Class 3 estimate for FID"]),
+        dict(label="Detailed", title="Execute", items=["Construction drawings", "Procurement", "Construction"]),
+        dict(label="Start-up", title="Operate", items=["Commissioning", "Pre-startup safety review", "Performance test and handover"])])),
+  dict(step=2, type="compare", title="FEED done well vs cut short", caption="Toggle between the two and see where the cost of a thin FEED appears later.",
+       config=dict(left=dict(title="FEED cut short", points=["Design basis still changing in detailed engineering", "P&IDs revised after equipment is ordered", "Estimate based on few vendor quotes", "Hazards found during construction or start-up"]),
+                   right=dict(title="FEED done well", points=["Signed design basis under change control", "P&IDs through HAZOP before detailed design", "Class 3 estimate with vendor quotes for major items", "Hazards designed out on paper"]))),
+  dict(step=4, type="stack", title="What the design basis rests on", caption="Click each layer, from the bottom up, to see how each set of decisions builds on the one below.",
+       config=dict(top_label="A design everyone builds to", layers=[
+        dict(label="Capacity and products", text="Design throughput, turndown, operating hours and product specifications."),
+        dict(label="Feeds and site", text="Feedstock ranges, site conditions, utilities available."),
+        dict(label="Codes and margins", text="Applicable codes and editions; agreed design margins, applied once."),
+        dict(label="Battery limits", text="Exactly where scope starts and ends, with tie-in conditions."),
+        dict(label="Operating philosophy", text="Continuous or batch, automation level, staffing, maintenance and sparing.")])),
+  dict(step=13, type="flow", title="How a HAZOP works through a node", caption="Click through the steps the team repeats for every deviation in a node.",
+       config=dict(steps=[
+        dict(label="Node and intent", text="Define a section of the P&ID and what it is designed to do."),
+        dict(label="Guideword + parameter", text="Combine guidewords such as No, More, Less or Reverse with flow, pressure, temperature or level."),
+        dict(label="Causes", text="List credible causes of the deviation: failures, errors, external events."),
+        dict(label="Consequences", text="Describe what happens if no safeguard acts."),
+        dict(label="Safeguards and actions", text="Credit existing safeguards; recommend actions where they are not enough.")])),
+  dict(step=15, type="stack", title="Layers of protection", caption="Click each layer, from the bottom up. Each must be independent of the cause and of the other layers.",
+       config=dict(top_label="Scenario prevented or mitigated", layers=[
+        dict(label="Inherently safer design", text="Less hazardous material, smaller inventory, milder conditions."),
+        dict(label="Basic process control", text="Normal control keeps the process within its operating window."),
+        dict(label="Alarm and operator response", text="A defined action with enough time for the operator to act."),
+        dict(label="Safety instrumented function", text="An independent trip designed to the required SIL."),
+        dict(label="Relief and physical protection", text="Relief valves, rupture discs, safe overflow."),
+        dict(label="Mitigation and emergency response", text="Containment, fire protection, detection and response plans.")])),
+  dict(step=17, type="bars", title="Typical high-side accuracy by estimate class", caption="Upper end of the typical high-side range in AACE 18R-97 for process industries. Ranges narrow as the design matures.",
+       config=dict(unit="%", items=[dict(label="Class 5 (concept)", value=100), dict(label="Class 4 (feasibility)", value=50), dict(label="Class 3 (end of FEED)", value=30, highlight=True), dict(label="Class 2 (control)", value=20), dict(label="Class 1 (check)", value=15)],
+        note="A Class 3 estimate at the end of FEED can still come in up to about 30% high, which is why the economics should be tested at the top of the range.")),
+ ],
+ exam=[
+  E("At which stage are process options compared and one selected for development?", ["Feasibility or pre-FEED (select)", "Detailed engineering", "Commissioning", "Construction"], 0, "The select stage compares options; FEED then develops the selected one."),
+  E("Why is FEED often described as cheap insurance?", ["It removes the need for detailed engineering", "Changes are cheap on paper but expensive once equipment is bought and installed", "It guarantees no cost overrun", "It is always paid for by vendors"], 1, "Decisions fixed early avoid costly late changes."),
+  E("What does the final investment decision (FID) mainly rely on from FEED?", ["Construction drawings", "Operator training records", "A design definition, cost estimate and schedule reliable enough to commit funds", "Vendor invoices"], 2, "FEED provides the definition, estimate and schedule for the funding decision."),
+  E("Under an EPC lump-sum contract, what does the owner typically gain and give up?", ["Gains control over every detail; gives up cost certainty", "Gains nothing", "Gains free engineering; gives up the plant", "Gains cost certainty; pays for the contractor's risk and needs a solid FEED to bid on"], 3, "Lump-sum EPC transfers cost risk to the contractor at a price and requires a well-defined scope."),
+  E("Which item belongs in the design basis?", ["Design capacity, feed ranges, site conditions and applicable codes", "Pipe isometric drawings", "Construction crew schedules", "Vendor invoice terms"], 0, "The design basis records the fundamental assumptions and requirements."),
+  E("What does a stream table on a PFD show for each numbered stream?", ["Pipe material and wall thickness", "Flow, composition, temperature, pressure and phase", "Valve fail positions", "Cable sizes"], 1, "The stream table presents the mass and energy balance stream by stream."),
+  E("A liquid flow of 7,200 kg/h with cp 2.5 kJ/kg·K is cooled by 40 °C. What is the duty?", ["50 kW", "100 kW", "200 kW", "720 kW"], 2, "Q = (7,200 ÷ 3,600) × 2.5 × 40 = 200 kW."),
+  E("Why must design pressure and temperature exceed normal operating conditions?", ["To make vessels look stronger", "Because vendors require round numbers", "Codes forbid operating at design conditions", "They must cover upsets, start-up and other credible conditions"], 3, "Design conditions cover the maximum credible conditions, not only normal operation."),
+  E("Why can utilities constrain a project on an existing site?", ["Utility upgrades such as electrical supply can take a long time and cost a lot", "Utilities are never needed", "Utilities are covered by the licensor", "Codes do not apply to utilities"], 0, "Limited utility capacity can drive cost and schedule more than the process itself."),
+  E("On a P&ID, what is FIC-101?", ["A fire indicator cable", "A flow indicating controller", "A filter inlet connection", "A field instrument cabinet"], 1, "F is flow, I indicating, C controller."),
+  E("What is the main purpose of an alarm philosophy?", ["To maximize the number of alarms", "To remove all alarms", "To ensure each alarm needs an operator action and avoid alarm floods", "To replace the safety instrumented system"], 2, "Good alarm management keeps alarms meaningful and actionable."),
+  E("Which document is used to select electrical equipment for areas where flammable atmospheres may occur?", ["Line list", "Equipment list", "Plot plan", "Hazardous area classification"], 3, "Hazardous area classification defines the zones that govern electrical equipment selection."),
+  E("In Canada, what does a pressure vessel's CRN show?", ["That its design has been registered for use in a province", "Its paint specification", "Its delivery date", "The operator's certification"], 0, "A Canadian Registration Number shows provincial design registration."),
+  E("In a HAZOP, what generates the deviations the team analyzes?", ["The cost estimate", "Guidewords applied to process parameters for each node", "The construction schedule", "Vendor recommendations"], 1, "Guideword-parameter combinations such as No Flow or More Pressure create the deviations."),
+  E("Which overpressure scenario is created by a downstream valve closing while a pump keeps feeding?", ["External fire", "Tube rupture", "Blocked outlet", "Thermal expansion"], 2, "A closed downstream valve with continued feed is a blocked outlet scenario."),
+  E("Which layer of protection is generally the most reliable?", ["Operator response to an alarm", "Emergency response", "Mitigation by dikes", "Inherently safer design that removes or reduces the hazard"], 3, "Removing or reducing the hazard itself is more reliable than adding layers to control it."),
+  E("What does a safety integrity level (SIL) specify?", ["How reliable a safety instrumented function must be", "The size of a relief valve", "The colour of safety signs", "The number of operators per shift"], 0, "SIL sets the required reliability of a safety instrumented function."),
+  E("Who are the best reviewers of maintainability in FEED?", ["Estimators", "Experienced maintenance technicians and operators from similar plants", "Marketing staff", "Equipment sales representatives"], 1, "They know from experience what can and cannot be maintained practically."),
+  E("At the end of FEED, which AACE estimate class is typical?", ["Class 5", "Class 1", "Class 3", "Class 4"], 2, "A Class 3 estimate typically supports budget authorization at the end of FEED."),
+  E("What should contingency in a FEED estimate NOT be used for?", ["Uncertain quantities within scope", "Unforeseen site conditions within scope", "Pricing uncertainty on defined items", "Adding new scope after the investment decision"], 3, "Contingency covers uncertainty within the defined scope; new scope needs a change approval."),
+ ],
+)
+
+if __name__ == "__main__":
+    write(course, "feed-process-design", __file__)

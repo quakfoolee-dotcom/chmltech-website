@@ -227,7 +227,7 @@ PAGES = {
   faq=[("Do you work on site?", "Yes. Most of the work happens where the work is done, alongside your team. Some analysis and coaching can be remote."),
        ("Will this mean job cuts?", "Our aim is to free capacity for growth and to make work easier. How you use freed capacity is your decision, and we recommend making that clear to staff at the start."),
        ("How do you measure results?", "We agree measures and a baseline with you before changes are made, and track them during and after the project.")],
-  courses=[COURSE_OPEX, COURSE_5S, COURSE_WORKFLOW, COURSE_PROJECT],
+  courses=["b4b6581a-31f8-43f9-8796-268c83448b9f", "oee-equipment-effectiveness", "lean-six-sigma-foundations", "ac58bd83-591d-4c25-9aac-71755f469d3c"],
   cats=["operational-efficiency"],
  ),
 
@@ -265,7 +265,7 @@ PAGES = {
   faq=[("Do we have to commit to a larger project?", "No. The assessment stands on its own. Many clients carry out the quick wins themselves."),
        ("What do you need from us?", "Access to the operation, a few hours of each key person's time, and recent operational and financial data."),
        ("Can it be done remotely?", "Partly. Interviews and data analysis can be remote, but walking the process in person gives much better results.")],
-  courses=[COURSE_OPEX, COURSE_5S, COURSE_WORKFLOW, COURSE_PROJECT],
+  courses=["b4b6581a-31f8-43f9-8796-268c83448b9f", "lean-six-sigma-foundations", "ac58bd83-591d-4c25-9aac-71755f469d3c", "e385a42b-5aaf-457f-9957-e8d19fee8cc0"],
   cats=["lean"],
  ),
 
