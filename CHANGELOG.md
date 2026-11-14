@@ -1,5 +1,10 @@
 # Changelog
 
+## V4.95 — 2026-11-13
+- **New free course: Inventory Management for SMEs: Service, Stock and Cash** (`challenge-page/inventory-management-for-smes`): 20 lessons in five modules (Inventory Basics, Classifying Items, Demand and Forecasting, When and How Much to Order, Improve and Sustain); 6 interactive figures (cycle counting loop, ABC value split, real lead time flow, safety stock vs service level, continuous vs periodic review, 90-day plan); 3 labs (why is this stock here? sort, value/variability matrix, safety stock / reorder point / EOQ calculator); 20-question exam and certificate. Lessons link to the Insights inventory, S&OP and MRP articles. Source: `content/courses/src/inventory_management.py` (shared helpers in `content/courses/src/_common.py`).
+- **Course finder:** new goal answer "Manage inventory: shortages, excess stock, ordering" leading to a new **Inventory and Supply** path (Inventory Management → Lean Six Sigma → Workflow Automation); distribution and retail visitors now get Inventory Management as their industry tip. The site has **14 free courses**.
+- Safety-stock calculator shows the service factor to three decimals (1.645 at 95%).
+
 ## V4.94 — 2026-11-13
 - **New free course: Lean Six Sigma Foundations: Problem Solving with DMAIC** (`challenge-page/lean-six-sigma-foundations`): 20 lessons in five modules (Foundations, Define and Measure, Analyze, Improve, Control), each with key takeaways, an "Apply it at work" exercise and a knowledge check; 6 interactive figures (DMAIC cycle, order lead-time flow, Pareto of order errors, batch vs flow, controls that hold a gain, 12-week project roadmap); 3 labs (value/necessary/waste sort, DPU/DPMO/sigma calculator, impact/effort solution matrix); 20-question final exam (answers balanced 5/5/5/5) and certificate. Content source: `content/courses/src/lean_six_sigma.py`; illustration: `content/courses/art/lean-six-sigma.svg`.
 - The site now has **13 free courses**. Lean Six Sigma is tagged Intermediate / Operations in the course finder and sits in the Operations Improver and Improvement Project Leader paths.

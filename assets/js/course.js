@@ -288,7 +288,7 @@
       calc: function (v) {
         var p = Math.min(0.9999, Math.max(0.5, v.sl / 100)), z = invNorm(p), ss = z * v.sd * Math.sqrt(v.lt), rop = v.d * v.lt + ss;
         var D = v.d * v.days, H = v.c * v.h / 100, eoq = H > 0 ? Math.sqrt(2 * D * v.s / H) : 0, avg = (eoq / 2 + ss) * v.c;
-        return [['Service factor (z)', fmt(z, 2)], ['Safety stock', fmt(Math.ceil(ss), 0) + ' units'], ['Reorder point', fmt(Math.ceil(rop), 0) + ' units'], ['Economic order quantity', fmt(Math.round(eoq), 0) + ' units'], ['Average inventory value', money(avg)]];
+        return [['Service factor (z)', fmt(z, 3)], ['Safety stock', fmt(Math.ceil(ss), 0) + ' units'], ['Reorder point', fmt(Math.ceil(rop), 0) + ' units'], ['Economic order quantity', fmt(Math.round(eoq), 0) + ' units'], ['Average inventory value', money(avg)]];
       }
     },
     oee_value: {
