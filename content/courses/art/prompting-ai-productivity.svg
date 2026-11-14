@@ -1,0 +1,22 @@
+<svg viewBox="0 0 400 320" role="img" aria-label="Animated illustration for Prompting and AI Productivity for Office Work" xmlns="http://www.w3.org/2000/svg"><style>
+.ha-spin{transform-box:fill-box;transform-origin:center;animation:ha-spin 12s linear infinite}
+.ha-spin-r{transform-box:fill-box;transform-origin:center;animation:ha-spin 8s linear infinite reverse}
+.ha-pulse{transform-box:fill-box;transform-origin:center;animation:ha-pulse 2.4s ease-in-out infinite}
+.ha-float{animation:ha-float 4s ease-in-out infinite}
+.ha-draw{stroke-dasharray:600;stroke-dashoffset:600;animation:ha-draw 3.2s ease-out infinite}
+.ha-grow{transform-box:fill-box;transform-origin:left center;animation:ha-grow 6s ease-in-out infinite}
+.ha-drop{animation:ha-drop 6s cubic-bezier(.2,.8,.2,1) infinite}
+.ha-twinkle{transform-box:fill-box;transform-origin:center;animation:ha-twinkle 2.2s ease-in-out infinite}
+.ha-label{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:600;fill:#F6F5F1}
+.ha-small{font-family:'Inter',system-ui,sans-serif;font-size:11px;fill:#B4C2D6;letter-spacing:.06em}
+@keyframes ha-spin{to{transform:rotate(360deg)}}
+@keyframes ha-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.25);opacity:.75}}
+@keyframes ha-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes ha-draw{0%{stroke-dashoffset:600}60%,100%{stroke-dashoffset:0}}
+@keyframes ha-grow{0%{transform:scaleX(0)}35%,85%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes ha-drop{0%{transform:translateY(-60px);opacity:0}12%,88%{transform:none;opacity:1}100%{opacity:0}}
+@keyframes ha-twinkle{0%,100%{transform:scale(.4);opacity:0}50%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.hero-art *{animation:none!important}.ha-draw{stroke-dashoffset:0}}
+</style><text class="ha-small" x="200" y="26" text-anchor="middle">BETTER PROMPTS · BETTER WORK</text><g class="ha-float"><rect x="46" y="54" width="200" height="64" rx="14" fill="#13366E" stroke="#29B6F6" stroke-width="2"/><path d="M76 118 l-10 18 l26 -18z" fill="#13366E" stroke="#29B6F6" stroke-width="2"/><text class="ha-small" x="62" y="80">ROLE · CONTEXT · TASK</text><text class="ha-small" x="62" y="100">FORMAT · EXAMPLES</text></g>
+<g class="ha-float" style="animation-delay:.8s"><rect x="150" y="146" width="210" height="84" rx="14" fill="#13366E" stroke="#8DC63F" stroke-width="2"/><path d="M330 230 l14 18 l-30 -18z" fill="#13366E" stroke="#8DC63F" stroke-width="2"/><rect class="ha-draw" x="170" y="166" width="150" height="8" rx="4" fill="#8DC63F" opacity=".8"/><rect x="170" y="184" width="120" height="8" rx="4" fill="#8DC63F" opacity=".55"/><rect x="170" y="202" width="168" height="8" rx="4" fill="#8DC63F" opacity=".4"/></g>
+<g class="ha-pulse"><circle cx="300" cy="78" r="16" fill="#F2A93B"/><text class="ha-label" x="300" y="84" text-anchor="middle" style="fill:#13366E">✓</text></g><g class="ha-float" style="animation-delay:0.0s"><rect x="22" y="266" width="104" height="30" rx="8" fill="#13366E" stroke="#29B6F6" stroke-width="1.8"/><text class="ha-label" x="74" y="286" text-anchor="middle" style="font-size:13px">Draft</text></g><g class="ha-float" style="animation-delay:0.5s"><rect x="148" y="266" width="104" height="30" rx="8" fill="#13366E" stroke="#F2A93B" stroke-width="1.8"/><text class="ha-label" x="200" y="286" text-anchor="middle" style="font-size:13px">Check</text></g><g class="ha-float" style="animation-delay:1.0s"><rect x="274" y="266" width="104" height="30" rx="8" fill="#13366E" stroke="#8DC63F" stroke-width="1.8"/><text class="ha-label" x="326" y="286" text-anchor="middle" style="font-size:13px">Share</text></g></svg>

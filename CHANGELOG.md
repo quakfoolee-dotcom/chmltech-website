@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.0 — 2026-11-13
+- **New free course: Prompting and AI Productivity for Office Work** (`challenge-page/prompting-and-ai-productivity`): 16 lessons in four modules (Prompting Fundamentals, Everyday Tasks, Quality and Responsibility, Productivity at Scale); 6 interactive figures; 3 labs (judge-the-prompt sort, which-tasks-first matrix, time-saved calculator); 20-question exam and certificate. Source: `content/courses/src/prompting.py`.
+- **Course finder:** Beginner / AI; added to the AI Starter path after AI Awareness. The site has **19 free courses**.
+
 ## V4.99 — 2026-11-13
 - **New free course: Business Basics for Owners: Cash, Costs, Strategy and Sales** (`challenge-page/business-basics-for-owners`): 16 lessons in four modules (Know Your Numbers, Plan and Control, Strategy, Customers and Sales); 6 interactive figures; 3 labs (which financial statement sort, break-even and target profit calculator, eight-area business health check); 20-question exam and certificate. Source: `content/courses/src/business_basics.py`.
 - **New calculators** in the course player for this and the next courses: `break_even`, `capacity_gap`, `tco` and `local_ai_cost`.
