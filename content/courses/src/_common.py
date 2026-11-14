@@ -13,7 +13,23 @@ def E(q, opts, a, why):
     return dict(q=q, opts=opts, a=a, why=why)
 
 
-def write(course, name, src_file):
+def balance_checks(course):
+    """Move each knowledge check's correct option so answers cycle evenly through positions 0-3."""
+    i = 0
+    for m in course["modules"]:
+        for st in m["steps"]:
+            ch = st["check"]
+            if len(ch["opts"]) == 4:
+                correct = ch["opts"].pop(ch["a"])
+                t = i % 4
+                ch["opts"].insert(t, correct)
+                ch["a"] = t
+            i += 1
+
+
+def write(course, name, src_file, balance=False):
+    if balance:
+        balance_checks(course)
     here = os.path.dirname(os.path.abspath(src_file))
     out = os.path.join(os.path.dirname(here), name + ".json")
     json.dump(course, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

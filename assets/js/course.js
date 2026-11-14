@@ -314,6 +314,38 @@
         return [['Lost gross margin', money(margin)], ['Cost of staff unable to work', money(idle)], ['Response and recovery', money(v.rec)], ['Total estimated cost', money(tot)], ['Cost per day of downtime', money(v.down > 0 ? tot / v.down : 0)]];
       }
     },
+    break_even: {
+      inputs: [['fixed', 'Fixed costs per month (CA$)', 40000, 100], ['price', 'Average selling price per unit (CA$)', 120, 0.01], ['var', 'Variable cost per unit (CA$)', 72, 0.01], ['target', 'Target profit per month (CA$)', 10000, 100]],
+      calc: function (v) {
+        var cm = v.price - v.var, ratio = v.price > 0 ? cm / v.price : 0;
+        if (cm <= 0) return [['Contribution margin per unit', money(cm)], ['Break-even', 'Not possible: price must exceed variable cost']];
+        var be = Math.ceil(v.fixed / cm), tu = Math.ceil((v.fixed + v.target) / cm);
+        return [['Contribution margin per unit', money(cm)], ['Contribution margin ratio', fmt(ratio * 100, 1) + '%'], ['Break-even sales per month', fmt(be, 0) + ' units'], ['Break-even revenue per month', money(be * v.price)], ['Units for target profit', fmt(tu, 0) + ' units']];
+      }
+    },
+    capacity_gap: {
+      inputs: [['demand', 'Planned demand for the family (units per month)', 15000, 1], ['rate', 'Ideal rate (units per hour)', 60, 1], ['eff', 'Expected OEE or efficiency (%)', 70, 1], ['hours', 'Production hours available per month', 320, 1]],
+      calc: function (v) {
+        var eff = v.rate * v.eff / 100, need = eff > 0 ? v.demand / eff : 0, util = v.hours > 0 ? need / v.hours * 100 : 0, gap = need - v.hours;
+        return [['Hours needed', fmt(need, 0)], ['Load vs available hours', fmt(util, 0) + '%'], [gap > 0 ? 'Shortfall' : 'Spare capacity', fmt(Math.abs(gap), 0) + ' hours'], ['Maximum output with available hours', fmt(v.hours * eff, 0) + ' units']];
+      }
+    },
+    tco: {
+      inputs: [['users', 'Number of users', 25, 1], ['sub', 'Subscription per user per month (CA$)', 110, 1], ['impl', 'Implementation partner fees, one-time (CA$)', 60000, 500], ['internal', 'Internal staff time, one-time (CA$)', 25000, 500], ['annual', 'Other annual costs: add-ons, support, integrations (CA$)', 6000, 100], ['years', 'Years to compare', 5, 1]],
+      calc: function (v) {
+        var subs = v.users * v.sub * 12, one = v.impl + v.internal, tot = one + (subs + v.annual) * v.years;
+        var per = v.users > 0 && v.years > 0 ? tot / (v.users * v.years * 12) : 0;
+        return [['One-time costs', money(one)], ['Recurring cost per year', money(subs + v.annual)], ['Year-1 cost', money(one + subs + v.annual)], ['Total cost of ownership', money(tot)], ['Cost per user per month over the period', money(per)]];
+      }
+    },
+    local_ai_cost: {
+      inputs: [['users', 'Number of users', 15, 1], ['cloud', 'Cloud AI subscription per user per month (CA$)', 40, 1], ['hw', 'Local AI hardware, one-time (CA$)', 4000, 100], ['setup', 'Setup and tuning hours', 40, 1], ['rate', 'Hourly cost of setup work (CA$)', 90, 1], ['run', 'Power, upkeep and support per month (CA$)', 150, 10], ['years', 'Years to compare', 3, 1]],
+      calc: function (v) {
+        var months = v.years * 12, cloudTot = v.users * v.cloud * months, one = v.hw + v.setup * v.rate, localTot = one + v.run * months;
+        var monthlySave = v.users * v.cloud - v.run, be = monthlySave > 0 ? one / monthlySave : Infinity;
+        return [['Cloud subscriptions over the period', money(cloudTot)], ['Local set-up (hardware + setup work)', money(one)], ['Local total over the period', money(localTot)], ['Difference (cloud − local)', money(cloudTot - localTot)], ['Months for local to break even', isFinite(be) ? fmt(be, 1) + ' months' : 'Not reached']];
+      }
+    },
     search_waste: {
       inputs: [['people', 'Number of people', 12, 1], ['mins', 'Minutes per person per day searching or walking for items', 20, 1], ['days', 'Working days per year', 230, 1], ['rate', 'Loaded hourly cost (CA$)', 40, 1]],
       calc: function (v) {

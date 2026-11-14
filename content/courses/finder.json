@@ -1,77 +1,336 @@
 {
  "_note": "Course finder data (Courses page quiz and filters). Built into courses.html by content/gen/course_finder.py. To add a course: add it under 'courses' (key = its content/courses JSON file name without .json), then add its key to one or more 'paths'.",
- "levels": {"1": "Beginner", "2": "Intermediate", "3": "Advanced"},
- "topics": {"ai": "AI", "digital": "Digital & automation", "ops": "Operations", "eng": "Process engineering"},
+ "levels": {
+  "1": "Beginner",
+  "2": "Intermediate",
+  "3": "Advanced"
+ },
+ "topics": {
+  "ai": "AI",
+  "digital": "Digital & automation",
+  "ops": "Operations",
+  "eng": "Process engineering",
+  "biz": "Business & strategy"
+ },
  "courses": {
-  "ai-awareness":           {"level": 1, "topic": "ai"},
-  "llms-for-business":      {"level": 1, "topic": "ai"},
-  "ai-readiness":           {"level": 2, "topic": "ai"},
-  "ai-agents":              {"level": 2, "topic": "ai"},
-  "multi-agent-systems":    {"level": 3, "topic": "ai"},
-  "ai-operating-system":    {"level": 3, "topic": "ai"},
-  "digital-automation":     {"level": 1, "topic": "digital"},
-  "workflow-automation":    {"level": 2, "topic": "digital"},
-  "digital-transformation": {"level": 2, "topic": "digital"},
-  "5s-mastery":             {"level": 1, "topic": "ops"},
-  "operational-excellence": {"level": 2, "topic": "ops"},
-  "project-leadership":     {"level": 2, "topic": "ops"},
-  "lean-six-sigma":         {"level": 2, "topic": "ops"},
-  "inventory-management":   {"level": 1, "topic": "ops"},
-  "oee-equipment-effectiveness": {"level": 2, "topic": "ops"},
-  "feed-process-design":    {"level": 2, "topic": "eng"},
-  "cybersecurity-ransomware": {"level": 1, "topic": "digital"}
+  "ai-awareness": {
+   "level": 1,
+   "topic": "ai"
+  },
+  "llms-for-business": {
+   "level": 1,
+   "topic": "ai"
+  },
+  "ai-readiness": {
+   "level": 2,
+   "topic": "ai"
+  },
+  "ai-agents": {
+   "level": 2,
+   "topic": "ai"
+  },
+  "multi-agent-systems": {
+   "level": 3,
+   "topic": "ai"
+  },
+  "ai-operating-system": {
+   "level": 3,
+   "topic": "ai"
+  },
+  "digital-automation": {
+   "level": 1,
+   "topic": "digital"
+  },
+  "workflow-automation": {
+   "level": 2,
+   "topic": "digital"
+  },
+  "digital-transformation": {
+   "level": 2,
+   "topic": "digital"
+  },
+  "5s-mastery": {
+   "level": 1,
+   "topic": "ops"
+  },
+  "operational-excellence": {
+   "level": 2,
+   "topic": "ops"
+  },
+  "project-leadership": {
+   "level": 2,
+   "topic": "ops"
+  },
+  "lean-six-sigma": {
+   "level": 2,
+   "topic": "ops"
+  },
+  "inventory-management": {
+   "level": 1,
+   "topic": "ops"
+  },
+  "oee-equipment-effectiveness": {
+   "level": 2,
+   "topic": "ops"
+  },
+  "feed-process-design": {
+   "level": 2,
+   "topic": "eng"
+  },
+  "cybersecurity-ransomware": {
+   "level": 1,
+   "topic": "digital"
+  },
+  "business-basics": {
+   "level": 1,
+   "topic": "biz"
+  }
  },
  "paths": {
-  "ai-starter":  {"name": "AI Starter", "blurb": "Learn what AI can and can't do, use it safely every day, then see how it fits your business.", "ai": true,
-                  "courses": ["ai-awareness", "llms-for-business", "ai-readiness"]},
-  "ai-leader":   {"name": "AI Strategy for Leaders", "blurb": "Understand LLMs well enough to lead, decide where AI pays off, and plan the roadmap.", "ai": true,
-                  "courses": ["llms-for-business", "ai-readiness", "digital-transformation", "ai-operating-system"]},
-  "ai-builder":  {"name": "AI Builder", "blurb": "Go from how LLMs work to designing, safeguarding and piloting agents and a company-wide AI layer.", "ai": true,
-                  "courses": ["llms-for-business", "ai-agents", "multi-agent-systems", "ai-operating-system"]},
-  "automation":  {"name": "Digital Automation", "blurb": "Find the admin and workflow work worth automating, prove the business case, and plan it.",
-                  "courses": ["digital-automation", "workflow-automation", "digital-transformation", "ai-agents"]},
-  "engineering": {"name": "Process Engineering", "blurb": "Learn how process plants are defined before they are built, then how to run and improve them once they operate.",
-                  "courses": ["feed-process-design", "oee-equipment-effectiveness", "lean-six-sigma"]},
-  "security":    {"name": "Cyber Safe Business", "blurb": "Protect the business from ransomware, phishing and payment fraud, then use AI and automation safely.",
-                  "courses": ["cybersecurity-ransomware", "ai-awareness", "digital-automation"]},
-  "supply":      {"name": "Inventory and Supply", "blurb": "Hold the right stock at the right time, then remove the process problems that cause shortages and excess.",
-                  "courses": ["inventory-management", "lean-six-sigma", "workflow-automation"]},
-  "operations":  {"name": "Operations Improver", "blurb": "Organize the workplace, cut waste and lift performance, then run the improvement as a project.",
-                  "courses": ["5s-mastery", "operational-excellence", "oee-equipment-effectiveness", "lean-six-sigma", "project-leadership"]},
-  "project":     {"name": "Improvement Project Leader", "blurb": "Lead an improvement project from assessment to sustained results, with the tools to run it well.",
-                  "courses": ["operational-excellence", "lean-six-sigma", "project-leadership", "5s-mastery"]}
+  "ai-starter": {
+   "name": "AI Starter",
+   "blurb": "Learn what AI can and can't do, use it safely every day, then see how it fits your business.",
+   "ai": true,
+   "courses": [
+    "ai-awareness",
+    "llms-for-business",
+    "ai-readiness"
+   ]
+  },
+  "ai-leader": {
+   "name": "AI Strategy for Leaders",
+   "blurb": "Understand LLMs well enough to lead, decide where AI pays off, and plan the roadmap.",
+   "ai": true,
+   "courses": [
+    "llms-for-business",
+    "ai-readiness",
+    "digital-transformation",
+    "ai-operating-system"
+   ]
+  },
+  "ai-builder": {
+   "name": "AI Builder",
+   "blurb": "Go from how LLMs work to designing, safeguarding and piloting agents and a company-wide AI layer.",
+   "ai": true,
+   "courses": [
+    "llms-for-business",
+    "ai-agents",
+    "multi-agent-systems",
+    "ai-operating-system"
+   ]
+  },
+  "automation": {
+   "name": "Digital Automation",
+   "blurb": "Find the admin and workflow work worth automating, prove the business case, and plan it.",
+   "courses": [
+    "digital-automation",
+    "workflow-automation",
+    "digital-transformation",
+    "ai-agents"
+   ]
+  },
+  "engineering": {
+   "name": "Process Engineering",
+   "blurb": "Learn how process plants are defined before they are built, then how to run and improve them once they operate.",
+   "courses": [
+    "feed-process-design",
+    "oee-equipment-effectiveness",
+    "lean-six-sigma"
+   ]
+  },
+  "security": {
+   "name": "Cyber Safe Business",
+   "blurb": "Protect the business from ransomware, phishing and payment fraud, then use AI and automation safely.",
+   "courses": [
+    "cybersecurity-ransomware",
+    "ai-awareness",
+    "digital-automation"
+   ]
+  },
+  "supply": {
+   "name": "Inventory and Supply",
+   "blurb": "Hold the right stock at the right time, then remove the process problems that cause shortages and excess.",
+   "courses": [
+    "inventory-management",
+    "lean-six-sigma",
+    "workflow-automation"
+   ]
+  },
+  "operations": {
+   "name": "Operations Improver",
+   "blurb": "Organize the workplace, cut waste and lift performance, then run the improvement as a project.",
+   "courses": [
+    "5s-mastery",
+    "operational-excellence",
+    "oee-equipment-effectiveness",
+    "lean-six-sigma",
+    "project-leadership"
+   ]
+  },
+  "project": {
+   "name": "Improvement Project Leader",
+   "blurb": "Lead an improvement project from assessment to sustained results, with the tools to run it well.",
+   "courses": [
+    "operational-excellence",
+    "lean-six-sigma",
+    "project-leadership",
+    "5s-mastery"
+   ]
+  },
+  "owner": {
+   "name": "Owner Essentials",
+   "blurb": "Know your numbers, protect cash, set a clear plan and build a dependable sales pipeline.",
+   "courses": [
+    "business-basics",
+    "digital-automation"
+   ]
+  }
  },
- "goal_path": {"secure": "security", "eng": "engineering", "stock": "supply", "ai-use": "ai-starter", "ai-strategy": "ai-leader", "ai-build": "ai-builder", "automate": "automation", "ops": "operations", "project": "project"},
+ "goal_path": {
+  "secure": "security",
+  "eng": "engineering",
+  "stock": "supply",
+  "ai-use": "ai-starter",
+  "ai-strategy": "ai-leader",
+  "ai-build": "ai-builder",
+  "automate": "automation",
+  "ops": "operations",
+  "project": "project",
+  "grow": "owner"
+ },
  "beginner_intro": "ai-awareness",
- "industry_names": {"mfg": "manufacturing and process industries", "dist": "distribution, logistics and retail", "services": "service businesses"},
- "industry_extra": {"mfg": "oee-equipment-effectiveness", "dist": "inventory-management", "services": "digital-automation"},
+ "industry_names": {
+  "mfg": "manufacturing and process industries",
+  "dist": "distribution, logistics and retail",
+  "services": "service businesses"
+ },
+ "industry_extra": {
+  "mfg": "oee-equipment-effectiveness",
+  "dist": "inventory-management",
+  "services": "digital-automation"
+ },
  "questions": [
-  {"id": "role", "q": "Which best describes your role?", "opts": [
-    ["leader", "Owner, executive or general manager"],
-    ["manager", "Manager, supervisor or team lead"],
-    ["staff", "Office, frontline or shop-floor staff"],
-    ["tech", "Engineer, developer or IT"]]},
-  {"id": "goal", "q": "What do you most want to do next?", "opts": [
-    ["ai-use", "Understand AI and use it safely in my work"],
-    ["ai-strategy", "Decide where AI fits in our business and plan it"],
-    ["ai-build", "Build AI agents or AI systems"],
-    ["automate", "Automate admin work and workflows"],
-    ["ops", "Improve operations, reduce waste, raise output"],
-    ["stock", "Manage inventory: shortages, excess stock, ordering"],
-    ["eng", "Build process engineering skills: FEED and plant design"],
-    ["secure", "Protect the business from cyber attacks, ransomware and fraud"],
-    ["project", "Lead an improvement project"]]},
-  {"id": "exp", "q": "How much have you used AI tools so far?", "opts": [
-    ["none", "Not at all, or only tried once or twice"],
-    ["user", "I use ChatGPT-type tools regularly"],
-    ["builder", "I've built or deployed AI tools or automations"]]},
-  {"id": "industry", "q": "Which industry are you in?", "opts": [
-    ["mfg", "Manufacturing, energy or process industries"],
-    ["dist", "Distribution, logistics, retail or e-commerce"],
-    ["services", "Professional, financial or other services"],
-    ["other", "Public sector, health care or other"]]},
-  {"id": "time", "q": "How much do you want to take on?", "opts": [
-    ["one", "One course to start with"],
-    ["path", "A full learning path (3 to 4 courses)"]]}
+  {
+   "id": "role",
+   "q": "Which best describes your role?",
+   "opts": [
+    [
+     "leader",
+     "Owner, executive or general manager"
+    ],
+    [
+     "manager",
+     "Manager, supervisor or team lead"
+    ],
+    [
+     "staff",
+     "Office, frontline or shop-floor staff"
+    ],
+    [
+     "tech",
+     "Engineer, developer or IT"
+    ]
+   ]
+  },
+  {
+   "id": "goal",
+   "q": "What do you most want to do next?",
+   "opts": [
+    [
+     "ai-use",
+     "Understand AI and use it safely in my work"
+    ],
+    [
+     "ai-strategy",
+     "Decide where AI fits in our business and plan it"
+    ],
+    [
+     "ai-build",
+     "Build AI agents or AI systems"
+    ],
+    [
+     "automate",
+     "Automate admin work and workflows"
+    ],
+    [
+     "ops",
+     "Improve operations, reduce waste, raise output"
+    ],
+    [
+     "stock",
+     "Manage inventory: shortages, excess stock, ordering"
+    ],
+    [
+     "eng",
+     "Build process engineering skills: FEED and plant design"
+    ],
+    [
+     "secure",
+     "Protect the business from cyber attacks, ransomware and fraud"
+    ],
+    [
+     "project",
+     "Lead an improvement project"
+    ],
+    [
+     "grow",
+     "Run and grow the business: cash, costs, strategy, sales"
+    ]
+   ]
+  },
+  {
+   "id": "exp",
+   "q": "How much have you used AI tools so far?",
+   "opts": [
+    [
+     "none",
+     "Not at all, or only tried once or twice"
+    ],
+    [
+     "user",
+     "I use ChatGPT-type tools regularly"
+    ],
+    [
+     "builder",
+     "I've built or deployed AI tools or automations"
+    ]
+   ]
+  },
+  {
+   "id": "industry",
+   "q": "Which industry are you in?",
+   "opts": [
+    [
+     "mfg",
+     "Manufacturing, energy or process industries"
+    ],
+    [
+     "dist",
+     "Distribution, logistics, retail or e-commerce"
+    ],
+    [
+     "services",
+     "Professional, financial or other services"
+    ],
+    [
+     "other",
+     "Public sector, health care or other"
+    ]
+   ]
+  },
+  {
+   "id": "time",
+   "q": "How much do you want to take on?",
+   "opts": [
+    [
+     "one",
+     "One course to start with"
+    ],
+    [
+     "path",
+     "A full learning path (3 to 4 courses)"
+    ]
+   ]
+  }
  ]
 }

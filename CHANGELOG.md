@@ -1,5 +1,11 @@
 # Changelog
 
+## V4.99 — 2026-11-13
+- **New free course: Business Basics for Owners: Cash, Costs, Strategy and Sales** (`challenge-page/business-basics-for-owners`): 16 lessons in four modules (Know Your Numbers, Plan and Control, Strategy, Customers and Sales); 6 interactive figures; 3 labs (which financial statement sort, break-even and target profit calculator, eight-area business health check); 20-question exam and certificate. Source: `content/courses/src/business_basics.py`.
+- **New calculators** in the course player for this and the next courses: `break_even`, `capacity_gap`, `tco` and `local_ai_cost`.
+- Course sources can now balance knowledge-check answer positions automatically (`balance=True` in `content/courses/src/_common.py`).
+- **Course finder:** new topic filter **Business & strategy**; new goal answer "Run and grow the business" leading to an **Owner Essentials** path. The site has **18 free courses**.
+
 ## V4.98 — 2026-11-13
 - **New free course: Cybersecurity and Ransomware Basics for SMEs** (`challenge-page/cybersecurity-and-ransomware-basics-for-smes`): 20 lessons in five modules (The Threat, Core Controls, People/Payments/Partners, Prepare and Respond, Build Your Program) covering how attacks get in, how ransomware unfolds, MFA, patching, ransomware-resistant backups, EDR and least privilege, awareness and reporting culture, payment fraud and BEC, remote work, IT providers and cloud shared responsibility, incident response and the first hours of an attack, the ransom decision, PIPEDA breach reporting, cyber insurance, the Cyber Centre baseline controls, CyberSecure Canada and NIST CSF 2.0, priorities and a 90-day plan; 6 interactive figures; 3 labs (safe / verify / phishing sort, cost of a week offline calculator, eight-area cyber readiness self-assessment); 20-question exam and certificate. Source: `content/courses/src/cybersecurity.py`.
 - New `cyber_downtime` calculator in the course player (lost gross margin, idle staff, recovery, total and cost per day).
