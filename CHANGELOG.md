@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.1 — 2026-11-13
+- **New free course: Data and Dashboards for SMEs** (`challenge-page/data-and-dashboards-for-smes`): 16 lessons in four modules (Foundations, Spreadsheets Done Right, Dashboards, Using Data Well) covering KPIs and KPI trees, data sources and quality, tidy data, XLOOKUP, pivot tables, Power Query, spreadsheet error prevention, dashboard design, chart choice, BI tools and star schemas, automated refresh, data-driven meetings, simple analysis and governance; 6 interactive figures; 3 labs (useful KPI / vanity / unclear sort, which-reports-to-automate matrix, data maturity self-assessment); 20-question exam and certificate. Source: `content/courses/src/data_dashboards.py`.
+- **Course finder:** Beginner / Digital & automation; added to the Owner Essentials path. The site has **20 free courses**.
+
 ## V5.0 — 2026-11-13
 - **New free course: Prompting and AI Productivity for Office Work** (`challenge-page/prompting-and-ai-productivity`): 16 lessons in four modules (Prompting Fundamentals, Everyday Tasks, Quality and Responsibility, Productivity at Scale); 6 interactive figures; 3 labs (judge-the-prompt sort, which-tasks-first matrix, time-saved calculator); 20-question exam and certificate. Source: `content/courses/src/prompting.py`.
 - **Course finder:** Beginner / AI; added to the AI Starter path after AI Awareness. The site has **19 free courses**.
