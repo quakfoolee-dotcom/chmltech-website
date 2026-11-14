@@ -307,6 +307,13 @@
         return [['Class used', 'Class ' + k], ['Typical accuracy range', fmt(r[0], 1) + '% to +' + fmt(r[1], 1) + '%'], ['Base estimate + contingency', money(tot)], ['Plausible low', money(v.base * (1 + r[0] / 100))], ['Plausible high', money(v.base * (1 + r[1] / 100))]];
       }
     },
+    cyber_downtime: {
+      inputs: [['rev', 'Annual revenue (CA$)', 5000000, 1000], ['days', 'Working days per year', 250, 1], ['down', 'Days systems are down', 7, 1], ['lost', 'Share of daily sales lost while down (%)', 60, 1], ['gm', 'Gross margin (%)', 35, 1], ['staff', 'Staff unable to work', 12, 1], ['day', 'Loaded cost per staff day (CA$)', 350, 1], ['rec', 'Response and recovery costs (CA$)', 40000, 100]],
+      calc: function (v) {
+        var margin = v.days > 0 ? v.rev / v.days * v.down * v.lost / 100 * v.gm / 100 : 0, idle = v.staff * v.day * v.down, tot = margin + idle + v.rec;
+        return [['Lost gross margin', money(margin)], ['Cost of staff unable to work', money(idle)], ['Response and recovery', money(v.rec)], ['Total estimated cost', money(tot)], ['Cost per day of downtime', money(v.down > 0 ? tot / v.down : 0)]];
+      }
+    },
     search_waste: {
       inputs: [['people', 'Number of people', 12, 1], ['mins', 'Minutes per person per day searching or walking for items', 20, 1], ['days', 'Working days per year', 230, 1], ['rate', 'Loaded hourly cost (CA$)', 40, 1]],
       calc: function (v) {

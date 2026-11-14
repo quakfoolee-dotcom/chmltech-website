@@ -568,7 +568,7 @@ def svc_card(s):
             f'<h3 class="h-md" style="font-size:24px">{esc(s["title"])} session</h3><p class="muted">{SERVICE_DESC.get(s["slug"], "")}</p>'
             f'<p class="price">CA${s["price"]} <small>/ session</small></p><a class="btn" style="align-self:flex-start" href="book.html?service={quote(s["title"] + " session")}">Book this session</a></article>')
 co = page_hero("Courses", "Free courses", "Free online courses for operational excellence.",
-               "Interactive, self-paced courses from AI awareness and large language models to AI agents and AI operating systems, plus digital automation, operational excellence, Lean Six Sigma, OEE, inventory management, project leadership, 5S and FEED for process plants. Each has hands-on labs, a final exam and a certificate of completion. Free, no sign-up.",
+               "Interactive, self-paced courses from AI awareness and large language models to AI agents and AI operating systems, plus digital automation, operational excellence, Lean Six Sigma, OEE, inventory management, cybersecurity, project leadership, 5S and FEED for process plants. Each has hands-on labs, a final exam and a certificate of completion. Free, no sign-up.",
                '<div class="btn-row"><a class="btn" href="#programs">See the courses</a><a class="btn btn-ghost-dark" href="training.html">Free practice exams</a></div>')
 co += f'''
 <section class="section" id="programs" style="scroll-margin-top:84px"><div class="container">

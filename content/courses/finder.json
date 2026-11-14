@@ -18,7 +18,8 @@
   "lean-six-sigma":         {"level": 2, "topic": "ops"},
   "inventory-management":   {"level": 1, "topic": "ops"},
   "oee-equipment-effectiveness": {"level": 2, "topic": "ops"},
-  "feed-process-design":    {"level": 2, "topic": "eng"}
+  "feed-process-design":    {"level": 2, "topic": "eng"},
+  "cybersecurity-ransomware": {"level": 1, "topic": "digital"}
  },
  "paths": {
   "ai-starter":  {"name": "AI Starter", "blurb": "Learn what AI can and can't do, use it safely every day, then see how it fits your business.", "ai": true,
@@ -31,6 +32,8 @@
                   "courses": ["digital-automation", "workflow-automation", "digital-transformation", "ai-agents"]},
   "engineering": {"name": "Process Engineering", "blurb": "Learn how process plants are defined before they are built, then how to run and improve them once they operate.",
                   "courses": ["feed-process-design", "oee-equipment-effectiveness", "lean-six-sigma"]},
+  "security":    {"name": "Cyber Safe Business", "blurb": "Protect the business from ransomware, phishing and payment fraud, then use AI and automation safely.",
+                  "courses": ["cybersecurity-ransomware", "ai-awareness", "digital-automation"]},
   "supply":      {"name": "Inventory and Supply", "blurb": "Hold the right stock at the right time, then remove the process problems that cause shortages and excess.",
                   "courses": ["inventory-management", "lean-six-sigma", "workflow-automation"]},
   "operations":  {"name": "Operations Improver", "blurb": "Organize the workplace, cut waste and lift performance, then run the improvement as a project.",
@@ -38,7 +41,7 @@
   "project":     {"name": "Improvement Project Leader", "blurb": "Lead an improvement project from assessment to sustained results, with the tools to run it well.",
                   "courses": ["operational-excellence", "lean-six-sigma", "project-leadership", "5s-mastery"]}
  },
- "goal_path": {"eng": "engineering", "stock": "supply", "ai-use": "ai-starter", "ai-strategy": "ai-leader", "ai-build": "ai-builder", "automate": "automation", "ops": "operations", "project": "project"},
+ "goal_path": {"secure": "security", "eng": "engineering", "stock": "supply", "ai-use": "ai-starter", "ai-strategy": "ai-leader", "ai-build": "ai-builder", "automate": "automation", "ops": "operations", "project": "project"},
  "beginner_intro": "ai-awareness",
  "industry_names": {"mfg": "manufacturing and process industries", "dist": "distribution, logistics and retail", "services": "service businesses"},
  "industry_extra": {"mfg": "oee-equipment-effectiveness", "dist": "inventory-management", "services": "digital-automation"},
@@ -56,6 +59,7 @@
     ["ops", "Improve operations, reduce waste, raise output"],
     ["stock", "Manage inventory: shortages, excess stock, ordering"],
     ["eng", "Build process engineering skills: FEED and plant design"],
+    ["secure", "Protect the business from cyber attacks, ransomware and fraud"],
     ["project", "Lead an improvement project"]]},
   {"id": "exp", "q": "How much have you used AI tools so far?", "opts": [
     ["none", "Not at all, or only tried once or twice"],

@@ -1,0 +1,536 @@
+"""Source for content/courses/cybersecurity-ransomware.json (run: python3 content/courses/src/cybersecurity.py)."""
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _common import step, E, write
+
+M1 = [
+step("Why small and mid-sized businesses are targets", 6, """
+<p>Many owners assume attackers only go after banks and large corporations. In reality, most attacks are automated and opportunistic. Criminal groups scan the internet for any exposed, unpatched system and send phishing emails by the million. They are looking for an easy way in, not a particular company. A 20-person firm with a weak password on its remote access is as attractive as a large one, and usually easier.</p>
+<h3>Why SMEs are attractive</h3>
+<ul><li><strong>Fewer defences:</strong> no dedicated security staff, older systems, and security handled by whoever is "good with computers".</li>
+<li><strong>Money moves through them:</strong> invoices, payroll and supplier payments make SMEs targets for payment fraud.</li>
+<li><strong>Valuable data:</strong> customer records, employee information and designs can be sold or held for ransom.</li>
+<li><strong>A route to bigger targets:</strong> attackers use smaller suppliers to reach their larger customers.</li>
+<li><strong>Dependence on IT:</strong> when systems stop, so do orders, production and shipping, which makes paying a ransom tempting.</li></ul>
+<h3>The good news</h3>
+<p>Most successful attacks exploit a short list of basic weaknesses: stolen or weak passwords without multi-factor authentication, unpatched systems, exposed remote access, untested backups and staff who have not been shown what phishing looks like. Fixing these basics stops the large majority of opportunistic attacks and does not need a big budget.</p>
+<p>This course is practical guidance for business owners and managers, not a technical security manual. For specialist work such as configuring firewalls or investigating an incident, use a qualified IT or security provider. The Canadian Centre for Cyber Security (the Cyber Centre) publishes free, practical guidance for small and medium organizations that complements this course.</p>
+""", ["Most attacks are automated and opportunistic; size does not protect you.", "SMEs are attractive for their payments, data and links to larger customers.", "A short list of basic controls stops most opportunistic attacks."],
+ "List the three systems your business could not operate without for a week. For each, write down who looks after its security today.",
+ "Why are small businesses frequently hit by cyber attacks?", ["Attackers only target firms with fewer than 50 staff", "Most attacks are automated and look for any easy way in, regardless of company size", "Small businesses are required to share their passwords", "Large companies never get attacked"], 1,
+ "Automated scanning and mass phishing find weak systems wherever they are, so small firms with weak basics are easy targets."),
+step("How attacks get in", 7, """
+<p>Attackers use a handful of entry points again and again. Knowing them tells you where to put your effort.</p>
+<table><thead><tr><th>Entry point</th><th>How it works</th><th>Main defence</th></tr></thead><tbody>
+<tr><td>Phishing email</td><td>A message tricks someone into clicking a link, opening an attachment or entering a password on a fake login page</td><td>Email filtering, awareness training, MFA</td></tr>
+<tr><td>Stolen or weak passwords</td><td>Passwords reused from breached websites, guessed, or captured by phishing</td><td>MFA, password manager, unique passwords</td></tr>
+<tr><td>Unpatched software</td><td>Known flaws in internet-facing systems, such as VPNs, firewalls and email servers, are exploited automatically</td><td>Prompt patching, asset inventory</td></tr>
+<tr><td>Exposed remote access</td><td>Remote desktop or other remote tools open to the internet without MFA</td><td>Remove direct exposure, use VPN with MFA</td></tr>
+<tr><td>Business email compromise</td><td>A real or look-alike email account is used to request payments or change bank details</td><td>Call-back verification, MFA on email</td></tr>
+<tr><td>Third parties</td><td>An IT provider, software supplier or partner with access to your systems is compromised</td><td>Vendor controls, limited access, MFA</td></tr>
+</tbody></table>
+<h3>Spotting phishing</h3>
+<p>Phishing messages often share signs: urgency ("your account will be closed today"), a request to log in, pay or open a file, a sender address that does not quite match, generic greetings, and links whose real address differs from the text. Generative AI now makes phishing messages fluent and personalized, so spelling mistakes are no longer a reliable sign. The safest habit is to treat any unexpected request to log in, pay or change details as suspicious, and to verify it through a separate channel you already trust.</p>
+<p>The lab after this lesson asks you to sort messages into safe, verify first, and report as phishing.</p>
+""", ["Phishing, stolen passwords, unpatched systems and exposed remote access are the main ways in.", "Business email compromise targets payments and bank details.", "Verify any unexpected request to log in, pay or change details through a separate channel."],
+ "Look at the last ten external emails that asked you to click, log in or pay. For each, decide how you would verify it if you were unsure.",
+ "An email from your 'CEO' asks you to buy gift cards urgently and keep it confidential. What is the best response?", ["Buy the cards quickly to help", "Reply to the email to confirm", "Verify with the CEO through a known phone number or in person before doing anything", "Forward it to all staff as a warning without checking"], 2,
+ "Urgency, secrecy and unusual payment requests are classic signs of fraud; verify through a separate, trusted channel."),
+step("Ransomware explained", 7, """
+<p><strong>Ransomware</strong> is malicious software that encrypts files and systems so they cannot be used, followed by a demand for payment, usually in cryptocurrency, for a decryption key. Modern ransomware groups operate like businesses, with affiliates, help desks and negotiators.</p>
+<h3>How a typical attack unfolds</h3>
+<ol><li><strong>Initial access:</strong> through phishing, stolen credentials, exposed remote access or an unpatched system.</li>
+<li><strong>Foothold and reconnaissance:</strong> the attacker quietly explores the network, often for days or weeks.</li>
+<li><strong>Privilege escalation:</strong> they obtain administrator accounts to control more systems.</li>
+<li><strong>Data theft:</strong> sensitive files are copied out.</li>
+<li><strong>Backup destruction:</strong> connected backups are deleted or encrypted.</li>
+<li><strong>Encryption and demand:</strong> systems are encrypted, often overnight or at a weekend, and a ransom note appears.</li></ol>
+<h3>Double extortion</h3>
+<p>Because good backups let victims recover without paying, many groups now also steal data first and threaten to publish it. Even a company that restores everything from backup may face a demand to stop the leak, plus legal duties to notify people whose information was taken.</p>
+<h3>Why the timeline matters</h3>
+<p>Because attackers often spend time inside the network before encrypting, there are chances to detect and stop them: alerts from endpoint protection, unusual logins, new administrator accounts or large data transfers. Each stage also has a matching defence: MFA blocks many initial access attempts, limited admin rights slow escalation, and offline backups survive the destruction step.</p>
+""", ["Ransomware encrypts systems and demands payment; groups run like businesses.", "Attacks unfold in stages, often over days, which gives chances to detect them.", "Double extortion adds data theft, so backups alone do not remove all harm."],
+ "For each of the six attack stages, write down which control in your business, if any, would stop or detect it today.",
+ "What is 'double extortion' in a ransomware attack?", ["The attacker asks for the ransom twice in one week", "Two attackers attack at once", "The ransom is paid in two currencies", "Data is stolen as well as encrypted, and the attacker threatens to publish it"], 3,
+ "Double extortion combines encryption with data theft and a threat to leak the data, increasing pressure to pay."),
+step("What is at stake", 7, """
+<p>A serious cyber incident affects much more than IT. Knowing the full cost helps you decide how much protection is worth.</p>
+<table><thead><tr><th>Impact</th><th>Examples</th></tr></thead><tbody>
+<tr><td>Downtime</td><td>Orders, production, shipping, invoicing and phones stop; staff cannot work</td></tr>
+<tr><td>Lost revenue and margin</td><td>Missed orders, late deliveries, penalties, customers who switch</td></tr>
+<tr><td>Response and recovery costs</td><td>Incident response specialists, legal advice, rebuilding systems, overtime, new hardware</td></tr>
+<tr><td>Data and legal</td><td>Notifying affected people and regulators, possible claims, contractual breaches with customers</td></tr>
+<tr><td>Fraud losses</td><td>Payments sent to criminals' accounts, often unrecoverable</td></tr>
+<tr><td>Reputation</td><td>Loss of customer and partner trust; harder sales conversations</td></tr>
+</tbody></table>
+<h3>Downtime is usually the biggest cost</h3>
+<p>Rebuilding systems after ransomware often takes days to weeks, even with good backups, because every system must be checked, cleaned and restored in the right order. Estimate the cost of a week without systems: lost gross margin on sales that could not be made, wages for staff who could not work, and recovery costs. The lab after this lesson calculates it.</p>
+<h3>Legal duties</h3>
+<p>Under Canada's federal private-sector privacy law (PIPEDA), organizations must report breaches of security safeguards involving personal information to the Office of the Privacy Commissioner of Canada when it is reasonable to believe there is a real risk of significant harm, notify affected individuals, and keep records of all such breaches. Some provinces have their own laws and requirements. A later lesson covers this in more detail.</p>
+<p>With a realistic cost in hand, spending a few thousand dollars a year on the basics usually looks like good value, and the conversation with your insurer and bank becomes easier.</p>
+""", ["Cyber incidents bring downtime, recovery, legal, fraud and reputation costs.", "Downtime is usually the largest cost; recovery takes days to weeks.", "Privacy law can require reporting breaches and notifying affected people."],
+ "Estimate what one week without your main systems would cost: lost margin, idle staff and recovery. Use the lab after this lesson to check your figure.",
+ "Why does recovery from ransomware often take days or weeks even with backups?", ["Backups cannot be restored by law", "Every system must be checked, cleaned and restored in the right order", "Insurers require a waiting period", "Ransomware deletes the internet connection permanently"], 1,
+ "Systems must be investigated, cleaned and restored carefully to avoid reinfection, which takes time."),
+]
+
+M2 = [
+step("Multi-factor authentication and passwords", 7, """
+<p>If you do only one thing after this course, turn on <strong>multi-factor authentication (MFA)</strong> everywhere it is available. MFA requires a second proof of identity, such as a code from an app, a push notification or a security key, in addition to the password. A stolen password alone is then not enough to log in.</p>
+<h3>Where MFA matters most</h3>
+<ol><li>Email accounts, which are the key to resetting every other password.</li>
+<li>Remote access: VPN, remote desktop gateways and remote support tools.</li>
+<li>Administrator accounts for systems, cloud services and networks.</li>
+<li>Banking and payment platforms.</li>
+<li>Cloud applications holding business data: accounting, CRM, file sharing.</li></ol>
+<h3>Stronger and weaker forms</h3>
+<p>Authenticator apps and hardware security keys are stronger than text-message codes, which can be intercepted or redirected. Phishing-resistant methods, such as security keys and passkeys, cannot be captured by a fake login page. Use the strongest option each system supports, especially for administrators. Train staff to reject MFA prompts they did not start: attackers sometimes send repeated prompts hoping someone approves one.</p>
+<h3>Passwords still matter</h3>
+<ul><li>Use a <strong>password manager</strong> so everyone can have long, unique passwords without remembering them.</li>
+<li>Use passphrases of several random words where you must remember one.</li>
+<li>Never reuse work passwords on personal sites; reused passwords leaked from other breaches are a common way in.</li>
+<li>Change default passwords on routers, printers, cameras and other devices.</li>
+<li>Remove accounts promptly when staff leave.</li></ul>
+""", ["Turn on MFA everywhere, starting with email, remote access, admin and banking.", "Prefer authenticator apps or security keys over text messages.", "Use a password manager and unique passwords; remove leavers' accounts promptly."],
+ "List every system your business uses that holds data or money. Mark which have MFA turned on for all users, and set a date to turn it on for the rest.",
+ "Which account is the most important to protect with MFA first?", ["Email, because it can be used to reset other passwords", "A shared printer", "The guest Wi-Fi", "A public website's contact form"], 0,
+ "Control of email often lets an attacker reset other accounts and commit payment fraud, so it comes first."),
+step("Patching, secure setup and knowing what you have", 7, """
+<p>Attackers scan for systems with known, unpatched flaws within days, sometimes hours, of a fix being published. Keeping software up to date closes these doors.</p>
+<h3>Start with an asset inventory</h3>
+<p>You cannot protect what you do not know you have. Keep a simple list of:</p>
+<ul><li>Computers, servers, laptops and phones that access business data.</li>
+<li>Network equipment: firewalls, routers, Wi-Fi access points, VPN devices.</li>
+<li>Software and cloud services, with who owns each.</li>
+<li>Internet-facing systems: anything reachable from outside your office.</li></ul>
+<h3>Patch by priority</h3>
+<table><thead><tr><th>Priority</th><th>What</th><th>Target timing</th></tr></thead><tbody>
+<tr><td>Highest</td><td>Internet-facing systems (firewalls, VPNs, email, remote access) with flaws known to be exploited</td><td>As fast as possible, within days</td></tr>
+<tr><td>High</td><td>Operating systems and browsers on staff devices</td><td>Automatic updates, checked monthly</td></tr>
+<tr><td>Normal</td><td>Other applications and internal systems</td><td>Regular monthly cycle</td></tr>
+</tbody></table>
+<p>Turn on automatic updates wherever practical. Replace systems that no longer receive security updates, such as old operating systems and end-of-life firewalls; they cannot be patched.</p>
+<h3>Secure configuration</h3>
+<ul><li>Change default passwords and turn off features you do not use.</li>
+<li>Do not expose remote desktop directly to the internet.</li>
+<li>Use a business-grade firewall and keep its firmware updated.</li>
+<li>Separate guest Wi-Fi from the business network.</li></ul>
+<p>Production equipment controls and building systems that connect to the network need the same attention, coordinated with their suppliers.</p>
+""", ["Keep a simple inventory of devices, network equipment, software and internet-facing systems.", "Patch internet-facing systems first and fastest; automate updates where you can.", "Replace unsupported systems and remove direct internet exposure of remote access."],
+ "Build a one-page inventory of your internet-facing systems. For each, write when it was last updated and who is responsible.",
+ "Which systems should be patched first?", ["Internal printers", "Internet-facing systems such as VPNs, firewalls and email with known exploited flaws", "Spare laptops in storage", "The office music player"], 1,
+ "Internet-facing systems with known exploited flaws are scanned and attacked automatically, so they come first."),
+step("Backups that survive ransomware", 8, """
+<p>Backups are your recovery plan when everything else fails. But attackers know this, and they look for backups to delete or encrypt before they launch ransomware. A backup that is always connected to the network can be destroyed along with everything else.</p>
+<h3>The 3-2-1 rule, updated</h3>
+<ul><li><strong>3</strong> copies of important data: the original plus two backups.</li>
+<li><strong>2</strong> different types of storage or locations.</li>
+<li><strong>1</strong> copy offline or immutable: disconnected from the network, or stored in a way that cannot be changed or deleted for a set period, even by an administrator.</li></ul>
+<p>Many cloud backup services offer immutability or object lock. Make sure backup administration uses separate credentials with MFA, not the same accounts used day to day.</p>
+<h3>Back up the right things</h3>
+<ul><li>File shares and documents.</li>
+<li>Business systems: accounting, ERP, CRM databases.</li>
+<li>Cloud data: do not assume your cloud provider keeps restorable backups of your email and files for as long as you need; check the terms and consider a separate backup.</li>
+<li>System configurations, so servers and network devices can be rebuilt.</li></ul>
+<h3>Test restores</h3>
+<p>A backup you have never restored is a hope, not a plan. Test restoring individual files every month and a full critical system at least once or twice a year. Time the full restore: if it takes four days to restore your ERP, that is part of your downtime estimate. Document the restore steps so someone other than your usual IT person can follow them.</p>
+<h3>Decide recovery targets</h3>
+<p>For each critical system, agree how much data you can afford to lose (for example, one day's work) and how long it can be down (for example, two days). These targets drive backup frequency and the recovery approach.</p>
+""", ["Keep at least one backup offline or immutable, with separate admin credentials.", "Back up business systems, cloud data and configurations, not just files.", "Test restores regularly and time a full restore of critical systems."],
+ "Find out when your last full restore of a critical system was tested and how long it took. If never, schedule a test this month.",
+ "Why must at least one backup be offline or immutable?", ["To save electricity", "Because cloud backups are illegal", "To make restores faster", "Because attackers often delete or encrypt connected backups before launching ransomware"], 3,
+ "Attackers target connected backups; an offline or immutable copy survives and allows recovery."),
+step("Endpoint protection, email filtering and admin rights", 7, """
+<p>Several technical controls work together to stop attacks that get past the first line.</p>
+<table><thead><tr><th>Control</th><th>What it does</th></tr></thead><tbody>
+<tr><td>Endpoint detection and response (EDR)</td><td>Monitors computers and servers for suspicious behaviour, such as mass file encryption or credential theft tools, and can isolate a device automatically; more capable than traditional antivirus</td></tr>
+<tr><td>Email filtering</td><td>Blocks known malicious attachments, links and spoofed senders before they reach inboxes</td></tr>
+<tr><td>Email authentication (SPF, DKIM, DMARC)</td><td>Makes it harder for criminals to send email that appears to come from your domain</td></tr>
+<tr><td>DNS or web filtering</td><td>Blocks connections to known malicious websites</td></tr>
+<tr><td>Firewall</td><td>Controls traffic between your network and the internet</td></tr>
+</tbody></table>
+<h3>Least privilege</h3>
+<p>Give people and systems only the access they need for their job. In particular:</p>
+<ul><li>Staff should not use administrator accounts for daily work like email and browsing. Use a separate admin account only when needed.</li>
+<li>Limit who can install software.</li>
+<li>Restrict access to sensitive folders and systems by role, and review access when people change jobs or leave.</li>
+<li>Protect and monitor the few accounts that can control everything, such as domain and cloud tenant administrators.</li></ul>
+<p>Least privilege slows attackers down: when a user's account is compromised, the attacker gets only that user's access, not the keys to everything.</p>
+<h3>Monitoring</h3>
+<p>Controls produce alerts. Someone must watch them and act, whether an internal person, your IT provider or a managed detection and response (MDR) service that monitors around the clock. An alert at 2 a.m. on Saturday is when ransomware often starts.</p>
+""", ["EDR, email filtering and authentication, and DNS filtering catch what gets past the first line.", "Use least privilege: no daily use of admin accounts; access by role.", "Make sure someone watches alerts, including outside business hours."],
+ "Check who in your business has administrator rights on computers and cloud services. Remove rights that are not needed and give admins separate accounts.",
+ "Why should staff not use administrator accounts for everyday email and browsing?", ["Admin accounts are slower", "If that account is compromised, the attacker gains full control instead of limited access", "Admin accounts cannot send email", "It is required by tax law"], 1,
+ "Least privilege limits what an attacker can do with a compromised everyday account."),
+]
+
+M3 = [
+step("Security awareness that works", 7, """
+<p>People are often called the weakest link. A better view is that people are your largest sensor network: well-trained staff who report suspicious messages quickly can stop an attack before it spreads.</p>
+<h3>What effective awareness looks like</h3>
+<ul><li><strong>Short and frequent:</strong> a few minutes a month beats an annual hour-long video.</li>
+<li><strong>Practical:</strong> real examples from your industry: fake invoices, delivery notices, shared-document links, payroll change requests.</li>
+<li><strong>Phishing simulations:</strong> safe test emails show who clicks, followed by a short lesson on the spot, not punishment.</li>
+<li><strong>Easy reporting:</strong> a "report phishing" button or a simple email address, and a quick thank-you every time.</li>
+<li><strong>Role-specific:</strong> extra training for finance, payroll, executives and IT administrators, who are targeted most.</li></ul>
+<h3>A reporting culture</h3>
+<p>The most important message is: <em>if you clicked something you shouldn't have, tell us immediately.</em> Someone who reports a mistake within minutes lets IT reset a password or isolate a computer before damage is done. Someone afraid of blame stays quiet, and the attacker keeps going. Thank people who report, even when it turns out to be a false alarm.</p>
+<h3>Cover the basics for everyone</h3>
+<ul><li>Recognizing phishing and verifying unusual requests.</li>
+<li>Using MFA and a password manager; never approving unexpected MFA prompts.</li>
+<li>Locking screens, protecting devices and reporting lost ones.</li>
+<li>Handling sensitive data and what not to paste into public AI tools.</li>
+<li>Whom to call and what to do if something seems wrong.</li></ul>
+""", ["Treat staff as sensors: train them to spot and report quickly.", "Short monthly training and safe phishing simulations work better than annual sessions.", "Reward reporting, including of mistakes, so problems surface fast."],
+ "Set up a simple way for staff to report suspicious emails and announce it with a short message. Plan one 5-minute awareness topic per month for the next six months.",
+ "An employee clicks a phishing link and reports it within five minutes. What should the response be?", ["Discipline the employee to set an example", "Ignore it because nothing seems wrong", "Thank them, then reset their password and check the device", "Wait for the monthly report"], 2,
+ "Fast reporting allows quick containment; thanking people keeps them reporting in future."),
+step("Stopping payment fraud and business email compromise", 7, """
+<p><strong>Business email compromise (BEC)</strong> and invoice fraud are among the costliest cyber crimes for businesses, and they often need no malware at all. A criminal impersonates a supplier, customer or executive and asks for a payment or a change of bank details. Money sent to a fraudulent account is often impossible to recover.</p>
+<h3>Common scenarios</h3>
+<ul><li>A "supplier" emails to say its bank account has changed and asks that the next invoices be paid to the new account.</li>
+<li>An "executive" asks finance to make an urgent, confidential payment.</li>
+<li>A real supplier's email account has been hacked, and the fraudulent request comes from their genuine address in an existing email thread.</li>
+<li>An "employee" asks payroll to change the account where their pay is deposited.</li></ul>
+<h3>Controls that work</h3>
+<table><thead><tr><th>Control</th><th>How it works</th></tr></thead><tbody>
+<tr><td>Call-back verification</td><td>Any change to bank details is confirmed by phoning the supplier on a number already on file, never one given in the request</td></tr>
+<tr><td>Dual approval</td><td>Payments above a threshold, and all new or changed payees, need two people to approve</td></tr>
+<tr><td>Hold period</td><td>New or changed bank details take effect only after a short waiting period and confirmation</td></tr>
+<tr><td>MFA on email</td><td>Makes your own accounts harder to take over and use for fraud</td></tr>
+<tr><td>Clear policy</td><td>Staff know they will never be asked to bypass these steps, even by the owner</td></tr>
+</tbody></table>
+<h3>If it happens</h3>
+<p>Contact your bank immediately: the sooner they act, the better the chance of stopping or recovering the funds. Report to the police and the Canadian Anti-Fraud Centre, preserve the emails, and check whether your email account was compromised.</p>
+""", ["BEC and invoice fraud target payments and often use no malware.", "Verify bank detail changes by calling a number already on file; use dual approval.", "If money is sent, contact the bank immediately, then report and investigate."],
+ "Write a one-paragraph rule for changing supplier or employee bank details, including call-back verification and dual approval. Share it with everyone who handles payments.",
+ "A supplier emails new bank details for future payments. What should finance do?", ["Update the details right away", "Reply to the email to confirm the change", "Call the supplier on the number already on file to verify before changing anything", "Ask the supplier to send the request again by email"], 2,
+ "Verification must use a trusted channel independent of the request; replying to the email may reach the fraudster."),
+step("Remote work, devices and mobile phones", 7, """
+<p>Staff now work from home, job sites, hotels and phones. Each place and device is another way in if it is not managed.</p>
+<h3>Company devices</h3>
+<ul><li>Use <strong>device management</strong> to enforce updates, screen locks, disk encryption and the ability to wipe a lost device.</li>
+<li>Install endpoint protection on laptops as well as office desktops.</li>
+<li>Encrypt laptop drives so a stolen laptop does not mean stolen data.</li></ul>
+<h3>Personal devices</h3>
+<p>If staff use personal phones or computers for work, decide what is allowed. Many SMEs allow email and approved apps on personal phones through management tools that separate work data and can remove it without touching personal content. Avoid storing business files on unmanaged personal computers.</p>
+<h3>Remote access</h3>
+<ul><li>Use a VPN or a secure remote access service with MFA; never expose remote desktop directly to the internet.</li>
+<li>Prefer cloud services with strong authentication over remote access to office servers where practical.</li>
+<li>Remove remote access when staff or contractors no longer need it.</li></ul>
+<h3>Networks</h3>
+<ul><li>Home routers should have updated firmware and a strong, non-default password.</li>
+<li>Public Wi-Fi is risky for sensitive work; use the VPN or a phone hotspot.</li>
+<li>In the office, keep guest Wi-Fi separate from business systems.</li></ul>
+<h3>Lost or stolen devices</h3>
+<p>Make reporting a lost device immediate and easy. With device management, IT can lock or wipe it, and accounts can be signed out remotely. Check whether personal information was on the device, as this can trigger privacy obligations.</p>
+""", ["Manage company devices: updates, encryption, screen locks, remote wipe.", "Set clear rules for personal devices and keep business data in managed apps.", "Use VPN or secure remote access with MFA; report lost devices at once."],
+ "List every device that accesses business email or files, including personal phones. Mark which are managed, encrypted and can be wiped remotely.",
+ "Why encrypt laptop drives?", ["To make laptops faster", "To stop software updates", "It is required to use Wi-Fi", "So a lost or stolen laptop does not expose the data on it"], 3,
+ "Encryption protects data at rest if the device is lost or stolen."),
+step("IT providers, cloud services and suppliers", 7, """
+<p>Most SMEs rely on outside parties: a managed IT provider (MSP), cloud software, payment processors and suppliers who connect to their systems. Each brings expertise, and each is also a possible way in.</p>
+<h3>Managed IT providers</h3>
+<p>An MSP often has administrator access to many clients at once, which makes it a valuable target. Ask your provider:</p>
+<ul><li>Do you use MFA on all accounts that can access our systems, including your remote management tools?</li>
+<li>Who on your team has access to our systems, and how is it reviewed?</li>
+<li>How are our backups protected from deletion, and when was a restore last tested?</li>
+<li>What do you monitor, and who responds to alerts outside business hours?</li>
+<li>What will you do, and how fast, if we have an incident? Is incident response included or extra?</li></ul>
+<p>Put the answers in your contract or service agreement where you can.</p>
+<h3>Cloud services: shared responsibility</h3>
+<p>Cloud providers secure their infrastructure, but you are responsible for how you use it: user accounts, MFA, sharing settings, access permissions and, in many cases, backups of your own data. Misconfigured sharing, such as files shared publicly by link, is a common cause of data exposure.</p>
+<h3>Suppliers and partners</h3>
+<ul><li>Give third parties only the access they need, for as long as they need it.</li>
+<li>Require MFA for any external account on your systems.</li>
+<li>Ask key suppliers about their security, especially those handling your customers' data.</li>
+<li>Expect your larger customers to ask you the same questions; good basics help you win and keep contracts.</li></ul>
+""", ["MSPs and suppliers with access to your systems are possible ways in.", "Ask your IT provider about MFA, access, backups, monitoring and incident response.", "In the cloud, you remain responsible for accounts, settings and often backups."],
+ "Send your IT provider the five questions in this lesson and review the answers with them. Note any gaps and agree dates to close them.",
+ "In a cloud service, who is usually responsible for turning on MFA and managing sharing settings for your users?", ["Your business", "The cloud provider always does it automatically", "The internet service provider", "Nobody"], 0,
+ "Under shared responsibility, customers manage their own accounts, MFA and settings."),
+]
+
+M4 = [
+step("Your incident response plan", 7, """
+<p>When an incident hits, people panic, systems are down and decisions are needed fast. A short plan written in advance makes the difference between a bad week and a disaster.</p>
+<h3>What the plan should contain</h3>
+<table><thead><tr><th>Section</th><th>Content</th></tr></thead><tbody>
+<tr><td>Contacts</td><td>Incident lead and deputy, IT provider, cyber insurer's hotline, incident response firm, lawyer, bank, key customers and suppliers; printed and stored offline</td></tr>
+<tr><td>Roles</td><td>Who decides, who handles technical work, who communicates with staff, customers and media</td></tr>
+<tr><td>First steps</td><td>How to contain different incidents: ransomware, compromised email, lost device, payment fraud</td></tr>
+<tr><td>Communication</td><td>How to talk if email and phones are down; holding statements for staff and customers</td></tr>
+<tr><td>Legal and reporting</td><td>When to involve legal counsel, the insurer, police and privacy regulators</td></tr>
+<tr><td>Recovery</td><td>Priority order for restoring systems, linked to backup and restore procedures</td></tr>
+<tr><td>After the incident</td><td>Review what happened and improve controls</td></tr>
+</tbody></table>
+<h3>Keep it short and reachable</h3>
+<p>Two to five pages is enough for most SMEs. Keep printed copies at home and the office, and a copy on a phone, because the network may be unavailable during an incident. Include a simple decision tree for the first hour.</p>
+<h3>Practise it</h3>
+<p>Run a <strong>tabletop exercise</strong> once a year: gather the leadership team for 90 minutes, walk through a realistic scenario ("Monday 6 a.m., screens show a ransom note") and talk through each decision. Exercises reveal missing phone numbers, unclear authority and untested assumptions, cheaply and safely. The Cyber Centre and many insurers offer free scenarios.</p>
+<h3>Know your insurer's rules</h3>
+<p>Many cyber policies require you to call their hotline first and to use their approved response firms. Calling someone else first can affect coverage, so put the insurer's number at the top of the contact list.</p>
+""", ["Write a short plan with contacts, roles, first steps, communication and recovery order.", "Keep printed and phone copies; the network may be down.", "Run a tabletop exercise each year and follow your insurer's first-call rules."],
+ "Draft the contact page of your incident response plan today: names, roles and phone numbers, including your insurer's hotline. Print it and store a copy at home.",
+ "Why should the incident response plan be kept on paper and phones as well as on the network?", ["Paper is required by law", "During an incident the network, email and file shares may be unavailable", "Printers need regular use", "Phones are more secure than computers in all cases"], 1,
+ "Ransomware and other incidents can take down the systems where the plan is stored."),
+step("The first hours of a ransomware attack", 8, """
+<p>What you do in the first hours shapes how bad the incident becomes. The goals are to stop the spread, preserve evidence and get expert help quickly.</p>
+<h3>Do</h3>
+<ol><li><strong>Isolate affected devices:</strong> disconnect them from the network by unplugging network cables or turning off Wi-Fi. Do not switch them off unless your responders advise it, because memory can hold evidence and sometimes encryption keys.</li>
+<li><strong>Call your incident lead and your insurer's hotline</strong>, then the incident response firm and IT provider as the plan says.</li>
+<li><strong>Protect backups:</strong> make sure offline backups stay disconnected until responders confirm it is safe.</li>
+<li><strong>Preserve evidence:</strong> photograph ransom notes and screens, keep logs, and write down a timeline of what was seen and done.</li>
+<li><strong>Use out-of-band communication:</strong> phones or a separate messaging service, since attackers may be watching email.</li>
+<li><strong>Reset credentials</strong> from a clean device, starting with administrator and email accounts, as responders direct.</li></ol>
+<h3>Don't</h3>
+<ul><li>Don't wipe or rebuild systems before evidence is preserved and the entry point is understood; attackers may still be inside and reinfect restored systems.</li>
+<li>Don't contact the attackers or pay anything before talking to your insurer, responders and legal counsel.</li>
+<li>Don't announce details publicly before you understand the situation and have legal advice.</li></ul>
+<h3>Recovery in the right order</h3>
+<p>Responders will typically confirm the attacker has been removed, then restore in priority order: identity systems and core infrastructure first, then critical business systems, then the rest, checking each before reconnecting. Report the incident to the Cyber Centre and the police; they can sometimes share decryption tools or intelligence and use reports to warn others.</p>
+""", ["Isolate affected devices from the network; don't power off or wipe without advice.", "Call your incident lead and insurer, protect backups and preserve evidence.", "Restore in priority order only after the attacker has been removed."],
+ "Write a one-page 'first hour' checklist for ransomware based on this lesson and add it to your incident plan. Make sure every manager knows where it is.",
+ "Ransomware is spreading on a few computers. What is the best first action?", ["Wipe and reinstall all computers immediately", "Email all customers", "Pay the ransom to stop the spread", "Disconnect the affected devices from the network"], 3,
+ "Isolating devices stops the spread while preserving evidence for responders."),
+step("Should you pay a ransom?", 7, """
+<p>Paying a ransom is one of the hardest decisions a business can face. Canadian authorities, including the Cyber Centre and the RCMP, discourage paying. The decision ultimately rests with the business, but it should never be made alone or in a hurry.</p>
+<h3>Reasons not to pay</h3>
+<ul><li><strong>No guarantee:</strong> decryption tools may be slow, faulty or never delivered; stolen data may still be published or sold.</li>
+<li><strong>Repeat targeting:</strong> organizations that pay may be seen as willing to pay again.</li>
+<li><strong>Funding crime:</strong> payments fund further attacks.</li>
+<li><strong>Legal risk:</strong> paying a group subject to sanctions can be unlawful; legal advice is essential.</li>
+<li><strong>Recovery is still needed:</strong> even with a working key, systems must be cleaned, rebuilt and secured.</li></ul>
+<h3>Why some businesses consider it</h3>
+<p>When backups were destroyed or never existed and the business cannot survive weeks of downtime, owners may feel they have no choice. This is exactly why tested, offline backups matter: they turn a desperate decision into a recovery project.</p>
+<h3>If the question arises</h3>
+<ul><li>Involve your insurer, legal counsel and incident response firm before any contact with attackers.</li>
+<li>Check what your backups can recover and how long it would take, so the choice is based on facts.</li>
+<li>Report the incident to the police and the Cyber Centre whatever you decide.</li>
+<li>Remember that payment does not remove legal duties, such as notifying people whose data was stolen.</li></ul>
+<p>The best answer to this question is to make sure you never have to ask it.</p>
+""", ["Canadian authorities discourage paying ransoms; payment guarantees nothing.", "Paying can carry legal risk and does not remove recovery work or notification duties.", "Tested offline backups are what make 'don't pay' a realistic choice."],
+ "Ask yourself honestly: if ransomware struck tonight, could you recover without paying? List what would need to be true, and what to fix if the answer is no.",
+ "Even if a ransom is paid and a working decryption key arrives, what still applies?", ["Nothing; the incident is over", "The insurer must refund all costs", "Systems must still be cleaned and rebuilt, and legal duties such as breach notification remain", "The attackers will return the stolen data permanently"], 2,
+ "Payment does not remove the attacker's access, the need for recovery or legal obligations."),
+step("Breach notification and legal duties in Canada", 7, """
+<p>If an incident involves personal information, privacy law may require you to report it and to notify the people affected. Understanding the basics in advance helps you act correctly under pressure.</p>
+<h3>Federal law: PIPEDA</h3>
+<p>Under the Personal Information Protection and Electronic Documents Act, which applies to many private-sector organizations in Canada, an organization must:</p>
+<ul><li><strong>Report</strong> to the Office of the Privacy Commissioner of Canada any breach of security safeguards involving personal information under its control if it is reasonable to believe the breach creates a <strong>real risk of significant harm</strong> to an individual.</li>
+<li><strong>Notify affected individuals</strong> in those cases, as soon as feasible, with enough information to understand the harm and protect themselves.</li>
+<li><strong>Notify other organizations</strong> that may be able to reduce the harm, such as banks.</li>
+<li><strong>Keep a record of every breach</strong> of security safeguards, whether or not it was reportable, for at least 24 months.</li></ul>
+<p>Significant harm includes things like identity theft, financial loss, humiliation and damage to reputation. The assessment considers how sensitive the information is and how likely it is to be misused.</p>
+<h3>Provincial laws</h3>
+<p>Some provinces have their own private-sector privacy laws with their own breach rules, such as Quebec's private-sector law as amended by Law 25 and Alberta's Personal Information Protection Act. Public bodies and health information are often covered by separate laws. Which law applies depends on where you operate and what information is involved.</p>
+<h3>Contracts</h3>
+<p>Customer contracts may require you to notify them of security incidents within a set time, sometimes 24 to 72 hours. Check your key contracts now, not during an incident.</p>
+<p>This lesson is general information, not legal advice. Involve a lawyer with privacy experience as soon as an incident might involve personal information.</p>
+""", ["PIPEDA requires reporting breaches with a real risk of significant harm and notifying affected people.", "Keep a record of every breach for at least 24 months.", "Provincial laws and customer contracts can add requirements; get legal advice early."],
+ "Find out which privacy laws apply to your business and check your three largest customer contracts for incident notification requirements. Add both to your incident plan.",
+ "Under PIPEDA, how long must records of breaches of security safeguards be kept?", ["30 days", "6 months", "At least 24 months", "Only until the breach is fixed"], 2,
+ "PIPEDA requires organizations to keep records of all breaches of security safeguards for at least 24 months."),
+]
+
+M5 = [
+step("Cyber insurance", 7, """
+<p>Cyber insurance can cover costs such as incident response, legal advice, notification, data recovery, business interruption and, in some policies, fraud losses. It also gives access to experienced responders through the insurer's hotline, which many SMEs could not arrange on their own at short notice.</p>
+<h3>Insurers expect the basics</h3>
+<p>Application forms and renewals increasingly ask detailed questions, and some insurers scan applicants' internet-facing systems. Common requirements include:</p>
+<ul><li>MFA on email, remote access and administrator accounts.</li>
+<li>Offline or immutable backups that are tested.</li>
+<li>Endpoint detection and response on computers and servers.</li>
+<li>Prompt patching and no exposed remote desktop.</li>
+<li>Security awareness training and payment verification procedures.</li>
+<li>An incident response plan.</li></ul>
+<p>Answer truthfully: an inaccurate answer on an application can put a claim at risk. If you cannot answer yes to a requirement, fixing it often improves both your security and your premium.</p>
+<h3>Read the policy</h3>
+<ul><li>What is covered: response, business interruption, extortion, data restoration, fraud, regulatory costs?</li>
+<li>Limits and sub-limits for each type of loss, and the deductible or waiting period for business interruption.</li>
+<li>Exclusions, for example for unpatched known vulnerabilities, war or state-sponsored attacks, or social engineering fraud unless specifically added.</li>
+<li>Who you must call first, and whether you must use approved vendors.</li></ul>
+<p>Work with a broker who understands cyber policies, and check how cyber cover interacts with your other insurance. Insurance transfers part of the financial risk; it does not replace the controls that prevent incidents.</p>
+""", ["Cyber insurance covers response, recovery and interruption costs and provides expert help.", "Insurers expect MFA, tested offline backups, EDR, patching and training.", "Answer applications truthfully and read limits, exclusions and first-call rules."],
+ "Review your cyber insurance application or policy against the six common requirements. List any you cannot honestly answer yes to and plan how to close them.",
+ "Why must cyber insurance applications be answered accurately?", ["Inaccurate answers can put a future claim at risk", "Insurers never check answers", "Accurate answers always lower the premium", "It is required for the business licence"], 0,
+ "Misstatements on an application can lead to a claim being disputed or denied."),
+step("Frameworks and certification for SMEs", 7, """
+<p>Frameworks give you a structured checklist so you do not have to invent a security program from scratch. Three are especially useful for Canadian SMEs.</p>
+<table><thead><tr><th>Framework</th><th>What it is</th><th>Good for</th></tr></thead><tbody>
+<tr><td>Cyber Centre baseline cyber security controls for small and medium organizations</td><td>Free Canadian guidance listing a prioritized set of practical controls</td><td>A starting checklist sized for SMEs</td></tr>
+<tr><td>CyberSecure Canada</td><td>A federal certification program for small and medium organizations based on the baseline controls</td><td>Showing customers and partners that you meet a recognized standard</td></tr>
+<tr><td>NIST Cybersecurity Framework (CSF) 2.0</td><td>A widely used framework organized into six functions: Govern, Identify, Protect, Detect, Respond and Recover</td><td>Organizing a growing program and talking with larger customers</td></tr>
+</tbody></table>
+<h3>The six functions in plain language</h3>
+<ul><li><strong>Govern:</strong> someone owns cyber risk, with policies, roles and a budget.</li>
+<li><strong>Identify:</strong> know your assets, data, suppliers and risks.</li>
+<li><strong>Protect:</strong> MFA, patching, backups, training, access control.</li>
+<li><strong>Detect:</strong> monitoring and alerts that someone acts on.</li>
+<li><strong>Respond:</strong> the incident plan, contacts and first steps.</li>
+<li><strong>Recover:</strong> tested restores and lessons learned.</li></ul>
+<h3>Larger customers will ask</h3>
+<p>Manufacturers, distributors and service firms supplying large companies or governments increasingly receive security questionnaires or contract clauses requiring specific controls or certifications. Defence supply chains have their own, stricter requirements. Having a framework-based program, with evidence, turns these questionnaires from a scramble into a routine task.</p>
+<p>Pick one framework, use it as your checklist and review progress every quarter. Check the Funding page on this site for programmes that may help SMEs pay for technology and cybersecurity projects, and confirm eligibility with each programme.</p>
+""", ["Use a framework as your checklist rather than inventing one.", "The Cyber Centre baseline controls and CyberSecure Canada suit Canadian SMEs.", "NIST CSF 2.0 organizes a program into Govern, Identify, Protect, Detect, Respond and Recover."],
+ "Download the Cyber Centre's baseline controls for small and medium organizations and mark each control as done, partly done or not started.",
+ "Which NIST CSF 2.0 function covers having someone accountable for cyber risk, with policies and a budget?", ["Detect", "Recover", "Protect", "Govern"], 3,
+ "Govern covers ownership, policy, roles and resources for managing cyber risk."),
+step("Setting priorities and a realistic budget", 7, """
+<p>No SME can do everything at once. Prioritize the controls that stop the most common attacks for the least effort, then build up.</p>
+<h3>A practical priority order</h3>
+<table><thead><tr><th>Priority</th><th>Control</th><th>Why first</th></tr></thead><tbody>
+<tr><td>1</td><td>MFA on email, remote access, admin and banking</td><td>Blocks most attacks that use stolen passwords</td></tr>
+<tr><td>2</td><td>Offline or immutable backups, tested</td><td>Makes recovery possible without paying</td></tr>
+<tr><td>3</td><td>Patch internet-facing systems; remove exposed remote desktop</td><td>Closes the doors attackers scan for</td></tr>
+<tr><td>4</td><td>Endpoint detection and response with someone watching alerts</td><td>Catches attacks in progress</td></tr>
+<tr><td>5</td><td>Payment verification rules</td><td>Stops costly fraud that needs no malware</td></tr>
+<tr><td>6</td><td>Awareness training and phishing simulations</td><td>Reduces clicks and speeds reporting</td></tr>
+<tr><td>7</td><td>Least privilege and admin account separation</td><td>Limits damage from a compromised account</td></tr>
+<tr><td>8</td><td>Incident response plan and tabletop exercise</td><td>Makes the worst day manageable</td></tr>
+</tbody></table>
+<h3>Thinking about cost</h3>
+<p>Several of these cost little beyond time: MFA is included in most business email and cloud services; payment verification is a procedure; an incident plan is a few pages. Others, such as EDR, monitoring, backup services and training platforms, are usually priced per user or per device per month. Ask your IT provider for a quote per item, and compare the total yearly cost with your estimate of a week of downtime from the earlier lab.</p>
+<h3>Assign ownership</h3>
+<p>Name one person in the business as accountable for cyber risk, even if the technical work is done by an outside provider. Review progress at a management meeting each quarter, using a short scorecard: percentage of accounts with MFA, last restore test date, patch status of internet-facing systems, phishing simulation results and open actions.</p>
+""", ["Prioritize MFA, tested offline backups and patching of internet-facing systems.", "Many top controls cost little beyond time; compare spending with your downtime estimate.", "Name an accountable owner and review a short scorecard quarterly."],
+ "Score your business against the eight priorities. For the first two that are not done, write the action, owner, cost estimate and date.",
+ "Which control usually gives the most protection for the least cost?", ["MFA on email, remote access, admin and banking accounts", "A new office building", "A larger monitor for the IT person", "Annual hour-long training only"], 0,
+ "MFA is often included in existing services and blocks most attacks that rely on stolen passwords."),
+step("Your 90-day cybersecurity plan", 7, """
+<p>A focused 90-day plan gets the most important controls in place and builds the habits to keep improving.</p>
+<table><thead><tr><th>Days</th><th>Focus</th><th>Actions</th></tr></thead><tbody>
+<tr><td>1–30</td><td>Lock the doors</td><td>Turn on MFA for email, remote access, admin and banking; set payment verification rules; list assets and internet-facing systems; check backups include an offline or immutable copy</td></tr>
+<tr><td>31–60</td><td>Detect and recover</td><td>Patch or replace internet-facing systems; deploy EDR with monitoring; remove unneeded admin rights; test a full restore of a critical system; start monthly awareness topics and a reporting button</td></tr>
+<tr><td>61–90</td><td>Prepare and govern</td><td>Write the incident response plan and contact sheet; run a tabletop exercise; review cyber insurance; ask your IT provider the key questions; set up the quarterly scorecard</td></tr>
+</tbody></table>
+<h3>Measures to track</h3>
+<ul><li>Share of accounts with MFA (target: 100% for email, remote access and admins).</li>
+<li>Date and duration of the last successful restore test.</li>
+<li>Internet-facing systems fully patched and supported.</li>
+<li>Devices with EDR installed and reporting.</li>
+<li>Phishing simulation click and report rates.</li></ul>
+<h3>Keep going</h3>
+<p>After 90 days, use the Cyber Centre baseline controls or the NIST functions to choose the next steps, and consider CyberSecure Canada certification if customers ask for evidence. Security is not a project with an end date: threats change, staff change and systems change, so the quarterly review is what keeps you protected.</p>
+<p>Use the self-assessment lab after this lesson to see your strengths and gaps across eight areas, and retake it at the end of your 90-day plan.</p>
+""", ["Days 1–30: MFA, payment rules, asset list and backup check.", "Days 31–60: patching, EDR, admin rights, restore test and awareness.", "Days 61–90: incident plan, tabletop, insurance review and quarterly scorecard."],
+ "Put the 90-day plan in your calendar with an owner for each action, and book the first quarterly review now.",
+ "Which actions belong in the first 30 days of the plan?", ["Turning on MFA and setting payment verification rules", "CyberSecure Canada certification", "A tabletop exercise with all staff", "Replacing every computer"], 0,
+ "MFA and payment verification are quick, high-impact controls that should come first."),
+]
+
+course = dict(
+ id="cybersecurity-and-ransomware-basics-for-smes",
+ title="Cybersecurity and Ransomware Basics for SMEs",
+ tagline="Protect your business from ransomware, phishing and payment fraud with practical controls, a tested recovery plan and clear priorities.",
+ summary="A practical cybersecurity course for owners, managers and the people who look after IT in small and mid-sized businesses. You will learn how attacks get in and how ransomware unfolds, then put the core controls in place: multi-factor authentication, patching, backups that survive ransomware, endpoint protection and least privilege. It covers awareness training, payment fraud, remote work and IT providers, incident response and the first hours of an attack, the ransom decision, Canadian breach notification duties, cyber insurance, frameworks such as the Cyber Centre baseline controls and NIST CSF 2.0, and a 90-day plan. It is general guidance, not legal or specialist technical advice.",
+ audience=["Owners and general managers of small and mid-sized businesses",
+           "Office, finance and operations managers who handle payments, data and staff",
+           "The person who looks after IT, internally or alongside an outside provider",
+           "Anyone preparing for a cyber insurance application or a customer security questionnaire"],
+ outcomes=["Explain how attacks get in, how ransomware unfolds and what an incident costs",
+           "Put MFA, patching, tested offline backups, EDR and least privilege in place",
+           "Build a reporting culture and stop payment fraud with verification rules",
+           "Manage remote work, devices, IT providers and cloud services securely",
+           "Prepare an incident response plan and know the first steps in a ransomware attack",
+           "Meet Canadian breach duties, prepare for cyber insurance and run a 90-day plan"],
+ modules=[
+  dict(title="The Threat", summary="Why SMEs are targets, how attacks get in, how ransomware unfolds and what an incident costs.", steps=M1),
+  dict(title="Core Controls", summary="Multi-factor authentication and passwords, patching and secure setup, ransomware-resistant backups, endpoint protection and least privilege.", steps=M2),
+  dict(title="People, Payments and Partners", summary="Security awareness that works, stopping payment fraud, remote work and devices, and IT providers, cloud services and suppliers.", steps=M3),
+  dict(title="Prepare and Respond", summary="Incident response plans, the first hours of a ransomware attack, the ransom decision and breach notification duties in Canada.", steps=M4),
+  dict(title="Build Your Program", summary="Cyber insurance, frameworks and certification, priorities and budget, and a 90-day plan.", steps=M5)],
+ labs=[
+  dict(id="cyber-phish-or-legit", type="classify", title="Safe, verify first, or phishing?", after_step=2,
+       intro="Sort twelve messages a small business might receive into safe, verify first through a trusted channel, or report as phishing. Then check your answers.",
+       config=dict(categories=["Safe to act on", "Verify first", "Report as phishing"], items=[
+        dict(text="A meeting invitation from a colleague for the weekly team meeting you always attend", answer=0, why="An expected message from a known colleague with no request to log in, pay or change anything is low risk."),
+        dict(text="Your own reminder email from the shared calendar about tomorrow's delivery", answer=0, why="A system message you set up yourself, with no link to log in or pay, is safe."),
+        dict(text="A shipping notice for an order you placed yesterday, viewed by logging into the carrier's site you bookmarked", answer=0, why="Using your own bookmark rather than an email link avoids look-alike sites."),
+        dict(text="A long-time supplier emails that its bank account has changed for future invoices", answer=1, why="Bank detail changes must be verified by calling a number already on file, even when the sender looks genuine."),
+        dict(text="An employee asks payroll by email to change the account for their pay deposit", answer=1, why="Payroll diversion is a common fraud; confirm in person or by a known phone number."),
+        dict(text="Your CEO texts from an unknown number asking for an urgent wire transfer", answer=1, why="Verify through the CEO's known number or in person; never act on an unusual payment request from a new channel."),
+        dict(text="A customer emails a shared document link for an order you were expecting, from their usual address", answer=1, why="Expected but involving a link: check the link destination, and confirm with the customer if anything looks off, since their account could be compromised."),
+        dict(text="An email says your Microsoft 365 password expires today and asks you to log in through a link", answer=2, why="Urgent password-expiry messages with login links are classic credential phishing."),
+        dict(text="A 'courier' message says a parcel is held and asks for a small fee by card", answer=2, why="Small-fee delivery scams aim to steal card details."),
+        dict(text="An unexpected invoice attachment from a company you have never dealt with", answer=2, why="Unexpected attachments from unknown senders are a common way to deliver malware."),
+        dict(text="An MFA approval prompt on your phone when you are not logging in", answer=2, why="An unexpected MFA prompt means someone has your password; deny it and report it immediately."),
+        dict(text="A message from 'IT support' asking you to install remote access software so they can fix a problem you did not report", answer=2, why="Unsolicited remote support requests are a common way attackers gain control."),
+       ])),
+  dict(id="cyber-downtime-cost", type="calc", title="What a week offline would cost", after_step=4,
+       intro="Enter your revenue, margin, staffing and recovery estimates to see what a cyber incident that stops your systems would cost.",
+       config=dict(calc="cyber_downtime", note="An estimate only. Real incidents can also bring legal, notification, fraud and reputation costs not counted here. Use it to compare with the yearly cost of the basic controls.")),
+  dict(id="cyber-readiness-check", type="assessment", title="Your cyber readiness self-assessment", after_step=20,
+       intro="Rate your business on eight areas of basic cyber readiness. The radar chart shows strengths and gaps, with a next step for each area. Retake it at the end of your 90-day plan.",
+       config=dict(scale=["Not started", "Ad hoc", "Defined", "Managed", "Optimized"], dimensions=[
+        dict(name="MFA and passwords", question="Is MFA on for email, remote access, admin and banking, with a password manager in use?", low="Turn on MFA for email and remote access this week, then admin and banking accounts.", high="Move administrators to phishing-resistant methods such as security keys or passkeys."),
+        dict(name="Patching and assets", question="Do you know your internet-facing systems and keep them patched and supported?", low="List your internet-facing systems and patch or replace any that are out of date.", high="Track patch status in a quarterly scorecard and automate updates wherever possible."),
+        dict(name="Backups and recovery", question="Do you have an offline or immutable backup and a recently tested full restore?", low="Confirm one backup is offline or immutable and schedule a full restore test.", high="Test restores twice a year against agreed recovery targets and document the steps."),
+        dict(name="Endpoint and email protection", question="Do all devices have EDR, with alerts watched, and is email filtered and authenticated?", low="Deploy EDR on all computers and servers and agree who watches alerts.", high="Consider 24/7 managed detection and response and review DMARC reports."),
+        dict(name="Access and admin rights", question="Do people have only the access they need, with separate admin accounts?", low="Remove unneeded admin rights and give administrators separate accounts.", high="Review access by role every quarter and when people change jobs or leave."),
+        dict(name="People and payments", question="Do staff get regular awareness training, and are payment changes always verified?", low="Set a call-back rule for bank detail changes and start a monthly 5-minute topic.", high="Run phishing simulations and celebrate fast reporting."),
+        dict(name="Incident readiness", question="Do you have a printed incident plan with contacts, and have you practised it?", low="Write the contact sheet and first-hour checklist, and print copies.", high="Run a tabletop exercise each year and update the plan after it."),
+        dict(name="Governance and suppliers", question="Is someone accountable for cyber risk, with insurance reviewed and IT providers questioned?", low="Name an accountable owner and ask your IT provider the five key questions.", high="Use a framework such as the Cyber Centre baseline controls and consider certification."),
+       ])),
+ ],
+ figures=[
+  dict(step=3, type="flow", title="How a ransomware attack unfolds", caption="Click each stage. Attackers often spend days inside before encrypting, which gives chances to stop them.",
+       config=dict(steps=[
+        dict(label="Get in", text="Phishing, stolen password, exposed remote access or unpatched system."),
+        dict(label="Explore", text="Quietly map the network, often for days or weeks."),
+        dict(label="Escalate", text="Obtain administrator accounts to control more systems."),
+        dict(label="Steal and destroy", text="Copy sensitive data out and delete connected backups."),
+        dict(label="Encrypt and demand", text="Encrypt systems, often overnight or at a weekend, and leave a ransom note.")])),
+  dict(step=4, type="bars", title="Example: cost of one week offline", caption="Illustrative incident for a business with $5 million revenue, using the lab's default inputs. Downtime-related costs exceed the direct recovery bill.",
+       config=dict(unit="CA$", items=[dict(label="Lost gross margin", value=29400), dict(label="Staff unable to work", value=29400), dict(label="Response and recovery", value=40000, highlight=True)],
+        note="In this example a seven-day outage costs about $98,800 before any legal, notification or reputation costs.")),
+  dict(step=7, type="compare", title="Backups attackers can reach vs backups that survive", caption="Toggle between the two set-ups and see why one survives a ransomware attack.",
+       config=dict(left=dict(title="Always-connected backup", points=["Backup drive or server on the same network", "Managed with everyday admin accounts", "Deleted or encrypted along with production systems", "Restore never tested"]),
+                   right=dict(title="Offline or immutable backup", points=["One copy disconnected or locked against changes", "Separate credentials with MFA", "Survives the attack intact", "Restores tested and timed regularly"]))),
+  dict(step=8, type="stack", title="Layers of defence", caption="Click each layer, from the bottom up. Each catches what gets past the layer below.",
+       config=dict(top_label="An attack stopped or contained", layers=[
+        dict(label="Know your assets", text="An inventory of devices, systems, data and internet-facing services."),
+        dict(label="MFA and patching", text="Stolen passwords and known flaws stop working as ways in."),
+        dict(label="Email and web filtering", text="Most phishing and malicious sites are blocked before anyone sees them."),
+        dict(label="EDR and least privilege", text="Suspicious behaviour is caught and compromised accounts have limited reach."),
+        dict(label="Offline backups and a plan", text="If all else fails, you can recover without paying.")])),
+  dict(step=18, type="cycle", title="The six functions of NIST CSF 2.0", caption="Click each function to see what it means for a small business.",
+       config=dict(center="Govern", stages=[
+        dict(label="Govern", text="Someone owns cyber risk, with policies, roles and a budget."),
+        dict(label="Identify", text="Know your assets, data, suppliers and risks."),
+        dict(label="Protect", text="MFA, patching, backups, training and access control."),
+        dict(label="Detect", text="Monitoring and alerts that someone acts on."),
+        dict(label="Respond", text="The incident plan, contacts and first steps."),
+        dict(label="Recover", text="Tested restores and lessons learned.")])),
+  dict(step=20, type="timeline", title="A 90-day cybersecurity plan", caption="Click each phase to see its main actions.",
+       config=dict(phases=[
+        dict(label="Days 1–30", title="Lock the doors", items=["MFA on email, remote access, admin, banking", "Payment verification rules", "Asset list and internet-facing systems", "Check for an offline backup"]),
+        dict(label="Days 31–60", title="Detect and recover", items=["Patch or replace exposed systems", "EDR with monitoring", "Remove unneeded admin rights", "Full restore test", "Monthly awareness topics"]),
+        dict(label="Days 61–90", title="Prepare and govern", items=["Incident plan and contact sheet", "Tabletop exercise", "Insurance and IT provider review", "Quarterly scorecard"])])),
+ ],
+ exam=[
+  E("Why are SMEs frequently hit by cyber attacks?", ["Attacks are mostly automated and opportunistic, finding weak systems regardless of size", "Only small firms are connected to the internet", "Large firms are never targeted", "SMEs are legally required to keep systems open"], 0, "Automated scanning and mass phishing hit any organization with weak basics."),
+  E("Which is a common sign of a phishing email?", ["A message you expected from a colleague", "Urgency combined with a request to log in, pay or open a file", "A newsletter you subscribed to", "A calendar invitation you created"], 1, "Urgency plus a request to act is a classic phishing pattern."),
+  E("What usually happens before ransomware encrypts systems?", ["Nothing; encryption is instant on entry", "The attacker notifies the police", "The attacker explores the network, escalates privileges, steals data and destroys backups", "The software asks the user for permission"], 2, "Attacks unfold in stages, often over days, before encryption."),
+  E("What is usually the largest cost of a ransomware incident for an SME?", ["The ransom note printing", "Software licences", "Training fees", "Downtime: lost sales, idle staff and recovery time"], 3, "Business interruption usually dominates the cost."),
+  E("Which form of MFA is generally strongest against phishing?", ["Security keys or passkeys", "Text-message codes", "Security questions", "Email codes"], 0, "Phishing-resistant methods cannot be captured by a fake login page."),
+  E("You receive an MFA prompt on your phone when you are not logging in. What should you do?", ["Approve it to stop the notifications", "Deny it, report it and change your password", "Ignore it permanently", "Turn off MFA"], 1, "An unexpected prompt means someone has your password."),
+  E("Which systems should be patched first?", ["Spare laptops in a cupboard", "Internal test machines", "Internet-facing systems such as VPNs and firewalls with known exploited flaws", "The office TV"], 2, "Internet-facing systems are scanned and attacked automatically."),
+  E("What does the '1' in the updated 3-2-1 backup rule refer to?", ["One backup per year", "One person responsible", "One cloud provider", "One copy kept offline or immutable"], 3, "At least one copy must be beyond the reach of an attacker on the network."),
+  E("Why should full restores be tested and timed?", ["A backup never restored is only a hope, and restore time is part of your downtime", "Insurers ban restore tests", "Testing deletes old backups", "It is only needed for cloud data"], 0, "Testing proves recovery works and tells you how long it takes."),
+  E("What is least privilege?", ["Giving everyone admin rights to save time", "Giving people and systems only the access they need", "Removing all passwords", "Allowing only managers to use email"], 1, "Limiting access limits the damage from a compromised account."),
+  E("What is EDR?", ["A type of firewall cable", "An email archive", "Endpoint detection and response, which monitors devices for suspicious behaviour and can isolate them", "A backup format"], 2, "EDR detects and responds to malicious behaviour on endpoints."),
+  E("Which message is the most important in security awareness?", ["Never use email", "Only IT staff need training", "Mistakes are punished", "If you clicked something suspicious, report it immediately"], 3, "Fast reporting enables containment before damage spreads."),
+  E("A supplier emails new bank details. What is the correct control?", ["Call the supplier on a number already on file to verify before changing anything", "Reply to the email to confirm", "Change the details and pay as usual", "Ask for the request again by email"], 0, "Verification must use an independent, trusted channel."),
+  E("Under the shared responsibility model in cloud services, who manages your users' MFA and sharing settings?", ["The cloud provider entirely", "Your business", "The government", "Your bank"], 1, "Customers are responsible for their own accounts and settings."),
+  E("Why do many cyber insurers require you to call their hotline first?", ["To sell more policies", "Because responders are optional", "To provide approved responders and protect coverage", "To delay the response"], 2, "Policies often require using the insurer's hotline and approved vendors."),
+  E("Ransomware is spreading on several computers. What is the best first action?", ["Pay the ransom quickly", "Wipe every computer immediately", "Post about it on social media", "Disconnect affected devices from the network"], 3, "Isolation stops the spread while preserving evidence."),
+  E("What is the position of Canadian authorities such as the Cyber Centre and RCMP on paying ransoms?", ["They discourage paying", "They require paying", "They reimburse payments", "They have no position"], 0, "Authorities discourage payment, which guarantees nothing and funds crime."),
+  E("Under PIPEDA, when must a breach be reported to the Privacy Commissioner of Canada?", ["Only if it makes the news", "When it is reasonable to believe it creates a real risk of significant harm to an individual", "Only if more than 10,000 people are affected", "Never; reporting is voluntary"], 1, "The real risk of significant harm test triggers reporting and notification."),
+  E("Which NIST CSF 2.0 function covers tested restores and lessons learned after an incident?", ["Identify", "Detect", "Recover", "Govern"], 2, "Recover covers restoring operations and improving afterwards."),
+  E("Which pair of actions belongs in the first 30 days of a 90-day cyber plan?", ["Certification and a full network redesign", "Replacing all computers and hiring a CISO", "A tabletop exercise and an insurance review", "Turning on MFA and setting payment verification rules"], 3, "MFA and payment verification are quick, high-impact first steps."),
+ ],
+)
+
+if __name__ == "__main__":
+    write(course, "cybersecurity-ransomware", __file__)

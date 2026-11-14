@@ -38,6 +38,8 @@ CARDS = {
                                  icon='<path d="M3 8l9-5 9 5v10l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v10"/>'),
     "oee-equipment-effectiveness": dict(after="inventory-management-for-smes",
                                         icon='<circle cx="12" cy="13" r="8"/><path d="M12 13l4-4M12 3v2M4 13H2M22 13h-2"/>'),
+    "cybersecurity-ransomware": dict(after="e385a42b-5aaf-457f-9957-e8d19fee8cc0",
+                                     icon='<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>'),
     "feed-process-design": dict(after="oee-equipment-effectiveness",
                                 icon='<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/>'),
 }

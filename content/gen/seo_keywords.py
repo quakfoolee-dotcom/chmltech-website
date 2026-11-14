@@ -128,7 +128,7 @@ KEYWORDS = {
         title="Free Online Courses: AI, Lean & Operations | Chmltech",
         h1="Free online courses in AI, Lean and operational excellence",
         slogan="",
-        desc="Free interactive online courses on AI for business, LLMs, AI agents, Lean Six Sigma, OEE, inventory management and FEED, with labs, exams and certificates."),
+        desc="Free interactive online courses on AI for business, LLMs, AI agents, Lean Six Sigma, OEE, inventory, cybersecurity and FEED, with labs, exams and certificates."),
     "insights.html": dict(
         title="Articles on AI, Lean & Process Engineering | Chmltech",
         h1="Articles on AI, Lean, process engineering and operations",
