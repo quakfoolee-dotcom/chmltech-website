@@ -63,7 +63,7 @@ PAGES = {
        ("Will AI replace our staff?", "Our focus is removing repetitive work so people can spend time on judgement, customers and improvement. We design human review into any process where decisions matter."),
        ("How do you handle privacy and security?", "We follow privacy-by-design: data minimisation, approved tools, access controls and audit trails, aligned with Canadian privacy requirements such as PIPEDA."),
        ("Can you help us build chatbots?", "Yes. We design, build and implement chatbots and assistants grounded in your own knowledge base, with clear hand-off to your team.")],
-  courses=["ai-awareness-for-everyone", "llms-for-business-leaders", "ai-agents-for-business-operations", "e676eeeb-ed5f-40e1-b4c7-e287da77981b"],
+  courses=["prompting-and-ai-productivity", "llms-for-business-leaders", "ai-agents-for-business-operations", "private-and-local-ai-for-smes"],
   cats=["artificial-intelligence", "digital-technology"],
  ),
  "business-process-optimization": dict(
@@ -109,7 +109,7 @@ PAGES = {
        ("Do we need new software?", "Not necessarily. We optimize the process first. Sometimes existing systems are enough once the process is fixed; where automation helps, we automate the improved process, not the old one."),
        ("How do you make changes stick?", "We involve the people who do the work, define clear roles and measures, and build change management and monitoring into the project so teams don't revert to old habits."),
        ("Which processes should we start with?", "Usually a process that is visibly painful, frequent and important to customers or cash flow. We help you choose using value, effort and risk.")],
-  courses=["digital-automation-for-smes", "e385a42b-5aaf-457f-9957-e8d19fee8cc0", "91ca0386-ec82-483d-8ec7-d6b13f02a0b5", "b4b6581a-31f8-43f9-8796-268c83448b9f"],
+  courses=["digital-automation-for-smes", "choosing-erp-and-business-software", "e385a42b-5aaf-457f-9957-e8d19fee8cc0", "data-and-dashboards-for-smes"],
   cats=["process-improvement", "lean"],
  ),
  "process-improvement": dict(

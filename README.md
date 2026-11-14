@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.5** (see `CHANGELOG.md`).
+Version: **V5.6** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -23,7 +23,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `404.html` | Not-found page |
 | `post/*.html` | Insights articles (one file per article, same address as on Wix). The Chmltech Online Journal papers use a research-paper layout (`assets/css/journal.css`; content: `content/journal/*.json`). |
 | `<industry>.html`, `<solution>.html` | Industry and solution detail pages (for example `manufacturing.html`, `scaling-up.html`) |
-| `challenge-page/*.html` | The 23 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`, newer courses written in `content/courses/src/*.py`; page renderer: `content/gen/course_page.py`; to add a course: write its JSON, add it to `content/courses/finder.json` and `CARDS` in `content/gen/add_course.py`, then run `python3 content/gen/add_course.py . <name>` and `seo_pass.py`) |
+| `challenge-page/*.html` | The 24 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`, newer courses written in `content/courses/src/*.py`; page renderer: `content/gen/course_page.py`; to add a course: write its JSON, add it to `content/courses/finder.json` and `CARDS` in `content/gen/add_course.py`, then run `python3 content/gen/add_course.py . <name>` and `seo_pass.py`) |
 | `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 | `assets/css/oee.css`, `assets/js/oee.js` | Styles and the three slider calculators (with live charts) used by the OEE article series. The FEED series (`content/articles/feed_articles.py`) reuses the table and layout styles from `oee.css` |
