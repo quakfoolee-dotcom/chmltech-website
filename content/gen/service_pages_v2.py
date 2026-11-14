@@ -58,7 +58,7 @@ PAGES = {
        ("Do we need a quality manual?", "No. ISO 9001 has not required a quality manual since the 2015 edition. You need a defined scope, a quality policy, objectives and the records that show the system works."),
        ("Can you certify us?", "No. Certification is carried out by an independent, accredited certification body. We help you prepare and can help you choose one."),
        ("We are certified to the 2015 edition. What now?", "Plan your transition for a scheduled audit before 30 September 2029. Our transition plan article sets out the steps.")],
-  courses=[COURSE_OPEX, COURSE_5S, COURSE_PROJECT, COURSE_WORKFLOW],
+  courses=["iso-9001-quality-management-basics", "lean-six-sigma-foundations", "b4b6581a-31f8-43f9-8796-268c83448b9f", "ac58bd83-591d-4c25-9aac-71755f469d3c"],
   cats=["iso"],
  ),
 
