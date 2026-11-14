@@ -275,6 +275,38 @@
         return [['Requests per month', fmt(reqs, 0)], ['Tokens per month', fmt((tin + tout) / 1e6, 1) + ' million'], ['Cost per request', '$' + fmt(per, 4)], ['Estimated monthly cost', cost < 1000 ? '$' + fmt(cost, 2) : money(cost)]];
       }
     },
+    sigma: {
+      inputs: [['units', 'Units (or transactions) checked', 2000, 1], ['opps', 'Defect opportunities per unit', 4, 1], ['defects', 'Defects found', 46, 1]],
+      calc: function (v) {
+        var opp = v.units * v.opps, dpmo = opp ? v.defects / opp * 1e6 : 0, dpu = v.units ? v.defects / v.units : 0;
+        var y = Math.max(0, 1 - dpmo / 1e6), sig = y >= 1 ? 6 : (y <= 0 ? 0 : Math.min(6, Math.max(0, invNorm(y) + 1.5)));
+        return [['Defects per unit (DPU)', fmt(dpu, 3)], ['Yield per opportunity', fmt(y * 100, 2) + '%'], ['DPMO', fmt(dpmo, 0)], ['Process sigma (with 1.5 shift)', fmt(sig, 2)]];
+      }
+    },
+    safety_stock: {
+      inputs: [['d', 'Average daily demand (units)', 40, 1], ['sd', 'Standard deviation of daily demand (units)', 12, 0.1], ['lt', 'Supplier lead time (working days)', 10, 1], ['sl', 'Target cycle service level (%)', 95, 0.1], ['days', 'Working days per year', 250, 1], ['s', 'Cost to place one order (CA$)', 60, 1], ['c', 'Unit cost (CA$)', 18, 0.01], ['h', 'Annual holding cost (% of unit cost)', 25, 1]],
+      calc: function (v) {
+        var p = Math.min(0.9999, Math.max(0.5, v.sl / 100)), z = invNorm(p), ss = z * v.sd * Math.sqrt(v.lt), rop = v.d * v.lt + ss;
+        var D = v.d * v.days, H = v.c * v.h / 100, eoq = H > 0 ? Math.sqrt(2 * D * v.s / H) : 0, avg = (eoq / 2 + ss) * v.c;
+        return [['Service factor (z)', fmt(z, 2)], ['Safety stock', fmt(Math.ceil(ss), 0) + ' units'], ['Reorder point', fmt(Math.ceil(rop), 0) + ' units'], ['Economic order quantity', fmt(Math.round(eoq), 0) + ' units'], ['Average inventory value', money(avg)]];
+      }
+    },
+    oee_value: {
+      inputs: [['now', 'Current OEE (%)', 55, 0.1], ['target', 'Target OEE (%)', 65, 0.1], ['hours', 'Planned production hours per year', 4000, 1], ['rate', 'Ideal rate (units per hour)', 120, 1], ['margin', 'Contribution margin per extra unit sold (CA$)', 2.5, 0.01], ['cost', 'One-time improvement cost (CA$)', 40000, 100]],
+      calc: function (v) {
+        var gain = Math.max(0, v.target - v.now) / 100, units = gain * v.hours * v.rate, value = units * v.margin;
+        var hrs = v.target > 0 ? v.hours * (1 - v.now / v.target) : 0, pay = value > 0 ? v.cost / (value / 12) : Infinity;
+        return [['Extra good units per year', fmt(units, 0)], ['Equivalent hours of capacity freed', fmt(hrs, 0)], ['Annual value if the extra units sell', money(value)], ['Payback period', isFinite(pay) ? fmt(pay, 1) + ' months' : 'Not reached']];
+      }
+    },
+    estimate_range: {
+      inputs: [['base', 'Base cost estimate (CA$)', 5000000, 1000], ['cls', 'Estimate class (5 = concept, 3 = FEED, 1 = check estimate)', 3, 1], ['cont', 'Contingency carried (% of base)', 15, 0.5]],
+      calc: function (v) {
+        var R = { 5: [-35, 65], 4: [-22.5, 35], 3: [-15, 20], 2: [-10, 12.5], 1: [-6.5, 9] }, k = Math.min(5, Math.max(1, Math.round(v.cls))), r = R[k];
+        var tot = v.base * (1 + v.cont / 100);
+        return [['Class used', 'Class ' + k], ['Typical accuracy range', fmt(r[0], 1) + '% to +' + fmt(r[1], 1) + '%'], ['Base estimate + contingency', money(tot)], ['Plausible low', money(v.base * (1 + r[0] / 100))], ['Plausible high', money(v.base * (1 + r[1] / 100))]];
+      }
+    },
     search_waste: {
       inputs: [['people', 'Number of people', 12, 1], ['mins', 'Minutes per person per day searching or walking for items', 20, 1], ['days', 'Working days per year', 230, 1], ['rate', 'Loaded hourly cost (CA$)', 40, 1]],
       calc: function (v) {
@@ -283,6 +315,18 @@
       }
     }
   };
+  // Inverse standard normal CDF (Acklam's approximation), used by the sigma and safety-stock calculators.
+  function invNorm(p) {
+    var a = [-39.69683028665376, 220.9460984245205, -275.9285104469687, 138.357751867269, -30.66479806614716, 2.506628277459239],
+      b = [-54.47609879822406, 161.5858368580409, -155.6989798598866, 66.80131188771972, -13.28068155288572],
+      c = [-0.007784894002430293, -0.3223964580411365, -2.400758277161838, -2.549732539343734, 4.374664141464968, 2.938163982698783],
+      d = [0.007784695709041462, 0.3224671290700398, 2.445134137142996, 3.754408661907416], q, r, pl = 0.02425;
+    if (p <= 0) return -Infinity; if (p >= 1) return Infinity;
+    if (p < pl) { q = Math.sqrt(-2 * Math.log(p)); return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    if (p > 1 - pl) { q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    q = p - 0.5; r = q * q;
+    return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+  }
   function fmt(n, d) { return (Math.round(n * Math.pow(10, d)) / Math.pow(10, d)).toLocaleString('en-CA', { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function money(n) { return (n < 0 ? '-$' : '$') + fmt(Math.abs(n), 0); }
   function pct(x) { return fmt(x * 100, 1) + '%'; }

@@ -360,3 +360,5 @@
 .sl-list .sl-step.is-loop::after{background:#F3C3A3}
 .sl-list .sl-queue{left:auto;right:12px;top:12px}
 @media (prefers-reduced-motion:reduce){.sl-step.is-bn,.sl-queue i{animation:none}}
+/* V4.94: matrix labs fit narrow phones (the item column no longer forces the table wider than the screen) */
+@media (max-width:600px){.lab-form:has(.matrix-table){overflow-x:auto;overflow-y:hidden;contain:paint;min-width:0;max-width:100%;-webkit-overflow-scrolling:touch}.matrix-table td:first-child{min-width:170px}.matrix-table select{width:58px;padding:6px}}
