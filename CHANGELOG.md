@@ -1,5 +1,16 @@
 # Changelog
 
+## V5.13 — 2026-11-14
+- **New Insights series: quote to cash (three parts, Operational Efficiency).** The series follows one made-up company, Example Windows Co., and every figure comes from one simulation model.
+  - Part 1, **The Quote-to-Cash Process in Manufacturing: Where the Days and the Cash Go** (`post/quote-to-cash-process-in-manufacturing.html`): the eight stages as a swim lane, where the 66 days go, the cash position of one order and five measures to track.
+  - Part 2, **Quote-to-Cash Simulation: Run a Window Factory in 3D** (`post/quote-to-cash-simulation-run-a-window-factory-in-3d.html`): the live 3D simulator, a map of the floor, three guided experiments and the model's inputs.
+  - Part 3, **Shorten Quote to Cash: What to Fix First and the Payback** (`post/shorten-quote-to-cash-what-to-fix-first.html`): six fixes tested one at a time, an order of work, a payback calculator and a 90-day plan. The calculator starts from two assumptions: a 7% cost of borrowing and a $60,000 project cost.
+- **3D factory simulator** (`assets/sim/q2c-factory.html`): a window factory where every tile or frame is one $20,000 order, coloured by where its money is. Eight sliders (quote turnaround, invoice lag, payment terms, late payment, deposit, batch size, changeover, machine uptime), seven one-click scenarios, live results against the baseline. Rotate and zoom the floor, click a machine for its numbers. On phones a finger scrolls the page until "Move view" is tapped. It opens on its own page or inside Part 2, and is marked noindex.
+- **Three.js r128 added to the site** (`assets/js/vendor/`, about 630 KB, MIT licence) so the simulator does not depend on an outside service. Only the simulator loads it.
+- New script `assets/js/q2c.js` (sizes the simulator frame in Part 2; payback calculator in Part 3). Article source: `content/articles/q2c_articles.py`.
+- Arrows in the series figures have a straight run into the arrowhead and meet the midpoint of its flat base; the last run of a dashed connector is solid.
+- Insights now lists 146 articles. The "All N articles" button on the home page read 142 and now reads 146. `sitemap.xml` and `llms.txt` include the three posts.
+
 ## V5.12 — 2026-11-14
 - **"What OEE Really Measures": OEE as a 3D box (new Figure 2).** Inside the "Try it" calculator, OEE is drawn as a volume. The dashed cube is the 15 scheduled hours at ideal speed with no rejects; its width is availability, its depth is performance and its height is quality. Downtime, speed loss and quality loss are coloured slabs cut off the cube, and the blue box that remains is OEE. The box and its side panel (OEE, the three factors, each loss in % and hours) follow the article's existing three sliders; the reader can drag the box to turn it.
 - No library: `assets/js/oee3d.js` is a small 2D-canvas perspective renderer. It pauses when off-screen and shows a still frame under `prefers-reduced-motion`. Styles are the V5.12 block at the end of `assets/css/oee.css`. The figure is also in the article source, `content/articles/what-oee-really-measures.json`. The rest of the article is unchanged.

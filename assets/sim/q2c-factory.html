@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quote-to-Cash Factory Simulator</title>
+<!-- Quote-to-Cash Factory Simulator V3. Add #embed to the address to run it inside an article (no header, reports its height to the parent page). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: scenario chips on top, 3D floor left with a control panel right, days bar and money table below. Single light theme to match the bright factory floor. */
+  color-scheme: light;
+  --paper:#f3f5f7; --surface:#ffffff; --ink:#15212b; --muted:#5b6a77; --line:#d7dee5;
+  --accent:#0b5d7a; --accent-soft:#e3f0f4;
+  --idle:#8794a1; --spent:#e08a1e; --billed:#6b4fc4; --paid:#1f9d55; --down:#d6453d;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1320px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
+.eyebrow{font-family:var(--cond);font-weight:600;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin:4px 0 6px;font-weight:600;text-wrap:balance}
+h2{font-size:16px;margin:0 0 10px;font-weight:600}
+.lede{max-width:68ch;color:var(--muted);margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.scen{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.scen span{font-family:var(--cond);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.finding{margin:0;padding:10px 14px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;min-height:42px}
+
+.main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.stage{position:relative;background:#e9edf1;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9.6;min-height:400px}
+.stage canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.stage canvas:active{cursor:grabbing}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lab{position:absolute;left:0;top:0;white-space:nowrap;font-family:var(--cond);font-weight:600;font-size:12px;line-height:1.2;padding:3px 7px;border-radius:5px;background:rgba(255,255,255,.9);border:1px solid var(--line);color:var(--ink);will-change:transform}
+.lab small{display:block;font-family:var(--body);font-weight:400;font-size:11px;color:var(--muted)}
+.lab.st{text-align:center}
+.lab .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--paid)}
+.hud{position:absolute;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.hud.tl{left:10px;top:10px}
+.hud.tr{right:10px;top:10px}
+.hud.bl{left:10px;bottom:10px;right:10px;justify-content:space-between;align-items:flex-end;pointer-events:none}
+.hud button{border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:6px;padding:5px 10px;font-size:13px;font-weight:500}
+.hud button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.day{font-family:var(--cond);font-weight:600;font-size:13px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:6px;padding:5px 10px;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:12px;flex-wrap:wrap;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12.5px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.hint{font-size:12px;color:var(--muted);background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+.pop{position:absolute;left:10px;top:52px;width:230px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;box-shadow:0 6px 18px rgba(21,33,43,.12)}
+.pop[hidden]{display:none}
+.pop h3{margin:0 0 2px;font-size:14px}
+.pop p{margin:0 0 6px;color:var(--muted)}
+.pop dl{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:0;font-variant-numeric:tabular-nums}
+.pop dd{margin:0;text-align:right;font-weight:600}
+.pop button{position:absolute;right:6px;top:4px;border:0;background:none;font-size:18px;line-height:1;padding:4px;color:var(--muted)}
+.nogl{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px;text-align:center;color:var(--muted)}
+
+.panel{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{border:1px solid var(--line);border-radius:8px;padding:9px 10px;border-top:3px solid var(--accent)}
+.kpi b{display:block;font-family:var(--cond);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kpi strong{display:block;font-size:24px;line-height:1.15;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi em{display:block;font-style:normal;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-height:18px}
+.kpi em.good{color:var(--paid)} .kpi em.bad{color:var(--down)}
+.grp{font-family:var(--cond);font-weight:600;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.grp + .sl{margin-top:0}
+.sl{display:grid;grid-template-columns:1fr auto;gap:0 8px;align-items:baseline;margin-top:9px}
+.sl label{font-size:13.5px}
+.sl output{font-weight:600;font-size:13.5px;font-variant-numeric:tabular-nums}
+.sl input{grid-column:1/-1;width:100%;accent-color:var(--accent);margin:3px 0 0}
+.sliders{display:grid;gap:18px 28px}
+.sliders>div+div{border-top:1px solid var(--line);padding-top:14px}
+
+.below{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px}
+.bars{display:grid;grid-template-columns:70px minmax(0,1fr) 62px;gap:8px 10px;align-items:center;font-size:13px}
+.bar{display:flex;height:26px;border-radius:5px;overflow:hidden;background:#eef1f4}
+.bar div{height:100%;min-width:0}
+.bars .tot{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:4px 18px;margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.keys li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding:2px 0}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.keys b{font-variant-numeric:tabular-nums;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:5px 4px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{font-family:var(--cond);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tfoot td{font-weight:600;border-bottom:0}
+td i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+details{font-size:13.5px;color:var(--muted)}
+details summary{cursor:pointer;color:var(--ink);font-weight:500}
+details ul{margin:8px 0 0;padding-left:18px;max-width:80ch}
+@media (max-width:980px){.main{grid-template-columns:1fr}.below{grid-template-columns:1fr}.stage{aspect-ratio:4/3.2;min-height:0}}
+@media (min-width:620px) and (max-width:980px){.kpis{grid-template-columns:repeat(4,1fr)}.sliders{grid-template-columns:1fr 1fr}.sliders>div+div{border-top:0;padding-top:0}}
+.embed body{background:transparent}.embed .wrap{padding:0 0 4px;max-width:none}.embed header,.embed details.card{display:none}
+#move{display:none}.touch #move{display:inline-block}.touch .stage canvas{touch-action:auto;cursor:default}.touch.moving .stage canvas{touch-action:none}
+@media (max-width:520px){.lab{padding:2px 5px}.lab .dot{margin-right:3px}.stage{aspect-ratio:1/1.05}.hud.bl{justify-content:flex-start}.legend{font-size:11.5px;gap:8px}.hint{display:none}.lab{font-size:11px}.lab small{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Quote-to-cash series · Part 2</p>
+    <h1>Follow one order from quote to cash</h1>
+    <p class="lede">Example Windows Co. is a made-up 40-person window maker with sales of about $12 million a year. Every tile and window frame below is one customer order worth $20,000. Its colour shows where the money is. Change a setting and watch the days and the cash move.</p>
+  </header>
+
+  <div class="scen" role="group" aria-label="Scenarios">
+    <span>Try</span>
+    <button class="chip" data-s="base" aria-pressed="true">Baseline</button>
+    <button class="chip" data-s="quote">Quote in one day</button>
+    <button class="chip" data-s="invoice">Invoice on delivery day</button>
+    <button class="chip" data-s="deposit">Take a 30% deposit</button>
+    <button class="chip" data-s="batch">Halve the batch size</button>
+    <button class="chip" data-s="trouble">Machine trouble</button>
+    <button class="chip" data-s="office">Fix the office</button>
+  </div>
+  <p class="finding" id="finding" aria-live="polite"></p>
+
+  <div class="main">
+    <section class="stage" id="stage" aria-label="3D factory simulation">
+      <canvas id="gl"></canvas>
+      <div class="labels" id="labels"></div>
+      <div class="nogl" id="nogl">The 3D view needs WebGL, which this browser has turned off. The numbers and controls on this page still work.</div>
+      <div class="hud tl">
+        <button id="play" aria-pressed="false">Pause</button>
+        <button class="spd" data-v="1" aria-pressed="true">1x</button>
+        <button class="spd" data-v="4" aria-pressed="false">4x</button>
+        <button class="spd" data-v="16" aria-pressed="false">16x</button>
+        <span class="day" id="day">Day 0</span>
+      </div>
+      <div class="hud tr"><button id="move" aria-pressed="false">Move view</button><button id="view">Reset view</button></div>
+      <div class="pop" id="pop" hidden>
+        <button id="popx" aria-label="Close">×</button>
+        <h3 id="popn"></h3><p id="pops"></p>
+        <dl id="popd"></dl>
+      </div>
+      <div class="hud bl">
+        <div class="legend">
+          <span><i style="background:var(--idle)"></i>Quoted, nothing spent</span>
+          <span><i style="background:var(--spent)"></i>Cash spent, not billed</span>
+          <span><i style="background:var(--billed)"></i>Billed, not paid</span>
+          <span><i style="background:var(--paid)"></i>Paid</span>
+        </div>
+        <div class="hint">Drag to rotate · click, then scroll to zoom · click a machine</div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="card">
+        <div class="kpis">
+          <div class="kpi"><b>Quote to cash</b><strong id="k1">–</strong><em id="d1"></em></div>
+          <div class="kpi"><b>Cash tied up</b><strong id="k2">–</strong><em id="d2"></em></div>
+          <div class="kpi"><b>Delivered on time</b><strong id="k3">–</strong><em id="d3"></em></div>
+          <div class="kpi"><b>Windows per day</b><strong id="k4">–</strong><em id="d4"></em></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sliders"><div>
+        <p class="grp">Office</p>
+        <div class="sl"><label for="s-quote">Quote turnaround</label><output id="o-quote"></output><input type="range" id="s-quote" min="1" max="10" step="1"></div>
+        <div class="sl"><label for="s-inv">Invoice sent after delivery</label><output id="o-inv"></output><input type="range" id="s-inv" min="0" max="15" step="1"></div>
+        <div class="sl"><label for="s-terms">Payment terms</label><output id="o-terms"></output><input type="range" id="s-terms" min="15" max="60" step="15"></div>
+        <div class="sl"><label for="s-late">Customers pay late by (average)</label><output id="o-late"></output><input type="range" id="s-late" min="0" max="20" step="1"></div>
+        <div class="sl"><label for="s-dep">Deposit on order</label><output id="o-dep"></output><input type="range" id="s-dep" min="0" max="50" step="10"></div>
+        </div><div>
+        <p class="grp">Factory</p>
+        <div class="sl"><label for="s-batch">Batch size</label><output id="o-batch"></output><input type="range" id="s-batch" min="1" max="8" step="1"></div>
+        <div class="sl"><label for="s-chg">Changeover per batch</label><output id="o-chg"></output><input type="range" id="s-chg" min="0" max="4" step="0.5"></div>
+        <div class="sl"><label for="s-up">Machine uptime</label><output id="o-up"></output><input type="range" id="s-up" min="65" max="100" step="5"></div>
+        </div></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="below">
+    <div class="card">
+      <h2>Where the days go</h2>
+      <div class="bars">
+        <span>Now</span><div class="bar" id="barNow"></div><span class="tot" id="totNow"></span>
+        <span>Baseline</span><div class="bar" id="barBase"></div><span class="tot" id="totBase"></span>
+      </div>
+      <ul class="keys" id="keys"></ul>
+    </div>
+    <div class="card">
+      <h2>Where the money sits today</h2>
+      <table>
+        <thead><tr><th>Stage</th><th>Orders</th><th>Cash tied up</th></tr></thead>
+        <tbody id="ledger"></tbody>
+        <tfoot><tr><td>Total</td><td id="lt1"></td><td id="lt2"></td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <details class="card">
+    <summary>How the model works</summary>
+    <ul>
+      <li>Orders arrive at about 1.6 a day. Each is 20 windows worth $20,000, with $8,000 of materials bought when the order is confirmed and $4,000 of labour added on the line.</li>
+      <li>The customer takes about 3 days to accept a quote. Order entry and supplier lead time take about 7 days. Delivery takes 2 days and is promised within 15 days of the order.</li>
+      <li>The line has five machines. Each needs 0.4 of a day per order and holds two orders in the buffer after it. Machines stop at random and take about 2 hours to repair.</li>
+      <li>Orders wait until a full batch is ready, then run together. The first machine pays one changeover per batch.</li>
+      <li>Cash tied up is money spent on open orders less any deposit received. The model shows won orders only and ignores weekends.</li>
+      <li>Each change restarts the model and runs one year in the background, so the figures you see are settled results. They are averages from a random simulation and will move a little.</li>
+    </ul>
+  </details>
+</div>
+
+<script src="../js/vendor/three-r128.min.js"></script>
+<script src="../js/vendor/OrbitControls-r128.js"></script>
+<script>
+/* Quote-to-cash simulation engine. No rendering code: runs in a browser or in Node. */
+(function (root) {
+  'use strict';
+  var C = {
+    demand: 1.6,          // orders requested per day
+    approveDays: 3,       // customer takes this long to accept a quote (average)
+    prepDays: 7,          // order entry (2) + glass and profile lead time (5)
+    procDays: 0.4,        // one order (20 windows) at one station
+    shipDays: 2,          // delivery to site
+    promiseDays: 15,      // delivery promise, counted from order confirmation
+    value: 20000, material: 8000, labour: 4000,
+    bufCap: 2, nSt: 5, mttr: 0.25, windowsPerOrder: 20
+  };
+  var DEFAULTS = { quoteDays: 5, invoiceDelay: 5, terms: 30, lateDays: 10, depositPct: 0,
+                   batchSize: 4, changeoverHrs: 1, uptimePct: 90 };
+  var STATIONS = ['Cut', 'Weld', 'Hardware', 'Glaze', 'Inspect, pack'];
+
+  function rng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  function Sim(p, seed) {
+    this.p = Object.assign({}, DEFAULTS, p || {});
+    seed = seed || 7;
+    this.rand = rng(seed);
+    this.time = 0; this.nextArr = 0; this.nextId = 1;
+    this.orders = []; this.batchWait = []; this.queue = [];
+    this.buffers = []; this.stations = [];
+    for (var i = 0; i < C.nSt; i++) {
+      if (i < C.nSt - 1) this.buffers.push([]);
+      var s = { i: i, name: STATIONS[i], order: null, rem: 0, down: false, repair: 0, changeover: 0,
+                state: 'waiting', rand: rng(seed + 31 * (i + 1)), ttf: Infinity,
+                busy: 0, downT: 0, chg: 0, wait: 0, count: 0 };
+      s.ttf = this._ttf(s);
+      this.stations.push(s);
+    }
+    this.paid = []; this.delivered = []; this.lineOut = []; this.cash = []; this.nextSample = 0;
+  }
+
+  Sim.prototype._ttf = function (s) {
+    var u = this.p.uptimePct / 100;
+    if (u >= 0.999) return Infinity;
+    var mtbf = C.mttr * u / (1 - u);
+    return -Math.log(1 - s.rand()) * mtbf;
+  };
+
+  Sim.prototype.step = function (dt) {
+    var p = this.p, self = this, i, o;
+    this.time += dt;
+    var now = this.time;
+
+    while (now >= this.nextArr) {
+      o = { id: this.nextId++, state: 'quote', t: p.quoteDays, tReq: this.nextArr,
+            fApprove: 0.6 + 0.8 * this.rand(), fLate: 2 * this.rand(), fPrep: 0.7 + 0.6 * this.rand(),
+            costOut: 0, cashIn: 0, st: -1, changeover: false };
+      this.nextArr += (0.5 + this.rand()) / C.demand;
+      this.orders.push(o);
+    }
+
+    for (i = 0; i < this.orders.length; i++) {
+      o = this.orders[i];
+      switch (o.state) {
+        case 'quote': case 'approve': case 'prep': case 'ship': case 'toinv': case 'recv': case 'paid':
+          o.t -= dt; if (o.t <= 0) advance(o); break;
+      }
+    }
+
+    function advance(o) {
+      if (o.state === 'quote') { o.tQuote = now; o.state = 'approve'; o.t = C.approveDays * o.fApprove; }
+      else if (o.state === 'approve') {
+        o.tConfirm = now; o.state = 'prep'; o.t = C.prepDays * o.fPrep;
+        o.costOut += C.material; o.cashIn += C.value * p.depositPct / 100;
+      }
+      else if (o.state === 'prep') {
+        o.tPrep = now; o.state = 'batch'; self.batchWait.push(o);
+        if (self.batchWait.length >= p.batchSize) {
+          self.batchWait[0].changeover = true;
+          for (var k = 0; k < self.batchWait.length; k++) { self.batchWait[k].state = 'queue'; self.queue.push(self.batchWait[k]); }
+          self.batchWait = [];
+        }
+      }
+      else if (o.state === 'ship') {
+        o.tDelivered = now; o.onTime = (now - o.tConfirm) <= C.promiseDays;
+        self.delivered.push(o);
+        o.state = 'toinv'; o.t = p.invoiceDelay; if (o.t <= 0) advance(o);
+      }
+      else if (o.state === 'toinv') { o.tInvoiced = now; o.state = 'recv'; o.t = p.terms + p.lateDays * o.fLate; }
+      else if (o.state === 'recv') {
+        o.tPaid = now; o.cashIn = C.value; o.state = 'paid'; o.t = 1.2; self.paid.push(o);
+      }
+      else if (o.state === 'paid') { o.state = 'gone'; }
+    }
+
+    for (i = C.nSt - 1; i >= 0; i--) {
+      var s = this.stations[i];
+      if (s.down) {
+        s.repair -= dt; s.downT += dt; s.state = 'down';
+        if (s.repair <= 0) { s.down = false; s.ttf = this._ttf(s); }
+        continue;
+      }
+      s.ttf -= dt;
+      if (s.ttf <= 0) { s.down = true; s.repair = C.mttr * (0.5 + s.rand()); s.state = 'down'; continue; }
+      if (!s.order) {
+        var src = i === 0 ? this.queue : this.buffers[i - 1];
+        if (src.length) {
+          o = src.shift(); s.order = o; s.rem = C.procDays; o.state = 'proc'; o.st = i;
+          if (i === 0) { o.tLineIn = now; if (o.changeover) s.changeover = p.changeoverHrs / 8; }
+        }
+      }
+      if (!s.order) { s.wait += dt; s.state = 'waiting'; continue; }
+      if (s.changeover > 0) { s.changeover -= dt; s.chg += dt; s.state = 'changeover'; continue; }
+      if (s.rem > 0) {
+        var used = Math.min(dt, s.rem);
+        s.rem -= dt; s.busy += used; s.state = 'running';
+        s.order.costOut += C.labour / C.nSt * used / C.procDays;
+      }
+      if (s.rem <= 0) {
+        o = s.order;
+        if (i === C.nSt - 1) {
+          o.state = 'ship'; o.t = C.shipDays; o.tLineOut = now; this.lineOut.push(now);
+          s.order = null; s.count++;
+        } else if (this.buffers[i].length < C.bufCap) {
+          o.state = 'buf'; o.st = i; this.buffers[i].push(o); s.order = null; s.count++;
+        } else { s.wait += dt; s.state = 'blocked'; }
+      }
+    }
+
+    if (now >= this.nextSample) {
+      var tied = 0;
+      for (i = 0; i < this.orders.length; i++) { o = this.orders[i]; if (o.state !== 'paid' && o.state !== 'gone') tied += o.costOut - o.cashIn; }
+      this.cash.push({ t: now, v: tied });
+      this.nextSample += 1;
+      this.orders = this.orders.filter(function (x) { return x.state !== 'gone'; });
+      if (this.cash.length > 400) this.cash.splice(0, this.cash.length - 400);
+      if (this.paid.length > 900) this.paid.splice(0, this.paid.length - 900);
+      if (this.delivered.length > 900) this.delivered.splice(0, this.delivered.length - 900);
+      if (this.lineOut.length > 900) this.lineOut.splice(0, this.lineOut.length - 900);
+    }
+  };
+
+  Sim.prototype.run = function (days, dt) {
+    dt = dt || 0.01;
+    var n = Math.round(days / dt);
+    for (var i = 0; i < n; i++) this.step(dt);
+    return this;
+  };
+
+  Sim.prototype.kpis = function () {
+    var now = this.time, W = 180, i, o;
+    var rec = this.paid.filter(function (x) { return x.tPaid > now - W; });
+    var st = { quote: 0, approve: 0, prep: 0, production: 0, delivery: 0, invoice: 0, payment: 0 }, total = 0;
+    for (i = 0; i < rec.length; i++) {
+      o = rec[i];
+      st.quote += o.tQuote - o.tReq; st.approve += o.tConfirm - o.tQuote; st.prep += o.tPrep - o.tConfirm;
+      st.production += o.tLineOut - o.tPrep; st.delivery += o.tDelivered - o.tLineOut;
+      st.invoice += o.tInvoiced - o.tDelivered; st.payment += o.tPaid - o.tInvoiced; total += o.tPaid - o.tReq;
+    }
+    var n = rec.length || 1;
+    for (var k in st) st[k] /= n;
+    var cs = this.cash.filter(function (x) { return x.t > now - 90; }), cv = 0;
+    for (i = 0; i < cs.length; i++) cv += cs[i].v;
+    var del = this.delivered.filter(function (x) { return x.tDelivered > now - W; }), ot = 0;
+    for (i = 0; i < del.length; i++) if (del[i].onTime) ot++;
+    var lo = this.lineOut.filter(function (t) { return t > now - 60; }).length;
+    var busy = 0;
+    for (i = 0; i < this.stations.length; i++) busy += this.stations[i].busy;
+    return {
+      q2c: total / n, stages: st, orders: rec.length,
+      cashTied: cs.length ? cv / cs.length : 0,
+      onTime: del.length ? 100 * ot / del.length : 100,
+      windowsPerDay: lo / Math.min(60, Math.max(now, 1)) * C.windowsPerOrder,
+      running: now > 0 ? 100 * busy / (now * C.nSt) : 0,
+      backlog: this.queue.length + this.batchWait.length
+    };
+  };
+
+  Sim.prototype.ledger = function () {
+    var rows = { quote: [0, 0], prep: [0, 0], line: [0, 0], ship: [0, 0], toinv: [0, 0], recv: [0, 0] };
+    var map = { quote: 'quote', approve: 'quote', prep: 'prep', batch: 'line', queue: 'line', proc: 'line', buf: 'line', ship: 'ship', toinv: 'toinv', recv: 'recv' };
+    for (var i = 0; i < this.orders.length; i++) {
+      var o = this.orders[i], r = rows[map[o.state]];
+      if (r) { r[0]++; r[1] += o.costOut - o.cashIn; }
+    }
+    return rows;
+  };
+
+  root.Q2C = { Sim: Sim, C: C, DEFAULTS: DEFAULTS, STATIONS: STATIONS };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function(){
+'use strict';
+var Q = window.Q2C, C = Q.C, D = Q.DEFAULTS;
+var $ = function(id){ return document.getElementById(id); };
+var css = getComputedStyle(document.documentElement);
+var COL = { idle: css.getPropertyValue('--idle').trim(), spent: css.getPropertyValue('--spent').trim(),
+            billed: css.getPropertyValue('--billed').trim(), paid: css.getPropertyValue('--paid').trim(),
+            down: css.getPropertyValue('--down').trim(), accent: css.getPropertyValue('--accent').trim() };
+var WARM = 365, SEED = 7;
+var EMBED = location.hash === '#embed', TOUCH = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+if (EMBED) document.documentElement.classList.add('embed');
+if (TOUCH) document.documentElement.classList.add('touch');
+
+/* ---------- state ---------- */
+var params = Object.assign({}, D);
+var sim, snap, baseK;
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var paused = reduce, speed = 1, selected = -1;
+
+var SCEN = {
+  base: {}, quote: { quoteDays: 1 }, invoice: { invoiceDelay: 0 }, deposit: { depositPct: 30 },
+  batch: { batchSize: 2 }, trouble: { uptimePct: 75 },
+  office: { quoteDays: 1, invoiceDelay: 0, lateDays: 3, depositPct: 30 }
+};
+var SL = [
+  ['quote', 'quoteDays', function(v){ return v + (v == 1 ? ' day' : ' days'); }],
+  ['inv', 'invoiceDelay', function(v){ return v == 0 ? 'Same day' : v + (v == 1 ? ' day' : ' days'); }],
+  ['terms', 'terms', function(v){ return v + ' days'; }],
+  ['late', 'lateDays', function(v){ return v + (v == 1 ? ' day' : ' days'); }],
+  ['dep', 'depositPct', function(v){ return v + '%'; }],
+  ['batch', 'batchSize', function(v){ return v + (v == 1 ? ' order' : ' orders'); }],
+  ['chg', 'changeoverHrs', function(v){ return v + (v == 1 ? ' hour' : ' hours'); }],
+  ['up', 'uptimePct', function(v){ return v + '%'; }]
+];
+var STG = [
+  ['quote', 'Writing the quote', '#b4bec8'], ['approve', 'Customer decides', '#8f9ca9'],
+  ['prep', 'Order entry and materials', '#f3c27a'], ['production', 'Production', '#e08a1e'],
+  ['delivery', 'Delivery', '#c26f0e'], ['invoice', 'Waiting to invoice', '#8f4f08'],
+  ['payment', 'Waiting to be paid', COL.billed]
+];
+
+function money(v){
+  var a = Math.abs(v), s = v < 0 ? '−' : '';
+  if (a >= 1e6) return s + '$' + (a / 1e6).toFixed(2) + 'M';
+  if (a >= 1e3) return s + '$' + Math.round(a / 1e3) + 'K';
+  return s + '$' + Math.round(a);
+}
+function isBase(){ for (var k in D) if (params[k] !== D[k]) return false; return true; }
+
+function restart(){
+  sim = new Q.Sim(params, SEED).run(WARM);
+  snap = sim.kpis();
+  if (!baseK) baseK = snap;
+  if (scene3d) scene3d.snap();
+  writeFinding(); refresh(true);
+}
+
+function writeFinding(){
+  var el = $('finding');
+  if (isBase()) {
+    el.textContent = 'Baseline: an order takes about ' + Math.round(baseK.q2c) + ' days to turn into cash, and only about ' +
+      Math.round(baseK.stages.production) + ' of them are spent in production. About ' + money(baseK.cashTied) + ' is tied up in open orders.';
+    return;
+  }
+  var dq = snap.q2c - baseK.q2c, dc = snap.cashTied - baseK.cashTied, parts = [];
+  parts.push('Quote to cash ' + (Math.abs(dq) < 0.5 ? 'stays near ' + Math.round(snap.q2c) + ' days'
+    : (dq < 0 ? 'falls' : 'rises') + ' from ' + Math.round(baseK.q2c) + ' to ' + Math.round(snap.q2c) + ' days'));
+  parts.push('cash tied up ' + (Math.abs(dc) < 15000 ? 'barely moves'
+    : (dc < 0 ? 'drops by ' : 'grows by ') + money(Math.abs(dc))));
+  var t = parts.join(', ') + ', and ' + Math.round(snap.onTime) + '% of orders arrive on time (baseline ' + Math.round(baseK.onTime) + '%).';
+  if (snap.backlog > 25) t += ' The line cannot keep up, so the backlog keeps growing.';
+  el.textContent = t;
+}
+
+/* ---------- panels ---------- */
+function delta(el, v, base, lowerGood, fmt, dfmt){
+  var d = v - base;
+  if (isBase() || Math.abs(d) < 1e-9 || fmt(Math.abs(d)) === fmt(0)) { el.textContent = 'Baseline ' + fmt(base); el.className = ''; return; }
+  el.textContent = (d > 0 ? '+' : '−') + (dfmt || fmt)(Math.abs(d)) + ' vs baseline';
+  el.className = (d < 0) === lowerGood ? 'good' : 'bad';
+}
+function bar(el, st, scale){
+  var h = '';
+  for (var i = 0; i < STG.length; i++) h += '<div style="width:' + (100 * st[STG[i][0]] / scale).toFixed(2) + '%;background:' + STG[i][2] + '"></div>';
+  el.innerHTML = h;
+}
+var lastRef = 0;
+function refresh(force){
+  var now = performance.now();
+  if (!force && now - lastRef < 300) return;
+  lastRef = now;
+  var k = sim.kpis();
+  $('k1').textContent = k.q2c.toFixed(0) + ' days';
+  $('k2').textContent = money(k.cashTied);
+  $('k3').textContent = k.onTime.toFixed(0) + '%';
+  $('k4').textContent = k.windowsPerDay.toFixed(0);
+  delta($('d1'), k.q2c, baseK.q2c, true, function(v){ return v.toFixed(0) + ' days'; });
+  delta($('d2'), k.cashTied, baseK.cashTied, true, money);
+  delta($('d3'), k.onTime, baseK.onTime, false, function(v){ return v.toFixed(0) + '%'; }, function(v){ return v.toFixed(0) + ' points'; });
+  $('d4').textContent = 'Machines busy ' + k.running.toFixed(0) + '% of the time';
+  var scale = Math.max(k.q2c, baseK.q2c) || 1;
+  bar($('barNow'), k.stages, scale); bar($('barBase'), baseK.stages, scale);
+  $('totNow').textContent = k.q2c.toFixed(0) + ' days'; $('totBase').textContent = baseK.q2c.toFixed(0) + ' days';
+  var h = '';
+  for (var i = 0; i < STG.length; i++) h += '<li><span><i style="background:' + STG[i][2] + '"></i>' + STG[i][1] + '</span><b>' + k.stages[STG[i][0]].toFixed(1) + ' d</b></li>';
+  $('keys').innerHTML = h;
+  var L = sim.ledger(), rows = [
+    ['quote', 'Quotes out', COL.idle], ['prep', 'Order entry and materials', COL.spent], ['line', 'In production', COL.spent],
+    ['ship', 'Out for delivery', COL.spent], ['toinv', 'Delivered, not invoiced', COL.spent], ['recv', 'Invoiced, not paid', COL.billed]
+  ], n = 0, c = 0; h = '';
+  for (i = 0; i < rows.length; i++) {
+    var r = L[rows[i][0]]; n += r[0]; c += r[1];
+    h += '<tr><td><i style="background:' + rows[i][2] + '"></i>' + rows[i][1] + '</td><td>' + r[0] + '</td><td>' + money(r[1]) + '</td></tr>';
+  }
+  $('ledger').innerHTML = h; $('lt1').textContent = n; $('lt2').textContent = money(c);
+  $('day').textContent = 'Day ' + Math.floor(sim.time - WARM + 1);
+  if (scene3d) scene3d.text(L);
+  if (selected >= 0) showPop();
+}
+
+function showPop(){
+  var s = sim.stations[selected], T = sim.time || 1;
+  var names = { running: 'Running', down: 'Stopped for repair', changeover: 'Changing over', waiting: 'Waiting for work', blocked: 'Blocked by the next machine' };
+  $('popn').textContent = s.name; $('pops').textContent = names[s.state] + '. Since these settings were applied:';
+  var pc = function(v){ return (100 * v / T).toFixed(0) + '%'; };
+  $('popd').innerHTML = '<dt>Running</dt><dd>' + pc(s.busy) + '</dd><dt>Stopped for repair</dt><dd>' + pc(s.downT) +
+    '</dd><dt>Changing over</dt><dd>' + pc(s.chg) + '</dd><dt>Waiting or blocked</dt><dd>' + pc(s.wait) +
+    '</dd><dt>Orders through</dt><dd>' + s.count + '</dd>';
+  $('pop').hidden = false;
+}
+$('popx').onclick = function(){ selected = -1; $('pop').hidden = true; if (scene3d) scene3d.select(-1); };
+
+/* ---------- controls ---------- */
+var timer = null;
+function syncSliders(){
+  SL.forEach(function(s){ var el = $('s-' + s[0]); el.value = params[s[1]]; $('o-' + s[0]).textContent = s[2](params[s[1]]); });
+}
+function markScen(){
+  var hit = null;
+  for (var name in SCEN) {
+    var p = Object.assign({}, D, SCEN[name]), same = true;
+    for (var k in D) if (p[k] !== params[k]) same = false;
+    if (same) hit = name;
+  }
+  document.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.s === hit ? 'true' : 'false'); });
+}
+SL.forEach(function(s){
+  $('s-' + s[0]).addEventListener('input', function(e){
+    params[s[1]] = parseFloat(e.target.value); $('o-' + s[0]).textContent = s[2](params[s[1]]);
+    markScen(); clearTimeout(timer); timer = setTimeout(restart, 140);
+  });
+});
+document.querySelectorAll('.chip').forEach(function(b){
+  b.addEventListener('click', function(){ params = Object.assign({}, D, SCEN[b.dataset.s]); syncSliders(); markScen(); restart(); });
+});
+$('play').onclick = function(){ paused = !paused; setPlay(); };
+function setPlay(){ $('play').textContent = paused ? 'Play' : 'Pause'; $('play').setAttribute('aria-pressed', paused ? 'true' : 'false'); }
+document.querySelectorAll('.spd').forEach(function(b){
+  b.onclick = function(){ speed = +b.dataset.v; document.querySelectorAll('.spd').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); };
+});
+
+/* ---------- 3D scene ---------- */
+var scene3d = null;
+function build3D(){
+  if (!window.THREE) return null;
+  var T = THREE, canvas = $('gl'), stage = $('stage'), renderer;
+  try { renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true }); } catch (e) { return null; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  var scene = new T.Scene(); scene.background = new T.Color(0xe4e9ee);
+  scene.fog = new T.Fog(0xe9edf1, 90, 170);
+  var cam = new T.PerspectiveCamera(30, 1.6, 1, 400);
+  var HOME = new T.Vector3(2, 46, 41), TGT = new T.Vector3(2, 0, 2.2);
+  cam.position.copy(HOME);
+  var ctl = null;
+  if (T.OrbitControls) {
+    ctl = new T.OrbitControls(cam, canvas); ctl.target.copy(TGT); ctl.enableDamping = true; ctl.dampingFactor = 0.08;
+    ctl.maxPolarAngle = 1.45; ctl.minDistance = 14; ctl.maxDistance = 130; ctl.enableZoom = false; ctl.screenSpacePanning = false;
+    canvas.addEventListener('pointerdown', function(){ ctl.enableZoom = true; });
+    canvas.addEventListener('pointerleave', function(){ ctl.enableZoom = false; });
+    if (TOUCH) {   /* on phones a finger on the floor scrolls the page until "Move view" is switched on */
+      ctl.enabled = false;
+      $('move').onclick = function(){
+        ctl.enabled = !ctl.enabled; this.setAttribute('aria-pressed', ctl.enabled ? 'true' : 'false');
+        document.documentElement.classList.toggle('moving', ctl.enabled);
+      };
+    }
+    ctl.update();
+  } else cam.lookAt(TGT);
+  $('view').onclick = function(){ cam.position.copy(HOME); if (ctl) { ctl.target.copy(TGT); ctl.update(); } else cam.lookAt(TGT); fit(); };
+
+  scene.add(new T.HemisphereLight(0xffffff, 0xc3ccd4, 0.62));
+  var sun = new T.DirectionalLight(0xffffff, 0.55); sun.position.set(-18, 40, 22); sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  var sc = sun.shadow.camera; sc.left = -34; sc.right = 34; sc.top = 26; sc.bottom = -26; sc.near = 5; sc.far = 100;
+  sun.shadow.bias = -0.0006; scene.add(sun);
+
+  function mat(c, o){ return new T.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.7, metalness: 0.05 }, o || {})); }
+  var M = {
+    floor: mat(0xffffff, { roughness: 0.95 }), pad: mat(0xe6f1f5, { roughness: 0.9 }), edge: mat(0x0b5d7a),
+    steel: mat(0xc9d1d8, { metalness: 0.35, roughness: 0.45 }), dark: mat(0x3a4651), cab: mat(0xe6eaee),
+    pvc: mat(0xfbfcfd, { roughness: 0.5 }), wrap: mat(0xc49a5a), tool: mat(0x4a5661, { metalness: 0.4, roughness: 0.4 }),
+    glass: new T.MeshStandardMaterial({ color: 0x9fd2e8, transparent: true, opacity: 0.45, roughness: 0.1, metalness: 0.1 }),
+    encl: new T.MeshStandardMaterial({ color: 0x2aa3b8, transparent: true, opacity: 0.2, roughness: 0.2, depthWrite: false }),
+    idle: mat(COL.idle), spent: mat(COL.spent), billed: mat(COL.billed), paid: mat(COL.paid), arrow: mat(0x7d8b97),
+    weld: new T.MeshStandardMaterial({ color: 0x55606a, emissive: 0xff7a1a, emissiveIntensity: 0 }),
+    scan: new T.MeshBasicMaterial({ color: 0x35c0e0, transparent: true, opacity: 0.55, side: T.DoubleSide })
+  };
+  var unit = new T.BoxGeometry(1, 1, 1);
+  function box(w, h, d, m, x, y, z, parent, shadow){
+    var b = new T.Mesh(unit, m); b.scale.set(w, h, d); b.position.set(x, y, z);
+    if (shadow !== false) { b.castShadow = true; } b.receiveShadow = true; (parent || scene).add(b); return b;
+  }
+
+  var floor = new T.Mesh(new T.PlaneGeometry(260, 200), M.floor); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+  /* labels */
+  var labBox = $('labels'), labs = [];
+  var compact = stage.clientWidth < 560;   /* phone-width stage: short labels, staggered machine names */
+  function label(x, y, z, cls, html, below, short, dy){
+    var el = document.createElement('div'); el.className = 'lab ' + (cls || ''); labBox.appendChild(el);
+    var L = { el: el, p: new T.Vector3(x, y, z), below: below, dy: dy || 0 }; labs.push(L); setLab(L, html, short === undefined ? html : short); return L;
+  }
+  function setLab(L, full, short){ L.full = full; L.short = short; L.el.innerHTML = compact ? short : full; }
+
+  /* pads */
+  var PX = {
+    quote:   { cx: 12,    cz: -10, w: 7,    d: 5, cols: 6,  rows: 3, name: 'Quote desk', short: 'Quotes' },
+    approve: { cx: 3,     cz: -10, w: 6,    d: 5, cols: 5,  rows: 3, name: 'Customer decides', short: 'Customer' },
+    prep:    { cx: -7,    cz: -10, w: 8.5,  d: 5, cols: 7,  rows: 3, name: 'Order entry and materials', short: 'Materials' },
+    batch:   { cx: -19.5, cz: -4.2, w: 6.4, d: 3.8, name: 'Waiting for a full batch', short: 'Batch' },
+    dock:    { cx: 19.5,  cz: 0,   w: 5.6,  d: 6.2, name: 'Out for delivery', short: 'Delivery' },
+    toinv:   { cx: 14.5,  cz: 10,  w: 6.4,  d: 5, cols: 6,  rows: 3, name: 'Delivered, not invoiced', short: 'To invoice' },
+    recv:    { cx: 2.5,   cz: 10,  w: 12.5, d: 5, cols: 12, rows: 5, name: 'Invoiced, not paid', short: 'Unpaid' },
+    bank:    { cx: -9.5,  cz: 10,  w: 5,    d: 5, name: 'Bank', short: 'Bank' }
+  };
+  Object.keys(PX).forEach(function(k){
+    var p = PX[k], t = 0.09;
+    box(p.w, 0.02, p.d, M.pad, p.cx, 0.011, p.cz, scene, false);
+    box(p.w, 0.03, t, M.edge, p.cx, 0.02, p.cz - p.d / 2, scene, false); box(p.w, 0.03, t, M.edge, p.cx, 0.02, p.cz + p.d / 2, scene, false);
+    box(t, 0.03, p.d, M.edge, p.cx - p.w / 2, 0.02, p.cz, scene, false); box(t, 0.03, p.d, M.edge, p.cx + p.w / 2, 0.02, p.cz, scene, false);
+    p.lab = p.cz < -8 ? label(p.cx, 2.3, p.cz - p.d / 2 - 0.2, '', p.name, false, p.short) : label(p.cx, 0.05, p.cz + p.d / 2 + 0.25, '', p.name, true, p.short);
+  });
+  function slot(p, k){
+    var per = p.cols * p.rows, layer = Math.floor(k / per), r = Math.floor((k % per) / p.cols), c = k % p.cols;
+    if (r % 2) c = p.cols - 1 - c;
+    var dx = 0.95, dz = 0.74;
+    return [p.cx + (c - (p.cols - 1) / 2) * dx, layer, p.cz + (r - (p.rows - 1) / 2) * dz + 0.35];
+  }
+
+  /* floor arrows: dashes end exactly at the midpoint of the arrowhead's flat base */
+  function arrow(pts){
+    for (var i = 0; i < pts.length - 1; i++) {
+      var a = pts[i], b = pts[i + 1], dx = b[0] - a[0], dz = b[1] - a[1], len = Math.sqrt(dx * dx + dz * dz), ux = dx / len, uz = dz / len;
+      var last = i === pts.length - 2, end = last ? len - 0.55 : len, dash = 0.45, gap = 0.3;
+      for (var s = end; s > 0.05; s -= dash + gap) {
+        var l = Math.min(dash, s), m = s - l / 2;
+        var d = box(Math.abs(ux) > 0.5 ? l : 0.12, 0.02, Math.abs(ux) > 0.5 ? 0.12 : l, M.arrow, a[0] + ux * m, 0.012, a[1] + uz * m, scene, false);
+        d.receiveShadow = false;
+      }
+      if (last) {
+        var bx = a[0] + ux * end, bz = a[1] + uz * end, g = new T.BufferGeometry();
+        g.setAttribute('position', new T.Float32BufferAttribute([bx - uz * 0.32, 0.03, bz + ux * 0.32, bx + uz * 0.32, 0.03, bz - ux * 0.32, b[0], 0.03, b[1]], 3));
+        g.computeVertexNormals();
+        scene.add(new T.Mesh(g, new T.MeshBasicMaterial({ color: 0x7d8b97, side: T.DoubleSide })));
+      }
+    }
+  }
+  arrow([[19.5, -10], [15.8, -10]]);
+  arrow([[8.3, -10], [6.3, -10]]);
+  arrow([[-0.2, -10], [-2.5, -10]]);
+  arrow([[-11.5, -10], [-19.5, -10], [-19.5, -6.4]]);
+  arrow([[-19.5, -2.1], [-19.5, 0], [-16.3, 0]]);
+  arrow([[19.5, 3.3], [19.5, 10], [18, 10]]);
+  arrow([[11.1, 10], [9.05, 10]]);
+  arrow([[-3.95, 10], [-6.7, 10]]);
+  label(20.2, 0.05, -9.6, '', 'Quote requests', true, '');
+
+  /* props */
+  function desk(x, z){
+    box(2.2, 0.08, 0.9, M.steel, x, 0.8, z); box(0.08, 0.8, 0.8, M.dark, x - 1, 0.4, z); box(0.08, 0.8, 0.8, M.dark, x + 1, 0.4, z);
+    box(0.8, 0.5, 0.05, M.dark, x, 1.2, z - 0.2); box(0.1, 0.2, 0.1, M.dark, x, 0.92, z - 0.2);
+  }
+  desk(12, -11.9); desk(14.5, 8.1);
+  for (var sx = 0; sx < 3; sx++) {
+    var rx = -9.6 + sx * 2.6;
+    box(2.2, 0.06, 0.7, M.steel, rx, 0.5, -12); box(2.2, 0.06, 0.7, M.steel, rx, 1.1, -12); box(2.2, 0.06, 0.7, M.steel, rx, 1.7, -12);
+    box(0.07, 1.8, 0.7, M.dark, rx - 1.1, 0.9, -12); box(0.07, 1.8, 0.7, M.dark, rx + 1.1, 0.9, -12);
+    box(1.9, 0.3, 0.2, M.pvc, rx, 0.68, -12); box(1.6, 0.4, 0.06, M.glass, rx, 1.33, -12);
+  }
+  box(3.2, 2.2, 2.2, M.cab, -9.5, 1.1, 10.6); box(3.6, 0.25, 2.6, M.paid, -9.5, 2.32, 10.6);
+  for (var cl = 0; cl < 4; cl++) box(0.22, 2.2, 0.22, M.pvc, -10.7 + cl * 0.8, 1.1, 11.8);
+  var truck = new T.Group(); truck.position.set(24.6, 0, 0); scene.add(truck);
+  box(2.6, 2.6, 6, M.cab, 0, 1.9, -0.6, truck); box(2.4, 1.9, 1.7, M.edge, 0, 1.45, 3.5, truck); box(2.5, 0.25, 8, M.dark, 0, 0.5, 0.4, truck);
+  [-2.6, -1.2, 3.4].forEach(function(z){ [-1.2, 1.2].forEach(function(x){
+    var w = new T.Mesh(new T.CylinderGeometry(0.45, 0.45, 0.3, 16), M.dark); w.rotation.z = Math.PI / 2; w.position.set(x, 0.45, z); w.castShadow = true; truck.add(w);
+  }); });
+
+  /* conveyor */
+  var SX = [-8, -3, 2, 7, 12], CY = 1.0;
+  box(31.5, 0.14, 0.12, M.dark, -0.25, 0.9, -0.5); box(31.5, 0.14, 0.12, M.dark, -0.25, 0.9, 0.5);
+  var nRoll = 90, rolls = new T.InstancedMesh(new T.CylinderGeometry(0.06, 0.06, 0.9, 8), M.steel, nRoll), dummy = new T.Object3D();
+  for (var r = 0; r < nRoll; r++) { dummy.position.set(-15.8 + r * 0.35, 0.92, 0); dummy.rotation.set(Math.PI / 2, 0, 0); dummy.updateMatrix(); rolls.setMatrixAt(r, dummy.matrix); }
+  rolls.receiveShadow = true; scene.add(rolls);
+  for (var lg = -15.5; lg <= 15.5; lg += 2.5) { box(0.1, 0.85, 0.1, M.dark, lg, 0.43, -0.5); box(0.1, 0.85, 0.1, M.dark, lg, 0.43, 0.5); }
+
+  /* stations */
+  var stn = [], hit = [], SHORT = ['Cut', 'Weld', 'Fit', 'Glaze', 'Pack'];
+  SX.forEach(function(x, i){
+    var g = new T.Group(); g.position.set(x, 0, 0); scene.add(g);
+    box(2.6, 0.75, 0.55, M.cab, 0, 0.38, -1.0, g); box(2.6, 0.75, 0.55, M.cab, 0, 0.38, 1.0, g);
+    var e = box(2.7, 2.5, 2.6, M.encl, 0, 2.25, 0, g, false); e.receiveShadow = false; e.userData.i = i; hit.push(e);
+    var em = new T.LineBasicMaterial({ color: 0x0b5d7a });
+    var edges = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(2.7, 2.5, 2.6)), em); edges.position.set(0, 2.25, 0); g.add(edges);
+    var beacon = new T.Mesh(new T.SphereGeometry(0.2, 16, 12), new T.MeshBasicMaterial({ color: COL.paid })); beacon.position.set(0, 3.75, 0); g.add(beacon);
+    box(0.08, 0.3, 0.08, M.dark, 0, 3.6, 0, g, false);
+    var S = { g: g, beacon: beacon, em: em, parts: {} };
+    if (i === 0) { var d = new T.Mesh(new T.CylinderGeometry(0.55, 0.55, 0.05, 28), M.tool); d.rotation.x = Math.PI / 2; d.position.set(0.3, 2.3, -0.75); d.castShadow = true; g.add(d);
+      box(0.5, 0.5, 0.4, M.dark, 0.3, 2.3, -1.0, g); S.parts.disc = d; }
+    if (i === 1) { S.parts.heads = [[-0.75, 1.3], [0.75, 1.3], [-0.75, 2.85], [0.75, 2.85]].map(function(p){ return box(0.3, 0.3, 0.5, M.weld, p[0], p[1], -0.45, g); }); }
+    if (i === 2) { box(0.5, 1.0, 0.5, M.edge, 0, 1.4, -0.95, g);
+      var a1 = new T.Group(); a1.position.set(0, 1.9, -0.95); g.add(a1); box(0.22, 1.1, 0.22, M.pvc, 0, 0.55, 0, a1);
+      var a2 = new T.Group(); a2.position.set(0, 1.1, 0); a1.add(a2); box(0.18, 0.9, 0.18, M.pvc, 0, 0.45, 0, a2); box(0.26, 0.16, 0.26, M.dark, 0, 0.92, 0, a2);
+      S.parts.a1 = a1; S.parts.a2 = a2; }
+    if (i === 3) { box(2.5, 0.16, 0.16, M.tool, 0, 3.3, -0.6, g); var lift = new T.Group(); lift.position.set(0, 3.2, -0.6); g.add(lift);
+      box(0.1, 0.8, 0.1, M.dark, 0, -0.4, 0, lift); box(0.9, 0.08, 0.3, M.dark, 0, -0.8, 0, lift); box(0.95, 1.1, 0.04, M.glass, 0, -1.4, 0, lift, false); S.parts.lift = lift; }
+    if (i === 4) { box(0.14, 2.3, 0.14, M.tool, -1.0, 2.15, -0.7, g); box(0.14, 2.3, 0.14, M.tool, -1.0, 2.15, 0.7, g); box(0.14, 0.14, 1.54, M.tool, -1.0, 3.3, 0, g);
+      var bar3 = new T.Mesh(new T.PlaneGeometry(1.3, 2.0), M.scan); bar3.rotation.y = Math.PI / 2; bar3.position.set(-0.8, 2.1, 0); g.add(bar3); S.parts.scan = bar3; }
+    S.lab = label(x, 4.15, 0, 'st', '<span class="dot"></span>' + Q.STATIONS[i], false, '<span class="dot"></span>' + SHORT[i], i % 2 ? -20 : 0);
+    stn.push(S);
+  });
+
+  /* order visuals */
+  var vis = {}, cardG = unit;
+  function makeVis(o){
+    var g = new T.Group(); var card = new T.Mesh(cardG, M.idle); card.scale.set(0.8, 0.06, 0.58); card.castShadow = false; card.receiveShadow = true; g.add(card);
+    scene.add(g); var v = { g: g, card: card, frame: null, done: -1, col: 'idle', fresh: true }; vis[o.id] = v; return v;
+  }
+  function makeFrame(v){
+    var f = new T.Group(); v.g.add(f); var P = {};
+    P.car = box(1.3, 0.08, 0.6, M.spent, 0, 0.04, 0, f);
+    P.long = box(1.25, 0.1, 0.1, M.pvc, 0, 0.14, -0.12, f); P.long2 = box(1.25, 0.1, 0.1, M.pvc, 0, 0.14, 0.12, f);
+    P.cut = [-0.18, -0.06, 0.06, 0.18].map(function(z){ return box(1.0, 0.09, 0.09, M.pvc, 0, 0.13, z, f); });
+    var fr = new T.Group(); f.add(fr); P.fr = fr;
+    box(1.1, 0.1, 0.1, M.pvc, 0, 0.13, 0, fr); box(1.1, 0.1, 0.1, M.pvc, 0, 1.48, 0, fr);
+    box(0.1, 1.45, 0.1, M.pvc, -0.5, 0.8, 0, fr); box(0.1, 1.45, 0.1, M.pvc, 0.5, 0.8, 0, fr); box(0.07, 1.3, 0.07, M.pvc, 0, 0.8, 0, fr);
+    P.handle = box(0.06, 0.22, 0.14, M.dark, -0.06, 0.8, 0.06, f, false);
+    P.glass = box(0.92, 1.28, 0.03, M.glass, 0, 0.8, 0, f, false);
+    P.wrap = [[-0.5, 0.15], [0.5, 0.15], [-0.5, 1.46], [0.5, 1.46]].map(function(p){ return box(0.2, 0.2, 0.2, M.wrap, p[0], p[1], 0, f, false); });
+    v.frame = f; v.P = P; v.done = -1;
+  }
+  function setDone(v, n){
+    if (v.done === n) return; v.done = n; var P = v.P;
+    P.long.visible = P.long2.visible = n === 0; P.cut.forEach(function(m){ m.visible = n === 1; });
+    P.fr.visible = n >= 2; P.handle.visible = n >= 3; P.glass.visible = n >= 4; P.wrap.forEach(function(m){ m.visible = n >= 5; });
+  }
+  var tgt = [0, 0, 0];
+  function place(o, counts){
+    var st = o.state, mode = 'card', col = 'spent', n = 0, sc = 1, k;
+    if (st === 'quote') { tgt = slot(PX.quote, counts.quote++); col = 'idle'; }
+    else if (st === 'approve') { tgt = slot(PX.approve, counts.approve++); col = 'idle'; }
+    else if (st === 'prep') { tgt = slot(PX.prep, counts.prep++); sc = 4; }
+    else if (st === 'toinv') { tgt = slot(PX.toinv, counts.toinv++); }
+    else if (st === 'recv') { tgt = slot(PX.recv, counts.recv++); col = 'billed'; }
+    else if (st === 'paid' || st === 'gone') { tgt = [-9.5, 1.3, 9.6]; col = 'paid'; sc = 0.6; }
+    else {
+      mode = 'frame';
+      if (st === 'batch') { k = sim.batchWait.indexOf(o); tgt = [-21.6 + 1.4 * (k % 4), 0.02, -5 + 1.5 * Math.floor(k / 4)]; }
+      else if (st === 'queue') { k = sim.queue.indexOf(o);
+        if (k < 4) tgt = [-10.3 - 1.35 * k, CY, 0];
+        else { k -= 4; var row = Math.min(3, Math.floor(k / 5)); tgt = [-15 + 1.4 * (k % 5), 0.02, 2.4 + 1.05 * row]; } }
+      else if (st === 'proc') { tgt = [SX[o.st], CY, 0]; n = o.st; }
+      else if (st === 'buf') { k = sim.buffers[o.st].indexOf(o); tgt = [SX[o.st] + 3.15 - 1.35 * k, CY, 0]; n = o.st + 1; }
+      else if (st === 'ship') { k = counts.ship++; tgt = [17.9 + 1.6 * (k % 3), 0.02, -1.9 + 1.9 * (Math.floor(k / 3) % 3)]; n = 5; }
+    }
+    return { mode: mode, col: col, n: n, sc: sc };
+  }
+  function syncOrders(a, hard){
+    var counts = { quote: 0, approve: 0, prep: 0, toinv: 0, recv: 0, ship: 0 }, seen = {}, i, o, v;
+    for (i = 0; i < sim.orders.length; i++) {
+      o = sim.orders[i]; v = vis[o.id] || makeVis(o); seen[o.id] = 1;
+      var r = place(o, counts), card = r.mode === 'card', ty = tgt[1];
+      if (card) ty = 0.05 + (o.state === 'paid' || o.state === 'gone' ? tgt[1] : tgt[1] * 0.075 * r.sc) + (r.sc > 1 ? 0.09 : 0);
+      if (!card && !v.frame) makeFrame(v);
+      v.card.visible = card; if (v.frame) v.frame.visible = !card;
+      if (card) { v.card.scale.set(0.8 * (r.sc < 1 ? r.sc : 1), 0.06 * (r.sc > 1 ? r.sc : 1), 0.58 * (r.sc < 1 ? r.sc : 1)); if (v.col !== r.col) { v.card.material = M[r.col]; v.col = r.col; } }
+      else setDone(v, r.n);
+      var p = v.g.position;
+      if (hard || v.fresh) { if (v.fresh && !hard && o.state === 'quote') p.set(19.5, 0.05, -10); else p.set(tgt[0], ty, tgt[2]); v.fresh = false; }
+      else { p.x += (tgt[0] - p.x) * a; p.y += (ty - p.y) * a; p.z += (tgt[2] - p.z) * a; }
+    }
+    for (var id in vis) if (!seen[id]) { scene.remove(vis[id].g); delete vis[id]; }
+  }
+
+  /* station animation */
+  var clock = 0, BC = { running: COL.paid, waiting: '#e3b341', blocked: '#e3b341', changeover: '#2f7fd6', down: COL.down };
+  var BT = { running: 'Running', waiting: 'Waiting', blocked: 'Blocked', changeover: 'Changeover', down: 'Stopped' };
+  function animStations(dt){
+    clock += dt;
+    for (var i = 0; i < stn.length; i++) {
+      var S = stn[i], s = sim.stations[i], run = s.state === 'running' && !paused, P = S.parts;
+      if (S.state !== s.state) {
+        S.state = s.state; S.beacon.material.color.set(BC[s.state]);
+        var dot = '<span class="dot" style="background:' + BC[s.state] + '"></span>';
+        setLab(S.lab, dot + Q.STATIONS[i] + '<small>' + BT[s.state] + '</small>', dot + SHORT[i]);
+      }
+      if (s.state === 'down') S.beacon.visible = paused || (clock * 3 % 1) < 0.6; else S.beacon.visible = true;
+      if (P.disc && run) P.disc.rotation.y += dt * 14;
+      if (P.heads) M.weld.emissiveIntensity = run ? 0.6 + 0.4 * Math.sin(clock * 9) : 0;
+      if (P.a1) { var t = run ? clock * 2.2 : 0.6; P.a1.rotation.x = 0.55 + 0.25 * Math.sin(t); P.a2.rotation.x = 0.9 + 0.35 * Math.sin(t + 1); }
+      if (P.lift) P.lift.position.y = 3.2 - (run ? 0.25 + 0.25 * Math.sin(clock * 2.5) : 0);
+      if (P.scan) { P.scan.visible = run; P.scan.position.x = 0.8 * Math.sin(clock * 3); }
+    }
+  }
+
+  /* picking */
+  var ray = new T.Raycaster(), down = null;
+  canvas.addEventListener('pointerdown', function(e){ down = [e.clientX, e.clientY]; });
+  canvas.addEventListener('pointerup', function(e){
+    if (!down || Math.abs(e.clientX - down[0]) + Math.abs(e.clientY - down[1]) > 6) return;
+    var r = canvas.getBoundingClientRect();
+    ray.setFromCamera(new T.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1), cam);
+    var h = ray.intersectObjects(hit);
+    if (h.length) { selected = h[0].object.userData.i; select(selected); showPop(); }
+  });
+  function select(i){ stn.forEach(function(S, j){ S.em.color.set(j === i ? 0xe08a1e : 0x0b5d7a); }); }
+
+  /* sizing */
+  var W = 1, H = 1;
+  function fit(){
+    W = stage.clientWidth; H = stage.clientHeight; if (!W || !H) return;
+    var c = W < 560; if (c !== compact) { compact = c; labs.forEach(function(L){ L.el.innerHTML = compact ? L.short : L.full; }); }
+    renderer.setSize(W, H, false); cam.aspect = W / H;
+    /* keep the whole floor in view: hold the horizontal field of view once the stage is narrower than 1.75:1 */
+    cam.fov = cam.aspect > 1.75 ? 30 : Math.min(68, 2 * Math.atan(Math.tan(Math.PI / 12) * 1.75 / cam.aspect) * 180 / Math.PI); cam.updateProjectionMatrix();
+  }
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(stage); else window.addEventListener('resize', fit);
+  fit();
+
+  var v3 = new T.Vector3();
+  function drawLabels(){
+    for (var i = 0; i < labs.length; i++) {
+      var L = labs[i]; v3.copy(L.p).project(cam);
+      if (v3.z > 1 || v3.x < -1.05 || v3.x > 1.05 || v3.y < -1.05 || v3.y > 1.05) { L.el.style.display = 'none'; continue; }
+      if (compact && !L.short) { L.el.style.display = 'none'; continue; }
+      L.el.style.display = '';
+      L.el.style.transform = 'translate(' + ((v3.x + 1) / 2 * W).toFixed(1) + 'px,' + ((1 - v3.y) / 2 * H).toFixed(1) + 'px) translate(-50%,' + (L.below ? '0' : '-100%') + ')' + (L.dy && W < 900 ? ' translateY(' + (compact ? L.dy : L.dy * 1.6) + 'px)' : '');
+    }
+  }
+
+  return {
+    snap: function(){ syncOrders(1, true); },
+    select: select,
+    text: function(L){
+      var set = function(k, n, extra){ var p = PX[k]; setLab(p.lab, p.name + '<small>' + n + (n === 1 ? ' order' : ' orders') + (extra || '') + '</small>', p.short + ' ' + n); };
+      var c = { quote: 0, approve: 0, prep: 0, batch: 0, ship: 0, toinv: 0, recv: 0 };
+      sim.orders.forEach(function(o){ if (c[o.state] !== undefined) c[o.state]++; });
+      set('quote', c.quote); set('approve', c.approve); set('prep', c.prep); set('batch', c.batch); set('dock', c.ship);
+      set('toinv', c.toinv); set('recv', c.recv, ' · ' + money(c.recv * C.value) + ' owed');
+    },
+    frame: function(dt, simDays){
+      var a = 1 - Math.exp(-dt * (5 + 3 * speed));
+      syncOrders(paused ? 0 : a, false); animStations(dt);
+      if (ctl) ctl.update();
+      renderer.render(scene, cam); drawLabels();
+    }
+  };
+}
+
+/* ---------- boot ---------- */
+syncSliders(); setPlay();
+scene3d = build3D();
+if (!scene3d) { $('nogl').style.display = 'flex'; $('gl').style.display = 'none'; }
+restart();
+
+var prev = performance.now();
+function loop(t){
+  var dt = Math.min(0.05, (t - prev) / 1000); prev = t;
+  if (!paused) {
+    var days = dt * speed / 3, n = Math.ceil(days / 0.01), h = days / n;
+    for (var i = 0; i < n; i++) sim.step(h);
+  }
+  if (scene3d) scene3d.frame(dt);
+  refresh(false);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+if (EMBED && window.parent !== window) {
+  var lastH = 0, tell = function(){
+    var h = Math.ceil(document.querySelector('.wrap').getBoundingClientRect().height);
+    if (h !== lastH) { lastH = h; window.parent.postMessage({ q2cHeight: h }, '*'); }
+  };
+  if (window.ResizeObserver) new ResizeObserver(tell).observe(document.querySelector('.wrap'));
+  window.addEventListener('load', tell); tell();
+  window.addEventListener('message', function(e){ if (e.data === 'q2cSize?') { lastH = 0; tell(); } });
+}
+window.__q2c = { get sim(){ return sim; }, get snap(){ return snap; }, get base(){ return baseK; } };
+})();
+</script>
+</body>
+</html>
