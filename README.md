@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.13** (see `CHANGELOG.md`).
+Version: **V5.14** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -13,7 +13,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `industries.html` | Industries overview, linking to the 8 industry pages (content: `content/industries/*.json`) |
 | `solutions.html` | Core services and an overview of the 11 solution pages |
 | `training.html` | Free practice-exam library (search and filters). Every exam opens on chmltech.com (`exams/<category>/`) |
-| `insights.html` | All articles with search, category filters and email subscription |
+| `insights.html` | All articles with search, category filters and email subscription, and the "Start here" panel above them: priority buttons that open short reading lists, and a shelf of the article series (lists: `content/insights/finder.json`; run `content/gen/insights_finder.py .` after changing it; script and styles: `assets/js/insights-finder.js`, `assets/css/insights-finder.css`) |
 | `courses.html` | Free online courses and paid one-hour sessions, with the "Find your course" quiz and level/topic filters (data: `content/courses/finder.json`; run `content/gen/course_finder.py .` after changing it or adding a course; script and styles: `assets/js/course-finder.js`, `assets/css/course-finder.css`) |
 | `book.html` | Book Online: free strategy call or paid session request |
 | `funding.html` | Funding finder: filterable directory of federal, provincial and territorial business funding programs (data: `content/grants.json`; script: `assets/js/grants.js`) |
@@ -99,7 +99,8 @@ The email address is never written into the page source, so address-harvesting b
 2. Run `python3 content/gen/add_article.py <slug>`. It writes `post/<slug>.html`, draws the cover, adds the card at the top of `insights.html`, raises the article counts and updates `sitemap.xml`.
 3. Add an entry to `CHANGELOG.md`.
 4. For an article in a series, add `"series": {"name": "FEED series", "part": 1, "of": 3}` to its file before step 2, then run `python3 content/gen/series_labels.py` so every card shows the label. Update `of` in the other parts when a series grows.
-5. The home page "Latest insights" section is not updated by the script. To feature the new article, copy its card from `insights.html` into `index.html` and update the "All N articles" button there.
+5. If the article belongs in a "Start here" reading list, add its slug to `content/insights/finder.json`. Then run `python3 content/gen/insights_finder.py .` (always run it for a series article, so the series shelf shows the new part; a new series also needs a one-line description in `finder.json`).
+6. The home page "Latest insights" section is not updated by the script. To feature the new article, copy its card from `insights.html` into `index.html` and update the "All N articles" button there.
 
 Categories are slugs such as `process-engineering` or `operational-efficiency`; the full list is `CAT_NAMES` in `content/gen/add_article.py`. A card shows the first two categories as tags, so put the main subject first.
 

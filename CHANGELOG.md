@@ -1,5 +1,11 @@
 # Changelog
 
+## V5.14 — 2026-11-14
+- **Insights: "Start here" panel.** A new panel sits above the search and topic filters and asks "What is your next business priority?". Twelve priority buttons (for example "Improve cash flow and get paid sooner", "Reduce inventory without stockouts", "Prepare for ISO 9001 certification") each open a reading list of 5 to 8 articles in a suggested order, with read time, topic, series label and the total reading time. Under each list are a link to the matching free course where one exists (8 of 12), the funding finder for the funding list, and a link that applies the topic filter in the list below. The lists cover 82 of the 146 articles.
+- **Series shelf.** The eight article series (quote to cash, inventory, OEE, FEED, scale-up, process safety, equipment sizing, commissioning) appear as cards with the number of parts, total minutes, a one-line description and "Start at Part 1".
+- No list is open when the page loads. An address ending in `#goal-<id>` (for example `insights#goal-cash`) opens that list, so a list can be linked to. The existing search, filters and article cards are unchanged.
+- New files: `content/insights/finder.json` (the priorities and their lists), `content/gen/insights_finder.py` (builds the panel into `insights.html` from that file and the article cards on the page), `assets/css/insights-finder.css`, `assets/js/insights-finder.js`. README: the Pages table and "Adding a new article" now mention the panel.
+
 ## V5.13 — 2026-11-14
 - **New Insights series: quote to cash (three parts, Operational Efficiency).** The series follows one made-up company, Example Windows Co., and every figure comes from one simulation model.
   - Part 1, **The Quote-to-Cash Process in Manufacturing: Where the Days and the Cash Go** (`post/quote-to-cash-process-in-manufacturing.html`): the eight stages as a swim lane, where the 66 days go, the cash position of one order and five measures to track.
