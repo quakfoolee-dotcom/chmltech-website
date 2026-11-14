@@ -30,7 +30,7 @@ for cats, body in re.findall(r'<article class="article" data-cats="([^"]*)".*?<d
     ser = re.search(r'class="series"[^>]*>(.*?)</p>', body)
     meta = re.search(r'class="meta">(.*?)</p>', body).group(1)
     cards[slug] = dict(
-        slug=slug,
+        slug=slug, journal="chmltech-online-journal" in cats.split(),
         title=re.sub(r"<[^>]+>", "", re.search(r"<h3>(.*?)</h3>", body, flags=re.S).group(1)).strip(),   # already escaped
         cat=re.sub(r"<[^>]+>", "", re.search(r'class="cat-label">(.*?)</p>', body).group(1)),
         series=html.unescape(ser.group(1)) if ser else "",
@@ -40,6 +40,8 @@ for cats, body in re.findall(r'<article class="article" data-cats="([^"]*)".*?<d
 
 def item(a):
     ser = f' · <b>{E(a["series"].replace(" · ", ", "))}</b>' if a["series"] else ""
+    if a["journal"]:
+        ser += ' · <b class="if-rp">Research paper</b>'
     return (f'<li><a href="post/{a["slug"]}.html">{a["title"]}</a>'
             f'<span class="if-meta">{a["read"]} · {a["cat"]}{ser}</span></li>')
 
@@ -92,6 +94,14 @@ for name in fd["series_order"]:
                  f'<span class="if-meta">{len(parts)} parts · {sum(a["mins"] for _, a in parts)} min</span>'
                  f'<p>{E(fd["series"][name])}</p><a href="post/{first["slug"]}.html">Start at Part 1 →</a></div>')
 
+# ---- journal strip -----------------------------------------------------------
+j = fd.get("journal")
+journal = ""
+if j:
+    n = sum(1 for a in cards.values() if a["journal"])
+    journal = (f'<div class="if-journal"><div><h4>{E(j["title"])}</h4><span class="if-meta">{n} research papers</span>'
+               f'<p>{E(j["text"])}</p></div><a href="#cat={j["cat"]}" data-cat="{j["cat"]}">Browse the journal ↓</a></div>')
+
 block = f'''<!-- insights-finder:start -->
 <section class="section if-section"><div class="container">
   <div class="if">
@@ -100,6 +110,7 @@ block = f'''<!-- insights-finder:start -->
     {"".join(panels)}
     <h3 class="if-sub">Or follow a series from Part 1</h3>
     <div class="if-series">{"".join(shelf)}</div>
+    {journal}
   </div>
 </div></section>
 <!-- insights-finder:end -->

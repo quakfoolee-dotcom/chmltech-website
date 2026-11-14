@@ -20,6 +20,7 @@
 .if-list a:hover{color:var(--blue);text-decoration:underline}
 .if-meta{font-size:13px;color:var(--muted)}
 .if-meta b{font-weight:600;color:var(--green-dark)}
+.if-meta b.if-rp{color:var(--blue)}
 .if-foot{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;font-weight:600;padding-top:4px}
 .if-foot a{color:var(--blue);text-decoration:none}
 .if-foot a:hover{text-decoration:underline}
@@ -31,4 +32,10 @@
 .if-ser p{font-size:14.5px;line-height:1.45;color:var(--body)}
 .if-ser a{margin-top:auto;padding-top:6px;font-weight:600;font-size:15px;color:var(--blue);text-decoration:none}
 .if-ser a:hover{text-decoration:underline}
+.if-journal{border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:10px;background:var(--paper);padding:18px 22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px}
+.if-journal>div{display:flex;flex-direction:column;gap:4px;max-width:760px}
+.if-journal h4{font-size:17px}
+.if-journal p{font-size:14.5px;line-height:1.45;color:var(--body)}
+.if-journal a{font-weight:600;font-size:15px;color:var(--blue);text-decoration:none;white-space:nowrap}
+.if-journal a:hover{text-decoration:underline}
 @media (max-width:640px){.if{padding:24px 18px}.if-panel{padding:20px 16px}}

@@ -1,5 +1,13 @@
 # Changelog
 
+## V5.16 — 2026-11-14
+- **Insights "Start here": the Chmltech Online Journal is now covered.** Twelve of the 22 journal papers were in no reading list.
+  - New priority **"Apply AI on the plant floor"**: Agentic AI in Manufacturing Operations, the three Physical AI papers and Digital Twins in Chemical Process Plants (`insights#goal-plant-ai`).
+  - **The EU AI Act for Canadian Businesses** added to "Adopt AI in the business".
+  - **Journal strip** under the series shelf: what the journal is, the number of papers (read from the page) and "Browse the journal", which applies the journal filter below. The remaining research papers (model costs, machine learning systems, hydrogen) are reached there.
+  - Journal papers in the reading lists carry a **"Research paper"** tag, so a 20-minute paper can be told from a 5-minute article.
+- The panel now has 14 priorities and its lists cover 91 of the 146 articles (16 of the 22 journal papers).
+
 ## V5.15 — 2026-11-14
 - **Insights "Start here": new priority "Size and specify process equipment".** The three Equipment sizing posts (pump, heat exchanger, tank) were not in any reading list. The new list, for engineers, runs: How to Read a PFD and a P&ID; From Pilot Data to a Mass and Energy Balance; Sizing a Pump; Sizing a Heat Exchanger; Sizing a Tank; Pressure Relief Basics; Engineering CAPEX and OPEX Estimation. It links to the FEED and Process Design course and the Process Engineering filter, and can be opened directly at `insights#goal-equipment`.
 - The panel now has 13 priorities and its lists cover 85 of the 146 articles. Source: `content/insights/finder.json`.

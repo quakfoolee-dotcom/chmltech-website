@@ -1,5 +1,5 @@
 {
- "_note": "Insights 'Start here' panel. goals: reading lists in suggested order (article slugs from post/). series: one-line descriptions, keyed by the series name used on the cards. Run content/gen/insights_finder.py . after editing, then seo_pass.py.",
+ "_note": "Insights 'Start here' panel. goals: reading lists in suggested order (article slugs from post/). series: one-line descriptions, keyed by the series name used on the cards. Run content/gen/insights_finder.py . after editing, then seo_pass.py. journal: the strip under the series shelf; its paper count is read from the cards.",
  "goals": [
   {
    "id": "cash",
@@ -62,7 +62,8 @@
     "data-strategy-for-ai-building-the-foundation-for-scalable",
     "how-chatgpt-can-help-small-businesses-improve-customer-service-and-streamline-operations",
     "private-ai-assistant-on-your-own-pc-anythingllm-and-ollama",
-    "agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption"
+    "agent-readiness-for-small-and-mid-sized-firms-data-process-staged-adoption",
+    "the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path"
    ],
    "cat": "artificial-intelligence",
    "cat_name": "Artificial Intelligence",
@@ -85,6 +86,20 @@
    "cat": "artificial-intelligence",
    "cat_name": "Artificial Intelligence",
    "course": "ai-agents-for-business-operations"
+  },
+  {
+   "id": "plant-ai",
+   "label": "Apply AI on the plant floor",
+   "blurb": "Where AI agents, robots and digital twins help in plants and factories, and the safety limits to set.",
+   "articles": [
+    "agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries",
+    "physical-ai-foundations-architectures-and-the-sim-to-real-gap",
+    "physical-ai-in-process-plants-and-factories-inspection-manipulation-and-control",
+    "safety-reliability-and-economics-of-deploying-physical-ai",
+    "digital-twins-in-chemical-process-plants-architecture-modeling-and-applications"
+   ],
+   "cat": "artificial-intelligence",
+   "cat_name": "Artificial Intelligence"
   },
   {
    "id": "iso",
@@ -240,5 +255,10 @@
   "Process safety series",
   "Equipment sizing series",
   "Commissioning series"
- ]
+ ],
+ "journal": {
+  "cat": "chmltech-online-journal",
+  "title": "Chmltech Online Journal",
+  "text": "Longer research papers on AI agents, physical AI, process plants and hydrogen, each with a PDF to download."
+ }
 }
