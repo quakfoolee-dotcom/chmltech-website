@@ -26,7 +26,7 @@ L3 = f'<a href="{P3}.html">Post&nbsp;3</a>'
 NOTE = ('<p class="oee-note"><em>The reaction, temperatures and equipment in this series are an illustrative example. '
         'The calculations are screening estimates. They do not replace calorimetry testing, a formal hazard study '
         'or a design by a qualified engineer.</em></p>')
-EXAM = ('<a href="https://quakfoolee-dotcom.github.io/exam-library/process-chemeng/Process_Engineering_Reactor_Design_150Q_V2.html" '
+EXAM = ('<a href="../exams/process-chemeng/Process_Engineering_Reactor_Design_150Q_V2.html" '
         'target="_blank" rel="noopener">Reactor Design Exam</a>')
 
 # ───────────────────────── example data, shared with the scale-up series ─────────────────────────

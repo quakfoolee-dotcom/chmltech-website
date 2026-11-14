@@ -442,7 +442,7 @@ sol = sol.replace('<section class="section sand" id="all-solutions"', f'''<secti
 page("solutions.html", "Solutions", "AI readiness and strategy, digital transformation advisory, business process improvement, Lean Six Sigma, ISO 9001, process mapping, leadership operating systems and more from Chmltech Ltd.", sol)
 
 # ---------------------------------------------------------------- TRAINING: free practice exam library
-EXAM_BASE = "https://quakfoolee-dotcom.github.io/exam-library/"
+EXAM_BASE = "exams/"
 exam_cats = json.load(open(os.path.join(HERE, "exam_cats.json")))
 LEAD_ORDER = ["quality_lean", "operations", "ai_agents", "ai_use_cases", "process_chemeng", "project_agile", "software_data", "cybersecurity", "business_finance", "decision_thinking"]
 exam_cats.sort(key=lambda c: LEAD_ORDER.index(c["id"]) if c["id"] in LEAD_ORDER else 99)

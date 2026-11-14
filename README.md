@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.7** (see `CHANGELOG.md`).
+Version: **V5.8** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -12,7 +12,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `index.html` | Home, with the 3D animated hero (script: `assets/js/hero3d.js`; styles: the "V5.3 homepage 3D hero" block in `assets/css/styles.css`) |
 | `industries.html` | Industries overview, linking to the 8 industry pages (content: `content/industries/*.json`) |
 | `solutions.html` | Core services and an overview of the 11 solution pages |
-| `training.html` | Free practice-exam library (search and filters) plus self-hosted mock exams |
+| `training.html` | Free practice-exam library (search and filters) plus self-hosted mock exams. Every exam opens on chmltech.com (`exams/<category>/`) |
 | `insights.html` | All articles with search, category filters and email subscription |
 | `courses.html` | Free online courses and paid one-hour sessions, with the "Find your course" quiz and level/topic filters (data: `content/courses/finder.json`; run `content/gen/course_finder.py .` after changing it or adding a course; script and styles: `assets/js/course-finder.js`, `assets/css/course-finder.css`) |
 | `book.html` | Book Online: free strategy call or paid session request |
@@ -25,6 +25,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `<industry>.html`, `<solution>.html` | Industry and solution detail pages (for example `manufacturing.html`, `scaling-up.html`) |
 | `challenge-page/*.html` | The 24 free interactive courses: lessons, labs, exam and certificate (player: `assets/js/course.js`, `assets/css/course.css`; content: `content/courses/*.json`, newer courses written in `content/courses/src/*.py`; page renderer: `content/gen/course_page.py`; to add a course: write its JSON, add it to `content/courses/finder.json` and `CARDS` in `content/gen/add_course.py`, then run `python3 content/gen/add_course.py . <name>` and `seo_pass.py`) |
 | `exams/*.html` + `<exam-slug>.html` | Self-hosted mock exams and tools migrated from Wix |
+| `exams/<category>/*.html` | The practice-exam library (145 standalone exams in 10 category folders), moved here in V5.8 from the `exam-library` repository. Catalog: `content/gen/exam_cats.json`. To add an exam: put the file in its category folder, add it to `exam_cats.json` and its card to `training.html`, then run `seo_pass.py` (adds the canonical URL, description, analytics and sitemap entry). The old `quakfoolee-dotcom.github.io/exam-library/` addresses redirect here |
 | `assets/media/` | All images migrated from Wix (`thumbs/` holds card-sized versions) |
 | `assets/css/oee.css`, `assets/js/oee.js` | Styles and the three slider calculators (with live charts) used by the OEE article series. The FEED series (`content/articles/feed_articles.py`) reuses the table and layout styles from `oee.css` |
 | `assets/js/scaleup.js` | The cooling-capacity calculator and chart in Part 1 of the scale-up series (source: `content/articles/process_eng_articles.py`) |

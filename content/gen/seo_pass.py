@@ -20,11 +20,16 @@ are redirect stubs and are left alone):
      image in view, so it should load first).
   7. exams/*.html (the raw exam apps shown inside the exam pages): noindex, indexifembedded,
      with a canonical to the page that embeds them, so search engines rank the full page.
+  7b. exams/<category>/*.html (the practice-exam library linked from Training, V5.8): standalone
+     pages that are indexed in their own right. Each gets a canonical to itself, a meta
+     description from content/gen/exam_cats.json, analytics and a sitemap entry. Nothing else
+     in the exam file is touched.
   9. Microsoft Clarity analytics on every indexable page (CLARITY_ID below).
   8. Rebuilds sitemap.xml from the files (indexable pages only, clean URLs, lastmod) and
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
 import html, json, os, re, subprocess, sys, datetime
+from urllib.parse import quote
 import assetver
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from seo_keywords import KEYWORDS
@@ -68,6 +73,17 @@ def rd(p): return open(os.path.join(ROOT, p), encoding="utf-8").read()
 def wr(p, s): open(os.path.join(ROOT, p), "w", encoding="utf-8").write(s)
 def esc(s): return html.escape(s, quote=True)
 def g(pat, s): m = re.search(pat, s, re.S | re.I); return html.unescape(m.group(1)).strip() if m else ""
+
+def _exam_catalog():
+    """exams/<category>/<file>.html -> (title, question count, summary), from the Training catalog."""
+    fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "exam_cats.json")
+    out = {}
+    if os.path.exists(fp):
+        for c in json.load(open(fp, encoding="utf-8")):
+            for e in c["exams"]:
+                out[re.sub(r"^(\.\./)+", "", e[1])] = (e[0], e[2], e[4] if len(e) > 4 else "")
+    return out
+EXAM_CATALOG = _exam_catalog()
 
 def clean_url(rel):
     u = rel[:-5] if rel.endswith(".html") else rel
@@ -224,11 +240,36 @@ def article_dates(s):
     return pub, mod
 
 def process(rel, sitemap, llms):
-    s = rd(rel)
+    lib_exam = rel.startswith("exams/") and rel.count("/") == 2
+    # library exams are read and written with their line endings untouched
+    s = open(os.path.join(ROOT, rel), encoding="utf-8", newline="").read() if lib_exam else rd(rel)
     orig = s
     if re.search(r'<meta name="robots" content="noindex', s) and not rel.startswith("exams/"):
         return
     if rel == "404.html":
+        return
+    # 7b. practice-exam library (exams/<category>/<file>.html)
+    if lib_exam:
+        url = SITE + "/" + quote(rel[:-5])
+        cat = EXAM_CATALOG.get(rel[len("exams/"):])
+        title = g(r"<title>(.*?)</title>", s) or (cat[0] if cat else rel.rsplit("/", 1)[-1][:-5].replace("_", " "))
+        desc = ""
+        if cat:
+            n = re.match(r"(\d+)", cat[1] or "")
+            desc = f"{cat[0]}: free online practice exam{(' with ' + n.group(1) + ' questions') if n else ''} from Chmltech. {cat[2]}".strip()
+        head_end = re.search(r"</head>", s, re.I).start()
+        add = ""
+        if 'rel="canonical"' not in s[:head_end]:
+            add += f'<link rel="canonical" href="{url}">\n'
+        if desc and 'name="description"' not in s[:head_end]:
+            add += f'<meta name="description" content="{esc(desc)}">\n'
+        if CLARITY and '"clarity","script"' not in s:
+            add += CLARITY + "\n"
+        if add:
+            s = s[:head_end] + add + s[head_end:]; bump("library exams: canonical/description/analytics")
+        if s != orig: open(os.path.join(ROOT, rel), "w", encoding="utf-8", newline="").write(s)
+        sitemap.append((url, git_date(rel), "0.5"))
+        llms.append((rel, title, desc, url))
         return
     # 7. embedded exam apps
     if rel.startswith("exams/"):
@@ -383,7 +424,7 @@ def write_llms(entries):
         elif rel.startswith("challenge-page/"): by["courses"].append((t, d, u))
         elif slug in SOLUTIONS: by["solutions"].append((t, d, u))
         elif slug in INDUSTRIES: by["industries"].append((t, d, u))
-        elif "exam" in slug or slug in ("atomic-habits", "psychology-of-money", "100-days-efficient-operations-guide"):
+        elif rel.startswith("exams/") or "exam" in slug or slug in ("atomic-habits", "psychology-of-money", "100-days-efficient-operations-guide"):
             by["exams"].append((t, d, u))
         else: by["core"].append((t, d, u))
     out = ["# Chmltech Ltd.", "",

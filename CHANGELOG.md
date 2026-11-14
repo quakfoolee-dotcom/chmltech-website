@@ -1,5 +1,12 @@
 # Changelog
 
+## V5.8 — 2026-11-13
+- **Practice exams now open on chmltech.com.** The 145 exams in the Training library were hosted in a separate repository and opened at `quakfoolee-dotcom.github.io/exam-library/...`. They now live in this site under `exams/<category>/` (10 category folders), so visitors stay on `www.chmltech.com`, for example `www.chmltech.com/exams/quality-lean/ISO_9001_Case_Study_Exam_100Q_V3.html`. File names are unchanged.
+- **Links updated:** all 145 exam links on `training.html` and the Reactor Design Exam link in the process safety article (`post/what-happens-if-the-cooling-fails-runaway-reactions.html`), with their sources (`content/gen/build_v3.py`, `content/articles/safety_articles.py` and the article JSON). No page links to github.io for an exam any more.
+- **Search and analytics:** `content/gen/seo_pass.py` now gives each library exam a canonical URL on chmltech.com, a meta description from the exam catalog (`content/gen/exam_cats.json`) and Microsoft Clarity analytics, and lists it in `sitemap.xml` (225 → 370 URLs) and `llms.txt`. The exam files are otherwise byte-for-byte the originals. The 25 Wix-migrated exam apps in `exams/*.html` keep their existing treatment (not indexed on their own; their wrapper pages are).
+- **Old addresses:** each exam in the `exam-library` repository is replaced by a redirect to its new address, so bookmarks and search results keep working.
+- Not moved: the `Archive/` folder of the old repository (older exam versions, not linked from the site) and the EOS exam (not listed on Training).
+
 ## V5.7 — 2026-11-13
 - **Fix: course finder buttons.** The outlined buttons in the course finder ("Browse all courses", "Retake the quiz") turned white-on-white on hover, so their text disappeared. Hover now shows white text on navy (`assets/css/course-finder.css`).
 - **Fix: tables.** A site-wide rule styled the first row of every table as a header, so in tables that already have a header row the first data row looked like a second header (shaded and bold). The header style now applies only to tables without a header row (`assets/css/styles.css`). Affects all course lessons and articles with tables; older tables that rely on first-row header styling are unchanged.
