@@ -64,25 +64,7 @@
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#what-a-relief-device-does">What a relief device does</a></li><li><a href="#what-can-cause-overpressure">What can cause overpressure</a></li><li><a href="#choosing-the-governing-case">Choosing the governing case</a></li><li><a href="#set-pressure-and-where-the-relief-goes">Set pressure and where the relief goes</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></details>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="../assets/css/oee.css?v=12a6a829">
+<link rel="stylesheet" href="../assets/css/oee.css?v=c64d4aff">
 <p>A pressure relief valve sits quietly on a vessel for years and may never lift. It is still one of the most important pieces of equipment in a plant, because it is the last line of defence when everything else has failed. Owners and managers see relief valves on every P&amp;ID and in every inspection report. This article explains what they protect against, how engineers decide which scenario sets their size, and where the common mistakes are.</p>
 <h2 id="what-a-relief-device-does">What a relief device does</h2>
 <p>Every pressure vessel has a <strong>maximum allowable working pressure</strong> (MAWP), set by its design code. A relief device opens before the pressure goes much above it, and releases enough fluid to stop the pressure rising further. Codes allow the pressure to rise a little above the MAWP while the device is relieving. That rise is called accumulation, and its limit depends on the case.</p>
@@ -132,6 +114,7 @@
 </div>
 <figcaption>Figure 2. Inside a spring-loaded relief valve on R-101, cut in half. Run the overpressure event or drag the pressure slider. The valve opens at the 3 barg set pressure, relieves to the flare or scrubber, and reseats at about 2.8 barg. Part shapes are simplified.</figcaption>
 </figure>
+
 <h2 id="what-can-cause-overpressure">What can cause overpressure</h2>
 <p>API 521 lists the causes an engineer must consider for each piece of equipment. The main ones:</p>
 <table>
@@ -150,8 +133,8 @@
 <p>For each device, the engineer calculates the relief load, in kg/h, for every credible cause. The largest sets the size of the valve. That is the <strong>governing case</strong>. For a vessel full of liquid that can boil, the fire case often governs. Here is the calculation for R-101.</p>
 <h3>Fire case for R-101</h3>
 <p>R-101 is the 10&nbsp;m³ reactor from the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a>, about 2.34&nbsp;m in diameter. API 521 estimates the heat absorbed from a pool fire, where there is adequate drainage and fire-fighting, as:</p>
-<p>Q = 43,200 × F × A<sub>ws</sub><sup>0.82</sup></p>
-<p>with Q in watts, A<sub>ws</sub> the wetted surface area in m² (counted up to 7.6&nbsp;m above the fire), and F an environment factor, 1.0 for a bare vessel and lower for insulated ones. At 80% full, the wetted area of R-101 is about 18.0&nbsp;m², so the fire heat input is about <strong>462&nbsp;kW</strong>. If all of it boils solvent with a latent heat of 360&nbsp;kJ/kg, the relief load is about <strong>4,619&nbsp;kg/h</strong> of vapour.</p>
+<p class="eq">\[Q = 43{,}200\, F\, A_{ws}^{\,0.82}\]</p>
+<p>with \(Q\) in watts, \(A_{ws}\) the wetted surface area in m² (counted up to 7.6&nbsp;m above the fire), and \(F\) an environment factor, 1.0 for a bare vessel and lower for insulated ones. At 80% full, the wetted area of R-101 is about 18.0&nbsp;m², so the fire heat input is about <strong>462&nbsp;kW</strong>. If all of it boils solvent with a latent heat of 360&nbsp;kJ/kg, the relief load is about <strong>4,619&nbsp;kg/h</strong> of vapour.</p>
 <p>Insulation that stays in place in a fire lowers F and the relief load. Draining the vessel to a safe location, or depressuring it, can also reduce what the relief device has to handle. These are design choices that the relief study should record.</p>
 <h3>Why the fire case may not govern</h3>
 <p>For R-101, the runaway case may be worse. A runaway reaction generates heat much faster than a fire and may also generate gas, and the vented stream is often a two-phase mixture of liquid and vapour, which needs a much larger device than vapour alone. Sizing for runaway reactions uses specialist methods based on calorimetry data, developed largely through the Design Institute for Emergency Relief Systems. That is why the <a href="what-happens-if-the-cooling-fails-runaway-reactions.html">runaway reaction post</a> treats prevention as the first priority: a relief system sized for a runaway is large, expensive and still a last resort.</p>
@@ -179,6 +162,10 @@
 <p class="oee-note"><em>The vessel and numbers in this article are an illustrative example. Relief systems must be designed by a qualified engineer to the applicable codes and the requirements of your jurisdiction.</em></p>
 <script src="../assets/js/vendor/three-r128.min.js" defer></script>
 <script src="../assets/js/psv3d.js?v=0c102261" defer></script>
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-a-relief-device-does">What a relief device does</a></li><li><a href="#what-can-cause-overpressure">What can cause overpressure</a></li><li><a href="#choosing-the-governing-case">Choosing the governing case</a></li><li><a href="#set-pressure-and-where-the-relief-goes">Set pressure and where the relief goes</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></div>
@@ -187,7 +174,7 @@
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 146 articles</a></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 148 articles</a></div>
   <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="what happens if the cooling fails: runaway reactions and mtsr how hot a reactor can get when cooling stops. adiabatic temperature rise, accumulation, mtsr and criticality classes, with a calculator. process safety runaway reaction mtsr criticality class reaction calorimetry semi-batch"><div class="thumb"><img src="../assets/media/covers/thumbs/what-happens-if-the-cooling-fails-runaway-reactions.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 1 of 3</p><h3><a href="../post/what-happens-if-the-cooling-fails-runaway-reactions.html">What Happens If the Cooling Fails: Runaway Reactions and MTSR</a></h3><p class="muted">How hot a reactor can get when cooling stops. Adiabatic temperature rise, accumulation, MTSR and criticality classes, with a calculator.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="a worked hazop: the feed heater, node by node a hazop of one steam heater: guide words, two nodes, the worksheets, seven actions, and the p&amp;id before and after the study. hazop process safety p&amp;id iec 61882 safeguards hazard review"><div class="thumb"><img src="../assets/media/covers/thumbs/a-worked-hazop-the-feed-heater-node-by-node.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 2 of 3</p><h3><a href="../post/a-worked-hazop-the-feed-heater-node-by-node.html">A Worked HAZOP: The Feed Heater, Node by Node</a></h3><p class="muted">A HAZOP of one steam heater: guide words, two nodes, the worksheets, seven actions, and the P&amp;ID before and after the study.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="management of change for small plants how small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page moc form for small plants. management of change moc process safety csa z767 hazop"><div class="thumb"><img src="../assets/media/covers/thumbs/management-of-change-for-small-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 3 of 3</p><h3><a href="../post/management-of-change-for-small-plants.html">Management of Change for Small Plants</a></h3><p class="muted">How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Pressure Relief Basics: What a PSV Protects Against and How the Relief Case Is Chosen", "datePublished": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/pressure-relief-basics-what-a-psv-protects-against", "description": "What a pressure relief valve protects against, the causes of overpressure, how the governing case is chosen, a worked fire case, and common mistakes.", "image": "https://www.chmltech.com/assets/media/covers/pressure-relief-basics-what-a-psv-protects-against.jpg", "dateModified": "2026-11-13"}</script>

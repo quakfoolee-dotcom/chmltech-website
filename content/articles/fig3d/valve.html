@@ -1,0 +1,37 @@
+<p>Figure 2 shows FV-104 cut in half, with the liquid moving through it. Move the flow set point and watch the plug travel, the pressure drop and the pressure inside the valve respond. Switch the trim to see where a linear plug would sit for the same flow. Then raise the vapour pressure to see what a more volatile liquid would do in the same valve.</p>
+<figure class="cv3d" id="cv3d">
+<div class="cv3d-box">
+<div class="cv3d-stage">
+<canvas role="img" aria-label="3D model of control valve FV-104, a globe valve with a spring-and-diaphragm actuator, cut in half. Liquid enters from the left, passes under a dividing wall, rises through the seat ring past the plug and leaves to the right. The plug hangs on a stem that runs up through the bonnet and packing to a diaphragm in the actuator. Air under the diaphragm lifts the plug to open the valve and a spring above it pushes the plug down to close it. Colours show pressure falling from the inlet to its lowest point just past the seat and partly recovering toward the outlet, and streamlines show the path of the liquid."></canvas>
+<svg class="cv3d-lines" aria-hidden="true"></svg>
+<span class="cv3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="cv3d-chip" id="cv3d-chip">Controlling normally</span>
+<p class="cv3d-nogl" id="cv3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="cv3d-panel">
+<div class="cv3d-top">
+<div class="cv3d-sliders">
+<div class="cv3d-sl"><label for="cv3d-flow">Flow set point (FIC-104) <output id="cv3d-flow-o" for="cv3d-flow">8.09 m³/h · 110% of normal</output></label><input type="range" id="cv3d-flow" min="15" max="150" step="1" value="110"></div>
+<div class="cv3d-sl"><label for="cv3d-pv">Vapour pressure of the liquid (what if) <output id="cv3d-pv-o" for="cv3d-pv">2.9 kPa abs</output></label><input type="range" id="cv3d-pv" min="0" max="200" step="1" value="0"></div>
+<div class="cv3d-sl"><span class="cv3d-lab" id="cv3d-trim-l">Trim (plug shape)</span><div class="cv3d-seg" role="group" aria-labelledby="cv3d-trim-l"><button type="button" class="cv3d-btn" id="cv3d-eq" aria-pressed="true">Equal percentage</button><button type="button" class="cv3d-btn" id="cv3d-lin" aria-pressed="false">Linear</button></div></div>
+</div>
+<div class="cv3d-chart"><svg id="cv3d-svg" viewBox="0 0 300 190" role="img" aria-label="Pressure through the valve, from the inlet, down to its lowest point just past the seat, and partly back up to the outlet, compared with the vapour pressure of the liquid."></svg></div>
+</div>
+<div class="cv3d-cells">
+<div class="cv3d-cell cv3d-key"><span class="k">Flow</span><strong id="cv3d-q">8.09 m³/h</strong></div>
+<div class="cv3d-cell"><span class="k">Valve travel</span><strong id="cv3d-x">70% open</strong></div>
+<div class="cv3d-cell"><span class="k">Cv in use</span><strong id="cv3d-cv">7.87 of 25</strong></div>
+<div class="cv3d-cell"><span class="k">Pressure drop</span><strong id="cv3d-dp">120 kPa</strong></div>
+<div class="cv3d-cell"><span class="k">Lowest pressure inside</span><strong id="cv3d-pl">324 kPa abs</strong></div>
+<div class="cv3d-cell"><span class="k">Choked pressure drop</span><strong id="cv3d-ch">381 kPa</strong></div>
+</div>
+<div class="cv3d-foot">
+<p class="cv3d-say" id="cv3d-say" aria-live="polite">Design point: at the rated 8.09 m³/h the valve has 120 kPa to work with, needs a Cv of 7.87 and sits 70% open. The lowest pressure inside, 324 kPa abs, is far above the vapour pressure.</p>
+<button type="button" class="cv3d-btn" id="cv3d-reset">Back to design point</button>
+<button type="button" class="cv3d-btn" id="cv3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="cv3d-legend" aria-hidden="true"><li><i class="grad"></i>Pressure, 100 to 600 kPa abs</li><li><i class="ln"></i>Streamlines</li><li><i class="bub"></i>Vapour bubbles</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. FV-104 as a 1½-inch globe valve with a spring-and-diaphragm actuator, cut in half. The flow controller FIC-104 sets the flow, and the model finds the valve travel that delivers it against the pump curve and the system of Part 1. Pressures are absolute (gauge plus 101 kPa). The vapour pressure slider is a what-if for a more volatile liquid and changes nothing else. The recovery factor of 0.90, the critical pressure of 41 bar and the rangeability of 50 are illustrative assumptions. The streamlines, pressure colours and bubbles are schematic, and part shapes are simplified.</figcaption>
+</figure>

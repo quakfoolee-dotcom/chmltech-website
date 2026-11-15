@@ -1,5 +1,15 @@
 # Changelog
 
+## V5.18 — 2026-11-14
+- **Two new articles extend the equipment sizing series to five parts**, each with an interactive 3D model as Figure 2:
+  - **Part 4, "Sizing a Control Valve: Cv, Pressure Drop and Cavitation"** (FV-104 on the P-101 discharge): three flow cases, required Cv 1.87 / 6.31 / 7.87, a 1½-inch globe valve with rated Cv 25 and equal percentage trim (34% / 65% / 70% open), cavitation and choked flow check, failure position and data sheet. The 3D model is a half-cut globe valve with a spring-and-diaphragm actuator: a flow set point slider moves the plug, a trim switch compares linear and equal percentage, and a vapour pressure what-if shows cavitation and flashing, with a live pressure profile chart.
+  - **Part 5, "Sizing a Line: Velocity, Pressure Drop and Pipe Schedule"** (the P-101 discharge and suction lines): velocity and pressure drop criteria, Reynolds number, friction factor, fittings as equivalent length, suction line, economics and ASME B31.3 wall thickness. The 3D model is a cut pipe with the velocity profile, speed colours, streamlines and dye: pipe size buttons, a flow slider and a viscosity what-if that takes the flow from turbulent to laminar, with a live friction factor chart.
+- **Equations are now typeset as mathematics** in all six equipment articles (pump, heat exchanger, tank, pressure relief, control valve, line). The sources write LaTeX; KaTeX 0.16.11 is vendored in `assets/js/vendor/katex/` and loaded only on pages that carry equations, through `assets/js/math.js`.
+- Parts 1 to 3 now read "Part n of 5", Part 1's introduction lists all five parts, and Part 3 points on to Part 4. The Insights "Start here" list for equipment sizing and the series shelf include the two new parts.
+- **Pump figure:** the control valve's design opening is now 70%, to agree with the valve sized in Part 4 (it was a 60% placeholder). The design-point readings are unchanged.
+- Illustrative assumptions (stated in the articles): valve minimum flow 3.0 m³/h, rated Cv 25, rangeability 50, recovery factor 0.90, critical pressure 41 bar; line guideline ranges, the fittings count, 10 barg design pressure, 138 MPa allowable stress and 1.5 mm corrosion allowance.
+- New scripts `assets/js/cv3d.js`, `ln3d.js`, `math.js`; styles are the V5.18 block at the end of `assets/css/oee.css`; sources `content/articles/sizing_valve_article.py` and `sizing_line_article.py`.
+
 ## V5.17 — 2026-11-14
 - **Four process engineering articles gain an interactive 3D model (each as a new Figure 2).** All are cut open or clear so the inside is visible, can be dragged to turn, and recalculate from the article's own worked example.
   - **Pressure relief basics:** a spring-loaded relief valve cut in half. An overpressure event plays on a loop (1 barg normal, lifts at the 3 barg set pressure, reseats at about 2.8 barg); a pressure slider lets the reader trigger it; a panel compares gas force with spring force.

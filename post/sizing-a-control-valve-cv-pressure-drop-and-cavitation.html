@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step</title>
+<meta name="description" content="How a liquid control valve is sized: flow cases, pressure drop, Cv, trim and travel, cavitation check and failure position, on a worked example.">
+<link rel="canonical" href="https://www.chmltech.com/post/sizing-a-control-valve-cv-pressure-drop-and-cavitation">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step">
+<meta property="og:description" content="How a liquid control valve is sized: flow cases, pressure drop, Cv, trim and travel, cavitation check and failure position, on a worked example.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/sizing-a-control-valve-cv-pressure-drop-and-cavitation.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=52140738">
+<meta property="og:url" content="https://www.chmltech.com/post/sizing-a-control-valve-cv-pressure-drop-and-cavitation">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step","item":"https://www.chmltech.com/post/sizing-a-control-valve-cv-pressure-drop-and-cavitation"}]}]}</script>
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 4 of 5</p>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 14, 2026</span><span>9 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#step-1-fix-the-flows-and-the-pressures-at-the-valve">Step 1: fix the flows and the pressures at the valve</a></li><li><a href="#step-2-calculate-the-flow-coefficient">Step 2: calculate the flow coefficient</a></li><li><a href="#step-3-choose-the-valve-and-the-trim">Step 3: choose the valve and the trim</a></li><li><a href="#step-4-check-for-choked-flow-cavitation-and-flashing">Step 4: check for choked flow, cavitation and flashing</a></li><li><a href="#step-5-settle-the-failure-position-and-the-actuator">Step 5: settle the failure position and the actuator</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></details>
+
+<link rel="stylesheet" href="../assets/css/oee.css?v=c64d4aff">
+<p>A pump pushes, a heater heats, a tank holds. The control valve is the one piece of equipment in the feed section that makes a decision many times a minute: how much to let through. If it is too big it works barely cracked open and the flow hunts. If it is too small the plant cannot reach its rated flow. If the pressure inside it falls too low the liquid boils in the valve and eats the trim.</p>
+<p><a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> of this series sized pump P-101 and set aside 120&nbsp;kPa of its head for the flow control valve. This part sizes that valve, called FV-104 here. It sits on the pump discharge, upstream of heater E-101, and holds the feed to reactor R-101 at 6,250&nbsp;kg/h. The steps are the same for any liquid control valve: fix the flows and pressures, calculate the flow coefficient, pick a valve and trim, check for cavitation, and settle the failure position.</p>
+<h2 id="step-1-fix-the-flows-and-the-pressures-at-the-valve">Step 1: fix the flows and the pressures at the valve</h2>
+<p>A control valve is sized for a range, not a point. Three cases cover it: the <strong>minimum</strong> flow it must still control, here 3.0&nbsp;m³/h for start-up and turndown; the <strong>normal</strong> flow of 7.35&nbsp;m³/h; and the <strong>rated</strong> flow of 8.09&nbsp;m³/h, 10% above normal, the same margin the pump was sized for.</p>
+<p>For each case the valve's pressure drop is whatever is left over. The inlet pressure is what the pump delivers at that flow, less the strainer, the flow meter and the short run of pipe before the valve. The outlet pressure is what the rest of the system needs: reactor pressure, static lift, the heater and the remaining pipe.</p>
+<table>
+<tr><th class="nw">Case</th><th class="num">Flow, m³/h</th><th class="num">Inlet P1, kPa(g)</th><th class="num">Outlet P2, kPa(g)</th><th class="num">Valve ΔP, kPa</th><th class="num">Required Cv</th></tr>
+<tr><td class="nw">Minimum</td><td class="num">3.00</td><td class="num">470</td><td class="num">179</td><td class="num">291</td><td class="num">1.87</td></tr><tr><td class="nw">Normal</td><td class="num">7.35</td><td class="num">391</td><td class="num">237</td><td class="num">154</td><td class="num">6.31</td></tr><tr><td class="nw">Rated</td><td class="num">8.09</td><td class="num">371</td><td class="num">251</td><td class="num">120</td><td class="num">7.87</td></tr>
+</table>
+<p>The pattern matters more than the numbers. At low flow the pump runs back up its curve and delivers more pressure, while the heater and the pipes need less, so the valve must absorb 291&nbsp;kPa. At rated flow it has only 120&nbsp;kPa to work with, the allowance from <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a>. The valve has to pass the most flow exactly when it has the least pressure drop available.</p>
+<h2 id="step-2-calculate-the-flow-coefficient">Step 2: calculate the flow coefficient</h2>
+<p>Valve capacity is expressed as the <strong>flow coefficient, Cv</strong>: the flow of water in US gallons per minute that passes through the valve with a pressure drop of 1&nbsp;psi. For a liquid in turbulent flow, with the flow Q in m³/h, the pressure drop ΔP in bar and the specific gravity SG, the sizing equation of IEC&nbsp;60534 and ISA-75.01 reduces to:</p>
+<p class="eq">\[C_v = \dfrac{Q}{0.865\,\sqrt{\dfrac{\Delta P}{\mathrm{SG}}}}\]</p>
+<p>At rated flow, with SG&nbsp;=&nbsp;0.85:</p>
+<p class="eq">\[C_v = \dfrac{8.09}{0.865\,\sqrt{\dfrac{1.20}{0.85}}} = 7.87\]</p>
+<p>The same equation gives 6.31 at normal flow and 1.87 at minimum flow. The valve must cover a Cv range of about 4.2 to 1, although the flow range is only 2.7 to 1. The falling pressure drop is the reason.</p>
+<p>Two corrections are left out because they do not apply here. The feed is thin (0.60&nbsp;mPa·s), so the flow is fully turbulent and needs no viscosity correction. The valve is the same size as the line, so there are no reducers and no piping geometry factor.</p>
+<h2 id="step-3-choose-the-valve-and-the-trim">Step 3: choose the valve and the trim</h2>
+<p>The required Cv is not the valve's Cv. A valve is picked so that the largest required Cv falls at about 70% to 80% of its travel and the smallest stays above about 20%. Below that the plug works close to the seat, where control is coarse and wear is fast.</p>
+<p>A 1½-inch globe valve, the same size as the line, with a rated Cv of 25 is a typical catalogue choice. Its <strong>trim</strong>, the shape of the plug and seat, sets how Cv changes with travel. The two common shapes are:</p>
+<ul>
+<li><strong>Linear:</strong> Cv rises in proportion to travel. Half open gives half the rated Cv.</li>
+<li><strong>Equal percentage:</strong> each step of travel raises Cv by the same percentage. With a rangeability of 50 to 1, \(C_v = 25 \times 50^{\,(x-1)}\), where \(x\) is the travel as a fraction. It opens slowly at first and quickly at the end.</li>
+</ul>
+<table>
+<tr><th class="nw">Case</th><th class="num">Required Cv</th><th class="num">Travel, linear trim</th><th class="num">Travel, equal percentage trim</th></tr>
+<tr><td class="nw">Minimum</td><td class="num">1.87</td><td class="num">7%</td><td class="num">34%</td></tr><tr><td class="nw">Normal</td><td class="num">6.31</td><td class="num">25%</td><td class="num">65%</td></tr><tr><td class="nw">Rated</td><td class="num">7.87</td><td class="num">31%</td><td class="num">70%</td></tr>
+</table>
+<p>With linear trim the whole operating range is squeezed into the first third of the travel, and the minimum flow sits at 7% open. With equal percentage trim the three cases fall at 34%, 65% and 70% open. The equal percentage trim is selected.</p>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Chart of flow against valve travel for a valve with a rated Cv of 25 installed in the P-101 system. With linear trim the flow shoots up in the first third of the travel and flattens: the minimum flow sits at 7 percent open and the rated flow at 31 percent. With equal percentage trim the flow rises steadily: minimum at 34 percent, normal at 65 percent and rated at 70 percent, all inside the preferred range of 20 to 80 percent open." viewBox="0 0 700 300" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><rect x="200.0" y="30.0" width="360.0" height="220.0" fill="#E4F1D3" opacity=".7"/><line x1="80" y1="250.0" x2="680" y2="250.0" stroke="#D9D5CA"/><text x="72" y="254.0" text-anchor="end" font-size="12" fill="#5A6475">0</text><line x1="80" y1="213.3" x2="680" y2="213.3" stroke="#D9D5CA"/><text x="72" y="217.33333333333334" text-anchor="end" font-size="12" fill="#5A6475">2</text><line x1="80" y1="176.7" x2="680" y2="176.7" stroke="#D9D5CA"/><text x="72" y="180.66666666666669" text-anchor="end" font-size="12" fill="#5A6475">4</text><line x1="80" y1="140.0" x2="680" y2="140.0" stroke="#D9D5CA"/><text x="72" y="144.0" text-anchor="end" font-size="12" fill="#5A6475">6</text><line x1="80" y1="103.3" x2="680" y2="103.3" stroke="#D9D5CA"/><text x="72" y="107.33333333333334" text-anchor="end" font-size="12" fill="#5A6475">8</text><line x1="80" y1="66.7" x2="680" y2="66.7" stroke="#D9D5CA"/><text x="72" y="70.66666666666666" text-anchor="end" font-size="12" fill="#5A6475">10</text><line x1="80" y1="30.0" x2="680" y2="30.0" stroke="#D9D5CA"/><text x="72" y="34.0" text-anchor="end" font-size="12" fill="#5A6475">12</text><text x="80.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">0%</text><text x="200.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">20%</text><text x="320.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">40%</text><text x="440.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">60%</text><text x="560.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">80%</text><text x="680.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">100%</text><text x="380" y="290" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Valve travel (% open)</text><text x="14" y="20" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">Flow (m³/h)</text><text x="380.0" y="46.0" text-anchor="middle" font-size="12" fill="#4D7F12" font-weight="600">Preferred working range, 20% to 80% open</text><polyline fill="none" stroke="#C27712" stroke-width="2.5" points="80.0,249.7 86.0,242.3 92.0,234.7 98.0,227.1 104.0,219.7 110.0,212.4 116.0,205.3 122.0,198.4 128.0,191.7 134.0,185.2 140.0,179.0 146.0,173.1 152.0,167.4 158.0,162.0 164.0,156.8 170.0,151.9 176.0,147.3 182.0,142.9 188.0,138.8 194.0,134.9 200.0,131.2 206.0,127.8 212.0,124.5 218.0,121.4 224.0,118.5 230.0,115.8 236.0,113.3 242.0,110.9 248.0,108.6 254.0,106.5 260.0,104.5 266.0,102.6 272.0,100.8 278.0,99.1 284.0,97.5 290.0,96.0 296.0,94.6 302.0,93.3 308.0,92.0 314.0,90.8 320.0,89.7 326.0,88.6 332.0,87.6 338.0,86.7 344.0,85.8 350.0,84.9 356.0,84.1 362.0,83.3 368.0,82.6 374.0,81.8 380.0,81.2 386.0,80.5 392.0,79.9 398.0,79.3 404.0,78.8 410.0,78.2 416.0,77.7 422.0,77.3 428.0,76.8 434.0,76.3 440.0,75.9 446.0,75.5 452.0,75.1 458.0,74.7 464.0,74.4 470.0,74.0 476.0,73.7 482.0,73.4 488.0,73.1 494.0,72.8 500.0,72.5 506.0,72.2 512.0,72.0 518.0,71.7 524.0,71.5 530.0,71.2 536.0,71.0 542.0,70.8 548.0,70.6 554.0,70.4 560.0,70.2 566.0,70.0 572.0,69.8 578.0,69.6 584.0,69.4 590.0,69.3 596.0,69.1 602.0,69.0 608.0,68.8 614.0,68.7 620.0,68.5 626.0,68.4 632.0,68.2 638.0,68.1 644.0,68.0 650.0,67.9 656.0,67.7 662.0,67.6 668.0,67.5 674.0,67.4 680.0,67.3"/><polyline fill="none" stroke="#0B6FA4" stroke-width="2.5" points="80.0,234.7 86.0,234.1 92.0,233.5 98.0,232.8 104.0,232.1 110.0,231.4 116.0,230.7 122.0,229.9 128.0,229.1 134.0,228.3 140.0,227.5 146.0,226.6 152.0,225.7 158.0,224.7 164.0,223.7 170.0,222.7 176.0,221.6 182.0,220.5 188.0,219.4 194.0,218.2 200.0,217.0 206.0,215.7 212.0,214.4 218.0,213.0 224.0,211.6 230.0,210.1 236.0,208.6 242.0,207.0 248.0,205.4 254.0,203.8 260.0,202.0 266.0,200.2 272.0,198.4 278.0,196.5 284.0,194.6 290.0,192.6 296.0,190.5 302.0,188.4 308.0,186.2 314.0,184.0 320.0,181.7 326.0,179.3 332.0,176.9 338.0,174.5 344.0,172.0 350.0,169.4 356.0,166.9 362.0,164.2 368.0,161.5 374.0,158.8 380.0,156.1 386.0,153.3 392.0,150.5 398.0,147.7 404.0,144.9 410.0,142.1 416.0,139.3 422.0,136.4 428.0,133.6 434.0,130.8 440.0,128.1 446.0,125.3 452.0,122.6 458.0,119.9 464.0,117.3 470.0,114.7 476.0,112.2 482.0,109.7 488.0,107.3 494.0,105.0 500.0,102.7 506.0,100.5 512.0,98.4 518.0,96.4 524.0,94.4 530.0,92.5 536.0,90.7 542.0,89.0 548.0,87.4 554.0,85.8 560.0,84.3 566.0,82.9 572.0,81.5 578.0,80.3 584.0,79.1 590.0,77.9 596.0,76.9 602.0,75.9 608.0,74.9 614.0,74.0 620.0,73.2 626.0,72.4 632.0,71.7 638.0,71.0 644.0,70.3 650.0,69.8 656.0,69.2 662.0,68.7 668.0,68.2 674.0,67.7 680.0,67.3"/><circle cx="282.7" cy="195.0" r="5.5" fill="#0B2A5A"/><text x="292.69597127379035" y="211.0" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">Minimum</text><circle cx="125.0" cy="195.0" r="4.5" fill="#fff" stroke="#C27712" stroke-width="2"/><circle cx="468.9" cy="115.2" r="5.5" fill="#0B2A5A"/><text x="456.85965358130477" y="107.19607843137257" text-anchor="end" font-size="12.5" fill="#0B2A5A" font-weight="600">Normal</text><circle cx="231.5" cy="115.2" r="4.5" fill="#fff" stroke="#C27712" stroke-width="2"/><circle cx="502.7" cy="101.7" r="5.5" fill="#0B2A5A"/><text x="512.7219439185947" y="115.7156862745098" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">Rated</text><circle cx="268.9" cy="101.7" r="4.5" fill="#fff" stroke="#C27712" stroke-width="2"/><text x="260.0" y="92.47075556519815" text-anchor="end" font-size="12.5" fill="#C27712" font-weight="600">Linear trim</text><text x="380.0" y="178.10195401875177" text-anchor="start" font-size="12.5" fill="#0B6FA4" font-weight="600">Equal percentage trim</text></svg></div>
+<figcaption>Figure 1. Flow against valve travel for FV-104 installed in the P-101 system, with a rated Cv of 25. Solid points are the three cases on equal percentage trim; open points are the same cases on linear trim.</figcaption>
+</figure>
+<p>Figure 1 shows why. What the trim gives on a test bench at constant pressure drop is its <strong>inherent</strong> characteristic. What the plant sees is the <strong>installed</strong> characteristic, after the changing pressure drop has had its say. Here the pressure drop falls as the flow rises, which bends a linear trim into a quick-opening curve and straightens an equal percentage trim into something much closer to a straight line across the working range. A straight installed curve means the flow controller behaves the same at low and high flow. The rule of thumb: when the valve's pressure drop falls by more than about half across the flow range, choose equal percentage. Here it falls from 291 to 120&nbsp;kPa.</p>
+<p>Fully open, this valve would pass about 10.0&nbsp;m³/h, 23% above rated. That is enough reserve. A larger valve would add nothing except a working point closer to the seat.</p>
+<h2 id="step-4-check-for-choked-flow-cavitation-and-flashing">Step 4: check for choked flow, cavitation and flashing</h2>
+<p>Liquid speeds up to squeeze through the gap between the plug and the seat, and its pressure falls as it does. Just past the seat, at the narrowest point of the jet, the pressure is lower than at the outlet. Then the liquid slows down and part of the pressure comes back. How much comes back is described by the valve's <strong>liquid pressure recovery factor, \(F_L\)</strong>, about 0.90 for a globe valve. The lowest pressure inside the valve is roughly:</p>
+<p class="eq">\[P_{\text{lowest}} = P_1 - \dfrac{\Delta P}{F_L^{\,2}}\]</p>
+<p>Compare it with the liquid's vapour pressure, in absolute units:</p>
+<ul>
+<li><strong>Cavitation:</strong> the lowest pressure dips below the vapour pressure but the outlet pressure is above it. Bubbles form at the seat and collapse a moment later. The collapse is violent: noise like gravel, vibration and pitted trim.</li>
+<li><strong>Flashing:</strong> the outlet pressure itself is below the vapour pressure. The bubbles do not collapse, and a mixture of liquid and vapour leaves the valve at high speed and erodes it.</li>
+<li><strong>Choked flow:</strong> once the liquid is boiling at the seat, lowering the outlet pressure further passes no more flow. The pressure drop at which this starts is given below, where \(P_v\) is the vapour pressure and \(P_c\) is the liquid's critical pressure.</li>
+</ul>
+<p class="eq">\[\Delta P_{\text{choked}} = F_L^{\,2}\,\bigl(P_1 - F_F\,P_v\bigr)\]</p>
+<p class="eq">\[F_F = 0.96 - 0.28\,\sqrt{\dfrac{P_v}{P_c}}\]</p>
+<p>For FV-104 at rated flow, P1 is 371&nbsp;kPa(g), or 473&nbsp;kPa absolute. The lowest pressure is:</p>
+<p class="eq">\[P_{\text{lowest}} = 473 - \dfrac{120}{0.90^{2}} = 324\ \text{kPa abs}\]</p>
+<p>The feed's vapour pressure at 20&nbsp;°C is 2.9&nbsp;kPa. The choked pressure drop is 381&nbsp;kPa against an actual 120&nbsp;kPa. The minimum flow case is the more demanding one, because the pressure drop is highest: the lowest pressure there is 212&nbsp;kPa absolute, and the choked pressure drop is 460&nbsp;kPa against 291&nbsp;kPa. A cold, stable liquid at a modest pressure drop is nowhere near cavitation.</p>
+<p>The check earns its place on other services: hot condensate, boiler feed water, light hydrocarbons near their boiling point, and any valve letting down from high pressure to a tank. There the answer can be a different valve style, hardened trim, an anti-cavitation trim that takes the drop in stages, or moving the valve to a point of higher pressure. Damage can begin before the flow chokes, so vendors also quote a cavitation coefficient for each valve, and it should be used for the final check.</p>
+<h2 id="step-5-settle-the-failure-position-and-the-actuator">Step 5: settle the failure position and the actuator</h2>
+<p>A control valve is moved by an actuator, usually a diaphragm pushed one way by instrument air and the other way by a spring. When the air or the signal is lost, the spring wins. Which way it pushes is a process safety decision, not a purchasing detail.</p>
+<p>FV-104 feeds a reactor. Losing the feed is an upset; an uncontrolled feed is a hazard. So the valve is <strong>fail closed</strong>: air opens it, the spring closes it. The same reasoning made the steam valve TV-101 fail closed in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>. The actuator must also be strong enough to close and stay closed against the highest pressure it can see. With the valve shut and P-101 still running, that is the pump's shutoff pressure, about 4.9&nbsp;barg.</p>
+<p>Figure 2 shows FV-104 cut in half, with the liquid moving through it. Move the flow set point and watch the plug travel, the pressure drop and the pressure inside the valve respond. Switch the trim to see where a linear plug would sit for the same flow. Then raise the vapour pressure to see what a more volatile liquid would do in the same valve.</p>
+<figure class="cv3d" id="cv3d">
+<div class="cv3d-box">
+<div class="cv3d-stage">
+<canvas role="img" aria-label="3D model of control valve FV-104, a globe valve with a spring-and-diaphragm actuator, cut in half. Liquid enters from the left, passes under a dividing wall, rises through the seat ring past the plug and leaves to the right. The plug hangs on a stem that runs up through the bonnet and packing to a diaphragm in the actuator. Air under the diaphragm lifts the plug to open the valve and a spring above it pushes the plug down to close it. Colours show pressure falling from the inlet to its lowest point just past the seat and partly recovering toward the outlet, and streamlines show the path of the liquid."></canvas>
+<svg class="cv3d-lines" aria-hidden="true"></svg>
+<span class="cv3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="cv3d-chip" id="cv3d-chip">Controlling normally</span>
+<p class="cv3d-nogl" id="cv3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="cv3d-panel">
+<div class="cv3d-top">
+<div class="cv3d-sliders">
+<div class="cv3d-sl"><label for="cv3d-flow">Flow set point (FIC-104) <output id="cv3d-flow-o" for="cv3d-flow">8.09 m³/h · 110% of normal</output></label><input type="range" id="cv3d-flow" min="15" max="150" step="1" value="110"></div>
+<div class="cv3d-sl"><label for="cv3d-pv">Vapour pressure of the liquid (what if) <output id="cv3d-pv-o" for="cv3d-pv">2.9 kPa abs</output></label><input type="range" id="cv3d-pv" min="0" max="200" step="1" value="0"></div>
+<div class="cv3d-sl"><span class="cv3d-lab" id="cv3d-trim-l">Trim (plug shape)</span><div class="cv3d-seg" role="group" aria-labelledby="cv3d-trim-l"><button type="button" class="cv3d-btn" id="cv3d-eq" aria-pressed="true">Equal percentage</button><button type="button" class="cv3d-btn" id="cv3d-lin" aria-pressed="false">Linear</button></div></div>
+</div>
+<div class="cv3d-chart"><svg id="cv3d-svg" viewBox="0 0 300 190" role="img" aria-label="Pressure through the valve, from the inlet, down to its lowest point just past the seat, and partly back up to the outlet, compared with the vapour pressure of the liquid."></svg></div>
+</div>
+<div class="cv3d-cells">
+<div class="cv3d-cell cv3d-key"><span class="k">Flow</span><strong id="cv3d-q">8.09 m³/h</strong></div>
+<div class="cv3d-cell"><span class="k">Valve travel</span><strong id="cv3d-x">70% open</strong></div>
+<div class="cv3d-cell"><span class="k">Cv in use</span><strong id="cv3d-cv">7.87 of 25</strong></div>
+<div class="cv3d-cell"><span class="k">Pressure drop</span><strong id="cv3d-dp">120 kPa</strong></div>
+<div class="cv3d-cell"><span class="k">Lowest pressure inside</span><strong id="cv3d-pl">324 kPa abs</strong></div>
+<div class="cv3d-cell"><span class="k">Choked pressure drop</span><strong id="cv3d-ch">381 kPa</strong></div>
+</div>
+<div class="cv3d-foot">
+<p class="cv3d-say" id="cv3d-say" aria-live="polite">Design point: at the rated 8.09 m³/h the valve has 120 kPa to work with, needs a Cv of 7.87 and sits 70% open. The lowest pressure inside, 324 kPa abs, is far above the vapour pressure.</p>
+<button type="button" class="cv3d-btn" id="cv3d-reset">Back to design point</button>
+<button type="button" class="cv3d-btn" id="cv3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="cv3d-legend" aria-hidden="true"><li><i class="grad"></i>Pressure, 100 to 600 kPa abs</li><li><i class="ln"></i>Streamlines</li><li><i class="bub"></i>Vapour bubbles</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. FV-104 as a 1½-inch globe valve with a spring-and-diaphragm actuator, cut in half. The flow controller FIC-104 sets the flow, and the model finds the valve travel that delivers it against the pump curve and the system of Part 1. Pressures are absolute (gauge plus 101 kPa). The vapour pressure slider is a what-if for a more volatile liquid and changes nothing else. The recovery factor of 0.90, the critical pressure of 41 bar and the rangeability of 50 are illustrative assumptions. The streamlines, pressure colours and bubbles are schematic, and part shapes are simplified.</figcaption>
+</figure>
+<h2 id="the-data-sheet">The data sheet</h2>
+<table>
+<tr><th class="nw">Item</th><th>FV-104 value</th></tr>
+<tr><td class="nw">Service</td><td>Reactor feed flow control, P-101 discharge to E-101</td></tr>
+<tr><td class="nw">Liquid density / viscosity</td><td>850&nbsp;kg/m³ / 0.60&nbsp;mPa·s at 20&nbsp;°C</td></tr>
+<tr><td class="nw">Vapour pressure / critical pressure</td><td>2.9&nbsp;kPa abs at 20&nbsp;°C / about 41&nbsp;bar abs</td></tr>
+<tr><td class="nw">Flow: minimum / normal / rated</td><td>3.0 / 7.35 / 8.09&nbsp;m³/h</td></tr>
+<tr><td class="nw">Inlet pressure: minimum / normal / rated</td><td>4.70 / 3.91 / 3.71&nbsp;barg</td></tr>
+<tr><td class="nw">Pressure drop: minimum / normal / rated</td><td>291 / 154 / 120&nbsp;kPa</td></tr>
+<tr><td class="nw">Required Cv: minimum / normal / rated</td><td>1.87 / 6.31 / 7.87</td></tr>
+<tr><td class="nw">Valve</td><td>1½-inch globe, rated Cv 25, equal percentage trim</td></tr>
+<tr><td class="nw">Travel: minimum / normal / rated</td><td>34% / 65% / 70% open</td></tr>
+<tr><td class="nw">Failure position</td><td>Fail closed (air to open)</td></tr>
+<tr><td class="nw">Shutoff pressure for actuator sizing</td><td>4.9&nbsp;barg</td></tr>
+</table>
+<p>The vendor returns a sizing sheet with the calculated Cv, the travel, the noise level and the cavitation check for each case, using the real coefficients of the valve offered. The engineer's job is to check that the three cases on that sheet are the same three cases as on the data sheet.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Oversizing.</strong> A margin on the flow, another on the pressure drop and then the next valve size up. The result controls the plant from 10% open. Take the margin once, in the rated flow.</li>
+<li><strong>Starving the valve of pressure drop.</strong> Cutting the valve's allowance saves pump head on paper and leaves a valve that is wide open with nothing in hand.</li>
+<li><strong>Sizing for one case.</strong> The rated case sets the capacity. The minimum case sets the turndown and is usually the worst for cavitation and noise.</li>
+<li><strong>Choosing the trim by habit.</strong> Work out how the pressure drop changes across the flow range before choosing linear or equal percentage.</li>
+<li><strong>Leaving the failure position to the vendor.</strong> It belongs on the P&amp;ID and comes out of the hazard review.</li>
+</ul>
+<h2 id="key-points">Key points</h2>
+<ul>
+<li>Size a control valve for three cases: minimum, normal and rated flow, each with its own pressure drop.</li>
+<li>The valve's pressure drop is what the pump delivers less what the system needs. It is highest at low flow and lowest at high flow.</li>
+<li>\(C_v = Q \,/\, \bigl(0.865\sqrt{\Delta P / \mathrm{SG}}\bigr)\) for liquids, with Q in m³/h and ΔP in bar.</li>
+<li>Pick the rated Cv and the trim so that all three cases sit between about 20% and 80% of travel.</li>
+<li>Check the lowest pressure inside the valve against the vapour pressure, and set the failure position from the process hazard.</li>
+</ul>
+<p>Earlier in this series: <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> sized the pump, <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> the heater and <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a> the feed tank. Next: <a href="sizing-a-line-velocity-pressure-drop-and-pipe-schedule.html">Part&nbsp;5</a> sizes the lines that connect them.</p>
+<p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
+<script src="../assets/js/vendor/three-r128.min.js" defer></script>
+<script src="../assets/js/cv3d.js?v=140d357c" defer></script>
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-fix-the-flows-and-the-pressures-at-the-valve">Step 1: fix the flows and the pressures at the valve</a></li><li><a href="#step-2-calculate-the-flow-coefficient">Step 2: calculate the flow coefficient</a></li><li><a href="#step-3-choose-the-valve-and-the-trim">Step 3: choose the valve and the trim</a></li><li><a href="#step-4-check-for-choked-flow-cavitation-and-flashing">Step 4: check for choked flow, cavitation and flashing</a></li><li><a href="#step-5-settle-the-failure-position-and-the-actuator">Step 5: settle the failure position and the actuator</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>control valve sizing</span><span>Cv</span><span>flow coefficient</span><span>cavitation</span><span>equal percentage trim</span><span>process design</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 148 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a pump: head, npsh and power, worked step by step how a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, npsh check, power and motor, on a worked example. pump sizing total dynamic head npsh system curve centrifugal pump process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-pump-head-npsh-and-power.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 1 of 5</p><h3><a href="../post/sizing-a-pump-head-npsh-and-power.html">Sizing a Pump: Head, NPSH and Power, Worked Step by Step</a></h3><p class="muted">How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 5</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area.html">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step", "datePublished": "2026-11-14", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-a-control-valve-cv-pressure-drop-and-cavitation", "description": "How a liquid control valve is sized: flow cases, pressure drop, Cv, trim and travel, cavitation check and failure position, on a worked example.", "image": "https://www.chmltech.com/assets/media/covers/sizing-a-control-valve-cv-pressure-drop-and-cavitation.jpg", "dateModified": "2026-11-14"}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+</body>
+</html>

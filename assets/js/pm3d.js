@@ -14,7 +14,7 @@
 
   /* ----- hydraulics (same constants and formulas as the article) ----- */
   var G = 9.81, RHO = 850, MU = 0.0006, Q_N = 6250 / RHO, Q_R = Q_N * 1.1;
-  var D_DIS = 0.0409, L_DIS = 60, D_SUC = 0.0525, L_SUC = 8, P_R = 1e5, Z_R = 8, DP_E = 0.5e5, DP_CV = 1.2e5, DP_MISC = 0.2e5, VALVE0 = 60;
+  var D_DIS = 0.0409, L_DIS = 60, D_SUC = 0.0525, L_SUC = 8, P_R = 1e5, Z_R = 8, DP_E = 0.5e5, DP_CV = 1.2e5, DP_MISC = 0.2e5, VALVE0 = 70;
   function darcy(q, D, L) { /* Swamee-Jain friction factor, Darcy-Weisbach pressure drop (Pa) */
     if (q <= 0) return 0;
     var v = q / 3600 / (Math.PI * D * D / 4), Re = RHO * v * D / MU, lg = Math.log(0.045e-3 / (3.7 * D) + 5.74 / Math.pow(Re, 0.9)) / Math.LN10;
@@ -33,7 +33,7 @@
     if (pumpH(0, k, n) <= sysH(0, valve, level)) return 0;                                      /* shutoff head below the static head: no flow */
     var lo = 0, hi = 14, i, m; for (i = 0; i < 40; i++) { m = (lo + hi) / 2; if (pumpH(m, k, n) > sysH(m, valve, level)) lo = m; else hi = m; } return (lo + hi) / 2;
   }
-  var S = { valve: 60, n: 1, level: 1, temp: 20, q: Q_R, h: H_R, ps: 0.07, pd: 3.98, pa: 2.78, dpv: 120, na: 12.6, nr: 2.5, pw: 1.95, cav: 0, k: 1 };
+  var S = { valve: 70, n: 1, level: 1, temp: 20, q: Q_R, h: H_R, ps: 0.07, pd: 3.98, pa: 2.78, dpv: 120, na: 12.6, nr: 2.5, pw: 1.95, cav: 0, k: 1 };
   var lastKey = 'design';
   var SAY = {
     design: 'Design point: with the valve at its design opening the pump delivers the rated 8.1 m³/h at 46.9 m, and NPSH available is 12.6 m against 2.5 m required.',
@@ -64,16 +64,16 @@
     $('pm3d-dpv').textContent = S.dpv.toFixed(0) + ' kPa';
     $('pm3d-npsh').textContent = Math.max(0, na).toFixed(1) + ' / ' + nr.toFixed(1) + ' m'; $('pm3d-pw').textContent = S.pw.toFixed(2) + ' kW';
     var chip = $('pm3d-chip'); chip.textContent = q <= 0 ? 'No flow' : k < 1 ? 'Cavitating' : 'Running normally'; chip.classList.toggle('is-bad', k < 1 || q <= 0);
-    var design = S.valve === 60 && n === 1 && Math.abs(S.level - 1) < 0.001 && S.temp === 20, key = lastKey;
+    var design = S.valve === VALVE0 && n === 1 && Math.abs(S.level - 1) < 0.001 && S.temp === 20, key = lastKey;
     if (design) key = 'design';
     else if (q <= 0) key = 'noflow';
     else if (k < 1) key = 'cav';
     else if (changed === 'speed') key = n < 1 ? 'vfd' : key;
-    else if (changed === 'valve') key = S.valve < 60 ? 'close' : S.valve > 60 ? 'open' : key;
+    else if (changed === 'valve') key = S.valve < VALVE0 ? 'close' : S.valve > VALVE0 ? 'open' : key;
     else if (changed === 'level') key = S.level < 1 ? 'low' : S.level > 1 ? 'high' : key;
     else if (changed === 'temp') key = S.temp > 20 ? 'hot' : key;
     if ((key === 'design' && !design) || (key === 'cav' && k >= 1) || (key === 'noflow' && q > 0) || (key === 'vfd' && n >= 1))
-      key = n < 1 ? 'vfd' : S.temp > 20 ? 'hot' : S.valve !== 60 ? (S.valve < 60 ? 'close' : 'open') : (S.level < 1 ? 'low' : 'high');
+      key = n < 1 ? 'vfd' : S.temp > 20 ? 'hot' : S.valve !== VALVE0 ? (S.valve < VALVE0 ? 'close' : 'open') : (S.level < 1 ? 'low' : 'high');
     if (key !== lastKey) { lastKey = key; $('pm3d-say').textContent = SAY[key]; }
     var narrow = !wideNow;
     tags.suc.el.textContent = narrow ? 'Suction · ' + S.ps.toFixed(2) + ' barg' : 'Suction from T-101 · ' + S.ps.toFixed(2) + ' barg · ' + S.temp.toFixed(0) + ' °C';
@@ -357,7 +357,7 @@
   /* ----- names and stream tags: two rows, above and below the pump, each joined to its part ----- */
   var ITEMS = [
     ['t', 'Pump discharge · 3.98 barg', WID / 2, Y_TOP + 0.95, ZM0 - 0.5, 'T', 'dis', 1],
-    ['t', 'Control valve, downstream of the pump · 60% open · ΔP 120 kPa', WID / 2, YP + 1.85, ZV, 'T', 'val'],
+    ['t', 'Control valve, downstream of the pump · 70% open · ΔP 120 kPa', WID / 2, YP + 1.85, ZV, 'T', 'val'],
     ['t', 'To E-101 and R-101 · 2.78 barg', WID / 2, YP + 0.5, ZEND - 0.1, 'T', 'out'],
     ['t', 'Suction from T-101 · 0.07 barg · 20 °C', -2.1, -0.8, 0.2, 'B', 'suc'], ['l', 'Impeller', 0.2, -0.95, -0.7, 'B'],
     ['l', 'Volute casing', 0.55, -2.3, 0.9, 'B'], ['l', 'Motor, 3 kW', 6.6, -1.2, 1.5, 'B'], ['t', 'VFD · 100% speed', 8.1, -1.5, 2.75, 'B', 'vfd', 1]
@@ -425,7 +425,7 @@
   inSpeed.addEventListener('input', function () { calc('speed'); });
   inLevel.addEventListener('input', function () { calc('level'); });
   inTemp.addEventListener('input', function () { calc('temp'); });
-  $('pm3d-reset').addEventListener('click', function () { inValve.value = 60; inSpeed.value = 100; inLevel.value = 1; inTemp.value = 20; calc(); });
+  $('pm3d-reset').addEventListener('click', function () { inValve.value = VALVE0; inSpeed.value = 100; inLevel.value = 1; inTemp.value = 20; calc(); });
   var btnNames = $('pm3d-names');
   btnNames.addEventListener('click', function () {
     var on = btnNames.getAttribute('aria-pressed') !== 'true';

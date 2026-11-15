@@ -1,0 +1,37 @@
+<p>Figure 2 shows a short length of the discharge line cut open. Change the pipe size and the flow and watch the velocity, the shape of the velocity profile and the pressure drop respond. Then thicken the liquid until the flow turns laminar: the profile becomes a parabola and the dye stops mixing.</p>
+<figure class="ln3d" id="ln3d">
+<div class="ln3d-box">
+<div class="ln3d-stage">
+<canvas role="img" aria-label="3D model of a length of steel pipe cut in half along its axis, with liquid flowing from left to right. Arrows across the bore show the velocity profile: fastest at the centre and zero at the wall. In turbulent flow the profile is blunt and a streak of dye injected at the centre quickly mixes across the pipe. In laminar flow the profile is a parabola and the dye stays in a thin thread. Colours show the local speed of the liquid."></canvas>
+<svg class="ln3d-lines" aria-hidden="true"></svg>
+<span class="ln3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="ln3d-chip" id="ln3d-chip">Turbulent flow</span>
+<p class="ln3d-nogl" id="ln3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="ln3d-panel">
+<div class="ln3d-top">
+<div class="ln3d-sliders">
+<div class="ln3d-sl"><span class="ln3d-lab" id="ln3d-size-l">Pipe size <output id="ln3d-size-o">1½ in. schedule 40 · bore 40.9 mm</output></span><div class="ln3d-seg" role="group" aria-labelledby="ln3d-size-l"><button type="button" class="ln3d-btn" data-size="0" aria-pressed="false">1 in.</button><button type="button" class="ln3d-btn" data-size="1" aria-pressed="true">1½ in.</button><button type="button" class="ln3d-btn" data-size="2" aria-pressed="false">2 in.</button><button type="button" class="ln3d-btn" data-size="3" aria-pressed="false">3 in.</button></div></div>
+<div class="ln3d-sl"><label for="ln3d-flow">Flow <output id="ln3d-flow-o" for="ln3d-flow">8.09 m³/h · 110% of normal</output></label><input type="range" id="ln3d-flow" min="10" max="160" step="1" value="110"></div>
+<div class="ln3d-sl"><label for="ln3d-visc">Viscosity of the liquid (what if) <output id="ln3d-visc-o" for="ln3d-visc">0.60 mPa·s</output></label><input type="range" id="ln3d-visc" min="0" max="100" step="1" value="0"></div>
+</div>
+<div class="ln3d-chart"><svg id="ln3d-svg" viewBox="0 0 300 190" role="img" aria-label="Friction factor against Reynolds number on log scales: a straight laminar line, a gap for the transition, and the turbulent curve for this pipe's roughness, with the operating point marked."></svg></div>
+</div>
+<div class="ln3d-cells">
+<div class="ln3d-cell ln3d-key"><span class="k">Velocity</span><strong id="ln3d-v">1.71 m/s</strong></div>
+<div class="ln3d-cell"><span class="k">Reynolds number</span><strong id="ln3d-re">99,100</strong></div>
+<div class="ln3d-cell"><span class="k">Friction factor</span><strong id="ln3d-f">0.0227</strong></div>
+<div class="ln3d-cell"><span class="k">Loss per 100 m</span><strong id="ln3d-dp">69 kPa</strong></div>
+<div class="ln3d-cell"><span class="k">Loss over the 60 m line</span><strong id="ln3d-dpl">41 kPa</strong></div>
+<div class="ln3d-cell"><span class="k">Pump head used</span><strong id="ln3d-h">5.0 m</strong></div>
+</div>
+<div class="ln3d-foot">
+<p class="ln3d-say" id="ln3d-say" aria-live="polite">Design point: 8.09 m³/h in the 1½-inch line runs at 1.71 m/s. The flow is turbulent, the velocity profile is blunt, and the line loses 41 kPa over its 60 m.</p>
+<button type="button" class="ln3d-btn" id="ln3d-reset">Back to design point</button>
+<button type="button" class="ln3d-btn" id="ln3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="ln3d-legend" aria-hidden="true"><li><i class="grad"></i>Local speed, 0 to 4 m/s</li><li><i class="ln"></i>Velocity profile</li><li><i class="bub"></i>Dye</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. A length of the P-101 discharge line cut in half, drawn to scale between sizes. The arrows show the velocity profile across the bore: a parabola in laminar flow, and a blunt power-law shape in turbulent flow. The pressure drop uses the equations in this article with a roughness of 0.045 mm and the line's 60 m equivalent length, kept the same for every size. Between Reynolds numbers of 2,100 and 4,000 the friction factor is interpolated. The viscosity slider is a what-if for a thicker liquid and changes nothing else. The motion is slowed down, and the dye and its mixing are schematic.</figcaption>
+</figure>

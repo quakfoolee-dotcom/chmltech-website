@@ -25,6 +25,31 @@ def js3d(script):
     """Script tags for a 3D figure: the vendored three.js build, then the figure's own script."""
     return ('\n<script src="../assets/js/vendor/three-r128.min.js" defer></script>'
             f'\n<script src="../assets/js/{script}.js" defer></script>')
+
+
+def eq(tex):
+    """A display equation in LaTeX, typeset in the browser by KaTeX (see mathjs())."""
+    return f'<p class="eq">\\[{tex}\\]</p>'
+
+
+def im(tex):
+    """Inline LaTeX."""
+    return f'\\({tex}\\)'
+
+
+def tn(x):
+    """A formatted number for use inside LaTeX: thousands separators without the extra space."""
+    return str(x).replace(",", "{,}")
+
+
+def mathjs():
+    """KaTeX (vendored) and its auto-render script, for pages that carry LaTeX equations (V5.18)."""
+    return ('\n<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">'
+            '\n<script src="../assets/js/vendor/katex/katex.min.js" defer></script>'
+            '\n<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>'
+            '\n<script src="../assets/js/math.js" defer></script>')
+
+
 sys.path.insert(0, HERE)
 from feed_articles import (nowrap, svg, fig, box, txt, arrow, DEFS, CSS, NAVY, BLUE, GREEN, GREEND, ORANGE, PURPLE, RED,
                            MUTED, LINE, SAND, PALE, GREENF, ORANGEF)
@@ -33,15 +58,18 @@ from process_eng_articles import geom, PF as PFDPID
 Z1 = "sizing-a-pump-head-npsh-and-power"
 Z2 = "sizing-a-heat-exchanger-duty-lmtd-and-area"
 Z3 = "sizing-a-tank-holdup-levels-and-wall-thickness"
+Z4 = "sizing-a-control-valve-cv-pressure-drop-and-cavitation"
+Z5 = "sizing-a-line-velocity-pressure-drop-and-pipe-schedule"
 RLF = "pressure-relief-basics-what-a-psv-protects-against"
 HAZOP = "a-worked-hazop-the-feed-heater-node-by-node"
 RUN = "what-happens-if-the-cooling-fails-runaway-reactions"
 DB = "the-design-basis-ten-decisions-to-fix-before-engineering-starts"
 DATE = "2026-11-13"
-L = {1: f'<a href="{Z1}.html">Part&nbsp;1</a>', 2: f'<a href="{Z2}.html">Part&nbsp;2</a>', 3: f'<a href="{Z3}.html">Part&nbsp;3</a>'}
+L = {1: f'<a href="{Z1}.html">Part&nbsp;1</a>', 2: f'<a href="{Z2}.html">Part&nbsp;2</a>', 3: f'<a href="{Z3}.html">Part&nbsp;3</a>',
+     4: f'<a href="{Z4}.html">Part&nbsp;4</a>', 5: f'<a href="{Z5}.html">Part&nbsp;5</a>'}
 NOTE = ('<p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations '
         'are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>')
-SER = lambda n: {"name": "Equipment sizing series", "part": n, "of": 3}
+SER = lambda n: {"name": "Equipment sizing series", "part": n, "of": 5}
 G = 9.81
 
 # ───────────────────────── shared fluid and duty ─────────────────────────
@@ -215,7 +243,7 @@ def fig_relief():
 # ───────────────────────── Part 1: pump ─────────────────────────
 def part1():
     body = f"""{CSS}
-<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This three-part series sizes the main equipment in the feed section you met in <a href="{PFDPID}.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in {L[2]} and feed tank T-101 in {L[3]}.</p>
+<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This series sizes the main equipment in the feed section you met in <a href="{PFDPID}.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in {L[2]}, feed tank T-101 in {L[3]}, the flow control valve in {L[4]} and the lines in {L[5]}.</p>
 <p>The aim is not to replace the engineer who specifies the pump. It is to show owners and managers where the numbers on a pump data sheet come from, so that they can check them and ask the right questions.</p>
 <h2>Step 1: set the flow</h2>
 <p>P-101 moves the feed from T-101 through E-101 to reactor R-101 at {f0(M)}&nbsp;kg/h. With a density of {f0(RHO)}&nbsp;kg/m³ that is {f2(Q_N)}&nbsp;m³/h at normal flow. Pumps are specified at a <strong>rated flow</strong> above normal, to cover uncertainty and control. A 10% margin gives {f2(Q_R)}&nbsp;m³/h. Margins belong in the <a href="{DB}.html">design basis</a>, stated once, not added again by each discipline.</p>
@@ -233,18 +261,25 @@ def part1():
 <tr><td>Less: suction pressure at low tank level</td><td class="num">{f0(P_SUC / 1000)}</td><td>{f1(Z_SUC_MIN)}&nbsp;m of liquid, less suction friction</td></tr>
 <tr><td><strong>Differential pressure</strong></td><td class="num"><strong>{f0((P_DIS - P_SUC) / 1000)}</strong></td><td><strong>Total head {f1(H_TDH)}&nbsp;m</strong></td></tr>
 </table>
-<p>Pipe friction comes from the Darcy–Weisbach equation, ΔP = <em>f</em> × (L/D) × ρv²/2. In the discharge line the velocity is {f2(V_D)}&nbsp;m/s, the Reynolds number is about {f0(RE_D)} (fully turbulent) and the friction factor is {F_D:.4f}. The control valve is often the term people want to cut. Don't: a valve with too little pressure drop cannot control the flow.</p>
-<p>The head is converted from pressure with H = ΔP / (ρg). Head in metres is the natural unit for pumps because a centrifugal pump produces the same head whatever the liquid's density; the pressure it produces scales with density.</p>
+<p>Pipe friction comes from the Darcy–Weisbach equation:</p>
+{eq(r"\Delta P = f\,\dfrac{L}{D}\,\dfrac{\rho\, v^{2}}{2}")}
+<p>In the discharge line the velocity is {f2(V_D)}&nbsp;m/s, the Reynolds number is about {f0(RE_D)} (fully turbulent) and the friction factor is {F_D:.4f}. The control valve is often the term people want to cut. Don't: a valve with too little pressure drop cannot control the flow.</p>
+<p>The head is converted from pressure with:</p>
+{eq(r"H = \dfrac{\Delta P}{\rho\, g}")}
+<p>Head in metres is the natural unit for pumps because a centrifugal pump produces the same head whatever the liquid's density; the pressure it produces scales with density.</p>
 <h2>Step 3: check the system curve</h2>
 <p>Static lift and fixed pressures do not change with flow. Friction rises roughly with the square of flow. Plotting the total against flow gives the <strong>system curve</strong>. The pump's own curve falls as flow rises. The pump runs where the two cross.</p>
 {fig(fig_pump_curve(), 1, "System curve for P-101 and an illustrative pump curve. Most of the head is static lift and fixed pressure drops, so the system curve is fairly flat.")}
 <p>Two things follow from the shape. First, because most of the head here does not depend on flow, a small error in the friction estimate barely moves the operating point. Second, a pump with a curve that is too flat in this region will hunt as the control valve moves. Pick a pump whose rated point sits near its best efficiency point.</p>
 <h2>Step 4: check the suction (NPSH)</h2>
 <p>If the pressure at the pump inlet falls below the liquid's vapour pressure, bubbles form and collapse inside the impeller. That is cavitation: noise, vibration, lost head and eroded impellers. The check compares the <strong>net positive suction head available</strong> from the system with the <strong>NPSH required</strong> by the pump, from the vendor's curve.</p>
-<p>NPSHa = (P<sub>atm</sub> − P<sub>vap</sub>) / (ρg) + liquid height above the pump − suction friction</p>
+{eq(r"\mathrm{NPSH_a} = \dfrac{P_{\text{atm}} - P_{\text{vap}}}{\rho\, g} + z_s - h_{f,s}")}
+<p>Here {im("z_s")} is the liquid height above the pump and {im("h_{f,s}")} is the suction friction, both in metres.</p>
 <p>With the tank open to atmosphere, a vapour pressure of {f1(PV / 1000)}&nbsp;kPa at 20&nbsp;°C, {f1(Z_SUC_MIN)}&nbsp;m of liquid at low level and {f2(DP_S / (RHO * G))}&nbsp;m of suction friction, NPSHa is about <strong>{f1(NPSHA)}&nbsp;m</strong>. A small pump of this kind typically needs {f1(NPSHR)}&nbsp;m. The margin is ample. It shrinks quickly if the liquid is hot or volatile, which is why NPSH is checked at the worst case: lowest tank level, highest liquid temperature, highest flow.</p>
 <h2>Step 5: power and motor</h2>
-<p>Hydraulic power is P = ρ g Q H. At rated flow and head that is {f2(P_HYD)}&nbsp;kW. Small centrifugal pumps are not very efficient. At {f0(ETA * 100)}%, the shaft power is about {f2(P_SHAFT)}&nbsp;kW. The motor is sized for the end of the pump curve, not the rated point. Allowing about 25% for that and a margin, the next standard size, {MOTOR:g}&nbsp;kW, is a reasonable selection. The PFD in the earlier article shows P-101 delivering 4.0&nbsp;barg; the build-up above arrives at {f2(P_DIS / 1e5)}&nbsp;barg, which is how a number on a PFD is checked.</p>
+<p>Hydraulic power is:</p>
+{eq(r"P = \rho\, g\, Q\, H")}
+<p>At rated flow and head that is {f2(P_HYD)}&nbsp;kW. Small centrifugal pumps are not very efficient. At {f0(ETA * 100)}%, the shaft power is about {f2(P_SHAFT)}&nbsp;kW. The motor is sized for the end of the pump curve, not the rated point. Allowing about 25% for that and a margin, the next standard size, {MOTOR:g}&nbsp;kW, is a reasonable selection. The PFD in the earlier article shows P-101 delivering 4.0&nbsp;barg; the build-up above arrives at {f2(P_DIS / 1e5)}&nbsp;barg, which is how a number on a PFD is checked.</p>
 {fig3d("pump")}<h2>The data sheet</h2>
 <table>
 <tr><th>Item</th><th>P-101 value</th></tr>
@@ -266,7 +301,7 @@ def part1():
 <li>Size the motor for the end of the pump curve, and check shutoff head against the design pressure downstream.</li>
 </ul>
 <p>Next: {L[2]} sizes the heater, E-101.</p>
-{NOTE}{js3d("pm3d")}"""
+{NOTE}{js3d("pm3d")}{mathjs()}"""
     body = nowrap(body, [(1, 0, 34), (1, 1, 6), (2, 0, 34)])
     return dict(slug=Z1, title="Sizing a Pump: Head, NPSH and Power, Worked Step by Step",
                 desc="How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.",
@@ -281,18 +316,18 @@ def part2():
 <p>{L[1]} sized pump P-101. This part sizes the heater it feeds: E-101, a shell-and-tube exchanger that uses low-pressure steam to warm the reactor feed. The method is the same for most heaters and coolers: find the duty, find the temperature driving force, choose an overall heat transfer coefficient, and calculate the area.</p>
 <h2>Step 1: the duty</h2>
 <p>The feed of {f0(M)}&nbsp;kg/h is heated from {f0(T_IN)}&nbsp;°C to {f0(T_OUT)}&nbsp;°C with a heat capacity of {f1(CP)}&nbsp;kJ/kg·K:</p>
-<p>Q = ṁ × c<sub>p</sub> × ΔT = {f0(M)} × {f1(CP)} × {f0(T_OUT - T_IN)} / 3,600 = <strong>{f0(DUTY)}&nbsp;kW</strong></p>
+{eq(r"Q = \dot{m}\, c_p\, \Delta T = \dfrac{%s \times %s \times %s}{3{,}600} = %s\ \text{kW}" % (tn(f0(M)), f1(CP), f0(T_OUT - T_IN), f0(DUTY)))}
 <p>That matches the stream table in <a href="{PFDPID}.html">How to Read a PFD and a P&amp;ID</a>. The steam needed is the duty divided by the latent heat of steam at 3.0&nbsp;barg, about {f0(LAMBDA_ST)}&nbsp;kJ/kg: roughly {f0(M_ST)}&nbsp;kg/h.</p>
 <h2>Step 2: the driving force (LMTD)</h2>
 <p>Heat flows because the steam is hotter than the feed. The difference is not constant along the exchanger, so the design uses the <strong>log mean temperature difference</strong>:</p>
-<p>LMTD = (ΔT<sub>1</sub> − ΔT<sub>2</sub>) / ln(ΔT<sub>1</sub> / ΔT<sub>2</sub>)</p>
+{eq(r"\mathrm{LMTD} = \dfrac{\Delta T_1 - \Delta T_2}{\ln\!\left(\dfrac{\Delta T_1}{\Delta T_2}\right)}")}
 <p>Steam at 3.0&nbsp;barg condenses at about {T_ST}&nbsp;°C. At the feed inlet the difference is {f1(DT1)}&nbsp;K; at the outlet it is {f1(DT2)}&nbsp;K. The LMTD is <strong>{f1(LMTD)}&nbsp;K</strong>. Because the steam condenses at one temperature, flow direction does not matter and no correction factor is needed. For two liquids, a multi-pass exchanger needs a correction factor, F, applied to the LMTD.</p>
 {fig(fig_hx_profile(), 1, "Temperature profiles in E-101. The steam stays at its condensing temperature; the feed approaches it along a curve, so the driving force shrinks toward the outlet.")}
 <h2>Step 3: the overall coefficient (U)</h2>
 <p>U combines every resistance between the steam and the feed: the condensing film, the tube wall, the liquid film inside the tubes and any fouling. For preliminary sizing, engineers use typical values for the service. For condensing steam heating a light organic liquid in a shell-and-tube exchanger, a few hundred W/m²·K is typical; this example uses <strong>{f0(U_CL)}&nbsp;W/m²·K</strong>. The liquid side controls, so tube velocity matters more than the steam side.</p>
 <h2>Step 4: the area</h2>
-<p>From Q = U × A × LMTD:</p>
-<p>A = {f0(DUTY * 1000)} / ({f0(U_CL)} × {f1(LMTD)}) = <strong>{f2(A_REQ)}&nbsp;m²</strong></p>
+<p>From {im(r"Q = U\, A \times \mathrm{LMTD}")}:</p>
+{eq(r"A = \dfrac{Q}{U \times \mathrm{LMTD}} = \dfrac{%s}{%s \times %s} = %s\ \text{m}^2" % (tn(f0(DUTY * 1000)), f0(U_CL), f1(LMTD), f2(A_REQ)))}
 <p>Add a margin for fouling and uncertainty in U. With {f0(OVERS * 100)}%, the design area is {f2(A_DES)}&nbsp;m². Margins are better stated as a fouling factor in the U calculation, which makes the reason visible; a flat percentage is acceptable at this stage if the design basis says so.</p>
 <h2>Step 5: lay out the tubes</h2>
 <p>The area has to fit a geometry that also gives a sensible tube velocity. With ¾" tubes (inside diameter {f1(DI * 1000)}&nbsp;mm) and a target of about {f1(V_TUBE)}&nbsp;m/s, the feed needs {N_PASS_T} tubes per pass. With two tube passes that is {N_TUBES} tubes, and the area requires a tube length of about <strong>{f1(L_TUBE)}&nbsp;m</strong>. A standard length of {math.ceil(L_TUBE * 2) / 2:.1f}&nbsp;m gives a little more area.</p>
@@ -316,13 +351,13 @@ def part2():
 </ul>
 <h2>Key points</h2>
 <ul>
-<li>Duty first: Q = ṁ c<sub>p</sub> ΔT, and check it against the stream table.</li>
+<li>Duty first: {im(r"Q = \dot{m}\, c_p\, \Delta T")}, and check it against the stream table.</li>
 <li>The driving force is the log mean temperature difference, corrected for flow arrangement where needed.</li>
 <li>U is the uncertain number. Use typical values to start and state the fouling allowance explicitly.</li>
 <li>The area must fit a layout that gives a sensible tube velocity.</li>
 </ul>
 <p>Next: {L[3]} sizes the feed tank, T-101.</p>
-{NOTE}{js3d("hx3d")}"""
+{NOTE}{js3d("hx3d")}{mathjs()}"""
     body = nowrap(body, [(1, 0, 26)])
     return dict(slug=Z2, title="Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step",
                 desc="How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.",
@@ -337,7 +372,7 @@ def part3():
 <p>{L[1]} and {L[2]} sized the pump and heater in the feed section. This part sizes the tank they draw from: T-101, an atmospheric storage tank that holds the feed and decouples the reactor from deliveries. A tank seems simple, but its size, its level settings and its wall thickness each come from a different question.</p>
 <h2>Step 1: how much holdup?</h2>
 <p>Holdup is set by what the tank has to absorb. For a feed tank, the usual questions are: how long must the plant keep running if a delivery is late, how big is a delivery, and how much time do operators need to respond to an alarm. This example takes {f0(HOLD_H)} hours of feed at full rate:</p>
-<p>Working volume = {f0(M)}&nbsp;kg/h × {f0(HOLD_H)}&nbsp;h / {f0(RHO)}&nbsp;kg/m³ = <strong>{f1(V_WORK)}&nbsp;m³</strong></p>
+{eq(r"V_{\text{working}} = \dfrac{%s\ \text{kg/h} \times %s\ \text{h}}{%s\ \text{kg/m}^3} = %s\ \text{m}^3" % (tn(f0(M)), f0(HOLD_H), f0(RHO), f1(V_WORK)))}
 <p>Not all of a tank is usable. The bottom is below the pump suction, and the top is reserved for alarms, trips and vapour space. Allowing for {f0(FILL * 100)}% of the total volume to be usable, the tank needs about <strong>{f1(V_TANK)}&nbsp;m³</strong>. If deliveries arrive by tanker, also check that one full delivery fits above the normal level; that can govern instead.</p>
 <h2>Step 2: shape</h2>
 <p>For a vertical tank, the diameter is often fixed by the space available and the height follows. With a {f1(D_T)}&nbsp;m diameter, the height needed is {f2(H_T)}&nbsp;m, rounded up to a {f1(H_T_SEL)}&nbsp;m shell. A height of one to two diameters is common for tanks of this size.</p>
@@ -355,9 +390,9 @@ def part3():
 <p>The low-low trip protects the pump from running dry, and its height must keep enough liquid above the pump for the NPSH calculated in {L[1]}. The high-high trip protects against overfill, which is one of the most common causes of tank incidents. Both are candidates for the independent protection layers examined in a <a href="{HAZOP}.html">HAZOP</a>.</p>
 <h2>Step 4: wall thickness</h2>
 <p>Atmospheric storage tanks in North America are commonly designed to API 650, which sets the shell thickness of each course from the liquid head it has to hold. The one-foot method gives the required thickness of the bottom course as:</p>
-<p>t = 4.9 × D × (H − 0.3) × G / S<sub>d</sub> + CA</p>
-<p>with t in mm, D the diameter and H the liquid height in metres, G the specific gravity, S<sub>d</sub> the allowable stress in MPa and CA the corrosion allowance. For T-101, with G = {f2(GS)}, S<sub>d</sub> = {f0(SD)}&nbsp;MPa and a {f1(CA)}&nbsp;mm corrosion allowance:</p>
-<p>t = 4.9 × {f1(D_T)} × ({f1(H_T_SEL)} − 0.3) × {f2(GS)} / {f0(SD)} + {f1(CA)} = <strong>{f1(T_SHELL)}&nbsp;mm</strong></p>
+{eq(r"t = \dfrac{4.9\, D\, (H - 0.3)\, G}{S_d} + CA")}
+<p>with {im("t")} in mm, {im("D")} the diameter and {im("H")} the liquid height in metres, {im("G")} the specific gravity, {im("S_d")} the allowable stress in MPa and {im("CA")} the corrosion allowance. For T-101, with {im("G = %s" % f2(GS))}, {im("S_d = %s" % f0(SD))}&nbsp;MPa and a {f1(CA)}&nbsp;mm corrosion allowance:</p>
+{eq(r"t = \dfrac{4.9 \times %s \times (%s - 0.3) \times %s}{%s} + %s = %s\ \text{mm}" % (f1(D_T), f1(H_T_SEL), f2(GS), f0(SD), f1(CA), f1(T_SHELL)))}
 <p>That is less than the minimum shell thickness the standard sets for a tank of this diameter, {f0(T_MIN)}&nbsp;mm, so the minimum governs. For small tanks this is usual: the walls are thicker than the liquid pressure needs, for handling, welding and stiffness. Pressure vessels, such as reactor R-101, are designed to a different code, ASME Section VIII, which uses a different formula based on the internal design pressure.</p>
 {fig3d("tank")}<h2>What else the tank needs</h2>
 <ul>
@@ -373,8 +408,8 @@ def part3():
 <li>Level settings are design decisions; the gaps between them buy operators time.</li>
 <li>For small atmospheric tanks, the code minimum often sets the wall thickness, not the liquid head.</li>
 </ul>
-<p>This completes the series. For what protects this equipment if things go wrong, see <a href="{RLF}.html">pressure relief basics</a>.</p>
-{NOTE}{js3d("tk3d")}"""
+<p>Next: {L[4]} sizes the flow control valve on the pump discharge. For what protects this equipment if things go wrong, see <a href="{RLF}.html">pressure relief basics</a>.</p>
+{NOTE}{js3d("tk3d")}{mathjs()}"""
     body = nowrap(body, [(1, 0, 18), (1, 1, 8)])
     return dict(slug=Z3, title="Sizing a Tank: Holdup, Level Settings and Wall Thickness",
                 desc="How a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and API 650 shell thickness, on a worked feed tank.",
@@ -416,8 +451,8 @@ def relief():
 <p>For each device, the engineer calculates the relief load, in kg/h, for every credible cause. The largest sets the size of the valve. That is the <strong>governing case</strong>. For a vessel full of liquid that can boil, the fire case often governs. Here is the calculation for R-101.</p>
 <h3>Fire case for R-101</h3>
 <p>R-101 is the {f0(VR)}&nbsp;m³ reactor from the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a>, about {f2(DR)}&nbsp;m in diameter. API 521 estimates the heat absorbed from a pool fire, where there is adequate drainage and fire-fighting, as:</p>
-<p>Q = 43,200 × F × A<sub>ws</sub><sup>0.82</sup></p>
-<p>with Q in watts, A<sub>ws</sub> the wetted surface area in m² (counted up to 7.6&nbsp;m above the fire), and F an environment factor, 1.0 for a bare vessel and lower for insulated ones. At {f0(FILLR * 100)}% full, the wetted area of R-101 is about {f1(A_WET)}&nbsp;m², so the fire heat input is about <strong>{f0(Q_FIRE)}&nbsp;kW</strong>. If all of it boils solvent with a latent heat of {f0(LAT)}&nbsp;kJ/kg, the relief load is about <strong>{f0(W_FIRE)}&nbsp;kg/h</strong> of vapour.</p>
+{eq(r"Q = 43{,}200\, F\, A_{ws}^{\,0.82}")}
+<p>with {im("Q")} in watts, {im("A_{ws}")} the wetted surface area in m² (counted up to 7.6&nbsp;m above the fire), and {im("F")} an environment factor, 1.0 for a bare vessel and lower for insulated ones. At {f0(FILLR * 100)}% full, the wetted area of R-101 is about {f1(A_WET)}&nbsp;m², so the fire heat input is about <strong>{f0(Q_FIRE)}&nbsp;kW</strong>. If all of it boils solvent with a latent heat of {f0(LAT)}&nbsp;kJ/kg, the relief load is about <strong>{f0(W_FIRE)}&nbsp;kg/h</strong> of vapour.</p>
 <p>Insulation that stays in place in a fire lowers F and the relief load. Draining the vessel to a safe location, or depressuring it, can also reduce what the relief device has to handle. These are design choices that the relief study should record.</p>
 <h3>Why the fire case may not govern</h3>
 <p>For R-101, the runaway case may be worse. A runaway reaction generates heat much faster than a fire and may also generate gas, and the vented stream is often a two-phase mixture of liquid and vapour, which needs a much larger device than vapour alone. Sizing for runaway reactions uses specialist methods based on calorimetry data, developed largely through the Design Institute for Emergency Relief Systems. That is why the <a href="{RUN}.html">runaway reaction post</a> treats prevention as the first priority: a relief system sized for a runaway is large, expensive and still a last resort.</p>
@@ -442,7 +477,7 @@ def relief():
 <li>Keep the relief study current through management of change, and keep the devices inspected.</li>
 </ul>
 <p><strong>Need a relief study reviewed?</strong> Chmltech's process engineers prepare design bases, HAZOPs and relief load summaries for small and mid-sized plants. <a href="../book.html">Book a strategy call</a>.</p>
-<p class="oee-note"><em>The vessel and numbers in this article are an illustrative example. Relief systems must be designed by a qualified engineer to the applicable codes and the requirements of your jurisdiction.</em></p>{js3d("psv3d")}"""
+<p class="oee-note"><em>The vessel and numbers in this article are an illustrative example. Relief systems must be designed by a qualified engineer to the applicable codes and the requirements of your jurisdiction.</em></p>{js3d("psv3d")}{mathjs()}"""
     body = nowrap(body, [(1, 0, 26), (2, 0, 20)])
     return dict(slug=RLF, title="Pressure Relief Basics: What a PSV Protects Against and How the Relief Case Is Chosen",
                 desc="What a pressure relief valve protects against, the causes of overpressure, how the governing case is chosen, a worked fire case, and common mistakes.",

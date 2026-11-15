@@ -56,7 +56,7 @@
   <div class="container stack-lg">
     <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
     <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
-    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 1 of 3</p>
+    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 1 of 5</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Sizing a Pump: Head, NPSH and Power, Worked Step by Step</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 13, 2026</span><span>7 min read</span></p>
   </div>
@@ -65,26 +65,8 @@
 <section class="section" style="padding-top:56px"><div class="container layout-aside">
   <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#step-1-set-the-flow">Step 1: set the flow</a></li><li><a href="#step-2-add-up-the-head">Step 2: add up the head</a></li><li><a href="#step-3-check-the-system-curve">Step 3: check the system curve</a></li><li><a href="#step-4-check-the-suction-npsh">Step 4: check the suction (NPSH)</a></li><li><a href="#step-5-power-and-motor">Step 5: power and motor</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#key-points">Key points</a></li></ol></details>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="../assets/css/oee.css?v=12a6a829">
-<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This three-part series sizes the main equipment in the feed section you met in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> and feed tank T-101 in <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a>.</p>
+<link rel="stylesheet" href="../assets/css/oee.css?v=c64d4aff">
+<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This series sizes the main equipment in the feed section you met in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a>, feed tank T-101 in <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a>, the flow control valve in <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> and the lines in <a href="sizing-a-line-velocity-pressure-drop-and-pipe-schedule.html">Part&nbsp;5</a>.</p>
 <p>The aim is not to replace the engineer who specifies the pump. It is to show owners and managers where the numbers on a pump data sheet come from, so that they can check them and ask the right questions.</p>
 <h2 id="step-1-set-the-flow">Step 1: set the flow</h2>
 <p>P-101 moves the feed from T-101 through E-101 to reactor R-101 at 6,250&nbsp;kg/h. With a density of 850&nbsp;kg/m³ that is 7.35&nbsp;m³/h at normal flow. Pumps are specified at a <strong>rated flow</strong> above normal, to cover uncertainty and control. A 10% margin gives 8.09&nbsp;m³/h. Margins belong in the <a href="the-design-basis-ten-decisions-to-fix-before-engineering-starts.html">design basis</a>, stated once, not added again by each discipline.</p>
@@ -102,8 +84,12 @@
 <tr><td>Less: suction pressure at low tank level</td><td class="num">7</td><td>1.0&nbsp;m of liquid, less suction friction</td></tr>
 <tr><td class="nw"><strong>Differential pressure</strong></td><td class="num"><strong>391</strong></td><td><strong>Total head 46.9&nbsp;m</strong></td></tr>
 </table>
-<p>Pipe friction comes from the Darcy–Weisbach equation, ΔP = <em>f</em> × (L/D) × ρv²/2. In the discharge line the velocity is 1.71&nbsp;m/s, the Reynolds number is about 99,085 (fully turbulent) and the friction factor is 0.0227. The control valve is often the term people want to cut. Don't: a valve with too little pressure drop cannot control the flow.</p>
-<p>The head is converted from pressure with H = ΔP / (ρg). Head in metres is the natural unit for pumps because a centrifugal pump produces the same head whatever the liquid's density; the pressure it produces scales with density.</p>
+<p>Pipe friction comes from the Darcy–Weisbach equation:</p>
+<p class="eq">\[\Delta P = f\,\dfrac{L}{D}\,\dfrac{\rho\, v^{2}}{2}\]</p>
+<p>In the discharge line the velocity is 1.71&nbsp;m/s, the Reynolds number is about 99,085 (fully turbulent) and the friction factor is 0.0227. The control valve is often the term people want to cut. Don't: a valve with too little pressure drop cannot control the flow.</p>
+<p>The head is converted from pressure with:</p>
+<p class="eq">\[H = \dfrac{\Delta P}{\rho\, g}\]</p>
+<p>Head in metres is the natural unit for pumps because a centrifugal pump produces the same head whatever the liquid's density; the pressure it produces scales with density.</p>
 <h2 id="step-3-check-the-system-curve">Step 3: check the system curve</h2>
 <p>Static lift and fixed pressures do not change with flow. Friction rises roughly with the square of flow. Plotting the total against flow gives the <strong>system curve</strong>. The pump's own curve falls as flow rises. The pump runs where the two cross.</p>
 <figure>
@@ -113,10 +99,13 @@
 <p>Two things follow from the shape. First, because most of the head here does not depend on flow, a small error in the friction estimate barely moves the operating point. Second, a pump with a curve that is too flat in this region will hunt as the control valve moves. Pick a pump whose rated point sits near its best efficiency point.</p>
 <h2 id="step-4-check-the-suction-npsh">Step 4: check the suction (NPSH)</h2>
 <p>If the pressure at the pump inlet falls below the liquid's vapour pressure, bubbles form and collapse inside the impeller. That is cavitation: noise, vibration, lost head and eroded impellers. The check compares the <strong>net positive suction head available</strong> from the system with the <strong>NPSH required</strong> by the pump, from the vendor's curve.</p>
-<p>NPSHa = (P<sub>atm</sub> − P<sub>vap</sub>) / (ρg) + liquid height above the pump − suction friction</p>
+<p class="eq">\[\mathrm{NPSH_a} = \dfrac{P_{\text{atm}} - P_{\text{vap}}}{\rho\, g} + z_s - h_{f,s}\]</p>
+<p>Here \(z_s\) is the liquid height above the pump and \(h_{f,s}\) is the suction friction, both in metres.</p>
 <p>With the tank open to atmosphere, a vapour pressure of 2.9&nbsp;kPa at 20&nbsp;°C, 1.0&nbsp;m of liquid at low level and 0.19&nbsp;m of suction friction, NPSHa is about <strong>12.6&nbsp;m</strong>. A small pump of this kind typically needs 2.5&nbsp;m. The margin is ample. It shrinks quickly if the liquid is hot or volatile, which is why NPSH is checked at the worst case: lowest tank level, highest liquid temperature, highest flow.</p>
 <h2 id="step-5-power-and-motor">Step 5: power and motor</h2>
-<p>Hydraulic power is P = ρ g Q H. At rated flow and head that is 0.88&nbsp;kW. Small centrifugal pumps are not very efficient. At 45%, the shaft power is about 1.95&nbsp;kW. The motor is sized for the end of the pump curve, not the rated point. Allowing about 25% for that and a margin, the next standard size, 3&nbsp;kW, is a reasonable selection. The PFD in the earlier article shows P-101 delivering 4.0&nbsp;barg; the build-up above arrives at 3.98&nbsp;barg, which is how a number on a PFD is checked.</p>
+<p>Hydraulic power is:</p>
+<p class="eq">\[P = \rho\, g\, Q\, H\]</p>
+<p>At rated flow and head that is 0.88&nbsp;kW. Small centrifugal pumps are not very efficient. At 45%, the shaft power is about 1.95&nbsp;kW. The motor is sized for the end of the pump curve, not the rated point. Allowing about 25% for that and a margin, the next standard size, 3&nbsp;kW, is a reasonable selection. The PFD in the earlier article shows P-101 delivering 4.0&nbsp;barg; the build-up above arrives at 3.98&nbsp;barg, which is how a number on a PFD is checked.</p>
 <p>Figure 2 shows P-101 running, with a clear front cover so the flow is visible. The control valve sits downstream of the pump, on the discharge line. Move the valve, the pump speed, the tank level or the liquid temperature and watch the operating point, the pressures and the NPSH margin respond.</p>
 <figure class="pm3d" id="pm3d">
 <div class="pm3d-box">
@@ -130,7 +119,7 @@
 <div class="pm3d-panel">
 <div class="pm3d-top">
 <div class="pm3d-sliders">
-<div class="pm3d-sl"><label for="pm3d-valve">Control valve opening <output id="pm3d-valve-o" for="pm3d-valve">60%</output></label><input type="range" id="pm3d-valve" min="15" max="100" step="1" value="60"></div>
+<div class="pm3d-sl"><label for="pm3d-valve">Control valve opening <output id="pm3d-valve-o" for="pm3d-valve">70%</output></label><input type="range" id="pm3d-valve" min="15" max="100" step="1" value="70"></div>
 <div class="pm3d-sl"><label for="pm3d-speed">Pump speed (VFD) <output id="pm3d-speed-o" for="pm3d-speed">100% · 60 Hz · 3,500 rpm</output></label><input type="range" id="pm3d-speed" min="40" max="100" step="1" value="100"></div>
 <div class="pm3d-sl"><label for="pm3d-level">Tank level above the pump <output id="pm3d-level-o" for="pm3d-level">1.0 m</output></label><input type="range" id="pm3d-level" min="0.3" max="4" step="0.1" value="1"></div>
 <div class="pm3d-sl"><label for="pm3d-temp">Liquid temperature <output id="pm3d-temp-o" for="pm3d-temp">20 °C</output></label><input type="range" id="pm3d-temp" min="20" max="108" step="1" value="20"></div>
@@ -178,7 +167,11 @@
 <p>Next: <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> sizes the heater, E-101.</p>
 <p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
 <script src="../assets/js/vendor/three-r128.min.js" defer></script>
-<script src="../assets/js/pm3d.js?v=a8f7c78d" defer></script>
+<script src="../assets/js/pm3d.js?v=abf3c955" defer></script>
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-set-the-flow">Step 1: set the flow</a></li><li><a href="#step-2-add-up-the-head">Step 2: add up the head</a></li><li><a href="#step-3-check-the-system-curve">Step 3: check the system curve</a></li><li><a href="#step-4-check-the-suction-npsh">Step 4: check the suction (NPSH)</a></li><li><a href="#step-5-power-and-motor">Step 5: power and motor</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#key-points">Key points</a></li></ol></div>
@@ -187,8 +180,8 @@
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 146 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 3</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area.html">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a tank: holdup, level settings and wall thickness how a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and api 650 shell thickness, on a worked feed tank. tank sizing level alarms api 650 storage tank holdup process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-tank-holdup-levels-and-wall-thickness.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 3 of 3</p><h3><a href="../post/sizing-a-tank-holdup-levels-and-wall-thickness.html">Sizing a Tank: Holdup, Level Settings and Wall Thickness</a></h3><p class="muted">How a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and API 650 shell thickness, on a worked feed tank.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 148 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 5</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area.html">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a tank: holdup, level settings and wall thickness how a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and api 650 shell thickness, on a worked feed tank. tank sizing level alarms api 650 storage tank holdup process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-tank-holdup-levels-and-wall-thickness.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 3 of 5</p><h3><a href="../post/sizing-a-tank-holdup-levels-and-wall-thickness.html">Sizing a Tank: Holdup, Level Settings and Wall Thickness</a></h3><p class="muted">How a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and API 650 shell thickness, on a worked feed tank.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Sizing a Pump: Head, NPSH and Power, Worked Step by Step", "datePublished": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-a-pump-head-npsh-and-power", "description": "How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.", "image": "https://www.chmltech.com/assets/media/covers/sizing-a-pump-head-npsh-and-power.jpg", "dateModified": "2026-11-13"}</script>
 <section class="cta">

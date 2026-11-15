@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step</title>
+<meta name="description" content="How a liquid line is sized: velocity and pressure drop criteria, Reynolds number, friction factor, fittings, suction lines and wall thickness.">
+<link rel="canonical" href="https://www.chmltech.com/post/sizing-a-line-velocity-pressure-drop-and-pipe-schedule">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step">
+<meta property="og:description" content="How a liquid line is sized: velocity and pressure drop criteria, Reynolds number, friction factor, fittings, suction lines and wall thickness.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/sizing-a-line-velocity-pressure-drop-and-pipe-schedule.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=52140738">
+<meta property="og:url" content="https://www.chmltech.com/post/sizing-a-line-velocity-pressure-drop-and-pipe-schedule">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step","item":"https://www.chmltech.com/post/sizing-a-line-velocity-pressure-drop-and-pipe-schedule"}]}]}</script>
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 5 of 5</p>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 14, 2026</span><span>10 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#step-1-start-from-the-flow-and-the-fluid">Step 1: start from the flow and the fluid</a></li><li><a href="#step-2-set-the-criteria">Step 2: set the criteria</a></li><li><a href="#step-3-try-the-standard-sizes">Step 3: try the standard sizes</a></li><li><a href="#step-4-count-the-fittings">Step 4: count the fittings</a></li><li><a href="#step-5-size-the-suction-line-more-gently">Step 5: size the suction line more gently</a></li><li><a href="#step-6-check-whether-a-larger-pipe-pays">Step 6: check whether a larger pipe pays</a></li><li><a href="#step-7-choose-the-schedule">Step 7: choose the schedule</a></li><li><a href="#the-line-list-entry">The line list entry</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></details>
+
+<link rel="stylesheet" href="../assets/css/oee.css?v=c64d4aff">
+<p>Pipe is the least glamorous item on a plant and the one there is most of. Each line is a small trade: a thin pipe is cheap to buy and expensive to pump through for the next twenty years, and a fat pipe is the reverse. Line sizing is how that trade is settled, one line at a time, with three numbers: the velocity, the pressure drop and the wall thickness.</p>
+<p><a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> of this series sized pump P-101 and simply stated that its discharge line was 1½-inch and its suction line 2-inch. This part shows where those sizes come from. The example is the discharge line from P-101 through the control valve of <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> and heater E-101 to reactor R-101, carrying 6,250&nbsp;kg/h of feed.</p>
+<h2 id="step-1-start-from-the-flow-and-the-fluid">Step 1: start from the flow and the fluid</h2>
+<p>Lines are sized at the same rated flow as the equipment they connect: 8.09&nbsp;m³/h, 10% above the normal 7.35&nbsp;m³/h. The feed has a density of 850&nbsp;kg/m³ and a viscosity of 0.60&nbsp;mPa·s. Those four numbers and a pipe table are all the calculation needs.</p>
+<p>One trap comes first. A pipe's nominal size is a name, not a dimension. A 1½-inch schedule&nbsp;40 pipe has an outside diameter of 48.3&nbsp;mm, a wall of 3.68&nbsp;mm and an inside diameter of 40.9&nbsp;mm. The liquid only knows about the inside diameter, so that is the one to use.</p>
+<h2 id="step-2-set-the-criteria">Step 2: set the criteria</h2>
+<p>Most companies size liquid lines against two guidelines at once, a velocity range and a pressure drop per 100&nbsp;m of pipe. Typical values for a thin liquid are:</p>
+<table>
+<tr><th class="nw">Service</th><th class="nw">Velocity</th><th>Pressure drop</th><th>Why</th></tr>
+<tr><td class="nw">Pump suction</td><td class="nw">0.5 to 1.5&nbsp;m/s</td><td>Under about 10&nbsp;kPa per 100&nbsp;m</td><td>Protects NPSH; every kilopascal lost here is taken from the pump's suction margin</td></tr>
+<tr><td class="nw">Pump discharge</td><td class="nw">1.5 to 3&nbsp;m/s</td><td>20 to 90&nbsp;kPa per 100&nbsp;m</td><td>Balances pipe cost against pump head and energy</td></tr>
+<tr><td class="nw">Gravity flow and drains</td><td class="nw">Under 1&nbsp;m/s</td><td>Set by the head available</td><td>Only the height difference drives the flow</td></tr>
+</table>
+<p>Too fast, and the line wastes pump head, erodes at elbows, makes noise and hammers when a valve shuts. Too slow, and the plant pays for steel it does not need, and anything that can settle will settle. The ranges are guidelines, not law, and they shift for slurries, corrosive liquids and very large pipe.</p>
+<h2 id="step-3-try-the-standard-sizes">Step 3: try the standard sizes</h2>
+<p>Pipe comes in fixed sizes, so the method is trial: take each candidate, work out the velocity, then the pressure drop. Velocity is the flow divided by the bore area:</p>
+<p class="eq">\[v = \dfrac{Q}{A} = \dfrac{4Q}{\pi D^{2}}\]</p>
+<p>The <strong>Reynolds number</strong> then says what kind of flow it is. Below about 2,100 the flow is laminar and slides in smooth layers. Above about 4,000 it is turbulent and full of eddies. Almost every line carrying a thin liquid in a plant is turbulent.</p>
+<p class="eq">\[Re = \dfrac{\rho\, v\, D}{\mu}\]</p>
+<p>The <strong>friction factor</strong> \(f\) depends on the Reynolds number and on the roughness of the pipe wall \(\varepsilon\), here 0.045&nbsp;mm for commercial steel. For laminar flow it is simply \(f = 64 / Re\). For turbulent flow the Swamee–Jain equation gives it directly, within a few percent of the Moody chart:</p>
+<p class="eq">\[f = \dfrac{0.25}{\left[\log_{10}\!\left(\dfrac{\varepsilon}{3.7\,D} + \dfrac{5.74}{Re^{0.9}}\right)\right]^{2}}\]</p>
+<p>The pressure drop over a length \(L\) then follows from the Darcy–Weisbach equation:</p>
+<p class="eq">\[\Delta P = f\,\dfrac{L}{D}\,\dfrac{\rho\, v^{2}}{2}\]</p>
+<p>For the 1½-inch pipe: \(v = 1.71\)&nbsp;m/s, \(Re \approx 99{,}000\) and \(f = 0.0227\), so over 100&nbsp;m:</p>
+<p class="eq">\[\Delta P = 0.0227 \times \dfrac{100}{0.0409} \times \dfrac{850 \times 1.71^{2}}{2} = 69\ \text{kPa}\]</p>
+<p>Repeating that for the neighbouring sizes, all in schedule&nbsp;40:</p>
+<table>
+<tr><th class="nw">Size</th><th class="num">Bore, mm</th><th class="num">Velocity, m/s</th><th class="num">Re</th><th class="num">f</th><th class="num">kPa per 100&nbsp;m</th><th class="num">kPa over line</th></tr>
+<tr><td class="nw">1&nbsp;in. (DN&nbsp;25)</td><td class="num">26.6</td><td class="num">4.03</td><td class="num">152,123</td><td class="num">0.0239</td><td class="num">619</td><td class="num">371</td></tr><tr><td class="nw">1½&nbsp;in. (DN&nbsp;40)</td><td class="num">40.9</td><td class="num">1.71</td><td class="num">98,988</td><td class="num">0.0227</td><td class="num">68.6</td><td class="num">41.2</td></tr><tr><td class="nw">2&nbsp;in. (DN&nbsp;50)</td><td class="num">52.5</td><td class="num">1.04</td><td class="num">77,221</td><td class="num">0.0225</td><td class="num">19.6</td><td class="num">11.8</td></tr><tr><td class="nw">3&nbsp;in. (DN&nbsp;80)</td><td class="num">77.9</td><td class="num">0.47</td><td class="num">52,009</td><td class="num">0.0227</td><td class="num">2.8</td><td class="num">1.7</td></tr>
+</table>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Bar chart of pressure drop per 100 metres at the rated flow for four schedule 40 pipe sizes, on a log scale. The 1 inch pipe loses 619 kilopascals at 4.03 metres per second, far above the guideline. The 1½ inch pipe loses 69 kilopascals at 1.71 metres per second, inside the guideline band of 20 to 90, and is selected. The 2 inch pipe loses 20 kilopascals at 1.04 metres per second and the 3 inch pipe 2.8 kilopascals at 0.47 metres per second." viewBox="0 0 700 318" style="width:100%;height:auto;display:block;min-width:600px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><rect x="90" y="138.4" width="590" height="41.3" fill="#E4F1D3" opacity=".8"/><line x1="90" y1="262.0" x2="680" y2="262.0" stroke="#D9D5CA"/><text x="82" y="266.0" text-anchor="end" font-size="12" fill="#5A6475">1</text><line x1="90" y1="198.7" x2="680" y2="198.7" stroke="#D9D5CA"/><text x="82" y="202.7292700243388" text-anchor="end" font-size="12" fill="#5A6475">10</text><line x1="90" y1="135.5" x2="680" y2="135.5" stroke="#D9D5CA"/><text x="82" y="139.4585400486776" text-anchor="end" font-size="12" fill="#5A6475">100</text><line x1="90" y1="72.2" x2="680" y2="72.2" stroke="#D9D5CA"/><text x="82" y="76.18781007301644" text-anchor="end" font-size="12" fill="#5A6475">1,000</text><text x="14" y="18" text-anchor="start" font-size="12.5" fill="#0B2A5A" font-weight="600">Pressure drop (kPa per 100 m, log scale)</text><text x="672" y="58" text-anchor="end" font-size="12" fill="#4D7F12" font-weight="600">Green band: guideline for pump discharge lines,</text><text x="672" y="74" text-anchor="end" font-size="12" fill="#4D7F12" font-weight="600">20 to 90 kPa per 100 m</text><rect x="121.8" y="85.4" width="84" height="176.6" rx="4" fill="#9DB7CC"/><text x="163.75" y="63.37311151074374" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">619 kPa</text><text x="163.75" y="78.37311151074374" text-anchor="middle" font-size="12" fill="#5A6475">4.03 m/s</text><text x="163.75" y="280" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">1 in.</text><text x="163.75" y="296" text-anchor="middle" font-size="12" fill="#5A6475">ID 26.6 mm</text><rect x="269.2" y="145.8" width="84" height="116.2" rx="4" fill="#0B6FA4"/><text x="311.25" y="123.79557925404487" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">68.6 kPa</text><text x="311.25" y="138.79557925404487" text-anchor="middle" font-size="12" fill="#5A6475">1.71 m/s</text><text x="311.25" y="280" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">1½ in.</text><text x="311.25" y="296" text-anchor="middle" font-size="12" fill="#5A6475">ID 40.9 mm</text><rect x="416.8" y="180.2" width="84" height="81.8" rx="4" fill="#9DB7CC"/><text x="458.75" y="158.20956086419613" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">19.6 kPa</text><text x="458.75" y="173.20956086419613" text-anchor="middle" font-size="12" fill="#5A6475">1.04 m/s</text><text x="458.75" y="280" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">2 in.</text><text x="458.75" y="296" text-anchor="middle" font-size="12" fill="#5A6475">ID 52.5 mm</text><rect x="564.2" y="234.2" width="84" height="27.8" rx="4" fill="#9DB7CC"/><text x="606.25" y="212.1757443928912" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">2.8 kPa</text><text x="606.25" y="227.1757443928912" text-anchor="middle" font-size="12" fill="#5A6475">0.47 m/s</text><text x="606.25" y="280" text-anchor="middle" font-size="13" fill="#0B2A5A" font-weight="600">3 in.</text><text x="606.25" y="296" text-anchor="middle" font-size="12" fill="#5A6475">ID 77.9 mm</text><text x="311.25" y="312" text-anchor="middle" font-size="12.5" fill="#0B6FA4" font-weight="600">Selected</text></svg></div>
+<figcaption>Figure 1. Pressure drop per 100 m and velocity at 8.09 m³/h for four schedule 40 pipe sizes. Each step down in size multiplies the pressure drop several times.</figcaption>
+</figure>
+<p>The 1-inch pipe is out at once: 4.03&nbsp;m/s and 371&nbsp;kPa over the line, almost as much as the pump's whole differential pressure. The <strong>1½-inch</strong> pipe meets both guidelines at 1.71&nbsp;m/s and 69&nbsp;kPa per 100&nbsp;m. The 2-inch pipe would also work, slowly, and the 3-inch pipe is steel for nothing.</p>
+<p>Notice how sharply the pressure drop moves. For the same flow in turbulent conditions it varies roughly with the inverse fifth power of the diameter. Going from 1½ to 1&nbsp;inch cuts the diameter by a third and multiplies the pressure drop by 9. That is why one size too small is a serious mistake and one size too large is only an expensive one.</p>
+<h2 id="step-4-count-the-fittings">Step 4: count the fittings</h2>
+<p>A line is not just straight pipe. Every elbow, tee and valve adds turbulence and loses pressure. The usual shortcut is to convert each fitting to the length of straight pipe that would lose the same pressure, using a length-to-diameter ratio, and add them up. The total is the <strong>equivalent length</strong>, and it goes into the Darcy–Weisbach equation in place of \(L\).</p>
+<table>
+<tr><th class="nw">Item, 1½-inch discharge line</th><th class="num">Number</th><th class="num">L/D each</th><th class="num">Equivalent length, m</th></tr>
+<tr><td class="nw">Straight pipe</td><td class="num"></td><td class="num"></td><td class="num">38.7</td></tr>
+<tr><td class="nw">90° elbows</td><td class="num">10</td><td class="num">30</td><td class="num">12.3</td></tr><tr><td class="nw">Gate valves, open</td><td class="num">2</td><td class="num">8</td><td class="num">0.7</td></tr><tr><td class="nw">Check valve</td><td class="num">1</td><td class="num">100</td><td class="num">4.1</td></tr><tr><td class="nw">Tee, flow through the branch</td><td class="num">1</td><td class="num">60</td><td class="num">2.5</td></tr>
+<tr><td class="nw">Exit into the reactor</td><td class="num">1</td><td class="num">44</td><td class="num">1.8</td></tr>
+<tr><td class="nw"><strong>Equivalent length</strong></td><td class="num"></td><td class="num"></td><td class="num"><strong>60</strong></td></tr>
+</table>
+<p>About a third of this line's resistance is fittings, which is typical of the short, crooked runs inside a plant. Over 60&nbsp;m the line loses 41&nbsp;kPa, the figure used in the pump's head build-up in <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a>. The control valve, the heater, the flow meter and the strainer are not fittings in this sense. They have their own pressure drops and were counted separately.</p>
+<p>At the layout stage nobody knows the real number of elbows. A common allowance is to add 30% to 100% to the straight length, more for short runs, and to recheck when the piping drawings exist.</p>
+<h2 id="step-5-size-the-suction-line-more-gently">Step 5: size the suction line more gently</h2>
+<p>The pump's suction line is sized against the stricter guideline, because pressure lost there comes straight out of the NPSH margin. The usual result is a suction line one size larger than the discharge. Here that is 2-inch: 1.04&nbsp;m/s and 20&nbsp;kPa per 100&nbsp;m, so the 8&nbsp;m suction line loses only 1.6&nbsp;kPa. That is above the 10&nbsp;kPa per 100&nbsp;m guideline, but the line is so short and the NPSH margin in <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> so large that the next size up would buy nothing. With a hot or volatile liquid the same check would push it to 3-inch.</p>
+<h2 id="step-6-check-whether-a-larger-pipe-pays">Step 6: check whether a larger pipe pays</h2>
+<p>The 2-inch discharge line would save 29&nbsp;kPa of pump head. At 8.09&nbsp;m³/h and the pump's 45% efficiency that is about 0.15&nbsp;kW at the shaft, or roughly 1,200&nbsp;kWh in a year of continuous running. That is a small saving to set against a larger pipe, larger valves and a larger control valve body. For a line this size the 1½-inch choice stands. The balance tips the other way on big flows and long distances, where the energy runs to megawatt-hours and an economic pipe diameter study is worth doing.</p>
+<h2 id="step-7-choose-the-schedule">Step 7: choose the schedule</h2>
+<p>The <strong>schedule</strong> is the wall thickness. For a given nominal size the outside diameter is fixed, so a heavier schedule means a thicker wall and a smaller bore. The wall has to hold the design pressure. For straight pipe, ASME&nbsp;B31.3 gives the pressure design thickness as:</p>
+<p class="eq">\[t = \dfrac{P\,D}{2\,(S\,E\,W + P\,Y)}\]</p>
+<p>Here \(P\) is the design pressure, \(D\) the outside diameter, \(S\) the allowable stress of the pipe material, \(E\) the weld quality factor, \(W\) the weld strength reduction factor and \(Y\) a coefficient from the code. The line's design pressure is set at 10&nbsp;barg, comfortably above the 4.9&nbsp;barg the pump can reach against a closed valve. For seamless carbon steel pipe at ambient temperature, \(S = 138\)&nbsp;MPa, \(E = W = 1\) and \(Y = 0.4\):</p>
+<p class="eq">\[t = \dfrac{1.0 \times 48.3}{2\,(138 \times 1 \times 1 + 1.0 \times 0.4)} = 0.17\ \text{mm}\]</p>
+<p>Pressure alone needs a wall of 0.17&nbsp;mm. Add a corrosion allowance of 1.5&nbsp;mm, then allow for the mill tolerance, since pipe may be delivered up to 12.5% thinner than nominal:</p>
+<p class="eq">\[t_{\min} = \dfrac{0.17 + 1.5}{1 - 0.125} = 1.91\ \text{mm}\]</p>
+<p>Schedule&nbsp;40 has a wall of 3.68&nbsp;mm, almost twice what is needed. This is the normal result for small pipe at modest pressure: the wall is chosen for mechanical strength, so that the line survives being stepped on, vibrated and threaded, and the pressure check simply confirms it. In practice the schedule comes from the project's <strong>piping class</strong>, which fixes material, schedule, flange rating and valve types for each service. Many classes call for schedule&nbsp;80 on small threaded or socket-welded lines. That changes the bore: 1½-inch schedule&nbsp;80 has an inside diameter of 38.1&nbsp;mm, which raises the velocity to 1.97&nbsp;m/s and the pressure drop to 98&nbsp;kPa per 100&nbsp;m. The hydraulics have to be done on the schedule that will actually be bought.</p>
+<p>Figure 2 shows a short length of the discharge line cut open. Change the pipe size and the flow and watch the velocity, the shape of the velocity profile and the pressure drop respond. Then thicken the liquid until the flow turns laminar: the profile becomes a parabola and the dye stops mixing.</p>
+<figure class="ln3d" id="ln3d">
+<div class="ln3d-box">
+<div class="ln3d-stage">
+<canvas role="img" aria-label="3D model of a length of steel pipe cut in half along its axis, with liquid flowing from left to right. Arrows across the bore show the velocity profile: fastest at the centre and zero at the wall. In turbulent flow the profile is blunt and a streak of dye injected at the centre quickly mixes across the pipe. In laminar flow the profile is a parabola and the dye stays in a thin thread. Colours show the local speed of the liquid."></canvas>
+<svg class="ln3d-lines" aria-hidden="true"></svg>
+<span class="ln3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="ln3d-chip" id="ln3d-chip">Turbulent flow</span>
+<p class="ln3d-nogl" id="ln3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="ln3d-panel">
+<div class="ln3d-top">
+<div class="ln3d-sliders">
+<div class="ln3d-sl"><span class="ln3d-lab" id="ln3d-size-l">Pipe size <output id="ln3d-size-o">1½ in. schedule 40 · bore 40.9 mm</output></span><div class="ln3d-seg" role="group" aria-labelledby="ln3d-size-l"><button type="button" class="ln3d-btn" data-size="0" aria-pressed="false">1 in.</button><button type="button" class="ln3d-btn" data-size="1" aria-pressed="true">1½ in.</button><button type="button" class="ln3d-btn" data-size="2" aria-pressed="false">2 in.</button><button type="button" class="ln3d-btn" data-size="3" aria-pressed="false">3 in.</button></div></div>
+<div class="ln3d-sl"><label for="ln3d-flow">Flow <output id="ln3d-flow-o" for="ln3d-flow">8.09 m³/h · 110% of normal</output></label><input type="range" id="ln3d-flow" min="10" max="160" step="1" value="110"></div>
+<div class="ln3d-sl"><label for="ln3d-visc">Viscosity of the liquid (what if) <output id="ln3d-visc-o" for="ln3d-visc">0.60 mPa·s</output></label><input type="range" id="ln3d-visc" min="0" max="100" step="1" value="0"></div>
+</div>
+<div class="ln3d-chart"><svg id="ln3d-svg" viewBox="0 0 300 190" role="img" aria-label="Friction factor against Reynolds number on log scales: a straight laminar line, a gap for the transition, and the turbulent curve for this pipe's roughness, with the operating point marked."></svg></div>
+</div>
+<div class="ln3d-cells">
+<div class="ln3d-cell ln3d-key"><span class="k">Velocity</span><strong id="ln3d-v">1.71 m/s</strong></div>
+<div class="ln3d-cell"><span class="k">Reynolds number</span><strong id="ln3d-re">99,100</strong></div>
+<div class="ln3d-cell"><span class="k">Friction factor</span><strong id="ln3d-f">0.0227</strong></div>
+<div class="ln3d-cell"><span class="k">Loss per 100 m</span><strong id="ln3d-dp">69 kPa</strong></div>
+<div class="ln3d-cell"><span class="k">Loss over the 60 m line</span><strong id="ln3d-dpl">41 kPa</strong></div>
+<div class="ln3d-cell"><span class="k">Pump head used</span><strong id="ln3d-h">5.0 m</strong></div>
+</div>
+<div class="ln3d-foot">
+<p class="ln3d-say" id="ln3d-say" aria-live="polite">Design point: 8.09 m³/h in the 1½-inch line runs at 1.71 m/s. The flow is turbulent, the velocity profile is blunt, and the line loses 41 kPa over its 60 m.</p>
+<button type="button" class="ln3d-btn" id="ln3d-reset">Back to design point</button>
+<button type="button" class="ln3d-btn" id="ln3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="ln3d-legend" aria-hidden="true"><li><i class="grad"></i>Local speed, 0 to 4 m/s</li><li><i class="ln"></i>Velocity profile</li><li><i class="bub"></i>Dye</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. A length of the P-101 discharge line cut in half, drawn to scale between sizes. The arrows show the velocity profile across the bore: a parabola in laminar flow, and a blunt power-law shape in turbulent flow. The pressure drop uses the equations in this article with a roughness of 0.045 mm and the line's 60 m equivalent length, kept the same for every size. Between Reynolds numbers of 2,100 and 4,000 the friction factor is interpolated. The viscosity slider is a what-if for a thicker liquid and changes nothing else. The motion is slowed down, and the dye and its mixing are schematic.</figcaption>
+</figure>
+<h2 id="the-line-list-entry">The line list entry</h2>
+<table>
+<tr><th class="nw">Item</th><th>P-101 discharge line</th></tr>
+<tr><td class="nw">Line number</td><td>40-P-1002 (DN&nbsp;40, process, line 1002)</td></tr>
+<tr><td class="nw">From / to</td><td>P-101 discharge / R-101 feed nozzle, via FV-104 and E-101</td></tr>
+<tr><td class="nw">Fluid</td><td>Reactor feed, liquid, 850&nbsp;kg/m³, 0.60&nbsp;mPa·s</td></tr>
+<tr><td class="nw">Normal / rated flow</td><td>7.35 / 8.09&nbsp;m³/h</td></tr>
+<tr><td class="nw">Size and schedule</td><td>1½-inch schedule&nbsp;40, inside diameter 40.9&nbsp;mm</td></tr>
+<tr><td class="nw">Velocity at rated flow</td><td>1.71&nbsp;m/s</td></tr>
+<tr><td class="nw">Pressure drop</td><td>69&nbsp;kPa per 100&nbsp;m; 41&nbsp;kPa over 60&nbsp;m equivalent length</td></tr>
+<tr><td class="nw">Design pressure</td><td>10&nbsp;barg</td></tr>
+<tr><td class="nw">Required / selected wall</td><td>1.91&nbsp;mm / 3.68&nbsp;mm</td></tr>
+</table>
+<p>Every line on the P&amp;ID gets a row like this in the <strong>line list</strong>. The line number ties the row to the drawing, as described in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>, and the list is what the piping designers, the stress engineers and the estimators all work from.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Using the nominal size as the diameter.</strong> A 1½-inch pipe is not 38&nbsp;mm inside. Use the inside diameter for the schedule chosen.</li>
+<li><strong>Forgetting the fittings.</strong> In plant piping they are often a third to a half of the resistance.</li>
+<li><strong>Sizing the suction like the discharge.</strong> Suction lines are short, large and gentle for a reason.</li>
+<li><strong>Sizing at normal flow.</strong> The line must pass the rated flow, and pressure drop rises almost with the square of the flow.</li>
+<li><strong>Applying liquid rules to other flows.</strong> Gases, steam, two-phase mixtures and slurries each have their own criteria and methods.</li>
+</ul>
+<h2 id="key-points">Key points</h2>
+<ul>
+<li>Size liquid lines against a velocity range and a pressure drop per 100&nbsp;m, at the rated flow.</li>
+<li>Use the inside diameter. Velocity is flow over bore area, and the Reynolds number says whether the flow is laminar or turbulent.</li>
+<li>Pressure drop comes from the Darcy–Weisbach equation with the equivalent length, which includes the fittings.</li>
+<li>In turbulent flow, pressure drop varies roughly with the inverse fifth power of diameter: one size down is a large step.</li>
+<li>Small-bore wall thickness is usually set by the piping class and mechanical strength. The pressure calculation confirms it.</li>
+</ul>
+<p>Earlier in this series: <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> sized the pump, <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> the heater, <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a> the feed tank and <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> the control valve. This completes the series.</p>
+<p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
+<script src="../assets/js/vendor/three-r128.min.js" defer></script>
+<script src="../assets/js/ln3d.js?v=87988e25" defer></script>
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-start-from-the-flow-and-the-fluid">Step 1: start from the flow and the fluid</a></li><li><a href="#step-2-set-the-criteria">Step 2: set the criteria</a></li><li><a href="#step-3-try-the-standard-sizes">Step 3: try the standard sizes</a></li><li><a href="#step-4-count-the-fittings">Step 4: count the fittings</a></li><li><a href="#step-5-size-the-suction-line-more-gently">Step 5: size the suction line more gently</a></li><li><a href="#step-6-check-whether-a-larger-pipe-pays">Step 6: check whether a larger pipe pays</a></li><li><a href="#step-7-choose-the-schedule">Step 7: choose the schedule</a></li><li><a href="#the-line-list-entry">The line list entry</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>line sizing</span><span>pipe sizing</span><span>pressure drop</span><span>Reynolds number</span><span>pipe schedule</span><span>process design</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 148 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a pump: head, npsh and power, worked step by step how a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, npsh check, power and motor, on a worked example. pump sizing total dynamic head npsh system curve centrifugal pump process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-pump-head-npsh-and-power.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 1 of 5</p><h3><a href="../post/sizing-a-pump-head-npsh-and-power.html">Sizing a Pump: Head, NPSH and Power, Worked Step by Step</a></h3><p class="muted">How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a control valve: cv, pressure drop and cavitation, worked step by step how a liquid control valve is sized: flow cases, pressure drop, cv, trim and travel, cavitation check and failure position, on a worked example. control valve sizing cv flow coefficient cavitation equal percentage trim process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-control-valve-cv-pressure-drop-and-cavitation.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 4 of 5</p><h3><a href="../post/sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step</a></h3><p class="muted">How a liquid control valve is sized: flow cases, pressure drop, Cv, trim and travel, cavitation check and failure position, on a worked example.</p><p class="meta">Nov 14, 2026 · 9 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step", "datePublished": "2026-11-14", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-a-line-velocity-pressure-drop-and-pipe-schedule", "description": "How a liquid line is sized: velocity and pressure drop criteria, Reynolds number, friction factor, fittings, suction lines and wall thickness.", "image": "https://www.chmltech.com/assets/media/covers/sizing-a-line-velocity-pressure-drop-and-pipe-schedule.jpg", "dateModified": "2026-11-14"}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+</body>
+</html>
