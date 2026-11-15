@@ -441,3 +441,25 @@ p{margin:0}
   .orbit-label:not(.is-active) span{display:none}
   .orbit-label{padding:4px 8px}
 }
+/* AI OS diagram V3: traceable paths and governance ring */
+.aios-v3 .aios-chip,.aios-v3 .aios-core,.aios-v3 .aios-gov{cursor:pointer;outline:none}
+.aios-v3 .aios-chip,.aios-v3 .aios-path,.aios-v3 .aios-core,.aios-v3 .aios-gov{transition:opacity .25s ease}
+.aios-v3 .aios-core-disc{fill:#0F3A74;stroke:#2D5FA0;stroke-width:2;transition:stroke .25s}
+.aios-v3 .aios-pulse,.aios-v3 .aios-ring,.aios-v3 .aios-orbit{pointer-events:none}
+.aios-v3 .aios-gov-text{pointer-events:bounding-box}
+.aios-v3 .aios-gov-hit{fill:none;stroke:transparent;stroke-width:22;pointer-events:stroke}
+.aios-v3 .aios-gov-ring{fill:none;stroke:#8DC63F;stroke-width:1.6;stroke-dasharray:7 6;opacity:.85;pointer-events:none;transition:stroke-width .25s,opacity .25s}
+.aios-v3 .aios-gov-text{fill:#8DC63F;font-family:var(--font-body);font-size:11.5px;font-weight:600;letter-spacing:.16em}
+.aios-v3 .aios-shield path{fill:#071C3D;stroke:#8DC63F;stroke-width:1.8;stroke-linejoin:round}
+.aios-v3 .aios-shield .tick{fill:none;stroke-linecap:round}
+.aios-v3.is-tracing .aios-chip,.aios-v3.is-tracing .aios-path{opacity:.22}
+.aios-v3.is-tracing .is-on{opacity:1}
+.aios-v3 .aios-path.is-on .aios-link{stroke:#6FA8E8;stroke-dasharray:none}
+.aios-v3 .aios-path[data-in].is-on .aios-link{stroke:#8DC63F}
+.aios-v3 .aios-path[data-out].is-on .aios-link{stroke:#29B6F6}
+.aios-v3 .aios-chip.is-on rect{stroke:#FFFFFF;stroke-width:2}
+.aios-v3 .aios-chip:focus-visible rect,.aios-v3 .aios-core:focus-visible .aios-core-disc{stroke:#FFFFFF;stroke-width:3}
+.aios-v3 .aios-core.is-on .aios-core-disc{stroke:#29B6F6}
+.aios-v3 .aios-gov.is-on .aios-gov-ring,.aios-v3 .aios-gov:focus-visible .aios-gov-ring{stroke-width:3.5;opacity:1;stroke-dasharray:none}
+.aios-v3 .aios-cap{margin:6px 4px 2px;min-height:2.9em;color:#C9D5E6;font-size:14.5px;line-height:1.45;text-align:center}
+@media (prefers-reduced-motion:reduce){.aios-v3 .aios-chip,.aios-v3 .aios-path{transition:none}}

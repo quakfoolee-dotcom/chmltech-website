@@ -1,5 +1,13 @@
 # Changelog
 
+## V5.30 — 2026-11-15
+- **AI Operating System diagram V3** (`ai-operating-system.html`, "What is an AI OS?"). The 2D diagram stays (a 3D layered-stack sample was tried and dropped as harder to read), with three changes:
+  - **Traceable paths:** hover over, tap or tab to a system and its path lights up through the core to the results it feeds, with the rest dimmed; select a result to see which systems it draws on. A caption under the diagram explains each selection (screen readers hear it too). Click or tap pins a selection; Escape or a click elsewhere clears it.
+  - **Core wording matches the six building blocks:** data · knowledge · agents · workflows · dashboards (was knowledge · agents · workflows · memory).
+  - **Governance is a dashed ring with a shield around the whole core**, labelled "Security · Governance · Human oversight" along its lower edge, instead of a pill below the core; selecting it explains what it covers.
+- Animations still stop for reduced motion, and the moving dots pause when the diagram is off-screen.
+- Source: `content/gen/aios_diagram.py` (run `python3 content/gen/aios_diagram.py .` then `seo_pass.py`); it writes the figure, `assets/js/aios.js` and the "AI OS diagram V3" block at the end of `styles.css`. The which-system-feeds-which-result map is `FEEDS` in that file.
+
 ## V5.29 — 2026-11-15
 - **Patient flow figure redrawn** (Figure 1 in `post/the-power-of-data-how-analytics-is-revolutionizing-healthcare`). The step boxes overlapped the arrows, hiding the arrowheads; boxes are now 104 px wide on a 128 px pitch, so each arrow runs in a 24 px gap with its tip on the next box's left face. The orange dashed feedback line is now a right-angle path (down from "Discharge", across, up) that meets the midpoint of the flat base of a separate orange arrowhead, whose tip touches the bottom face of "Wait for an inpatient bed". Source: `fig_flow()` in `content/articles/v476_articles.py`; only this figure's SVG was replaced in the article JSON.
 
