@@ -1,6 +1,6 @@
 """Business case series for Insights, November 2026 (V5.25).
 
-Eight teaching cases in the style of a business school case: each opens on one decision, gives the facts and
+Teaching cases in the style of a business school case: each opens on one decision, gives the facts and
 exhibits the decision-maker had, sets out the options and the discussion questions, and keeps "what happened"
 in a closed section at the end so a reader can decide first.
 
@@ -12,6 +12,7 @@ in a closed section at the end so a reader can decide first.
 6  Toyota: how lean is too lean?                          (Lean, Inventory Management)
 7  Lululemon 2013: the yoga pants recall                  (ISO / quality, Change Management)
 8  Netflix 2011: splitting DVD from streaming             (Strategy, Sales & Marketing)
+9  Tesla 2024: a cheaper car or a robotaxi?               (Strategy)  -- rewrite of the 2023 Tesla post, at its old address
 
 All figures come from the public sources listed at the end of each case. The cases describe what was publicly
 reported; they do not invent private conversations or quotes.
@@ -41,7 +42,8 @@ S_SBUX = "starbucks-case-study-closing-every-store-for-an-afternoon"
 S_TOYOTA = "toyota-case-study-how-lean-is-too-lean"
 S_LULU = "lululemon-case-study-the-2013-yoga-pants-recall"
 S_NFLX = "netflix-case-study-splitting-dvd-from-streaming"
-ORDER = [S_COSTCO, S_AMAZON, S_SHOPIFY, S_APPLE, S_SBUX, S_TOYOTA, S_LULU, S_NFLX]
+S_TESLA = "analyzing-tesla-s-business-model-canvas-how-the-company-drives-sustainable-innovation"   # older address kept (2023 post, rewritten)
+ORDER = [S_COSTCO, S_AMAZON, S_SHOPIFY, S_APPLE, S_SBUX, S_TOYOTA, S_LULU, S_NFLX, S_TESLA]
 
 TITLES = {
     S_COSTCO: "Costco Case Study: 4,000 Products and a Capped Markup",
@@ -52,6 +54,7 @@ TITLES = {
     S_TOYOTA: "Toyota Case Study: How Lean Is Too Lean?",
     S_LULU: "Lululemon Case Study: The 2013 Yoga Pants Recall",
     S_NFLX: "Netflix Case Study: Splitting DVD from Streaming",
+    S_TESLA: "Tesla Case Study: A Cheaper Car or a Robotaxi?",
 }
 
 
@@ -579,6 +582,95 @@ def netflix():
 {nav(S_NFLX)}"""
 
 
+# ───────────────────────── 9. Tesla ─────────────────────────
+CANVAS = [("Customer segments", "Buyers of premium and mid-priced electric cars; utilities and businesses buying battery storage; homeowners buying solar and Powerwall"),
+          ("Value propositions", "Electric cars with long range and software that improves over time; a dedicated fast-charging network; large-scale battery storage"),
+          ("Channels", "Direct online sales and company-owned stores instead of franchised dealers; over-the-air software updates"),
+          ("Customer relationships", "Direct ownership of the customer; app-based service; a strong brand community"),
+          ("Revenue streams", "Vehicle sales and leases, energy storage and solar, services, charging, software features such as Full Self-Driving, regulatory credits"),
+          ("Key resources", "Battery and powertrain technology, factories, software and driving data, the Supercharger network, the brand"),
+          ("Key activities", "Vehicle and battery design, high-volume manufacturing, software and AI development, energy project delivery"),
+          ("Key partners", "Battery cell and raw material suppliers, governments and utilities, charging site hosts"),
+          ("Cost structure", "Factories and equipment, materials (especially batteries), research and development including AI computing, the service and charging network")]
+
+
+def tesla():
+    ex3 = cols("Tesla gross margin: 25.3 percent in 2021, 25.6 percent in 2022, 18.2 percent in 2023.",
+               [(["2021"], 25.3, BLUE, "25.3%"), (["2022"], 25.6, BLUE, "25.6%"), (["2023"], 18.2, RED, "18.2%")], w=520, h=260, maxv=30)
+    ex5 = bars("Battery-electric car sales in 2025: BYD about 2.26 million, Tesla about 1.64 million.",
+               [("BYD (battery-electric only)", 2.257, MUTED, "2.26 million"), ("Tesla", 1.636, RED, "1.64 million")], maxv=2.7, lw=240)
+    canvas = "".join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in CANVAS)
+    return f"""{CSS}{intro(S_TESLA, "The decision belongs to Elon Musk, Tesla's chief executive, in early 2024. This post replaces an earlier Chmltech analysis of Tesla's business model canvas, first published in 2023; the canvas is kept here as Exhibit 2.")}
+<h2>The decision</h2>
+<p>At the start of 2024 Tesla had just finished its best year ever. It delivered about 1.81 million cars in 2023, more than any other maker of battery-electric vehicles. But the year had been bought with price cuts. Tesla had lowered prices across its range to keep sales growing as interest rates rose and competition from China intensified, and its gross margin had fallen from about 26% to 18% in a single year.</p>
+<p>For years Tesla had promised a car for the mass market, often called the "Model 2", priced around $25,000 and built on a new, cheaper production method. Musk had told investors it would enter production in 2025. He was also convinced that cars would soon drive themselves, and that a purpose-built robotaxi, with no steering wheel or pedals, would be worth far more than another car sold to a driver. The two projects shared engineers, factory plans and money. Musk had to decide which would come first.</p>
+<h2>Company background</h2>
+<p>Tesla was founded in 2003, and Musk led its early funding and became chief executive in 2008. His 2006 "master plan" set out the strategy: start with an expensive sports car, use the money to build a cheaper car, then use that to build a more affordable car still. The Roadster was followed by the Model S, the Model X, and then the Model 3 (2017) and Model Y (2020), which became the best-selling car in the world in 2023.</p>
+<p>Tesla's business model differs from that of traditional carmakers in several ways (Exhibit 2). It sells directly rather than through dealers, owns a large fast-charging network, writes its own software and updates cars over the air, designs its own batteries and powertrains, and pioneered large single-piece castings that cut the number of parts in a car body. It also has a growing energy business that sells large battery systems (Megapack) to utilities and home batteries (Powerwall).</p>
+{table(1, "Tesla at the decision point", ["Measure", "2021", "2022", "2023"],
+       [["Vehicle deliveries", "about 0.94 million", "about 1.31 million", "about 1.81 million"], ["Revenue", "$53.8 billion", "$81.5 billion", "$96.8 billion"],
+        ["Gross margin", "25.3%", "25.6%", "18.2%"], ["Operating margin", "12.1%", "16.8%", "9.2%"],
+        ["Free cash flow", "$5.0 billion", "$7.6 billion", "$4.4 billion"]])}
+<p class="oee-cap">Exhibit 2. Tesla's business model canvas</p>
+<table>
+<tr><th>Building block</th><th>Tesla</th></tr>
+{canvas}
+</table>
+<h2>The situation in early 2024</h2>
+<p>Three pressures came together. The first was <strong>margin</strong>. Each price cut kept the factories busy but lowered profit per car, and Tesla's only volume products were two ageing models, the Model 3 and Model Y. The second was <strong>competition</strong>. Chinese makers led by BYD were selling capable electric cars at prices Tesla could not match, and were expanding into Europe and other markets. The third was <strong>timing</strong>. A new mass-market car would take years and billions of dollars to bring to volume. If the robotaxi worked, a car built for drivers might be out of date by the time it reached customers. If the robotaxi was late, Tesla would have nothing new to sell in the meantime.</p>
+{exfig(ex3, "Exhibit 3. Gross margin fell by more than seven points in 2023, as Tesla cut prices to sustain volume.")}
+{table(4, "The two projects compared", ["", "Mass-market car (\"Model 2\")", "Purpose-built robotaxi"],
+       [["Customer", "Drivers who want an affordable electric car", "Riders, through a Tesla-run ride-hailing service"],
+        ["What must work", "A cheaper production method at very high volume", "Driving software safe enough to operate without a driver, and regulators' approval"],
+        ["Competition", "Intense, especially from Chinese makers", "Few rivals at scale (Waymo the leader)"],
+        ["Margin if it succeeds", "Thin, like other mass-market cars", "Potentially high, from recurring ride revenue"],
+        ["Main risk", "Price war; years to reach volume", "Software and approvals arrive later than promised"],
+        ["Tesla's record", "Strong at scaling factories", "Self-driving dates promised since 2016 had repeatedly slipped"]])}
+<h2>The options</h2>
+{options([
+    ("Build the mass-market car first", "Keep the $25,000 car on its 2025 schedule, protect volume and defend share against Chinese makers, and develop the robotaxi on the same platform later."),
+    ("Go all in on the robotaxi", "Move engineers and investment to the purpose-built robotaxi and the self-driving software, accept slower vehicle sales growth for a few years, and bet on a larger prize."),
+    ("Do both, more cheaply", "Delay the all-new car, offer lower-priced versions of the existing models built on existing lines, and develop the robotaxi in parallel."),
+    ("Keep cutting prices", "Defend volume with further price cuts and financing offers on the current range while deciding later."),
+])}
+{questions([
+    "What business is Tesla in: making cars, software, energy or transport services? How does your answer change the choice?",
+    "Use Exhibits 1 and 3. How long can a company trade margin for volume? What would you watch to know when to stop?",
+    "Exhibit 4 shows one project with known risks and one with large unknowns. How should a leader weigh a likely small win against an uncertain large one?",
+    "How should Tesla explain its choice to employees, suppliers, customers and investors, if they hear different things from different sources?",
+    "What should Tesla do with the energy business while the car business is under pressure?",
+])}
+{reveal(f"""<p>According to a Reuters report on April 5, 2024, Musk had cancelled the low-cost car in February and told staff to go all in on the robotaxi; three sources and company messages were cited. Musk responded on X that Reuters was lying, and announced a robotaxi unveiling. Later that month Tesla said it would bring forward more affordable models using its existing production lines. The purpose-built robotaxi, named Cybercab, was unveiled in October 2024, and investors reacted coolly to its long timeline.</p>
+<p>The car business shrank. Deliveries fell to about 1.79 million in 2024 and to about 1.64 million in 2025, a second annual decline. In 2025 BYD sold about 2.26 million battery-electric cars and overtook Tesla as the world's largest seller of them. In October 2025 Tesla launched "Standard" versions of the Model 3 and Model Y at $36,990 and $39,990, about $5,000 below the other versions, days after the U.S. federal electric vehicle tax credit ended.</p>
+{exfig(ex5, "Exhibit 5. Battery-electric car sales in 2025. BYD also sold a similar number of plug-in hybrids, not shown.")}
+{table(6, "Tesla after the decision", ["Measure", "2024", "2025"],
+       [["Vehicle deliveries", "about 1.79 million", "about 1.64 million"], ["Revenue", "$97.7 billion", "$94.8 billion"],
+        ["Gross margin", "17.9%", "18.0%"], ["Operating margin", "7.8%", "4.6%"],
+        ["Energy storage deployed", "31.4 GWh", "46.7 GWh"], ["Free cash flow", "$3.6 billion", "$6.2 billion"]])}
+<p>The robotaxi moved forward more slowly than promised, but it moved. Tesla launched a Robotaxi service in Austin in June 2025, using Model Y cars with a safety monitor on board, and began some rides without a monitor in January 2026. Unsupervised service reached Dallas and Houston in April 2026 and Miami, Orlando and Tampa in July. Cybercab pilot production began in February 2026, and Cybercabs started carrying paying riders in Austin in September 2026.</p>
+<p>The energy business became the bright spot. Storage deployments rose about 49% in 2025 to a record 46.7 GWh, and energy revenue grew about 27% to $12.8 billion. In the third quarter of 2026 Tesla delivered about 487,000 vehicles, 2% fewer than a year earlier, and deployed 13.7 GWh of storage.</p>
+<p>Whether the bet pays off is still open. The robotaxi, Optimus robot and energy businesses now carry most of the expectations behind Tesla's share price, while the car business that funds them has not returned to growth.</p>""")}
+{lessons([
+    ("Do not starve today's business to fund tomorrow's.", "A bet on the future needs a core business healthy enough to pay for it. Before moving your best people to a new venture, check what happens to the products that pay the bills."),
+    ("Price cuts buy volume at the cost of margin.", f"Know your break-even before you discount. A margin that falls from 26% to 18% in one year leaves little room for the next shock; the {L('how-to-increase-operational-efficiency-for-small-business', 'operational efficiency')} post covers lowering cost rather than price."),
+    ("A second business can carry you through a bad cycle.", "Tesla's energy unit grew while car sales fell. For an SME, a service line, a maintenance contract or a second market can play the same role."),
+    ("Say the same thing to everyone.", "When employees, suppliers and investors hear different versions of a decision, trust suffers. Announce the change of plan, including what you are stopping."),
+])}
+{src([("Reuters report on the low-cost car and Musk's response, as reported by Jalopnik (April 2024)", "https://jalopnik.com/tesla-cancels-mass-market-25-000-car-musk-says-this-i-1851391326"),
+      ("Electrek, Musk denies report that Tesla is scrapping the $25,000 car (April 5, 2024)", "https://electrek.co/2024/04/05/elon-musk-shuts-down-report-tesla-scrapping-25000-model-2-electric-car/"),
+      ("Stock Analysis, Tesla annual financials 2021–2025 (revenue, margins, free cash flow)", "https://stockanalysis.com/quote/fra/TL0/financials"),
+      ("Electrive, \"BYD overtakes Tesla as world's largest EV manufacturer\" (January 2, 2026)", "https://www.electrive.com/2026/01/02/byd-overtakes-tesla-as-worlds-largest-ev-manufacturer"),
+      ("Gulf News, Tesla launches Model Y and Model 3 Standard (October 2025)", "https://gulfnews.com/auto/news/tesla-cuts-model-y-price-to-39990-model-3-to-36990-heres-why-1.500298364"),
+      ("Tesla first quarter 2026 update, SEC Form 8-K (Robotaxi expansion, Cybercab)", "https://www.sec.gov/Archives/edgar/data/0001318605/000162828026026551/exhibit991.htm"),
+      ("Tesla second quarter 2026 update, SEC Form 8-K (Cybercab production, unsupervised rides in Florida)", "https://www.sec.gov/Archives/edgar/data/0001318605/000162828026049213/exhibit991.htm"),
+      ("Tesla third quarter 2026 production and deliveries, SEC Form 8-K", "https://www.sec.gov/Archives/edgar/data/0001318605/000162828026064366/exhibit991111111.htm"),
+      ("The EV Report, Tesla Q3 2026 results (Cybercab rides in Austin from September 3)", "https://theevreport.com/tesla-q3-2026-results-energy-storage-semi"),
+      ("Drive Tesla Canada, Tesla Q4 and full-year 2025 production and deliveries (energy storage)", "https://driveteslacanada.ca/news/tesla-misses-q4-delivery-consensus-by-narrow-margin-as-energy-outperforms/"),
+      ("Yahoo Finance / Just Auto, Tesla revenue slips in 2025 as energy unit grows", "https://finance.yahoo.com/news/tesla-revenue-slips-2025-energy-163645200.html"),
+      ("Wikipedia, Tesla Robotaxi (Austin launch June 2025, rides without a safety monitor from January 2026)", "https://en.wikipedia.org/wiki/Tesla_Robotaxi")])}
+{nav(S_TESLA)}"""
+
+
 ARTICLES = [
     dict(slug=S_COSTCO, cats=["case-study", "strategy", "inventory-management"], fn=costco,
          desc="A teaching case: in 2004 Wall Street pressed Costco to raise margins and cut wages. The 14% markup cap, the 4,000-product range, the options, and what happened.",
@@ -612,14 +704,19 @@ ARTICLES = [
          desc="A teaching case: in 2011 Netflix split DVD from streaming and raised prices 60%, then launched and dropped Qwikster. The decision, the options and the outcome.",
          tags=["Netflix", "Qwikster", "case study", "pricing", "disruption", "strategy"],
          related=[S_SHOPIFY, S_COSTCO, "navigating-change-implementing-digital-technology-with-effective-change-management"]),
+    dict(slug=S_TESLA, cats=["case-study", "strategy"], fn=tesla, title_override=True,
+         desc="A teaching case: in 2024 Tesla's margins were falling and BYD was closing in. Build the $25,000 car or go all in on the robotaxi? The options and what happened.",
+         tags=["Tesla", "case study", "robotaxi", "business model canvas", "BYD", "strategy"],
+         related=[S_SHOPIFY, S_NFLX, "how-to-increase-operational-efficiency-for-small-business"]),
 ]
 
 if __name__ == "__main__":
     for i, a in enumerate(ARTICLES):
         body = a.pop("fn")()
         words = len(re.sub(r"<svg.*?</svg>|<[^>]+>", " ", body, flags=re.S).split())
+        a.pop("title_override", None)
         a.update(title=TITLES[a["slug"]], body=body, date=DATE, author="Quak Foo Lee",
-                 read=f"{max(1, round(words / 220))} min read", cover_label="Case study",
+                 read=f"{max(1, round(words / 220))} min read", cover_label="Business case study",
                  series=dict(name=SERIES))                  # unnumbered: the cases stand alone, and more will be added
         json.dump(a, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(a["slug"], words, "words,", a["read"])

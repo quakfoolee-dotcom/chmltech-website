@@ -1,7 +1,7 @@
 # Changelog
 
 ## V5.25 — 2026-11-14
-- **New: Business case series, eight teaching cases in the style of a business school case** (Insights, category Case Study, which grows from 1 to 9 posts). Each opens on one decision, gives the facts and exhibits the decision-maker had, sets out the options and discussion questions, and keeps "What happened next" in a closed section so readers can decide first; each ends with lessons for SMEs and public sources.
+- **New: Business case series, teaching cases in the style of a business school case** (Insights, category Business Case Study, 9 posts). Each opens on one decision, gives the facts and exhibits the decision-maker had, sets out the options and discussion questions, and keeps "What happened next" in a closed section so readers can decide first; each ends with lessons for SMEs and public sources.
   1. Costco: 4,000 Products and a Capped Markup (Sinegal and Wall Street, 2004)
   2. Amazon Prime: Betting on Free Two-Day Shipping (Bezos, 2005)
   3. Shopify: Build, Buy or Exit Logistics? (Lütke, 2023)
@@ -11,9 +11,11 @@
   7. Lululemon: The 2013 Yoga Pants Recall (Day, 2013)
   8. Netflix: Splitting DVD from Streaming (Hastings and Qwikster, 2011)
 - Each case has two or three exhibits (tables and simple charts drawn from the reported figures) and links to the related inventory, lean, quality and change management posts.
-- **Unnumbered series.** The cases stand alone and more will be added, so they carry no part numbers: cards and article pages show "Business case series", each case ends with a "More cases" list of the others (rebuilt on every build, so a new case appears in all of them), and the "Start here" shelf shows "8 cases" with a "Browse all cases" link that opens the Case Study filter.
+- **Unnumbered series.** The cases stand alone and more will be added, so they carry no part numbers: cards and article pages show "Business case series", each case ends with a "More cases" list of the others (rebuilt on every build, so a new case appears in all of them), and the "Start here" shelf shows the number of cases with a "Browse all cases" link that opens the Case Study filter.
 - Site support for unnumbered series: a `series` field without `part` shows the series name only (`series_label` in `content/gen/add_article.py`); `collections` in `content/insights/finder.json` marks a series as unnumbered for the shelf (`content/gen/insights_finder.py`). The shelf heading now reads "Or follow a series".
-- Source: `content/articles/case_studies.py` (writes the eight JSON files; then `add_article.py` for each, `series_labels.py`, `insights_finder.py`, `seo_pass.py`).
+- **Tesla case rewritten and added to the series.** The 2023 Tesla business model post (rewritten in V4.78) is now a teaching case, "Tesla Case Study: A Cheaper Car or a Robotaxi?": Musk's early-2024 choice between the $25,000 car and the robotaxi, with 2021–2023 results, the business model canvas (kept as Exhibit 2), the two projects compared, and what followed to Q3 2026 (2024–2025 decline, BYD overtaking Tesla in 2025, Model 3 and Model Y Standard, Robotaxi and Cybercab, the energy business). It keeps its address and original 2023 date, now shown as updated Nov 14, 2026. `content/articles/v478_articles.py` no longer writes its JSON. The series now has 9 cases.
+- **Category renamed: "Case Study" is now "Business Case Study"** on the Insights filter, card labels, article tags and covers. The category slug stays `case-study`, so `insights#cat=case-study` links keep working (`CAT_NAMES` in `content/gen/add_article.py`).
+- Source: `content/articles/case_studies.py` (writes the nine JSON files; then `add_article.py` for each, `series_labels.py`, `insights_finder.py`, `seo_pass.py`).
 
 ## V5.24 — 2026-11-14
 - **Process documentation article, Figure 1 (swim lane): connectors redrawn as right-angle lines.** Each hand-off now leaves the right face of one step and enters the left face of the next (1 to 2, 2 to 3, 3 to 4, 4 to 5, 6 to 7), in place of the diagonal lines. Steps 5 to 6 and 7 to 8 sit in the same column and stay vertical. Columns are 160 apart (was 140) to make room, so the drawing is 1060 wide (was 960).
