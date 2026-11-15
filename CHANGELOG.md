@@ -1,5 +1,10 @@
 # Changelog
 
+## V5.24 — 2026-11-14
+- **Process documentation article, Figure 1 (swim lane): connectors redrawn as right-angle lines.** Each hand-off now leaves the right face of one step and enters the left face of the next (1 to 2, 2 to 3, 3 to 4, 4 to 5, 6 to 7), in place of the diagonal lines. Steps 5 to 6 and 7 to 8 sit in the same column and stay vertical. Columns are 160 apart (was 140) to make room, so the drawing is 1060 wide (was 960).
+- The PNG download `assets/downloads/Chmltech_Swim_Lane_Quote_to_Order.png` is redrawn to match.
+- Source: `elbow()` and `swim_svg()` in `content/articles/v473b_articles.py`.
+
 ## V5.23 — 2026-11-14
 - **"Drawn by the author" removed from every journal paper** (30 figure source lines on 21 papers, pages and PDFs). Lines that only said the author drew the figure are gone; lines that credit other work keep the credit, reworded (for example "After Willison [7].", "Data from Statistics Canada [4].", "Source: the ranges in [7].").
 - **Future papers:** the renderer removes the phrase automatically (`clean_source` in `content/gen/journal_pages.py`), and the paper spec and figure guide now say to leave the source empty for the author's own figures. The build scripts and figure placement scripts were updated too, so rebuilding a paper does not bring the phrase back.

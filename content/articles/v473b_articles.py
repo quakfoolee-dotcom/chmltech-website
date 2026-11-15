@@ -303,8 +303,20 @@ LANES = ["Customer", "Sales", "Engineering", "Operations"]
 LANE_C = [(BLUE, PALE), (GREEND, GREENF), (PURPLE, "#E7E7F8"), (ORANGE, ORANGEF)]
 
 
+def elbow(x1, y1, x2, y2, col=NAVY, w=1.6):
+    """Right-angle connector: leaves the right face of one step, turns halfway across the gap, and enters the
+    left face of the next step."""
+    xm = (x1 + x2) / 2
+    return (f'<path d="M{x1},{y1} H{xm} V{y2} H{x2}" fill="none" stroke="{col}" stroke-width="{w}" '
+            f'stroke-linejoin="round" marker-end="url(#ah)"/>')
+
+
 def swim_svg(standalone=False):
-    W, LH, X0 = 960, 92, 120
+    # V5.24: columns are 160 apart (was 140) so each gap has room for a right-angle connector
+    LH, X0, STEP = 92, 120, 160
+    B = 116; H = 50
+    col = lambda i: 130 + i * STEP                  # left edge of column i
+    W = col(5) + B + 14
     s = DEFS
     if standalone: s += f'<rect width="{W}" height="{LH * 4 + 60}" fill="#fff"/>'
     for i, (n, (c, f)) in enumerate(zip(LANES, LANE_C)):
@@ -312,30 +324,33 @@ def swim_svg(standalone=False):
         s += f'<rect x="10" y="{y}" width="{W - 20}" height="{LH}" fill="{f}" opacity=".55" stroke="{c}"/>'
         s += f'<rect x="10" y="{y}" width="{X0 - 20}" height="{LH}" fill="{c}"/>' + txt(10 + (X0 - 20) / 2, y + LH / 2 + 5, n, "middle", "#fff", 13.5, True)
     cy = lambda lane: 14 + lane * LH + LH / 2
-    B = 116; H = 50
-    nodes = {1: (0, 130, ["1. Send request", "for quote"]), 2: (1, 270, ["2. Log request;", "info complete?"]),
-             3: (2, 410, ["3. Review spec;", "estimate hours"]), 4: (3, 550, ["4. Check capacity", "and lead time"]),
-             5: (1, 690, ["5. Send quote", "with date"]), 6: (0, 690, ["6. Accept and", "send PO"]),
-             7: (1, 830, ["7. Enter order;", "confirm date"]), 8: (3, 830, ["8. Schedule", "production"])}
+    nodes = {1: (0, col(0), ["1. Send request", "for quote"]), 2: (1, col(1), ["2. Log request;", "info complete?"]),
+             3: (2, col(2), ["3. Review spec;", "estimate hours"]), 4: (3, col(3), ["4. Check capacity", "and lead time"]),
+             5: (1, col(4), ["5. Send quote", "with date"]), 6: (0, col(4), ["6. Accept and", "send PO"]),
+             7: (1, col(5), ["7. Enter order;", "confirm date"]), 8: (3, col(5), ["8. Schedule", "production"])}
+    DX, DY = 66, 34                                 # decision diamond half-width and half-height
     for k, (lane, x, lines) in nodes.items():
         c = LANE_C[lane][0]
         if k == 2:   # decision
             mx, my = x + B / 2, cy(lane)
-            s += f'<polygon points="{mx},{my - 34} {mx + 66},{my} {mx},{my + 34} {mx - 66},{my}" fill="#fff" stroke="{c}" stroke-width="1.6"/>'
+            s += f'<polygon points="{mx},{my - DY} {mx + DX},{my} {mx},{my + DY} {mx - DX},{my}" fill="#fff" stroke="{c}" stroke-width="1.6"/>'
             s += txt(mx, my - 3, "2. Log request;", "middle", NAVY, 11.5, True) + txt(mx, my + 12, "info complete?", "middle", NAVY, 11.5, True)
         else:
             s += box(x, cy(lane) - H / 2, B, H, lines, fill="#fff", stroke=c, fs=11.8)
-    L = lambda a, b, c, d: arrow(a, b, c, d)
-    s += L(130 + B / 2, cy(0) + H / 2, 270 + B / 2, cy(1) - 36)                          # 1 → 2
-    s += L(270 + B / 2 + 66, cy(1), 410 + B / 2, cy(2) - H / 2 - 2)                      # 2 yes → 3
-    s += txt(270 + B / 2 + 76, cy(1) - 8, "Yes", "start", GREEND, 11.5, True)
-    s += f'<path d="M{270 + B / 2},{cy(1) - 34} L{270 + B / 2},{cy(0) - 18} L{130 + B + 4},{cy(0) - 18}" fill="none" stroke="{ORANGE}" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ah)"/>'
-    s += txt(270 + B / 2 + 6, cy(0) + 6, "No: ask for missing", "start", ORANGE, 11, True) + txt(270 + B / 2 + 6, cy(0) + 20, "drawings or quantities", "start", ORANGE, 11, True)
-    s += L(410 + B, cy(2), 550 + B / 2, cy(3) - H / 2 - 2)                                # 3 → 4
-    s += L(550 + B / 2, cy(3) - H / 2, 690 + B / 2 - 10, cy(1) + H / 2 + 2)                # 4 → 5
-    s += L(690 + B / 2, cy(1) - H / 2, 690 + B / 2, cy(0) + H / 2 + 2)                     # 5 → 6
-    s += L(690 + B, cy(0), 830 + B / 2, cy(1) - H / 2 - 2)                                 # 6 → 7
-    s += L(830 + B / 2, cy(1) + H / 2, 830 + B / 2, cy(3) - H / 2 - 2)                     # 7 → 8
+    right = lambda k: nodes[k][1] + B               # x of a box's right face
+    left = lambda k: nodes[k][1] - 2                # x just short of a box's left face (arrow tip)
+    mx2 = col(1) + B / 2                            # centre of the decision
+    # Every hand-off leaves a right face and enters a left face. Steps 5 to 6 and 7 to 8 sit in one column, so they stay vertical.
+    s += elbow(right(1), cy(0) + 12, mx2 - DX - 2, cy(1))                                  # 1 → 2
+    s += elbow(mx2 + DX, cy(1), left(3), cy(2))                                            # 2 yes → 3
+    s += txt(mx2 + DX + 5, cy(1) - 8, "Yes", "start", GREEND, 11.5, True)
+    s += f'<path d="M{mx2},{cy(1) - DY} L{mx2},{cy(0) - 13} L{right(1) + 4},{cy(0) - 13}" fill="none" stroke="{ORANGE}" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ah)"/>'
+    s += txt(mx2 + 6, cy(0) + 6, "No: ask for missing", "start", ORANGE, 11, True) + txt(mx2 + 6, cy(0) + 20, "drawings or quantities", "start", ORANGE, 11, True)
+    s += elbow(right(3), cy(2), left(4), cy(3))                                            # 3 → 4
+    s += elbow(right(4), cy(3), left(5), cy(1))                                            # 4 → 5
+    s += arrow(col(4) + B / 2, cy(1) - H / 2, col(4) + B / 2, cy(0) + H / 2 + 2)           # 5 → 6
+    s += elbow(right(6), cy(0), left(7), cy(1))                                            # 6 → 7
+    s += arrow(col(5) + B / 2, cy(1) + H / 2, col(5) + B / 2, cy(3) - H / 2 - 2)           # 7 → 8
     s += txt(W - 14, LH * 4 + 40, "Target: quote sent within 3 working days of a complete request", "end", MUTED, 12)
     if standalone:
         s += txt(14, LH * 4 + 40, "Chmltech: example swim lane map, quote to order", "start", MUTED, 12)
