@@ -1,5 +1,16 @@
 # Changelog
 
+## V5.25 — 2026-11-14
+- **"First Principles Thinking" rewritten in the current article format** (`post/first-principles-thinking-the-core-of-breakthrough-problem-solving-in-business`, about 2,900 words, 13 min). New title on the page: *First Principles Thinking for Business: A Five-Step Method with Worked Examples*. Original date kept (Oct 19, 2025), shown as updated Nov 14, 2026.
+  - What the idea means (Aristotle; mass and energy balance as the engineer's version), analogy vs first principles (Table 1, Figure 1), the battery example with its source, facts / constraints / assumptions (Table 2), the five steps, questions that expose assumptions (Table 3).
+  - **Worked example 1:** a snack bar plant blaming ingredient prices; a mass balance finds 9% of ingredients ($216,000 a year) lost in the plant (waterfall, Figure 2; Table 4); three fixes raise yield from 91% to 94.4%, saving about $86,000 a year with an 8-month payback. Saving equation typeset with KaTeX.
+  - **Interactive calculator:** material spend, yield today, target yield and project cost give the loss today, the yearly saving, payback and the value of one point of yield (`assets/js/fp.js`; styles from `assets/css/oee.css`).
+  - **Worked example 2:** should-cost of a machined bracket quoted at $38.00 ($33.65 as drawn, $27.41 after opening non-critical tolerances and ordering 500 a quarter; Table 5, Figure 3); agreed price $30.00 saves $16,000 a year.
+  - Assumptions worth testing, with links to the OEE, quote-to-cash and safety stock posts (Table 6); how it fits with 5 Whys, root cause analysis, zero-based budgeting and benchmarking (Table 7); when not to use it; an assumption log (Table 8); takeaway, sources and related reading.
+  - The untraceable client case in the old version is replaced by the two labelled illustrative examples.
+- Now filed under **Process Improvement and Strategy** (was Process Improvement, Change Management, Operational Efficiency); counts on Insights updated. New cover drawn.
+- Source: `content/articles/first_principles_article.py`.
+
 ## V5.24 — 2026-11-14
 - **Process documentation article, Figure 1 (swim lane): connectors redrawn as right-angle lines.** Each hand-off now leaves the right face of one step and enters the left face of the next (1 to 2, 2 to 3, 3 to 4, 4 to 5, 6 to 7), in place of the diagonal lines. Steps 5 to 6 and 7 to 8 sit in the same column and stay vertical. Columns are 160 apart (was 140) to make room, so the drawing is 1060 wide (was 960).
 - The PNG download `assets/downloads/Chmltech_Swim_Lane_Quote_to_Order.png` is redrawn to match.
