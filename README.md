@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.18** (see `CHANGELOG.md`).
+Version: **V5.19** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -31,6 +31,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `assets/js/oee3d.js` | The 3D "OEE as a volume" box (Figure 2 of `post/what-oee-really-measures.html`); follows that article's sliders. Styles are in `assets/css/oee.css`. |
 | `assets/js/psv3d.js`, `hx3d.js`, `pm3d.js`, `tk3d.js` | Interactive 3D models (Figure 2) in the pressure relief, heat exchanger, pump and tank articles. They need `assets/js/vendor/three-r128.min.js`. Figure markup: `content/articles/fig3d/`, inserted by `content/articles/sizing_articles.py`; styles: the V5.17 blocks in `assets/css/oee.css`. |
 | `assets/js/cv3d.js`, `ln3d.js` | Interactive 3D models (Figure 2) in the control valve and line sizing articles (sources: `content/articles/sizing_valve_article.py`, `sizing_line_article.py`; figure markup in `content/articles/fig3d/valve.html`, `line.html`). They need `assets/js/vendor/three-r128.min.js`. |
+| `assets/js/rx3d.js`, `ag3d.js` | Interactive 3D models (Figure 2) in the reactor jacket and agitator articles (sources: `content/articles/sizing_jacket_article.py`, `sizing_agitator_article.py`; figure markup in `content/articles/fig3d/jacket.html`, `agitator.html`). CFD-style colour fields with particles carried by a schematic velocity field. They need `assets/js/vendor/three-r128.min.js`. |
 | `assets/js/math.js`, `assets/js/vendor/katex/` | Typeset equations. Article sources write LaTeX with `eq()` (display) and `im()` (inline) from `content/articles/sizing_articles.py` and end the body with `mathjs()`, which loads the vendored KaTeX 0.16.11 only on that page. |
 | `assets/sim/q2c-factory.html`, `assets/js/q2c.js`, `assets/js/vendor/` | The quote-to-cash series (source: `content/articles/q2c_articles.py`). `assets/sim/q2c-factory.html` is the 3D factory simulator: one self-contained page holding the simulation model and the 3D scene, not indexed on its own. Part 2 embeds it in a frame with `#embed` on the address (no header; it reports its height to the article). `q2c.js` sizes that frame and runs the payback calculator in Part 3. `vendor/` holds Three.js r128 and its OrbitControls (MIT licence, `three-LICENSE.txt`), used only by the simulator. The figures quoted in the three articles are the simulator's results at its starting settings (`DAYS` and `RESULTS` in `q2c_articles.py`); if the model's defaults change, rerun it and update them. |
 | `assets/js/scaleup.js` | The cooling-capacity calculator and chart in Part 1 of the scale-up series (source: `content/articles/process_eng_articles.py`) |

@@ -1,0 +1,41 @@
+<p>Figure 2 shows R-101 cut in half, with the batch circulating inside, coloured by temperature, and cooling water running round the jacket. Switch the jacket type and watch three things: the speed of the water in the jacket, the orange arrows that show how much heat the wall can pass, and the chart of temperature through the wall. Add an internal coil, and change the addition time, the cooling water and the agitator speed. Watch whether the jacket can hold the batch at 60&nbsp;°C or the temperature climbs away.</p>
+<figure class="rx3d" id="rx3d">
+<div class="rx3d-box">
+<div class="rx3d-stage">
+<canvas role="img" aria-label="3D model of reactor R-101, a jacketed stirred vessel cut in half. An agitator on a central shaft circulates the batch down the middle and up the wall. Cooling water enters the jacket at the bottom, spirals up around the vessel wall and leaves warmer at the top. Reactant is added from a nozzle on the top head. The jacket can be shown as a plain jacket, a dimple jacket or a half-pipe coil, with or without a cooling coil inside the liquid. Colours show temperature."></canvas>
+<svg class="rx3d-lines" aria-hidden="true"></svg>
+<span class="rx3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="rx3d-chip" id="rx3d-chip">Holding 60 °C</span>
+<p class="rx3d-nogl" id="rx3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="rx3d-panel">
+<div class="rx3d-top">
+<div class="rx3d-sliders">
+<div class="rx3d-sl"><span class="rx3d-lab" id="rx3d-type-l">Jacket <output id="rx3d-type-o">Plain jacket</output></span><div class="rx3d-seg" role="group" aria-labelledby="rx3d-type-l"><button type="button" class="rx3d-btn" data-type="0" aria-pressed="true">Plain</button><button type="button" class="rx3d-btn" data-type="1" aria-pressed="false">Dimple</button><button type="button" class="rx3d-btn" data-type="2" aria-pressed="false">Half-pipe</button><button type="button" class="rx3d-btn rx3d-coil" id="rx3d-coil" aria-pressed="false">+ Internal coil</button></div></div>
+<div class="rx3d-sl"><label for="rx3d-add">Reactant added over <output id="rx3d-add-o" for="rx3d-add">3.0 h · 139 kW of heat</output></label><input type="range" id="rx3d-add" min="1" max="6" step="0.1" value="3"></div>
+<div class="rx3d-sl"><label for="rx3d-flow">Cooling water flow <output id="rx3d-flow-o" for="rx3d-flow">14 m³/h</output></label><input type="range" id="rx3d-flow" min="4" max="30" step="1" value="14"></div>
+<div class="rx3d-sl"><label for="rx3d-tin">Cooling water inlet <output id="rx3d-tin-o" for="rx3d-tin">25 °C</output></label><input type="range" id="rx3d-tin" min="5" max="35" step="1" value="25"></div>
+<div class="rx3d-sl"><span class="rx3d-lab" id="rx3d-view-l">Colour the batch by</span><div class="rx3d-seg" role="group" aria-labelledby="rx3d-view-l"><button type="button" class="rx3d-btn" data-view="speed" aria-pressed="true">Liquid speed</button><button type="button" class="rx3d-btn" data-view="temp" aria-pressed="false">Temperature</button></div></div>
+<div class="rx3d-sl"><label for="rx3d-agi">Agitator speed <output id="rx3d-agi-o" for="rx3d-agi">100% · 84 rpm · tip 3.9 m/s</output></label><input type="range" id="rx3d-agi" min="30" max="140" step="5" value="100"></div>
+</div>
+<div class="rx3d-charts"><div class="rx3d-chart"><svg id="rx3d-svg" viewBox="0 0 300 190" role="img" aria-label="Heat against batch temperature: a level line for the heat the reaction releases and a rising line for the heat the cooling can remove. Where they cross is the temperature the batch settles at."></svg></div>
+<div class="rx3d-chart rx3d-chart2"><svg id="rx3d-wall" viewBox="0 0 300 190" role="img" aria-label="Temperature on its way through the wall at mid-height: from the batch, down through the batch film, the vessel wall, fouling and the water film, to the cooling water. Each step down is one resistance. With a better jacket the step across the water film shrinks, the other steps grow, and more heat passes."></svg></div></div>
+</div>
+<div class="rx3d-cells">
+<div class="rx3d-cell rx3d-key"><span class="k">Batch temperature</span><strong id="rx3d-tb">60 °C</strong></div>
+<div class="rx3d-cell"><span class="k">Heat released</span><strong id="rx3d-gen">139 kW</strong></div>
+<div class="rx3d-cell"><span class="k">Cooling capacity at 60 °C</span><strong id="rx3d-cap">154 kW</strong></div>
+<div class="rx3d-cell"><span class="k">Overall U (jacket)</span><strong id="rx3d-u">300 W/m²·K</strong></div>
+<div class="rx3d-cell"><span class="k">Water out</span><strong id="rx3d-out">33.5 °C</strong></div>
+<div class="rx3d-cell"><span class="k">Capacity in use</span><strong id="rx3d-use">90%</strong></div>
+</div>
+<div class="rx3d-foot">
+<p class="rx3d-say" id="rx3d-say" aria-live="polite">Design point: the reaction releases 139 kW and the plain jacket can remove 154 kW at 60 °C, so the temperature controller holds the batch with about 10% in hand.</p>
+<button type="button" class="rx3d-btn" id="rx3d-reset">Back to design point</button>
+<button type="button" class="rx3d-btn" id="rx3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="rx3d-legend" aria-hidden="true"><li><i class="grad"></i><span id="rx3d-leg">Liquid speed, 0 to 3 m/s (batch and cooling water)</span></li><li><i class="ln"></i>Streamlines, with particles carried by the flow</li><li><i class="hf"></i>Heat flow from the batch to the jacket (what the wall can pass)</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. R-101 cut in half: a 10,000 L batch, 2.34 m across, with the jacket on the wetted wall. The heat released is the 1.5 GJ of reaction heat spread evenly over the addition time. The batch side coefficient is taken to vary with agitator speed to the power 0.67 and the jacket side coefficient with water flow to the power 0.6 (plain jacket) or 0.8 (dimple, half-pipe and coil). With a coil, the water is shared between the jacket and the coil. Full agitator speed is taken as 84 rpm with a 0.88 m impeller, and the agitator is drawn turning at its real speed. In a baffled vessel in turbulent flow the circulation pattern keeps its shape and the liquid speed changes in proportion to agitator speed, so the paths stay the same and the tracers speed up or slow down. The batch temperature shown is the steady value where heat removed equals heat released, and 110 °C is the boiling point from the runaway article. The batch is shown in the style of a CFD plot, with particles carried by the circulation at its real speed. The orange arrows show the heat flux the wall can pass at each height with the batch at its present temperature and the water at full flow, and the second chart shows how the temperature difference at mid-height is shared between the four resistances, with the plain jacket as a dashed line for comparison. The view can be coloured by liquid speed, in the batch and in the jacket, or by temperature, which shows the cooler film of liquid at the jacketed wall and round the coil (the film's thickness is exaggerated so it can be seen; the bulk of a well-stirred batch is at one temperature to within a fraction of a degree). The fields are schematic, not a solved simulation. Part shapes are simplified, and the coefficients are typical values, not vendor data.</figcaption>
+</figure>

@@ -60,16 +60,19 @@ Z2 = "sizing-a-heat-exchanger-duty-lmtd-and-area"
 Z3 = "sizing-a-tank-holdup-levels-and-wall-thickness"
 Z4 = "sizing-a-control-valve-cv-pressure-drop-and-cavitation"
 Z5 = "sizing-a-line-velocity-pressure-drop-and-pipe-schedule"
+Z6 = "sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity"
+Z7 = "sizing-an-agitator-impeller-types-flow-patterns-and-power"
 RLF = "pressure-relief-basics-what-a-psv-protects-against"
 HAZOP = "a-worked-hazop-the-feed-heater-node-by-node"
 RUN = "what-happens-if-the-cooling-fails-runaway-reactions"
 DB = "the-design-basis-ten-decisions-to-fix-before-engineering-starts"
 DATE = "2026-11-13"
 L = {1: f'<a href="{Z1}.html">Part&nbsp;1</a>', 2: f'<a href="{Z2}.html">Part&nbsp;2</a>', 3: f'<a href="{Z3}.html">Part&nbsp;3</a>',
-     4: f'<a href="{Z4}.html">Part&nbsp;4</a>', 5: f'<a href="{Z5}.html">Part&nbsp;5</a>'}
+     4: f'<a href="{Z4}.html">Part&nbsp;4</a>', 5: f'<a href="{Z5}.html">Part&nbsp;5</a>',
+     6: f'<a href="{Z6}.html">Part&nbsp;6</a>', 7: f'<a href="{Z7}.html">Part&nbsp;7</a>'}
 NOTE = ('<p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations '
         'are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>')
-SER = lambda n: {"name": "Equipment sizing series", "part": n, "of": 5}
+SER = lambda n: {"name": "Equipment sizing series", "part": n, "of": 7}
 G = 9.81
 
 # ───────────────────────── shared fluid and duty ─────────────────────────
@@ -243,7 +246,7 @@ def fig_relief():
 # ───────────────────────── Part 1: pump ─────────────────────────
 def part1():
     body = f"""{CSS}
-<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This series sizes the main equipment in the feed section you met in <a href="{PFDPID}.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in {L[2]}, feed tank T-101 in {L[3]}, the flow control valve in {L[4]} and the lines in {L[5]}.</p>
+<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This series sizes the main equipment in the feed section you met in <a href="{PFDPID}.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in {L[2]}, feed tank T-101 in {L[3]}, the flow control valve in {L[4]} and the lines in {L[5]}. {L[6]} and {L[7]} then size the jacket and the agitator of reactor R-101.</p>
 <p>The aim is not to replace the engineer who specifies the pump. It is to show owners and managers where the numbers on a pump data sheet come from, so that they can check them and ask the right questions.</p>
 <h2>Step 1: set the flow</h2>
 <p>P-101 moves the feed from T-101 through E-101 to reactor R-101 at {f0(M)}&nbsp;kg/h. With a density of {f0(RHO)}&nbsp;kg/m³ that is {f2(Q_N)}&nbsp;m³/h at normal flow. Pumps are specified at a <strong>rated flow</strong> above normal, to cover uncertainty and control. A 10% margin gives {f2(Q_R)}&nbsp;m³/h. Margins belong in the <a href="{DB}.html">design basis</a>, stated once, not added again by each discipline.</p>

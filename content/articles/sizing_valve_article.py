@@ -14,7 +14,7 @@ from sizing_articles import (fig3d, js3d, nowrap, svg, fig, txt, CSS, NAVY, BLUE
                              DP_CV, DP_MISC, Z_SUC_MIN, H_TDH, V_D, Z1, Z2, Z3, Z4, Z5, RLF, PFDPID, DB, f0, f1, f2, eq, im, mathjs)
 
 DATE = "2026-11-14"
-SER4 = {"name": "Equipment sizing series", "part": 4, "of": 5}
+SER4 = {"name": "Equipment sizing series", "part": 4, "of": 7}
 P1L = f'<a href="{Z1}.html">Part&nbsp;1</a>'
 TAG = "FV-104"
 

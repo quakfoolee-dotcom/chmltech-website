@@ -12,11 +12,11 @@ sys.path.insert(0, HERE)
 from sizing_articles import (fig3d, js3d, nowrap, svg, fig, txt, CSS, NAVY, BLUE, GREEN, GREEND, ORANGE, RED, MUTED, LINE, PALE,
                              GREENF, NOTE, G, M, RHO, MU, Q_N, Q_R, darcy, D_DIS, L_DIS, D_SUC, L_SUC, ETA, Z1, Z2, Z3, PFDPID, DB,
                              f0, f1, f2)
-from sizing_articles import eq, im, mathjs, Z4, Z5
+from sizing_articles import eq, im, mathjs, Z4, Z5, Z6
 from sizing_valve_article import P_SHUT
 
 DATE = "2026-11-14"
-SER5 = {"name": "Equipment sizing series", "part": 5, "of": 5}
+SER5 = {"name": "Equipment sizing series", "part": 5, "of": 7}
 P1L = f'<a href="{Z1}.html">Part&nbsp;1</a>'
 P4L = f'<a href="{Z4}.html">Part&nbsp;4</a>'
 EPS = 0.045                                            # mm, commercial steel
@@ -174,7 +174,7 @@ def part5():
 <li>In turbulent flow, pressure drop varies roughly with the inverse fifth power of diameter: one size down is a large step.</li>
 <li>Small-bore wall thickness is usually set by the piping class and mechanical strength. The pressure calculation confirms it.</li>
 </ul>
-<p>Earlier in this series: {P1L} sized the pump, <a href="{Z2}.html">Part&nbsp;2</a> the heater, <a href="{Z3}.html">Part&nbsp;3</a> the feed tank and {P4L} the control valve. This completes the series.</p>
+<p>Earlier in this series: {P1L} sized the pump, <a href="{Z2}.html">Part&nbsp;2</a> the heater, <a href="{Z3}.html">Part&nbsp;3</a> the feed tank and {P4L} the control valve. Next: <a href="{Z6}.html">Part&nbsp;6</a> sizes the jacket of the reactor this line feeds.</p>
 {NOTE}{js3d("ln3d")}{mathjs()}"""
     body = nowrap(body, [(1, 0, 24), (1, 1, 16), (2, 0, 20), (3, 0, 30), (4, 0, 30)])
     return dict(slug=Z5, title="Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step",

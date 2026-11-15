@@ -1,0 +1,38 @@
+<p>Figure 2 shows R-101 cut in half with the liquid circulating, coloured by its speed. Switch the impeller and watch the flow pattern change. Take the baffles out to see the liquid swirl and the surface dip. Thicken the liquid until the turbine stirs only a pocket around itself. Add dye at the surface to see how each pattern spreads it.</p>
+<figure class="ag3d" id="ag3d">
+<div class="ag3d-box">
+<div class="ag3d-stage">
+<canvas role="img" aria-label="3D model of stirred reactor R-101 cut in half, with moving tracers showing the flow pattern. With a pitched blade turbine or a hydrofoil the liquid goes down the centre and up the wall in one loop on each side. With a Rushton turbine the liquid is thrown out to the wall and splits into a loop above and a loop below the impeller. With an anchor, or with the baffles removed, the liquid goes round with the impeller. In a thick liquid a turbine moves only a pocket of liquid around itself."></canvas>
+<svg class="ag3d-lines" aria-hidden="true"></svg>
+<span class="ag3d-drag" aria-hidden="true">Drag to turn</span>
+<span class="ag3d-chip" id="ag3d-chip">Turbulent · axial flow</span>
+<p class="ag3d-nogl" id="ag3d-nogl" hidden>This browser cannot show the 3D model. The controls below still run the calculation.</p>
+</div>
+<div class="ag3d-panel">
+<div class="ag3d-top">
+<div class="ag3d-sliders">
+<div class="ag3d-sl"><span class="ag3d-lab" id="ag3d-imp-l">Impeller <output id="ag3d-imp-o">Pitched blade turbine</output></span><div class="ag3d-seg" role="group" aria-labelledby="ag3d-imp-l"><button type="button" class="ag3d-btn" data-imp="0" aria-pressed="true">Pitched blade</button><button type="button" class="ag3d-btn" data-imp="1" aria-pressed="false">Hydrofoil</button><button type="button" class="ag3d-btn" data-imp="2" aria-pressed="false">Rushton</button><button type="button" class="ag3d-btn" data-imp="3" aria-pressed="false">Anchor</button></div></div>
+<div class="ag3d-sl"><label for="ag3d-rpm">Agitator speed <output id="ag3d-rpm-o" for="ag3d-rpm">84 rpm · tip 3.9 m/s</output></label><input type="range" id="ag3d-rpm" min="10" max="160" step="1" value="84"></div>
+<div class="ag3d-sl"><label for="ag3d-visc">Viscosity of the liquid (what if) <output id="ag3d-visc-o" for="ag3d-visc">1 mPa·s</output></label><input type="range" id="ag3d-visc" min="0" max="100" step="1" value="0"></div>
+<div class="ag3d-sl"><div class="ag3d-seg"><button type="button" class="ag3d-btn" id="ag3d-baf" aria-pressed="true">Baffles fitted</button><button type="button" class="ag3d-btn ag3d-dye" id="ag3d-dye">Add dye at the surface</button></div></div>
+</div>
+<div class="ag3d-chart"><svg id="ag3d-svg" viewBox="0 0 300 190" role="img" aria-label="Power number against Reynolds number on log scales for the selected impeller: it falls in a straight line in laminar flow and levels off in turbulent flow. The operating point is marked."></svg></div>
+</div>
+<div class="ag3d-cells">
+<div class="ag3d-cell ag3d-key"><span class="k">Blend time</span><strong id="ag3d-bl">24 s</strong></div>
+<div class="ag3d-cell"><span class="k">Reynolds number</span><strong id="ag3d-re">1,080,000</strong></div>
+<div class="ag3d-cell"><span class="k">Power</span><strong id="ag3d-p">1.84 kW</strong></div>
+<div class="ag3d-cell"><span class="k">Power per m³</span><strong id="ag3d-pv">0.18 kW</strong></div>
+<div class="ag3d-cell"><span class="k">Pumping rate</span><strong id="ag3d-q">0.75 m³/s</strong></div>
+<div class="ag3d-cell"><span class="k">Batch turnover</span><strong id="ag3d-tn">13 s</strong></div>
+</div>
+<div class="ag3d-foot">
+<p class="ag3d-say" id="ag3d-say" aria-live="polite">Design point: the pitched blade turbine at 84 rpm pushes liquid down the centre and it returns up the wall. It draws 1.84 kW, pumps the whole batch through itself every 13 seconds and blends an addition in about 24 seconds.</p>
+<button type="button" class="ag3d-btn" id="ag3d-reset">Back to design point</button>
+<button type="button" class="ag3d-btn" id="ag3d-names" aria-pressed="true">Part names</button>
+</div>
+<ul class="ag3d-legend" aria-hidden="true"><li><i class="grad"></i>Liquid speed, 0 to 3 m/s</li><li><i class="ln"></i>Streamlines, with particles carried by the flow</li><li><i class="bub"></i>Dye</li></ul>
+</div>
+</div>
+<figcaption>Figure 2. R-101 cut in half: 10,000 L, 2.34 m across, liquid depth equal to diameter, density 1,000 kg/m³. The three turbines are 0.88 m across and the anchor 2.22 m. Switching impeller sets the speed that draws the same 1.84 kW (20 rpm for the anchor). Power numbers in turbulent flow are 1.27, 0.30, 5.0 and 0.35, and flow numbers 0.79, 0.56 and 0.72. The agitator turns at its real speed. Blend time uses the turbulent correlation in this article and a transitional one at lower Reynolds numbers. The figures for the anchor, for the tank without baffles (power about a third, blend time about three times longer) and for the size of the cavern are illustrative. The viscosity slider is a what-if and changes nothing else. The colours show the local liquid speed in the style of a CFD velocity plot, and the particles are carried by the same velocity field at its real speed. The field is a schematic of each impeller's typical pattern, not a solved simulation, and the dye is schematic too.</figcaption>
+</figure>
