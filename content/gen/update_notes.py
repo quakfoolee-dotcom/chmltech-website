@@ -22,11 +22,6 @@ NOTES = {
         '<strong>Written in 2025.</strong> The general explanation of tariffs below still holds, but the trade measures and '
         'figures are those of early 2025. For what Canadian businesses can do now, see '
         '<a href="canada-budget-2026-what-manufacturers-and-process-plants-should-know.html">Budget 2026: what manufacturers and process plants should know</a>.'),
-    "navigating-the-global-economy-in-2025-why-operational-efficiency-matters-more-than-ever": (
-        "dated2025",
-        '<strong>Written in 2025.</strong> The operating advice below still applies; the economic outlook is that of early 2025. '
-        'For the 2026 tax measures that reward productivity investment, see '
-        '<a href="canada-budget-2026-what-manufacturers-and-process-plants-should-know.html">Budget 2026: what manufacturers and process plants should know</a>.'),
     "change-management-toolkit-the-top-10-models-and-how-to-choose-the-right-one-for-your-organization": (
         "v473",
         '<strong>Updated November 2026.</strong> Added a comparison table of the ten models and a section on '

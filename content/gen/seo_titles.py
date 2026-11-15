@@ -4,6 +4,8 @@ Applied by seo_pass.py to the page's <title> and og:title only; the heading on t
 JSON-LD headline keep the full title. Keep each under 60 characters.
 """
 POST_TITLES = {
+    "innovation-in-small-businesses": "Innovation in a Small Business: Six Practices",
+    "operational-efficiency-in-an-uncertain-economy": "Operational Efficiency in an Uncertain Economy",
     "10-best-erp-systems-for-small-and-medium-sized-enterprises": "10 ERP Systems for Small and Mid-Sized Businesses (2026)",
     "10-effective-communication-strategies-for-manufacturing-companies": "Shop-Floor Communication: Tiered Meetings and Handovers",
     "10-essential-steps-to-create-an-effective-online-marketing-strategy-for-b2c-success": "B2C Online Marketing Strategy in 10 Steps",
@@ -12,7 +14,6 @@ POST_TITLES = {
     "5-tips-to-drive-more-website-traffic-from-instagram": "Instagram and Social Media Traffic for Small Businesses",
     "50-must-track-kpis-for-business-success-from-finance-to-product-development": "50 Business KPIs with Formulas and Examples",
     "6-essential-steps-to-streamline-and-enhance-your-sales-process": "How to Build and Streamline a Sales Process",
-    "6-mckinsey-principles-to-unlock-creative-thinking-and-innovation": "Six Practices to Build Innovation in a Small Business",
     "8-mistakes-to-avoid-while-building-your-first-business-a-comprehensive-guide-for-new-entrepreneurs": "8 Mistakes to Avoid When Building Your First Business",
     "clear-thinking-by-shane-parrish-book-review-lessons-and-how-to-apply-them": "Clear Thinking by Shane Parrish: Review and How to Apply",
     "abc-inventory-analysis": "ABC Inventory Analysis: How To, with a Worked Example",
@@ -68,7 +69,6 @@ POST_TITLES = {
     "maximize-your-visibility-with-these-local-seo-tips-for-small-businesses": "Local SEO Tips for Small Businesses",
     "maximizing-business-efficiency-through-operational-consulting-and-data-driven-strategies": "Operational Consulting and Data-Driven Efficiency",
     "multi-agent-ai-systems-architectures-coordination-and-failure-modes": "Multi-Agent AI Systems: Architectures and Failure Modes",
-    "navigating-the-global-economy-in-2025-why-operational-efficiency-matters-more-than-ever": "Why Operational Efficiency Matters in an Uncertain Economy",
     "ooda-loop-vs-pdca-cycle-which-framework-drives-faster-and-smarter-decisions": "OODA Loop vs PDCA Cycle: Which to Use When",
     "perform-kaizen-event": "How to Run a Kaizen Event: Charter, Agenda, Example",
     "physical-ai-foundations-architectures-and-the-sim-to-real-gap": "Physical AI: Foundations and the Sim-to-Real Gap",

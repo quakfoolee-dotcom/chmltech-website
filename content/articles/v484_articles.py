@@ -116,7 +116,7 @@ def clear():
 """
     r = [("first-principles-thinking-the-core-of-breakthrough-problem-solving-in-business", "First principles thinking for business problems"),
          ("the-one-thing-by-gary-keller-and-jay-papasan-a-deep-dive-review-for-achieving-extraordinary-results", "The ONE Thing: book review"),
-         ("6-mckinsey-principles-to-unlock-creative-thinking-and-innovation", "Six practices to build innovation in a small business")]
+         ("innovation-in-small-businesses", "Six practices to build innovation in a small business")]
     s = [("Penguin Random House: Clear Thinking by Shane Parrish", "https://www.penguinrandomhouse.com/books/611709/clear-thinking-by-shane-parrish/9780593086117"),
          ("Farnam Street", "https://fs.blog/")]
     a = art(CLEAR, "Clear Thinking by Shane Parrish: Book Review, Lessons Learned and How to Apply Them",

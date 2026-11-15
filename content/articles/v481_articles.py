@@ -6,7 +6,7 @@ Rewritten:
 1. how-shopify-and-lovable-are-empowering-aspiring-entrepreneurs-to-launch-online-stores   what the integration actually does
 2. 6-essential-steps-to-streamline-and-enhance-your-sales-process                          sales process, with stage table
      retired into it: why-a-strong-sales-process-is-essential-and-how-it-helps-increase-revenue
-3. 6-mckinsey-principles-to-unlock-creative-thinking-and-innovation                         retitled: six practices, no McKinsey claim
+3. innovation-in-small-businesses                         retitled: six practices, no McKinsey claim
 4. adapting-business-operations-for-enhanced-agility-and-market-competitiveness             operational agility
 5. how-to-use-lean-methodology-to-eliminate-waste-and-streamline-operations                  Lean with waste walk and value stream map
 
@@ -22,7 +22,7 @@ from v481_extra import EXTRA
 
 SHOP = "how-shopify-and-lovable-are-empowering-aspiring-entrepreneurs-to-launch-online-stores"
 SALES = "6-essential-steps-to-streamline-and-enhance-your-sales-process"
-INNOV = "6-mckinsey-principles-to-unlock-creative-thinking-and-innovation"
+INNOV = "innovation-in-small-businesses"
 AGILE = "adapting-business-operations-for-enhanced-agility-and-market-competitiveness"
 LEAN = "how-to-use-lean-methodology-to-eliminate-waste-and-streamline-operations"
 SEOGEO = "the-key-differences-between-seo-and-geo-for-enhancing-your-online-presence"

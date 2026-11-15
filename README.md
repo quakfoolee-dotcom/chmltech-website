@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.26** (see `CHANGELOG.md`).
+Version: **V5.27** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -36,6 +36,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `assets/js/math.js`, `assets/js/vendor/katex/` | Typeset equations. Article sources write LaTeX with `eq()` (display) and `im()` (inline) from `content/articles/sizing_articles.py` and end the body with `mathjs()`, which loads the vendored KaTeX 0.16.11 only on that page. |
 | `assets/sim/q2c-factory.html`, `assets/js/q2c.js`, `assets/js/vendor/` | The quote-to-cash series (source: `content/articles/q2c_articles.py`). `assets/sim/q2c-factory.html` is the 3D factory simulator: one self-contained page holding the simulation model and the 3D scene, not indexed on its own. Part 2 embeds it in a frame with `#embed` on the address (no header; it reports its height to the article). `q2c.js` sizes that frame and runs the payback calculator in Part 3. `vendor/` holds Three.js r128 and its OrbitControls (MIT licence, `three-LICENSE.txt`), used only by the simulator. The figures quoted in the three articles are the simulator's results at its starting settings (`DAYS` and `RESULTS` in `q2c_articles.py`); if the model's defaults change, rerun it and update them. |
 | `assets/js/fp.js` | The yield-gap payback calculator in the first principles thinking article (source: `content/articles/first_principles_article.py`) |
+| `assets/js/bets.js`, `assets/js/stress.js` | The small-tests portfolio calculator (innovation article) and the profit stress-test calculator (uncertain economy article); source: `content/articles/v527_articles.py` |
 | `assets/js/scaleup.js` | The cooling-capacity calculator and chart in Part 1 of the scale-up series (source: `content/articles/process_eng_articles.py`) |
 | `assets/js/runaway.js` | The cooling failure (MTSR) calculator in Part 1 of the process safety series (source: `content/articles/safety_articles.py`) |
 | `assets/media/pfd-pid/` | The example PFD and P&ID drawings (SVG) used in the "How to read a PFD and a P&ID" article |

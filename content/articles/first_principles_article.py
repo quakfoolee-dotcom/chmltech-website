@@ -30,7 +30,7 @@ LEAN, GAP, CLEAR = ("how-to-use-lean-methodology-to-eliminate-waste-and-streamli
                     "bridging-the-gap-a-step-by-step-guide-to-conducting-a-gap-analysis-for-operational-efficiency",
                     "clear-thinking-by-shane-parrish-book-review-lessons-and-how-to-apply-them")
 OODA = "ooda-loop-vs-pdca-cycle-which-framework-drives-faster-and-smarter-decisions"
-MCK = "6-mckinsey-principles-to-unlock-creative-thinking-and-innovation"
+MCK = "innovation-in-small-businesses"
 EXAM = "../exams/decision-thinking/Critical_Thinking_Business_Guided_Path_100.html"
 
 
@@ -340,7 +340,7 @@ def article():
                ("Safe Food for Canadians Regulations (SOR/2018-108): net quantity tolerances", "https://laws.justice.gc.ca/eng/regulations/SOR-2018-108/page-27.html"),
                ("Canadian Food Inspection Agency: food net quantity verification", "https://www.inspection.gc.ca/food/compliance-continuum/guidance-for-inspectors/sip/net-quantity-verification/eng/1539273539145/1539273539349")]
     related = [(CLEAR, "Clear Thinking by Shane Parrish: book review and how to apply it"),
-               (MCK, "Six McKinsey principles for creative thinking"),
+               (MCK, "Innovation in a small business: six practices"),
                (OEEC, "What OEE losses cost"),
                (GAP, "How to run a gap analysis")]
     b = body()
