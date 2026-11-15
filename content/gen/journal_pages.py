@@ -66,6 +66,8 @@ TOPIC = {
     "agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries": ["artificial-intelligence", "process-engineering", "operational-efficiency"],
     "evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation": "artificial-intelligence",
     "the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path": ["artificial-intelligence", "strategy"],
+    # Volume 106: Multi-Agent AI Engineering series
+    "multi-agent-ai-orchestration-architectures-five-coordination-models-compared": "artificial-intelligence",
 }
 
 
@@ -104,6 +106,10 @@ def render_fig(slug, F, esc):
     svg = svg.replace("<svg ", f'<svg role="img" aria-labelledby="fig-{F["n"]}-t" ', 1)
     svg = re.sub(r"(<svg[^>]*>)", lambda m: m.group(1) + f'<title id="fig-{F["n"]}-t">{esc(F["alt"])}</title>', svg, count=1)
     src = f' <span class="j-fig-src">{F["source"]}</span>' if F.get("source") else ""
+    if F.get("live"):   # interactive figure (Vol. 106): markup from content/journal/live/<name>.html; the SVG stays for print, PDF and no-script
+        live = open(os.path.join(SRC, "live", F["live"] + ".html"), encoding="utf-8").read()
+        return (f'<figure class="j-fig j-fig-live" id="figure-{F["n"]}">{live}<div class="j-fig-art j-fig-static">{svg}</div>'
+                f'<figcaption><strong>Figure {F["n"]}.</strong> {F["caption"]}{src}</figcaption></figure>')
     return (f'<figure class="j-fig" id="figure-{F["n"]}"><div class="j-fig-art">{svg}</div>'
             f'<figcaption><strong>Figure {F["n"]}.</strong> {F["caption"]}{src}</figcaption></figure>')
 
