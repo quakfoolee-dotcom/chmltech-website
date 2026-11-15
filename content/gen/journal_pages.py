@@ -68,6 +68,7 @@ TOPIC = {
     "the-eu-ai-act-for-canadian-businesses-scope-obligations-and-a-compliance-path": ["artificial-intelligence", "strategy"],
     # Volume 106: Multi-Agent AI Engineering series
     "multi-agent-ai-orchestration-architectures-five-coordination-models-compared": "artificial-intelligence",
+    "research-analyze-draft-review-finalize-engineering-a-reliable-five-agent-ai-workflow": "artificial-intelligence",
 }
 
 

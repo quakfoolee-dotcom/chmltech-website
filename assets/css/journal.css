@@ -169,7 +169,7 @@
 .o5-notes b{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#5A6475;margin-bottom:2px}
 .o5-notes p:nth-child(2) b{color:#9A3412}
 .o5-combine{margin:10px 0 0;font-size:13.5px;color:#3F4A5C}
-.o5-combine::before{content:"Combines with: ";font-weight:700;color:var(--c)}
+.o5-combine::before{content:attr(data-label) ": ";font-weight:700;color:var(--c)}
 @media (max-width:760px){
   .o5-tabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
   .o5-tab{flex:0 0 132px;scroll-snap-align:start}

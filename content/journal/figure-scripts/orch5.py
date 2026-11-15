@@ -90,36 +90,44 @@ MODELS = [
 ]
 
 
-def data():
+def data(models=None, profile=None):
     out = []
-    for m in MODELS:
+    for m in (models or MODELS):
         steps = []
         for s in m["steps"]:
             t, d, msgs, hl = s[:4]
             steps.append(dict(t=t, d=d, msgs=[list(x) for x in msgs], hl=hl, board=s[4] if len(s) > 4 else None, dim=s[5] if len(s) > 5 else []))
         out.append(dict(id=m["id"], n=m["n"], name=m["name"], short=m["short"], color=m["color"], kind=m["kind"],
-                        nodes=[dict(id=a, x=x, y=y, label=l, k=k) for a, x, y, l, k in m["nodes"]], edges=m["edges"], steps=steps,
-                        profile=[["Control", m["control"]], ["Communication", m["comm"]], ["Shared state", m["state"]], ["Allocation", m["alloc"]]],
+                        nodes=[dict(id=n[0], x=n[1], y=n[2], label=n[3], k=n[4], **({"g": n[5]} if len(n) > 5 else {})) for n in m["nodes"]], edges=m["edges"], steps=steps,
+                        profile=[[lab, m[k]] for lab, k in (profile or [("Control", "control"), ("Communication", "comm"), ("Shared state", "state"), ("Allocation", "alloc")])],
                         fit=m["fit"], hazard=m["hazard"], key=m["key"], combine=m["combine"]))
     return out
 
 
-def live_html():
+ORCH_LABELS = dict(group="Choose an orchestration model, or compare all five side by side", all_name="Compare all", all_kind="Side by side",
+                   note="All five models side by side. Choose a model above to watch it step by step.",
+                   notes=("Best fit", "Chief hazard", "Key controls"), combine="Combines with",
+                   tabkind=lambda m: "Topology" if m["kind"].startswith("Control") else "Mechanism",
+                   card_rows=(("Control", "control"), ("Communication", "comm"), ("State", "state"), ("Allocation", "alloc"), ("Chief hazard", "hazard")))
+
+
+def live_html(models=None, L=None, profile=None):
+    models, L = models or MODELS, L or ORCH_LABELS
     tabs = "".join(
         f'<button type="button" class="o5-tab" id="o5-tab-{m["id"]}" aria-pressed="false" data-m="{m["id"]}" style="--c:{m["color"]}">'
         f'<span class="o5-tab-n">{m["n"]}</span><span class="o5-tab-name">{E(m["short"])}</span>'
-        f'<span class="o5-tab-kind">{"Topology" if m["kind"].startswith("Control") else "Mechanism"}</span></button>' for m in MODELS)
+        f'<span class="o5-tab-kind">{L["tabkind"](m)}</span></button>' for m in models)
     tabs += ('<button type="button" class="o5-tab o5-tab-all" id="o5-tab-all" aria-pressed="false" data-m="all">'
-             '<span class="o5-tab-n">&#9638;</span><span class="o5-tab-name">Compare all</span><span class="o5-tab-kind">Side by side</span></button>')
+             f'<span class="o5-tab-n">&#9638;</span><span class="o5-tab-name">{L["all_name"]}</span><span class="o5-tab-kind">{L["all_kind"]}</span></button>')
     cards = "".join(
-        f'<article class="o5-card" style="--c:{m["color"]}"><header><span>{m["n"]} · {"Topology" if m["kind"].startswith("Control") else "Mechanism"}</span>'
+        f'<article class="o5-card" style="--c:{m["color"]}"><header><span>{m["n"]} · {L["tabkind"](m)}</span>'
         f'<h4>{E(m["name"])}</h4></header><svg viewBox="0 0 230 140" aria-hidden="true">{mini(m, 10, 8)}</svg><dl>'
-        + "".join(f'<div{" class=haz" if lab == "Chief hazard" else ""}><dt>{lab}</dt><dd>{E(v)}</dd></div>' for lab, v in
-                  (("Control", m["control"]), ("Communication", m["comm"]), ("State", m["state"]), ("Allocation", m["alloc"]), ("Chief hazard", m["hazard"])))
-        + '</dl></article>' for m in MODELS)
+        + "".join(f'<div{" class=haz" if lab == L["card_rows"][-1][0] else ""}><dt>{lab}</dt><dd>{E(v)}</dd></div>' for lab, v in
+                  ((lab, m[k]) for lab, k in L["card_rows"]))
+        + '</dl></article>' for m in models)
     return f'''<div class="o5" id="o5" hidden>
-<div class="o5-tabs" role="group" aria-label="Choose an orchestration model, or compare all five side by side">{tabs}</div>
-<div class="o5-compare" id="o5-compare" hidden><p class="o5-compare-note">All five models side by side. Choose a model above to watch it step by step.</p><div class="o5-cards">{cards}</div></div>
+<div class="o5-tabs" role="group" aria-label="{L["group"]}">{tabs}</div>
+<div class="o5-compare" id="o5-compare" hidden><p class="o5-compare-note">{L["note"]}</p><div class="o5-cards">{cards}</div></div>
 <div class="o5-panel" id="o5-panel">
 <div class="o5-head"><p class="o5-kind" id="o5-kind"></p><h3 class="o5-name" id="o5-name"></h3></div>
 <div class="o5-main">
@@ -133,13 +141,13 @@ def live_html():
 </div>
 <dl class="o5-prof" id="o5-prof"></dl>
 <div class="o5-notes">
-<p><b>Best fit</b><span id="o5-fit"></span></p>
-<p><b>Chief hazard</b><span id="o5-haz"></span></p>
-<p><b>Key controls</b><span id="o5-key"></span></p>
+<p><b>{L["notes"][0]}</b><span id="o5-fit"></span></p>
+<p><b>{L["notes"][1]}</b><span id="o5-haz"></span></p>
+<p><b>{L["notes"][2]}</b><span id="o5-key"></span></p>
 </div>
-<p class="o5-combine" id="o5-combine"></p>
+<p class="o5-combine" id="o5-combine" data-label="{L["combine"]}"></p>
 </div>
-<script type="application/json" id="o5-data">{json.dumps(data(), ensure_ascii=False)}</script>
+<script type="application/json" id="o5-data">{json.dumps(data(models, profile), ensure_ascii=False)}</script>
 </div>
 <script src="../assets/js/orch5.js" defer></script>
 '''
@@ -160,8 +168,8 @@ def wrap(s, n):
 def mini(m, ox, oy):
     """Small diagram of model m in a 210 x 124 box at (ox, oy), as SVG elements."""
     c, k, s = m["color"], 210 / 560, []
-    P = {a: (ox + x * k, oy + y * k) for a, x, y, l, kk in m["nodes"]}
-    kinds = {a: kk for a, x, y, l, kk in m["nodes"]}
+    P = {n[0]: (ox + n[1] * k, oy + n[2] * k) for n in m["nodes"]}
+    kinds = {n[0]: n[4] for n in m["nodes"]}
     for a, b in m["edges"]:
         (x1, y1), (x2, y2) = P[a], P[b]
         s.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="#A9B6C6" stroke-width="1.2"/>')
@@ -173,28 +181,33 @@ def mini(m, ox, oy):
             s.append(f'<rect x="{x - 9:.1f}" y="{y - 7:.1f}" width="18" height="14" rx="3" fill="#F3F1EC" stroke="#8A94A6" stroke-width="1.1"/>')
         elif kk in ("lead", "sup"):
             s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{11 if kk == "lead" else 9}" fill="{c}"/>')
+        elif a == m.get("focus"):
+            s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8.5" fill="{c}"/>')
         else:
             dim = m["id"] == "cnet" and a == "C4"
             s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7.5" fill="#FFFFFF" stroke="{"#B8C1CC" if dim else c}" stroke-width="1.8"{" stroke-dasharray=\"2 2\"" if dim else ""}/>')
     return "".join(s)
 
 
-def static_svg():
-    W, PW, PH = 1210, 230, 400
+def static_svg(models=None, rows=None, tabkind=None, PH=400):
+    models = models or MODELS
+    rows = rows or (("Control", "control"), ("Communication", "comm"), ("State", "state"), ("Chief hazard", "hazard"))
+    tabkind = tabkind or ORCH_LABELS["tabkind"]
+    W, PW = 1210, 230
     s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {PH}" font-family="Inter, Segoe UI, Arial, sans-serif">']
     s.append('<defs><marker id="o5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5A6B82"/></marker></defs>')
-    for i, m in enumerate(MODELS):
+    for i, m in enumerate(models):
         x0 = 6 + i * (PW + 9)
         c = m["color"]
         s.append(f'<g transform="translate({x0},0)">')
         s.append(f'<rect x="0" y="0" width="{PW}" height="{PH - 2}" rx="10" fill="#FFFFFF" stroke="#DDE6F0"/>')
         s.append(f'<path d="M0 10a10 10 0 0 1 10-10h{PW - 20}a10 10 0 0 1 10 10v44h-{PW}z" fill="{c}"/>')
-        s.append(f'<text x="14" y="24" fill="#FFFFFF" font-size="12" font-weight="700" opacity=".85">{m["n"]} · {"TOPOLOGY" if m["kind"].startswith("Control") else "MECHANISM"}</text>')
+        s.append(f'<text x="14" y="24" fill="#FFFFFF" font-size="12" font-weight="700" opacity=".85">{m["n"]} · {tabkind(m).upper()}</text>')
         s.append(f'<text x="14" y="44" fill="#FFFFFF" font-size="15.5" font-weight="700">{E(m["short"] if len(m["name"]) > 24 else m["name"])}</text>')
         s.append(mini(m, 10, 66))
         y = 214
-        for lab, val in (("Control", m["control"]), ("Communication", m["comm"]), ("State", m["state"]), ("Chief hazard", m["hazard"])):
-            s.append(f'<text x="14" y="{y}" fill="{c if lab != "Chief hazard" else "#9A3412"}" font-size="10.5" font-weight="700" letter-spacing=".04em">{lab.upper()}</text>')
+        for lab, val in ((lab, m[k]) for lab, k in rows):
+            s.append(f'<text x="14" y="{y}" fill="{c if lab != rows[-1][0] else "#9A3412"}" font-size="10.5" font-weight="700" letter-spacing=".04em">{lab.upper()}</text>')
             y += 16
             for ln in wrap(val, 32):
                 s.append(f'<text x="14" y="{y}" fill="#26324A" font-size="12.5">{E(ln)}</text>'); y += 16

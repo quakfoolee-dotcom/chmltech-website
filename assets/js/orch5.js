@@ -55,7 +55,7 @@
       var g = el('g', { 'class': 'o5-node o5-k-' + n.k, transform: 'translate(' + n.x + ',' + n.y + ')' }, gN), s = nodeSize(n);
       if (s.r) {
         el('circle', { r: s.r, 'class': 'o5-shape' }, g);
-        el('text', { y: 4, 'class': 'o5-glyph' }, g).textContent = n.label.replace(/^\D+\s?/, '') || n.label[0];
+        el('text', { y: 4, 'class': 'o5-glyph' }, g).textContent = n.g || n.label.replace(/^\D+\s?/, '') || n.label[0];
         el('text', { y: s.r + 16, 'class': 'o5-label' }, g).textContent = n.label;
       } else {
         el('rect', { x: -s.w / 2, y: -s.h / 2, width: s.w, height: s.h, rx: n.k === 'board' ? 8 : 7, 'class': 'o5-shape' }, g);
