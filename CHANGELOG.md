@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.23 — 2026-11-14
+- **"Drawn by the author" removed from every journal paper** (30 figure source lines on 21 papers, pages and PDFs). Lines that only said the author drew the figure are gone; lines that credit other work keep the credit, reworded (for example "After Willison [7].", "Data from Statistics Canada [4].", "Source: the ranges in [7].").
+- **Future papers:** the renderer removes the phrase automatically (`clean_source` in `content/gen/journal_pages.py`), and the paper spec and figure guide now say to leave the source empty for the author's own figures. The build scripts and figure placement scripts were updated too, so rebuilding a paper does not bring the phrase back.
+
 ## V5.22 — 2026-11-14
 - Journal Vol. 106, Issue 1: removed the "Drawn by the author." source line under Figure 2 (page and PDF).
 

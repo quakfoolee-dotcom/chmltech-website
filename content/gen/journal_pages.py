@@ -98,6 +98,22 @@ def _sid(num, title):
     return "sec-" + str(num)
 
 
+def clean_source(src):
+    """Figure source line without "Drawn by the author" (owner's rule, V5.23). A line with no citation is dropped;
+    a line that credits other work keeps that credit, e.g. "Drawn by the author after Willison [7]." -> "After Willison [7]."."""
+    m = re.search(r"Drawn by the author", src or "")
+    if not m: return src or ""
+    rest = re.sub(r"^[,;]?\s*", "", src[m.end():]).strip()
+    if "[" not in rest: return src[:m.start()].strip()
+    cap = lambda t: t[:1].upper() + t[1:]
+    if rest.startswith("from "):
+        body = rest[5:]
+        parts = re.split(r";\s*|,\s*(?=after )", body, maxsplit=1)
+        if len(parts) == 2 and "[" not in parts[0]: return cap(parts[1])
+        return "Source: " + body
+    return cap(rest)
+
+
 FIG_DIR = os.path.join(SRC, "figures")
 
 
@@ -105,7 +121,8 @@ def render_fig(slug, F, esc):
     svg = open(os.path.join(FIG_DIR, slug, F["id"] + ".svg")).read()
     svg = svg.replace("<svg ", f'<svg role="img" aria-labelledby="fig-{F["n"]}-t" ', 1)
     svg = re.sub(r"(<svg[^>]*>)", lambda m: m.group(1) + f'<title id="fig-{F["n"]}-t">{esc(F["alt"])}</title>', svg, count=1)
-    src = f' <span class="j-fig-src">{F["source"]}</span>' if F.get("source") else ""
+    cs = clean_source(F.get("source", ""))
+    src = f' <span class="j-fig-src">{cs}</span>' if cs else ""
     if F.get("live"):   # interactive figure (Vol. 106): markup from content/journal/live/<name>.html; the SVG stays for print, PDF and no-script
         live = open(os.path.join(SRC, "live", F["live"] + ".html"), encoding="utf-8").read()
         return (f'<figure class="j-fig j-fig-live" id="figure-{F["n"]}">{live}<div class="j-fig-art j-fig-static">{svg}</div>'

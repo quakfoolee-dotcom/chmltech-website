@@ -106,7 +106,7 @@
       "id": "fig2-architecture",
       "caption": "Layered architecture of a process plant digital twin. Plant data pass upward through the historian and OPC UA interface, validation, reconciliation and estimation to the models and applications; results return either as advice to operators (dashed) or as set points written to the control system (solid). Layer numbering (i)–(v) follows Section 3.3.",
       "alt": "Layered block diagram. From the bottom: physical process and field instruments at ISA-95 Levels 0 and 1; DCS and PLC at Level 2; plant historian, LIMS and maintenance records with OPC UA context at Level 3; then data acquisition and validation, data reconciliation and gross-error detection, and state and parameter estimation; then first-principles, data-driven and hybrid models; and at the top the applications RTO, MPC, monitoring and predictive maintenance, operator training and what-if, and energy optimization. On the right, a dashed path returns advice to operators and a solid path returns set points to the DCS.",
-      "source": "Drawn by the author from Sections 3 to 6; ISA-95 levels after [6], OPC UA after [7]."
+      "source": "ISA-95 levels after [6], OPC UA after [7]."
      }
     }
    ]

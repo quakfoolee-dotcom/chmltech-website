@@ -294,7 +294,7 @@
       "id": "fig1-protocol-layers",
       "caption": "Protocol layers in a plant-to-supplier exchange. The plant's scheduling agent reads MES and historian data through MCP servers, the historian reads control systems over OPC UA, and the scheduling agent hands a delivery query to the supplier's agent over A2A without seeing the supplier's systems.",
       "alt": "Diagram in three horizontal layers. Top layer, agent to agent over A2A: a plant scheduling agent and a supplier's order agent exchange a task. Middle layer, agent to tool over MCP: the scheduling agent calls an MES server and a historian server, and the supplier's agent calls its own ERP server. Bottom layer, system to device over OPC UA: the historian reads PLC and SCADA data, read-only.",
-      "source": "Drawn by the author."
+      "source": ""
      }
     },
     {
@@ -324,7 +324,7 @@
       "id": "fig2-reference-architecture",
       "caption": "Reference architecture for agent integration in an industrial firm. Agents reach ERP and CRM through one governed MCP gateway; plant data reaches agents only through Level 3 servers in the industrial DMZ, which read from control systems over OPC UA.",
       "alt": "Layered architecture diagram. Agent hosts (an assistant, a maintenance agent and a scheduling agent) send MCP calls to one MCP gateway that applies identity, scoped tokens, a tool allow-list and an audit log. The gateway connects to enterprise systems at Level 4 (ERP and CRM MCP servers) and to plant DMZ servers at Level 3 (MES, historian, CMMS). PLC, SCADA and DCS at Level 2 feed the historian read-only over OPC UA, and no agent writes to the control layer. Supplier agents are reached over A2A.",
-      "source": "Drawn by the author."
+      "source": ""
      }
     },
     {

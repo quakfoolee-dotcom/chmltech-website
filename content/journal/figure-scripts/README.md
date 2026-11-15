@@ -12,7 +12,7 @@ Pilot to copy: `capex.py` (draws figures) and `place_capex.py` (puts them into t
 
 ## Placing
 - Write `jfigs/place_<name>.py` using `insert.apply(path, specs)` (see place_capex.py). Each spec: `sec` (section num string), `after` (block index in the paper WITHOUT figures, i.e. as currently listed with figures removed), `ref` = (section, block index of a paragraph) that receives `sentence`, and `fig` = {n, id, caption, alt, source}. It is idempotent (removes old figures, adds each sentence once).
-- The sentence must contain "Figure N" and say what the reader should notice. Captions: one or two sentences, may use <sub>/<sup>/<em>. Alt text: describe what the figure shows, 40+ characters. Source: e.g. "Drawn by the author from Table 2.", "Author's calculation from Eq. (4).", "Adapted from [12]." — citation numbers must match the paper's reference list.
+- The sentence must contain "Figure N" and say what the reader should notice. Captions: one or two sentences, may use <sub>/<sup>/<em>. Alt text: describe what the figure shows, 40+ characters. Source: only when the figure uses or follows other work, e.g. "Adapted from [12].", "Data from [4].", "After Willison [7]." — citation numbers must match the paper's reference list. Never write "Drawn by the author" (owner's rule, V5.23); leave the source empty for the author's own figures. The renderer (`clean_source` in `content/gen/journal_pages.py`) also removes the phrase if it slips in.
 - To list block indices: print each section's blocks with their index after removing existing "fig" blocks.
 - Then run `python3 -I journal/validate.py journal/<slug>.json` — it must print OK (figures numbered 1..n, each referenced in text, alt text present, svg file exists, body words ≤ 4800).
 

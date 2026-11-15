@@ -182,7 +182,7 @@
       "id": "fig1-cascade",
       "caption": "The FrugalGPT LLM cascade of Eqs. (4) and (5), shown with the policy learned for the HEADLINES dataset (GPT-J, then J1-Large, then GPT-4, with thresholds τ<sub>1</sub> = 0.96 and τ<sub>2</sub> = 0.37). Each model answers the query independently; the scorer <em>g</em> only decides whether to accept that answer or escalate.",
       "alt": "Flow diagram of the LLM cascade. A query goes to stage 1, GPT-J; a scorer diamond checks whether g of q and a1 is at least 0.96. If accepted, the answer is returned; if rejected, the query escalates to stage 2, J1-Large, with threshold 0.37, and then to stage 3, GPT-4, whose answer is returned without scoring. A note states that cost accumulates over all stages queried and that ordering, thresholds and scorer are learned under the budget constraint.",
-      "source": "Drawn by the author from Eqs. (4) and (5) and the HEADLINES case reported in [5]."
+      "source": "Source: Eqs. (4) and (5) and the HEADLINES case reported in [5]."
      }
     },
     {
@@ -244,7 +244,7 @@
       "id": "fig2-cost-accuracy",
       "caption": "Reported cost and accuracy of FrugalGPT. (a) Cost of the evaluation workload for the best individual LLM and for FrugalGPT at matched performance (Table 2). (b) HEADLINES: GPT-4 on every query against the learned cascade at a budget of one fifth of GPT-4's cost.",
       "alt": "Two-panel chart. Left: horizontal bars of workload cost in US dollars; HEADLINES 33.1 for GPT-4 versus 0.6 for FrugalGPT, OVERRULING 9.7 versus 2.6, COQA 72.5 for GPT-3 versus 29.6, with reductions of 98.3, 73.3 and 59.2 percent. Right: accuracy against cost relative to GPT-4; GPT-4 alone at cost 1.0 and accuracy 0.857, the FrugalGPT cascade at about 0.2 and accuracy 0.872, inside a shaded budget band.",
-      "source": "Drawn by the author from Table 2 and the HEADLINES case in [5]."
+      "source": "Source: Table 2 and the HEADLINES case in [5]."
      }
     },
     {

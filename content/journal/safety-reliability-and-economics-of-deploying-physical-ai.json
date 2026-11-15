@@ -166,7 +166,7 @@
       "id": "fig1-safety-architecture",
       "caption": "Safety architecture for a learned component. The learned policy proposes actions in a performance channel; a conventional safety-rated layer filters them and can command a protective stop from its own sensing. A run-time monitor that detects unfamiliar inputs or low confidence improves task success but is not part of the safety function.",
       "alt": "Block diagram. Cameras and joint sensors feed a learned policy labeled performance channel, which sends a proposed action into a safety-rated layer. Inside that layer a safety filter limiting speed, force, workspace and separation passes a safe action to the drives and actuators, and safety-rated sensing such as scanners, light curtains and emergency stop feeds the filter and can command a protective stop directly. Below the policy, a run-time monitor for unfamiliar input and low confidence exchanges signals with the policy and asks a supervisor for help.",
-      "source": "Drawn by the author, after [14, 20, 21]."
+      "source": "After [14, 20, 21]."
      }
     },
     {

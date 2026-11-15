@@ -23,6 +23,8 @@ One JSON file per paper: `journal/<slug>.json`. Must pass `python3 -I journal/va
 - {"table": {"n": 1, "caption": "...", "head": ["...", "..."], "rows": [["...", "..."]], "note": "Source: [3], [7]."}}  tables numbered 1..n, cited in text as "Table 1"
 - {"callout": "Key point or practical implication (1-3 sentences)"}  max 3 per paper
 
+Figure source lines never say "Drawn by the author" (V5.23): leave the source empty for the author's own figures, and credit other work as "Adapted from [n]." or "Data from [n].".
+
 Allowed inline HTML in any text: <sub> <sup> <em> <strong> <i> <b>. No other HTML. Use Unicode for symbols (η, Δ, →, ⇌, ≈, ×, °C, wt%).
 
 ## Writing rules
