@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.21 — 2026-11-14
+- Journal Vol. 104, Issue 2 ("Multi-Agent AI Systems"), Figure 1: in panel (e) the label "optional verifier stage" ran past the panel's edge; it now sits on two lines inside the panel (`content/journal/figure-scripts/multiagent.py`). The paper's PDF is regenerated to match.
+
 ## V5.20 — 2026-11-14
 - **New journal paper, Vol. 106, Issue 1: "Multi-Agent AI Orchestration Architectures: Five Coordination Models Compared"** (first paper of the Multi-Agent AI Engineering series). Centralized, hierarchical, mesh, blackboard and contract-net models compared through control, communication, shared state and allocation; a selection method, latency and message-volume models (Eq. 1–2), failure modes and controls, two worked examples, a governed orchestrator control loop (Table 5), proposed task contract fields (Table 6) and evaluation metrics. 15 references; the four uncited in the source draft are now cited where they apply.
 - **Figure 1 is the journal's first interactive figure.** It plays through the five models in a continuous loop (messages travel along the links, active nodes pulse, a bar shows time to the next step); readers can pick a model to jump to it, or choose **Compare all** to see the five side by side. No High/Low ratings: properties come from Tables 2 and 3. Print and the PDF use the static five-column version.

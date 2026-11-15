@@ -88,7 +88,7 @@ for i in range(3):
 ax.text(8.2, 4.35, "hand-off artifact", ha="center", fontsize=9, color="#4A5568")
 V = (12.2, 1.9); node(*V, "V", ORANGE, "white", ls=(0, (3, 2)))
 arrow((11.2, 3.15), V, col=ORANGE, ls=(0, (3, 2))); arrow(V, (13.2, 3.15), col=ORANGE, ls=(0, (3, 2)))
-ax.text(12.75, 1.55, "optional verifier stage", ha="left", va="center", fontsize=9, color=ORANGE)
+ax.text(12.75, 1.55, "optional\nverifier stage", ha="left", va="center", fontsize=9, color=ORANGE, linespacing=1.15)
 save(fig, SLUG, "fig1-topologies")
 
 # ---------------------------------------------------------------- Figure 2 — token multiplication, Eq. (2)
