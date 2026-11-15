@@ -1,5 +1,5 @@
 {
- "_note": "Insights 'Start here' panel. goals: reading lists in suggested order (article slugs from post/). series: one-line descriptions, keyed by the series name used on the cards. Run content/gen/insights_finder.py . after editing, then seo_pass.py. journal: the strip under the series shelf; its paper count is read from the cards.",
+ "_note": "Insights 'Start here' panel. goals: reading lists in suggested order (article slugs from post/). series: one-line descriptions, keyed by the series name used on the cards. Run content/gen/insights_finder.py . after editing, then seo_pass.py. journal: the strip under the series shelf; its paper count is read from the cards. collections: unnumbered series (no reading order); the shelf shows the number of pieces and opens the category filter.",
  "goals": [
   {
    "id": "cash",
@@ -249,7 +249,8 @@
   "Scale-up series": "What changes from lab to pilot to commercial scale, and what a pilot plant must answer.",
   "Process safety series": "Runaway reactions, a worked HAZOP and management of change.",
   "Equipment sizing series": "Size a pump, a heat exchanger, a tank, a control valve, a line, a reactor jacket and an agitator, worked step by step.",
-  "Commissioning series": "From mechanical completion to steady operation, with the pre-startup safety review."
+  "Commissioning series": "From mechanical completion to steady operation, with the pre-startup safety review.",
+  "Business case series": "Teaching cases on famous companies at a decision point. Read them in any order."
  },
  "series_order": [
   "Quote-to-cash series",
@@ -259,11 +260,19 @@
   "Scale-up series",
   "Process safety series",
   "Equipment sizing series",
-  "Commissioning series"
+  "Commissioning series",
+  "Business case series"
  ],
  "journal": {
   "cat": "chmltech-online-journal",
   "title": "Chmltech Online Journal",
   "text": "Longer research papers on AI agents, physical AI, process plants and hydrogen, each with a PDF to download."
+ },
+ "collections": {
+  "Business case series": {
+   "cat": "case-study",
+   "unit": "cases",
+   "link": "Browse all cases"
+  }
  }
 }

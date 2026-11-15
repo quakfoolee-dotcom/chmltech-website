@@ -23,7 +23,7 @@ CAT_NAMES = {"process-improvement": "Process Improvement", "operational-efficien
              "marketing": "Sales & Marketing", "lean": "Lean", "chmltech-online-journal": "Chmltech Online Journal",
              "change-management": "Change Management", "iso": "ISO", "six-sigma": "Six Sigma", "process-engineering": "Process Engineering", "esg": "ESG",
              "strategy": "Strategy", "erp": "ERP", "project-management": "Project Management",
-             "book-review": "Book Review", "agile": "Agile", "case-study": "Case Study", "inventory-management": "Inventory Management"}
+             "book-review": "Book Review", "agile": "Agile", "case-study": "Business Case Study", "inventory-management": "Inventory Management"}
 E = lambda s: html.escape(s, quote=True)
 
 
@@ -37,9 +37,11 @@ def nice_date(d):
 
 
 def series_label(a):
-    """'FEED series · Part 1 of 3' for an article with a "series" field (name, part, of); empty otherwise."""
+    """'FEED series · Part 1 of 3' for an article with a "series" field (name, part, of); empty otherwise.
+    A series without "part" (a collection of stand-alone pieces, such as the Business case series, V5.25) shows its name only."""
     sr = a.get("series")
-    return f'{sr["name"]} · Part {sr["part"]} of {sr["of"]}' if sr else ""
+    if not sr: return ""
+    return f'{sr["name"]} · Part {sr["part"]} of {sr["of"]}' if sr.get("part") else sr["name"]
 
 
 CARD_SERIES = '<p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">'

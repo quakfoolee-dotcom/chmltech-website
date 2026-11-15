@@ -1,5 +1,22 @@
 # Changelog
 
+## V5.26 — 2026-11-15
+- **New: Business case series, teaching cases in the style of a business school case** (Insights, category Business Case Study, 9 posts). Each opens on one decision, gives the facts and exhibits the decision-maker had, sets out the options and discussion questions, and keeps "What happened next" in a closed section so readers can decide first; each ends with lessons for SMEs and public sources.
+  1. Costco: 4,000 Products and a Capped Markup (Sinegal and Wall Street, 2004)
+  2. Amazon Prime: Betting on Free Two-Day Shipping (Bezos, 2005)
+  3. Shopify: Build, Buy or Exit Logistics? (Lütke, 2023)
+  4. Apple: From Months of Inventory to Days (Cook, 1998)
+  5. Starbucks: Closing Every Store for an Afternoon (Schultz, 2008)
+  6. Toyota: How Lean Is Too Lean? (chip stockpiles and the September 2021 cut)
+  7. Lululemon: The 2013 Yoga Pants Recall (Day, 2013)
+  8. Netflix: Splitting DVD from Streaming (Hastings and Qwikster, 2011)
+- Each case has two or three exhibits (tables and simple charts drawn from the reported figures) and links to the related inventory, lean, quality and change management posts.
+- **Unnumbered series.** The cases stand alone and more will be added, so they carry no part numbers: cards and article pages show "Business case series", each case ends with a "More cases" list of the others (rebuilt on every build, so a new case appears in all of them), and the "Start here" shelf shows the number of cases with a "Browse all cases" link that opens the Case Study filter.
+- Site support for unnumbered series: a `series` field without `part` shows the series name only (`series_label` in `content/gen/add_article.py`); `collections` in `content/insights/finder.json` marks a series as unnumbered for the shelf (`content/gen/insights_finder.py`). The shelf heading now reads "Or follow a series".
+- **Tesla case rewritten and added to the series.** The 2023 Tesla business model post (rewritten in V4.78) is now a teaching case, "Tesla Case Study: A Cheaper Car or a Robotaxi?": Musk's early-2024 choice between the $25,000 car and the robotaxi, with 2021–2023 results, the business model canvas (kept as Exhibit 2), the two projects compared, and what followed to Q3 2026 (2024–2025 decline, BYD overtaking Tesla in 2025, Model 3 and Model Y Standard, Robotaxi and Cybercab, the energy business). It keeps its address and original 2023 date, now shown as updated Nov 14, 2026. `content/articles/v478_articles.py` no longer writes its JSON. The series now has 9 cases.
+- **Category renamed: "Case Study" is now "Business Case Study"** on the Insights filter, card labels, article tags and covers. The category slug stays `case-study`, so `insights#cat=case-study` links keep working (`CAT_NAMES` in `content/gen/add_article.py`).
+- Source: `content/articles/case_studies.py` (writes the nine JSON files; then `add_article.py` for each, `series_labels.py`, `insights_finder.py`, `seo_pass.py`).
+
 ## V5.25 — 2026-11-14
 - **"First Principles Thinking" rewritten in the current article format** (`post/first-principles-thinking-the-core-of-breakthrough-problem-solving-in-business`, about 2,900 words, 13 min). New title on the page: *First Principles Thinking for Business: A Five-Step Method with Worked Examples*. Original date kept (Oct 19, 2025), shown as updated Nov 14, 2026.
   - What the idea means (Aristotle; mass and energy balance as the engineer's version), analogy vs first principles (Table 1, Figure 1), the battery example with its source, facts / constraints / assumptions (Table 2), the five steps, questions that expose assumptions (Table 3).

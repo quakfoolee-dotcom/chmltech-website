@@ -527,7 +527,9 @@ def jobs():
                ["digital-technology", "artificial-intelligence"], ["AI and jobs", "future of work", "Statistics Canada", "WEF Future of Jobs", "upskilling", "AI adoption"], body, "AI jobs", r, s)
 
 
-ALL = (cm, crm, ig, iot, wh, ts, cs, jobs)
+# V5.25: the Tesla case was rewritten as a teaching case and is now written by content/articles/case_studies.py;
+# ts() is kept for reference only and no longer writes its JSON.
+ALL = (cm, crm, ig, iot, wh, cs, jobs)
 
 if __name__ == "__main__":
     op = os.path.join(HERE, "original_dates.json")
