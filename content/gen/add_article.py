@@ -37,9 +37,11 @@ def nice_date(d):
 
 
 def series_label(a):
-    """'FEED series · Part 1 of 3' for an article with a "series" field (name, part, of); empty otherwise."""
+    """'FEED series · Part 1 of 3' for an article with a "series" field (name, part, of); empty otherwise.
+    A series without "part" (a collection of stand-alone pieces, such as the Business case series, V5.25) shows its name only."""
     sr = a.get("series")
-    return f'{sr["name"]} · Part {sr["part"]} of {sr["of"]}' if sr else ""
+    if not sr: return ""
+    return f'{sr["name"]} · Part {sr["part"]} of {sr["of"]}' if sr.get("part") else sr["name"]
 
 
 CARD_SERIES = '<p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">'

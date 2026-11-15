@@ -16,6 +16,9 @@ in a closed section at the end so a reader can decide first.
 All figures come from the public sources listed at the end of each case. The cases describe what was publicly
 reported; they do not invent private conversations or quotes.
 
+The series is unnumbered: cases stand alone and are read in any order. To add a case, write its function, add its
+slug to ORDER, TITLES and ARTICLES, then run the steps below for every case (each case's "More cases" list is rebuilt).
+
 Usage:  python3 content/articles/case_studies.py
         python3 content/gen/add_article.py <slug>      (for each article)
         python3 content/gen/series_labels.py ; python3 content/gen/insights_finder.py . ; python3 content/gen/seo_pass.py .
@@ -58,7 +61,7 @@ def L(slug, text=None):
 
 # ───────────────────────── shared building blocks ─────────────────────────
 def intro(company, decision):
-    return (f'<p class="oee-note"><em>This is Case {ORDER.index(company) + 1} of 8 in the Chmltech {SERIES}. It is written for discussion, '
+    return (f'<p class="oee-note"><em>This case is part of the Chmltech {SERIES}. It is written for discussion, '
             f'in the style of a business school teaching case: it stops at the decision and leaves the outcome to a closed section at the end, '
             f'so you can decide first. {decision} It is drawn from public reporting and company statements listed under Sources; '
             f'it is not based on interviews or private documents.</em></p>')
@@ -126,9 +129,9 @@ def lessons(items):
 
 
 def nav(slug):
-    i = ORDER.index(slug)
-    nxt = f'Next in the series: {L(ORDER[i + 1])}.' if i + 1 < len(ORDER) else f'This is the last case. Start again with {L(ORDER[0])}.'
-    return f'<p>{nxt}</p>'
+    """'More cases': every other case in the series, built from ORDER, so a new case appears in all of them on the next build."""
+    return ("<h2>More cases</h2>\n<ul>" + "".join(f"<li>{L(s)}</li>" for s in ORDER if s != slug) + "</ul>\n"
+            '<p><a href="../insights.html#cat=case-study">All case studies</a></p>')
 
 
 # ───────────────────────── 1. Costco ─────────────────────────
@@ -617,6 +620,6 @@ if __name__ == "__main__":
         words = len(re.sub(r"<svg.*?</svg>|<[^>]+>", " ", body, flags=re.S).split())
         a.update(title=TITLES[a["slug"]], body=body, date=DATE, author="Quak Foo Lee",
                  read=f"{max(1, round(words / 220))} min read", cover_label="Case study",
-                 series=dict(name=SERIES, part=i + 1, of=len(ARTICLES)))
+                 series=dict(name=SERIES))                  # unnumbered: the cases stand alone, and more will be added
         json.dump(a, open(os.path.join(HERE, a["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(a["slug"], words, "words,", a["read"])

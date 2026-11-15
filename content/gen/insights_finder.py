@@ -81,6 +81,8 @@ for a in cards.values():
     m = re.match(r"(.+?) · Part (\d+) of (\d+)", a["series"])
     if m:
         groups.setdefault(m.group(1), []).append((int(m.group(2)), a))
+    elif a["series"] in fd.get("collections", {}):          # unnumbered series of stand-alone pieces (V5.25)
+        groups.setdefault(a["series"], []).append((0, a))
 unknown = [k for k in groups if k not in fd["series"]]
 if unknown:
     sys.exit(f"series without a description in finder.json: {unknown}")
@@ -90,6 +92,12 @@ for name in fd["series_order"]:
     if not parts:
         continue
     first = parts[0][1]
+    col = fd.get("collections", {}).get(name)
+    if col:                                                  # no reading order: count the pieces and open the filter
+        shelf.append(f'<div class="if-ser"><h4>{E(name[0].upper() + name[1:])}</h4>'
+                     f'<span class="if-meta">{len(parts)} {E(col["unit"])} · {sum(a["mins"] for _, a in parts)} min</span>'
+                     f'<p>{E(fd["series"][name])}</p><a href="#cat={col["cat"]}" data-cat="{col["cat"]}">{E(col["link"])} ↓</a></div>')
+        continue
     shelf.append(f'<div class="if-ser"><h4>{E(name[0].upper() + name[1:])}</h4>'
                  f'<span class="if-meta">{len(parts)} parts · {sum(a["mins"] for _, a in parts)} min</span>'
                  f'<p>{E(fd["series"][name])}</p><a href="post/{first["slug"]}.html">Start at Part 1 →</a></div>')
@@ -108,7 +116,7 @@ block = f'''<!-- insights-finder:start -->
     <div class="if-head"><p class="eyebrow">Start here</p><h2 class="h-md">What is your next business priority?</h2><p>Choose a priority and we will suggest what to read, in order.</p></div>
     <div class="if-goals" role="group" aria-label="Reading lists by goal">{"".join(buttons)}</div>
     {"".join(panels)}
-    <h3 class="if-sub">Or follow a series from Part 1</h3>
+    <h3 class="if-sub">Or follow a series</h3>
     <div class="if-series">{"".join(shelf)}</div>
     {journal}
   </div>

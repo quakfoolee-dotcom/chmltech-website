@@ -11,7 +11,8 @@
   7. Lululemon: The 2013 Yoga Pants Recall (Day, 2013)
   8. Netflix: Splitting DVD from Streaming (Hastings and Qwikster, 2011)
 - Each case has two or three exhibits (tables and simple charts drawn from the reported figures) and links to the related inventory, lean, quality and change management posts.
-- The series label ("Business case series · Part n of 8") shows on cards and article pages, and the series is added to the Insights "Start here" shelf.
+- **Unnumbered series.** The cases stand alone and more will be added, so they carry no part numbers: cards and article pages show "Business case series", each case ends with a "More cases" list of the others (rebuilt on every build, so a new case appears in all of them), and the "Start here" shelf shows "8 cases" with a "Browse all cases" link that opens the Case Study filter.
+- Site support for unnumbered series: a `series` field without `part` shows the series name only (`series_label` in `content/gen/add_article.py`); `collections` in `content/insights/finder.json` marks a series as unnumbered for the shelf (`content/gen/insights_finder.py`). The shelf heading now reads "Or follow a series".
 - Source: `content/articles/case_studies.py` (writes the eight JSON files; then `add_article.py` for each, `series_labels.py`, `insights_finder.py`, `seo_pass.py`).
 
 ## V5.24 — 2026-11-14
