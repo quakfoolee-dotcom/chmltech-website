@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.29 — 2026-11-15
+- **Patient flow figure redrawn** (Figure 1 in `post/the-power-of-data-how-analytics-is-revolutionizing-healthcare`). The step boxes overlapped the arrows, hiding the arrowheads; boxes are now 104 px wide on a 128 px pitch, so each arrow runs in a 24 px gap with its tip on the next box's left face. The orange dashed feedback line is now a right-angle path (down from "Discharge", across, up) that meets the midpoint of the flat base of a separate orange arrowhead, whose tip touches the bottom face of "Wait for an inpatient bed". Source: `fig_flow()` in `content/articles/v476_articles.py`; only this figure's SVG was replaced in the article JSON.
+
 ## V5.28 — 2026-11-15
 - **New journal paper, Vol. 106, Issue 2: "Research, Analyze, Draft, Review, Finalize: Engineering a Reliable Five-Agent AI Workflow"** (Multi-Agent AI Engineering series). Stage responsibilities and handoffs (Table 1), evidence-status language (Table 2), defect routing and targeted rework (Table 3), a scorecard (Table 4), an illustrative handoff record (Table 5) and bounded execution steps (Table 6); the benefit model as Eq. (1)–(2); a hypothetical SME Digital Adoption Plan worked example with its sensitivity figure. References were checked by a research agent: [13] replaced (Anthropic, *Demystifying evals for AI agents*), [3] authors added, [6] URL updated, four sentences reworded to match their sources.
 - **Figure 1 is interactive:** it loops through the five stages, showing the artifact moving between controller, stage agents and the versioned workspace, including a targeted rework from Review to Analyze; readers can pick a stage, or **All stages** to see the five side by side. Print and the PDF use the static five-column version.

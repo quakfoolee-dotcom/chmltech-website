@@ -271,19 +271,26 @@ def fig_flow():
     s = DEFS
     steps = [["Arrive and", "triage"], ["Assessment", "and tests"], ["Decide: admit", "or discharge"], ["Wait for an", "inpatient bed"],
              ["Inpatient", "stay"], ["Discharge home,", "to home care", "or LTC"]]
-    xs = [10, 132, 254, 376, 498, 620]
+    W, STEP, TOP, H = 104, 128, 40, 64             # box width, pitch (24 px gap so each arrowhead sits in the open)
+    xs = [10 + i * STEP for i in range(6)]
     for i, (x, l) in enumerate(zip(xs, steps)):
         hot = i in (3, 5)
-        s += box(x, 40, 106, 64, l, fill=ORANGEF if hot else PALE, stroke=ORANGE if hot else "#9AB0C8", fs=12)
-        if i < 5: s += arrow(x + 107, 72, x + 130, 72)
-    s += f'<path d="M673,106 C673,170 429,170 429,108" fill="none" stroke="{ORANGE}" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ah)"/>'
-    s += txt(554, 178, "No long-term care or home care place: the bed stays full,", "middle", ORANGE, 12, True)
-    s += txt(554, 194, "so the next patient waits in emergency", "middle", ORANGE, 12, True)
+        s += box(x, TOP, W, H, l, fill=ORANGEF if hot else PALE, stroke=ORANGE if hot else "#9AB0C8", fs=12)
+        if i < 5: s += arrow(x + W + 2, TOP + H / 2, xs[i + 1] - 1, TOP + H / 2)   # tip touches the next box's left face
+    # Feedback line: dashed right-angle path from the discharge box down, across and up, ending at the midpoint of the
+    # flat base of a separate arrowhead whose tip touches the bottom face of the "wait for a bed" box.
+    bot, cw, cd = TOP + H, xs[3] + W / 2, xs[5] + W / 2
+    tip, base = bot + 1, bot + 13
+    s += (f'<path d="M{cd},{bot + 1} V{bot + 46} H{cw} V{base}" fill="none" stroke="{ORANGE}" stroke-width="1.6" '
+          f'stroke-dasharray="5 3" stroke-linejoin="round"/>')
+    s += f'<path d="M{cw},{tip} L{cw + 6},{base} L{cw - 6},{base} Z" fill="{ORANGE}"/>'
+    s += txt(560, 174, "No long-term care or home care place: the bed stays full,", "middle", ORANGE, 12, True)
+    s += txt(560, 190, "so the next patient waits in emergency", "middle", ORANGE, 12, True)
     s += txt(10, 24, "Patient flow through a hospital", "start", MUTED, 12)
     return svg("Patient flow through a hospital: arrive and triage, assessment and tests, decision to admit or discharge, wait for an "
                "inpatient bed, inpatient stay, and discharge to home, home care or long-term care. The wait for a bed and the discharge "
                "step are highlighted: when there is no long-term care or home care place, the bed stays full, so the next patient waits "
-               "in emergency.", 742, 206, s, 600)
+               "in emergency.", 760, 206, s, 600)
 
 
 CLINIC_APPTS, NOSHOW_A, NOSHOW_B, VISIT_VALUE, CLINIC_DAYS = 60, 0.10, 0.07, 90, 240
