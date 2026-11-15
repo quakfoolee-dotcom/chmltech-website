@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.22 — 2026-11-14
+- Journal Vol. 106, Issue 1: removed the "Drawn by the author." source line under Figure 2 (page and PDF).
+
 ## V5.21 — 2026-11-14
 - Journal Vol. 104, Issue 2 ("Multi-Agent AI Systems"), Figure 1: in panel (e) the label "optional verifier stage" ran past the panel's edge; it now sits on two lines inside the panel (`content/journal/figure-scripts/multiagent.py`). The paper's PDF is regenerated to match.
 
