@@ -1,5 +1,11 @@
 # Changelog
 
+## V5.39 — 2026-11-16
+- **Insights "Start here": new priority "Run a leaner warehouse"** (15 priorities now), placed after "Reduce inventory without stockouts". It lists the eight parts of the Warehouse operations series in order (about 83 minutes), with a link to all Operational Efficiency articles.
+- **"Reduce inventory without stockouts"** gains Part 4, *Phantom Stock*, after the safety stock posts (9 articles).
+- **"Select an ERP, CRM or other system"** gains Part 7, *Do We Need a WMS Yet?*, after the ERP vs MRP post, and Part 8, *Automation ROI for SME Warehouses*, replaces the older *The Future of Warehousing* post (9 articles).
+- Data: `content/insights/finder.json`; rebuilt with `content/gen/insights_finder.py`.
+
 ## V5.38 — 2026-11-16
 - **New: Warehouse operations series, Part 8: "Automation ROI for SME Warehouses: Robots, Pick-to-Light and Vertical Lifts"** (`/post/automation-roi-for-sme-warehouses-robots-pick-to-light-and-vertical-lifts`, Operational Efficiency and Digital Technology). Pick-to-light on the 300 fastest shelving locations, two vertical lift modules replacing the shelving, and collaborative mobile robots in the racks (robots as a service, minimum fleet of 3), each costed from published price ranges. At the example's 300 orders a day none pays back within three years (pick-to-light 6.5 years, lifts 4.0 years only if the freed 476 m² is needed, robots never); within three years from about 540, 560 (1,140 without the space) and 830 orders a day. Figure 1 saving against running cost, Figure 3 payback against volume; a series wrap-up table of the low-cost fixes from Parts 1 to 7. Model: `content/articles/wh8_model.py`.
 - **3D Figure 2** (`assets/js/wh3d8.js`): manual picking, pick-to-light (lights flash ahead of the picker), vertical lifts (the camera moves in; each tower fetches a tray, slides it to the window facing the reader, the picker lifts an item into a tote, and the tray goes back; the freed floor is green) and mobile robots (robots carry totes to pickers in zones); Compare all 2×2; volumes 150 to 900 and a clickable payback chart; six-stop tour with countdown.
