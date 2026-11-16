@@ -1,5 +1,38 @@
 # Changelog
 
+## V5.38 — 2026-11-16
+- **New: Warehouse operations series, Part 8: "Automation ROI for SME Warehouses: Robots, Pick-to-Light and Vertical Lifts"** (`/post/automation-roi-for-sme-warehouses-robots-pick-to-light-and-vertical-lifts`, Operational Efficiency and Digital Technology). Pick-to-light on the 300 fastest shelving locations, two vertical lift modules replacing the shelving, and collaborative mobile robots in the racks (robots as a service, minimum fleet of 3), each costed from published price ranges. At the example's 300 orders a day none pays back within three years (pick-to-light 6.5 years, lifts 4.0 years only if the freed 476 m² is needed, robots never); within three years from about 540, 560 (1,140 without the space) and 830 orders a day. Figure 1 saving against running cost, Figure 3 payback against volume; a series wrap-up table of the low-cost fixes from Parts 1 to 7. Model: `content/articles/wh8_model.py`.
+- **3D Figure 2** (`assets/js/wh3d8.js`): manual picking, pick-to-light (lights flash ahead of the picker), vertical lifts (the camera moves in; each tower fetches a tray, slides it to the window facing the reader, the picker lifts an item into a tote, and the tray goes back; the freed floor is green) and mobile robots (robots carry totes to pickers in zones); Compare all 2×2; volumes 150 to 900 and a clickable payback chart; six-stop tour with countdown.
+
+## V5.37 — 2026-11-16
+- **New: Part 7: "Do We Need a WMS Yet? When Spreadsheets Stop Scaling"** (`/post/do-we-need-a-wms-yet-when-spreadsheets-stop-scaling`). Paper and a spreadsheet, the ERP module with scanners, a cloud WMS and an enterprise WMS, costed from 50 to 1,200 orders a day (software and devices, floor and office labour, counting, errors at $75, wrong stock records). Paper is cheapest below about 60 orders a day, the ERP module to about 135, a cloud WMS above; the enterprise WMS only beats the cloud WMS at about 2,440. At 300 a day the cloud WMS saves about $129k a year against paper and pays back about 9 months after signing (go-live and a six-week dip counted). Signs you have outgrown spreadsheets, ERP-or-WMS questions, a seven-step roadmap. Model: `wh7_model.py`.
+- **3D Figure 2** (`wh3d7.js`): every pallet coloured by its record (right, not yet keyed in, wrong); paper pickers carry pick lists to an office pile keyed in from 14:00, scanner pickers send each pick to the system; pickers drawn solid where seen, as a faint outline behind racks, with a ring on the floor.
+
+## V5.36 — 2026-11-16
+- **New: Part 6: "Peak Season Without the Panic: Warehouse Labour Planning"** (`/post/peak-season-without-the-panic-warehouse-labour-planning`). Labour standards by zone from Parts 1 to 5, the year's weekly forecast, and four plans: lean crew plus overtime ($751k, 2,836 late orders, 17 heavy-overtime weeks), crew sized for the peak ($944k, 42% idle), core plus planned temps ($772k) and temps plus a cross-trained crew ($652k, lowest). BC overtime rules; a peak-readiness calendar and skills matrix. Model: `wh6_model.py`.
+- **3D Figure 2** (`wh3d6.js`): labour heat map of the five zones hour by hour, core crew and temps as figures, cross-trained crew walking to the busiest zone; any week from the year chart; Compare all.
+
+## V5.35 — 2026-11-16
+- **New: Part 5: "Mis-Picks, Mis-Ships and the Real Cost of an Error"** (`/post/mis-picks-mis-ships-and-the-real-cost-of-an-error`). Error types, the 1-10-100 cost of finding an error late ($75 at the customer), and five cumulative steps (pack check, scan at pick, scan at pack, weigh at ship); scan at pack is lowest at about $25k a year. Model: `wh5_model.py`.
+- **3D Figure 2** (`wh3d5.js`): the packing line with totes and parcels, checkpoints flashing green or red, and a check scale that visibly weighs each parcel; 22-second tour steps with countdown.
+
+## V5.34 — 2026-11-15
+- **New: Part 4: "Phantom Stock: Why Your System Says 40 and the Shelf Says 12"** (`/post/phantom-stock-inventory-accuracy-and-cycle-counting`). Location accuracy, where records go wrong, and an annual count against ABC and fixed-interval cycle counting over one simulated year. Model: `wh4_model.py`.
+- **3D Figure 2** (`wh3d4.js`): stock-record accuracy across the racks through the year, phantom pallets outlined in red; three strategies side by side.
+
+## V5.33 — 2026-11-15
+- **New: Part 3: "The Dock Door Bottleneck: Receiving, Put-Away and Cross-Docking"** (`/post/the-dock-door-bottleneck-receiving-put-away-and-cross-docking`). Dock-to-stock time, detention and staging overflow; 16 combinations of appointments, scanning, cross-docking and a second forklift. Model: `wh3_model.py`.
+- **3D Figure 2** (`wh3d3.js`): a receiving day replay with trucks on wheels queuing in a yard lane without overlapping, doors, staging and put-away.
+
+## V5.32 — 2026-11-15
+- **New: Part 2: "Pickers Walk Half the Day: Pick Methods and Pick Paths for SME Warehouses"** (`/post/pickers-walk-half-the-day-pick-methods-and-pick-paths`). Single-order, batch, zone and wave picking with return and S-shape routes, and the picker-hours of each. Figure 1 route diagram with arrowheads clear of the corners and no overlapping legs. Model: `wh2_model.py`.
+- **3D Figure 2** (`wh3d2.js`): pick routes traced through the Part 1 racks for each method.
+
+## V5.31 — 2026-11-15
+- **New: Warehouse operations series, Part 1: "We're Out of Space, or Are We? Warehouse Cube Utilization and Slotting"** (`/post/were-out-of-space-or-are-we-warehouse-cube-utilization-and-slotting`). Location and cube utilization, and four fixes in one 40,300 sq ft warehouse: new beam heights, combining partial pallets, clearing dead stock and re-slotting by velocity, against leasing more space. Model: `wh_model.py` (shared by the later parts).
+- **3D Figure 2** (`wh3d.js`): the pallet-rack zone stepping through the fixes, with a 14 to 18 second tour and countdown.
+- **Series set-up:** "Warehouse operations series · Part N of 8" labels on cards and pages; a new shelf entry on Insights ("Or follow a series", after the Inventory series; `content/insights/finder.json`); each part links to the next.
+
 ## V5.30 — 2026-11-15
 - **AI Operating System diagram V3** (`ai-operating-system.html`, "What is an AI OS?"). The 2D diagram stays (a 3D layered-stack sample was tried and dropped as harder to read), with three changes:
   - **Traceable paths:** hover over, tap or tab to a system and its path lights up through the core to the results it feeds, with the rest dimmed; select a result to see which systems it draws on. A caption under the diagram explains each selection (screen readers hear it too). Click or tap pins a selection; Escape or a click elsewhere clears it.

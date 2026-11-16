@@ -546,3 +546,157 @@
   .ag3d-cells{grid-template-columns:repeat(2,minmax(0,1fr))}
   .prose .ag3d-say{min-height:6.2em}
 }
+
+/* ===== V5.31: Warehouse operations series, Part 1: 3D pallet-rack zone (script: assets/js/wh3d.js, needs three.js) ===== */
+.prose .wh3d{margin:1.8em 0}
+.wh3d-box{background:var(--navy-deep);border:1px solid #1E3D6E;border-radius:14px;overflow:hidden;color:#F6F5F1}
+.wh3d-stage{position:relative;aspect-ratio:16/10.5;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(22,104,170,.32),rgba(22,104,170,0) 75%);overflow:hidden}
+.wh3d-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.wh3d-stage canvas.is-drag{cursor:grabbing}
+.wh3d-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.wh3d-label,.wh3d-tag{position:absolute;left:0;top:0;white-space:nowrap;pointer-events:none;will-change:transform;font:600 12px/1.2 var(--font-head)}
+.wh3d-label{padding:4px 9px;border-radius:999px;background:rgba(6,24,51,.86);border:1px solid rgba(255,255,255,.22);color:#E6EEF8}
+.wh3d-tag{padding:5px 10px;border-radius:8px;background:rgba(20,50,30,.92);border:1px solid rgba(141,198,63,.75);color:#fff;opacity:0;transition:opacity .4s}
+.wh3d-tag.is-on{opacity:1}
+.wh3d-stage.no-names .wh3d-label{display:none}
+.wh3d-stage:not(.is-live) .wh3d-label,.wh3d-stage:not(.is-live) .wh3d-tag{visibility:hidden}
+.wh3d-drag{position:absolute;left:14px;top:10px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#9FB2CC;pointer-events:none}
+.wh3d-chip{position:absolute;right:14px;top:10px;padding:5px 12px;border-radius:999px;font:600 12px/1.2 var(--font-head);letter-spacing:.08em;text-transform:uppercase;background:rgba(141,198,63,.2);border:1px solid var(--green);color:#fff}
+.wh3d-chip.is-bad{background:rgba(255,122,92,.22);border-color:#FF7A5C}
+.prose .wh3d-nogl{position:absolute;inset:0;margin:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:15px;color:#B4C2D6}
+.prose .wh3d-nogl[hidden]{display:none}
+.wh3d-panel{display:flex;flex-direction:column;gap:16px;padding:18px 20px;border-top:1px solid #1E3D6E;background:rgba(255,255,255,.04)}
+.wh3d-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.wh3d-step{display:flex;align-items:center;gap:9px;min-height:48px;padding:8px 10px;border-radius:8px;border:1px solid #5E7AA6;background:transparent;color:#E6EEF8;cursor:pointer;text-align:left;font:600 13px/1.25 var(--font-body)}
+.wh3d-step b{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1px solid #9FB2CC;font:600 12px/1 var(--font-head)}
+.wh3d-step:hover{border-color:#fff}
+.wh3d-step.is-done{border-color:#4D7F12;background:rgba(141,198,63,.08)}
+.wh3d-step.is-done b{background:#4D7F12;border-color:#4D7F12;color:#fff}
+.wh3d-step[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--navy)}
+.wh3d-step[aria-pressed="true"] b{background:var(--navy);border-color:var(--navy);color:#fff}
+.wh3d-step:focus-visible,.wh3d-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.wh3d-cells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 18px}
+.wh3d-cell{border-top:2px solid #2D5FA0;padding-top:9px;display:flex;flex-direction:column;justify-content:space-between;gap:6px;min-width:0}
+.wh3d-cell.wh3d-key{border-top-color:var(--green)}
+.wh3d-cell.is-bad{border-top-color:#FF7A5C}
+.wh3d-cell .k{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9FB2CC;line-height:1.3}
+.wh3d-cell strong{font:600 19px/1.1 var(--font-head);color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.prose .wh3d-say{margin:0;font-size:15px;line-height:1.55;color:#DCE7F5;min-height:3.1em}
+.wh3d-last{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding-top:12px;border-top:1px solid #1E3D6E}
+.wh3d-mode{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#9FB2CC}
+.wh3d-btn{font:600 13px/1.2 var(--font-body);padding:7px 12px;border-radius:8px;border:1px solid #5E7AA6;background:transparent;color:#E6EEF8;cursor:pointer;white-space:nowrap}
+.wh3d-btn:hover{border-color:#fff}
+.wh3d-btn[aria-pressed="true"]{background:rgba(255,255,255,.12);border-color:#9FB2CC}
+.wh3d-btn.wh3d-small{padding:6px 12px;font-size:12.5px}
+.prose ul.wh3d-legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;line-height:1.4;color:#B4C2D6}
+.prose ul.wh3d-legend[hidden]{display:none}
+.prose .wh3d-legend li{display:flex;align-items:center;gap:7px;margin:0;padding:0}
+.wh3d-legend li::before{content:none!important}
+.wh3d-legend i{width:10px;height:10px;border-radius:2px}
+.wh3d-legend i.grad{width:72px;background:linear-gradient(90deg,#E13C37 35%,#F5A032 55%,#EBD74B 70%,#6ECD69 82%,#46BE6E)}
+@media (max-width:640px){
+  .wh3d-stage{aspect-ratio:1/1.05}
+  .wh3d-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wh3d-step:first-child{grid-column:1/-1}
+  .wh3d-cells{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wh3d-label{font-size:10.5px;padding:3px 7px}
+  .prose .wh3d-say{min-height:6.2em}
+}
+
+/* ===== V5.32: Warehouse operations series, Part 2: pickers in 3D (script: assets/js/wh3d2.js; shares the .wh3d-* styles above) ===== */
+.wh3d2-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.wh3d2-row .wh3d-btn{min-height:44px;font-size:13.5px}
+.wh3d2-row .wh3d-btn[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--navy)}
+.wh3d2-opts{display:grid;grid-template-columns:auto auto minmax(180px,1fr);gap:12px 22px;align-items:center}
+.wh3d2-seg{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#9FB2CC}
+.wh3d2-seg span{margin-right:2px}
+.wh3d-btn.is-off{opacity:.35;cursor:not-allowed}
+.wh3d2-sl{display:flex;flex-direction:column;gap:5px;min-width:0}
+.wh3d2-sl label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#DCE7F5}
+.wh3d2-sl output{font:600 14.5px/1.2 var(--font-head);color:#fff;font-variant-numeric:tabular-nums}
+.wh3d2-sl input{width:100%;margin:0;accent-color:var(--green)}
+.wh3d2-bars{display:flex;flex-direction:column;gap:6px}
+.prose .wh3d2-bars p.cap{margin:0 0 2px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9FB2CC}
+.wh3d2-bars .b{display:grid;grid-template-columns:96px minmax(0,1fr) 56px;align-items:center;gap:10px;font-size:13px;color:#9FB2CC;opacity:.55;transition:opacity .25s}
+.wh3d2-bars .b.on{opacity:1;color:#fff}
+.wh3d2-bars .t{height:12px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.wh3d2-bars .t i{display:block;height:100%;border-radius:3px;transition:width .3s}
+.wh3d2-bars .v{text-align:right;font:600 13.5px/1 var(--font-head);font-variant-numeric:tabular-nums}
+.wh3d2-q{position:absolute;left:0;top:0;padding:4px 10px;border-radius:999px;font:600 12px/1.2 var(--font-head);background:rgba(6,24,51,.88);border:1px solid var(--c);color:#fff;pointer-events:none}
+.wh3d2 .wh3d-stage.is-quad::before,.wh3d2 .wh3d-stage.is-quad::after{content:"";position:absolute;background:rgba(255,255,255,.18);pointer-events:none;z-index:1}
+.wh3d2 .wh3d-stage.is-quad::before{left:50%;top:0;bottom:0;width:1px}
+.wh3d2 .wh3d-stage.is-quad::after{top:50%;left:0;right:0;height:1px}
+@media (max-width:640px){
+  .wh3d2-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wh3d2-row .wh3d-btn[data-m="all"]{grid-column:1/-1}
+  .wh3d2-opts{grid-template-columns:minmax(0,1fr)}
+  .wh3d2-bars .b{grid-template-columns:84px minmax(0,1fr) 50px}
+}
+
+/* ===== V5.33: Warehouse operations series, Part 3: receiving day replay (script: assets/js/wh3d3.js; shares the .wh3d-* styles above) ===== */
+.wh3d3-sw{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.wh3d3-sw .wh3d-switch{display:flex;align-items:center;gap:9px;min-height:48px;padding:8px 10px;white-space:normal;text-align:left;line-height:1.25}
+.wh3d-switch i{flex:none;width:30px;height:16px;border-radius:999px;background:#3B4A63;position:relative;transition:background .2s}
+.wh3d-switch i::after{content:"";position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .2s}
+.wh3d-switch[aria-checked="true"]{border-color:var(--green);background:rgba(141,198,63,.12)}
+.wh3d-switch[aria-checked="true"] i{background:var(--green)}
+.wh3d-switch[aria-checked="true"] i::after{transform:translateX(14px)}
+.wh3d3-chart svg{display:block;width:100%;height:84px;background:rgba(255,255,255,.03);border-radius:6px}
+.prose .wh3d3-chart p{margin:6px 0 0;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#9FB2CC}
+@media (max-width:640px){
+  .wh3d3-sw{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .prose .wh3d3-chart p{flex-direction:column;gap:2px}
+}
+
+/* ===== V5.34: Warehouse operations series, Part 4: stock-record accuracy in 3D (script: assets/js/wh3d4.js; shares the .wh3d-* styles above) ===== */
+.wh3d4-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.wh3d4-row .wh3d-btn{min-height:44px;white-space:normal;line-height:1.25}
+.wh3d4-row .wh3d-btn[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--navy)}
+.wh3d4-tag{background:rgba(70,16,12,.92);border-color:#FF7A6A;font-variant-numeric:tabular-nums}
+.wh3d4 .wh3d-stage.is-tri::before,.wh3d4 .wh3d-stage.is-tri::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18);pointer-events:none;z-index:1}
+.wh3d4 .wh3d-stage.is-tri::before{left:33.333%}
+.wh3d4 .wh3d-stage.is-tri::after{left:66.667%}
+.wh3d4 .wh3d-stage.is-tri-v::before,.wh3d4 .wh3d-stage.is-tri-v::after{left:0;right:0;width:auto;height:1px;bottom:auto}
+.wh3d4 .wh3d-stage.is-tri-v::before{top:33.333%}
+.wh3d4 .wh3d-stage.is-tri-v::after{top:66.667%}
+@media (max-width:640px){
+  .wh3d4-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* ===== V5.35: Warehouse operations series, Part 5: the packing line (script: assets/js/wh3d5.js; shares the .wh3d-* styles above) ===== */
+.wh3d5 .wh3d-stage{aspect-ratio:16/9.5}
+@media (max-width:640px){ .wh3d5 .wh3d-stage{aspect-ratio:1/1} }
+.wh3d5-tour{display:flex;align-items:center;gap:12px;font-size:12.5px;color:#9FB2CC;margin-top:-6px}
+.wh3d5-tour b{flex:0 0 120px;height:4px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+.wh3d5-tour i{display:block;height:100%;width:0;background:var(--green)}
+
+/* ===== V5.36: Warehouse operations series, Part 6: labour heat map (script: assets/js/wh3d6.js; shares the .wh3d-* styles above) ===== */
+.wh3d6-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.wh3d6-row .wh3d-btn{min-height:44px;white-space:normal;line-height:1.25}
+.wh3d6-row .wh3d-btn[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--navy)}
+.wh3d6-weeks{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#9FB2CC}
+.wh3d6-weeks .wh3d-btn[aria-pressed="true"]{background:rgba(255,226,122,.18);border-color:#FFE27A;color:#fff}
+.wh3d6-year svg{display:block;width:100%;height:78px;background:rgba(255,255,255,.03);border-radius:6px;cursor:pointer}
+.prose .wh3d6-year p{margin:6px 0 0;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#9FB2CC}
+.wh3d6-zl.is-red{border-color:#FF7A6A;background:rgba(70,16,12,.92)}
+.wh3d6 .wh3d-stage.is-quad::before,.wh3d6 .wh3d-stage.is-quad::after{content:"";position:absolute;background:rgba(255,255,255,.18);pointer-events:none;z-index:1}
+.wh3d6 .wh3d-stage.is-quad::before{left:50%;top:0;bottom:0;width:1px}
+.wh3d6 .wh3d-stage.is-quad::after{top:50%;left:0;right:0;height:1px}
+@media (max-width:640px){
+  .wh3d6-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wh3d6-row .wh3d-btn[data-p="all"]{grid-column:1/-1}
+  .prose .wh3d6-year p{flex-direction:column;gap:2px}
+}
+
+/* ===== V5.37: Warehouse operations series, Part 7: what the system knows (script: assets/js/wh3d7.js; reuses .wh3d6-row, .wh3d6-weeks, .wh3d6-year) ===== */
+.wh3d7 .wh3d-stage.is-quad::before,.wh3d7 .wh3d-stage.is-quad::after{content:"";position:absolute;background:rgba(255,255,255,.18);pointer-events:none;z-index:1}
+.wh3d7 .wh3d-stage.is-quad::before{left:50%;top:0;bottom:0;width:1px}
+.wh3d7 .wh3d-stage.is-quad::after{top:50%;left:0;right:0;height:1px}
+.wh3d7 .wh3d-label.is-red{border-color:#FF7A6A;background:rgba(70,16,12,.92)}
+@media (max-width:640px){.wh3d7 .wh3d6-row .wh3d-btn[data-o="all"]{grid-column:1/-1}}
+
+/* ===== V5.38: Warehouse operations series, Part 8: automation (script: assets/js/wh3d8.js; reuses .wh3d6-row, .wh3d6-weeks, .wh3d6-year) ===== */
+.wh3d8 .wh3d-stage.is-quad::before,.wh3d8 .wh3d-stage.is-quad::after{content:"";position:absolute;background:rgba(255,255,255,.18);pointer-events:none;z-index:1}
+.wh3d8 .wh3d-stage.is-quad::before{left:50%;top:0;bottom:0;width:1px}
+.wh3d8 .wh3d-stage.is-quad::after{top:50%;left:0;right:0;height:1px}
+@media (max-width:640px){.wh3d8 .wh3d6-row .wh3d-btn[data-o="all"]{grid-column:1/-1}}
