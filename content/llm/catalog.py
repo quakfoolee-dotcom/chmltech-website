@@ -32,6 +32,7 @@ CATALOG = [
     # Google
     dict(id="gemini-4-carbon", name="Gemini 4 Carbon", dev="Google", tier=F, aliases=["Gemini 4 Carbon", "gemini-4-carbon"], vendor=["Gemini 4 Carbon"]),
     dict(id="gemini-4-argon", name="Gemini 4 Argon", dev="Google", tier=F, aliases=["Gemini 4 Argon", "gemini-4-argon"], vendor=["Gemini 4 Argon"]),
+    dict(id="gemini-4-hydrogen", name="Gemini 4 Hydrogen", dev="Google", tier=M, aliases=["Gemini 4 Hydrogen", "gemini-4-hydrogen"], vendor=["Gemini 4 Hydrogen"]),
     dict(id="gemini-3-8-flash", name="Gemini 3.8 Flash", dev="Google", tier=M, aliases=["Gemini 3.8 Flash", "gemini-3.8-flash"], vendor=["Gemini 3.8 Flash"]),
     dict(id="gemini-3-5-flash-lite", name="Gemini 3.5 Flash-Lite", dev="Google", tier=S, aliases=["Gemini 3.5 Flash-Lite", "gemini-3.5-flash-lite"], vendor=["Gemini 3.5 Flash-Lite"]),
     dict(id="gemma-4-31b", name="Gemma 4 31B", dev="Google", tier=S, aliases=["Gemma 4 31B", "gemma-4-31b-it", "Google: Gemma 4 31B"], vendor=["gemma-4-31B-it", "Google: Gemma 4 31B"]),
@@ -57,6 +58,7 @@ CATALOG = [
     dict(id="deepseek-v4-pro", name="DeepSeek V4 Pro", dev="DeepSeek", tier=F, aliases=["DeepSeek V4 Pro", "DeepSeek-V4-Pro", "deepseek-v4-pro"], vendor=["DeepSeek-V4-Pro-0813", "deepseek-v4-pro (DeepSeek-V4-Pro-0813)"], snapshots=["0813", "20260813"]),
     dict(id="deepseek-v4-1-flash", name="DeepSeek V4.1 Flash", dev="DeepSeek", tier=M, aliases=["DeepSeek V4.1 Flash", "DS-V4.1-Flash", "DeepSeek-V4.1-Flash", "deepseek-flash"], vendor=["DeepSeek-V4.1-Flash-1017", "deepseek-flash (DeepSeek-V4.1-Flash-1017)"], snapshots=["1017", "20261017"]),
     # Alibaba
+    dict(id="qwen4-max", name="Qwen4-Max", dev="Alibaba (Qwen)", tier=F, aliases=["Qwen4-Max", "Qwen4 Max", "Qwen 4 Max", "qwen4-max", "Qwen: Qwen4 Max"], vendor=["Qwen4-Max", "qwen4-max", "Qwen: Qwen4 Max"]),
     dict(id="qwen3-8-max", name="Qwen3.8-Max", dev="Alibaba (Qwen)", tier=F, aliases=["Qwen3.8-Max", "Qwen3.8 Max", "qwen3.8-max"], vendor=["Qwen3.8-Max"], show_snapshot=True),
     dict(id="qwen3-8-flash-next", name="Qwen3.8-Flash-Next", dev="Alibaba (Qwen)", tier=S, aliases=["Qwen3.8-Flash-Next", "Qwen3.8 Flash Next"], vendor=["Qwen3.8-Flash-Next"]),
     dict(id="qwen3-8-27b", name="Qwen3.8 27B", dev="Alibaba (Qwen)", tier=S, aliases=["Qwen3.8 27B", "Qwen3.8-27B", "qwen3.8-27b"], vendor=["Qwen3.8-27B", "qwen3.8-27b"]),
@@ -69,16 +71,17 @@ CATALOG = [
     dict(id="minimax-m3-1-flash", name="MiniMax-M3.1-Flash", dev="MiniMax", tier=M, aliases=["MiniMax-M3.1-Flash", "MiniMax M3.1 Flash", "MiniMax-M3.1"], vendor=["MiniMax-M3.1-Flash"]),
     dict(id="minimax-m3", name="MiniMax-M3", dev="MiniMax", tier=F, aliases=["MiniMax-M3", "MiniMax M3"], vendor=["MiniMax-M3"]),
     # NVIDIA
-    dict(id="nemotron-3-ultra", name="Nemotron 3 Ultra", dev="NVIDIA", tier=F, aliases=["Nemotron 3 Ultra", "Nemotron 3 Ultra 550B A55B", "NVIDIA-Nemotron-3-Ultra-550B-A55B", "NVIDIA: Nemotron 3 Ultra"], vendor=["NVIDIA-Nemotron-3-Ultra-550B-A55B", "NVIDIA: Nemotron 3 Ultra"]),
-    dict(id="nemotron-3-5-super-vl", name="Nemotron 3.5 Super VL", dev="NVIDIA", tier=M, aliases=["Nemotron 3.5 Super VL", "NVIDIA-Nemotron-3.5-Super-VL-120B-A12B", "Nemotron-3.5-Super-VL-120B-A12B", "NVIDIA: Nemotron 3.5 Super VL"], vendor=["NVIDIA-Nemotron-3.5-Super-VL-120B-A12B", "NVIDIA: Nemotron 3.5 Super VL"]),
+    dict(id="nemotron-3-ultra", name="Nemotron 3 Ultra", dev="NVIDIA", tier=F, aliases=["N-3-Ultra 550B-A55B", "Nemotron 3 Ultra", "Nemotron 3 Ultra 550B A55B", "NVIDIA-Nemotron-3-Ultra-550B-A55B", "NVIDIA: Nemotron 3 Ultra"], vendor=["NVIDIA-Nemotron-3-Ultra-550B-A55B", "NVIDIA: Nemotron 3 Ultra"]),
+    dict(id="nemotron-3-5-super-vl", name="Nemotron 3.5 Super VL", dev="NVIDIA", tier=M, aliases=["Nemotron 3.5 SuperGA BF16", "Nemotron 3.5 Super VL", "NVIDIA-Nemotron-3.5-Super-VL-120B-A12B", "Nemotron-3.5-Super-VL-120B-A12B", "NVIDIA: Nemotron 3.5 Super VL"], vendor=["NVIDIA-Nemotron-3.5-Super-VL-120B-A12B", "NVIDIA: Nemotron 3.5 Super VL"]),
     dict(id="nemotron-3-5-lightning", name="Nemotron 3.5 Lightning", dev="NVIDIA", tier=S, aliases=["Nemotron 3.5 Lightning", "NVIDIA-Nemotron-3.5-Lightning-30B-A3B", "Nemotron-3.5-Lightning-30B-A3B-BF16", "NVIDIA: Nemotron 3.5 Lightning"], vendor=["NVIDIA-Nemotron-3.5-Lightning-30B-A3B", "NVIDIA: Nemotron 3.5 Lightning"]),
     # Others
     dict(id="phi-4-reasoning-vision", name="Phi-4-reasoning-vision 15B", dev="Microsoft", tier=S, aliases=["Phi-4-reasoning-vision-15B", "Phi-4 reasoning vision"], vendor=["Phi-4-reasoning-vision-15B"]),
-    dict(id="granite-4-2-8b", name="Granite 4.2 8B", dev="IBM", tier=S, aliases=["Granite 4.2 8B", "granite-4.2-8b", "IBM: Granite 4.2 8B"], vendor=["granite-4.2-8b", "IBM: Granite 4.2 8B"]),
+    dict(id="granite-4-2-8b", name="Granite 4.2 8B", dev="IBM", tier=S, aliases=["8B Dense", "Granite 4.2 8B", "granite-4.2-8b", "IBM: Granite 4.2 8B"], vendor=["granite-4.2-8b", "IBM: Granite 4.2 8B"]),
     dict(id="mimo-v2-6-pro", name="MiMo-V2.6-Pro", dev="Xiaomi", tier=F, aliases=["MiMo-V2.6-Pro", "MiMo V2.6 Pro", "MiMo-V2.6-Pro-RL", "Xiaomi: MiMo-V2.6-Pro"], vendor=["MiMo-V2.6-Pro-RL", "Xiaomi: MiMo-V2.6-Pro"]),
     dict(id="step-5-preview", name="Step 5 Preview", dev="StepFun", tier=F, aliases=["Step 5 Preview", "Step-5-Preview", "StepFun: Step 5 Preview"], vendor=["Step-5-Preview", "StepFun: Step 5 Preview"]),
     dict(id="hy4", name="Tencent Hy4", dev="Tencent", tier=F, aliases=["Tencent Hy4", "Hy4", "Tencent: Hy4"], vendor=["Tencent: Hy4"]),
     dict(id="inkling", name="Inkling", dev="Thinking Machines Lab", tier=F, aliases=["Inkling", "Thinking Machines: Inkling"], vendor=["Inkling", "Thinking Machines: Inkling"]),
+    dict(id="inkling-2-small", name="Inkling 2 Small", dev="Thinking Machines Lab", tier=S, aliases=["Inkling 2 Small", "Thinking Machines: Inkling 2 Small"], vendor=["Inkling 2 Small", "Thinking Machines: Inkling 2 Small"]),
     dict(id="beam-1-0", name="Beam 1.0", dev="Reflection AI", tier=F, aliases=["Beam 1.0", "Beam", "Beam-1.0-501B-A23B", "Reflection: Beam 1.0 501B A23B"], vendor=["Beam-1.0-501B-A23B", "Reflection: Beam 1.0 501B A23B"]),
-    dict(id="ling-3-1-flash", name="Ling 3.1 Flash", dev="inclusionAI (Ant Group)", tier=M, aliases=["Ling 3.1 Flash", "Ling-3.1-flash", "inclusionAI: Ling 3.1 Flash"], vendor=["Ling-3.1-flash", "inclusionAI: Ling 3.1 Flash"]),
+    dict(id="ling-3-1-flash", name="Ling 3.1 Flash", dev="inclusionAI (Ant Group)", tier=M, aliases=["Ling 3.1 Flash", "Ling-3.1-flash", "inclusionAI: Ling 3.1 Flash"], vendor=["Ling-3.1-flash-1019", "Ling-3.1-flash"], snapshots=["1019"], show_snapshot=True),
 ]

@@ -58,7 +58,7 @@
     if (m) return "95% CI " + fmtScore(+m[1] * (b.unit === "%" && +m[2] <= 1 ? 100 : 1), b) + " to " + fmtScore(+m[2] * (b.unit === "%" && +m[2] <= 1 ? 100 : 1), b);
     m = /^stderr ([\d.]+)$/.exec(c);
     if (m) return "± " + (+m[1] * (b.unit === "%" && +m[1] < 1 && b.id !== "vals" ? 100 : 1)).toFixed(1) + " (std. error)";
-    return c;
+    return c.replace(/\d+\.\d{3,}/g, function (x) { return (+x).toLocaleString("en-CA", { maximumFractionDigits: +x >= 100 ? 0 : 1 }); });  // long raw decimals from the source, e.g. Vending-Bench SEM
   }
   function month(d) {
     if (!d) return "–";
@@ -128,11 +128,13 @@
     var specs = [["Developer", m.dev], ["Access", m.access + (m.license ? " (" + m.license + ")" : "")], ["Parameters", m.params], ["Released", month(m.released)],
       ["Status", m.status], ["Context window", m.ctx ? m.ctx.toLocaleString("en-CA") + " tokens" : null], ["Maximum output", m.maxout ? m.maxout.toLocaleString("en-CA") + " tokens" : null],
       ["Accepts", (m.inp || []).join(", ")], ["Reasoning mode", m.reasoning], ["Knowledge cut-off", m.cutoff],
-      ["List price", m.pin != null ? money(m.pin) + " input / " + money(m.pout) + " output per 1M tokens" + (m.pprov ? " (" + m.pprov + ")" : "") : null]];
+      ["List price", m.pin != null ? money(m.pin) + " input / " + money(m.pout) + " output per 1M tokens" + (m.pprov ? " (" + m.pprov + ")" : "") : null],
+      ["Output tokens per task", m.tok ? m.tok.total.toLocaleString("en-CA") + (m.tok.reasoning != null ? " (" + m.tok.reasoning.toLocaleString("en-CA") + " reasoning, " + m.tok.answer.toLocaleString("en-CA") + " answer)" : "") + " on the Artificial Analysis Index" + (m.tok.set ? ", " + m.tok.set : "") : null]];
     var dl = specs.filter(function (r) { return r[1]; }).map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("");
     var src = [];
     if (m.surl) src.push('<a href="' + esc(m.surl) + '" target="_blank" rel="noopener">Specification source</a>');
     if (m.purl && m.purl !== m.surl) src.push('<a href="' + esc(m.purl) + '" target="_blank" rel="noopener">Price source</a>');
+    if (m.tok) src.push('<a href="' + esc(m.tok.url) + '" target="_blank" rel="noopener">Token source</a>');
     var rows = BENCH.filter(function (b) { return m.s && m.s[b.id]; }).map(function (b) {
       var r = m.s[b.id];
       return "<tr><td>" + esc(b.name) + (r.self ? '<span class="ll-self" title="Reported by the developer, not the benchmark maintainer">Developer-reported</span>' : "") +
@@ -142,7 +144,17 @@
     return '<div class="ll-dgrid"><div><h4>Specifications</h4><dl class="ll-specs">' + dl + "</dl>" + (src.length ? '<p class="ll-note">' + src.join(" · ") + "</p>" : "") +
       (m.notes ? '<p class="ll-note">' + esc(m.notes) + "</p>" : "") + "</div><div><h4>Benchmark results</h4>" +
       (rows ? '<table class="ll-mini"><thead><tr><th>Benchmark</th><th class="num">Score</th><th class="num">Cost per task</th><th>Link</th></tr></thead><tbody>' + rows + "</tbody></table>" : '<p class="ll-note">No independent benchmark results recorded yet.</p>') +
-      "</div></div>";
+      claimsBlock(m) + "</div></div>";
+  }
+  function claimsBlock(m) {
+    if (!m.claims || !m.claims.length) return "";
+    var rows = m.claims.map(function (c) {
+      var u = /^score as reported/.test(c.unit || "") ? "" : (c.unit || ""), v = u === "%" ? c.v + "%" : (u === "USD" ? "$" + Number(c.v).toLocaleString("en-CA") : c.v + (u && u !== "score" ? " " + u : ""));
+      return "<tr><td>" + esc(c.b) + (c.set ? '<span class="ll-sub">' + esc(c.set) + "</span>" : "") + '</td><td class="num">' + esc(v) + '</td><td><a href="' + esc(c.url) + '" target="_blank" rel="noopener" aria-label="Source for ' + esc(c.b) + '">Source</a></td></tr>';
+    }).join("");
+    return '<details class="ll-claims"><summary>Developer-reported results (' + m.claims.length + '), not used for ranking</summary><p class="ll-note">Published by ' + esc(m.dev) +
+      " in its own announcement or model card, often with its own test setup. Not checked by the benchmark maintainers.</p>" +
+      '<table class="ll-mini"><thead><tr><th>Benchmark</th><th class="num">Reported</th><th>Link</th></tr></thead><tbody>' + rows + "</tbody></table></details>";
   }
   function sortVal(m, key, s) {
     if (key === "score") return score(m, s.b);

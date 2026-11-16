@@ -25,7 +25,10 @@ EXCLUDE = {
     "Muse Wonder Full", "Muse Wonder Full (Max)", "meta/muse-wonder-full",          # Muse Code only, not on the API
     "Mistral Large 4 Preview", "Mistral Large 4 Preview (high)", "mistral-large-4-0_high",  # preview build (Epoch id)
 }
-EXCLUDE_BOARD = {("LiveBench", "Mistral Large 4"), ("LiveBench", "Mistral Large 4 1029")}
+EXCLUDE_BOARD = {("LiveBench", "Mistral Large 4"), ("LiveBench", "Mistral Large 4 1029"),
+                 ("Terminal-Bench 4.1", "Mistral Large 4")}  # dated 2026-10-06 = the Preview build (red team V5.39)
+# Board-scoped aliases: names one board writes differently (red team V5.39). Applied before any other rule.
+BOARD_ALIAS = {("Terminal-Bench 4.1", "Inkling Small 2"): "Inkling 2 Small"}
 
 
 def norm(s):
@@ -52,7 +55,9 @@ def match(name, board=""):
     # LiveBench lists two different "Mistral Large 4" entries and which is the released model is unconfirmed, so neither is used.
     if name in EXCLUDE or any(board.startswith(b) and name == n for b, n in EXCLUDE_BOARD):
         return None, None
-    if QUANT.search(name):
+    name = BOARD_ALIAS.get((board, name), name)
+    # Epoch's "with fallback" runs are a separate configuration (red team V5.39); kept apart until defined.
+    if QUANT.search(name) or "-fallback_" in name:
         return None, None
     t, host = norm(name)
     for a, m in IDX:

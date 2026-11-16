@@ -138,3 +138,42 @@
 }
 .ll-warn{color:#8A4B00}
 .ll-pre{font-size:11px;font-weight:600;color:#8A4B00;margin-left:4px}
+
+/* V5.39: developer-reported results, update summary, tokens figure */
+.ll-claims{margin-top:16px;border-top:1px solid var(--line,#E4E1D8);padding-top:12px}
+.ll-claims summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--ink)}
+.ll-claims .ll-mini{margin-top:8px}
+.ll-news{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.ll-news .card{padding:24px;gap:10px}
+.ll-news h3{font-size:18px}
+.ll-news ul{margin:0;padding-left:18px;font-size:15px;color:var(--body)}
+.ll-news li{margin:4px 0}
+.ll-news .ll-moved{color:var(--ink);font-weight:600}
+.ll-tokfig{background:var(--white,#fff);border:1px solid var(--line,#E4E1D8);border-radius:14px;padding:20px 20px 12px;overflow-x:auto}
+.ll-tokfig svg{display:block;width:100%;height:auto;min-width:560px}
+.ll-tokfig text{font-family:var(--font-body);fill:#3A4150;font-size:12px}
+.ll-tokfig .lab{fill:#0B1B33;font-size:12.5px}
+
+/* V5.40: chart studio */
+.ls-tabs{margin-bottom:16px}
+.ls-panel{padding:22px 22px 18px}
+.ls-controls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;margin-bottom:14px}
+.ls-controls .ls-png{margin-left:auto}
+.ls-png{padding:8px 14px;font-size:14px}
+.ls-pngrow{display:flex;justify-content:flex-end;margin-bottom:10px}
+.ls-pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.ls-chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.ls-chip{display:inline-flex;align-items:center;gap:7px;background:#F4F2EC;border:1px solid #E4E1D8;border-radius:999px;padding:5px 6px 5px 11px;font-size:14px;color:var(--ink)}
+.ls-chip button{border:0;background:none;font-size:17px;line-height:1;color:var(--muted);cursor:pointer;padding:0 5px;border-radius:50%}
+.ls-chip button:hover,.ls-chip button:focus-visible{color:var(--ink);background:#E7E3D9}
+.ls-add select{border:1px dashed #B9B4A8;border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;background:#fff;color:var(--ink)}
+.ls-hint{font-size:13px;color:var(--muted)}
+.ls-title{font-size:17px;margin:14px 0 6px}
+.ls-chart{overflow-x:auto}
+.ls-chart svg{display:block;width:100%;height:auto;min-width:620px;font-family:var(--font-body);font-size:12px}
+.ls-empty{padding:40px 0;text-align:center;color:var(--muted)}
+.ls-tip{position:fixed;z-index:60;max-width:280px;background:#0B1B33;color:#fff;font-size:13px;line-height:1.45;padding:9px 11px;border-radius:8px;pointer-events:none;box-shadow:0 6px 20px rgba(11,27,51,.25)}
+.ls-tip b{font-weight:600}
+#ls-c-table details{margin-top:10px}
+#ls-c-table summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink)}
+@media (max-width:700px){.ls-controls .ls-png{margin-left:0}}

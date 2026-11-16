@@ -1,271 +1,303 @@
-# Red-team review: LLM leaderboard method, matching and page text
+# Red-team review B: LLM leaderboard refresh (data as of 2026-11-16)
 
-Reviewed on 2026-11-12. Files: content/llm/{llm.json, build_dataset.py, catalog.py, match.py, raw/*}, content/gen/llm_page.py and assets/js/llm.js.
-Method: I ran `match()` over every `model_as_listed` on the 19 boards in use. I re-derived the frontiers from llm.json. I checked each board description against raw/*.notes.md. I made 3 live checks: the Mistral docs page `docs.mistral.ai/models/mistral-large-4-0.md`, the HF API and README for `mistralai/Mistral-Large-4-1T-A52B`, and cohere.com/pricing. I edited no repo files. I did not run build_dataset.py, because it overwrites llm.json.
+Reviewed on 2026-11-16. I did not build this refresh.
+
+**Files reviewed:**
+- content/llm/{catalog.py, match.py, build_dataset.py, llm.json, raw/*}
+- content/gen/llm_page.py
+- assets/js/llm.js and assets/css/llm.css
+- the built llm-leaderboard.html
+- the previous llm.json (`git show HEAD:content/llm/llm.json`, as_of 2026-11-12)
+
+**What I ran.** I ran `match()` over every `model_as_listed` on the 19 boards in use. I also ran it over the token board "Artificial Analysis output tokens per Index task" and over all 644 rows in vendor.scores.json. That came to 2,242 board rows.
+
+**What I re-derived.** From both llm.json files I rebuilt:
+- the top five for every board
+- the blended-price frontier
+- the cost-per-task frontier (every `alt` setting plotted as its own point, as llm.js does)
+
+I diffed every model spec and score against HEAD.
+
+**Read-only lookups.** I read the Epoch download the research agent left on disk (/home/claude/llmrefresh/dl/index/epoch/x/model_metadata.csv and gpqa_diamond.csv). I only read it.
+
+**Where I edited.** I edited no repo files. I did not run build_dataset.py in the repo. I tested the proposed fixes in a scratch copy only (/home/claude/llmrefresh/rtb/fix/). I also regenerated the page in a second copy (/home/claude/llmrefresh/rtb/site/).
 
 Severity: **B** = blocker, **S** = should-fix, **m** = minor.
+
+Last review's fixes were checked and still hold:
+- Terminal-Bench "Opus 5.5" and "Sonnet 5.5" match.
+- "Muse Wonder Full" is excluded on every board, including the token board.
+- Mistral Large 4 Preview is excluded on Epoch.
+- Snapshot allow-lists work for DeepSeek: ARC-AGI-2 and the Arena boards use 1017, not 0910.
 
 ---
 
 ## A. Name matching
 
-### 1. [B] Terminal-Bench misses its #1 and #2 rows (Opus 5.5, Sonnet 5.5)
-- Evidence: raw/agentic.scores.json, Terminal-Bench 4.1. Rank 1 is "Opus 5.5" (Anthropic, Claude Code, max, 65.76%, total cost $4,718.65 over 330 trials). Rank 2 is "Sonnet 5.5" (63.94%, $7,333.64). `match()` returns (None, None) for both because the catalogue aliases all begin with "Claude".
-- Effect: llm.json shows GPT-6.1 Sol as #1 on Terminal-Bench (n = 9 instead of 11). The Coding agents card's "Also see: Terminal-Bench" and the Terminal-Bench frontier are both wrong. Opus 5.5 would sit at the top of the frontier at $14.30 per trial.
-- Fix (catalog.py):
-  - Add `"Opus 5.5"` to claude-opus-5-5's aliases.
-  - Add `"Sonnet 5.5"` to claude-sonnet-5-5's aliases.
-  - Also add `"Haiku 5.5"`, `"Fable 5.2"` and `"Mythos 5.2"` to their entries, for future rows.
+### 1. [B] Ling 3.1 Flash: the 1019 snapshot's score is plotted at the original snapshot's price, as the first point on the default chart
+- **Evidence:**
+  - The only board result is AA "Ling 3.1 Flash 1019" (29.57). It matches `ling-3-1-flash` because the entry has no `snapshots` list, and the 4-digit token is accepted silently.
+  - The 1019 token is also not shown (`show_snapshot` is not set).
+  - raw/vendor.models.json, record "Ling-3.1-flash-1019", notes: *"Upgraded snapshot of Ling-3.1-flash … OpenRouter inclusionai/ling-3.1-flash points to the original 20261002 snapshot, not 1019, so no price is recorded for 1019."*
+  - Even so, the entry takes its price ($0.045 / $0.135, Novita via OpenRouter) and its spec URL from the original-snapshot records.
+- **Further mismatches:**
+  - The release date (2026-10-22) and the token figure both come from AA's 1019 record.
+  - The 6 developer claims come from the 1019 model card.
+- **Effect:** Ling 3.1 Flash is the cheapest point on the AA Intelligence Index blended-price frontier, the page's default view ($0.0675, 29.57). No page lists that price for the model that earned that score. This is the same class of error as last time's B2 (Muse Wonder Full plotted at the API price).
+- **Fix (catalog.py):** change the entry to
+  `vendor=["Ling-3.1-flash-1019", "Ling-3.1-flash"], snapshots=["1019"], show_snapshot=True`.
+  This drops the OpenRouter price record from `vendor`.
+- **Fix (build_dataset.py MODEL_NOTES):** add
+  `"ling-3-1-flash": ("Results are for the 1019 snapshot. OpenRouter lists a price only for the original Oct 2, 2026 snapshot, so no price is shown.", False)`.
+- **Tested in the scratch copy:**
+  - Ling leaves the price charts, and the AA blended frontier now starts Granite 4.2 8B, then Nemotron 3.5 Lightning, then Claude Haiku 5.5.
+  - The aa_index result and the token row are labelled "1019 snapshot".
+  - The spec URL is now the 1019 repo.
+  - List prices drop from 51 to 50, and the hero and method counts update by themselves.
 
-### 2. [B] "Muse Wonder Full" (not on the API) is merged into "Muse Wonder" (API, $4/$20)
-- Evidence that it is a separate product: raw/vendor.models.json, record "Muse Wonder", notes: *"Higher-capability 'Muse Wonder Full' only in Muse Code (not API)."* The two have different scores on every board:
+### 2. [B] Terminal-Bench "Mistral Large 4" is the Preview build, merged into the GA model
+- **Evidence:**
+  - This row is new this refresh: 27.58%, Claude Code, max, $718.40, result_date 2026-10-06.
+  - Terminal-Bench's row date is the model's release date. Opus 5.5 is 09-22, Fable 5.2 11-09, Gemini 4 Hydrogen 11-12 and "DeepSeek V4.1 Flash 1017" 10-17, each equal to that model's release.
+  - Epoch model_metadata.csv dates the builds: `mistral-large-4-0_high`, "Mistral Large 4 Preview", **2026-10-06**; `mistral-large-4-0-oss_high`, "Mistral Large 4", **2026-10-29**. Mistral's docs give GA as 2026-11-05.
+  - So this row is the Preview, which the page says is "kept apart".
+- **Effect:** the Terminal-Bench result shown for Mistral Large 4 is a Preview result. It is not on a frontier or in a card's top five.
+- **Fix (match.py):** add `("Terminal-Bench 4.1", "Mistral Large 4")` to `EXCLUDE_BOARD`. Tested: tbench drops to 29 − 1 + 1 (with finding 4) = 29 models.
 
-  | Board | Muse Wonder Full | Muse Wonder |
-  |---|---|---|
-  | AA Index | 50.08 (no cost) | 43.57 ($6.95) |
-  | Vals | 66.79 ($6.81, meta/muse-wonder-full) | 64.88 ($10.65) |
-  | AA Coding | 0.5888 (no cost) | 0.5198 ($8.05) |
-  | WebDev | 1723.4 | 1648.6 |
-  | Arena Agent | 0.0909 | 0.0193 |
-  | Vending | $12,292 (no cost) | $9,432 ($329) |
+### 3. [S] Epoch's new "with fallback" runs are merged silently and change GPQA
+- **Evidence:**
+  - New GPQA rows this refresh are `claude-fable-5-2-fallback_max` (0.9602) and `claude-opus-5-5-fallback_max` (0.9407).
+  - In Epoch's model_metadata.csv they are a separate model version, display name **"Claude Fable 5.2 (with fallback, max)"**. Their run ids are `manual_gpqa_diamond_fallback_…`.
+  - Epoch also has its normal runs, `claude-fable-5-2_max` (0.9388) and `claude-opus-5-5_max` (0.9059).
+  - match.py drops "fallback" from the label, so the page shows both as plain "Max". index.notes.md does not mention fallback at all, and the research agent's new notes dropped the "Display name in Epoch metadata" text that would have shown it.
+- **Effect:** GPQA Fable 5.2 goes from 93.88 to 96.02 and moves to #3 in the top five. Opus 5.5 goes from 90.59 to 94.07. Both are presented as like-for-like with other models' standard runs.
+- **Fix (match.py):** `if QUANT.search(name) or "-fallback_" in name: return None, None`, so Epoch's fallback variants are kept apart until someone confirms what "with fallback" means.
+  - This leaves AA's "(…, Default Fallback)" rows alone. On AA that is the only configuration listed for Claude models.
+  - Tested: GPQA reverts to 93.876 / 90.593, and the top five becomes Carbon, Argon, Astra, Sonnet 5.5, GPT-6.1 Sol.
+- **Fix (index.notes.md, research agent):** record what Epoch's "with fallback" configuration is.
 
-- Effect in llm.json: muse-wonder carries the Full score on aa_index, vals, aa_coding, arena_webdev, arena_agent and vending, all under the API price.
-  - On the Vals cost-per-task chart, Muse Wonder is a frontier point at $6.81 / 66.79. Nobody can buy that model at that price.
-  - On AA Index, AA Coding and Vending it drops off the cost-per-task chart, because the Full row has no cost.
-- The cause is twofold:
-  - catalog.py lists "Muse Wonder Full" as an alias.
-  - match.SETTING contains "full", so it would merge even without the alias.
-- Fix:
-  - Remove "Muse Wonder Full" from the aliases.
-  - Remove "full" from SETTING.
-  - Then either add a separate entry (id muse-wonder-full, access "Muse Code only (no API)", no price) or leave those rows unmatched and list them in the notes.
+### 4. [S] Terminal-Bench "Inkling Small 2" should match Inkling 2 Small
+- **Evidence:** the Terminal-Bench 4.1 row is "Inkling Small 2": Thinking Machines Lab, mini-swe-agent, xhigh, 13.03% ± 2.85, $963.65, date **2026-11-05**.
+  - The date is Inkling 2 Small's release date on AA (index.models.json).
+  - ARC lists "Inkling 2 Small (XHigh)" on the same date.
+  - The first-generation "Inkling Small" is a separate row on the same board (0.91%, dated 2026-07-30).
+  - agentic.notes.md leaves the decision to the merge step. match() returns (None, None) because "small" is not a SETTING word.
+- **Fix (match.py):** add a board-scoped alias,
+  `BOARD_ALIAS = {("Terminal-Bench 4.1", "Inkling Small 2"): "Inkling 2 Small"}`,
+  and apply it in `match()` before the QUANT check: `name = BOARD_ALIAS.get((board, name), name)`. A global alias would risk catching other boards.
+- **Fix (build_dataset.py MODEL_NOTES):** for inkling-2-small, add "Terminal-Bench lists this model as 'Inkling Small 2'."
+- **Tested:** tbench gains Inkling 2 Small at 13.03%, Mini-swe-agent, X-high, $2.92 per trial. It is not on any frontier.
 
-### 3. [B] Mistral Large 4 Preview is merged with Mistral Large 4 (GA)
-- Evidence:
-  - In the Epoch rows, `mistral-large-4-0_high` has the display name **"Mistral Large 4 Preview (high)"**, released 2026-10-06.
-  - `mistral-large-4-0-oss_high` has the display name "Mistral Large 4 (high)", released 2026-10-29.
-  - catalog.py has the alias `"mistral-large-4-0"`, so the Preview's FrontierMath 58.6 and GPQA 88.07 are published as Mistral Large 4. The GA GPQA result (90.15) goes **unmatched**.
-  - Vals `mistralai/mistral-large-4-oss` (56.53, $3.72) is also unmatched, so the GA model is missing from Vals.
-  - LiveBench has two different entries:
-    - "Mistral Large 4 1029" (id mistral-large-4-0): coding 79.4, browser 17.4, research 80.3.
-    - "Mistral Large 4" (id mistral-large-4): coding 44.4, browser 0.6, research 30.8.
-    - The matcher drops the "1029" token (4-digit rule) and takes the better of the two. Which LiveBench id is the GA model is unresolved: "1029" matches the AA/Epoch GA date, but Epoch uses `-0` for the Preview.
-  - The Mistral docs list both `mistral-large-4` and `mistral-large-4-0` as GA API names. So the "-0" id means different things on different boards.
-- Fix:
-  - Remove alias `mistral-large-4-0`.
-  - Add `mistral-large-4-0-oss` and `mistral-large-4-oss`.
-  - Add "Mistral Large 4 Preview" to an exclude list.
-  - For LiveBench, map only the entry whose release in LiveBench's model map equals 2026-10-29. If that cannot be confirmed, publish neither.
+### 5. [S] Developer claims ignore the snapshot rule, and three models miss theirs
+- The claims loop calls `match(r["model_as_listed"])` with no snapshot preference and no other fallback, so three problems follow.
+- **Mixed DeepSeek snapshots.** DeepSeek V4.1 Flash shows 30 claims. 11 come from the 1017 card. 19 come from the earlier `deepseek-ai/DeepSeek-V4.1-Flash` card ("DS-V4.1-Flash"). The panel therefore shows "Terminal-Bench 4.0 42.3" and "Terminal-Bench 4.0 (Pass@1) 31.2" side by side, unlabelled.
+- **Missed NVIDIA and IBM claims.** These are unmatched although their source URL is the catalogue model's own card:
+  - "N-3-Ultra 550B-A55B" (35 rows): nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16
+  - "Nemotron 3.5 SuperGA BF16" (43 rows): nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16
+  - "8B Dense" (21 rows): ibm-granite/granite-4.2-8b
+- **Ling.** Ling's 6 claims are from 1019 (fixed by finding 1).
+- **Fix (build_dataset.py claims loop):**
+  1. If the entry has `snapshots` and any claim row names one, drop the undated claim rows, as the board loop already does.
+  2. If `match()` fails, match on `source_url` against the URLs of the entry's `vendor` records.
+  3. Otherwise add the three names as aliases in catalog.py: "N-3-Ultra 550B-A55B" to nemotron-3-ultra, "Nemotron 3.5 SuperGA BF16" to nemotron-3-5-super-vl, "8B Dense" to granite-4-2-8b.
+- **Confirmed:** claims never reach ranks or frontiers. build_dataset.py keeps them in `m.claims`; the board loop reads only arena, index and agentic rows and skips `self_reported`; llm.js uses `m.claims` only in `claimsBlock()`.
 
-### 4. [S] Snapshot dates are swallowed, so different snapshots are mixed on one card
-- Cause: `match.ok_rest` accepts any token of 4 or more digits, and `rest` then deletes it. The snapshot never shows up in `set`.
-- Qwen3.8 Max: Epoch gives the base model a release date of 2026-08-02 and "Qwen3.8 Max (0902)" 2026-09-01, so they are separate snapshots. In llm.json:
-  - arena_webdev uses 0902 (1675.8; the base model scores 1670.3).
-  - frontiermath and gpqa use the base model (74.7 against 0902's 65.6).
-  - aa_index and tbench have only 0902.
-  - So one card mixes two snapshots without saying so.
-- DeepSeek V4.1 Flash: the price, specs and release date (2026-10-17) are for **1017**. But:
-  - arena_text and arena_vision come only from **DeepSeek-V4.1-Flash-20260910**, the September snapshot.
-  - aa_coding uses "Codex - DeepSeek V4.1 Flash (Max)", the older snapshot (0.473), over the 1017 row (0.463).
-  - ARC, LiveBench and Vals use 1017.
-- Fix:
-  - Keep date tokens in the setting label, e.g. "Max, 0902 snapshot".
-  - Prefer rows whose snapshot matches the vendor's current API version.
-  - Rows from an older snapshot should either be dropped or carry a visible "earlier snapshot" label.
-  - Add a per-entry `snapshots` allow-list, e.g. deepseek-v4-1-flash: ["1017", "20261017", None].
-
-### 5. [S] Other misses
-- Vectara `amazon/nova-2-lite-v1:0` is unmatched, so Nova 2 Lite has **no results at all**. Fix: add the alias `nova-2-lite-v1:0`.
-- Vals `baseten/nemotron-3.5-super-vl-120b-a12b` (hosted) is unmatched, while `kimi-k3.1-pro-together` (hosted) is matched by an explicit alias. Fix: make the hosted-endpoint policy consistent (see 6).
-- These are correctly unmatched: "Hy4 preview", "tencent/hy4-preview", "alibaba/qwen3.8-max-internal", "Inkling 2 Small", "Mistral Large 4 Preview" on ECI, and the dual-model AA Coding rows ("Claude Opus 5.5 Max + GPT-6 Luna High", "GPT-6 Astra XHigh + SWE-2 Medium").
-
-### 6. [S] The policy on quantized and hosted builds is inconsistent
-- "bf16" merges: it splits to "bf" + "16", both allowed. "fp8" and "nvfp4" never merge: they split to "fp" / "nvfp" + digit, and neither "fp" nor "nvfp" is in SETTING. So the "fp8" and "fp4" entries in SETTING are dead code.
-- Kimi's Epoch FrontierMath and GPQA rows are **Together-hosted** runs ("Kimi K3.1 Pro (Together, max)"). The page shows them as Kimi K3.1 Pro with no host label.
-- Fix:
-  - Write down one rule. Suggested: accept the BF16 reference and named hosts, put the host in `set` ("Max, via Together"), and exclude NVFP4/FP8/FP4 quantizations.
-  - Implement the rule as an explicit token list rather than by accident.
-
-### 7. [m] Bug in the match.py prefix regex
-- `lambda m: "" if m.group(1) in PREFIX or True else ...` removes **any** prefix before "/" or ":". `PREFIX` is never used.
-- It is harmless today (baseten/ and fireworks/ are stripped), but it will strip real name parts that contain ":".
-- Fix: remove `or True`, and add the hosts you want stripped (baseten, together, fireworks) to PREFIX.
+### 6. [m] Correctly kept apart (no action needed)
+- Claude Fable 5.1, Fable 5, Opus 5, Sonnet 5 (all spellings, including Terminal-Bench "Fable 5.1", "Opus 5" and Epoch `claude-fable-5-1_max`).
+- Qwen3.7, Qwen3.6, Qwen3.5 and "-Max-Preview" rows. "Qwen4-Max" spelled four ways all match, and nothing from Qwen3.8 merges into Qwen4.
+- "Inkling Small" and "Inkling-Small" (first generation).
+- Gemini 3.5/3.7 Flash, GPT-5.6 and GPT-6 Sol.
+- NVFP4 builds; "Hy4 preview"; "alibaba/qwen3.8-max-internal".
+- "Claude Opus 5.5 Max + GPT-6 Luna High" (Devin Fusion).
+- K2 Horizon and JT-4.1 Flash (not in the catalogue).
+- No "Gemini 4 Hydrogen" variants other than effort labels exist in any raw file.
 
 ---
 
-## B. Specs, prices, access, tiers
+## B. Specs, prices, tiers
 
-### 8. [m] Mistral Large 4 access and licence are correct; one note needed
-- Confirmed on 2026-11-12:
-  - docs.mistral.ai: "Type: Open", "Licenses: Mistral Ecosystem Open Weight License", release date 2026-11-05.
-  - HF card: `license: other`. The README says the licence is *"a modified version of the MIT license, for both commercial and non-commercial use — operating a Model-as-a-Service business requires a separate commercial license with Mistral."*
-- "Open weights" is right. The other sources differ only in wording: Arena says "Modified MIT", Epoch says "restricted use".
-- Fix:
-  - Add to notes: "Hosting as a paid service needs a Mistral commercial licence."
-  - Note that the release date is 2026-11-05 on the vendor page but 2026-10-29 on AA and Epoch. The HF repo was created 2026-09-30.
+### 7. [S] AA cost per task for Gemini 4 Carbon and Argon dropped with unchanged scores; the cause is not noted
+- **Evidence:** compared with HEAD, the raw AA Index rows changed cost only:
 
-### 9. [m] Command A+ price confirmed
-- cohere.com/pricing (fetched 2026-11-12): the `pricingRows` inside the Command A+ card are "Input $2.50 / 1M" and "Output $10.00 / 1M", ahead of the next card (Command R7B). So the adjacency doubt in vendor.notes.md is resolved.
-- OpenRouter's Cohere endpoint lists $0.30/$1.50. Keep that as a price note.
+  | Row | Score | Cost per task before | Cost per task now |
+  |---|---|---|---|
+  | Argon (High) | 50.41 (unchanged) | 9.9466 | 4.9733 (exactly ×0.5000) |
+  | Carbon (High) | 60.03 (unchanged) | 7.756 | 5.485 |
+  | Carbon (Medium) | unchanged | 6.586 | 4.678 |
+  | Carbon (Low) | unchanged | 7.187 | 5.221 |
 
-### 10. [S] Introductory and time-limited prices drive the frontier
-- Gemini 4 Carbon and Argon cost $2/$10 only until 2026-11-30, then $4/$20. Gemini 3.8 Flash costs $0.75/$3.75 until 2026-12-31.
-- Gemini 4 Carbon is a frontier point on aa_index, aa_coding and lb_coding by blended price. The note is in `m.notes`, but neither the chart tooltip nor the frontier table shows it.
-- Fix: add an `intro_until` field to the model record. Show "introductory price until Nov 30" in the tooltip and frontier table, or plot the post-intro price.
+  - AA Coding moved the same way (Argon 11.73 to 6.84).
+  - The exact halving matches a switch from $4/$20 to the $2/$10 introductory price, which ends on Nov 30.
+  - index.notes.md says the method is "unchanged" and does not mention this.
+- **Effect:** on the AA cost-per-task frontier, Claude Opus 5.5 (X-high, $6.05, 57.4) is no longer a frontier point; Carbon Medium at $4.68 now beats it. These costs will be wrong from Dec 1.
+- **Fix:**
+  - Ask the index agent to confirm on AA.
+  - In build_dataset.py, append to the MODEL_NOTES text for gemini-4-carbon and gemini-4-argon: "Artificial Analysis's cost per task uses the introductory price."
+  - Add to the aa_index and aa_coding caveats: "Costs follow the developer's current list price, including introductory prices."
 
-### 11. [S] Price provenance is described wrongly on the page
-- llm_page.py says the price comes "from the developer's own price list (or, for open-weight models, a named host)".
-- Hy4 is **Proprietary API** but priced from an OpenRouter endpoint listing (secondary). Step 5 Preview and MiMo-V2.6-Pro also use OpenRouter endpoint data.
-- Fix: say "or, where the developer publishes no price list we could read, the price its own endpoint lists on OpenRouter". Show "secondary" in the detail panel.
+### 8. [S] Qwen3.8-Max no longer fits the Frontier definition
+- **Evidence:**
+  - catalog.py defines Frontier as "the developer's most capable generally offered model(s)".
+  - Alibaba's page calls Qwen4-Max the "next-generation flagship" and lists it above qwen3.8-max (vendor.models.json).
+  - Qwen4-Max beats Qwen3.8-Max everywhere both appear: AA 42.9 vs 33.7, Arena WebDev 1749.8 vs 1675.6, Arena Agent 7.5 vs −0.9.
+  - Qwen4-Max is also cheaper ($1.50/$4.50 vs $2/$6).
+  - "Mid-size" (a cheaper model one step down) does not fit either.
+- **Fix:** keep Qwen3.8-Max in the catalogue; it is still a current offering, so SPEC rule 8 keeps it in scope. Then:
+  - Add to MODEL_NOTES: "Superseded as Alibaba's flagship by Qwen4-Max (Nov 2026); still offered at $2 / $6."
+  - Either add a "Previous flagship" tier or note the exception in the tier filter's note text in llm_page.py.
 
-### 12. [m] Release dates
-- OpenAI, xAI and Google dates come from AA (secondary). They carry the note "Release date as listed by Artificial Analysis", which is good.
-- Two AA dates look wrong:
-  - Qwen3.8 Max (2026-08-03) is taken from AA's **0902** record, but Epoch dates 0902 to 2026-09-01.
-  - Beam (2026-10-16 on AA) is 2026-10-05 on Epoch.
-- Fix: when AA and Epoch disagree by more than 3 days, show the month only, or both dates.
+### 9. [m] The three new entries: tier, developer, aliases
+- **Gemini 4 Hydrogen** (Mid-size, Google): supported.
+  - $1.50/$7.50, GA (aistudio.google.com).
+  - Google says it was "adapted from Gemini 4 Carbon", so Mid-size is a line-up label. It outscores Frontier Argon on AA (53.9 vs 50.4) and Vending, so the tier note matters here.
+  - Index raw slip: index.models.json "Gemini 4 Hydrogen (High)" says its details came from `artificialanalysis.ai/models/claude-fable-5-2`. It is unused because the vendor record wins, but it should be corrected in raw.
+- **Qwen4-Max** (Frontier, "Alibaba (Qwen)"): tier and aliases are fine.
+  - The release date 2026-11-16 is from AA, but Arena and Vals results are dated 2026-11-15, and OpenRouter's endpoint is `qwen4-max-20261115`.
+  - Fix: `RELEASE["qwen4-max"] = ("2026-11", "Release month: Artificial Analysis lists Nov 16, 2026; benchmark results are dated Nov 15.")`.
+- **Inkling 2 Small** (Small and fast, Thinking Machines Lab): the name supports the tier, but there are two oddities.
+  - It has 594B total parameters and outscores the Frontier "Inkling" (AA 30.6 vs 12.5).
+  - `reasoning` is null, so it drops out of the "Reasoning mode" filter, although AA counts 88K reasoning tokens per task and ARC and Terminal-Bench run it at xhigh.
+  - Fix: add the alias "Inkling Small 2" through finding 4. Set `reasoning="Yes"` with the note "Reasoning effort settings as run by ARC Prize and Terminal-Bench". The price is OpenRouter's (secondary), as labelled.
 
-### 13. [m] Missing licence and tier oddities
-- Muse Spark Open: the licence shows nothing, but the vendor note gives the gated licence "muse-model-license". Show "muse-model-license (gated; terms not read)".
-- Grok Build 0.1 (alias grok-code-fast-1) is a coding-specialist model but is tiered "Mid-size" as a general model. Note that it is a coding model.
-- DeepSeek V4.1 Flash is "Mid-size" yet beats V4 Pro (Frontier) on Vals (61.3 vs 53.0), FrontierMath and Vending. That is defensible as its place in the line-up, but the tier chip reads like a capability label. Add the tier definition to the filter tooltip.
+### 10. [m] Scope: K2 Horizon 375B A23B and JT-4.1 Flash should not be added now
+- **K2 Horizon:**
+  - Open weights, Apache 2.0, 375B/23B.
+  - AA 17.8 would put it 16th of 27 open-weight models, about level with Beam 1.0 (17.7). So it is arguably "leading open-weight" under SPEC rule 8.
+  - However, it is on AA only. It has no price: AA's cost and price are 0/0 placeholders, and no API or OpenRouter listing was found. Its developer ("IFM", link to MBZUAI/LLM360 unconfirmed) is unverified.
+  - Add it later if a second board or a price appears. If added, treat AA's $0 cost as null, which build_dataset.py already does.
+- **JT-4.1 Flash 236B A21B:**
+  - China Mobile, proprietary API, no price, released 2026-11-11, AA only.
+  - It is not a major developer's flagship or sibling, so it is out of scope.
 
----
-
-## C. Method
-
-### 14. [S] The best-scoring row can lack a cost, so the model vanishes from the cost-per-task chart
-- Muse Wonder on aa_index, aa_coding and vending: the chosen (Full) row has no cost, while other matched rows do. This goes away once 2 is fixed, but the rule stays fragile.
-- Fix: for benchmarks with cost mode set, store `cost_row` = the best-scoring row **with** a cost, used only by the task-cost chart. Or plot each costed setting as its own point (see 15).
-
-### 15. [S] "Best setting per model" biases the Pareto chart against cheaper settings
-- On the cost-per-task axis, the cost does belong to the plotted variant, which is consistent. But only the highest-scoring setting is plotted, so a model's cheaper effort levels can never appear on the frontier.
-- Example, GPT-6 Astra on Terminal-Bench:
-  - Max: 60.3%, $9.90
-  - High: 60.0%, $6.88
-  - Low: 50.9%, $4.72
-- On the price-per-token axes, a "Max" score is set against a per-token price that ignores how many tokens Max uses.
-- Fix: in task-cost mode, plot every (model, setting) point and draw the frontier over those. Add to the chart note: "Per-token price ignores how many tokens each setting uses."
-
-### 16. [S] Derived costs are labelled "as published by the benchmark"
-- llm.js XLABEL.task reads "Cost per task, US$ (as published by the benchmark)". For LiveBench and Terminal-Bench the figure is computed in build_dataset.py.
-- For Terminal-Bench it is per **trial** (330 trials), not per task. The AA notes say Terminal-Bench v4 has 66 tasks, so this is probably 5 trials per task; that is not confirmed for 4.1.
-- Fix:
-  - Change the axis label to "Cost per task, US$ (published, or derived from the published total)".
-  - Rename the Terminal-Bench caveat to "Cost per trial (total ÷ 330 trials)".
-
-### 17. [S] LiveBench suites are tiny single runs, yet two agent cards rank on them
-- votes_or_n per suite: coding 24, browser 25, research 22, long_agentic 18, data_analysis 150. The notes say "Single run".
-- The Research agents card's top 3 (94.5 / 93.0 / 92.5) are 1–2 tasks apart.
-- Fix: add "n tasks, single run" to each LiveBench caveat. Show tied ranks for gaps smaller than one task (100/n points).
-
-### 18. [S] Rankings ignore confidence intervals
-- Arena Text: Gemini 4 Carbon 1525.95 (CI 1516.4–1535.6) is #1 and Argon 1522.4 is #2, but the two overlap. Terminal-Bench, Vals, Epoch and Vending all publish CI or stderr, and llm.json keeps none of them.
-- Fix: carry `score_ci` into llm.json. Show "±" in tables, and mark ranks as tied when the intervals overlap. At minimum, add to the card text: "Gaps of a few points are often within the margin of error."
-
-### 19. [m] The frontier() algorithm is correct; one tidy-up
-- Checked cases:
-  - Sort by x ascending, then the better score first.
-  - A point is kept only if it is strictly better than the best so far.
-  - Equal x: the better one is kept. Equal y at higher x: the weakly dominated point is dropped.
-  - Lower-is-better (Vectara) is handled through `better()` and the flipped Y axis.
-  - Zero and negative costs are dropped by `x > 0`.
-- On an exact (x, y) tie the comparator returns 1 both ways. That is harmless but non-transitive. Fix: `return p.x - r.x || (p.y === r.y ? 0 : better(...) ? -1 : 1)`.
-- A Vending score below 0 (gpt-oss-120b, −$21.5) plots fine.
-
-### 20. [S] A pre-launch result tops the reasoning card
-- Fable 5.2's Epoch record is pre-launch testing that Epoch says "may change" (index.notes.md). It is FrontierMath #1 (95.09) on the "Hard reasoning" card, with no caveat.
-- Fix: add a per-result note or flag ("pre-launch evaluation; may change") and show it in the card and table.
-
-### 21. [m] "Updated" dates overstate freshness
-- The aa_index, aa_coding and vending dates are the **retrieval** date, but the page shows "results as of Nov 11, 2026".
-- The Terminal-Bench date is the record's updated_at, while its newest result is 2026-09-29.
-- Fix: label these "retrieved Nov 11, 2026". For Terminal-Bench, show "latest result Sep 29, 2026".
-
-### 22. Board descriptions checked against the notes
-Supported by a note:
-- AA "nine evaluations": the 9 components are listed in index.notes.md.
-- AA Coding Agent "three evaluations: FrontierCode, SWE-Atlas QnA, Terminal-Bench v4".
-- Vals: finance, legal, tax and coding, weighted by GDP share. The components are in the row notes.
-- Vending-Bench "start: $500" and "mean cost per full run".
-- Arena style control as the default view.
-- Arena Agent as net improvement over a baseline.
-
-Not supported by any note [S]. Cite each one or soften it:
-- **ECI**: "fitted across many benchmarks so models tested on different sets can be compared". The notes only say "Bayesian model since Nov 4". Suggested: "Epoch AI's single capability score combining many benchmarks."
-- **FrontierMath**: "Hundreds of … problems that take specialists hours to solve". The notes give no problem count or solve time. The scores imply a denominator of 285 (95.088% = 271/285), but that is inference. Suggested: "Unpublished, expert-written research-level maths problems, run by Epoch AI."
-- **GPQA**: "written to resist web search". Not in the notes.
-- **LiveBench**: "released after model training cut-offs", plus each suite's task description (browser "filling forms", data "joins", research and long-agentic wording). None of this is in index.notes.md.
-- **Terminal-Bench**: "building software, configuring systems, fixing environments". The notes only say "terminal tasks".
-- **ARC-AGI-2**: "easy for people". Not in the notes.
-- **AA Index**: "reasoning, knowledge, coding and agentic work". The notes give the categories as Knowledge Work, Coding, Science, General. Fix: "knowledge work, coding, science and general knowledge".
+### 11. [m] Open-weight "list prices" move with OpenRouter's default endpoint
+- Examples:
+  - gpt-oss-20b went from $0.03/$0.13 to $0.075/$0.30.
+  - Gemma 4 26B A4B went from $0.08/$0.10 to $0.0675/$0.225.
+  - vendor.notes.md: "These changes reflect which provider is the default, not a developer price change".
+- **Effect:** gpt-oss-20b drops off the Arena Text, ECI and GPQA blended frontiers, and Granite 4.2 8B joins the Arena Text frontier.
+- **Fix:** use one rule for all open-weight prices, as PRICE_FIX already does for Granite: the lowest full-precision host listed. Alternatively, say in the price note that the default host can change between snapshots.
 
 ---
 
-## D. Coverage and bias
+## C. New features
 
-### 23. [S] Arena boards are cut to the top 60 rows although the full data is published
-- The dataset's latest split holds 421 Text, 167 Vision and 156 WebDev models (arena.notes.md). Only the top 60 rows were kept, so arena_text has 16 catalogue models, arena_vision 14 and arena_webdev 28.
-- The **Everyday assistant** card therefore ranks only large models. Haiku 5.5, GPT-6 Luna, Gemma 4, Nova 2 and Fable 5.2 are all absent, which reads as "not good at chat".
-- Fix: re-extract every catalogue model from the latest split of `text_style_control`, `vision_style_control` and `webdev`, and drop the "top 60" caveat. If that cannot be done, switch the assistant card to aa_index (42 models) and keep Arena Text under "Also see".
+### 12. [S] "What changed": comparing coding-agent leaders across an index change is misleading
+- **What the page says:** the news card lists "Coding agents: Claude Fable 5.2 (was Claude Opus 5.5)".
+- **Why that is not like for like:**
+  - The "before" leader (Opus 5.5, 61.65) was measured with FrontierCode v1.1.
+  - The "now" leader (Fable 5.2, 58.47) uses FrontierCode-AA 2.0.
+  - Fable 5.2 was not on aa_coding at all in the previous snapshot; it is new.
+  - On the current index Opus 5.5 is 0.3 points behind (58.16).
+- The caveat sits in the next card, but this line reads as "Fable overtook Opus".
+- **Fix (build_dataset.py):**
+  - Add `COMPOSITION_CHANGED = {"aa_coding"}`.
+  - In the leaders loop, for those boards, emit `dict(group=…, before=None, now=b2, note="index components changed; not comparable")`.
+  - In llm_page.py news(), render that as "Coding agents: Claude Fable 5.2 leads the revised index (0.3 points ahead of Claude Opus 5.5; not comparable with the Nov 12 snapshot)".
+  - Or drop the line.
 
-### 24. [S] Agent cards show no sample size
-- Ranking boards per card: Coding = aa_coding (21 models), Apps = arena_webdev (28), Browser = lb_browser (27 models, 25 tasks), Research = lb_research (27, 22 tasks), Long = vending (15), Business = vals (26), Data = lb_data (27), Assistant = arena_text (16), Reasoning = frontiermath (24).
-- Fix: print "n models ranked" on each card (type_card in llm_page.py).
-- Research card: "Also see: FrontierMath" is a maths test, not a research-agent test. Replace it with lb_long or drop it.
-- Long-running card: consider ranking by arena_agent (29 models, real sessions) with Vending in "Also see". Vending has 15 models and contained the non-API Muse Wonder Full.
+### 13. [S] "What changed" goes stale if build_dataset.py is re-run on the same day
+- **Cause:** `changes` is recomputed only when `P["as_of"] != AS_OF`. On a re-run, such as after applying this review's fixes, it copies the old `changes`: the old `added`, `leaders` and `results_before`. `n_now` in llm_page.py is live.
+- **Confirmed** in the scratch copy: after the fixes the leaders block is the pre-fix one.
+- **Fix:** read the baseline from a frozen file instead of the file being overwritten. Either:
+  - write `content/llm/llm.prev.json` once per AS_OF change and always diff against it, or
+  - diff against `git show HEAD:content/llm/llm.json`.
 
-### 25. [m] The excluded boards are described correctly; two wording fixes
-- Catalogue coverage of each excluded board, from matching their raw rows:
+### 14. [S] Developer-claim units print as long text in the number column
+- **Evidence:** 240 of 425 claims have the unit "score as reported (no unit given; mostly % accuracy/pass rate)". claimsBlock() renders this as `42.6 score as reported (no unit given; mostly % accuracy/pass rate)`. Two more claims have the unit "score as reported (no unit given)".
+- **Fix (assets/js/llm.js claimsBlock):** treat any unit starting with "score as reported" as unitless:
+  `var u = /^score as reported/.test(c.unit || "") ? "" : (c.unit || "");`
 
-  | Board | Catalogue models | Note |
-  |---|---|---|
-  | SWE-bench | 0–1 | latest result Feb 2026 |
-  | SWE-Bench Pro | 0–1 | latest result Jul 2026; not named in the disclaimer |
-  | OSWorld-Verified and OSWorld 2.0 | 1 each | MiniMax-M3 only |
-  | τ²-bench | 0 | |
-  | τ³-Banking | 2 | |
-  | BFCL | 0 | last updated Apr 12, 2026 |
-  | METR | 0 | |
-  | Aider | 1 | stale since Nov 2025 |
+### 15. Token figure (`tok`): correct
+- All 44 models with token data have `tok.set` equal to their aa_index `set`, including the snapshot label for Qwen3.8-Max and None for unlabelled rows.
+- Gemma 4 31B has no token row, as index.notes.md says.
+- "Muse Wonder Full (Max)" and "Claude Fable 5.1" token rows are correctly unmatched.
+- One minor gap: when a model has no aa_index result, the "largest total" fallback contradicts the page's "at the setting ranked above". No current model is affected. Fix: skip `tok` when `want` is missing.
 
-- Fix:
-  - Say METR is "no longer updated (last update Sep 8, 2026)", not that it has "not yet published".
-  - Add SWE-Bench Pro to the list.
-- Boards that do cover current models but are not used, which may be worth a mention: ARC-AGI-1 (20 models), ARC-AGI-3 (12), FrontierMath Tier 4 (24), LiveBench reasoning (27).
-
----
-
-## E. Page text (llm_page.py; STEPS, DISCLAIMER and GROUPS in build_dataset.py)
-
-### 26. [S] The meta description promises a card that does not exist
-"Find the best model for coding, research, browser and **customer-service** agents". There is no customer-service group, and tau-bench is excluded. Fix: replace it with "business and knowledge-work".
-
-### 27. [S] The STEPS "Red-team the result" card claims fixes already made
-"Errors found were fixed or the value was removed." That is only true once the blockers above are fixed. Fix: publish only after 1–3 are fixed, or reword to "Errors found are fixed or the value removed before publication".
-
-### 28. [S] The STEPS "Use independent results only" card overstates
-- Terminal-Bench "does not mark verified vs submitted" (agentic.notes.md), so its rows may have been run by the agent's developer.
-- AA Coding Agent scores are inside the developers' own tools (Claude Code, Codex, Muse Code, Mistral Vibe).
-- Fix: add "Terminal-Bench does not say which results it verified".
-
-### 29. [m] "Every score and price links to its source" is not quite true
-Release dates taken from AA have no link, and derived costs are not on any source page. Fix: "Every score and price links to the page it came from; derived costs are marked."
-
-### 30. [m] The no-JavaScript fallback points to a list that is not there
-"The full list is in the methodology section below." The methodology section lists benchmarks, not models. Fix: render a static model list, or remove the sentence.
+### 16. Board news: every statement checked against raw/*.notes.md
+- **AA Coding component change.** True: FrontierCode v1.1 Main replaced by FrontierCode-AA 2.0, same name, 29 pairs (index.notes.md). The caveat text on the board is accurate.
+- **Terminal-Bench "24 results on Nov 13-14, including Gemini 4 Hydrogen (56.4%) and Claude Fable 5.2".** True: 24 rows added, created 11-13 or 11-14 (agentic raw notes), and Hydrogen is 56.36%.
+- **Board update dates.** All true per arena.notes.md and index.notes.md:
+  - Arena WebDev and Agent: 2026-11-15
+  - Vals: 2026-11-15
+  - Epoch hub: Nov 16
+  - LiveBench: 20261106 updated in place, Hydrogen added
+  - Vectara: Oct 22
+- **Small omissions (m):**
+  - Arena Text also moved (Nov 9 to Nov 11).
+  - Vending-Bench added Hydrogen (#3) and Fable 5.2.
+  - Two aa_coding results disappeared: Gemini 3.8 Flash and Muse Spark Open are no longer on the revised index. Add one line: "Gemini 3.8 Flash and Muse Spark Open are not on the revised AA Coding Agent Index."
 
 ---
 
-## Summary of blockers and should-fix items
+## D. Rankings and frontiers re-derived (compared with HEAD)
+
+### 17. Changes that follow from the new data (expected)
+- **New models on frontiers:**
+  - Gemini 4 Hydrogen on aa_index, vals, tbench, arena_agent, lb_long, vending and lb_data.
+  - Qwen4-Max on vals and arena_webdev.
+  - Inkling 2 Small on arena_webdev, arena_agent and arc2.
+- **Card top fives:** Fable 5.2 is new at #1 on aa_coding and arena_agent. Hydrogen is #3 on Vending and LiveBench Data.
+- **Terminal-Bench:** grows from 11 to 29 models.
+- **Arena:** small Elo moves throughout, as expected after the Nov 11 and Nov 15 republishes.
+- **Card leaders:** unchanged except Coding (see finding 12).
+- **Frontier code:** the Python re-implementation of `frontier()` agrees with llm.js on every board.
+
+### 18. Changes not explained by the notes
+- AA Carbon and Argon costs: finding 7.
+- GPQA Fable 5.2 and Opus 5.5: finding 3.
+- Open-weight price swaps: finding 11.
+- **Release dates newly filled from AA.** Nemotron 3 Ultra (2026-06-04), Step 5 Preview (2026-09-18), Hy4 (2026-11-03) and Ling (2026-10-22, the 1019 date) were null before. They are labelled "as listed by Artificial Analysis", which is fine apart from Ling (finding 1).
+
+### 19. [m] Ties are shown as distinct ranks
+- Terminal-Bench #1: Fable 5.2 and Opus 5.5 are both 65.76% (217/330 trials each); the card order is just catalogue order.
+- FrontierMath #2 and #3: GPT-6 Astra and GPT-6.1 Sol are both 93.7%.
+- **Fix (llm_page.py type_card):** give equal values the same rank number.
+
+---
+
+## E. Page text
+
+### 20. [m] The committed llm-leaderboard.html is older than llm_page.py
+- The built page shows "$1.5 / $7.5", but current news() formats with `:.2f`. Regenerating the page in a copy changes only those three lines ("$1.50 / $7.50" etc.).
+- **Fix:** re-run content/gen/llm_page.py after the data fixes.
+- In the same news line, Inkling 2 Small's "$0.30 / $1.00" is OpenRouter's price. Add "(OpenRouter)" when `pprov` contains "secondary".
+
+### 21. Hero, method text and disclaimer
+- **Hero and counts:** correct against llm.json.
+  - 53 models, 19 benchmarks, 22 developers, 29 open-weight models
+  - 515 results, up from 473
+  - 51 list prices (50 after finding 1)
+- **Board date lines:** all match raw dates.
+  - Terminal-Bench says "latest result Nov 12", which is true. The board record was updated Nov 14 (m: could say "board updated Nov 14, 2026").
+- **Disclaimer:** still accurate. Catalogue coverage of the unused boards now:
+
+  | Board | Catalogue models |
+  |---|---|
+  | SWE-bench variants | 1 each |
+  | SWE-Bench Pro | 1 |
+  | OSWorld-Verified | 1 |
+  | OSWorld 2.0 | 2 (MiniMax M3 and M3.1 Flash) |
+  | τ³-Banking | 2 |
+  | BFCL | 0 |
+  | Aider | 1 |
+  | METR | no longer updated since Sep 8, 2026 |
+
+- **"Match names carefully" step:** says earlier snapshots and previews are kept apart. This is untrue until findings 1–3 are fixed.
+- **"Red-team before publishing" step:** says errors found are fixed before publication. This needs findings 1–3 fixed first.
+
+---
+
+## Summary
 
 **Blockers**
-1. Terminal-Bench misses Opus 5.5 and Sonnet 5.5 (its #1 and #2).
-2. The non-API Muse Wonder Full is merged into Muse Wonder and priced at the API rate.
-3. Mistral Large 4 Preview is merged with GA, and the GA rows on Vals and GPQA are unmatched.
+1. Ling 3.1 Flash: the 1019 score is plotted at the price of a different snapshot, as the first point on the default chart.
+2. Terminal-Bench "Mistral Large 4" is the Preview build (dated 2026-10-06), merged into GA.
 
 **Should-fix**
-- Matching: snapshot mixing for Qwen 0902 and DeepSeek 0910/1017 (4); Nova 2 Lite and Baseten misses (5); quantized and hosted policy (6).
-- Prices and access: introductory prices (10); price provenance text (11).
-- Method: best row without a cost (14); best-setting bias (15); derived-cost label (16); LiveBench n (17); CIs (18); Fable 5.2 pre-launch (20).
-- Text and coverage: unsupported descriptions (22); Arena top-60 cut (23); card n and choices (24); customer-service text (26); red-team claim (27); independence claim (28).
+- Matching: 3 Epoch "with fallback" runs merged into GPQA; 4 "Inkling Small 2" unmatched; 5 claims mix DeepSeek snapshots and miss 99 NVIDIA and IBM rows.
+- Data: 7 AA costs now use the introductory Gemini price, with no note; 8 Qwen3.8-Max no longer fits "Frontier".
+- Features: 12 the leader comparison on the coding card spans an index change; 13 `changes` goes stale on re-run; 14 claim units clutter the table.
+
+**Minor:** 9, 10, 11, 15, 16, 19, 20, 21.
+
+All three matching fixes (1, 2–4 and the fallback rule) were tested together in /home/claude/llmrefresh/rtb/fix/. That build has 53 models and 515 results.

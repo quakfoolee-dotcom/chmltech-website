@@ -65,7 +65,7 @@ def shell():
     foot = rest.split("</main>", 1)[1]
     head = head.replace(' aria-current="page"', "")
     head = head.replace('<link rel="stylesheet" href="assets/css/grants.css">', '<link rel="stylesheet" href="assets/css/grants.css">\n<link rel="stylesheet" href="assets/css/llm.css">')
-    foot = foot.replace('<script src="assets/js/grants.js" defer></script>', '<script src="assets/js/llm.js" defer></script>')
+    foot = foot.replace('<script src="assets/js/grants.js" defer></script>', '<script src="assets/js/llm.js" defer></script><script src="assets/js/llm-studio.js" defer></script>')
     return head, foot
 
 
@@ -86,7 +86,10 @@ def type_card(g, D):
     hb = b.get("hb", True)
     rows = [(m, m["s"][b["id"]]) for m in D["models"] if b["id"] in m.get("s", {})]
     rows.sort(key=lambda r: -r[1]["v"] if hb else r[1]["v"])
-    top = "".join(f'<li><b>{i + 1}</b><span>{esc(m["name"])}{"<small class=ll-pre title=\"" + esc(r["flag"]) + "\"> pre-launch</small>" if r.get("flag") else ""}</span>'
+    rk = []  # equal values share a rank (red team V5.39)
+    for i, (m, r) in enumerate(rows[:5]):
+        rk.append(rk[-1] if i and r["v"] == rows[i - 1][1]["v"] else i + 1)
+    top = "".join(f'<li><b>{rk[i]}</b><span>{esc(m["name"])}{"<small class=ll-pre title=\"" + esc(r["flag"]) + "\"> pre-launch</small>" if r.get("flag") else ""}</span>'
                   f'<em>{fmt(r["v"], b.get("unit"))}</em></li>' for i, (m, r) in enumerate(rows[:5]))
     also = ", ".join(by[x]["short"] for x in g.get("also", []) if x in by)
     return (f'<article class="ll-type"><h3>{esc(g["name"])}</h3><p class="ll-type-desc">{esc(g["desc"])}</p>'
@@ -94,6 +97,67 @@ def type_card(g, D):
             f'<p class="ll-type-src">Ranked by {esc(b["name"])} ({esc(b["src"])}; {esc(b.get("updated") or "")}). {len(rows)} of the listed models have a result.'
             f'{" Also see: " + esc(also) + "." if also else ""}</p>'
             f'<button type="button" class="gr-link" data-bench="{esc(b["id"])}">See the full ranking</button></article>')
+
+
+def tok_figure(M):
+    """Static SVG: output tokens per Artificial Analysis Index task, split into reasoning and answer (V5.39)."""
+    rows = sorted([m for m in M if m.get("tok")], key=lambda m: m["tok"]["total"])
+    if not rows: return ""
+    W, lw, rw, bh, gap, top = 900, 230, 120, 16, 7, 34
+    H = top + len(rows) * (bh + gap) + 30
+    mx = max(m["tok"]["total"] for m in rows)
+    step = 50000 if mx > 200000 else 25000
+    X = lambda v: lw + v / (mx * 1.02) * (W - lw - rw)
+    g = []
+    for t in range(0, int(mx * 1.02) + 1, step):
+        g.append(f'<line x1="{X(t):.1f}" x2="{X(t):.1f}" y1="{top - 6}" y2="{H - 26}" stroke="#ECE9E1"/><text x="{X(t):.1f}" y="{H - 10}" text-anchor="middle">{t // 1000}K</text>')
+    for i, m in enumerate(rows):
+        y = top + i * (bh + gap); t = m["tok"]
+        lab = m["name"] + (f" ({t['set']})" if t.get("set") else "")
+        g.append(f'<text class="lab" x="{lw - 10}" y="{y + bh - 3}" text-anchor="end">{esc(lab)}</text>')
+        if t.get("reasoning") is not None:
+            g.append(f'<rect x="{lw}" y="{y}" width="{X(t["reasoning"]) - lw:.1f}" height="{bh}" fill="#0B2A5A"><title>{esc(lab)}: {t["reasoning"]:,} reasoning tokens</title></rect>')
+            g.append(f'<rect x="{X(t["reasoning"]):.1f}" y="{y}" width="{X(t["total"]) - X(t["reasoning"]):.1f}" height="{bh}" fill="#7FB2D6"><title>{esc(lab)}: {t["answer"]:,} answer tokens</title></rect>')
+        else:
+            g.append(f'<rect x="{lw}" y="{y}" width="{X(t["total"]) - lw:.1f}" height="{bh}" fill="#7FB2D6"/>')
+        idx = (m["s"].get("aa_index") or {}).get("v")
+        g.append(f'<text x="{X(t["total"]) + 6:.1f}" y="{y + bh - 3}">{t["total"] / 1000:.0f}K' + (f' · Index {idx:.1f}' if idx is not None else "") + '</text>')
+    leg = (f'<rect x="{lw}" y="6" width="12" height="12" fill="#0B2A5A"/><text x="{lw + 18}" y="16">Reasoning tokens</text>'
+           f'<rect x="{lw + 150}" y="6" width="12" height="12" fill="#7FB2D6"/><text x="{lw + 168}" y="16">Answer tokens</text>')
+    return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="Output tokens per Artificial Analysis Intelligence Index task for {len(rows)} models">'
+            + leg + "".join(g) + "</svg>")
+
+
+def news(D, M):
+    c = D.get("changes")
+    if not c: return ""
+    prev = datetime.date.fromisoformat(c["prev_as_of"]).strftime("%B %-d")
+    by = {m["name"]: m for m in M}
+    def line(nm):
+        m = by[nm]; bits = []
+        for bid, lab in (("aa_index", "AA Index"), ("vals", "Vals"), ("arena_webdev", "Arena WebDev"), ("tbench", "Terminal-Bench")):
+            r = m["s"].get(bid)
+            if r: bits.append(f"{lab} {r['v']:.1f}" + ("%" if bid in ("vals", "tbench") else ""))
+        price = f"${m['pin']:.2f} / ${m['pout']:.2f} per 1M tokens" if m.get("pin") is not None else "no list price yet"
+        return f"<li><span class=\"ll-moved\">{esc(nm)}</span> ({esc(m['dev'])}, {esc(m['tier'].lower())}): {esc(price)}" + (f"; {esc(', '.join(bits))}" if bits else "") + "</li>"
+    added = "".join(line(nm) for nm in c["added"]) or "<li>No new models.</li>"
+    moved = [l for l in c["leaders"] if l.get("note") or l["before"] != l["now"]]
+    def lt(l):
+        if l.get("note"):
+            return (f'<li>{esc(l["group"])}: <span class="ll-moved">{esc(l["now"])}</span> leads the revised index, {l["gap"]:.1f} points ahead of {esc(l["second"])}. '
+                    f'Not comparable with the {prev} snapshot.</li>')
+        return f'<li>{esc(l["group"])}: <span class="ll-moved">{esc(l["now"])}</span> (was {esc(l["before"])})</li>'
+    lead = "".join(lt(l) for l in moved) or "<li>The leader of every agent card is unchanged.</li>"
+    n_now = sum(len(m.get("s", {})) for m in M)
+    return f'''<section class="section sand" id="whatsnew" style="scroll-margin-top:84px"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">What changed</p><h2 class="h-lg">Since the {prev} snapshot.</h2></div>
+  <p>Every source was collected again and re-checked. {n_now} benchmark results now, up from {c["results_before"]}.</p></div>
+  <div class="ll-news">
+    <article class="card"><h3>New models</h3><ul>{added}</ul></article>
+    <article class="card"><h3>New leaders on the agent cards</h3><ul>{lead}</ul></article>
+    <article class="card"><h3>Benchmark updates</h3><ul>{"".join(f"<li>{esc(x)}</li>" for x in D.get("board_news", []))}</ul></article>
+  </div>
+</div></div></section>'''
 
 
 def build():
@@ -138,6 +202,8 @@ def build():
   <div class="stat-row"><div><strong>{n}</strong><span>models</span></div><div><strong>{len(B)}</strong><span>benchmarks</span></div><div><strong>{n_open}</strong><span>open-weight models</span></div><div><strong class="ll-stat-sm">{asof}</strong><span>data as of</span></div></div>
   <div class="btn-row"><a class="btn" href="#explorer">Search the models</a><a class="btn btn-ghost-dark" href="#agents">Best by agent type</a></div>
 </div></div></section>
+
+{news(D, M)}
 
 <section class="section" id="agents" style="scroll-margin-top:84px"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Best by agent type</p><h2 class="h-lg">The strongest models for each kind of agent.</h2></div>
@@ -188,6 +254,56 @@ def build():
       <div class="gr-empty" id="ll-empty" hidden><h3>No models match these filters.</h3><p>Try removing a filter or searching for a broader term.</p><button type="button" class="btn btn-ghost" data-clear>Clear all filters</button></div>
     </div>
   </div>
+</div></section>
+
+<section class="section" id="studio" style="scroll-margin-top:84px"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chart studio</p><h2 class="h-lg">Build your own comparison charts.</h2></div>
+  <p>See what extra reasoning effort buys, put up to six models side by side, or chart any ranking. Every chart reads the same sourced data as the explorer and downloads as a PNG for slides and reports.</p></div>
+  <div class="ls-root" id="ls-root">
+    <div class="ll-tabs ls-tabs" role="tablist" aria-label="Chart type">
+      <button type="button" class="ll-tab ls-tab" role="tab" aria-selected="true" aria-controls="ls-p-curve">Effort curves</button>
+      <button type="button" class="ll-tab ls-tab" role="tab" aria-selected="false" aria-controls="ls-p-comp">Compare models</button>
+      <button type="button" class="ll-tab ls-tab" role="tab" aria-selected="false" aria-controls="ls-p-rank">Ranking bars</button>
+    </div>
+    <div class="ll-chartcard ls-panel" id="ls-p-curve" role="tabpanel">
+      <div class="ls-controls">
+        <label class="gr-sort"><span>Benchmark</span><select id="ls-c-b"><option value="aa_index">Artificial Analysis Intelligence Index</option><option value="arc2">ARC-AGI-2</option><option value="aa_coding">Artificial Analysis Coding Agent Index</option><option value="tbench">Terminal-Bench 4.1</option></select></label>
+        <label class="gr-sort"><span>Against</span><select id="ls-c-x"><option value="cost">Cost per task</option><option value="time">Time per task</option><option value="tok">Output tokens per task</option></select></label>
+        <label class="gr-toggle"><input type="checkbox" id="ls-c-log"> Log scale</label>
+        <button type="button" class="btn btn-ghost ls-png" data-png="ls-c-chart">Download PNG</button>
+      </div>
+      <div class="ls-pick" id="ls-c-pick"></div>
+      <h3 class="ls-title" id="ls-c-title">Effort curves</h3>
+      <div class="ls-chart" id="ls-c-chart"></div>
+      <p class="ll-chartnote" id="ls-c-note"></p>
+      <div id="ls-c-table"></div>
+    </div>
+    <div class="ll-chartcard ls-panel" id="ls-p-comp" role="tabpanel" hidden>
+      <div class="ls-controls"><div class="ls-pick" id="ls-k-pick"></div><button type="button" class="btn btn-ghost ls-png" data-png="ls-k-chart">Download PNG</button></div>
+      <div class="ls-chart" id="ls-k-chart"></div>
+      <p class="ll-chartnote" id="ls-k-note"></p>
+    </div>
+    <div class="ll-chartcard ls-panel" id="ls-p-rank" role="tabpanel" hidden>
+      <div class="ls-controls">
+        <label class="gr-sort"><span>Benchmark</span><select id="ls-r-b">{bench_opts}</select></label>
+        <label class="gr-sort"><span>Show</span><select id="ls-r-n"><option value="10">Top 10</option><option value="15" selected>Top 15</option><option value="25">Top 25</option><option value="all">All</option></select></label>
+        <label class="gr-sort"><span>Access</span><select id="ls-r-a"><option value="">All models</option><option value="Proprietary API">Proprietary API</option><option value="Open weights">Open weights</option></select></label>
+        <button type="button" class="btn btn-ghost ls-png" data-png="ls-r-chart">Download PNG</button>
+      </div>
+      <h3 class="ls-title" id="ls-r-title">Ranking</h3>
+      <div class="ls-chart" id="ls-r-chart"></div>
+      <p class="ll-chartnote" id="ls-r-note"></p>
+    </div>
+    <noscript><p>Turn on JavaScript to build charts.</p></noscript>
+  </div>
+</div></section>
+
+<section class="section" id="tokens" style="scroll-margin-top:84px"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Token use</p><h2 class="h-lg">How much each model writes to finish a task.</h2></div>
+  <p>Output tokens drive the bill as much as the price per token. A model that thinks at length can cost more per task than a model with a higher list price. Figures are Artificial Analysis's weighted average output tokens per Intelligence Index task, at the setting ranked above, with the Index score beside each bar.</p></div>
+  <div class="ls-pngrow"><button type="button" class="btn btn-ghost ls-png" data-png="ll-tokfig" data-title="Output tokens per Artificial Analysis Index task">Download PNG</button></div>
+  <div class="ll-tokfig" id="ll-tokfig">{tok_figure(M)}</div>
+  <p class="ll-chartnote">Source: Artificial Analysis model pages, retrieved {asof}. Reasoning tokens are the model's hidden thinking; answer tokens are the visible reply. Both are billed as output. Each model's details in the explorer link to its page.</p>
 </div></section>
 
 <section class="section" id="method" style="scroll-margin-top:84px"><div class="container">

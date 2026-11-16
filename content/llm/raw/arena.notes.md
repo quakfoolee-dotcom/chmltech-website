@@ -1,53 +1,50 @@
-# Arena (formerly LMArena) leaderboard — notes
+# Arena (formerly LMArena) leaderboard — notes (refresh)
 
-Retrieved 2026-11-11. Public pages: https://arena.ai/leaderboard (boards at /leaderboard/text, /webdev, /vision, /search, /document, /agent).
-Data source: the official Hugging Face dataset **lmarena-ai/leaderboard-dataset** (https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset, CC-BY-4.0, published by lmarena-ai; HF API shows lastModified 2026-11-11T04:01Z). Its README says it holds "Historical snapshots of the Arena (https://arena.ai/leaderboard) leaderboard". Each board is a config with a `latest` split (the current published board) and a `full` split (all history). Every row in arena.scores.json names its config in `notes`; all rows use the `latest` split, category `overall`.
+Retrieved 2026-11-16. Pages: https://arena.ai/leaderboard/{text,webdev,vision,search,document,agent}.
+Data source: official Hugging Face dataset **lmarena-ai/leaderboard-dataset** (https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset, CC-BY-4.0). HF API lastModified 2026-11-16T04:02:23Z (commit 8013e3f0). All rows from the `latest` split, category `overall`, filtered to the max leaderboard_publish_date; each row's `notes` names its config. Build script: /home/claude/llmrefresh/scripts/arena_build.py; full-board rows (arena_full.scores.json) from a copy of content/llm/arena_full.py at /home/claude/llmrefresh/scripts/arena_full.py (only output path and retrieved_date changed). Parquets in /home/claude/llmrefresh/dl/arena/.
 
-## Board update dates (leaderboard_publish_date in the latest split)
-| Board (config) | Date | Models in board | Rows kept |
+## Board update dates (leaderboard_publish_date)
+| Board (config) | Date | Models | Rows kept |
 |---|---|---|---|
-| Text (text_style_control / text) | 2026-11-09 | 421 | top 60 each |
-| WebDev / Code Arena (webdev) | 2026-11-10 | 156 | top 60 |
-| Vision (vision_style_control / vision) | 2026-11-09 | 167 | top 60 each |
-| Search (search_style_control / search) | 2026-11-09 | 42 | all |
-| Document (document_style_control / document) | 2026-11-09 | 46 | all |
-| Agent aggregate + 5 current signals | 2026-11-08 | 57 | all |
-| Agent bash_recovery_steps (retired signal) | 2026-10-08 | 52 | all |
+| Text (text_style_control / text) | 2026-11-11 | 421 | top 60 each (all 421 style-control in arena_full) |
+| WebDev / Code Arena (webdev) | 2026-11-15 | 157 | top 60 (all 157 in arena_full) |
+| Vision (vision_style_control / vision) | 2026-11-09 (unchanged) | 167 | top 60 each (all 167 in arena_full) |
+| Search (both) | 2026-11-09 (unchanged) | 42 | all |
+| Document (both) | 2026-11-09 (unchanged) | 46 | all |
+| Agent aggregate + 5 current signals | 2026-11-15 | 65 | all |
+| Agent bash_recovery_steps (retired) | 2026-10-08 | 52 | all |
 
-## Which Text board is the default on arena.ai
-The **style-controlled** board (`text_style_control`) is the default. Evidence: (1) README: "On May 16, 2025, style control was made the default for text and vision arenas and the offset was adjusted to put the style control leaderboard on the same rating scale as non style control." (2) Cross-check: the only copy of https://arena.ai/leaderboard/text I could read (WebFetch, page dated "Mar 5, 2026") shows #1 1504 ±7 (8,945 votes), #2 1500 ±9 (4,042), #3 1500 ±7 (8,073), #4 xAI 1493 ±8 (5,071), #5 1485 ±4 (39,673). These match `text_style_control` 2026-03-05 exactly (claude-opus-4-6 1503.95, gemini-3.1-pro-preview 1500.14, claude-opus-4-6-thinking 1500.04, grok-4.20-beta1 1492.55, gemini-3-pro 1485.38) and do NOT match raw `text` (where grok-4.20-beta1 is 6th at 1464.56). The same applies to Vision. For Search and Document the default view is not stated; both variants are included.
-Current #1 Text (style control): Gemini 4 Carbon (High) 1525.95 (CI 1516.36–1535.55, 4,282 votes).
+Totals: arena.scores.json 918 rows; arena_full.scores.json 745 rows; arena.models.json 184 records (developer + licence only).
 
-## Live-page cross-check — could NOT verify current numbers
-- curl of arena.ai/leaderboard/text and lmarena.ai/leaderboard/text: HTTP 403 Cloudflare "Just a moment..." challenge (also saved dl/arena/live.html is the same challenge page). Not bypassed per rules.
-- WebFetch returns stale cached copies: arena.ai/leaderboard (rank-only table, early 2026 models), lmarena.ai/leaderboard (2025 models), arena.ai/leaderboard/text dated Mar 5, 2026, arena.ai/leaderboard/agent dated Jul 12, 2026.
-- Those stale pages match the dataset's historical snapshots (Text 2026-03-05 as above; Agent page top rows Claude Fable 5 (High) 13.94% ±1.56%, 16,059; GPT 5.6 Sol (xHigh) 10.94%; match `agent` full split 2026-07-13: 0.139412, CI 0.12386–0.154964, 16,059 sessions; 0.109384). This confirms the dataset is the page's own data and that agent scores are displayed as score×100 %.
-- One mismatch: the Mar 5 Text page shows a #7 OpenAI model 1480 ±12 with 2,290 votes that I could not find in the 2026-03-05 snapshot (possibly a model added to the page between dataset publishes, or a later-removed entry).
-- So the November 2026 values are from the dataset only, not checked against the live page.
+## Method (unchanged from previous notes)
+Text/Vision/Search/Document/WebDev: crowdsourced anonymous pairwise votes, Bradley-Terry ratings on an Elo-like scale with 95% CI; style control (default view for Text and Vision since 16 May 2025 per dataset README) adjusts for length/markdown. Scales differ across boards. Agent Arena: models as orchestrator in Arena's Agent Mode, in-the-wild sessions, causal IPS net-improvement estimate vs a baseline mix (0 = baseline); aggregate = average of per-signal boards (Confirmed Success, Praise vs Complaint, Steerability, Bash Reliability, Tool Hallucination). Methodology: https://arena.ai/blog/agent-arena-methodology/ (not re-read this session). Limitations stated by maintainers: orchestrators only, signals may change, Arena's harness may not transfer; pairwise boards reflect Arena's voter population.
 
-## What each board measures (method)
-- **Text / Vision / Search / Document / WebDev**: crowdsourced anonymous pairwise battles; users vote for the better response. Scores are Bradley-Terry ratings on an Elo-like scale (Elo replaced by Bradley-Terry Jan 9, 2024; frequency re-weighting since Jul 23, 2025). `rating_lower/upper` = confidence bounds; `vote_count` = battles for the model. Style control adjusts for response length/markdown formatting so ratings reflect substance rather than style. Vision = prompts with images; Search = search-grounded answers (models with web search, e.g. "(Search)", "(Grounding)"); Document = prompts with uploaded documents; WebDev (Code Arena, launched on the site Nov 12, 2025) = building web apps; its `overall` and `webdev` categories are identical. Rank in the dataset is a plain sequential rank (the raw `text` config stores it as float).
-- Scores on different boards are not on a common scale (Text ~1500, Vision ~1300, Search ~1250, WebDev ~1800).
-- **Agent Arena** (launched Jun 4, 2026; methodology https://arena.ai/blog/agent-arena-methodology/ published 4 Jun 2026, updated 15 Oct 2026; signal definitions https://arena.ai/resources/agent-arena-signals): ranks models acting as the **orchestrator** in Arena's own Agent Mode (arena.ai/agent) using millions of in-the-wild user sessions, not a synthetic benchmark. Configurations are randomised and each model's effect is estimated causally with a self-normalised inverse-propensity-score (IPS) estimator: score τ̂ = estimated net improvement in an outcome relative to a baseline (roughly uniform) mix of models; 0 ≈ baseline, negative = worse than baseline. 95% CI = τ̂ ± 1.96·SE. Time-decaying weights favour recent data. "We compute the per-signal leaderboards separately, then average them at the end" (weights not stated). Signals:
-  - *Confirmed Success (task_outcome_explicit)*: share of tasks where the user explicitly answers yes to "Did this complete your task?".
-  - *Praise vs Complaint*: task succeeds if unprompted praise outnumbers complaints; ties/no sentiment not scored.
-  - *Steerability*: how much user correction each assistant turn needs (None/Low/High); less steering is better (the dataset score is a net improvement where higher = better).
-  - *Bash Reliability*: share of agent-caused bash failures (mistyped flags, bugs in its own scripts); outside errors exempt. Replaced *Bash Recovery* on Oct 12, 2026 — the `agent_bash_recovery_steps` config is the retired signal, last published 2026-10-08, included for reference only.
-  - *Tool Hallucination*: calls to tools not registered in the agent's toolset, or claims of capabilities it lacks.
-  - Aggregate config also has `session_count`, `cost_per_task_p50` and `output_tokens_per_task_p50`. Methodology says realised per-session cost is used "to assess Pareto optimality" and that some models cost more in practice than list price suggests. The **currency/unit of cost_per_task_p50 is not stated anywhere I could read**, so `cost_per_task_usd` is null; the raw value is in each aggregate row's notes (e.g. Claude Opus 5.5 (Max) 6.305717, GPT-6 Luna (Max) 0.085786).
-- Limitations stated by maintainers: Agent leaderboards currently evaluate orchestrators only; signal set is "a starting point" and may change; signals come from Arena's own harness, so results may not transfer to other agent tools. Pairwise boards reflect preferences of Arena's voting population.
+## New since 2026-11-11 refresh
+- **Gemini 4 Hydrogen (High)** (google): Text SC #15 1490.43 (CI 1481.42-1499.44, 4,741 votes); Text raw #8 1502.12; WebDev #11 1703.90 (2,046 votes); Agent aggregate **#5** 0.1491 (CI 0.1302-0.1679, 8,639 sessions); Steerability #2; Praise #4; Confirmed Success #5; Bash Reliability #46; Tool Hallucination #36. Not on Vision/Search/Document (those boards not republished since 11-09).
+- **Qwen4-Max (xHigh)** (alibaba): WebDev **#6 1749.81** (CI 1734.35-1765.28, 1,814 votes) — consistent with Alibaba's "1750" claim when rounded; Agent aggregate #14 **0.0746** (CI 0.0612-0.0880; displayed on arena.ai as ~7.46%, i.e. consistent with a claimed "7.5"). NOT on the Text board (2026-11-11) nor Vision/Search/Document.
+- Other new Qwen: none besides Qwen4-Max. Qwen3.6-Max-Preview dropped out of the Text top 60 (still in the full board).
+- **Inkling 2 Small**: WebDev #24 1644.68 (1,077 votes); Agent aggregate #23 0.0251; Text SC #152 1411.78 (only in arena_full). (Distinct from older "Inkling" and "Inkling-Small".)
+- **K2 Horizon 375B A23B** and **Ling 3.1 Flash 1019**: NOT found in any downloaded config (searched for Horizon/375B/Ling 3/1019). Only Ling-flash-2.0 (Text SC #236) exists.
+- Also new to the kept rows: Claude Fable 5.2 (Max) (Agent #1, 0.2861), GPT-6.1 Sol (Medium), GPT-6.1 Terra (Medium).
 
-## models.json
-181 records: one per distinct model in the rows kept, with only developer (dataset `organization`, lowercase as listed) and licence. access = "Proprietary API" when licence is "Proprietary", otherwise "Open weights" with the licence name ("Non-commercial" left null). All other fields null — Arena gives no prices/specs.
+## Top 5 (current)
+- Text SC (11-11): Gemini 4 Carbon (High) 1526.18; Gemini 4 Argon (High) 1521.69; Muse Wonder (Max) 1510.86; Claude Opus 5.5 (High) 1506.78; Claude Fable 5 (High) 1503.98.
+- WebDev (11-15): Claude Fable 5.2 (xHigh) 1825.96; Claude Opus 5.5 (Max) 1815.57; Claude Sonnet 5.5 (xHigh) 1772.23; Gemini 4 Carbon (High) 1768.34; GPT-6 Astra (Max) 1762.88.
+- Agent aggregate (11-15): Claude Fable 5.2 (Max) 0.2861; Claude Opus 5.5 (Max) 0.1819; Gemini 4 Carbon (High) 0.1645; Claude Sonnet 5.5 (Max) 0.1529; Gemini 4 Hydrogen (High) 0.1491.
+
+## Live-page check — dataset is NEWER than any page copy I could read
+- curl arena.ai/leaderboard/{text,webdev,agent}: HTTP 403 (Cloudflare challenge). Not bypassed.
+- WebFetch /webdev: failed (client_error).
+- WebFetch /text: returned a table without model names (provider/licence only): #1 Anthropic 1507 ±5 27,189 votes; #2 1505 ±4 72,099; #3 1504 ±11 2,906 ... These match the **2026-09-02** text_style_control snapshot in the `full` split (claude-fable-5 1507.16, 27,189; claude-opus-4-6-high 72,099; claude-fable-5.1-max 2,906) — a stale cache.
+- WebFetch /agent: table without names/headers; session counts 10,551 / 13,168 / 16,374 / 30,489 match the **2026-10-16** agent snapshot (Claude Opus 5.5 (Max), GPT-6 Astra (Max), Claude Fable 5.1 (Max), Gemini 4 Argon (High)) — stale cache. That page shows a cost column formatted in dollars (e.g. "$6.13") and a list-price column ("$4 / $20"), suggesting cost_per_task_p50 is USD, but the full split has no cost values for 2026-10-16 so I could not tie the "$" figure to the dataset column. cost_per_task_usd stays null; raw values remain in aggregate-row notes.
+- So November values come from the dataset only.
 
 ## Not extracted
-Category sub-boards (coding, math, hard_prompts, languages, industries…), text/search factuality boards, image/video arenas (not downloaded / out of scope).
+Category sub-boards, factuality boards, image/video arenas.
 
 ## Facts I am unsure about
-- That the current (Nov 2026) live page shows exactly these numbers — not verifiable (Cloudflare 403).
-- Whether Search and Document default to style control on the site.
-- Unit of `cost_per_task_p50` (very likely USD median per task, but not stated).
-- Agent Tool Hallucination: the top several models share an identical score and CI (0.009222, CI 0.008434–0.010011) — looks like a floor/pooled value; ranks among them are arbitrary.
-- Sign convention of aggregate vs signals beyond "higher rank = better".
-- Dates: the agent page said "Jul 12, 2026" while the matching dataset snapshot is 2026-07-13 (likely timezone/publish lag).
-- Some models have the same name with different variants on different boards (e.g. Qwen3.8-Max vs Qwen3.8-Max (0902) on WebDev; Claude Opus 5.5 (High) on Text vs (Max) on Agent/WebDev) — kept exactly as listed.
+- Whether the live page currently shows these exact numbers (not verifiable).
+- Unit of cost_per_task_p50 (dollar sign seen on stale page copy; not confirmed against the column).
+- Search/Document default view (style control or raw) not stated.
+- Tool Hallucination top ranks share an identical floor value; ranks among them arbitrary.
+- Text board count is still 421 though Gemini 4 Hydrogen was added (some other model presumably removed; not investigated).
