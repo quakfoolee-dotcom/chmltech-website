@@ -1,0 +1,748 @@
+{
+ "slug": "why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers",
+ "volume": 106,
+ "issue": 4,
+ "published": "2026-11-16",
+ "revised": "2026-11-16",
+ "title": "Why the ERP Schedule Fails on the Shop Floor: Finite-Capacity Scheduling Rules for High-Mix Manufacturers",
+ "short_title": "Finite-Capacity Scheduling for High-Mix Manufacturers",
+ "meta": "A shop-floor simulation shows why ERP lead times miss due dates in high-mix plants, and which dispatch and release rules lift on-time delivery from 77% to 92%.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Operational Excellence",
+  "location": "Vancouver, BC, Canada"
+ },
+ "abstract": "Most small and mid-sized manufacturers plan with an ERP system that assumes unlimited capacity and fixed lead times, then run the shop floor first-come, first-served. A discrete-event simulation of a high-mix windows-and-doors plant shows why that combination misses due dates, and which simple scheduling rules fix it. At 82% load on the bottleneck welder, the ERP-style plan delivers 77% of orders on time (±3 points, 95% confidence over 100 simulated years). Its average planned lead time of 7.9 working days is longer than the average actual lead time of 5.7 days: the plan fails on the spread, not the average. Orders spend 75% of their time waiting, mostly in front of the welder. Sequencing the welder queue by modified due date raises on-time delivery to 90%. A load-based release rule that holds orders until the welder can absorb them lifts it to 92%, cuts shop-floor lead time by 31% and absorbs a four-week order spike with a third of the extra late orders of the ERP-style plan. The price is about two very large orders a year more than 20 working days late; capping lateness removes them but gives back 5 to 7 points of on-time delivery. Critical ratio performed worst (66% on time), and strict due-date release improved shop-floor flow but not customer service.",
+ "keywords": [
+  "finite-capacity scheduling",
+  "dispatching rules",
+  "drum-buffer-rope",
+  "workload control",
+  "modified due date",
+  "discrete-event simulation",
+  "high-mix manufacturing",
+  "ERP"
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "Every plant manager knows the scene: the ERP system shows a clean production schedule, while the shop floor runs from a whiteboard, a hot list and the loudest customer's phone call. Orders the system says are on track ship late; orders nobody was watching ship early."
+    },
+    {
+     "p": "The cause is rarely the people or the software licence. It is the planning logic. Material requirements planning (MRP), the engine inside most ERP systems, plans each operation with a fixed lead time and assumes every work centre can take whatever load arrives. That is called infinite-capacity planning [1]. It produces dates that look precise but ignore queues, and queues are where most of an order's time goes."
+    },
+    {
+     "p": "Finite-capacity scheduling closes the gap by deciding, at each machine, which waiting order to run next, and, at the front door, when to release new orders to the floor. Neither decision needs expensive software. This paper tests the common rules on a simulated high-mix plant and answers three practical questions:"
+    },
+    {
+     "list": [
+      "How far does an ERP-style plan drift from reality as the bottleneck gets busier?",
+      "Which sequencing rule should the bottleneck use?",
+      "Does holding orders back before release help, and how big should the buffer be?"
+     ],
+     "ordered": false
+    },
+    {
+     "p": "The plant is a windows-and-doors manufacturer, the same type of business followed in the Chmltech quote-to-cash series [2–4]. This paper covers the step between order entry and shipping: planning and making."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "Why Infinite-Capacity Planning Fails",
+   "blocks": [
+    {
+     "p": "ERP lead times are fixed numbers, but real lead times grow sharply as the bottleneck gets busy, and the spread grows faster than the average."
+    },
+    {
+     "p": "A typical ERP routing gives each operation a planned lead time, often one day, and adds a safety margin. The planned lead time is the same whether the plant is half empty or flooded with orders. Queueing theory says otherwise. Kingman's approximation for the average waiting time W<sub>q</sub> at a single work centre is given by Eq. (1):"
+    },
+    {
+     "tex": "W_q \\approx \\left(\\frac{c_a^{2} + c_s^{2}}{2}\\right)\\left(\\frac{u}{1-u}\\right)t_s",
+     "n": 1
+    },
+    {
+     "p": "Here u is utilization, t<sub>s</sub> is the average effective processing time including setups, and c<sub>a</sub> and c<sub>s</sub> are the coefficients of variation of arrivals and processing times. The formula is exact only for the simplest queue but is a good approximation near saturation [1, 5]. The u/(1 − u) term is the problem: at 50% utilization it equals 1, at 80% it equals 4, and at 90% it equals 9. Variability multiplies it. High-mix shops have plenty of both: orders arrive in clumps when builders release jobs, which raises c<sub>a</sub>, and a two-unit door order and a 30-unit window order share the same machines, which raises c<sub>s</sub>."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-leadtime-vs-load",
+      "caption": "Actual order lead time against welder load, mean and 95th percentile, compared with the average ERP planned lead time of 7.9 working days; 100 runs of 50 measured weeks per load level.",
+      "alt": "Two rising curves against welder load from 53% to 90%: mean lead time from 3.3 to 7.7 days and 95th-percentile lead time from 7.8 to 19.9 days, crossing a flat planned lead time of 7.9 days near 55% load.",
+      "source": ""
+     }
+    },
+    {
+     "p": "Figure 1 draws two lessons. First, the ERP plan is not wrong on average: at 82% welder load, the average order takes 5.7 working days against an average plan of 7.9. Second, the average does not matter to the customer whose order is in the tail. Almost one order in four (23%) takes longer than its planned lead time, and the slowest 5% take 14 days or more. In the simulated plant, an order spends 75% of its time waiting and only 25% being worked on, and 2.8 of its 4.3 waiting days are in front of the welder. Scheduling is the management of that queue."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "The Case: A Windows-and-Doors Plant",
+   "blocks": [
+    {
+     "p": "The plant is a composite built for this paper: a single-shift vinyl window and door maker in the Lower Mainland that takes about 620 orders in a 50-week year, 12.4 a week, from builders, renovators and dealers. One four-head vinyl welder is the bottleneck, loaded to 82%. Table 1 gives the product mix and Table 2 the load on each work centre."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Product families and routings.",
+      "head": [
+       "Product family",
+       "Share of orders",
+       "Average units per order",
+       "Routing"
+      ],
+      "rows": [
+       [
+        "Casement windows",
+        "35%",
+        "10",
+        "Cut, Weld, Clean, Glaze, Assemble, Pack"
+       ],
+       [
+        "Slider windows",
+        "25%",
+        "10",
+        "Cut, Weld, Clean, Glaze, Pack"
+       ],
+       [
+        "Patio doors",
+        "15%",
+        "3",
+        "Cut, CNC, Weld, Clean, Glaze, Assemble, Pack"
+       ],
+       [
+        "Entry doors",
+        "15%",
+        "3",
+        "CNC, Door prep, Glaze, Assemble, Pack"
+       ],
+       [
+        "Custom shapes",
+        "10%",
+        "4",
+        "Cut, CNC, Weld, Clean, Glaze, Assemble, Pack"
+       ]
+      ]
+     }
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Work centre loads.",
+      "head": [
+       "Work centre",
+       "Average load"
+      ],
+      "rows": [
+       [
+        "Weld",
+        "82%"
+       ],
+       [
+        "Glaze",
+        "62%"
+       ],
+       [
+        "Assemble",
+        "61%"
+       ],
+       [
+        "Clean",
+        "46%"
+       ],
+       [
+        "Cut",
+        "41%"
+       ],
+       [
+        "Pack",
+        "28%"
+       ],
+       [
+        "CNC",
+        "23%"
+       ],
+       [
+        "Door prep",
+        "12%"
+       ]
+      ],
+      "note": "Each work centre has one machine or station on a single 40-hour shift."
+     }
+    },
+    {
+     "p": "Three features make the plant high-mix and hard to schedule:"
+    },
+    {
+     "list": [
+      "<strong>Order sizes vary widely.</strong> Units per order follow a geometric distribution, so most orders are small but a few are large. Each operation takes a setup (15 minutes, 24 minutes at the welder) plus a time per unit, with random variation (coefficient of variation 40%). Because order sizes vary so much, total job times at the welder vary far more than that: their squared coefficient of variation is about 1.",
+      "<strong>Orders arrive in clumps.</strong> Builders release several orders at once; on average, orders arrive in groups of two.",
+      "<strong>Not every order uses the bottleneck.</strong> Entry doors skip the welder entirely, so a rule that only watches the welder must still keep doors moving."
+     ],
+     "ordered": false
+    },
+    {
+     "p": "Due dates follow ERP logic: one working day per operation plus two days of margin. A slider window is promised in 7 working days, a patio door in 9. The average promise is 7.9 working days. This rule ignores order size: a 50-window order gets the same promise as a 5-window order of the same type."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Simulation Method and the Rules Tested",
+   "blocks": [
+    {
+     "p": "A discrete-event simulation follows every order through every work centre, so queues, clumped arrivals and order interactions emerge on their own rather than being assumed."
+    },
+    {
+     "p": "Each run simulates 68 weeks: a 10-week warm-up, 50 measured weeks, and 8 weeks to let the last measured orders finish. Each configuration is run 100 times with different random seeds, so every result is an average over 100 simulated years. Every rule sees exactly the same orders in the same run, which isolates the effect of the rule from luck. On time means an order finishes on or before its promised date. On-time rates are reported with 95% confidence intervals across runs, and percentiles are taken over all orders from all runs."
+    },
+    {
+     "p": "Two kinds of decision are tested. <strong>Dispatching rules</strong> choose which waiting order a work centre runs next [6]. Table 3 lists the five tested."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Dispatching rules tested.",
+      "head": [
+       "Rule",
+       "Picks the order with",
+       "Common in practice because"
+      ],
+      "rows": [
+       [
+        "First in, first out (FIFO)",
+        "The earliest arrival at the queue",
+        "It feels fair; it is how most shop floors run by default"
+       ],
+       [
+        "Earliest due date (EDD)",
+        "The earliest promised date",
+        "It is the obvious due-date rule"
+       ],
+       [
+        "Critical ratio (CR)",
+        "The lowest ratio of time left to work left",
+        "Several ERP packages offer it as a standard priority option"
+       ],
+       [
+        "Shortest processing time (SPT)",
+        "The shortest current operation",
+        "It clears the most orders fastest"
+       ],
+       [
+        "Modified due date (MDD)",
+        "The lowest of max(due date, now + remaining work)",
+        "It blends EDD and shortest remaining work"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "Modified due date was introduced by Baker and Bertrand [7] and extended to job shops by Baker and Kanet [8]. This paper uses the job-based version, in which remaining work is all the processing the order still needs. For an order that is not yet urgent, its priority is its due date. Once an order can no longer finish by its due date, its priority becomes the time it could finish, so late orders with little work left go first. The rule therefore behaves like EDD in calm periods and like shortest remaining work in a crisis."
+    },
+    {
+     "p": "<strong>Release rules</strong> decide when an order leaves the office for the floor:"
+    },
+    {
+     "list": [
+      "<strong>Push (ERP default).</strong> Every order is released the moment it is entered.",
+      "<strong>Strict drum-buffer-rope (DBR).</strong> Orders wait in an office pool, sorted by due date. The next order is released only when the welding work already on the floor is below a buffer, measured in hours of welder work. Orders that skip the welder are released at once.",
+      "<strong>Load-based release.</strong> The same buffer, but if the next order is too large to fit, a smaller one behind it that does fit may go first. This is a simple load-limited release in the spirit of workload control [9]."
+     ],
+     "ordered": false
+    },
+    {
+     "p": "The Appendix gives a short Python version of the model."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Results: Which Dispatching Rule Wins",
+   "blocks": [
+    {
+     "p": "Shortest processing time and modified due date ship the most orders on time, 93% to 94%, and MDD at the welder alone gets 90% (Figure 2). Both leave a handful of very large orders badly late, a price Section 5.1 sets out."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-ontime-by-rule",
+      "caption": "Share of orders delivered on time by dispatching rule under push release, with 95% confidence intervals; 100 runs of 50 measured weeks.",
+      "alt": "Horizontal bars of on-time delivery: critical ratio 66%, FIFO and EDD 77%, MDD at the welder only 90%, MDD at all work centres 93% and SPT 94%.",
+      "source": ""
+     }
+    },
+    {
+     "table": {
+      "n": 4,
+      "caption": "Lead time and lateness by dispatching rule, push release.",
+      "head": [
+       "Rule",
+       "Mean lead time (working days)",
+       "95th-percentile lead time (days)",
+       "Mean tardiness per order (days)",
+       "Lateness of the worst 1% (days)",
+       "Orders more than 20 days late, per year"
+      ],
+      "rows": [
+       [
+        "FIFO",
+        "5.7",
+        "14.1",
+        "0.9",
+        "11.5",
+        "0.1"
+       ],
+       [
+        "EDD",
+        "5.8",
+        "14.1",
+        "0.9",
+        "11.6",
+        "0.1"
+       ],
+       [
+        "Critical ratio",
+        "6.2",
+        "12.6",
+        "0.8",
+        "8.7",
+        "0.5"
+       ],
+       [
+        "SPT",
+        "3.6",
+        "9.1",
+        "0.5",
+        "12.2",
+        "3.2"
+       ],
+       [
+        "MDD, all work centres",
+        "5.0",
+        "8.9",
+        "0.3",
+        "6.4",
+        "2.0"
+       ],
+       [
+        "MDD at the welder only",
+        "5.0",
+        "9.4",
+        "0.3",
+        "6.1",
+        "2.0"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "Table 4 and Figure 2 give four findings:"
+    },
+    {
+     "list": [
+      "<strong>EDD and FIFO are statistically identical here</strong> (difference −0.04 ± 0.26 points). That is a property of this plant, not of EDD in general: promise dates depend only on the number of operations, so within a product type EDD ranks orders much as FIFO does. Planners who sort an ERP dispatch list by due date under such a rule gain little.",
+      "<strong>Critical ratio is the worst rule tested,</strong> 10.5 ± 0.7 points below FIFO. Because the promise ignores order size, a large order has the least time per hour of remaining work, so it gets the lowest ratio and jumps the welder queue while many small orders miss. Published results on CR are mixed, and Baker and Kanet found modified due date rules better on tardiness [8]; CR's failure here reflects the size-blind promise.",
+      "<strong>SPT and MDD lead on the count.</strong> SPT ships 0.9 ± 0.6 points more orders on time than MDD and cuts mean lead time by a third. MDD keeps the worst 1% of orders about half as late as FIFO or SPT.",
+      "<strong>The bottleneck carries most of the benefit.</strong> MDD at the welder only, with FIFO everywhere else, adds 12.8 ± 1.9 points over FIFO. Using it at every work centre adds another 3.2 ± 0.5."
+     ],
+     "ordered": false
+    },
+    {
+     "h3": "5.1 The price: a few very large orders"
+    },
+    {
+     "p": "The high-performing rules buy their on-time rate partly at the expense of the largest orders. Under SPT and MDD, about two to three orders a year finish more than 20 working days late, and the worst order in a typical year is 37 to 41 days late. Under FIFO, the worst order in a typical year is about 8 days late."
+    },
+    {
+     "p": "The mechanism is simple. Once a large order is late, MDD ranks it by when it could finish, which is far off because it needs many hours of work. In busy weeks there is always another order close to its due date that can still be saved, so the large order keeps losing its turn. The affected orders are rare, under 0.5% of the total, but they are often a builder's biggest job. Splitting large orders into batches of 20 units did not remove the effect in the simulation."
+    },
+    {
+     "p": "A lateness cap removes the extremes: once an order is 10 working days late, it goes to the front of the welder queue, and no order waits in the release pool for more than 10 days. Table 5 shows the cost."
+    },
+    {
+     "table": {
+      "n": 5,
+      "caption": "Effect of a lateness cap on the worst orders.",
+      "head": [
+       "Option",
+       "On time",
+       "Orders more than 10 days late, per year",
+       "Orders more than 20 days late, per year",
+       "Worst order in a typical year (days late)"
+      ],
+      "rows": [
+       [
+        "FIFO (ERP default)",
+        "76.7%",
+        "10.7",
+        "0.1",
+        "8"
+       ],
+       [
+        "MDD at the welder",
+        "89.5%",
+        "4.2",
+        "2.0",
+        "38"
+       ],
+       [
+        "MDD at the welder, with lateness cap",
+        "84.6%",
+        "12.0",
+        "0.2",
+        "15"
+       ],
+       [
+        "Load-based release, MDD at the welder",
+        "92.3%",
+        "5.8",
+        "2.6",
+        "40"
+       ],
+       [
+        "Load-based release, MDD at the welder, with caps",
+        "85.5%",
+        "10.8",
+        "0.2",
+        "13"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "The cap gives back 5 to 7 points of on-time delivery and creates more orders that are moderately late. The better answer in practice is to treat these orders as exceptions: review every order more than five days late once a week, and quote large orders by their workload rather than by the routing, since the size-blind ERP promise is what makes them late in the first place [10]."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Controlling Release: Drum-Buffer-Rope and Load-Based Release",
+   "blocks": [
+    {
+     "p": "Holding orders in the office until the welder can absorb them shortens the time orders spend on the floor by about a third. It improves on-time delivery only when the release rule lets smaller orders through first."
+    },
+    {
+     "p": "Drum-buffer-rope comes from the Theory of Constraints. Its ideas appear in <em>The Goal</em> [11]; it was named and formalised later [12, 13]. The bottleneck is the drum that sets the pace, a time buffer of work protects it from starving, and a rope ties order release to the drum so that work does not pile up on the floor. Table 6 compares the release options."
+    },
+    {
+     "table": {
+      "n": 6,
+      "caption": "Release options with a buffer of 24 welder hours.",
+      "head": [
+       "Release and sequencing",
+       "On time",
+       "Mean lead time from order entry (days)",
+       "Mean time on the shop floor (days)",
+       "95th-percentile lead time (days)"
+      ],
+      "rows": [
+       [
+        "Push, FIFO (ERP default)",
+        "76.7%",
+        "5.7",
+        "5.7",
+        "14.1"
+       ],
+       [
+        "Strict DBR, FIFO",
+        "72.3%",
+        "6.4",
+        "3.8",
+        "17.0"
+       ],
+       [
+        "Load-based release, FIFO",
+        "92.0%",
+        "4.6",
+        "3.8",
+        "9.6"
+       ],
+       [
+        "Load-based release, MDD at the welder",
+        "92.3%",
+        "4.8",
+        "3.9",
+        "9.3"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "Strict DBR does what its theory promises on the floor: shop-floor time falls from 5.7 to 3.8 days, which means less clutter, less handling damage and faster quality feedback. Customers do not see it, though. The waiting has only moved from the welder queue into the office pool, and on-time delivery falls by 4.4 ± 0.8 points. The workload-control literature reports the same effect: release control can shorten shop-floor time without shortening total lead time [14, 15]."
+    },
+    {
+     "p": "Load-based release adds one freedom: when the next order is too large to fit under the buffer, a smaller order behind it may go first. That change acts like SPT at the front door and lifts on-time delivery to 92%, even with FIFO on the floor. That is 2.7 ± 0.7 points better than MDD at the welder alone, the best single dispatching change. Adding MDD at the welder on top of load-based release makes no measurable difference to the on-time rate (+0.2 ± 0.4 points) and trims the worst 1% slightly. The gate does the work, and it shares SPT's weakness: the largest orders wait longest in the pool, as the literature warns [15]. Sequencing the pool by planned release date is the literature's remedy [16]."
+    },
+    {
+     "h3": "6.1 How big should the buffer be?"
+    },
+    {
+     "p": "A buffer that is too small starves the welder (Figure 3): at 8 welder hours, one day of work, on-time delivery collapses under both release rules, because the welder sits idle while orders wait in the office. The load-based rule is on a flat top of 92% between 20 and 28 hours, about three days of welder work; the differences inside that range are within simulation noise. Larger buffers slowly hand back both the on-time gain and the shop-floor gain. As a starting rule, the buffer can be set at about three days of bottleneck work, then tuned by watching whether the bottleneck ever runs out of work."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-buffer-sweep",
+      "caption": "On-time delivery against buffer size for strict DBR and load-based release, with the ERP default for comparison; 100 runs per buffer size.",
+      "alt": "Two lines against buffer size from 8 to 64 welder hours: load-based release rises from 66% to a flat top of 92% between 20 and 28 hours, then eases to 90%; strict DBR rises from 24% to 77%; a dashed ERP default line sits at 77%.",
+      "source": ""
+     }
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Stress Tests: An Order Spike and a Welder Breakdown",
+   "blocks": [
+    {
+     "p": "Load-based release with MDD at the welder absorbs disruptions with a quarter to a third of the extra late orders of the ERP-style plan."
+    },
+    {
+     "p": "Two disruptions were added in week 20 of each run: a four-week spike in which orders arrive 40% faster, typical of a spring building season, and a separate two-day welder breakdown. Table 7 counts late orders among those entered in the ten weeks from week 20, averaged over 100 runs, with 95% confidence intervals on the difference."
+    },
+    {
+     "table": {
+      "n": 7,
+      "caption": "Late orders after a disruption.",
+      "head": [
+       "Scenario",
+       "Late orders, ERP default (push, FIFO)",
+       "Late orders, load-based release with MDD at the welder",
+       "Extra late orders caused by the event: ERP default vs recommended"
+      ],
+      "rows": [
+       [
+        "No disruption",
+        "32.6",
+        "9.7",
+        "—"
+       ],
+       [
+        "Two-day welder breakdown",
+        "39.3",
+        "11.2",
+        "+6.7 vs +1.5 (difference 5.2 ± 2.6)"
+       ],
+       [
+        "Four-week order spike (+40%)",
+        "65.5",
+        "20.7",
+        "+32.8 vs +11.0 (difference 21.8 ± 4.8)"
+       ]
+      ]
+     }
+    },
+    {
+     "fig": {
+      "n": 4,
+      "id": "fig4-spike-weekly",
+      "caption": "Weekly on-time delivery by week of order entry through a four-week order spike, ERP default against load-based release (24 welder hours) with MDD at the welder; mean of 100 runs.",
+      "alt": "Two weekly lines through a shaded four-week spike starting in week 20: the ERP default falls from about 80% to 39% and is still near 66% nine weeks later; the recommended rules dip to about 83% and recover to 90% by week 33.",
+      "source": ""
+     }
+    },
+    {
+     "p": "The spike shows the difference most clearly (Figure 4). Under the ERP default, on-time delivery falls from about 80% to 39% for orders entered in the week after the spike ends, and is still near 66% nine weeks later: every new order joins the back of a long welder queue. Under the recommended rules, it bottoms out near 83% and is back at 90% by week 33, against a normal level of about 92%. MDD pulls short, recoverable orders through first, and the load-based gate keeps the floor from flooding."
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "Implementation Guide for SMEs",
+   "blocks": [
+    {
+     "p": "A plant can apply these results in five steps over about two months, using its existing ERP data and a spreadsheet; scheduling software is optional."
+    },
+    {
+     "list": [
+      "<strong>Find the real bottleneck (weeks 1 to 2).</strong> Compare each work centre's planned hours with its available hours over the last three months, then walk the floor: the bottleneck is where work waits. It is not always the most expensive machine, and it can move with the product mix.",
+      "<strong>Change the bottleneck's sequence (week 3).</strong> Replace FIFO or the ERP due-date sort at the bottleneck with modified due date. In a spreadsheet: for each waiting order, take the later of its due date and today plus its remaining hours converted to days; run the earliest first. Leave other work centres on FIFO.",
+      "<strong>Gate the release (weeks 4 to 6).</strong> Keep new orders in an office pool. Each morning, release orders until the bottleneck work on the floor reaches about three days. Allow a smaller order to go ahead of a large one that does not fit. CONWIP, a simple cap on the number of orders on the floor, is a workable alternative where bottleneck hours are hard to estimate [17].",
+      "<strong>Manage the large late orders by exception (from week 4).</strong> Once a week, review every order more than five days late and decide how to recover it: expedite it, split it or renegotiate the date. An automatic cap also works but, in the simulation, costs 5 to 7 points of on-time delivery.",
+      "<strong>Quote from the queue and the workload, not the routing (weeks 6 to 8).</strong> Replace fixed ERP lead times with the current bottleneck backlog plus the order's own work content and a margin. When the queue is long or the order is large, quote longer; customers prefer an honest date to a missed one. Due-date setting can matter as much as sequencing [10]."
+     ],
+     "ordered": true
+    },
+    {
+     "h3": "8.1 What to measure"
+    },
+    {
+     "p": "Table 8 lists the five measures that show whether the new rules are working."
+    },
+    {
+     "table": {
+      "n": 8,
+      "caption": "Measures to track.",
+      "head": [
+       "Measure",
+       "Why it matters",
+       "Target direction"
+      ],
+      "rows": [
+       [
+        "On-time delivery to promised date",
+        "What customers feel",
+        "Up, toward 90% to 95%"
+       ],
+       [
+        "Bottleneck idle hours with work in the plant",
+        "A starved bottleneck means the buffer is too small",
+        "Near zero"
+       ],
+       [
+        "Hours of bottleneck work on the floor",
+        "The rope; it shows whether release is controlled",
+        "Inside the buffer band"
+       ],
+       [
+        "Lateness of the worst 5% of orders",
+        "Catches rules that starve large orders",
+        "Down"
+       ],
+       [
+        "Shop-floor lead time",
+        "Shows clutter and work in progress",
+        "Down"
+       ]
+      ]
+     }
+    },
+    {
+     "h3": "8.2 Pitfalls"
+    },
+    {
+     "list": [
+      "<strong>Expediting around the rules.</strong> A hot list that jumps the bottleneck queue every day undoes any rule. Real priorities belong in the due dates instead.",
+      "<strong>Gating orders that skip the bottleneck.</strong> Entry doors in this plant never touch the welder; holding them back only makes them late.",
+      "<strong>Running the bottleneck below capacity to protect a schedule.</strong> Lost bottleneck hours are lost plant output. Breaks and shift changes at the bottleneck should be covered first.",
+      "<strong>Trusting a packaged rule untested.</strong> Critical ratio performed worst in this plant, where promise dates ignore order size. Any rule should be tested against the plant's own order history first.",
+      "<strong>Watching only the average.</strong> SPT, MDD and load-based release all raise the on-time rate while leaving a few large orders weeks late. The worst orders need tracking, not just the percentage.",
+      "<strong>Ignoring load.</strong> Dispatching rules redistribute waiting; they cannot remove it. Above about 90% bottleneck load, every rule's worst orders run weeks late, and the answer is more capacity, fewer orders accepted or longer quotes. Figure 1 shows how fast lead times climb."
+     ],
+     "ordered": false
+    }
+   ]
+  },
+  {
+   "num": "9",
+   "title": "Conclusions",
+   "blocks": [
+    {
+     "p": "The ERP schedule fails on the shop floor because it plans fixed lead times while real lead times are queues, and the queue at one bottleneck decides most due dates."
+    },
+    {
+     "list": [
+      "In the simulated windows-and-doors plant at 82% bottleneck load, the ERP-style plan shipped 77% of orders on time, although its average planned lead time was longer than the average actual lead time. The misses come from the spread: the slowest 5% of orders took 14 days or more against a promise of about 8.",
+      "Sorting by due date (EDD) did exactly as well as first-come, first-served in this plant, and critical ratio did markedly worse.",
+      "Modified due date at the welder alone raised on-time delivery to 90%. Load-based release with a buffer of about three days of welder work reached 92% and cut shop-floor lead time by 31%.",
+      "Release control by itself is not enough. Strict due-date release shortened shop-floor time but lowered on-time delivery; the gain comes from letting smaller orders through first, at the gate or at the bottleneck.",
+      "The size-aware rules leave about two very large orders a year more than 20 days late. Capping lateness removes them at a cost of 5 to 7 points of on-time delivery; managing them by exception and quoting large orders realistically is the better fix.",
+      "The recommended rules cut the extra late orders caused by a four-week spike by two thirds, and those caused by a two-day breakdown by three quarters."
+     ],
+     "ordered": false
+    },
+    {
+     "p": "The results come from one composite plant, and the levels will differ elsewhere. The model leaves out sequence-dependent setups at the welder (profile and colour changes), bottlenecks that shift with the product mix, and the finite-capacity planning software that many vendors sell. It also shows how much of the problem comes from clumped order arrivals: with orders arriving one at a time, FIFO alone reaches about 91% on time. The direction of the findings agrees with decades of simulation research [8, 18]: find the bottleneck, sequence it with a rule that respects both due dates and job size, release work at the pace the bottleneck can absorb, and watch the largest orders. A plant can test all of it on its own data with the code in the Appendix before changing anything on the floor."
+    }
+   ]
+  },
+  {
+   "num": "10",
+   "title": "Appendix: Python Code",
+   "blocks": [
+    {
+     "p": "The compact model below reproduces the paper's main results exactly with the same 100 random seeds: FIFO 76.7% on time, critical ratio 66.3%, MDD at the welder only 89.5%, and load-based release with MDD at the welder 92.3%. It runs in about 12 seconds. Individual sets of 20 seeds vary by several points (FIFO ranges from about 72% to 79%), which is why the paper uses 100."
+    },
+    {
+     "code": "\"\"\"Finite-capacity job-shop simulation - Chmltech Online Journal (compact version).\"\"\"\nimport heapq\nimport numpy as np\n\nHPW = 40.0                                   # working hours per week\nMACHINES = {'Cut': 1, 'CNC': 1, 'Weld': 1, 'Clean': 1, 'Glaze': 1,\n            'Assemble': 1, 'DoorPrep': 1, 'Pack': 1}\nSETUP = {'Weld': 0.4}                        # hours; other centres 0.25\nFAMILIES = {  # share, mean units/order, routing (centre, hours per unit)\n    'Casement': (.35, 10, [('Cut', .15), ('Weld', .30), ('Clean', .18), ('Glaze', .20), ('Assemble', .25), ('Pack', .08)]),\n    'Slider':   (.25, 10, [('Cut', .12), ('Weld', .25), ('Clean', .15), ('Glaze', .18), ('Pack', .06)]),\n    'Patio':    (.15, 3,  [('Cut', .30), ('CNC', .40), ('Weld', .60), ('Clean', .25), ('Glaze', .50), ('Assemble', .60), ('Pack', .15)]),\n    'Entry':    (.15, 3,  [('CNC', .50), ('DoorPrep', .80), ('Glaze', .30), ('Assemble', .70), ('Pack', .15)]),\n    'Custom':   (.10, 4,  [('Cut', .40), ('CNC', .60), ('Weld', .90), ('Clean', .40), ('Glaze', .60), ('Assemble', .80), ('Pack', .20)]),\n}\nNAMES = list(FAMILIES)\nSHARE = [FAMILIES[f][0] for f in NAMES]\n\n\ndef make_orders(seed, per_week=12.4, weeks=68, cv=0.4, group=2.0):\n    r = np.random.default_rng(seed)\n    s2 = np.log(1 + cv**2)\n    orders, t = [], 0.0\n    while True:\n        t += r.exponential(HPW * group / per_week)      # clumped arrivals\n        if t > weeks * HPW:\n            return orders\n        for _ in range(r.geometric(1 / group)):\n            share, mean_units, route = FAMILIES[NAMES[r.choice(5, p=SHARE)]]\n            n = r.geometric(1 / mean_units)\n            ops = [(c, (SETUP.get(c, .25) + n * u) * r.lognormal(-s2 / 2, np.sqrt(s2)))\n                   for c, u in route]\n            due = t + (len(ops) + 2) * 8                # ERP: 1 day per op + 2 days\n            orders.append(dict(arr=t, due=due, ops=ops, k=0, done=None))\n\n\ndef simulate(orders, rule='FIFO', gate=None, bn_only=False):\n    \"\"\"rule: FIFO, EDD, SPT, CR, MDD. gate: buffer in welder hours (load-based release) or None.\"\"\"\n    events, seq = [], 0\n    busy = {c: 0 for c in MACHINES}\n    queue = {c: [] for c in MACHINES}\n    pool, weld_on_floor = [], 0.0\n\n    def push(t, kind, o):\n        nonlocal seq\n        heapq.heappush(events, (t, seq, kind, o))\n        seq += 1\n\n    def priority(o, centre, now):\n        r_ = rule if (not bn_only or centre == 'Weld') else 'FIFO'\n        rem = sum(p for _, p in o['ops'][o['k']:])\n        if r_ == 'EDD': return o['due']\n        if r_ == 'SPT': return o['ops'][o['k']][1]\n        if r_ == 'CR':  return (o['due'] - now) / rem\n        if r_ == 'MDD': return max(o['due'], now + rem)\n        return o['q_in']                                # FIFO\n\n    def start(centre, now):\n        while queue[centre] and busy[centre] < MACHINES[centre]:\n            o = min(queue[centre], key=lambda x: priority(x, centre, now))\n            queue[centre].remove(o)\n            busy[centre] += 1\n            push(now + o['ops'][o['k']][1], 'finish', o)\n\n    def enter(o, now):\n        o['q_in'] = now\n        queue[o['ops'][o['k']][0]].append(o)\n        start(o['ops'][o['k']][0], now)\n\n    def weld_hours(o):\n        return sum(p for c, p in o['ops'][o['k']:] if c == 'Weld')\n\n    def release(now):\n        nonlocal weld_on_floor\n        pool.sort(key=lambda o: o['due'])\n        for o in list(pool):\n            w = weld_hours(o)\n            if w == 0 or weld_on_floor < 1e-6 or weld_on_floor + w <= gate:\n                pool.remove(o)\n                weld_on_floor += w\n                enter(o, now)\n\n    for o in orders:\n        push(o['arr'], 'arrive', o)\n    while events:\n        now, _, kind, o = heapq.heappop(events)\n        if kind == 'arrive':\n            if gate is None:\n                enter(o, now)\n            else:\n                pool.append(o)\n                release(now)\n            continue\n        centre = o['ops'][o['k']][0]\n        busy[centre] -= 1\n        if centre == 'Weld':\n            weld_on_floor -= o['ops'][o['k']][1]\n        o['k'] += 1\n        if o['k'] < len(o['ops']):\n            enter(o, now)\n        else:\n            o['done'] = now\n        start(centre, now)\n        if gate is not None:\n            release(now)\n    measured = [o for o in orders if 10 * HPW <= o['arr'] < 60 * HPW]\n    on_time = np.mean([o['done'] <= o['due'] for o in measured]) * 100\n    lead = np.mean([(o['done'] - o['arr']) / 8 for o in measured])\n    return on_time, lead\n\n\nfor label, kw in [('FIFO (ERP push)', dict(rule='FIFO')),\n                  ('Critical ratio', dict(rule='CR')),\n                  ('MDD at welder only', dict(rule='MDD', bn_only=True)),\n                  ('Load-based release + MDD at welder', dict(rule='MDD', bn_only=True, gate=24))]:\n    res = [simulate(make_orders(seed), **kw) for seed in range(1000, 1100)]\n    print(f\"{label:36s} on time {np.mean([r[0] for r in res]):5.1f}%   \"\n          f\"mean lead time {np.mean([r[1] for r in res]):4.1f} days\")",
+     "caption": "Compact finite-capacity job-shop simulation with FIFO, critical ratio, MDD and load-based release (Python 3 with NumPy)."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Hopp, W. J., &amp; Spearman, M. L. (2008). <em>Factory physics</em> (3rd ed.). McGraw-Hill/Irwin.",
+   "url": "https://search.worldcat.org/search?q=Hopp+Spearman+Factory+Physics+3rd+edition"
+  },
+  {
+   "text": "Lee, Q. F. (2026). The quote-to-cash process in manufacturing (Part 1 of the quote-to-cash series). <em>Chmltech Insights</em>.",
+   "url": "https://www.chmltech.com/post/quote-to-cash-process-in-manufacturing.html"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Quote-to-cash simulation: Run a window factory in 3D (Part 2 of the quote-to-cash series). <em>Chmltech Insights</em>.",
+   "url": "https://www.chmltech.com/post/quote-to-cash-simulation-run-a-window-factory-in-3d.html"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Shorten quote to cash: What to fix first and the payback (Part 3 of the quote-to-cash series). <em>Chmltech Insights</em>.",
+   "url": "https://www.chmltech.com/post/shorten-quote-to-cash-what-to-fix-first.html"
+  },
+  {
+   "text": "Kingman, J. F. C. (1961). The single server queue in heavy traffic. <em>Proceedings of the Cambridge Philosophical Society</em>, 57(4), 902–904.",
+   "url": "https://doi.org/10.1017/S0305004100036094"
+  },
+  {
+   "text": "Pinedo, M. L. (2016). <em>Scheduling: Theory, algorithms, and systems</em> (5th ed.). Springer.",
+   "url": "https://doi.org/10.1007/978-3-319-26580-3"
+  },
+  {
+   "text": "Baker, K. R., &amp; Bertrand, J. W. M. (1982). A dynamic priority rule for scheduling against due-dates. <em>Journal of Operations Management</em>, 3(1), 37–42.",
+   "url": "https://doi.org/10.1016/0272-6963(82)90020-1"
+  },
+  {
+   "text": "Baker, K. R., &amp; Kanet, J. J. (1983). Job shop scheduling with modified due dates. <em>Journal of Operations Management</em>, 4(1), 11–22.",
+   "url": "https://doi.org/10.1016/0272-6963(83)90022-0"
+  },
+  {
+   "text": "Thürer, M., Stevenson, M., Silva, C., Land, M. J., &amp; Fredendall, L. D. (2012). Workload control and order release: A lean solution for make-to-order companies. <em>Production and Operations Management</em>, 21(5), 939–953.",
+   "url": "https://doi.org/10.1111/j.1937-5956.2011.01307.x"
+  },
+  {
+   "text": "Wein, L. M. (1991). Due-date setting and priority sequencing in a multiclass M/G/1 queue. <em>Management Science</em>, 37(7), 834–850.",
+   "url": "https://doi.org/10.1287/mnsc.37.7.834"
+  },
+  {
+   "text": "Goldratt, E. M., &amp; Cox, J. (1984). <em>The goal</em>. North River Press. (3rd rev. ed., 2004, <em>The goal: A process of ongoing improvement</em>.)",
+   "url": "https://search.worldcat.org/search?q=Goldratt+Cox+The+Goal+process+of+ongoing+improvement"
+  },
+  {
+   "text": "Goldratt, E. M., &amp; Fox, R. E. (1986). <em>The race</em>. North River Press.",
+   "url": "https://search.worldcat.org/search?q=Goldratt+Fox+The+Race+1986"
+  },
+  {
+   "text": "Schragenheim, E., &amp; Ronen, B. (1990). Drum-buffer-rope shop floor control. <em>Production and Inventory Management Journal</em>, 31, 18–23.",
+   "url": "https://search.worldcat.org/search?q=Schragenheim+Ronen+Drum-buffer-rope+shop+floor+control"
+  },
+  {
+   "text": "Land, M. J. (2006). Parameters and sensitivity in workload control. <em>International Journal of Production Economics</em>, 104(2), 625–638.",
+   "url": "https://doi.org/10.1016/j.ijpe.2005.03.001"
+  },
+  {
+   "text": "Thürer, M., Silva, C., &amp; Stevenson, M. (2010). Workload control release mechanisms: From practice back to theory building. <em>International Journal of Production Research</em>, 48(12), 3593–3617.",
+   "url": "https://doi.org/10.1080/00207540902922810"
+  },
+  {
+   "text": "Thürer, M., Land, M. J., Stevenson, M., Fredendall, L. D., &amp; Godinho Filho, M. (2015). Concerning workload control and order release: The pre-shop pool sequencing decision. <em>Production and Operations Management</em>, 24(7), 1179–1192.",
+   "url": "https://doi.org/10.1111/poms.12304"
+  },
+  {
+   "text": "Spearman, M. L., Woodruff, D. L., &amp; Hopp, W. J. (1990). CONWIP: A pull alternative to kanban. <em>International Journal of Production Research</em>, 28(5), 879–894.",
+   "url": "https://doi.org/10.1080/00207549008942761"
+  },
+  {
+   "text": "Ramasesh, R. (1990). Dynamic job shop scheduling: A survey of simulation research. <em>Omega</em>, 18(1), 43–57.",
+   "url": "https://doi.org/10.1016/0305-0483(90)90017-4"
+  }
+ ],
+ "corrections": []
+}

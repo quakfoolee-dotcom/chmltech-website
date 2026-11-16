@@ -18,6 +18,8 @@ import add_article as aa
 
 SITE = "https://www.chmltech.com"
 SHELL = "multi-agent-ai-systems-architectures-coordination-and-failure-modes"   # an existing journal page used as the shell
+from seo_titles import POST_TITLES
+SEO_TITLE = POST_TITLES[SHELL]   # the shell's <title> and og:title carry its short search title (V5.41 fix: new papers inherited it)
 E = lambda s: html.escape(s, quote=True)
 rd, wr = aa.rd, aa.wr
 
@@ -43,7 +45,7 @@ def main():
     listing = rd("insights.html")
 
     def sub_page(path, title, desc, body):
-        h = head.replace(E(old_title), E(title)).replace(old_title, E(title)).replace(E(old["meta"]), desc).replace(old["meta"], desc).replace(SHELL, slug)
+        h = head.replace(E(SEO_TITLE), E(title)).replace(E(old_title), E(title)).replace(old_title, E(title)).replace(E(old["meta"]), desc).replace(old["meta"], desc).replace(SHELL, slug)
         # page links in the body are written root-relative; this page lives in post/, so they need "../" (V4.63 fix:
         # the breadcrumb Home / Insights / Chmltech Online Journal links went to post/index.html and gave a 404)
         body = re.sub(r'href="(?!\.\./|https?:|#|mailto:|/)([A-Za-z0-9_-]+\.html[^"]*)"', r'href="../\1"', body)

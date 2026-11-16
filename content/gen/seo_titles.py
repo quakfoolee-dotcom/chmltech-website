@@ -100,4 +100,9 @@ POST_TITLES = {
     "what-are-the-core-values-of-process-improvement-part-i": "The Core Values of Process Improvement",
     "what-is-technical-seo-basics-and-10-best-practices": "Technical SEO: 10 Best Practices for Small Businesses",
     "what-oee-losses-cost": "What OEE Losses Cost: Downtime, Speed and Scrap",
+    # Vol. 106 journal papers (V5.41: Issues 1-2 had inherited the shell page's title)
+    "multi-agent-ai-orchestration-architectures-five-coordination-models-compared": "Multi-Agent AI Orchestration: Five Models Compared",
+    "research-analyze-draft-review-finalize-engineering-a-reliable-five-agent-ai-workflow": "Engineering a Reliable Five-Agent AI Workflow",
+    "beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation": "Setting Safety Stock with Monte Carlo Simulation",
+    "why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers": "Finite-Capacity Scheduling for High-Mix Manufacturers",
 }

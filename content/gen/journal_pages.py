@@ -1,5 +1,5 @@
 """Chmltech Online Journal papers in research-paper format (V4.12). Content: journal/<slug>.json (see journal/SPEC.md)."""
-import datetime, glob, json, os, re
+import datetime, glob, html, json, os, re
 import assetver
 
 SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "journal")
@@ -69,6 +69,9 @@ TOPIC = {
     # Volume 106: Multi-Agent AI Engineering series
     "multi-agent-ai-orchestration-architectures-five-coordination-models-compared": "artificial-intelligence",
     "research-analyze-draft-review-finalize-engineering-a-reliable-five-agent-ai-workflow": "artificial-intelligence",
+    # Volume 106, Issues 3-4: operations papers (V5.41)
+    "beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation": ["operational-efficiency", "inventory-management"],
+    "why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers": ["operational-efficiency", "erp"],
 }
 
 
@@ -139,6 +142,11 @@ def render_blocks(blocks, esc_ok, slug=""):
         if "p" in b: h += f"<p>{b['p']}</p>"
         elif "h3" in b: h += f"<h3>{b['h3']}</h3>"
         elif "eq" in b: h += f'<div class="j-eq" role="math"><span class="j-eq-body">{b["eq"]}</span><span class="j-eq-n">({b["n"]})</span></div>'
+        elif "tex" in b:   # LaTeX display equation, typeset by KaTeX (V5.41); the page loads KaTeX only when a paper has one
+            h += f'<div class="j-eq j-tex" role="math"><span class="j-eq-body">\\[{html.escape(b["tex"], quote=False)}\\]</span><span class="j-eq-n">({b["n"]})</span></div>'
+        elif "code" in b:  # program listing (V5.41); square brackets are escaped so link_citations() leaves them alone
+            c = html.escape(b["code"], quote=False).replace("[", "&#91;").replace("]", "&#93;")
+            h += f'<figure class="j-code">' + (f'<figcaption>{b["caption"]}</figcaption>' if b.get("caption") else "") + f'<pre><code>{c}</code></pre></figure>'
         elif "list" in b:
             tag = "ol" if b.get("ordered") else "ul"
             h += f"<{tag}>" + "".join(f"<li>{x}</li>" for x in b["list"]) + f"</{tag}>"
@@ -240,6 +248,9 @@ def build(ns):
                       f'<meta property="og:image" content="{SITE_URL}/assets/media/covers/{slug}.jpg">\n<meta name="twitter:card" content="summary_large_image">', 1)
         h = h.replace("</head>", '<link rel="stylesheet" href="../assets/css/journal.css">\n</head>', 1)
         h = h.replace("</body>", '<script src="../assets/js/journal.js" defer></script>\n</body>', 1)
+        if any("tex" in b for sec in d["sections"] for b in sec["blocks"]):   # KaTeX for LaTeX equations (V5.41)
+            h = h.replace("</head>", '<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">\n</head>', 1)
+            h = h.replace("</body>", '<script src="../assets/js/vendor/katex/katex.min.js" defer></script>\n<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>\n<script src="../assets/js/math.js" defer></script>\n</body>', 1)
         h = h.replace("</head>", f'<meta name="citation_title" content="{esc(title_txt)}">\n<meta name="citation_author" content="{esc(A["name"])}">\n'
                       f'<meta name="citation_publication_date" content="{d["published"][:10].replace("-", "/")}">\n<meta name="citation_journal_title" content="{JOURNAL}">\n'
                       f'<meta name="citation_volume" content="{d["volume"]}">\n<meta name="citation_issue" content="{d["issue"]}">\n</head>', 1)

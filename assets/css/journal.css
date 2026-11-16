@@ -199,3 +199,12 @@
 @media (max-width:980px){.o5-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.o5-cards{grid-template-columns:1fr}.o5-card header{min-height:0}.o5-card svg{max-height:150px}}
 @media print{.o5{display:none!important}.j-fig-live-on > .j-fig-static{display:block!important}}
+/* V5.41: LaTeX equations (KaTeX) and program listings in journal papers */
+.j-tex .j-eq-body{font-family:inherit;white-space:normal}
+.j-tex .katex-display{margin:0}
+.j-tex .katex{font-size:1.12em}
+.j-code{margin:1.4em 0;border:1px solid #DDE6F0;border-radius:8px;background:#F7F9FC;overflow:hidden}
+.j-code figcaption{font-size:14px;color:#5A6B82;padding:10px 16px 0}
+.j-code pre{margin:0;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.5;font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#1B2A41;white-space:pre}
+figure.j-code pre,figure.j-code pre code{background:#F7F9FC;color:#1B2A41;border:0;border-radius:0;box-shadow:none;font-size:12.5px}
+@media print{.j-code{break-inside:auto;border:none;background:none}.j-code pre{white-space:pre-wrap;font-size:9pt;overflow:visible}}
