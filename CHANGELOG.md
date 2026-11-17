@@ -1,5 +1,15 @@
 # Changelog
 
+## V5.48 — 2026-11-17
+- **AI Models page: clearer model picker** (headline effort chart, studio effort curves and compare panels). With six models selected, the "+ Add a model" box no longer disappeared silently behind an "Up to six models" note.
+  - A hint above the chips: "Compare up to six models (n of 6 selected). Click × on a model to remove it."
+  - The add box is always shown; when six are selected it is greyed out and reads "Six models shown: remove one (×) to add another".
+  - The × buttons are darker, with a hover state and a "Remove <model>" tooltip.
+  - New "Clear all" and "Reset" (back to the default models) links.
+  - The headline effort chart now starts with five models (Claude Opus 5.5 dropped from the defaults), so the add box is live on first load.
+  - Checked in headless Chrome: add, remove, full, clear and reset all behave as expected, no script errors; overlap tests still pass (72 studio curves, compare grid, 38 ranking charts).
+  - Source changes: `assets/js/llm-studio.js` (Picker), `assets/css/llm.css`; `llm-leaderboard.html` (asset versions).
+
 ## V5.47 — 2026-11-17
 - **AI Models page: richer charts.** Following a review of OpenAI's GPT-6.2 launch charts against ours (research-agent gap analysis), four additions:
   - **Headline effort-curve chart** (new section `#effort`, after the agent cards): Artificial Analysis Intelligence Index against cost per task, output tokens or time per task, one line per model through every reasoning-effort setting (joined Low to Max), every point labelled, log scale on by default, up to six models (defaults: GPT-6.2 Astra and Sol, Claude Fable 5.2 and Opus 5.5, Gemini 4 Carbon and Hydrogen). All developers in full colour (no greyed-out competitors), labelled settings, stated axes. The chart studio's effort curves use the same component (`CurveView`) and now also join points in effort order.

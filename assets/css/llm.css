@@ -196,3 +196,14 @@
 /* V5.47: headline effort chart, chart captions, uncertainty whiskers */
 .ls-cap{margin:-2px 0 8px;font-size:14.5px;color:var(--body);max-width:760px}
 .ls-headline{margin-top:4px}
+
+/* V5.48: clearer model picker */
+.ls-pick{row-gap:10px}
+.ls-pickhint{flex-basis:100%;margin:0;font-size:13.5px;color:var(--muted)}
+.ls-chip button{font-size:18px;color:#3A4150;border:1px solid transparent}
+.ls-chip button:hover,.ls-chip button:focus-visible{background:#E2DED3;border-color:#C9C4B8;color:var(--ink)}
+.ls-add select{border-style:solid;border-color:#9FB9CF;color:#0B6FA4;font-weight:600;cursor:pointer}
+.ls-add.is-full select,.ls-add select:disabled{border-style:dashed;border-color:#C9C4B8;color:var(--muted);font-weight:400;cursor:not-allowed;background:#F7F6F2}
+.ls-links{display:inline-flex;gap:14px;margin-left:4px}
+.ls-link{border:0;background:none;padding:0;font:inherit;font-size:14px;color:#0B6FA4;text-decoration:underline;cursor:pointer}
+.ls-link:hover,.ls-link:focus-visible{color:var(--ink)}

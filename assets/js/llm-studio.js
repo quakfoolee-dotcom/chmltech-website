@@ -67,7 +67,7 @@
   // ---------- model picker (shared by effort curves and compare) ----------
   function Picker(opts) {
     var self = this;
-    self.sel = []; self.slot = {}; self.box = opts.box; self.onchange = opts.onchange; self.max = 6;
+    self.sel = []; self.slot = {}; self.box = opts.box; self.onchange = opts.onchange; self.max = 6; self.defaults = opts.defaults;
     self.set = function (ids) {
       self.sel = []; self.slot = {};
       ids.forEach(function (id) { self.add(id, true); });
@@ -89,13 +89,20 @@
       var avail = opts.available().filter(function (id) { return self.sel.indexOf(id) < 0; });
       var chips = self.sel.map(function (id) {
         return '<li class="ls-chip"><svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="' + self.color(id) + '"/></svg>' +
-          esc(MB[id].name) + '<button type="button" data-rm="' + esc(id) + '" aria-label="Remove ' + esc(MB[id].name) + '">×</button></li>';
+          esc(MB[id].name) + '<button type="button" data-rm="' + esc(id) + '" aria-label="Remove ' + esc(MB[id].name) + '" title="Remove ' + esc(MB[id].name) + '">×</button></li>';
       }).join("");
-      var add = self.sel.length < self.max && avail.length ?
-        '<label class="ls-add"><span class="visually-hidden">Add a model</span><select data-add><option value="">+ Add a model</option>' +
-        avail.map(function (id) { return '<option value="' + esc(id) + '">' + esc(MB[id].name) + "</option>"; }).join("") + "</select></label>" :
-        (self.sel.length >= self.max ? '<span class="ls-hint">Up to six models</span>' : "");
-      self.box.innerHTML = '<ul class="ls-chips" aria-label="Selected models">' + chips + "</ul>" + add;
+      // The add box is always shown (V5.48): disabled with an instruction when six models are selected.
+      var full = self.sel.length >= self.max, n = self.sel.length;
+      var add = '<label class="ls-add' + (full ? " is-full" : "") + '"><span class="visually-hidden">Add a model</span><select data-add' + (full || !avail.length ? " disabled" : "") + ">" +
+        '<option value="">' + (full ? "Six models shown: remove one (×) to add another" : avail.length ? "+ Add a model" : "No other models with data") + "</option>" +
+        (full ? "" : avail.map(function (id) { return '<option value="' + esc(id) + '">' + esc(MB[id].name) + "</option>"; }).join("")) + "</select></label>";
+      var links = '<span class="ls-links">' + (n ? '<button type="button" class="ls-link" data-clear>Clear all</button>' : "") +
+        (self.defaults ? '<button type="button" class="ls-link" data-reset>Reset</button>' : "") + "</span>";
+      self.box.innerHTML = '<p class="ls-pickhint">Compare up to six models (' + n + " of 6 selected). Click × on a model to remove it.</p>" +
+        '<ul class="ls-chips" aria-label="Selected models">' + chips + "</ul>" + add + links;
+      var cl = self.box.querySelector("[data-clear]"), rs = self.box.querySelector("[data-reset]");
+      if (cl) cl.addEventListener("click", function () { self.set([]); });
+      if (rs) rs.addEventListener("click", function () { self.set(self.defaults()); });
       Array.prototype.forEach.call(self.box.querySelectorAll("[data-rm]"), function (b) { b.addEventListener("click", function () { self.remove(b.getAttribute("data-rm")); }); });
       var s = self.box.querySelector("[data-add]");
       if (s) s.addEventListener("change", function () { if (s.value) self.add(s.value); });
@@ -128,6 +135,7 @@
   function CurveView(P, opts) {
     var cState = { b: "aa_index", x: opts.x || "cost", log: !!opts.log };
     var cPick = new Picker({
+      defaults: function () { return curveDefaults(); },
       box: $(P + "pick"),
       available: function () { return MODELS.filter(function (m) { return curvePoints(m, cState.b, cState.x).length > 0; })
         .sort(function (a, b) { return a.name.localeCompare(b.name); }).map(function (m) { return m.id; }); },
@@ -245,10 +253,11 @@
     return { redraw: drawCurves };
   }
   var mainCurves = CurveView("ls-c-", { defaults: ["gemini-4-hydrogen", "claude-sonnet-5-5", "gpt-6-1-terra"] });
-  if ($("ls-h-chart")) CurveView("ls-h-", { defaults: ["gpt-6-2-astra", "gpt-6-2-sol", "claude-fable-5-2", "claude-opus-5-5", "gemini-4-carbon", "gemini-4-hydrogen"], log: true });
+  if ($("ls-h-chart")) CurveView("ls-h-", { defaults: ["gpt-6-2-astra", "gpt-6-2-sol", "claude-fable-5-2", "gemini-4-carbon", "gemini-4-hydrogen"], log: true });
 
   // ---------- 2. Compare models ----------
   var kPick = new Picker({
+    defaults: function () { return ["gemini-4-hydrogen", "claude-sonnet-5-5", "gpt-6-1-terra"]; },
     box: $("ls-k-pick"),
     available: function () { return MODELS.filter(function (m) { return Object.keys(m.s || {}).length; })
       .sort(function (a, b) { return a.name.localeCompare(b.name); }).map(function (m) { return m.id; }); },
