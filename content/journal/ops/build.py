@@ -1,9 +1,10 @@
-"""Write and check the operations papers, Vol. 106, Issues 3-7 (V5.41, V5.42), to content/journal/<slug>.json.
+"""Write and check the operations and process papers, Vol. 106, Issues 3-8 (V5.41, V5.42, V5.45), to content/journal/<slug>.json.
 
 Usage: python3 -I content/journal/ops/build.py
 Reuses the markup and checks in content/journal/agentic/ (jmark.py, build.py) and adds two block types:
   TEX <latex>        numbered display equation in LaTeX, typeset by KaTeX on the page (journal_pages.py)
   DOWNLOADS (module) files in assets/journal/code/ offered on the page (V5.42)
+  DIVISION, PUBLISHED (module) author division and publication date when they differ from the defaults (V5.45)
   CODE <name>        program listing taken from the paper module's CODE[name] (kept outside the markup so blank lines survive)
 """
 import importlib.util, json, os, re, sys
@@ -11,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "agentic"))
 import jmark, build
 
-PAPERS = ["paper_v106_i3", "paper_v106_i4", "paper_v106_i5", "paper_v106_i6", "paper_v106_i7"]
+PAPERS = ["paper_v106_i3", "paper_v106_i4", "paper_v106_i5", "paper_v106_i6", "paper_v106_i7", "paper_v106_i8"]
 DATE = "2026-11-16"
 AUTHOR = dict(build.AUTHOR, division="Division of Operational Excellence")
 _parse = jmark.parse
@@ -59,7 +60,8 @@ def main():
         mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
         sections = parse(mod.BODY, getattr(mod, "CODE", {}))
         refs = jmark.number_refs(sections, {k: {"text": t, "url": u} for k, (t, u) in mod.REFS.items()})
-        d = dict(slug=mod.SLUG, **mod.META, published=DATE, revised=DATE, author=AUTHOR, abstract=mod.ABSTRACT,
+        d = dict(slug=mod.SLUG, **mod.META, published=getattr(mod, "PUBLISHED", DATE), revised=getattr(mod, "PUBLISHED", DATE),
+                 author=dict(AUTHOR, division=getattr(mod, "DIVISION", AUTHOR["division"])), abstract=mod.ABSTRACT,
                  sections=sections, references=refs, corrections=getattr(mod, "CORRECTIONS", []),
                  downloads=getattr(mod, "DOWNLOADS", []))
         if getattr(mod, "REVISED", None): d["revised"] = mod.REVISED

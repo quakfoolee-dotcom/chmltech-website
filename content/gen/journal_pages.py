@@ -76,6 +76,7 @@ TOPIC = {
     "beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing": ["operational-efficiency", "inventory-management"],
     "quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers": ["operational-efficiency", "erp"],
     "forecasting-lumpy-demand-does-croston-beat-a-moving-average": ["operational-efficiency", "inventory-management"],
+    "sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants": ["process-engineering", "operational-efficiency"],  # V5.45
 }
 
 
@@ -100,7 +101,7 @@ def code_box(d):
     if not d.get("downloads"): return ""
     items = "".join(f'<li><a href="../assets/journal/code/{esc(f["file"])}" download><strong>{esc(f["label"])}</strong> '
                     f'<code>{esc(f["file"])}</code></a><span>{esc(f["note"])}</span></li>' for f in d["downloads"])
-    return (f'<aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. '
+    return (f'<aside class="j-code-box" id="code"><div><strong>{"Download the Python code" if all(f["file"].endswith((".py", ".zip")) for f in d["downloads"]) else "Download the model and template"}</strong><span>Free, no sign-up. '
             f'Run it on your own data before changing anything in the plant.</span></div><ul>{items}</ul></aside>')
 
 
@@ -201,7 +202,7 @@ def build(ns):
         toc = '<li><a href="#abstract">Abstract</a></li>' + toc + '<li><a href="#references">References</a></li>'
         secs = "".join(f'<section class="j-sec" id="{_sid(s["num"], s["title"])}"><h2><span class="j-num">{s["num"]}.</span> {s["title"]}</h2>{render_blocks(s["blocks"], esc, slug)}</section>' for s in d["sections"])
         secs = link_citations(secs)
-        refs = "".join(f'<li id="ref-{i}">{r["text"]} <a href="{esc(r["url"])}" rel="noopener" target="_blank">{esc(re.sub(r"^https://(doi.org/)?", "", r["url"]))[:80]}</a></li>'
+        refs = "".join(f'<li id="ref-{i}">{r["text"]}' + (f' <a href="{esc(r["url"])}" rel="noopener" target="_blank">{esc(re.sub(r"^https://(doi.org/)?", "", r["url"]))[:80]}</a>' if r.get("url") else "") + '</li>'
                        for i, r in enumerate(d["references"], 1))
         mins = max(1, round(words(d) / 220))
         others = [q for q in jposts if q["slug"] != slug][:3]

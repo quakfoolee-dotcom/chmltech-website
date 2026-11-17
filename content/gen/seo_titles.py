@@ -108,4 +108,5 @@ POST_TITLES = {
     "beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing": "Total Landed Cost Optimization for SME Sourcing",
     "quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers": "Due-Date Quoting for Make-to-Order Manufacturers",
     "forecasting-lumpy-demand-does-croston-beat-a-moving-average": "Forecasting Lumpy Demand: Croston vs Moving Average",
+    "sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants": "Monte Carlo Sizing of Pumps and Control Valves",
 }

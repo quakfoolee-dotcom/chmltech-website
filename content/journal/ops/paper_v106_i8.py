@@ -1,0 +1,329 @@
+"""Chmltech Online Journal, Vol. 106, Issue 8: Sizing Pumps and Control Valves Under Uncertainty: Monte Carlo Design Points for Chemical Plants (Nov 17 2026).
+
+Worked case: reactor feed pump P-101A/B and flow control valve FCV-101 of a 50,000 t/y chemical plant. Model:
+content/journal/ops/models/pumpvalve/ (11 correlated inputs, 20,000 cases, IEC 60534-2-1 valve sizing, API 610 checks,
+VFD, life-cycle cost). Red-teamed twice (model audit, engineering and references) before publication."""
+
+SLUG = "sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants"
+META = dict(
+    volume=106, issue=8,
+    title='Sizing Pumps and Control Valves Under Uncertainty: Monte Carlo Design Points for Chemical Plants',
+    short_title='Monte Carlo Sizing of Pumps and Control Valves',
+    meta='Monte Carlo rated points for a chemical plant pump and control valve: P95 needs 77% of the stacked head, a smaller motor and 27% less power.',
+    keywords=['pump sizing', 'control valve sizing', 'Monte Carlo simulation', 'design margins', 'equipment list', 'IEC 60534', 'API 610', 'life-cycle cost'],
+)
+PUBLISHED = "2026-11-17"
+DIVISION = "Division of Clean Energy Technology Innovation"   # process plant papers (as Vol. 104, Issues 4-5)
+ABSTRACT = 'Pumps and control valves in a new chemical plant are usually sized by stacking margins: worst-case inputs, then extra on flow and head. This paper replaces the stack with a Monte Carlo simulation of the reactor feed pump and flow control valve of a 50,000-tonne-a-year chemical plant. Eleven inputs, operating variables such as production rate, reactor pressure and tank level and design unknowns such as route length, roughness and fouling, are drawn from stated ranges with correlations for 20,000 cases, solved with Colebrook friction and the IEC 60534-2-1 valve equations. A full stack of worst cases rates the pump at 106.6 m of head and a moderate deterministic practice at 88.8 m; a rating that covers 95% of the simulated cases needs 82.5 m, and the 99th percentile 84.7 m. Once the design unknowns are fixed, that P95 pump keeps full control in 81% to 99% of operating states, 95% on average. Against the full stack it uses 27% less electricity, takes a 7.5 kW instead of an 11 kW motor and lowers the discharge design pressure from 14.5 to 11.5 barg; against moderate margins it saves 8% of the electricity. For the ranges used, tank level, reactor pressure and production rate drive the required head more than the design unknowns, though a wider route-length range changes that. The paper ends with an equipment list that records the basis of every rated number, with the Python model and an Excel template to download.'
+
+REFS = {
+    'api610': ('American Petroleum Institute. (2021). <em>Centrifugal pumps for petroleum, petrochemical and natural gas industries</em> (API Standard 610, 12th ed.). API.',
+        'https://www.api.org/products-and-services/standards'),
+    'b731': ('ASME. (2020). <em>Specification for horizontal end suction centrifugal pumps for chemical process</em> (ASME B73.1-2020). American Society of Mechanical Engineers.',
+        ''),
+    'fluids': ('Bell, C. (2025). <em>fluids: Fluid dynamics component of the Chemical Engineering Design Library (ChEDL)</em> (Version 1.3.1).',
+        'https://github.com/CalebBell/fluids'),
+    'cepci': ('Chemical Engineering. (2026). Inflationary pressures push 2025 CEPCI annual average higher than 2024.',
+        'https://www.chemengonline.com/inflationary-pressures-push-2025-cepci-annual-average-higher-than-2024/'),
+    'colebrook': ('Colebrook, C. F. (1939). Turbulent flow in pipes, with particular reference to the transition region between the smooth and rough pipe laws. <em>Journal of the Institution of Civil Engineers</em>, 11(4), 133–156.',
+        'https://doi.org/10.1680/ijoti.1939.13150'),
+    'crane': ('Crane Co. (2018). <em>Flow of fluids through valves, fittings and pipe</em> (Technical Paper No. 410). Crane Co.',
+        ''),
+    'emerson': ('Emerson. (2017). <em>Control valve handbook</em> (5th ed.). Emerson Automation Solutions.',
+        ''),
+    'gulich': ('Gülich, J. F. (2020). <em>Centrifugal pumps</em> (4th ed.). Springer.',
+        'https://doi.org/10.1007/978-3-030-14788-4'),
+    'hi963': ('Hydraulic Institute. (2017). <em>Rotodynamic pumps: Guideline for operating regions</em> (ANSI/HI 9.6.3-2017). Hydraulic Institute.',
+        ''),
+    'lcc': ('Hydraulic Institute &amp; Europump. (2001). <em>Pump life cycle costs: A guide to LCC analysis for pumping systems</em>. Hydraulic Institute.',
+        ''),
+    'vsd': ('Hydraulic Institute &amp; Europump. (2004). <em>Variable speed pumping: A guide to successful applications</em>. Elsevier.',
+        ''),
+    'iec2': ('IEC. (2011). <em>Industrial-process control valves – Part 2-1: Flow capacity – Sizing equations for fluid flow under installed conditions</em> (IEC 60534-2-1:2011). International Electrotechnical Commission.',
+        ''),
+    'iec8': ('IEC. (2015). <em>Industrial-process control valves – Part 8-4: Noise considerations – Prediction of noise generated by hydrodynamic flow</em> (IEC 60534-8-4:2015). International Electrotechnical Commission.',
+        ''),
+    'iso5199': ('ISO. (2002). <em>Technical specifications for centrifugal pumps – Class II</em> (ISO 5199:2002). International Organization for Standardization.',
+        ''),
+    'jcgm': ('JCGM. (2008). <em>Evaluation of measurement data – Supplement 1 to the "Guide to the expression of uncertainty in measurement" – Propagation of distributions using a Monte Carlo method</em> (JCGM 101:2008). BIPM.',
+        'https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf'),
+    'db': ('Lee, Q. F. (2026). The design basis: Ten decisions to fix before engineering starts. <em>Chmltech Insights</em>.',
+        'https://www.chmltech.com/post/the-design-basis-ten-decisions-to-fix-before-engineering-starts.html'),
+    'pump': ('Lee, Q. F. (2026). Sizing a pump: Head, NPSH and power, worked step by step. <em>Chmltech Insights</em>.',
+        'https://www.chmltech.com/post/sizing-a-pump-head-npsh-and-power.html'),
+    'valve': ('Lee, Q. F. (2026). Sizing a control valve: Cv, pressure drop and cavitation, worked step by step. <em>Chmltech Insights</em>.',
+        'https://www.chmltech.com/post/sizing-a-control-valve-cv-pressure-drop-and-cavitation.html'),
+    'ss': ('Lee, Q. F. (2026). Beyond the formula: Setting safety stock with Monte Carlo simulation. <em>Chmltech Online Journal</em>, 106(3).',
+        'https://www.chmltech.com/post/beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation.html'),
+    'nelsen': ('Nelsen, R. B. (2006). <em>An introduction to copulas</em> (2nd ed.). Springer.',
+        'https://doi.org/10.1007/0-387-28678-0'),
+    'towler': ('Towler, G., &amp; Sinnott, R. (2013). <em>Chemical engineering design: Principles, practice and economics of plant and process design</em> (2nd ed.). Butterworth-Heinemann.',
+        ''),
+    'doe': ('US Department of Energy. (2006). <em>Improving pumping system performance: A sourcebook for industry</em> (2nd ed.).',
+        'https://www.osti.gov/biblio/1216306'),
+}
+
+CODE = {"appendix": open(__file__.replace("paper_v106_i8.py", "models/pumpvalve/pumpvalve_appendix.py"), encoding="utf-8").read().rstrip()}
+
+DOWNLOADS = [  # served from assets/journal/code/ (V5.42)
+    dict(file='pumpvalve_appendix.py', label='Appendix script', note='P90, P95, P99 and stacked rated points from 20,000 cases (Python 3, NumPy, SciPy)'),
+    dict(file='chmltech-pump-valve-model.zip', label='Full model', note='Pump and valve checks, coverage, sensitivity, convergence, VFD and life-cycle cost, README'),
+    dict(file='chmltech-equipment-list-template.xlsx', label='Excel template', note='Equipment list with Monte Carlo basis, all 20,000 cases and live percentiles (about 10 MB)'),
+]
+
+BODY = r"""
+## Introduction
+
+The rated point of a pump, the number on its datasheet that the vendor guarantees, is usually set long before the inputs behind it are known. At the design stage of a new plant or unit, the piping route exists only as a plot plan, the fitting count is an estimate, the exchanger has no vendor, and the operating ranges come from a design basis that is still being argued over. Engineers protect themselves the only way a single calculation allows: they take the worst value of every input, add 10% to 20% on flow, then 10% on head. Each margin is reasonable on its own. Stacked together, they describe an operating state that the plant will almost never see.
+
+The cost is not the pump, which is cheap, but what it drives: a larger motor, a control valve burning off the extra head, a pump running left of its best-efficiency point, and a shutoff pressure that sets the design pressure downstream. Studies of installed pumping systems repeatedly find oversizing among the largest sources of wasted energy [@doe, @lcc].
+
+Monte Carlo simulation asks a better question. Instead of asking what head is needed if everything goes wrong at once, it asks what head covers a stated share of the operating states the plant will actually see, given what is known about each input. The method is standard in measurement uncertainty [@jcgm] and cost estimating, and the Chmltech safety stock paper used it to set reorder points [@ss]. It is rarely applied to the equipment list itself.
+
+This paper applies it to the reactor feed pump and flow control valve of a chemical plant making 50,000 tonnes a year, the example plant of the Chmltech design basis post [@db]. The method serves two settings. In a new plant or unit, the route, fittings, roughness and fouling are unknown when the pump is sized. When a pump is replaced or a unit debottlenecked in an operating plant, the route and fittings are known and the system curve can be fitted to plant data, but fouling, clogging and the operating variables still vary. The deterministic sizing steps are covered in the equipment sizing series [@pump, @valve]; this paper asks where the rated point should sit, what drives it and how to record it.
+
+## The Feed System and Its Design Basis
+
+The plant makes 50,000 tonnes of product a year in 8,000 operating hours, a design rate of 6,250 kg/h, and must run down to 50% of that rate [@db]. With a yield of 0.85 kg of product per kg of fresh feed and a recycle of 20% of the fresh feed, the reactor needs 9.8 m³/h of an organic feed blend at normal conditions.
+
+The feed leaves the nitrogen-blanketed feed tank TK-101 through a 3-inch suction line and strainer to the pumps P-101A/B (one running, one spare). The 2-inch discharge line carries it through a Coriolis flow meter, the flow control valve FCV-101 and the tube side of the preheater E-101 to the reactor R-101, which operates at 4.0 barg with its feed nozzle 14 m above the pump. The tank bottom is 1 m above the pump centreline. Placing the valve upstream of the preheater means it always handles cool liquid.
+
+Eleven inputs are uncertain at the design stage (Table 1). Six are operating variables that change from hour to hour: production rate, recycle ratio, feed temperature, reactor pressure, tank level and nitrogen blanket pressure. Five are design unknowns, which the model also treats as random: the route length and fitting count, fixed once the pipe is routed, and the pipe roughness, preheater fouling and strainer clogging, which drift over a run or with age. Section 4 shows what treating them as random means for the rated point.
+
+TABLE Uncertain inputs, their ranges and distributions.
+| Input | Range used | Distribution | Kind |
+| Production rate | 85% to 110% of design, most likely 100% | Triangular | Operating |
+| Recycle ratio | 0.15 to 0.25 of fresh feed | Uniform | Operating |
+| Feed temperature | 5 to 40 °C (outdoor tank, BC seasons) | Uniform | Operating |
+| Reactor pressure | 4.0 ± 0.15 barg (one standard deviation) | Normal | Operating |
+| Tank level | 0.5 to 7.5 m above the tank bottom | Uniform | Operating |
+| Nitrogen blanket | 0.02 to 0.05 barg | Uniform | Operating |
+| Discharge route length | 120 to 180 m, most likely 140 m | Triangular | Design unknown |
+| Discharge fittings, sum of K | 6 to 12, most likely 8 | Triangular | Design unknown |
+| Pipe roughness | 0.045 to 0.15 mm (new to aged carbon steel) | Uniform | Design unknown |
+| Preheater fouling | Clean to 1.5 times the clean pressure drop | Uniform | Design unknown |
+| Strainer clogging | Clean to 5 times the clean pressure drop | Uniform | Design unknown |
+
+Two correlations are modelled. A higher production rate comes with a higher reactor pressure (rank correlation 0.5) and a slightly higher recycle (0.3). Temperature drives three properties at once: between 5 and 40 °C, the range of the property correlations, density falls from 914 to 881 kg/m³, viscosity from 2.1 to 1.1 mPa·s, and vapour pressure rises from 1.6 to 8.0 kPa. The ranges are illustrative but of a kind a design team can defend: route length from the plot plan, fouling from the exchanger datasheet, level band from the operating philosophy.
+
+## Method
+
+For every case, the model computes the head needed, the pressure left for the valve, the valve's required flow coefficient and the power drawn.
+
+**System head.** The head required with no pressure drop across the control valve is given by Eq. (1):
+
+TEX \begin{aligned} H_{sys} &= \frac{p_{R} - p_{T}}{\rho g} + (z_{R} - z_{T}) \\ &\quad + \frac{\Delta p_{line} + \Delta p_{strainer} + \Delta p_{meter} + \Delta p_{HX} + \Delta p_{nozzle}}{\rho g} \end{aligned}
+
+The first term is the pressure difference between the reactor and the tank's blanket, the second the height of the reactor nozzle above the liquid in the tank, and the third the friction and equipment losses. Line friction uses the Darcy–Weisbach equation with the Colebrook friction factor [@colebrook] and the K method for fittings [@crane]. Equipment losses scale with the square of flow (the preheater with flow to the power 1.8 and a viscosity correction). Table 2 shows how the head builds up at normal conditions and under the stacked worst case.
+
+TABLE Build-up of the head needed at normal conditions and under the full stack of worst cases.
+| Component | Normal case, head needed (m) | Full stack at 120% flow (m) |
+| Reactor pressure | 45.3 | 49.6 |
+| Static lift to the reactor nozzle | 14.0 | 14.0 |
+| Tank level and blanket (credit) | −5.4 | −1.7 |
+| Suction and discharge pipe friction | 6.1 | 13.2 |
+| Preheater E-101 | 3.3 | 7.1 |
+| Flow meter, strainer and reactor nozzle | 4.0 | 6.9 |
+| System head, valve excluded | 67.3 | 89.1 |
+| Control valve allowance, 0.7 bar | 7.9 | 7.8 |
+| 10% margin on head | — | 9.7 |
+| Total | 75.2 | 106.6 (rated head) |
+
+The full stack in Table 2 is deliberately conservative: it puts every input at its worst at once, including a reactor pressure three standard deviations above normal, and then adds 10% to the whole head, including some 62 m of static and pressure head whose inputs are already at their worst. Many owners apply the margin to friction only. The paper therefore also tests a moderate deterministic practice: 110% of normal flow, the high operating reactor pressure (4.25 barg), low tank level, cold feed, the most likely route (140 m) with aged pipe, a fouled exchanger and a dirty strainer, plus 0.7 bar for the valve and 10% on discharge-line friction. It rates the pump at 10.8 m³/h and 88.8 m.
+
+**Rated point.** A centrifugal pump delivers more head at lower flow, so a pump rated for the high-flow cases also covers the low-flow cases. The model sets the rated flow at a chosen percentile of the demand flow and asks, for each case, what rated head a curve of the expected shape would need to keep at least 0.7 bar across the valve at that case's flow, Eq. (2):
+
+TEX H_{r,i} = \frac{H_{sys,i} + \Delta p_{v,min}/(\rho_i g)}{1.20 - 0.20\,(Q_i/Q_r)^2}
+
+The rated head is the same percentile of these case values. The curve behind Eq. (2), <em>H</em> = <em>H</em><sub>r</sub> [1.20 − 0.20 (<em>Q</em>/<em>Q</em><sub>r</sub>)<sup>2</sup>] with shutoff head 1.2 times rated head, is typical of a radial impeller and stands in for a vendor curve until one is quoted (hold H-01), as do the other generic pump assumptions: best-efficiency flow 1.05 times rated flow, a best efficiency of 40%, usual for a pump this small (specific speed about 6) [@gulich], and a required net positive suction head of about 1.9 m at rated flow. A pump rated at the 95th percentile (P95) keeps at least 0.7 bar across the valve in 95% of the simulated cases, averaged over the operating states and the design unknowns together.
+
+**Control valve.** The required flow coefficient follows IEC 60534-2-1 for non-choked liquid flow, Eq. (3) [@iec2]:
+
+TEX C_v = \frac{Q}{N_1 F_P}\sqrt{\frac{\rho/\rho_0}{\Delta p}}, \qquad N_1 = 0.865 \text{ for } Q \text{ in m}^3/\text{h and } \Delta p \text{ in bar}
+
+The piping geometry factor <em>F</em><sub>P</sub> allows for reducers when the valve is smaller than the line, Eq. (4), and is iterated with the required <em>C</em><sub>v</sub>:
+
+TEX F_P = \left[1 + \frac{\Sigma K}{N_2}\left(\frac{C_v}{d^2}\right)^2\right]^{-1/2}
+
+Choked flow is checked against the limit of Eq. (5), with a critical pressure <em>p</em><sub>c</sub> of 41 bar(a) and a liquid pressure recovery factor <em>F</em><sub>L</sub> of 0.90; <em>p</em><sub>1</sub> is the valve inlet pressure, with the preheater drop downstream of the valve:
+
+TEX \Delta p_{ch} = \left(\frac{F_{LP}}{F_P}\right)^2 \left(p_1 - F_F\,p_v\right), \qquad F_F = 0.96 - 0.28\sqrt{p_v/p_c}
+
+Incipient cavitation is flagged when the pressure ratio of Eq. (6) reaches 0.60, an assumed value for a small globe trim that the vendor should confirm [@iec8]:
+
+TEX x_F = \frac{\Delta p}{p_1 - p_v}
+
+The valve is chosen from 1-, 1.5- and 2-inch globe bodies with three trims each: the smallest whose 99th-percentile case, over the normal and turndown cases pooled, is below 85% open with an equal-percentage characteristic of rangeability 50.
+
+**Monte Carlo.** Inputs are drawn by a Gaussian copula, which keeps each input's distribution while imposing the rank correlations [@nelsen]. Each run uses 20,000 cases.
+
+**Verification.** Friction factors and line pressure drops match the open-source *fluids* library [@fluids] to machine precision. The valve equation reproduces the IEC 60534-2-1 worked example for water at 363 K (a required Kv of 165 m³/h) and matches *fluids* to within 0.1% for a reduced-bore valve. With every input at its base value, the Monte Carlo returns exactly the deterministic head of 67.3 m.
+
+## Results: Where the Rated Point Should Sit
+
+Across 20,000 cases, the head the pump must deliver at each case's own flow, including 0.7 bar for the control valve, has a median of 77.0 m, a 95th percentile of 83.2 m and a 99th percentile of 85.5 m (Figure 1). No case needs more than 93 m. The stacked-margin rated head of 106.6 m lies 14 m above the most demanding case in the sample.
+
+FIG fig1-required-head || Distribution of the head the pump must deliver at each case's own flow, with 0.7 bar across the control valve, for 20,000 cases; the rated heads from moderate margins and the full stack are shown for comparison. || Histogram of the head needed at each case's own flow for 20,000 cases, from about 70 to 93 m, with the median at 77.0 m, P95 at 83.2 m and P99 at 85.5 m marked, and the moderate-margin (88.8 m) and full-stack (106.6 m) rated heads far to the right. ||
+
+Table 3 sets the rated points and what follows from them side by side. Moving from P90 to P99 adds 3.3 m of head, and the motor and design pressure do not change; the valve moves between a 2-inch and a 1.5-inch body because the pressure left for it changes. The large step is to the full stack: 24 m more head, an 11 kW motor instead of 7.5 kW and 3 bar more design pressure. Moderate margins sit between, at 88.8 m, with the same 7.5 kW motor and 12.0 barg.
+
+TABLE Rated points and what follows from them.
+|  | P90 | P95 | P99 | Moderate margins | Full stack |
+| Rated flow (m³/h) | 10.5 | 10.7 | 11.0 | 10.8 | 11.8 |
+| Rated head (m) | 81.4 | 82.5 | 84.7 | 88.8 | 106.6 |
+| Shutoff head (m) | 98 | 99 | 102 | 107 | 128 |
+| Motor (kW) | 7.5 | 7.5 | 7.5 | 7.5 | 11 |
+| Discharge design pressure (barg) | 11.5 | 11.5 | 11.5 | 12.0 | 14.5 |
+| Average pump efficiency in operation | 39% | 39% | 39% | 39% | 38% |
+| Average electrical power (kW) | 5.47 | 5.60 | 5.85 | 6.07 | 7.66 |
+| Electricity a year (C$) | 3,940 | 4,040 | 4,210 | 4,370 | 5,520 |
+
+It needs 77% of the full-stack rated head, uses 2.1 kW less on average and saves about C$1,480 a year at C$0.09/kWh; against moderate margins it needs 93% of the head and saves 0.5 kW, about C$330 a year. The efficiency matters to the absolute figures, not to the comparison: with a 55% best efficiency every power and energy figure falls by 27% and each motor drops one size, but the percentage savings are unchanged. Figure 2 shows where the energy goes: the stacked pump's curve passes between 17 and 54 m above every operating state, and all of that head is burned in the control valve.
+
+FIG fig2-pump-curves || Pump curves for the P95, moderate-margin and full-stack designs against the operating demands (head needed with 0.7 bar across the valve) of 2,500 sampled cases. || Head against flow: a cloud of 2,500 operating demands between about 8 and 11 m3/h and 70 to 90 m, with the P95 pump curve passing just above most of them and the moderate and full-stack curves well above, the full-stack curve 17 to 54 m above every point. ||
+
+Across all 20,000 cases the P95 pump keeps at least 0.7 bar across the valve in 95% of them by construction, and in 0.1% it cannot reach the demanded flow even with the valve fully open. But the 95% is an average over the design unknowns as well as the operating states, and once the plant is built the route, fittings and roughness each have one value. With the five design unknowns at their minimum, the pump keeps 0.7 bar in 99% of operating states; at their 95th percentiles, in 85%; all at their maximum, in 81%, and in 1.8% it cannot reach the demanded flow. Across 400 random draws of the design unknowns the share averages 95%, ranges from 88% to 99%, and falls below 91% in one draw in twenty. A P95 rated point is therefore the expected coverage given what is known at the design stage, not a guarantee for the plant as built. A team that wants 95% coverage as built should rate the pump with the design unknowns at the high end of their ranges, or close those holds first.
+
+In an operating plant, the route and fittings are known, but fouling and strainer clogging still drift and stay in the simulation. An existing P95 pump checked with the route, fittings and roughness at their 95th percentiles keeps control in 90% of states; re-rating with those values gives 84.3 m and restores 95%. The operating-variable ranges should come from the plant historian, so that a share of states is also a share of operating time; a debottleneck that raises the rate goes beyond that history, and that part of the range is again a judgement.
+
+In the stacked worst case itself, every input at its worst with a demand of 11.1 m³/h, the P95 pump delivers 9.2 m³/h with 0.7 bar across the valve and 10.2 m³/h with the valve fully open, 92% of the demand. Where API 610 is specified, the pump must allow a head increase of at least 5% by fitting a new impeller [@api610]; with that impeller it delivers 10.8 m³/h, 97% of the demand. Whether that shortfall, in a combination the simulation never drew, is acceptable is a business decision, and the equipment list should record it as one.
+
+## What Drives the Size
+
+For the ranges in Table 1, the inputs that drive the rated head are not the ones margins are usually added for. Figure 3 moves each input from its 5th to its 95th percentile with the others at their base values. Tank level swings the required head by 6.3 m, reactor pressure by 5.6 m and production rate by 4.2 m. The largest design unknown, the route length, moves it by 1.6 m, preheater fouling by 1.5 m, and pipe roughness and strainer clogging by 0.8 m each. The rank correlations across all cases tell the same story: production rate (0.68), reactor pressure (0.64) and tank level (−0.54) dominate, and no design unknown exceeds 0.14.
+
+FIG fig3-tornado || Change in the head needed at the case's own flow when each input moves from its 5th to its 95th percentile, others at base values; dark bars are operating variables, light bars design unknowns. || Tornado chart of the swing in head needed: tank level 6.3 m, reactor pressure 5.6 m, production rate 4.2 m, then much smaller bars for route length 1.6 m, fouling 1.5 m, roughness and strainer 0.8 m each, and the remaining inputs. ||
+
+Two practical consequences follow. First, for these ranges, the 10% head margin in the full stack, 9.7 m here, is larger than the combined swing of all five design unknowns (5.0 m) it is meant to cover. Second, the effort to firm up the rated point is best spent on the operating philosophy, the tank level band and the reactor pressure range, not on routing the pipe earlier. The ranking depends on the ranges. If the route length were known only to lie between 100 and 300 m (most likely 160 m), its swing would rise to 5.2 m, above production rate, and the P95 rated head to 84.9 m; between 120 and 400 m (most likely 200 m) it would become the largest driver (7.4 m) and the P95 head would reach 87.9 m. For a plant whose layout is known to within about 20%, the operating philosophy matters more than the route; for a greenfield site with no plot plan, the route comes first.
+
+The correlations matter, but modestly: drawn independently, the same inputs give a P95 rated head of 81.6 m instead of 82.5 m.
+
+How many cases are enough? Figure 4 repeats the P95 calculation 200 times at each sample size. With 100 cases, 95% of runs fall between 80.9 and 84.4 m. With 1,000 cases the spread is about 1 m, and with 20,000 cases the P95 head is fixed to within ±0.1 m, far less than the uncertainty in the ranges themselves; this paper's run sits at the low end of that band (82.50 m against a mean of 82.61 m). A run takes under a second; JCGM 101 gives an adaptive rule for the same purpose [@jcgm].
+
+FIG fig4-convergence || P95 rated head against the number of cases per run: mean and range of 95% of 200 repeat runs. || P95 rated head against the number of cases on a log scale from 100 to 20,000: the band holding 95% of 200 repeat runs narrows from 80.9 to 84.4 m at 100 cases to about plus or minus 0.1 m around 82.6 m at 20,000 cases. ||
+
+## Pump Selection Checks
+
+A rated point is only half a selection, so the model also runs each of the following checks over all 20,000 cases. The checks follow API 610, which owners often specify for refinery and petrochemical service; a pump of this size in chemical service is more often built to ASME B73.1 or ISO 5199, with similar checks [@b731, @iso5199].
+
+**Operating region.** The Hydraulic Institute's preferred operating region for a pump of this size is roughly 70% to 120% of best-efficiency flow, and API 610 asks for the rated point to sit between 80% and 110% [@hi963, @api610]. At the median operating flow the P95 pump runs at 86% of its best-efficiency flow, the full-stack pump at 78%. At 50% turndown they fall to 43% and 39%, and the lowest 1% of turndown flows reach 37% and 34%, close to a typical minimum continuous stable flow of 30%. Neither needs a minimum-flow line if the vendor confirms its minimum stable flow, but the stacked pump lives further left on its curve, where recirculation, vibration and seal wear rise [@gulich].
+
+**Suction head.** The net positive suction head available is at least 11.5 m in every case, against about 1.9 m required at rated flow, a ratio above 5.
+
+**Motor.** API 610 asks for a motor rated at least 125% of the pump's rated power below 22 kW, and the motor must also cover the end of the curve [@api610]. At the maximum density of 914 kg/m³, the P95 pump needs 5.5 kW at its rated point and 6.4 kW at 120% of best-efficiency flow, so a 7.5 kW motor. The stacked pump needs 7.8 and 9.1 kW, and an 11 kW motor. The motor sizes rest on the generic efficiency and are confirmed when the vendor curve arrives (hold H-01).
+
+**Design pressure.** The highest pressure the discharge system can see is taken as the maximum suction pressure, a full tank at its relief set pressure of 0.10 barg (0.9 barg at the pump), plus the shutoff head at maximum density, increased by 5% for the larger impeller. API 610 bases the maximum discharge pressure on the furnished impeller; adding the larger one is an owner's choice that keeps a later impeller change inside the design. For the P95 pump that is 10.2 barg, which with a 10% allowance gives 11.5 barg for the discharge piping, the meter, the valve and the tube side of E-101. Moderate margins give 12.0 barg and the full stack 14.5 barg. All stay within carbon-steel Class 150 flanges, rated about 19 barg at the line's 65 °C design temperature, so the difference lies in the preheater's tube-side rating, the meter's pressure class and the blocked-discharge relief case. The figures rest on the generic shutoff ratio of 1.2 (hold H-01).
+
+## The Control Valve, and the Alternative of No Control Valve
+
+With the P95 pump, the median pressure drop across FCV-101 is 1.4 bar; with the stacked pump it is 3.9 bar. Table 4 gives the valves the model selects for each.
+
+TABLE Control valve selected for the P95 and full-stack pumps.
+|  | P95 pump | Full-stack pump |
+| Valve selected | 1.5-inch globe, rated Cv 34 | 1-inch globe, rated Cv 16 |
+| Median pressure drop (bar) | 1.4 | 3.9 |
+| Required Cv, median and 99th percentile | 8.9 and 18.4 | 5.4 and 7.2 |
+| Opening in normal operation, 1st to 99th percentile | 55% to 84% | 66% to 80% |
+| Share of normal cases above 90% open | 0.4% | 0% |
+| Opening at 50% turndown, 1st percentile | 32% | 45% |
+| Cavitation ratio xF, 99th percentile (assumed incipient value 0.60) | 0.39 | 0.51 |
+| Hydraulic power burned in the valve (kW) | 0.38 | 1.04 |
+
+Both valves control well (Figure 5). The full-stack valve stays inside the usual 10% to 90% opening band in every case; the P95 valve does in all but 0.4% of normal cases, all among the 5% in which the pump keeps less than 0.7 bar, and in 0.1% it is fully open. The difference lies in what the stacked valve is doing: burning almost three times as much power and running closer to incipient cavitation, which in service means noise, trim erosion and a shorter life [@emerson]. The stacked design has the smaller valve, but it has bought it with a larger pump.
+
+FIG fig5-valve-opening || Control valve opening in normal operation and at 50% turndown for the P95 and stacked-margin designs; shaded bands lie outside 10% to 90% open. || Histograms of control valve opening: the P95 valve spans about 55% to 84% open in normal operation and about 32% at turndown, the full-stack valve about 66% to 80%, both inside the 10% to 90% band, with the bands outside it shaded. ||
+
+The cases also test a variable-speed drive, which sets the flow by speed and burns no head in a valve. For the P95 pump, the speed needed ranges from 85% to 98% of full speed in normal operation and falls to 74% at turndown. Average electrical power falls from 5.60 to 4.61 kW, after drive losses of 3%. The stacked pump on a drive uses the same 4.60 kW, because the drive simply slows it down: a drive forgives oversizing on energy, though not on motor size, shutoff head or design pressure [@vsd]. At turndown, static and pressure head make up about 94% of the system head, so the pump works near 94% of its reduced-speed shutoff head, on the flat part of its curve, at about 32% efficiency; the vendor should confirm stable operation down to the minimum speed of 72%. The drive needs an inverter-duty motor for the hazardous area, and many owners still prefer a control valve for its fast response and simple failure mode.
+
+## Life-Cycle Cost
+
+For a small pump, energy, not purchase price, decides the life-cycle cost [@lcc]. Table 5 compares five options over 20 years at C$0.09/kWh. The yearly electricity cost <em>E</em> is discounted at <em>i</em> = 8% over <em>n</em> = 20 years, Eq. (7), a factor of 9.82:
+
+TEX PV = E\,\frac{1-(1+i)^{-n}}{i}
+
+Purchased costs for two pumps and two motors come from the Towler and Sinnott correlations [@towler], escalated to 2025 with a Chemical Engineering Plant Cost Index of about 810 [@cepci] and converted at an assumed 1.38 C$/US$; the valve and drives use budget prices.
+
+TABLE Purchased equipment, electricity and 20-year life-cycle cost of five options.
+| Option | Purchased equipment (C$) | Electricity a year (C$) | 20-year life-cycle cost (C$) |
+| Full stack, control valve | 78,000 | 5,520 | 132,200 |
+| Moderate margins, control valve | 72,200 | 4,370 | 115,000 |
+| Monte Carlo P95, control valve | 72,100 | 4,040 | 111,800 |
+| Full stack, variable-speed drive | 80,600 | 3,310 | 113,100 |
+| Monte Carlo P95, variable-speed drive | 70,600 | 3,320 | 103,200 |
+
+The P95 design saves C$5,900 at purchase and C$20,400 over 20 years, 15% of the life-cycle cost of the full-stack design, and C$3,300 (3%) against moderate margins (Figure 6). A drive on the P95 pump saves a further C$8,600. The capital figures carry the usual ±30% or wider accuracy of factored estimates and exclude installation and maintenance, which would add similar amounts to every option. One pump system is a small sum. A new plant with 40 pumps, each carrying the same stacked margins, is not.
+
+FIG fig6-life-cycle-cost || Twenty-year life-cycle cost of five options: purchased equipment plus the present value of electricity at C$0.09/kWh and 8% a year. || Stacked bars of 20-year life-cycle cost for five options, purchase plus present value of electricity: full stack with valve C$132,200, moderate margins C$115,000, P95 with valve C$111,800, full stack with drive C$113,100 and P95 with drive C$103,200. ||
+
+## The Equipment List
+
+The equipment list is where a sizing method becomes a commitment. A stacked margin leaves no trace there: a reader sees 106.6 m and cannot tell how much is physics and how much caution. The list should keep the Monte Carlo basis explicit.
+
+Table 6 shows the pump and valve lines with three changes from a conventional list: a normal or median value beside every rated value, a basis column naming the confidence level and the main assumption, and a hold column linking each open input to the hold register.
+
+TABLE Pump and control valve lines of the equipment list, with basis and holds.
+| Tag | Service | Normal or median | Rated or design | Basis | Holds |
+| P-101A/B | Reactor feed pump, centrifugal, 1 + 1 | 9.8 m³/h at 75.2 m (normal) | 10.7 m³/h at 82.5 m; motor 7.5 kW; shutoff about 99 m | Monte Carlo P95 of 20,000 correlated cases (expected coverage; 81% to 99% as built); 0.7 bar kept across FCV-101; 92% of demand in the full-stack worst case | H-01, H-04, H-05 |
+| FCV-101 | Reactor feed flow control, upstream of E-101 | Cv 8.9, 66% open (median) | 1.5-inch globe, equal %, rated Cv 34 | 99th-percentile case of pooled normal and turndown cases at 85% open; at least 32% open at 50% turndown | H-03 |
+| Discharge system | 2-inch line, FE-101, FCV-101, E-101 tube side | 7.2 barg at the valve inlet (median) | Design 11.5 barg | Shutoff with the 5% larger impeller at maximum density plus full tank at relief set pressure, +10% | H-01, H-05 |
+| TK-101 | Feed tank, nitrogen blanket | Level band 0.5 to 7.5 m | 80 m³ working volume | Eight hours of normal feed | H-05 |
+
+The hold register lists what would change these numbers: the vendor's pump curve (H-01), electricity price (H-02), valve and drive prices (H-03), piping route (H-04) and tank level band and relief set pressure (H-05). When a hold closes, the model is rerun and the revision log records whether any rated point moved, up or down.
+
+The Excel template sets out these columns with the checks as formulas, and carries all 20,000 cases with their percentiles.
+
+## Implementation Guide
+
+A design team can adopt the method in five steps, starting with the pumps whose energy or design pressure matters most. In an operating plant, step 1 fits the system curve to plant data, uses the measured route and fittings, and keeps fouling and clogging as ranges.
+
+1. **Write down the inputs and their ranges.** Classify each input as an operating variable or a design unknown and give it a range, a shape (triangular with a most likely value, else uniform) and a source, as Table 1 does.
+2. **Name the correlations.** Ask which inputs move together in operation. Without evidence, run with and without each correlation and keep the higher answer.
+3. **Choose the confidence level with the owner.** P95 is a sensible default for continuous service with a spare pump; P99 suits a pump whose shortfall stops the plant, and P90 a utility or batch service. The step from P95 to P99 is usually small (2.2 m here); the step to moderate margins was 6.3 m and to the full stack 24 m.
+4. **Run the checks over all cases.** Operating region, suction head, motor and end-of-curve power, design pressure, valve opening at maximum and at turndown, choked flow and cavitation.
+5. **Record and rerun.** Enter the rated points with their basis and holds in the equipment list, and rerun at every revision of the PFD, line list or vendor data.
+
+### 10.1 Pitfalls
+
+- **Treating design unknowns as random.** Route length is not random: once the pipe is built it has one length. Mixing it with hourly variables gives the expected coverage, not the coverage of the plant as built: here the P95 pump covers between 81% and 99% of operating states depending on where the design unknowns land. Run the design unknowns at their low, likely and high values as well, and size for the case the team will stand behind. Fouling, clogging and roughness drift over a run, so their high values will occur at some point.
+- **Double margins.** Do not add the usual 10% on head to a Monte Carlo rated point; the confidence level is the margin. Allow separately, and say so, for what the model leaves out: the head tolerance of the vendor's performance test and impeller wear, a few percent of head.
+- **Ranges that are too narrow.** The output is only as good as the input ranges. A range set to make the answer look good is worse than a stacked margin, because it looks rigorous.
+- **Forgetting the upset.** Record what the pump delivers in the worst combination and have the owner accept it; services such as cooling water to an exothermic reactor should be sized for the worst case deliberately.
+- **Ignoring the downstream design pressure.** Shutoff head sets the design pressure of the discharge system, which can move equipment ratings and relief cases even when the piping class does not change.
+
+## Conclusions
+
+For the reactor feed system of a 50,000-tonne-a-year chemical plant, sizing the pump and control valve from the distribution of operating states, instead of from stacked worst cases, gives a smaller and better design.
+
+- A pump rated at the 95th percentile of 20,000 correlated cases needs 82.5 m of head at 10.7 m³/h: 77% of the head a full stack of worst cases requires and 93% of a moderate deterministic practice. The 99th percentile needs 84.7 m.
+- Against the full stack, the P95 pump uses 27% less electricity, needs a 7.5 kW motor instead of 11 kW, runs closer to its best-efficiency point and lowers the discharge design pressure from 14.5 to 11.5 barg. Against moderate margins it saves 8% of the electricity and 0.5 bar of design pressure, with the same motor.
+- The P95 rating is the expected coverage at the design stage: once the design unknowns are fixed, the same pump keeps full control in 81% to 99% of operating states. The equipment list should say so.
+- For the ranges used, tank level, reactor pressure and production rate drive the required head more than route length, fouling or roughness; with a route known only to within 120 to 400 m, the route comes first.
+- Over 20 years the P95 design costs 15% less than the full stack and 3% less than moderate margins; on a variable-speed drive it costs 22% less than the full stack with a control valve and 9% less than the full stack on a drive.
+- In the full-stack worst case, a combination the simulation never drew, the P95 pump delivers 92% of the demanded flow with the valve fully open and 97% with the larger impeller API 610 provides for; the owner should accept that explicitly.
+
+The case has limits. The pump curve and its 40% efficiency are generic, not a vendor's, and the capital costs are factored estimates. The input ranges are illustrative, the ranking of drivers depends on them, and treating design unknowns as random gives expected rather than as-built coverage. Installation and maintenance are left out, drive efficiency is constant, and the model covers steady single-phase operation of one pump system, not start-up or transients. The method transfers to any new or modified chemical plant; the model and template can be downloaded from this paper's page.
+
+## Appendix A: Monte Carlo Simulation, Step by Step
+
+Table 7 sets out the simulation in eleven steps, with what this paper did and where the script in Appendix B does it.
+
+TABLE Monte Carlo simulation, step by step.
+| Step | What to do | In this paper | In the script |
+| 1. Define the output | Name the quantity that decides the size and the condition it must meet. | Rated head that keeps at least 0.7 bar across FCV-101 at each case's own flow. | <em>need</em> |
+| 2. List the inputs | Every input to the hydraulic calculation; mark each as an operating variable or a design unknown, and record its source. | Eleven inputs: six operating variables, five design unknowns (Table 1). | <em>IN</em> |
+| 3. Give each a distribution | Triangular where a most likely value can be named, uniform where it cannot, normal for a controlled variable with a known spread. | Triangular for rate, route and fittings; normal for reactor pressure; uniform for the rest. | <em>IN</em> |
+| 4. Name the correlations | Rank correlations between inputs that move together; convert each to a normal-score correlation of 2 sin(π<em>r</em>/6). | Rate with reactor pressure (0.5) and with recycle (0.3); temperature sets density, viscosity and vapour pressure. | <em>CORR</em> |
+| 5. Draw the cases | Draw correlated standard normals, convert them to uniforms with the normal distribution function, then to each input through its inverse distribution function. Fix the random seed. | 20,000 cases, seed 1 (Gaussian copula). | <em>sample()</em> |
+| 6. Run the model for every case | Solve the deterministic calculation once per case, written to work on whole arrays at once. | Darcy–Weisbach with Colebrook friction, equipment drops, system head, Eq. (1). | <em>head()</em> |
+| 7. Compute the decision quantity per case | Turn each case into the rated value it needs. | Rated flow at the chosen percentile of flow; rated head each case needs, Eq. (2). | loop over P90, P95, P99 |
+| 8. Read the percentile | Take the chosen percentile of the per-case values as the rated point. | P95: 10.7 m³/h at 82.5 m; P90 and P99 for comparison. | <em>np.percentile</em> |
+| 9. Check convergence | Repeat with new seeds at several sample sizes; stop when the rated point moves less than the precision you need. | ±0.1 m at 20,000 cases from 200 repeats (Figure 4). | rerun with <em>sample(n, seed)</em> |
+| 10. Verify | With every input at its base value the simulation must return the hand calculation; compare the friction and valve equations with an independent source. | Base case returns 67.3 m; friction matches the *fluids* library; IEC worked example reproduced. | <em>head()</em> with every input at its base value |
+| 11. Test, check and record | Swing each input from P5 to P95, remove the correlations, widen the uncertain ranges; run the pump and valve checks over all cases; enter the rated point with its basis and holds. | Figure 3, Section 6, Section 7 and Table 6. | full model download |
+
+## Appendix B: Python Code
+
+The script below runs steps 2 to 8 of Table 7 and prints the P90, P95, P99 and stacked-margin rated points (10.48 m³/h at 81.4 m, 10.68 at 82.5 m, 10.99 at 84.7 m and 11.76 at 106.6 m). It needs Python 3 with NumPy and SciPy; the full model and template can be downloaded from this paper's page.
+
+CODE appendix || Monte Carlo rated points for the reactor feed pump: 20,000 correlated cases, P90, P95, P99 and stacked-margin rated points (Python 3 with NumPy and SciPy).
+"""
