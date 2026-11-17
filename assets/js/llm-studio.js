@@ -196,14 +196,16 @@
       }
       function place(px, py, txt) {
         var w = txt.length * 6.6 + 4, h = 13, cands = [];
-        [[8, -6], [8, 16], [-8 - w, -6], [-8 - w, 16], [-w / 2, -11], [-w / 2, 23], [12, 4], [-12 - w, 4], [-w / 2, -24], [-w / 2, 36], [16, -18], [-16 - w, -18], [16, 28], [-16 - w, 28]]
+        // First choice: centred just above the dot, then centred just below; side positions only if both are blocked.
+        [["m", 0, -11], ["m", 0, 19], [8, -6], [8, 16], [-8 - w, -6], [-8 - w, 16], [12, 4], [-12 - w, 4], ["m", 0, -24], ["m", 0, 32], [16, -18], [-16 - w, -18], [16, 28], [-16 - w, 28]]
           .forEach(function (c) { cands.push(c); });
         for (var i = 0; i < cands.length; i++) {
-          var x = px + cands[i][0], y = py + cands[i][1], bx = [x - 1, y - 11, x + w, y + h - 10];
+          var mid = cands[i][0] === "m", x = mid ? px : px + cands[i][0], y = py + (mid ? cands[i][2] : cands[i][1]);
+          var bx = mid ? [x - w / 2, y - 11, x + w / 2, y + h - 10] : [x - 1, y - 11, x + w, y + h - 10];
           if (bx[0] < ml + 2 || bx[2] > W - mr || bx[1] < mt - 2 || bx[3] > H - mb - 2) continue;
           if (boxes.some(function (o) { return hitBox(bx, o); })) continue;
           if (segs.some(function (sg) { return hitSeg(bx, sg); })) continue;
-          boxes.push(bx); return [x, y];
+          boxes.push(bx); return [x, y, mid ? "middle" : "start"];
         }
         return null;
       }
@@ -220,9 +222,9 @@
         s.p.forEach(function (p) {
           var t = "<b>" + esc(s.m.name) + "</b>" + (p.set ? " · " + esc(p.set) : "") + "<br>" + esc(b.short || b.name) + ": " + fmt(p.y, b) + "<br>" + XL.replace(/ \(.*\)/, "") + ": " + (xm === "cost" ? money(p.x) : xm === "tok" ? num(p.x, 0) : num(p.x, 1) + " min");
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="5" fill="' + s.c + '" stroke="#fff" stroke-width="2"/>';
-          g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="12" fill="transparent" tabindex="0" data-tip="' + esc(t) + '"><title>' + esc(t.replace(/<[^>]+>/g, " ")) + "</title></circle>";
+          g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="12" fill="transparent" tabindex="0" data-tip="' + esc(t) + '" aria-label="' + esc(t.replace(/<[^>]+>/g, " ")) + '"></circle>';
           var at = p.set && place(X(p.x), Y(p.y), p.set);
-          if (at) g += '<text class="ls-setlab" x="' + at[0].toFixed(1) + '" y="' + at[1].toFixed(1) + '" font-size="11" fill="' + MUTED + '" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">' + esc(p.set) + "</text>";
+          if (at) g += '<text class="ls-setlab" x="' + at[0].toFixed(1) + '" y="' + at[1].toFixed(1) + '" text-anchor="' + at[2] + '" font-size="11" fill="' + MUTED + '" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">' + esc(p.set) + "</text>";
         });
       });
       box.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc($(P + "title").textContent) + '" data-export-title="' + esc($(P + "title").textContent) + '" data-export-caption="' + esc((b.what || "") + " Source: " + b.src + (b.updated ? ", " + b.updated : "") + ".") + '">' + g + "</svg>";
@@ -288,7 +290,7 @@
       var hi = elo ? Math.ceil((Math.max.apply(0, have) + 20) / 10) * 10 : Math.max.apply(0, have) * 1.18 || 1;
       var top = oy + 62, bot = oy + PH - 22, left = ox + 8, right = ox + PW - 8;
       g += '<rect x="' + ox + '" y="' + oy + '" width="' + PW + '" height="' + PH + '" rx="10" fill="#fff" stroke="' + GRID + '"/>';
-      g += '<text x="' + (ox + 12) + '" y="' + (oy + 20) + '" font-weight="600" font-size="13" fill="' + INK + '"><title>' + esc(b.name + ": " + (b.what || "") + " Source: " + b.src) + "</title>" + esc(b.short || b.name) + "</text>";
+      g += '<text x="' + (ox + 12) + '" y="' + (oy + 20) + '" font-weight="600" font-size="13" fill="' + INK + '" tabindex="0" style="cursor:help" data-tip="' + esc("<b>" + esc(b.name) + "</b><br>" + esc(b.what || "") + "<br>Source: " + esc(b.src)) + '">' + esc(b.short || b.name) + "</text>";
       g += '<text x="' + (ox + 12) + '" y="' + (oy + 34) + '" font-size="10.5" fill="' + MUTED + '">' + esc(b.section) + (b.hb === false ? " · lower is better" : "") + (elo ? " · axis from " + num(lo, 0) : "") + "</text>";
       var n = sel.length, slotW = (right - left) / n, bw = Math.min(30, slotW - 8), crowd = n >= 5;
       var lab = function (v) {
@@ -316,7 +318,7 @@
           y = Math.min(y, yb);
         }
         g += '<text x="' + cx + '" y="' + (y - 7) + '" text-anchor="middle" font-size="' + (crowd ? 10.5 : 11.5) + '" font-weight="600" fill="' + INK + '">' + lab(v) + "</text>";
-        g += '<rect x="' + (cx - slotW / 2) + '" y="' + top + '" width="' + slotW + '" height="' + (bot - top) + '" fill="transparent" tabindex="0" data-tip="' + esc(t) + '"><title>' + esc(t.replace(/<[^>]+>/g, " ")) + "</title></rect>";
+        g += '<rect x="' + (cx - slotW / 2) + '" y="' + top + '" width="' + slotW + '" height="' + (bot - top) + '" fill="transparent" tabindex="0" data-tip="' + esc(t) + '" aria-label="' + esc(t.replace(/<[^>]+>/g, " ")) + '"></rect>';
       });
       g += '<line x1="' + left + '" x2="' + right + '" y1="' + bot + '" y2="' + bot + '" stroke="' + AXIS + '"/>';
     });
@@ -374,7 +376,7 @@
         if (r.v >= 0 || elo) labX = Math.max(labX, w1 + 8);
       }
       g += '<text x="' + labX.toFixed(1) + '" y="' + (y + bh - 4) + '" font-size="12" fill="' + INK + '">' + fmt(r.v, b) + (tied ? '<tspan fill="' + MUTED + '"> ≈ #1</tspan>' : "") + "</text>";
-      g += '<rect x="0" y="' + (y - 3) + '" width="' + W + '" height="' + (bh + 6) + '" fill="transparent" tabindex="0" data-tip="' + esc(t) + '"><title>' + esc(t.replace(/<[^>]+>/g, " ")) + "</title></rect>";
+      g += '<rect x="0" y="' + (y - 3) + '" width="' + W + '" height="' + (bh + 6) + '" fill="transparent" tabindex="0" data-tip="' + esc(t) + '" aria-label="' + esc(t.replace(/<[^>]+>/g, " ")) + '"></rect>';
     });
     box.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc($("ls-r-title").textContent) + '" data-export-title="' + esc($("ls-r-title").textContent) + '">' + g + "</svg>";
     bindTips(box);

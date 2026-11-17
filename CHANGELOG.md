@@ -1,5 +1,12 @@
 # Changelog
 
+## V5.51 — 2026-11-17
+- **AI Models charts: labels centred on their dots, and one tooltip only.**
+  - Effort-curve setting labels (headline chart and chart studio) are now centred just above their dot, or just below when the space above is taken; side positions are used only when both are blocked (15 of 17 labels centred in the default view).
+  - Hovering a point or bar now shows only the black tooltip. The browser's own white tooltip (from hidden SVG `<title>` text on chart points, compare bars and ranking bars) is removed; the same text stays available to screen readers as an `aria-label`. Compare-panel titles show what the benchmark measures in the same black tooltip.
+  - Checked in headless Chrome: no `<title>` left in any chart, tooltip shows on hover, no script errors; overlap tests pass (72 studio curves, compare grid, 38 ranking charts).
+  - Source changes: `assets/js/llm-studio.js`; `llm-leaderboard.html` (asset versions).
+
 ## V5.50 — 2026-11-17
 - **Reverted V5.49** at the owner's request: the model-tagged setting labels, the nearest-point label rule and the cost-order footnote made the effort-curve charts harder to read. `assets/js/llm-studio.js` and `llm-leaderboard.html` are restored exactly to V5.48 (same asset version stamp). The Gemini 4 Carbon finding stands: Artificial Analysis publishes Low at $5.22 and Medium at $4.68 per task, so its line correctly steps back to the left.
 
