@@ -1,82 +1,94 @@
-# Agentic benchmarks: source notes (prefix `agentic`), refresh
+# Agentic benchmarks: source notes (prefix `agentic`), refresh 2026-11-17
 
-Retrieved 2026-11-16 with `curl` (HTTPS proxy, TLS verified). Downloads are in /home/claude/llmrefresh/dl/agentic/, parser scripts in /home/claude/llmrefresh/scripts/agentic_*.py. Same sources, endpoints and selection rules as the 2026-11-11 collection. I kept the benchmark names exactly; all 26 previous benchmark names are present and none were added. `agentic.models.json` is empty because these boards publish no model specs. 1,427 score rows (previously 1,399).
-For every board I rebuilt the rows from fresh data and diffed them against the previous raw file. Only Terminal-Bench 4.1, OSWorld 2.0 and Vending-Bench 2 changed. Every other board's numbers came out identical.
+Retrieved 2026-11-17 with `curl` (HTTPS proxy, TLS verified) into a fresh directory /home/claude/llmrefresh2/dl/agentic2/. Parser scripts: /home/claude/llmrefresh2/scripts/agentic2_*.py (run with `python3 -I`), adapted from the 2026-11-16 scripts. Assembly and diff: agentic2_assemble.py. Same sources, endpoints and selection rules as the previous collection. All 26 previous benchmark names are kept exactly (checked by script: none missing, none extra). `agentic.models.json` is empty because these boards publish no model specs. **1,483 score rows** (previously 1,427).
+I rebuilt every board from fresh downloads and diffed the result against content/llm/raw/agentic.scores.json. **Only Terminal-Bench 4.1 and ARC-AGI changed.** Every other board came out identical. Most of their data files are byte-identical to the 2026-11-16 downloads (OSWorld 2.0 JSON, BFCL CSV, Aider YAML, METR YAML, τ manifest and all 46 submissions, Vending-Bench 2 JS chunks, SWE-bench embedded JSON).
 
 ## SWE-bench (Verified, Multilingual): https://www.swebench.com/
-- **Data:** embedded `<script id="leaderboard-data">` JSON (five boards). Unchanged since last time.
-- **Newest entries:** Verified 2026-02-26, Multilingual 2026-02-20. No "last updated" date is shown, so the board is stale.
-- **Selection:** same as before: the Verified top 50 by score (non-mini rows go to the full-leaderboard benchmark), mini-SWE-agent rows from 2025-07 on, and all Multilingual rows.
-- **Cost:** `cost_per_task_usd` = `instance_cost`; `cost_total_usd` = `cost`. A value of 0 means unknown.
-- **Self-reported flag:** set when `checked` is not True. mini-SWE-agent rows are maintainer runs.
+- **Data:** embedded `leaderboard-data` JSON. It is identical to before.
+- **Newest entries:** Verified 2026-02-26, Multilingual 2026-02-20. The board is stale and shows no "last updated" date.
+- **Selection:** unchanged: the Verified top 50 by score (non-mini rows go to the full-leaderboard benchmark), mini-SWE-agent rows from 2025-07 on, and all Multilingual rows.
+- **Cost:** `cost_per_task_usd` = instance_cost; `cost_total_usd` = cost. A value of 0 means unknown.
 - **Rows:** 34 + 47 + 13.
 
 ## SWE-Bench Pro (Scale): https://labs.scale.com/leaderboard/swe_bench_pro
-- **Data:** RSC flight `variants`: Public 731 tasks (25 rows) and Private/commercial 276 tasks (14 rows). Unchanged; newest `createdAt` is 2026-07-09.
-- **Scaffold:** `*` = mini-swe-agent (page legend). SWE-Agent for unstarred rows is inferred from the methodology text.
+- **Data:** RSC flight `variants`: Public 731 tasks (25 rows) and Private 276 tasks (14 rows). Numbers are unchanged; newest createdAt is 2026-07-09.
+- **Changed:** the page tab labels are now just "Public" and "Private" (were "SWE-Bench Pro (Public Dataset)" / "(Private Dataset)"). I kept the previous benchmark names. The parser also had to be adjusted because `variants` is no longer the first key of its object.
+- **Scaffold:** `*` = mini-swe-agent; SWE-Agent for unstarred rows is inferred from the methodology text.
 - **Cost:** none shown.
 
-## Terminal-Bench 4.1: https://www.tbench.ai/ (/leaderboard redirects here)
-- **Data:** RSC flight rows from leaderboard id 947c0b13 ("Terminal-Bench 4.1", record updated_at 2026-11-14). 59 rows, up from 35.
-- **New rows:** the 24 new rows were all created 2026-11-13/14, including several older models newly posted (e.g. Gemini 4 Carbon, Gemini 4 Argon, Kimi K3). The page mentions no other Terminal-Bench version (only 4.1).
-- **Score and cost:** accuracy with 95% CI half-width; `votes_or_n` = n_trials (330 on every row); `cost_total_usd` = total_cost_usd (whole run). Muse Spark 1.3 shows $0, so its cost is null.
-- **Fields:** effort = `reasoning_effort`; agent = agent_display. `result_date` = row metadata date. Previously ranked rows moved down because new rows were inserted; their scores are unchanged.
-- **Gemini 4 Hydrogen** is listed as 56.36% ± 2.97 (Antigravity CLI, high, $784.24, date Nov 12, 2026). The board does not show Google's claimed 57.0% "cheating-adjusted" figure, so I did not record it.
-- **Verification:** the board does not mark verified vs submitted rows, so `self_reported=false` with a caveat.
+## Terminal-Bench 4.1: https://www.tbench.ai/
+- **Data:** RSC flight rows of leaderboard 947c0b13 ("Terminal-Bench 4.1"), record updated_at 2026-11-17T17:27. 63 rows (was 59), all with n_trials 330.
+- **Score and cost:** accuracy with 95% CI half-width; `cost_total_usd` = total_cost_usd for the whole run. Effort = reasoning_effort; scaffold = agent_display.
+- **New rows (created 2026-11-16):**
+  - **Copilot Fusion** (GitHub Copilot, max): 71.21% ± 2.88, $1,987.33, date Nov 17, 2026. It is now **rank 1**. **This is a router/product, not a model.** Its link goes to docs.github.com/en/copilot/concepts/models/copilot-fusion (retrieved). That page says: "Copilot Fusion is an intelligent runtime model router and orchestrator". It picks models and a single/cascade/critique pattern for each task, and its model pool changes over time. "max" means Fusion Max. Flagged in the row notes; the merge step should probably keep it out of model rankings.
+  - **Ember-1** (Fireworks, mini-swe-agent, none): 21.82%, $4,718.49, dated 2026-09-24.
+  - **Hy4 Preview** (Tencent, Claude Code, max): 19.09%, $658.09, dated 2026-08-28.
+  - **Gemini 3.1 Pro** (Antigravity CLI, high): 2.73%, $3,651.15, dated 2026-02-19 (an older model newly posted).
+- **Re-ranking:** every older row moved down 1 to 4 places; their scores and costs are unchanged. Opus 5.5 and Fable 5.2 are now tied at rank 2.
+- **Other agent names:** Claude Code, Codex, Antigravity CLI, Grok Build, Muse Code and mini-swe-agent are agent harnesses and sit in `scaffold`. The models in those rows are real models.
+- **Cost exception:** Muse Spark 1.3 shows $0, so its cost is null.
+- **GPT-6.2:** none of these rows are GPT-6.2 Astra or Sol.
+- **Verification:** the board does not mark verified vs submitted rows (self_reported=false, with a caveat).
 
 ## OSWorld 2.0: https://osworld-v2.xlang.ai/
-- **Data:** `static/data/leaderboard/official-results.json` (updatedAt now 2026-11-14; was 2026-10-15). benchmarkVersion "OSWorld 2.0"; task releases v2026.06.24 (default), v2026.08.08 and v2.1.
-- **v2.1 is a task release inside OSWorld 2.0**, not a separate board. Its rows stay under the existing benchmark names, with the release in `notes`.
-- **New row:** MiniMax M3.1 Flash (v2026.08.08, full set, adaptive, 500 steps): 26.85 binary / 62.01 partial. `official`=False, so `self_reported`=true; runCount 2.
-- **No Gemini rows.** No 77.6% figure appears on the page or in the data, so the OSWorld-2.1 77.6% claim is not recorded.
-- **Cost:** `cost_total_usd` = estimatedCostUsd. `costPerTaskUsd` is stated only for Sai.
-- **Rows:** 56 + 56.
+- **Data:** `static/data/leaderboard/official-results.json`. It is byte-identical; updatedAt 2026-11-14.
+- **Task releases:** v2026.06.24 (default), v2026.08.08 and v2.1, recorded in `notes`.
+- **Cost:** `cost_total_usd` = estimatedCostUsd.
+- **Rows:** 56 + 56. No GPT-6.2 and no Gemini rows.
 
-## OSWorld-Verified: https://os-world.github.io/ (redirects to http://osworld-v1.xlang.ai/)
-- **Data:** the verified xlsx, top 60 by success rate (newest date 2026-08-01), plus the 3 recent self-reported Screenshot entries. Unchanged.
-- **News:** the page still shows "2026-06-26: OSWorld 2.0 is now available".
+## OSWorld-Verified: https://os-world.github.io/ (redirects to osworld-v1.xlang.ai)
+- **Data:** the verified xlsx and self-reported xlsx are unchanged (same sheets and row counts, identical rows). Newest verified date is 2026-08-01.
+- **Rows:** top 60 plus 3 self-reported Screenshot entries.
 
 ## τ-bench / τ²-bench / τ³: https://taubench.com/
-- **Data:** S3 manifest `submissions/manifest.json`: 30 current + 16 legacy submissions, the same lists as before. I re-downloaded all 46 submission.json files and kept those dated 2025-07 or later.
-- **Overall:** the τ² overall top 3 (87.9 / 85.4 / 85.3) is static in the homepage HTML.
-- **Homepage τ³-Banking top 3:** Qwen 3.8 Max 55.2%, Claude Opus 5 48.7%, Grok 4.5 47.9%. These match the submissions.
-- **Changes:** none in numbers. The Cortex submission's methodology says "Cost is the average agent spend per trajectory, excluding the user simulator"; I added this to its notes.
-- **Not extracted:** voice boards (voice, voice_v2).
-- **Cost:** `cost_per_task_usd` = per-domain `cost` ("Avg Cost"). Its unit is not defined except in Cortex's own notes.
+- **Data:** S3 manifest `submissions/manifest.json`: 30 current + 16 legacy submissions. It and all 46 submission.json files are byte-identical.
+- **Newest submission:** 2026-10-20 (Cortex 0.1).
+- **Overall:** the τ² overall top 3 is taken from the homepage as before.
+- **Cost:** `cost_per_task_usd` = per-domain "cost" ("Avg Cost"). Its unit is undefined except in Cortex's own methodology note.
+- **Not extracted:** voice boards.
 
 ## BFCL V4: https://gorilla.cs.berkeley.edu/leaderboard.html
-- **Data:** `data_overall.csv`, still "Last Updated: 2026-04-12". Identical to before. Top 60 ranks: Overall / Multi Turn / Web Search.
-- **Cost:** `cost_total_usd` = Total Cost ($) (Overall rows only). The board is stale.
+- **Data:** `data_overall.csv` is identical; "Last Updated: 2026-04-12".
+- **Rows:** top 60 Overall / Multi Turn / Web Search. `cost_total_usd` = Total Cost ($). The board is stale.
 
 ## Aider Polyglot: https://aider.chat/docs/leaderboards/
-- **Status:** "last updated November 20, 2025"; the newest entry is 2025-10-03, so the board is stale.
-- **Data:** I read the records from the site's GitHub YAML (raw.githubusercontent.com/Aider-AI/aider/main/aider/website/_data/polyglot_leaderboard.yml), which the page renders. 56 rows dated 2025. Identical to before.
+- **Status:** the page says "last updated November 20, 2025". The newest entry is 2025-10-03 (stale).
+- **Data:** the GitHub YAML (raw.githubusercontent.com/Aider-AI/aider/main/aider/website/_data/polyglot_leaderboard.yml) is identical. 56 rows.
 
 ## METR Time Horizons 1.1: https://metr.org/time-horizons/
-- **Status:** "This page is no longer actively updated. LAST UPDATED September 8, 2026".
-- **Data:** `assets/benchmark_results_1_1.yaml` is unchanged. 14 models × p50/p80, with display names checked against the page.
+- **Status:** the page still says "no longer actively updated", LAST UPDATED September 8, 2026.
+- **Data:** `assets/benchmark_results_1_1.yaml` is identical. 14 models × p50/p80; display names were re-checked against the page.
 
 ## ARC-AGI (1, 2, 3): https://arcprize.org/leaderboard
-- **Data:** RSC `groups` (121 groups, unchanged). I resolved RSC `$` references and skipped entries with display=false (the previous rule).
-- **Newest release date:** 2026-11-10 (Gemini 4 Carbon). **No Gemini 4 Hydrogen and no new Qwen entry.** Inkling 2 Small (XHigh) was already present.
-- **Cost:** ARC-AGI-1/2 `cost_per_task_usd` = costPerTask. ARC-AGI-3 `cost` → `cost_total_usd` (definition not stated).
-- **Developer:** now the provider displayName (e.g. "Johan Land" instead of "johan_land").
+- **Data:** RSC `groups` with `$` references resolved; entries with display=false are skipped (unchanged rule). 125 groups (was 121). Newest release date is **2026-11-17**.
+- **New rows: GPT-6.2 Astra and GPT-6.2 Sol (OpenAI, release 2026-11-17).** Each has 5 efforts (Low, Medium, High, XHigh, Max) on ARC-AGI-1, ARC-AGI-2, ARC-AGI-3 Standard and ARC-AGI-3 Provider Adapter: 40 rows. These match the same-day openai62 lead rows exactly.
+- **Cost for GPT-6.2:**
+  - ARC-AGI-1/2: `cost_per_task_usd` = costPerTask, given at every setting.
+  - ARC-AGI-3: only `cost` is given, recorded as `cost_total_usd`.
+  - The Sol entries carry the board note "Partial dataset coverage: scores use full catalog denominators; costs include recorded usage only, excluding unrecorded attempts", copied into notes.
+- **Selected GPT-6.2 values:**
+  - Astra (Max): ARC-AGI-1 0.985 at $0.3505/task; ARC-AGI-2 0.9583 at $0.9695/task; ARC-AGI-3 Standard 0.7031 at cost $24,168.91; Provider Adapter 0.9980 at $4,106.96.
+  - Sol (Max): ARC-AGI-1 0.975 at $0.1060/task; ARC-AGI-2 0.8583 at $0.2611/task; ARC-AGI-3 Standard 0.5493 at $5,466.21; Provider Adapter 0.9821 at $1,494.19.
+- **Mercury 3 Preview (Inception, release 2026-10-19), newly listed:**
+  - ARC-AGI-1/2 at four efforts: Instant, Low, Medium, High.
+  - ARC-AGI-3 Standard and Provider Adapter at High only.
+  - 12 rows in all.
+- **Inkling 2 Small (XHigh):** its ARC-AGI-1 and ARC-AGI-2 rows were **already present** (unchanged). Its **ARC-AGI-3 Standard (0.00297, cost $857.92) and Provider Adapter (0.0255, $703.94) rows are new.** Release date 2026-11-05.
+- **Developer:** the provider displayName.
 
 ## Vending-Bench 2 (Andon Labs): https://andonlabs.com/evals/vending-bench-2
-- **Data:** runs data (`runs.vb2`) from the JS chunk Bl9fFL93.js; the cost-per-run table and the "New" list from nodes/26.CDA-0jog.js. 76 models (was 74). No update date is shown.
-- **New rows:** Gemini 4 Hydrogen, rank 3, $14,549.49 ± $495 SEM, n=6, mean cost per run $162.14 at $1.5/$7.5 per Mtok. The board lists this, so it matches Google's $14,549 claim. Claude Fable 5.2, rank 12, $9,628.48, mean cost $731.42. Page release dates: Hydrogen 2026-11-12, Fable 5.2 2026-11-09.
-- **Cost:** `cost_per_task_usd` = mean_cost per full run (list prices, no caching).
-- **Setting:** now holds the effort suffix from names such as "Claude Fable 5 - High", as in the previous file.
+- **Data:** runs data from JS chunk Bl9fFL93.js and the cost table and "New" list from nodes/26.CDA-0jog.js. Both are byte-identical to the 2026-11-16 downloads (same chunk hashes on the page). 76 models.
+- **New list:** "New" = Gemini 4 Argon, Gemini 4 Carbon, Gemini 4 Hydrogen, GPT-6.1 Terra, GPT-6.1 Sol, Claude Fable 5.2. No GPT-6.2 entry.
+- **Cost:** `cost_per_task_usd` = mean cost per full run (list prices, no caching). The board shows no update date.
 
-## Leads checked on every board (2026-11-16)
-- **Qwen4-Max, K2 Horizon 375B A23B, Ling 3.1 Flash 1019:** not listed on any of these boards.
-- **"Inkling 2 Small":** on ARC-AGI-1/2 as "Inkling 2 Small (XHigh)" (already there). Terminal-Bench lists "Inkling Small 2" (xhigh, 13.03%), named exactly as shown. Whether the two are the same model is left to the merge step.
-- **Gemini 4 Hydrogen:** on Terminal-Bench 4.1 and Vending-Bench 2 only.
-- **Newest Qwen rows:** Terminal-Bench Qwen3.8-Max-0902; τ³ Qwen 3.8 Max; OSWorld 2.0 Qwen 3.7-Plus.
+## Leads checked (2026-11-17)
+- **GPT-6.2 Astra / Sol:** present only on ARC-AGI (40 rows). They are not on Terminal-Bench 4.1, SWE-bench, SWE-Bench Pro, OSWorld 2.0/Verified, τ, BFCL, Aider, METR or Vending-Bench 2 (searched all downloads).
+- **Inkling:** the Terminal-Bench "Inkling Small 2" row (xhigh, 13.03%) is unchanged. Whether it is the same model as ARC's "Inkling 2 Small" is left to the merge step.
 
 ## Facts I'm unsure about
-- **Terminal-Bench Hydrogen:** the board says 56.36% while Google claims 57.0% "cheating-adjusted". The board does not say whether any adjustment was applied.
-- **Terminal-Bench re-ranking:** 24 rows were bulk-added on 2026-11-13/14, so ranks shifted. Ranks are as shown today.
-- **Unchanged items from the previous notes:** ARC-AGI-3 Provider Adapter scores of 0.95+; ARC-AGI-3 costs above $10K versus the $10K per-run cap in the policy; undefined τ "Avg Cost" units; SWE-Bench Pro scaffold for unstarred rows (inferred); the non-monotonic Opus 5 effort ordering on OSWorld 2.0.
-- **τ² overall Gemini 3.0 Pro:** `self_reported` was kept true as before. Its domain rows say "Submitted by Sierra", which is inconsistent.
-- **SWE-bench, BFCL, Aider and METR** are stale relative to Nov 2026.
+- **Copilot Fusion:** a router whose underlying models vary. Its 71.21% is not attributable to any single model.
+- **ARC-AGI-3 "cost":** the definition is not stated. GPT-6.2 Astra Standard-harness costs ($24K–$29K) exceed the $10K per-run cap mentioned in ARC policy, as some earlier rows already did.
+- **ARC-AGI-3 Provider Adapter scores:** GPT-6.2 Astra scores 0.95–1.0 (XHigh = 1). These are reported as shown.
+- **GPT-6.2 Sol coverage:** costs cover recorded usage only, per the board's note (partial coverage).
+- **Terminal-Bench ranks:** they shift each time rows are inserted. They are recorded as shown on 2026-11-17.
+- **Unchanged caveats:** undefined τ "Avg Cost" units; SWE-Bench Pro scaffold for unstarred rows is inferred; τ² overall Gemini 3.0 Pro self_reported kept true; SWE-bench, BFCL, Aider and METR are stale.

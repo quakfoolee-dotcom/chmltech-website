@@ -53,7 +53,7 @@ IDX.sort(key=lambda t: -len(t[0]))  # longest alias first
 
 def match(name, board=""):
     # LiveBench lists two different "Mistral Large 4" entries and which is the released model is unconfirmed, so neither is used.
-    if name in EXCLUDE or any(board.startswith(b) and name == n for b, n in EXCLUDE_BOARD):
+    if name in EXCLUDE or name.startswith("Copilot Fusion") or any(board.startswith(b) and name == n for b, n in EXCLUDE_BOARD):
         return None, None
     name = BOARD_ALIAS.get((board, name), name)
     # Epoch's "with fallback" runs are a separate configuration (red team V5.39); kept apart until defined.

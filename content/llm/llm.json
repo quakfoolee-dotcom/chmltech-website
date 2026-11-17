@@ -1,7 +1,296 @@
 {
- "as_of": "2026-11-16",
+ "as_of": "2026-11-17",
  "default_benchmark": "aa_index",
  "models": [
+  {
+   "id": "gpt-6-2-astra",
+   "name": "GPT-6.2 Astra",
+   "dev": "OpenAI",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-11-17",
+   "status": "Generally available",
+   "ctx": 1050000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "May 18, 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 8,
+   "pout": 40,
+   "pprov": "OpenAI API (first-party)",
+   "purl": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+   "pnote": null,
+   "surl": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+   "notes": "Released Nov 17, 2026; early results, on few boards so far. Price above 272K input tokens: $16 input / $60 output. Epoch AI's runs are dated Oct 27, 2026, before the public release, and Epoch has not yet published results from other benchmarks for this model.",
+   "s": {
+    "aa_index": {
+     "v": 62.139,
+     "set": "Max",
+     "cost": 3.998,
+     "url": "https://artificialanalysis.ai/leaderboards/models",
+     "alt": [
+      [
+       45.65,
+       0.6617,
+       "Low"
+      ],
+      [
+       56.999,
+       1.618,
+       "Medium"
+      ],
+      [
+       60.088,
+       2.074,
+       "High"
+      ],
+      [
+       61.56,
+       2.521,
+       "X-high"
+      ],
+      [
+       62.139,
+       3.998,
+       "Max"
+      ]
+     ]
+    },
+    "eci": {
+     "v": 174.17,
+     "set": null,
+     "cost": null,
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "170.29 to 178.58",
+     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."
+    },
+    "vals": {
+     "v": 67.656,
+     "set": "Max",
+     "cost": 10.68,
+     "url": "https://www.vals.ai/benchmarks/vals_index",
+     "ci": "stderr 0.935"
+    },
+    "frontiermath": {
+     "v": 92.632,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip",
+     "ci": "stderr 0.015502708491824831",
+     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."
+    },
+    "gpqa": {
+     "v": 96.843,
+     "set": "Max",
+     "cost": null,
+     "url": "https://epoch.ai/data/benchmark_data.zip",
+     "ci": "stderr 0.01226242169221459",
+     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."
+    },
+    "arc2": {
+     "v": 95.833,
+     "set": "X-high",
+     "cost": 0.4996,
+     "url": "https://arcprize.org/leaderboard",
+     "alt": [
+      [
+       91.667,
+       0.2749,
+       "Low"
+      ],
+      [
+       93.333,
+       0.3089,
+       "Medium"
+      ],
+      [
+       94.583,
+       0.4083,
+       "High"
+      ],
+      [
+       95.833,
+       0.4996,
+       "X-high"
+      ],
+      [
+       95.833,
+       0.9695,
+       "Max"
+      ]
+     ]
+    }
+   },
+   "tok": {
+    "total": 41029,
+    "reasoning": 26150,
+    "answer": 14880,
+    "set": "Max",
+    "url": "https://artificialanalysis.ai/models/gpt-6-2-astra"
+   },
+   "aa": [
+    {
+     "set": "Low",
+     "v": 45.65,
+     "cost": 0.6617,
+     "tok": 5216
+    },
+    {
+     "set": "Medium",
+     "v": 56.999,
+     "cost": 1.618,
+     "tok": 13165
+    },
+    {
+     "set": "High",
+     "v": 60.088,
+     "cost": 2.074,
+     "tok": 17828
+    },
+    {
+     "set": "X-high",
+     "v": 61.56,
+     "cost": 2.521,
+     "tok": 22238
+    },
+    {
+     "set": "Max",
+     "v": 62.139,
+     "cost": 3.998,
+     "tok": 41029
+    }
+   ]
+  },
+  {
+   "id": "gpt-6-2-sol",
+   "name": "GPT-6.2 Sol",
+   "dev": "OpenAI",
+   "tier": "Frontier",
+   "access": "Proprietary API",
+   "license": null,
+   "params": null,
+   "released": "2026-11-17",
+   "status": "Generally available",
+   "ctx": 1050000,
+   "maxout": 128000,
+   "inp": [
+    "text",
+    "image"
+   ],
+   "reasoning": "Yes",
+   "cutoff": "Jun 01, 2026",
+   "caps": [
+    "Reasoning mode",
+    "Image input",
+    "Computer use",
+    "1M+ token context"
+   ],
+   "pin": 2,
+   "pout": 10,
+   "pprov": "OpenAI API (first-party)",
+   "purl": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+   "pnote": null,
+   "surl": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+   "notes": "Released Nov 17, 2026; early results, on few boards so far. Price above 272K input tokens: $4 input / $15 output.",
+   "s": {
+    "aa_index": {
+     "v": 57.258,
+     "set": "Max",
+     "cost": 1.014,
+     "url": "https://artificialanalysis.ai/leaderboards/models"
+    },
+    "vals": {
+     "v": 66.059,
+     "set": "Max",
+     "cost": 3.179,
+     "url": "https://www.vals.ai/benchmarks/vals_index",
+     "ci": "stderr 0.91"
+    },
+    "arc2": {
+     "v": 85.833,
+     "set": "High",
+     "cost": 0.1326,
+     "url": "https://arcprize.org/leaderboard",
+     "alt": [
+      [
+       57.917,
+       0.07576,
+       "Low"
+      ],
+      [
+       82.917,
+       0.1032,
+       "Medium"
+      ],
+      [
+       85.833,
+       0.1326,
+       "High"
+      ],
+      [
+       85.833,
+       0.1742,
+       "X-high"
+      ],
+      [
+       85.833,
+       0.2611,
+       "Max"
+      ]
+     ]
+    }
+   },
+   "tok": {
+    "total": 40360,
+    "reasoning": 22800,
+    "answer": 17561,
+    "set": "Max",
+    "url": "https://artificialanalysis.ai/models/gpt-6-2-sol"
+   },
+   "aa": [
+    {
+     "set": "Low",
+     "v": 40.553,
+     "cost": null,
+     "tok": 5980
+    },
+    {
+     "set": "Medium",
+     "v": 52.678,
+     "cost": null,
+     "tok": 13651
+    },
+    {
+     "set": "High",
+     "v": 54.89,
+     "cost": null,
+     "tok": 20160
+    },
+    {
+     "set": "X-high",
+     "v": 55.735,
+     "cost": null,
+     "tok": 24323
+    },
+    {
+     "set": "Max",
+     "v": 57.258,
+     "cost": 1.014,
+     "tok": 40360
+    }
+   ]
+  },
   {
    "id": "gpt-6-astra",
    "name": "GPT-6 Astra",
@@ -32,13 +321,13 @@
    "purl": "https://developers.openai.com/api/docs/models/gpt-6-astra",
    "pnote": null,
    "surl": "https://developers.openai.com/api/docs/models/gpt-6-astra",
-   "notes": "Release date as listed by Artificial Analysis.",
+   "notes": "Superseded by GPT-6.2 Astra (Nov 17, 2026); still offered at $10 / $50. Artificial Analysis now lists it as deprecated; its Index results are taken from its Artificial Analysis model page. Release date as listed by Artificial Analysis.",
    "s": {
     "aa_index": {
      "v": 56.854,
      "set": "Max",
      "cost": 6.245,
-     "url": "https://artificialanalysis.ai/leaderboards/models",
+     "url": "https://artificialanalysis.ai/models/gpt-6-astra",
      "alt": [
       [
        43.335,
@@ -75,11 +364,11 @@
      "ci": "95% CI 1468.392149 to 1479.424690"
     },
     "eci": {
-     "v": 169.0,
+     "v": 169.2,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "166.08 to 172.26"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "166.33 to 172.48"
     },
     "vals": {
      "v": 65.023,
@@ -245,6 +534,7 @@
      ]
     }
    },
+   "superseded": "GPT-6.2 Astra",
    "tok": {
     "total": 51973,
     "reasoning": 35760,
@@ -257,35 +547,35 @@
      "set": "Low",
      "v": 43.335,
      "cost": 1.424,
-     "time": 3.4,
+     "time": 3.36,
      "tok": 9126
     },
     {
      "set": "Medium",
      "v": 51.555,
      "cost": 2.732,
-     "time": 6.94,
+     "time": 6.58,
      "tok": 18052
     },
     {
      "set": "High",
      "v": 54.85,
      "cost": 3.239,
-     "time": 9.14,
+     "time": 8.96,
      "tok": 23133
     },
     {
      "set": "X-high",
      "v": 55.306,
      "cost": 3.659,
-     "time": 11.37,
+     "time": 10.81,
      "tok": 26724
     },
     {
      "set": "Max",
      "v": 56.854,
      "cost": 6.245,
-     "time": 20.97,
+     "time": 20.43,
      "tok": 51973
     }
    ]
@@ -320,13 +610,13 @@
    "purl": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
    "pnote": null,
    "surl": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
-   "notes": "Release date as listed by Artificial Analysis.",
+   "notes": "Superseded by GPT-6.2 Sol (Nov 17, 2026); still offered at $2 / $10. Artificial Analysis now lists it as deprecated; its Index results are taken from its Artificial Analysis model page. Release date as listed by Artificial Analysis.",
    "s": {
     "aa_index": {
      "v": 54.609,
      "set": "Max",
      "cost": 1.272,
-     "url": "https://artificialanalysis.ai/leaderboards/models",
+     "url": "https://artificialanalysis.ai/models/gpt-6-1-sol",
      "alt": [
       [
        34.803,
@@ -363,11 +653,11 @@
      "ci": "95% CI 1474.603546 to 1487.044133"
     },
     "eci": {
-     "v": 168.48,
+     "v": 168.63,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "165.49 to 171.8"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "165.7 to 171.91"
     },
     "vals": {
      "v": 63.944,
@@ -495,6 +785,7 @@
      ]
     }
    },
+   "superseded": "GPT-6.2 Sol",
    "tok": {
     "total": 67824,
     "reasoning": 49213,
@@ -507,35 +798,35 @@
      "set": "Low",
      "v": 34.803,
      "cost": 0.1615,
-     "time": 1.89,
+     "time": 1.87,
      "tok": 5838
     },
     {
      "set": "Medium",
      "v": 46.347,
      "cost": 0.3594,
-     "time": 4.35,
+     "time": 4.26,
      "tok": 13518
     },
     {
      "set": "High",
      "v": 50.329,
      "cost": 0.591,
-     "time": 7.58,
+     "time": 7.41,
      "tok": 22606
     },
     {
      "set": "X-high",
      "v": 52.458,
      "cost": 0.764,
-     "time": 9.81,
+     "time": 9.68,
      "tok": 30241
     },
     {
      "set": "Max",
      "v": 54.609,
      "cost": 1.272,
-     "time": 22.69,
+     "time": 23.11,
      "tok": 67824
     }
    ]
@@ -611,11 +902,11 @@
      ]
     },
     "eci": {
-     "v": 167.67,
+     "v": 167.72,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "164.73 to 170.98"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "164.78 to 170.92"
     },
     "vals": {
      "v": 60.536,
@@ -715,42 +1006,42 @@
      "set": "Low",
      "v": 29.417,
      "cost": 0.07134,
-     "time": 1.14,
+     "time": 1.19,
      "tok": 4422
     },
     {
      "set": "Non-reasoning",
      "v": 30.516,
      "cost": 0.2259,
-     "time": 2.37,
+     "time": 2.47,
      "tok": 9488
     },
     {
      "set": "Medium",
      "v": 38.165,
      "cost": 0.1688,
-     "time": 2.79,
+     "time": 2.8,
      "tok": 10875
     },
     {
      "set": "High",
      "v": 42.434,
      "cost": 0.2593,
-     "time": 4.1,
+     "time": 4.2,
      "tok": 16746
     },
     {
      "set": "X-high",
      "v": 45.25,
      "cost": 0.4007,
-     "time": 6.27,
+     "time": 6.47,
      "tok": 26200
     },
     {
      "set": "Max",
      "v": 51.327,
      "cost": 0.9611,
-     "time": 13.8,
+     "time": 14.27,
      "tok": 59883
     }
    ]
@@ -833,11 +1124,11 @@
      "ci": "95% CI 1436.786323 to 1444.969648"
     },
     "eci": {
-     "v": 156.41,
+     "v": 156.39,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "154.45 to 158.5"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "154.5 to 158.47"
     },
     "vals": {
      "v": 52.322,
@@ -982,35 +1273,35 @@
      "set": "Non-reasoning",
      "v": 9.442,
      "cost": 0.07142,
-     "time": 1.86,
+     "time": 1.84,
      "tok": 10059
     },
     {
      "set": "Medium",
      "v": 18.454,
      "cost": 0.0422,
-     "time": 3.48,
+     "time": 3.47,
      "tok": 19823
     },
     {
      "set": "High",
      "v": 21.429,
      "cost": 0.07295,
-     "time": 5.72,
+     "time": 5.86,
      "tok": 32839
     },
     {
      "set": "X-high",
      "v": 23.451,
      "cost": 0.1041,
-     "time": 7.31,
+     "time": 7.34,
      "tok": 43893
     },
     {
      "set": "Max",
      "v": 27.855,
      "cost": 0.152,
-     "time": 12.13,
+     "time": 12.26,
      "tok": 75296
     }
    ]
@@ -1057,11 +1348,11 @@
      "ci": "95% CI 1347.409764 to 1356.156495"
     },
     "eci": {
-     "v": 140.16,
+     "v": 140.23,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "138.18 to 142.05"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "138.26 to 142.08"
     },
     "vending": {
      "v": -21.532,
@@ -1096,7 +1387,7 @@
      "set": "High",
      "v": 3.82,
      "cost": 0.3453,
-     "time": 7.28,
+     "time": 6.77,
      "tok": 73460
     }
    ]
@@ -1112,7 +1403,7 @@
    "released": null,
    "status": null,
    "ctx": 131072,
-   "maxout": 65536,
+   "maxout": 117964,
    "inp": [
     "text"
    ],
@@ -1121,9 +1412,9 @@
    "caps": [
     "Reasoning mode"
    ],
-   "pin": 0.075,
-   "pout": 0.3,
-   "pprov": "OpenRouter listed price (matches Groq endpoint); secondary source: no developer price list could be read",
+   "pin": 0.018,
+   "pout": 0.09,
+   "pprov": "OpenRouter listed price (matches AkashML, Darkbloom endpoint); secondary source: no developer price list could be read",
    "purl": "https://openrouter.ai/openai/gpt-oss-20b",
    "pnote": null,
    "surl": "https://huggingface.co/openai/gpt-oss-20b",
@@ -1137,11 +1428,11 @@
      "ci": "95% CI 1311.103060 to 1323.946075"
     },
     "eci": {
-     "v": 134.97,
+     "v": 134.88,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "132.27 to 137.46"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "132.27 to 137.31"
     },
     "gpqa": {
      "v": 60.795,
@@ -1217,11 +1508,11 @@
      ]
     },
     "eci": {
-     "v": 173.44,
+     "v": 173.5,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "169.93 to 177.49",
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "170.09 to 177.36",
      "flag": "Pre-launch evaluation; Epoch AI says it may change."
     },
     "vals": {
@@ -1384,35 +1675,35 @@
      "set": "Low",
      "v": 53.925,
      "cost": 3.097,
-     "time": 5.52,
+     "time": 5.39,
      "tok": 35860
     },
     {
      "set": "Medium",
      "v": 56.408,
      "cost": 3.803,
-     "time": 7.05,
+     "time": 6.76,
      "tok": 43131
     },
     {
      "set": "High",
      "v": 61.822,
      "cost": 9.078,
-     "time": 15.29,
+     "time": 14.64,
      "tok": 97841
     },
     {
      "set": "X-high",
      "v": 62.217,
      "cost": 14.83,
-     "time": 26.62,
+     "time": 25.53,
      "tok": 161944
     },
     {
      "set": "Max",
      "v": 64.564,
      "cost": 26.54,
-     "time": 41.68,
+     "time": 40.77,
      "tok": 273776
     }
    ]
@@ -1522,11 +1813,11 @@
      "ci": "95% CI 1500.824759 to 1512.745076"
     },
     "eci": {
-     "v": 168.54,
+     "v": 168.7,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "165.63 to 171.83"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "165.87 to 171.89"
     },
     "vals": {
      "v": 70.143,
@@ -1679,28 +1970,28 @@
      "set": "Medium",
      "v": 48.208,
      "cost": 2.451,
-     "time": 6.86,
+     "time": 6.79,
      "tok": 43817
     },
     {
      "set": "High",
      "v": 51.836,
      "cost": 3.465,
-     "time": 9.26,
+     "time": 9.27,
      "tok": 60071
     },
     {
      "set": "X-high",
      "v": 57.445,
      "cost": 6.047,
-     "time": 15.59,
+     "time": 15.76,
      "tok": 103395
     },
     {
      "set": "Max",
      "v": 59.106,
      "cost": 10.04,
-     "time": 24.87,
+     "time": 24.58,
      "tok": 173313
     }
    ]
@@ -1777,11 +2068,11 @@
      "ci": "95% CI 1466.851343 to 1478.920461"
     },
     "eci": {
-     "v": 166.56,
+     "v": 166.59,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "163.76 to 169.58"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "163.83 to 169.65"
     },
     "vals": {
      "v": 70.854,
@@ -1923,28 +2214,28 @@
      "set": "Medium",
      "v": 30.82,
      "cost": 0.7807,
-     "time": 4.05,
+     "time": 3.93,
      "tok": 30746
     },
     {
      "set": "High",
      "v": 41.515,
      "cost": 1.636,
-     "time": 6.87,
+     "time": 6.77,
      "tok": 58421
     },
     {
      "set": "X-high",
      "v": 49.924,
      "cost": 4.092,
-     "time": 14.21,
+     "time": 14.23,
      "tok": 122205
     },
     {
      "set": "Max",
      "v": 54.541,
      "cost": 10.02,
-     "time": 31.25,
+     "time": 32.3,
      "tok": 285387
     }
    ]
@@ -2021,11 +2312,11 @@
      "ci": "95% CI 1415.016993 to 1427.320345"
     },
     "eci": {
-     "v": 160.43,
+     "v": 160.29,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "158.27 to 162.87"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "158.12 to 162.69"
     },
     "vals": {
      "v": 58.727,
@@ -2153,35 +2444,35 @@
      "set": "Low",
      "v": 18.618,
      "cost": 0.04376,
-     "time": 2.26,
+     "time": 2.21,
      "tok": 28161
     },
     {
      "set": "Medium",
      "v": 24.601,
      "cost": 0.09176,
-     "time": 4.03,
+     "time": 3.97,
      "tok": 53335
     },
     {
      "set": "High",
      "v": 29.874,
      "cost": 0.1586,
-     "time": 6.54,
+     "time": 6.51,
      "tok": 88064
     },
     {
      "set": "X-high",
      "v": 34.639,
      "cost": 0.2484,
-     "time": 9.82,
+     "time": 9.8,
      "tok": 136177
     },
     {
      "set": "Max",
      "v": 36.485,
      "cost": 0.411,
-     "time": 14.64,
+     "time": 14.66,
      "tok": 225966
     }
    ]
@@ -2254,11 +2545,11 @@
      "ci": "95% CI 1516.565163 to 1535.798912"
     },
     "eci": {
-     "v": 169.76,
+     "v": 169.78,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "166.48 to 173.5"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "166.59 to 173.31"
     },
     "vals": {
      "v": 70.45,
@@ -2381,21 +2672,21 @@
      "set": "Low",
      "v": 54.221,
      "cost": 5.221,
-     "time": 25.86,
+     "time": 28.9,
      "tok": 86165
     },
     {
      "set": "Medium",
      "v": 58.259,
      "cost": 4.678,
-     "time": 28.04,
+     "time": 29.62,
      "tok": 103012
     },
     {
      "set": "High",
      "v": 60.026,
      "cost": 5.485,
-     "time": 32.12,
+     "time": 33.4,
      "tok": 122768
     }
    ]
@@ -2463,11 +2754,11 @@
      "ci": "95% CI 1516.308081 to 1527.078424"
     },
     "eci": {
-     "v": 166.48,
+     "v": 166.57,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "163.77 to 169.46"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "163.94 to 169.51"
     },
     "vals": {
      "v": 69.389,
@@ -2596,14 +2887,14 @@
      "set": "Medium",
      "v": 47.604,
      "cost": 4.315,
-     "time": 27.57,
+     "time": 28.0,
      "tok": 100407
     },
     {
      "set": "High",
      "v": 50.412,
      "cost": 4.973,
-     "time": 29.48,
+     "time": 29.24,
      "tok": 116368
     }
    ]
@@ -2687,6 +2978,12 @@
      "url": "https://www.vals.ai/benchmarks/vals_index",
      "ci": "stderr 0.994"
     },
+    "aa_coding": {
+     "v": 52.317,
+     "set": "Antigravity CLI, X-high",
+     "cost": 4.453,
+     "url": "https://artificialanalysis.ai/agents/coding-agents"
+    },
     "tbench": {
      "v": 56.36,
      "set": "Antigravity CLI, High",
@@ -2758,28 +3055,28 @@
      "set": "Low",
      "v": 26.894,
      "cost": 0.2922,
-     "time": 1.43,
+     "time": 1.45,
      "tok": 14074
     },
     {
      "set": "Medium",
      "v": 41.233,
      "cost": 0.798,
-     "time": 3.82,
+     "time": 3.96,
      "tok": 39353
     },
     {
      "set": "High",
      "v": 50.787,
      "cost": 1.873,
-     "time": 8.32,
+     "time": 7.91,
      "tok": 84978
     },
     {
      "set": "X-high",
      "v": 53.919,
      "cost": 3.16,
-     "time": 14.69,
+     "time": 14.93,
      "tok": 154406
     }
    ],
@@ -2925,7 +3222,7 @@
      "v": 30.847,
      "set": "High",
      "cost": 7.766,
-     "url": "https://artificialanalysis.ai/leaderboards/models",
+     "url": "https://artificialanalysis.ai/models/gemini-3-8-flash",
      "alt": [
       [
        30.079,
@@ -2947,11 +3244,11 @@
      "ci": "95% CI 1492.463144 to 1500.866158"
     },
     "eci": {
-     "v": 158.79,
+     "v": 158.83,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "156.77 to 160.94"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "156.86 to 160.97"
     },
     "vals": {
      "v": 55.951,
@@ -3080,14 +3377,14 @@
      "set": "Medium",
      "v": 30.079,
      "cost": 6.259,
-     "time": 11.76,
+     "time": 11.33,
      "tok": 82068
     },
     {
      "set": "High",
      "v": 30.847,
      "cost": 7.766,
-     "time": 14.49,
+     "time": 14.12,
      "tok": 98940
     }
    ]
@@ -3143,11 +3440,11 @@
      "ci": "95% CI 1450.383591 to 1459.397852"
     },
     "eci": {
-     "v": 145.63,
+     "v": 145.65,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "143.98 to 147.33"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "143.98 to 147.32"
     },
     "arena_webdev": {
      "v": 1432.061,
@@ -3218,7 +3515,7 @@
      "set": null,
      "v": 11.656,
      "cost": 0.6929,
-     "time": 1.64,
+     "time": 1.57,
      "tok": 30301
     }
    ]
@@ -3266,11 +3563,11 @@
      "ci": "95% CI 1444.375106 to 1459.274607"
     },
     "eci": {
-     "v": 144.27,
+     "v": 144.12,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "141.71 to 146.83"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "141.72 to 146.59"
     },
     "arena_webdev": {
      "v": 1370.266,
@@ -3468,11 +3765,11 @@
    ],
    "pin": 0.09,
    "pout": 0.3,
-   "pprov": "NextBit via OpenRouter, before its current 25% discount; secondary source",
+   "pprov": "NextBit via OpenRouter; secondary source",
    "purl": "https://openrouter.ai/api/v1/models/google/gemma-4-26b-a4b-it/endpoints",
-   "pnote": "NextBit's endpoint currently shows a 25% discount ($0.0675 input / $0.225 output).",
+   "pnote": null,
    "surl": "https://huggingface.co/google/gemma-4-26B-A4B-it",
-   "notes": "NextBit's endpoint currently shows a 25% discount ($0.0675 input / $0.225 output).",
+   "notes": null,
    "s": {
     "arena_text": {
      "v": 1437.438,
@@ -3482,11 +3779,11 @@
      "ci": "95% CI 1429.982780 to 1444.892289"
     },
     "eci": {
-     "v": 141.64,
+     "v": 141.58,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "139.09 to 144.14"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "139.14 to 144.02"
     },
     "arena_webdev": {
      "v": 1358.124,
@@ -3685,11 +3982,11 @@
      "ci": "95% CI 1438.049228 to 1448.592756"
     },
     "eci": {
-     "v": 156.18,
+     "v": 156.43,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "154.23 to 158.27"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "154.47 to 158.52"
     },
     "vals": {
      "v": 58.615,
@@ -3824,21 +4121,21 @@
      "set": "Low",
      "v": 31.132,
      "cost": 2.922,
-     "time": 10.22,
+     "time": 9.91,
      "tok": 42670
     },
     {
      "set": "High",
      "v": 35.212,
      "cost": 6.184,
-     "time": 22.2,
+     "time": 21.11,
      "tok": 89127
     },
     {
      "set": "X-high",
      "v": 35.485,
      "cost": 7.772,
-     "time": 25.72,
+     "time": 24.49,
      "tok": 104531
     }
    ]
@@ -3937,11 +4234,11 @@
      "ci": "95% CI 1504.656934 to 1517.055228"
     },
     "eci": {
-     "v": 161.68,
+     "v": 161.74,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "159.36 to 164.34"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "159.36 to 164.32"
     },
     "vals": {
      "v": 64.877,
@@ -4034,14 +4331,14 @@
      "set": "High",
      "v": 40.527,
      "cost": 4.561,
-     "time": 9.6,
+     "time": 9.16,
      "tok": 67927
     },
     {
      "set": "Max",
      "v": 43.575,
      "cost": 6.952,
-     "time": 13.45,
+     "time": 13.05,
      "tok": 96063
     }
    ]
@@ -4090,11 +4387,11 @@
      "ci": "95% CI 1491.492896 to 1501.510345"
     },
     "eci": {
-     "v": 158.24,
+     "v": 158.25,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "156.03 to 160.58"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "156.26 to 160.41"
     },
     "aa_coding": {
      "v": 36.771,
@@ -4271,14 +4568,14 @@
      "set": "X-high",
      "v": 34.115,
      "cost": 0.1162,
-     "time": 2.92,
+     "time": 2.85,
      "tok": 72365
     },
     {
      "set": "Max",
      "v": 36.021,
      "cost": 0.1359,
-     "time": 3.22,
+     "time": 3.13,
      "tok": 84482
     }
    ]
@@ -4324,11 +4621,11 @@
      "url": "https://artificialanalysis.ai/leaderboards/models"
     },
     "eci": {
-     "v": 155.42,
+     "v": 155.45,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "153.36 to 157.7"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "153.37 to 157.73"
     },
     "vals": {
      "v": 48.567,
@@ -4429,7 +4726,7 @@
      "set": "X-high",
      "v": 24.882,
      "cost": 2.018,
-     "time": 6.14,
+     "time": 6.08,
      "tok": 66440
     }
    ]
@@ -4445,7 +4742,7 @@
    "released": "2026-08",
    "status": null,
    "ctx": 131072,
-   "maxout": 16384,
+   "maxout": 117964,
    "inp": [
     "text",
     "image"
@@ -4455,9 +4752,9 @@
    "caps": [
     "Image input"
    ],
-   "pin": 0.3,
-   "pout": 1.2,
-   "pprov": "OpenRouter listed price (matches DeepInfra endpoint); secondary source: no developer price list could be read",
+   "pin": 0.35,
+   "pout": 1.5,
+   "pprov": "OpenRouter listed price (matches Together endpoint); secondary source: no developer price list could be read",
    "purl": "https://openrouter.ai/meta/muse-glimmer-30b",
    "pnote": null,
    "surl": "https://huggingface.co/meta-models/Muse-Glimmer-30B",
@@ -4496,7 +4793,7 @@
      "set": "High",
      "v": 6.341,
      "cost": 0.1782,
-     "time": 4.99,
+     "time": 4.89,
      "tok": 26067
     }
    ],
@@ -4756,11 +5053,11 @@
      "ci": "95% CI 1411.961719 to 1428.917954"
     },
     "eci": {
-     "v": 154.62,
+     "v": 154.56,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "151.79 to 157.54"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "151.79 to 157.42"
     },
     "vals": {
      "v": 56.527,
@@ -4828,14 +5125,14 @@
      "set": "Medium",
      "v": 23.128,
      "cost": 1.412,
-     "time": 11.72,
+     "time": 12.51,
      "tok": 56324
     },
     {
      "set": "High",
      "v": 26.125,
      "cost": 2.062,
-     "time": 15.64,
+     "time": 18.41,
      "tok": 81951
     }
    ]
@@ -4889,7 +5186,7 @@
      "set": "Reasoning",
      "v": 4.297,
      "cost": 0.03991,
-     "time": 1.67,
+     "time": 1.69,
      "tok": 14400
     }
    ]
@@ -4943,7 +5240,7 @@
      "set": null,
      "v": 6.241,
      "cost": null,
-     "time": 3.39,
+     "time": 3.45,
      "tok": 35630
     }
    ]
@@ -5090,11 +5387,11 @@
      "ci": "95% CI 1457.225359 to 1470.566349"
     },
     "eci": {
-     "v": 155.94,
+     "v": 155.96,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "154.06 to 158.01"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "154.1 to 157.99"
     },
     "vals": {
      "v": 52.974,
@@ -5185,21 +5482,20 @@
      "set": "High",
      "v": 20.799,
      "cost": 0.8485,
-     "time": 14.57,
      "tok": 70314
     },
     {
      "set": "Non-reasoning",
      "v": 12.568,
      "cost": 0.977,
-     "time": 12.88,
+     "time": 13.77,
      "tok": 71588
     },
     {
      "set": "Max",
      "v": 23.063,
      "cost": 1.769,
-     "time": 17.11,
+     "time": 17.33,
      "tok": 98733
     }
    ],
@@ -5324,11 +5620,11 @@
      ]
     },
     "eci": {
-     "v": 159.41,
+     "v": 159.4,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "157.01 to 162.0"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "157.16 to 161.93"
     },
     "vals": {
      "v": 61.257,
@@ -5455,21 +5751,21 @@
      "set": "Non-reasoning",
      "v": 18.513,
      "cost": 0.4254,
-     "time": 7.13,
+     "time": 7.02,
      "tok": 65358
     },
     {
      "set": "High",
      "v": 28.644,
      "cost": 0.4562,
-     "time": 10.54,
+     "time": 10.29,
      "tok": 110430
     },
     {
      "set": "Max",
      "v": 32.59,
      "cost": 0.6021,
-     "time": 13.28,
+     "time": 13.06,
      "tok": 138962
     }
    ],
@@ -5564,7 +5860,7 @@
    "released": "2026-11",
    "status": null,
    "ctx": 1000000,
-   "maxout": 393000,
+   "maxout": 131000,
    "inp": [
     "text",
     "image",
@@ -5584,7 +5880,7 @@
    "purl": "https://www.qwencloud.com/models/qwen4-max",
    "pnote": null,
    "surl": "https://www.qwencloud.com/models/qwen4-max",
-   "notes": "Alibaba's pages give different maximum output figures (393K on the model page, 131K and 262K elsewhere); the model page figure is shown. A separate preview build is not listed. Release month: Artificial Analysis lists Nov 16, 2026; benchmark results are dated Nov 15.",
+   "notes": "Alibaba's model page now gives a maximum output of 131K tokens (262K in thinking mode). A separate preview build is not listed. Release month: Artificial Analysis lists Nov 16, 2026; benchmark results are dated Nov 15.",
    "s": {
     "aa_index": {
      "v": 42.891,
@@ -5606,12 +5902,42 @@
      "url": "https://arena.ai/leaderboard/webdev",
      "ci": "95% CI 1734.349776 to 1765.279527"
     },
+    "lb_coding": {
+     "v": 69.8,
+     "set": "X-high",
+     "cost": 0.9735,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
     "arena_agent": {
      "v": 7.461,
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
      "ci": "95% CI 0.061209 to 0.088009"
+    },
+    "lb_browser": {
+     "v": 80.7,
+     "set": "X-high",
+     "cost": 1.506,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_research": {
+     "v": 84.7,
+     "set": "X-high",
+     "cost": 1.493,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_long": {
+     "v": 47.5,
+     "set": "X-high",
+     "cost": 5.628,
+     "url": "https://livebench.ai/data/20261106/table.csv"
+    },
+    "lb_data": {
+     "v": 83.4,
+     "set": "X-high",
+     "cost": 0.1439,
+     "url": "https://livebench.ai/data/20261106/table.csv"
     }
    },
    "tok": {
@@ -5626,6 +5952,7 @@
      "set": null,
      "v": 42.891,
      "cost": 3.268,
+     "time": 31.85,
      "tok": 104940
     }
    ]
@@ -5680,8 +6007,8 @@
      "v": 157.59,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "155.42 to 159.96"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "155.47 to 159.94"
     },
     "aa_coding": {
      "v": 32.728,
@@ -5762,6 +6089,7 @@
      "ci": "stderr 0.01686498021450146"
     }
    },
+   "superseded": "Qwen4-Max",
    "tok": {
     "total": 170794,
     "reasoning": 119698,
@@ -5774,6 +6102,7 @@
      "set": "0902 snapshot",
      "v": 33.655,
      "cost": 10.02,
+     "time": 46.83,
      "tok": 170794
     }
    ],
@@ -6052,7 +6381,7 @@
      "set": null,
      "v": 28.575,
      "cost": 0.5694,
-     "time": 30.74,
+     "time": 29.6,
      "tok": 147706
     }
    ],
@@ -6243,11 +6572,11 @@
      "ci": "95% CI 1429.172032 to 1438.367764"
     },
     "eci": {
-     "v": 152.64,
+     "v": 152.65,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "150.64 to 154.76"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "150.7 to 154.76"
     },
     "arena_webdev": {
      "v": 1589.912,
@@ -6341,28 +6670,28 @@
      "set": "Non-reasoning",
      "v": 10.032,
      "cost": 3.773,
-     "time": 18.21,
+     "time": 18.89,
      "tok": 44867
     },
     {
      "set": "Low",
      "v": 15.685,
      "cost": 1.906,
-     "time": 29.13,
+     "time": 28.18,
      "tok": 80176
     },
     {
      "set": "Medium",
      "v": 17.483,
      "cost": 2.16,
-     "time": 30.71,
+     "time": 30.7,
      "tok": 86407
     },
     {
      "set": "X-high",
      "v": 20.107,
      "cost": 3.53,
-     "time": 38.91,
+     "time": 38.76,
      "tok": 109802
     }
    ],
@@ -6555,11 +6884,11 @@
      "ci": "95% CI 1474.704336 to 1494.731184"
     },
     "eci": {
-     "v": 161.37,
+     "v": 161.36,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "158.99 to 164.0"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "158.97 to 163.9"
     },
     "vals": {
      "v": 62.52,
@@ -6652,7 +6981,7 @@
      "set": null,
      "v": 46.453,
      "cost": 3.681,
-     "time": 40.04,
+     "time": 38.69,
      "tok": 72239
     }
    ],
@@ -7038,8 +7367,8 @@
      "v": 157.1,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "154.94 to 159.53"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "155.04 to 159.33"
     },
     "vals": {
      "v": 59.847,
@@ -7109,14 +7438,14 @@
      "set": "Low",
      "v": 23.108,
      "cost": 1.575,
-     "time": 12.06,
+     "time": 12.16,
      "tok": 51986
     },
     {
      "set": "Max",
      "v": 31.653,
      "cost": 5.009,
-     "time": 22.58,
+     "time": 22.17,
      "tok": 118987
     }
    ],
@@ -7271,11 +7600,11 @@
      "ci": "95% CI 1470.848035 to 1479.670233"
     },
     "eci": {
-     "v": 153.82,
+     "v": 153.78,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "152.0 to 155.78"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "152.04 to 155.62"
     },
     "vals": {
      "v": 50.861,
@@ -7404,7 +7733,7 @@
      "set": null,
      "v": 27.804,
      "cost": 0.5833,
-     "time": 41.35,
+     "time": 39.47,
      "tok": 134205
     }
    ]
@@ -7512,7 +7841,7 @@
      "set": null,
      "v": 29.06,
      "cost": 0.491,
-     "time": 15.25,
+     "time": 16.56,
      "tok": 138176
     }
    ],
@@ -7670,11 +7999,11 @@
      "ci": "95% CI 1432.100025 to 1439.430120"
     },
     "eci": {
-     "v": 147.74,
+     "v": 147.9,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "145.56 to 149.98"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "145.76 to 150.04"
     },
     "tbench": {
      "v": 7.58,
@@ -7731,7 +8060,7 @@
      "set": null,
      "v": 18.879,
      "cost": 1.285,
-     "time": 12.97,
+     "time": 13.84,
      "tok": 91452
     }
    ]
@@ -7747,7 +8076,7 @@
    "released": "2026-06-04",
    "status": null,
    "ctx": 1000000,
-   "maxout": 182520,
+   "maxout": 16384,
    "inp": [
     "text"
    ],
@@ -7756,9 +8085,9 @@
    "caps": [
     "1M+ token context"
    ],
-   "pin": 0.6,
-   "pout": 2.4,
-   "pprov": "OpenRouter listed price (matches BaseTen endpoint); secondary source: no developer price list could be read",
+   "pin": 0.5,
+   "pout": 2.2,
+   "pprov": "OpenRouter listed price (matches DeepInfra, KT endpoint); secondary source: no developer price list could be read",
    "purl": "https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b",
    "pnote": null,
    "surl": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
@@ -7771,11 +8100,11 @@
      "url": "https://artificialanalysis.ai/leaderboards/models"
     },
     "eci": {
-     "v": 146.95,
+     "v": 147.0,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "144.75 to 149.19"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "145.02 to 149.09"
     },
     "arena_agent": {
      "v": -16.404,
@@ -7804,7 +8133,7 @@
      "set": "Reasoning",
      "v": 11.759,
      "cost": 2.21,
-     "time": 4.31,
+     "time": 4.27,
      "tok": 51468
     }
    ],
@@ -8174,7 +8503,7 @@
      "set": null,
      "v": 13.62,
      "cost": 0.5575,
-     "time": 5.0,
+     "time": 4.53,
      "tok": 81435
     }
    ],
@@ -8504,7 +8833,7 @@
    ],
    "pin": 0.07,
    "pout": 0.2,
-   "pprov": "OpenRouter listed price (matches CoreWeave endpoint); secondary source: no developer price list could be read",
+   "pprov": "OpenRouter listed price (matches CoreWeave, ModelRun endpoint); secondary source: no developer price list could be read",
    "purl": "https://openrouter.ai/nvidia/nemotron-3.5-lightning",
    "pnote": null,
    "surl": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
@@ -8529,7 +8858,7 @@
      "set": null,
      "v": 5.535,
      "cost": 0.3145,
-     "time": 4.07,
+     "time": 3.88,
      "tok": 65026
     }
    ],
@@ -8791,7 +9120,7 @@
      "set": null,
      "v": 5.098,
      "cost": 0.04046,
-     "time": 15.93,
+     "time": 12.62,
      "tok": 51515
     }
    ],
@@ -9070,7 +9399,7 @@
      "set": null,
      "v": 29.89,
      "cost": 0.2572,
-     "time": 37.52,
+     "time": 35.76,
      "tok": 121073
     }
    ],
@@ -9318,7 +9647,7 @@
      "set": null,
      "v": 28.528,
      "cost": 2.345,
-     "time": 15.24,
+     "time": 13.86,
      "tok": 113473
     }
    ]
@@ -9393,7 +9722,7 @@
      "set": null,
      "v": 34.555,
      "cost": 1.031,
-     "time": 13.87,
+     "time": 13.61,
      "tok": 78058
     }
    ]
@@ -9443,11 +9772,11 @@
      "ci": "95% CI 1438.441403 to 1446.555137"
     },
     "eci": {
-     "v": 148.39,
+     "v": 148.43,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "146.77 to 150.01"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "146.88 to 150.03"
     },
     "vals": {
      "v": 28.961,
@@ -9540,7 +9869,7 @@
      "set": "X-high",
      "v": 12.478,
      "cost": 1.352,
-     "time": 9.26,
+     "time": 8.47,
      "tok": 51256
     }
    ],
@@ -9805,7 +10134,7 @@
      "set": null,
      "v": 30.629,
      "cost": 1.178,
-     "time": 24.89,
+     "time": 21.4,
      "tok": 149778
     }
    ],
@@ -10335,11 +10664,11 @@
      "ci": "95% CI 1424.773579 to 1444.063518"
     },
     "eci": {
-     "v": 150.91,
+     "v": 150.87,
      "set": null,
      "cost": null,
-     "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "148.73 to 153.16"
+     "url": "https://epoch.ai/data/eci_scores.csv",
+     "ci": "148.66 to 153.12"
     },
     "vals": {
      "v": 43.424,
@@ -10416,7 +10745,7 @@
      "set": null,
      "v": 17.731,
      "cost": 0.2844,
-     "time": 1.98,
+     "time": 2.22,
      "tok": 34242
     }
    ],
@@ -10709,8 +11038,8 @@
    "caveat": "Cost per task is Artificial Analysis's weighted average API cost per Index task. Costs follow the developer's current list price, including introductory prices.",
    "src": "Artificial Analysis",
    "url": "https://artificialanalysis.ai/leaderboards/models",
-   "updated": "Index v5.0.1; board shows no update date, retrieved Nov 16, 2026",
-   "n": 45
+   "updated": "Index v5.0.1; board shows no update date, retrieved Nov 17, 2026",
+   "n": 47
   },
   {
    "id": "arena_text",
@@ -10741,8 +11070,8 @@
    "caveat": null,
    "src": "Epoch AI",
    "url": "https://epoch.ai/benchmarks",
-   "updated": "hub updated Nov 16, 2026",
-   "n": 32
+   "updated": "hub updated Nov 17, 2026",
+   "n": 33
   },
   {
    "id": "vals",
@@ -10757,8 +11086,8 @@
    "caveat": "Cost per task is Vals's published cost per test.",
    "src": "Vals AI",
    "url": "https://www.vals.ai/benchmarks/vals_index",
-   "updated": "results as of Nov 15, 2026",
-   "n": 31
+   "updated": "results as of Nov 16, 2026",
+   "n": 33
   },
   {
    "id": "aa_coding",
@@ -10773,8 +11102,8 @@
    "caveat": "Cost per task is Artificial Analysis's average API cost per task, at the developer's current list price (including introductory prices). In November 2026 Artificial Analysis replaced FrontierCode v1.1 with FrontierCode-AA 2.0 under the same index name, so scores are not comparable with earlier snapshots of this page.",
    "src": "Artificial Analysis",
    "url": "https://artificialanalysis.ai/agents/coding-agents",
-   "updated": "board shows no update date, retrieved Nov 16, 2026",
-   "n": 21
+   "updated": "board shows no update date, retrieved Nov 17, 2026",
+   "n": 22
   },
   {
    "id": "tbench",
@@ -10789,7 +11118,7 @@
    "caveat": "Cost here is derived: the board's total cost divided by its number of trials (cost per trial). The board does not say which results it verified.",
    "src": "Terminal-Bench (tbench.ai)",
    "url": "https://www.tbench.ai/",
-   "updated": "latest result Nov 12, 2026, board retrieved Nov 16, 2026",
+   "updated": "board updated Nov 17, 2026; newest result for a listed model Nov 12, 2026",
    "n": 29
   },
   {
@@ -10821,8 +11150,8 @@
    "caveat": "A single run of 24 tasks per model, so a difference of a few points can be one task. Cost here is derived: LiveBench's total suite cost divided by its task count, as the LiveBench site itself does.",
    "src": "LiveBench",
    "url": "https://livebench.ai/",
-   "updated": "release Nov 6, 2026, updated Nov 11, 2026",
-   "n": 27
+   "updated": "release Nov 6, 2026, updated Nov 16, 2026",
+   "n": 28
   },
   {
    "id": "arena_agent",
@@ -10853,8 +11182,8 @@
    "caveat": "A single run of 25 tasks per model, so a difference of a few points can be one task. Cost here is derived: LiveBench's total suite cost divided by its task count, as the LiveBench site itself does.",
    "src": "LiveBench",
    "url": "https://livebench.ai/",
-   "updated": "release Nov 6, 2026, updated Nov 11, 2026",
-   "n": 27
+   "updated": "release Nov 6, 2026, updated Nov 16, 2026",
+   "n": 28
   },
   {
    "id": "lb_research",
@@ -10869,8 +11198,8 @@
    "caveat": "A single run of 22 tasks per model, so a difference of a few points can be one task. Cost here is derived: LiveBench's total suite cost divided by its task count, as the LiveBench site itself does.",
    "src": "LiveBench",
    "url": "https://livebench.ai/",
-   "updated": "release Nov 6, 2026, updated Nov 11, 2026",
-   "n": 27
+   "updated": "release Nov 6, 2026, updated Nov 16, 2026",
+   "n": 28
   },
   {
    "id": "lb_long",
@@ -10885,8 +11214,8 @@
    "caveat": "A single run of 18 tasks per model, so a difference of a few points can be one task. Cost here is derived: LiveBench's total suite cost divided by its task count, as the LiveBench site itself does.",
    "src": "LiveBench",
    "url": "https://livebench.ai/",
-   "updated": "release Nov 6, 2026, updated Nov 11, 2026",
-   "n": 27
+   "updated": "release Nov 6, 2026, updated Nov 16, 2026",
+   "n": 28
   },
   {
    "id": "vending",
@@ -10901,7 +11230,7 @@
    "caveat": "Cost per task is the mean API cost of one full simulated year.",
    "src": "Andon Labs",
    "url": "https://andonlabs.com/evals/vending-bench-2",
-   "updated": "board shows no update date, retrieved Nov 16, 2026",
+   "updated": "board shows no update date, retrieved Nov 17, 2026",
    "n": 17
   },
   {
@@ -10917,8 +11246,8 @@
    "caveat": "A single run of 150 tasks per model, so a difference of a few points can be one task. Cost here is derived: LiveBench's total suite cost divided by its task count, as the LiveBench site itself does.",
    "src": "LiveBench",
    "url": "https://livebench.ai/",
-   "updated": "release Nov 6, 2026, updated Nov 11, 2026",
-   "n": 27
+   "updated": "release Nov 6, 2026, updated Nov 16, 2026",
+   "n": 28
   },
   {
    "id": "arena_vision",
@@ -10965,8 +11294,8 @@
    "caveat": null,
    "src": "Epoch AI",
    "url": "https://epoch.ai/benchmarks",
-   "updated": "results as of Nov 6, 2026",
-   "n": 23
+   "updated": "Epoch data retrieved Nov 17, 2026; newest run started Nov 6, 2026",
+   "n": 24
   },
   {
    "id": "gpqa",
@@ -10981,8 +11310,8 @@
    "caveat": "Top models are close to the ceiling, so small gaps mean little.",
    "src": "Epoch AI",
    "url": "https://epoch.ai/benchmarks",
-   "updated": "results as of Nov 6, 2026",
-   "n": 28
+   "updated": "Epoch data retrieved Nov 17, 2026; newest run started Nov 6, 2026",
+   "n": 29
   },
   {
    "id": "arc2",
@@ -10994,11 +11323,11 @@
    "cost": true,
    "derived": false,
    "what": "Visual grid puzzles where each task needs a new rule to be worked out, run by the ARC Prize Foundation.",
-   "caveat": "Cost per task is ARC Prize's measured cost per task.",
+   "caveat": "Cost per task is ARC Prize's measured cost per task. ARC Prize marks some runs as partial coverage: unattempted tasks count as failures and the cost covers recorded usage only.",
    "src": "ARC Prize",
    "url": "https://arcprize.org/leaderboard",
-   "updated": "results as of Nov 10, 2026",
-   "n": 21
+   "updated": "results as of Nov 17, 2026",
+   "n": 23
   }
  ],
  "groups": [
@@ -11099,7 +11428,7 @@
   ],
   [
    "Match names carefully",
-   "Benchmarks spell model names differently. Each name is matched to one entry. Earlier snapshots, previews, quantised builds and products not sold through the API are kept apart. When a model appears at several reasoning-effort settings, it is ranked on its best setting, which is shown with the score."
+   "Benchmarks spell model names differently. Each name is matched to one entry. Earlier snapshots, previews, quantised builds and products not sold through the API are kept apart. When a model appears at several reasoning-effort settings, it is ranked on its best setting, which is shown with the score. If two settings score the same, the cheaper one is shown."
   ],
   [
    "Red-team before publishing",
@@ -11108,22 +11437,18 @@
  ],
  "disclaimer": "Benchmarks measure narrow tasks under one set of conditions, and results move quickly as models and agent tools change. Gaps of a few points are often within the margin of error. A model that ranks first here may not be the best on your own documents, processes or data. List prices change and some are introductory; open-weight prices depend on the host. Several well-known boards are not used to rank: SWE-bench, SWE-Bench Pro, OSWorld, tau-bench, BFCL and Aider have results for few or none of the models listed here, and METR's time-horizon board is no longer updated. This page is general information, not purchasing advice. Chmltech has no commercial relationship with any model developer or benchmark listed.",
  "changes": {
-  "prev_as_of": "2026-11-12",
+  "prev_as_of": "2026-11-16",
   "added": [
-   "Gemini 4 Hydrogen",
-   "Qwen4-Max",
-   "Inkling 2 Small"
+   "GPT-6.2 Astra",
+   "GPT-6.2 Sol"
   ],
   "removed": [],
-  "results_before": 473,
+  "results_before": 515,
   "leaders": [
    {
     "group": "Coding agents",
-    "before": null,
-    "now": "Claude Fable 5.2",
-    "second": "Claude Opus 5.5",
-    "gap": 0.31,
-    "note": "revised"
+    "before": "Claude Fable 5.2",
+    "now": "Claude Fable 5.2"
    },
    {
     "group": "Web and app builders",
@@ -11168,10 +11493,12 @@
   ]
  },
  "board_news": [
-  "Artificial Analysis Coding Agent Index now uses FrontierCode-AA 2.0 in place of FrontierCode v1.1, under the same name. Scores are not comparable with the earlier snapshot.",
-  "Terminal-Bench 4.1 added 24 results on Nov 13-14, including Gemini 4 Hydrogen (56.4%) and Claude Fable 5.2.",
-  "Arena WebDev and Agent boards updated Nov 15; Vals Index updated Nov 15; Epoch AI updated Nov 16.",
-  "LiveBench updated its Nov 6 release in place (Gemini 4 Hydrogen added). Vectara is unchanged since Oct 22.",
-  "New: output tokens per task from Artificial Analysis, and developer-reported results in each model's details (not used for ranking)."
+  "OpenAI released GPT-6.2 Astra and GPT-6.2 Sol on Nov 17. Early results: both are on the Artificial Analysis Intelligence Index, Vals and ARC-AGI; GPT-6.2 Astra also on Epoch AI (pre-launch runs). Neither is yet on the AA Coding Agent Index, Arena, LiveBench, Terminal-Bench or Vending-Bench.",
+  "GPT-6.2 Astra costs $8 / $40 per 1M tokens, 20% less than GPT-6 Astra; GPT-6.2 Sol keeps GPT-6.1 Sol's $2 / $10. GPT-6 Astra and GPT-6.1 Sol are still offered and are marked superseded.",
+  "Artificial Analysis now lists GPT-6 Astra, GPT-6.1 Sol and Gemini 3.8 Flash as deprecated; their Index results are taken from its model pages.",
+  "Epoch AI updated its capability index (ECI) on Nov 17, re-estimating most models slightly; GPT-6.2 Astra is the new top at 174.2, from Epoch's pre-launch testing.",
+  "LiveBench added Qwen4-Max (now #3 on the documents and data card); Gemini 4 Hydrogen joined the AA Coding Agent Index.",
+  "Open-weight prices follow OpenRouter's default host, which changed for gpt-oss-20b, Muse Glimmer 30B and Nemotron 3 Ultra.",
+  "Terminal-Bench's new #1 is GitHub's Copilot Fusion, a model router rather than a model, so it is not ranked here. Arena's published dataset has not changed since Nov 16 (newest board Nov 15)."
  ]
 }

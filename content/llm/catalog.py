@@ -17,6 +17,8 @@ F, M, S = "Frontier", "Mid-size", "Small and fast"
 
 CATALOG = [
     # OpenAI
+    dict(id="gpt-6-2-astra", name="GPT-6.2 Astra", dev="OpenAI", tier=F, aliases=["GPT-6.2 Astra", "gpt-6.2-astra", "OpenAI: GPT-6.2 Astra"], vendor=["GPT-6.2 Astra", "gpt-6.2-astra"]),
+    dict(id="gpt-6-2-sol", name="GPT-6.2 Sol", dev="OpenAI", tier=F, aliases=["GPT-6.2 Sol", "gpt-6.2-sol", "OpenAI: GPT-6.2 Sol"], vendor=["GPT-6.2 Sol", "gpt-6.2-sol"]),
     dict(id="gpt-6-astra", name="GPT-6 Astra", dev="OpenAI", tier=F, aliases=["GPT-6 Astra", "gpt-6-astra"], vendor=["GPT-6 Astra"]),
     dict(id="gpt-6-1-sol", name="GPT-6.1 Sol", dev="OpenAI", tier=F, aliases=["GPT-6.1 Sol", "gpt-6.1-sol"], vendor=["GPT-6.1 Sol"]),
     dict(id="gpt-6-1-terra", name="GPT-6.1 Terra", dev="OpenAI", tier=M, aliases=["GPT-6.1 Terra", "gpt-6.1-terra"], vendor=["GPT-6.1 Terra"]),

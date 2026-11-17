@@ -24,7 +24,7 @@ from catalog import CATALOG
 from match import match
 
 RAW = os.path.join(HERE, "raw")
-AS_OF = "2026-11-16"
+AS_OF = "2026-11-17"
 load = lambda p: json.load(open(os.path.join(RAW, p), encoding="utf-8"))
 
 
@@ -38,12 +38,12 @@ B = [
  ("aa_index", "Artificial Analysis Intelligence Index v5.0.1", "Artificial Analysis Intelligence Index", "AA Intelligence Index", "General capability", "points", True, 1, "task",
   "A combined score from nine evaluations covering knowledge work, coding, science and general knowledge, run by Artificial Analysis on each model.",
   "Cost per task is Artificial Analysis's weighted average API cost per Index task. Costs follow the developer's current list price, including introductory prices.", "Artificial Analysis", "https://artificialanalysis.ai/leaderboards/models",
-  "Index v5.0.1; board shows no update date, retrieved " + d("2026-11-16")),
+  "Index v5.0.1; board shows no update date, retrieved " + d("2026-11-17")),
  ("arena_text", "Arena Text (style control, default view)", "Arena Text", "Arena Text", "General capability", "Elo", True, 1, None,
   "Human preference: people compare two anonymous answers to their own prompts and pick the better one. Ratings on an Elo-like scale; style control adjusts for answer length and formatting.",
   "Neighbouring models often have overlapping confidence intervals; see the ± range in each model's details.", "Arena (arena.ai)", "https://arena.ai/leaderboard/text", None),
  ("eci", "Epoch Capabilities Index (ECI)", "Epoch Capabilities Index", "Epoch ECI", "General capability", "points", True, 1, None,
-  "Epoch AI's single capability score, combining results from many benchmarks.", None, "Epoch AI", "https://epoch.ai/benchmarks", "hub updated " + d("2026-11-16")),
+  "Epoch AI's single capability score, combining results from many benchmarks.", None, "Epoch AI", "https://epoch.ai/benchmarks", "hub updated " + d("2026-11-17")),
  ("vals", "Vals Index v2.2", "Vals Index", "Vals Index", "Business and knowledge work", "%", True, 1, "task",
   "Agentic tasks in finance, law, tax and software, weighted by each sector's share of US GDP, run by Vals AI.",
   "Cost per task is Vals's published cost per test.", "Vals AI", "https://www.vals.ai/benchmarks/vals_index", None),
@@ -51,43 +51,46 @@ B = [
   "Models run inside coding-agent tools on three evaluations: FrontierCode-AA 2.0, SWE-Atlas QnA and Terminal-Bench v4. The tool used is shown with each score; several are the developer's own tool.",
   "Cost per task is Artificial Analysis's average API cost per task, at the developer's current list price (including introductory prices). In November 2026 Artificial Analysis replaced FrontierCode v1.1 with FrontierCode-AA 2.0 under the same index name, so scores are not comparable with earlier snapshots of this page.",
   "Artificial Analysis", "https://artificialanalysis.ai/agents/coding-agents",
-  "board shows no update date, retrieved " + d("2026-11-16")),
+  "board shows no update date, retrieved " + d("2026-11-17")),
  ("tbench", "Terminal-Bench 4.1", "Terminal-Bench 4.1", "Terminal-Bench", "Coding and software", "%", True, 1, "trials",
   "Tasks carried out in a computer terminal, run inside named agent tools. Share of trials solved.",
   "Cost here is derived: the board's total cost divided by its number of trials (cost per trial). The board does not say which results it verified.",
-  "Terminal-Bench (tbench.ai)", "https://www.tbench.ai/", "latest result " + d("2026-11-12") + ", board retrieved " + d("2026-11-16")),
+  "Terminal-Bench (tbench.ai)", "https://www.tbench.ai/", "board updated " + d("2026-11-17") + "; newest result for a listed model " + d("2026-11-12")),
  ("arena_webdev", "Arena WebDev / Code Arena", "Arena WebDev", "Arena WebDev", "Coding and software", "Elo", True, 1, None,
   "Human preference for web apps the models build from a prompt, judged side by side.", None, "Arena (arena.ai)", "https://arena.ai/leaderboard/webdev", None),
  ("lb_coding", "LiveBench 2.0 - coding", "LiveBench Coding", "LiveBench Coding", "Coding and software", "points", True, 1, "suite",
-  "LiveBench's coding suite, scored automatically from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-11")),
+  "LiveBench's coding suite, scored automatically from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-16")),
  ("arena_agent", "Arena Agent (aggregate)", "Arena Agent", "Arena Agent", "Agents", "%", True, 100, None,
   "Real agent sessions on arena.ai: how much better each model does than a baseline at finishing users' multi-step tasks, from task outcomes and user feedback.",
   None, "Arena (arena.ai)", "https://arena.ai/leaderboard/agent", None),
  ("lb_browser", "LiveBench 2.0 - browser", "LiveBench Browser", "LiveBench Browser", "Agents", "points", True, 1, "suite",
-  "LiveBench's browser-agent suite: tasks completed by operating a web browser, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-11")),
+  "LiveBench's browser-agent suite: tasks completed by operating a web browser, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-16")),
  ("lb_research", "LiveBench 2.0 - research", "LiveBench Research", "LiveBench Research", "Agents", "points", True, 1, "suite",
-  "LiveBench's research suite, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-11")),
+  "LiveBench's research suite, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-16")),
  ("lb_long", "LiveBench 2.0 - long_agentic", "LiveBench Long Agentic", "LiveBench Long Agentic", "Agents", "points", True, 1, "suite",
-  "LiveBench's long agentic suite: long, multi-step agent tasks, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-11")),
+  "LiveBench's long agentic suite: long, multi-step agent tasks, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-16")),
  ("vending", "Vending-Bench 2", "Vending-Bench 2", "Vending-Bench", "Agents", "USD", True, 1, "task",
   "A simulated year running a vending-machine business: ordering stock, setting prices, dealing with suppliers. Score is the money left at the end (start: $500).",
   "Cost per task is the mean API cost of one full simulated year.", "Andon Labs", "https://andonlabs.com/evals/vending-bench-2",
-  "board shows no update date, retrieved " + d("2026-11-16")),
+  "board shows no update date, retrieved " + d("2026-11-17")),
  ("lb_data", "LiveBench 2.0 - data_analysis", "LiveBench Data Analysis", "LiveBench Data", "Documents and data", "points", True, 1, "suite",
-  "LiveBench's data-analysis suite, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-11")),
+  "LiveBench's data-analysis suite, scored from 0 to 100.", "LB", "LiveBench", "https://livebench.ai/", "release " + d("2026-11-06") + ", updated " + d("2026-11-16")),
  ("arena_vision", "Arena Vision (style control, default view)", "Arena Vision", "Arena Vision", "Documents and data", "Elo", True, 1, None,
   "Human preference on prompts that include images, such as charts, photos and screenshots.", None, "Arena (arena.ai)", "https://arena.ai/leaderboard/vision", None),
  ("vectara", "Vectara Hallucination Leaderboard (HHEM)", "Vectara Hallucination Rate", "Hallucination rate", "Documents and data", "%", False, 1, None,
   "How often a model adds facts that are not in a document it is asked to summarise. Lower is better.", None, "Vectara", "https://github.com/vectara/hallucination-leaderboard", None),
  ("frontiermath", "FrontierMath Tiers 1-3 v2 (Epoch AI)", "FrontierMath (Tiers 1-3)", "FrontierMath", "Reasoning, maths and science", "%", True, 100, None,
-  "Unpublished, expert-written research-level maths problems, run by Epoch AI.", None, "Epoch AI", "https://epoch.ai/benchmarks", None),
+  "Unpublished, expert-written research-level maths problems, run by Epoch AI.", None, "Epoch AI", "https://epoch.ai/benchmarks", "Epoch data retrieved " + d("2026-11-17") + "; newest run started " + d("2026-11-06")),
  ("gpqa", "GPQA Diamond (Epoch AI run)", "GPQA Diamond", "GPQA Diamond", "Reasoning, maths and science", "%", True, 100, None,
-  "Graduate-level multiple-choice questions in biology, chemistry and physics, run by Epoch AI.", "Top models are close to the ceiling, so small gaps mean little.", "Epoch AI", "https://epoch.ai/benchmarks", None),
+  "Graduate-level multiple-choice questions in biology, chemistry and physics, run by Epoch AI.", "Top models are close to the ceiling, so small gaps mean little.", "Epoch AI", "https://epoch.ai/benchmarks", "Epoch data retrieved " + d("2026-11-17") + "; newest run started " + d("2026-11-06")),
  ("arc2", "ARC-AGI-2 (Semi-Private)", "ARC-AGI-2", "ARC-AGI-2", "Reasoning, maths and science", "%", True, 100, "task",
-  "Visual grid puzzles where each task needs a new rule to be worked out, run by the ARC Prize Foundation.", "Cost per task is ARC Prize's measured cost per task.", "ARC Prize", "https://arcprize.org/leaderboard", None),
+  "Visual grid puzzles where each task needs a new rule to be worked out, run by the ARC Prize Foundation.", "Cost per task is ARC Prize's measured cost per task. ARC Prize marks some runs as partial coverage: unattempted tasks count as failures and the cost covers recorded usage only.", "ARC Prize", "https://arcprize.org/leaderboard", None),
 ]
 TOK_URL = {"nemotron-3-ultra": "https://artificialanalysis.ai/models/nemotron-3-ultra-550b-a55b", "step-5-preview": "https://artificialanalysis.ai/models/step-5-preview"}  # red team V5.39
-COMPOSITION_CHANGED = {"aa_coding"}  # boards whose components changed since the previous snapshot
+PRELAUNCH = {"claude-fable-5-2": "Pre-launch evaluation; Epoch AI says it may change.",
+             "gpt-6-2-astra": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."}  # Epoch runs started before release (red team V5.45)
+SUPERSEDED = {"gpt-6-astra": "GPT-6.2 Astra", "gpt-6-1-sol": "GPT-6.2 Sol", "qwen3-8-max": "Qwen4-Max"}
+COMPOSITION_CHANGED = set()  # boards whose components changed since the previous snapshot
 TOK_BOARD = "Artificial Analysis output tokens per Index task"
 FULL_ARENA = {"Arena Text (style control, default view)", "Arena Vision (style control, default view)", "Arena WebDev / Code Arena"}
 EPOCH = {"eci", "frontiermath", "gpqa"}
@@ -114,17 +117,19 @@ GROUPS = [
 ]
 
 BOARD_NEWS = [
- "Artificial Analysis Coding Agent Index now uses FrontierCode-AA 2.0 in place of FrontierCode v1.1, under the same name. Scores are not comparable with the earlier snapshot.",
- "Terminal-Bench 4.1 added 24 results on Nov 13-14, including Gemini 4 Hydrogen (56.4%) and Claude Fable 5.2.",
- "Arena WebDev and Agent boards updated Nov 15; Vals Index updated Nov 15; Epoch AI updated Nov 16.",
- "LiveBench updated its Nov 6 release in place (Gemini 4 Hydrogen added). Vectara is unchanged since Oct 22.",
- "New: output tokens per task from Artificial Analysis, and developer-reported results in each model's details (not used for ranking).",
+ "OpenAI released GPT-6.2 Astra and GPT-6.2 Sol on Nov 17. Early results: both are on the Artificial Analysis Intelligence Index, Vals and ARC-AGI; GPT-6.2 Astra also on Epoch AI (pre-launch runs). Neither is yet on the AA Coding Agent Index, Arena, LiveBench, Terminal-Bench or Vending-Bench.",
+ "GPT-6.2 Astra costs $8 / $40 per 1M tokens, 20% less than GPT-6 Astra; GPT-6.2 Sol keeps GPT-6.1 Sol's $2 / $10. GPT-6 Astra and GPT-6.1 Sol are still offered and are marked superseded.",
+ "Artificial Analysis now lists GPT-6 Astra, GPT-6.1 Sol and Gemini 3.8 Flash as deprecated; their Index results are taken from its model pages.",
+ "Epoch AI updated its capability index (ECI) on Nov 17, re-estimating most models slightly; GPT-6.2 Astra is the new top at 174.2, from Epoch's pre-launch testing.",
+ "LiveBench added Qwen4-Max (now #3 on the documents and data card); Gemini 4 Hydrogen joined the AA Coding Agent Index.",
+ "Open-weight prices follow OpenRouter's default host, which changed for gpt-oss-20b, Muse Glimmer 30B and Nemotron 3 Ultra.",
+ "Terminal-Bench's new #1 is GitHub's Copilot Fusion, a model router rather than a model, so it is not ranked here. Arena's published dataset has not changed since Nov 16 (newest board Nov 15).",
 ]
 
 STEPS = [
  ("Gather from the source", "Four research agents read each benchmark's own leaderboard or data file and each developer's model and price pages. Every value was copied as published, with the address it came from."),
  ("Use maintainers' results", "Rankings use the results each benchmark publishes on its own board. Scores that developers report about their own models in announcements or model cards are not used. Some boards accept submitted runs; their notes say so. Developers' own figures are listed separately in each model's details and never ranked."),
- ("Match names carefully", "Benchmarks spell model names differently. Each name is matched to one entry. Earlier snapshots, previews, quantised builds and products not sold through the API are kept apart. When a model appears at several reasoning-effort settings, it is ranked on its best setting, which is shown with the score."),
+ ("Match names carefully", "Benchmarks spell model names differently. Each name is matched to one entry. Earlier snapshots, previews, quantised builds and products not sold through the API are kept apart. When a model appears at several reasoning-effort settings, it is ranked on its best setting, which is shown with the score. If two settings score the same, the cheaper one is shown."),
  ("Red-team before publishing", "Two further agents that did not collect the data re-checked values against the source pages and challenged the name matches, prices, costs and wording. Errors they found are fixed, or the value is removed, before publication."),
 ]
 
@@ -152,10 +157,14 @@ MODEL_NOTES = {
  "grok-build-0-1": ("A coding-focused model (API alias grok-code-fast-1).", False),
  "qwen3-8-max": ("Superseded as Alibaba's flagship by Qwen4-Max (Nov 2026); still offered at $2 / $6. Artificial Analysis lists the 0902 snapshot as deprecated. Some boards test the 0902 snapshot, others the original release; the snapshot is shown with each score.", False),
  "muse-ember": ("Price shown is for requests up to 200,000 input tokens; longer requests cost $0.30 input / $1.50 output for the whole request.", True),
- "qwen4-max": ("Alibaba's pages give different maximum output figures (393K on the model page, 131K and 262K elsewhere); the model page figure is shown. A separate preview build is not listed.", False),
+ "qwen4-max": ("Alibaba's model page now gives a maximum output of 131K tokens (262K in thinking mode). A separate preview build is not listed.", False),
  "ling-3-1-flash": ("Results are for the 1019 snapshot. OpenRouter lists a price only for the original Oct 2, 2026 snapshot, so no price is shown.", False),
  "inkling-2-small": ("Terminal-Bench lists this model as 'Inkling Small 2'. Price is OpenRouter's listing (secondary source).", False),
  "claude-fable-5-2": ("Epoch AI's results come from pre-launch testing, which Epoch says may change.", False),
+ "gpt-6-2-astra": ("Released Nov 17, 2026; early results, on few boards so far. Price above 272K input tokens: $16 input / $60 output. Epoch AI's runs are dated Oct 27, 2026, before the public release, and Epoch has not yet published results from other benchmarks for this model.", False),
+ "gpt-6-2-sol": ("Released Nov 17, 2026; early results, on few boards so far. Price above 272K input tokens: $4 input / $15 output.", False),
+ "gpt-6-astra": ("Superseded by GPT-6.2 Astra (Nov 17, 2026); still offered at $10 / $50. Artificial Analysis now lists it as deprecated; its Index results are taken from its Artificial Analysis model page.", False),
+ "gpt-6-1-sol": ("Superseded by GPT-6.2 Sol (Nov 17, 2026); still offered at $2 / $10. Artificial Analysis now lists it as deprecated; its Index results are taken from its Artificial Analysis model page.", False),
  "claude-mythos-5-2": ("Limited access: offered to selected organisations only.", False),
  "kimi-k3-1-pro": ("Epoch AI ran this model through the Together API; those results are labelled.", False),
 }
@@ -166,8 +175,8 @@ PRICE_FIX = {
  "granite-4-2-8b": dict(pin=0.06, pout=0.15, pprov="CoreWeave via OpenRouter (lowest full-precision host listed); secondary source", purl=OR_EP.format("ibm-granite/granite-4.2-8b")),
  "hy4": dict(pin=0.834, pout=2.501, pprov="Tencent's own endpoint on OpenRouter, before its current 50% discount; secondary source", purl=OR_EP.format("tencent/hy4"),
              pnote="Tencent's endpoint currently shows a 50% discount ($0.417 input / $1.25 output)."),
- "gemma-4-26b-a4b": dict(pin=0.09, pout=0.30, pprov="NextBit via OpenRouter, before its current 25% discount; secondary source", purl=OR_EP.format("google/gemma-4-26b-a4b-it"),
-                         pnote="NextBit's endpoint currently shows a 25% discount ($0.0675 input / $0.225 output)."),
+ "gemma-4-26b-a4b": dict(pin=0.09, pout=0.30, pprov="NextBit via OpenRouter; secondary source", purl=OR_EP.format("google/gemma-4-26b-a4b-it"),
+                         ),
  "gemini-4-hydrogen": dict(purl="https://aistudio.google.com/docs/pricing#gemini-4-hydrogen"),
  "muse-wonder": dict(purl="https://dev.meta.ai/docs/pricing-rate-limits"), "muse-spark-1-3": dict(purl="https://dev.meta.ai/docs/pricing-rate-limits"), "muse-ember": dict(purl="https://dev.meta.ai/docs/pricing-rate-limits"),
  "gemini-4-carbon": dict(purl=GPRICE.format("gemini-4-carbon")),
@@ -253,7 +262,8 @@ def build():
                  surl=spec_rec["source_url"] if spec_rec else None, notes=" ".join(notes) or None, s={})
         for k, v in PRICE_FIX.get(c["id"], {}).items():
             m[k] = v
-        if c["id"] in ("hy4", "gemma-4-26b-a4b"): m["notes"] = " ".join(x for x in (m["notes"], m["pnote"]) if x)
+        if c["id"] in SUPERSEDED: m["superseded"] = SUPERSEDED[c["id"]]
+        if c["id"] == "hy4": m["notes"] = " ".join(x for x in (m["notes"], m["pnote"]) if x)
         models.append(m)
     M = {m["id"]: m for m in models}
     snapshot_of = {c["id"]: c.get("snapshots") for c in CATALOG}
@@ -290,14 +300,15 @@ def build():
                     setl = (setl + ", " if setl else "") + host.group(0)
                 if r.get("scaffold") and bid in ("aa_coding", "tbench"):
                     setl = tidy(r["scaffold"] + (", " + setl if setl else ""))
-                rec = dict(v=round(v, 3), set=setl, cost=money_round(cost), url=r["source_url"])
+                rec = dict(v=round(v, 3), set=setl, cost=money_round(cost), url=r["source_url"], _raw=v)
                 if r.get("score_ci"): rec["ci"] = r["score_ci"]
-                if bid in EPOCH and mid == "claude-fable-5-2": rec["flag"] = "Pre-launch evaluation; Epoch AI says it may change."
+                if bid in EPOCH and mid in PRELAUNCH: rec["flag"] = PRELAUNCH[mid]
                 if cost is not None: alts.append([rec["v"], rec["cost"], setl])
-                if best is None or (v > best["v"] if hb else v < best["v"]):
-                    best = rec
+                if best is None or (v > best["_raw"] if hb else v < best["_raw"]) or \
+                        (v == best["_raw"] and rec["cost"] is not None and (best["cost"] is None or rec["cost"] < best["cost"])):
+                    best = rec  # equal scores: the cheaper setting is shown (red team V5.45)
             if len(alts) > 1: best["alt"] = sorted(alts, key=lambda a: a[1])
-            M[mid]["s"][bid] = best
+            best.pop("_raw", None); M[mid]["s"][bid] = best
         cav = caveat
         if caveat == "LB":
             n = " or ".join(str(x) for x in sorted(n_tasks)) or "?"

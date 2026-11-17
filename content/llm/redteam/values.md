@@ -1,180 +1,86 @@
-# Red-team A: llm.json values (prices, scores, costs, dates, tokens, claims)
+# Red-team A: llm.json values, refresh of 2026-11-17 (site V5.45)
 
-Audited file: `/home/claude/quakfoolee-dotcom/chmltech-website/content/llm/llm.json`, **md5 bb4483db… (rebuilt 2026-11-16 04:43 UTC)**.
-The audit started on the 04:31 build (md5 089750e4…). The repo was rebuilt at 04:43, with build_dataset.py, catalog.py and match.py changed. I diffed the two builds and re-checked every changed field. The findings below are against the 04:43 build. Live sources were fetched 2026-11-16 between 04:35 and 05:10 UTC with curl (HTTP 200 unless stated). I edited no repo file and did not run build_dataset.py. For the old/new diff I ran a copy whose output path pointed to `/home/claude/llmrefresh/redteam/scratch_llm.json`.
+Audited file: `/home/claude/chmltech-website/content/llm/llm.json`, md5 46925c2c… (built 2026-11-17 18:46 UTC), compared with `llm.prev.json` (md5 31f57c5c…).
+Live sources were fetched 2026-11-17 between 18:48 and 18:55 UTC with curl. All returned HTTP 200. Downloads are in `/home/claude/llmrefresh2/redteam/dlA/` and my parsers in `/home/claude/llmrefresh2/redteam/scriptsA/`. I edited no repo file and did not run build_dataset.py.
 
-Severity: **B** = blocker (a wrong value would be published), **S** = should fix before publishing, **m** = minor (traceability or wording).
+Severity: **B** = blocker (a wrong value would be published), **S** = should fix before publishing, **m** = minor (wording, consistency or traceability).
 
 ## Summary
-| Check | Items checked | PASS | Findings |
-|---|---|---|---|
-| 1 List prices + URLs | 48 of 50 priced models (Nova 2 Pro/Lite not re-read: AWS page fills prices by JS) | 48 values correct | S1 (unlabelled discount), m1-m3 (URL / tier note) |
-| 2 Benchmark values + costs | **515 of 515** stored results, all 19 boards. llm.json re-derived exactly from raw; the raw rows used were checked against the live source on every board. Every agent-card leader and all values for the 3 new models are included. | 515 | 0 transcription errors; m5 (deliberate Epoch rule change, verified) |
-| 3 Release dates/status, new models | Hydrogen, Qwen4-Max, Inkling 2 Small; "Inkling Small 2"; ARC-AGI-2 81.667% | 3 dates OK | m6, m7 (Qwen4-Max preview / max output) |
-| 4 tok (AA output tokens per Index task) | 13 models vs AA model pages | 13 values | m4 (2 wrong page URLs) |
-| 5 Developer claims | 37 sampled against source pages (14 Hydrogen + 23 random), plus a column check of all 145 claims on 4 cards | 114 of 145 card claims correct; sampled 37 OK | **B1** (31 Gemma 4 31B claims belong to other models) |
+| Check | Items checked | Result |
+|---|---|---|
+| 1 GPT-6.2 Astra / Sol fields | price, context, max output, max input, cutoff, modalities, computer use, release date, >272K price note (2 models, OpenAI model pages, pricing.md, changelog) | all correct |
+| 1 GPT-6.2 benchmarks | AA Index 10 settings (score, cost, tokens, reasoning/answer split), Vals 2, ARC-AGI-2 10 settings, ECI 1, FrontierMath 1, GPQA 1 | all correct; S1 (note), m4 |
+| 2 AA-deprecated models | GPT-6 Astra (5 settings), GPT-6.1 Sol (5), Gemini 3.8 Flash (3): Index, cost, tokens, time; deprecated flag and deprecatedTo; OpenAI / Google status | all correct; m3 |
+| 3 Diffs vs prev | 30 ECI values + 33 CIs; 5 Qwen4-Max LiveBench rows (score, cost, setting); Hydrogen AA Coding row; all aa time changes on 3 models (spot-checked); 4 price changes and 4 max-output changes; Qwen4-Max max output and note; Gemma note | all correct; m2, m6 |
+| 4 Prices | 4 changed (gpt-oss-20b, Muse Glimmer 30B, Nemotron 3 Ultra, Gemma 4 26B A4B) + 6 OpenAI + 39 others (17 OpenRouter, 22 first-party) = 49 of 52 priced models | all correct; m5 |
+| 5 board_news (5 items, 11 claims) and `changes` (added, removed, results_before, 9 leaders) | every claim | all true except m1; leaders recomputed, all 9 match |
+
+No blockers. 1 should-fix, 6 minor.
 
 ## Findings
 
-**1. B1: Gemma 4 31B shows 31 developer claims that belong to two other models.**
-`gemma-4-31b.claims` has 46 entries. 15 are Gemma 4 31B's own. The other 31 are the "Gemma 4 12B Unified" (16) and "Gemma 4 E4B" (15) columns of the same Hugging Face card. Examples: Codeforces ELO 1659 (12B) and 940 (E4B), next to the real 31B figure of 2150. BigBench Extra Hard 53.0 and 33.1, next to 74.4.
-Cause: the new fallback `mid = match(r["model_as_listed"])[0] or VURL.get(r["source_url"])` in build_dataset.py (claims block, about lines 319-327). It assigns every unmatched column on a card to the model that owns the card URL. Only this card is affected today: I listed every fallback-attributed row.
-Evidence: https://huggingface.co/google/gemma-4-31B-it (family table, separate 12B Unified and E4B columns).
-Fix: remove the `VURL` fallback, or apply it only when `r["model_as_listed"]` is a column header of the owning model. Expected result: gemma-4-31b has 15 claims with Codeforces 2150, and no 1659 or 940. gemma-4-26b-a4b stays at 15 claims; its claims from the 31B card are correct, from its own column.
+**1. S1: The GPT-6.2 Astra note says Epoch itself said these results "may change". Epoch has not said that about GPT-6.2.**
+`gpt-6-2-astra.notes`: "Epoch AI's results come from pre-launch testing, which Epoch says may change."
+The only such statement on the Epoch hub belongs to the Nov 9 post about Claude Fable 5.2: "This is based on pre-launch testing using only our own benchmarks, and may change as more results become available." Epoch has published no post on GPT-6.2. "Pre-launch" is our own inference from the run dates: gpt-6.2-astra_max FrontierMath, GPQA and Tier 4 runs all have "Started at" 2026-10-27, before the Nov 17 release.
+Evidence: https://epoch.ai/benchmarks (Latest activity list), https://epoch.ai/data/benchmark_data.zip (`gpqa_diamond.csv`, `frontiermath_tiers_1_3_v2.csv`, column "Started at").
+Fix: in MODEL_NOTES["gpt-6-2-astra"], replace the last sentence with "Epoch AI's runs are dated Oct 27, 2026, before the public release, and Epoch has not yet published results from other benchmarks for this model."
 
-**2. S1: Gemma 4 26B A4B price $0.0675/$0.225 includes an unlabelled 25% promotional discount.**
-The OpenRouter default endpoint is NextBit, at 0.0675/0.225 with `"discount": 0.25`. Without the discount that is $0.09/$0.30. This is the same pattern as the hy4 PRICE_FIX.
-Evidence: https://openrouter.ai/api/v1/models/google/gemma-4-26b-a4b-it/endpoints
-Fix: either add `"gemma-4-26b-a4b": dict(pin=0.09, pout=0.30, pprov="NextBit via OpenRouter, before its current 25% discount; secondary source", purl=OR_EP.format("google/gemma-4-26b-a4b-it"), pnote="NextBit's endpoint currently shows a 25% discount ($0.0675 input / $0.225 output).")` to PRICE_FIX, or keep the current price and add that pnote.
+**2. m1: board_news item 1 implies that both new models are on Epoch AI. Only Astra is.**
+Text: "Early results: on Artificial Analysis, Vals, ARC-AGI and Epoch AI so far". GPT-6.2 Sol has no row in eci_scores.csv or in any Epoch file in the zip.
+Evidence: https://epoch.ai/data/eci_scores.csv
+Fix: "Early results: on Artificial Analysis, Vals and ARC-AGI so far (Astra also on Epoch AI), not yet on Arena, LiveBench, Terminal-Bench or Vending-Bench."
 
-**3. m1: Gemini 4 Hydrogen purl points to a page with no price.**
-`purl` = https://aistudio.google.com/docs/models/gemini-4-hydrogen, which has specs only. The $1.50/$7.50 price (flat, "Free of charge" on the free tier) is on https://aistudio.google.com/docs/pricing#gemini-4-hydrogen.
-Fix: add `"gemini-4-hydrogen": dict(purl="https://aistudio.google.com/docs/pricing#gemini-4-hydrogen")` to PRICE_FIX, as was done for the other Gemini models.
+**3. m2: The new max-output values for three OpenRouter-priced models are the default host's limit, not the model's.**
+OpenRouter's top_provider values match exactly: gpt-oss-20b 117,964; Muse Glimmer 30B 117,964; Nemotron 3 Ultra 16,384. For Nemotron 3 Ultra, 16,384 is DeepInfra's cap. KT serves it at the same $0.50 / $2.20 with 235,929, and BaseTen with 182,520. The field now changes whenever OpenRouter's default host changes, as it did today for all three.
+Evidence: https://openrouter.ai/api/v1/models/nvidia/nemotron-3-ultra-550b-a55b/endpoints (and the same path for openai/gpt-oss-20b and meta/muse-glimmer-30b).
+Fix: either set `maxout` to null when its only source is OpenRouter, or add the note "Maximum output shown is the default OpenRouter host's limit; other hosts allow more." to these three models (and the other OpenRouter-sourced rows).
 
-**4. m2: The three Muse purls point to model pages with no price.**
-dev.meta.ai/docs/muse-wonder, /muse-spark and /muse-ember have no $ figures (checked the `.md` versions). The prices are correct and are on https://dev.meta.ai/docs/pricing-rate-limits: Wonder $4/$20 Standard mode, Spark $1.25/$4.25 Standard mode, Ember $0.10/$0.50 up to 200K input.
-Fix: set purl to https://dev.meta.ai/docs/pricing-rate-limits for muse-wonder, muse-spark-1-3 and muse-ember.
+**4. m3: Gemini 3.8 Flash's AA-deprecation sentence now appears in the price note.**
+MODEL_NOTES["gemini-3-8-flash"] has price_flag True, so `pnote` reads "...from Jan 1, 2027. Artificial Analysis now lists it as deprecated (Google does not); its Index results are taken from its Artificial Analysis model page." That second sentence is not about price. The facts are correct: AA flags `deprecated: true` with deprecatedTo gemini-4-hydrogen, and Google's deprecations page lists gemini-3.8-flash with "No shutdown date announced". The $0.75 / $3.75 to $1.50 / $7.50 schedule is correct.
+Evidence: https://artificialanalysis.ai/models/gemini-3-8-flash, https://ai.google.dev/gemini-api/docs/deprecations (redirects to aistudio.google.com/docs/deprecations).
+Fix: keep only the price sentence in MODEL_NOTES["gemini-3-8-flash"] (flag True). Add the deprecation sentence to `notes` only, e.g. after the PRICE_FIX loop: `if c["id"] == "gemini-3-8-flash": m["notes"] = m["notes"].replace("Release date", "Artificial Analysis now lists it as deprecated (Google does not); its Index results are taken from its Artificial Analysis model page. Release date")`.
 
-**5. m3: Muse Ember needs a tier note.**
-Requests with more than 200K input tokens are billed at $0.30/$1.50 "in full, not only for the tokens past 200K" (pricing-rate-limits page).
-Fix: add a MODEL_NOTES entry, with the price flag set to True: "Price shown is for requests up to 200,000 input tokens; longer requests cost $0.30 input / $1.50 output for the whole request."
+**5. m4: Two of GPT-6.2 Sol's ARC-AGI-2 settings carry ARC's partial-coverage warning, and it is not shown.**
+The Sol (Max) and Sol (Medium) rows note "Partial dataset coverage: scores use full catalog denominators; costs include recorded usage only, excluding unrecorded attempts." So the Max $0.2611 and Medium $0.1032 costs in `s.arc2.alt` may be too low. The headline High row (85.833%, $0.1326) has no such note. All 10 GPT-6.2 ARC-AGI-2 values and costs are otherwise correct.
+Evidence: https://arcprize.org/leaderboard (RSC groups, model notes for openai-gpt-6-2-sol-max and -medium).
+Fix: append to MODEL_NOTES["gpt-6-2-sol"]: "ARC Prize marks its Max and Medium ARC-AGI-2 runs as partial coverage; their costs exclude unrecorded attempts."
 
-**6. m4: Wrong tok source URLs.**
-- nemotron-3-ultra `tok.url` and step-5-preview `tok.url` = https://artificialanalysis.ai/models/command-a-plus. Each model has its own page with the same values: /models/nemotron-3-ultra-550b-a55b (51,468 / 20,714 / 30,753) and /models/step-5-preview (113,473 / 79,907 / 33,566). Fix: point to the model's own page.
-- qwen3-8-max `tok.url` and `s.aa_index.url` = the AA home page. AA's home data marks "Qwen3.8 Max (0902)" `deprecated: true`, which is why it is missing from /leaderboards/models. The values are correct (33.655, $10.02, 170,794 tokens). Fix: optionally add "Artificial Analysis lists the 0902 snapshot as deprecated" to the notes.
+**6. m5: Only the two new models have a long-context price note. The older OpenAI models have the same rule.**
+OpenAI's pricing page applies 2x input / 1.5x output above 272K input tokens to GPT-6 Astra ($20 / $75), GPT-6.1 Sol ($4 / $15), GPT-6.1 Terra ($2 / $7.50) and GPT-6 Luna ($0.20 / $0.75), not only to GPT-6.2. Grok 4.7 also has a tier: $4 / $12 at 200K or more. The note also leaves out that the higher rate applies to the full request.
+Evidence: https://developers.openai.com/api/docs/pricing (Standard table, long-context columns), https://docs.x.ai/developers/models/grok-4.7
+Fix: add "Price above 272K input tokens: $X input / $Y output for the whole request." to gpt-6-astra, gpt-6-1-sol, gpt-6-1-terra and gpt-6-luna, and the equivalent 200K note to grok-4-7. Also add "for the whole request" to both GPT-6.2 notes.
 
-**7. m5: Epoch "-fallback" runs are now excluded (deliberate change; values verified).**
-New values: claude-fable-5-2 gpqa 93.876 (was 96.023 from `claude-fable-5-2-fallback_max`) and claude-opus-5-5 gpqa 90.593 (was 94.066). Both equal the `_max` rows in the live gpqa_diamond.csv. FrontierMath was unaffected.
-Consistency note: every AA Index, AA Coding and token row used for Claude models is a "(…, Default Fallback)" variant, because AA publishes no other. Fix: say in the method or notes that Epoch's separate fallback configuration is not used, so a reader does not see a contradiction.
+**7. m6 (method): Switching ECI to the live CSV is correct. Record the version and re-fetch before publishing.**
+https://epoch.ai/eci shows "Updated Nov. 17, 2026" and links `/data/eci_scores.csv`. The hub card says "174 top ECI: GPT-6.2 Astra", which matches the CSV. benchmark_data.zip was rebuilt at 2026-11-17 18:31 UTC, but its `epoch_capabilities_index/eci_scores.csv` still has no GPT-6.2 Astra (256 rows against 257). It also differs from the live CSV by up to 0.12 points (Claude Fable 5.2: 173.62 in the zip, 173.5 live). So the live CSV is the one the site displays, and the zip is behind. All 33 llm.json ECI values and CIs equal the live CSV, which had etag e88aedac98d555d4411ef0e896ba9f69 at 18:50 UTC. FrontierMath and GPQA are still taken from the zip, and their Astra values (92.632, 96.843, with stderrs) equal the 18:31 zip.
+Fix: add to the method or ECI caveat: "ECI is taken from Epoch's live eci_scores.csv, which is updated before its benchmark_data.zip." Re-fetch the CSV just before publishing, because the zip and CSV disagree today and Epoch may republish either one.
 
-**8. m6: Qwen4-Max release and build.**
-- Released `2026-11` with the note "AA lists Nov 16; results dated Nov 15". This is acceptable.
-- QwenCloud docs (https://docs.qwencloud.com/developer-guides/getting-started/latest-model.md) describe pay-as-you-go `qwen4-max` and a separate `qwen4-max-preview` model.
-- Secondary reports citing those docs (https://ai-tldr.dev/releases/qwen-qwen4-max-preview/, https://magica.com/news/alibaba-qwen4-max-preview-token-plan) give the preview as Token Plan only, Nov 11 10:00 to Nov 25 24:00 UTC+8.
-- The OpenRouter listing was created 2026-11-16 02:18 UTC, endpoint `qwen4-max-20261115`.
-- The Vals and Arena results (Nov 15) predate the paid listing, and neither board says which build it ran.
-Fix: extend the note: "A time-limited qwen4-max-preview ran from Nov 11; the boards do not say which build they tested."
-
-**9. m7: Qwen4-Max max output is 393,000 in llm.json, but the developer's own pages conflict.**
-The QwenCloud model page says "Max Output 393K". The QwenCloud docs table says "Maximum output (non-thinking) 131,072 tokens" and "Maximum thinking + final answer 262,144 tokens". 393K looks like the two added together.
-Fix: set maxout 262,144 with a note, or keep 393K with the note "docs give 131,072 non-thinking / 262,144 thinking + answer".
-
-**10. m8: Mistral Large 4 identity (carried over from the Nov 12 review, still open).**
-The new EXCLUDE_BOARD drops the tbench row (Oct 6, 27.58%), which is consistent with Epoch: model_metadata.csv calls `mistral-large-4-0` (2026-10-06) "Mistral Large 4 Preview" and `mistral-large-4-0-oss` (2026-10-29) "Mistral Large 4". However, the tbench row links to openrouter.ai/mistralai/mistral-large-4-0, whose canonical slug is `mistral-large-4-0-20261006`. That is the same API id as the docs page used for the $0.70/$2.10 price and the Nov 5 release date.
-Fix: decide once whether the catalogue entry is the API model (mistral-large-4-0) or the open-weight build, and apply that choice to price, release date and boards. No number changes are needed today.
-
-**11. m9: Arena Agent now publishes cost.** (Optional, not an error.)
-The lmarena-ai/leaderboard-dataset `agent` split now has `cost_per_task_p50` and `output_tokens_per_task_p50`, which could fill arena_agent cost.
-
-Already fixed by the 04:43 rebuild, verified:
-- tbench "Inkling Small 2" is now matched to inkling-2-small: 13.03%, "Mini-swe-agent, X-high", $963.65/330 = $2.920 per trial. The tbench label links to https://thinkingmachines.ai/news/inkling-2-small/, so it is the same model.
-- ling-3-1-flash price removed. It had been $0.045/$0.135, which carries Novita's `"discount": 0.85` (85% promotion) on OpenRouter.
-
-## Check 1: prices (all live)
-| Model(s) | Stored | Live | Result |
-|---|---|---|---|
-| gpt-6-astra / 6.1-sol / 6.1-terra / 6-luna | 10/50, 2/10, 1/5, 0.1/0.5 | same (developers.openai.com model pages) | PASS |
-| claude fable-5-2, mythos-5-2, opus-5-5, sonnet-5-5, haiku-5-5 | 8/40, 8/40, 4/20, 2/10, 0.1/0.5 | same (platform.claude.com; Haiku tier note correct) | PASS |
-| gemini-4-carbon / argon | 2/10 + intro note | "$2.00 through November 30, 2026. $4.00 starting December 1, 2026" (output $10, then $20) | PASS (note correct; expires in 14 days) |
-| gemini-4-hydrogen (new) | 1.5/7.5 | $1.50/$7.50, no intro date (aistudio.google.com/docs/pricing) | PASS (m1 URL) |
-| gemini-3-8-flash, 3-5-flash-lite | 0.75/3.75 + note, 0.3/2.5 | same | PASS |
-| grok-4-7, grok-build-0-1 | 2/6, 1/2 | same (docs.x.ai) | PASS |
-| muse-wonder, spark-1-3, ember | 4/20, 1.25/4.25, 0.1/0.5 | same (pricing-rate-limits.md) | PASS (m2, m3) |
-| mistral-large-4, small-4 | 0.7/2.1, 0.15/0.6 | same (docs.mistral.ai) | PASS |
-| command-a-plus | 2.5/10 + note | card unchanged (id web3Model.command-a, $2.50/$10); OpenRouter Cohere endpoint 0.30/1.50 | PASS (existing note still accurate) |
-| deepseek-v4-pro, v4-1-flash | 1.32/3.96, 0.3/1.2 (peak) | same, off-peak half | PASS |
-| qwen4-max (new) | 1.5/4.5 | $1.5/$4.5 Singapore (qwencloud model page, docs pricing #qwen4-max-pricing, Alibaba Model Studio) | PASS |
-| qwen3-8-max, qwen3-8-27b | 2/6, 0.5/3 | same | PASS |
-| kimi-k3-1-pro | 2/10 | $2.00/$10.00 | PASS |
-| glm-5-3, glm-5-3-flash | 1.4/4.4, 0.15/0.5 | same | PASS |
-| minimax-m3-1-flash, m3 | 0.15/0.6, 0.3/1.2 | same ("Permanent 50% off") | PASS |
-| OpenRouter defaults: gpt-oss-120b 0.15/0.6, **gpt-oss-20b 0.075/0.3**, gemma-4-31b 0.2/0.4, **gemma-4-26b 0.0675/0.225**, muse-spark-open 1.25/4.25, muse-glimmer 0.3/1.2, nemotron-3-ultra 0.6/2.4, **nemotron-3-5-super-vl 0.15/0.5**, nemotron-3-5-lightning 0.07/0.2, mimo 0.435/0.87, step-5 1.0/2.7, inkling 1.0/4.05, **inkling-2-small (new) 0.3/1.0**, beam 0.3/1.0 | as listed | all equal the live /api/v1/models defaults; the 4 vendor-reported default changes (bold, plus granite) are confirmed | PASS except S1 (gemma-26b discount) |
-| PRICE_FIX granite-4-2-8b | 0.06/0.15 | CoreWeave 0.06/0.15 is still the default and the lowest full-precision endpoint | PASS (not stale) |
-| PRICE_FIX hy4 | 0.834/2.501 + note | the only endpoint (Tencent) is still 0.417/1.2505 with discount 0.5 | PASS (not stale) |
-| nova-2-pro, nova-2-lite | 1.25/10, 0.3/2.5 | not re-read (aws.amazon.com/nova/pricing fills prices by JS from a JSON) | not checked |
-
-## Check 2: benchmark values (all 515)
-Method:
-1. Re-derive every (model, board) result from raw/*.json with the repo's own match/selection logic (`scripts/rt_rederive.py`; scratch build identical to llm.json).
-2. Compare each raw row used against a fresh download of the live source (`scripts/cmp_*.py`).
-| Board(s) | Live source | Raw rows checked | Result |
-|---|---|---|---|
-| AA Index (45 models) | artificialanalysis.ai/leaderboards/models flight data; 2 home-only rows from artificialanalysis.ai | 113 + 2 | all score+cost equal |
-| AA Coding Agent (21) | /agents/coding-agents | 29 | all indexScore + costUsd equal |
-| Vals (31) | vals.ai/benchmarks/vals_index page data | 38 | all equal (Hydrogen 68.492/$9.838; Qwen4 63.197/$9.3304; Inkling 2 Small 56.081/$3.509) |
-| Arena Text/Vision/WebDev/Agent (34/18/38/34) | HF lmarena-ai/leaderboard-dataset, commit 8013e3f0 (arena.ai itself returns 403 to curl; not bypassed) | 810 (124 used) | all equal |
-| Epoch ECI / FrontierMath / GPQA (32/23/28) | epoch.ai/data/benchmark_data.zip (files dated 2026-11-16 04:17) | 127/107/208 | all equal |
-| Vectara (9) | GitHub README ("Last updated on October 22, 2026") | 111 | all equal |
-| LiveBench x5 (27 each) | livebench.ai/data/20261106/table.csv + cost.csv | 245 (score, total cost, nq) | all equal |
-| Terminal-Bench 4.1 (29 + Inkling 2 Small) | tbench.ai flight (updated_at 2026-11-14) | 59 (accuracy, total_cost, n_trials) | all equal |
-| ARC-AGI-2 (21) | arcprize.org/leaderboard flight | 254 (score + costPerTask) | all equal |
-| Vending-Bench 2 (17) | andonlabs.com chunks Bl9fFL93.js + nodes/26.CDA-0jog.js | 76 (final_value + mean_cost) | all equal |
-
-Derived costs recomputed by hand from live files:
-- LiveBench: Sol browser 2.804, Terra browser 1.950, Fable research 13.27, Carbon data 0.7056, Hydrogen coding 6.192, Hydrogen long 7.152.
-- tbench: Opus 5.5 14.30, Fable 5.2 49.98, Inkling 2 Small 2.920, Hydrogen 2.376.
-All equal llm.json.
-
-Agent-card leaders (all verified live):
-
-| Card | Leader and runner-up |
-|---|---|
-| Coding | Fable 5.2 58.472 vs Opus 5.5 58.159 (gap 0.31 correct) |
-| WebDev | Fable 5.2 1825.962 |
-| Browser | GPT-6.1 Sol 93.3 |
-| Research | Fable 5.2 94.5 |
-| Long-running | Gemini 4 Carbon 16,484.21 |
-| Business | Fable 5.2 71.309 |
-| Data | Carbon 86.5 |
-| Assistant | Carbon 1526.182 |
-| Reasoning | Fable 5.2 FrontierMath 95.088 |
-
-New-model results (all verified):
-- **Hydrogen (12):** aa_index 53.919 X-high $3.16 (plus 4 alt), arena_text 1490.428, vals 68.492, tbench 56.36 $2.376, webdev 1703.905, lb_coding 78.5, agent 14.907, lb_browser 77.1, lb_research 86.8, lb_long 61.8, vending 14,549.49 $162.1, lb_data 83.2.
-- **Qwen4-Max (4):** aa_index 42.891 $3.268, vals 63.197, webdev 1749.815, agent 7.461.
-- **Inkling 2 Small (7):** aa_index 30.629 $1.178, arena_text 1411.781, vals 56.081, webdev 1644.676, agent 2.512, arc2 81.667 $0.2719, tbench 13.03.
-- Hydrogen and Qwen4-Max are not yet on Epoch, ARC, Vectara or AA Coding; there are no missed matches for them.
-
-## Check 3: dates and identity
-- Gemini 4 Hydrogen 2026-11-12, GA. Correct: the model card says "Published 12 November 2026", the tbench display_date is Nov 12, AA gives 2026-11-12, and the aistudio model page says "Latest update November 2026". The model page also shows computer use and thinking low/medium/high/xhigh.
-- Qwen4-Max: now `2026-11`. See m6.
-- Inkling 2 Small 2026-11-05. Correct: the developer model card (https://thinkingmachines.ai/model-card/inkling-2-small/) says "Date of release Nov 5, 2026", and ARC, AA and tbench agree. Weights were posted Nov 12 ("Nov 12, 2026 Update" on the news page). The note could cite the model card instead of AA.
-- "Inkling Small 2" on tbench is Inkling 2 Small. The model_display link is thinkingmachines.ai/news/inkling-2-small/. The older, different "Inkling Small" (Jul 30) has its own rows. Now matched (see above).
-- ARC-AGI-2 for Inkling 2 Small: 81.667% is correct. ARC row `thinky-inkling-2-small-xhigh`: v2_Semi_Private score 0.81667, costPerTask 0.27194635, notes "standard harness". The developer card also reports "ARC-AGI v1 / v2 96.5/81.7%". It is unusually high for its AA Index (30.6), but it is the maintainer's published value.
-
-## Check 4: tok (13 models)
-All 13 equal the variant at the model's AA Index setting on its own AA page:
-
-| Model | Total tokens |
-|---|---|
-| GPT-6 Astra Max | 51,973 |
-| Opus 5.5 Max | 173,313 |
-| Sonnet 5.5 Max | 285,387 |
-| Hydrogen X-high | 154,406 |
-| Qwen4 Max | 104,940 |
-| Inkling 2 Small | 149,778 |
-| Nemotron 3 Ultra | 51,468 |
-| Step 5 Preview | 113,473 |
-| DeepSeek V4.1 Flash 1017 Max | 138,962 |
-| Hy4 | 78,058 |
-| Granite 4.2 8B | 51,515 |
-| Command A+ | 35,630 |
-| Muse Glimmer High | 26,067 |
-
-The reasoning/answer splits are also equal. URL issues are in m4.
-
-## Check 5: developer claims
-- Sampled 37 claims against their sources:
-  - All 14 Hydrogen claims (DeepMind model card + Google blog), including AA Index 51 high / 54 xhigh and Vals Tax 52.3 / Legal 55.8.
-  - 23 random claims across the Inkling 2 Small, Qwen3.8-2.4T-A95B, Beam, Kimi K3.1 Pro, GLM-5.3, DeepSeek V4.1 Flash 1017 and Gemma cards.
-  - Every value appears in its benchmark row. The Qwen3.8 Max claims come from the open 2.4T-A95B card, whose column is headed "Qwen3.8-Max". The card says Qwen3.8-Max "is the official version based on Qwen3.8-2.4T-A95B", so the attribution is acceptable.
-- Column check of all claims on 4 cards:
-
-| Card | Claims in the model's own column |
-|---|---|
-| Granite 4.2 8B ("8B Dense") | 21 of 21 |
-| Nemotron 3 Ultra ("N-3-Ultra 550B-A55B") | 35 of 35 (7 flagged by the parser were indented sub-rows; values correct) |
-| Nemotron 3.5 Super VL ("Nemotron 3.5 SuperGA BF16") | 43 of 43 |
-| Gemma 4 31B | **15 of 46** (B1) |
-
-Downloads: /home/claude/llmrefresh/redteam/dl/. Scripts: /home/claude/llmrefresh/redteam/scripts/.
+## Verified (PASS)
+- **GPT-6.2 Astra:** $8 / $40; context 1,050,000; max output 128,000; cutoff May 18, 2026; text and image input; computer_use tool listed. The >272K rule gives $16 / $60, which matches the pricing table. Changelog entry dated Nov 17.
+- **GPT-6.2 Sol:** $2 / $10; same context and max output; cutoff Jun 01, 2026; >272K price $4 / $15.
+- **AA (models/gpt-6-2-astra, gpt-6-2-sol, leaderboards/models):**
+  - Astra Low to Max: 45.650 / 56.999 / 60.088 / 61.560 / 62.139, at $0.6617 / 1.618 / 2.074 / 2.521 / 3.998.
+  - Astra tokens: 5,216 / 13,165 / 17,828 / 22,238 / 41,029. Max split 26,150 reasoning / 14,880 answer.
+  - Sol Low to Max: 40.553 / 52.678 / 54.890 / 55.735 / 57.258. AA gives no cost for Low to X-high (no price on those entries) and $1.014 at Max.
+  - Sol tokens: 5,980 / 13,651 / 20,160 / 24,323 / 40,360. Max split 22,800 / 17,561.
+  - No time per task yet, which matches llm.json.
+- **Vals (vals_index, updated 2026-11-16):** Astra 67.656% at $10.681415, stderr 0.935, effort max. Sol 66.059% at $3.179284, stderr 0.91.
+- **ARC-AGI-2:** Astra 91.667 / 93.333 / 94.583 / 95.833 / 95.833 at $0.2749 / 0.3089 / 0.4083 / 0.4996 / 0.9695. Sol 57.917 / 82.917 / 85.833 / 85.833 / 85.833 at $0.07576 / 0.1032 / 0.1326 / 0.1742 / 0.2611. The headline is the cheapest of the tied top settings, the same rule as other models.
+- **Deprecated on AA:** GPT-6 Astra, GPT-6.1 Sol and Gemini 3.8 Flash all have `deprecated: true` (deprecatedTo gpt-6-2-astra, gpt-6-2-sol and gemini-4-hydrogen) and are absent from /leaderboards/models.
+  - All 13 Index values, 12 costs and 12 token totals match their model pages, e.g. GPT-6 Astra Max 56.854 at $6.245 and 51,973 tokens; GPT-6.1 Sol Max 54.609 at $1.272 and 67,824 tokens; Gemini 3.8 Flash High 30.847 at $7.766 and 98,940 tokens. Gemini 3.8 Flash Low has no cost on AA either.
+  - Time values checked: 1225.73 s = 20.43 min, 1386.66 s = 23.11 min, 847.35 s = 14.12 min.
+- **"Superseded, still offered":** GPT-6 Astra ($10 / $50) and GPT-6.1 Sol ($2 / $10) are still on their model pages and the pricing page, now under the full list and not under the flagship list. Neither is on https://developers.openai.com/api/docs/deprecations.
+- **Qwen4-Max LiveBench:** table.csv and cost.csv (20261106, last-modified Nov 16 22:39 GMT) give coding 69.8 (23.364/24 = 0.9735), browser 80.7 (1.506), research 84.7 (1.493), long agentic 47.5 (5.628) and data 83.4 (0.1439). The "X-high" label comes from LiveBench's own JS (main.f14f89ca.js, `effort:"xhigh"`).
+- **Qwen4-Max model page:** the QwenCloud page says Max Output 131K and Max Output (Thinking) 262K. This matches maxout 131,000 and the note. Price $1.5 / $4.5.
+- **Gemini 4 Hydrogen AA Coding Agent:** Antigravity CLI, Xhigh, 0.523167, $4.4528/task.
+- **Prices:**
+  - gpt-oss-20b $0.018 / $0.09 (AkashML, Darkbloom), Muse Glimmer 30B $0.35 / $1.50 (Together) and Nemotron 3 Ultra $0.50 / $2.20 (DeepInfra, KT) are all the OpenRouter listed price.
+  - **Gemma 4 26B A4B:** NextBit is now $0.09 / $0.30 with `discount: 0`, so the promotion has ended. Removing the discount note is correct.
+  - 17 OpenRouter rows checked: gpt-oss-120b, Gemma 4 31B, Muse Spark Open, Nemotron 3.5 Super VL and Lightning, Granite 4.2 8B, MiMo V2.6 Pro, Step 5 Preview, Hy4 (0.417 / 1.2505 at 50% discount, so 0.834 / 2.501), Inkling, Inkling 2 Small and Beam 1.0, plus the 4 changed models and Qwen4 Max.
+  - 22 first-party prices checked: Claude Fable, Mythos, Opus, Sonnet and Haiku 5.x (Haiku up to 100K), Gemini 4 Carbon / Argon ($2 / $10 to Nov 30), Hydrogen, 3.8 Flash, 3.5 Flash-Lite, Grok 4.7, Grok Build 0.1, Mistral Large 4, DeepSeek V4 Pro and V4.1 Flash (peak), Kimi K3.1 Pro, GLM-5.3 and Flash, MiniMax-M3 (after the permanent 50% off) and M3.1 Flash, Qwen4-Max, Qwen3.8-Max, and Muse Wonder / Spark / Ember. GPT-6.1 Terra and GPT-6 Luna were checked with the OpenAI group.
+  - Not re-read: Nova 2 Pro and Lite (prices filled by JS), Command A+, Qwen3.8 27B.
+- **board_news:**
+  - 20% less: $8 is 0.8 x $10. Correct.
+  - Copilot Fusion: rank 1 on tbench.ai at 71.21%, dated Nov 17. Its model link is docs.github.com/…/copilot-fusion. No model in llm.json carries 71.21.
+  - Arena: the HF dataset was last modified 2026-11-16 04:02 UTC (commit 8013e3f0), and there has been no commit since.
+  - No GPT-6.2 on LiveBench table.csv, Vending-Bench 2 chunk Bl9fFL93.js, Terminal-Bench or Arena.
+- **changes:** added = the 2 GPT-6.2 models; removed = none. results_before 515 = sum of s in prev. All 9 leaders recomputed from llm.json match. llm.json now holds 530 results.

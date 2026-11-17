@@ -122,6 +122,7 @@
     if (isFront) c += '<span class="ll-chip ll-chip-front" title="No cheaper model in this list scores higher on this benchmark">Best value</span>';
     if (m.access === "Open weights") c += '<span class="ll-chip ll-chip-open">Open weights</span>';
     if (m.tier) c += '<span class="ll-chip">' + esc(m.tier) + "</span>";
+    if (m.superseded) c += '<span class="ll-chip ll-chip-old" title="Superseded by ' + esc(m.superseded) + '; still offered">Superseded</span>';
     return c ? '<span class="ll-chips">' + c + "</span>" : "";
   }
   function detail(m) {

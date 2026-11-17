@@ -1,303 +1,213 @@
-# Red-team review B: LLM leaderboard refresh (data as of 2026-11-16)
+# Red-team review B: LLM leaderboard refresh (data as of 2026-11-17, release V5.45)
 
-Reviewed on 2026-11-16. I did not build this refresh.
+Reviewed on 2026-11-17. I did not build this refresh.
 
-**Files reviewed:**
-- content/llm/{catalog.py, match.py, build_dataset.py, llm.json, raw/*}
-- content/gen/llm_page.py
-- assets/js/llm.js and assets/css/llm.css
-- the built llm-leaderboard.html
-- the previous llm.json (`git show HEAD:content/llm/llm.json`, as_of 2026-11-12)
+**Files reviewed:** content/llm/{catalog.py, match.py, build_dataset.py, SPEC.md, llm.json, llm.prev.json, raw/*}, content/gen/llm_page.py, assets/js/llm.js, assets/js/llm-studio.js, llm-leaderboard.html.
 
-**What I ran.** I ran `match()` over every `model_as_listed` on the 19 boards in use. I also ran it over the token board "Artificial Analysis output tokens per Index task" and over all 644 rows in vendor.scores.json. That came to 2,242 board rows.
+**What I ran.**
+- Copied the repo to /home/claude/llmrefresh2/rtb/site/ and re-ran build_dataset.py there. The output is byte-identical to the repo's llm.json, and the JSON embedded in llm-leaderboard.html equals llm.json.
+- `match()` over every `model_as_listed` on every board (4,415 rows from arena, arena_full, index and agentic, including the token, time and speed boards) plus vendor.scores.json (644), vendor.models.json (129), index.models.json (125) and arena.models.json (184). Scripts: /home/claude/llmrefresh2/rtb/scripts/names2.py, dep.py.
+- Re-derived every agent card's top five, every board's top five, the blended-price frontier and the cost-per-task frontier (each `alt` setting as its own point, as llm.js does) from llm.json and llm.prev.json (scripts/derive.py, ties.py).
+- Loaded the page from `python3 -m http.server` in the copy with headless Chrome (playwright, /usr/bin/google-chrome) and drove the chart studio (scripts/page.py). Screenshots: /home/claude/llmrefresh2/rtb/shots/.
+- Proposed fixes 1 and 4 were tested in a scratch copy, /home/claude/llmrefresh2/rtb/fix/.
 
-**What I re-derived.** From both llm.json files I rebuilt:
-- the top five for every board
-- the blended-price frontier
-- the cost-per-task frontier (every `alt` setting plotted as its own point, as llm.js does)
-
-I diffed every model spec and score against HEAD.
-
-**Read-only lookups.** I read the Epoch download the research agent left on disk (/home/claude/llmrefresh/dl/index/epoch/x/model_metadata.csv and gpqa_diamond.csv). I only read it.
-
-**Where I edited.** I edited no repo files. I did not run build_dataset.py in the repo. I tested the proposed fixes in a scratch copy only (/home/claude/llmrefresh/rtb/fix/). I also regenerated the page in a second copy (/home/claude/llmrefresh/rtb/site/).
+**Where I edited.** No repo files. build_dataset.py was not run in the repo.
 
 Severity: **B** = blocker, **S** = should-fix, **m** = minor.
-
-Last review's fixes were checked and still hold:
-- Terminal-Bench "Opus 5.5" and "Sonnet 5.5" match.
-- "Muse Wonder Full" is excluded on every board, including the token board.
-- Mistral Large 4 Preview is excluded on Epoch.
-- Snapshot allow-lists work for DeepSeek: ARC-AGI-2 and the Arena boards use 1017, not 0910.
 
 ---
 
 ## A. Name matching
 
-### 1. [B] Ling 3.1 Flash: the 1019 snapshot's score is plotted at the original snapshot's price, as the first point on the default chart
-- **Evidence:**
-  - The only board result is AA "Ling 3.1 Flash 1019" (29.57). It matches `ling-3-1-flash` because the entry has no `snapshots` list, and the 4-digit token is accepted silently.
-  - The 1019 token is also not shown (`show_snapshot` is not set).
-  - raw/vendor.models.json, record "Ling-3.1-flash-1019", notes: *"Upgraded snapshot of Ling-3.1-flash … OpenRouter inclusionai/ling-3.1-flash points to the original 20261002 snapshot, not 1019, so no price is recorded for 1019."*
-  - Even so, the entry takes its price ($0.045 / $0.135, Novita via OpenRouter) and its spec URL from the original-snapshot records.
-- **Further mismatches:**
-  - The release date (2026-10-22) and the token figure both come from AA's 1019 record.
-  - The 6 developer claims come from the 1019 model card.
-- **Effect:** Ling 3.1 Flash is the cheapest point on the AA Intelligence Index blended-price frontier, the page's default view ($0.0675, 29.57). No page lists that price for the model that earned that score. This is the same class of error as last time's B2 (Muse Wonder Full plotted at the API price).
-- **Fix (catalog.py):** change the entry to
-  `vendor=["Ling-3.1-flash-1019", "Ling-3.1-flash"], snapshots=["1019"], show_snapshot=True`.
-  This drops the OpenRouter price record from `vendor`.
-- **Fix (build_dataset.py MODEL_NOTES):** add
-  `"ling-3-1-flash": ("Results are for the 1019 snapshot. OpenRouter lists a price only for the original Oct 2, 2026 snapshot, so no price is shown.", False)`.
-- **Tested in the scratch copy:**
-  - Ling leaves the price charts, and the AA blended frontier now starts Granite 4.2 8B, then Nemotron 3.5 Lightning, then Claude Haiku 5.5.
-  - The aa_index result and the token row are labelled "1019 snapshot".
-  - The spec URL is now the 1019 repo.
-  - List prices drop from 51 to 50, and the hero and method counts update by themselves.
+### 1. Name matching for GPT-6.2 Astra and GPT-6.2 Sol: correct
+- **gpt-6-2-astra matched 41 rows:** ARC-AGI-1, ARC-AGI-2, ARC-AGI-3 Standard and Provider Adapter (5 efforts each); AA Index and AA output tokens (5 each); Epoch ECI, FrontierMath T1-3, FrontierMath T4 and GPQA (1 each, `gpt-6.2-astra_max` / "GPT-6.2 Astra"); Vals (`openai/gpt-6.2-astra`).
+- **gpt-6-2-sol matched 31 rows:** the same four ARC boards, AA Index and tokens (5 each), and Vals. Sol has no Epoch rows, which is correct.
+- **Vendor records:** "GPT-6.2 Astra", "OpenAI: GPT-6.2 Astra", "GPT-6.2 Sol" and "OpenAI: GPT-6.2 Sol" match. "OpenAI: GPT-6.2 Astra Pro" and "OpenAI: GPT-6.2 Sol Pro" return None, because "pro" is not a SETTING word.
+- **gpt-6.2-astra-law:** it appears only inside the price_notes of the "GPT-6.2 Astra" vendor record and in vendor.notes.md. It is never a `model_as_listed`, so nothing can merge it.
+- **Kept apart, as they should be:**
+  - "GPT-6 Astra …" and `gpt-6-astra_*` go to gpt-6-astra. "6 astra" does not prefix-match "6 2 astra".
+  - "GPT-6.1 Sol …" goes to gpt-6-1-sol.
+  - "GPT-6 Sol", "GPT 6 Sol (Max)", `gpt-6-sol_max` and `openai/gpt-6-sol` are unmatched (not in the catalogue).
+  - All GPT-5.6 Sol spellings are unmatched.
+  - "Claude Opus 5.5 Max + GPT-6 Luna High" is unmatched.
+- **No other GPT-6.2 spelling exists in any raw file.** I checked every `model_as_listed` for "6.2", "6-2", "astra" and "sol".
+- **Token rows:** both models have `tok.set == "Max"`, the same as their aa_index setting.
+- No action needed.
 
-### 2. [B] Terminal-Bench "Mistral Large 4" is the Preview build, merged into the GA model
-- **Evidence:**
-  - This row is new this refresh: 27.58%, Claude Code, max, $718.40, result_date 2026-10-06.
-  - Terminal-Bench's row date is the model's release date. Opus 5.5 is 09-22, Fable 5.2 11-09, Gemini 4 Hydrogen 11-12 and "DeepSeek V4.1 Flash 1017" 10-17, each equal to that model's release.
-  - Epoch model_metadata.csv dates the builds: `mistral-large-4-0_high`, "Mistral Large 4 Preview", **2026-10-06**; `mistral-large-4-0-oss_high`, "Mistral Large 4", **2026-10-29**. Mistral's docs give GA as 2026-11-05.
-  - So this row is the Preview, which the page says is "kept apart".
-- **Effect:** the Terminal-Bench result shown for Mistral Large 4 is a Preview result. It is not on a frontier or in a card's top five.
-- **Fix (match.py):** add `("Terminal-Bench 4.1", "Mistral Large 4")` to `EXCLUDE_BOARD`. Tested: tbench drops to 29 − 1 + 1 (with finding 4) = 29 models.
+### 2. AA-deprecated rows (taken from AA model pages): correct
+- **Matched as expected:**
+  - GPT-6 Astra (Low/Medium/High/Xhigh/Max) and GPT-6.1 Sol (5 settings): Index, Time per Task, Output Speed and tokens.
+  - Gemini 3.8 Flash (High/Medium/Low).
+  - Each has the model page as `source_url`. The Index scores and costs equal the Nov 16 values.
+- **Correctly unmatched:** "Inkling Small". It is not merged into "Inkling" or "Inkling 2 Small".
+- **Snapshot label:** "Qwen3.8 Max (0902)" matches with "0902 snapshot".
+- No action needed.
 
-### 3. [S] Epoch's new "with fallback" runs are merged silently and change GPQA
-- **Evidence:**
-  - New GPQA rows this refresh are `claude-fable-5-2-fallback_max` (0.9602) and `claude-opus-5-5-fallback_max` (0.9407).
-  - In Epoch's model_metadata.csv they are a separate model version, display name **"Claude Fable 5.2 (with fallback, max)"**. Their run ids are `manual_gpqa_diamond_fallback_…`.
-  - Epoch also has its normal runs, `claude-fable-5-2_max` (0.9388) and `claude-opus-5-5_max` (0.9059).
-  - match.py drops "fallback" from the label, so the page shows both as plain "Max". index.notes.md does not mention fallback at all, and the research agent's new notes dropped the "Display name in Epoch metadata" text that would have shown it.
-- **Effect:** GPQA Fable 5.2 goes from 93.88 to 96.02 and moves to #3 in the top five. Opus 5.5 goes from 90.59 to 94.07. Both are presented as like-for-like with other models' standard runs.
-- **Fix (match.py):** `if QUANT.search(name) or "-fallback_" in name: return None, None`, so Epoch's fallback variants are kept apart until someone confirms what "with fallback" means.
-  - This leaves AA's "(…, Default Fallback)" rows alone. On AA that is the only configuration listed for Claude models.
-  - Tested: GPQA reverts to 93.876 / 90.593, and the top five becomes Carbon, Argon, Astra, Sonnet 5.5, GPT-6.1 Sol.
-- **Fix (index.notes.md, research agent):** record what Epoch's "with fallback" configuration is.
-
-### 4. [S] Terminal-Bench "Inkling Small 2" should match Inkling 2 Small
-- **Evidence:** the Terminal-Bench 4.1 row is "Inkling Small 2": Thinking Machines Lab, mini-swe-agent, xhigh, 13.03% ± 2.85, $963.65, date **2026-11-05**.
-  - The date is Inkling 2 Small's release date on AA (index.models.json).
-  - ARC lists "Inkling 2 Small (XHigh)" on the same date.
-  - The first-generation "Inkling Small" is a separate row on the same board (0.91%, dated 2026-07-30).
-  - agentic.notes.md leaves the decision to the merge step. match() returns (None, None) because "small" is not a SETTING word.
-- **Fix (match.py):** add a board-scoped alias,
-  `BOARD_ALIAS = {("Terminal-Bench 4.1", "Inkling Small 2"): "Inkling 2 Small"}`,
-  and apply it in `match()` before the QUANT check: `name = BOARD_ALIAS.get((board, name), name)`. A global alias would risk catching other boards.
-- **Fix (build_dataset.py MODEL_NOTES):** for inkling-2-small, add "Terminal-Bench lists this model as 'Inkling Small 2'."
-- **Tested:** tbench gains Inkling 2 Small at 13.03%, Mini-swe-agent, X-high, $2.92 per trial. It is not on any frontier.
-
-### 5. [S] Developer claims ignore the snapshot rule, and three models miss theirs
-- The claims loop calls `match(r["model_as_listed"])` with no snapshot preference and no other fallback, so three problems follow.
-- **Mixed DeepSeek snapshots.** DeepSeek V4.1 Flash shows 30 claims. 11 come from the 1017 card. 19 come from the earlier `deepseek-ai/DeepSeek-V4.1-Flash` card ("DS-V4.1-Flash"). The panel therefore shows "Terminal-Bench 4.0 42.3" and "Terminal-Bench 4.0 (Pass@1) 31.2" side by side, unlabelled.
-- **Missed NVIDIA and IBM claims.** These are unmatched although their source URL is the catalogue model's own card:
-  - "N-3-Ultra 550B-A55B" (35 rows): nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16
-  - "Nemotron 3.5 SuperGA BF16" (43 rows): nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16
-  - "8B Dense" (21 rows): ibm-granite/granite-4.2-8b
-- **Ling.** Ling's 6 claims are from 1019 (fixed by finding 1).
-- **Fix (build_dataset.py claims loop):**
-  1. If the entry has `snapshots` and any claim row names one, drop the undated claim rows, as the board loop already does.
-  2. If `match()` fails, match on `source_url` against the URLs of the entry's `vendor` records.
-  3. Otherwise add the three names as aliases in catalog.py: "N-3-Ultra 550B-A55B" to nemotron-3-ultra, "Nemotron 3.5 SuperGA BF16" to nemotron-3-5-super-vl, "8B Dense" to granite-4-2-8b.
-- **Confirmed:** claims never reach ranks or frontiers. build_dataset.py keeps them in `m.claims`; the board loop reads only arena, index and agentic rows and skips `self_reported`; llm.js uses `m.claims` only in `claimsBlock()`.
-
-### 6. [m] Correctly kept apart (no action needed)
-- Claude Fable 5.1, Fable 5, Opus 5, Sonnet 5 (all spellings, including Terminal-Bench "Fable 5.1", "Opus 5" and Epoch `claude-fable-5-1_max`).
-- Qwen3.7, Qwen3.6, Qwen3.5 and "-Max-Preview" rows. "Qwen4-Max" spelled four ways all match, and nothing from Qwen3.8 merges into Qwen4.
-- "Inkling Small" and "Inkling-Small" (first generation).
-- Gemini 3.5/3.7 Flash, GPT-5.6 and GPT-6 Sol.
-- NVFP4 builds; "Hy4 preview"; "alibaba/qwen3.8-max-internal".
-- "Claude Opus 5.5 Max + GPT-6 Luna High" (Devin Fusion).
-- K2 Horizon and JT-4.1 Flash (not in the catalogue).
-- No "Gemini 4 Hydrogen" variants other than effort labels exist in any raw file.
+### 3. [m] Terminal-Bench "Copilot Fusion" matches nothing, but only by luck
+- **Evidence:** `match("Copilot Fusion", "Terminal-Bench 4.1")` returns (None, None) because no alias starts with "copilot". Nothing in match.py records that it is a router. Its date (Nov 17) is the only reason the Terminal-Bench card says "latest result Nov 17". The newest row for a listed model is Gemini 4 Hydrogen, Nov 12.
+- **Fix (match.py):** add `"Copilot Fusion"` to `EXCLUDE` with the comment `# GitHub's model router (agentic.notes.md, 2026-11-17)`.
+- **Fix (build_dataset.py, B entry "tbench", date text):** change it to `"board updated " + d("2026-11-17") + "; newest result for a listed model " + d("2026-11-12")`.
 
 ---
 
-## B. Specs, prices, tiers
+## B. Tier
 
-### 7. [S] AA cost per task for Gemini 4 Carbon and Argon dropped with unchanged scores; the cause is not noted
-- **Evidence:** compared with HEAD, the raw AA Index rows changed cost only:
-
-  | Row | Score | Cost per task before | Cost per task now |
-  |---|---|---|---|
-  | Argon (High) | 50.41 (unchanged) | 9.9466 | 4.9733 (exactly ×0.5000) |
-  | Carbon (High) | 60.03 (unchanged) | 7.756 | 5.485 |
-  | Carbon (Medium) | unchanged | 6.586 | 4.678 |
-  | Carbon (Low) | unchanged | 7.187 | 5.221 |
-
-  - AA Coding moved the same way (Argon 11.73 to 6.84).
-  - The exact halving matches a switch from $4/$20 to the $2/$10 introductory price, which ends on Nov 30.
-  - index.notes.md says the method is "unchanged" and does not mention this.
-- **Effect:** on the AA cost-per-task frontier, Claude Opus 5.5 (X-high, $6.05, 57.4) is no longer a frontier point; Carbon Medium at $4.68 now beats it. These costs will be wrong from Dec 1.
-- **Fix:**
-  - Ask the index agent to confirm on AA.
-  - In build_dataset.py, append to the MODEL_NOTES text for gemini-4-carbon and gemini-4-argon: "Artificial Analysis's cost per task uses the introductory price."
-  - Add to the aa_index and aa_coding caveats: "Costs follow the developer's current list price, including introductory prices."
-
-### 8. [S] Qwen3.8-Max no longer fits the Frontier definition
-- **Evidence:**
-  - catalog.py defines Frontier as "the developer's most capable generally offered model(s)".
-  - Alibaba's page calls Qwen4-Max the "next-generation flagship" and lists it above qwen3.8-max (vendor.models.json).
-  - Qwen4-Max beats Qwen3.8-Max everywhere both appear: AA 42.9 vs 33.7, Arena WebDev 1749.8 vs 1675.6, Arena Agent 7.5 vs −0.9.
-  - Qwen4-Max is also cheaper ($1.50/$4.50 vs $2/$6).
-  - "Mid-size" (a cheaper model one step down) does not fit either.
-- **Fix:** keep Qwen3.8-Max in the catalogue; it is still a current offering, so SPEC rule 8 keeps it in scope. Then:
-  - Add to MODEL_NOTES: "Superseded as Alibaba's flagship by Qwen4-Max (Nov 2026); still offered at $2 / $6."
-  - Either add a "Previous flagship" tier or note the exception in the tier filter's note text in llm_page.py.
-
-### 9. [m] The three new entries: tier, developer, aliases
-- **Gemini 4 Hydrogen** (Mid-size, Google): supported.
-  - $1.50/$7.50, GA (aistudio.google.com).
-  - Google says it was "adapted from Gemini 4 Carbon", so Mid-size is a line-up label. It outscores Frontier Argon on AA (53.9 vs 50.4) and Vending, so the tier note matters here.
-  - Index raw slip: index.models.json "Gemini 4 Hydrogen (High)" says its details came from `artificialanalysis.ai/models/claude-fable-5-2`. It is unused because the vendor record wins, but it should be corrected in raw.
-- **Qwen4-Max** (Frontier, "Alibaba (Qwen)"): tier and aliases are fine.
-  - The release date 2026-11-16 is from AA, but Arena and Vals results are dated 2026-11-15, and OpenRouter's endpoint is `qwen4-max-20261115`.
-  - Fix: `RELEASE["qwen4-max"] = ("2026-11", "Release month: Artificial Analysis lists Nov 16, 2026; benchmark results are dated Nov 15.")`.
-- **Inkling 2 Small** (Small and fast, Thinking Machines Lab): the name supports the tier, but there are two oddities.
-  - It has 594B total parameters and outscores the Frontier "Inkling" (AA 30.6 vs 12.5).
-  - `reasoning` is null, so it drops out of the "Reasoning mode" filter, although AA counts 88K reasoning tokens per task and ARC and Terminal-Bench run it at xhigh.
-  - Fix: add the alias "Inkling Small 2" through finding 4. Set `reasoning="Yes"` with the note "Reasoning effort settings as run by ARC Prize and Terminal-Bench". The price is OpenRouter's (secondary), as labelled.
-
-### 10. [m] Scope: K2 Horizon 375B A23B and JT-4.1 Flash should not be added now
-- **K2 Horizon:**
-  - Open weights, Apache 2.0, 375B/23B.
-  - AA 17.8 would put it 16th of 27 open-weight models, about level with Beam 1.0 (17.7). So it is arguably "leading open-weight" under SPEC rule 8.
-  - However, it is on AA only. It has no price: AA's cost and price are 0/0 placeholders, and no API or OpenRouter listing was found. Its developer ("IFM", link to MBZUAI/LLM360 unconfirmed) is unverified.
-  - Add it later if a second board or a price appears. If added, treat AA's $0 cost as null, which build_dataset.py already does.
-- **JT-4.1 Flash 236B A21B:**
-  - China Mobile, proprietary API, no price, released 2026-11-11, AA only.
-  - It is not a major developer's flagship or sibling, so it is out of scope.
-
-### 11. [m] Open-weight "list prices" move with OpenRouter's default endpoint
-- Examples:
-  - gpt-oss-20b went from $0.03/$0.13 to $0.075/$0.30.
-  - Gemma 4 26B A4B went from $0.08/$0.10 to $0.0675/$0.225.
-  - vendor.notes.md: "These changes reflect which provider is the default, not a developer price change".
-- **Effect:** gpt-oss-20b drops off the Arena Text, ECI and GPQA blended frontiers, and Granite 4.2 8B joins the Arena Text frontier.
-- **Fix:** use one rule for all open-weight prices, as PRICE_FIX already does for Granite: the lowest full-precision host listed. Alternatively, say in the price note that the default host can change between snapshots.
+### 4. [S] Is "Frontier" right for GPT-6.2 Sol? Reported, not decided
+- **Where the definitions are:** SPEC.md has no tier definitions. They are in the catalog.py docstring:
+  - Frontier = "the developer's most capable generally offered model(s)".
+  - Mid-size = "a cheaper general model one step down".
+- **Against Frontier:**
+  - GPT-6.2 Astra beats Sol on every shared board: AA 62.1 vs 57.3, Vals 67.7 vs 66.1, ARC-AGI-2 95.8 vs 85.8.
+  - Sol costs a quarter as much ($2/$10 vs $8/$40).
+  - OpenAI calls Sol "Our go-to model for everyday work, from coding to powering agents at scale" and calls Astra "Our most capable model". The vendor note on GPT-6.1 Sol says "GPT-6.2 Sol is now the recommended balance model".
+  - **The same price point gets a different tier at another developer.** Claude Sonnet 5.5 ($2/$10, a quarter of Fable 5.2's price) is Mid-size. GPT-6.2 Sol ($2/$10, a quarter of Astra's price) is Frontier.
+- **For Frontier:**
+  - Precedent: GPT-6.1 Sol is Frontier.
+  - OpenAI's "Flagship models" list includes 6.2 Sol. It also lists 6.1 Terra and 6 Luna, though, so that list does not settle the tier.
+  - "model(s)" allows more than one Frontier model, as with Gemini 4 Carbon and Argon.
+- **Superseded models still show the Frontier chip.** GPT-6 Astra, GPT-6.1 Sol and Qwen3.8-Max now all carry "Frontier" in the table and in the filter. Only the expandable notes say "Superseded". Board news says they "are marked superseded", but only the details panel marks them. Last review's finding 8 (a "Previous flagship" tier, or a note in the filter hint) was not done.
+- **Options for the owner:**
+  - (a) Keep both Sols as Frontier. Reword the Frontier definition in catalog.py to "the developer's flagship line (OpenAI lists two flagship sizes)", and say in the filter hint (llm_page.py, `gr-hint`) that OpenAI's Sol is grouped with Astra.
+  - (b) Move gpt-6-2-sol and gpt-6-1-sol to Mid-size, in line with Sonnet. Terra then sits under them as a second Mid-size model.
+  - Either way: set `status` for gpt-6-astra, gpt-6-1-sol and qwen3-8-max to "Superseded (still offered)" in build_dataset.py, for example `STATUS = {...}` applied after PRICE_FIX, so the Status row shows it. Otherwise change the board-news wording to "their details note they are superseded".
 
 ---
 
-## C. New features
+## C. Rankings and frontiers (re-derived, Nov 16 to Nov 17)
 
-### 12. [S] "What changed": comparing coding-agent leaders across an index change is misleading
-- **What the page says:** the news card lists "Coding agents: Claude Fable 5.2 (was Claude Opus 5.5)".
-- **Why that is not like for like:**
-  - The "before" leader (Opus 5.5, 61.65) was measured with FrontierCode v1.1.
-  - The "now" leader (Fable 5.2, 58.47) uses FrontierCode-AA 2.0.
-  - Fable 5.2 was not on aa_coding at all in the previous snapshot; it is new.
-  - On the current index Opus 5.5 is 0.3 points behind (58.16).
-- The caveat sits in the next card, but this line reads as "Fable overtook Opus".
-- **Fix (build_dataset.py):**
-  - Add `COMPOSITION_CHANGED = {"aa_coding"}`.
-  - In the leaders loop, for those boards, emit `dict(group=…, before=None, now=b2, note="index components changed; not comparable")`.
-  - In llm_page.py news(), render that as "Coding agents: Claude Fable 5.2 leads the revised index (0.3 points ahead of Claude Opus 5.5; not comparable with the Nov 12 snapshot)".
-  - Or drop the line.
+### 5. Every ranking and frontier change is explained by new data
+- **Agent cards (main board top five):**
+  - Only "Documents and data analysis" changed (lb_data). Qwen4-Max is now #3 (83.4, X-high). Hydrogen moves to #4, GPT-6 Astra to #5, and GPT-6.1 Sol drops out. Cause: LiveBench added Qwen4-Max in place on Nov 16 (index.notes.md).
+  - All nine leaders are unchanged, so "The leader of every agent card is unchanged" is correct.
+  - **Hard reasoning (FrontierMath):** GPT-6.2 Astra enters at #4 (92.6%), and Opus 5.5 moves to #5. This needs finding 6.
+- **Board top fives:**
 
-### 13. [S] "What changed" goes stale if build_dataset.py is re-run on the same day
-- **Cause:** `changes` is recomputed only when `P["as_of"] != AS_OF`. On a re-run, such as after applying this review's fixes, it copies the old `changes`: the old `added`, `leaders` and `results_before`. `n_now` in llm_page.py is live.
-- **Confirmed** in the scratch copy: after the fixes the leaders block is the pre-fix one.
-- **Fix:** read the baseline from a frozen file instead of the file being overwritten. Either:
-  - write `content/llm/llm.prev.json` once per AS_OF change and always diff against it, or
-  - diff against `git show HEAD:content/llm/llm.json`.
-
-### 14. [S] Developer-claim units print as long text in the number column
-- **Evidence:** 240 of 425 claims have the unit "score as reported (no unit given; mostly % accuracy/pass rate)". claimsBlock() renders this as `42.6 score as reported (no unit given; mostly % accuracy/pass rate)`. Two more claims have the unit "score as reported (no unit given)".
-- **Fix (assets/js/llm.js claimsBlock):** treat any unit starting with "score as reported" as unitless:
-  `var u = /^score as reported/.test(c.unit || "") ? "" : (c.unit || "");`
-
-### 15. Token figure (`tok`): correct
-- All 44 models with token data have `tok.set` equal to their aa_index `set`, including the snapshot label for Qwen3.8-Max and None for unlabelled rows.
-- Gemma 4 31B has no token row, as index.notes.md says.
-- "Muse Wonder Full (Max)" and "Claude Fable 5.1" token rows are correctly unmatched.
-- One minor gap: when a model has no aa_index result, the "largest total" fallback contradicts the page's "at the setting ranked above". No current model is affected. Fix: skip `tok` when `want` is missing.
-
-### 16. Board news: every statement checked against raw/*.notes.md
-- **AA Coding component change.** True: FrontierCode v1.1 Main replaced by FrontierCode-AA 2.0, same name, 29 pairs (index.notes.md). The caveat text on the board is accurate.
-- **Terminal-Bench "24 results on Nov 13-14, including Gemini 4 Hydrogen (56.4%) and Claude Fable 5.2".** True: 24 rows added, created 11-13 or 11-14 (agentic raw notes), and Hydrogen is 56.36%.
-- **Board update dates.** All true per arena.notes.md and index.notes.md:
-  - Arena WebDev and Agent: 2026-11-15
-  - Vals: 2026-11-15
-  - Epoch hub: Nov 16
-  - LiveBench: 20261106 updated in place, Hydrogen added
-  - Vectara: Oct 22
-- **Small omissions (m):**
-  - Arena Text also moved (Nov 9 to Nov 11).
-  - Vending-Bench added Hydrogen (#3) and Fable 5.2.
-  - Two aa_coding results disappeared: Gemini 3.8 Flash and Muse Spark Open are no longer on the revised index. Add one line: "Gemini 3.8 Flash and Muse Spark Open are not on the revised AA Coding Agent Index."
-
----
-
-## D. Rankings and frontiers re-derived (compared with HEAD)
-
-### 17. Changes that follow from the new data (expected)
-- **New models on frontiers:**
-  - Gemini 4 Hydrogen on aa_index, vals, tbench, arena_agent, lb_long, vending and lb_data.
-  - Qwen4-Max on vals and arena_webdev.
-  - Inkling 2 Small on arena_webdev, arena_agent and arc2.
-- **Card top fives:** Fable 5.2 is new at #1 on aa_coding and arena_agent. Hydrogen is #3 on Vending and LiveBench Data.
-- **Terminal-Bench:** grows from 11 to 29 models.
-- **Arena:** small Elo moves throughout, as expected after the Nov 11 and Nov 15 republishes.
-- **Card leaders:** unchanged except Coding (see finding 12).
-- **Frontier code:** the Python re-implementation of `frontier()` agrees with llm.js on every board.
-
-### 18. Changes not explained by the notes
-- AA Carbon and Argon costs: finding 7.
-- GPQA Fable 5.2 and Opus 5.5: finding 3.
-- Open-weight price swaps: finding 11.
-- **Release dates newly filled from AA.** Nemotron 3 Ultra (2026-06-04), Step 5 Preview (2026-09-18), Hy4 (2026-11-03) and Ling (2026-10-22, the 1019 date) were null before. They are labelled "as listed by Artificial Analysis", which is fine apart from Ling (finding 1).
-
-### 19. [m] Ties are shown as distinct ranks
-- Terminal-Bench #1: Fable 5.2 and Opus 5.5 are both 65.76% (217/330 trials each); the card order is just catalogue order.
-- FrontierMath #2 and #3: GPT-6 Astra and GPT-6.1 Sol are both 93.7%.
-- **Fix (llm_page.py type_card):** give equal values the same rank number.
-
----
-
-## E. Page text
-
-### 20. [m] The committed llm-leaderboard.html is older than llm_page.py
-- The built page shows "$1.5 / $7.5", but current news() formats with `:.2f`. Regenerating the page in a copy changes only those three lines ("$1.50 / $7.50" etc.).
-- **Fix:** re-run content/gen/llm_page.py after the data fixes.
-- In the same news line, Inkling 2 Small's "$0.30 / $1.00" is OpenRouter's price. Add "(OpenRouter)" when `pprov` contains "secondary".
-
-### 21. Hero, method text and disclaimer
-- **Hero and counts:** correct against llm.json.
-  - 53 models, 19 benchmarks, 22 developers, 29 open-weight models
-  - 515 results, up from 473
-  - 51 list prices (50 after finding 1)
-- **Board date lines:** all match raw dates.
-  - Terminal-Bench says "latest result Nov 12", which is true. The board record was updated Nov 14 (m: could say "board updated Nov 14, 2026").
-- **Disclaimer:** still accurate. Catalogue coverage of the unused boards now:
-
-  | Board | Catalogue models |
+  | Board | Change |
   |---|---|
-  | SWE-bench variants | 1 each |
-  | SWE-Bench Pro | 1 |
-  | OSWorld-Verified | 1 |
-  | OSWorld 2.0 | 2 (MiniMax M3 and M3.1 Flash) |
-  | τ³-Banking | 2 |
-  | BFCL | 0 |
-  | Aider | 1 |
-  | METR | no longer updated since Sep 8, 2026 |
+  | aa_index | GPT-6.2 Astra #2 (62.14 Max), GPT-6.2 Sol #5 (57.26 Max); GPT-6 Astra and GPT-6.1 Sol drop out |
+  | eci | GPT-6.2 Astra #1 (174.17). Live-CSV re-estimates: Fable 173.44→173.50, Carbon 169.76→169.78, GPT-6 Astra 169.0→169.2, Opus 168.54→168.7 |
+  | gpqa | GPT-6.2 Astra #1 (96.84); GPT-6.1 Sol drops out |
+  | arc2 | GPT-6.2 Astra #1 (95.83, X-high); Opus 5.5 drops out |
+  | frontiermath | GPT-6.2 Astra #4 |
+  | lb_data | as above |
 
-- **"Match names carefully" step:** says earlier snapshots and previews are kept apart. This is untrue until findings 1–3 are fixed.
-- **"Red-team before publishing" step:** says errors found are fixed before publication. This needs findings 1–3 fixed first.
+  All of these are new rows recorded in index.notes.md and agentic.notes.md.
+- **Cost-per-task frontiers:**
+  - aa_index: added GPT-6.2 Astra High/X-high/Max and GPT-6.2 Sol Max. Removed Fable High/Medium, GPT-6 Astra High/X-high, GPT-6.1 Sol Max and Carbon High/Medium. All are dominated by the new points.
+  - vals: GPT-6.2 Sol Max ($3.18, 66.06) replaces GPT-6.1 Sol Max.
+  - arc2: GPT-6.2 Astra High and X-high replace GPT-6 Astra Max.
+  - lb_browser, lb_long and lb_data: Qwen4-Max added (lb_data replaces GPT-6.1 Sol).
+- **Blended-price frontiers:**
+  - eci: GPT-6.2 Astra replaces Fable 5.2 at $16; the other points only re-estimate.
+  - gpqa and arc2: GPT-6.2 Astra added (arc2 replaces GPT-6 Astra).
+  - aa_coding: Gemini 4 Hydrogen added (new AA Coding pair, Antigravity CLI X-high, 52.3).
+  - lb_data: Qwen4-Max replaces Hydrogen.
+  - arena_text, eci and gpqa: the gpt-oss-20b point moved from $0.131 to $0.036, and Granite 4.2 8B left the Arena Text frontier. See finding 9.
+- **Results count:** 515 → 530 (+9 GPT-6.2, +5 Qwen4-Max LiveBench, +1 Hydrogen AA Coding). This matches the "What changed" text.
+
+### 6. [B] GPT-6.2 Astra's Epoch results are pre-launch but are not flagged; Fable 5.2's are
+- **Evidence:**
+  - index.scores.json `gpt-6.2-astra_max` FrontierMath and GPQA notes say: "Run started 2026-10-27…, before the model release date (pre-launch testing)". ECI is built from those runs.
+  - build_dataset.py sets `rec["flag"]` only when `mid == "claude-fable-5-2"`.
+  - **On the page:** the Hard reasoning card shows "Claude Fable 5.2 pre-launch" at #1, but "GPT-6.2 Astra" at #4 has no flag. The table rows on ECI and GPQA, where Astra is the new #1, carry no "Pre-launch result" tag. The flag exists only in the model's notes text.
+  - Board news says "GPT-6.2 Astra is the new top at 174.2" without the caveat.
+- **Fix (build_dataset.py):**
+  - Add `PRELAUNCH = {"claude-fable-5-2", "gpt-6-2-astra"}  # Epoch runs started before release` and use `if bid in EPOCH and mid in PRELAUNCH:`.
+  - In BOARD_NEWS[3], change "…GPT-6.2 Astra is the new top at 174.2." to "…GPT-6.2 Astra is the new top at 174.2, from Epoch's pre-launch testing."
+- **Tested in scratch:** only the eci, frontiermath and gpqa records of GPT-6.2 Astra gain the flag. Nothing else changes.
+
+### 7. [S] FrontierMath and GPQA say "results as of Nov 6, 2026", but their newest results were published Nov 17
+- **Evidence:**
+  - The date text is the newest `result_date`, and for Epoch that is the run start date. GPT-6.2 Astra's runs started Oct 27, so the label stayed at Nov 6.
+  - The rows were not in the Nov 16 snapshot. They came from today's benchmark_data.zip, and ECI says "hub updated Nov 17".
+  - Readers will take "results as of Nov 6" to mean nothing newer is included.
+- **Fix (build_dataset.py, B entries "frontiermath" and "gpqa", last field):** replace `None` with `"Epoch data retrieved " + d("2026-11-17") + "; newest run started " + d("2026-11-06")`.
+
+### 8. [S] ARC-AGI-2: GPT-6.2 Astra "X-high" (and Sol "High") is chosen by a rounding accident, not a rule
+- **Evidence:**
+  - ARC lists Astra Max and XHigh at the same 0.958333 ($0.9695 vs $0.4996). It lists Sol Max, XHigh and High at the same 0.858333.
+  - build_dataset.py compares the unrounded `v` with the rounded `best["v"]` (`round(v, 3)`). 95.83333 > 95.833, so the **last** tied row in raw order wins.
+  - ARC lists efforts Max-first, so the cheapest tied setting happens to win. With a strict comparison, Max would be shown (tested: Astra arc2 Max, Sol arc2 Max).
+  - No model in llm.prev.json had a tie, so there is no earlier rule to be consistent with. The method text says only "ranked on its best setting".
+  - The same bug lets a later row that is up to 0.0005 lower beat an earlier one.
+- **Effect:** the score, rank and frontier membership are unaffected, because `alt` has every point. Only the setting label and cost shown with the best result change.
+- **Fix (build_dataset.py board loop):** keep `_raw=v` in `rec`, compare against `best["_raw"]`, and break ties on cost:
+  ```python
+  if best is None or (v > best["_raw"] if hb else v < best["_raw"]) or \
+          (v == best["_raw"] and rec["cost"] is not None and (best["cost"] is None or rec["cost"] < best["cost"])):
+      best = rec  # equal scores: the cheaper setting is shown
+  ...
+  best.pop("_raw"); M[mid]["s"][bid] = best
+  ```
+  - Add to STEPS[2]: "If two settings score the same, the cheaper one is shown."
+  - Tested in scratch: the output is identical to the current llm.json (Astra X-high, Sol High), now by rule.
 
 ---
 
-## Summary
+## D. "What changed" and board news
 
-**Blockers**
-1. Ling 3.1 Flash: the 1019 score is plotted at the price of a different snapshot, as the first point on the default chart.
-2. Terminal-Bench "Mistral Large 4" is the Preview build (dated 2026-10-06), merged into GA.
+### 9. [S] Changes not mentioned that move a card or a frontier
+- **LiveBench added Qwen4-Max (Nov 16 in-place update).** This changes the Documents-and-data card's top five and three cost frontiers. Board news is silent, and its first line says "not yet on … LiveBench" about GPT-6.2 only.
+  - **Add:** "LiveBench added Qwen4-Max to its Nov 6 release on Nov 16; it is #3 on LiveBench Data Analysis."
+- **AA Coding Agent Index added Gemini 4 Hydrogen (Antigravity CLI, X-high, 52.3%).** It now sits on that board's blended-price frontier.
+  - **Add:** "Artificial Analysis added Gemini 4 Hydrogen to its Coding Agent Index (52.3%)."
+- **gpt-oss-20b's list price moved from $0.075/$0.30 to $0.018/$0.09** because OpenRouter's default endpoint changed. The new price matches Darkbloom (fp8) and AkashML (fp4) (/tmp/vw2/orp/openai_gpt-oss-20b.json). This moves the gpt-oss-20b point on three blended frontiers, and Granite 4.2 8B leaves the Arena Text frontier.
+  - It also breaks the rule used for Granite (PRICE_FIX: "lowest full-precision host"). The lowest bf16 endpoint is DeepInfra, $0.024 / $0.112.
+  - **Fix (build_dataset.py PRICE_FIX):** add `"gpt-oss-20b": dict(pin=0.024, pout=0.112, pprov="DeepInfra (bf16) via OpenRouter (lowest full-precision host listed); secondary source", purl=OR_EP.format("openai/gpt-oss-20b"))`, after the owner confirms gpt-oss's native precision. Frontier membership is unchanged at that price; I checked Arena Text, where Granite stays off.
+  - Muse Glimmer 30B ($0.30/$1.20 → $0.35/$1.50) and Nemotron 3 Ultra ($0.60/$2.40 → $0.50/$2.20) also moved for the same reason. Nemotron 3 Ultra's "maximum output" fell from 182,520 to 16,384, OpenRouter's top-provider value, which is not a model spec.
+  - **Fix:** one board-news line: "Open-weight list prices follow OpenRouter's default host, which changed for gpt-oss-20b, Muse Glimmer 30B and Nemotron 3 Ultra." Also drop the OpenRouter maxout for nemotron-3-ultra (set `maxout=None` via PRICE_FIX-style override).
 
-**Should-fix**
-- Matching: 3 Epoch "with fallback" runs merged into GPQA; 4 "Inkling Small 2" unmatched; 5 claims mix DeepSeek snapshots and miss 99 NVIDIA and IBM rows.
-- Data: 7 AA costs now use the introductory Gemini price, with no note; 8 Qwen3.8-Max no longer fits "Frontier".
-- Features: 12 the leader comparison on the coding card spans an index change; 13 `changes` goes stale on re-run; 14 claim units clutter the table.
+### 10. [m] Board news wording
+- **Line 1:** "Early results: on Artificial Analysis, Vals, ARC-AGI and Epoch AI so far". Epoch has only Astra; Sol is not on Epoch. Neither model is on the AA Coding Agent Index, which a reader may count as "Artificial Analysis".
+  - **Change to:** "Both are on the Artificial Analysis Intelligence Index, Vals and ARC-AGI; GPT-6.2 Astra also on Epoch AI (pre-launch runs). Neither is yet on the AA Coding Agent Index, Arena, LiveBench, Terminal-Bench or Vending-Bench."
+  - "Early results" itself is fair. The model notes say the same.
+- **Line 5:** "Arena has not published since Nov 16".
+  - arena.notes.md: the dataset was last modified 2026-11-16T04:02Z, and its newest board date is **Nov 15**. The live arena.ai pages returned 403, so they were not checked.
+  - **Change to:** "Arena's published dataset has not changed since Nov 16 (newest board Nov 15)."
+- **Line 2:** "20% less" is correct ($8/$40 vs $10/$50).
+- **Line 3:** the deprecated list is correct. Inkling Small is also deprecated on AA, but it is not in the catalogue.
+- **"New leaders on the agent cards":** correct ("unchanged"). It is not misleading, because no card leader moved. `COMPOSITION_CHANGED` is empty, which is right for Nov 16 → Nov 17.
 
-**Minor:** 9, 10, 11, 15, 16, 19, 20, 21.
+### 11. [m] The ARC-AGI-2 caveat does not mention "partial dataset coverage"
+- 29 ARC-AGI-2 rows carry ARC's note "Partial dataset coverage: scores use full catalog denominators; costs include recorded usage only". They include GPT-6.2 Sol Max and Medium, Opus 5.5 Max, Fable 5.2 Max, and Carbon and Argon. Their costs are lower bounds.
+- **Fix (build_dataset.py, B entry "arc2", caveat):** append " ARC Prize marks some runs as partial coverage: unattempted tasks count as failures and the cost covers recorded usage only."
 
-All three matching fixes (1, 2–4 and the fallback rule) were tested together in /home/claude/llmrefresh/rtb/fix/. That build has 53 models and 515 results.
+---
+
+## E. Page (headless Chrome)
+
+### 12. Page loads cleanly; counts correct; effort curves render without overlaps
+- **Console:** no console messages, page errors, failed requests or HTTP ≥ 400.
+- **Hero:** 55 models | 19 benchmarks | 29 open-weight | November 17, 2026. These match llm.json.
+- **Explorer:** "47 models · 8 more match but have no result" (aa_index n = 47).
+- **Effort curves:** I checked every SVG text bounding box pairwise and against the 5-px markers. There were no overlaps and no labels on markers in any of these views:
+  - AA Index vs cost with defaults + GPT-6.2 Astra + GPT-6.2 Sol, linear and log
+  - AA vs output tokens
+  - AA vs time
+  - ARC-AGI-2 vs cost: defaults (GPT-6.2 Astra, GPT-6 Astra, GPT-6.1 Sol, Gemini 4 Carbon) + GPT-6.2 Sol, linear and log
+- **Screenshots:** shots/curve_aa_index_cost_0_only.png and curve_arc2_cost_0.png.
+- **GPT-6.2 Sol on AA vs cost:** one "Max" dot at $1.01, with no line.
+- **GPT-6.2 Astra and Sol on "time per task":** not offered in the picker, because AA has no time data for them. Correct.
+
+### 13. [m] Effort-curve note says "one dot means one published setting", but AA publishes five settings for GPT-6.2 Sol and costs only at Max
+- **Fix (assets/js/llm-studio.js, drawCurves note):** when any selected model has AA points with `cost == null` on the cost axis, append " Settings without a published cost (for example GPT-6.2 Sol below Max) are not plotted; switch to output tokens to see them." The tokens view already shows all five Sol settings.
+
+### 14. [m] Legend overflows with six long names (existing issue)
+- AA vs cost with six models (Hydrogen, Sonnet 5.5, Terra, GPT-6 Astra, GPT-6.1 Sol, Fable 5.2) puts "Claude Fable 5.2" past the 860-px viewBox. The cause is that `lx += 40 + name.length * 7.4` never wraps. It does not happen with the GPT-6.2 additions (five series fit).
+- **Fix (llm-studio.js):** when `lx + 40 + name.length * 7.4 > W - mr`, start a second legend row (y = 34) and raise `mt` by 18.
+
+---
+
+## Summary of fixes by file
+- **build_dataset.py:**
+  - PRELAUNCH flag for gpt-6-2-astra (6)
+  - Epoch date text (7)
+  - tie rule with `_raw` (8)
+  - BOARD_NEWS lines 1, 4 and 5 plus the LiveBench / AA Coding / open-weight price lines (6, 9, 10)
+  - gpt-oss-20b PRICE_FIX and the nemotron-3-ultra maxout (9)
+  - arc2 caveat (11)
+  - tbench date text (3)
+  - superseded `status` (4)
+- **match.py:** EXCLUDE "Copilot Fusion" (3).
+- **catalog.py / llm_page.py:** tier decision for GPT-6.2 Sol and GPT-6.1 Sol, and the definition or hint text (4).
+- **llm-studio.js:** effort-curve note (13) and legend wrap (14).

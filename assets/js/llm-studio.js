@@ -134,7 +134,9 @@
     var XL = { cost: "Cost per task (US$)", time: "Time per task (minutes)", tok: "Output tokens per task" }[xm];
     $("ls-c-title").textContent = b.name + " versus " + XL.replace(/ \(.*\)/, "").toLowerCase();
     if (!series.length) { box.innerHTML = '<p class="ls-empty">Add a model with results at more than one setting on this benchmark.</p>'; $("ls-c-table").innerHTML = ""; return; }
-    var W = 860, H = 470, ml = 58, mr = 24, mt = 44, mb = 52;
+    var W = 860, H = 470, ml = 58, mr = 24, mb = 52, lrows = 1, lw0 = ml;
+    series.forEach(function (s) { var iw = 40 + s.m.name.length * 7.4; if (lw0 > ml && lw0 + iw > W - mr) { lrows++; lw0 = ml; } lw0 += iw; });
+    var mt = 44 + (lrows - 1) * 20; H += (lrows - 1) * 20;
     var xs = [], ys = [];
     series.forEach(function (s) { s.p.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); });
     var log = cState.log, x0, x1;
@@ -185,10 +187,11 @@
       }
       return null;
     }
-    var lx = ml;
+    var lx = ml, ly = 16;
     series.forEach(function (s) {
-      g += '<line x1="' + lx + '" x2="' + (lx + 18) + '" y1="16" y2="16" stroke="' + s.c + '" stroke-width="2"/><circle cx="' + (lx + 9) + '" cy="16" r="4.5" fill="' + s.c + '" stroke="#fff" stroke-width="1.5"/>';
-      g += '<text x="' + (lx + 24) + '" y="20" font-size="12.5" font-weight="600" fill="' + INK + '">' + esc(s.m.name) + "</text>";
+      if (lx > ml && lx + 40 + s.m.name.length * 7.4 > W - mr) { lx = ml; ly += 20; }
+      g += '<line x1="' + lx + '" x2="' + (lx + 18) + '" y1="' + ly + '" y2="' + ly + '" stroke="' + s.c + '" stroke-width="2"/><circle cx="' + (lx + 9) + '" cy="' + ly + '" r="4.5" fill="' + s.c + '" stroke="#fff" stroke-width="1.5"/>';
+      g += '<text x="' + (lx + 24) + '" y="' + (ly + 4) + '" font-size="12.5" font-weight="600" fill="' + INK + '">' + esc(s.m.name) + "</text>";
       lx += 40 + s.m.name.length * 7.4;
     });
     series.forEach(function (s) {
@@ -210,7 +213,7 @@
     $("ls-c-table").innerHTML = '<details><summary>Show the numbers</summary><div class="ll-tablewrap"><table class="ll-mini"><thead><tr><th>Model</th><th>Setting</th><th class="num">' + esc(b.short || b.name) + '</th><th class="num">' + esc(XL) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div></details>";
     $("ls-c-note").textContent = (cState.b === "aa_index" ?
       "Source: Artificial Analysis, every reasoning-effort setting it publishes. Time per task is Artificial Analysis's estimate from output tokens and output speed." :
-      "Source: " + b.src + ", every setting with a published cost." + (b.derived ? " Cost is derived from the board's totals." : "")) + " Points are joined in order of cost; one dot means one published setting. Labels that would overlap are left off; hover a point or open the numbers for every value." + (cState.b === "aa_index" ? " Non-reasoning modes are not part of the effort curve." : "");
+      "Source: " + b.src + ", every setting with a published cost." + (b.derived ? " Cost is derived from the board's totals." : "")) + " Points are joined in order of cost; one dot means one published setting. Labels that would overlap are left off; hover a point or open the numbers for every value." + (xm === "cost" && series.some(function (s) { return (s.m.aa || []).some(function (p) { return p.cost == null; }); }) && cState.b === "aa_index" ? " Settings without a published cost (for example GPT-6.2 Sol below Max) are not plotted; switch to output tokens to see them." : "") + (cState.b === "aa_index" ? " Non-reasoning modes are not part of the effort curve." : "");
   }
   function syncCurveControls() {
     var aa = cState.b === "aa_index";
