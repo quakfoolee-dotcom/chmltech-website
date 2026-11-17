@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.44 — 2026-11-16
+- **Journal Vol. 106, Issue 3, Figure 4:** the "Base case 287" label now sits just above the plot, clear of the vertical base-case line. Page and PDF regenerated (`content/journal/figure-scripts/ops_figs.py`).
+
 ## V5.43 — 2026-11-16
 - **Journal Vol. 106, Issue 5, Figure 3:** the "Total-cost plan" label now sits to the right of its point, inside the plot, instead of overlapping the y-axis. Page and PDF regenerated (`content/journal/figure-scripts/ops2_figs.py`).
 

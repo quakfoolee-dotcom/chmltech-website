@@ -78,7 +78,7 @@ for i, c in enumerate(C):
     ax.text(c["low"] - 3, i, f'{c["lo"]} → {c["low"]:.0f}', ha="right", va="center", fontsize=9.5, color=INK2)
     ax.text(c["high"] + 3, i, f'{c["hi"]} → {c["high"]:.0f}', ha="left", va="center", fontsize=9.5, color=INK2)
 ax.axvline(base, color=NAVY, lw=1.2)
-ax.text(base, len(C) - 0.35, f"Base case {base:.0f}", ha="center", va="bottom", fontsize=9.5, color=NAVY, fontweight="600")
+ax.text(base, len(C) - 0.02, f"Base case {base:.0f}", ha="center", va="bottom", fontsize=9.5, color=NAVY, fontweight="600", clip_on=False)   # above the plot, clear of the line (V5.44)
 ax.set_yticks(range(len(C))); ax.set_yticklabels([names.get(c["name"], c["name"]) for c in C])
 ax.set_xlim(150, 375); ax.set_ylim(-0.6, len(C) - 0.1)
 ax.set_xlabel("Safety stock at the 95th percentile of lead-time demand (pails)")
