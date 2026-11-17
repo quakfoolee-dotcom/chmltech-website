@@ -1,5 +1,13 @@
 # Changelog
 
+## V5.49 — 2026-11-17
+- **AI Models effort-curve charts: clearer labels and a cost-order footnote** (headline chart and chart studio).
+  - Where another model's point is within 44 px, a setting label names its model ("Carbon: Low", "Fable 5.2: High"); the brand word is dropped, and the full name is used if two selected models would share a short name.
+  - A label may only sit where its own point is the nearest point, so it can never be read as another model's label (it is left off instead; the value stays in the tooltip and the "Show the numbers" table).
+  - Footnote on cost charts: a lower effort setting can cost more per task than a higher one, as published by the benchmark (e.g. Gemini 4 Carbon: Low $5.22 versus Medium $4.68 per task on Artificial Analysis), so the line steps back to the left. Checked against the raw Artificial Analysis rows; the same pattern appears in OpenAI's GPT-6.2 launch chart.
+  - Overlap tests still pass (72 studio curves, compare grid, 38 ranking charts); a nearest-point check confirmed every label sits closest to its own model.
+  - Source changes: `assets/js/llm-studio.js`; `llm-leaderboard.html` (asset versions).
+
 ## V5.48 — 2026-11-17
 - **AI Models page: clearer model picker** (headline effort chart, studio effort curves and compare panels). With six models selected, the "+ Add a model" box no longer disappeared silently behind an "Up to six models" note.
   - A hint above the chips: "Compare up to six models (n of 6 selected). Click × on a model to remove it."

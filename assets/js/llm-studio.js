@@ -155,6 +155,11 @@
       $(P + "title").textContent = b.name + " versus " + XL.replace(/ \(.*\)/, "").toLowerCase();
       if (!series.length) { box.innerHTML = '<p class="ls-empty">Add a model with results at more than one setting on this benchmark.</p>'; $(P + "table").innerHTML = ""; return; }
       var W = 860, H = 470, ml = 58, mr = 24, mb = 52, lrows = 1, lw0 = ml;
+      function shortName(m) {  // drop the brand word and a bare version number: "Claude Fable 5.2" -> "Fable 5.2", "Gemini 4 Carbon" -> "Carbon"
+        var cut = function (n) { var w = n.split(" "); if (w.length < 2) return n; w.shift(); if (w.length > 1 && /^[\d.]+$/.test(w[0])) w.shift(); return w.join(" "); };
+        var sn = cut(m.name);
+        return series.filter(function (o) { return cut(o.m.name) === sn; }).length > 1 ? m.name : sn;
+      }
       series.forEach(function (s) { var iw = 40 + s.m.name.length * 7.4; if (lw0 > ml && lw0 + iw > W - mr) { lrows++; lw0 = ml; } lw0 += iw; });
       var mt = 44 + (lrows - 1) * 20; H += (lrows - 1) * 20;
       var xs = [], ys = [];
@@ -194,6 +199,12 @@
         }
         return true;
       }
+      var allPts = [];
+      series.forEach(function (s2) { s2.p.forEach(function (q) { allPts.push([X(q.x), Y(q.y)]); }); });
+      function boxDist(bx, qx, qy) {  // distance from a point to the nearest edge of a box (0 inside)
+        var dx = Math.max(bx[0] - qx, 0, qx - bx[2]), dy = Math.max(bx[1] - qy, 0, qy - bx[3]);
+        return Math.sqrt(dx * dx + dy * dy);
+      }
       function place(px, py, txt) {
         var w = txt.length * 6.6 + 4, h = 13, cands = [];
         [[8, -6], [8, 16], [-8 - w, -6], [-8 - w, 16], [-w / 2, -11], [-w / 2, 23], [12, 4], [-12 - w, 4], [-w / 2, -24], [-w / 2, 36], [16, -18], [-16 - w, -18], [16, 28], [-16 - w, 28]]
@@ -203,6 +214,9 @@
           if (bx[0] < ml + 2 || bx[2] > W - mr || bx[1] < mt - 2 || bx[3] > H - mb - 2) continue;
           if (boxes.some(function (o) { return hitBox(bx, o); })) continue;
           if (segs.some(function (sg) { return hitSeg(bx, sg); })) continue;
+          // V5.49: the label's own point must be the nearest point to the label box, so it is never read as another model's label.
+          var own = boxDist(bx, px, py);
+          if (allPts.some(function (q) { return (q[0] !== px || q[1] !== py) && boxDist(bx, q[0], q[1]) < own; })) continue;
           boxes.push(bx); return [x, y];
         }
         return null;
@@ -221,8 +235,11 @@
           var t = "<b>" + esc(s.m.name) + "</b>" + (p.set ? " · " + esc(p.set) : "") + "<br>" + esc(b.short || b.name) + ": " + fmt(p.y, b) + "<br>" + XL.replace(/ \(.*\)/, "") + ": " + (xm === "cost" ? money(p.x) : xm === "tok" ? num(p.x, 0) : num(p.x, 1) + " min");
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="5" fill="' + s.c + '" stroke="#fff" stroke-width="2"/>';
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="12" fill="transparent" tabindex="0" data-tip="' + esc(t) + '"><title>' + esc(t.replace(/<[^>]+>/g, " ")) + "</title></circle>";
-          var at = p.set && place(X(p.x), Y(p.y), p.set);
-          if (at) g += '<text class="ls-setlab" x="' + at[0].toFixed(1) + '" y="' + at[1].toFixed(1) + '" font-size="11" fill="' + MUTED + '" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">' + esc(p.set) + "</text>";
+          // Tag the label with the model's short name when another model's point is within 44px (V5.49), so crowded labels are not ambiguous.
+          var px = X(p.x), py = Y(p.y), crowded = series.some(function (o) { return o !== s && o.p.some(function (q) { var dx = X(q.x) - px, dy = Y(q.y) - py; return dx * dx + dy * dy < 44 * 44; }); });
+          var lab = p.set && (crowded ? shortName(s.m) + ": " + p.set : p.set);
+          var at = lab && place(px, py, lab);
+          if (at) g += '<text class="ls-setlab" x="' + at[0].toFixed(1) + '" y="' + at[1].toFixed(1) + '" font-size="11" fill="' + MUTED + '" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">' + esc(lab) + "</text>";
         });
       });
       box.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc($(P + "title").textContent) + '" data-export-title="' + esc($(P + "title").textContent) + '" data-export-caption="' + esc((b.what || "") + " Source: " + b.src + (b.updated ? ", " + b.updated : "") + ".") + '">' + g + "</svg>";
@@ -235,7 +252,8 @@
       var exportCap = (b.what || "") + " Source: " + b.src + ", " + (b.updated || "") + ".";
       $(P + "note").textContent = (cState.b === "aa_index" ?
         "Source: Artificial Analysis, every reasoning-effort setting it publishes. Time per task is Artificial Analysis's estimate from output tokens and output speed." :
-        "Source: " + b.src + ", every setting with a published cost." + (b.derived ? " Cost is derived from the board's totals." : "")) + " Each line joins a model's settings in order of effort, Low to Max; one dot means one published setting. Labels that would overlap are left off; hover a point or open the numbers for every value." + (xm === "cost" && series.some(function (s) { return (s.m.aa || []).some(function (p) { return p.cost == null; }); }) && cState.b === "aa_index" ? " Settings without a published cost (for example GPT-6.2 Sol below Max) are not plotted; switch to output tokens to see them." : "") + (cState.b === "aa_index" ? " Non-reasoning modes are not part of the effort curve." : "");
+        "Source: " + b.src + ", every setting with a published cost." + (b.derived ? " Cost is derived from the board's totals." : "")) + " Each line joins a model's settings in order of effort, Low to Max; one dot means one published setting. Labels that would overlap are left off; hover a point or open the numbers for every value." + (xm === "cost" && series.some(function (s) { return (s.m.aa || []).some(function (p) { return p.cost == null; }); }) && cState.b === "aa_index" ? " Settings without a published cost (for example GPT-6.2 Sol below Max) are not plotted; switch to output tokens to see them." : "") + (cState.b === "aa_index" ? " Non-reasoning modes are not part of the effort curve." : "") + " Where models' points are close together, labels name the model (for example \"Carbon: Low\")." +
+        (xm === "cost" ? " A lower effort setting can cost more per task than a higher one, as published by " + b.src + (series.some(function (s) { return s.m.id === "gemini-4-carbon"; }) && cState.b === "aa_index" ? " (Gemini 4 Carbon: Low $5.22 versus Medium $4.68 per task)" : "") + "; the line then steps back to the left." : "");
     }
     function syncCurveControls() {
       var aa = cState.b === "aa_index";
