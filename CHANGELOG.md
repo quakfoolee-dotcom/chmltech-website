@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.43 — 2026-11-16
+- **Journal Vol. 106, Issue 5, Figure 3:** the "Total-cost plan" label now sits to the right of its point, inside the plot, instead of overlapping the y-axis. Page and PDF regenerated (`content/journal/figure-scripts/ops2_figs.py`).
+
 ## V5.42 — 2026-11-16
 - **Chmltech Online Journal, three operations papers** (Vol. 106, Issues 5 to 7), filed under Operational Efficiency, each with a PDF and downloadable Python code. Composite or simulated cases with their models in the repo; each was checked by a red team (model audit and reference check) and revised before publication.
   - **Issue 5: Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing** (`post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing.html`, also Inventory Management). Eight purchased parts for a BC windows-and-doors plant from China, Mexico, the US or Canada; a mixed-integer program (PuLP + CBC) with shared containers and per-region supplier costs. Lowest-price plan C$630,100 a year, total-cost plan C$573,600 (9% less, 3.5% without surtaxes); price-plus-freight within 1.4%. Monte Carlo of freight, FX, tariff scenarios and China disruptions (20,000 years); dual sourcing pays on mean cost only above about C$190 per part short. 4 figures, 4 tables, 1 equation, 17 references.

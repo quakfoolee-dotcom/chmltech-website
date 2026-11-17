@@ -62,7 +62,7 @@ save(fig, TLC, "fig2-freight-sweep")
 M = T["mc"]
 lab = {"price_only": "Lowest price", "landed_price": "Lowest price plus freight", "tlc_optimal": "Total-cost plan",
        "tlc_dual": "Total-cost plan, dual-sourced hardware", "north_america": "All North America"}
-off = {"price_only": (-4, 6, "right"), "landed_price": (4, 0, "left"), "tlc_optimal": (-3, -9, "right"),
+off = {"price_only": (-4, 6, "right"), "landed_price": (4, 0, "left"), "tlc_optimal": (1.5, -9, "left"),
        "tlc_dual": (3, 3, "left"), "north_america": (3, -6, "left")}
 fig, ax = plt.subplots(figsize=(8.6, 4.4))
 for key, v in M.items():
