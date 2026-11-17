@@ -1,8 +1,9 @@
-"""Write and check the operations papers, Vol. 106, Issues 3-4 (V5.41), to content/journal/<slug>.json.
+"""Write and check the operations papers, Vol. 106, Issues 3-7 (V5.41, V5.42), to content/journal/<slug>.json.
 
 Usage: python3 -I content/journal/ops/build.py
 Reuses the markup and checks in content/journal/agentic/ (jmark.py, build.py) and adds two block types:
   TEX <latex>        numbered display equation in LaTeX, typeset by KaTeX on the page (journal_pages.py)
+  DOWNLOADS (module) files in assets/journal/code/ offered on the page (V5.42)
   CODE <name>        program listing taken from the paper module's CODE[name] (kept outside the markup so blank lines survive)
 """
 import importlib.util, json, os, re, sys
@@ -10,7 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "agentic"))
 import jmark, build
 
-PAPERS = ["paper_v106_i3", "paper_v106_i4"]
+PAPERS = ["paper_v106_i3", "paper_v106_i4", "paper_v106_i5", "paper_v106_i6", "paper_v106_i7"]
 DATE = "2026-11-16"
 AUTHOR = dict(build.AUTHOR, division="Division of Operational Excellence")
 _parse = jmark.parse
@@ -59,9 +60,14 @@ def main():
         sections = parse(mod.BODY, getattr(mod, "CODE", {}))
         refs = jmark.number_refs(sections, {k: {"text": t, "url": u} for k, (t, u) in mod.REFS.items()})
         d = dict(slug=mod.SLUG, **mod.META, published=DATE, revised=DATE, author=AUTHOR, abstract=mod.ABSTRACT,
-                 sections=sections, references=refs, corrections=[])
+                 sections=sections, references=refs, corrections=getattr(mod, "CORRECTIONS", []),
+                 downloads=getattr(mod, "DOWNLOADS", []))
+        if getattr(mod, "REVISED", None): d["revised"] = mod.REVISED
         d = {k: d[k] for k in ["slug", "volume", "issue", "published", "revised", "title", "short_title", "meta", "author",
-                               "abstract", "keywords", "sections", "references", "corrections"]}
+                               "abstract", "keywords", "sections", "references", "corrections", "downloads"]}
+        for f in d["downloads"]:
+            if not os.path.exists(os.path.join(HERE, "..", "..", "..", "assets", "journal", "code", f["file"])):
+                raise SystemExit(f"missing download {f['file']}")
         json.dump(d, open(os.path.join(HERE, "..", mod.SLUG + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         w, errs = check(d)
         cnt = lambda k: sum(1 for s in sections for b in s["blocks"] if k in b)

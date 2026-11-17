@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Forecasting Lumpy Demand: Croston vs Moving Average</title>
+<meta name="description" content="Six forecasting methods for slow-moving items, scored on the stock needed for 95% fill: Croston saves 6%, a year of history saves 14%.">
+<link rel="canonical" href="https://www.chmltech.com/post/forecasting-lumpy-demand-does-croston-beat-a-moving-average">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Forecasting Lumpy Demand: Croston vs Moving Average">
+<meta property="og:description" content="Six forecasting methods for slow-moving items, scored on the stock needed for 95% fill: Croston saves 6%, a year of history saves 14%.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/forecasting-lumpy-demand-does-croston-beat-a-moving-average.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=324d0cc7">
+<meta property="og:url" content="https://www.chmltech.com/post/forecasting-lumpy-demand-does-croston-beat-a-moving-average">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-16">
+<meta property="article:modified_time" content="2026-11-16">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Forecasting Lumpy Demand: Croston vs Moving Average","item":"https://www.chmltech.com/post/forecasting-lumpy-demand-does-croston-beat-a-moving-average"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=9e11cc86">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="Forecasting Lumpy Demand: Does Croston Beat a Moving Average?">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/16">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="7">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 7</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Forecasting Lumpy Demand: Does Croston Beat a Moving Average?</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Operational Excellence · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 16, 2026</span><span>15 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Most SME inventories are full of items that sell only some weeks, yet many ERP systems forecast them with a moving average. This paper compares six methods on 5,000 simulated items: a 13-week moving average, simple exponential smoothing (SES), Croston's method, its bias-corrected version (SBA), the TSB method and a simple bootstrap. Each method sets the order-up-to level of a weekly-review policy and is scored on the stock it needs to fill 95% of demand from the shelf, not on forecast error. Croston, SBA and TSB need 5% to 6% less stock than the moving average; SES saves under 2%. The bootstrap needs 14% less, but because it uses a long history, not because it handles skewed demand: a normal formula using the last 52 weeks saves as much, and a 26-week bootstrap saves nothing. How demand variability is estimated matters more than the forecast, though these gains are an upper bound for stable demand. Accuracy measures point the wrong way: on intermittent and lumpy items a zero forecast scores best on mean absolute error, and percentage errors cannot be computed. When an item stops selling, every method leaves about three months of former demand on the shelf; the moving average, SES and TSB with a fast probability update lower the reorder level within 25 to 30 weeks, while Croston and SBA never do and keep placing small orders. SMEs should estimate variability from a year of history and pair any method with a no-sale alert.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> intermittent demand; Croston&#x27;s method; TSB; bootstrapping; safety stock; fill rate; inventory obsolescence; demand forecasting</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/croston_appendix.py" download><strong>Appendix script</strong> <code>croston_appendix.py</code></a><span>Six methods on one population of 1,000 items (Python 3, NumPy)</span></li><li><a href="../assets/journal/code/chmltech-intermittent-demand-model.zip" download><strong>Full model</strong> <code>chmltech-intermittent-demand-model.zip</code></a><span>Five populations, long-history benchmarks, obsolescence and accuracy tests, README</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>In a typical SME inventory, most items do not sell every week, and the forecasting method in the ERP was designed for items that do. Spare parts, specialty chemicals, fittings, packaging and slow-moving finished goods sell in occasional orders separated by weeks of nothing. Many planning tools forecast them with a moving average or simple exponential smoothing, then add safety stock from a normal-distribution formula. The Chmltech safety stock paper showed how that formula misleads when demand is lumpy [<a href="#ref-1" class="j-cite">1</a>]; this paper looks one step earlier, at the forecast itself.</p><p>Croston proposed forecasting intermittent demand in two parts: the size of an order when one comes, and the interval between orders [<a href="#ref-2" class="j-cite">2</a>]. Later work corrected a bias in Croston's method [<a href="#ref-3" class="j-cite">3</a>, <a href="#ref-4" class="j-cite">4</a>], added a version that can follow an item into obsolescence [<a href="#ref-5" class="j-cite">5</a>], and proposed bootstrapping from past demand instead of fitting a forecast at all [<a href="#ref-6" class="j-cite">6</a>]. Comparative studies have found that which method wins depends on how methods are scored [<a href="#ref-7" class="j-cite">7</a>, <a href="#ref-8" class="j-cite">8</a>].</p><p>This paper asks the question an SME owner would ask: for the same service to customers, which method needs the least stock? It answers with a simulation of 5,000 items run through a weekly-review inventory policy, and checks how the answer changes when demand shifts or an item stops selling.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> The Six Methods</h2><p>The methods differ in what they update and when: averaging methods update every week, Croston-type methods update only when a sale happens, and bootstrapping skips the forecast and samples history directly (Table 1).</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> The six forecasting methods.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Method</th><th>What it does</th><th>Updates</th><th>Availability (author's experience)</th></tr></thead><tbody><tr><td>Moving average (13 weeks)</td><td>Average of the last quarter's weekly demand</td><td>Every week</td><td>Very common</td></tr><tr><td>Simple exponential smoothing (SES)</td><td>Weighted average, recent weeks weighted more (α = 0.1)</td><td>Every week</td><td>Common</td></tr><tr><td>Croston</td><td>Smooths order size and interval between orders separately; forecast = size ÷ interval</td><td>Only in weeks with demand</td><td>Some ERP and planning add-ons</td></tr><tr><td>SBA</td><td>Croston's forecast × (1 − α/2) to remove its upward bias</td><td>Only in weeks with demand</td><td>Rare</td></tr><tr><td>TSB</td><td>Smooths order size and the probability of a sale each week; forecast = probability × size</td><td>Size in weeks with demand; probability every week</td><td>Rare</td></tr><tr><td>Bootstrapping</td><td>Resamples past weeks to build the demand distribution over the lead time</td><td>Monthly, from full history</td><td>Rare; easy in a spreadsheet</td></tr></tbody></table></div></figure><p>Croston's method keeps two smoothed estimates: ẑ, the average size of a non-zero order, and p̂, the average number of weeks between orders. Both are updated only in a week with demand, and the forecast of demand per week is given by Eq. (1):</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[\hat{d}_t = \frac{\hat{z}_t}{\hat{p}_t}, \qquad \hat{z}_t = \hat{z}_{t-1} + \alpha\,(d_t - \hat{z}_{t-1}), \qquad \hat{p}_t = \hat{p}_{t-1} + \alpha\,(q_t - \hat{p}_{t-1}) \quad \text{if } d_t &gt; 0\]</span><span class="j-eq-n">(1)</span></div><p>Here dₜ is demand in week t, qₜ is the number of weeks since the previous demand, and α is the smoothing constant. Croston's forecast is biased upward [<a href="#ref-3" class="j-cite">3</a>]; SBA multiplies it by (1 − α/2) to correct this [<a href="#ref-4" class="j-cite">4</a>]. Because Croston and SBA update only when a sale happens, their forecasts never fall while an item is not selling. TSB fixes this by smoothing the probability of a sale every week, so the forecast drifts down through a run of zeros [<a href="#ref-5" class="j-cite">5</a>].</p><p>All five forecasting methods feed the same reorder rule: the order-up-to level equals forecast demand over the lead time plus review period, plus a safety factor times the smoothed forecast error, scaled to that period. The bootstrap instead resamples single past weeks of demand to build the distribution of demand over the same period, and sets the order-up-to level at a chosen percentile of it. This is a simplified version of the method of Willemain, Smart and Schwarz, which also models runs of demand [<a href="#ref-6" class="j-cite">6</a>]. To separate the effect of the forecast from that of the history used, two further benchmarks are run: the bootstrap limited to the last 52 or 26 weeks, and a normal formula fed with the mean and variance of weekly demand over the last 52 weeks or the full history.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Simulation Method</h2><p>Every method is scored on the same 5,000 items, the same demand and the same inventory policy, so the only difference is the forecast.</p><p><strong>Items.</strong> Five populations of 1,000 items each. For each item, demand occurs in a week with a fixed probability, from every week to one week in four on average, and order sizes follow a lognormal distribution with a mean of 2 to 60 units and a coefficient of variation of 0.2 to 1.3. Each item has 156 weeks of demand: 52 weeks of history, then 104 weeks scored.</p><p><strong>Demand classes.</strong> Items are classified from their first year of history by the Syntetos–Boylan–Croston scheme, using the average interval between demands (ADI) and the squared coefficient of variation of order sizes (CV²), with cut-offs of 1.32 and 0.49 [<a href="#ref-9" class="j-cite">9</a>]: smooth (frequent, steady sizes), erratic (frequent, variable sizes), intermittent (infrequent, steady sizes) and lumpy (infrequent, variable sizes). The populations average 12% smooth, 10% erratic, 46% intermittent and 32% lumpy items, a mix weighted toward slow movers.</p><p><strong>Inventory policy.</strong> Stock is reviewed weekly and replenished to an order-up-to level, with a four-week lead time; unfilled demand is backordered. The fill rate is the share of units shipped from stock in the week they are demanded. Stock is measured as weeks of supply: average end-of-week units on hand divided by average weekly demand, both pooled over all items.</p><p><strong>Scoring.</strong> For each method, the safety factor (or, for the bootstrap, the percentile) is varied to trace a curve of fill rate against stock, with one value for all items. Methods are compared at the stock each needs to reach 90% and 95% fill, interpolated between points. Percentage changes compare pooled weeks of stock; the ± values are 95% t intervals of the change across the five populations.</p><p><strong>Two further scenarios</strong> test robustness: a level shift, in which every item's frequency of demand rises by half (capped at a sale every week) or falls by half at a random week, with order sizes unchanged, and obsolescence, in which 20% of items stop selling at a random week.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Results: Stock Needed for 95% Fill</h2><p>Croston-type methods need about 6% less stock than a moving average for the same 95% fill rate, and the bootstrap needs 14% less (Figure 1), though most of the bootstrap's gain comes from the length of history it uses, not from the method.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 715.736875 269.68918" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Horizontal bars of weeks of stock: moving average 8.13, SES 7.98, SBA 7.72, TSB 7.64, Croston 7.63, bootstrap on the full history 7.01 and the 52-week normal formula 6.95, a saving of 14.4%.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 269.68918 
+L 715.736875 269.68918 
+L 715.736875 0 
+L 0 0 
+L 0 269.68918 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 230.096875 227.52 
+L 709.976875 227.52 
+L 709.976875 5.76 
+L 230.096875 5.76 
+L 230.096875 227.52 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 230.096875 227.52 
+L 230.096875 5.76 
+" clip-path="url(#p74d0239546)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mff77892315" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mff77892315" x="230.096875" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="230.096875" y="244.691875" transform="rotate(-0 230.096875 244.691875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 328.031569 227.52 
+L 328.031569 5.76 
+" clip-path="url(#p74d0239546)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mff77892315" x="328.031569" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="328.031569" y="244.691875" transform="rotate(-0 328.031569 244.691875)">2</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 425.966263 227.52 
+L 425.966263 5.76 
+" clip-path="url(#p74d0239546)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mff77892315" x="425.966263" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="425.966263" y="244.691875" transform="rotate(-0 425.966263 244.691875)">4</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 523.900957 227.52 
+L 523.900957 5.76 
+" clip-path="url(#p74d0239546)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mff77892315" x="523.900957" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="523.900957" y="244.691875" transform="rotate(-0 523.900957 244.691875)">6</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 621.835651 227.52 
+L 621.835651 5.76 
+" clip-path="url(#p74d0239546)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mff77892315" x="621.835651" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="621.835651" y="244.691875" transform="rotate(-0 621.835651 244.691875)">8</text>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="470.036875" y="261.396465" transform="rotate(-0 470.036875 261.396465)">Weeks of stock needed for a 95% fill rate (all 5,000 items)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_11">
+<defs>
+<path id="mfcb89a39f9" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="208.554894" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="213.640831" transform="rotate(-0 223.096875 213.640831)">Normal formula, last 52 weeks (benchmark)</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_12">
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="177.916596" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="183.002533" transform="rotate(-0 223.096875 183.002533)">Bootstrap, full history</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_13">
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="147.278298" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="152.364235" transform="rotate(-0 223.096875 152.364235)">Croston</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_14">
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="116.64" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="121.725937" transform="rotate(-0 223.096875 121.725937)">TSB</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_15">
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="86.001702" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="91.08764" transform="rotate(-0 223.096875 91.08764)">SBA</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_16">
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="55.363404" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="60.449342" transform="rotate(-0 223.096875 60.449342)">SES</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_17">
+<g>
+<use xlink:href="#mfcb89a39f9" x="230.096875" y="24.725106" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="223.096875" y="29.811044" transform="rotate(-0 223.096875 29.811044)">Moving average (13 weeks)</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 230.096875 217.44 
+L 570.63394 217.44 
+L 570.63394 199.669787 
+L 230.096875 199.669787 
+z
+" clip-path="url(#p74d0239546)" style="fill: url(#he59c570b55); stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 230.096875 186.801702 
+L 573.469371 186.801702 
+L 573.469371 169.031489 
+L 230.096875 169.031489 
+z
+" clip-path="url(#p74d0239546)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 230.096875 156.163404 
+L 603.803357 156.163404 
+L 603.803357 138.393191 
+L 230.096875 138.393191 
+z
+" clip-path="url(#p74d0239546)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 230.096875 125.525106 
+L 604.415058 125.525106 
+L 604.415058 107.754894 
+L 230.096875 107.754894 
+z
+" clip-path="url(#p74d0239546)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 230.096875 94.886809 
+L 608.233022 94.886809 
+L 608.233022 77.116596 
+L 230.096875 77.116596 
+z
+" clip-path="url(#p74d0239546)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 230.096875 64.248511 
+L 621.046388 64.248511 
+L 621.046388 46.478298 
+L 230.096875 46.478298 
+z
+" clip-path="url(#p74d0239546)" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 230.096875 33.610213 
+L 628.022285 33.610213 
+L 628.022285 15.84 
+L 230.096875 15.84 
+z
+" clip-path="url(#p74d0239546)" style="fill: #dce4ee; stroke: #b9c7d8; stroke-linejoin: miter"/>
+</g>
+<g id="line2d_18">
+<path d="M 628.022285 227.52 
+L 628.022285 5.76 
+" clip-path="url(#p74d0239546)" style="fill: none; stroke-dasharray: 5.5,4.4; stroke-dashoffset: 0; stroke: #9aa8ba; stroke-width: 1.1"/>
+</g>
+<g id="patch_10">
+<path d="M 230.096875 227.52 
+L 230.096875 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_11">
+<path d="M 230.096875 227.52 
+L 709.976875 227.52 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_14">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="574.551328" y="212.010704" transform="rotate(-0 574.551328 212.010704)">6.95 (−14.4%)</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="577.386759" y="181.372406" transform="rotate(-0 577.386759 181.372406)">7.01 (−13.7%)</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="607.720745" y="150.734108" transform="rotate(-0 607.720745 150.734108)">7.63 (−6.1%)</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="608.332445" y="120.095811" transform="rotate(-0 608.332445 120.095811)">7.64 (−5.9%)</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="612.150409" y="89.457513" transform="rotate(-0 612.150409 89.457513)">7.72 (−5.0%)</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="624.963776" y="58.819215" transform="rotate(-0 624.963776 58.819215)">7.98 (−1.8%)</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="631.939673" y="28.180917" transform="rotate(-0 631.939673 28.180917)">8.13</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p74d0239546">
+<rect x="230.096875" y="5.76" width="479.88" height="221.76"/>
+</clipPath>
+</defs>
+<defs>
+<pattern id="he59c570b55" patternUnits="userSpaceOnUse" x="0" y="0" width="72" height="72">
+<rect x="0" y="0" width="73" height="73" fill="#ffffff"/>
+<path d="M -36 36 
+L 36 -36 
+M -32 40 
+L 40 -32 
+M -28 44 
+L 44 -28 
+M -24 48 
+L 48 -24 
+M -20 52 
+L 52 -20 
+M -16 56 
+L 56 -16 
+M -12 60 
+L 60 -12 
+M -8 64 
+L 64 -8 
+M -4 68 
+L 68 -4 
+M 0 72 
+L 72 0 
+M 4 76 
+L 76 4 
+M 8 80 
+L 80 8 
+M 12 84 
+L 84 12 
+M 16 88 
+L 88 16 
+M 20 92 
+L 92 20 
+M 24 96 
+L 96 24 
+M 28 100 
+L 100 28 
+M 32 104 
+L 104 32 
+M 36 108 
+L 108 36 
+" style="fill: #0b6fa4; stroke: #0b6fa4; stroke-width: 1.0; stroke-linecap: butt; stroke-linejoin: miter"/>
+</pattern>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Weeks of stock each method needs for a 95% fill rate across all 5,000 items, with the change against the 13-week moving average (dashed line); the hatched bar is the 52-week normal-formula benchmark of Table 3.</figcaption></figure><p>Across all 5,000 items, the 13-week moving average needs 8.1 weeks of stock to fill 95% of demand from the shelf. SES needs 8.0 weeks, 1.8% less (±0.1 points). Croston needs 7.6 weeks (6.1% less, ±0.4), TSB 7.6 (5.9% less, ±0.4) and SBA 7.7 (5.0% less, ±0.3). Croston and TSB differ by only 0.01 weeks, which is no practical difference. The bootstrap needs 7.0 weeks, 13.7% less (±1.9). At 90% fill the order is the same and the savings slightly larger: 2.7% for SES, 7.6% for Croston, 6.6% for SBA, 7.5% for TSB and 15.3% for the bootstrap. For an SME holding C$500,000 of slow-moving stock with similar unit costs across items, 6% is C$30,000 of cash, with no loss of service.</p><p>The broad order, with the bootstrap below the Croston-type methods and those below SES and the moving average, holds in every demand class (Table 2); what changes is the size of the gap.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Weeks of stock needed for 95% fill, by demand class.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Demand class (share of items)</th><th>Moving average</th><th>SES</th><th>Croston</th><th>SBA</th><th>TSB</th><th>Bootstrapping</th></tr></thead><tbody><tr><td>Smooth (12%)</td><td>3.1</td><td>3.0</td><td>3.0</td><td>3.0</td><td>3.0</td><td>2.6</td></tr><tr><td>Erratic (10%)</td><td>7.6</td><td>7.4</td><td>7.3</td><td>7.4</td><td>7.3</td><td>6.2</td></tr><tr><td>Intermittent (46%)</td><td>7.7</td><td>7.5</td><td>7.1</td><td>7.1</td><td>7.1</td><td>6.5</td></tr><tr><td>Lumpy (32%)</td><td>13.5</td><td>13.5</td><td>12.8</td><td>12.9</td><td>12.8</td><td>11.5</td></tr></tbody></table></div></figure><p>Table 2 gives the weeks of stock each method needs for 95% fill, by demand class. Three points stand out:</p><ul><li><strong>Croston-type methods beat SES mainly on intermittent and lumpy items.</strong> Against SES, Croston saves about 1% on smooth and erratic items but about 5% on intermittent and lumpy items. Against the moving average the gain is 3% to 8% in every class, because a 13-week average reacts to noise wherever it is used. TSB edges Croston on smooth items.</li><li><strong>SBA's bias correction does not pay here.</strong> SBA is Croston's forecast scaled by 0.95. Because each method's safety factor is tuned to reach 95% fill, a constant bias is largely absorbed: SBA simply needs a larger safety factor (2.54 against 2.43), and the trade-off between its lower forecast and its larger safety stock works out slightly worse across items. Measured on total units, SBA under-forecasts by about 3% and Croston over-forecasts by about 2%; on the average item the two biases are similar in size, so bias alone does not explain the gap.</li><li><strong>The bootstrap's lead comes from its long history, not from the shape of the distribution.</strong> The parametric methods estimate variability from a smoothed forecast error, which with α = 0.1 mostly reflects the last 20 weeks or so. The bootstrap reads the whole history, one to three years. Table 3 separates the two effects.</li></ul><p>A normal formula fed with the mean and variance of the last 52 weeks, refreshed monthly, needs 14.4% less stock than the moving average, slightly more saving than the bootstrap on its full history (Table 3). Limiting the bootstrap to the last 52 weeks cuts its saving to 10.6%, and limiting it to 26 weeks removes it. The bootstrap's largest savings are also on erratic and smooth items (18% and 16%), not on lumpy items (15%), the opposite of what a skewness explanation would predict. This fits the finding that, on real demand data, the bootstrap did not beat simple parametric methods such as SBA [<a href="#ref-8" class="j-cite">8</a>]: real demand is less stable than simulated demand, so a long history is less of an advantage.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Weeks of stock needed for 95% fill, by reorder-level rule and the history it uses.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Reorder-level rule</th><th>History used</th><th>Weeks of stock, 95% fill</th><th>Change vs moving average</th><th>Change vs moving average, level-shift scenario</th></tr></thead><tbody><tr><td>Moving average + smoothed error</td><td>13 weeks; error about 20</td><td>8.1</td><td>—</td><td>—</td></tr><tr><td>Croston + smoothed error</td><td>About 20 weeks</td><td>7.6</td><td>−6.1%</td><td>−5.0%</td></tr><tr><td>Bootstrap, full history</td><td>52 to 155 weeks</td><td>7.0</td><td>−13.7%</td><td>−7.5%</td></tr><tr><td>Bootstrap, last 52 weeks</td><td>52 weeks</td><td>7.3</td><td>−10.6%</td><td>−8.3%</td></tr><tr><td>Bootstrap, last 26 weeks</td><td>26 weeks</td><td>8.2</td><td>+0.6%</td><td>+2.8%</td></tr><tr><td>Normal formula, last 52 weeks</td><td>52 weeks</td><td>7.0</td><td>−14.4%</td><td>−13.0%</td></tr><tr><td>Normal formula, full history</td><td>52 to 155 weeks</td><td>6.6</td><td>−18.6%</td><td>−13.1%</td></tr></tbody></table></div></figure><p>Table 3 gives the stock each reorder-level rule needs for 95% fill, all items. The normal formulas set the order-up-to level at five times the window's mean weekly demand plus a safety factor times its standard deviation times √5, refreshed monthly; the full history grows from 52 to 155 weeks over the scored period. Demand here is independent from week to week, which flatters long windows.</p><p>Long histories carry a cost when demand changes. In the level-shift scenario, where each item's frequency of demand rose or fell by half partway through, the full-history bootstrap's saving fell from 13.7% to 7.5% (±1.0), and on intermittent items it lost its lead over Croston (7.2 weeks for both). The 52-week normal formula held up better, at 13.0% (±0.6), because its window forgets the old level within a year. Croston (5.0%) and TSB (4.5%) kept most of their advantage, while SBA's fell from 5.0% to 3.0%. The shift changes only how often items sell, not order sizes, so it is a mild test.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Why Accuracy Scores Mislead</h2><p>On intermittent and lumpy items, the forecast with the best mean absolute error is one that predicts zero every week, the one forecast that would leave the shelf empty (Table 4).</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> One-week-ahead forecast error on intermittent and lumpy items, scaled by each item's mean weekly demand.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Forecast</th><th>Intermittent: MAE</th><th>Intermittent: RMSE</th><th>Lumpy: MAE</th><th>Lumpy: RMSE</th></tr></thead><tbody><tr><td>Zero every week</td><td>1.00</td><td>1.80</td><td>1.00</td><td>2.08</td></tr><tr><td>Moving average</td><td>1.17</td><td>1.54</td><td>1.23</td><td>1.89</td></tr><tr><td>SES</td><td>1.16</td><td>1.52</td><td>1.22</td><td>1.87</td></tr><tr><td>Croston</td><td>1.16</td><td>1.50</td><td>1.22</td><td>1.84</td></tr><tr><td>SBA</td><td>1.15</td><td>1.50</td><td>1.20</td><td>1.84</td></tr><tr><td>TSB</td><td>1.16</td><td>1.50</td><td>1.21</td><td>1.84</td></tr></tbody></table></div></figure><p>Errors are one-week-ahead, over the 104 scored weeks, divided by each item's mean weekly demand and averaged over items. Mean absolute error (MAE) rewards a forecast close to the median week, and when an item sells in fewer than about half of weeks, the median week is zero or close to it. Root mean squared error (RMSE) ranks the methods more sensibly, but its differences between methods are only 1% to 3%, while their stock needs differ by 5% to 7%. Percentage errors such as MAPE, the measure many ERP dashboards show, cannot be computed at all: 45% of the scored weeks have no demand, and a percentage of zero is undefined [<a href="#ref-10" class="j-cite">10</a>].</p><p>The practical rule follows from the inventory results: judge a forecasting method by the stock and service it delivers, measured as in Section 4, not by its error score [<a href="#ref-11" class="j-cite">11</a>, <a href="#ref-12" class="j-cite">12</a>]. SBA illustrates the gap. It has the lowest MAE of the five forecasting methods, but MAE rewards under-forecasting; on RMSE it ties with Croston and TSB. It still needs more stock than either for the same fill rate.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Obsolescence: When an Item Stops Selling</h2><p>When an item stops selling, every method leaves about three months of its former demand on the shelf; what differs is whether the reorder level comes down and whether buying continues.</p><p>In the obsolescence scenario, 20% of items stopped selling at a random week during the scored period. Every method still replaces the last sale at the next review, so the stock left is roughly the order-up-to level at the last sale: 12.1 to 12.8 weeks of the item's former demand, with no meaningful difference between methods (±0.4 to ±0.6 weeks). TSB leaves slightly less than Croston because its probability of a sale starts falling straight after the last sale; the bootstrap leaves slightly less because it held less to begin with.</p><p>The methods differ in what they signal and buy afterwards (Table 5).</p><figure class="j-table" id="table-5"><figcaption><strong>Table 5.</strong> After the last sale: how fast each method lowers its reorder level, and how much it keeps buying.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Method</th><th>Weeks after the last sale until the reorder level falls below a fifth of its old value</th><th>Orders placed after the last sale (300 items, 64 weeks)</th><th>Weeks of stock for 95% fill, stable demand</th></tr></thead><tbody><tr><td>Moving average</td><td>26</td><td>242</td><td>8.1</td></tr><tr><td>SES</td><td>29</td><td>206</td><td>8.0</td></tr><tr><td>TSB, β = 0.05</td><td>41</td><td>264</td><td>7.6</td></tr><tr><td>TSB, β = 0.10</td><td>29</td><td>223</td><td>7.7</td></tr><tr><td>TSB, β = 0.20</td><td>24</td><td>207</td><td>7.8</td></tr><tr><td>Normal formula, last 52 weeks</td><td>52</td><td>339</td><td>7.0</td></tr><tr><td>Bootstrap, full history</td><td>Never (more than 64)</td><td>462</td><td>7.0</td></tr><tr><td>Croston</td><td>Never (more than 64)</td><td>5,517</td><td>7.6</td></tr><tr><td>SBA</td><td>Never (more than 64)</td><td>4,934</td><td>7.7</td></tr></tbody></table></div></figure><p>Medians over 300 items that stop selling at week 104, each method at the safety factor that gives 95% fill under stable demand; the test runs 64 weeks after the stop, and β is TSB's smoothing constant for the probability of a sale. Croston and SBA update only when a sale happens, so their forecast never falls. Their smoothed error also keeps growing through the zero weeks, because each week's error is the whole forecast, so the reorder level rises for 27% to 30% of items and they keep placing small orders long after the last sale. The bootstrap keeps sampling from a history that is mostly from the selling years, and a 52-week window takes a year to forget. TSB lowers its forecast every week without a sale [<a href="#ref-5" class="j-cite">5</a>], but with β = 0.05 more slowly than the moving average; with β = 0.20 it matches the moving average's speed and still needs 4.3% less stock under stable demand.</p><p>Under a pure order-up-to policy, leftover stock is limited to about three months of former demand, but Croston and SBA keep adding to it, and any method adds to it when a minimum order quantity forces a large buy or a planner trusts the system's reorder level. The practical defence is the same whichever method is used: an alert that flags any item with no sale in a set number of weeks, say twice its usual interval between orders, for review before anything more is bought.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Implementation Guide for SMEs</h2><p>An SME can move its slow movers off the moving average in four steps, using two years of weekly sales from the ERP and a spreadsheet.</p><ol><li><strong>Classify the items.</strong> For each item, compute ADI (weeks in the period ÷ weeks with any demand) and CV² of the non-zero order sizes, then sort items into smooth, erratic, intermittent and lumpy with the 1.32 and 0.49 cut-offs. Combine with ABC value classes from the Chmltech ABC series [<a href="#ref-13" class="j-cite">13</a>], so effort goes to high-value lumpy items first.</li><li><strong>Set reorder levels from a year of history.</strong> For items whose demand is roughly stable, set the order-up-to level from the mean and standard deviation of weekly demand over the last 52 weeks: 5 × mean + k × standard deviation × √5, for a four-week lead time plus one-week review, refreshed monthly. Tune k per class for the target fill rate. A bootstrap over the same window (sample 400 sets of five weeks, sum each set, take the percentile) needs no normal assumption but saved less here. Keep the window at about a year: 26 weeks lost the gain, and the full history responded slowly when demand shifted.</li><li><strong>Use Croston or TSB where demand is changing or ending.</strong> For items with trends, new items and parts for products being phased out, a forecast that adapts is worth more than a long window. Both methods are a few spreadsheet columns: smoothed order size, smoothed interval (Croston) or probability of a sale (TSB), and their ratio or product, with α = 0.1. For items at risk of obsolescence, use TSB with a faster probability update (β around 0.2) and avoid Croston and SBA, which never bring the reorder level down.</li><li><strong>Check stock against service, not error scores.</strong> Each quarter, compare the fill rate and weeks of stock achieved for each class against target. Retune the safety factor or percentile; ignore MAPE for these items.</li></ol><h3>7.1 Pitfalls</h3><ul><li><strong>Weekly versus monthly buckets.</strong> Monthly buckets hide intermittency and make every item look smooth. Classify on weekly or daily data.</li><li><strong>Too short a window.</strong> With 26 weeks of history the bootstrap lost its gain entirely, and new items have too little history for any window. Use a full year where possible, and Croston-type forecasts until the history builds up.</li><li><strong>Stockouts in the history.</strong> Weeks with zero sales because the shelf was empty are not weeks of zero demand. Flag and exclude them, or the forecast learns to expect less.</li><li><strong>Assuming the safety factor carries across methods.</strong> A safety factor tuned for the moving average gives a different fill rate with Croston. Retune it when the method changes.</li><li><strong>Forgetting dead items.</strong> No forecasting method removes stock that is already on the shelf. Pair the method with a no-sale alert (Section 6).</li></ul></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Conclusions</h2><p>For the slow-moving items that fill most SME inventories, replacing the moving average saves stock without hurting service, and how demand variability is estimated matters more than which forecast is used.</p><ul><li>At 95% fill, Croston and TSB needed about 6% less stock than a 13-week moving average, SBA 5% less and SES under 2% less; at 90% fill the savings were slightly larger.</li><li>Estimating variability from a long history saved far more: a normal formula on the last 52 weeks needed 14% less stock, as did a bootstrap on the full history. The bootstrap's advantage came from its history length, not from modelling skewed demand; limited to 26 weeks, it saved nothing. These savings assume stable demand and are an upper bound.</li><li>When demand frequency shifted, the 52-week formula kept a 13% saving, while the full-history bootstrap's fell to 7.5%.</li><li>Forecast error scores misled: a zero forecast had the best mean absolute error on intermittent and lumpy items, percentage errors could not be computed, and the lowest-MAE method (SBA) did not need the least stock.</li><li>When items stopped selling, every method left about three months of former demand on the shelf. The moving average, SES and TSB with β around 0.2 brought their reorder levels down within 25 to 30 weeks; Croston and SBA never did and kept placing small orders. A no-sale alert is needed whichever method is used.</li></ul><p>The items are simulated, with demand that is independent from week to week and does not change unless a scenario says so. This favours long-history methods; real items that trend, have seasons or suffer stockouts that hide demand will show smaller gains. Fill rate and weeks of stock are pooled over all units with one safety factor per method, so high-volume items weigh most: at a pooled 95%, the median item reached about 96% fill and one item in ten fell below about 87%. Each method's safety factor was chosen with hindsight to hit the target exactly; in practice it must be tuned on past data. The bootstrap is a simple resample of single weeks, simplified from the method of Willemain, Smart and Schwarz [<a href="#ref-6" class="j-cite">6</a>]. An SME can run the same comparison on its own sales history with the code in the Appendix before switching methods; the full model, with the long-history benchmarks and scenario tests, can be downloaded from this paper's page.</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Appendix: Python Code</h2><p>The script below runs one population of 1,000 items with all six methods and prints the weeks of stock each needs for 95% fill. It gives 8.05 weeks for the moving average, 7.87 for SES, 7.54 for Croston, 7.62 for SBA, 7.55 for TSB and 6.80 for bootstrapping: the same ranking, and savings of 2% to 16%, as the five-population results in Section 4. Its population is a separate random draw, not one of the five. The long-history benchmarks of Table 3 and the scenario tests are in the full model, which can be downloaded from this paper's page. It needs Python 3 and NumPy and runs in about a minute.</p><figure class="j-code"><figcaption>One population of 1,000 simulated items: six methods scored on the weeks of stock needed for 95% fill (Python 3 with NumPy).</figcaption><pre><code>"""Intermittent demand: forecasting methods scored on stock for a target fill rate - Chmltech Online Journal.
+One population of 1,000 simulated items (the paper averages five). Python 3 with NumPy; runs in about a minute."""
+import numpy as np
+
+L, PROT, WARM, EVAL, A, B, N = 4, 5, 52, 104, 0.1, 0.05, 13   # lead time, lead+review, history, scored weeks, alpha, beta, MA window
+
+
+def items(seed, n=1000):
+    r = np.random.default_rng(seed)
+    return &#91;dict(p=1 / np.exp(r.uniform(0, np.log(4))), cv=r.uniform(.2, 1.3), mu=np.exp(r.uniform(np.log(2), np.log(60))))
+            for _ in range(n)&#93;
+
+
+def demand(it, r, weeks=WARM + EVAL):
+    s2 = np.log(1 + it&#91;'cv'&#93; ** 2)
+    occurs = r.random(weeks) &lt; it&#91;'p'&#93;
+    return occurs * np.maximum(1, np.round(r.lognormal(np.log(it&#91;'mu'&#93;) - s2 / 2, np.sqrt(s2), weeks)))
+
+
+def forecast(d, method):
+    """One-week-ahead forecast available at the start of each week."""
+    out = np.zeros(len(d)); nz = d&#91;:N&#93;&#91;d&#91;:N&#93; &gt; 0&#93;
+    f = d&#91;:N&#93;.mean(); z = nz.mean() if len(nz) else 1.0; p = N / max(1, len(nz)); q = 1; pr = max(len(nz) / N, 1 / N)
+    for t in range(len(d)):
+        if method == 'MA':        out&#91;t&#93; = d&#91;max(0, t - N):t&#93;.mean() if t else 0.0
+        elif method == 'SES':     out&#91;t&#93; = f; f += A * (d&#91;t&#93; - f)
+        elif method in ('Croston', 'SBA'):
+            out&#91;t&#93; = z / p * ((1 - A / 2) if method == 'SBA' else 1)
+            if d&#91;t&#93; &gt; 0: z += A * (d&#91;t&#93; - z); p += A * (q - p); q = 1
+            else: q += 1
+        elif method == 'TSB':
+            out&#91;t&#93; = pr * z
+            if d&#91;t&#93; &gt; 0: pr += B * (1 - pr); z += A * (d&#91;t&#93; - z)
+            else: pr -= B * pr
+    return out
+
+
+def levels(d, method, k):
+    """Order-up-to level by week: PROT x forecast + k x sigma, or the k-th quantile of bootstrapped demand."""
+    if method == 'Bootstrap':
+        r = np.random.default_rng(12345); S = np.zeros(len(d))
+        for t in range(WARM, len(d)):
+            if t == WARM or t % 4 == 0:
+                lvl = np.quantile(d&#91;:t&#93;&#91;r.integers(0, t, size=(400, PROT))&#93;.sum(axis=1), k)
+            S&#91;t&#93; = lvl
+        return S
+    f = forecast(d, method); mse = d&#91;:N&#93;.var() + 1e-9; S = np.zeros(len(d))
+    for t in range(len(d)):
+        S&#91;t&#93; = PROT * f&#91;t&#93; + k * np.sqrt(mse * PROT)
+        mse += A * ((d&#91;t&#93; - f&#91;t&#93;) ** 2 - mse)
+    return S
+
+
+def run_policy(d, S):
+    """Weekly review, order up to S, lead time L, backorders. Returns units demanded, units filled, average on hand."""
+    pipe = np.zeros(len(d) + L + 1); oh = max(S&#91;WARM&#93;, 0.0); back = dem = fill = ohs = 0.0
+    for t in range(WARM, len(d)):
+        oh += pipe&#91;t&#93;; c = min(back, oh); oh -= c; back -= c
+        pipe&#91;t + L&#93; += max(0.0, S&#91;t&#93; - (oh - back + pipe&#91;t + 1:t + L&#93;.sum()))
+        served = min(d&#91;t&#93;, oh); oh -= served; back += d&#91;t&#93; - served
+        dem += d&#91;t&#93;; fill += served; ohs += oh
+    return dem, fill, ohs / EVAL
+
+
+r = np.random.default_rng(111); D = &#91;demand(it, r) for it in items(11)&#93;
+weekly = sum(d&#91;WARM:&#93;.mean() for d in D)
+grid = {'Bootstrap': &#91;.5, .6, .7, .8, .85, .9, .93, .95, .96, .97, .98, .99, .995&#93;}
+for m in &#91;'MA', 'SES', 'Croston', 'SBA', 'TSB', 'Bootstrap'&#93;:
+    pts = &#91;&#93;
+    for k in grid.get(m, &#91;0, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 3.5, 4&#93;):
+        tot = np.sum(&#91;run_policy(d, levels(d, m, k)) for d in D&#93;, axis=0)
+        pts.append((tot&#91;1&#93; / tot&#91;0&#93; * 100, tot&#91;2&#93; / weekly))
+    (f0, w0), (f1, w1) = next((a, b) for a, b in zip(pts, pts&#91;1:&#93;) if a&#91;0&#93; &lt; 95 &lt;= b&#91;0&#93;)
+    print(f"{m:10s} weeks of stock for 95% fill: {w0 + (95 - f0) / (f1 - f0) * (w1 - w0):5.2f}")</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Lee, Q. F. (2026). Beyond the formula: Setting safety stock with Monte Carlo simulation. <em>Chmltech Online Journal</em>, 106(3). <a href="https://www.chmltech.com/post/beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation.html" rel="noopener" target="_blank">www.chmltech.com/post/beyond-the-formula-setting-safety-stock-with-monte-carlo-s</a></li><li id="ref-2">Croston, J. D. (1972). Forecasting and stock control for intermittent demands. <em>Operational Research Quarterly</em>, 23(3), 289–303. <a href="https://doi.org/10.1057/jors.1972.50" rel="noopener" target="_blank">10.1057/jors.1972.50</a></li><li id="ref-3">Syntetos, A. A., &amp; Boylan, J. E. (2001). On the bias of intermittent demand estimates. <em>International Journal of Production Economics</em>, 71(1–3), 457–466. <a href="https://doi.org/10.1016/S0925-5273(00)00143-2" rel="noopener" target="_blank">10.1016/S0925-5273(00)00143-2</a></li><li id="ref-4">Syntetos, A. A., &amp; Boylan, J. E. (2005). The accuracy of intermittent demand estimates. <em>International Journal of Forecasting</em>, 21(2), 303–314. <a href="https://doi.org/10.1016/j.ijforecast.2004.10.001" rel="noopener" target="_blank">10.1016/j.ijforecast.2004.10.001</a></li><li id="ref-5">Teunter, R. H., Syntetos, A. A., &amp; Babai, M. Z. (2011). Intermittent demand: Linking forecasting to inventory obsolescence. <em>European Journal of Operational Research</em>, 214(3), 606–615. <a href="https://doi.org/10.1016/j.ejor.2011.05.018" rel="noopener" target="_blank">10.1016/j.ejor.2011.05.018</a></li><li id="ref-6">Willemain, T. R., Smart, C. N., &amp; Schwarz, H. F. (2004). A new approach to forecasting intermittent demand for service parts inventories. <em>International Journal of Forecasting</em>, 20(3), 375–387. <a href="https://doi.org/10.1016/S0169-2070(03)00013-X" rel="noopener" target="_blank">10.1016/S0169-2070(03)00013-X</a></li><li id="ref-7">Teunter, R. H., &amp; Duncan, L. (2009). Forecasting intermittent demand: A comparative study. <em>Journal of the Operational Research Society</em>, 60(3), 321–329. <a href="https://doi.org/10.1057/palgrave.jors.2602569" rel="noopener" target="_blank">10.1057/palgrave.jors.2602569</a></li><li id="ref-8">Syntetos, A. A., Babai, M. Z., &amp; Gardner, E. S. (2015). Forecasting intermittent inventory demands: Simple parametric methods vs. bootstrapping. <em>Journal of Business Research</em>, 68(8), 1746–1752. <a href="https://doi.org/10.1016/j.jbusres.2015.03.034" rel="noopener" target="_blank">10.1016/j.jbusres.2015.03.034</a></li><li id="ref-9">Syntetos, A. A., Boylan, J. E., &amp; Croston, J. D. (2005). On the categorization of demand patterns. <em>Journal of the Operational Research Society</em>, 56(5), 495–503. <a href="https://doi.org/10.1057/palgrave.jors.2601841" rel="noopener" target="_blank">10.1057/palgrave.jors.2601841</a></li><li id="ref-10">Hyndman, R. J., &amp; Koehler, A. B. (2006). Another look at measures of forecast accuracy. <em>International Journal of Forecasting</em>, 22(4), 679–688. <a href="https://doi.org/10.1016/j.ijforecast.2006.03.001" rel="noopener" target="_blank">10.1016/j.ijforecast.2006.03.001</a></li><li id="ref-11">Syntetos, A. A., &amp; Boylan, J. E. (2006). On the stock control performance of intermittent demand estimators. <em>International Journal of Production Economics</em>, 103(1), 36–47. <a href="https://doi.org/10.1016/j.ijpe.2005.04.004" rel="noopener" target="_blank">10.1016/j.ijpe.2005.04.004</a></li><li id="ref-12">Kourentzes, N. (2014). On intermittent demand model optimisation and selection. <em>International Journal of Production Economics</em>, 156, 180–190. <a href="https://doi.org/10.1016/j.ijpe.2014.06.007" rel="noopener" target="_blank">10.1016/j.ijpe.2014.06.007</a></li><li id="ref-13">Lee, Q. F. (2026). ABC inventory analysis: How to, with a worked example. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/abc-inventory-analysis.html" rel="noopener" target="_blank">www.chmltech.com/post/abc-inventory-analysis.html</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Forecasting Lumpy Demand: Does Croston Beat a Moving Average?. <em>Chmltech Online Journal</em>, <em>106</em>(7). https://www.chmltech.com/post/forecasting-lumpy-demand-does-croston-beat-a-moving-average</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. The Six Methods</a></li><li><a href="#sec-3">3. Simulation Method</a></li><li><a href="#sec-4">4. Results: Stock Needed for 95% Fill</a></li><li><a href="#sec-5">5. Why Accuracy Scores Mislead</a></li><li><a href="#sec-6">6. Obsolescence: When an Item Stops Selling</a></li><li><a href="#sec-7">7. Implementation Guide for SMEs</a></li><li><a href="#sec-8">8. Conclusions</a></li><li><a href="#sec-9">9. Appendix: Python Code</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 7</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal operational-efficiency erp" data-search="quoting lead times you can keep: due-date setting for make-to-order manufacturers quotes built from the bottleneck backlog keep 95% of delivery promises with lead times 38% shorter than fixed erp lead times, in a plant simulation. due-date quoting lead time make-to-order order promising workload control discrete-event simulation high-mix manufacturing erp"><div class="thumb"><img src="../assets/media/covers/thumbs/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><h3><a href="../post/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.html">Quoting Lead Times You Can Keep: Due-Date Setting for Make-to-Order Manufacturers</a></h3><p class="muted">Quotes built from the bottleneck backlog keep 95% of delivery promises with lead times 38% shorter than fixed ERP lead times, in a plant simulation.</p><p class="meta">Vol. 106, Issue 6 · Nov 16, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal operational-efficiency inventory-management" data-search="beyond the unit price: total landed cost optimization for sme sourcing a sourcing model for smes that compares suppliers on total landed cost, not unit price, and finds the lowest-cost plan cuts annual cost by 9%. total landed cost supplier selection sourcing mixed-integer programming tariffs and surtaxes ocean freight dual sourcing monte carlo simulation"><div class="thumb"><img src="../assets/media/covers/thumbs/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><h3><a href="../post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing.html">Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing</a></h3><p class="muted">A sourcing model for SMEs that compares suppliers on total landed cost, not unit price, and finds the lowest-cost plan cuts annual cost by 9%.</p><p class="meta">Vol. 106, Issue 5 · Nov 16, 2026 · 16 min read</p></div></article><article class="article" data-cats="chmltech-online-journal operational-efficiency erp" data-search="why the erp schedule fails on the shop floor: finite-capacity scheduling rules for high-mix manufacturers a shop-floor simulation shows why erp lead times miss due dates in high-mix plants, and which dispatch and release rules lift on-time delivery from 77% to 92%. finite-capacity scheduling dispatching rules drum-buffer-rope workload control modified due date discrete-event simulation high-mix manufacturing erp"><div class="thumb"><img src="../assets/media/covers/thumbs/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><h3><a href="../post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers.html">Why the ERP Schedule Fails on the Shop Floor: Finite-Capacity Scheduling Rules for High-Mix Manufacturers</a></h3><p class="muted">A shop-floor simulation shows why ERP lead times miss due dates in high-mix plants, and which dispatch and release rules lift on-time delivery from 77% to 92%.</p><p class="meta">Vol. 106, Issue 4 · Nov 16, 2026 · 15 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue7.pdf" data-fname="Chmltech-Journal-Vol106-Issue7.pdf" data-title="Forecasting Lumpy Demand: Does Croston Beat a Moving Average?" data-ref="Vol. 106, Issue 7">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 7</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Forecasting Lumpy Demand: Does Croston Beat a Moving Average?</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Forecasting Lumpy Demand: Does Croston Beat a Moving Average?", "name": "Forecasting Lumpy Demand: Does Croston Beat a Moving Average?", "abstract": "Most SME inventories are full of items that sell only some weeks, yet many ERP systems forecast them with a moving average. This paper compares six methods on 5,000 simulated items: a 13-week moving average, simple exponential smoothing (SES), Croston's method, its bias-corrected version (SBA), the TSB method and a simple bootstrap. Each method sets the order-up-to level of a weekly-review policy and is scored on the stock it needs to fill 95% of demand from the shelf, not on forecast error. Croston, SBA and TSB need 5% to 6% less stock than the moving average; SES saves under 2%. The bootstrap needs 14% less, but because it uses a long history, not because it handles skewed demand: a normal formula using the last 52 weeks saves as much, and a 26-week bootstrap saves nothing. How demand variability is estimated matters more than the forecast, though these gains are an upper bound for stable demand. Accuracy measures point the wrong way: on intermittent and lumpy items a zero forecast scores best on mean absolute error, and percentage errors cannot be computed. When an item stops selling, every method leaves about three months of former demand on the shelf; the moving average, SES and TSB with a fast probability update lower the reorder level within 25 to 30 weeks, while Croston and SBA never do and keep placing small orders. SMEs should estimate variability from a year of history and pair any method with a no-sale alert.", "keywords": "intermittent demand, Croston's method, TSB, bootstrapping, safety stock, fill rate, inventory obsolescence, demand forecasting", "datePublished": "2026-11-16", "dateModified": "2026-11-16", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "7", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/forecasting-lumpy-demand-does-croston-beat-a-moving-average", "citation": ["Lee, Q. F. (2026). Beyond the formula: Setting safety stock with Monte Carlo simulation. Chmltech Online Journal, 106(3).", "Croston, J. D. (1972). Forecasting and stock control for intermittent demands. Operational Research Quarterly, 23(3), 289–303.", "Syntetos, A. A., &amp; Boylan, J. E. (2001). On the bias of intermittent demand estimates. International Journal of Production Economics, 71(1–3), 457–466.", "Syntetos, A. A., &amp; Boylan, J. E. (2005). The accuracy of intermittent demand estimates. International Journal of Forecasting, 21(2), 303–314.", "Teunter, R. H., Syntetos, A. A., &amp; Babai, M. Z. (2011). Intermittent demand: Linking forecasting to inventory obsolescence. European Journal of Operational Research, 214(3), 606–615.", "Willemain, T. R., Smart, C. N., &amp; Schwarz, H. F. (2004). A new approach to forecasting intermittent demand for service parts inventories. International Journal of Forecasting, 20(3), 375–387.", "Teunter, R. H., &amp; Duncan, L. (2009). Forecasting intermittent demand: A comparative study. Journal of the Operational Research Society, 60(3), 321–329.", "Syntetos, A. A., Babai, M. Z., &amp; Gardner, E. S. (2015). Forecasting intermittent inventory demands: Simple parametric methods vs. bootstrapping. Journal of Business Research, 68(8), 1746–1752.", "Syntetos, A. A., Boylan, J. E., &amp; Croston, J. D. (2005). On the categorization of demand patterns. Journal of the Operational Research Society, 56(5), 495–503.", "Hyndman, R. J., &amp; Koehler, A. B. (2006). Another look at measures of forecast accuracy. International Journal of Forecasting, 22(4), 679–688.", "Syntetos, A. A., &amp; Boylan, J. E. (2006). On the stock control performance of intermittent demand estimators. International Journal of Production Economics, 103(1), 36–47.", "Kourentzes, N. (2014). On intermittent demand model optimisation and selection. International Journal of Production Economics, 156, 180–190.", "Lee, Q. F. (2026). ABC inventory analysis: How to, with a worked example. Chmltech Insights."], "image": "https://www.chmltech.com/assets/media/covers/forecasting-lumpy-demand-does-croston-beat-a-moving-average.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>

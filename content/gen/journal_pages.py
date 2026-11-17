@@ -72,6 +72,10 @@ TOPIC = {
     # Volume 106, Issues 3-4: operations papers (V5.41)
     "beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation": ["operational-efficiency", "inventory-management"],
     "why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers": ["operational-efficiency", "erp"],
+    # Vol. 106, Issues 5-7 (V5.42)
+    "beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing": ["operational-efficiency", "inventory-management"],
+    "quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers": ["operational-efficiency", "erp"],
+    "forecasting-lumpy-demand-does-croston-beat-a-moving-average": ["operational-efficiency", "inventory-management"],
 }
 
 
@@ -87,6 +91,22 @@ def apply_to_posts(POSTS):
         t = TOPIC.get(p["slug"], [])
         p["cats"] = [JOURNAL_CAT] + ([t] if isinstance(t, str) else list(t))
     return J
+
+
+
+def code_box(d):
+    esc = html.escape
+    """Model code offered for download (V5.42): files in assets/journal/code/, listed in the paper's "downloads"."""
+    if not d.get("downloads"): return ""
+    items = "".join(f'<li><a href="../assets/journal/code/{esc(f["file"])}" download><strong>{esc(f["label"])}</strong> '
+                    f'<code>{esc(f["file"])}</code></a><span>{esc(f["note"])}</span></li>' for f in d["downloads"])
+    return (f'<aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. '
+            f'Run it on your own data before changing anything in the plant.</span></div><ul>{items}</ul></aside>')
+
+
+def code_links(d):
+    if not d.get("downloads"): return ""
+    return '<a class="btn btn-ghost" href="#code" style="margin-top:10px">Python code</a>'
 
 
 def pdf_name(d):
@@ -208,6 +228,7 @@ def build(ns):
       <p class="j-keywords"><strong>Keywords:</strong> {"; ".join(esc(k) for k in d["keywords"])}</p></section>
     <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
       <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    {code_box(d)}
     {secs}
     <section class="j-sec j-refs" id="references"><h2>References</h2><ol>{refs}</ol></section>
     <section class="j-cite-box"><h2>How to cite this article</h2><p>{cite_txt}</p>
@@ -216,7 +237,7 @@ def build(ns):
   <aside class="aside-sticky j-aside">
     <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol>{toc}</ol></nav>
     <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">{JOURNAL}<br>Volume {d["volume"]}, Issue {d["issue"]}</p>
-      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button></div>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button>{code_links(d)}</div>
     <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="contact.html" style="align-self:flex-start">Contact us</a></div>
   </aside>
 </div></section>

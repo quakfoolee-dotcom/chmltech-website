@@ -105,4 +105,7 @@ POST_TITLES = {
     "research-analyze-draft-review-finalize-engineering-a-reliable-five-agent-ai-workflow": "Engineering a Reliable Five-Agent AI Workflow",
     "beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation": "Setting Safety Stock with Monte Carlo Simulation",
     "why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers": "Finite-Capacity Scheduling for High-Mix Manufacturers",
+    "beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing": "Total Landed Cost Optimization for SME Sourcing",
+    "quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers": "Due-Date Quoting for Make-to-Order Manufacturers",
+    "forecasting-lumpy-demand-does-croston-beat-a-moving-average": "Forecasting Lumpy Demand: Croston vs Moving Average",
 }

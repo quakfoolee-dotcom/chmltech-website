@@ -1,0 +1,334 @@
+{
+ "det": {
+  "price_only": {
+   "purchase": 456180,
+   "duty": 52636,
+   "freight": 45627,
+   "broker": 5580,
+   "quality": 12704,
+   "carry": 48043,
+   "terms": 1312,
+   "fixed": 8000,
+   "total": 630082
+  },
+  "landed_price": {
+   "purchase": 480290,
+   "duty": 14899,
+   "freight": 24685,
+   "broker": 3960,
+   "quality": 9382,
+   "carry": 34791,
+   "terms": -1037,
+   "fixed": 14500,
+   "total": 581471
+  },
+  "tlc_optimal": {
+   "purchase": 518520,
+   "duty": 7177,
+   "freight": 10659,
+   "broker": 1980,
+   "quality": 7105,
+   "carry": 21342,
+   "terms": -2669,
+   "fixed": 9500,
+   "total": 573614
+  },
+  "tlc_dual": {
+   "purchase": 521450,
+   "duty": 5024,
+   "freight": 17960,
+   "broker": 2790,
+   "quality": 7510,
+   "carry": 23884,
+   "terms": -3171,
+   "fixed": 14500,
+   "total": 589947
+  },
+  "north_america": {
+   "purchase": 562890,
+   "duty": 0,
+   "freight": 15426,
+   "broker": 1620,
+   "quality": 6319,
+   "carry": 15440,
+   "terms": -4626,
+   "fixed": 6500,
+   "total": 603568
+  }
+ },
+ "mc": {
+  "price_only": {
+   "mean": 636950,
+   "p50": 626213,
+   "p95": 723962,
+   "sd": 42334,
+   "se": 299
+  },
+  "landed_price": {
+   "mean": 593220,
+   "p50": 583552,
+   "p95": 661775,
+   "sd": 32425,
+   "se": 229
+  },
+  "tlc_optimal": {
+   "mean": 580813,
+   "p50": 574834,
+   "p95": 617370,
+   "sd": 17049,
+   "se": 121
+  },
+  "tlc_dual": {
+   "mean": 595020,
+   "p50": 592290,
+   "p95": 624047,
+   "sd": 14542,
+   "se": 103
+  },
+  "north_america": {
+   "mean": 603582,
+   "p50": 603510,
+   "p95": 616899,
+   "sd": 8042,
+   "se": 57
+  }
+ },
+ "feu": [
+  {
+   "feu": 1500,
+   "optimal": 564952,
+   "containers": 3,
+   "price_only": 602545,
+   "plan_7500": 570920,
+   "china_parts": 6
+  },
+  {
+   "feu": 2000,
+   "optimal": 567022,
+   "containers": 3,
+   "price_only": 604840,
+   "plan_7500": 571145,
+   "china_parts": 6
+  },
+  {
+   "feu": 2500,
+   "optimal": 569092,
+   "containers": 3,
+   "price_only": 607135,
+   "plan_7500": 571369,
+   "china_parts": 6
+  },
+  {
+   "feu": 3000,
+   "optimal": 569829,
+   "containers": 0,
+   "price_only": 609429,
+   "plan_7500": 571594,
+   "china_parts": 5
+  },
+  {
+   "feu": 4000,
+   "optimal": 571251,
+   "containers": 0,
+   "price_only": 614019,
+   "plan_7500": 572043,
+   "china_parts": 5
+  },
+  {
+   "feu": 5000,
+   "optimal": 572492,
+   "containers": 0,
+   "price_only": 618609,
+   "plan_7500": 572492,
+   "china_parts": 4
+  },
+  {
+   "feu": 6000,
+   "optimal": 572941,
+   "containers": 0,
+   "price_only": 623198,
+   "plan_7500": 572941,
+   "china_parts": 4
+  },
+  {
+   "feu": 7500,
+   "optimal": 573614,
+   "containers": 0,
+   "price_only": 630082,
+   "plan_7500": 573614,
+   "china_parts": 4
+  },
+  {
+   "feu": 9000,
+   "optimal": 574288,
+   "containers": 0,
+   "price_only": 636967,
+   "plan_7500": 574288,
+   "china_parts": 4
+  },
+  {
+   "feu": 11000,
+   "optimal": 575186,
+   "containers": 0,
+   "price_only": 646146,
+   "plan_7500": 575186,
+   "china_parts": 4
+  }
+ ],
+ "short": {
+  "0": {
+   "tlc_optimal": {
+    "mean": 580193,
+    "p95": 616525
+   },
+   "tlc_dual": {
+    "mean": 594848,
+    "p95": 623479
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "25": {
+   "tlc_optimal": {
+    "mean": 582259,
+    "p95": 618724
+   },
+   "tlc_dual": {
+    "mean": 594986,
+    "p95": 623683
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "50": {
+   "tlc_optimal": {
+    "mean": 584326,
+    "p95": 621425
+   },
+   "tlc_dual": {
+    "mean": 595123,
+    "p95": 623815
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "75": {
+   "tlc_optimal": {
+    "mean": 586392,
+    "p95": 632111
+   },
+   "tlc_dual": {
+    "mean": 595261,
+    "p95": 623999
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "100": {
+   "tlc_optimal": {
+    "mean": 588458,
+    "p95": 649022
+   },
+   "tlc_dual": {
+    "mean": 595399,
+    "p95": 624254
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "125": {
+   "tlc_optimal": {
+    "mean": 590524,
+    "p95": 666563
+   },
+   "tlc_dual": {
+    "mean": 595537,
+    "p95": 624496
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "150": {
+   "tlc_optimal": {
+    "mean": 592590,
+    "p95": 683673
+   },
+   "tlc_dual": {
+    "mean": 595674,
+    "p95": 624754
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "175": {
+   "tlc_optimal": {
+    "mean": 594657,
+    "p95": 701388
+   },
+   "tlc_dual": {
+    "mean": 595812,
+    "p95": 625204
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "200": {
+   "tlc_optimal": {
+    "mean": 596723,
+    "p95": 718106
+   },
+   "tlc_dual": {
+    "mean": 595950,
+    "p95": 625872
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "250": {
+   "tlc_optimal": {
+    "mean": 600855,
+    "p95": 751918
+   },
+   "tlc_dual": {
+    "mean": 596225,
+    "p95": 626784
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  },
+  "300": {
+   "tlc_optimal": {
+    "mean": 604987,
+    "p95": 786097
+   },
+   "tlc_dual": {
+    "mean": 596501,
+    "p95": 627986
+   },
+   "north_america": {
+    "mean": 603592,
+    "p95": 617019
+   }
+  }
+ }
+}

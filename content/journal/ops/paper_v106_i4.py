@@ -58,11 +58,21 @@ REFS = {
                  "https://doi.org/10.1111/poms.12304"),
     "conwip": ("Spearman, M. L., Woodruff, D. L., &amp; Hopp, W. J. (1990). CONWIP: A pull alternative to kanban. <em>International Journal of Production Research</em>, 28(5), 879–894.",
                "https://doi.org/10.1080/00207549008942761"),
+    "quote": ("Lee, Q. F. (2026). Quoting lead times you can keep: Due-date setting for make-to-order manufacturers. <em>Chmltech Online Journal</em>, 106(6).",
+              "https://www.chmltech.com/post/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.html"),
     "ramasesh": ("Ramasesh, R. (1990). Dynamic job shop scheduling: A survey of simulation research. <em>Omega</em>, 18(1), 43–57.",
                  "https://doi.org/10.1016/0305-0483(90)90017-4"),
 }
 
 CODE = {"appendix": open(__file__.replace("paper_v106_i4.py", "models/fcs/fcs_scheduling.py"), encoding="utf-8").read().rstrip()}
+
+CORRECTIONS = ["Nov 16 2026: added a correction note after the release results. The quoting paper, Vol. 106(6), found that under load-based "
+               "release with MDD at the welder the very late orders spend most of their lateness in the release pool; the earlier text "
+               "implied MDD was the main cause. On-time results unchanged."]
+
+DOWNLOADS = [  # served from assets/journal/code/ (V5.42)
+    dict(file='fcs_scheduling.py', label='Appendix script', note='Compact job-shop simulation with FIFO, critical ratio, MDD and load-based release (Python 3, NumPy)'),
+]
 
 BODY = r"""
 ## Introduction
@@ -206,6 +216,8 @@ TABLE Release options with a buffer of 24 welder hours.
 Strict DBR does what its theory promises on the floor: shop-floor time falls from 5.7 to 3.8 days, which means less clutter, less handling damage and faster quality feedback. Customers do not see it, though. The waiting has only moved from the welder queue into the office pool, and on-time delivery falls by 4.4 ± 0.8 points. The workload-control literature reports the same effect: release control can shorten shop-floor time without shortening total lead time [@land, @thurer10].
 
 Load-based release adds one freedom: when the next order is too large to fit under the buffer, a smaller order behind it may go first. That change acts like SPT at the front door and lifts on-time delivery to 92%, even with FIFO on the floor. That is 2.7 ± 0.7 points better than MDD at the welder alone, the best single dispatching change. Adding MDD at the welder on top of load-based release makes no measurable difference to the on-time rate (+0.2 ± 0.4 points) and trims the worst 1% slightly. The gate does the work, and it shares SPT's weakness: the largest orders wait longest in the pool, as the literature warns [@thurer10]. Sequencing the pool by planned release date is the literature's remedy [@thurer15].
+
+CALLOUT **Correction (November 16, 2026).** The follow-up quoting paper [@quote] traced the very late orders under the recommended combination of load-based release and MDD at the welder. Every order more than 10 working days late spent more than half of its lateness waiting in the release pool, so for that combination holding large orders back at release, not MDD, is the main cause of the tail; in the worst simulated year one large order waited about six months for release. Section 5.1 still describes MDD correctly under push release. The remedy is to sequence the pool by planned release date, or to release any order once its due date minus its planned work is reached. The on-time results in this paper are unchanged.
 
 ### 6.1 How big should the buffer be?
 

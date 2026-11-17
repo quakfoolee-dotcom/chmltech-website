@@ -54,6 +54,10 @@ REFS = {
 
 CODE = {"appendix": open(__file__.replace("paper_v106_i3.py", "models/safety_stock/mc_safety_stock.py"), encoding="utf-8").read().rstrip()}
 
+DOWNLOADS = [  # served from assets/journal/code/ (V5.42)
+    dict(file='mc_safety_stock.py', label='Appendix script', note='Monte Carlo reorder point and policy check (Python 3, NumPy)'),
+]
+
 BODY = r"""
 ## Introduction
 

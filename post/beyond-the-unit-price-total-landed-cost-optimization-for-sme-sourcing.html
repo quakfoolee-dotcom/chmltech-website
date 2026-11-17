@@ -1,0 +1,1768 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Total Landed Cost Optimization for SME Sourcing</title>
+<meta name="description" content="A sourcing model for SMEs that compares suppliers on total landed cost, not unit price, and finds the lowest-cost plan cuts annual cost by 9%.">
+<link rel="canonical" href="https://www.chmltech.com/post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Total Landed Cost Optimization for SME Sourcing">
+<meta property="og:description" content="A sourcing model for SMEs that compares suppliers on total landed cost, not unit price, and finds the lowest-cost plan cuts annual cost by 9%.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=324d0cc7">
+<meta property="og:url" content="https://www.chmltech.com/post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-16">
+<meta property="article:modified_time" content="2026-11-16">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Total Landed Cost Optimization for SME Sourcing","item":"https://www.chmltech.com/post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=9e11cc86">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/16">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="5">
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a> / <a href="../insights.html#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 5</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Operational Excellence · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 16, 2026</span><span>16 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Lowest price, highest cost: buying from the supplier with the lowest unit price, or the lowest price plus freight, leaves money on the table for small and mid-sized manufacturers. Duties and surtaxes, inventory in transit, safety stock for long and variable lead times, quality losses, payment terms and the cost of managing each supplier region all sit outside the invoice. This paper builds a total landed cost model for a composite British Columbia windows-and-doors manufacturer that buys eight parts from China, Mexico, the United States or Canada. A mixed-integer program chooses the supplier, freight mode and order frequency for each part, with container loads shared across parts. The lowest-price plan sources everything from China and costs C$630,100 a year. The total-cost plan pays C$62,300 more on supplier invoices but costs C$573,600 a year, 9% less: it keeps compact, labour-intensive hardware in China and moves bulky and surtaxed steel and aluminum parts to Canada. A price-plus-freight rule comes within 1.4% of the optimum. A Monte Carlo simulation of freight rates, exchange rates, tariff scenarios and supply disruptions shows the total-cost plan also has the lowest mean cost, and a 95th-percentile cost C$106,600 below the lowest-price plan. Without surtaxes the chosen plan is the same but the saving falls to 3.5%. A second supplier lowers average cost only when a shortage cannot be covered by a spot buy and costs more than about C$190 per part short; for the worst years, buying the hardware in North America protects better.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> total landed cost; supplier selection; sourcing; mixed-integer programming; tariffs and surtaxes; ocean freight; dual sourcing; Monte Carlo simulation</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/tlc_appendix.py" download><strong>Appendix script</strong> <code>tlc_appendix.py</code></a><span>Base-case total landed cost model (Python 3, PuLP 2.9)</span></li><li><a href="../assets/journal/code/chmltech-landed-cost-model.zip" download><strong>Full model</strong> <code>chmltech-landed-cost-model.zip</code></a><span>Optimization model, Monte Carlo risk layer, freight and shortage sweeps, README</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>The supplier with the lowest quote is often not the cheapest supplier once the goods are on the plant floor. Purchasing teams in small and mid-sized enterprises (SMEs) usually compare quotes on unit price, sometimes adding a freight estimate. Much of the cost of buying sits elsewhere: in duties, customs brokerage, inventory on the water, safety stock, rejected parts, deposits paid before shipment and the time spent managing distant suppliers. Ellram's total cost of ownership approach makes these costs visible [<a href="#ref-1" class="j-cite">1</a>], and studies of offshore sourcing have found that they can erase much of a low-cost country's price advantage [<a href="#ref-2" class="j-cite">2</a>].</p><p>Three things make the question sharper for Canadian manufacturers in late 2026:</p><ul><li><strong>Tariffs depend on origin and end use.</strong> Canada applies a 25% surtax to many Chinese steel and aluminum products, and to goods from other countries made with Chinese-melted steel or Chinese-smelted aluminum, and from September 8, 2026 added surtaxes of 15% to 50% on a wide range of US goods [<a href="#ref-3" class="j-cite">3</a>, <a href="#ref-4" class="j-cite">4</a>]. On November 9, 2026, Canada extended remission of surtaxes on eligible US goods used in manufacturing or processing to June 30, 2028 [<a href="#ref-5" class="j-cite">5</a>].</li><li><strong>Ocean freight is volatile.</strong> Drewry's spot rate for a 40-foot container from Shanghai to Los Angeles was about US$2,100 in December 2025 and US$7,514 on October 29, 2026 [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>].</li><li><strong>SME volumes rarely fill containers.</strong> A plant that buys a few hundred thousand dollars of parts a year ships less-than-container loads (LCL) at higher rates per cubic metre, unless it consolidates.</li></ul><p>This paper shows how an SME can compare suppliers on total landed cost, choose suppliers and freight modes with a small optimization model, and test the choice against freight, currency, tariff and disruption risk. It uses the windows-and-doors plant from the Chmltech scheduling paper [<a href="#ref-8" class="j-cite">8</a>] as a composite case, and draws on the Chmltech safety stock paper [<a href="#ref-9" class="j-cite">9</a>] for the inventory terms.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> Total Landed Cost</h2><p>The total landed cost of a part is everything the plant pays, per year, to have that part available on the floor: eight components, of which the invoice shows one. For a part with annual demand D bought from supplier s, shipped by freight mode m in n orders a year, the annual total landed cost is given by Eq. (1):</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[\begin{aligned} TLC_{s,m,n} = {} &amp; \underbrace{D\,p_s}_{\text{purchase}} + \underbrace{D\,p_s\,\tau_s}_{\text{duty, surtax}} + \underbrace{n\,F_m(D/n) + n\,b_s}_{\text{freight, brokerage}} + \underbrace{q_s D\,(p_s + r)}_{\text{quality}} \\ &amp; + \underbrace{h\,c\,\left(\bar{d}\,\bar{L} + \tfrac{D}{2n} + SS\right)}_{\text{carrying}} + \underbrace{k\,D\,p_s\,t_s}_{\text{payment terms}} + \underbrace{f_s}_{\text{supplier management}} \end{aligned}\]</span><span class="j-eq-n">(1)</span></div><p>Here p is the unit price, τ the duty and surtax rate, F the freight charge for one shipment, b the brokerage fee per import entry, q the defect rate and r the handling cost per defective part, h the carrying rate, c the landed unit cost, d̄ and L̄ mean daily demand and lead time, SS the safety stock, k the cost of capital and t the share-weighted payment timing in years (positive when the plant pays before it receives). The supplier management cost f is paid once per supplier region used, not per part, so in the plan total it is added once for each region rather than in each part's cost. Table 1 shows how each term is set in the case.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Components of total landed cost and how each is set in the case.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Component</th><th>What it covers</th><th>How it is set in the case</th></tr></thead><tbody><tr><td>Purchase</td><td>Supplier price, FOB origin (delivered for Canadian suppliers)</td><td>Quotes per part and region</td></tr><tr><td>Duty and surtax</td><td>Most-favoured-nation duty plus any surtax, on the value for duty</td><td>By part class and origin; three tariff scenarios</td></tr><tr><td>Freight</td><td>Ocean full-container (FCL) or less-than-container (LCL), air, or truck</td><td>Per shipment, from volume and weight</td></tr><tr><td>Brokerage</td><td>Customs entry per shipment</td><td>C$180 China, C$90 Mexico and US</td></tr><tr><td>Quality</td><td>Rejected parts: price plus C$15 handling</td><td>1.5% China, 1.0% Mexico, 0.5% US, 0.4% Canada</td></tr><tr><td>Carrying</td><td>Inventory in transit, cycle stock and safety stock, at 25% of landed value a year</td><td>Safety stock for 95% cycle service</td></tr><tr><td>Payment terms</td><td>Deposit paid before shipment, or supplier credit after receipt</td><td>China 30% deposit 35 days before shipment; others net 30; 10% cost of capital</td></tr><tr><td>Supplier management</td><td>Audits, visits, inspections, purchasing time per region</td><td>C$8,000 China, C$5,000 Mexico, C$3,000 US, C$1,500 Canada a year</td></tr></tbody></table></div></figure><p>Safety stock uses the textbook formula with variable demand and lead time [<a href="#ref-10" class="j-cite">10</a>]. The safety stock paper [<a href="#ref-9" class="j-cite">9</a>] shows that the formula understates protection for disruption-prone imports, so the long-tail risk is handled separately, by Monte Carlo simulation in Section 6. Two costs are often left out of supplier comparisons and matter here: carrying cost rises with lead time and order size, and supplier-level costs such as audits and supplier management do not scale with the number of parts [<a href="#ref-11" class="j-cite">11</a>]; here they are charged per supplier region. Lead time is measured from shipment to receipt; for China it excludes production time, which enters through the deposit in the payment-terms term. In-transit stock is carried at the full 25% rate, a conservative choice: at a 10% cost-of-capital rate on stock in transit the plan is unchanged and the saving is C$47,900 (7.8%) rather than C$56,500.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> The Case: Eight Purchased Parts</h2><p>The plant is the composite windows-and-doors maker from the Chmltech scheduling paper [<a href="#ref-8" class="j-cite">8</a>]: a single-shift vinyl window and door manufacturer in the Lower Mainland. Its supplier invoices for eight purchased parts range from about C$456,000 a year if everything is bought in China to C$600,000 if everything is bought in Canada. China quotes 13% to 37% below Canadian suppliers; the gap is widest on compact, labour-intensive hardware and narrowest on bulky or steel parts (Table 2). All money is in Canadian dollars at an assumed C$1.38 per US dollar.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Purchased parts, quantities and unit prices by supplier region (C$).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Part</th><th>Annual quantity</th><th>Volume (litres per unit)</th><th>Weight (kg per unit)</th><th>China</th><th>Mexico</th><th>US</th><th>Canada</th><th>China below Canada</th></tr></thead><tbody><tr><td>Casement operator</td><td>6,400</td><td>1.2</td><td>0.6</td><td>9.60</td><td>12.60</td><td>14.00</td><td>14.80</td><td>35%</td></tr><tr><td>Multipoint lock</td><td>2,600</td><td>2.5</td><td>1.4</td><td>19.50</td><td>—</td><td>29.50</td><td>31.00</td><td>37%</td></tr><tr><td>Patio door roller set</td><td>1,500</td><td>0.8</td><td>0.5</td><td>7.00</td><td>9.30</td><td>10.40</td><td>10.90</td><td>36%</td></tr><tr><td>Entry door handleset</td><td>950</td><td>4.0</td><td>1.6</td><td>22.00</td><td>29.00</td><td>33.00</td><td>35.00</td><td>37%</td></tr><tr><td>Steel reinforcement bar</td><td>9,000</td><td>4.0</td><td>9.0</td><td>12.20</td><td>—</td><td>13.40</td><td>14.00</td><td>13%</td></tr><tr><td>Aluminum screen frame kit</td><td>3,300</td><td>6.0</td><td>0.9</td><td>6.80</td><td>7.50</td><td>8.20</td><td>8.60</td><td>21%</td></tr><tr><td>Weatherstrip roll</td><td>1,400</td><td>30</td><td>6.0</td><td>44.00</td><td>48.00</td><td>53.00</td><td>56.00</td><td>21%</td></tr><tr><td>Warm-edge spacer box</td><td>900</td><td>40</td><td>12.0</td><td>132.00</td><td>—</td><td>150.00</td><td>158.00</td><td>16%</td></tr></tbody></table></div></figure><p>Prices are C$ per unit, FOB origin for imports and delivered for Canadian suppliers, which add a C$60 charge per delivery. Chinese suppliers set minimum order quantities of 200 to 2,000 units per order.</p><p>Freight and lead times are set from public benchmarks and typical SME quotes (Table 3). The ocean full-container rate uses Drewry's Shanghai to Los Angeles spot rate of US$7,514 on October 29, 2026, rounded to US$7,500, as a proxy for Vancouver; LCL rates move with it. Air freight is used only as emergency cover during a disruption (Section 6); allowing it in the base model does not change the chosen plan, because it costs far more than ocean freight.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Freight charges and lead times by origin and mode.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Origin and mode</th><th>Freight charge</th><th>Lead time, mean ± SD (calendar days)</th></tr></thead><tbody><tr><td>China, full container (40 ft)</td><td>US$7,500 ocean + C$2,200 port, documents and drayage; 58 m³ or 24 t</td><td>45 ± 8</td></tr><tr><td>China, less than container</td><td>C$450 per shipment + C$160 per revenue tonne (m³ or tonne, whichever is larger)</td><td>55 ± 12</td></tr><tr><td>China, air</td><td>C$300 per shipment + C$7.50 per chargeable kg</td><td>10 ± 3</td></tr><tr><td>Mexico, truck</td><td>C$300 per shipment + C$0.45 per kg</td><td>10 ± 3</td></tr><tr><td>US, truck</td><td>C$180 per shipment + C$0.30 per kg</td><td>6 ± 2</td></tr><tr><td>Canada, truck</td><td>C$60 per delivery</td><td>3 ± 1</td></tr></tbody></table></div></figure><p>Tariffs are modelled as scenarios, because the rate on a given part depends on its tariff classification, the origin of its steel or aluminum, and whether a remission order applies. In the base scenario, Chinese parts pay an illustrative most-favoured-nation duty (5% hardware, 3% aluminum, 6.5% plastic, 0% steel), and the steel reinforcement and aluminum screen kits from China also pay the 25% surtax on Chinese steel and aluminum products under Canada's 2024 China surtax order. US parts are assumed to qualify for manufacturing remission, and Mexican and US parts enter duty-free under CUSMA. Two further scenarios add a 25% surtax on all Chinese parts, or remove all surtaxes. These rates illustrate the method; an importer should confirm the classification and the surtax for each part with a customs broker.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> The Optimization Model</h2><p>A mixed-integer program picks, for every part, one supplier region, one freight mode and one order frequency, so that the plant's total landed cost is as low as possible. Supplier selection has a long literature [<a href="#ref-12" class="j-cite">12</a>, <a href="#ref-13" class="j-cite">13</a>], and supplier selection with lot sizing is a well-studied problem [<a href="#ref-14" class="j-cite">14</a>]; this version is small enough for a spreadsheet solver or a few lines of Python.</p><p>The model enumerates every feasible option for each part: four regions, two ocean freight modes for China (full and less-than-container loads), truck for the other regions, and order frequencies of 1, 2, 3, 4, 6, 8, 12, 26 or 52 orders a year. An option is dropped if a Chinese order would fall below the supplier's minimum order quantity. Each option's annual cost follows Section 2. The decisions and constraints are:</p><ul><li><strong>One option per part:</strong> a binary variable x for each option, with exactly one chosen per part.</li><li><strong>Shared containers:</strong> a binary variable y(N) chooses N full containers a year from China (N of 1, 2, 3, 4, 6, 8, 12 or 26). Every part sent by full container then ships N times a year, so the parts share each container. The volume and weight of all those parts must fit in N containers: 58 m³ and 24 tonnes each. Each container costs C$12,550 (US$7,500 × 1.38 + C$2,200).</li><li><strong>Supplier regions:</strong> a binary variable u(r) is 1 if any part comes from region r, which adds that region's management cost once.</li></ul><p>The objective adds the cost of the chosen options, the containers and the regions used. With 8 parts the model has about 260 binary variables and solves in under a second with the free CBC solver through PuLP [<a href="#ref-15" class="j-cite">15</a>]. Standard Excel Solver is limited to 200 decision variables, enough for about six parts with this many options; larger cases need OpenSolver, Frontline's Premium Solver or the Python appendix.</p><p>The model is compared with two rules buyers commonly use:</p><ul><li><strong>Lowest price:</strong> buy each part from the region with the lowest unit price, ship Chinese parts LCL, and order up to monthly where the minimum order allows.</li><li><strong>Lowest price plus freight:</strong> buy each part from the region with the lowest unit price plus duty, freight and brokerage per unit, ordering quarterly or as close to it as the minimum order allows. This is the comparison many purchasing teams already make.</li></ul></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Results: Where the Lowest Price Loses</h2><p>The total-cost plan costs C$573,600 a year, C$56,500 (9.0%) less than buying every part at the lowest price, even though its supplier invoices are C$62,300 higher. It keeps the four compact hardware parts in China and buys the four bulky or surtaxed parts in Canada (Table 4). Figure 1 shows where the saving comes from.</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> Supplier region, freight mode and orders a year for each part under the three rules.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Part</th><th>Lowest price</th><th>Lowest price plus freight</th><th>Total landed cost</th></tr></thead><tbody><tr><td>Casement operator</td><td>China, LCL, 6 a year</td><td>China, LCL, 4 a year</td><td>China, LCL, 4 a year</td></tr><tr><td>Multipoint lock</td><td>China, LCL, 4 a year</td><td>China, LCL, 4 a year</td><td>China, LCL, 3 a year</td></tr><tr><td>Patio door roller set</td><td>China, LCL, 3 a year</td><td>China, LCL, 3 a year</td><td>China, LCL, 2 a year</td></tr><tr><td>Entry door handleset</td><td>China, LCL, 3 a year</td><td>China, LCL, 3 a year</td><td>China, LCL, 2 a year</td></tr><tr><td>Steel reinforcement bar</td><td>China, LCL, 4 a year</td><td>Canada, truck, 4 a year</td><td>Canada, truck, monthly</td></tr><tr><td>Aluminum screen frame kit</td><td>China, LCL, 3 a year</td><td>Mexico, truck, 4 a year</td><td>Canada, truck, 8 a year</td></tr><tr><td>Weatherstrip roll</td><td>China, LCL, 4 a year</td><td>Mexico, truck, 4 a year</td><td>Canada, truck, monthly</td></tr><tr><td>Warm-edge spacer box</td><td>China, LCL, 4 a year</td><td>China, LCL, 4 a year</td><td>Canada, truck, monthly</td></tr><tr><td><strong>Annual total landed cost</strong></td><td><strong>C$630,100</strong></td><td><strong>C$581,500</strong></td><td><strong>C$573,600</strong></td></tr></tbody></table></div><p class="j-table-note">Base scenario, container rate US$7,500.</p></figure><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 607.027422 302.95318" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Waterfall bars from C$630,082 for the lowest-price plan: purchase price up C$62,340, then savings in duty and surtax (C$45,459), freight (C$34,968), carrying cost (C$26,701), quality, payment terms and brokerage, and supplier management up C$1,500, ending at C$573,614 for the total-cost plan.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 302.95318 
+L 607.027422 302.95318 
+L 607.027422 0 
+L 0 0 
+L 0 302.95318 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 121.387422 260.784 
+L 601.267422 260.784 
+L 601.267422 5.76 
+L 121.387422 5.76 
+L 121.387422 260.784 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 121.387422 260.784 
+L 121.387422 5.76 
+" clip-path="url(#p675922cc66)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m50b94202b5" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m50b94202b5" x="121.387422" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="121.387422" y="277.955875" transform="rotate(-0 121.387422 277.955875)">500</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 223.48955 260.784 
+L 223.48955 5.76 
+" clip-path="url(#p675922cc66)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m50b94202b5" x="223.48955" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="223.48955" y="277.955875" transform="rotate(-0 223.48955 277.955875)">550</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 325.591677 260.784 
+L 325.591677 5.76 
+" clip-path="url(#p675922cc66)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m50b94202b5" x="325.591677" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="325.591677" y="277.955875" transform="rotate(-0 325.591677 277.955875)">600</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 427.693805 260.784 
+L 427.693805 5.76 
+" clip-path="url(#p675922cc66)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m50b94202b5" x="427.693805" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="427.693805" y="277.955875" transform="rotate(-0 427.693805 277.955875)">650</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 529.795933 260.784 
+L 529.795933 5.76 
+" clip-path="url(#p675922cc66)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m50b94202b5" x="529.795933" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="529.795933" y="277.955875" transform="rotate(-0 529.795933 277.955875)">700</text>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="361.327422" y="294.660465" transform="rotate(-0 361.327422 294.660465)">Annual total landed cost (C$ thousand); the axis starts at C$500,000</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_11">
+<defs>
+<path id="md9872cd2db" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="242.173879" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="247.259816" transform="rotate(-0 114.387422 247.259816)">Total-cost plan</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_12">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="217.973461" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="223.059399" transform="rotate(-0 114.387422 223.059399)">Supplier management</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_13">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="193.773044" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="198.858981" transform="rotate(-0 114.387422 198.858981)">Payment terms</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_14">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="169.572626" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="174.658564" transform="rotate(-0 114.387422 174.658564)">Carrying cost</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_15">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="145.372209" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="150.458146" transform="rotate(-0 114.387422 150.458146)">Quality</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_16">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="121.171791" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="126.257729" transform="rotate(-0 114.387422 126.257729)">Brokerage</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_17">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="96.971374" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="102.057311" transform="rotate(-0 114.387422 102.057311)">Freight</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_18">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="72.770956" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="77.856894" transform="rotate(-0 114.387422 77.856894)">Duty and surtax</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_19">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="48.570539" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="53.656476" transform="rotate(-0 114.387422 53.656476)">Purchase price</text>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_20">
+<g>
+<use xlink:href="#md9872cd2db" x="121.387422" y="24.370121" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="114.387422" y="29.456059" transform="rotate(-0 114.387422 29.456059)">Lowest-price plan</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M -899.633855 31.388242 
+L 387.020401 31.388242 
+L 387.020401 17.352 
+L -899.633855 17.352 
+z
+" clip-path="url(#p675922cc66)" style="fill: #0b2a5a"/>
+</g>
+<g id="patch_4">
+<path d="M 387.020401 55.58866 
+L 514.321334 55.58866 
+L 514.321334 41.552418 
+L 387.020401 41.552418 
+z
+" clip-path="url(#p675922cc66)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_5">
+<path d="M 421.492122 79.789077 
+L 514.321334 79.789077 
+L 514.321334 65.752835 
+L 421.492122 65.752835 
+z
+" clip-path="url(#p675922cc66)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_6">
+<path d="M 350.085978 103.989495 
+L 421.492122 103.989495 
+L 421.492122 89.953253 
+L 350.085978 89.953253 
+z
+" clip-path="url(#p675922cc66)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_7">
+<path d="M 342.734624 128.189912 
+L 350.085978 128.189912 
+L 350.085978 114.15367 
+L 342.734624 114.15367 
+z
+" clip-path="url(#p675922cc66)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_8">
+<path d="M 331.301228 152.39033 
+L 342.734624 152.39033 
+L 342.734624 138.354088 
+L 331.301228 138.354088 
+z
+" clip-path="url(#p675922cc66)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_9">
+<path d="M 276.77665 176.590747 
+L 331.301228 176.590747 
+L 331.301228 162.554505 
+L 276.77665 162.554505 
+z
+" clip-path="url(#p675922cc66)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_10">
+<path d="M 268.647279 200.791165 
+L 276.77665 200.791165 
+L 276.77665 186.754923 
+L 268.647279 186.754923 
+z
+" clip-path="url(#p675922cc66)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_11">
+<path d="M 268.647279 224.991582 
+L 271.710342 224.991582 
+L 271.710342 210.95534 
+L 268.647279 210.95534 
+z
+" clip-path="url(#p675922cc66)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_12">
+<path d="M -899.633855 249.192 
+L 271.710342 249.192 
+L 271.710342 235.155758 
+L -899.633855 235.155758 
+z
+" clip-path="url(#p675922cc66)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_13">
+<path d="M 121.387422 260.784 
+L 121.387422 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_14">
+<path d="M 121.387422 260.784 
+L 601.267422 260.784 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_17">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="391.104486" y="27.825932" transform="rotate(-0 391.104486 27.825932)">C$630,082</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="518.405419" y="52.026349" transform="rotate(-0 518.405419 52.026349)">+C$62,340</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="518.405419" y="76.226767" transform="rotate(-0 518.405419 76.226767)">−C$45,459</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="425.576207" y="100.427184" transform="rotate(-0 425.576207 100.427184)">−C$34,968</text>
+</g>
+<g id="text_21">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="354.170063" y="124.627602" transform="rotate(-0 354.170063 124.627602)">−C$3,600</text>
+</g>
+<g id="text_22">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="346.81871" y="148.828019" transform="rotate(-0 346.81871 148.828019)">−C$5,599</text>
+</g>
+<g id="text_23">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="335.385313" y="173.028437" transform="rotate(-0 335.385313 173.028437)">−C$26,701</text>
+</g>
+<g id="text_24">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="280.860735" y="197.228854" transform="rotate(-0 280.860735 197.228854)">−C$3,981</text>
+</g>
+<g id="text_25">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="275.794427" y="221.429272" transform="rotate(-0 275.794427 221.429272)">+C$1,500</text>
+</g>
+<g id="text_26">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="275.794427" y="245.629689" transform="rotate(-0 275.794427 245.629689)">C$573,614</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p675922cc66">
+<rect x="121.387422" y="5.76" width="479.88" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Change in annual total landed cost from the lowest-price plan to the total-cost plan, by component; base scenario, container rate US$7,500.</figcaption></figure><p>Three costs the invoice does not show decide the result:</p><ul><li><strong>Duties and surtaxes (C$45,500 saved).</strong> The lowest-price plan pays C$52,600 in duty, of which C$33,100 is the 25% surtax on Chinese steel reinforcement and aluminum screen kits. Steel reinforcement is 13% cheaper from China on the invoice but 9% dearer after the surtax.</li><li><strong>Freight (C$35,000 saved).</strong> Weatherstrip and spacers ship 30 to 40 litres per unit; at LCL rates their freight adds 6% to 14% to the price. Truck delivery from a Canadian supplier costs C$60 a load.</li><li><strong>Carrying cost (C$26,700 saved).</strong> A Chinese part shipped LCL has a lead time of about 55 days and needs safety stock for a lead time that varies by ±12 days. A Chinese casement operator ordered quarterly ties up about four months of demand, counting goods on the water; Canadian steel reinforcement delivered monthly ties up about three weeks.</li></ul><p>The price-plus-freight rule captures most of the gain: it costs C$581,500, 1.4% above the optimum. It falls short in two ways. It orders quarterly when monthly Canadian deliveries carry less stock, and it spreads parts across three regions, paying C$5,000 a year to manage a Mexican supplier for two parts. Order frequency and the number of supplier regions are the details a per-unit comparison cannot see. The surtax explains most of the size of the gain but not the choice: with no surtaxes at all, the total-cost plan is the same, but the lowest-price plan costs C$594,100, so the saving falls to C$20,500 (3.5%).</p><h3>5.1 Freight rates and full containers</h3><p>The total-cost plan does not depend much on the freight rate: across container rates from US$1,500 to US$11,000, the re-optimized plan's cost moves by C$10,200 (the plan fixed at today's rate by C$4,300), while the lowest-price plan's moves by C$43,600 (Figure 2).</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 535.023418 280.77718" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Three lines against container rates from US$1,500 to US$11,000: the lowest-price plan rises from about C$603,000 to C$646,000, while the total-cost plan, re-optimized or fixed at the US$7,500 choice, stays between about C$565,000 and C$575,000.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 280.77718 
+L 535.023418 280.77718 
+L 535.023418 0 
+L 0 0 
+L 0 280.77718 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 49.383418 238.608 
+L 529.263418 238.608 
+L 529.263418 5.76 
+L 49.383418 5.76 
+L 49.383418 238.608 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 94.156911 238.608 
+L 94.156911 5.76 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mb30493f51a" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mb30493f51a" x="94.156911" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="94.156911" y="255.779875" transform="rotate(-0 94.156911 255.779875)">2</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 185.999973 238.608 
+L 185.999973 5.76 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mb30493f51a" x="185.999973" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="185.999973" y="255.779875" transform="rotate(-0 185.999973 255.779875)">4</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 277.843035 238.608 
+L 277.843035 5.76 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mb30493f51a" x="277.843035" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="277.843035" y="255.779875" transform="rotate(-0 277.843035 255.779875)">6</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 369.686097 238.608 
+L 369.686097 5.76 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mb30493f51a" x="369.686097" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="369.686097" y="255.779875" transform="rotate(-0 369.686097 255.779875)">8</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 461.52916 238.608 
+L 461.52916 5.76 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mb30493f51a" x="461.52916" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="461.52916" y="255.779875" transform="rotate(-0 461.52916 255.779875)">10</text>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="289.323418" y="272.484465" transform="rotate(-0 289.323418 272.484465)">China 40-foot container rate (US$ thousand)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_11">
+<path d="M 49.383418 226.9656 
+L 529.263418 226.9656 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<defs>
+<path id="m8277f3e34e" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m8277f3e34e" x="49.383418" y="226.9656" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.383418" y="232.051537" transform="rotate(-0 42.383418 232.051537)">560</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_13">
+<path d="M 49.383418 180.396 
+L 529.263418 180.396 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m8277f3e34e" x="49.383418" y="180.396" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.383418" y="185.481937" transform="rotate(-0 42.383418 185.481937)">580</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_15">
+<path d="M 49.383418 133.8264 
+L 529.263418 133.8264 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m8277f3e34e" x="49.383418" y="133.8264" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.383418" y="138.912337" transform="rotate(-0 42.383418 138.912337)">600</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_17">
+<path d="M 49.383418 87.2568 
+L 529.263418 87.2568 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m8277f3e34e" x="49.383418" y="87.2568" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.383418" y="92.342737" transform="rotate(-0 42.383418 92.342737)">620</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_19">
+<path d="M 49.383418 40.6872 
+L 529.263418 40.6872 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m8277f3e34e" x="49.383418" y="40.6872" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.383418" y="45.773137" transform="rotate(-0 42.383418 45.773137)">640</text>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="122.184" transform="rotate(-90 15.931875 122.184)">Annual total landed cost (C$ thousand)</text>
+</g>
+</g>
+<g id="line2d_21">
+<path d="M 71.196145 127.900418 
+L 94.156911 122.556557 
+L 117.117676 117.212695 
+L 140.078442 111.871162 
+L 185.999973 101.183439 
+L 231.921504 90.495716 
+L 277.843035 79.810321 
+L 346.725332 63.781065 
+L 415.607628 47.74948 
+L 507.450691 26.376362 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #8a94a6; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="mb81cf715a0" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #8a94a6"/>
+</defs>
+<g clip-path="url(#pfec3f417fe)">
+<use xlink:href="#mb81cf715a0" x="71.196145" y="127.900418" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="94.156911" y="122.556557" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="117.117676" y="117.212695" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="140.078442" y="111.871162" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="185.999973" y="101.183439" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="231.921504" y="90.495716" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="277.843035" y="79.810321" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="346.725332" y="63.781065" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="415.607628" y="47.74948" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#mb81cf715a0" x="507.450691" y="26.376362" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="line2d_22">
+<path d="M 71.196145 201.538598 
+L 94.156911 201.01469 
+L 117.117676 200.493111 
+L 140.078442 199.969203 
+L 185.999973 198.923715 
+L 231.921504 197.878228 
+L 277.843035 196.83274 
+L 346.725332 195.265673 
+L 415.607628 193.696278 
+L 507.450691 191.605303 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.6"/>
+</g>
+<g id="line2d_23">
+<path d="M 71.196145 215.434967 
+L 94.156911 210.615013 
+L 117.117676 205.79506 
+L 140.078442 204.07897 
+L 185.999973 200.767872 
+L 231.921504 197.878228 
+L 277.843035 196.83274 
+L 346.725332 195.265673 
+L 415.607628 193.696278 
+L 507.450691 191.605303 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.6; stroke-linecap: square"/>
+<defs>
+<path id="m0c4a47ff4b" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#pfec3f417fe)">
+<use xlink:href="#m0c4a47ff4b" x="71.196145" y="215.434967" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="94.156911" y="210.615013" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="117.117676" y="205.79506" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="140.078442" y="204.07897" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="185.999973" y="200.767872" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="231.921504" y="197.878228" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="277.843035" y="196.83274" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="346.725332" y="195.265673" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="415.607628" y="193.696278" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m0c4a47ff4b" x="507.450691" y="191.605303" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="line2d_24">
+<path d="M 346.725332 238.608 
+L 346.725332 5.76 
+" clip-path="url(#pfec3f417fe)" style="fill: none; stroke-dasharray: 5.5,4.4; stroke-dashoffset: 0; stroke: #9aa8ba; stroke-width: 1.1"/>
+</g>
+<g id="patch_3">
+<path d="M 49.383418 238.608 
+L 49.383418 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 49.383418 238.608 
+L 529.263418 238.608 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_13">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(352.235916 19.620085)">Base case</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(352.235916 31.114714)">US$7,500</text>
+</g>
+<g id="legend_1">
+<g id="line2d_25">
+<path d="M 57.933418 20.188125 
+L 67.433418 20.188125 
+L 76.933418 20.188125 
+" style="fill: none; stroke: #8a94a6; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#mb81cf715a0" x="67.433418" y="20.188125" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="84.533418" y="23.513125" transform="rotate(-0 84.533418 23.513125)">Lowest-price plan</text>
+</g>
+<g id="line2d_26">
+<path d="M 57.933418 36.432754 
+L 67.433418 36.432754 
+L 76.933418 36.432754 
+" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.6"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="84.533418" y="39.757754" transform="rotate(-0 84.533418 39.757754)">Total-cost plan fixed at the US$7,500 choice</text>
+</g>
+<g id="line2d_27">
+<path d="M 57.933418 52.677383 
+L 67.433418 52.677383 
+L 76.933418 52.677383 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.6; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m0c4a47ff4b" x="67.433418" y="52.677383" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="84.533418" y="56.002383" transform="rotate(-0 84.533418 56.002383)">Total-cost plan re-optimized at each rate</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pfec3f417fe">
+<rect x="49.383418" y="5.76" width="479.88" height="232.848"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Annual total landed cost against the China 40-foot container rate, with LCL rates scaled with the container rate.</figcaption></figure><p>Below US$2,500 to US$3,000 per container, the model switches the China parts to three shared full containers a year, and brings the weatherstrip and spacers back to China. Above that rate, the plant's volume (about 97 m³ a year for the six parts that would share containers) does not fill them often enough. Between about US$3,000 and US$4,500, weatherstrip still comes from China by LCL; above that, LCL for the compact hardware plus Canadian supply for the bulky parts wins. The plan chosen at today's US$7,500 rate costs at most C$6,000 a year more than the re-optimized plan at any rate in the range. A sourcing plan can be set at today's freight rate and reviewed when container rates fall below about US$3,000.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Risk: Freight, Tariffs and Disruptions</h2><p>The total-cost plan also holds up under uncertainty: across 20,000 simulated years it has the lowest mean cost, C$580,800, and a 95th-percentile cost within C$500 of the lowest (the all-North-America plan) and C$106,600 below the lowest-price plan (Figure 3).</p><p>Each simulated year draws five uncertain inputs and prices a fixed plan against them:</p><ul><li><strong>Container freight rate:</strong> lognormal, median US$4,500, below the US$7,500 base case to reflect the past year, with 90% of years between about US$2,150 and US$9,450; Drewry's Shanghai to Los Angeles rate ran from about US$2,100 in December 2025 to about US$8,000 in October 2026. LCL rates move in proportion. Centring the distribution on US$7,500 instead raises every plan's cost and widens the total-cost plan's lead.</li><li><strong>Exchange rate:</strong> C$1.38 ± 0.05 per US dollar, applied to all imported prices.</li><li><strong>Tariff scenario:</strong> the base case (60% of years), US manufacturing remission ending with a 25% surtax on US parts (20%), or a 25% surtax on all Chinese parts (20%). These weights are stress-test assumptions, not forecasts. No plan here buys from the US, so the remission scenario changes no plan's cost; in effect the test weighs the base case against a broader China surtax.</li><li><strong>China lane disruption:</strong> a 15% chance each year of a port or shipping disruption that delays Chinese parts by 28 to 56 days.</li><li><strong>Cover during a disruption:</strong> demand in the delay beyond safety stock is met by the backup supplier if there is one (it can double its normal volume), and otherwise by air freight from China or a Canadian spot buy at a 15% premium, whichever is cheaper.</li></ul><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 547.500965 296.951117" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Scatter of five plans: the total-cost plan has the lowest mean (C$581,000) and a 95th percentile of C$617,000, level with all North America (mean C$604,000) and far below the lowest-price plan (mean C$637,000, 95th percentile C$724,000).</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M -0 296.951117 
+L 547.500965 296.951117 
+L 547.500965 0 
+L -0 0 
+L -0 296.951117 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 52.100887 254.781937 
+L 531.980887 254.781937 
+L 531.980887 10.845937 
+L 52.100887 10.845937 
+L 52.100887 254.781937 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 80.329122 254.781937 
+L 80.329122 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m3f95000f46" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m3f95000f46" x="80.329122" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="80.329122" y="271.953812" transform="rotate(-0 80.329122 271.953812)">570</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 136.785593 254.781937 
+L 136.785593 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m3f95000f46" x="136.785593" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="136.785593" y="271.953812" transform="rotate(-0 136.785593 271.953812)">580</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 193.242063 254.781937 
+L 193.242063 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m3f95000f46" x="193.242063" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="193.242063" y="271.953812" transform="rotate(-0 193.242063 271.953812)">590</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 249.698534 254.781937 
+L 249.698534 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m3f95000f46" x="249.698534" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="249.698534" y="271.953812" transform="rotate(-0 249.698534 271.953812)">600</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 306.155004 254.781937 
+L 306.155004 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m3f95000f46" x="306.155004" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="306.155004" y="271.953812" transform="rotate(-0 306.155004 271.953812)">610</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 362.611475 254.781937 
+L 362.611475 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m3f95000f46" x="362.611475" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="362.611475" y="271.953812" transform="rotate(-0 362.611475 271.953812)">620</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 419.067946 254.781937 
+L 419.067946 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m3f95000f46" x="419.067946" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="419.067946" y="271.953812" transform="rotate(-0 419.067946 271.953812)">630</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 475.524416 254.781937 
+L 475.524416 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m3f95000f46" x="475.524416" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="475.524416" y="271.953812" transform="rotate(-0 475.524416 271.953812)">640</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 531.980887 254.781937 
+L 531.980887 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m3f95000f46" x="531.980887" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="531.980887" y="271.953812" transform="rotate(-0 531.980887 271.953812)">650</text>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="292.040887" y="288.658402" transform="rotate(-0 292.040887 288.658402)">Mean annual total landed cost (C$ thousand)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_19">
+<path d="M 52.100887 254.781937 
+L 531.980887 254.781937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<defs>
+<path id="m3761330781" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="254.781937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="259.867875" transform="rotate(-0 45.100887 259.867875)">600</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_21">
+<path d="M 52.100887 219.933937 
+L 531.980887 219.933937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="219.933937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="225.019875" transform="rotate(-0 45.100887 225.019875)">620</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_23">
+<path d="M 52.100887 185.085938 
+L 531.980887 185.085938 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="185.085938" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="190.171875" transform="rotate(-0 45.100887 190.171875)">640</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_25">
+<path d="M 52.100887 150.237937 
+L 531.980887 150.237937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="150.237937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="155.323875" transform="rotate(-0 45.100887 155.323875)">660</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_27">
+<path d="M 52.100887 115.389937 
+L 531.980887 115.389937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="115.389937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="120.475875" transform="rotate(-0 45.100887 120.475875)">680</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_29">
+<path d="M 52.100887 80.541937 
+L 531.980887 80.541937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="80.541937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="85.627875" transform="rotate(-0 45.100887 85.627875)">700</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_31">
+<path d="M 52.100887 45.693937 
+L 531.980887 45.693937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="45.693937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="50.779875" transform="rotate(-0 45.100887 50.779875)">720</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_33">
+<path d="M 52.100887 10.845937 
+L 531.980887 10.845937 
+" clip-path="url(#paaaedb4f9d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m3761330781" x="52.100887" y="10.845937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.100887" y="15.931875" transform="rotate(-0 45.100887 15.931875)">740</text>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="18.649344" y="132.813937" transform="rotate(-90 18.649344 132.813937)">95th-percentile annual cost (C$ thousand)</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 52.100887 254.781937 
+L 52.100887 10.845937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 52.100887 254.781937 
+L 531.980887 254.781937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="PathCollection_1">
+<defs>
+<path id="m0bb641f4ec" d="M 0 3.535534 
+C 0.937635 3.535534 1.836992 3.163008 2.5 2.5 
+C 3.163008 1.836992 3.535534 0.937635 3.535534 0 
+C 3.535534 -0.937635 3.163008 -1.836992 2.5 -2.5 
+C 1.836992 -3.163008 0.937635 -3.535534 0 -3.535534 
+C -0.937635 -3.535534 -1.836992 -3.163008 -2.5 -2.5 
+C -3.163008 -1.836992 -3.535534 -0.937635 -3.535534 0 
+C -3.535534 0.937635 -3.163008 1.836992 -2.5 2.5 
+C -1.836992 3.163008 -0.937635 3.535534 0 3.535534 
+z
+" style="stroke: #ffffff"/>
+</defs>
+<g clip-path="url(#paaaedb4f9d)">
+<use xlink:href="#m0bb641f4ec" x="458.305193" y="38.790549" style="fill: #8a94a6; stroke: #ffffff"/>
+</g>
+</g>
+<g id="text_20">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(379.903042 26.117008)">Lowest price</text>
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(315.464229 37.248649)">mean C$637k, P95 C$724k</text>
+</g>
+<g id="PathCollection_2">
+<g clip-path="url(#paaaedb4f9d)">
+<use xlink:href="#m0bb641f4ec" x="211.421047" y="147.145178" style="fill: #8a94a6; stroke: #ffffff"/>
+</g>
+</g>
+<g id="text_21">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(234.003635 144.926037)">Lowest price plus freight</text>
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(234.003635 156.057677)">mean C$593k, P95 C$662k</text>
+</g>
+<g id="PathCollection_3">
+<defs>
+<path id="md8b7bb17c9" d="M 0 4.1833 
+C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804 
+C 3.742521 2.173559 4.1833 1.109424 4.1833 0 
+C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804 
+C 2.173559 -3.742521 1.109424 -4.1833 0 -4.1833 
+C -1.109424 -4.1833 -2.173559 -3.742521 -2.95804 -2.95804 
+C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0 
+C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804 
+C -2.173559 3.742521 -1.109424 4.1833 0 4.1833 
+z
+" style="stroke: #ffffff"/>
+</defs>
+<g clip-path="url(#paaaedb4f9d)">
+<use xlink:href="#md8b7bb17c9" x="141.375504" y="224.516449" style="fill: #0b6fa4; stroke: #ffffff"/>
+</g>
+</g>
+<g id="text_22">
+<text style="font-weight: 600; font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(57.576125 237.978909)">Total-cost plan</text>
+<text style="font-weight: 600; font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(5.76 249.110549)">mean C$581k, P95 C$617k</text>
+</g>
+<g id="PathCollection_4">
+<g clip-path="url(#paaaedb4f9d)">
+<use xlink:href="#m0bb641f4ec" x="221.583211" y="212.882445" style="fill: #8a94a6; stroke: #ffffff"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(238.520153 205.436104)">Total-cost plan, dual-sourced hardware</text>
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(238.520153 216.567745)">mean C$595k, P95 C$624k</text>
+</g>
+<g id="PathCollection_5">
+<g clip-path="url(#paaaedb4f9d)">
+<use xlink:href="#m0bb641f4ec" x="269.921242" y="225.33712" style="fill: #8a94a6; stroke: #ffffff"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(286.858183 233.572379)">All North America</text>
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(286.858183 244.70402)">mean C$604k, P95 C$617k</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="paaaedb4f9d">
+<rect x="52.100887" y="10.845937" width="479.88" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Mean against 95th-percentile annual total landed cost for five sourcing plans, 20,000 simulated years each with the same random inputs.</figcaption></figure><p>The lowest-price plan carries the most risk as well as the highest cost: it is fully exposed to freight rates, to a broader China surtax and to every China disruption. The all-North-America plan (the optimum if every Chinese part paid a 25% surtax) has the narrowest spread but costs C$22,800 a year more on average than the total-cost plan, for about the same 95th-percentile cost. If a 25% surtax were applied to all Chinese parts for a full year, the total-cost plan would cost C$613,000, C$9,400 more than switching to North America; a plant can watch for that signal and re-run the model.</p><h3>6.1 When does a second supplier pay?</h3><p>Dual sourcing is insurance with a known premium: splitting the four China hardware parts 70/30 with a Mexican or Canadian supplier (the model then also moves screen kits and weatherstrip to Mexico, whose management cost is already paid) costs C$16,300 a year more in the base case, because the second supplier's price is higher and the smaller orders carry more cost per unit [<a href="#ref-16" class="j-cite">16</a>]. In this case the premium buys nothing as long as a delay can be covered by air freight or a domestic spot buy. Its mean cost is C$14,200 higher, and its 95th-percentile cost is C$6,700 higher.</p><p>The answer changes when a shortage cannot be covered. With no spot market, every part short costs the plant a shortage cost: lost contribution on a window or door that cannot ship, overtime to catch up, or a penalty. Figure 4 shows how the comparison moves as that cost rises.</p><figure class="j-fig" id="figure-4"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-4-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 534.865918 280.788936" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-4-t">Three lines against shortage cost from C$0 to C$300 per part: the single-source total-cost plan rises from C$580,000 to C$605,000, crossing the nearly flat dual-sourced plan near C$190 and the flat all-North-America plan near C$280.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 280.788936 
+L 534.865918 280.788936 
+L 534.865918 0 
+L 0 0 
+L 0 280.788936 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 49.225918 238.619757 
+L 529.105918 238.619757 
+L 529.105918 5.771757 
+L 49.225918 5.771757 
+L 49.225918 238.619757 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 71.038645 238.619757 
+L 71.038645 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m9e4010a294" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m9e4010a294" x="71.038645" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="71.038645" y="255.791632" transform="rotate(-0 71.038645 255.791632)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 143.747736 238.619757 
+L 143.747736 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m9e4010a294" x="143.747736" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="143.747736" y="255.791632" transform="rotate(-0 143.747736 255.791632)">50</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 216.456827 238.619757 
+L 216.456827 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m9e4010a294" x="216.456827" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="216.456827" y="255.791632" transform="rotate(-0 216.456827 255.791632)">100</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 289.165918 238.619757 
+L 289.165918 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m9e4010a294" x="289.165918" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="289.165918" y="255.791632" transform="rotate(-0 289.165918 255.791632)">150</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 361.875009 238.619757 
+L 361.875009 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m9e4010a294" x="361.875009" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="361.875009" y="255.791632" transform="rotate(-0 361.875009 255.791632)">200</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 434.5841 238.619757 
+L 434.5841 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m9e4010a294" x="434.5841" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="434.5841" y="255.791632" transform="rotate(-0 434.5841 255.791632)">250</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 507.293191 238.619757 
+L 507.293191 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m9e4010a294" x="507.293191" y="238.619757" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="507.293191" y="255.791632" transform="rotate(-0 507.293191 255.791632)">300</text>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="289.165918" y="272.496221" transform="rotate(-0 289.165918 272.496221)">Cost per part short, no spot market or air cover (C$)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_15">
+<path d="M 49.225918 232.492178 
+L 529.105918 232.492178 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<defs>
+<path id="m8c8f1995a1" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="232.492178" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="237.578115" transform="rotate(-0 42.225918 237.578115)">575</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_17">
+<path d="M 49.225918 201.854283 
+L 529.105918 201.854283 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="201.854283" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="206.94022" transform="rotate(-0 42.225918 206.94022)">580</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_19">
+<path d="M 49.225918 171.216388 
+L 529.105918 171.216388 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="171.216388" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="176.302326" transform="rotate(-0 42.225918 176.302326)">585</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_21">
+<path d="M 49.225918 140.578493 
+L 529.105918 140.578493 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="140.578493" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="145.664431" transform="rotate(-0 42.225918 145.664431)">590</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_23">
+<path d="M 49.225918 109.940599 
+L 529.105918 109.940599 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="109.940599" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="115.026536" transform="rotate(-0 42.225918 115.026536)">595</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_25">
+<path d="M 49.225918 79.302704 
+L 529.105918 79.302704 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="79.302704" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="84.388641" transform="rotate(-0 42.225918 84.388641)">600</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_27">
+<path d="M 49.225918 48.664809 
+L 529.105918 48.664809 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="48.664809" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="53.750747" transform="rotate(-0 42.225918 53.750747)">605</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_29">
+<path d="M 49.225918 18.026914 
+L 529.105918 18.026914 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m8c8f1995a1" x="49.225918" y="18.026914" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="42.225918" y="23.112852" transform="rotate(-0 42.225918 23.112852)">610</text>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="122.195757" transform="rotate(-90 15.931875 122.195757)">Mean annual total landed cost (C$ thousand)</text>
+</g>
+</g>
+<g id="line2d_31">
+<path d="M 71.038645 200.67166 
+L 107.393191 188.012082 
+L 143.747736 175.346376 
+L 180.102282 162.686798 
+L 216.456827 150.02722 
+L 252.811373 137.367642 
+L 289.165918 124.708064 
+L 325.520463 112.042358 
+L 361.875009 99.38278 
+L 434.5841 74.063624 
+L 507.293191 48.744468 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.6; stroke-linecap: square"/>
+<defs>
+<path id="mede4440298" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#p875a19b6ec)">
+<use xlink:href="#mede4440298" x="71.038645" y="200.67166" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="107.393191" y="188.012082" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="143.747736" y="175.346376" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="180.102282" y="162.686798" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="216.456827" y="150.02722" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="252.811373" y="137.367642" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="289.165918" y="124.708064" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="325.520463" y="112.042358" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="361.875009" y="99.38278" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="434.5841" y="74.063624" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#mede4440298" x="507.293191" y="48.744468" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="line2d_32">
+<path d="M 71.038645 110.871991 
+L 107.393191 110.026385 
+L 143.747736 109.186906 
+L 180.102282 108.341301 
+L 216.456827 107.495695 
+L 252.811373 106.650089 
+L 289.165918 105.81061 
+L 325.520463 104.965005 
+L 361.875009 104.119399 
+L 434.5841 102.434314 
+L 507.293191 100.743103 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #e07a3a; stroke-width: 2; stroke-linecap: square"/>
+<defs>
+<path id="m5d991e28c0" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p875a19b6ec)">
+<use xlink:href="#m5d991e28c0" x="71.038645" y="110.871991" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="107.393191" y="110.026385" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="143.747736" y="109.186906" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="180.102282" y="108.341301" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="216.456827" y="107.495695" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="252.811373" y="106.650089" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="289.165918" y="105.81061" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="325.520463" y="104.965005" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="361.875009" y="104.119399" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="434.5841" y="102.434314" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m5d991e28c0" x="507.293191" y="100.743103" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_33">
+<path d="M 71.038645 57.29244 
+L 107.393191 57.29244 
+L 143.747736 57.29244 
+L 180.102282 57.29244 
+L 216.456827 57.29244 
+L 252.811373 57.29244 
+L 289.165918 57.29244 
+L 325.520463 57.29244 
+L 361.875009 57.29244 
+L 434.5841 57.29244 
+L 507.293191 57.29244 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+<defs>
+<path id="md0bbb89f84" d="M 0 1.75 
+C 0.464105 1.75 0.909265 1.565609 1.237437 1.237437 
+C 1.565609 0.909265 1.75 0.464105 1.75 0 
+C 1.75 -0.464105 1.565609 -0.909265 1.237437 -1.237437 
+C 0.909265 -1.565609 0.464105 -1.75 0 -1.75 
+C -0.464105 -1.75 -0.909265 -1.565609 -1.237437 -1.237437 
+C -1.565609 -0.909265 -1.75 -0.464105 -1.75 0 
+C -1.75 0.464105 -1.565609 0.909265 -1.237437 1.237437 
+C -0.909265 1.565609 -0.464105 1.75 0 1.75 
+z
+" style="stroke: #8a94a6"/>
+</defs>
+<g clip-path="url(#p875a19b6ec)">
+<use xlink:href="#md0bbb89f84" x="71.038645" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="107.393191" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="143.747736" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="180.102282" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="216.456827" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="252.811373" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="289.165918" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="325.520463" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="361.875009" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="434.5841" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#md0bbb89f84" x="507.293191" y="57.29244" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="line2d_34">
+<path d="M 347.333191 238.619757 
+L 347.333191 5.771757 
+" clip-path="url(#p875a19b6ec)" style="fill: none; stroke-dasharray: 5.5,4.4; stroke-dashoffset: 0; stroke: #9aa8ba; stroke-width: 1.1"/>
+</g>
+<g id="patch_3">
+<path d="M 49.225918 238.619757 
+L 49.225918 5.771757 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 49.225918 238.619757 
+L 529.105918 238.619757 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_18">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="341.516463" y="14.963125" transform="rotate(-0 341.516463 14.963125)">Break-even on mean cost: about C$190</text>
+</g>
+<g id="legend_1">
+<g id="line2d_35">
+<path d="M 281.11584 191.963995 
+L 290.61584 191.963995 
+L 300.11584 191.963995 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.6; stroke-linecap: square"/>
+<g>
+<use xlink:href="#mede4440298" x="290.61584" y="191.963995" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="307.71584" y="195.288995" transform="rotate(-0 307.71584 195.288995)">Total-cost plan (China hardware, single source)</text>
+</g>
+<g id="line2d_36">
+<path d="M 281.11584 208.208624 
+L 290.61584 208.208624 
+L 300.11584 208.208624 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m5d991e28c0" x="290.61584" y="208.208624" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="text_20">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="307.71584" y="211.533624" transform="rotate(-0 307.71584 211.533624)">Dual-sourced hardware (70/30)</text>
+</g>
+<g id="line2d_37">
+<path d="M 281.11584 224.453253 
+L 290.61584 224.453253 
+L 300.11584 224.453253 
+" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#md0bbb89f84" x="290.61584" y="224.453253" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="text_21">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="307.71584" y="227.778253" transform="rotate(-0 307.71584 227.778253)">All North America</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p875a19b6ec">
+<rect x="49.225918" y="5.771757" width="479.88" height="232.848"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 4.</strong> Mean annual total landed cost against the cost per part short, with no spot market or air cover; 10,000 simulated years per point.</figcaption></figure><p>Compared with the total-cost plan, the second supplier lowers the 95th-percentile cost once a part short costs more than about C$60, and lowers the mean cost above about C$190. It is not the best protection against a bad year, though: the all-North-America plan has a lower 95th-percentile cost than dual sourcing at every shortage cost, for about C$7,000 to C$9,000 a year more on average. A casement window that cannot ship for want of two operators can lose more than C$190 per operator in contribution and goodwill, so for critical parts without a spot market a second supplier is reasonable insurance, consistent with Tomlin's finding that the best mitigation depends on the backup's cost and responsiveness [<a href="#ref-17" class="j-cite">17</a>]; a plant most worried about its worst year should consider moving those parts to North America instead. For parts that distributors stock locally, neither is worth its premium.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Implementation Guide for SMEs</h2><p>An SME can move from price comparison to total landed cost in four steps, starting with a spreadsheet and its top 20 to 50 purchased parts by spend.</p><ol><li><strong>Build the landed cost sheet.</strong> One row per part and supplier option, with columns for each component in Table 1. Pull annual quantities from the ERP, prices from current quotes, volumes and weights from packing lists, and lead times from purchase order and receipt dates. Get duty and surtax rates per tariff classification from the customs broker, including whether a remission order applies.</li><li><strong>Add the inventory terms.</strong> Pipeline stock is daily demand × transit days; cycle stock is half an order; safety stock follows the safety stock paper [<a href="#ref-9" class="j-cite">9</a>]. Multiply by the landed unit cost and the carrying rate. These three columns are where distant suppliers lose most often.</li><li><strong>Choose with Solver.</strong> Add a 0/1 cell per option, a constraint that each part's cells sum to 1, a 0/1 cell per supplier region with its management cost, and, if containers are worth testing, a 0/1 cell for each number of containers a year, with volume and weight constraints. Standard Excel Solver (Simplex LP) allows 200 decision cells: about six parts with every option, or more if each part is limited to three or four order frequencies. Beyond that, use OpenSolver or the Python appendix.</li><li><strong>Stress-test before committing.</strong> Re-run the choice at a container rate half and double today's, with the most likely tariff change, and with the China lane delayed six weeks. A plan that stays near the best in all of them is safe to adopt; a part that flips between suppliers is a candidate for a second source or a shorter contract.</li></ol><h3>7.1 Pitfalls</h3><ul><li><strong>Comparing quotes on different terms.</strong> An FOB Shanghai price, an ex-works Monterrey price and a delivered Burnaby price are not comparable until freight, duty and brokerage are added.</li><li><strong>Chasing the lowest freight per unit.</strong> Ordering once a year cuts freight per unit but multiplies cycle stock; in this case one order a year costs more than two for every part bought from China, by up to C$12,100 a year for steel reinforcement and C$4,200 for casement operators.</li><li><strong>Ignoring origin rules.</strong> Surtaxes follow where the steel was melted or the aluminum smelted, not only where the part was made. A part assembled in Mexico from Chinese steel may still pay.</li><li><strong>Counting suppliers, not regions.</strong> Most supplier management cost (audits, visits, inspection, broker set-up) is per country or region; adding a part to an existing region is cheap, adding a region is not.</li><li><strong>Treating the model as a forecast.</strong> Tariffs, freight and exchange rates change monthly. Re-run the model quarterly and whenever a surtax, remission order or freight contract changes.</li></ul></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Conclusions</h2><p>Comparing suppliers on total landed cost rather than unit price cut this plant's annual cost of eight parts by 9%, while it paid more on supplier invoices.</p><ul><li>The lowest-price plan cost C$630,100 a year; the total-cost plan C$573,600. Surtaxes on Chinese steel and aluminum, LCL freight on bulky parts and the carrying cost of long lead times made up the difference; without surtaxes the plan is the same and the saving is 3.5%.</li><li>Where a part is made matters less than what it is. Compact, labour-intensive hardware stayed in China; bulky, low-value or surtaxed parts came home.</li><li>A price-plus-freight comparison got within 1.4% of the optimum. The rest came from order frequency and from not adding a supplier region for two parts.</li><li>The total-cost plan held up under uncertainty: it had the lowest mean cost across 20,000 simulated years, and its 95th-percentile cost was within C$500 of the lowest and C$106,600 below the lowest-price plan.</li><li>A second supplier lowered average cost only when a shortage could not be covered and cost more than about C$190 per part short; for the worst years, buying the hardware in North America protected better than dual sourcing.</li></ul><p>The case is a composite and its prices, tariff rates and risk weights are illustrative. The model leaves out quantity discounts, supplier capacity limits, exchange-rate hedging and the engineering cost of qualifying a new supplier, and it treats a disruption as a delay rather than a quality or supplier failure. Disruptions are modelled only on the China lane: North American supply is assumed reliable and Canadian spot capacity unlimited, which favours the North American plans. The appendix reproduces the base-case plans; the full model, with the risk simulation and sweeps, can be downloaded from this paper's page. The method transfers directly: an SME with clean receipt data and current broker advice can build the landed cost sheet in a day and re-run it each quarter.</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Appendix: Python Code</h2><p>The script below reproduces the base-case results exactly: C$573,614 a year for the total-cost plan and C$630,082 for the lowest-price plan. It needs Python 3 and PuLP 2.9 (pip install pulp==2.9.0, which includes the CBC solver) and runs in under a second. The risk simulation of Section 6 adds a loop over random freight rates, exchange rates, tariff scenarios and disruptions around the cost function; the full model files, including the risk simulation and the freight and shortage sweeps, can be downloaded from this paper's page.</p><figure class="j-code"><figcaption>Base-case total landed cost model: one supplier, mode and order frequency per part, shared containers and supplier-region costs (Python 3 with PuLP 2.9).</figcaption><pre><code>"""Total landed cost supplier and freight-mode selection - Chmltech Online Journal (pip install pulp==2.9.0)."""
+import math
+import pulp
+
+FX, H, Z, CV, RCAP = 1.38, 0.25, 1.645, 1.2, 0.10      # C$/US$, carrying rate, 95% service, daily demand CV, cost of capital
+FEU = 7500 * FX + 2200                                   # one 40 ft container from China, C$
+LT = {"CN-FCL": (45, 8), "CN-LCL": (55, 12), "MX-TRK": (10, 3), "US-TRK": (6, 2), "CA-TRK": (3, 1)}
+TRUCK = {"MX": (300, 0.45), "US": (180, 0.30), "CA": (60, 0)}
+BROKER = {"CN": 180, "MX": 90, "US": 90, "CA": 0}
+FIXED = {"CN": 8000, "MX": 5000, "US": 3000, "CA": 1500}
+DEFECT = {"CN": 0.015, "MX": 0.010, "US": 0.005, "CA": 0.004}
+DUTY = {"hardware": 0.05, "steel": 0.25, "aluminum": 0.28, "plastic": 0.065}   # China only: MFN + 25% steel/aluminum surtax
+FREQS = &#91;1, 2, 3, 4, 6, 8, 12, 26, 52&#93;
+PARTS = {  # qty/yr, m3/unit, kg/unit, class, China MOQ, prices C$/unit
+    "operator":  (6400, 0.0012, 0.6, "hardware", 1000, {"CN": 9.6, "MX": 12.6, "US": 14.0, "CA": 14.8}),
+    "lock":      (2600, 0.0025, 1.4, "hardware", 500, {"CN": 19.5, "US": 29.5, "CA": 31.0}),
+    "reinforce": (9000, 0.0040, 9.0, "steel", 2000, {"CN": 12.2, "US": 13.4, "CA": 14.0}),
+    "screen":    (3300, 0.0060, 0.9, "aluminum", 1000, {"CN": 6.8, "MX": 7.5, "US": 8.2, "CA": 8.6}),
+    "weather":   (1400, 0.0300, 6.0, "plastic", 300, {"CN": 44.0, "MX": 48.0, "US": 53.0, "CA": 56.0}),
+    "spacer":    (900, 0.0400, 12.0, "plastic", 200, {"CN": 132.0, "US": 150.0, "CA": 158.0}),
+    "roller":    (1500, 0.0008, 0.5, "hardware", 500, {"CN": 7.0, "MX": 9.3, "US": 10.4, "CA": 10.9}),
+    "handle":    (950, 0.0040, 1.6, "hardware", 300, {"CN": 22.0, "MX": 29.0, "US": 33.0, "CA": 35.0}),
+}
+
+
+def cost(k, r, m, n):
+    """Annual total landed cost of part k from region r by mode m, n orders a year (FCL container cost added at plan level)."""
+    D, m3, kg, cls, moq, p = PARTS&#91;k&#93;; price = p&#91;r&#93;; Q = D / n
+    duty = DUTY&#91;cls&#93; if r == "CN" else 0.0
+    if m == "FCL":   freight = 0.0
+    elif m == "LCL": freight = n * (450 + 160 * max(Q * m3, Q * kg / 1000))
+    else:            freight = n * (TRUCK&#91;r&#93;&#91;0&#93; + TRUCK&#91;r&#93;&#91;1&#93; * Q * kg)
+    landed = price * (1 + duty) + (freight + n * BROKER&#91;r&#93;) / D
+    L, sL = LT&#91;f"{r}-{m}"&#93;; d = D / 365
+    stock = d * L + Q / 2 + Z * math.sqrt(L * (CV * d) ** 2 + d ** 2 * sL ** 2)     # pipeline + cycle + safety
+    terms = RCAP * D * price * (0.30 * 35 / 365 if r == "CN" else -30 / 365)        # deposit vs net 30
+    return (D * price * (1 + duty) + freight + n * BROKER&#91;r&#93; + DEFECT&#91;r&#93; * D * (price + 15)
+            + H * landed * stock + terms)
+
+
+def options(k):
+    D, *_, moq, p = PARTS&#91;k&#93;
+    for r in p:
+        for m in (&#91;"FCL", "LCL"&#93; if r == "CN" else &#91;"TRK"&#93;):
+            for n in FREQS:
+                if r != "CN" or D / n &gt;= moq:
+                    yield (r, m, n)
+
+
+prob = pulp.LpProblem("total_landed_cost", pulp.LpMinimize)
+x = {(k, o): pulp.LpVariable(f"x_{k}_{o&#91;0&#93;}_{o&#91;1&#93;}_{o&#91;2&#93;}", cat="Binary") for k in PARTS for o in options(k)}
+y = {N: pulp.LpVariable(f"containers_{N}", cat="Binary") for N in FREQS if N &lt;= 26}   # N full containers a year
+u = {r: pulp.LpVariable(f"region_{r}", cat="Binary") for r in FIXED}
+for k in PARTS:
+    prob += pulp.lpSum(v for (kk, o), v in x.items() if kk == k) == 1                   # one option per part
+prob += pulp.lpSum(y.values()) &lt;= 1
+for (k, (r, m, n)), v in x.items():
+    prob += v &lt;= u&#91;r&#93;
+    if m == "FCL":
+        prob += v &lt;= y.get(n, 0)                                                          # FCL parts ship with each container
+for N in y:
+    fcl = &#91;(k, v) for (k, (r, m, n)), v in x.items() if m == "FCL" and n == N&#93;
+    prob += pulp.lpSum(v * PARTS&#91;k&#93;&#91;0&#93; * PARTS&#91;k&#93;&#91;1&#93; for k, v in fcl) &lt;= 58 * N           # m3
+    prob += pulp.lpSum(v * PARTS&#91;k&#93;&#91;0&#93; * PARTS&#91;k&#93;&#91;2&#93; for k, v in fcl) &lt;= 24000 * N        # kg
+prob += (pulp.lpSum(cost(k, *o) * v for (k, o), v in x.items()) + pulp.lpSum(FIXED&#91;r&#93; * u&#91;r&#93; for r in u)
+         + pulp.lpSum(N * FEU * y&#91;N&#93; for N in y))
+prob.solve(pulp.PULP_CBC_CMD(msg=False))
+
+print(f"Total landed cost plan: C${pulp.value(prob.objective):,.0f} a year")
+for (k, o), v in x.items():
+    if v.value() &gt; 0.5:
+        print(f"  {k:10s} {o&#91;0&#93;} {o&#91;1&#93;} {o&#91;2&#93;:&gt;2} orders/yr  C${cost(k, *o):,.0f}")
+
+# Lowest-price rule for comparison: cheapest region, LCL from China, up to 12 orders a year
+low = 0.0
+for k, (D, m3, kg, cls, moq, p) in PARTS.items():
+    r = min(p, key=p.get); n = max(f for f in FREQS if f &lt;= 12 and (r != "CN" or D / f &gt;= moq))
+    low += cost(k, r, "LCL" if r == "CN" else "TRK", n)
+low += sum(FIXED&#91;r&#93; for r in {min(P&#91;5&#93;, key=P&#91;5&#93;.get) for P in PARTS.values()})
+print(f"Lowest-price plan:      C${low:,.0f} a year")</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Ellram, L. M. (1995). Total cost of ownership: An analysis approach for purchasing. <em>International Journal of Physical Distribution &amp; Logistics Management</em>, 25(8), 4–23. <a href="https://doi.org/10.1108/09600039510099928" rel="noopener" target="_blank">10.1108/09600039510099928</a></li><li id="ref-2">Platts, K. W., &amp; Song, N. (2010). Overseas sourcing decisions – the total cost of sourcing from China. <em>Supply Chain Management: An International Journal</em>, 15(4), 320–331. <a href="https://doi.org/10.1108/13598541011054689" rel="noopener" target="_blank">10.1108/13598541011054689</a></li><li id="ref-3">Osler, Hoskin &amp; Harcourt LLP. (2026, September 10). The trade war tit-for-tat continues: United States responds to Canada's retaliatory surtaxes with new tariffs and import prohibitions. <a href="https://www.osler.com/?p=126523" rel="noopener" target="_blank">www.osler.com/?p=126523</a></li><li id="ref-4">Canadian Society of Customs Brokers. (2025). Customs Notice 25-28: Steel Goods and Aluminum Goods Surtax Order. <a href="https://cscb.ca/en/article/customs-notice-25-28-steel-goods-and-aluminum-goods-surtax-order" rel="noopener" target="_blank">cscb.ca/en/article/customs-notice-25-28-steel-goods-and-aluminum-goods-surtax-or</a></li><li id="ref-5">GHY International. (2026, November 9). Canada extends US tariff relief for businesses to June 2028; now includes non-steel goods. <a href="https://www.ghy.com/?p=31280" rel="noopener" target="_blank">www.ghy.com/?p=31280</a></li><li id="ref-6">Schuler, M. (2025, December 11). Container shipping index climbs for second week as Asia-Europe rates surge, transpacific slumps. <em>gCaptain</em>. <a href="https://gcaptain.com/container-shipping-index-climbs-for-second-week-as-asia-europe-rates-surge-transpacific-slumps" rel="noopener" target="_blank">gcaptain.com/container-shipping-index-climbs-for-second-week-as-asia-europe-rate</a></li><li id="ref-7">ShipUniverse. (2026, October 29). Drewry container rates fall 3% to $4,429 as U.S. trade routes reverse their rally. <a href="https://www.shipuniverse.com/?p=25814" rel="noopener" target="_blank">www.shipuniverse.com/?p=25814</a></li><li id="ref-8">Lee, Q. F. (2026). Why the ERP schedule fails on the shop floor: Finite-capacity scheduling rules for high-mix manufacturers. <em>Chmltech Online Journal</em>, 106(4). <a href="https://www.chmltech.com/post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers.html" rel="noopener" target="_blank">www.chmltech.com/post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capaci</a></li><li id="ref-9">Lee, Q. F. (2026). Beyond the formula: Setting safety stock with Monte Carlo simulation. <em>Chmltech Online Journal</em>, 106(3). <a href="https://www.chmltech.com/post/beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation.html" rel="noopener" target="_blank">www.chmltech.com/post/beyond-the-formula-setting-safety-stock-with-monte-carlo-s</a></li><li id="ref-10">Silver, E. A., Pyke, D. F., &amp; Thomas, D. J. (2017). <em>Inventory and production management in supply chains</em> (4th ed.). CRC Press. <a href="https://doi.org/10.1201/9781315374406" rel="noopener" target="_blank">10.1201/9781315374406</a></li><li id="ref-11">Degraeve, Z., Labro, E., &amp; Roodhooft, F. (2000). An evaluation of vendor selection models from a total cost of ownership perspective. <em>European Journal of Operational Research</em>, 125(1), 34–58. <a href="https://doi.org/10.1016/S0377-2217(99)00199-X" rel="noopener" target="_blank">10.1016/S0377-2217(99)00199-X</a></li><li id="ref-12">Weber, C. A., Current, J. R., &amp; Benton, W. C. (1991). Vendor selection criteria and methods. <em>European Journal of Operational Research</em>, 50(1), 2–18. <a href="https://doi.org/10.1016/0377-2217(91)90033-R" rel="noopener" target="_blank">10.1016/0377-2217(91)90033-R</a></li><li id="ref-13">Ho, W., Xu, X., &amp; Dey, P. K. (2010). Multi-criteria decision making approaches for supplier evaluation and selection: A literature review. <em>European Journal of Operational Research</em>, 202(1), 16–24. <a href="https://doi.org/10.1016/j.ejor.2009.05.009" rel="noopener" target="_blank">10.1016/j.ejor.2009.05.009</a></li><li id="ref-14">Aissaoui, N., Haouari, M., &amp; Hassini, E. (2007). Supplier selection and order lot sizing modeling: A review. <em>Computers &amp; Operations Research</em>, 34(12), 3516–3540. <a href="https://doi.org/10.1016/j.cor.2006.01.016" rel="noopener" target="_blank">10.1016/j.cor.2006.01.016</a></li><li id="ref-15">Mitchell, S., O'Sullivan, M., &amp; Dunning, I. (2011). PuLP: A linear programming toolkit for Python. University of Auckland. <a href="https://optimization-online.org/2011/09/3178/" rel="noopener" target="_blank">optimization-online.org/2011/09/3178/</a></li><li id="ref-16">Burke, G. J., Carrillo, J. E., &amp; Vakharia, A. J. (2007). Single versus multiple supplier sourcing strategies. <em>European Journal of Operational Research</em>, 182(1), 95–112. <a href="https://doi.org/10.1016/j.ejor.2006.07.007" rel="noopener" target="_blank">10.1016/j.ejor.2006.07.007</a></li><li id="ref-17">Tomlin, B. (2006). On the value of mitigation and contingency strategies for managing supply chain disruption risks. <em>Management Science</em>, 52(5), 639–657. <a href="https://doi.org/10.1287/mnsc.1060.0515" rel="noopener" target="_blank">10.1287/mnsc.1060.0515</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing. <em>Chmltech Online Journal</em>, <em>106</em>(5). https://www.chmltech.com/post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. Total Landed Cost</a></li><li><a href="#sec-3">3. The Case: Eight Purchased Parts</a></li><li><a href="#sec-4">4. The Optimization Model</a></li><li><a href="#sec-5">5. Results: Where the Lowest Price Loses</a></li><li><a href="#sec-6">6. Risk: Freight, Tariffs and Disruptions</a></li><li><a href="#sec-7">7. Implementation Guide for SMEs</a></li><li><a href="#sec-8">8. Conclusions</a></li><li><a href="#sec-9">9. Appendix: Python Code</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 5</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact.html" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights.html#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal operational-efficiency inventory-management" data-search="forecasting lumpy demand: does croston beat a moving average? six forecasting methods for slow-moving items, scored on the stock needed for 95% fill: croston saves 6%, a year of history saves 14%. intermittent demand croston&#x27;s method tsb bootstrapping safety stock fill rate inventory obsolescence demand forecasting"><div class="thumb"><img src="../assets/media/covers/thumbs/forecasting-lumpy-demand-does-croston-beat-a-moving-average.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><h3><a href="../post/forecasting-lumpy-demand-does-croston-beat-a-moving-average.html">Forecasting Lumpy Demand: Does Croston Beat a Moving Average?</a></h3><p class="muted">Six forecasting methods for slow-moving items, scored on the stock needed for 95% fill: Croston saves 6%, a year of history saves 14%.</p><p class="meta">Vol. 106, Issue 7 · Nov 16, 2026 · 15 min read</p></div></article><article class="article" data-cats="chmltech-online-journal operational-efficiency erp" data-search="quoting lead times you can keep: due-date setting for make-to-order manufacturers quotes built from the bottleneck backlog keep 95% of delivery promises with lead times 38% shorter than fixed erp lead times, in a plant simulation. due-date quoting lead time make-to-order order promising workload control discrete-event simulation high-mix manufacturing erp"><div class="thumb"><img src="../assets/media/covers/thumbs/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><h3><a href="../post/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.html">Quoting Lead Times You Can Keep: Due-Date Setting for Make-to-Order Manufacturers</a></h3><p class="muted">Quotes built from the bottleneck backlog keep 95% of delivery promises with lead times 38% shorter than fixed ERP lead times, in a plant simulation.</p><p class="meta">Vol. 106, Issue 6 · Nov 16, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal operational-efficiency erp" data-search="why the erp schedule fails on the shop floor: finite-capacity scheduling rules for high-mix manufacturers a shop-floor simulation shows why erp lead times miss due dates in high-mix plants, and which dispatch and release rules lift on-time delivery from 77% to 92%. finite-capacity scheduling dispatching rules drum-buffer-rope workload control modified due date discrete-event simulation high-mix manufacturing erp"><div class="thumb"><img src="../assets/media/covers/thumbs/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><h3><a href="../post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers.html">Why the ERP Schedule Fails on the Shop Floor: Finite-Capacity Scheduling Rules for High-Mix Manufacturers</a></h3><p class="muted">A shop-floor simulation shows why ERP lead times miss due dates in high-mix plants, and which dispatch and release rules lift on-time delivery from 77% to 92%.</p><p class="meta">Vol. 106, Issue 4 · Nov 16, 2026 · 15 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue5.pdf" data-fname="Chmltech-Journal-Vol106-Issue5.pdf" data-title="Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing" data-ref="Vol. 106, Issue 5">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 5</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing", "name": "Beyond the Unit Price: Total Landed Cost Optimization for SME Sourcing", "abstract": "Lowest price, highest cost: buying from the supplier with the lowest unit price, or the lowest price plus freight, leaves money on the table for small and mid-sized manufacturers. Duties and surtaxes, inventory in transit, safety stock for long and variable lead times, quality losses, payment terms and the cost of managing each supplier region all sit outside the invoice. This paper builds a total landed cost model for a composite British Columbia windows-and-doors manufacturer that buys eight parts from China, Mexico, the United States or Canada. A mixed-integer program chooses the supplier, freight mode and order frequency for each part, with container loads shared across parts. The lowest-price plan sources everything from China and costs C$630,100 a year. The total-cost plan pays C$62,300 more on supplier invoices but costs C$573,600 a year, 9% less: it keeps compact, labour-intensive hardware in China and moves bulky and surtaxed steel and aluminum parts to Canada. A price-plus-freight rule comes within 1.4% of the optimum. A Monte Carlo simulation of freight rates, exchange rates, tariff scenarios and supply disruptions shows the total-cost plan also has the lowest mean cost, and a 95th-percentile cost C$106,600 below the lowest-price plan. Without surtaxes the chosen plan is the same but the saving falls to 3.5%. A second supplier lowers average cost only when a shortage cannot be covered by a spot buy and costs more than about C$190 per part short; for the worst years, buying the hardware in North America protects better.", "keywords": "total landed cost, supplier selection, sourcing, mixed-integer programming, tariffs and surtaxes, ocean freight, dual sourcing, Monte Carlo simulation", "datePublished": "2026-11-16", "dateModified": "2026-11-16", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "5", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing", "citation": ["Ellram, L. M. (1995). Total cost of ownership: An analysis approach for purchasing. International Journal of Physical Distribution &amp; Logistics Management, 25(8), 4–23.", "Platts, K. W., &amp; Song, N. (2010). Overseas sourcing decisions – the total cost of sourcing from China. Supply Chain Management: An International Journal, 15(4), 320–331.", "Osler, Hoskin &amp; Harcourt LLP. (2026, September 10). The trade war tit-for-tat continues: United States responds to Canada's retaliatory surtaxes with new tariffs and import prohibitions.", "Canadian Society of Customs Brokers. (2025). Customs Notice 25-28: Steel Goods and Aluminum Goods Surtax Order.", "GHY International. (2026, November 9). Canada extends US tariff relief for businesses to June 2028; now includes non-steel goods.", "Schuler, M. (2025, December 11). Container shipping index climbs for second week as Asia-Europe rates surge, transpacific slumps. gCaptain.", "ShipUniverse. (2026, October 29). Drewry container rates fall 3% to $4,429 as U.S. trade routes reverse their rally.", "Lee, Q. F. (2026). Why the ERP schedule fails on the shop floor: Finite-capacity scheduling rules for high-mix manufacturers. Chmltech Online Journal, 106(4).", "Lee, Q. F. (2026). Beyond the formula: Setting safety stock with Monte Carlo simulation. Chmltech Online Journal, 106(3).", "Silver, E. A., Pyke, D. F., &amp; Thomas, D. J. (2017). Inventory and production management in supply chains (4th ed.). CRC Press.", "Degraeve, Z., Labro, E., &amp; Roodhooft, F. (2000). An evaluation of vendor selection models from a total cost of ownership perspective. European Journal of Operational Research, 125(1), 34–58.", "Weber, C. A., Current, J. R., &amp; Benton, W. C. (1991). Vendor selection criteria and methods. European Journal of Operational Research, 50(1), 2–18.", "Ho, W., Xu, X., &amp; Dey, P. K. (2010). Multi-criteria decision making approaches for supplier evaluation and selection: A literature review. European Journal of Operational Research, 202(1), 16–24.", "Aissaoui, N., Haouari, M., &amp; Hassini, E. (2007). Supplier selection and order lot sizing modeling: A review. Computers &amp; Operations Research, 34(12), 3516–3540.", "Mitchell, S., O'Sullivan, M., &amp; Dunning, I. (2011). PuLP: A linear programming toolkit for Python. University of Auckland.", "Burke, G. J., Carrillo, J. E., &amp; Vakharia, A. J. (2007). Single versus multiple supplier sourcing strategies. European Journal of Operational Research, 182(1), 95–112.", "Tomlin, B. (2006). On the value of mitigation and contingency strategies for managing supply chain disruption risks. Management Science, 52(5), 639–657."], "image": "https://www.chmltech.com/assets/media/covers/beyond-the-unit-price-total-landed-cost-optimization-for-sme-sourcing.jpg"}</script>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=7ac1c777" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>

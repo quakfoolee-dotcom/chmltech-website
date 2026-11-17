@@ -484,6 +484,9 @@
      "p": "Load-based release adds one freedom: when the next order is too large to fit under the buffer, a smaller order behind it may go first. That change acts like SPT at the front door and lifts on-time delivery to 92%, even with FIFO on the floor. That is 2.7 ± 0.7 points better than MDD at the welder alone, the best single dispatching change. Adding MDD at the welder on top of load-based release makes no measurable difference to the on-time rate (+0.2 ± 0.4 points) and trims the worst 1% slightly. The gate does the work, and it shares SPT's weakness: the largest orders wait longest in the pool, as the literature warns [15]. Sequencing the pool by planned release date is the literature's remedy [16]."
     },
     {
+     "callout": "<strong>Correction (November 16, 2026).</strong> The follow-up quoting paper [17] traced the very late orders under the recommended combination of load-based release and MDD at the welder. Every order more than 10 working days late spent more than half of its lateness waiting in the release pool, so for that combination holding large orders back at release, not MDD, is the main cause of the tail; in the worst simulated year one large order waited about six months for release. Section 5.1 still describes MDD correctly under push release. The remedy is to sequence the pool by planned release date, or to release any order once its due date minus its planned work is reached. The on-time results in this paper are unchanged."
+    },
+    {
      "h3": "6.1 How big should the buffer be?"
     },
     {
@@ -567,7 +570,7 @@
      "list": [
       "<strong>Find the real bottleneck (weeks 1 to 2).</strong> Compare each work centre's planned hours with its available hours over the last three months, then walk the floor: the bottleneck is where work waits. It is not always the most expensive machine, and it can move with the product mix.",
       "<strong>Change the bottleneck's sequence (week 3).</strong> Replace FIFO or the ERP due-date sort at the bottleneck with modified due date. In a spreadsheet: for each waiting order, take the later of its due date and today plus its remaining hours converted to days; run the earliest first. Leave other work centres on FIFO.",
-      "<strong>Gate the release (weeks 4 to 6).</strong> Keep new orders in an office pool. Each morning, release orders until the bottleneck work on the floor reaches about three days. Allow a smaller order to go ahead of a large one that does not fit. CONWIP, a simple cap on the number of orders on the floor, is a workable alternative where bottleneck hours are hard to estimate [17].",
+      "<strong>Gate the release (weeks 4 to 6).</strong> Keep new orders in an office pool. Each morning, release orders until the bottleneck work on the floor reaches about three days. Allow a smaller order to go ahead of a large one that does not fit. CONWIP, a simple cap on the number of orders on the floor, is a workable alternative where bottleneck hours are hard to estimate [18].",
       "<strong>Manage the large late orders by exception (from week 4).</strong> Once a week, review every order more than five days late and decide how to recover it: expedite it, split it or renegotiate the date. An automatic cap also works but, in the simulation, costs 5 to 7 points of on-time delivery.",
       "<strong>Quote from the queue and the workload, not the routing (weeks 6 to 8).</strong> Replace fixed ERP lead times with the current bottleneck backlog plus the order's own work content and a margin. When the queue is long or the order is large, quote longer; customers prefer an honest date to a missed one. Due-date setting can matter as much as sequencing [10]."
      ],
@@ -652,7 +655,7 @@
      "ordered": false
     },
     {
-     "p": "The results come from one composite plant, and the levels will differ elsewhere. The model leaves out sequence-dependent setups at the welder (profile and colour changes), bottlenecks that shift with the product mix, and the finite-capacity planning software that many vendors sell. It also shows how much of the problem comes from clumped order arrivals: with orders arriving one at a time, FIFO alone reaches about 91% on time. The direction of the findings agrees with decades of simulation research [8, 18]: find the bottleneck, sequence it with a rule that respects both due dates and job size, release work at the pace the bottleneck can absorb, and watch the largest orders. A plant can test all of it on its own data with the code in the Appendix before changing anything on the floor."
+     "p": "The results come from one composite plant, and the levels will differ elsewhere. The model leaves out sequence-dependent setups at the welder (profile and colour changes), bottlenecks that shift with the product mix, and the finite-capacity planning software that many vendors sell. It also shows how much of the problem comes from clumped order arrivals: with orders arriving one at a time, FIFO alone reaches about 91% on time. The direction of the findings agrees with decades of simulation research [8, 19]: find the bottleneck, sequence it with a rule that respects both due dates and job size, release work at the pace the bottleneck can absorb, and watch the largest orders. A plant can test all of it on its own data with the code in the Appendix before changing anything on the floor."
     }
    ]
   },
@@ -736,6 +739,10 @@
    "url": "https://doi.org/10.1111/poms.12304"
   },
   {
+   "text": "Lee, Q. F. (2026). Quoting lead times you can keep: Due-date setting for make-to-order manufacturers. <em>Chmltech Online Journal</em>, 106(6).",
+   "url": "https://www.chmltech.com/post/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.html"
+  },
+  {
    "text": "Spearman, M. L., Woodruff, D. L., &amp; Hopp, W. J. (1990). CONWIP: A pull alternative to kanban. <em>International Journal of Production Research</em>, 28(5), 879–894.",
    "url": "https://doi.org/10.1080/00207549008942761"
   },
@@ -744,5 +751,14 @@
    "url": "https://doi.org/10.1016/0305-0483(90)90017-4"
   }
  ],
- "corrections": []
+ "corrections": [
+  "Nov 16 2026: added a correction note after the release results. The quoting paper, Vol. 106(6), found that under load-based release with MDD at the welder the very late orders spend most of their lateness in the release pool; the earlier text implied MDD was the main cause. On-time results unchanged."
+ ],
+ "downloads": [
+  {
+   "file": "fcs_scheduling.py",
+   "label": "Appendix script",
+   "note": "Compact job-shop simulation with FIFO, critical ratio, MDD and load-based release (Python 3, NumPy)"
+  }
+ ]
 }
