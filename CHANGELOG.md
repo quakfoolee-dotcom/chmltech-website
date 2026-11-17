@@ -1,5 +1,13 @@
 # Changelog
 
+## V5.53 — 2026-11-17
+- **AI Models effort curves: setting labels always next to their dot, never on a line.**
+  - Near positions only: centred above the dot, centred below, above/below shifted slightly right or left, beside it, then close diagonals. The far fallback positions (25–35 px away) are removed; left-side labels are right-aligned to the dot so the gap is exact.
+  - A label never touches any line (its own model's included), dot or other label. Label widths are measured from the page font instead of estimated. If no near spot is free, the label is left off and the value stays in the black tooltip and the "Show the numbers" table.
+  - Dots of different models that sit on top of each other (within 6 px, e.g. Claude Fable 5.2 Low and Gemini 4 Hydrogen X-high, about 2 px apart) share one plain-text label naming both ("Fable 5.2 Low · Hydrogen X-high"), placed before single labels. No extra marks are drawn.
+  - Tested in headless Chrome across 84 effort-curve charts (835 labels): every label within 12 px of its dot and touching no line, dot or label; compare and ranking charts still pass; no script errors.
+  - Source changes: `assets/js/llm-studio.js`; `llm-leaderboard.html` (asset versions).
+
 ## V5.52 — 2026-11-17
 - **AI Models effort curves: one tooltip for overlapping points.** When dots sit on top of each other (e.g. Gemini 4 Hydrogen X-high at 53.9 / $3.16 and Claude Fable 5.2 Low at 53.9 / $3.10 per task, about 2 px apart), only one could be hovered. Hovering any dot now lists every point within 12 px in one black tooltip ("2 points here"), each line with the model's colour dot, setting, score and cost; single points keep the normal tooltip. Applies to the headline chart and the studio effort curves, with mouse, keyboard (Tab) and touch.
   - Costs of $1 to $100 in chart tooltips now always show two decimals ($3.10, not $3.1).

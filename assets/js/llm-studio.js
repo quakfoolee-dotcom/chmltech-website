@@ -15,6 +15,11 @@
   var PROP = "#0B6FA4", OPEN = "#C2571A";
   var NS = "http://www.w3.org/2000/svg";
   var $ = function (id) { return document.getElementById(id); };
+  var _mc = document.createElement("canvas").getContext("2d"), _font = "";
+  function textW(t) {  // width of an 11px chart label in the page's own font (V5.53), so placement is exact
+    if (!_font) { var f = getComputedStyle(root).fontFamily || "sans-serif"; _font = "11px " + f; }
+    _mc.font = _font; return _mc.measureText(t).width;
+  }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function num(v, d) { return Number(v).toLocaleString("en-CA", { maximumFractionDigits: d == null ? 1 : d }); }
   function money(v) { return v >= 100 ? "$" + num(v, 0) : v >= 1 ? "$" + Number(v).toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "$" + Number(v).toPrecision(2); }
@@ -179,7 +184,7 @@
       series.forEach(function (s) {
         s.p.forEach(function (p, i) {
           boxes.push([X(p.x) - 7, Y(p.y) - 7, X(p.x) + 7, Y(p.y) + 7]);
-          if (i) segs.push([X(s.p[i - 1].x), Y(s.p[i - 1].y), X(p.x), Y(p.y)]);
+          if (i) segs.push([X(s.p[i - 1].x), Y(s.p[i - 1].y), X(p.x), Y(p.y), s]);
         });
       });
       function hitBox(bx, o) { return !(bx[2] < o[0] || bx[0] > o[2] || bx[3] < o[1] || bx[1] > o[3]); }
@@ -194,18 +199,23 @@
         }
         return true;
       }
-      function place(px, py, txt) {
-        var w = txt.length * 6.6 + 4, h = 13, cands = [];
-        // First choice: centred just above the dot, then centred just below; side positions only if both are blocked.
-        [["m", 0, -11], ["m", 0, 19], [8, -6], [8, 16], [-8 - w, -6], [-8 - w, 16], [12, 4], [-12 - w, 4], ["m", 0, -24], ["m", 0, 32], [16, -18], [-16 - w, -18], [16, 28], [-16 - w, 28]]
-          .forEach(function (c) { cands.push(c); });
+      function place(px, py, txt, own, wIn) {
+        // V5.53: near positions only, so a label is never far from its dot. Order: centred above, centred below,
+        // right, left, then the four close diagonals. Pass 1 avoids every line; pass 2 lets the label cross its OWN
+        // model's line (the white halo keeps it readable) but never another model's line, a dot or a label.
+        // If nothing fits, the label is left off and the value stays in the tooltip.
+        var w = (wIn != null ? wIn : textW(txt)) + 4, h = 13;
+        // V5.53: never touches any line (its own included), dot or label. Order: centred above, centred below,
+        // above/below shifted right or left, beside the dot, then close diagonals. "m" centred, "s" starts at x, "e" ends at x.
+        var cands = [["m", 0, -11], ["m", 0, 19], ["s", -6, -11], ["e", 6, -11], ["s", -6, 19], ["e", 6, 19],
+                     ["s", 9, 4], ["e", -9, 4], ["s", 7, -7], ["e", -7, -7], ["s", 7, 15], ["e", -7, 15]];
         for (var i = 0; i < cands.length; i++) {
-          var mid = cands[i][0] === "m", x = mid ? px : px + cands[i][0], y = py + (mid ? cands[i][2] : cands[i][1]);
-          var bx = mid ? [x - w / 2, y - 11, x + w / 2, y + h - 10] : [x - 1, y - 11, x + w, y + h - 10];
+          var an = cands[i][0], x = px + cands[i][1], y = py + cands[i][2];
+          var bx = an === "m" ? [x - w / 2, y - 11, x + w / 2, y + h - 10] : an === "s" ? [x - 1, y - 11, x + w, y + h - 10] : [x - w, y - 11, x + 1, y + h - 10];
           if (bx[0] < ml + 2 || bx[2] > W - mr || bx[1] < mt - 2 || bx[3] > H - mb - 2) continue;
           if (boxes.some(function (o) { return hitBox(bx, o); })) continue;
           if (segs.some(function (sg) { return hitSeg(bx, sg); })) continue;
-          boxes.push(bx); return [x, y, mid ? "middle" : "start"];
+          boxes.push(bx); return [x, y, an === "m" ? "middle" : an === "s" ? "start" : "end"];
         }
         return null;
       }
@@ -239,9 +249,44 @@
           var t = curveTip(s, p);
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="5" fill="' + s.c + '" stroke="#fff" stroke-width="2"/>';
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="12" fill="transparent" tabindex="0" data-tip="' + esc(t) + '" aria-label="' + esc(t.replace(/<[^>]+>/g, " ")) + '"></circle>';
-          var at = p.set && place(X(p.x), Y(p.y), p.set);
-          if (at) g += '<text class="ls-setlab" x="' + at[0].toFixed(1) + '" y="' + at[1].toFixed(1) + '" text-anchor="' + at[2] + '" font-size="11" fill="' + MUTED + '" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">' + esc(p.set) + "</text>";
         });
+      });
+      // Labels (V5.53). Dots of different models within 6 px of each other share ONE label: a small coloured dot per
+      // model, then its setting ("● Low  ● X-high"), so both settings stay readable and stay next to the pair.
+      var LAB = 'font-size="11" fill="' + MUTED + '" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke"';
+      // Collect label entries first; shared labels (stacked dots) are placed before single ones so they get first pick.
+      var done = {}, entries = [];
+      series.forEach(function (s, si) {
+        s.p.forEach(function (p, pi) {
+          if (!p.set || done[si + ":" + pi]) return;
+          var px = X(p.x), py = Y(p.y), grp = [{ s: s, p: p }];
+          series.forEach(function (o, oi) {
+            if (oi === si) return;
+            o.p.forEach(function (q, qi) {
+              if (done[oi + ":" + qi] || !q.set) return;
+              var dx = X(q.x) - px, dy = Y(q.y) - py;
+              if (dx * dx + dy * dy <= 36) { grp.push({ s: o, p: q }); done[oi + ":" + qi] = 1; }
+            });
+          });
+          done[si + ":" + pi] = 1;
+          entries.push({ s: s, p: p, px: px, py: py, grp: grp });
+        });
+      });
+      entries.sort(function (a, c) { return c.grp.length - a.grp.length; });
+      entries.forEach(function (e0) {
+        var s = e0.s, p = e0.p, px = e0.px, py = e0.py, grp = e0.grp;
+        if (grp.length === 1) {
+          var at = place(px, py, p.set, s);
+          if (at) g += '<text class="ls-setlab" data-c="' + s.c + '" data-px="' + px.toFixed(1) + '" data-py="' + py.toFixed(1) + '" x="' + at[0].toFixed(1) + '" y="' + at[1].toFixed(1) + '" text-anchor="' + at[2] + '" ' + LAB + ">" + esc(p.set) + "</text>";
+          return;
+        }
+        // shared label for stacked dots (V5.53): plain text naming each model, no extra marks,
+        // e.g. "Fable 5.2 Low · Hydrogen X-high" (brand word and bare version number dropped).
+        var cut = function (n) { var w = n.split(" "); if (w.length < 2) return n; w.shift(); if (w.length > 1 && /^[\d.]+$/.test(w[0])) w.shift(); return w.join(" "); };
+        grp.sort(function (a, c) { return a.p.x - c.p.x; });
+        var txt = grp.map(function (e) { return cut(e.s.m.name) + " " + e.p.set; }).join(" · ");
+        var at2 = place(px, py, txt, s);
+        if (at2) g += '<text class="ls-setlab ls-setgrp" data-px="' + px.toFixed(1) + '" data-py="' + py.toFixed(1) + '" x="' + at2[0].toFixed(1) + '" y="' + at2[1].toFixed(1) + '" text-anchor="' + at2[2] + '" ' + LAB + ">" + esc(txt) + "</text>";
       });
       box.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc($(P + "title").textContent) + '" data-export-title="' + esc($(P + "title").textContent) + '" data-export-caption="' + esc((b.what || "") + " Source: " + b.src + (b.updated ? ", " + b.updated : "") + ".") + '">' + g + "</svg>";
       bindTips(box);
