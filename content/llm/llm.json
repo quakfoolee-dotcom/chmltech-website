@@ -73,14 +73,22 @@
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
      "ci": "170.29 to 178.58",
-     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."
+     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release.",
+     "ci95": [
+      170.29,
+      178.58
+     ]
     },
     "vals": {
      "v": 67.656,
      "set": "Max",
      "cost": 10.68,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.935"
+     "ci": "stderr 0.935",
+     "ci95": [
+      65.823,
+      69.489
+     ]
     },
     "frontiermath": {
      "v": 92.632,
@@ -88,7 +96,11 @@
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
      "ci": "stderr 0.015502708491824831",
-     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."
+     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release.",
+     "ci95": [
+      89.593,
+      95.671
+     ]
     },
     "gpqa": {
      "v": 96.843,
@@ -96,7 +108,11 @@
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
      "ci": "stderr 0.01226242169221459",
-     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release."
+     "flag": "Pre-launch evaluation: Epoch AI ran it before the Nov 17 release.",
+     "ci95": [
+      94.44,
+      99.246
+     ]
     },
     "arc2": {
      "v": 95.833,
@@ -215,7 +231,11 @@
      "set": "Max",
      "cost": 3.179,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.91"
+     "ci": "stderr 0.91",
+     "ci95": [
+      64.275,
+      67.843
+     ]
     },
     "arc2": {
      "v": 85.833,
@@ -361,21 +381,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1468.392149 to 1479.424690"
+     "ci": "95% CI 1468.392149 to 1479.424690",
+     "ci95": [
+      1468.392,
+      1479.425
+     ]
     },
     "eci": {
      "v": 169.2,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "166.33 to 172.48"
+     "ci": "166.33 to 172.48",
+     "ci95": [
+      166.33,
+      172.48
+     ]
     },
     "vals": {
      "v": 65.023,
      "set": "Max",
      "cost": 21.28,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.098"
+     "ci": "stderr 1.098",
+     "ci95": [
+      62.871,
+      67.175
+     ]
     },
     "aa_coding": {
      "v": 53.1,
@@ -415,6 +447,10 @@
        9.901,
        "Codex, Max"
       ]
+     ],
+     "ci95": [
+      57.48,
+      63.12
      ]
     },
     "arena_webdev": {
@@ -422,7 +458,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1754.423764 to 1771.342928"
+     "ci": "95% CI 1754.423764 to 1771.342928",
+     "ci95": [
+      1754.424,
+      1771.343
+     ]
     },
     "lb_coding": {
      "v": 87.5,
@@ -435,7 +475,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.118821 to 0.159444"
+     "ci": "95% CI 0.118821 to 0.159444",
+     "ci95": [
+      11.882,
+      15.944
+     ]
     },
     "lb_browser": {
      "v": 91.3,
@@ -460,7 +504,11 @@
      "set": null,
      "cost": 810.4,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 1074.4843271151583 (SEM)"
+     "ci": "+/- 1074.4843271151583 (SEM)",
+     "ci95": [
+      13408.713,
+      17620.691
+     ]
     },
     "lb_data": {
      "v": 83.0,
@@ -473,7 +521,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1274.207507 to 1292.558624"
+     "ci": "95% CI 1274.207507 to 1292.558624",
+     "ci95": [
+      1274.208,
+      1292.559
+     ]
     },
     "vectara": {
      "v": 8.7,
@@ -486,14 +538,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.014434038295343787"
+     "ci": "stderr 0.014434038295343787",
+     "ci95": [
+      90.855,
+      96.513
+     ]
     },
     "gpqa": {
      "v": 95.77,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.013696812097020311"
+     "ci": "stderr 0.013696812097020311",
+     "ci95": [
+      93.085,
+      98.455
+     ]
     },
     "arc2": {
      "v": 95.0,
@@ -650,21 +710,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1474.603546 to 1487.044133"
+     "ci": "95% CI 1474.603546 to 1487.044133",
+     "ci95": [
+      1474.604,
+      1487.044
+     ]
     },
     "eci": {
      "v": 168.63,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "165.7 to 171.91"
+     "ci": "165.7 to 171.91",
+     "ci95": [
+      165.7,
+      171.91
+     ]
     },
     "vals": {
      "v": 63.944,
      "set": "Max",
      "cost": 3.614,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.072"
+     "ci": "stderr 1.072",
+     "ci95": [
+      61.843,
+      66.045
+     ]
     },
     "aa_coding": {
      "v": 52.16,
@@ -677,14 +749,22 @@
      "set": "Codex, Max",
      "cost": 1.922,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.97 (95% CI)"
+     "ci": "+/- 2.97 (95% CI)",
+     "ci95": [
+      57.94,
+      63.88
+     ]
     },
     "arena_webdev": {
      "v": 1742.336,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1732.691666 to 1751.979513"
+     "ci": "95% CI 1732.691666 to 1751.979513",
+     "ci95": [
+      1732.692,
+      1751.98
+     ]
     },
     "lb_coding": {
      "v": 82.1,
@@ -697,7 +777,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.106527 to 0.129001"
+     "ci": "95% CI 0.106527 to 0.129001",
+     "ci95": [
+      10.653,
+      12.9
+     ]
     },
     "lb_browser": {
      "v": 93.3,
@@ -722,7 +806,11 @@
      "set": null,
      "cost": 130.1,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 1043.0850848338202 (SEM)"
+     "ci": "+/- 1043.0850848338202 (SEM)",
+     "ci95": [
+      10816.165,
+      14905.059
+     ]
     },
     "lb_data": {
      "v": 82.7,
@@ -735,21 +823,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1281.977899 to 1303.028439"
+     "ci": "95% CI 1281.977899 to 1303.028439",
+     "ci95": [
+      1281.978,
+      1303.028
+     ]
     },
     "frontiermath": {
      "v": 93.684,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.014434038295343787"
+     "ci": "stderr 0.014434038295343787",
+     "ci95": [
+      90.855,
+      96.513
+     ]
     },
     "gpqa": {
      "v": 95.391,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.013780748450364692"
+     "ci": "stderr 0.013780748450364692",
+     "ci95": [
+      92.69,
+      98.092
+     ]
     },
     "arc2": {
      "v": 94.167,
@@ -906,14 +1006,22 @@
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "164.78 to 170.92"
+     "ci": "164.78 to 170.92",
+     "ci95": [
+      164.78,
+      170.92
+     ]
     },
     "vals": {
      "v": 60.536,
      "set": "Max",
      "cost": 2.939,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.994"
+     "ci": "stderr 0.994",
+     "ci95": [
+      58.588,
+      62.484
+     ]
     },
     "aa_coding": {
      "v": 48.648,
@@ -926,14 +1034,22 @@
      "set": "Codex, Max",
      "cost": 2.65,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.09 (95% CI)"
+     "ci": "+/- 3.09 (95% CI)",
+     "ci95": [
+      50.24,
+      56.42
+     ]
     },
     "arena_webdev": {
      "v": 1680.712,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1670.408911 to 1691.014363"
+     "ci": "95% CI 1670.408911 to 1691.014363",
+     "ci95": [
+      1670.409,
+      1691.014
+     ]
     },
     "lb_coding": {
      "v": 89.2,
@@ -946,7 +1062,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.101038 to 0.125704"
+     "ci": "95% CI 0.101038 to 0.125704",
+     "ci95": [
+      10.104,
+      12.57
+     ]
     },
     "lb_browser": {
      "v": 93.1,
@@ -971,7 +1091,11 @@
      "set": null,
      "cost": 62.75,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 767.6539467425706 (SEM)"
+     "ci": "+/- 767.6539467425706 (SEM)",
+     "ci95": [
+      7602.856,
+      10612.06
+     ]
     },
     "lb_data": {
      "v": 82.3,
@@ -984,14 +1108,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.017085690144166794"
+     "ci": "stderr 0.017085690144166794",
+     "ci95": [
+      87.528,
+      94.226
+     ]
     },
     "gpqa": {
      "v": 94.318,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.014911672683567374"
+     "ci": "stderr 0.014911672683567374",
+     "ci95": [
+      91.395,
+      97.241
+     ]
     }
    },
    "tok": {
@@ -1121,21 +1253,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1436.786323 to 1444.969648"
+     "ci": "95% CI 1436.786323 to 1444.969648",
+     "ci95": [
+      1436.786,
+      1444.97
+     ]
     },
     "eci": {
      "v": 156.39,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "154.5 to 158.47"
+     "ci": "154.5 to 158.47",
+     "ci95": [
+      154.5,
+      158.47
+     ]
     },
     "vals": {
      "v": 52.322,
      "set": "Max",
      "cost": 0.4501,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.117"
+     "ci": "stderr 1.117",
+     "ci95": [
+      50.133,
+      54.511
+     ]
     },
     "aa_coding": {
      "v": 25.894,
@@ -1148,14 +1292,22 @@
      "set": "Codex, Max",
      "cost": 0.2186,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.66 (95% CI)"
+     "ci": "+/- 2.66 (95% CI)",
+     "ci95": [
+      12.49,
+      17.81
+     ]
     },
     "arena_webdev": {
      "v": 1576.631,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1570.717806 to 1582.545180"
+     "ci": "95% CI 1570.717806 to 1582.545180",
+     "ci95": [
+      1570.718,
+      1582.545
+     ]
     },
     "lb_coding": {
      "v": 70.8,
@@ -1168,7 +1320,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.003249 to 0.012530"
+     "ci": "95% CI 0.003249 to 0.012530",
+     "ci95": [
+      0.325,
+      1.253
+     ]
     },
     "lb_browser": {
      "v": 70.3,
@@ -1199,21 +1355,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1226.405628 to 1244.306638"
+     "ci": "95% CI 1226.405628 to 1244.306638",
+     "ci95": [
+      1226.406,
+      1244.307
+     ]
     },
     "frontiermath": {
      "v": 78.947,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.024191503146153773"
+     "ci": "stderr 0.024191503146153773",
+     "ci95": [
+      74.205,
+      83.689
+     ]
     },
     "gpqa": {
      "v": 90.467,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.018537378631915503"
+     "ci": "stderr 0.018537378631915503",
+     "ci95": [
+      86.834,
+      94.1
+     ]
     },
     "arc2": {
      "v": 59.306,
@@ -1345,21 +1513,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1347.409764 to 1356.156495"
+     "ci": "95% CI 1347.409764 to 1356.156495",
+     "ci95": [
+      1347.41,
+      1356.156
+     ]
     },
     "eci": {
      "v": 140.23,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "138.26 to 142.08"
+     "ci": "138.26 to 142.08",
+     "ci95": [
+      138.26,
+      142.08
+     ]
     },
     "vending": {
      "v": -21.532,
      "set": null,
      "cost": 11.4,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 2.8717092471209504 (SEM)"
+     "ci": "+/- 2.8717092471209504 (SEM)",
+     "ci95": [
+      -27.161,
+      -15.903
+     ]
     },
     "vectara": {
      "v": 14.2,
@@ -1372,7 +1552,11 @@
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.027437163443883767"
+     "ci": "stderr 0.027437163443883767",
+     "ci95": [
+      70.38,
+      81.136
+     ]
     }
    },
    "tok": {
@@ -1425,21 +1609,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1311.103060 to 1323.946075"
+     "ci": "95% CI 1311.103060 to 1323.946075",
+     "ci95": [
+      1311.103,
+      1323.946
+     ]
     },
     "eci": {
      "v": 134.88,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "132.27 to 137.31"
+     "ci": "132.27 to 137.31",
+     "ci95": [
+      132.27,
+      137.31
+     ]
     },
     "gpqa": {
      "v": 60.795,
      "set": "Medium",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.024864059770258008"
+     "ci": "stderr 0.024864059770258008",
+     "ci95": [
+      55.922,
+      65.668
+     ]
     }
    }
   },
@@ -1513,14 +1709,22 @@
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
      "ci": "170.09 to 177.36",
-     "flag": "Pre-launch evaluation; Epoch AI says it may change."
+     "flag": "Pre-launch evaluation; Epoch AI says it may change.",
+     "ci95": [
+      170.09,
+      177.36
+     ]
     },
     "vals": {
      "v": 71.309,
      "set": "High",
      "cost": 17.94,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.956"
+     "ci": "stderr 0.956",
+     "ci95": [
+      69.435,
+      73.183
+     ]
     },
     "aa_coding": {
      "v": 58.472,
@@ -1560,14 +1764,22 @@
      "set": "Claude Code, Max",
      "cost": 49.98,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.85 (95% CI)"
+     "ci": "+/- 2.85 (95% CI)",
+     "ci95": [
+      62.91,
+      68.61
+     ]
     },
     "arena_webdev": {
      "v": 1825.962,
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1807.155215 to 1844.769173"
+     "ci": "95% CI 1807.155215 to 1844.769173",
+     "ci95": [
+      1807.155,
+      1844.769
+     ]
     },
     "lb_coding": {
      "v": 79.2,
@@ -1580,7 +1792,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.248914 to 0.323339"
+     "ci": "95% CI 0.248914 to 0.323339",
+     "ci95": [
+      24.891,
+      32.334
+     ]
     },
     "lb_browser": {
      "v": 86.9,
@@ -1605,7 +1821,11 @@
      "set": null,
      "cost": 731.4,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 726.2514588074838 (SEM)"
+     "ci": "+/- 726.2514588074838 (SEM)",
+     "ci95": [
+      8205.027,
+      11051.933
+     ]
     },
     "lb_data": {
      "v": 81.5,
@@ -1619,7 +1839,11 @@
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
      "ci": "stderr 0.012824623769055387",
-     "flag": "Pre-launch evaluation; Epoch AI says it may change."
+     "flag": "Pre-launch evaluation; Epoch AI says it may change.",
+     "ci95": [
+      92.574,
+      97.602
+     ]
     },
     "gpqa": {
      "v": 93.876,
@@ -1627,7 +1851,11 @@
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
      "ci": "stderr 0.016253431037635206",
-     "flag": "Pre-launch evaluation; Epoch AI says it may change."
+     "flag": "Pre-launch evaluation; Epoch AI says it may change.",
+     "ci95": [
+      90.69,
+      97.062
+     ]
     },
     "arc2": {
      "v": 93.75,
@@ -1810,21 +2038,33 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1500.824759 to 1512.745076"
+     "ci": "95% CI 1500.824759 to 1512.745076",
+     "ci95": [
+      1500.825,
+      1512.745
+     ]
     },
     "eci": {
      "v": 168.7,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "165.87 to 171.89"
+     "ci": "165.87 to 171.89",
+     "ci95": [
+      165.87,
+      171.89
+     ]
     },
     "vals": {
      "v": 70.143,
      "set": "Max",
      "cost": 24.77,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.004"
+     "ci": "stderr 1.004",
+     "ci95": [
+      68.175,
+      72.111
+     ]
     },
     "aa_coding": {
      "v": 58.159,
@@ -1837,14 +2077,22 @@
      "set": "Claude Code, Max",
      "cost": 14.3,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.11 (95% CI)"
+     "ci": "+/- 3.11 (95% CI)",
+     "ci95": [
+      62.65,
+      68.87
+     ]
     },
     "arena_webdev": {
      "v": 1815.567,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1804.037182 to 1827.097477"
+     "ci": "95% CI 1804.037182 to 1827.097477",
+     "ci95": [
+      1804.037,
+      1827.097
+     ]
     },
     "lb_coding": {
      "v": 87.1,
@@ -1857,7 +2105,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.161682 to 0.202193"
+     "ci": "95% CI 0.161682 to 0.202193",
+     "ci95": [
+      16.168,
+      20.219
+     ]
     },
     "lb_browser": {
      "v": 88.4,
@@ -1882,7 +2134,11 @@
      "set": null,
      "cost": 475.9,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 784.7233909874087 (SEM)"
+     "ci": "+/- 784.7233909874087 (SEM)",
+     "ci95": [
+      7697.19,
+      10773.306
+     ]
     },
     "lb_data": {
      "v": 80.3,
@@ -1895,7 +2151,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1285.391452 to 1305.166671"
+     "ci": "95% CI 1285.391452 to 1305.166671",
+     "ci95": [
+      1285.391,
+      1305.167
+     ]
     },
     "vectara": {
      "v": 9.9,
@@ -1908,14 +2168,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.016786209858442095"
+     "ci": "stderr 0.016786209858442095",
+     "ci95": [
+      87.938,
+      94.518
+     ]
     },
     "gpqa": {
      "v": 90.593,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.019434397190192135"
+     "ci": "stderr 0.019434397190192135",
+     "ci95": [
+      86.784,
+      94.402
+     ]
     },
     "arc2": {
      "v": 93.333,
@@ -2065,21 +2333,33 @@
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1466.851343 to 1478.920461"
+     "ci": "95% CI 1466.851343 to 1478.920461",
+     "ci95": [
+      1466.851,
+      1478.92
+     ]
     },
     "eci": {
      "v": 166.59,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "163.83 to 169.65"
+     "ci": "163.83 to 169.65",
+     "ci95": [
+      163.83,
+      169.65
+     ]
     },
     "vals": {
      "v": 70.854,
      "set": "Max",
      "cost": 16.18,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.928"
+     "ci": "stderr 0.928",
+     "ci95": [
+      69.035,
+      72.673
+     ]
     },
     "aa_coding": {
      "v": 56.331,
@@ -2092,14 +2372,22 @@
      "set": "Claude Code, Max",
      "cost": 22.22,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3 (95% CI)"
+     "ci": "+/- 3 (95% CI)",
+     "ci95": [
+      60.94,
+      66.94
+     ]
     },
     "arena_webdev": {
      "v": 1772.229,
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1762.515007 to 1781.942047"
+     "ci": "95% CI 1762.515007 to 1781.942047",
+     "ci95": [
+      1762.515,
+      1781.942
+     ]
     },
     "lb_coding": {
      "v": 77.2,
@@ -2112,7 +2400,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.123901 to 0.181799"
+     "ci": "95% CI 0.123901 to 0.181799",
+     "ci95": [
+      12.39,
+      18.18
+     ]
     },
     "lb_browser": {
      "v": 89.3,
@@ -2137,7 +2429,11 @@
      "set": null,
      "cost": 218.7,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 1585.339091520414 (SEM)"
+     "ci": "+/- 1585.339091520414 (SEM)",
+     "ci95": [
+      8058.013,
+      14272.543
+     ]
     },
     "lb_data": {
      "v": 59.5,
@@ -2150,21 +2446,33 @@
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1252.512124 to 1272.911041"
+     "ci": "95% CI 1252.512124 to 1272.911041",
+     "ci95": [
+      1252.512,
+      1272.911
+     ]
     },
     "frontiermath": {
      "v": 88.772,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.018734030360524248"
+     "ci": "stderr 0.018734030360524248",
+     "ci95": [
+      85.1,
+      92.444
+     ]
     },
     "gpqa": {
      "v": 95.581,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.013710320714521202"
+     "ci": "stderr 0.013710320714521202",
+     "ci95": [
+      92.894,
+      98.268
+     ]
     },
     "arc2": {
      "v": 83.889,
@@ -2309,21 +2617,33 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1415.016993 to 1427.320345"
+     "ci": "95% CI 1415.016993 to 1427.320345",
+     "ci95": [
+      1415.017,
+      1427.32
+     ]
     },
     "eci": {
      "v": 160.29,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "158.12 to 162.69"
+     "ci": "158.12 to 162.69",
+     "ci95": [
+      158.12,
+      162.69
+     ]
     },
     "vals": {
      "v": 58.727,
      "set": "Max",
      "cost": 3.175,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.282"
+     "ci": "stderr 1.282",
+     "ci95": [
+      56.214,
+      61.24
+     ]
     },
     "aa_coding": {
      "v": 29.591,
@@ -2336,14 +2656,22 @@
      "set": "Claude Code, Max",
      "cost": 2.886,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.61 (95% CI)"
+     "ci": "+/- 3.61 (95% CI)",
+     "ci95": [
+      36.39,
+      43.61
+     ]
     },
     "arena_webdev": {
      "v": 1593.216,
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1584.984597 to 1601.446949"
+     "ci": "95% CI 1584.984597 to 1601.446949",
+     "ci95": [
+      1584.985,
+      1601.447
+     ]
     },
     "lb_coding": {
      "v": 77.6,
@@ -2356,7 +2684,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.013844 to 0.006440"
+     "ci": "95% CI -0.013844 to 0.006440",
+     "ci95": [
+      -1.384,
+      0.644
+     ]
     },
     "lb_browser": {
      "v": 69.5,
@@ -2381,7 +2713,11 @@
      "set": null,
      "cost": 11.13,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 690.6447523952602 (SEM)"
+     "ci": "+/- 690.6447523952602 (SEM)",
+     "ci95": [
+      2248.799,
+      4956.127
+     ]
     },
     "lb_data": {
      "v": 53.1,
@@ -2394,14 +2730,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.02566445410232946"
+     "ci": "stderr 0.02566445410232946",
+     "ci95": [
+      70.058,
+      80.118
+     ]
     },
     "gpqa": {
      "v": 89.646,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.019774484382483127"
+     "ci": "stderr 0.019774484382483127",
+     "ci95": [
+      85.77,
+      93.522
+     ]
     },
     "arc2": {
      "v": 61.25,
@@ -2542,21 +2886,33 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1516.565163 to 1535.798912"
+     "ci": "95% CI 1516.565163 to 1535.798912",
+     "ci95": [
+      1516.565,
+      1535.799
+     ]
     },
     "eci": {
      "v": 169.78,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "166.59 to 173.31"
+     "ci": "166.59 to 173.31",
+     "ci95": [
+      166.59,
+      173.31
+     ]
     },
     "vals": {
      "v": 70.45,
      "set": "High",
      "cost": 10.51,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.974"
+     "ci": "stderr 0.974",
+     "ci95": [
+      68.541,
+      72.359
+     ]
     },
     "aa_coding": {
      "v": 55.466,
@@ -2569,14 +2925,22 @@
      "set": "Antigravity CLI, High",
      "cost": 4.116,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.23 (95% CI)"
+     "ci": "+/- 3.23 (95% CI)",
+     "ci95": [
+      61.32,
+      67.78
+     ]
     },
     "arena_webdev": {
      "v": 1768.34,
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1752.974196 to 1783.705483"
+     "ci": "95% CI 1752.974196 to 1783.705483",
+     "ci95": [
+      1752.974,
+      1783.705
+     ]
     },
     "lb_coding": {
      "v": 91.0,
@@ -2589,7 +2953,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.157687 to 0.171227"
+     "ci": "95% CI 0.157687 to 0.171227",
+     "ci95": [
+      15.769,
+      17.123
+     ]
     },
     "lb_browser": {
      "v": 80.0,
@@ -2614,7 +2982,11 @@
      "set": null,
      "cost": 369.8,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 1096.463662366936 (SEM)"
+     "ci": "+/- 1096.463662366936 (SEM)",
+     "ci95": [
+      14335.138,
+      18633.276
+     ]
     },
     "lb_data": {
      "v": 86.5,
@@ -2627,14 +2999,22 @@
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.017377516319276178"
+     "ci": "stderr 0.017377516319276178",
+     "ci95": [
+      87.12,
+      93.932
+     ]
     },
     "gpqa": {
      "v": 96.528,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.01207061012675132"
+     "ci": "stderr 0.01207061012675132",
+     "ci95": [
+      94.162,
+      98.894
+     ]
     },
     "arc2": {
      "v": 94.167,
@@ -2751,21 +3131,33 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1516.308081 to 1527.078424"
+     "ci": "95% CI 1516.308081 to 1527.078424",
+     "ci95": [
+      1516.308,
+      1527.078
+     ]
     },
     "eci": {
      "v": 166.57,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "163.94 to 169.51"
+     "ci": "163.94 to 169.51",
+     "ci95": [
+      163.94,
+      169.51
+     ]
     },
     "vals": {
      "v": 69.389,
      "set": "High",
      "cost": 13.37,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.09"
+     "ci": "stderr 1.09",
+     "ci95": [
+      67.253,
+      71.525
+     ]
     },
     "aa_coding": {
      "v": 45.499,
@@ -2778,14 +3170,22 @@
      "set": "Antigravity CLI, High",
      "cost": 3.361,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.85 (95% CI)"
+     "ci": "+/- 2.85 (95% CI)",
+     "ci95": [
+      52.6,
+      58.3
+     ]
     },
     "arena_webdev": {
      "v": 1679.12,
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1669.618626 to 1688.621587"
+     "ci": "95% CI 1669.618626 to 1688.621587",
+     "ci95": [
+      1669.619,
+      1688.622
+     ]
     },
     "lb_coding": {
      "v": 85.7,
@@ -2798,7 +3198,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.091090 to 0.108937"
+     "ci": "95% CI 0.091090 to 0.108937",
+     "ci95": [
+      9.109,
+      10.894
+     ]
     },
     "lb_browser": {
      "v": 82.8,
@@ -2823,7 +3227,11 @@
      "set": null,
      "cost": 249.1,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 3100.0118277133693 (SEM)"
+     "ci": "+/- 3100.0118277133693 (SEM)",
+     "ci95": [
+      7642.135,
+      19794.181
+     ]
     },
     "lb_data": {
      "v": 85.2,
@@ -2842,14 +3250,22 @@
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.020611471958164294"
+     "ci": "stderr 0.020611471958164294",
+     "ci95": [
+      81.925,
+      90.005
+     ]
     },
     "gpqa": {
      "v": 96.402,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.011918129589602694"
+     "ci": "stderr 0.011918129589602694",
+     "ci95": [
+      94.066,
+      98.738
+     ]
     },
     "arc2": {
      "v": 91.25,
@@ -2969,14 +3385,22 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1481.418365 to 1499.436647"
+     "ci": "95% CI 1481.418365 to 1499.436647",
+     "ci95": [
+      1481.418,
+      1499.437
+     ]
     },
     "vals": {
      "v": 68.492,
      "set": "X-high",
      "cost": 9.838,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 0.994"
+     "ci": "stderr 0.994",
+     "ci95": [
+      66.544,
+      70.44
+     ]
     },
     "aa_coding": {
      "v": 52.317,
@@ -2989,14 +3413,22 @@
      "set": "Antigravity CLI, High",
      "cost": 2.376,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.97 (95% CI)"
+     "ci": "+/- 2.97 (95% CI)",
+     "ci95": [
+      53.39,
+      59.33
+     ]
     },
     "arena_webdev": {
      "v": 1703.905,
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1689.683220 to 1718.126128"
+     "ci": "95% CI 1689.683220 to 1718.126128",
+     "ci95": [
+      1689.683,
+      1718.126
+     ]
     },
     "lb_coding": {
      "v": 78.5,
@@ -3009,7 +3441,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.130196 to 0.167935"
+     "ci": "95% CI 0.130196 to 0.167935",
+     "ci95": [
+      13.02,
+      16.794
+     ]
     },
     "lb_browser": {
      "v": 77.1,
@@ -3034,7 +3470,11 @@
      "set": null,
      "cost": 162.1,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 495.0947213278148 (SEM)"
+     "ci": "+/- 495.0947213278148 (SEM)",
+     "ci95": [
+      13579.104,
+      15519.876
+     ]
     },
     "lb_data": {
      "v": 83.2,
@@ -3241,35 +3681,55 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1492.463144 to 1500.866158"
+     "ci": "95% CI 1492.463144 to 1500.866158",
+     "ci95": [
+      1492.463,
+      1500.866
+     ]
     },
     "eci": {
      "v": 158.83,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "156.86 to 160.97"
+     "ci": "156.86 to 160.97",
+     "ci95": [
+      156.86,
+      160.97
+     ]
     },
     "vals": {
      "v": 55.951,
      "set": "High",
      "cost": 5.026,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.141"
+     "ci": "stderr 1.141",
+     "ci95": [
+      53.715,
+      58.187
+     ]
     },
     "tbench": {
      "v": 18.18,
      "set": "Mini-SWE-agent, High",
      "cost": 5.542,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.36 (95% CI)"
+     "ci": "+/- 3.36 (95% CI)",
+     "ci95": [
+      14.82,
+      21.54
+     ]
     },
     "arena_webdev": {
      "v": 1582.95,
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1576.369855 to 1589.531043"
+     "ci": "95% CI 1576.369855 to 1589.531043",
+     "ci95": [
+      1576.37,
+      1589.531
+     ]
     },
     "lb_coding": {
      "v": 73.3,
@@ -3282,7 +3742,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.005733 to 0.022985"
+     "ci": "95% CI 0.005733 to 0.022985",
+     "ci95": [
+      0.573,
+      2.298
+     ]
     },
     "lb_browser": {
      "v": 45.1,
@@ -3307,7 +3771,11 @@
      "set": null,
      "cost": 69.95,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 490.1639138673693 (SEM)"
+     "ci": "+/- 490.1639138673693 (SEM)",
+     "ci95": [
+      4133.072,
+      6054.514
+     ]
     },
     "lb_data": {
      "v": 54.0,
@@ -3320,21 +3788,33 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1284.867409 to 1301.280107"
+     "ci": "95% CI 1284.867409 to 1301.280107",
+     "ci95": [
+      1284.867,
+      1301.28
+     ]
     },
     "frontiermath": {
      "v": 68.421,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.027582557383453006"
+     "ci": "stderr 0.027582557383453006",
+     "ci95": [
+      63.015,
+      73.827
+     ]
     },
     "gpqa": {
      "v": 95.391,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.01401136318210652"
+     "ci": "stderr 0.01401136318210652",
+     "ci95": [
+      92.645,
+      98.137
+     ]
     },
     "arc2": {
      "v": 89.167,
@@ -3437,42 +3917,66 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1450.383591 to 1459.397852"
+     "ci": "95% CI 1450.383591 to 1459.397852",
+     "ci95": [
+      1450.384,
+      1459.398
+     ]
     },
     "eci": {
      "v": 145.65,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "143.98 to 147.32"
+     "ci": "143.98 to 147.32",
+     "ci95": [
+      143.98,
+      147.32
+     ]
     },
     "arena_webdev": {
      "v": 1432.061,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1390.697687 to 1473.424435"
+     "ci": "95% CI 1390.697687 to 1473.424435",
+     "ci95": [
+      1390.698,
+      1473.424
+     ]
     },
     "arena_vision": {
      "v": 1265.799,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1258.315898 to 1273.281296"
+     "ci": "95% CI 1258.315898 to 1273.281296",
+     "ci95": [
+      1258.316,
+      1273.281
+     ]
     },
     "frontiermath": {
      "v": 25.965,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.02601675082238553"
+     "ci": "stderr 0.02601675082238553",
+     "ci95": [
+      20.866,
+      31.064
+     ]
     },
     "gpqa": {
      "v": 83.333,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.026552207828215258"
+     "ci": "stderr 0.026552207828215258",
+     "ci95": [
+      78.129,
+      88.537
+     ]
     },
     "arc2": {
      "v": 10.278,
@@ -3560,21 +4064,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1444.375106 to 1459.274607"
+     "ci": "95% CI 1444.375106 to 1459.274607",
+     "ci95": [
+      1444.375,
+      1459.275
+     ]
     },
     "eci": {
      "v": 144.12,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "141.72 to 146.59"
+     "ci": "141.72 to 146.59",
+     "ci95": [
+      141.72,
+      146.59
+     ]
     },
     "arena_webdev": {
      "v": 1370.266,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1364.282066 to 1376.250189"
+     "ci": "95% CI 1364.282066 to 1376.250189",
+     "ci95": [
+      1364.282,
+      1376.25
+     ]
     },
     "lb_coding": {
      "v": 20.3,
@@ -3611,7 +4127,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1259.269229 to 1270.356588"
+     "ci": "95% CI 1259.269229 to 1270.356588",
+     "ci95": [
+      1259.269,
+      1270.357
+     ]
     },
     "vectara": {
      "v": 7.4,
@@ -3624,7 +4144,11 @@
      "set": "Minimal",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.03053289223393202"
+     "ci": "stderr 0.03053289223393202",
+     "ci95": [
+      69.774,
+      81.742
+     ]
     }
    },
    "aa": [
@@ -3776,28 +4300,44 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1429.982780 to 1444.892289"
+     "ci": "95% CI 1429.982780 to 1444.892289",
+     "ci95": [
+      1429.983,
+      1444.892
+     ]
     },
     "eci": {
      "v": 141.58,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "139.14 to 144.02"
+     "ci": "139.14 to 144.02",
+     "ci95": [
+      139.14,
+      144.02
+     ]
     },
     "arena_webdev": {
      "v": 1358.124,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1341.134091 to 1375.112976"
+     "ci": "95% CI 1341.134091 to 1375.112976",
+     "ci95": [
+      1341.134,
+      1375.113
+     ]
     },
     "arena_vision": {
      "v": 1241.778,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1235.360701 to 1248.195611"
+     "ci": "95% CI 1235.360701 to 1248.195611",
+     "ci95": [
+      1235.361,
+      1248.196
+     ]
     },
     "vectara": {
      "v": 5.2,
@@ -3810,7 +4350,11 @@
      "set": "Minimal",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.031544498882702825"
+     "ci": "stderr 0.031544498882702825",
+     "ci95": [
+      67.049,
+      79.415
+     ]
     }
    },
    "claims": [
@@ -3979,21 +4523,33 @@
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1438.049228 to 1448.592756"
+     "ci": "95% CI 1438.049228 to 1448.592756",
+     "ci95": [
+      1438.049,
+      1448.593
+     ]
     },
     "eci": {
      "v": 156.43,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "154.47 to 158.52"
+     "ci": "154.47 to 158.52",
+     "ci95": [
+      154.47,
+      158.52
+     ]
     },
     "vals": {
      "v": 58.615,
      "set": "X-high",
      "cost": 11.63,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.013"
+     "ci": "stderr 1.013",
+     "ci95": [
+      56.63,
+      60.6
+     ]
     },
     "aa_coding": {
      "v": 41.64,
@@ -4006,14 +4562,22 @@
      "set": "Grok Build, X-high",
      "cost": 11.16,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.59 (95% CI)"
+     "ci": "+/- 3.59 (95% CI)",
+     "ci95": [
+      35.2,
+      42.38
+     ]
     },
     "arena_webdev": {
      "v": 1640.085,
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1632.282206 to 1647.888142"
+     "ci": "95% CI 1632.282206 to 1647.888142",
+     "ci95": [
+      1632.282,
+      1647.888
+     ]
     },
     "lb_coding": {
      "v": 73.1,
@@ -4026,7 +4590,11 @@
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.002785 to 0.032753"
+     "ci": "95% CI 0.002785 to 0.032753",
+     "ci95": [
+      0.279,
+      3.275
+     ]
     },
     "lb_browser": {
      "v": 49.3,
@@ -4051,7 +4619,11 @@
      "set": null,
      "cost": 247.8,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 651.7335705404807 (SEM)"
+     "ci": "+/- 651.7335705404807 (SEM)",
+     "ci95": [
+      9259.434,
+      11814.23
+     ]
     },
     "lb_data": {
      "v": 76.9,
@@ -4064,21 +4636,33 @@
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1240.066182 to 1257.769187"
+     "ci": "95% CI 1240.066182 to 1257.769187",
+     "ci95": [
+      1240.066,
+      1257.769
+     ]
     },
     "frontiermath": {
      "v": 52.982,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.029616712041900365"
+     "ci": "stderr 0.029616712041900365",
+     "ci95": [
+      47.177,
+      58.787
+     ]
     },
     "gpqa": {
      "v": 92.74,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.015505824295534454"
+     "ci": "stderr 0.015505824295534454",
+     "ci95": [
+      89.701,
+      95.779
+     ]
     },
     "arc2": {
      "v": 61.389,
@@ -4231,21 +4815,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1504.656934 to 1517.055228"
+     "ci": "95% CI 1504.656934 to 1517.055228",
+     "ci95": [
+      1504.657,
+      1517.055
+     ]
     },
     "eci": {
      "v": 161.74,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "159.36 to 164.32"
+     "ci": "159.36 to 164.32",
+     "ci95": [
+      159.36,
+      164.32
+     ]
     },
     "vals": {
      "v": 64.877,
      "set": "Max",
      "cost": 10.65,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.067"
+     "ci": "stderr 1.067",
+     "ci95": [
+      62.786,
+      66.968
+     ]
     },
     "aa_coding": {
      "v": 44.475,
@@ -4258,14 +4854,22 @@
      "set": "Muse Code, X-high",
      "cost": 7.431,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.78 (95% CI)"
+     "ci": "+/- 3.78 (95% CI)",
+     "ci95": [
+      43.19,
+      50.75
+     ]
     },
     "arena_webdev": {
      "v": 1647.337,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1638.185169 to 1656.488299"
+     "ci": "95% CI 1638.185169 to 1656.488299",
+     "ci95": [
+      1638.185,
+      1656.488
+     ]
     },
     "lb_coding": {
      "v": 74.9,
@@ -4278,7 +4882,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.003392 to 0.022314"
+     "ci": "95% CI -0.003392 to 0.022314",
+     "ci95": [
+      -0.339,
+      2.231
+     ]
     },
     "lb_browser": {
      "v": 60.0,
@@ -4303,7 +4911,11 @@
      "set": null,
      "cost": 329.1,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 965.9425358546611 (SEM)"
+     "ci": "+/- 965.9425358546611 (SEM)",
+     "ci95": [
+      7538.933,
+      11325.427
+     ]
     },
     "lb_data": {
      "v": 81.6,
@@ -4316,7 +4928,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.02274515950332741"
+     "ci": "stderr 0.02274515950332741",
+     "ci95": [
+      77.647,
+      86.563
+     ]
     }
    },
    "tok": {
@@ -4384,14 +5000,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1491.492896 to 1501.510345"
+     "ci": "95% CI 1491.492896 to 1501.510345",
+     "ci95": [
+      1491.493,
+      1501.51
+     ]
     },
     "eci": {
      "v": 158.25,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "156.26 to 160.41"
+     "ci": "156.26 to 160.41",
+     "ci95": [
+      156.26,
+      160.41
+     ]
     },
     "aa_coding": {
      "v": 36.771,
@@ -4404,14 +5028,22 @@
      "set": "Muse Code, X-high",
      "cost": null,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3 (95% CI)"
+     "ci": "+/- 3 (95% CI)",
+     "ci95": [
+      11.85,
+      17.85
+     ]
     },
     "arena_webdev": {
      "v": 1655.127,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1648.208398 to 1662.044616"
+     "ci": "95% CI 1648.208398 to 1662.044616",
+     "ci95": [
+      1648.208,
+      1662.045
+     ]
     },
     "lb_coding": {
      "v": 84.4,
@@ -4424,7 +5056,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.003308 to 0.020721"
+     "ci": "95% CI 0.003308 to 0.020721",
+     "ci95": [
+      0.331,
+      2.072
+     ]
     },
     "lb_browser": {
      "v": 30.9,
@@ -4455,14 +5091,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1283.379082 to 1299.615979"
+     "ci": "95% CI 1283.379082 to 1299.615979",
+     "ci95": [
+      1283.379,
+      1299.616
+     ]
     },
     "frontiermath": {
      "v": 74.386,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.025901524747773286"
+     "ci": "stderr 0.025901524747773286",
+     "ci95": [
+      69.309,
+      79.463
+     ]
     }
    }
   },
@@ -4526,7 +5170,11 @@
      "set": "Max",
      "cost": 0.153,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.068"
+     "ci": "stderr 1.068",
+     "ci95": [
+      58.382,
+      62.568
+     ]
     },
     "aa_coding": {
      "v": 39.689,
@@ -4539,21 +5187,33 @@
      "set": "Muse Code, X-high",
      "cost": 0.4763,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.8 (95% CI)"
+     "ci": "+/- 3.8 (95% CI)",
+     "ci95": [
+      26.81,
+      34.41
+     ]
     },
     "arena_webdev": {
      "v": 1607.948,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1591.069894 to 1624.825755"
+     "ci": "95% CI 1591.069894 to 1624.825755",
+     "ci95": [
+      1591.07,
+      1624.826
+     ]
     },
     "arena_agent": {
      "v": 1.728,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.002333 to 0.032221"
+     "ci": "95% CI 0.002333 to 0.032221",
+     "ci95": [
+      0.233,
+      3.222
+     ]
     }
    },
    "tok": {
@@ -4625,21 +5285,33 @@
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "153.37 to 157.73"
+     "ci": "153.37 to 157.73",
+     "ci95": [
+      153.37,
+      157.73
+     ]
     },
     "vals": {
      "v": 48.567,
      "set": "X-high",
      "cost": 4.718,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.087"
+     "ci": "stderr 1.087",
+     "ci95": [
+      46.436,
+      50.698
+     ]
     },
     "arena_webdev": {
      "v": 1527.454,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1512.735872 to 1542.172774"
+     "ci": "95% CI 1512.735872 to 1542.172774",
+     "ci95": [
+      1512.736,
+      1542.173
+     ]
     },
     "lb_coding": {
      "v": 55.1,
@@ -4676,14 +5348,22 @@
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.027237781633151586"
+     "ci": "stderr 0.027237781633151586",
+     "ci95": [
+      64.486,
+      75.164
+     ]
     },
     "gpqa": {
      "v": 88.573,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.018706209910489154"
+     "ci": "stderr 0.018706209910489154",
+     "ci95": [
+      84.907,
+      92.239
+     ]
     },
     "arc2": {
      "v": 57.5,
@@ -4771,14 +5451,22 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1414.824503 to 1434.445777"
+     "ci": "95% CI 1414.824503 to 1434.445777",
+     "ci95": [
+      1414.825,
+      1434.446
+     ]
     },
     "arena_webdev": {
      "v": 1353.775,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1338.045460 to 1369.504239"
+     "ci": "95% CI 1338.045460 to 1369.504239",
+     "ci95": [
+      1338.045,
+      1369.504
+     ]
     }
    },
    "tok": {
@@ -5050,21 +5738,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1411.961719 to 1428.917954"
+     "ci": "95% CI 1411.961719 to 1428.917954",
+     "ci95": [
+      1411.962,
+      1428.918
+     ]
     },
     "eci": {
      "v": 154.56,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "151.79 to 157.42"
+     "ci": "151.79 to 157.42",
+     "ci95": [
+      151.79,
+      157.42
+     ]
     },
     "vals": {
      "v": 56.527,
      "set": "High",
      "cost": 3.717,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.258"
+     "ci": "stderr 1.258",
+     "ci95": [
+      54.061,
+      58.993
+     ]
     },
     "aa_coding": {
      "v": 40.589,
@@ -5089,28 +5789,44 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1552.265885 to 1580.372535"
+     "ci": "95% CI 1552.265885 to 1580.372535",
+     "ci95": [
+      1552.266,
+      1580.373
+     ]
     },
     "arena_agent": {
      "v": -6.811,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.088358 to -0.047865"
+     "ci": "95% CI -0.088358 to -0.047865",
+     "ci95": [
+      -8.836,
+      -4.787
+     ]
     },
     "arena_vision": {
      "v": 1230.816,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1216.728224 to 1244.904308"
+     "ci": "95% CI 1216.728224 to 1244.904308",
+     "ci95": [
+      1216.728,
+      1244.904
+     ]
     },
     "gpqa": {
      "v": 90.152,
      "set": "High",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.018113832926930726"
+     "ci": "stderr 0.018113832926930726",
+     "ci95": [
+      86.602,
+      93.702
+     ]
     }
    },
    "tok": {
@@ -5317,7 +6033,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1328.682593 to 1340.885787"
+     "ci": "95% CI 1328.682593 to 1340.885787",
+     "ci95": [
+      1328.683,
+      1340.886
+     ]
     },
     "vectara": {
      "v": 5.1,
@@ -5384,42 +6104,66 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1457.225359 to 1470.566349"
+     "ci": "95% CI 1457.225359 to 1470.566349",
+     "ci95": [
+      1457.225,
+      1470.566
+     ]
     },
     "eci": {
      "v": 155.96,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "154.1 to 157.99"
+     "ci": "154.1 to 157.99",
+     "ci95": [
+      154.1,
+      157.99
+     ]
     },
     "vals": {
      "v": 52.974,
      "set": "Max",
      "cost": 2.5,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.044"
+     "ci": "stderr 1.044",
+     "ci95": [
+      50.928,
+      55.02
+     ]
     },
     "tbench": {
      "v": 6.67,
      "set": "Claude Code, Max",
      "cost": 2.203,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.52 (95% CI)"
+     "ci": "+/- 2.52 (95% CI)",
+     "ci95": [
+      4.15,
+      9.19
+     ]
     },
     "arena_webdev": {
      "v": 1580.831,
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1571.301967 to 1590.360723"
+     "ci": "95% CI 1571.301967 to 1590.360723",
+     "ci95": [
+      1571.302,
+      1590.361
+     ]
     },
     "vending": {
      "v": 3284.52,
      "set": null,
      "cost": 289.0,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 570.7043444960502 (SEM)"
+     "ci": "+/- 570.7043444960502 (SEM)",
+     "ci95": [
+      2165.939,
+      4403.101
+     ]
     },
     "vectara": {
      "v": 8.6,
@@ -5432,14 +6176,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.028383475205435625"
+     "ci": "stderr 0.028383475205435625",
+     "ci95": [
+      58.998,
+      70.124
+     ]
     },
     "gpqa": {
      "v": 91.667,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.015242573629934338"
+     "ci": "stderr 0.015242573629934338",
+     "ci95": [
+      88.679,
+      94.655
+     ]
     },
     "arc2": {
      "v": 61.25,
@@ -5624,14 +6376,22 @@
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "157.16 to 161.93"
+     "ci": "157.16 to 161.93",
+     "ci95": [
+      157.16,
+      161.93
+     ]
     },
     "vals": {
      "v": 61.257,
      "set": "Max",
      "cost": 0.6575,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.055"
+     "ci": "stderr 1.055",
+     "ci95": [
+      59.189,
+      63.325
+     ]
     },
     "aa_coding": {
      "v": 36.834,
@@ -5644,14 +6404,22 @@
      "set": "Claude Code, Max",
      "cost": 0.5603,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.76 (95% CI)"
+     "ci": "+/- 3.76 (95% CI)",
+     "ci95": [
+      34.72,
+      42.24
+     ]
     },
     "arena_webdev": {
      "v": 1661.409,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1654.704089 to 1668.113913"
+     "ci": "95% CI 1654.704089 to 1668.113913",
+     "ci95": [
+      1654.704,
+      1668.114
+     ]
     },
     "lb_coding": {
      "v": 80.4,
@@ -5664,7 +6432,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.006214 to 0.016449"
+     "ci": "95% CI 0.006214 to 0.016449",
+     "ci95": [
+      0.621,
+      1.645
+     ]
     },
     "lb_browser": {
      "v": 67.2,
@@ -5701,14 +6473,22 @@
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.02686277751301251"
+     "ci": "stderr 0.02686277751301251",
+     "ci95": [
+      65.963,
+      76.493
+     ]
     },
     "gpqa": {
      "v": 93.182,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.015671362011907143"
+     "ci": "stderr 0.015671362011907143",
+     "ci95": [
+      90.11,
+      96.254
+     ]
     },
     "arc2": {
      "v": 78.056,
@@ -5893,14 +6673,22 @@
      "set": "X-high",
      "cost": 9.33,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.009"
+     "ci": "stderr 1.009",
+     "ci95": [
+      61.219,
+      65.175
+     ]
     },
     "arena_webdev": {
      "v": 1749.815,
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1734.349776 to 1765.279527"
+     "ci": "95% CI 1734.349776 to 1765.279527",
+     "ci95": [
+      1734.35,
+      1765.28
+     ]
     },
     "lb_coding": {
      "v": 69.8,
@@ -5913,7 +6701,11 @@
      "set": "X-high",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.061209 to 0.088009"
+     "ci": "95% CI 0.061209 to 0.088009",
+     "ci95": [
+      6.121,
+      8.801
+     ]
     },
     "lb_browser": {
      "v": 80.7,
@@ -6001,14 +6793,22 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1479.543264 to 1488.673866"
+     "ci": "95% CI 1479.543264 to 1488.673866",
+     "ci95": [
+      1479.543,
+      1488.674
+     ]
     },
     "eci": {
      "v": 157.59,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "155.47 to 159.94"
+     "ci": "155.47 to 159.94",
+     "ci95": [
+      155.47,
+      159.94
+     ]
     },
     "aa_coding": {
      "v": 32.728,
@@ -6021,14 +6821,22 @@
      "set": "Claude Code, 0902 snapshot",
      "cost": 14.05,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.87 (95% CI)"
+     "ci": "+/- 3.87 (95% CI)",
+     "ci95": [
+      23.1,
+      30.84
+     ]
     },
     "arena_webdev": {
      "v": 1675.576,
      "set": "0902 snapshot",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1669.414667 to 1681.737599"
+     "ci": "95% CI 1669.414667 to 1681.737599",
+     "ci95": [
+      1669.415,
+      1681.738
+     ]
     },
     "lb_coding": {
      "v": 60.9,
@@ -6041,7 +6849,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.015595 to -0.001892"
+     "ci": "95% CI -0.015595 to -0.001892",
+     "ci95": [
+      -1.559,
+      -0.189
+     ]
     },
     "lb_browser": {
      "v": 49.4,
@@ -6072,21 +6884,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1291.587796 to 1306.489278"
+     "ci": "95% CI 1291.587796 to 1306.489278",
+     "ci95": [
+      1291.588,
+      1306.489
+     ]
     },
     "frontiermath": {
      "v": 74.737,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.0257841025556124"
+     "ci": "stderr 0.0257841025556124",
+     "ci95": [
+      69.683,
+      79.791
+     ]
     },
     "gpqa": {
      "v": 92.677,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.01686498021450146"
+     "ci": "stderr 0.01686498021450146",
+     "ci95": [
+      89.371,
+      95.983
+     ]
     }
    },
    "superseded": "Qwen4-Max",
@@ -6359,14 +7183,22 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1617.517923 to 1631.538636"
+     "ci": "95% CI 1617.517923 to 1631.538636",
+     "ci95": [
+      1617.518,
+      1631.539
+     ]
     },
     "arena_agent": {
      "v": -5.177,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.059537 to -0.044006"
+     "ci": "95% CI -0.059537 to -0.044006",
+     "ci95": [
+      -5.954,
+      -4.401
+     ]
     }
    },
    "tok": {
@@ -6569,21 +7401,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1429.172032 to 1438.367764"
+     "ci": "95% CI 1429.172032 to 1438.367764",
+     "ci95": [
+      1429.172,
+      1438.368
+     ]
     },
     "eci": {
      "v": 152.65,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "150.7 to 154.76"
+     "ci": "150.7 to 154.76",
+     "ci95": [
+      150.7,
+      154.76
+     ]
     },
     "arena_webdev": {
      "v": 1589.912,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1583.873192 to 1595.950992"
+     "ci": "95% CI 1583.873192 to 1595.950992",
+     "ci95": [
+      1583.873,
+      1595.951
+     ]
     },
     "lb_coding": {
      "v": 69.3,
@@ -6596,7 +7440,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.065314 to -0.047273"
+     "ci": "95% CI -0.065314 to -0.047273",
+     "ci95": [
+      -6.531,
+      -4.727
+     ]
     },
     "lb_browser": {
      "v": 24.2,
@@ -6627,7 +7475,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1235.421499 to 1250.564369"
+     "ci": "95% CI 1235.421499 to 1250.564369",
+     "ci95": [
+      1235.421,
+      1250.564
+     ]
     },
     "arc2": {
      "v": 42.361,
@@ -6881,21 +7733,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1474.704336 to 1494.731184"
+     "ci": "95% CI 1474.704336 to 1494.731184",
+     "ci95": [
+      1474.704,
+      1494.731
+     ]
     },
     "eci": {
      "v": 161.36,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "158.97 to 163.9"
+     "ci": "158.97 to 163.9",
+     "ci95": [
+      158.97,
+      163.9
+     ]
     },
     "vals": {
      "v": 62.52,
      "set": "Max",
      "cost": 6.44,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.141"
+     "ci": "stderr 1.141",
+     "ci95": [
+      60.284,
+      64.756
+     ]
     },
     "aa_coding": {
      "v": 48.638,
@@ -6908,14 +7772,22 @@
      "set": "Claude Code, Max",
      "cost": 3.293,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 4.18 (95% CI)"
+     "ci": "+/- 4.18 (95% CI)",
+     "ci95": [
+      55.52,
+      63.88
+     ]
     },
     "arena_webdev": {
      "v": 1686.225,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1676.727911 to 1695.722475"
+     "ci": "95% CI 1676.727911 to 1695.722475",
+     "ci95": [
+      1676.728,
+      1695.722
+     ]
     },
     "lb_coding": {
      "v": 67.8,
@@ -6928,7 +7800,11 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.028330 to 0.050601"
+     "ci": "95% CI 0.028330 to 0.050601",
+     "ci95": [
+      2.833,
+      5.06
+     ]
     },
     "lb_browser": {
      "v": 75.9,
@@ -6959,14 +7835,22 @@
      "set": "Max, via Together",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.024481850763866792"
+     "ci": "stderr 0.024481850763866792",
+     "ci95": [
+      73.448,
+      83.044
+     ]
     },
     "gpqa": {
      "v": 94.192,
      "set": "Max, via Together",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.01439446786793499"
+     "ci": "stderr 0.01439446786793499",
+     "ci95": [
+      91.371,
+      97.013
+     ]
     }
    },
    "tok": {
@@ -7361,21 +8245,33 @@
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1476.863715 to 1486.269487"
+     "ci": "95% CI 1476.863715 to 1486.269487",
+     "ci95": [
+      1476.864,
+      1486.269
+     ]
     },
     "eci": {
      "v": 157.1,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "155.04 to 159.33"
+     "ci": "155.04 to 159.33",
+     "ci95": [
+      155.04,
+      159.33
+     ]
     },
     "vals": {
      "v": 59.847,
      "set": "Max",
      "cost": 8.525,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.111"
+     "ci": "stderr 1.111",
+     "ci95": [
+      57.669,
+      62.025
+     ]
     },
     "aa_coding": {
      "v": 40.118,
@@ -7388,42 +8284,66 @@
      "set": "Claude Code, Max",
      "cost": 8.266,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.28 (95% CI)"
+     "ci": "+/- 3.28 (95% CI)",
+     "ci95": [
+      37.93,
+      44.49
+     ]
     },
     "arena_webdev": {
      "v": 1622.266,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1615.478399 to 1629.052959"
+     "ci": "95% CI 1615.478399 to 1629.052959",
+     "ci95": [
+      1615.478,
+      1629.053
+     ]
     },
     "arena_agent": {
      "v": 0.032,
      "set": "Max",
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.008174 to 0.008822"
+     "ci": "95% CI -0.008174 to 0.008822",
+     "ci95": [
+      -0.817,
+      0.882
+     ]
     },
     "vending": {
      "v": 8163.61,
      "set": null,
      "cost": 127.9,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 786.9159479851284 (SEM)"
+     "ci": "+/- 786.9159479851284 (SEM)",
+     "ci95": [
+      6621.255,
+      9705.965
+     ]
     },
     "frontiermath": {
      "v": 68.772,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.027499133473298815"
+     "ci": "stderr 0.027499133473298815",
+     "ci95": [
+      63.382,
+      74.162
+     ]
     },
     "gpqa": {
      "v": 90.909,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.015851578202142853"
+     "ci": "stderr 0.015851578202142853",
+     "ci95": [
+      87.802,
+      94.016
+     ]
     }
    },
    "tok": {
@@ -7597,21 +8517,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1470.848035 to 1479.670233"
+     "ci": "95% CI 1470.848035 to 1479.670233",
+     "ci95": [
+      1470.848,
+      1479.67
+     ]
     },
     "eci": {
      "v": 153.78,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "152.04 to 155.62"
+     "ci": "152.04 to 155.62",
+     "ci95": [
+      152.04,
+      155.62
+     ]
     },
     "vals": {
      "v": 50.861,
      "set": "Max",
      "cost": 2.049,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.255"
+     "ci": "stderr 1.255",
+     "ci95": [
+      48.401,
+      53.321
+     ]
     },
     "tbench": {
      "v": 36.97,
@@ -7630,6 +8562,10 @@
        1.136,
        "Claude Code, Max"
       ]
+     ],
+     "ci95": [
+      33.33,
+      40.61
      ]
     },
     "arena_webdev": {
@@ -7637,7 +8573,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1602.981958 to 1615.230232"
+     "ci": "95% CI 1602.981958 to 1615.230232",
+     "ci95": [
+      1602.982,
+      1615.23
+     ]
     },
     "lb_coding": {
      "v": 70.9,
@@ -7650,7 +8590,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.044247 to -0.029673"
+     "ci": "95% CI -0.044247 to -0.029673",
+     "ci95": [
+      -4.425,
+      -2.967
+     ]
     },
     "lb_browser": {
      "v": 59.8,
@@ -7681,21 +8625,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1266.304573 to 1277.401710"
+     "ci": "95% CI 1266.304573 to 1277.401710",
+     "ci95": [
+      1266.305,
+      1277.402
+     ]
     },
     "frontiermath": {
      "v": 55.789,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.029469977528223976"
+     "ci": "stderr 0.029469977528223976",
+     "ci95": [
+      50.013,
+      61.565
+     ]
     },
     "gpqa": {
      "v": 90.152,
      "set": "Max",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.017183231147411448"
+     "ci": "stderr 0.017183231147411448",
+     "ci95": [
+      86.784,
+      93.52
+     ]
     },
     "arc2": {
      "v": 65.833,
@@ -7782,14 +8738,22 @@
      "set": "Max",
      "cost": 0.6597,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.067"
+     "ci": "stderr 1.067",
+     "ci95": [
+      51.69,
+      55.872
+     ]
     },
     "arena_webdev": {
      "v": 1582.034,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1572.643569 to 1591.425089"
+     "ci": "95% CI 1572.643569 to 1591.425089",
+     "ci95": [
+      1572.644,
+      1591.425
+     ]
     },
     "lb_coding": {
      "v": 68.8,
@@ -7802,7 +8766,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.049863 to -0.020611"
+     "ci": "95% CI -0.049863 to -0.020611",
+     "ci95": [
+      -4.986,
+      -2.061
+     ]
     },
     "lb_browser": {
      "v": 80.6,
@@ -7996,56 +8964,88 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1432.100025 to 1439.430120"
+     "ci": "95% CI 1432.100025 to 1439.430120",
+     "ci95": [
+      1432.1,
+      1439.43
+     ]
     },
     "eci": {
      "v": 147.9,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "145.76 to 150.04"
+     "ci": "145.76 to 150.04",
+     "ci95": [
+      145.76,
+      150.04
+     ]
     },
     "tbench": {
      "v": 7.58,
      "set": "Mini-swe-agent",
      "cost": 3.483,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.75 (95% CI)"
+     "ci": "+/- 2.75 (95% CI)",
+     "ci95": [
+      4.83,
+      10.33
+     ]
     },
     "arena_webdev": {
      "v": 1484.056,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1478.641817 to 1489.469986"
+     "ci": "95% CI 1478.641817 to 1489.469986",
+     "ci95": [
+      1478.642,
+      1489.47
+     ]
     },
     "arena_agent": {
      "v": -11.184,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.123698 to -0.099978"
+     "ci": "95% CI -0.123698 to -0.099978",
+     "ci95": [
+      -12.37,
+      -9.998
+     ]
     },
     "vending": {
      "v": 2157.772,
      "set": null,
      "cost": null,
      "url": "https://andonlabs.com/evals/vending-bench-2",
-     "ci": "+/- 1151.0357691355398 (SEM)"
+     "ci": "+/- 1151.0357691355398 (SEM)",
+     "ci95": [
+      -98.258,
+      4413.802
+     ]
     },
     "arena_vision": {
      "v": 1231.819,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1225.567162 to 1238.070520"
+     "ci": "95% CI 1225.567162 to 1238.070520",
+     "ci95": [
+      1225.567,
+      1238.071
+     ]
     },
     "gpqa": {
      "v": 90.909,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.020482086775424225"
+     "ci": "stderr 0.020482086775424225",
+     "ci95": [
+      86.895,
+      94.923
+     ]
     }
    },
    "tok": {
@@ -8104,21 +9104,33 @@
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "145.02 to 149.09"
+     "ci": "145.02 to 149.09",
+     "ci95": [
+      145.02,
+      149.09
+     ]
     },
     "arena_agent": {
      "v": -16.404,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.196054 to -0.132023"
+     "ci": "95% CI -0.196054 to -0.132023",
+     "ci95": [
+      -19.605,
+      -13.202
+     ]
     },
     "gpqa": {
      "v": 85.354,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.025190921114603887"
+     "ci": "stderr 0.025190921114603887",
+     "ci95": [
+      80.417,
+      90.291
+     ]
     }
    },
    "tok": {
@@ -8428,14 +9440,22 @@
      "set": "via Baseten",
      "cost": 0.6275,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.025"
+     "ci": "stderr 1.025",
+     "ci95": [
+      27.775,
+      31.793
+     ]
     },
     "tbench": {
      "v": 0.3,
      "set": "Mini-swe-agent",
      "cost": 0.5069,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 0.59 (95% CI)"
+     "ci": "+/- 0.59 (95% CI)",
+     "ci95": [
+      -0.29,
+      0.89
+     ]
     },
     "lb_coding": {
      "v": 54.1,
@@ -9105,7 +10125,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1278.000998 to 1300.574352"
+     "ci": "95% CI 1278.000998 to 1300.574352",
+     "ci95": [
+      1278.001,
+      1300.574
+     ]
     }
    },
    "tok": {
@@ -9319,28 +10343,44 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1470.422270 to 1489.367166"
+     "ci": "95% CI 1470.422270 to 1489.367166",
+     "ci95": [
+      1470.422,
+      1489.367
+     ]
     },
     "vals": {
      "v": 57.813,
      "set": null,
      "cost": 0.4296,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.24"
+     "ci": "stderr 1.24",
+     "ci95": [
+      55.383,
+      60.243
+     ]
     },
     "tbench": {
      "v": 26.97,
      "set": "Mini-swe-agent",
      "cost": 0.8555,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.61 (95% CI)"
+     "ci": "+/- 3.61 (95% CI)",
+     "ci95": [
+      23.36,
+      30.58
+     ]
     },
     "arena_webdev": {
      "v": 1623.835,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1616.309777 to 1631.360952"
+     "ci": "95% CI 1616.309777 to 1631.360952",
+     "ci95": [
+      1616.31,
+      1631.361
+     ]
     },
     "lb_coding": {
      "v": 64.5,
@@ -9353,7 +10393,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.005863 to 0.024077"
+     "ci": "95% CI 0.005863 to 0.024077",
+     "ci95": [
+      0.586,
+      2.408
+     ]
     },
     "lb_browser": {
      "v": 77.3,
@@ -9384,7 +10428,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1232.814316 to 1262.067751"
+     "ci": "95% CI 1232.814316 to 1262.067751",
+     "ci95": [
+      1232.814,
+      1262.068
+     ]
     }
    },
    "tok": {
@@ -9568,14 +10616,22 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1442.253684 to 1454.844498"
+     "ci": "95% CI 1442.253684 to 1454.844498",
+     "ci95": [
+      1442.254,
+      1454.844
+     ]
     },
     "vals": {
      "v": 54.762,
      "set": null,
      "cost": 2.734,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.163"
+     "ci": "stderr 1.163",
+     "ci95": [
+      52.483,
+      57.041
+     ]
     },
     "aa_coding": {
      "v": 35.786,
@@ -9588,7 +10644,11 @@
      "set": "High",
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1563.779032 to 1579.726251"
+     "ci": "95% CI 1563.779032 to 1579.726251",
+     "ci95": [
+      1563.779,
+      1579.726
+     ]
     },
     "lb_coding": {
      "v": 67.6,
@@ -9601,7 +10661,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.060728 to -0.032215"
+     "ci": "95% CI -0.060728 to -0.032215",
+     "ci95": [
+      -6.073,
+      -3.222
+     ]
     },
     "lb_browser": {
      "v": 24.8,
@@ -9632,7 +10696,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/vision",
-     "ci": "95% CI 1234.476051 to 1256.432211"
+     "ci": "95% CI 1234.476051 to 1256.432211",
+     "ci95": [
+      1234.476,
+      1256.432
+     ]
     }
    },
    "tok": {
@@ -9693,21 +10761,33 @@
      "set": null,
      "cost": 1.72,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.081"
+     "ci": "stderr 1.081",
+     "ci95": [
+      57.234,
+      61.472
+     ]
     },
     "tbench": {
      "v": 37.88,
      "set": "Claude Code, Max",
      "cost": 1.053,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 3.51 (95% CI)"
+     "ci": "+/- 3.51 (95% CI)",
+     "ci95": [
+      34.37,
+      41.39
+     ]
     },
     "arena_agent": {
      "v": 5.665,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.044107 to 0.069200"
+     "ci": "95% CI 0.044107 to 0.069200",
+     "ci95": [
+      4.411,
+      6.92
+     ]
     }
    },
    "tok": {
@@ -9769,35 +10849,55 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1438.441403 to 1446.555137"
+     "ci": "95% CI 1438.441403 to 1446.555137",
+     "ci95": [
+      1438.441,
+      1446.555
+     ]
     },
     "eci": {
      "v": 148.43,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "146.88 to 150.03"
+     "ci": "146.88 to 150.03",
+     "ci95": [
+      146.88,
+      150.03
+     ]
     },
     "vals": {
      "v": 28.961,
      "set": "Effort 0.99",
      "cost": 1.848,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.12"
+     "ci": "stderr 1.12",
+     "ci95": [
+      26.766,
+      31.156
+     ]
     },
     "tbench": {
      "v": 0,
      "set": "Mini-swe-agent",
      "cost": 3.065,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 0 (95% CI)"
+     "ci": "+/- 0 (95% CI)",
+     "ci95": [
+      0.0,
+      0.0
+     ]
     },
     "arena_webdev": {
      "v": 1414.145,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1408.164933 to 1420.124368"
+     "ci": "95% CI 1408.164933 to 1420.124368",
+     "ci95": [
+      1408.165,
+      1420.124
+     ]
     },
     "lb_coding": {
      "v": 48.7,
@@ -9810,7 +10910,11 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.198401 to -0.167112"
+     "ci": "95% CI -0.198401 to -0.167112",
+     "ci95": [
+      -19.84,
+      -16.711
+     ]
     },
     "lb_browser": {
      "v": 12.0,
@@ -9841,14 +10945,22 @@
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.02797271194322297"
+     "ci": "stderr 0.02797271194322297",
+     "ci95": [
+      27.85,
+      38.816
+     ]
     },
     "gpqa": {
      "v": 88.258,
      "set": "X-high",
      "cost": null,
      "url": "https://epoch.ai/data/benchmark_data.zip",
-     "ci": "stderr 0.019355903133033585"
+     "ci": "stderr 0.019355903133033585",
+     "ci95": [
+      84.464,
+      92.052
+     ]
     },
     "arc2": {
      "v": 36.528,
@@ -10085,35 +11197,55 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1399.959584 to 1423.603080"
+     "ci": "95% CI 1399.959584 to 1423.603080",
+     "ci95": [
+      1399.96,
+      1423.603
+     ]
     },
     "vals": {
      "v": 56.081,
      "set": "Effort 0.99",
      "cost": 3.509,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.18"
+     "ci": "stderr 1.18",
+     "ci95": [
+      53.768,
+      58.394
+     ]
     },
     "tbench": {
      "v": 13.03,
      "set": "Mini-swe-agent, X-high",
      "cost": 2.92,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 2.85 (95% CI)"
+     "ci": "+/- 2.85 (95% CI)",
+     "ci95": [
+      10.18,
+      15.88
+     ]
     },
     "arena_webdev": {
      "v": 1644.676,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1626.050390 to 1663.301689"
+     "ci": "95% CI 1626.050390 to 1663.301689",
+     "ci95": [
+      1626.05,
+      1663.302
+     ]
     },
     "arena_agent": {
      "v": 2.512,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI 0.012249 to 0.037999"
+     "ci": "95% CI 0.012249 to 0.037999",
+     "ci95": [
+      1.225,
+      3.8
+     ]
     },
     "arc2": {
      "v": 81.667,
@@ -10661,21 +11793,33 @@
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/text",
-     "ci": "95% CI 1424.773579 to 1444.063518"
+     "ci": "95% CI 1424.773579 to 1444.063518",
+     "ci95": [
+      1424.774,
+      1444.064
+     ]
     },
     "eci": {
      "v": 150.87,
      "set": null,
      "cost": null,
      "url": "https://epoch.ai/data/eci_scores.csv",
-     "ci": "148.66 to 153.12"
+     "ci": "148.66 to 153.12",
+     "ci95": [
+      148.66,
+      153.12
+     ]
     },
     "vals": {
      "v": 43.424,
      "set": null,
      "cost": null,
      "url": "https://www.vals.ai/benchmarks/vals_index",
-     "ci": "stderr 1.062"
+     "ci": "stderr 1.062",
+     "ci95": [
+      41.342,
+      45.506
+     ]
     },
     "aa_coding": {
      "v": 15.477,
@@ -10688,21 +11832,33 @@
      "set": "Mini-swe-agent",
      "cost": 0.6696,
      "url": "https://www.tbench.ai/",
-     "ci": "+/- 1.68 (95% CI)"
+     "ci": "+/- 1.68 (95% CI)",
+     "ci95": [
+      4.68,
+      8.04
+     ]
     },
     "arena_webdev": {
      "v": 1436.262,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/webdev",
-     "ci": "95% CI 1422.579830 to 1449.944119"
+     "ci": "95% CI 1422.579830 to 1449.944119",
+     "ci95": [
+      1422.58,
+      1449.944
+     ]
     },
     "arena_agent": {
      "v": -7.402,
      "set": null,
      "cost": null,
      "url": "https://arena.ai/leaderboard/agent",
-     "ci": "95% CI -0.102703 to -0.045331"
+     "ci": "95% CI -0.102703 to -0.045331",
+     "ci95": [
+      -10.27,
+      -4.533
+     ]
     },
     "arc2": {
      "v": 23.472,
@@ -11055,7 +12211,8 @@
    "src": "Arena (arena.ai)",
    "url": "https://arena.ai/leaderboard/text",
    "updated": "results as of Nov 11, 2026",
-   "n": 34
+   "n": 34,
+   "cik": "95% confidence interval"
   },
   {
    "id": "eci",
@@ -11071,7 +12228,8 @@
    "src": "Epoch AI",
    "url": "https://epoch.ai/benchmarks",
    "updated": "hub updated Nov 17, 2026",
-   "n": 33
+   "n": 33,
+   "cik": "credible interval as published"
   },
   {
    "id": "vals",
@@ -11087,7 +12245,8 @@
    "src": "Vals AI",
    "url": "https://www.vals.ai/benchmarks/vals_index",
    "updated": "results as of Nov 16, 2026",
-   "n": 33
+   "n": 33,
+   "cik": "95% interval (1.96 x standard error)"
   },
   {
    "id": "aa_coding",
@@ -11119,7 +12278,8 @@
    "src": "Terminal-Bench (tbench.ai)",
    "url": "https://www.tbench.ai/",
    "updated": "board updated Nov 17, 2026; newest result for a listed model Nov 12, 2026",
-   "n": 29
+   "n": 29,
+   "cik": "95% confidence interval"
   },
   {
    "id": "arena_webdev",
@@ -11135,7 +12295,8 @@
    "src": "Arena (arena.ai)",
    "url": "https://arena.ai/leaderboard/webdev",
    "updated": "results as of Nov 15, 2026",
-   "n": 38
+   "n": 38,
+   "cik": "95% confidence interval"
   },
   {
    "id": "lb_coding",
@@ -11167,7 +12328,8 @@
    "src": "Arena (arena.ai)",
    "url": "https://arena.ai/leaderboard/agent",
    "updated": "results as of Nov 15, 2026",
-   "n": 34
+   "n": 34,
+   "cik": "95% confidence interval"
   },
   {
    "id": "lb_browser",
@@ -11231,7 +12393,8 @@
    "src": "Andon Labs",
    "url": "https://andonlabs.com/evals/vending-bench-2",
    "updated": "board shows no update date, retrieved Nov 17, 2026",
-   "n": 17
+   "n": 17,
+   "cik": "95% interval (1.96 x standard error of the mean)"
   },
   {
    "id": "lb_data",
@@ -11263,7 +12426,8 @@
    "src": "Arena (arena.ai)",
    "url": "https://arena.ai/leaderboard/vision",
    "updated": "results as of Nov 9, 2026",
-   "n": 18
+   "n": 18,
+   "cik": "95% confidence interval"
   },
   {
    "id": "vectara",
@@ -11295,7 +12459,8 @@
    "src": "Epoch AI",
    "url": "https://epoch.ai/benchmarks",
    "updated": "Epoch data retrieved Nov 17, 2026; newest run started Nov 6, 2026",
-   "n": 24
+   "n": 24,
+   "cik": "95% interval (1.96 x standard error)"
   },
   {
    "id": "gpqa",
@@ -11311,7 +12476,8 @@
    "src": "Epoch AI",
    "url": "https://epoch.ai/benchmarks",
    "updated": "Epoch data retrieved Nov 17, 2026; newest run started Nov 6, 2026",
-   "n": 29
+   "n": 29,
+   "cik": "95% interval (1.96 x standard error)"
   },
   {
    "id": "arc2",

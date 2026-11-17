@@ -214,6 +214,23 @@ def first(recs, key):
     return None, None
 
 
+
+def compact(D):
+    """Small dated copy of a snapshot for trend charts (V5.47): per model the price and each board's ranked value, setting and cost."""
+    keep = ("id", "name", "dev", "tier", "access", "released", "pin", "pout")
+    return dict(as_of=D["as_of"], benchmarks=[dict(id=b["id"], name=b["name"], unit=b["unit"], hb=b["hb"]) for b in D["benchmarks"]],
+                models=[dict({k: m.get(k) for k in keep}, s={bid: [r["v"], r.get("set"), r.get("cost")] for bid, r in m.get("s", {}).items()})
+                        for m in D["models"]])
+
+
+def archive(D):
+    """Write history/llm-<as_of>.json and refresh history/index.json. One file per published snapshot date; a same-day rebuild replaces it."""
+    hd = os.path.join(HERE, "history"); os.makedirs(hd, exist_ok=True)
+    json.dump(compact(D), open(os.path.join(hd, f"llm-{D['as_of']}.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    snaps = sorted(f[4:-5] for f in os.listdir(hd) if f.startswith("llm-") and f.endswith(".json"))
+    json.dump(dict(snapshots=snaps, note="One compact copy per published snapshot (see build_dataset.compact). Started V5.47 with the Nov 12, 16 and 17, 2026 snapshots recovered from git."),
+              open(os.path.join(hd, "index.json"), "w", encoding="utf-8"), indent=1)
+
 def build():
     V = load("vendor.models.json")
     IM = load("index.models.json")
@@ -320,6 +337,34 @@ def build():
                             derived=costmode in ("trials", "suite"), what=what, caveat=cav, src=src, url=url, updated=upd,
                             n=sum(1 for m in models if bid in m["s"])))
 
+    # Uncertainty (V5.47): every board's published interval, converted to one 95% range [lo, hi] on the displayed scale.
+    #   "95% CI a to b" (Arena; Arena Agent is a share, shown x100), "a to b" (Epoch ECI credible interval, as published),
+    #   "stderr x" (Vals in points; Epoch FrontierMath/GPQA on a 0-1 scale, so x100), "+/- x (95% CI)" (Terminal-Bench),
+    #   "+/- x (SEM)" (Vending-Bench). Standard errors become +/-1.96 x SE.
+    CI_KIND = {}
+    for m in models:
+        for bid, r in m["s"].items():
+            t = r.get("ci")
+            if not t: continue
+            v = r["v"]; lo = hi = None
+            mm = re.match(r"95% CI (-?[\d.]+) to (-?[\d.]+)", t)
+            if mm:
+                k = 100 if bid == "arena_agent" else 1
+                lo, hi = float(mm.group(1)) * k, float(mm.group(2)) * k; CI_KIND[bid] = "95% confidence interval"
+            elif re.match(r"^-?[\d.]+ to -?[\d.]+$", t):
+                a, b2 = t.split(" to "); lo, hi = float(a), float(b2); CI_KIND[bid] = "credible interval as published"
+            elif t.startswith("stderr "):
+                se = float(t.split()[1]) * (100 if bid in ("frontiermath", "gpqa") else 1)
+                lo, hi = v - 1.96 * se, v + 1.96 * se; CI_KIND[bid] = "95% interval (1.96 x standard error)"
+            elif "(95% CI)" in t:
+                x = float(re.search(r"\+/- ([\d.]+)", t).group(1)); lo, hi = v - x, v + x; CI_KIND[bid] = "95% confidence interval"
+            elif "(SEM)" in t:
+                x = float(re.search(r"\+/- ([\d.]+)", t).group(1)); lo, hi = v - 1.96 * x, v + 1.96 * x; CI_KIND[bid] = "95% interval (1.96 x standard error of the mean)"
+            if lo is not None and lo - 1e-6 <= v <= hi + 1e-6:
+                r["ci95"] = [round(lo, 3), round(hi, 3)]
+    for b in benches:
+        if b["id"] in CI_KIND: b["cik"] = CI_KIND[b["id"]]
+
     # Output tokens per Artificial Analysis Index task (V5.39): the row at the same setting as the model's AA Index result, else the largest.
     for r in by_board.get(TOK_BOARD, []):
         mid, setting = match(r["model_as_listed"], TOK_BOARD)
@@ -397,6 +442,7 @@ def build():
                            results_before=sum(len(m["s"]) for m in P["models"]), leaders=leaders)
     out = dict(as_of=AS_OF, default_benchmark="aa_index", models=models, benchmarks=benches, groups=GROUPS, method_steps=STEPS, disclaimer=DISCLAIMER, changes=changes, board_news=BOARD_NEWS)
     json.dump(out, open(os.path.join(HERE, "llm.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    archive(out)
     print(f"llm.json: {len(models)} models, {len(benches)} benchmarks, {sum(len(m['s']) for m in models)} results")
     for b in benches: print(f"  {b['id']:13} {b['n']:3} models  cost={b['cost']}  {b['updated']}")
     print("  no price:", [m["name"] for m in models if m["pin"] is None])

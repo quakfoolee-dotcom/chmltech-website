@@ -238,6 +238,25 @@ def build():
   <div class="ll-types">{types}</div>
 </div></section>
 
+<section class="section" id="effort" style="scroll-margin-top:84px"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Score versus cost</p><h2 class="h-lg">What each extra level of reasoning effort buys.</h2></div>
+  <p>Most current models let you choose how hard they think, from Low to Max. Each line follows one model through every setting Artificial Analysis has tested, so you can see where extra effort stops paying for itself. Add or remove models to compare your shortlist.</p></div>
+  <div class="ll-chartcard ls-panel ls-headline">
+    <div class="ls-controls">
+      <label class="gr-sort"><span>Against</span><select id="ls-h-x"><option value="cost">Cost per task</option><option value="tok">Output tokens per task</option><option value="time">Time per task</option></select></label>
+      <label class="gr-toggle"><input type="checkbox" id="ls-h-log" checked> Log scale</label>
+      <button type="button" class="btn btn-ghost ls-png" data-png="ls-h-chart">Download PNG</button>
+    </div>
+    <div class="ls-pick" id="ls-h-pick"></div>
+    <h3 class="ls-title" id="ls-h-title">Effort curves</h3>
+    <p class="ls-cap" id="ls-h-cap"></p>
+    <div class="ls-chart" id="ls-h-chart"></div>
+    <p class="ll-chartnote" id="ls-h-note"></p>
+    <div id="ls-h-table"></div>
+    <p class="ll-chartnote"><a href="#studio">Open the chart studio</a> for ARC-AGI-2, Terminal-Bench and the coding-agent index, side-by-side comparisons and ranking bars.</p>
+  </div>
+</div></section>
+
 <section class="section sand gr-section" id="explorer" style="scroll-margin-top:84px" aria-labelledby="ll-h"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Model explorer</p><h2 class="h-lg" id="ll-h">Search, filter and rank {n} models.</h2></div>
   <p>Pick a benchmark to rank by. Switch to the chart to see the Pareto frontier: the models that no cheaper model beats.</p></div>
@@ -301,6 +320,7 @@ def build():
       </div>
       <div class="ls-pick" id="ls-c-pick"></div>
       <h3 class="ls-title" id="ls-c-title">Effort curves</h3>
+      <p class="ls-cap" id="ls-c-cap"></p>
       <div class="ls-chart" id="ls-c-chart"></div>
       <p class="ll-chartnote" id="ls-c-note"></p>
       <div id="ls-c-table"></div>
@@ -318,6 +338,7 @@ def build():
         <button type="button" class="btn btn-ghost ls-png" data-png="ls-r-chart">Download PNG</button>
       </div>
       <h3 class="ls-title" id="ls-r-title">Ranking</h3>
+      <p class="ls-cap" id="ls-r-cap"></p>
       <div class="ls-chart" id="ls-r-chart"></div>
       <p class="ll-chartnote" id="ls-r-note"></p>
     </div>

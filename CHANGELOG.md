@@ -1,5 +1,14 @@
 # Changelog
 
+## V5.47 — 2026-11-17
+- **AI Models page: richer charts.** Following a review of OpenAI's GPT-6.2 launch charts against ours (research-agent gap analysis), four additions:
+  - **Headline effort-curve chart** (new section `#effort`, after the agent cards): Artificial Analysis Intelligence Index against cost per task, output tokens or time per task, one line per model through every reasoning-effort setting (joined Low to Max), every point labelled, log scale on by default, up to six models (defaults: GPT-6.2 Astra and Sol, Claude Fable 5.2 and Opus 5.5, Gemini 4 Carbon and Hydrogen). All developers in full colour (no greyed-out competitors), labelled settings, stated axes. The chart studio's effort curves use the same component (`CurveView`) and now also join points in effort order.
+  - **Captions and provenance:** effort-curve and ranking charts show what the benchmark measures; downloaded PNGs carry the description, source and date under the chart; compare-panel titles show the description on hover.
+  - **Margins of error:** all 289 published intervals (six formats across Arena, Epoch, Vals, Terminal-Bench and Vending-Bench) converted at build time to one 95% range (`ci95`, kind in `benchmarks[].cik`). Ranking bars and compare panels draw them as whiskers; ranking bars mark models whose range overlaps the leader's as "≈ #1" (e.g. the top seven on the Vals Index are statistically tied). Boards without a published interval say so.
+  - **Snapshot archive:** each build writes a compact dated copy to `content/llm/history/` (`llm-<date>.json`, `index.json`); backfilled with the published Nov 12, 16 and 17 snapshots recovered from git, for future trend charts.
+  - Checked in headless Chrome at desktop and phone widths: no script errors; overlap tests pass for 72 studio curves, the headline chart at all six axis/scale settings, all 38 ranking charts with whiskers and the compare grid at three and six models.
+  - Source changes: `content/llm/build_dataset.py`, `content/llm/llm.json`, new `content/llm/history/`, `content/gen/llm_page.py`, `assets/js/llm-studio.js`, `assets/css/llm.css`; `llm-leaderboard.html`.
+
 ## V5.46 — 2026-11-17
 - **AI Models page: "What changed" moved and slimmed.** A one-line update banner now sits under the hero ("Updated November 17 · GPT-6.2 Astra and GPT-6.2 Sol added · 530 benchmark results · What changed ↓"), so the agent cards follow straight after the hero. The banner is generated from the data on each refresh (new models, number of new agent-card leaders).
   - The full "What changed" section moved near the end of the page, after the token-use figure and before the method. It has two cards instead of three ("Models", with a one-line note when no agent-card leader changed, and "Benchmark updates"), shows the first three benchmark updates with the rest behind "Show all", and uses a smaller heading.
