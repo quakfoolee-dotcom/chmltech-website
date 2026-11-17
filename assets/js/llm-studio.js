@@ -17,7 +17,7 @@
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function num(v, d) { return Number(v).toLocaleString("en-CA", { maximumFractionDigits: d == null ? 1 : d }); }
-  function money(v) { return v >= 100 ? "$" + num(v, 0) : v >= 1 ? "$" + num(v, 2) : "$" + Number(v).toPrecision(2); }
+  function money(v) { return v >= 100 ? "$" + num(v, 0) : v >= 1 ? "$" + Number(v).toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "$" + Number(v).toPrecision(2); }
   function fmt(v, b) {
     if (!b) return num(v);
     if (b.unit === "USD") return "$" + num(v, 0);
@@ -209,6 +209,22 @@
         }
         return null;
       }
+      // V5.52: one tooltip lists every point within 12 px of the hovered one, so points that sit on top of each other
+      // (e.g. Gemini 4 Hydrogen X-high and Claude Fable 5.2 Low) are both readable, whichever dot catches the mouse.
+      var xName = XL.replace(/ \(.*\)/, ""), xVal = function (v) { return xm === "cost" ? money(v) : xm === "tok" ? num(v, 0) : num(v, 1) + " min"; };
+      var tipPts = [];
+      series.forEach(function (s2) { s2.p.forEach(function (q) { tipPts.push({ s: s2, p: q, x: X(q.x), y: Y(q.y) }); }); });
+      function curveTip(s0, p0) {
+        var x0 = X(p0.x), y0 = Y(p0.y);
+        var near = tipPts.filter(function (o) { var dx = o.x - x0, dy = o.y - y0; return dx * dx + dy * dy <= 144; });
+        if (near.length <= 1)
+          return "<b>" + esc(s0.m.name) + "</b>" + (p0.set ? " · " + esc(p0.set) : "") + "<br>" + esc(b.short || b.name) + ": " + fmt(p0.y, b) + "<br>" + xName + ": " + xVal(p0.x);
+        near.sort(function (a, c) { return c.p.y - a.p.y; });
+        return "<b>" + near.length + " points here</b>" + near.map(function (o) {
+          return '<br><span class="ls-tipdot" style="background:' + o.s.c + '"></span><b>' + esc(o.s.m.name) + "</b>" + (o.p.set ? " · " + esc(o.p.set) : "") +
+            ": " + fmt(o.p.y, b) + ", " + xVal(o.p.x) + (xm === "cost" ? " per task" : xm === "tok" ? " tokens" : "");
+        }).join("");
+      }
       var lx = ml, ly = 16;
       series.forEach(function (s) {
         if (lx > ml && lx + 40 + s.m.name.length * 7.4 > W - mr) { lx = ml; ly += 20; }
@@ -220,7 +236,7 @@
         var d = s.p.map(function (p, i) { return (i ? "L" : "M") + X(p.x).toFixed(1) + "," + Y(p.y).toFixed(1); }).join("");
         if (s.p.length > 1) g += '<path d="' + d + '" fill="none" stroke="' + s.c + '" stroke-width="2" stroke-linejoin="round"/>';
         s.p.forEach(function (p) {
-          var t = "<b>" + esc(s.m.name) + "</b>" + (p.set ? " · " + esc(p.set) : "") + "<br>" + esc(b.short || b.name) + ": " + fmt(p.y, b) + "<br>" + XL.replace(/ \(.*\)/, "") + ": " + (xm === "cost" ? money(p.x) : xm === "tok" ? num(p.x, 0) : num(p.x, 1) + " min");
+          var t = curveTip(s, p);
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="5" fill="' + s.c + '" stroke="#fff" stroke-width="2"/>';
           g += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="12" fill="transparent" tabindex="0" data-tip="' + esc(t) + '" aria-label="' + esc(t.replace(/<[^>]+>/g, " ")) + '"></circle>';
           var at = p.set && place(X(p.x), Y(p.y), p.set);

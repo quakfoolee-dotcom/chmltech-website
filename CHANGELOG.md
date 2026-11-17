@@ -1,5 +1,11 @@
 # Changelog
 
+## V5.52 — 2026-11-17
+- **AI Models effort curves: one tooltip for overlapping points.** When dots sit on top of each other (e.g. Gemini 4 Hydrogen X-high at 53.9 / $3.16 and Claude Fable 5.2 Low at 53.9 / $3.10 per task, about 2 px apart), only one could be hovered. Hovering any dot now lists every point within 12 px in one black tooltip ("2 points here"), each line with the model's colour dot, setting, score and cost; single points keep the normal tooltip. Applies to the headline chart and the studio effort curves, with mouse, keyboard (Tab) and touch.
+  - Costs of $1 to $100 in chart tooltips now always show two decimals ($3.10, not $3.1).
+  - Checked in headless Chrome: 2 of 18 hit areas in the default view carry the combined tooltip; no script errors; overlap tests pass (72 studio curves, compare grid, 38 ranking charts).
+  - Source changes: `assets/js/llm-studio.js`, `assets/css/llm.css`; `llm-leaderboard.html` (asset versions).
+
 ## V5.51 — 2026-11-17
 - **AI Models charts: labels centred on their dots, and one tooltip only.**
   - Effort-curve setting labels (headline chart and chart studio) are now centred just above their dot, or just below when the space above is taken; side positions are used only when both are blocked (15 of 17 labels centred in the default view).

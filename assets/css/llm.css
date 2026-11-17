@@ -207,3 +207,6 @@
 .ls-links{display:inline-flex;gap:14px;margin-left:4px}
 .ls-link{border:0;background:none;padding:0;font:inherit;font-size:14px;color:#0B6FA4;text-decoration:underline;cursor:pointer}
 .ls-link:hover,.ls-link:focus-visible{color:var(--ink)}
+/* V5.52: coloured model dot inside a multi-point tooltip */
+.ls-tipdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 6px 0 0;vertical-align:0;box-shadow:0 0 0 1.5px #fff}
+.ls-tip{max-width:340px}
