@@ -178,3 +178,17 @@
 #ls-c-table summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink)}
 @media (max-width:700px){.ls-controls .ls-png{margin-left:0}}
 .ll-chip-old{background:#F1EFEA;color:#5B6472;border-color:#DCD8CE}
+
+/* V5.46: update banner under the hero; compact "What changed" near the end */
+.ll-update{background:#E7F0F7;border-bottom:1px solid #CFE0EC}
+.ll-update-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding-top:12px;padding-bottom:12px;font-size:15px;color:var(--ink)}
+.ll-update-tag{background:#0B2A5A;color:#fff;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.ll-update-text{flex:1 1 280px}
+.ll-update-link{font-weight:600;color:#0B6FA4;white-space:nowrap;text-decoration:none}
+.ll-update-link:hover,.ll-update-link:focus-visible{text-decoration:underline}
+.ll-news2{grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));align-items:start}
+.ll-news-sub{font-size:15px;margin:14px 0 4px;color:var(--ink)}
+.ll-news-note{margin:12px 0 0;font-size:15px;color:var(--muted)}
+.ll-news-more{margin-top:8px}
+.ll-news-more summary{cursor:pointer;font-weight:600;font-size:14px;color:#0B6FA4}
+.ll-news-more ul{margin-top:6px}

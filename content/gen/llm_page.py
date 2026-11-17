@@ -128,7 +128,28 @@ def tok_figure(M):
             + leg + "".join(g) + "</svg>")
 
 
+def update_banner(D, M):
+    """One-line update strip under the hero (V5.46): what is new, linking to the full section further down."""
+    c = D.get("changes")
+    if not c: return ""
+    asof = datetime.date.fromisoformat(D["as_of"]).strftime("%B %-d")
+    n_now = sum(len(m.get("s", {})) for m in M)
+    added = c["added"]
+    if added:
+        what = (" and ".join(added) if len(added) <= 2 else ", ".join(added[:-1]) + " and " + added[-1]) + " added"
+    else:
+        what = "all sources re-checked"
+    moved = sum(1 for l in c["leaders"] if l.get("note") or l["before"] != l["now"])
+    extra = f" · {moved} new agent-card leader{'s' if moved != 1 else ''}" if moved else ""
+    return (f'''<div class="ll-update" role="note"><div class="container ll-update-row">
+  <span class="ll-update-tag">Updated {esc(asof)}</span>
+  <span class="ll-update-text"><strong>{esc(what)}</strong> · {n_now} benchmark results{esc(extra)}</span>
+  <a class="ll-update-link" href="#whatsnew">What changed <span aria-hidden="true">&darr;</span></a>
+</div></div>''')
+
+
 def news(D, M):
+    """Full "What changed" section, placed near the end of the page (V5.46)."""
     c = D.get("changes")
     if not c: return ""
     prev = datetime.date.fromisoformat(c["prev_as_of"]).strftime("%B %-d")
@@ -140,24 +161,30 @@ def news(D, M):
             if r: bits.append(f"{lab} {r['v']:.1f}" + ("%" if bid in ("vals", "tbench") else ""))
         price = f"${m['pin']:.2f} / ${m['pout']:.2f} per 1M tokens" if m.get("pin") is not None else "no list price yet"
         return f"<li><span class=\"ll-moved\">{esc(nm)}</span> ({esc(m['dev'])}, {esc(m['tier'].lower())}): {esc(price)}" + (f"; {esc(', '.join(bits))}" if bits else "") + "</li>"
-    added = "".join(line(nm) for nm in c["added"]) or "<li>No new models.</li>"
+    added = "".join(line(nm) for nm in c["added"]) or "<li>No new models in this update.</li>"
     moved = [l for l in c["leaders"] if l.get("note") or l["before"] != l["now"]]
     def lt(l):
         if l.get("note"):
             return (f'<li>{esc(l["group"])}: <span class="ll-moved">{esc(l["now"])}</span> leads the revised index, {l["gap"]:.1f} points ahead of {esc(l["second"])}. '
                     f'Not comparable with the {prev} snapshot.</li>')
         return f'<li>{esc(l["group"])}: <span class="ll-moved">{esc(l["now"])}</span> (was {esc(l["before"])})</li>'
-    lead = "".join(lt(l) for l in moved) or "<li>The leader of every agent card is unchanged.</li>"
+    if moved:
+        lead = f'<h4 class="ll-news-sub">New leaders on the agent cards</h4><ul>{"".join(lt(l) for l in moved)}</ul>'
+    else:
+        lead = '<p class="ll-news-note">The leader of every agent card is unchanged.</p>'
+    bn = D.get("board_news", [])
+    first = "".join(f"<li>{esc(x)}</li>" for x in bn[:3])
+    rest = bn[3:]
+    more = (f'<details class="ll-news-more"><summary>Show all {len(bn)} updates</summary><ul>' + "".join(f"<li>{esc(x)}</li>" for x in rest) + "</ul></details>") if rest else ""
     n_now = sum(len(m.get("s", {})) for m in M)
     return f'''<section class="section sand" id="whatsnew" style="scroll-margin-top:84px"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">What changed</p><h2 class="h-lg">Since the {prev} snapshot.</h2></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">What changed</p><h2 class="h-md">Since the {prev} snapshot</h2></div>
   <p>Every source was collected again and re-checked. {n_now} benchmark results now, up from {c["results_before"]}.</p></div>
-  <div class="ll-news">
-    <article class="card"><h3>New models</h3><ul>{added}</ul></article>
-    <article class="card"><h3>New leaders on the agent cards</h3><ul>{lead}</ul></article>
-    <article class="card"><h3>Benchmark updates</h3><ul>{"".join(f"<li>{esc(x)}</li>" for x in D.get("board_news", []))}</ul></article>
+  <div class="ll-news ll-news2">
+    <article class="card"><h3>Models</h3><ul>{added}</ul>{lead}</article>
+    <article class="card"><h3>Benchmark updates</h3><ul>{first}</ul>{more}</article>
   </div>
-</div></div></section>'''
+</div></section>'''
 
 
 def build():
@@ -203,7 +230,7 @@ def build():
   <div class="btn-row"><a class="btn" href="#explorer">Search the models</a><a class="btn btn-ghost-dark" href="#agents">Best by agent type</a></div>
 </div></div></section>
 
-{news(D, M)}
+{update_banner(D, M)}
 
 <section class="section" id="agents" style="scroll-margin-top:84px"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Best by agent type</p><h2 class="h-lg">The strongest models for each kind of agent.</h2></div>
@@ -305,6 +332,8 @@ def build():
   <div class="ll-tokfig" id="ll-tokfig">{tok_figure(M)}</div>
   <p class="ll-chartnote">Source: Artificial Analysis model pages, retrieved {asof}. Reasoning tokens are the model's hidden thinking; answer tokens are the visible reply. Both are billed as output. Each model's details in the explorer link to its page.</p>
 </div></section>
+
+{news(D, M)}
 
 <section class="section" id="method" style="scroll-margin-top:84px"><div class="container">
   <div class="section-head"><div class="stack"><p class="eyebrow">Methodology</p><h2 class="h-lg">How this database is built and checked.</h2></div>

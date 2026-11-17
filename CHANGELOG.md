@@ -1,5 +1,11 @@
 # Changelog
 
+## V5.46 — 2026-11-17
+- **AI Models page: "What changed" moved and slimmed.** A one-line update banner now sits under the hero ("Updated November 17 · GPT-6.2 Astra and GPT-6.2 Sol added · 530 benchmark results · What changed ↓"), so the agent cards follow straight after the hero. The banner is generated from the data on each refresh (new models, number of new agent-card leaders).
+  - The full "What changed" section moved near the end of the page, after the token-use figure and before the method. It has two cards instead of three ("Models", with a one-line note when no agent-card leader changed, and "Benchmark updates"), shows the first three benchmark updates with the rest behind "Show all", and uses a smaller heading.
+  - Also fixed a stray closing tag in the section markup.
+  - Source changes: `content/gen/llm_page.py` (`update_banner()`, `news()`), `assets/css/llm.css`; `llm-leaderboard.html`.
+
 ## V5.45 — 2026-11-17
 - **AI Models (LLM leaderboard) refreshed to November 17, 2026: GPT-6.2 Astra and GPT-6.2 Sol added.** 55 models (was 53) and 530 benchmark results (was 515). All four research sets were collected again, then checked by two red-team agents (no blockers left; every new and changed value re-checked against its live source).
   - **New models (released Nov 17, marked as early results):** GPT-6.2 Astra (Frontier, $8 / $40 per 1M tokens, 20% below GPT-6 Astra; $16 / $60 above 272K input) and GPT-6.2 Sol (Frontier, $2 / $10; $4 / $15 above 272K input), both with a 1.05M-token context and 128K maximum output. So far on the Artificial Analysis Intelligence Index (Astra 62.1, Sol 57.3), Vals (67.7% and 66.1%), ARC-AGI-2 (Astra 95.8%, new #1) and, for Astra only, Epoch AI (ECI 174.2 and GPQA Diamond 96.8%, both new #1; FrontierMath 92.6%). Epoch's runs are flagged as pre-launch. Not yet on Arena, LiveBench, Terminal-Bench, Vending-Bench or the AA Coding Agent Index. No agent-card leader changed.
