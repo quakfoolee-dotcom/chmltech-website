@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.50 — 2026-11-17
+- **Reverted V5.49** at the owner's request: the model-tagged setting labels, the nearest-point label rule and the cost-order footnote made the effort-curve charts harder to read. `assets/js/llm-studio.js` and `llm-leaderboard.html` are restored exactly to V5.48 (same asset version stamp). The Gemini 4 Carbon finding stands: Artificial Analysis publishes Low at $5.22 and Medium at $4.68 per task, so its line correctly steps back to the left.
+
 ## V5.49 — 2026-11-17
 - **AI Models effort-curve charts: clearer labels and a cost-order footnote** (headline chart and chart studio).
   - Where another model's point is within 44 px, a setting label names its model ("Carbon: Low", "Fable 5.2: High"); the brand word is dropped, and the full name is used if two selected models would share a short name.
