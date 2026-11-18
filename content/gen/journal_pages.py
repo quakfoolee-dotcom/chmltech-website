@@ -108,7 +108,7 @@ def code_box(d):
 
 def code_links(d):
     if not d.get("downloads"): return ""
-    return '<a class="btn btn-ghost" href="#code" style="margin-top:10px">Python code</a>'
+    return '<a class="btn btn-ghost" href="#code" style="margin-top:10px;justify-content:center;text-align:center">Python code</a>'
 
 
 def pdf_name(d):
