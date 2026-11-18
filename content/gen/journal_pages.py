@@ -77,6 +77,7 @@ TOPIC = {
     "quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers": ["operational-efficiency", "erp"],
     "forecasting-lumpy-demand-does-croston-beat-a-moving-average": ["operational-efficiency", "inventory-management"],
     "sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants": ["process-engineering", "operational-efficiency"],  # V5.45
+    "choosing-the-pump-arrangement-under-uncertainty-monte-carlo-comparison-of-single-parallel-and-variable-speed-options": ["process-engineering", "operational-efficiency"],  # V5.56
 }
 
 

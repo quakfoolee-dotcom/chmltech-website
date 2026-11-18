@@ -1,4 +1,4 @@
-"""Write and check the operations and process papers, Vol. 106, Issues 3-8 (V5.41, V5.42, V5.45), to content/journal/<slug>.json.
+"""Write and check the operations and process papers, Vol. 106, Issues 3-9 (V5.41, V5.42, V5.45, V5.56), to content/journal/<slug>.json.
 
 Usage: python3 -I content/journal/ops/build.py
 Reuses the markup and checks in content/journal/agentic/ (jmark.py, build.py) and adds two block types:
@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "agentic"))
 import jmark, build
 
-PAPERS = ["paper_v106_i3", "paper_v106_i4", "paper_v106_i5", "paper_v106_i6", "paper_v106_i7", "paper_v106_i8"]
+PAPERS = ["paper_v106_i3", "paper_v106_i4", "paper_v106_i5", "paper_v106_i6", "paper_v106_i7", "paper_v106_i8", "paper_v106_i9"]
 DATE = "2026-11-16"
 AUTHOR = dict(build.AUTHOR, division="Division of Operational Excellence")
 _parse = jmark.parse
