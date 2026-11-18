@@ -74,7 +74,7 @@ step("Context, interested parties and scope", 7, """
 <tr><td>Suppliers</td><td>Clear purchase orders and specifications, fair payment</td></tr>
 </tbody></table>
 <h3>Scope</h3>
-<p>Define the boundaries of the QMS: which products, services, sites and activities it covers. The scope appears on the certificate, so word it carefully, for example "Design, fabrication and installation of stainless steel process piping systems at the Burnaby facility". If a requirement cannot apply to you, for example design and development for a company that only makes to customer drawings, state it and justify why in the scope.</p>
+<p>Define the boundaries of the QMS: which products, services, sites and activities it covers. The scope appears on the certificate, so word it carefully, for example "Design, fabrication and installation of stainless steel process piping systems at the Vancouver facility". If a requirement cannot apply to you, for example design and development for a company that only makes to customer drawings, state it and justify why in the scope.</p>
 <h3>Keep it current</h3>
 <p>Review context and interested parties at least yearly, usually in management review. They feed the risks and objectives in the next clauses.</p>
 """, ["Record internal and external issues, including whether climate change is relevant.", "List interested parties and their relevant requirements.", "Define and justify the scope, which appears on the certificate."],

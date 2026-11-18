@@ -209,7 +209,7 @@ An SME can move from price comparison to total landed cost in four steps, starti
 
 ### 7.1 Pitfalls
 
-- **Comparing quotes on different terms.** An FOB Shanghai price, an ex-works Monterrey price and a delivered Burnaby price are not comparable until freight, duty and brokerage are added.
+- **Comparing quotes on different terms.** An FOB Shanghai price, an ex-works Monterrey price and a delivered Vancouver price are not comparable until freight, duty and brokerage are added.
 - **Chasing the lowest freight per unit.** Ordering once a year cuts freight per unit but multiplies cycle stock; in this case one order a year costs more than two for every part bought from China, by up to C$12,100 a year for steel reinforcement and C$4,200 for casement operators.
 - **Ignoring origin rules.** Surtaxes follow where the steel was melted or the aluminum smelted, not only where the part was made. A part assembled in Mexico from Chinese steel may still pay.
 - **Counting suppliers, not regions.** Most supplier management cost (audits, visits, inspection, broker set-up) is per country or region; adding a part to an existing region is cheap, adding a region is not.
