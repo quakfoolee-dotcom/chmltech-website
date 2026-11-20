@@ -335,3 +335,6 @@ html{scroll-padding-top:96px}
 @media (max-width:760px){.ai-matrix{padding:14px 12px 4px}.ai-matrix .as-guide{display:none}}
 .fm-jump{margin:0;font-weight:600}
 .fm-jump a{color:var(--blue)}
+/* V5.60: space between the assessment box and the sand band below (matches the Funding page: 80px, 56px on small screens) */
+#assessment.finder-section{padding-bottom:80px}
+@media (max-width:720px){#assessment.finder-section{padding-bottom:56px}}
