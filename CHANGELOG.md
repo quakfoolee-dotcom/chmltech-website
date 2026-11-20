@@ -1,5 +1,12 @@
 # Changelog
 
+## V5.58 — 2026-11-20
+- **Funding page: Funding Match.** The Funding page now opens with "Start the free funding match" (and "or browse the program directory →"), like the Digital Assessment. Five steps, 14 questions (province and part of Ontario, industry, legal form, employees, revenue, years operating, goals, project cost with an optional exact figure, start date, identity groups, special situations, funding types, cash share, readiness) rank the 408 programs and show: counts by type, a funding stack (up to two grants plus a tax credit, loan and advisory program, non-repayable and repayable amounts shown separately, stacking caps respected), best matches with fit score, "why it fits" and "check before you apply", near misses, programs to watch for the next intake, a readiness checklist, a PDF report and the same email form and 30-minute review offer as the Digital Assessment (`assets/js/funding-match.js`, `assets/css/funding-match.css`, page builder `content/funding/funding_match_page.py`).
+- **Eligibility rules for all 408 programs**, checked against official pages and guidelines: auto-extracted rules red-teamed (V2), then Phase 1 research on the remaining 248, a 15% red-team spot-check (0 Critical) and a guidelines re-check (`content/funding/`). Full history: `content/funding/CHANGELOG_Funding_Match.md` (Drafts V1–V4).
+- **Directory data:** 23 programs corrected in `content/grants.json` (statuses, deadlines, amounts, eligibility text, one link); directory cards and filter counts refreshed (35 closed programs).
+- **Digital Assessment (V28):** "Find funding for this project" links and the report's funding section now open the Funding Match (`funding.html#match`).
+- **Forms:** `main.js` sends `report_kind` to the report service and adds the results text to the fallback email. **Report service Version 27** (`content/worker/chmltech-report-worker.js`) words Funding Match emails and signs both reports from Vancouver, BC; deploy it to the `chmltech-report` worker before or with this release.
+
 ## V5.57 — 2026-11-18
 - **Journal papers: the "Python code" button in the Article box is centred like "Download PDF"** (`content/gen/journal_pages.py` `code_links`, and the seven built pages with code downloads: Vol. 106, Issues 3–9).
 ## V5.56 — 2026-11-18

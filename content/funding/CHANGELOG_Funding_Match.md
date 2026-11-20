@@ -1,5 +1,8 @@
 # Funding Match — changelog
 
+## V5.58 — 2026-11-20: published
+- Draft V4 published as site V5.58. The draft builder became `content/funding/funding_match_page.py`: it can be run any number of times (it removes an earlier patch first) and also refreshes the directory filter counts. Digital Assessment funding links now open `funding.html#match`. Cache stamps by `seo_pass.py`.
+
 ## Draft V4 — 2026-11-20 (not published): optional exact project cost
 - **Exact project cost (optional)** box under the project-cost ranges. A valid figure picks the matching range automatically and replaces the assumed midpoint (for example $4M for "Over $2 million") in the funding stack, the minimum-project-size checks, the results lead ("for a $275,000 project") and the PDF ("$275,000 (your figure)").
 - Input accepts commas and a $ sign; text or amounts under $1,000 show a message and hold Next until fixed or cleared. Picking a range that does not contain the figure clears it with a message, so the two never disagree. The figure is kept when going Back.

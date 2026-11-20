@@ -1,7 +1,11 @@
-"""Funding Match Draft V1: adds the guided funding match to funding.html.
+"""Funding Match page builder (V5.58): adds the guided funding match to funding.html.
 
-Draft builder: patches the built funding.html in place (hero CTA, #match wizard section, rules JSON, assets).
-On publication this markup moves into content/gen/grants_page.py so full rebuilds keep it.
+Patches funding.html built by content/gen/grants_page.py (or the committed copy) in place: hero CTA, #match wizard
+section, rules JSON (#fm-rules), assets, and refreshes the directory cards, filter counts and #grants-data from
+content/grants.json. Run after any change to content/grants.json or content/funding/*.json:
+    python3 content/funding/enrich_v1.py && python3 content/funding/funding_match_page.py && python3 content/gen/seo_pass.py .
+The patch is applied to a clean page: pass --from-git to start from the last committed funding.html without the wizard
+is not needed; the script strips an earlier Funding Match patch itself.
 """
 import json, os, re
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -9,7 +13,17 @@ ROOT = os.path.join(HERE, "..", "..")
 FP = os.path.join(ROOT, "funding.html")
 RULES = os.path.join(HERE, "rules_v1.json")
 
-HERO_OLD = re.compile(r'<p class="lead">A directory of federal.*?</div>\s*<div class="btn-row">.*?</div>', re.S)
+HERO_OLD = re.compile(r'(?:<p class="hero-slogan">Find the grants[^<]*</p>\s*)?<p class="lead">.*?<div class="btn-row[^"]*">.*?</div>', re.S)
+
+
+def strip(s):
+    """Remove an earlier Funding Match patch so the script can run any number of times."""
+    s = re.sub(r'\n<section class="section finder-section" id="match".*?</div></section>\n(?=\n<section class="section gr-section" id="finder")', '', s, flags=re.S)
+    s = re.sub(r'<script type="application/json" id="fm-rules">.*?</script>\n', '', s, flags=re.S)
+    s = re.sub(r'<link rel="stylesheet" href="assets/css/(?:course-finder|erp|assess|funding-match)\.css[^"]*">\n', '', s)
+    s = re.sub(r'\n<script src="assets/js/funding-match\.js[^"]*" defer></script>', '', s)
+    s = re.sub(r'\n<script src="https://challenges\.cloudflare\.com/turnstile/v0/api\.js" async defer></script>', '', s)
+    return s
 
 def hero(n):
     return (f'<p class="hero-slogan">Find the grants, tax credits and loans your business can apply for.</p>\n'
@@ -76,7 +90,7 @@ SECTION = '''
 def main():
     s = open(FP, encoding="utf-8").read()
     n = s.count('<article class="gr-card"')
-    assert 'id="fm"' not in s, "already patched"
+    s = strip(s)
     s, k = HERO_OLD.subn(hero(n), s, count=1); assert k == 1
     s = s.replace('<section class="section gr-section" id="finder"', SECTION + '\n<section class="section gr-section" id="finder"', 1)
     s = s.replace('<p class="eyebrow">Program directory</p>', '<p class="eyebrow">Program directory</p>', 1)
@@ -89,6 +103,23 @@ def main():
         s = re.sub(r'<article class="gr-card" id="p-' + re.escape(r["id"]) + r'".*?</article>', lambda m: G.card(r), s, count=1, flags=re.S)
     dj = json.dumps(recs, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     s = re.sub(r'(<script type="application/json" id="grants-data">).*?(</script>)', lambda m: m.group(1) + dj + m.group(2), s, count=1, flags=re.S)
+    ct = {f: G.counts(recs, f) for f in ("jurisdiction", "funding_types", "applicant_types", "industries", "purposes", "status")}
+    cj, ctt, ca, ci, cp, cs = (ct[f] for f in ("jurisdiction", "funding_types", "applicant_types", "industries", "purposes", "status"))
+    filters = "".join([
+        G.group("j", "Jurisdiction", G.JURISDICTIONS, cj, True,
+                '<label class="gr-toggle"><input type="checkbox" id="gr-fed" checked> Include federal programs</label>'
+                '<p class="gr-hint">When you pick a province or territory, federal programs available there are also shown.</p>'),
+        G.group("t", "Funding type", G.present(G.FUNDING_TYPES, ctt), ctt, True),
+        G.group("a", "Who can apply", G.present(G.APPLICANTS, ca), ca),
+        G.group("i", "Industry", G.present(G.INDUSTRIES, ci), ci, False, '<p class="gr-hint">Programs open to all industries are always included.</p>'),
+        G.group("p", "Purpose", G.present(G.PURPOSES, cp), cp),
+        G.group("s", "Status", G.present(G.STATUSES, cs), cs, False,
+                f'<label class="gr-toggle"><input type="checkbox" id="gr-closed"> Show closed programs ({cs.get(G.CLOSED, 0)})</label>'),
+    ])
+    shown = sum(1 for r in recs if r.get("status") != G.CLOSED)
+    s, k = re.subn(r'(<div class="gr-filters-head">.*?</div>).*?(<button type="button" class="btn gr-apply" data-close>Show <span data-close-n>)\d+(</span>)',
+                   lambda m: m.group(1) + "\n        " + filters + "\n        " + m.group(2) + str(shown) + m.group(3), s, count=1, flags=re.S)
+    assert k == 1, "filter block not found"
     rules = json.load(open(RULES, encoding="utf-8"))
     rj = json.dumps(rules, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     s = s.replace('<script type="application/json" id="grants-data">', f'<script type="application/json" id="fm-rules">{rj}</script>\n<script type="application/json" id="grants-data">', 1)
