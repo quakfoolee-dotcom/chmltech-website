@@ -52,6 +52,9 @@
 ## Draft V1 — 2026-11-19 (not published)
 - ERP Matrix page: 23 ERP/WMS products, 4 workflows × 8 capabilities, shortlist wizard, scorecard PDF and email form.
 
+## V27 — 2026-11-20 — Tidy form after sending
+- After a successful send, the "Verify you are human" check is hidden instead of reset; a fresh check appears only if the visitor starts typing in the form again.
+
 ## V26 — 2026-11-20 — PDF report emailed to the visitor
 - "Email me my report" builds the branded PDF and posts it, with the text report, to Chmltech's report service (Cloudflare Worker chmltech-report.quakfoo-lee.workers.dev). The Worker checks Cloudflare Turnstile, the website origin, the fields and the PDF, then emails through Resend from reports@mail.chmltech.com: the PDF to the visitor (reply-to info@chmltech.com) and a copy with the full text report and PDF to info@chmltech.com (reply-to the visitor).
 - Cloudflare Turnstile (managed, site key 0x4AAAAAAGKoiNXbfnTG_CId) added to the report form.

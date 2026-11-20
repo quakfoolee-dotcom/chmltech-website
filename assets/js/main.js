@@ -103,7 +103,16 @@
           return fetch(reportEp, { method: 'POST', body: fd }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); });
         }).then(function (res) {
           if (!(res.ok && res.j.ok)) throw new Error('report service');
-          form.reset(); if (window.turnstile) try { window.turnstile.reset(); } catch (x) {}
+          form.reset();
+          // Hide the human check after a successful send; show a fresh one only if the visitor starts typing again.
+          var tsBox = form.querySelector('.cf-turnstile');
+          if (tsBox) {
+            tsBox.hidden = true;
+            form.addEventListener('input', function again() {
+              form.removeEventListener('input', again); tsBox.hidden = false;
+              if (window.turnstile) try { window.turnstile.reset(); } catch (x) {}
+            });
+          }
           show('ok', form.getAttribute('data-success-report') || form.getAttribute('data-success'));
           btn.disabled = false; btn.textContent = label;
         }).catch(function () { if (window.turnstile) try { window.turnstile.reset(); } catch (x) {} sendWeb3(); });
