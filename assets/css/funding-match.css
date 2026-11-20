@@ -81,3 +81,11 @@
 html{scroll-padding-top:auto}
 .gr-hero .stat-row{gap:16px 48px}
 @media (max-width:720px){.gr-hero .stat-row{gap:16px 28px}}
+.fm-cost{margin-top:18px;display:flex;flex-direction:column;gap:6px;max-width:360px}
+.fm-cost label{font-weight:600;color:var(--navy)}
+.fm-cost .hint{font-weight:400;color:var(--muted)}
+.fm-cost-in{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:10px;background:var(--white);padding:0 12px}
+.fm-cost-in:focus-within{outline:2px solid var(--blue);outline-offset:1px}
+.fm-cost-in span{color:var(--muted);font-weight:600;margin-right:6px}
+.fm-cost-in input{border:0;outline:0;font:inherit;font-size:16px;padding:12px 0;width:100%;background:transparent;color:var(--ink)}
+.fm-cost-msg{font-size:14px;color:var(--muted);margin:0;min-height:1.2em}

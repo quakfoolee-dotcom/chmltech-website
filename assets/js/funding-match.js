@@ -11,6 +11,7 @@
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function full(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
   function money(n) { if (n == null) return ''; if (n >= 999500) { var m = Math.floor(n / 1e5) / 10; return '$' + m + 'M'; } if (n >= 1e3) return '$' + Math.round(n / 1e3) + 'K'; return '$' + n; }
   var CLOSED = 'Closed to new applications';
 
@@ -59,7 +60,7 @@
     { k: 'rev', st: 0, q: 'What was your revenue in the last full year?', o: function () { return opt(REV); }, cols: 2, when: function () { return ans.legal !== 'none'; } },
     { k: 'yrs', st: 0, q: 'How long has the business been operating?', o: function () { return opt(YRS); }, cols: 3, when: function () { return ans.legal !== 'none'; } },
     { k: 'goal', st: 1, q: 'What do you want funding for?', hint: 'Pick up to three.', max: 3, o: function () { return GOALS.map(function (g) { return [g[0], g[1], g[2]]; }); } },
-    { k: 'budget', st: 1, q: 'About how much will the project cost in total?', o: function () { return BUDGET.map(function (b) { return [b[0], b[1], '']; }); } },
+    { k: 'budget', st: 1, q: 'About how much will the project cost in total?', hint: 'Pick a range. If you know the figure, enter it below for more precise amounts.', o: function () { return BUDGET.map(function (b) { return [b[0], b[1], '']; }); }, extra: costHTML },
     { k: 'start', st: 1, q: 'When will the project start?', hint: 'Most grants only cover costs after approval.', o: function () { return opt(START); } },
     { k: 'who', st: 2, q: 'Do any of these describe your business?', hint: 'Optional. Some programs are reserved for these groups. Pick all that apply, or "None of these".', max: 9, o: function () { return opt(WHO); }, cols: 2, excl: 'none' },
     { k: 'sit', st: 2, q: 'Do any of these situations apply?', hint: 'Some programs are only for these situations. Pick all that apply, or "None of these".', max: 4, o: function () { return [['tariff', 'Affected by U.S. tariffs', 'Lost sales, higher costs or a need to find new markets'], ['defence', 'Supplying or planning to supply defence or security customers'], ['energy', 'Large energy user', 'Industrial or large commercial electricity or gas account'], ['none', 'None of these']]; }, excl: 'none' },
@@ -91,7 +92,7 @@
       '<div class="finder-opts' + (s.cols ? ' fm-cols' + s.cols : '') + '">' + s.o().map(function (o) {
         var on = multi ? sel.indexOf(o[0]) >= 0 : sel === o[0];
         return '<label class="finder-opt"><input type="' + (multi ? 'checkbox' : 'radio') + '" name="fq_' + s.k + '" value="' + esc(o[0]) + '"' + (on ? ' checked' : '') + '><span>' + esc(o[1]) + (o[2] ? '<small>' + esc(o[2]) + '</small>' : '') + '</span></label>';
-      }).join('') + '</div>';
+      }).join('') + '</div>' + (s.extra ? s.extra() : '');
     if (s.hint) qbox.setAttribute('aria-describedby', 'fm-hint'); else qbox.removeAttribute('aria-describedby');
     back.disabled = idx === 0;
     next.textContent = idx === list.length - 1 ? 'See my funding matches →' : 'Next →';
@@ -104,7 +105,25 @@
     $$('input', qbox).forEach(function (b) { b.disabled = full && !b.checked; });
     el.textContent = full ? 'You have picked ' + s.max + '. Untick one to choose another.' : '';
   }
+  function costHTML() {
+    return '<div class="fm-cost"><label for="fm-cost">Exact project cost <span class="hint">(optional)</span></label>' +
+      '<div class="fm-cost-in"><span aria-hidden="true">$</span><input id="fm-cost" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 275,000" value="' + (ans.cost ? ans.cost.toLocaleString('en-CA') : '') + '" aria-describedby="fm-cost-msg"></div>' +
+      '<p class="fm-cost-msg" id="fm-cost-msg" aria-live="polite"></p></div>';
+  }
+  function parseCost(v) { v = String(v || '').replace(/[\s,$]/g, ''); if (!v) return 0; if (!/^\d+(\.\d+)?$/.test(v)) return NaN; return Math.round(+v); }
+  function rangeFor(n) { for (var i = 0; i < BUDGET.length; i++) if (n < BUDGET[i][3] || i === BUDGET.length - 1) return BUDGET[i][0]; }
+  qbox.addEventListener('input', function (e) {
+    if (e.target.id !== 'fm-cost') return;
+    var n = parseCost(e.target.value), msg = $('#fm-cost-msg');
+    costBad = false;
+    if (isNaN(n) || (n && n < 1000)) { costBad = true; msg.textContent = 'Enter the total cost in dollars, for example 275,000.'; delete ans.cost; }
+    else if (!n) { msg.textContent = ''; delete ans.cost; }
+    else { ans.cost = n; ans.budget = rangeFor(n); msg.textContent = 'Using ' + full(n) + ' (' + row(BUDGET, ans.budget)[1] + ').'; var rb = qbox.querySelector('input[type=radio][value="' + ans.budget + '"]'); if (rb) rb.checked = true; }
+    update();
+  });
+  var costBad = false;
   qbox.addEventListener('change', function (e) {
+    if (e.target.id === 'fm-cost') return;
     var s = visible()[idx];
     if (s.max) {
       if (s.excl) {
@@ -116,10 +135,11 @@
       ans[s.k] = boxes.map(function (b) { return b.value; }); limit();
     } else { var prev = ans[s.k]; ans[s.k] = e.target.value;
       if (s.k === 'legal' && ans.legal === 'none') { ans.rev = '0'; ans.yrs = '0'; }
-      else if (s.k === 'legal' && prev === 'none') { delete ans.rev; delete ans.yrs; } }
+      else if (s.k === 'legal' && prev === 'none') { delete ans.rev; delete ans.yrs; }
+      if (s.k === 'budget' && ans.cost && rangeFor(ans.cost) !== ans.budget) { delete ans.cost; costBad = false; var ci = $('#fm-cost'); if (ci) ci.value = ''; var cm = $('#fm-cost-msg'); if (cm) cm.textContent = 'The figure did not fit that range, so it was cleared.'; } }
     update();
   });
-  function update() { var v = ans[visible()[idx].k]; next.disabled = !(v && v.length); }
+  function update() { var s = visible()[idx], v = ans[s.k]; next.disabled = !(v && v.length) || (s.k === 'budget' && costBad); }
   back.addEventListener('click', function () { if (idx > 0) { idx--; show(); } });
   next.addEventListener('click', function () { if (next.disabled) return; if (idx < visible().length - 1) { idx++; show(); window.scrollTo({ top: $('#match').offsetTop - 70, behavior: 'smooth' }); } else finish(); });
 
@@ -137,7 +157,7 @@
     var purposes = {}, sector = SECTOR_PURPOSE[inds[0]];
     (ans.goal || []).forEach(function (g) { row(GOALS, g)[3].forEach(function (p) { purposes[p] = purposes[p] || g; }); });
     return { prov: ans.prov, region: ans.prov === 'Ontario' ? ans.region : null, ind: ans.ind, inds: inds, legal: ans.legal, forprofit: forprofit, emp: [e[2], e[3]], rev: [r[2], r[3]], yrs: [y[2], y[3]],
-      types: types, who: who, sit: (ans.sit || []).filter(function (w) { return w !== 'none'; }), purposes: purposes, sector: sector, budget: row(BUDGET, ans.budget)[2], budgetHi: row(BUDGET, ans.budget)[3],
+      types: types, who: who, sit: (ans.sit || []).filter(function (w) { return w !== 'none'; }), purposes: purposes, sector: sector, budget: ans.cost || row(BUDGET, ans.budget)[2], budgetHi: ans.cost || row(BUDGET, ans.budget)[3], exact: !!ans.cost,
       pref: ans.pref || [], started: ans.start === 'started', cash: +ans.cash };
   }
   function inProv(r, P) { if (r.jurisdiction === P.prov) return true; if (r.jurisdiction !== 'Federal') return false; return r.provinces.indexOf('All') >= 0 || r.provinces.indexOf(P.prov) >= 0; }
@@ -305,7 +325,7 @@
   function render() {
     var R = RES, P = R.P;
     var n = R.open.length;
-    var bl = row(BUDGET, ans.budget)[1].toLowerCase(), art = /^[uo]/.test(bl) ? 'an ' : 'a ';
+    var bl = P.exact ? full(P.budget) : row(BUDGET, ans.budget)[1].toLowerCase(), art = /^[uo]/.test(bl) ? 'an ' : 'a ';
     $('#fm-res-lead').textContent = n ? n + (n === 1 ? ' program fits' : ' programs fit') + ' your answers for ' + art + bl + ' project in ' + P.prov + '. Here are the strongest matches, grouped by type.' :
       'No open programs fit every answer. ' + (R.near.length + R.watch.length ? 'See the near misses and programs opening again below, or try ' : 'Try ') + 'more goals or funding types, or browse the directory below.';
     // summary tiles
@@ -320,7 +340,7 @@
         if (x.g === 'grant') return x.est != null ? money(x.est) + (x.rep ? ' (repayable or partly repayable)' : '') : x.ru.per_unit ? 'Up to ' + money(x.ru.per_unit) + ' per participant' : 'Amount varies: check the program';
         return x.g === 'tax' ? 'Claimed after you spend' : x.g === 'loan' ? 'Financing, repayable' : 'Advice and support';
       }
-      sh = '<div class="as-card fm-stack"><h3>A funding stack to explore</h3><p class="muted">Up to two grants (one federal, one provincial or territorial) and one program from each other type you chose, best fit first. Each program sets its own stacking limit, often 50% to 100% of eligible costs, and tax credits may count. As a guide we keep grants and contributions within ' + S.cap + '% of a project of about ' + money(S.budget) + ' (you chose ' + esc(row(BUDGET, ans.budget)[1]) + ').</p>' +
+      sh = '<div class="as-card fm-stack"><h3>A funding stack to explore</h3><p class="muted">Up to two grants (one federal, one provincial or territorial) and one program from each other type you chose, best fit first. Each program sets its own stacking limit, often 50% to 100% of eligible costs, and tax credits may count. As a guide we keep grants and contributions within ' + S.cap + '% of ' + (P.exact ? 'your ' + full(S.budget) + ' project (your figure).' : 'a project assumed at about ' + money(S.budget) + ' (you chose ' + esc(row(BUDGET, ans.budget)[1]) + '). Enter an exact cost for more precise amounts.') + '</p>' +
         '<table class="fm-stack-t"><thead><tr><th>Program</th><th>Type</th><th class="num">Indicative amount</th></tr></thead><tbody>' +
         S.pick.map(function (x) { return '<tr><td><a href="' + esc(x.r.url) + '" target="_blank" rel="noopener">' + esc(x.r.name) + '</a></td><td>' + esc(GROUPNAME[x.g]) + '</td><td class="num">' + esc(amt(x)) + '</td></tr>'; }).join('') + '</tbody></table>' +
         (anyAmt ? '<div class="fm-bar2" role="img" aria-label="Non-repayable funding about ' + gp + '%, repayable about ' + rp + '%, your share about ' + yp + '% of the project"><span style="width:' + gp + '%"></span><span class="r" style="width:' + rp + '%"></span></div>' +
@@ -372,13 +392,13 @@
     secs.push(['1. Your answers', [
       'Location: ' + P.prov + (P.region ? ' (' + lab([['north', 'Northern Ontario'], ['east', 'Eastern Ontario'], ['southwest', 'Southwestern Ontario'], ['central', 'Toronto and central Ontario']], P.region) + ')' : ''), 'Industry: ' + lab(IND, ans.ind), 'Business set-up: ' + lab(LEGAL, ans.legal), 'Employees: ' + lab(EMP, ans.emp),
       ans.legal !== 'none' ? 'Revenue: ' + lab(REV, ans.rev) : '', ans.legal !== 'none' ? 'Years operating: ' + lab(YRS, ans.yrs) : '',
-      'Funding for: ' + (ans.goal || []).map(function (g) { return lab(GOALS, g); }).join('; '), 'Project cost: ' + lab(BUDGET, ans.budget), 'Start: ' + lab(START, ans.start),
+      'Funding for: ' + (ans.goal || []).map(function (g) { return lab(GOALS, g); }).join('; '), 'Project cost: ' + (ans.cost ? '$' + ans.cost.toLocaleString('en-CA') + ' (your figure)' : lab(BUDGET, ans.budget)), 'Start: ' + lab(START, ans.start),
       P.sit.length ? 'Situation: ' + P.sit.map(function (k) { return { tariff: 'affected by U.S. tariffs', defence: 'defence or security supplier', energy: 'large energy user' }[k]; }).join('; ') : '',
       P.who.length ? 'About you: ' + P.who.map(function (w) { return lab(WHO, w); }).join('; ') : '',
       'Funding types: ' + (ans.pref || []).map(function (g) { return lab(PREF, g); }).join('; '), 'Your cash share: ' + lab(CASH, ans.cash), 'In place: ' + (ans.ready || []).map(function (g) { return lab(READY, g); }).join('; ')].filter(Boolean).join('\n')]);
     var S = R.stack;
     if (S.pick.length) secs.push(['2. A funding stack to explore', S.pick.map(function (x, i) { return (i + 1) + '. ' + x.r.name + ' (' + GROUPNAME[x.g] + '): ' + (x.est != null ? 'about ' + money(x.est) + (x.rep ? ' (repayable or partly repayable)' : '') : x.g === 'grant' ? 'amount varies' : x.g === 'tax' ? 'claimed after you spend' : x.g === 'loan' ? 'repayable financing' : 'advice and support') + '\n   ' + x.r.url; }).join('\n') +
-      '\n\nNon-repayable: about ' + money(S.gov) + (S.govRep ? '; repayable: about ' + money(S.govRep) : '') + ' of a ' + money(S.budget) + ' project (kept within ' + S.cap + '% of the project cost). Your share: about ' + money(S.share) + '. Indicative only; each program decides the real amount.']);
+      '\n\nNon-repayable: about ' + money(S.gov) + (S.govRep ? '; repayable: about ' + money(S.govRep) : '') + ' of ' + (P.exact ? 'your ' + full(S.budget) : 'a project assumed at ' + money(S.budget)) + (P.exact ? ' project' : '') + ' (kept within ' + S.cap + '% of the project cost). Your share: about ' + money(S.share) + '. Indicative only; each program decides the real amount.']);
     var n = 3;
     R.order.forEach(function (g) {
       var list = (R.groups[g] || []).slice(0, 5); if (!list.length) return;

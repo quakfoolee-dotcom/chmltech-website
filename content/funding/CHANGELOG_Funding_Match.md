@@ -1,5 +1,12 @@
 # Funding Match — changelog
 
+## Draft V4 — 2026-11-20 (not published): optional exact project cost
+- **Exact project cost (optional)** box under the project-cost ranges. A valid figure picks the matching range automatically and replaces the assumed midpoint (for example $4M for "Over $2 million") in the funding stack, the minimum-project-size checks, the results lead ("for a $275,000 project") and the PDF ("$275,000 (your figure)").
+- Input accepts commas and a $ sign; text or amounts under $1,000 show a message and hold Next until fixed or cleared. Picking a range that does not contain the figure clears it with a message, so the two never disagree. The figure is kept when going Back.
+- Without a figure, the stack now says the amount is "assumed at" the range midpoint and invites an exact cost.
+- **Report service (Cloudflare worker `chmltech-report`) Version 27** delivered for deployment: same worker, address and secrets; adds Funding Match email wording (`report_kind=funding`); Digital Assessment emails unchanged except the signature now reads Vancouver, BC.
+- Tests: exact-cost flow (invalid input, range sync, range change, Back), 18 personas, 6,240-profile run with no errors, mobile 390px with no overflow.
+
 ## Draft V3 — 2026-11-20 (not published): Phase 1 complete
 - **Every program now has rules checked against its official source.** Phase 1 covered the 248 programs not reviewed in V2: six research agents read each official page (248 of 248 reached, none text-only) and wrote structured rules (`content/funding/phase1_rules_v1.json`, applied by `enrich_v1.py`; Phase 1 rules replace the auto-extracted ones). With V2's red-team audit, all 408 programs are covered.
 - **Red-team spot-check** of 36 Phase 1 programs (stratified 15% sample, weighted to rules that rule a business out): 31 pass, 0 Critical, 3 Major (all fixed). All 31 sampled hard rules were confirmed. The 3 Major errors came from pages where the guidelines had not been read, so a **guidelines re-check** of the 17 other such programs followed: 12 updated (for example Quebec film production services $250K minimum, Yukon tourism marketing $5K minimum, six stacking caps, corrected EcoPerformance note), no wrong hard rule found.
