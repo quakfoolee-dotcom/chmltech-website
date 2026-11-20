@@ -1,0 +1,93 @@
+"""Funding Match Draft V1: adds the guided funding match to funding.html.
+
+Draft builder: patches the built funding.html in place (hero CTA, #match wizard section, rules JSON, assets).
+On publication this markup moves into content/gen/grants_page.py so full rebuilds keep it.
+"""
+import json, os, re
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.join(HERE, "..", "..")
+FP = os.path.join(ROOT, "funding.html")
+RULES = os.path.join(HERE, "rules_v1.json")
+
+HERO_OLD = re.compile(r'<p class="lead">A directory of federal.*?</div>\s*<div class="btn-row">.*?</div>', re.S)
+
+def hero(n):
+    return (f'<p class="hero-slogan">Find the grants, tax credits and loans your business can apply for.</p>\n'
+            f'  <p class="lead">Answer a few questions about your business and your project. Get your best-fit programs from {n} federal, provincial and territorial programs, '
+            'a funding stack to explore, the near misses to plan for, and a readiness checklist.</p>\n'
+            f'  <div class="stat-row"><div><strong>{n}</strong><span>programs checked</span></div><div><strong>14</strong><span>jurisdictions covered</span></div>'
+            '<div><strong>3 min</strong><span>free, no sign-up</span></div><div><strong class="gr-stat-sm">November 2026</strong><span>last reviewed</span></div></div>\n'
+            f'  <div class="btn-row as-hero-cta"><a class="btn" href="#match" data-fm="start">Start the free funding match</a><a class="as-textlink" href="#finder">or browse all {n} programs →</a></div>')
+
+SECTION = '''
+<section class="section finder-section" id="match" style="scroll-margin-top:84px;padding-top:72px"><div class="container">
+  <div class="panel finder stack" id="fm">
+    <div class="finder-intro" id="fm-intro">
+      <div class="stack"><p class="eyebrow">Funding match</p><h2 class="h-lg">Five quick steps to your funding shortlist.</h2>
+      <ol class="as-stepline"><li>Your business</li><li>Your project</li><li>About you</li><li>Funding type</li><li>Readiness</li></ol>
+      <p class="muted">Your matches appear straight away. No sign-up.</p></div>
+      <div class="btn-row"><button type="button" class="btn" data-fm="start">Start</button></div>
+    </div>
+    <div class="finder-quiz" id="fm-quiz" hidden>
+      <ol class="as-steps" id="fm-steps"></ol>
+      <div class="finder-progress"><div class="finder-bar"><span id="fm-bar"></span></div></div>
+      <p class="as-qcount muted" id="fm-qcount"></p>
+      <fieldset class="finder-q" id="fm-qbox"></fieldset>
+      <div class="finder-nav"><button type="button" class="btn btn-ghost" id="fm-back">← Back</button><button type="button" class="btn" id="fm-next" disabled>Next →</button></div>
+    </div>
+    <div class="stack" id="fm-result" hidden tabindex="-1" style="gap:28px">
+      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your funding match</p><h2 class="h-lg">Programs that fit your business</h2><p class="lead" id="fm-res-lead"></p></div>
+        <div class="btn-row"><button type="button" class="btn btn-ghost" data-fm="print">Download PDF</button><button type="button" class="btn btn-ghost" data-fm="restart">Start again</button></div></div>
+      <div class="fm-tiles" id="fm-tiles"></div>
+      <div id="fm-stack"></div>
+      <div id="fm-groups" class="stack" style="gap:30px"></div>
+      <div class="fm-two"><div id="fm-near"></div><div id="fm-watch"></div></div>
+      <div id="fm-ready"></div>
+      <div class="erp-lead">
+        <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-report-endpoint="https://chmltech-report.quakfoo-lee.workers.dev/" data-report-kind="funding" data-success-report="Thank you. Your Funding Match PDF is on its way to your inbox from reports@mail.chmltech.com. If you do not see it in a few minutes, check your junk folder." data-subject="Funding match report" data-success="Thank you. We have your results and will email your full report within one business day." novalidate>
+          <h3 class="h-md" style="font-size:22px">Get the full report</h3>
+          <p class="muted" style="font-size:14.5px">Your Funding Match as a PDF: best-fit programs with links, the funding stack, near misses and your readiness checklist. Sent to your inbox in a minute.</p>
+          <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="form" value="Funding match">
+          <div class="row">
+            <div class="field"><label for="fm-name">Full name</label><input id="fm-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="fm-email">Work email</label><input id="fm-email" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="field"><label for="fm-co">Company <span class="hint">(optional)</span></label><input id="fm-co" name="company" autocomplete="organization"></div>
+          <label class="check"><input type="checkbox" name="consent" value="yes" required> I agree that Chmltech Ltd. may email me my report and contact me about it. I can unsubscribe at any time.</label>
+          <div><div class="cf-turnstile" data-sitekey="0x4AAAAAAGKoiNXbfnTG_CId" data-size="flexible" data-theme="light" style="margin:4px 0 12px"></div>
+          <button class="btn" type="submit">Email me my report</button></div>
+          <p class="form-status" role="status" tabindex="-1"></p>
+        </form>
+        <div class="erp-audit">
+          <p class="eyebrow">Free 30-minute funding review</p>
+          <h3 class="h-md" style="font-size:24px">Turn the matches into an application plan</h3>
+          <p>We walk through your matches and shape the project so it fits the best program.</p>
+          <ul><li>Check eligibility and eligible costs</li><li>Order and stack the programs</li><li>Scope, budget and timeline funders ask for</li></ul>
+          <div class="btn-row"><a class="btn" href="book.html">Book my free 30-minute review</a></div>
+        </div>
+      </div>
+      <p class="fm-note">Results are a starting point, not a decision on eligibility. Each program sets its own rules and decides every application; confirm the details on the official program page before you apply. Programs checked November 2026. Chmltech is not affiliated with any government program and takes no fee from funders.</p>
+    </div>
+  </div>
+</div></section>
+'''
+
+def main():
+    s = open(FP, encoding="utf-8").read()
+    n = s.count('<article class="gr-card"')
+    assert 'id="fm"' not in s, "already patched"
+    s, k = HERO_OLD.subn(hero(n), s, count=1); assert k == 1
+    s = s.replace('<section class="section gr-section" id="finder"', SECTION + '\n<section class="section gr-section" id="finder"', 1)
+    s = s.replace('<p class="eyebrow">Program directory</p>', '<p class="eyebrow">Program directory</p>', 1)
+    rules = json.load(open(RULES, encoding="utf-8"))
+    rj = json.dumps(rules, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    s = s.replace('<script type="application/json" id="grants-data">', f'<script type="application/json" id="fm-rules">{rj}</script>\n<script type="application/json" id="grants-data">', 1)
+    css = ''.join(f'<link rel="stylesheet" href="assets/css/{c}.css">\n' for c in ("course-finder", "erp", "assess", "funding-match"))
+    s = s.replace('<link rel="stylesheet" href="assets/css/grants.css', css + '<link rel="stylesheet" href="assets/css/grants.css', 1)
+    s = re.sub(r'(<script src="assets/js/grants\.js[^"]*" defer></script>)', r'\1\n<script src="assets/js/funding-match.js" defer></script>\n<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>', s, count=1)
+    open(FP, "w", encoding="utf-8").write(s)
+    print("funding.html patched:", n, "programs")
+
+if __name__ == "__main__":
+    main()

@@ -72,6 +72,10 @@ export default {
     if (!name || !EMAIL_RE.test(email) || fd.get('consent') !== 'yes') return json({ ok: false, error: 'invalid fields' }, 400, ch);
     const text = String(fd.get('report_text') || '').slice(0, MAX_TEXT);
     const industry = clean(fd.get('industry'), 120);
+    const kind = clean(fd.get('report_kind'), 20) === 'funding' ? 'funding' : 'digital';
+    const K = kind === 'funding'
+      ? { tool: 'Funding Match', doc: 'Funding Match', covers: 'best-fit grants, tax credits and loans for your project, a funding stack to explore, near misses to plan for and a readiness checklist', review: 'funding review', subj: 'Your Funding Match from Chmltech', owner: 'Funding match report', def: 'Chmltech_Funding_Match.pdf', note: 'Results are a starting point, not a decision on eligibility; confirm each program on its official page.' }
+      : { tool: 'Digital Needs Assessment', doc: 'Digital Roadmap', covers: 'your technology priorities, a first project, software options with demo questions, a 90-day action plan, AI tools to try and funding', review: 'roadmap review', subj: 'Your Digital Roadmap from Chmltech', owner: 'Digital assessment report', def: 'Chmltech_Digital_Roadmap.pdf', note: 'Scores are our analyst rating from vendor information; confirm them in a demo.' };
 
     // PDF
     const pdf = fd.get('report_pdf');
@@ -79,29 +83,29 @@ export default {
     const buf = await pdf.arrayBuffer();
     const head = new TextDecoder().decode(buf.slice(0, 5));
     if (head !== '%PDF-') return json({ ok: false, error: 'pdf' }, 400, ch);
-    const fileName = clean(pdf.name, 80).replace(/[^A-Za-z0-9_.-]/g, '_') || 'Chmltech_Digital_Roadmap.pdf';
+    const fileName = clean(pdf.name, 80).replace(/[^A-Za-z0-9_.-]/g, '_') || K.def;
     const attachment = [{ filename: fileName.endsWith('.pdf') ? fileName : fileName + '.pdf', content: toBase64(buf) }];
 
     const first = name.split(' ')[0];
     const visitorHtml =
       '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#1d2433;max-width:560px">' +
       '<p>Hi ' + esc(first) + ',</p>' +
-      '<p>Thank you for completing the Chmltech Digital Needs Assessment. Your Digital Roadmap is attached as a PDF.</p>' +
-      '<p>It covers your technology priorities, a first project, software options with demo questions, a 90-day action plan, AI tools to try and funding.</p>' +
-      '<p>Want to talk it through? <a href="https://www.chmltech.com/book" style="color:#0B2A5A;font-weight:bold">Book a free 30-minute roadmap review</a>, or simply reply to this email.</p>' +
-      '<p>Regards,<br>Quak Foo Lee<br>Chmltech Ltd. | Burnaby, BC<br><a href="https://www.chmltech.com" style="color:#0B2A5A">www.chmltech.com</a></p>' +
-      '<p style="font-size:12px;color:#5a6475">Scores are our analyst rating from vendor information; confirm them in a demo. You received this email because you requested your report on chmltech.com.</p></div>';
+      '<p>Thank you for completing the Chmltech ' + K.tool + '. Your ' + K.doc + ' is attached as a PDF.</p>' +
+      '<p>It covers ' + K.covers + '.</p>' +
+      '<p>Want to talk it through? <a href="https://www.chmltech.com/book" style="color:#0B2A5A;font-weight:bold">Book a free 30-minute ' + K.review + '</a>, or simply reply to this email.</p>' +
+      '<p>Regards,<br>Quak Foo Lee<br>Chmltech Ltd. | Vancouver, BC<br><a href="https://www.chmltech.com" style="color:#0B2A5A">www.chmltech.com</a></p>' +
+      '<p style="font-size:12px;color:#5a6475">' + K.note + ' You received this email because you requested your report on chmltech.com.</p></div>';
 
     const ownerHtml =
       '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1d2433">' +
-      '<p><b>New Digital Assessment report</b> (PDF attached, also sent to the visitor)</p>' +
+      '<p><b>New ' + K.owner + '</b> (PDF attached, also sent to the visitor)</p>' +
       '<p>Name: ' + esc(name) + '<br>Email: ' + esc(email) + '<br>Company: ' + esc(company || '-') + '<br>Industry: ' + esc(industry || '-') + '</p>' +
       '<div style="white-space:pre-wrap;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;line-height:1.5;background:#f5f7fa;padding:14px;border-radius:6px">' + esc(text) + '</div></div>';
 
     try {
       await sendEmail(env, {
         from: cfg(env, 'FROM'), to: [email], reply_to: cfg(env, 'OWNER'),
-        subject: 'Your Digital Roadmap from Chmltech', html: visitorHtml, attachments: attachment,
+        subject: K.subj, html: visitorHtml, attachments: attachment,
       });
     } catch (e) {
       console.log('visitor send failed', String(e));
@@ -110,7 +114,7 @@ export default {
     try {
       await sendEmail(env, {
         from: cfg(env, 'FROM'), to: [cfg(env, 'OWNER')], reply_to: email,
-        subject: 'Digital assessment report — ' + name + (company ? ' (' + company + ')' : ''), html: ownerHtml, attachments: attachment,
+        subject: K.owner + ' — ' + name + (company ? ' (' + company + ')' : ''), html: ownerHtml, attachments: attachment,
       });
     } catch (e) { console.log('owner copy failed', String(e)); }
 

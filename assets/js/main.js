@@ -98,6 +98,7 @@
           ['name', 'email', 'company', 'consent', 'cf-turnstile-response'].forEach(function (k) { if (data.get(k)) fd.append(k, data.get(k)); });
           fd.append('report_text', window.ChmlReportText ? window.ChmlReportText() : '');
           fd.append('industry', window.ChmlReportIndustry ? window.ChmlReportIndustry() : '');
+          if (form.getAttribute('data-report-kind')) fd.append('report_kind', form.getAttribute('data-report-kind'));
           fd.append('report_pdf', o.blob, o.file);
           btn.textContent = 'Sending…';
           return fetch(reportEp, { method: 'POST', body: fd }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); });
