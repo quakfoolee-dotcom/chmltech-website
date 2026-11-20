@@ -52,6 +52,13 @@
 ## Draft V1 — 2026-11-19 (not published)
 - ERP Matrix page: 23 ERP/WMS products, 4 workflows × 8 capabilities, shortlist wizard, scorecard PDF and email form.
 
+## V26 — 2026-11-20 — PDF report emailed to the visitor
+- "Email me my report" builds the branded PDF and posts it, with the text report, to Chmltech's report service (Cloudflare Worker chmltech-report.quakfoo-lee.workers.dev). The Worker checks Cloudflare Turnstile, the website origin, the fields and the PDF, then emails through Resend from reports@mail.chmltech.com: the PDF to the visitor (reply-to info@chmltech.com) and a copy with the full text report and PDF to info@chmltech.com (reply-to the visitor).
+- Cloudflare Turnstile (managed, site key 0x4AAAAAAGKoiNXbfnTG_CId) added to the report form.
+- Fallback: if the report service fails, the form sends the full text report through Web3Forms as in V24, so no request is lost.
+- Wording: form intro says the PDF is sent to the inbox in a minute; success message names reports@mail.chmltech.com and mentions the junk folder.
+- Worker source kept as chmltech-report-worker_V26.1.js (no </pre> in the code, so it copies cleanly).
+
 ## V25 — 2026-11-20 — Branded PDF report
 - "Download PDF" now builds a real A4 PDF in the browser (jsPDF 4.2.1, self-hosted in assets/js/vendor, loaded only on click) instead of opening the print dialog. Falls back to print if the PDF library fails to load.
 - Layout: Chmltech logo and report title on every page; navy title band ("Your Digital Roadmap", prepared for name and company, industry, date); the same 12 sections as the email; digital maturity drawn as a Today/Target grid; options as cards; clickable links; "Talk it through with us" box; footer with page numbers. File name Chmltech_Digital_Roadmap_<Company>.pdf. About 3 pages, ~85 KB.

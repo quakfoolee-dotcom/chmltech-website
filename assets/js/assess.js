@@ -1,4 +1,4 @@
-/* Digital Assessment page — V25 (branded PDF report with logo; full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
+/* Digital Assessment page — V26 (PDF emailed via report service; branded PDF report with logo; full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
    Data: #assess-data (content/assess/assess_data.json, built by content/assess/build_data_v3.py).
    Every Software Finder category is a capability matrix; ERP adds a workflow selector. */
 (function () {
@@ -756,6 +756,8 @@
       return { doc: doc, file: 'Chmltech_Digital_Roadmap_' + slug + '.pdf' };
     });
   }
+  window.ChmlReportText = function () { return REP ? REP.secs.map(function (x) { return x[0] + '\n' + x[1]; }).join('\n\n') : ''; };
+  window.ChmlReportIndustry = function () { return ans.ind && IND[ans.ind] ? IND[ans.ind].name : ''; };
   window.ChmlReportPdf = function () { return makePdf().then(function (o) { return { blob: o.doc.output('blob'), file: o.file }; }); };
 
   /* ---- Full report as plain text for the email (Web3Forms sends each field in order) ---- */

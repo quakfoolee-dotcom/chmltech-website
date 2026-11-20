@@ -88,7 +88,30 @@
       data.forEach(function (v, k) { if (k !== 'botcheck') payload.append(k, v); });
       payload.append('page', location.href);
 
-      btn.disabled = true; var label = btn.textContent; btn.textContent = 'Sending…';
+      btn.disabled = true; var label = btn.textContent;
+      var reportEp = form.getAttribute('data-report-endpoint');
+      if (reportEp && window.ChmlReportPdf) {
+        // Digital assessment: build the PDF and send it through Chmltech's report service (emails the visitor and Chmltech).
+        btn.textContent = 'Preparing your report…';
+        window.ChmlReportPdf().then(function (o) {
+          var fd = new FormData();
+          ['name', 'email', 'company', 'consent', 'cf-turnstile-response'].forEach(function (k) { if (data.get(k)) fd.append(k, data.get(k)); });
+          fd.append('report_text', window.ChmlReportText ? window.ChmlReportText() : '');
+          fd.append('industry', window.ChmlReportIndustry ? window.ChmlReportIndustry() : '');
+          fd.append('report_pdf', o.blob, o.file);
+          btn.textContent = 'Sending…';
+          return fetch(reportEp, { method: 'POST', body: fd }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); });
+        }).then(function (res) {
+          if (!(res.ok && res.j.ok)) throw new Error('report service');
+          form.reset(); if (window.turnstile) try { window.turnstile.reset(); } catch (x) {}
+          show('ok', form.getAttribute('data-success-report') || form.getAttribute('data-success'));
+          btn.disabled = false; btn.textContent = label;
+        }).catch(function () { if (window.turnstile) try { window.turnstile.reset(); } catch (x) {} sendWeb3(); });
+        return;
+      }
+      sendWeb3();
+      function sendWeb3() {
+      btn.textContent = 'Sending…';
       fetch(endpoint, { method: 'POST', headers: { 'Accept': 'application/json' }, body: payload })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
@@ -104,6 +127,7 @@
           mailtoFallback(preview ? 'Sending is blocked in this preview (it works on the live website).' : 'Sorry, your message could not be sent.');
         })
         .then(function () { btn.disabled = false; btn.textContent = label; });
+      }
     });
     function show(kind, msg) {
       if (!status) return;
