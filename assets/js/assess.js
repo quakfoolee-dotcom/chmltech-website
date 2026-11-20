@@ -1,4 +1,4 @@
-/* Digital Assessment page — V26 (PDF emailed via report service; branded PDF report with logo; full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
+/* Digital Assessment page — V28 (funding links open the Funding Match); V26 (PDF emailed via report service; branded PDF report with logo; full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
    Data: #assess-data (content/assess/assess_data.json, built by content/assess/build_data_v3.py).
    Every Software Finder category is a capability matrix; ERP adds a workflow selector. */
 (function () {
@@ -255,7 +255,7 @@
     $('#as-notes').innerHTML = notes.length ? '<div class="as-empty"><p>' + notes.join('<br>') + '</p></div>' : '';
     if (!q) {
       $('#as-qw').hidden = false;
-      $('#as-qw').innerHTML = '<p class="eyebrow" style="color:var(--green-dark)">Your first step</p><h3>' + (r.top.some(function (x) { return x.c.id === 'erp'; }) ? 'Start with an ERP readiness review' : 'Start with a short process review') + '</h3><p>None of your priorities has a fast, low-risk project within your budget. A short review of processes and data will make the bigger project faster and cheaper.</p><div class="as-links">' + (r.top.length ? '<button type="button" class="as-goto" data-goto="' + r.top[0].c.id + '">Compare ' + esc(r.top[0].c.name) + ' options →</button>' : '') + '<a href="funding.html">Find funding for this project</a></div>';
+      $('#as-qw').innerHTML = '<p class="eyebrow" style="color:var(--green-dark)">Your first step</p><h3>' + (r.top.some(function (x) { return x.c.id === 'erp'; }) ? 'Start with an ERP readiness review' : 'Start with a short process review') + '</h3><p>None of your priorities has a fast, low-risk project within your budget. A short review of processes and data will make the bigger project faster and cheaper.</p><div class="as-links">' + (r.top.length ? '<button type="button" class="as-goto" data-goto="' + r.top[0].c.id + '">Compare ' + esc(r.top[0].c.name) + ' options →</button>' : '') + '<a href="funding.html#match">Find funding for this project (free Funding Match)</a></div>';
       $('#as-opts-h').textContent = ''; $('#as-opts').innerHTML = '';
     }
     if (q) {
@@ -263,7 +263,7 @@
       $('#as-qw').hidden = false;
       $('#as-qw').innerHTML = '<p class="eyebrow" style="color:var(--green-dark)">' + (r.quick ? 'Your quick win' : 'Your first project') + '</p><h3>' + esc(q.c.name) + '</h3><p>' + esc(q.c.desc) + ' ' + esc(q.c.benefit) + '</p>' +
         '<div class="as-crit"><div><b>Time to value</b><span>' + q.c.weeks + '</span></div><div><b>Implementation risk</b><span>' + risk + '</span></div><div><b>Year-one cost</b><span>' + (opts.length ? PRICE[Math.min.apply(null, opts.map(function (o) { return o.p.price; }))] : '—') + '</span></div><div><b>Supports</b><span>' + esc(FN[q.c.fn].name) + '</span></div></div>' +
-        '<div class="as-links">' + q.c.links.map(function (l) { return '<a href="' + esc(l[0]) + '">' + esc(l[1]) + '</a>'; }).join('') + '<a href="funding.html">Find funding for this project</a></div>';
+        '<div class="as-links">' + q.c.links.map(function (l) { return '<a href="' + esc(l[0]) + '">' + esc(l[1]) + '</a>'; }).join('') + '<a href="funding.html#match">Find funding for this project (free Funding Match)</a></div>';
       $('#as-opts-h').textContent = 'Three options to evaluate for ' + lcName(q.c.name);
       $('#as-opts').innerHTML = opts.map(function (o, i) {
         var p = o.p;
@@ -824,7 +824,7 @@
     if (sug.length) L.push(['10. AI tools to try', sug.map(function (x) {
       return x.name + ' (for: ' + x.why.join('; ') + ')\n' + x.tools.map(function (t) { return '- ' + t.n + (t.fit ? ', ' + t.fit + '% fit' : '') + ', ' + aiPrice(t.pr).t + (safeUrl(t.u) ? ': ' + t.u : ''); }).join('\n');
     }).join('\n\n') + '\nSet rules on what company data staff may put into AI tools.']);
-    L.push(['11. Funding', 'Government programs can cover part of a digital project. See ' + SITE + 'funding and ask us which programs fit your project before you sign.']);
+    L.push(['11. Funding', 'Government programs can cover part of a digital project. Use the free Funding Match at ' + SITE + 'funding#match to see which programs fit your business and project, and ask us before you sign.']);
     L.push(['12. Next step', 'Book a free 30-minute review of this roadmap: ' + SITE + 'book\nTake the assessment again: ' + SITE + 'digital-assessment\nScores are our analyst rating from vendor information (November 2026); confirm them in a demo. Prices in US dollars unless marked.']);
     return L;
   }

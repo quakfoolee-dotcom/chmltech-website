@@ -87,6 +87,7 @@
       payload.append('from_name', 'Chmltech Website');
       data.forEach(function (v, k) { if (k !== 'botcheck') payload.append(k, v); });
       payload.append('page', location.href);
+      if (form.getAttribute('data-report-endpoint') && window.ChmlReportText) { var rt = window.ChmlReportText(); if (rt) payload.append('report', rt.slice(0, 20000)); }
 
       btn.disabled = true; var label = btn.textContent;
       var reportEp = form.getAttribute('data-report-endpoint');
@@ -98,6 +99,7 @@
           ['name', 'email', 'company', 'consent', 'cf-turnstile-response'].forEach(function (k) { if (data.get(k)) fd.append(k, data.get(k)); });
           fd.append('report_text', window.ChmlReportText ? window.ChmlReportText() : '');
           fd.append('industry', window.ChmlReportIndustry ? window.ChmlReportIndustry() : '');
+          if (form.getAttribute('data-report-kind')) fd.append('report_kind', form.getAttribute('data-report-kind'));
           fd.append('report_pdf', o.blob, o.file);
           btn.textContent = 'Sending…';
           return fetch(reportEp, { method: 'POST', body: fd }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); });
