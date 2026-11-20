@@ -1,4 +1,4 @@
-/* Digital Assessment page — V24 (full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
+/* Digital Assessment page — V25 (branded PDF report with logo; full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
    Data: #assess-data (content/assess/assess_data.json, built by content/assess/build_data_v3.py).
    Every Software Finder category is a capability matrix; ERP adds a workflow selector. */
 (function () {
@@ -50,7 +50,12 @@
     var t = e.target.closest('[data-as]'); if (!t) return;
     var a = t.dataset.as;
     if (a === 'start' || a === 'restart') { e.preventDefault(); ans = {}; idx = 0; intro.hidden = true; result.hidden = true; quiz.hidden = false; show(); $('#assessment').scrollIntoView({ behavior: 'smooth' }); }
-    if (a === 'print') { document.body.classList.add('erp-printing'); window.print(); setTimeout(function () { document.body.classList.remove('erp-printing'); }, 500); }
+    if (a === 'print') {
+      var lbl = t.textContent; t.disabled = true; t.textContent = 'Preparing PDF…';
+      makePdf().then(function (o) { o.doc.save(o.file); }).catch(function () {
+        document.body.classList.add('erp-printing'); window.print(); setTimeout(function () { document.body.classList.remove('erp-printing'); }, 500);
+      }).then(function () { t.disabled = false; t.textContent = lbl; });
+    }
   });
   function show() {
     var list = visible(), s = list[idx];
@@ -274,7 +279,8 @@
     $('#as-more').innerHTML = mhtml;
     $('#as-aitools').innerHTML = aiForProblems();
     var box = $('#as-f-report');
-    if (box) { box.innerHTML = ''; buildReport(r, q, opts).forEach(function (f) { var i = document.createElement('input'); i.type = 'hidden'; i.name = f[0]; i.value = f[1]; box.appendChild(i); }); }
+    REP = { secs: buildReport(r, q, opts), r: r };
+    if (box) { box.innerHTML = ''; REP.secs.forEach(function (f) { var i = document.createElement('input'); i.type = 'hidden'; i.name = f[0]; i.value = f[1]; box.appendChild(i); }); }
     if (false) $('#as-f-sum').value = 'Industry: ' + IND[ans.ind].name + ' | Priorities: ' + r.top.map(function (x, i) { return lvn[i] + ' ' + x.c.name; }).join('; ') + ' | Quick win: ' + (q ? q.c.name : '-') + ' | Options: ' + opts.map(function (o) { return o.p.name + ' (' + o.fit + '%)'; }).join('; ');
     if (false) $('#as-f-ans').value = 'Size ' + ans.size + '; tools ' + (ans.tools || []).join(',') + '; problems ' + (ans.prob || []).map(function (p) { return PRB[p].t; }).join(' / ') + '; maturity ' + A.functions.map(function (f) { return f.short + ' ' + ans.mat[f.id].c + '>' + ans.mat[f.id].t; }).join(', ') + '; budget ' + PRICE[ans.budget];
     quiz.hidden = true; result.hidden = false;
@@ -639,6 +645,118 @@
     var sel = $('#ai-cats'); if (sel) { sel.value = b.dataset.aic; sel.dispatchEvent(new Event('change')); }
     $('#ai-tools').scrollIntoView({ behavior: 'smooth' });
   });
+
+  /* ---- Branded PDF report (jsPDF, loaded on demand) ---- */
+  var REP = null;
+  function loadJsPDF() {
+    if (window.jspdf) return Promise.resolve(window.jspdf);
+    return new Promise(function (ok, no) {
+      var sc = document.createElement('script'); sc.src = 'assets/js/vendor/jspdf.umd.min.js';
+      sc.onload = function () { window.jspdf ? ok(window.jspdf) : no(); }; sc.onerror = no; document.head.appendChild(sc);
+    });
+  }
+  function logoData() {
+    var im = document.querySelector('.brand img'); if (!im || !im.naturalWidth) return null;
+    try { var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; c.getContext('2d').drawImage(im, 0, 0); return { d: c.toDataURL('image/png'), r: im.naturalWidth / im.naturalHeight }; } catch (e) { return null; }
+  }
+  function pdfTxt(x) { return String(x).replace(/→/g, 'to').replace(/≥/g, '>=').replace(/≤/g, '<=').replace(/✓/g, 'Yes').replace(/[^\x00-\xff–—‘’“”•…€™]/g, ''); }
+  function makePdf() {
+    if (!REP) return Promise.reject();
+    return loadJsPDF().then(function (J) {
+      var doc = new J.jsPDF({ unit: 'mm', format: 'a4' }), W = 210, M = 18, CW = W - 2 * M, y = 0, logo = logoData();
+      var NAVY = [11, 42, 90], MUT = [90, 100, 117], LINE = [214, 220, 230], TINT = [232, 238, 247];
+      var who = ($('#as-name') || {}).value || '', co = ($('#as-co') || {}).value || '';
+      var date = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+      function col(c) { doc.setTextColor(c[0], c[1], c[2]); }
+      function head() {
+        if (logo) doc.addImage(logo.d, 'PNG', M, 9, 12 * logo.r, 12, 'chmllogo', 'FAST');
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); col(MUT);
+        doc.text('Digital Needs Assessment  |  Roadmap report', W - M, 15, { align: 'right' }); doc.text(date, W - M, 19, { align: 'right' });
+        doc.setDrawColor(NAVY[0], NAVY[1], NAVY[2]); doc.setLineWidth(0.6); doc.line(M, 24, W - M, 24); y = 32;
+      }
+      function room(h) { if (y + h > 274) { doc.addPage(); head(); } }
+      function para(txt, o) {
+        o = o || {}; var size = o.size || 9.6, lh = size * 0.47, ind = o.ind || 0, x = M + ind, w = CW - ind;
+        doc.setFontSize(size);
+        var m = !o.plain && /^([A-Z][A-Za-z0-9 ,'\/&–-]{1,44}): (.+)$/.exec(txt), key = m ? m[1] + ': ' : '', rest = m ? m[2] : txt;
+        doc.setFont('helvetica', 'bold'); var kw = key ? doc.getTextWidth(key) : 0;
+        doc.setFont('helvetica', o.bold ? 'bold' : 'normal');
+        var first = doc.splitTextToSize(rest, w - kw), lines = [first[0]];
+        if (first.length > 1) lines = lines.concat(doc.splitTextToSize(first.slice(1).join(' '), w - (o.hang || 0)));
+        room(lh * lines.length + 1);
+        lines.forEach(function (ln, i) {
+          var lx = i === 0 ? x : x + (o.hang || 0);
+          if (i === 0 && key) { doc.setFont('helvetica', 'bold'); col(NAVY); doc.text(key, lx, y); lx += kw; }
+          doc.setFont('helvetica', o.bold ? 'bold' : 'normal'); col(o.color || [40, 48, 62]); doc.text(ln, lx, y);
+          var u = /(https?:\/\/\S+)/.exec(ln);
+          if (u) { var ux = lx + doc.getTextWidth(ln.slice(0, u.index)); doc.link(ux, y - 3.2, doc.getTextWidth(u[1]), 4.2, { url: u[1].replace(/[.,)]$/, '') }); }
+          y += lh;
+        });
+      }
+      function sectionHead(t) {
+        room(28); y += 3; doc.setFont('helvetica', 'bold'); doc.setFontSize(13); col(NAVY); doc.text(pdfTxt(t), M, y);
+        doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.3); doc.line(M, y + 2, W - M, y + 2); y += 8;
+      }
+      function maturity() {
+        var cw = 28, x0 = M + 46, rh = 8;
+        room(rh * (A.functions.length + 1) + 4);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(8); col(MUT);
+        A.levels.forEach(function (l, i) { doc.text(l.n, x0 + i * cw + cw / 2, y, { align: 'center' }); }); y += 3;
+        A.functions.forEach(function (f) {
+          var v = ans.mat[f.id];
+          doc.setFont('helvetica', 'bold'); doc.setFontSize(9); col(NAVY); doc.text(pdfTxt(f.name), M, y + 5.3);
+          A.levels.forEach(function (l, i) {
+            var cx = x0 + i * cw;
+            if (i === v.c) doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]); else if (i > v.c && i <= v.t) doc.setFillColor(TINT[0], TINT[1], TINT[2]); else doc.setFillColor(247, 248, 250);
+            doc.setDrawColor(255, 255, 255); doc.rect(cx, y, cw - 1, rh - 1.2, 'F');
+            var lab = i === v.c ? (v.c === v.t ? 'Today = target' : 'Today') : (i === v.t ? 'Target' : '');
+            if (lab) { doc.setFont('helvetica', 'bold'); doc.setFontSize(8); col(i === v.c ? [255, 255, 255] : NAVY); doc.text(lab, cx + (cw - 1) / 2, y + 4.6, { align: 'center' }); }
+          });
+          y += rh;
+        });
+        y += 3;
+      }
+      head();
+      // title band
+      doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]); doc.rect(M, y - 4, CW, 30, 'F');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(21); doc.setTextColor(255, 255, 255); doc.text('Your Digital Roadmap', M + 7, y + 7);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+      doc.text(pdfTxt('Prepared for ' + ([who, co].filter(Boolean).join(', ') || 'your business') + '  |  ' + IND[ans.ind].name), M + 7, y + 15);
+      doc.text(pdfTxt('Chmltech Digital Needs Assessment  |  ' + date), M + 7, y + 21);
+      y += 34;
+      REP.secs.forEach(function (sec) {
+        sectionHead(sec[0]);
+        if (/^3\./.test(sec[0])) { maturity(); }
+        var lines = String(sec[1]).split('\n');
+        lines.forEach(function (ln) {
+          if (/^3\./.test(sec[0]) && !/^Levels/.test(ln)) return;
+          if (!ln.trim()) { y += 2.5; return; }
+          var t = pdfTxt(ln), ind = /^\s{3}/.test(ln) ? 6 : 0;
+          if (/^(\d+)\. /.test(t) && /^6\.|^4\./.test(sec[0]) ) { room(36); y += 1; para(t, { bold: true, plain: true, hang: 6, color: NAVY, size: 10.2 }); return; }
+          if (/^Priority \d/.test(t)) { room(24); y += 1; para(t, { bold: true, plain: true, color: NAVY, size: 10.2 }); return; }
+          if (/^(\d+)\. /.test(t)) { para(t, { hang: 5.5 }); return; }
+          if (/^- /.test(t)) { para('•  ' + t.slice(2), { hang: 4 }); return; }
+          para(t.trim(), { ind: ind, hang: 0, color: /^Levels/.test(t) ? MUT : null, size: /^Levels/.test(t) ? 8.5 : null });
+        });
+        y += 2;
+      });
+      room(30); y += 4;
+      doc.setFillColor(TINT[0], TINT[1], TINT[2]); doc.rect(M, y, CW, 20, 'F');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); col(NAVY); doc.text('Talk it through with us', M + 6, y + 8);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.text('Free 30-minute roadmap review:  www.chmltech.com/book   |   info@chmltech.com', M + 6, y + 14.5);
+      doc.link(M, y, CW, 20, { url: SITE + 'book' });
+      var n = doc.getNumberOfPages();
+      for (var i = 1; i <= n; i++) {
+        doc.setPage(i); doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.3); doc.line(M, 283, W - M, 283);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(8); col(MUT);
+        doc.text('Chmltech Ltd.  |  Burnaby, BC  |  www.chmltech.com', M, 288); doc.text('Page ' + i + ' of ' + n, W - M, 288, { align: 'right' });
+      }
+      doc.setProperties({ title: 'Your Digital Roadmap — Chmltech', author: 'Chmltech Ltd.', subject: 'Digital Needs Assessment report' });
+      var slug = (co || 'Report').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 40) || 'Report';
+      return { doc: doc, file: 'Chmltech_Digital_Roadmap_' + slug + '.pdf' };
+    });
+  }
+  window.ChmlReportPdf = function () { return makePdf().then(function (o) { return { blob: o.doc.output('blob'), file: o.file }; }); };
 
   /* ---- Full report as plain text for the email (Web3Forms sends each field in order) ---- */
   var SITE = 'https://www.chmltech.com/';

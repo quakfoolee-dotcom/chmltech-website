@@ -52,6 +52,11 @@
 ## Draft V1 — 2026-11-19 (not published)
 - ERP Matrix page: 23 ERP/WMS products, 4 workflows × 8 capabilities, shortlist wizard, scorecard PDF and email form.
 
+## V25 — 2026-11-20 — Branded PDF report
+- "Download PDF" now builds a real A4 PDF in the browser (jsPDF 4.2.1, self-hosted in assets/js/vendor, loaded only on click) instead of opening the print dialog. Falls back to print if the PDF library fails to load.
+- Layout: Chmltech logo and report title on every page; navy title band ("Your Digital Roadmap", prepared for name and company, industry, date); the same 12 sections as the email; digital maturity drawn as a Today/Target grid; options as cards; clickable links; "Talk it through with us" box; footer with page numbers. File name Chmltech_Digital_Roadmap_<Company>.pdf. About 3 pages, ~85 KB.
+- window.ChmlReportPdf() returns the PDF as a file, ready for attaching to the report email once an email route (Web3Forms Pro or own sender) is chosen.
+
 ## V24 — 2026-11-20 — Full report in the email
 - The report request email now carries the full report as plain text, in 12 numbered sections: your business (with report date, size, budget, tools, priorities), challenges, digital maturity (today → target, gaps), technology priorities with reasons, first project (time, risk, cost, free resources), software options (fit, best for, year-one cost, Canada, reality check, website), demo questions, action plan, more vendors, AI tools, funding, next step. Replaces the one-line "roadmap" and coded "answers" fields.
 - AI suggestions (on screen and in the email) now come from the compared shortlist for each job, best fit first, grouped by job; "Compare … tools" jumps to that job.
