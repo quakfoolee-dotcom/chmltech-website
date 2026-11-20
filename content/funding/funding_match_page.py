@@ -37,7 +37,7 @@ SECTION = '''
 <section class="section finder-section" id="match" style="scroll-margin-top:84px;padding-top:72px"><div class="container">
   <div class="panel finder stack" id="fm">
     <div class="finder-intro" id="fm-intro">
-      <div class="stack"><p class="eyebrow">Funding match</p><h2 class="h-lg">Five quick steps to your funding shortlist.</h2>
+      <div class="stack"><p class="eyebrow">How it works</p><h2 class="h-lg">Five quick steps to your funding shortlist.</h2>
       <ol class="as-stepline"><li>Your business</li><li>Your project</li><li>About you</li><li>Funding type</li><li>Readiness</li></ol>
       <p class="muted">Your matches appear straight away. No sign-up.</p></div>
       <div class="btn-row"><button type="button" class="btn" data-fm="start">Start</button></div>

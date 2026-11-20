@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.60 — 2026-11-20
+- **Layout consistency, Digital Assessment and Funding Match intro boxes:** the Digital Assessment box no longer touches the sand-coloured Software Finder band below it (80px space, 56px on small screens, the same gap as on the Funding page; `assets/css/assess.css`). The Funding Match steps now sit on one line like the Digital Assessment's (`assets/css/funding-match.css`), and its eyebrow reads "How it works" like the Digital Assessment's.
+
 ## V5.59 — 2026-11-20
 - **"Download PDF" removed from the Funding Match and Digital Assessment results.** The emailed report (form below the results) is now the only way to get the PDF, so every report reaches the visitor and info@chmltech.com. A link under each results heading, "Get this as a PDF in your inbox →", jumps to the form (`#fm-report`, `#as-report`); "Start again" stays (`content/funding/funding_match_page.py`, `content/gen/assessment_page.py`, `digital-assessment.html`).
 - **Funding Match report fixes after the first live report:** section headings in the PDF now stay with their first program (no heading left alone at the bottom of a page); no more ".;" in "Check before you apply"; Genome Canada GAPP estimate uses its one-third share; the Lytton Business Restart Program (only for businesses in Lytton, B.C.) is now marked as a single-community program and no longer ranks among the top matches for other B.C. businesses (`content/funding/redteam_corrections_v2.json` V559, `assets/js/funding-match.js`).
