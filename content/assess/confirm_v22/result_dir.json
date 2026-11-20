@@ -1,0 +1,452 @@
+[
+ {
+  "name": "Epicor ERP Enterprise",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "615",
+  "evidence": "https://www.enterprisetimes.co.uk/2021/06/16/epicor-launches-the-kinetic-release-the-new-name-for-epicor-erp/",
+  "confidence": "high",
+  "note": "Epicor ERP renamed Kinetic (2021); keep listing 615 (Epicor Kinetic)"
+ },
+ {
+  "name": "Cinchy",
+  "field": "desc",
+  "decision": "accept",
+  "value": "AI-governance platform (PeriMind): registry and control plane for AI-to-system connections, with policy enforcement and audit trails.",
+  "evidence": "https://www.cinchy.com/",
+  "confidence": "high",
+  "note": "Homepage title is 'Cinchy | PeriMind (AI Governance Platform)'"
+ },
+ {
+  "name": "Deltek Vantagepoint",
+  "field": "group",
+  "decision": "reject",
+  "value": "erp",
+  "evidence": "https://www.deltek.com/products/erp/vantagepoint/",
+  "confidence": "medium",
+  "note": "Deltek sells it as 'ERP for A&E and Consulting Firms'; psa also defensible"
+ },
+ {
+  "name": "StockPiler WMS",
+  "field": "status",
+  "decision": "reject",
+  "value": "StockPiler WMS",
+  "evidence": "https://stockpiler.io/",
+  "confidence": "medium",
+  "note": "Live SPA inventory/location app (Limelyte, demo by email); Free/OSS price unproven"
+ },
+ {
+  "name": "TATA Consulting WMS (TCS iON)",
+  "field": "status",
+  "decision": "accept",
+  "value": "remove",
+  "evidence": "https://www.tcs.com/what-we-do/industries/consumer-goods-distribution/solution/supply-chain-management-solution",
+  "confidence": "medium",
+  "note": "No packaged TCS WMS; TCS SCM is enterprise services; TCS iON is education"
+ },
+ {
+  "name": "The Asset Guardian (TAG)",
+  "field": "website",
+  "decision": "accept",
+  "value": "https://www.verosoftdesign.com/",
+  "evidence": "https://theassetguardian.com",
+  "confidence": "high",
+  "note": "theassetguardian.com 301s to Verosoft (EAM/CMMS for Dynamics 365)"
+ },
+ {
+  "name": "A&K Robotics",
+  "field": "desc",
+  "decision": "accept",
+  "value": "Vancouver, BC. Cruz AI-enabled autonomous micro-mobility pods for airports, museums and other large venues.",
+  "evidence": "https://www.aandkrobotics.com/",
+  "confidence": "high",
+  "note": "Homepage now centres solely on the Cruz mobility pod"
+ },
+ {
+  "name": "FreightPOP WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "ship",
+  "evidence": "https://www.freightpop.com/",
+  "confidence": "high",
+  "note": "Self-described shipping/supply-chain software for manufacturers; not WMS"
+ },
+ {
+  "name": "ShipStation + WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "ship",
+  "evidence": "https://www.shipstation.com/",
+  "confidence": "high",
+  "note": "'Shipping Software for Ecommerce Fulfillment'"
+ },
+ {
+  "name": "Fulfillment by Amazon (FBA)",
+  "field": "group",
+  "decision": "accept",
+  "value": "ship",
+  "evidence": "https://sell.amazon.com/fulfillment-by-amazon",
+  "confidence": "high",
+  "note": "Outsourced fulfilment service, not WMS software"
+ },
+ {
+  "name": "Radial WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "ship",
+  "evidence": "https://www.radial.com/",
+  "confidence": "high",
+  "note": "Self-described 3PL eCommerce fulfillment provider"
+ },
+ {
+  "name": "Shipmonk WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "ship",
+  "evidence": "https://www.shipmonk.com/",
+  "confidence": "high",
+  "note": "'Leading 3PL Fulfillment for D2C Ecommerce Brands'"
+ },
+ {
+  "name": "Flexe WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "ship",
+  "evidence": "https://www.flexe.com/",
+  "confidence": "high",
+  "note": "On-demand warehousing network service (3,000+ warehouses), not WMS"
+ },
+ {
+  "name": "TraceLink WMS (Pharma)",
+  "field": "group",
+  "decision": "accept",
+  "value": "qms",
+  "evidence": "https://www.tracelink.com/",
+  "confidence": "medium",
+  "note": "Pharma serialization/DSCSA-FMD compliance network; traceability fits qms"
+ },
+ {
+  "name": "Cleo Integration Cloud (3PL)",
+  "field": "group",
+  "decision": "accept",
+  "value": "scm",
+  "evidence": "https://www.cleo.com/",
+  "confidence": "medium",
+  "note": "'Supply Chain Orchestration, EDI & B2B Integration'; not WMS"
+ },
+ {
+  "name": "Inmar Intelligence WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "scm",
+  "evidence": "https://www.inmar.com/",
+  "confidence": "low",
+  "note": "Not WMS; Inmar is mainly promotions/retail media; returns line fits scm"
+ },
+ {
+  "name": "Katana MRP + WMS",
+  "field": "group",
+  "decision": "accept",
+  "value": "mrp",
+  "evidence": "https://katanamrp.com/",
+  "confidence": "medium",
+  "note": "Inventory + production for makers; mrp fits (inv also defensible)"
+ },
+ {
+  "name": "Solace",
+  "field": "group",
+  "decision": "accept",
+  "value": "itops",
+  "evidence": "https://solace.com/",
+  "confidence": "medium",
+  "note": "Real-time event/data streaming platform; not CMMS"
+ },
+ {
+  "name": "Nialli",
+  "field": "group",
+  "decision": "accept",
+  "value": "cpm",
+  "evidence": "https://www.nialli.com/",
+  "confidence": "high",
+  "note": "'Construction planning software' (Visual Planner)"
+ },
+ {
+  "name": "QReserve",
+  "field": "group",
+  "decision": "accept",
+  "value": "booking",
+  "evidence": "https://get.qreserve.com/",
+  "confidence": "high",
+  "note": "Scheduling/resource booking, payments, reporting"
+ },
+ {
+  "name": "TrueContext",
+  "field": "group",
+  "decision": "accept",
+  "value": "fsm",
+  "evidence": "https://truecontext.com/",
+  "confidence": "high",
+  "note": "'Field Service App & Intelligence Platform for Field Teams'"
+ },
+ {
+  "name": "iLobby",
+  "field": "group",
+  "decision": "accept",
+  "value": "vert",
+  "evidence": "https://www.facilityos.com/",
+  "confidence": "high",
+  "note": "Visitor/facility management; ilobby.com now redirects to FacilityOS (rename)"
+ },
+ {
+  "name": "CopperTree Analytics",
+  "field": "group",
+  "decision": "accept",
+  "value": "energy",
+  "evidence": "https://coppertreeanalytics.com/",
+  "confidence": "high",
+  "note": "Building analytics, FDD and energy management"
+ },
+ {
+  "name": "SAP EWM (Pharma Edition)",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "675",
+  "evidence": "https://www.sap.com/products/scm/extended-warehouse-management.html",
+  "confidence": "medium",
+  "note": "No separate SAP 'Pharma Edition' of EWM; keep listing 675"
+ },
+ {
+  "name": "Manhattan WM (Food & Pharma)",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "650",
+  "evidence": "https://www.manh.com/solutions/supply-chain-management-software/warehouse-management",
+  "confidence": "medium",
+  "note": "One Manhattan WMS product with vertical use cases; keep listing 650"
+ },
+ {
+  "name": "Blue Yonder Luminate WMS",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "674",
+  "evidence": "https://blueyonder.com/solutions/warehouse-management",
+  "confidence": "medium",
+  "note": "BY WMS page has no Luminate branding; keep listing 674"
+ },
+ {
+  "name": "Deposco WMS (Food & 3PL)",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "694",
+  "evidence": "https://deposco.com/",
+  "confidence": "high",
+  "note": "Single Deposco WMS serves 3PLs/brands; keep listing 694"
+ },
+ {
+  "name": "Linnworks Fulfillment WMS",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "701",
+  "evidence": "https://www.linnworks.com/",
+  "confidence": "high",
+  "note": "Single Linnworks product (inventory/order mgmt); keep listing 701"
+ },
+ {
+  "name": "Odoo.sh WMS (Cloud)",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "732",
+  "evidence": "https://www.odoo.sh/",
+  "confidence": "high",
+  "note": "Odoo.sh is Odoo's hosting platform, not a separate WMS; keep 732"
+ },
+ {
+  "name": "Frappe WMS (ERPNext)",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "733",
+  "evidence": "https://frappe.io/erpnext",
+  "confidence": "high",
+  "note": "Warehouse features are ERPNext stock module; keep listing 733"
+ },
+ {
+  "name": "ShipHero + Fulfillment Network",
+  "field": "duplicate",
+  "decision": "accept",
+  "value": "696",
+  "evidence": "https://www.shiphero.com/",
+  "confidence": "medium",
+  "note": "Same vendor (WMS + fulfillment network); keep listing 696"
+ },
+ {
+  "name": "xTuple WMS",
+  "field": "price",
+  "decision": "accept",
+  "value": "Custom",
+  "evidence": "https://en.wikipedia.org/wiki/Postbooks",
+  "confidence": "medium",
+  "note": "Free PostBooks editions discontinued June 2019; commercial editions only"
+ },
+ {
+  "name": "Descartes Peoplevox",
+  "field": "hq",
+  "decision": "reject",
+  "value": "Waterloo, ON",
+  "evidence": "https://www.peoplevox.com/",
+  "confidence": "medium",
+  "note": "Branded Descartes Peoplevox, (c) Descartes; UK origin can go in desc"
+ },
+ {
+  "name": "CRM Dynamics",
+  "field": "canadian",
+  "decision": "accept",
+  "value": false,
+  "evidence": "https://www.hso.com/news/hso-acquires-leading-canadian-microsoft-partner-crm-dynamics-ltd/",
+  "confidence": "medium",
+  "note": "HSO (Dutch) acquired 2021; crmdynamics.com now redirects to hso.com"
+ },
+ {
+  "name": "Syntax",
+  "field": "canadian",
+  "decision": "reject",
+  "value": true,
+  "evidence": "https://erpresearch.com/sap-partners/syntax-systems",
+  "confidence": "medium",
+  "note": "Global HQ Montreal; Weinheim is Syntax Deutschland GmbH HQ only"
+ },
+ {
+  "name": "Syntax",
+  "field": "group",
+  "decision": "reject",
+  "value": "integ",
+  "evidence": "https://www.syntax.com/en-eu/about-us/",
+  "confidence": "low",
+  "note": "Does SAP/Oracle implementation and AMS/cloud; integ still fits"
+ },
+ {
+  "name": "Appficiency",
+  "field": "hq",
+  "decision": "accept",
+  "value": "Mississauga, ON",
+  "evidence": "https://appficiency.com/contact-us/",
+  "confidence": "low",
+  "note": "Canada office: 5935 Airport Rd, Mississauga; Canada listed as intl, HQ unclear"
+ },
+ {
+  "name": "Sherweb",
+  "field": "group",
+  "decision": "reject",
+  "value": "msp",
+  "evidence": "https://www.sherweb.com/",
+  "confidence": "medium",
+  "note": "Keep msp; add note: cloud distributor selling via MSP partners"
+ },
+ {
+  "name": "CGI",
+  "field": "group",
+  "decision": "accept",
+  "value": "integ",
+  "evidence": "https://www.cgi.com/en",
+  "confidence": "medium",
+  "note": "'IT and business consulting services'; systems integrator first"
+ },
+ {
+  "name": "GoSecure",
+  "field": "website",
+  "decision": "reject",
+  "value": "https://www.gosecure.ai/",
+  "evidence": "https://www.gosecure.ai/",
+  "confidence": "high",
+  "note": "Site live (MDR/cybersecurity); no change needed"
+ },
+ {
+  "name": "Signal 1",
+  "field": "group",
+  "decision": "accept",
+  "value": "vert",
+  "evidence": "https://signal1.ai/",
+  "confidence": "medium",
+  "note": "AI management for health systems/hospitals; vert better than clinic"
+ },
+ {
+  "name": "NuPort Robotics",
+  "field": "group",
+  "decision": "accept",
+  "value": "auto",
+  "evidence": "https://www.nuport.ai/",
+  "confidence": "medium",
+  "note": "Autonomous truck retrofits for private sites/DCs; not TMS software"
+ },
+ {
+  "name": "samdesk",
+  "field": "group",
+  "decision": "accept",
+  "value": "vert",
+  "evidence": "https://www.samdesk.io/",
+  "confidence": "medium",
+  "note": "Real-time crisis/disruption alerting product"
+ },
+ {
+  "name": "EarthDaily Analytics",
+  "field": "group",
+  "decision": "accept",
+  "value": "vert",
+  "evidence": "https://earthdaily.com/",
+  "confidence": "medium",
+  "note": "Earth-observation data/analytics for agri, mining, defense"
+ },
+ {
+  "name": "Novacene AI",
+  "field": "group",
+  "decision": "accept",
+  "value": "bi",
+  "evidence": "https://novacene.ai/",
+  "confidence": "medium",
+  "note": "'Decision Intelligence for regulated industries' product"
+ },
+ {
+  "name": "BlueDot",
+  "field": "group",
+  "decision": "accept",
+  "value": "vert",
+  "evidence": "https://bluedot.global/",
+  "confidence": "high",
+  "note": "Infectious-disease intelligence product"
+ },
+ {
+  "name": "NuraLogix",
+  "field": "group",
+  "decision": "accept",
+  "value": "vert",
+  "evidence": "https://nuralogix.ai/",
+  "confidence": "medium",
+  "note": "Video-based health/wellness insights product (SDK)"
+ },
+ {
+  "name": "integrate.ai",
+  "field": "group",
+  "decision": "unresolved",
+  "value": "remove (review)",
+  "evidence": "https://completeaitraining.com/news/guidewire-integrates-integrateai-team-and-technology-to/",
+  "confidence": "medium",
+  "note": "Guidewire took team+tech (Jun 2026); site is a stub - likely remove"
+ },
+ {
+  "name": "BenchSci",
+  "field": "status",
+  "decision": "reject",
+  "value": "active",
+  "evidence": "https://www.benchsci.com/",
+  "confidence": "high",
+  "note": "Active (EMET preclinical R&D); not closed - scope issue only"
+ },
+ {
+  "name": "Perceiv AI",
+  "field": "status",
+  "decision": "reject",
+  "value": "active",
+  "evidence": "https://www.perceiv.ai/",
+  "confidence": "high",
+  "note": "Active (neuro care/clinics); not closed - scope issue only"
+ }
+]

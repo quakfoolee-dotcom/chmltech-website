@@ -1,0 +1,432 @@
+{
+ "scale": "Capability scores: 3 = built in (native), 2 = set up without code (configurable / built-in integration needing setup or higher plan), 1 = add-on, partner app or Zapier, 0 = not offered. For shared columns use the specific rules given.",
+ "shared": [
+  {
+   "k": "free",
+   "n": "Free plan or trial",
+   "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+  },
+  {
+   "k": "suite",
+   "n": "Works in Microsoft 365 or Google",
+   "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+  },
+  {
+   "k": "fr",
+   "n": "French language",
+   "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+  },
+  {
+   "k": "priv",
+   "n": "Your data stays private",
+   "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+  }
+ ],
+ "jobs": {
+  "write": {
+   "name": "Writing and email",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "voice",
+     "n": "Drafts in your voice",
+     "r": "Built in = Learns tone/style from your past emails or a brand voice setting."
+    },
+    {
+     "k": "inbox",
+     "n": "Works inside Gmail/Outlook",
+     "r": "Built in = Runs inside the Gmail or Outlook inbox (extension/add-in), not a separate copy-paste app."
+    },
+    {
+     "k": "templ",
+     "n": "Shared team templates",
+     "r": "Built in = Team-shared prompts, snippets or templates managed centrally."
+    },
+    {
+     "k": "admin",
+     "n": "Admin controls",
+     "r": "Built in = Team admin console: user management, SSO or usage policies."
+    }
+   ]
+  },
+  "meet": {
+   "name": "Meetings, notes and projects",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "conf",
+     "n": "Zoom, Teams and Meet",
+     "r": "Built in = Records/transcribes all three of Zoom, Microsoft Teams and Google Meet."
+    },
+    {
+     "k": "nobot",
+     "n": "Records without a bot joining",
+     "r": "Built in = Can capture meetings without a visible bot attendee (desktop/device capture)."
+    },
+    {
+     "k": "tasks",
+     "n": "Action items to tasks or CRM",
+     "r": "Built in = Pushes action items to task/project tools or CRM automatically."
+    },
+    {
+     "k": "search",
+     "n": "Searchable meeting library",
+     "r": "Built in = Search and ask questions across all past meetings."
+    }
+   ]
+  },
+  "sales": {
+   "name": "Sales and marketing",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "crm",
+     "n": "CRM link (HubSpot/Salesforce)",
+     "r": "Built in = Two-way native integration with HubSpot and Salesforce."
+    },
+    {
+     "k": "seq",
+     "n": "Email sequences",
+     "r": "Built in = Multi-step automated email sequences with follow-ups."
+    },
+    {
+     "k": "copy",
+     "n": "Ad and social copy",
+     "r": "Built in = Generates ad, social and campaign copy."
+    },
+    {
+     "k": "rep",
+     "n": "Results reporting",
+     "r": "Built in = Built-in reporting on opens, replies, conversions or campaign results."
+    }
+   ]
+  },
+  "support": {
+   "name": "Customer support",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "chat",
+     "n": "Website chat",
+     "r": "Built in = Embeddable website chat widget."
+    },
+    {
+     "k": "kb",
+     "n": "Answers from your own documents",
+     "r": "Built in = AI answers trained on your help articles, files or website."
+    },
+    {
+     "k": "handoff",
+     "n": "Hand-off to a person",
+     "r": "Built in = Smooth escalation from AI to a human agent with context."
+    },
+    {
+     "k": "intg",
+     "n": "Shopify or CRM link",
+     "r": "Built in = Native integration with Shopify and/or a CRM (HubSpot, Salesforce, Zoho)."
+    }
+   ]
+  },
+  "fin": {
+   "name": "Finance and legal",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "acct",
+     "n": "QuickBooks or Xero link",
+     "r": "Built in = Native integration with QuickBooks Online and/or Xero."
+    },
+    {
+     "k": "capture",
+     "n": "Receipt and invoice capture",
+     "r": "Built in = AI reads receipts/bills/invoices into structured data."
+    },
+    {
+     "k": "tax",
+     "n": "Canadian sales tax",
+     "r": "Built in = Handles GST/HST/PST/QST correctly on captured or created documents."
+    },
+    {
+     "k": "contract",
+     "n": "Contract review",
+     "r": "Built in = AI reviews or redlines contracts and flags risky clauses."
+    }
+   ]
+  },
+  "hr": {
+   "name": "HR and training",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "hire",
+     "n": "Job postings and screening",
+     "r": "Built in = Writes job posts and screens/ranks applicants."
+    },
+    {
+     "k": "onb",
+     "n": "Onboarding",
+     "r": "Built in = Onboarding checklists, documents and new-hire workflows."
+    },
+    {
+     "k": "course",
+     "n": "Course builder",
+     "r": "Built in = AI creates training courses or learning content."
+    },
+    {
+     "k": "hris",
+     "n": "Payroll or HR system link",
+     "r": "Built in = Native integration with payroll/HRIS (e.g., Wagepoint, ADP, Dayforce, BambooHR, Employment Hero)."
+    }
+   ]
+  },
+  "data": {
+   "name": "Data and research",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "sheets",
+     "n": "Works with Excel or Sheets",
+     "r": "Built in = Reads Excel/Google Sheets files or connects to them directly."
+    },
+    {
+     "k": "ask",
+     "n": "Ask questions in plain English",
+     "r": "Built in = Natural-language questions answered from your data or documents."
+    },
+    {
+     "k": "charts",
+     "n": "Charts and dashboards",
+     "r": "Built in = Creates charts or dashboards from results."
+    },
+    {
+     "k": "cite",
+     "n": "Shows its sources",
+     "r": "Built in = Cites sources or shows the data/query behind each answer."
+    }
+   ]
+  },
+  "auto": {
+   "name": "Automation and agents",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "nocode",
+     "n": "No-code builder",
+     "r": "Built in = Visual/no-code workflow or agent builder for non-developers."
+    },
+    {
+     "k": "apps",
+     "n": "Number of app connections",
+     "r": "Built in = 3 = 1,000+ native connectors; 2 = 200-999; 1 = under 200 or API only."
+    },
+    {
+     "k": "approve",
+     "n": "Approval step before acting",
+     "r": "Built in = Human approval/review step before the automation or agent takes action."
+    },
+    {
+     "k": "alerts",
+     "n": "Error alerts",
+     "r": "Built in = Notifies you when a run fails, with logs to see why."
+    }
+   ]
+  },
+  "sec": {
+   "name": "Security",
+   "caps": [
+    {
+     "k": "free",
+     "n": "Free plan or trial",
+     "r": "3 = permanent free plan usable for real work; 2 = free trial only (no card or card); 1 = demo only / paid pilot; 0 = none."
+    },
+    {
+     "k": "suite",
+     "n": "Works in Microsoft 365 or Google",
+     "r": "3 = native app/add-in for BOTH Microsoft 365 (Outlook/Teams/Word) and Google Workspace (Gmail/Docs/Meet); 2 = native for one of them; 1 = only via Zapier/Make or copy-paste; 0 = no."
+    },
+    {
+     "k": "fr",
+     "n": "French language",
+     "r": "3 = French interface AND produces/understands French well (support for Quebec clients); 2 = French output/understanding but English-only interface; 1 = partial or beta French; 0 = English only."
+    },
+    {
+     "k": "priv",
+     "n": "Your data stays private",
+     "r": "3 = customer data not used to train models by default AND admin retention controls AND a Canadian or selectable regional data option; 2 = not used for training by default AND retention/delete controls; 1 = training opt-out available but not default, or unclear retention; 0 = used for training or no published policy."
+    },
+    {
+     "k": "phish",
+     "n": "Phishing protection",
+     "r": "Built in = Detects/blocks phishing email or trains staff to spot it."
+    },
+    {
+     "k": "pass",
+     "n": "Password manager",
+     "r": "Built in = Includes password management for the team."
+    },
+    {
+     "k": "device",
+     "n": "Device protection",
+     "r": "Built in = Protects laptops/phones (endpoint protection, EDR, device management)."
+    },
+    {
+     "k": "msp",
+     "n": "Managed-IT-friendly dashboard",
+     "r": "Built in = Multi-tenant or central dashboard an IT provider (MSP) can use to manage the business."
+    }
+   ]
+  }
+ }
+}

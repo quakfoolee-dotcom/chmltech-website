@@ -1,0 +1,342 @@
+[
+ {
+  "job": "fin",
+  "tool": "Xero (JAX + Hubdoc)",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://blog.xero.com/product-updates/jax-beta-expands/",
+  "note": "JAX reachable by email/SMS/WhatsApp; no current Outlook/Gmail add-in found",
+  "confidence": "medium"
+ },
+ {
+  "job": "fin",
+  "tool": "Dext",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://dext.com/ca/business/product/capture-receipts-and-invoices",
+  "note": "Email-in and Zapier for Gmail/Outlook; no native Office/Gmail add-in",
+  "confidence": "medium"
+ },
+ {
+  "job": "fin",
+  "tool": "Float",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://floatfinancial.com/integrations",
+  "note": "Integrations page lists Slack app only; no Microsoft 365/Google app",
+  "confidence": "high"
+ },
+ {
+  "job": "fin",
+  "tool": "Plooto",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://www.plooto.com/integrations",
+  "note": "Only QuickBooks, Xero, NetSuite integrations listed; no Office/Gmail add-in",
+  "confidence": "medium"
+ },
+ {
+  "job": "fin",
+  "tool": "Plooto",
+  "key": "tax",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://plooto.com/lp/invoice-management",
+  "note": "No GST/HST/PST/QST capture stated; tax comes from synced accounting system",
+  "confidence": "medium"
+ },
+ {
+  "job": "fin",
+  "tool": "Spellbook",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://workspace.google.com/marketplace/app/spellbook/777971419294",
+  "note": "No French UI or language list published; LLM output in French assumed",
+  "confidence": "low"
+ },
+ {
+  "job": "hr",
+  "tool": "Employment Hero (Humi)",
+  "key": "course",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://employmenthero.com/products/employee-learning-management-system/",
+  "note": "LMS has Go1 library and manual course builder; no AI course generation",
+  "confidence": "medium"
+ },
+ {
+  "job": "hr",
+  "tool": "BambooHR",
+  "key": "free",
+  "result": "corrected",
+  "score": 2,
+  "evidence": "https://www.bamboohr.com/signup/",
+  "note": "Free trial offered, no credit card required",
+  "confidence": "high"
+ },
+ {
+  "job": "hr",
+  "tool": "BambooHR",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://zapier.com/apps/bamboohr/integrations/microsoft-teams",
+  "note": "Teams/Office links via Zapier; no native M365 or Google app found",
+  "confidence": "medium"
+ },
+ {
+  "job": "hr",
+  "tool": "BambooHR",
+  "key": "hire",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://www.bamboohr.com/platform/ai",
+  "note": "ATS built in; Bamboo AI page names no job-post writing or candidate ranking",
+  "confidence": "medium"
+ },
+ {
+  "job": "hr",
+  "tool": "BambooHR",
+  "key": "hris",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://www.bamboohr.com/integrations/listings/worklinks",
+  "note": "Is an HRIS; payroll US-only; Canadian payroll via partner apps (WorkLinks)",
+  "confidence": "medium"
+ },
+ {
+  "job": "data",
+  "tool": "Julius AI",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://julius.ai",
+  "note": "No French interface found; answers in French via LLM",
+  "confidence": "low"
+ },
+ {
+  "job": "data",
+  "tool": "Julius AI",
+  "key": "cite",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.datacamp.com/tutorial/julius-ai-guide",
+  "note": "Shows generated Python code behind each result (third-party guide)",
+  "confidence": "medium"
+ },
+ {
+  "job": "data",
+  "tool": "Perplexity (Pro / Enterprise Pro)",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.perplexity.ai/help-center/en/articles/10352993-account-settings",
+  "note": "UI language setting plus preferred response language",
+  "confidence": "high"
+ },
+ {
+  "job": "data",
+  "tool": "Perplexity (Pro / Enterprise Pro)",
+  "key": "sheets",
+  "result": "corrected",
+  "score": 3,
+  "evidence": "https://www.perplexity.ai/help-center/en/articles/10672063-introduction-to-file-connectors-for-enterprise-organizations",
+  "note": "Connects Google Drive/OneDrive/SharePoint; reads Sheets and XLSX",
+  "confidence": "high"
+ },
+ {
+  "job": "data",
+  "tool": "Perplexity (Pro / Enterprise Pro)",
+  "key": "charts",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.perplexity.ai/hub/blog/introducing-perplexity-labs",
+  "note": "Labs creates charts, spreadsheets and dashboards",
+  "confidence": "high"
+ },
+ {
+  "job": "data",
+  "tool": "Zoho Analytics (Ask Zia)",
+  "key": "suite",
+  "result": "corrected",
+  "score": 3,
+  "evidence": "https://www.zoho.com/analytics/help/askziabot-ms-teams.html",
+  "note": "Native Ask Zia Teams app plus Google Workspace Marketplace app",
+  "confidence": "high"
+ },
+ {
+  "job": "data",
+  "tool": "Zoho Analytics (Ask Zia)",
+  "key": "priv",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.zoho.com/zia/llm.html",
+  "note": "Zia LLM in Zoho DCs, no training on data; Toronto/Montreal DCs",
+  "confidence": "medium"
+ },
+ {
+  "job": "data",
+  "tool": "Zoho Analytics (Ask Zia)",
+  "key": "cite",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://help.zoho.com/portal/en/kb/analytics/users-guide/ask-zia/articles/using-ask-zia",
+  "note": "Answers are generated reports you can open in Report Editor",
+  "confidence": "high"
+ },
+ {
+  "job": "auto",
+  "tool": "Make",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://community.make.com/t/language-settings/95930",
+  "note": "Platform UI English only (Make community, Nov 2025); AI modules handle French",
+  "confidence": "medium"
+ },
+ {
+  "job": "auto",
+  "tool": "Microsoft Power Automate",
+  "key": "apps",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.microsoft.com/en-ca/power-platform/products/power-automate",
+  "note": "More than 1,000 API connectors",
+  "confidence": "high"
+ },
+ {
+  "job": "auto",
+  "tool": "n8n (Cloud)",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://docs.n8n.io/deploy/host-n8n/configure-n8n/basic-configuration/use-environment-variables/timezone-and-localization",
+  "note": "Default locale en; no shipped French UI; AI nodes handle French",
+  "confidence": "medium"
+ },
+ {
+  "job": "auto",
+  "tool": "Lindy AI (Agent Builder)",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.lindy.ai/integrations",
+  "note": "Native Gmail, Google Docs/Sheets, Outlook integrations",
+  "confidence": "high"
+ },
+ {
+  "job": "auto",
+  "tool": "Lindy AI (Agent Builder)",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://www.lindy.ai",
+  "note": "English UI; agents work in French via LLM",
+  "confidence": "low"
+ },
+ {
+  "job": "auto",
+  "tool": "Lindy AI (Agent Builder)",
+  "key": "alerts",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://docs.lindy.ai/fundamentals/lindy-101/tasks.md",
+  "note": "Task history/logs; no documented failure-alert notification",
+  "confidence": "low"
+ },
+ {
+  "job": "sec",
+  "tool": "Microsoft Defender for Business",
+  "key": "fr",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://learn.microsoft.com/fr-fr/defender-business/mdb-overview",
+  "note": "Defender portal localized to French; French docs",
+  "confidence": "medium"
+ },
+ {
+  "job": "sec",
+  "tool": "Field Effect MDR",
+  "key": "fr",
+  "result": "corrected",
+  "score": 2,
+  "evidence": "https://www.capterra.ca/software/1036845/field-effect",
+  "note": "Capterra lists English/French; French ToS; portal French unverified",
+  "confidence": "low"
+ },
+ {
+  "job": "sec",
+  "tool": "Field Effect MDR",
+  "key": "priv",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://fieldeffect.com/terms-data-processing-agreement",
+  "note": "DPA: services-only use, deletion at end; data in Canada/US, no region pick",
+  "confidence": "medium"
+ },
+ {
+  "job": "sec",
+  "tool": "Huntress",
+  "key": "priv",
+  "result": "confirmed",
+  "score": 1,
+  "evidence": "https://www.huntress.com/privacy-policy",
+  "note": "Servers primarily US; no AI training statement; no fixed retention periods",
+  "confidence": "medium"
+ },
+ {
+  "job": "sec",
+  "tool": "KnowBe4 Security Awareness Training",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://www.knowbe4.com/phish-alert",
+  "note": "Phish Alert Button for Outlook/Microsoft 365 and Gmail",
+  "confidence": "high"
+ },
+ {
+  "job": "sec",
+  "tool": "Beauceron Security",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 2,
+  "evidence": "https://beauceronsecurity.com/blog/outlook-report-a-phish-button-changes",
+  "note": "Outlook/Office 365 phish report button; no Gmail add-in found",
+  "confidence": "medium"
+ },
+ {
+  "job": "sec",
+  "tool": "Beauceron Security",
+  "key": "fr",
+  "result": "unresolved",
+  "score": 3,
+  "evidence": "https://www.beauceronsecurity.com/",
+  "note": "No vendor page confirms French UI/content; verify with vendor",
+  "confidence": "low"
+ },
+ {
+  "job": "sec",
+  "tool": "1Password Business",
+  "key": "suite",
+  "result": "confirmed",
+  "score": 3,
+  "evidence": "https://support.1password.com/sso-get-started/",
+  "note": "Unlock with SSO and provisioning for Entra ID and Google Workspace",
+  "confidence": "medium"
+ },
+ {
+  "job": "sec",
+  "tool": "1Password Business",
+  "key": "phish",
+  "result": "corrected",
+  "score": 3,
+  "evidence": "https://1password.com/blog/as-ai-supercharges-phishing-scams-1password-introduces-built-in-protection",
+  "note": "Built-in phishing warnings on unlinked sites (Jan 2026)",
+  "confidence": "medium"
+ }
+]

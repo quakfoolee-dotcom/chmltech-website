@@ -1,0 +1,760 @@
+{
+ "reviewer": "B WMS and specialist",
+ "summary": "72 findings ({'duplicate': 16, 'status': 19, 'website': 9, 'desc': 6, 'price': 3, 'hq': 3, 'group': 16}). Global WMS list is padded: fabricated/non-WMS entries (Fishtech/TempoWMS, TempoWMS Cold Chain, WHSControl, TechniCare ERP, Hopscotch, Wharehouser, StockPiler, TCS WMS, Grocy), many duplicates (Körber/HighJump x4 vs Infios, SnapFulfil vs Synergy, Extensiv/3PL Central/Skubana, Tecsys x2, Maves vs ViewPoint), defunct/renamed (Stitch Labs, Shipwire->Stord, Ware2Go->Stord, DEAR->Cin7 Core, Openbravo->Orisha, Whiplash->Ryder). Wrong websites: Cahoot (UK bank), Fabric (different company), Harris Affinity (L3Harris domain). Canadian fixes: ClearSpider HQ Mississauga, Zafin HQ Toronto.",
+ "findings": [
+  {
+   "idx": 134,
+   "name": "Maves International Software",
+   "field": "duplicate",
+   "current": "Maves International Software",
+   "proposed": "5",
+   "why": "Maves International Software and ViewPoint Logistics are the same vendor/product (same Markham address, VPL site uses both names; TrustRadius lists ViewPoint Logistics as offered by MAVES International Software Corp).",
+   "evidence": "https://www.trustradius.com/products/viewpoint-logistics/details",
+   "confidence": "high"
+  },
+  {
+   "idx": 703,
+   "name": "3PL Central (Extensiv legacy)",
+   "field": "duplicate",
+   "current": "3PL Central (Extensiv legacy)",
+   "proposed": "693",
+   "why": "3PL Central rebranded as Extensiv; row duplicates Extensiv 3PL Warehouse Manager (same URL).",
+   "evidence": "https://www.extensiv.com/blog/3pl-central-rebrands-as-extensiv",
+   "confidence": "high"
+  },
+  {
+   "idx": 729,
+   "name": "Skubana (Extensiv OMS)",
+   "field": "duplicate",
+   "current": "Skubana (Extensiv OMS)",
+   "proposed": "765",
+   "why": "Skubana became Extensiv Order Manager; same URL as idx 765.",
+   "evidence": "https://www.extensiv.com/order-management",
+   "confidence": "medium"
+  },
+  {
+   "idx": 685,
+   "name": "Tecsys WMS",
+   "field": "duplicate",
+   "current": "Tecsys WMS",
+   "proposed": "0",
+   "why": "Tecsys WMS is the same product as Tecsys Elite WMS (idx 0); also flagged non-Canadian although Tecsys is Montreal-based (TSX:TCS).",
+   "evidence": "https://www.tecsys.com/elite-solutions/warehouse-management",
+   "confidence": "high"
+  },
+  {
+   "idx": 677,
+   "name": "Körber WMS",
+   "field": "status",
+   "current": "Körber WMS",
+   "proposed": "Infios WMS (formerly Körber) - merge into idx 678",
+   "why": "Körber Supply Chain Software rebranded as Infios on 4 Mar 2025; row duplicates idx 678 Infios WMS Suite.",
+   "evidence": "https://www.infios.com/en/knowledge-center/news/koerber-supply-chain-software-rebrands-as-infios",
+   "confidence": "high"
+  },
+  {
+   "idx": 692,
+   "name": "Highjump (Körber Edge)",
+   "field": "duplicate",
+   "current": "Highjump (Körber Edge)",
+   "proposed": "678",
+   "why": "HighJump -> Körber -> Infios (rebrand Mar 2025); duplicates Infios WMS Suite. Name \"Körber Edge\" is dated.",
+   "evidence": "https://www.infios.com/en/knowledge-center/news/koerber-supply-chain-software-rebrands-as-infios",
+   "confidence": "medium"
+  },
+  {
+   "idx": 773,
+   "name": "HighJump (Körber) Cold WMS",
+   "field": "duplicate",
+   "current": "HighJump (Körber) Cold WMS",
+   "proposed": "678",
+   "why": "HighJump/Körber cold-chain variant is not a separate product; Körber supply chain software is now Infios.",
+   "evidence": "https://www.infios.com/en/knowledge-center/news/koerber-supply-chain-software-rebrands-as-infios",
+   "confidence": "medium"
+  },
+  {
+   "idx": 767,
+   "name": "Körber WMS Cold Chain Edition",
+   "field": "duplicate",
+   "current": "Körber WMS Cold Chain Edition",
+   "proposed": "678",
+   "why": "\"Körber WMS Cold Chain Edition\" is a vertical page, not a distinct product; brand is now Infios.",
+   "evidence": "https://www.infios.com/en/knowledge-center/news/koerber-supply-chain-software-rebrands-as-infios",
+   "confidence": "medium"
+  },
+  {
+   "idx": 681,
+   "name": "Synergy Logistics 3PL WMS",
+   "field": "duplicate",
+   "current": "Synergy Logistics 3PL WMS",
+   "proposed": "686",
+   "why": "Synergy Logistics is the maker of SnapFulfil; snapfulfil.com now redirects to synergylogistics.ai which sells \"SnapFulfil cloud WMS and ORCA hybrid WMS\". Same product listed twice.",
+   "evidence": "https://synergylogistics.ai/",
+   "confidence": "high"
+  },
+  {
+   "idx": 686,
+   "name": "SnapFulfil WMS",
+   "field": "website",
+   "current": "https://www.snapfulfil.com/",
+   "proposed": "https://synergylogistics.ai/",
+   "why": "snapfulfil.com redirects to synergylogistics.ai.",
+   "evidence": "https://www.snapfulfil.com/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 720,
+   "name": "Stitch Labs / Linnworks Cloud",
+   "field": "status",
+   "current": "Stitch Labs / Linnworks Cloud",
+   "proposed": "remove",
+   "why": "Stitch Labs was acquired by Square (2020), stopped taking new customers and was sunset (existing customers until Spring 2021). Linnworks is already listed (idx 701).",
+   "evidence": "https://squareup.com/us/en/press/stitchlabs-welcome",
+   "confidence": "high"
+  },
+  {
+   "idx": 752,
+   "name": "Shipwire WMS",
+   "field": "status",
+   "current": "Shipwire WMS",
+   "proposed": "Shipwire (a Stord company)",
+   "why": "Desc says \"by Ingram Micro\" - Shipwire went to CEVA Logistics (2022, with Ingram Micro CLS) and was then acquired by Stord; site footer reads \"A Stord Company\". Consider merging with Stord (idx 756).",
+   "evidence": "https://www.shipwire.com/ceva-logistics-acquisition/",
+   "confidence": "high"
+  },
+  {
+   "idx": 704,
+   "name": "Ware2Go WMS",
+   "field": "status",
+   "current": "Ware2Go WMS",
+   "proposed": "Ware2Go (now part of Stord) - merge into idx 756",
+   "why": "Stord acquired Ware2Go from UPS (May 2025); \"UPS-backed\" description outdated.",
+   "evidence": "https://www.digitalcommerce360.com/2025/05/20/stord-acquires-ups-ware2go-fulfillment/",
+   "confidence": "high"
+  },
+  {
+   "idx": 730,
+   "name": "DEAR Inventory WMS",
+   "field": "status",
+   "current": "DEAR Inventory WMS",
+   "proposed": "Cin7 Core (formerly DEAR Inventory)",
+   "why": "DEAR Systems was rebranded Cin7 Core in 2022; dearsystems.com is legacy. Near-duplicate of Cin7 (idx 713).",
+   "evidence": "https://cin7.com/newsroom/cin7-cements-inventory-management-market-leadership-position-with-major-product-rebrand",
+   "confidence": "high"
+  },
+  {
+   "idx": 764,
+   "name": "Skustack (SellerChamp)",
+   "field": "desc",
+   "current": "Barcode-driven WMS for multi-channel sellers. Pick/pack, cycle count, multi-warehouse & platform sync.",
+   "proposed": "Skustack is Descartes Sellercloud's mobile WMS (not SellerChamp); website https://sellercloud.com ; canadian parent Descartes (Waterloo, ON)",
+   "why": "Skustack is a Sellercloud (Descartes) product; listing attributes it to SellerChamp with a sellerchamp.com URL.",
+   "evidence": "https://help.sellercloud.com/sellercloud-knowledge-base/applications/skustack/skustack~7630842734588633043",
+   "confidence": "high"
+  },
+  {
+   "idx": 753,
+   "name": "Whiplash WMS",
+   "field": "status",
+   "current": "Whiplash WMS",
+   "proposed": "Ryder E-commerce by Whiplash",
+   "why": "Whiplash acquired by Ryder (2021, $480M); whiplash.com cert no longer matches. Also better filed under ship (3PL fulfilment).",
+   "evidence": "https://www.ryder.com/en-us/newsroom/supply-chain/ryder-to-acquire-nationwide-e-commerce-and-omnichannel-fulfillment-provider-whiplash",
+   "confidence": "medium"
+  },
+  {
+   "idx": 690,
+   "name": "Mikropax / Reflex WMS",
+   "field": "status",
+   "current": "Mikropax / Reflex WMS",
+   "proposed": "Hardis Reflex WMS",
+   "why": "\"Mikropax\" is not part of the product name; product is Reflex WMS by Hardis Group. Website in row returns 404; use https://www.reflex-logistics.com/",
+   "evidence": "https://www.gartner.com/reviews/market/warehouse-management-systems/vendor/hardis-group/product/reflex-wms",
+   "confidence": "medium"
+  },
+  {
+   "idx": 690,
+   "name": "Mikropax / Reflex WMS",
+   "field": "website",
+   "current": "https://www.hardis-group.com/en/our-offerings/reflex-wms",
+   "proposed": "https://www.reflex-logistics.com/",
+   "why": "Listed hardis-group.com URL returns 404.",
+   "evidence": "https://www.reflex-logistics.com/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 684,
+   "name": "Honeywell Intelligrated WMS",
+   "field": "status",
+   "current": "Honeywell Intelligrated WMS",
+   "proposed": "Honeywell Momentum WMS",
+   "why": "Honeywell markets its WMS as Momentum Warehouse Management System; listed intelligrated.com page returns 404.",
+   "evidence": "https://sps.honeywell.com/au/en/software/automation/momentum-warehouse-management-system",
+   "confidence": "medium"
+  },
+  {
+   "idx": 684,
+   "name": "Honeywell Intelligrated WMS",
+   "field": "website",
+   "current": "https://www.intelligrated.com/en/solutions/software/warehouse-management",
+   "proposed": "https://sps.honeywell.com/us/en/software/automation",
+   "why": "Listed URL redirects to a 404.",
+   "evidence": "https://sps.honeywell.com/au/en/software/automation/momentum-warehouse-management-system",
+   "confidence": "medium"
+  },
+  {
+   "idx": 751,
+   "name": "Logicraft / OpenWMS",
+   "field": "status",
+   "current": "Logicraft / OpenWMS",
+   "proposed": "OpenWMS.org",
+   "why": "\"Logicraft\" prefix appears invented; the project is OpenWMS.org (github.com/openwms).",
+   "evidence": "https://www.github.com/openwms/org.openwms",
+   "confidence": "medium"
+  },
+  {
+   "idx": 744,
+   "name": "Openbravo WMS",
+   "field": "status",
+   "current": "Openbravo WMS",
+   "proposed": "Orisha Commerce (formerly Openbravo)",
+   "why": "Openbravo is now Orisha Commerce, a commercial retail/POS unified-commerce SaaS - no longer a free/OSS ERP/WMS; openbravo.com redirects to orisha.com. Price \"Free/OSS\" wrong (should be Custom). Weak WMS fit.",
+   "evidence": "https://commerce.orisha.com/?p=10608",
+   "confidence": "medium"
+  },
+  {
+   "idx": 744,
+   "name": "Openbravo WMS",
+   "field": "price",
+   "current": "Free/OSS",
+   "proposed": "Custom",
+   "why": "No longer open-source; commercial SaaS.",
+   "evidence": "https://commerce.orisha.com/?p=10608",
+   "confidence": "medium"
+  },
+  {
+   "idx": 772,
+   "name": "Fishtech / TempoWMS",
+   "field": "status",
+   "current": "Fishtech / TempoWMS",
+   "proposed": "remove",
+   "why": "fishtech.com is a parked domain (JS redirect to /lander); Fishtech is a cybersecurity brand; no \"TempoWMS\" product could be found. Appears fabricated.",
+   "evidence": "https://www.fishtech.com/",
+   "confidence": "high"
+  },
+  {
+   "idx": 779,
+   "name": "TempoWMS Cold Chain",
+   "field": "status",
+   "current": "TempoWMS Cold Chain",
+   "proposed": "remove",
+   "why": "No evidence a \"TempoWMS\" product exists (web search returns nothing; tempowms.com unreachable). Pairs with fabricated idx 772.",
+   "evidence": "https://www.tempowms.com/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 750,
+   "name": "WHSControl WMS",
+   "field": "status",
+   "current": "WHSControl WMS",
+   "proposed": "remove",
+   "why": "whscontrol.com redirects to whscontrol.com.au, an Australian work-health-and-safety clearance tool (\"know who's clear to work\"), not a WMS.",
+   "evidence": "https://whscontrol.com/",
+   "confidence": "high"
+  },
+  {
+   "idx": 673,
+   "name": "TechniCare ERP",
+   "field": "status",
+   "current": "TechniCare ERP",
+   "proposed": "remove",
+   "why": "technicarecorp.com is a surgical-instrument manufacturer (Techni Care), not an ERP for long-term care. Listing appears fabricated.",
+   "evidence": "https://www.technicarecorp.com/",
+   "confidence": "high"
+  },
+  {
+   "idx": 708,
+   "name": "Hopscotch WMS",
+   "field": "status",
+   "current": "Hopscotch WMS",
+   "proposed": "remove",
+   "why": "No product \"Hopscotch WMS\" found; searches only return Hopstack WMS (hopstack.io). hopscotchwms.com unreachable. Likely invented/confused name.",
+   "evidence": "https://www.hopstack.io/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 762,
+   "name": "Wharehouser WMS",
+   "field": "status",
+   "current": "Wharehouser WMS",
+   "proposed": "remove",
+   "why": "No evidence \"Wharehouser WMS\"/warehouser.io exists (search returns nothing; domain unreachable).",
+   "evidence": "https://www.warehouser.io/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 748,
+   "name": "StockPiler WMS",
+   "field": "status",
+   "current": "StockPiler WMS",
+   "proposed": "remove",
+   "why": "stockpiler.io is an empty JS shell with no product description and no open-source repo found; \"Free/OSS\" WMS claim unsupported.",
+   "evidence": "https://stockpiler.io/",
+   "confidence": "low"
+  },
+  {
+   "idx": 688,
+   "name": "TATA Consulting WMS (TCS iON)",
+   "field": "status",
+   "current": "TATA Consulting WMS (TCS iON)",
+   "proposed": "remove",
+   "why": "TCS iON is TCS's SMB/education platform; no TCS-branded WMS product found, and the listed URL is a TCS page not confirming a WMS.",
+   "evidence": "https://www.tcs.com/what-we-do/industries/consumer-packaged-goods/solution/tcs-supply-chain-wms",
+   "confidence": "low"
+  },
+  {
+   "idx": 746,
+   "name": "Grocy WMS",
+   "field": "status",
+   "current": "Grocy WMS",
+   "proposed": "remove",
+   "why": "Grocy is a self-hosted household grocery/pantry app (\"ERP beyond your fridge\"), not a business WMS for SMEs.",
+   "evidence": "https://grocy.info/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 758,
+   "name": "Fabric WMS (Micro-Fulfillment)",
+   "field": "website",
+   "current": "https://fabric.inc/",
+   "proposed": "https://www.getfabric.com",
+   "why": "fabric.inc is a different company (commerce/merchandising \"for AI shopping\"); the micro-fulfillment Fabric (ex-CommonSense Robotics) is getfabric.com and has pivoted with layoffs - consider removing or moving to auto.",
+   "evidence": "https://fabric.inc/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 759,
+   "name": "Cahoot WMS",
+   "field": "website",
+   "current": "https://www.cahoot.com/",
+   "proposed": "https://www.cahoot.ai",
+   "why": "cahoot.com is a UK online bank; the peer-to-peer fulfillment network is cahoot.ai. Also better filed under ship.",
+   "evidence": "https://www.fulfill.com/3pl/profile/cahoot",
+   "confidence": "high"
+  },
+  {
+   "idx": 672,
+   "name": "Harris Affinity",
+   "field": "website",
+   "current": "https://www.harriscorporation.com/affinity",
+   "proposed": "https://www.harrisaffinity.com",
+   "why": "harriscorporation.com is the old Harris Corp (L3Harris), unrelated. Harris Affinity is hospital cost/decision-support software (HQ Wakefield, MA; Harris Computer, Ottawa, is the parent).",
+   "evidence": "https://builtin.com/company/harris-affinity",
+   "confidence": "high"
+  },
+  {
+   "idx": 672,
+   "name": "Harris Affinity",
+   "field": "desc",
+   "current": "Fund accounting ERP for healthcare non-profits & public sector health agencies.",
+   "proposed": "Hospital costing, decision-support and financial-performance software (Harris Healthcare)",
+   "why": "Not a fund-accounting ERP for non-profits/public sector.",
+   "evidence": "https://builtin.com/company/harris-affinity",
+   "confidence": "medium"
+  },
+  {
+   "idx": 719,
+   "name": "MetaWMS (MetaOption)",
+   "field": "website",
+   "current": "https://metaoption.com/products/metawms/",
+   "proposed": "https://www.metaoption.com/",
+   "why": "Listed /products/metawms/ path returns 404; MetaWMS exists (AppSource/G2).",
+   "evidence": "https://www.metaoption.com/products/metawms/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 132,
+   "name": "ClearSpider",
+   "field": "hq",
+   "current": "Toronto, ON",
+   "proposed": "Mississauga, ON",
+   "why": "Clear Spider's contact address is 5749 Coopers Ave, Mississauga, ON.",
+   "evidence": "https://clearspider.net/our-company/",
+   "confidence": "high"
+  },
+  {
+   "idx": 132,
+   "name": "ClearSpider",
+   "field": "website",
+   "current": "https://clearspider.com",
+   "proposed": "https://clearspider.net",
+   "why": "Company site is clearspider.net.",
+   "evidence": "https://clearspider.net/our-company/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 8,
+   "name": "Descartes Peoplevox",
+   "field": "price",
+   "current": "~$1,000-2,050+/mo*",
+   "proposed": "From $2,050/mo (platform incl. 5 users) + $195/user/mo; implementation $9.6k-32k",
+   "why": "Vendor pricing page lists platform \"from $2,050 per month\"; the ~$1,000 lower bound is not supported.",
+   "evidence": "https://www.peoplevox.com/pvx-pricing/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 198,
+   "name": "Zafin",
+   "field": "hq",
+   "current": "Vancouver, BC",
+   "proposed": "Toronto, ON",
+   "why": "Zafin is headquartered in Toronto.",
+   "evidence": "https://en.wikipedia.org/wiki/Zafin",
+   "confidence": "high"
+  },
+  {
+   "idx": 151,
+   "name": "Pitstop",
+   "field": "desc",
+   "current": "AI-powered predictive fleet-maintenance and fleet-intelligence platform; acquired by Fullbay in March 2026.",
+   "proposed": "Add: acquired by Fullbay (US shop-management software) in March 2026",
+   "why": "Ownership change affects Canadian status.",
+   "evidence": "https://www.truckinginfo.com/news/fullbay-acquires-pitstop-to-strengthen-ai-powered-predictive-maintenance",
+   "confidence": "medium"
+  },
+  {
+   "idx": 322,
+   "name": "BrainBox AI",
+   "field": "desc",
+   "current": "Montreal-founded autonomous building and HVAC optimization AI platform; acquired by Trane Technologies in January 2025.",
+   "proposed": "Add: owned by Trane Technologies (US) since Jan 2025",
+   "why": "Acquisition completed Jan 3 2025.",
+   "evidence": "https://investors.tranetechnologies.com/news-and-events/news-releases/news-release-details/2025/Trane-Technologies-Completes-Acquisition-of-BrainBox-AI/default.aspx",
+   "confidence": "medium"
+  },
+  {
+   "idx": 46,
+   "name": "Attabotics / LaFayette Systems",
+   "field": "desc",
+   "current": "Calgary, AB. CAUTION: filed for bankruptcy protection July 2025; assets acquired by US-based LaFayette Systems Sept 2025 and operations restarted Feb 2026. Calgary engineering retained. Diligence the entity, warranty and spares before contracting.",
+   "proposed": "Attabotics technology is now part of LaFayette Systems (US family-owned material-handling group); Calgary facility retained",
+   "why": "Confirms caution; Canadian flag now debatable (US owner).",
+   "evidence": "https://attabotics.com/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 113,
+   "name": "The Asset Guardian (TAG)",
+   "field": "website",
+   "current": "https://theassetguardian.com",
+   "proposed": "https://www.verosoftdesign.com/",
+   "why": "theassetguardian.com redirects to Verosoft Design; TAG is a Verosoft product.",
+   "evidence": "https://theassetguardian.com",
+   "confidence": "low"
+  },
+  {
+   "idx": 47,
+   "name": "A&K Robotics",
+   "field": "desc",
+   "current": "Vancouver, BC. Autonomous mobile platforms for facilities, retail and logistics environments.",
+   "proposed": "Autonomous mobility pods for airports (e.g., YVR) - pivoted from facility/retail cleaning robots",
+   "why": "Recent news centres on airport mobility pods.",
+   "evidence": "https://www.robotics247.com/article/ak-robotics-announces-8m-series-a-round",
+   "confidence": "low"
+  },
+  {
+   "idx": 728,
+   "name": "FreightPOP WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "ship",
+   "why": "FreightPOP is a shipping/TMS platform, not a WMS",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 757,
+   "name": "ShipStation + WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "ship",
+   "why": "ShipStation is shipping software, not WMS",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 760,
+   "name": "Fulfillment by Amazon (FBA)",
+   "field": "group",
+   "current": "wms",
+   "proposed": "ship",
+   "why": "Fulfillment by Amazon is an outsourced fulfilment service",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 727,
+   "name": "Radial WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "ship",
+   "why": "Radial is a 3PL fulfilment provider",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 755,
+   "name": "Shipmonk WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "ship",
+   "why": "ShipMonk is a 3PL fulfilment provider",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 754,
+   "name": "Flexe WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "ship",
+   "why": "Flexe is a warehousing network/fulfilment provider",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 769,
+   "name": "TraceLink WMS (Pharma)",
+   "field": "group",
+   "current": "wms",
+   "proposed": "qms",
+   "why": "TraceLink is a serialization/traceability network, not a WMS",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 775,
+   "name": "Cleo Integration Cloud (3PL)",
+   "field": "group",
+   "current": "wms",
+   "proposed": "scm",
+   "why": "Cleo is EDI/integration, not a WMS",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 778,
+   "name": "Inmar Intelligence WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "scm",
+   "why": "Inmar is returns/reverse logistics services, not a WMS",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 731,
+   "name": "Katana MRP + WMS",
+   "field": "group",
+   "current": "wms",
+   "proposed": "mrp",
+   "why": "Katana is MRP for makers",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 300,
+   "name": "Solace",
+   "field": "group",
+   "current": "cmms",
+   "proposed": "itops",
+   "why": "Solace is event-streaming middleware, not CMMS",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 87,
+   "name": "Nialli",
+   "field": "group",
+   "current": "mes",
+   "proposed": "cpm",
+   "why": "Nialli is lean construction visual planning",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 88,
+   "name": "QReserve",
+   "field": "group",
+   "current": "mes",
+   "proposed": "booking",
+   "why": "QReserve is resource/equipment booking",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 90,
+   "name": "TrueContext",
+   "field": "group",
+   "current": "mes",
+   "proposed": "fsm",
+   "why": "TrueContext (ex-ProntoForms) is field-service mobile forms",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 86,
+   "name": "iLobby",
+   "field": "group",
+   "current": "mes",
+   "proposed": "vert",
+   "why": "iLobby is visitor/facility management, not MES",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 110,
+   "name": "CopperTree Analytics",
+   "field": "group",
+   "current": "cmms",
+   "proposed": "energy",
+   "why": "CopperTree is building analytics/FDD for HVAC",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 770,
+   "name": "SAP EWM (Pharma Edition)",
+   "field": "duplicate",
+   "current": "SAP EWM (Pharma Edition)",
+   "proposed": "675",
+   "why": "\"SAP EWM (Pharma Edition)\" is not a separate SAP product",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 776,
+   "name": "Manhattan WM (Food & Pharma)",
+   "field": "duplicate",
+   "current": "Manhattan WM (Food & Pharma)",
+   "proposed": "650",
+   "why": "Manhattan vertical package of the same product",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 777,
+   "name": "Blue Yonder Luminate WMS",
+   "field": "duplicate",
+   "current": "Blue Yonder Luminate WMS",
+   "proposed": "674",
+   "why": "Blue Yonder WMS listed twice; Luminate branding retired",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 780,
+   "name": "Deposco WMS (Food & 3PL)",
+   "field": "duplicate",
+   "current": "Deposco WMS (Food & 3PL)",
+   "proposed": "694",
+   "why": "Deposco listed twice",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 766,
+   "name": "Linnworks Fulfillment WMS",
+   "field": "duplicate",
+   "current": "Linnworks Fulfillment WMS",
+   "proposed": "701",
+   "why": "Linnworks listed twice",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 747,
+   "name": "Odoo.sh WMS (Cloud)",
+   "field": "duplicate",
+   "current": "Odoo.sh WMS (Cloud)",
+   "proposed": "732",
+   "why": "Odoo Inventory listed twice (hosting option)",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 749,
+   "name": "Frappe WMS (ERPNext)",
+   "field": "duplicate",
+   "current": "Frappe WMS (ERPNext)",
+   "proposed": "733",
+   "why": "Frappe/ERPNext listed twice",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 761,
+   "name": "ShipHero + Fulfillment Network",
+   "field": "duplicate",
+   "current": "ShipHero + Fulfillment Network",
+   "proposed": "696",
+   "why": "ShipHero listed twice",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 735,
+   "name": "xTuple WMS",
+   "field": "price",
+   "current": "Free/OSS",
+   "proposed": "Custom",
+   "why": "xTuple open-source PostBooks edition is discontinued; commercial licences only.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 8,
+   "name": "Descartes Peoplevox",
+   "field": "hq",
+   "current": "Waterloo, ON",
+   "proposed": "London, UK (parent Descartes, Waterloo, ON)",
+   "why": "Peoplevox operates from the UK; Waterloo is the parent HQ.",
+   "evidence": "desk",
+   "confidence": "low"
+  }
+ ],
+ "confirmed": [
+  5,
+  9,
+  10,
+  11,
+  22,
+  29,
+  30,
+  41,
+  51,
+  52,
+  54,
+  60,
+  113,
+  136,
+  137,
+  157,
+  161,
+  501,
+  531,
+  545,
+  678,
+  679,
+  686,
+  693,
+  699,
+  700,
+  705,
+  706,
+  712,
+  714,
+  756,
+  771
+ ]
+}

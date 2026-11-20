@@ -1,0 +1,776 @@
+{
+ "reviewer": "E AI tools 2 + logic",
+ "summary": "Reviewed all 213 AI tool rows (idx 262-474) with about 70 web calls plus curl redirect checks. 57 high/medium data findings with URLs: 11 discontinued tools to remove (Botkeeper, Height, Socratic, Clockwise, Limitless, Rewind, Adept, Phind, Mentat, plus acquired-and-absorbed Zavvy and Pymetrics), more than 15 acquisitions or renames (Windsurf is now Devin Desktop; Searchie should be Searchspring/Athos; Dynamic Yield is Mastercard, not McDonald's; Kira, Casetext, Causal, Lacework, Wiz, Paradox), 6 wrong websites (Crush points to an unrelated blog, Jules to Firebase Studio, Copilot CLI is a 404), and stale prices (Ashby, Power BI, Klaviyo, Metabase, Grafana, MagicSchool, Elpass $299/mo against a real $19.99/yr, Kiro, Cody). 5 of the 33 surfaced rows need fixes (262, 264, 304, 361, 414). Logic: unsized directory listings bypass the size filter, so enterprise or off-target vendors fill 'More vendors' for small firms. aiForProblems' first-3 list order surfaces Enterprise SOC, recruiting and legal tools under a 'low-cost' label. URL hrefs are not scheme-validated (javascript: passes esc()).",
+ "findings": [
+  {
+   "idx": 262,
+   "name": "Paradox AI (Olivia)",
+   "field": "status",
+   "current": "Paradox AI (Olivia), independent",
+   "proposed": "Paradox (a Workday company); keep Enterprise",
+   "why": "Workday finished buying Paradox on 1 Oct 2025. This row is surfaced in results.",
+   "evidence": "https://newsroom.workday.com/2025-10-01-Workday-Completes-Acquisition-of-Paradox",
+   "confidence": "high"
+  },
+  {
+   "idx": 264,
+   "name": "Ashby",
+   "field": "pricing",
+   "current": "$35/user/mo",
+   "proposed": "From $400/mo (Foundations, up to 100 employees); Plus/Enterprise custom",
+   "why": "Ashby's pricing page shows no per-user price. Foundations is $400/mo. This row is surfaced in results.",
+   "evidence": "https://www.ashbyhq.com/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 271,
+   "name": "Zavvy AI",
+   "field": "status",
+   "current": "Zavvy AI, zavvy.io, $4/user/mo",
+   "proposed": "Deel Engage (formerly Zavvy), https://www.deel.com, Custom",
+   "why": "Deel bought Zavvy in 2024 and folded it into Deel Engage. Zavvy no longer exists as a standalone product.",
+   "evidence": "https://www.deel.com/blog/deel-acquires-people-development-platform-zavvy/",
+   "confidence": "high"
+  },
+  {
+   "idx": 275,
+   "name": "Pymetrics",
+   "field": "status",
+   "current": "Pymetrics, https://pymetrics.ai",
+   "proposed": "Harver (formerly pymetrics), https://harver.com",
+   "why": "Harver bought pymetrics in 2022. The pymetrics brand has been absorbed into Harver.",
+   "evidence": "https://harver.com/blog/harver-acquires-pymetrics-ceo-blog/",
+   "confidence": "high"
+  },
+  {
+   "idx": 285,
+   "name": "Kira Systems",
+   "field": "website",
+   "current": "https://kirasystems.com",
+   "proposed": "Kira (Litera), https://www.litera.com/capabilities/review",
+   "why": "Litera bought Kira in 2021. kirasystems.com now redirects to litera.com/capabilities/review (checked with curl).",
+   "evidence": "https://www.lawnext.com/2021/08/litera-to-acquire-legal-ai-pioneer-kira-systems-enhancing-its-transaction-management-offering.html",
+   "confidence": "high"
+  },
+  {
+   "idx": 286,
+   "name": "Casetext (CoCounsel)",
+   "field": "website",
+   "current": "Casetext (CoCounsel), https://casetext.com, $100/mo",
+   "proposed": "CoCounsel (Thomson Reuters), https://www.thomsonreuters.com/en/cocounsel, Custom",
+   "why": "Casetext was acquired and retired. casetext.com redirects to Thomson Reuters CoCounsel, and the $100/mo price is stale.",
+   "evidence": "https://thomsonreuters.com/en-us/help/cocounsel/get-started/cocounsel-2-0-migration-information.html",
+   "confidence": "high"
+  },
+  {
+   "idx": 287,
+   "name": "Lexion",
+   "field": "status",
+   "current": "Lexion, standalone",
+   "proposed": "Lexion (Docusign); note it is now part of Docusign IAM",
+   "why": "Docusign bought Lexion in May 2024.",
+   "evidence": "https://techcrunch.com/2024/05/06/docusign-acquires-ai-powered-contract-management-firm-lexion/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 289,
+   "name": "Brex AI",
+   "field": "status",
+   "current": "Brex AI, independent",
+   "proposed": "Brex (Capital One); add a note that it mainly serves US businesses",
+   "why": "Capital One has completed its purchase of Brex. Brex is mainly a US product, so it is a poor fit for Canadian SMEs.",
+   "evidence": "https://www.capitalone.com/about/newsroom/capital-one-completes-acquisition-of-brex/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 291,
+   "name": "Numerical (Causal)",
+   "field": "website",
+   "current": "Numerical (Causal), https://causal.app, Free / $50/mo",
+   "proposed": "Causal (Lucanet), https://www.lucanet.com, Custom",
+   "why": "Lucanet bought Causal in Oct 2024. causal.app redirects to lucanet.com (checked with curl), and the self-serve Free / $50 plan is not shown.",
+   "evidence": "https://www.lucanet.com/en/press-releases/causal-joins-the-lucanet-group-31-10-2024/",
+   "confidence": "high"
+  },
+  {
+   "idx": 293,
+   "name": "Domo AI",
+   "field": "category",
+   "current": "Finance & Legal",
+   "proposed": "Data & Analytics",
+   "why": "Domo is a BI platform and its own tag is already Data & BI. It sits in the wrong category.",
+   "evidence": "https://www.domo.com",
+   "confidence": "high"
+  },
+  {
+   "idx": 294,
+   "name": "Botkeeper",
+   "field": "status",
+   "current": "Active listing",
+   "proposed": "Remove (closed Feb 2026; Xendoo bought the Infinite platform)",
+   "why": "Botkeeper shut down in Feb 2026.",
+   "evidence": "https://www.cpapracticeadvisor.com/2026/02/09/botkeeper-is-closing-its-doors/177677/",
+   "confidence": "high"
+  },
+  {
+   "idx": 296,
+   "name": "Klarity AI",
+   "field": "website",
+   "current": "Klarity AI, https://klarity.ai, contract analysis",
+   "proposed": "Within (formerly Klarity), https://www.within.ai; re-check the description",
+   "why": "klarity.ai redirects to within.ai, which now describes a 'Work Brain' agent platform rather than contract analysis.",
+   "evidence": "https://www.within.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 304,
+   "name": "Power BI Copilot",
+   "field": "pricing",
+   "current": "$10/user/mo",
+   "proposed": "$14/user/mo (Pro); Copilot needs Fabric F2+/Premium capacity",
+   "why": "Microsoft raised Power BI Pro from $10 to $14 on 1 Apr 2025. This row is surfaced in results.",
+   "evidence": "https://www.theregister.com/software/2025/04/02/microsoft-ups-the-price-for-power-bi-pro-by-40-percent/881318",
+   "confidence": "high"
+  },
+  {
+   "idx": 319,
+   "name": "Metabase AI",
+   "field": "pricing",
+   "current": "Free / $500/mo",
+   "proposed": "Free (open source) / $100/mo (Starter)",
+   "why": "The pricing page lists Starter at $100/mo and Pro at $575/mo.",
+   "evidence": "https://www.metabase.com/pricing/",
+   "confidence": "high"
+  },
+  {
+   "idx": 320,
+   "name": "Grafana AI",
+   "field": "pricing",
+   "current": "Free / $299/mo",
+   "proposed": "Free / $19/mo + usage (Pro)",
+   "why": "Grafana Cloud Pro is a $19/mo platform fee plus usage. Enterprise starts at $25K/yr.",
+   "evidence": "https://grafana.com/pricing/",
+   "confidence": "high"
+  },
+  {
+   "idx": 328,
+   "name": "Height AI",
+   "field": "status",
+   "current": "Active listing",
+   "proposed": "Remove (shut down Sept 2025)",
+   "why": "Height announced it would shut down in Sept 2025.",
+   "evidence": "https://alternativeto.net/news/2025/3/height-project-management-tool-to-shut-down-by-september-2025",
+   "confidence": "high"
+  },
+  {
+   "idx": 330,
+   "name": "Forecast",
+   "field": "website",
+   "current": "https://forecast.app",
+   "proposed": "https://www.accelo.com/forecast (Forecast is now Accelo)",
+   "why": "forecast.app redirects to accelo.com/forecast, whose page title is 'Forecast is Now Accelo.com'.",
+   "evidence": "https://www.accelo.com/forecast",
+   "confidence": "medium"
+  },
+  {
+   "idx": 332,
+   "name": "Notion AI Projects",
+   "field": "pricing",
+   "current": "+$10/mo add-on",
+   "proposed": "Included in Business plan (~$20/user/mo); add-on no longer sold to new customers",
+   "why": "Since May 2025 Notion bundles AI into the Business and Enterprise plans. The same fix applies to idx 399.",
+   "evidence": "https://www.usecarly.com/blog/notion-ai-pricing-change/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 399,
+   "name": "Notion AI (Personal)",
+   "field": "pricing",
+   "current": "+$10/mo add-on",
+   "proposed": "Included in Business plan (~$20/user/mo)",
+   "why": "Same Notion pricing change as idx 332. This is also the third Notion AI row, after idx 146 and 332.",
+   "evidence": "https://www.usecarly.com/blog/notion-ai-pricing-change/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 344,
+   "name": "Wordtune",
+   "field": "category",
+   "current": "Translation & Language",
+   "proposed": "Writing & Content",
+   "why": "Wordtune is an English rewriting tool, not a translation tool. Its own tag is already Content Creation.",
+   "evidence": "https://www.wordtune.com",
+   "confidence": "medium"
+  },
+  {
+   "idx": 349,
+   "name": "Speeko",
+   "field": "category",
+   "current": "Translation & Language",
+   "proposed": "Education & Learning",
+   "why": "Speeko is a public-speaking coach and its own tag is Education & L&D.",
+   "evidence": "https://www.speeko.co",
+   "confidence": "medium"
+  },
+  {
+   "idx": 345,
+   "name": "Duolingo Max",
+   "field": "duplicate",
+   "current": "Duolingo Max in Translation & Language",
+   "proposed": "Remove (duplicate of idx 367, Duolingo Max AI, in Education & Learning)",
+   "why": "The same product and URL appear twice. It is a learning app, not translation.",
+   "evidence": "https://www.duolingo.com",
+   "confidence": "medium"
+  },
+  {
+   "idx": 356,
+   "name": "Language Weaver",
+   "field": "desc",
+   "current": "'by SDL', https://languageweaver.com",
+   "proposed": "'by RWS', https://www.rws.com/language-weaver/",
+   "why": "RWS bought SDL in 2020. languageweaver.com redirects to rws.com/language-weaver (checked with curl).",
+   "evidence": "https://www.rws.com/language-weaver/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 359,
+   "name": "Lingotek",
+   "field": "status",
+   "current": "Lingotek, https://lingotek.com",
+   "proposed": "Lingotek (now part of Arbitr), https://www.arbitr.ai/lingotek",
+   "why": "The page reads 'Lingotek is now part of Arbitr'. Existing customers only.",
+   "evidence": "https://www.arbitr.ai/lingotek",
+   "confidence": "medium"
+  },
+  {
+   "idx": 361,
+   "name": "Synthesia (Training)",
+   "field": "pricing",
+   "current": "$22/mo",
+   "proposed": "Free / $19/mo (Starter, monthly; $14/mo billed yearly)",
+   "why": "The pricing page now has a free Basic plan, and Starter is $19 monthly. Some prices on the page were Black-Friday promotions, so re-check. This row is surfaced in results. The same fix applies to idx 357.",
+   "evidence": "https://www.synthesia.io/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 357,
+   "name": "Synthesia Language",
+   "field": "duplicate",
+   "current": "Separate Synthesia row in Translation & Language at $22/mo",
+   "proposed": "Merge with idx 361 or fix the price to Free / $19/mo",
+   "why": "This is the third Synthesia row (idx 110, 357, 361), all with the same URL.",
+   "evidence": "https://www.synthesia.io/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 363,
+   "name": "Socratic (Google)",
+   "field": "status",
+   "current": "Active listing, https://socratic.org",
+   "proposed": "Remove, or replace with Google Lens (homework help)",
+   "why": "Socratic is discontinued and was merged into Google Lens. socratic.org redirects to search.google/ways-to-search/lens (checked with curl).",
+   "evidence": "https://en.wikipedia.org/wiki/Socratic_(Google)",
+   "confidence": "high"
+  },
+  {
+   "idx": 376,
+   "name": "Magic School AI",
+   "field": "pricing",
+   "current": "Free / $3/mo",
+   "proposed": "Free / $8.33/mo billed yearly ($12.99 monthly)",
+   "why": "MagicSchool Plus is $99.96/yr or $12.99 per month.",
+   "evidence": "https://www.magicschool.ai/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 382,
+   "name": "Abnormal Security",
+   "field": "website",
+   "current": "https://abnormalsecurity.com",
+   "proposed": "https://abnormal.ai (Abnormal AI)",
+   "why": "The company rebranded, and the old domain redirects to abnormal.ai (checked with curl).",
+   "evidence": "https://abnormal.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 385,
+   "name": "Wiz AI",
+   "field": "status",
+   "current": "Wiz, independent",
+   "proposed": "Wiz (Google Cloud)",
+   "why": "Google completed its purchase of Wiz on 11 Mar 2026.",
+   "evidence": "https://www.googlecloudpresscorner.com/2026-03-11-Google-Completes-Acquisition-of-Wiz",
+   "confidence": "medium"
+  },
+  {
+   "idx": 386,
+   "name": "Lacework AI",
+   "field": "status",
+   "current": "Lacework, https://lacework.com",
+   "proposed": "Fortinet FortiCNAPP (formerly Lacework), https://www.fortinet.com",
+   "why": "Fortinet completed its purchase of Lacework in Aug 2024, and the product is now FortiCNAPP.",
+   "evidence": "https://www.nasdaq.com/press-release/fortinet-completes-acquisition-lacework-2024-08-02",
+   "confidence": "high"
+  },
+  {
+   "idx": 387,
+   "name": "Cybereason AI",
+   "field": "status",
+   "current": "Cybereason, independent",
+   "proposed": "Cybereason (LevelBlue)",
+   "why": "LevelBlue completed its purchase of Cybereason in Nov 2025.",
+   "evidence": "https://www.businesswire.com/news/home/20251125594688/en/LevelBlue-Completes-Acquisition-of-Cybereason-Expanding-Global-Leadership-in-Managed-Detection-and-Response-XDR-and-Incident-Response",
+   "confidence": "medium"
+  },
+  {
+   "idx": 396,
+   "name": "Limitless AI",
+   "field": "status",
+   "current": "Active, Free / $19/mo",
+   "proposed": "Remove (Meta bought Limitless in Dec 2025 and stopped selling the Pendant)",
+   "why": "Meta's purchase of Limitless ended sales to new customers.",
+   "evidence": "https://www.techcrunch.com/2025/12/05/meta-acquires-ai-device-startup-limitless/",
+   "confidence": "high"
+  },
+  {
+   "idx": 411,
+   "name": "Rewind AI (Limitless)",
+   "field": "status",
+   "current": "Active, Free / $19/mo",
+   "proposed": "Remove (Rewind was discontinued after the Meta deal; also a duplicate of idx 396)",
+   "why": "Rewind was already folded into Limitless, and Meta's purchase ended it.",
+   "evidence": "https://9to5mac.com/2025/12/05/rewind-limitless-meta-acquisition/",
+   "confidence": "high"
+  },
+  {
+   "idx": 397,
+   "name": "Clockwise AI",
+   "field": "status",
+   "current": "Active, Free / $6.75/mo",
+   "proposed": "Remove (Clockwise shut down)",
+   "why": "getclockwise.com now shows only a 'Clockwise's Next Chapter' shutdown page.",
+   "evidence": "https://doodle.com/en/clockwise-is-shutting-down-what-to-do-next-in-2026/",
+   "confidence": "high"
+  },
+  {
+   "idx": 401,
+   "name": "Adept AI",
+   "field": "status",
+   "current": "Active, Enterprise Beta",
+   "proposed": "Remove (founders and most staff moved to Amazon in Jun 2024 and Amazon licensed the tech; no product)",
+   "why": "Adept sells no product today.",
+   "evidence": "https://techcrunch.com/2024/06/28/amazon-hires-founders-away-from-ai-startup-adept",
+   "confidence": "high"
+  },
+  {
+   "idx": 409,
+   "name": "Elpass AI",
+   "field": "pricing",
+   "current": "Free / $299/mo; 'AI password manager'",
+   "proposed": "$19.99/yr (7-day trial); drop 'AI' from the description (or remove the row: it is not an AI tool)",
+   "why": "The vendor site lists $19.99 per year and mentions no AI features.",
+   "evidence": "https://elpass.app",
+   "confidence": "high"
+  },
+  {
+   "idx": 414,
+   "name": "Klaviyo AI",
+   "field": "pricing",
+   "current": "Free / $45/mo",
+   "proposed": "Free / $20/mo (Email); SMS is an add-on",
+   "why": "Klaviyo's pricing page shows the Email plan at $20/mo. This row is surfaced in results.",
+   "evidence": "https://www.klaviyo.com/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 415,
+   "name": "Visenze",
+   "field": "status",
+   "current": "Visenze, independent",
+   "proposed": "ViSenze (Rezolve AI)",
+   "why": "Rezolve AI bought ViSenze in Aug 2025, and visenze.com now redirects to rezolve.com.",
+   "evidence": "https://www.visenze.com/visenze-joins-rezolve-ai/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 423,
+   "name": "Searchie AI",
+   "field": "status",
+   "current": "Searchie AI, https://searchspring.com",
+   "proposed": "Searchspring (Athos Commerce), https://athoscommerce.com",
+   "why": "The name is wrong: Searchie is a different product. Searchspring merged with Klevu into Athos Commerce, and searchspring.com now says 'Searchspring is now Athos Commerce'.",
+   "evidence": "https://www.businesswire.com/news/home/20250113743474/en/Klevu-Joins-Forces-with-Searchspring-to-form-Athos-Commerce",
+   "confidence": "high"
+  },
+  {
+   "idx": 428,
+   "name": "Dynamic Yield (McDonald's AI)",
+   "field": "status",
+   "current": "Dynamic Yield (McDonald's AI)",
+   "proposed": "Dynamic Yield (Mastercard)",
+   "why": "Mastercard bought Dynamic Yield from McDonald's in Apr 2022.",
+   "evidence": "https://investor.mastercard.com/investor-news/investor-news-details/2022/Mastercard-Strengthens-Consumer-Engagement-Services-With-Close-of-Dynamic-Yield-Acquisition/default.aspx",
+   "confidence": "high"
+  },
+  {
+   "idx": 429,
+   "name": "v0 by Vercel",
+   "field": "website",
+   "current": "https://v0.dev",
+   "proposed": "https://v0.app",
+   "why": "v0.dev redirects to v0.app (checked with curl).",
+   "evidence": "https://v0.app",
+   "confidence": "medium"
+  },
+  {
+   "idx": 438,
+   "name": "Hostinger Horizons",
+   "field": "pricing",
+   "current": "$299/mo",
+   "proposed": "Low-cost monthly plan bundled with Hostinger hosting (well under $299; take the exact figure from the pricing page)",
+   "why": "$299/mo is far too high for a beginner no-code builder. Hostinger sells it as an AI-credit plan alongside hosting.",
+   "evidence": "https://www.hostinger.com/support/11136677-hostinger-horizons-plan-details/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 439,
+   "name": "Phind",
+   "field": "status",
+   "current": "Active, Free / $20/mo",
+   "proposed": "Remove (shut down 16 Jan 2026)",
+   "why": "Phind closed abruptly and deleted user data on 30 Jan 2026.",
+   "evidence": "https://tooldirectory.ai/tools/phind",
+   "confidence": "high"
+  },
+  {
+   "idx": 442,
+   "name": "Windsurf (Codeium)",
+   "field": "status",
+   "current": "Windsurf (Codeium), https://windsurf.com",
+   "proposed": "Devin Desktop (formerly Windsurf, Cognition), https://devin.ai/desktop",
+   "why": "Windsurf was renamed Devin Desktop on 2 Jun 2026, and windsurf.com redirects to devin.ai/desktop.",
+   "evidence": "https://docs.devin.ai/desktop/devin-desktop-faq",
+   "confidence": "high"
+  },
+  {
+   "idx": 445,
+   "name": "Tabnine",
+   "field": "pricing",
+   "current": "Free / $12/mo",
+   "proposed": "From ~$39/user/mo (no free plan confirmed)",
+   "why": "Tabnine dropped its free Basic tier. 2026 reviews cite $39 per seat.",
+   "evidence": "https://dev.to/jovan_chan_9500711396d4e6/tabnine-review-2026-is-privacy-first-ai-coding-worth-39-a-month-1ebf",
+   "confidence": "medium"
+  },
+  {
+   "idx": 450,
+   "name": "Sourcegraph Cody",
+   "field": "pricing",
+   "current": "Free / $9/mo",
+   "proposed": "Enterprise only (Free/Pro discontinued; individuals moved to Amp)",
+   "why": "Sourcegraph ended the Cody Free and Pro plans in 2025.",
+   "evidence": "https://sourcegraph.com/blog/changes-to-cody-free-pro-and-enterprise-starter-plans",
+   "confidence": "high"
+  },
+  {
+   "idx": 459,
+   "name": "Jules (Google)",
+   "field": "website",
+   "current": "https://idx.google.com; Beta / Free",
+   "proposed": "https://jules.google; Free / higher limits with Google AI Pro/Ultra",
+   "why": "idx.google.com redirects to firebase.studio, a different product. Jules left beta in Aug 2025 with paid tiers.",
+   "evidence": "https://jules.google/docs/usage-limits/",
+   "confidence": "high"
+  },
+  {
+   "idx": 463,
+   "name": "Kiro (AWS)",
+   "field": "pricing",
+   "current": "Beta",
+   "proposed": "Free / $20/user/mo (Pro); Pro+ $40, Power $200",
+   "why": "Kiro has been generally available since Nov 2025, with published plans. The description ('DevOps automation') also understates it: Kiro is a spec-driven agentic IDE.",
+   "evidence": "https://kiro.dev/pricing/",
+   "confidence": "high"
+  },
+  {
+   "idx": 471,
+   "name": "Mentat",
+   "field": "status",
+   "current": "Active, Free (open-source)",
+   "proposed": "Remove (repo archived; last push Jan 2025)",
+   "why": "The AbanteAI/mentat repo is marked ARCHIVED.",
+   "evidence": "https://awesome.ecosyste.ms/projects/github.com%2FAbanteAI%2Fmentat",
+   "confidence": "high"
+  },
+  {
+   "idx": 472,
+   "name": "Droid (Factory)",
+   "field": "website",
+   "current": "https://factory.ai/droid",
+   "proposed": "https://factory.ai (and merge with duplicate idx 460)",
+   "why": "The URL redirects to factory.com/droid, which is a Vercel login/404 page (checked with curl). Same product as idx 460.",
+   "evidence": "https://factory.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 473,
+   "name": "Crush (Terminal)",
+   "field": "website",
+   "current": "https://crush.ai; Free / $15/mo",
+   "proposed": "https://github.com/charmbracelet/crush; Free (FSL-1.1-MIT, bring your own key)",
+   "why": "crush.ai is an unrelated empty WordPress blog (checked with curl). Crush is Charm's open terminal agent, and the $15/mo price is made up.",
+   "evidence": "https://www.neowin.net/news/charm-crush-packs-llms-inside-a-glamorous-ui-for-your-favorite-terminal-cli/",
+   "confidence": "high"
+  },
+  {
+   "idx": 474,
+   "name": "Copilot CLI (GitHub)",
+   "field": "website",
+   "current": "https://githubnext.com/copilot-cli; 'suggests shell commands'",
+   "proposed": "https://github.com/features/copilot/cli; agentic terminal coding agent; included with Copilot plans",
+   "why": "The githubnext URL returns 404. The old gh-copilot extension was retired, and the new GitHub Copilot CLI is generally available.",
+   "evidence": "https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension/",
+   "confidence": "high"
+  },
+  {
+   "idx": 461,
+   "name": "Sweep AI",
+   "field": "desc",
+   "current": "GitHub-integrated async agent turning issues into PRs; Free / $480/mo",
+   "proposed": "AI coding assistant for JetBrains IDEs; re-check the price; move to AI IDE",
+   "why": "Sweep pivoted from a GitHub issue-to-PR bot to a JetBrains plugin.",
+   "evidence": "https://ycombinator.com/launches/N2H-sweep-jetbrains-ai-coding-assistant",
+   "confidence": "medium"
+  },
+  {
+   "idx": 457,
+   "name": "Co-Founder AI",
+   "field": "desc",
+   "current": "Co-Founder AI",
+   "proposed": "Agentfounder (site title 'Agentfounder — The Autonomous AI Co-Founder')",
+   "why": "The site uses the brand name Agentfounder. This is a tiny, unproven vendor, so consider dropping it.",
+   "evidence": "https://agentfounder.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 311,
+   "name": "Akkio",
+   "field": "desc",
+   "current": "No-code AI forecasting and data prep for revenue/ops teams; $49/mo",
+   "proposed": "Re-check: akkio.com now describes 'The AI Workflow Automation Platform' (agency-focused); price not confirmed",
+   "why": "The product has been repositioned.",
+   "evidence": "https://www.akkio.com",
+   "confidence": "medium"
+  },
+  {
+   "idx": 449,
+   "name": "Kilo Code",
+   "field": "website",
+   "current": "https://kilocode.ai",
+   "proposed": "https://kilo.ai",
+   "why": "kilocode.ai redirects to kilo.ai (checked with curl).",
+   "evidence": "https://kilo.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 368,
+   "name": "Photomath AI",
+   "field": "website",
+   "current": "https://photomath.app",
+   "proposed": "https://photomath.com (Google-owned)",
+   "why": "The .app domain redirects to photomath.com (checked with curl).",
+   "evidence": "https://photomath.com",
+   "confidence": "low"
+  },
+  {
+   "idx": 360,
+   "name": "Khanmigo",
+   "field": "desc",
+   "current": "K-12 tutor listed first under Education & Learning",
+   "proposed": "Keep, but don't surface it for SME training problems (see E-L7)",
+   "why": "It fits schools, not employee onboarding or training records.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 331,
+   "name": "Basecamp AI",
+   "field": "desc",
+   "current": "'AI Hill Charts and automated check-ins'",
+   "proposed": "'Hill Charts and automated check-ins' (Hill Charts are not AI)",
+   "why": "The description claims AI features that don't exist.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 407,
+   "name": "Focusmate AI",
+   "field": "desc",
+   "current": "'AI session scheduling and focus partner matching'",
+   "proposed": "Drop 'AI': Focusmate is a human co-working service",
+   "why": "The 'AI' framing is overstated.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 298,
+   "name": "Notabene",
+   "field": "category",
+   "current": "Finance & Legal SME AI tool",
+   "proposed": "Remove, or flag as niche (crypto travel-rule compliance)",
+   "why": "Not relevant to Canadian SMEs and not really an AI tool.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 342,
+   "name": "DeepL",
+   "field": "desc",
+   "current": "'31 languages'",
+   "proposed": "'30+ languages' (count has grown)",
+   "why": "The language count is stale.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 366,
+   "name": "Otter.ai (Edu)",
+   "field": "duplicate",
+   "current": "Second Otter row",
+   "proposed": "Merge with idx 184",
+   "why": "Same URL and same price.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 375,
+   "name": "Perplexity (Study)",
+   "field": "duplicate",
+   "current": "Fourth perplexity.ai row",
+   "proposed": "Merge",
+   "why": "idx 2, 60, 154 and 375 all point to perplexity.ai.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 406,
+   "name": "Taskade AI (Personal)",
+   "field": "duplicate",
+   "current": "Second Taskade row",
+   "proposed": "Merge with idx 329",
+   "why": "Same URL and same price.",
+   "evidence": "desk",
+   "confidence": "low"
+  }
+ ],
+ "logic": [
+  {
+   "id": "E-L1",
+   "issue": "moreVendors' size filter keeps every listing with no size (`!e.sz.length`), and the sort (Canadian first, then A-Z) puts these unsized Canadian listings in the six slots. The heading still says 'sized for your business'.",
+   "scenario": "Firm with fewer than 10 people (size xs). Accounting gets Caseware (audit software for accounting firms), FundThrough (invoice financing), Stax Bill and Versapay (enterprise AR). Plooto and Wave are the only items sized 's'. Cybersecurity gets Cybeats, Flare, Genetec (enterprise video surveillance), Plurilock and Security Compass, all unsized. ERP gets ACCEO and Cayenta (utility billing CIS). Field service gets Promise Robotics. Overall, 287 of 781 directory listings are unsized (37%), and 64 of the 136 surfaced rows are unsized.",
+   "fix": "In moreVendors, rank listings with a size match first. Show unsized listings only to fill remaining slots, labelled 'size not stated'. For xs/sm firms, exclude listings sized only 'l' or priced Enterprise. Backfill sz in the master lists.",
+   "severity": "high"
+  },
+  {
+   "id": "E-L2",
+   "issue": "Off-category listings in directory groups reach 'More vendors' (the CAT id is the only filter), and service firms or holding companies show up as software vendors.",
+   "scenario": "'More field service vendors' shows Promise Robotics (robotic off-site construction). Accounting shows FundThrough (a lender). Backup and cybersecurity shows Genetec (physical security). Collaboration shows Firmex (data room). Practice management shows Dye & Durham (legal-software conglomerate). ERP lists Constellation Software (a holding company).",
+   "fix": "Data QA on the dir group for each listing. Add an entry type (software, service, holding) and filter out anything that isn't software in moreVendors.",
+   "severity": "medium"
+  },
+  {
+   "id": "E-L3",
+   "issue": "Industry filtering works at group level only. grpFitsInd tests whether the whole category or group serves the industry, never the individual vendor, and moreVendors ignores ans.ind completely.",
+   "scenario": "Clinic owner: 'More accounting vendors' gives the same list as for a manufacturer (Caseware, Cayenta-style enterprise vendors). In the directory, picking an industry either keeps every listing in the group or hides the whole group.",
+   "fix": "Add inds per directory listing. Filter moreVendors and vdRows on e.inds where it is present, and fall back to group level otherwise.",
+   "severity": "medium"
+  },
+  {
+   "id": "E-L4",
+   "issue": "The 'See all N in the Vendor Directory' count doesn't match what the directory shows. N is the size-filtered, unscored count, but vdGo resets vd.size to '' and the directory also lists scored items.",
+   "scenario": "Size xs, accounting: the button says 'See all 11', but the directory opens with 19 listings. ERP: 36 versus 81.",
+   "fix": "Pass the size to vdGo (map SZA[ans.size] to the directory size filter) or change the button text to 'See all accounting vendors'.",
+   "severity": "low"
+  },
+  {
+   "id": "E-L5",
+   "issue": "The Vendor Directory size filter (vdRows) also lets unsized listings through, and their Size cell is blank, so a user filtering 'Small' can't tell size-confirmed listings from unknown ones. vd.size is compared directly with e.sz codes (s/m/l) while the assessment uses xs/sm/md/lg, so the #vd-size option values must be s/m/l. The HTML wasn't provided, so this needs checking.",
+   "scenario": "Filter size = Small, category = Backup and cybersecurity: 1Password, BlackBerry and Absolute Software (sized 'l') are correctly hidden, but Genetec, Flare and Cybeats (unsized) appear alongside Rewind (sized 's') with nothing to tell them apart.",
+   "fix": "Render 'Not stated' in the Size cell and add a 'confirmed size only' toggle. Assert that the option values are s/m/l.",
+   "severity": "medium"
+  },
+  {
+   "id": "E-L6",
+   "issue": "The mc loop takes the first category (quick win, then top priorities) that has any directory entries. If the quick-win category has none, the block silently switches to a different category from the 'Three options' list just above it. With ans.size unset, want=[], so only unsized listings can show.",
+   "scenario": "Quick win = a category with no directory rows (e.g., mrp: 0 rows). 'More vendors' then shows a different priority's category with no linking text.",
+   "fix": "Prefer the quick-win category. If you fall back, add a lead-in such as 'For your priority X'. Guard want=[] by skipping the size filter.",
+   "severity": "low"
+  },
+  {
+   "id": "E-L7",
+   "issue": "aiForProblems ranks tools purely by list order (`.slice(0,3)`). The first three in several categories are enterprise-only or off-target, which contradicts the label 'Low-cost tools you can trial in days'.",
+   "scenario": "p11 'no tested backup or ransomware plan' and p15 'staff use AI with no rules' both map to Cybersecurity and get Darktrace, SentinelOne Purple AI and CrowdStrike Charlotte AI, all Enterprise SOC tools that fix neither problem. p8 'onboarding and training records on paper' and p51 'staff scheduling and labour costs' map to HR & Recruiting and get Paradox (Workday, Enterprise), Eightfold (Enterprise) and Ashby ($400/mo); Education gives Khanmigo (a K-12 tutor). p1, p2 and p3 (month-end, slow invoicing, cash flow) get Stampli (AP, Custom), Ironclad (enterprise CLM) and Harvey (law-firm Enterprise), none of which handles AR, invoicing or cash forecasting. p39 'want to sell online' gets Nosto (Custom enterprise personalisation) first.",
+   "fix": "Change ai_prob to map problem to a curated list of tool ids (2-3 picks per problem). Failing that, rank by SME fit: free or low published tier first, drop Enterprise/Custom pricing, add an 'sme' flag. Point p15 to AI-policy guidance rather than SOC tools, and p11 to the backup/security vendor directory.",
+   "severity": "high"
+  },
+  {
+   "id": "E-L8",
+   "issue": "Coverage and ordering gaps in aiForProblems: only the first three mapped categories, in the order problems were clicked, are shown; why[c] keeps only the first problem; about 59 of 95 problems have no ai_prob mapping, so the section silently disappears (e.g., p7 payroll, p10 files on laptops, p18-p26 operations).",
+   "scenario": "A user picks p14 (writing) first and p2 (invoicing) third: Writing, Email and Presentation fill all three slots, and the invoicing problem gets no AI suggestion.",
+   "fix": "Choose one category per selected problem before taking a second from any problem, and list every problem a category answers. Add mappings, or show an explicit 'no AI tool suggested for these' note.",
+   "severity": "low"
+  },
+  {
+   "id": "E-L9",
+   "issue": "XSS through URLs: esc() HTML-escapes but doesn't check the URL scheme, so a javascript: or data: value stored in a URL field works as a live link. Fields affected: e.u (vlink in the directory and More vendors), t.u (aiCard, aiForProblems), p.url and p.src (openProd). q.c.links l[0] is inserted into href with no escaping at all (line 258). Other unescaped interpolations: e.sc in data-p (line 387), p.deploy.join (lines 325, 458), FN[x.c.fn].name (240), A.levels[].n (234), q.c.weeks (257), and x.c.id in data-goto/data-p.",
+   "scenario": "Tested in node: esc('javascript:alert(document.cookie)') comes back unchanged, giving <a href=\"javascript:alert(document.cookie)\">. Any master-list row edited this way runs script when clicked. All current URLs in slices A-E start with https, so the risk is latent rather than live.",
+   "fix": "Add safeUrl(u) that returns u only if it matches ^https?:// (otherwise '') and use it on every href. Wrap every remaining field in esc(). Make sure the build escapes '</' (and U+2028/2029) when it writes the JSON into the #assess-data script tag. Add a CSP that blocks inline javascript: URLs.",
+   "severity": "medium"
+  },
+  {
+   "id": "E-L10",
+   "issue": "The AI directory has many duplicates across categories, which inflates 'N AI tools' and lets one product take several slots. There is no status or last-verified field, so discontinued tools (Height, Clockwise, Botkeeper, Phind, Adept, Socratic, Mentat, Rewind) can't be hidden and can surface.",
+   "scenario": "16 exact duplicate names (Cursor, Lovable, GitHub Copilot, Bolt.new, v0, Aider, Cline, Tabnine, etc. in both Coding/Dev and AI IDE). Notion AI appears 3 times, Synthesia 3 times and perplexity.ai 4 times.",
+   "fix": "Give each tool a canonical id and allow multiple categories. Add status (active, acquired, discontinued) and verified_on fields, and exclude anything not active from rendering.",
+   "severity": "medium"
+  },
+  {
+   "id": "E-L11",
+   "issue": "Misleading labels. 'From our vendor directory, sized for your business' is false for unsized listings (E-L1). 'Low-cost tools you can trial in days' sits above Enterprise/Custom tools (E-L7). The AI card shows the raw pricing string, so 'Enterprise' appears under the 'low-cost' heading.",
+   "scenario": "Firm with fewer than 10 people that picks p11: the heading promises low-cost trials, and all three tools say 'Enterprise'.",
+   "fix": "Make the labels conditional, or (better) fix the selection logic. Say 'size not stated' where that applies.",
+   "severity": "medium"
+  }
+ ],
+ "confirmed": [
+  263,
+  265,
+  272,
+  282,
+  283,
+  284,
+  302,
+  303,
+  322,
+  323,
+  324,
+  360,
+  362,
+  377,
+  378,
+  379,
+  412,
+  413,
+  432,
+  433,
+  436,
+  441,
+  443,
+  454,
+  456,
+  460,
+  467,
+  468,
+  470
+ ]
+}
