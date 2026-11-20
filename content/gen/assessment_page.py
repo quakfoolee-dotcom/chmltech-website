@@ -101,8 +101,8 @@ page = f'''<!doctype html>
       <div class="finder-nav"><button type="button" class="btn btn-ghost" id="as-back">← Back</button><button type="button" class="btn" id="as-next" disabled>Next →</button></div>
     </div>
     <div class="stack" id="as-result" hidden tabindex="-1" style="gap:28px">
-      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your digital roadmap</p><h2 class="h-lg">Where technology will pay off first</h2><p class="lead" id="as-res-lead"></p></div>
-        <div class="btn-row"><button type="button" class="btn btn-ghost" data-as="print">Download PDF</button><button type="button" class="btn btn-ghost" data-as="restart">Start again</button></div></div>
+      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your digital roadmap</p><h2 class="h-lg">Where technology will pay off first</h2><p class="lead" id="as-res-lead"></p><p class="fm-jump"><a href="#as-report">Get this as a PDF in your inbox →</a></p></div>
+        <div class="btn-row"><button type="button" class="btn btn-ghost" data-as="restart">Start again</button></div></div>
       <div class="as-res-top">
         <div class="as-card as-radar"><h3>Digital maturity</h3><div id="as-radar"></div></div>
         <div class="as-card"><h3>Gaps by function</h3><p class="as-gapsum" id="as-gapsum"></p><details class="as-gapsd"><summary>Show the numbers</summary><table class="as-gaps" id="as-gaps"></table>
@@ -115,7 +115,7 @@ page = f'''<!doctype html>
         <p class="muted" style="font-size:13.5px;margin-top:12px">Ranked by fit to your answers. Use them to plan demos. No vendor pays to be listed. <a href="#method">How we rank</a></p></div>
       <div id="as-more"></div>
       <div id="as-aitools"></div>
-      <div class="erp-lead">
+      <div class="erp-lead" id="as-report" style="scroll-margin-top:96px">
         <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-report-endpoint="https://chmltech-report.quakfoo-lee.workers.dev/" data-success-report="Thank you. Your Digital Roadmap PDF is on its way to your inbox from reports@mail.chmltech.com. If you do not see it in a few minutes, check your junk folder." data-subject="Digital assessment report" data-success="Thank you. We have your results and will email your full report within one business day." novalidate>
           <h3 class="h-md" style="font-size:22px">Get the full report</h3>
           <p class="muted" style="font-size:14.5px">Your Digital Roadmap as a PDF: action plan, demo questions, software options, AI tools and funding. Sent to your inbox in a minute.</p>

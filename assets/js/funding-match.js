@@ -171,7 +171,7 @@
   function rep(x) { return x.r.funding_types.indexOf('Repayable contribution') >= 0 || x.g === 'loan'; }
   var SIZE_TAGS = ['Small & medium business', 'Large business', 'Non-profit', 'Co-operative', 'Startup'];
   var NICHE = { tariff: ['tariff', 'businesses affected by U.S. tariffs'], defence: ['defence', 'defence and security supply chains'], energy: ['energy', 'large energy users (industrial or large commercial accounts)'],
-    ccus: [null, 'carbon capture, utilization and storage projects'], worksharing: [null, 'employers in an approved Work-Sharing agreement'], cea: [null, 'greenhouse and vertical farming projects'], building: [null, 'owners of large commercial or industrial buildings'] };
+    ccus: [null, 'carbon capture, utilization and storage projects'], worksharing: [null, 'employers in an approved Work-Sharing agreement'], cea: [null, 'greenhouse and vertical farming projects'], building: [null, 'owners of large commercial or industrial buildings'], place: [null, 'businesses in one named community'] };
   function evaluate(r0, P) {
     if (!inProv(r0, P)) return null;
     var ru = RULES[r0.id] || {};
@@ -231,7 +231,7 @@
     if (ru.niche === 'cea' && P.ind === 'Agriculture & agri-food') nicheOk = true;
     if (P.ind === 'food' && /\b(?:farms?|farmers?|producers?|livestock|growers?)\b/i.test(r.eligibility) && !/process/i.test(r.eligibility + ' ' + r.summary)) s -= 15;   // farm-only programs for a food processor
     if (ru.niche === 'building' && goals.indexOf('clean') >= 0 && +ans.budget >= 4) nicheOk = true;
-    if (niche && !nicheOk) s -= 20;
+    if (niche && !nicheOk) s -= ru.niche === 'place' ? 35 : 20;
     if (ru.investor) s -= 15;
     if (r.confidence === 'Low') s -= 5;
     if (P.started && ru.pre) s -= 4;
@@ -244,9 +244,9 @@
     if (nicheOk && niche[0]) why.push('Fits your situation: ' + niche[1]);
     if (r.status === 'Continuous intake' || r.status === 'Open') why.push('Accepting applications now'); else if (r.status === 'Periodic intake') why.push('Takes applications in intake windows');
     var check = [];
-    if (niche && !nicheOk) check.push('Only for ' + niche[1]);
+    if (niche && !nicheOk && ru.niche !== 'place') check.push('Only for ' + niche[1]);
     if (ru.investor) check.push('The credit goes to your investors, not to the business');
-    if (ru.note) check.push(ru.note);
+    if (ru.note) check.push(String(ru.note).replace(/[.\s]+$/, ''));
     if (ru.inc) check.push(P.legal === 'coop' ? 'Must be an incorporated company: check whether co-operatives qualify' : 'Your business must be incorporated');
     if (ru.emp_min || ru.emp_max) check.push((ru.emp_max ? 'Size: ' + (ru.emp_min || 1) + ' to ' + ru.emp_max + ' employees' : 'At least ' + ru.emp_min + ' employee' + (ru.emp_min > 1 ? 's' : '')) + (ru.scope === 'forprofit' ? ' (businesses)' : ''));
     if (ru.rev_min) check.push('Revenue of at least ' + money(ru.rev_min));
@@ -456,7 +456,7 @@
       y += 30;
       doc.setFont('helvetica', 'italic'); doc.setFontSize(8.5); col(MUT); doc.text('A starting point, not a decision on eligibility. Confirm every rule on the official program page before you apply.', M, y); y += 6;
       REP.secs.forEach(function (sec) {
-        room(28); y += 3; doc.setFont('helvetica', 'bold'); doc.setFontSize(13); col(NAVY); doc.text(pdfTxt(sec[0]), M, y);
+        room(/\n {3}/.test(sec[1]) ? 62 : 28); y += 3; doc.setFont('helvetica', 'bold'); doc.setFontSize(13); col(NAVY); doc.text(pdfTxt(sec[0]), M, y);
         doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.3); doc.line(M, y + 2, W - M, y + 2); y += 8;
         String(sec[1]).split('\n').forEach(function (ln) {
           if (!ln.trim()) { y += 2.5; return; }
