@@ -1,0 +1,504 @@
+{
+ "_note": "Red-team corrections (Nov 20, 2026), applied after auto extraction and OVERRIDES. null removes a field.",
+ "B": {
+  "fed-scale-ai-projects": {
+   "emp_max": null
+  },
+  "fed-pacifican-raii": {
+   "inc": true,
+   "emp_min": 1,
+   "emp_max": 500,
+   "yrs_min": 1
+  },
+  "fed-feddev-raii": {
+   "inc": true,
+   "forprofit": true,
+   "emp_min": 1,
+   "emp_max": 499,
+   "yrs_min": 1
+  },
+  "fed-dfo-quebec-fisheries-fund": {
+   "forprofit": null
+  },
+  "fed-regional-tariff-response-initiative": {
+   "inc": true,
+   "forprofit": null
+  },
+  "fed-feddev-regional-defence-investment-initiative": {
+   "inc": true,
+   "forprofit": null,
+   "emp_min": 5
+  },
+  "ab-scap-growing-greenhouses": {
+   "proj_min": null
+  },
+  "mb-innovation-growth-program": {
+   "inc": true,
+   "forprofit": true,
+   "emp_max": null,
+   "rev_max": null
+  },
+  "mb-small-business-venture-capital-tax-credit": {
+   "inc": true,
+   "emp_max": null
+  },
+  "qc-piec-social-economy-real-estate": {
+   "forprofit": null,
+   "rev_min": 100000,
+   "rev_max": 10000000
+  },
+  "qc-psce-volet-2-export-diversification": {
+   "forprofit": null,
+   "rev_min": 1000000,
+   "rev_max": 50000000,
+   "proj_min": 50000
+  },
+  "yt-venture-loan-guarantee": {
+   "emp_max": null
+  },
+  "mb-incoming-buyer-program": {
+   "forprofit": true,
+   "emp_max": 499,
+   "rev_min": 30000,
+   "rev_max": 50000000
+  },
+  "on-ontario-together-trade-fund": {
+   "forprofit": true,
+   "emp_min": 5,
+   "yrs_min": 3,
+   "proj_min": 200000
+  },
+  "on-oci-retail-modernization-project-grant": {
+   "inc": true,
+   "forprofit": true,
+   "emp_min": 1,
+   "emp_max": 50,
+   "yrs_min": 1,
+   "rev_min": 100000
+  },
+  "on-nohfc-workforce-development": {
+   "emp_min": 1,
+   "yrs_min": 1
+  },
+  "on-nohfc-indigenous-workforce-development": {
+   "emp_min": 1,
+   "yrs_min": 1
+  },
+  "sk-scap-lean-improvements-in-manufacturing": {
+   "inc": true,
+   "yrs_min": 2,
+   "rev_min": 100000,
+   "proj_min": 50000
+  },
+  "qc-programme-transformation-alimentaire": {
+   "yrs_min": 1,
+   "rev_max": 200000000
+  },
+  "bc-small-business-venture-capital-tax-credit": {
+   "inc": true,
+   "emp_max": 100
+  },
+  "mb-trade-resilience-loan-program": {
+   "inc": true,
+   "emp_min": 5,
+   "yrs_min": 3
+  },
+  "ns-revup-program": {
+   "emp_min": 15,
+   "rev_min": 2000000,
+   "proj_min": 60000
+  }
+ },
+ "A": {
+  "nt-prosper-nwt-adapt-fund": {
+   "inc": null,
+   "emp_min": null
+  },
+  "nb-export-market-access-program": {
+   "inc": null
+  },
+  "ns-graduate-to-opportunity-grow": {
+   "inc": null
+  },
+  "yt-commercial-institutional-energy-rebates": {
+   "forprofit": null
+  },
+  "fed-pch-canada-music-fund-individual-initiatives": {
+   "forprofit": null
+  },
+  "fed-eip-ccus-feed": {
+   "forprofit": null,
+   "proj_min": 4000000
+  },
+  "qc-fonds-ecoleader-biodiversite": {
+   "forprofit": null
+  },
+  "qc-essor-volet-1-studies-digital": {
+   "forprofit": null
+  },
+  "qc-essor-volet-2-investment-productivity": {
+   "forprofit": null
+  },
+  "qc-essor-volet-3-environmental-footprint": {
+   "forprofit": null
+  },
+  "qc-essor-volet-4-internationalization": {
+   "forprofit": null
+  },
+  "fed-canada-summer-jobs": {
+   "emp_max": 50,
+   "yrs_min": 2,
+   "scope": "forprofit"
+  },
+  "fed-ai-compute-access-fund": {
+   "proj_min": 100000
+  },
+  "fed-aafc-agrimarketing-sme-market-diversification": {
+   "proj_min": 20000
+  },
+  "fed-canexport-innovation": {
+   "inc": true
+  },
+  "fed-cmf-business-development-program": {
+   "yrs_min": 5,
+   "rev_min": 50000,
+   "rev_max": 9999999
+  },
+  "fed-cmf-commercial-projects-program": {
+   "inc": true
+  },
+  "fed-cmf-innovation-experimentation-program": {
+   "inc": true
+  },
+  "fed-cmf-prototyping-program": {
+   "inc": true
+  },
+  "bc-sred-tax-credit": {
+   "inc": true
+  },
+  "qc-cric-rd-innovation-tax-credit": {
+   "inc": true
+  },
+  "on-oci-collaborate-2-commercialize": {
+   "yrs_min": 2,
+   "emp_min": 5
+  },
+  "mb-building-up-manitoba-program": {
+   "yrs_min": 1
+  },
+  "ab-export-expansion-program": {
+   "emp_min": 1,
+   "yrs_min": 1,
+   "rev_min": 250000,
+   "rev_max": 25000000,
+   "emp_max": 499,
+   "scope": "forprofit"
+  },
+  "fed-genome-canada-gapp": {
+   "proj_min": 900000
+  },
+  "ab-film-television-tax-credit": {
+   "proj_min": 499999
+  },
+  "mb-export-development-program": {
+   "forprofit": true,
+   "rev_min": 30000,
+   "rev_max": 50000000
+  },
+  "mb-community-enterprise-development-tax-credit": {
+   "inc": true
+  },
+  "pe-equity-investors-incentive": {
+   "inc": true,
+   "yrs_min": 1
+  },
+  "qc-force-tariff-liquidity-loans": {
+   "yrs_min": 2
+  },
+  "on-food-safety-growth-initiative-intake-2": {
+   "emp_max": null
+  },
+  "bc-agriculture-food-export-program": {
+   "yrs_min": 2
+  },
+  "bc-buy-bc-partnership-program": {
+   "yrs_min": 2
+  },
+  "bc-innovate-bc-fast-pilot": {
+   "forprofit": true
+  }
+ },
+ "C": {
+  "fed-nacca-indigenous-womens-entrepreneur-program": {
+   "req_who": [
+    "Indigenous-owned business",
+    "Women-owned business"
+   ]
+  },
+  "fed-women-entrepreneurship-loan-fund": {
+   "req_who": [
+    "Women-owned business"
+   ]
+  },
+  "fed-black-entrepreneurship-loan-fund": {
+   "req_who": [
+    "Black-owned business"
+   ]
+  },
+  "fed-futurpreneur-core-startup": {
+   "req_who": [
+    "Youth entrepreneur"
+   ]
+  },
+  "fed-futurpreneur-black-entrepreneur-startup": {
+   "req_who": [
+    "Black-owned business",
+    "Youth entrepreneur"
+   ]
+  },
+  "fed-futurpreneur-newcomer": {
+   "req_who": [
+    "Newcomer entrepreneur",
+    "Youth entrepreneur"
+   ]
+  },
+  "fed-cannor-nieop-entrepreneurship-business-development": {
+   "req_who": [
+    "Indigenous-owned business"
+   ]
+  },
+  "fed-bdc-indigenous-entrepreneur-loan": {
+   "req_who": [
+    "Indigenous-owned business"
+   ]
+  },
+  "fed-aboriginal-entrepreneurship-program-access-to-capital": {
+   "req_who": [
+    "Indigenous-owned business"
+   ]
+  },
+  "fed-fednor-business-scale-up-productivity": {
+   "region": "north"
+  },
+  "fed-fednor-raii": {
+   "region": "north"
+  },
+  "fed-fednor-regional-defence-investment-initiative": {
+   "region": "north",
+   "niche": "defence"
+  },
+  "fed-fednor-tmino-operational-assessments": {
+   "region": "north"
+  },
+  "fed-fednor-tmino-productivity-improvements": {
+   "region": "north"
+  },
+  "on-nohfc-film-television": {
+   "region": "north"
+  },
+  "on-nohfc-indigenous-workforce-development": {
+   "region": "north"
+  },
+  "on-nohfc-invest-north-grow": {
+   "region": "north"
+  },
+  "on-nohfc-invest-north-innovation": {
+   "region": "north"
+  },
+  "on-nohfc-invest-north-launch": {
+   "region": "north",
+   "yrs_max": 0.5,
+   "stack": 50
+  },
+  "on-nohfc-invest-north-locate": {
+   "region": "north"
+  },
+  "on-nohfc-workforce-development": {
+   "region": "north"
+  },
+  "fed-feddev-funding-for-businesses": {
+   "region": "south"
+  },
+  "fed-feddev-raii": {
+   "region": "south"
+  },
+  "fed-feddev-regional-defence-investment-initiative": {
+   "region": "south",
+   "niche": "defence"
+  },
+  "on-eastern-ontario-development-fund": {
+   "region": "east"
+  },
+  "on-southwestern-ontario-development-fund": {
+   "region": "southwest"
+  },
+  "fed-bdc-small-business-loan": {
+   "yrs_min": 2,
+   "rev_min": 100000,
+   "note": "Must be profitable"
+  },
+  "qc-cdaeia-tax-credit": {
+   "inc": true,
+   "emp_min": 6
+  },
+  "fed-clean-technology-itc": {
+   "inc": true
+  },
+  "fed-clean-technology-manufacturing-itc": {
+   "inc": true
+  },
+  "fed-ccus-itc": {
+   "inc": true,
+   "niche": "ccus"
+  },
+  "fed-clean-hydrogen-itc": {
+   "inc": true
+  },
+  "fed-clean-electricity-itc": {
+   "inc": true
+  },
+  "bc-sred-tax-credit": {
+   "inc": true
+  },
+  "bc-small-business-venture-capital-tax-credit": {
+   "inc": true,
+   "investor": true,
+   "data": {
+    "purposes": [
+     "Startup & early stage"
+    ]
+   }
+  },
+  "fed-nrc-irap": {
+   "legal_excl": [
+    "coop"
+   ]
+  },
+  "fed-nrc-irap-clean-technology": {
+   "legal_excl": [
+    "coop"
+   ]
+  },
+  "fed-nrc-irap-di-assist": {
+   "legal_excl": [
+    "coop"
+   ]
+  },
+  "fed-nrc-irap-ip-assist": {
+   "legal_excl": [
+    "coop"
+   ]
+  },
+  "on-ontario-together-trade-fund": {
+   "forprofit": true,
+   "legal_excl": [
+    "sole",
+    "part"
+   ],
+   "pct": 15,
+   "data": {
+    "funding_types": [
+     "Repayable contribution",
+     "Grant"
+    ]
+   },
+   "niche": "tariff"
+  },
+  "fed-regional-tariff-response-initiative": {
+   "data": {
+    "funding_types": [
+     "Repayable contribution",
+     "Grant"
+    ]
+   },
+   "niche": "tariff"
+  },
+  "qc-force-tariff-liquidity-loans": {
+   "niche": "tariff"
+  },
+  "mb-trade-resilience-loan-program": {
+   "niche": "tariff"
+  },
+  "mb-workforce-tariff-response-employee-training": {
+   "niche": "tariff"
+  },
+  "ns-tariff-customs-advisory-program": {
+   "niche": "tariff"
+  },
+  "fed-pacifican-regional-defence-investment-initiative": {
+   "niche": "defence"
+  },
+  "fed-ced-regional-defence-investment-initiative": {
+   "niche": "defence"
+  },
+  "fed-prairiescan-regional-defence-investment-initiative": {
+   "niche": "defence"
+  },
+  "fed-eip-ccus-feed": {
+   "niche": "ccus",
+   "proj_min": 6000000
+  },
+  "fed-workforce-retention-retraining-program": {
+   "niche": "worksharing",
+   "per_unit": 1000
+  },
+  "fed-aafc-cea-rural-northern-stream": {
+   "niche": "cea",
+   "proj_min": 133000
+  },
+  "fed-aafc-cea-technology-adoption-stream": {
+   "niche": "cea",
+   "proj_min": 200000
+  },
+  "sk-scap-resilient-agricultural-landscapes": {
+   "rev_min": 50000,
+   "data": {
+    "purposes": [
+     "Agriculture & agri-food"
+    ]
+   }
+  },
+  "bc-hydro-custom-project-incentives": {
+   "niche": "energy",
+   "pct": null,
+   "data": {
+    "purposes": [
+     "Clean technology & energy efficiency",
+     "Equipment & capital investment"
+    ]
+   }
+  },
+  "fed-mitacs-business-strategy-internship": {
+   "inc": true,
+   "data": {
+    "purposes": [
+     "Hiring & wages",
+     "Innovation & commercialization"
+    ]
+   }
+  },
+  "fed-nserc-alliance-advantage": {
+   "pct": 66.7
+  },
+  "on-ontario-job-grant": {
+   "per_unit": 10000,
+   "yrs_min": 1
+  },
+  "fed-sred": {
+   "anchor": "rd"
+  },
+  "fed-cib-building-retrofits": {
+   "forprofit": true,
+   "niche": "building"
+  },
+  "fed-canada-summer-jobs": {
+   "yrs_min": 2
+  },
+  "fed-mitacs-accelerate-entrepreneur": {
+   "note": "The founder must be a current student or recent graduate"
+  },
+  "bc-employer-training-grant": {
+   "per_unit": 10000
+  }
+ }
+}

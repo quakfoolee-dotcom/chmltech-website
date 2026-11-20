@@ -1,6 +1,7 @@
 /**
- * chmltech-report — Cloudflare Worker (V26.1)
- * Receives the Digital Assessment report (PDF + text) from www.chmltech.com and emails it via Resend:
+ * chmltech-report — Cloudflare Worker (V27)
+ * Receives Digital Assessment and Funding Match reports (PDF + text; report_kind=funding for Funding Match)
+ * from www.chmltech.com and emails them via Resend:
  *   1) to the visitor (PDF attached), reply-to info@chmltech.com
  *   2) a copy to Chmltech (full text report + PDF), reply-to the visitor
  *
@@ -75,7 +76,7 @@ export default {
     const kind = clean(fd.get('report_kind'), 20) === 'funding' ? 'funding' : 'digital';
     const K = kind === 'funding'
       ? { tool: 'Funding Match', doc: 'Funding Match', covers: 'best-fit grants, tax credits and loans for your project, a funding stack to explore, near misses to plan for and a readiness checklist', review: 'funding review', subj: 'Your Funding Match from Chmltech', owner: 'Funding match report', def: 'Chmltech_Funding_Match.pdf', note: 'Results are a starting point, not a decision on eligibility; confirm each program on its official page.' }
-      : { tool: 'Digital Needs Assessment', doc: 'Digital Roadmap', covers: 'your technology priorities, a first project, software options with demo questions, a 90-day action plan, AI tools to try and funding', review: 'roadmap review', subj: 'Your Digital Roadmap from Chmltech', owner: 'Digital assessment report', def: 'Chmltech_Digital_Roadmap.pdf', note: 'Scores are our analyst rating from vendor information; confirm them in a demo.' };
+      : { tool: 'Digital Needs Assessment', doc: 'Digital Roadmap', covers: 'your technology priorities, a first project, software options with demo questions, a 90-day action plan, AI tools to try and funding', review: 'roadmap review', subj: 'Your Digital Roadmap from Chmltech', owner: 'Digital Assessment report', def: 'Chmltech_Digital_Roadmap.pdf', note: 'Scores are our analyst rating from vendor information; confirm them in a demo.' };
 
     // PDF
     const pdf = fd.get('report_pdf');

@@ -111,16 +111,25 @@ OVERRIDES = {
 
 def main():
     recs = json.load(open(DATA, encoding="utf-8"))
+    cp = os.path.join(HERE, "redteam_corrections_v2.json")
+    global CORR
+    CORR = json.load(open(cp, encoding="utf-8")) if os.path.exists(cp) else {}
     rules = {}
     for r in recs:
         x = extract(r)
         for k, ov in OVERRIDES.items():
             if r["name"].startswith(k) or k in r["name"]:
                 x.update(ov); x["src"] = "manual"
+        for batch, fixes in CORR.items():
+            if batch.startswith("_") or r["id"] not in fixes: continue
+            for k, v in fixes[r["id"]].items():
+                if v is None: x[k] = None
+                else: x[k] = v
+            x["src"] = "redteam"
         # sanity: discard impossible ranges
         if x["emp_min"] and x["emp_max"] and x["emp_min"] > x["emp_max"]: x["emp_min"] = x["emp_max"] = None
         if x["rev_min"] and x["rev_max"] and x["rev_min"] > x["rev_max"]: x["rev_min"] = x["rev_max"] = None
-        rules[r["id"]] = {k: v for k, v in x.items() if v not in (None, False) or k in ("forprofit",) and v is False}
+        rules[r["id"]] = {k: v for k, v in x.items() if v is not None and (v is not False or k == "forprofit")}
     json.dump(rules, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     keys = ["proj_min", "inc", "forprofit", "emp_min", "emp_max", "rev_min", "rev_max", "yrs_min", "pct", "stack", "pre", "multi"]
     print({k: sum(1 for v in rules.values() if k in v) for k in keys})

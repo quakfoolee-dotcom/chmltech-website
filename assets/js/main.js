@@ -87,6 +87,7 @@
       payload.append('from_name', 'Chmltech Website');
       data.forEach(function (v, k) { if (k !== 'botcheck') payload.append(k, v); });
       payload.append('page', location.href);
+      if (form.getAttribute('data-report-endpoint') && window.ChmlReportText) { var rt = window.ChmlReportText(); if (rt) payload.append('report', rt.slice(0, 20000)); }
 
       btn.disabled = true; var label = btn.textContent;
       var reportEp = form.getAttribute('data-report-endpoint');

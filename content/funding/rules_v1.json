@@ -1,7 +1,10 @@
 {
 "fed-aboriginal-entrepreneurship-program-access-to-capital": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Indigenous-owned business"
+]
 },
 "fed-cca-clean-energy-equipment": {
 "src": "auto"
@@ -13,7 +16,8 @@
 "forprofit": true,
 "pct": 70.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"proj_min": 20000
 },
 "fed-aafc-agriscience-projects": {
 "pct": 50.0,
@@ -26,7 +30,8 @@
 "emp_max": 499,
 "pct": 66.7,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"proj_min": 100000
 },
 "fed-dfo-atlantic-fisheries-fund": {
 "pre": true,
@@ -36,16 +41,25 @@
 "src": "auto"
 },
 "fed-bdc-indigenous-entrepreneur-loan": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Indigenous-owned business"
+]
 },
 "fed-bdc-small-business-loan": {
-"src": "auto"
+"rev_min": 100000,
+"yrs_min": 2,
+"src": "redteam",
+"note": "Must be profitable"
 },
 "fed-biofuels-production-incentive": {
 "src": "auto"
 },
 "fed-black-entrepreneurship-loan-fund": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Black-owned business"
+]
 },
 "fed-build-canada-apprenticeship-service": {
 "pre": true,
@@ -76,7 +90,8 @@
 "pct": 50.0,
 "stack": 75,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "fed-ced-business-scale-up-productivity": {
 "pct": 50.0,
@@ -92,7 +107,9 @@
 "src": "auto"
 },
 "fed-cib-building-retrofits": {
-"src": "auto"
+"forprofit": true,
+"src": "redteam",
+"niche": "building"
 },
 "fed-cib-charging-hydrogen-refuelling": {
 "src": "auto",
@@ -101,33 +118,38 @@
 "fed-cmf-business-development-program": {
 "inc": true,
 "forprofit": true,
+"rev_min": 50000,
+"rev_max": 9999999,
+"yrs_min": 5,
 "pct": 75.0,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-cmf-commercial-projects-program": {
+"inc": true,
 "forprofit": true,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-cmf-innovation-experimentation-program": {
+"inc": true,
 "forprofit": true,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-cmf-prototyping-program": {
+"inc": true,
 "forprofit": true,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-pch-canada-music-fund-individual-initiatives": {
-"forprofit": true,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-pch-canada-periodical-fund-aid-to-publishers": {
 "pre": true,
@@ -139,9 +161,11 @@
 },
 "fed-canada-summer-jobs": {
 "emp_max": 50,
+"yrs_min": 2,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"scope": "forprofit"
 },
 "fed-cavco-canadian-film-video-production-tax-credit": {
 "src": "auto"
@@ -153,11 +177,12 @@
 "src": "auto"
 },
 "fed-canexport-innovation": {
+"inc": true,
 "forprofit": true,
 "emp_max": 499,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-canexport-smes": {
 "inc": true,
@@ -172,11 +197,14 @@
 "src": "manual"
 },
 "fed-ccus-itc": {
-"src": "auto"
+"inc": true,
+"src": "redteam",
+"niche": "ccus"
 },
 "fed-clean-electricity-itc": {
+"inc": true,
 "pct": 15.0,
-"src": "auto"
+"src": "redteam"
 },
 "fed-clean-fuels-fund": {
 "pct": 30.0,
@@ -184,16 +212,19 @@
 "src": "auto"
 },
 "fed-clean-hydrogen-itc": {
+"inc": true,
 "pct": 40.0,
-"src": "auto"
+"src": "redteam"
 },
 "fed-clean-technology-itc": {
+"inc": true,
 "pct": 30.0,
-"src": "auto"
+"src": "redteam"
 },
 "fed-clean-technology-manufacturing-itc": {
+"inc": true,
 "pct": 30.0,
-"src": "auto"
+"src": "redteam"
 },
 "fed-community-futures": {
 "src": "auto"
@@ -201,23 +232,28 @@
 "fed-aafc-cea-rural-northern-stream": {
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "cea",
+"proj_min": 133000
 },
 "fed-aafc-cea-technology-adoption-stream": {
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "cea",
+"proj_min": 200000
 },
 "fed-pch-creative-export-canada": {
 "pre": true,
 "src": "auto"
 },
 "fed-eip-ccus-feed": {
-"forprofit": true,
 "pct": 50.0,
 "stack": 50,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"proj_min": 6000000,
+"niche": "ccus"
 },
 "fed-edc-export-guarantee-program": {
 "src": "auto"
@@ -233,21 +269,34 @@
 "yrs_min": 3,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "south"
 },
 "fed-futurpreneur-black-entrepreneur-startup": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Black-owned business",
+"Youth entrepreneur"
+]
 },
 "fed-futurpreneur-core-startup": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Youth entrepreneur"
+]
 },
 "fed-futurpreneur-newcomer": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Newcomer entrepreneur",
+"Youth entrepreneur"
+]
 },
 "fed-genome-canada-gapp": {
 "forprofit": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"proj_min": 900000
 },
 "fed-global-innovation-clusters": {
 "inc": true,
@@ -270,7 +319,11 @@
 "src": "auto"
 },
 "fed-nacca-indigenous-womens-entrepreneur-program": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Indigenous-owned business",
+"Women-owned business"
+]
 },
 "fed-ced-montreal-east-end-initiative": {
 "pct": 50.0,
@@ -305,11 +358,19 @@
 "fed-mitacs-accelerate-entrepreneur": {
 "inc": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "The founder must be a current student or recent graduate"
 },
 "fed-mitacs-business-strategy-internship": {
+"inc": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"data": {
+"purposes": [
+"Hiring & wages",
+"Innovation & commercialization"
+]
+}
 },
 "fed-ngen-project-funding": {
 "pre": true,
@@ -317,39 +378,55 @@
 },
 "fed-cannor-nieop-entrepreneurship-business-development": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Indigenous-owned business"
+]
 },
 "fed-nrc-irap": {
 "inc": true,
 "forprofit": true,
 "emp_max": 500,
 "pre": true,
-"src": "manual"
+"src": "redteam",
+"legal_excl": [
+"coop"
+]
 },
 "fed-nrc-irap-clean-technology": {
 "inc": true,
 "forprofit": true,
 "emp_max": 500,
 "pre": true,
-"src": "manual"
+"src": "redteam",
+"legal_excl": [
+"coop"
+]
 },
 "fed-nrc-irap-di-assist": {
 "inc": true,
 "forprofit": true,
 "emp_max": 500,
 "pre": true,
-"src": "manual"
+"src": "redteam",
+"legal_excl": [
+"coop"
+]
 },
 "fed-nrc-irap-ip-assist": {
 "inc": true,
 "forprofit": true,
 "emp_max": 500,
 "pre": true,
-"src": "manual"
+"src": "redteam",
+"legal_excl": [
+"coop"
+]
 },
 "fed-nserc-alliance-advantage": {
+"pct": 66.7,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-nserc-applied-research-development": {
 "pre": true,
@@ -367,15 +444,15 @@
 "src": "auto"
 },
 "fed-dfo-quebec-fisheries-fund": {
-"forprofit": true,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-fednor-raii": {
 "inc": true,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "fed-acoa-raii": {
 "pre": true,
@@ -383,12 +460,12 @@
 },
 "fed-pacifican-raii": {
 "inc": true,
-"emp_min": 5,
+"emp_min": 1,
 "emp_max": 500,
-"yrs_min": 3,
+"yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-ced-raii": {
 "pct": 50.0,
@@ -398,12 +475,13 @@
 "fed-feddev-raii": {
 "inc": true,
 "forprofit": true,
-"emp_min": 5,
+"emp_min": 1,
 "emp_max": 499,
-"yrs_min": 3,
+"yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "south"
 },
 "fed-prairiescan-raii": {
 "inc": true,
@@ -420,30 +498,36 @@
 "fed-pacifican-regional-defence-investment-initiative": {
 "inc": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "defence"
 },
 "fed-fednor-regional-defence-investment-initiative": {
 "inc": true,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north",
+"niche": "defence"
 },
 "fed-ced-regional-defence-investment-initiative": {
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "defence"
 },
 "fed-feddev-regional-defence-investment-initiative": {
 "inc": true,
-"forprofit": true,
 "emp_min": 5,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "south",
+"niche": "defence"
 },
 "fed-prairiescan-regional-defence-investment-initiative": {
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "defence"
 },
 "fed-acoa-regi-business-scale-up-productivity": {
 "pre": true,
@@ -451,19 +535,25 @@
 },
 "fed-regional-tariff-response-initiative": {
 "inc": true,
-"forprofit": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"data": {
+"funding_types": [
+"Repayable contribution",
+"Grant"
+]
+},
+"niche": "tariff"
 },
 "fed-scale-ai-projects": {
-"emp_max": 499,
 "pct": 40.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "fed-sred": {
 "forprofit": true,
-"src": "manual"
+"src": "redteam",
+"anchor": "rd"
 },
 "fed-sreps": {
 "pre": true,
@@ -487,12 +577,14 @@
 "fed-fednor-tmino-operational-assessments": {
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "fed-fednor-tmino-productivity-improvements": {
 "pct": 33.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "fed-telefilm-development-program": {
 "pct": 100.0,
@@ -518,11 +610,16 @@
 "src": "auto"
 },
 "fed-women-entrepreneurship-loan-fund": {
-"src": "auto"
+"src": "redteam",
+"req_who": [
+"Women-owned business"
+]
 },
 "fed-workforce-retention-retraining-program": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "worksharing",
+"per_unit": 1000
 },
 "fed-aafc-youth-employment-skills-program": {
 "pct": 50.0,
@@ -549,10 +646,15 @@
 },
 "ab-export-expansion-program": {
 "inc": true,
+"emp_min": 1,
 "emp_max": 499,
+"rev_min": 250000,
+"rev_max": 25000000,
+"yrs_min": 1,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"scope": "forprofit"
 },
 "ab-alberta-made-screen-industries-program": {
 "pct": 7.0,
@@ -581,12 +683,12 @@
 },
 "ab-film-television-tax-credit": {
 "inc": true,
-"src": "auto"
+"src": "redteam",
+"proj_min": 499999
 },
 "ab-scap-growing-greenhouses": {
 "pre": true,
-"src": "auto",
-"proj_min": 2000000
+"src": "redteam"
 },
 "ab-innovation-employment-grant": {
 "src": "auto"
@@ -637,13 +739,15 @@
 },
 "bc-agriculture-food-export-program": {
 "rev_min": 100000,
+"yrs_min": 2,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "bc-employer-training-grant": {
 "pct": 80.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"per_unit": 10000
 },
 "bc-on-farm-technology-adoption-program": {
 "rev_min": 50000,
@@ -653,21 +757,29 @@
 "src": "auto"
 },
 "bc-sred-tax-credit": {
+"inc": true,
 "forprofit": true,
-"src": "manual"
+"src": "redteam"
 },
 "bc-innovate-bc-fast-pilot": {
 "inc": true,
+"forprofit": true,
 "emp_max": 499,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "bc-hydro-business-energy-saving-incentives": {
 "src": "auto"
 },
 "bc-hydro-custom-project-incentives": {
-"pct": 100.0,
-"src": "auto"
+"src": "redteam",
+"niche": "energy",
+"data": {
+"purposes": [
+"Clean technology & energy efficiency",
+"Equipment & capital investment"
+]
+}
 },
 "bc-manufacturing-jobs-fund": {
 "forprofit": true,
@@ -683,8 +795,9 @@
 },
 "bc-buy-bc-partnership-program": {
 "rev_min": 30000,
+"yrs_min": 2,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "bc-clean-buildings-tax-credit": {
 "src": "auto"
@@ -777,8 +890,15 @@
 "src": "auto"
 },
 "bc-small-business-venture-capital-tax-credit": {
+"inc": true,
 "emp_max": 100,
-"src": "auto"
+"src": "redteam",
+"investor": true,
+"data": {
+"purposes": [
+"Startup & early stage"
+]
+}
 },
 "bc-traceability-adoption-program": {
 "pct": 70.0,
@@ -815,9 +935,10 @@
 },
 "mb-building-up-manitoba-program": {
 "emp_max": 499,
+"yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "mb-efficiency-mb-business-lighting": {
 "src": "auto"
@@ -825,7 +946,8 @@
 "mb-workforce-tariff-response-employee-training": {
 "pct": 100.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"niche": "tariff"
 },
 "mb-scap-capital-infrastructure-investments": {
 "pre": true,
@@ -840,8 +962,9 @@
 "src": "auto"
 },
 "mb-community-enterprise-development-tax-credit": {
+"inc": true,
 "emp_max": 199,
-"src": "auto"
+"src": "redteam"
 },
 "mb-cultural-industries-printing-tax-credit": {
 "src": "auto"
@@ -851,10 +974,13 @@
 "src": "auto"
 },
 "mb-export-development-program": {
+"forprofit": true,
 "emp_max": 499,
+"rev_min": 30000,
+"rev_max": 50000000,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "mb-green-energy-equipment-tax-credit": {
 "multi": true,
@@ -863,9 +989,11 @@
 "mb-incoming-buyer-program": {
 "forprofit": true,
 "emp_max": 499,
+"rev_min": 30000,
+"rev_max": 50000000,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "mb-industry-expansion-program": {
 "forprofit": true,
@@ -878,11 +1006,10 @@
 "src": "auto"
 },
 "mb-innovation-growth-program": {
+"inc": true,
 "forprofit": true,
-"emp_max": 99,
-"rev_max": 15000000,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "mb-book-publishing-tax-credit": {
 "src": "auto"
@@ -913,17 +1040,19 @@
 "src": "auto"
 },
 "mb-small-business-venture-capital-tax-credit": {
-"emp_max": 99,
-"src": "auto"
+"inc": true,
+"src": "redteam"
 },
 "mb-trade-growth-investment-financing": {
 "pct": 25.0,
 "src": "auto"
 },
 "mb-trade-resilience-loan-program": {
+"inc": true,
 "emp_min": 5,
 "yrs_min": 3,
-"src": "auto"
+"src": "redteam",
+"niche": "tariff"
 },
 "nb-scap-advancing-agri-food-processing": {
 "pre": true,
@@ -961,10 +1090,9 @@
 "src": "auto"
 },
 "nb-export-market-access-program": {
-"inc": true,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "nb-saveenergynb-fuel-savings-transportation": {
 "pct": 30.0,
@@ -1086,12 +1214,10 @@
 "src": "auto"
 },
 "nt-prosper-nwt-adapt-fund": {
-"inc": true,
 "forprofit": true,
-"emp_min": 1,
 "yrs_min": 0.25,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "nt-sustainable-cap-agri-food": {
 "pct": 100.0,
@@ -1197,10 +1323,9 @@
 "src": "auto"
 },
 "ns-graduate-to-opportunity-grow": {
-"inc": true,
 "emp_max": 99,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "ns-graduate-to-opportunity-innovate": {
 "forprofit": true,
@@ -1274,7 +1399,8 @@
 "emp_min": 15,
 "rev_min": 2000000,
 "pct": 75.0,
-"src": "auto"
+"src": "redteam",
+"proj_min": 60000
 },
 "ns-ens-small-business-energy-solutions": {
 "src": "auto"
@@ -1287,7 +1413,8 @@
 "src": "auto"
 },
 "ns-tariff-customs-advisory-program": {
-"src": "auto"
+"src": "redteam",
+"niche": "tariff"
 },
 "ns-scap-technology-adoption": {
 "pct": 50.0,
@@ -1324,8 +1451,10 @@
 "on-oci-collaborate-2-commercialize": {
 "inc": true,
 "forprofit": true,
+"emp_min": 5,
+"yrs_min": 2,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "on-oci-digital-modernization-adoption-plan": {
 "forprofit": true,
@@ -1337,17 +1466,17 @@
 "on-eastern-ontario-development-fund": {
 "pct": 15.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "east"
 },
 "on-expanded-ontario-made-manufacturing-investment-tax-credit": {
 "pct": 15.0,
 "src": "auto"
 },
 "on-food-safety-growth-initiative-intake-2": {
-"emp_max": 99,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "on-ontario-creates-global-market-development-book": {
 "pct": 50.0,
@@ -1368,40 +1497,51 @@
 "on-nohfc-film-television": {
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "on-nohfc-indigenous-workforce-development": {
 "emp_min": 1,
+"yrs_min": 1,
 "pct": 75.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "on-nohfc-invest-north-grow": {
 "pct": 20.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "on-nohfc-invest-north-innovation": {
 "pct": 50.0,
 "stack": 75,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "on-nohfc-invest-north-launch": {
 "pct": 50.0,
+"stack": 50,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north",
+"yrs_max": 0.5
 },
 "on-nohfc-invest-north-locate": {
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "on-nohfc-workforce-development": {
 "emp_min": 1,
+"yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "north"
 },
 "on-ontario-automotive-modernization-program": {
 "emp_max": 499,
@@ -1437,8 +1577,10 @@
 "src": "auto"
 },
 "on-ontario-job-grant": {
+"yrs_min": 1,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"per_unit": 10000
 },
 "on-ontario-made-manufacturing-investment-tax-credit": {
 "pct": 15.0,
@@ -1452,12 +1594,24 @@
 "src": "auto"
 },
 "on-ontario-together-trade-fund": {
+"forprofit": true,
 "emp_min": 5,
 "yrs_min": 3,
-"pct": 75.0,
+"pct": 15,
 "pre": true,
-"src": "auto",
-"proj_min": 200000
+"src": "redteam",
+"proj_min": 200000,
+"legal_excl": [
+"sole",
+"part"
+],
+"data": {
+"funding_types": [
+"Repayable contribution",
+"Grant"
+]
+},
+"niche": "tariff"
 },
 "on-oci-ready-4-market": {
 "inc": true,
@@ -1479,8 +1633,12 @@
 "on-oci-retail-modernization-project-grant": {
 "inc": true,
 "forprofit": true,
+"emp_min": 1,
+"emp_max": 50,
+"rev_min": 100000,
+"yrs_min": 1,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "on-save-on-energy-energy-performance": {
 "src": "auto"
@@ -1507,7 +1665,8 @@
 "on-southwestern-ontario-development-fund": {
 "pct": 15.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"region": "southwest"
 },
 "on-starter-company-plus": {
 "pre": true,
@@ -1531,8 +1690,10 @@
 "src": "auto"
 },
 "pe-equity-investors-incentive": {
+"inc": true,
 "emp_max": 49,
-"src": "auto"
+"yrs_min": 1,
+"src": "redteam"
 },
 "pe-export-trade-assistance": {
 "pre": true,
@@ -1600,11 +1761,14 @@
 "src": "auto"
 },
 "qc-cric-rd-innovation-tax-credit": {
-"src": "auto",
+"inc": true,
+"src": "redteam",
 "proj_min": 50000
 },
 "qc-cdaeia-tax-credit": {
-"src": "auto"
+"inc": true,
+"emp_min": 6,
+"src": "redteam"
 },
 "qc-film-tv-production-tax-credit": {
 "src": "auto"
@@ -1618,28 +1782,24 @@
 "src": "auto"
 },
 "qc-essor-volet-1-studies-digital": {
-"forprofit": true,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "qc-essor-volet-2-investment-productivity": {
-"forprofit": true,
 "pct": 50.0,
 "pre": true,
-"src": "auto",
+"src": "redteam",
 "proj_min": 100000
 },
 "qc-essor-volet-3-environmental-footprint": {
-"forprofit": true,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "qc-essor-volet-4-internationalization": {
-"forprofit": true,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "qc-essor-volet-5-sawmills": {
 "src": "auto",
@@ -1649,14 +1809,15 @@
 "src": "auto"
 },
 "qc-fonds-ecoleader-biodiversite": {
-"forprofit": true,
 "pct": 80.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "qc-force-tariff-liquidity-loans": {
 "rev_min": 2000000,
-"src": "auto"
+"yrs_min": 2,
+"src": "redteam",
+"niche": "tariff"
 },
 "qc-iq-productivity-loan": {
 "src": "auto"
@@ -1672,10 +1833,11 @@
 "src": "auto"
 },
 "qc-piec-social-economy-real-estate": {
-"forprofit": false,
+"rev_min": 100000,
+"rev_max": 10000000,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "qc-ipop-foreign-trained-professionals": {
 "pct": 70.0,
@@ -1687,11 +1849,12 @@
 "src": "auto"
 },
 "qc-psce-volet-2-export-diversification": {
-"forprofit": true,
 "rev_min": 1000000,
+"rev_max": 50000000,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"proj_min": 50000
 },
 "qc-programme-innovation-volet-1": {
 "pre": true,
@@ -1711,10 +1874,11 @@
 "src": "auto"
 },
 "qc-programme-transformation-alimentaire": {
-"yrs_min": 1.0,
+"rev_max": 200000000,
+"yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam"
 },
 "qc-ecoperformance": {
 "pct": 75.0,
@@ -1796,8 +1960,14 @@
 "proj_min": 10000000
 },
 "sk-scap-resilient-agricultural-landscapes": {
+"rev_min": 50000,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"data": {
+"purposes": [
+"Agriculture & agri-food"
+]
+}
 },
 "sk-chemical-fertilizer-incentive": {
 "src": "auto"
@@ -1807,9 +1977,11 @@
 },
 "sk-scap-lean-improvements-in-manufacturing": {
 "inc": true,
+"rev_min": 100000,
+"yrs_min": 2,
 "pct": 50.0,
 "pre": true,
-"src": "auto",
+"src": "redteam",
 "proj_min": 50000
 },
 "sk-petroleum-innovation-incentive": {
@@ -1850,9 +2022,8 @@
 "src": "auto"
 },
 "yt-commercial-institutional-energy-rebates": {
-"forprofit": true,
 "pct": 25.0,
-"src": "auto"
+"src": "redteam"
 },
 "yt-media-production-fund": {
 "inc": true,
@@ -1883,7 +2054,6 @@
 "src": "auto"
 },
 "yt-venture-loan-guarantee": {
-"emp_max": 99,
-"src": "auto"
+"src": "redteam"
 }
 }

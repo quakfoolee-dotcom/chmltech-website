@@ -17,7 +17,7 @@ def hero(n):
             'a funding stack to explore, the near misses to plan for, and a readiness checklist.</p>\n'
             f'  <div class="stat-row"><div><strong>{n}</strong><span>programs checked</span></div><div><strong>14</strong><span>jurisdictions covered</span></div>'
             '<div><strong>3 min</strong><span>free, no sign-up</span></div><div><strong class="gr-stat-sm">November 2026</strong><span>last reviewed</span></div></div>\n'
-            f'  <div class="btn-row as-hero-cta"><a class="btn" href="#match" data-fm="start">Start the free funding match</a><a class="as-textlink" href="#finder">or browse all {n} programs →</a></div>')
+            f'  <div class="btn-row as-hero-cta"><a class="btn" href="#match" data-fm="start">Start the free funding match</a><a class="as-textlink" href="#finder">or browse the program directory →</a></div>')
 
 SECTION = '''
 <section class="section finder-section" id="match" style="scroll-margin-top:84px;padding-top:72px"><div class="container">
@@ -31,12 +31,12 @@ SECTION = '''
     <div class="finder-quiz" id="fm-quiz" hidden>
       <ol class="as-steps" id="fm-steps"></ol>
       <div class="finder-progress"><div class="finder-bar"><span id="fm-bar"></span></div></div>
-      <p class="as-qcount muted" id="fm-qcount"></p>
+      <p class="as-qcount muted" id="fm-qcount" aria-live="polite"></p>
       <fieldset class="finder-q" id="fm-qbox"></fieldset>
       <div class="finder-nav"><button type="button" class="btn btn-ghost" id="fm-back">← Back</button><button type="button" class="btn" id="fm-next" disabled>Next →</button></div>
     </div>
-    <div class="stack" id="fm-result" hidden tabindex="-1" style="gap:28px">
-      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your funding match</p><h2 class="h-lg">Programs that fit your business</h2><p class="lead" id="fm-res-lead"></p></div>
+    <div class="stack" id="fm-result" hidden tabindex="-1" aria-labelledby="fm-res-h" style="gap:28px">
+      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your funding match</p><h2 class="h-lg" id="fm-res-h">Programs that fit your business</h2><p class="lead" id="fm-res-lead"></p></div>
         <div class="btn-row"><button type="button" class="btn btn-ghost" data-fm="print">Download PDF</button><button type="button" class="btn btn-ghost" data-fm="restart">Start again</button></div></div>
       <div class="fm-tiles" id="fm-tiles"></div>
       <div id="fm-stack"></div>
@@ -83,9 +83,11 @@ def main():
     rules = json.load(open(RULES, encoding="utf-8"))
     rj = json.dumps(rules, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     s = s.replace('<script type="application/json" id="grants-data">', f'<script type="application/json" id="fm-rules">{rj}</script>\n<script type="application/json" id="grants-data">', 1)
-    css = ''.join(f'<link rel="stylesheet" href="assets/css/{c}.css">\n' for c in ("course-finder", "erp", "assess", "funding-match"))
+    import hashlib
+    def ver(path): return hashlib.md5(open(os.path.join(ROOT, path), "rb").read()).hexdigest()[:8]
+    css = ''.join(f'<link rel="stylesheet" href="assets/css/{c}.css?v={ver("assets/css/" + c + ".css")}">\n' for c in ("course-finder", "erp", "assess", "funding-match"))
     s = s.replace('<link rel="stylesheet" href="assets/css/grants.css', css + '<link rel="stylesheet" href="assets/css/grants.css', 1)
-    s = re.sub(r'(<script src="assets/js/grants\.js[^"]*" defer></script>)', r'\1\n<script src="assets/js/funding-match.js" defer></script>\n<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>', s, count=1)
+    s = re.sub(r'(<script src="assets/js/grants\.js[^"]*" defer></script>)', r'\1\n<script src="assets/js/funding-match.js?v=' + ver("assets/js/funding-match.js") + r'" defer></script>\n<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>', s, count=1)
     open(FP, "w", encoding="utf-8").write(s)
     print("funding.html patched:", n, "programs")
 
