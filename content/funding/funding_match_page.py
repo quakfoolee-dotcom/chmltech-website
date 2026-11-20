@@ -18,6 +18,8 @@ HERO_OLD = re.compile(r'(?:<p class="hero-slogan">Find the grants[^<]*</p>\s*)?<
 
 def strip(s):
     """Remove an earlier Funding Match patch so the script can run any number of times."""
+    s = s.replace('<section class="section sand gr-section" id="finder"', '<section class="section gr-section" id="finder"')
+    s = s.replace('<section class="section" id="before"', '<section class="section sand" id="before"')
     s = re.sub(r'\n<section class="section finder-section" id="match".*?</div></section>\n(?=\n<section class="section gr-section" id="finder")', '', s, flags=re.S)
     s = re.sub(r'<script type="application/json" id="fm-rules">.*?</script>\n', '', s, flags=re.S)
     s = re.sub(r'<link rel="stylesheet" href="assets/css/(?:course-finder|erp|assess|funding-match)\.css[^"]*">\n', '', s)
@@ -93,6 +95,9 @@ def main():
     s = strip(s)
     s, k = HERO_OLD.subn(hero(n), s, count=1); assert k == 1
     s = s.replace('<section class="section gr-section" id="finder"', SECTION + '\n<section class="section gr-section" id="finder"', 1)
+    # V5.61: alternate backgrounds like the Digital Assessment (wizard on paper, directory on sand, "Before you apply" on paper)
+    s = s.replace('<section class="section gr-section" id="finder"', '<section class="section sand gr-section" id="finder"', 1)
+    s = s.replace('<section class="section sand" id="before"', '<section class="section" id="before"', 1)
     s = s.replace('<p class="eyebrow">Program directory</p>', '<p class="eyebrow">Program directory</p>', 1)
     # refresh the directory data and cards from content/grants.json (Phase 1 status updates)
     import sys; sys.path.insert(0, os.path.join(ROOT, "content", "gen"))

@@ -93,3 +93,8 @@ html{scroll-padding-top:auto}
 .fm-jump a{color:var(--blue)}
 /* V5.60: keep the five step names on one line, as on the Digital Assessment */
 #fm .finder-intro .stack{max-width:720px}
+/* V5.61: same gap below the wizard box as on the Digital Assessment, now that the directory band below is sand */
+#match.finder-section{padding-bottom:80px}
+@media (max-width:720px){#match.finder-section{padding-bottom:56px}}
+/* V5.61: directory band starts with the same top space as the Digital Assessment's Software Finder band */
+@media (min-width:721px){#finder.sand.gr-section{padding-top:104px}}

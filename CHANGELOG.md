@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.61 — 2026-11-20
+- **Funding page backgrounds now alternate like the Digital Assessment:** wizard on the paper background, program directory on the sand band (same top spacing as the Software Finder band), "Before you apply" back on paper, then the dark call to action. The wizard box has the same 80px gap (56px on small screens) above the sand band (`content/funding/funding_match_page.py`, `assets/css/funding-match.css`).
+
 ## V5.60 — 2026-11-20
 - **Layout consistency, Digital Assessment and Funding Match intro boxes:** the Digital Assessment box no longer touches the sand-coloured Software Finder band below it (80px space, 56px on small screens, the same gap as on the Funding page; `assets/css/assess.css`). The Funding Match steps now sit on one line like the Digital Assessment's (`assets/css/funding-match.css`), and its eyebrow reads "How it works" like the Digital Assessment's.
 
