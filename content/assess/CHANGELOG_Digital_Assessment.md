@@ -52,6 +52,11 @@
 ## Draft V1 — 2026-11-19 (not published)
 - ERP Matrix page: 23 ERP/WMS products, 4 workflows × 8 capabilities, shortlist wizard, scorecard PDF and email form.
 
+## V24 — 2026-11-20 — Full report in the email
+- The report request email now carries the full report as plain text, in 12 numbered sections: your business (with report date, size, budget, tools, priorities), challenges, digital maturity (today → target, gaps), technology priorities with reasons, first project (time, risk, cost, free resources), software options (fit, best for, year-one cost, Canada, reality check, website), demo questions, action plan, more vendors, AI tools, funding, next step. Replaces the one-line "roadmap" and coded "answers" fields.
+- AI suggestions (on screen and in the email) now come from the compared shortlist for each job, best fit first, grouped by job; "Compare … tools" jumps to that job.
+- Form wording made honest: "Request my full report"; "We email it within one business day"; success message updated. The visitor does not receive an automatic email (Web3Forms free plan); Chmltech forwards the report.
+
 ## V23 — 2026-11-20 — Launch
 - Page made indexable (robots noindex removed); added to sitemap.xml (priority 0.9).
 - "Digital Assessment" added to the site menu on every page (top level, post/ and challenge-page/); "About" removed from the top menu site-wide (footer link kept).

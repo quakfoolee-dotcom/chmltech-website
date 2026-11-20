@@ -116,20 +116,19 @@ page = f'''<!doctype html>
       <div id="as-more"></div>
       <div id="as-aitools"></div>
       <div class="erp-lead">
-        <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-subject="Digital assessment report request" data-success="Thank you. Your full roadmap report is on its way and we will be in touch within one business day." novalidate>
+        <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-subject="Digital assessment report" data-success="Thank you. We have your results and will email your full report within one business day." novalidate>
           <h3 class="h-md" style="font-size:22px">Get the full report</h3>
-          <p class="muted" style="font-size:14.5px">Action plan, demo questions and funding options.</p>
+          <p class="muted" style="font-size:14.5px">Action plan, demo questions, more vendors, AI tools and funding. We email it within one business day.</p>
           <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="form" value="Digital assessment">
-          <input type="hidden" name="roadmap" id="as-f-sum">
-          <input type="hidden" name="answers" id="as-f-ans">
           <div class="row">
             <div class="field"><label for="as-name">Full name</label><input id="as-name" name="name" autocomplete="name" required></div>
             <div class="field"><label for="as-email">Work email</label><input id="as-email" name="email" type="email" autocomplete="email" required></div>
           </div>
           <div class="field"><label for="as-co">Company <span class="hint">(optional)</span></label><input id="as-co" name="company" autocomplete="organization"></div>
           <label class="check"><input type="checkbox" name="consent" value="yes" required> I agree that Chmltech Ltd. may email me my report and contact me about it. I can unsubscribe at any time.</label>
-          <div><button class="btn" type="submit">Email my report</button></div>
+          <div id="as-f-report" hidden></div>
+          <div><button class="btn" type="submit">Request my full report</button></div>
           <p class="form-status" role="status" tabindex="-1"></p>
         </form>
         <div class="erp-audit">

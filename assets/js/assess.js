@@ -1,4 +1,4 @@
-/* Digital Assessment page — Draft V15 (V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
+/* Digital Assessment page — V24 (full report in the email; V7 + V10 independent-review fixes, V15 UI clean-up, vendor directory and AI tools).
    Data: #assess-data (content/assess/assess_data.json, built by content/assess/build_data_v3.py).
    Every Software Finder category is a capability matrix; ERP adds a workflow selector. */
 (function () {
@@ -273,8 +273,10 @@
     for (var mi = 0; mi < mc.length && !mhtml; mi++) mhtml = moreVendors(mc[mi].c.id, mi > 0 && q ? 'For your priority: ' + mc[mi].c.name : '');
     $('#as-more').innerHTML = mhtml;
     $('#as-aitools').innerHTML = aiForProblems();
-    $('#as-f-sum').value = 'Industry: ' + IND[ans.ind].name + ' | Priorities: ' + r.top.map(function (x, i) { return lvn[i] + ' ' + x.c.name; }).join('; ') + ' | Quick win: ' + (q ? q.c.name : '-') + ' | Options: ' + opts.map(function (o) { return o.p.name + ' (' + o.fit + '%)'; }).join('; ');
-    $('#as-f-ans').value = 'Size ' + ans.size + '; tools ' + (ans.tools || []).join(',') + '; problems ' + (ans.prob || []).map(function (p) { return PRB[p].t; }).join(' / ') + '; maturity ' + A.functions.map(function (f) { return f.short + ' ' + ans.mat[f.id].c + '>' + ans.mat[f.id].t; }).join(', ') + '; budget ' + PRICE[ans.budget];
+    var box = $('#as-f-report');
+    if (box) { box.innerHTML = ''; buildReport(r, q, opts).forEach(function (f) { var i = document.createElement('input'); i.type = 'hidden'; i.name = f[0]; i.value = f[1]; box.appendChild(i); }); }
+    if (false) $('#as-f-sum').value = 'Industry: ' + IND[ans.ind].name + ' | Priorities: ' + r.top.map(function (x, i) { return lvn[i] + ' ' + x.c.name; }).join('; ') + ' | Quick win: ' + (q ? q.c.name : '-') + ' | Options: ' + opts.map(function (o) { return o.p.name + ' (' + o.fit + '%)'; }).join('; ');
+    if (false) $('#as-f-ans').value = 'Size ' + ans.size + '; tools ' + (ans.tools || []).join(',') + '; problems ' + (ans.prob || []).map(function (p) { return PRB[p].t; }).join(' / ') + '; maturity ' + A.functions.map(function (f) { return f.short + ' ' + ans.mat[f.id].c + '>' + ans.mat[f.id].t; }).join(', ') + '; budget ' + PRICE[ans.budget];
     quiz.hidden = true; result.hidden = false;
     $('#assessment').scrollIntoView({ behavior: 'smooth' });
   }
@@ -603,18 +605,108 @@
       })
       .sort(function (a, b) { return b.f - a.f || a.i - b.i; }).slice(0, n).map(function (x) { return x.t; });
   }
+  function aiSuggest() {   // job groups for the visitor's problems, best compared tools first
+    var groups = [], why = {};
+    (ans.prob || []).forEach(function (pid) {
+      ((A.ai_prob || {})[pid] || []).forEach(function (c) {
+        var t = AIT.filter(function (x) { return x.c === c; })[0], g = t ? t.grp : null;
+        if (!g || g === 'dev') return;
+        if (groups.indexOf(g) < 0) groups.push(g);
+        (why[g] = why[g] || []); if (why[g].indexOf(PRB[pid].t) < 0) why[g].push(PRB[pid].t);
+      });
+    });
+    return groups.slice(0, 3).map(function (g) {
+      var tools = AIM[g] ? AIM[g].tools.slice().sort(function (a, b) { return avgFit(b.s) - avgFit(a.s) || a.n.localeCompare(b.n); }).slice(0, 3)
+        .map(function (t) { return { n: t.n, u: t.u, pr: t.price, d: t.best, fit: avgFit(t.s), k: g + ':' + t.id }; })
+        : AIT.filter(function (t) { return t.grp === g && aiFit(t) >= 0; }).slice(0, 3).map(function (t) { return { n: t.n, u: t.u, pr: t.pr, d: t.d }; });
+      return { g: g, name: GNAME[g], why: why[g], tools: tools };
+    }).filter(function (x) { return x.tools.length; });
+  }
   function aiForProblems() {
-    var per = [], why = {};
-    (ans.prob || []).forEach(function (pid) { var cs = (A.ai_prob || {})[pid] || []; if (cs.length) per.push(cs); cs.forEach(function (c) { (why[c] = why[c] || []).push(PRB[pid].t); }); });
-    var cats = [];   // one category per problem first, then second choices
-    for (var round = 0; round < 3 && cats.length < 3; round++) per.forEach(function (cs) { var c = cs[round]; if (c && cats.indexOf(c) < 0 && cats.length < 3 && aiPicks(c, 1).length) cats.push(c); });
-    if (!cats.length) return '';
-    var probs = []; cats.forEach(function (c) { why[c].forEach(function (t) { if (probs.indexOf(t) < 0) probs.push(t); }); });
-    function plain(c) { var x = c.replace(/ & | \/ /g, ' and ').toLowerCase(); return x.charAt(0).toUpperCase() + x.slice(1); }
-    return '<div class="ai-res"><h3 class="h-md" style="font-size:24px;margin-bottom:6px">AI tools that can help</h3><p class="muted" style="margin-bottom:14px">Low-cost tools to try for: ' + probs.map(esc).join('; ') + '. Set rules on what company data goes into them.</p><div class="ai-groups">' +
-      cats.map(function (c) {
-        return '<div class="card"><p class="ai-cat">' + esc(plain(c)) + '</p><ul>' + aiPicks(c, 3).map(function (t) { return '<li><strong>' + (safeUrl(t.u) ? '<a href="' + esc(safeUrl(t.u)) + '" target="_blank" rel="noopener nofollow">' + esc(t.n) + '</a>' : esc(t.n)) + '</strong> <span>' + esc(t.d) + '</span> <em>' + esc(t.pr) + '</em></li>'; }).join('') + '</ul><button type="button" class="as-goto" data-aigo="' + esc(c) + '">More like these →</button></div>';
+    var sug = aiSuggest(); if (!sug.length) return '';
+    var probs = []; sug.forEach(function (x) { x.why.forEach(function (t) { if (probs.indexOf(t) < 0) probs.push(t); }); });
+    return '<div class="ai-res"><h3 class="h-md" style="font-size:24px;margin-bottom:6px">AI tools that can help</h3><p class="muted" style="margin-bottom:14px">Our best-fit picks for: ' + probs.map(esc).join('; ') + '. Set rules on what company data goes into them.</p><div class="ai-groups">' +
+      sug.map(function (x) {
+        return '<div class="card"><p class="ai-cat">' + esc(x.name) + '</p><ul>' + x.tools.map(function (t) {
+          var u = safeUrl(t.u);
+          return '<li><strong>' + (t.k ? '<button type="button" class="ai-mlink" data-aip="' + esc(t.k) + '">' + esc(t.n) + '</button>' : (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener nofollow">' + esc(t.n) + '</a>' : esc(t.n))) + '</strong>' +
+            (t.fit ? ' <span class="ai-fitp">' + t.fit + '% fit</span>' : '') + ' <span>' + esc(t.d) + '</span> <em>' + esc(aiPrice(t.pr).t) + '</em></li>';
+        }).join('') + '</ul><button type="button" class="as-goto" data-aic="' + esc(x.g) + '" data-aijump="1">Compare ' + esc(x.name.charAt(0).toLowerCase() + x.name.slice(1)) + ' tools →</button></div>';
       }).join('') + '</div></div>';
+  }
+  document.addEventListener('click', function (e) {   // results "Compare … tools" jumps to that job in the AI section
+    var b = e.target.closest('[data-aijump]'); if (!b) return;
+    var sel = $('#ai-cats'); if (sel) { sel.value = b.dataset.aic; sel.dispatchEvent(new Event('change')); }
+    $('#ai-tools').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---- Full report as plain text for the email (Web3Forms sends each field in order) ---- */
+  var SITE = 'https://www.chmltech.com/';
+  function optLabel(k, v) { var sc = SCREENS.filter(function (x) { return x.k === k; })[0]; var o = sc && sc.o ? sc.o().filter(function (x) { return x[0] === v; })[0] : null; return o ? o[1] : v; }
+  function demoQs(cid, prod) {
+    var cp = caps(cid, cid === 'erp' ? erpWf() : null), wts = cp.map(function () { return 1; });
+    (ans.prob || []).forEach(function (pid) { var w = (PRB[pid].w || {})[cid]; if (w) cp.forEach(function (k, i) { if (w[k.k] != null) wts[i] = Math.max(wts[i], w[k.k]); }); });
+    var order = cp.map(function (k, i) { return { k: k, w: wts[i] }; }).sort(function (a, b) { return b.w - a.w; }).slice(0, 4);
+    var qs = order.map(function (x) { return 'Show us, with our own data, how it handles ' + x.k.n.toLowerCase() + ' (' + x.k.d.replace(/\.$/, '') + ').'; });
+    qs.push('What will the first year cost in total: licences, set-up, data migration, training and support?');
+    qs.push('Who implements it in Canada, how long does it take, and can we speak to a Canadian client of a similar size?');
+    if (prod && prod.rc) qs.push('Our reviewer noted: "' + prod.rc + '" How do you address this?');
+    return qs;
+  }
+  function buildReport(r, q, opts) {
+    var L = [], fnGap = {}, lvn = ['Must', 'Should', 'Could'];
+    var biz = IND[ans.ind].name + (ans.sub && A.subtypes[ans.ind] ? ' (' + optLabel('sub', ans.sub) + ')' : '');
+    L.push(['1. Your business',
+      'Report date: ' + new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }) + '\nIndustry: ' + biz + '\nPeople: ' + optLabel('size', ans.size) + '\nBudget for the first project: ' + optLabel('budget', ans.budget) +
+      '\nRunning the business on: ' + ((ans.tools || []).map(function (t) { return optLabel('tools', t); }).join(', ') || 'not stated') +
+      '\nPriorities for the next 2–3 years: ' + ((ans.prio || []).map(function (p) { return optLabel('prio', p); }).join(', ') || 'not stated')]);
+    L.push(['2. Challenges you picked', (ans.prob || []).map(function (p, i) { return (i + 1) + '. ' + PRB[p].t; }).join('\n') || 'None picked']);
+    L.push(['3. Digital maturity (today → two-year target)', A.functions.map(function (f) {
+      var v = ans.mat[f.id], g = r.gap[f.id]; fnGap[f.id] = g;
+      return f.name + ': ' + A.levels[v.c].n + ' → ' + A.levels[v.t].n + (g > 0 ? ' (gap ' + g + ')' : ' (on target)');
+    }).join('\n') + '\nLevels: ' + A.levels.map(function (l) { return l.n; }).join(', ') + '.']);
+    L.push(['4. Your technology priorities', r.top.map(function (x, i) {
+      return 'Priority ' + (i + 1) + ' (' + lvn[i] + '): ' + x.c.name + (x.own ? ' — you have this: optimise it' : '') + '\n   ' + x.c.benefit +
+        (x.why.length ? '\n   Why: ' + x.why.slice(0, 3).join('; ') : '') + (x.gap ? '\n   ' + FN[x.c.fn].name + ': ' + x.gap + '-level gap to your target' : '');
+    }).join('\n\n') || 'No clear gap from the answers given.']);
+    if (q) {
+      L.push(['5. ' + (r.quick ? 'Your quick win' : 'Your first project') + ': ' + q.c.name, q.c.desc + ' ' + q.c.benefit +
+        '\nTime to value: ' + q.c.weeks + '\nImplementation risk: ' + ['', 'Higher', 'Medium', 'Low'][q.c.ease] +
+        '\nYear-one cost: ' + (opts.length ? PRICE[Math.min.apply(null, opts.map(function (o) { return o.p.price; }))] : 'see options') +
+        '\nSupports: ' + FN[q.c.fn].name + ((q.c.links || []).length ? '\nFree resources:\n' + q.c.links.map(function (l) { return '- ' + l[1] + ': ' + SITE + l[0].replace(/\.html$/, ''); }).join('\n') : '')]);
+    } else {
+      L.push(['5. Your first step', (r.top.some(function (x) { return x.c.id === 'erp'; }) ? 'Start with an ERP readiness review.' : 'Start with a short process review.') + ' None of your priorities has a fast, low-risk project within your budget; a short review of processes and data makes the bigger project faster and cheaper.']);
+    }
+    var oc = q ? q.c.id : (r.top[0] ? r.top[0].c.id : null), ol = q ? opts : (oc ? options(oc) : []);
+    if (ol.length) {
+      L.push(['6. Software options to evaluate (' + CAT[oc].name + ')', ol.map(function (o, i) {
+        var u = safeUrl(o.p.url);
+        return (i + 1) + '. ' + o.p.name + ' — ' + o.fit + '% fit to your answers' + '\n   Best for: ' + (o.p.best || '') + '\n   Year-one cost: ' + PRICE[o.p.price] +
+          '\n   In Canada: ' + (o.p.canada || '') + (o.p.rc ? '\n   Reality check: ' + o.p.rc : '') + (o.flags.length ? '\n   Note: ' + o.flags.join(' ') : '') + (u ? '\n   Website: ' + u : '');
+      }).join('\n\n')]);
+      L.push(['7. Questions to ask in demos', ol.slice(0, 1).map(function (o) { return demoQs(oc, o.p).map(function (x, i) { return (i + 1) + '. ' + x; }).join('\n'); }).join('')]);
+    }
+    var plan = [];
+    plan.push('Weeks 1–2: confirm requirements for ' + (q ? q.c.name.toLowerCase() : 'your first priority') + ' with the people who will use it; list must-haves from the challenges above.');
+    plan.push('Weeks 3–6: book demos with the options above using the demo questions; get written quotes for year one.');
+    plan.push('Weeks 6–8: choose, check references, and check funding before you sign.');
+    plan.push('Then (about ' + (q ? q.c.weeks : '2–4 months') + '): implement, clean and move your data, train staff, and measure the result.');
+    r.top.forEach(function (x, i) { if (!q || x.c.id !== q.c.id) plan.push('Next: Priority ' + (i + 1) + ' (' + lvn[i] + ') ' + x.c.name + ', once the first project is running.'); });
+    A.functions.forEach(function (f) { if (fnGap[f.id] > 0 && !r.top.some(function (x) { return x.c.fn === f.id; })) plan.push(f.name + ': close a ' + fnGap[f.id] + '-level gap; ask us which tool fits.'); });
+    L.push(['8. Action plan', plan.map(function (x, i) { return (i + 1) + '. ' + x; }).join('\n')]);
+    if (oc && oc !== 'ai') {
+      var want = SZA[ans.size] || [];
+      var mv = DIR.filter(function (e) { return e.g === oc && !e.sc && indOk(e, ans.ind) && (!e.sz.length || e.sz.some(function (z) { return want.indexOf(z) >= 0; })); })
+        .sort(function (a, b) { return (b.sz.length ? 1 : 0) - (a.sz.length ? 1 : 0) || (b.ca ? 1 : 0) - (a.ca ? 1 : 0) || a.n.localeCompare(b.n); }).slice(0, 6);
+      if (mv.length) L.push(['9. More vendors to consider (not scored)', mv.map(function (e) { return '- ' + e.n + (e.ca ? ' (Canadian)' : '') + (safeUrl(e.u) ? ': ' + e.u : ''); }).join('\n')]);
+    }
+    var sug = aiSuggest();
+    if (sug.length) L.push(['10. AI tools to try', sug.map(function (x) {
+      return x.name + ' (for: ' + x.why.join('; ') + ')\n' + x.tools.map(function (t) { return '- ' + t.n + (t.fit ? ', ' + t.fit + '% fit' : '') + ', ' + aiPrice(t.pr).t + (safeUrl(t.u) ? ': ' + t.u : ''); }).join('\n');
+    }).join('\n\n') + '\nSet rules on what company data staff may put into AI tools.']);
+    L.push(['11. Funding', 'Government programs can cover part of a digital project. See ' + SITE + 'funding and ask us which programs fit your project before you sign.']);
+    L.push(['12. Next step', 'Book a free 30-minute review of this roadmap: ' + SITE + 'book\nTake the assessment again: ' + SITE + 'digital-assessment\nScores are our analyst rating from vendor information (November 2026); confirm them in a demo. Prices in US dollars unless marked.']);
+    return L;
   }
   vdInit(); aiInit();
 
