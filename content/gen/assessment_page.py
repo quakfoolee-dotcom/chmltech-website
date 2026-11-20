@@ -116,9 +116,9 @@ page = f'''<!doctype html>
       <div id="as-more"></div>
       <div id="as-aitools"></div>
       <div class="erp-lead">
-        <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-subject="Digital assessment report" data-success="Thank you. We have your results and will email your full report within one business day." novalidate>
+        <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-report-endpoint="https://chmltech-report.quakfoo-lee.workers.dev/" data-success-report="Thank you. Your Digital Roadmap PDF is on its way to your inbox from reports@mail.chmltech.com. If you do not see it in a few minutes, check your junk folder." data-subject="Digital assessment report" data-success="Thank you. We have your results and will email your full report within one business day." novalidate>
           <h3 class="h-md" style="font-size:22px">Get the full report</h3>
-          <p class="muted" style="font-size:14.5px">Action plan, demo questions, more vendors, AI tools and funding. We email it within one business day.</p>
+          <p class="muted" style="font-size:14.5px">Your Digital Roadmap as a PDF: action plan, demo questions, software options, AI tools and funding. Sent to your inbox in a minute.</p>
           <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="form" value="Digital assessment">
           <div class="row">
@@ -128,7 +128,8 @@ page = f'''<!doctype html>
           <div class="field"><label for="as-co">Company <span class="hint">(optional)</span></label><input id="as-co" name="company" autocomplete="organization"></div>
           <label class="check"><input type="checkbox" name="consent" value="yes" required> I agree that Chmltech Ltd. may email me my report and contact me about it. I can unsubscribe at any time.</label>
           <div id="as-f-report" hidden></div>
-          <div><button class="btn" type="submit">Request my full report</button></div>
+          <div><div class="cf-turnstile" data-sitekey="0x4AAAAAAGKoiNXbfnTG_CId" data-size="flexible" data-theme="light" style="margin:4px 0 12px"></div>
+          <button class="btn" type="submit">Email me my report</button></div>
           <p class="form-status" role="status" tabindex="-1"></p>
         </form>
         <div class="erp-audit">
@@ -213,6 +214,7 @@ page = f'''<!doctype html>
 <script type="application/json" id="assess-data">{js_json(A)}</script>
 {mainjs}
 <script src="assets/js/assess.js" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
 '''
