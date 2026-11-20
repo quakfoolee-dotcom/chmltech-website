@@ -7,10 +7,14 @@
 ]
 },
 "fed-cca-clean-energy-equipment": {
-"src": "auto"
+"src": "phase1",
+"note": "Tax deduction (accelerated depreciation) for taxable businesses that buy eligible Class 43.1/43.2 equipment.",
+"checked": "official"
 },
 "fed-cca-zero-emission-vehicles": {
-"src": "auto"
+"src": "phase1",
+"note": "Tax deduction (accelerated depreciation) for taxable businesses buying zero-emission vehicles or equipment.",
+"checked": "official"
 },
 "fed-aafc-agrimarketing-sme-market-diversification": {
 "forprofit": true,
@@ -20,10 +24,17 @@
 "proj_min": 20000
 },
 "fed-aafc-agriscience-projects": {
-"pct": 50.0,
-"stack": 85,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"stack": 85,
+"src": "redteam",
+"legal_excl": [
+"sole",
+"part",
+"none"
+],
+"note": "Must be incorporated with 2 years of audited statements (newer firms can ask for alternatives); sole proprietorships and academics cannot apply directly.",
+"checked": "official"
 },
 "fed-ai-compute-access-fund": {
 "forprofit": true,
@@ -35,10 +46,14 @@
 },
 "fed-dfo-atlantic-fisheries-fund": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Must be active in or support fish harvesting, processing or aquaculture.",
+"checked": "official"
 },
 "fed-bdc-advisory-services": {
-"src": "auto"
+"src": "phase1",
+"note": "Paid consulting service; BDC can finance the cost.",
+"checked": "official"
 },
 "fed-bdc-indigenous-entrepreneur-loan": {
 "src": "redteam",
@@ -53,7 +68,9 @@
 "note": "Must be profitable"
 },
 "fed-biofuels-production-incentive": {
-"src": "auto"
+"src": "phase1",
+"note": "Must already produce biodiesel or renewable diesel eligible for Clean Fuels Regulations credits.",
+"checked": "official"
 },
 "fed-black-entrepreneurship-loan-fund": {
 "src": "redteam",
@@ -63,12 +80,17 @@
 },
 "fed-build-canada-apprenticeship-service": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 10000,
+"note": "For small and medium employers hiring a first-year Red Seal apprentice; not yet open.",
+"checked": "official"
 },
 "fed-acoa-business-development-program": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Talk to your nearest ACOA office before applying.",
+"checked": "official"
 },
 "fed-pacifican-business-scale-up-productivity": {
 "inc": true,
@@ -94,9 +116,11 @@
 "region": "north"
 },
 "fed-ced-business-scale-up-productivity": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "Retail, restaurants, transportation services, housing construction, daycares, salons and bars are ineligible.",
+"checked": "official"
 },
 "fed-pch-canada-book-fund-publishing-support": {
 "yrs_min": 1.0,
@@ -104,7 +128,9 @@
 "src": "auto"
 },
 "fed-canada-growth-fund": {
-"src": "auto"
+"src": "phase1",
+"note": "Commercial investor for large decarbonization projects and scaling clean-tech firms, not a grant.",
+"checked": "official"
 },
 "fed-cib-building-retrofits": {
 "forprofit": true,
@@ -153,7 +179,10 @@
 },
 "fed-pch-canada-periodical-fund-aid-to-publishers": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"yrs_min": 1,
+"note": "Must be majority Canadian-owned and have published an eligible periodical for a full 12-month cycle.",
+"checked": "official"
 },
 "fed-csbfp": {
 "rev_max": 10000000,
@@ -168,7 +197,12 @@
 "scope": "forprofit"
 },
 "fed-cavco-canadian-film-video-production-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"pct": 25,
+"note": "Applicant must be a Canadian-controlled taxable Canadian corporation primarily in film/video production.",
+"checked": "official"
 },
 "fed-canexport-associations": {
 "forprofit": false,
@@ -207,9 +241,11 @@
 "src": "redteam"
 },
 "fed-clean-fuels-fund": {
-"pct": 30.0,
+"pct": 30,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Capital projects need large minimum fuel production capacity; call is closed.",
+"checked": "official"
 },
 "fed-clean-hydrogen-itc": {
 "inc": true,
@@ -227,7 +263,9 @@
 "src": "redteam"
 },
 "fed-community-futures": {
-"src": "auto"
+"src": "phase1",
+"note": "Serves rural and remote areas; loan limits and criteria set by each local office.",
+"checked": "official"
 },
 "fed-aafc-cea-rural-northern-stream": {
 "pct": 75.0,
@@ -245,7 +283,24 @@
 },
 "fed-pch-creative-export-canada": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"sole",
+"part",
+"none"
+],
+"rev_max": 500000000,
+"emp_min": 1,
+"note": "Must be incorporated and Canadian-owned; Export Development stream limited to revenue of $10M or less.",
+"data": {
+"applicant_types": [
+"Small & medium business",
+"Large business",
+"Non-profit",
+"Exporter"
+]
+},
+"checked": "official"
 },
 "fed-eip-ccus-feed": {
 "pct": 50.0,
@@ -256,10 +311,17 @@
 "niche": "ccus"
 },
 "fed-edc-export-guarantee-program": {
-"src": "auto"
+"src": "phase1",
+"note": "Requires international sales and a lender; suited to complex export financing.",
+"checked": "official"
 },
 "fed-cavco-film-video-production-services-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"pct": 16,
+"note": "Applicant must be a taxable Canadian or foreign-owned corporation primarily in film/video production.",
+"checked": "official"
 },
 "fed-feddev-funding-for-businesses": {
 "inc": true,
@@ -305,18 +367,35 @@
 },
 "fed-green-freight-program": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "Must operate heavy-duty vehicles (Class 2B-8); Stream 1 closed January 16, 2026; up to $250,000 per applicant per year.",
+"checked": "official",
+"source": "https://natural-resources.canada.ca/node/55507",
+"stack": 75
 },
 "fed-imhzev": {
-"src": "auto"
+"src": "phase1",
+"note": "Program ended March 31, 2026.",
+"checked": "official"
 },
 "fed-cannor-ideanorth": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Contact CanNor (Operations@cannor.gc.ca) for funding terms and intake timing.",
+"checked": "official"
 },
 "fed-nrcan-indigenous-natural-resource-partnerships": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"req_who": [
+"Indigenous-owned business"
+],
+"legal_excl": [
+"sole",
+"none"
+],
+"note": "For-profits must be 50%+ controlled by Indigenous communities; individually owned businesses are not funded.",
+"checked": "official"
 },
 "fed-nacca-indigenous-womens-entrepreneur-program": {
 "src": "redteam",
@@ -326,13 +405,18 @@
 ]
 },
 "fed-ced-montreal-east-end-initiative": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"scope": "forprofit",
+"note": "Project must be in Montreal's East End (east of Avenue Papineau); local-reach SMEs only exceptionally.",
+"checked": "official"
 },
 "fed-ideas-competitive-projects": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Funding only through periodic defence and security challenge calls.",
+"checked": "official"
 },
 "fed-isc-challenge-stream": {
 "inc": true,
@@ -349,11 +433,17 @@
 },
 "fed-pacifican-lytton-business-restart": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Only for businesses new or returning to Lytton, B.C.",
+"checked": "official"
 },
 "fed-mitacs-accelerate": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"per_unit": 7500,
+"note": "Requires a university supervisor and intern; for-profit partners must pay their share with private funds.",
+"checked": "official"
 },
 "fed-mitacs-accelerate-entrepreneur": {
 "inc": true,
@@ -374,7 +464,9 @@
 },
 "fed-ngen-project-funding": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Collaborative projects through NGen calls; NGen membership appears required.",
+"checked": "official"
 },
 "fed-cannor-nieop-entrepreneurship-business-development": {
 "pre": true,
@@ -431,17 +523,25 @@
 "fed-nserc-applied-research-development": {
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "A college applies; businesses join as partners and contribute cash of at least 25% of the grant.",
+"checked": "official"
 },
 "fed-aafc-poultry-egg-on-farm-investment": {
-"pct": 70.0,
+"pct": 70,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "Only supply-managed poultry and egg producers holding quota on January 1, 2021.",
+"checked": "official",
+"source": "https://agriculture.canada.ca/en/programs/poultry-egg-farm-investment/step-3-before-apply",
+"stack": 85
 },
 "fed-ced-quebec-economic-development-program": {
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "Projects must benefit many users (mainly businesses or tourists) and match a regional priority.",
+"checked": "official"
 },
 "fed-dfo-quebec-fisheries-fund": {
 "pre": true,
@@ -456,7 +556,11 @@
 },
 "fed-acoa-raii": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"proj_min": 1000000,
+"note": "Minimum contribution request $1M (proj_min derived); AI must be central; call closes Nov 20, 2026.",
+"checked": "official"
 },
 "fed-pacifican-raii": {
 "inc": true,
@@ -468,9 +572,12 @@
 "src": "redteam"
 },
 "fed-ced-raii": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"scope": "forprofit",
+"note": "AI must be central; retail, food services, transportation, construction, daycare and salons excluded.",
+"checked": "official"
 },
 "fed-feddev-raii": {
 "inc": true,
@@ -493,7 +600,9 @@
 },
 "fed-cannor-raii": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Contact CanNor for amounts and cost share; for projects starting in 2026-27.",
+"checked": "official"
 },
 "fed-pacifican-regional-defence-investment-initiative": {
 "inc": true,
@@ -531,7 +640,9 @@
 },
 "fed-acoa-regi-business-scale-up-productivity": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Talk to your nearest ACOA office before applying.",
+"checked": "official"
 },
 "fed-regional-tariff-response-initiative": {
 "inc": true,
@@ -558,12 +669,17 @@
 "fed-sreps": {
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "For utilities and Indigenous-led clean electricity projects; no stream accepting proposals.",
+"checked": "official"
 },
 "fed-csa-stdp": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"stack": 75,
+"note": "Funding only through periodic Announcements of Opportunity for space technology.",
+"checked": "official"
 },
 "fed-strategic-response-fund": {
 "inc": true,
@@ -572,7 +688,10 @@
 },
 "fed-student-work-placement-program": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 5000,
+"note": "Apply through one of 18 delivery partners; criteria vary by partner.",
+"checked": "official"
 },
 "fed-fednor-tmino-operational-assessments": {
 "pct": 50.0,
@@ -590,24 +709,40 @@
 "pct": 100.0,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"note": "Must be a Canadian-controlled corporation; producer track record required by stream.",
+"checked": "official"
 },
 "fed-telefilm-marketing-program": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"note": "Must be a Canadian-controlled distribution or production corporation that is financially stable.",
+"checked": "official"
 },
 "fed-telefilm-production-program": {
-"pct": 49.0,
+"pct": 49,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"note": "Must be a Canadian-controlled corporation; project budget at least $250,000 and CAVCO-certifiable.",
+"checked": "official"
 },
 "fed-trade-commissioner-service": {
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"note": "Needs a realistic international business plan; one-person unregistered businesses are not served.",
+"checked": "official"
 },
 "fed-wah-ila-toos-northern-reache": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Projects must serve Northern communities; Indigenous-led projects prioritized.",
+"checked": "official"
 },
 "fed-women-entrepreneurship-loan-fund": {
 "src": "redteam",
@@ -622,14 +757,30 @@
 "per_unit": 1000
 },
 "fed-aafc-youth-employment-skills-program": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 14000,
+"note": "Must be an agriculture or agri-food employer hiring a youth aged 15-30 on payroll.",
+"data": {
+"applicant_types": [
+"Small & medium business",
+"Large business",
+"Non-profit",
+"Indigenous-owned business"
+]
+},
+"checked": "official"
 },
 "fed-zevip": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"note": "Applicant must be a legal entity; small projects go through delivery organizations, private projects over $20M to the Canada Infrastructure Bank.",
+"checked": "official"
 },
 "ab-alberta-innovates-aice": {
 "forprofit": true,
@@ -639,10 +790,20 @@
 },
 "ab-era-agriculture-water-land-challenge": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"proj_min": 500000,
+"note": "Derived: minimum $250,000 ERA request with at least 1:1 private match; project must be piloted or deployed in Alberta.",
+"checked": "official"
 },
 "ab-aioc-loan-guarantee": {
-"src": "auto"
+"src": "phase1",
+"req_who": [
+"Indigenous-owned business"
+],
+"proj_min": 20000000,
+"note": "Only Indigenous Nations/groups and Nation- or community-owned entities; privately owned Indigenous businesses are not eligible.",
+"checked": "official"
 },
 "ab-export-expansion-program": {
 "inc": true,
@@ -657,20 +818,33 @@
 "scope": "forprofit"
 },
 "ab-alberta-made-screen-industries-program": {
-"pct": 7.0,
+"pct": 25,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "Production Grant covers 25% of eligible Alberta costs (plus up to 7% for training); productions spending $500,000+ use the tax credit instead.",
+"checked": "official"
 },
 "ab-petrochemicals-incentive-program": {
-"pct": 12.0,
+"pct": 12,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"proj_min": 50000000,
+"note": "Projects of $50M-$150M had to be operational by about Oct 30, 2025; larger projects by about Oct 2030.",
+"checked": "official"
 },
 "ab-canada-alberta-job-grant": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 5000,
+"yrs_min": 1,
+"legal_excl": [
+"none"
+],
+"note": "Employer must be registered and operating in Alberta at least one year; apply before training starts.",
+"checked": "official"
 },
 "ab-cultural-industry-grants": {
 "yrs_min": 1.0,
@@ -679,7 +853,10 @@
 },
 "ab-scap-emerging-opportunities": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 25,
+"note": "Processors need a minimum $2M total project investment; primary producers are not eligible. Non-capital costs are 50%.",
+"checked": "official"
 },
 "ab-film-television-tax-credit": {
 "inc": true,
@@ -691,13 +868,19 @@
 "src": "redteam"
 },
 "ab-innovation-employment-grant": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Expenses must qualify for federal SR&ED; phases out at $10M-$50M taxable capital.",
+"checked": "official"
 },
 "ab-era-methane-reduction-deployment": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "For upstream and midstream oil and gas facility owners/operators in Alberta; max $2M per parent company.",
+"checked": "official"
 },
 "ab-alberta-innovates-micro-voucher": {
 "forprofit": true,
@@ -709,20 +892,40 @@
 },
 "ab-scap-on-farm-efficiency": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"rev_min": 25000,
+"note": "Primary producers with $25,000+ annual farm commodity production and a current Environmental Farm Plan.",
+"checked": "official"
 },
 "ab-scap-on-farm-value-added": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 25,
+"rev_min": 25000,
+"note": "Primary producers with $25,000+ annual production adding value after harvest; non-capital costs are 50%.",
+"checked": "official"
 },
 "ab-scap-resiliency-public-trust": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 60,
+"note": "The only businesses named as eligible are provincially licensed meat and dairy facilities; otherwise non-profits and public bodies.",
+"data": {
+"applicant_types": [
+"Non-profit",
+"Small & medium business"
+]
+},
+"checked": "official"
 },
 "ab-era-semi": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"yrs_min": 1,
+"note": "Industrial facilities in eligible NAICS sectors; must complete a Facility Readiness Assessment first; new participants join a waitlist.",
+"checked": "official"
 },
 "ab-alberta-innovates-venture-development-grant": {
 "forprofit": true,
@@ -733,9 +936,12 @@
 "src": "auto"
 },
 "ab-scap-water-program": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"rev_min": 25000,
+"note": "Primary producers with $25,000+ annual farm commodity production; land-only landlords excluded.",
+"checked": "official"
 },
 "bc-agriculture-food-export-program": {
 "rev_min": 100000,
@@ -769,7 +975,10 @@
 "src": "redteam"
 },
 "bc-hydro-business-energy-saving-incentives": {
-"src": "auto"
+"src": "phase1",
+"pct": 40,
+"note": "For BC Hydro commercial and small industrial sites; contractor must be a registered Alliance of Energy Professionals member.",
+"checked": "official"
 },
 "bc-hydro-custom-project-incentives": {
 "src": "redteam",
@@ -788,10 +997,20 @@
 },
 "bc-beneficial-management-practices": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"legal_excl": [
+"none"
+],
+"note": "Needs a GST/CRA business number, B.C. farm income tax filing and a valid Environmental Farm Plan (most categories).",
+"checked": "official"
 },
 "bc-book-publishing-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Canadian-controlled book publisher receiving Canada Book Fund Support for Publishers base contributions.",
+"checked": "official"
 },
 "bc-buy-bc-partnership-program": {
 "rev_min": 30000,
@@ -800,13 +1019,18 @@
 "src": "redteam"
 },
 "bc-clean-buildings-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Expenditures had to be paid by March 31, 2026; tax-exempt entities are not eligible.",
+"checked": "official"
 },
 "bc-clean-industry-fund": {
-"pct": 50.0,
-"stack": 75,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Lead applicant must be an operation regulated under B.C.'s Output-Based Pricing System.",
+"checked": "official"
 },
 "bc-innovate-bc-commercialization-investment-readiness-microgrant": {
 "inc": true,
@@ -817,34 +1041,64 @@
 "src": "auto"
 },
 "bc-enhanced-replant-program": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Existing tree fruit, wine grape or berry producers only; one ERP application per farm per fiscal year.",
+"checked": "official"
 },
 "bc-export-navigator": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"checked": "official"
 },
 "bc-film-television-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Production must meet Canadian content rules and get an eligibility certificate from Creative BC.",
+"checked": "official"
 },
 "bc-food-safety-program": {
-"pct": 70.0,
+"pct": 70,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Aquaculture/seafood, retail, restaurants, pet food and supplement operations are excluded.",
+"data": {
+"industries": [
+"Agriculture & agri-food",
+"Manufacturing",
+"Transportation & logistics"
+],
+"applicant_types": [
+"Small & medium business",
+"Non-profit",
+"Co-operative"
+]
+},
+"checked": "official"
 },
 "bc-fortisbc-commercial-energy-assessment": {
-"src": "auto"
+"src": "phase1",
+"note": "FortisBC commercial customers (owner or long-term leaseholder) with a medium-sized business or small industrial facility.",
+"checked": "official"
 },
 "bc-fortisbc-custom-efficiency-program": {
 "pct": 50.0,
-"src": "auto"
+"src": "phase1",
+"note": "Project must save at least 1,000 GJ gas or 50,000 kWh per year; written pre-approval required.",
+"checked": "official"
 },
 "bc-go-electric-fleet-charging": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Needs a fleet registered in B.C.; home-based businesses are not eligible.",
+"checked": "official"
 },
 "bc-go-electric-commercial-vehicle-rebates": {
-"src": "auto"
+"src": "phase1",
+"note": "Rebate is per vehicle (up to 5 per year for businesses); intake reopens December 10, 2026.",
+"checked": "official"
 },
 "bc-innovate-bc-go-to-market-microgrant": {
 "inc": true,
@@ -855,11 +1109,16 @@
 },
 "bc-innovator-skills-initiative": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 10000,
+"note": "Needs 5+ full-time employees, or recent growth, or outside investment; hire must be from an under-represented group.",
+"checked": "official"
 },
 "bc-innovate-bc-integrated-marketplace": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Lead applicant is a Solution Adopter in an approved testbed; B.C. tech firms take part as Solution Providers.",
+"checked": "official"
 },
 "bc-innovate-bc-early-stage-demonstration-call": {
 "inc": true,
@@ -868,17 +1127,32 @@
 "src": "auto"
 },
 "bc-interactive-digital-media-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Needs $100,000+ eligible B.C. salaries if IDM is the principal business ($2M+ otherwise).",
+"checked": "official"
 },
 "bc-mining-exploration-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Corporations only (individuals use the separate personal credit); limited partners not eligible.",
+"checked": "official"
 },
 "bc-creative-bc-passport-to-markets": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"note": "Apply in the window for each designated market, before attending.",
+"checked": "official"
 },
 "bc-production-services-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Production must be accredited by Creative BC; accreditation fee $19,000.",
+"checked": "official"
 },
 "bc-creative-bc-project-development-fund": {
 "inc": true,
@@ -887,7 +1161,11 @@
 "src": "auto"
 },
 "bc-shipbuilding-ship-repair-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"per_unit": 5250,
+"note": "Employer's principal business must be building, repairing or converting sea-going ships.",
+"checked": "official"
 },
 "bc-small-business-venture-capital-tax-credit": {
 "inc": true,
@@ -901,12 +1179,21 @@
 }
 },
 "bc-traceability-adoption-program": {
-"pct": 70.0,
+"pct": 70,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"note": "Businesses need a 9-digit CRA business number and must file B.C. taxes; restaurants, pet food and supplements excluded.",
+"checked": "official"
 },
 "bc-training-tax-credit-employers": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"per_unit": 4000,
+"note": "For employers of apprentices registered with SkilledTradesBC; tax-exempt corporations excluded.",
+"checked": "official"
 },
 "bc-creative-bc-video-games-business-development": {
 "inc": true,
@@ -922,16 +1209,31 @@
 },
 "bc-workbc-wage-subsidy": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"per_unit": 10000,
+"legal_excl": [
+"none"
+],
+"note": "New hire must be a WorkBC client; needs an active WorkSafeBC account; public sector excluded.",
+"checked": "official"
 },
 "mb-scap-agri-processing-productivity-improvement": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"proj_min": 10000,
+"note": "Eligible project costs must be $10,000 to $50,000; equipment and software only.",
+"checked": "official"
 },
 "mb-mfm-music-build-program": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"yrs_min": 1,
+"note": "Manitoba-owned music companies; Level 2 ($20,000) needs 2 years registered and 2+ Manitoba artists.",
+"checked": "official"
 },
 "mb-building-up-manitoba-program": {
 "emp_max": 499,
@@ -941,7 +1243,10 @@
 "src": "redteam"
 },
 "mb-efficiency-mb-business-lighting": {
-"src": "auto"
+"src": "redteam",
+"note": "Owner must be a Manitoba Hydro general service customer; building occupied 2+ years; approval before purchase.",
+"checked": "official",
+"source": "https://efficiencymb.ca/business_lighting_program_guide_fnl/"
 },
 "mb-workforce-tariff-response-employee-training": {
 "pct": 100.0,
@@ -955,11 +1260,15 @@
 "proj_min": 1000000
 },
 "mb-cedf-business-loans": {
-"src": "auto"
+"src": "phase1",
+"note": "Business must operate north of Manitoba's 21st township, or be an Indigenous entity outside Winnipeg.",
+"checked": "official"
 },
 "mb-efficiency-mb-commercial-energy-audit": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Building owner must be a Manitoba Hydro commercial-rate customer; auditor must be pre-qualified.",
+"checked": "official"
 },
 "mb-community-enterprise-development-tax-credit": {
 "inc": true,
@@ -967,11 +1276,16 @@
 "src": "redteam"
 },
 "mb-cultural-industries-printing-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"pct": 35,
+"note": "Book-printing division wages only; publisher must be unrelated and revenue per title capped at $200,000.",
+"checked": "official"
 },
 "mb-efficiency-mb-custom-energy-solutions": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Pre-approval required; incentive capped at 50% of incremental cost or one-year payback.",
+"checked": "official"
 },
 "mb-export-development-program": {
 "forprofit": true,
@@ -984,7 +1298,9 @@
 },
 "mb-green-energy-equipment-tax-credit": {
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "Rate depends on equipment (geothermal 7.5-15%, solar thermal 10%, biomass 15% for business use).",
+"checked": "official"
 },
 "mb-incoming-buyer-program": {
 "forprofit": true,
@@ -1001,9 +1317,11 @@
 "src": "auto"
 },
 "mb-efficiency-mb-innovation-fund": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Expression of Interest first; needs a measurement plan and a secured demonstration site.",
+"checked": "official"
 },
 "mb-innovation-growth-program": {
 "inc": true,
@@ -1012,40 +1330,78 @@
 "src": "redteam"
 },
 "mb-book-publishing-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"pct": 40,
+"note": "Must be primarily a book publisher with at least two recent qualifying Canadian-authored books.",
+"checked": "official"
 },
 "mb-film-video-production-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"note": "Eligible production corporation certified by Manitoba Film & Music; 45% of salaries or 30% of production costs.",
+"checked": "official"
 },
 "mb-interactive-digital-media-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"pct": 40,
+"note": "Apply for a Certificate of Eligibility before project work begins.",
+"checked": "official"
 },
 "mb-manufacturing-investment-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"pct": 8,
+"checked": "official"
 },
 "mb-research-development-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"pct": 15,
+"checked": "official"
 },
 "mb-manitoba-works-capital-incentive": {
-"src": "auto"
+"src": "phase1",
+"proj_min": 10000000,
+"note": "Applicant must own the property and pay its taxes; 65% of costs from private sources and 10+ jobs.",
+"checked": "official"
 },
 "mb-scap-market-development": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"proj_min": 3000,
+"pct": 50,
+"note": "Intake currently closed; watch for the next Sustainable CAP intake.",
+"checked": "official"
 },
 "mb-paid-work-experience-tax-credits": {
-"src": "auto"
+"src": "phase1",
+"pct": 15,
+"note": "Per-trainee caps ($5,000 per apprentice per year; $2,500 per co-op graduate per year); provincial Crown entities ineligible.",
+"checked": "official"
 },
 "mb-efficiency-mb-small-business-program": {
-"src": "auto"
+"src": "phase1",
+"pct": 70,
+"note": "Facility under 15,000 sq. ft., not a national franchise or chain, 10 or fewer Manitoba locations.",
+"checked": "official"
 },
 "mb-small-business-venture-capital-tax-credit": {
 "inc": true,
 "src": "redteam"
 },
 "mb-trade-growth-investment-financing": {
-"pct": 25.0,
-"src": "auto"
+"pct": 25,
+"src": "phase1",
+"legal_excl": [
+"sole",
+"part",
+"npo",
+"none"
+],
+"proj_min": 1000000,
+"note": "Must be a CCPC or Manitoba co-op; proj_min derived from $250,000 minimum loan at up to 25% of project cost; apply before starting.",
+"checked": "official"
 },
 "mb-trade-resilience-loan-program": {
 "inc": true,
@@ -1056,38 +1412,54 @@
 },
 "nb-scap-advancing-agri-food-processing": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"note": "30-50% for primary producers, up to 25% for processors not in primary agriculture; restaurants, grocery and retail food services ineligible.",
+"checked": "official"
 },
 "nb-scap-beneficial-management-practices": {
-"pct": 75.0,
+"pct": 35,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "NB farm owners/operators with an approved Environmental Farm Plan action plan updated within 5 years.",
+"checked": "official"
 },
 "nb-nbif-breakthru": {
-"src": "auto"
+"src": "phase1",
+"note": "2027 cohort applications closed; awards subject to NBIF due diligence.",
+"checked": "official"
 },
 "nb-scap-business-planning-skills": {
-"pct": 70.0,
+"pct": 60,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Training up to 70% (max $3,000/project), business planning up to 60% (max $10,000/applicant).",
+"checked": "official"
 },
 "nb-saveenergynb-business-rebate-program": {
-"pct": 25.0,
-"src": "auto"
+"pct": 25,
+"src": "phase1",
+"note": "Pre-approval required before starting work; lighting rebates available until January 31, 2027.",
+"checked": "official"
 },
 "nb-saveenergynb-commercial-buildings-retrofit": {
-"pct": 100.0,
-"src": "auto"
+"src": "phase1",
+"note": "Audit refunded up to 100% only if upgrades are done; upgrades paid $120/GJ (electric) or 25% (non-electric).",
+"checked": "official"
 },
 "nb-scap-crop-livestock-sector-development": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Machinery co-op element needs 4+ members under the Co-operative Associations Act (30%, max $30,000/yr).",
+"checked": "official"
 },
 "nb-scap-enabling-agricultural-research-innovation": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Projects must be science-based; up to 100% only for sector-wide benefit.",
+"checked": "official"
 },
 "nb-export-market-access-program": {
 "pct": 50.0,
@@ -1095,12 +1467,15 @@
 "src": "redteam"
 },
 "nb-saveenergynb-fuel-savings-transportation": {
-"pct": 30.0,
-"src": "auto"
+"pct": 30,
+"src": "phase1",
+"note": "Commercial transportation businesses only; devices must be bought and installed in NB.",
+"checked": "official"
 },
 "nb-saveenergynb-industrial-energy-efficiency": {
-"pct": 100.0,
-"src": "auto"
+"src": "phase1",
+"note": "Industrial facilities only; project must be pre-approved by NB Power before work starts.",
+"checked": "official"
 },
 "nb-nbif-innovation-voucher-fund": {
 "inc": true,
@@ -1122,53 +1497,91 @@
 "src": "auto"
 },
 "nb-scap-market-development-access": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Restaurants, caterers and other food service enterprises are excluded.",
+"checked": "official"
 },
 "nb-nbif-venture-capital": {
-"src": "auto"
+"src": "redteam",
+"note": "Tech startup with an NB-based team, real customers and global scale plans; equity via shares or convertible debentures.",
+"checked": "official",
+"forprofit": true
 },
 "nb-small-business-investor-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"investor": true,
+"legal_excl": [
+"sole",
+"part",
+"none"
+],
+"note": "Business must issue shares (private company, co-op or CEDC), net tangible assets under $50M, 75% of wages to NB residents.",
+"checked": "official"
 },
 "nb-saveenergynb-new-construction-ci": {
-"src": "auto"
+"src": "phase1",
+"note": "Building must still be in planning/design; register before construction.",
+"data": {
+"industries": [
+"All industries"
+]
+},
+"checked": "official"
 },
 "nb-saveenergynb-peak-rebate": {
-"src": "auto"
+"src": "phase1",
+"niche": "energy",
+"note": "Must be able to cut at least 100 kW per winter peak event.",
+"checked": "official"
 },
 "nb-scap-risk-management-food-safety": {
-"pct": 100.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "50% for one producer, 70% for two or more, up to 100% for associations; 40% for risk planning.",
+"checked": "official"
 },
 "nl-scap-agriculture-growth-secondary-processing": {
-"pct": 75.0,
-"stack": 75,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"stack": 75,
+"src": "phase1",
+"note": "Existing producers need $15,000+ annual farm sales (new entrants exempt path); program now fully committed.",
+"checked": "official"
 },
 "nl-scap-agriculture-marketing": {
-"pct": 75.0,
-"stack": 75,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"stack": 75,
+"src": "phase1",
+"note": "Existing producers need $15,000+ annual farm sales (new entrants exempt path); program now fully committed.",
+"checked": "official"
 },
 "nl-scap-agriculture-research": {
-"pct": 75.0,
-"stack": 75,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"stack": 75,
+"src": "phase1",
+"note": "Existing producers need $15,000+ annual farm sales (new entrants exempt path); program now fully committed.",
+"checked": "official"
 },
 "nl-apprenticeship-wage-subsidy": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 75,
+"note": "75% of apprentice wage up to $14/hour; needs MOU confirming a journeyperson on site.",
+"checked": "official"
 },
 "nl-business-growth-program": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "Real estate, wholesale and bars are ineligible and professional services normally are; applicant must put in 20%.",
+"checked": "official",
+"source": "https://www.gov.nl.ca/jgrd/files/BGP-APPLICANT-GUIDE-Pillars-2-4-September-2024-.pdf",
+"stack": 80
 },
 "nl-business-investment-program": {
 "emp_max": 99,
@@ -1176,10 +1589,12 @@
 "src": "auto"
 },
 "nl-scap-environmental-sustainability-climate-change": {
-"pct": 75.0,
-"stack": 75,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"stack": 75,
+"src": "phase1",
+"note": "Existing producers need $15,000+ annual farm sales (new entrants exempt path); RALP has own intakes; non-RALP funds fully committed.",
+"checked": "official"
 },
 "nl-green-transition-fund": {
 "inc": true,
@@ -1189,29 +1604,51 @@
 "src": "auto"
 },
 "nl-harvester-enterprise-loan-program": {
-"src": "auto"
+"src": "phase1",
+"note": "Independent fish harvesters only; down payment typically 10% (vessels) or 15% (other).",
+"checked": "official"
 },
 "nl-investment-attraction-fund": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"note": "Inward/foreign direct investment projects that would not proceed without the funding.",
+"data": {
+"funding_types": [
+"Loan"
+]
+},
+"checked": "official"
 },
 "nl-job-accelerator-growth-program": {
-"src": "auto"
+"src": "phase1",
+"note": "Must commit to 20+ new FTE jobs averaging $50,000 salary within three years; retail, wholesale, real estate excluded.",
+"checked": "official"
 },
 "nl-jobsnl-wage-subsidy": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 60,
+"note": "Hire must happen after approval; 60% of wages up to $12/hour.",
+"checked": "official"
 },
 "nl-scap-mitigating-agricultural-risks": {
-"pct": 75.0,
-"stack": 75,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"stack": 75,
+"src": "phase1",
+"note": "Existing producers need $15,000+ annual farm sales (new entrants exempt path); program now fully committed.",
+"checked": "official"
 },
 "nl-takecharge-business-efficiency-custom": {
-"src": "auto"
+"src": "phase1",
+"note": "Contact takeCHARGE and get project approval before starting; $0.10/kWh first-year savings, max $100,000.",
+"checked": "official"
 },
 "nl-takecharge-business-product-rebates": {
-"src": "auto"
+"src": "redteam",
+"note": "Retrofits in existing buildings with an active commercial electricity account; rebate criteria set per product.",
+"checked": "official",
+"source": "https://takechargenl.ca/business/product-rebates/led-tubes/"
 },
 "nt-prosper-nwt-adapt-fund": {
 "forprofit": true,
@@ -1220,72 +1657,121 @@
 "src": "redteam"
 },
 "nt-sustainable-cap-agri-food": {
-"pct": 100.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Commercial stream needs 1 year operating in NWT and $10,000+ farm/business income; new entrants have a separate $30,000 stream.",
+"checked": "official"
 },
 "nt-aea-renewable-energy-rebate": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Pre-approval required; contact AEA before applying; project must finish within 4 months.",
+"checked": "official"
 },
 "nt-prosper-nwt-northern-ai-adoption": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"pct": 100,
+"note": "Part 1 training and readiness assessment fully funded (business pays GST); Part 2 implementation funding optional.",
+"checked": "official"
 },
 "nt-film-rebate-program": {
-"pct": 40.0,
-"src": "auto"
+"pct": 40,
+"src": "phase1",
+"forprofit": true,
+"proj_min": 100000,
+"note": "Minimum anticipated NWT spend of $100,000; contact the NWT Film Commission first.",
+"checked": "official"
 },
 "nt-prosper-nwt-business-loans": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Loans of $2M-$5M limited to key sectors such as housing, infrastructure, critical minerals or emerging technologies.",
+"checked": "official"
 },
 "nt-prosper-nwt-venture-investment": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Amounts above $2M subject to extra criteria and priority sectors.",
+"checked": "official"
 },
 "nt-seed-entrepreneur-support": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"pct": 70,
+"note": "Applicant equity 30% in Yellowknife, Hay River, Fort Smith, Inuvik (20% elsewhere); talk to a regional Economic Development Officer first; arts and film no longer funded.",
+"checked": "official"
 },
 "nt-seed-micro-business": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 70,
+"note": "Applicant equity 30% in Group 1 communities (20% elsewhere), sweat equity sometimes accepted; arts and film no longer funded.",
+"checked": "official"
 },
 "nt-seed-capital-expansion-incentive": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Offsets interest on loans for new capital; only Minister-designated sectors (agriculture, energy, fishing, knowledge economy, tourism, value-added manufacturing).",
+"checked": "official"
 },
 "nt-seed-strategic-investments": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"forprofit": true,
+"note": "Applicant equity 30% in Group 1 communities (20% elsewhere); project must leverage non-GNWT funding.",
+"checked": "official"
 },
 "nt-trades-occupation-wage-subsidy": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 28800,
+"note": "Up to $9/hour (derived max 3,200 h x $9; $16/hour for women in non-traditional trades) for registered NWT apprentices or occupation trainees.",
+"checked": "official"
 },
 "nt-wage-subsidy-program": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"yrs_min": 0.5,
+"scope": "forprofit",
+"pct": 80,
+"per_unit": 30500,
+"note": "Employer pays at least 20% of wages; apply within 3 months of the hire's start date via an ECE Regional Service Centre.",
+"checked": "official"
 },
 "ns-advancing-clean-technologies": {
-"pct": 60.0,
-"stack": 75,
+"pct": 60,
 "pre": true,
-"src": "auto"
+"stack": 75,
+"src": "phase1",
+"forprofit": true,
+"note": "Final intake closed; farms/agri-businesses need $30,000+ eligible income; projects under $60,000 (except three-phase power) go to Efficiency Nova Scotia.",
+"checked": "official"
 },
 "ns-scap-agricultural-research-innovation": {
-"pct": 85.0,
+"pct": 85,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "On-farm stream for farms and industry associations; research stream for institutions, associations and government bodies.",
+"checked": "official"
 },
 "ns-ens-agriculture-bmp": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Registered Nova Scotia farms (applicant 19+); Call #4 closed, no future call announced.",
+"checked": "official"
 },
 "ns-ens-business-energy-rebates": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Pre-approval needed for rebates over $15,000 and for data centre, water heating and solar measures.",
+"checked": "official"
 },
 "ns-climate-adaptation-program": {
 "emp_max": 149,
@@ -1294,33 +1780,59 @@
 },
 "ns-co-op-education-incentive": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"per_unit": 5120,
+"note": "$8/hour up to 640 hours per co-op student (derived $5,120); wage must be at least $19.50/hour; provincial government entities ineligible.",
+"checked": "official"
 },
 "ns-ens-commercial-new-construction": {
-"src": "auto"
+"src": "phase1",
+"niche": "building",
+"note": "Design-stage buildings of at least 15,000 sq ft targeting 40% better than code; must work with an approved energy modeller.",
+"checked": "official"
 },
 "ns-ens-custom-energy-retrofits": {
-"src": "auto"
+"src": "phase1",
+"note": "Electricity-saving retrofits only, simple payback before incentives of 1-15 years; agreement must be signed before buying equipment.",
+"checked": "official"
 },
 "ns-digital-animation-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Part A application required before principal photography or key animation.",
+"checked": "official"
 },
 "ns-digital-media-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"pct": 25,
+"note": "Taxable Canadian corporation with a permanent establishment in Nova Scotia; credit is lesser of 50% of qualifying or 25% of total spend.",
+"checked": "official"
 },
 "ns-scap-environmental-stewardship-climate-change": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Farms need $30,000+ eligible gross commodity income (Mi'kmaq farming and community pastures follow separate criteria).",
+"checked": "official"
 },
 "ns-export-development-program": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"proj_min": 500,
+"pct": 50,
+"note": "Excludes franchisees, tourism operators, associations, most retailers/wholesalers and non-revenue-generating non-profits; minimum project $500 (Stream 1) or $3,000 (Stream 2).",
+"checked": "official"
 },
 "ns-ens-faeeif": {
-"pct": 80.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Covers 50%-80% of eligible costs depending on path; competitive scoring; applicant must be the project end user.",
+"checked": "official"
 },
 "ns-graduate-to-opportunity-grow": {
 "emp_max": 99,
@@ -1334,12 +1846,23 @@
 "src": "auto"
 },
 "ns-greenshoots": {
-"pct": 90.0,
+"pct": 90,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"rev_max": 999999,
+"note": "Cumulative sales under $1M, TRL 4+, founders own 51%+ and work full-time; previous recipients ineligible.",
+"checked": "official"
 },
 "ns-innovation-equity-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"emp_max": 99,
+"yrs_max": 10,
+"investor": true,
+"note": "Investee must be a CCPC with head office in Nova Scotia and under $15M in assets; credit goes to investors.",
+"checked": "official"
 },
 "ns-innovation-rebate-program": {
 "src": "auto",
@@ -1347,48 +1870,95 @@
 },
 "ns-invest-ns-accelerate": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"rev_max": 999999,
+"note": "Cumulative revenue under $1M and under $250K equity raised; founders own 51%+ and work full-time; one-time only.",
+"checked": "official"
 },
 "ns-market-entry-development-program": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Open to export-ready businesses in all four Atlantic provinces; company contributes $1,250 or $2,500.",
+"checked": "official"
 },
 "ns-scap-market-opportunities-diversification": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Farms and agri-businesses need $30,000+ eligible income; non-profit agricultural associations also eligible.",
+"checked": "official"
 },
 "ns-capital-investment-tax-credit": {
-"pct": 25.0,
-"src": "auto"
+"pct": 25,
+"src": "redteam",
+"inc": true,
+"forprofit": true,
+"note": "Approved project needs $15M+ of new qualified property acquired by Dec 31, 2029; manufacturing, processing, farming, fishing, logging only.",
+"checked": "official",
+"proj_min": 15000000,
+"data": {
+"industries": [
+"Manufacturing",
+"Agriculture & agri-food",
+"Fisheries & aquaculture",
+"Forestry"
+],
+"purposes": [
+"Equipment & capital investment",
+"Manufacturing",
+"Business expansion"
+]
+}
 },
 "ns-film-television-production-incentive-fund": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"proj_min": 25000,
+"pct": 25,
+"note": "Apply before principal photography; minimum Nova Scotia spend $25,000; $287.50 application fee.",
+"checked": "official"
 },
 "ns-research-development-tax-credit": {
-"pct": 15.0,
-"src": "auto"
+"pct": 15,
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Claimed with the corporate tax return on SR&ED performed in Nova Scotia.",
+"checked": "official"
 },
 "ns-scap-on-farm-resiliency": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Farms need $30,000+ eligible gross commodity income (Mi'kmaq farming and community pastures follow separate criteria).",
+"checked": "official"
 },
 "ns-scap-on-farm-water-management": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Farms need $30,000+ eligible gross commodity income (Mi'kmaq farming and community pastures follow separate criteria).",
+"checked": "official"
 },
 "ns-invest-ns-payroll-rebate": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Project must create at least 20 new FTE jobs in Nova Scotia paying above the regional average salary.",
+"checked": "official"
 },
 "ns-scap-planning-new-opportunities": {
-"pct": 60.0,
+"pct": 60,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Farms and agri-businesses need $30,000+ eligible income; non-profit agricultural associations also eligible.",
+"checked": "official"
 },
 "ns-plant-your-roots": {
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "Beginning farmers (under 5 years, under $30,000 farm revenue) or first-time buyers of a commercial farm; apply within 6 months of accepting the loan.",
+"checked": "official"
 },
 "ns-productivity-innovation-voucher": {
 "emp_max": 99,
@@ -1403,38 +1973,58 @@
 "proj_min": 60000
 },
 "ns-ens-small-business-energy-solutions": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Annual electricity use under 600,000 kWh; retrofit projects only; pre-approval before purchase.",
+"checked": "official"
 },
 "ns-ens-smart-synergy": {
-"src": "auto"
+"src": "phase1",
+"note": "Nova Scotia Power account holders on rate codes 10-12 or 21-23 with 15-minute interval metering; 2026-27 enrolment closed.",
+"checked": "official"
 },
 "ns-start-hiring-incentive": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"emp_max": 499,
+"per_unit": 25000,
+"note": "Must be approved before hiring; hire must be an unemployed or under-employed Nova Scotian.",
+"checked": "official"
 },
 "ns-tariff-customs-advisory-program": {
 "src": "redteam",
 "niche": "tariff"
 },
 "ns-scap-technology-adoption": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Farms and agri-businesses need $30,000+ eligible income (Mi'kmaq farming follows separate criteria).",
+"checked": "official"
 },
 "ns-wipsi": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Applicant must operate in or support a provincial priority sector.",
+"checked": "official"
 },
 "nu-fisheries-development-diversification-program": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Published policy expired August 31, 2015; confirm current terms with Nunavut EDT.",
+"checked": "official"
 },
 "nu-nbcc-loans": {
-"src": "auto"
+"src": "phase1",
+"note": "NBCC generally prefers facilities over $150,000; smaller needs go to community futures organizations.",
+"checked": "official"
 },
 "nu-ndc-equity-investment": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Minimum $75,000 investment; co-investment from lenders and shareholders is required.",
+"checked": "official"
 },
 "nu-film-spend-incentive": {
 "inc": true,
@@ -1443,10 +2033,18 @@
 },
 "nu-strategic-investments-business-fund": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Must qualify as a Nunavut Business under NNI; policy schedule sets $50,000-$250,000 and needs arm's-length financing.",
+"checked": "official"
 },
 "on-co-operative-education-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"pct": 30,
+"per_unit": 3000,
+"note": "Hire a student from an eligible Ontario co-op program; 25% rate if payroll is $600,000 or more.",
+"checked": "official"
 },
 "on-oci-collaborate-2-commercialize": {
 "inc": true,
@@ -1470,8 +2068,12 @@
 "region": "east"
 },
 "on-expanded-ontario-made-manufacturing-investment-tax-credit": {
-"pct": 15.0,
-"src": "auto"
+"pct": 15,
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Only for corporations that are NOT Canadian-controlled private corporations (e.g. public or foreign-controlled).",
+"checked": "official"
 },
 "on-food-safety-growth-initiative-intake-2": {
 "pct": 50.0,
@@ -1479,9 +2081,14 @@
 "src": "redteam"
 },
 "on-ontario-creates-global-market-development-book": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"yrs_min": 1,
+"rev_min": 20000,
+"note": "Canadian-owned book publisher with 6+ Canadian-authored titles in print; non-profits only with a strong business case.",
+"checked": "official"
 },
 "on-oci-life-sciences-innovation-fund": {
 "inc": true,
@@ -1550,31 +2157,61 @@
 "src": "auto"
 },
 "on-ontario-book-publishing-tax-credit": {
-"pct": 30.0,
-"src": "auto"
+"pct": 30,
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"yrs_min": 1,
+"note": "Canadian-controlled book publisher that published at least two books in the previous year.",
+"checked": "official"
 },
 "on-ontario-business-research-institute-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"pct": 20,
+"note": "Research must be contracted to an eligible Ontario research institute the company is not connected to.",
+"checked": "official"
 },
 "on-ontario-computer-animation-special-effects-tax-credit": {
-"pct": 18.0,
-"src": "auto"
+"pct": 18,
+"src": "phase1",
+"inc": true,
+"note": "More than $25,000 of eligible Ontario labour per production is required.",
+"checked": "official"
 },
 "on-ontario-creates-ip-fund-interactive": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"forprofit": true,
+"proj_min": 30000,
+"note": "Canadian-controlled games/XR studio with a senior owner or employee with 3+ years industry experience; proj_min derived from $15,000 minimum at 50%.",
+"checked": "official",
+"inc": true
 },
 "on-ontario-film-television-tax-credit": {
-"pct": 35.0,
-"src": "auto"
+"pct": 35,
+"src": "phase1",
+"inc": true,
+"note": "Canadian-controlled production company; producer must have been an Ontario resident for two years.",
+"checked": "official"
 },
 "on-ontario-innovation-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"pct": 8,
+"note": "Must qualify for the federal SR&ED credit; limit phases out at prior-year taxable income of $500,000-$800,000.",
+"checked": "official"
 },
 "on-ontario-interactive-digital-media-tax-credit": {
-"pct": 40.0,
-"src": "auto"
+"pct": 40,
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "35% for fee-for-service work; partnerships and tax-exempt corporations are not eligible.",
+"checked": "official"
 },
 "on-ontario-job-grant": {
 "yrs_min": 1,
@@ -1583,15 +2220,28 @@
 "per_unit": 10000
 },
 "on-ontario-made-manufacturing-investment-tax-credit": {
-"pct": 15.0,
-"src": "auto"
+"pct": 15,
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Canadian-controlled private corporations only; non-CCPCs use the Expanded OMMITC.",
+"checked": "official"
 },
 "on-ontario-production-services-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"pct": 21.5,
+"proj_min": 100000,
+"note": "Budget must exceed $1 million for features or $100,000-$200,000 per episode for series; cannot be combined with OFTTC.",
+"checked": "official"
 },
 "on-ontario-research-development-tax-credit": {
 "pct": 3.5,
-"src": "auto"
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"note": "Non-refundable; only useful to corporations with Ontario tax payable.",
+"checked": "official"
 },
 "on-ontario-together-trade-fund": {
 "forprofit": true,
@@ -1627,8 +2277,13 @@
 "proj_min": 500000
 },
 "on-regional-opportunities-investment-tax-credit": {
-"pct": 10.0,
-"src": "auto"
+"pct": 10,
+"src": "phase1",
+"inc": true,
+"forprofit": true,
+"proj_min": 50000,
+"note": "Investment must be in a designated Northern, Eastern or Southwestern Ontario region; expenditures must be incurred by December 31, 2026.",
+"checked": "official"
 },
 "on-oci-retail-modernization-project-grant": {
 "inc": true,
@@ -1641,14 +2296,20 @@
 "src": "redteam"
 },
 "on-save-on-energy-energy-performance": {
-"src": "auto"
+"src": "phase1",
+"note": "Requires 12 months of hourly interval meter data and a commitment to 5% whole-facility savings.",
+"checked": "official"
 },
 "on-save-on-energy-peak-performance": {
-"src": "auto"
+"src": "phase1",
+"note": "Class B customers only; facilities under 500 kW of demand response must join through an aggregator.",
+"checked": "official"
 },
 "on-save-on-energy-retrofit": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Pre-project approval required; lessees need the owner's consent.",
+"checked": "official"
 },
 "on-save-on-energy-small-business": {
 "emp_max": 50,
@@ -1656,11 +2317,19 @@
 },
 "on-skills-development-fund-capital": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"checked": "official",
+"source": "https://forms.mgcs.gov.on.ca/dataset/ccb151bc-f926-48d1-a9c9-5a41d00478a1/resource/6687177e-f506-4fab-83dc-3afa9300b5bb/download/sdf-capital-stream-grow-pathway-guideline-english.pdf",
+"pct": 49,
+"stack": 70,
+"note": "GROW pays up to 49% (SEED planning/design: 70% up to $200,000); applicant funds 30%; needs a training-delivery track record."
 },
 "on-skills-development-fund-training": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"checked": "official",
+"source": "https://forms.mgcs.gov.on.ca/dataset/5f0dd16c-f826-4cc4-822e-42e82c78b991/resource/5bdff2a4-18a5-4f7d-bb59-6e0ff7a030fd/download/sdf-ts-r6-application-guide-final-english.pdf",
+"note": "Round 6 closed October 1, 2025; ministry first considers project budgets above $150,000."
 },
 "on-southwestern-ontario-development-fund": {
 "pct": 15.0,
@@ -1670,24 +2339,40 @@
 },
 "on-starter-company-plus": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Owner must be 18+, an Ontario resident and not a full-time student; contribute at least 25% of the grant.",
+"checked": "official"
 },
 "on-summer-company": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"req_who": [
+"Youth entrepreneur"
+],
+"yrs_max": 0,
+"note": "Students aged 15-29 returning to school; cannot already be running a business.",
+"checked": "official"
 },
 "pe-efficiencypei-business-energy-rebates": {
-"src": "auto"
+"src": "phase1",
+"note": "Existing non-residential building occupied at least 6 months; new construction not eligible.",
+"checked": "official"
 },
 "pe-capital-acquisition-assistance": {
-"pct": 25.0,
+"pct": 25,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Must produce mainly for export in an Innovation PEI strategic sector.",
+"checked": "official"
 },
 "pe-employ-pei": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Subsidy capped at $12.50/hour for up to 20 weeks; approval needed before the hire starts.",
+"checked": "official"
 },
 "pe-equity-investors-incentive": {
 "inc": true,
@@ -1697,59 +2382,104 @@
 },
 "pe-export-trade-assistance": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"pct": 40,
+"stack": 75,
+"note": "Strategic-sector exporters only; retail and consumer services are excluded.",
+"checked": "official"
 },
 "pe-food-product-development-assistance": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"pct": 50,
+"stack": 75,
+"note": "Must be a PEI food development, manufacturing or processing business.",
+"checked": "official"
 },
 "pe-graduate-mentorship-program": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"pct": 50,
+"note": "Subsidy capped at $12.50/hour for up to 52 weeks; hire must have graduated within 5 years.",
+"checked": "official"
 },
 "pe-innovation-fund": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Exporting strategic-sector business; product must be at TRL 6-9.",
+"checked": "official"
 },
 "pe-marketing-assistance": {
-"pct": 40.0,
+"pct": 40,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Must produce mainly for export in an Innovation PEI strategic sector.",
+"checked": "official"
 },
 "pe-pei-labour-rebate": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"pct": 25,
+"note": "New full-time export-related jobs paying at least $35,000 held by PEI residents.",
+"checked": "official"
 },
 "pe-film-production-fund": {
 "inc": true,
 "src": "auto"
 },
 "pe-rental-incentive-assistance": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Strategic-sector exporters only; retail and consumer services are excluded.",
+"checked": "official"
 },
 "pe-small-business-assistance": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Business must be the owner's main income or employ someone; fishers, farmers, realty and financial firms excluded.",
+"checked": "official"
 },
 "pe-small-business-investment-grant": {
-"pct": 15.0,
+"pct": 15,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Business must be the owner's main income or employ someone; fishers, farmers, realty and financial firms excluded.",
+"checked": "official"
 },
 "pe-efficiencypei-strategic-energy-solutions": {
-"pct": 50.0,
-"src": "auto"
+"pct": 50,
+"src": "phase1",
+"note": "Project must be approved before purchase or installation.",
+"checked": "official"
 },
 "pe-strategic-improvement-assistance": {
-"pct": 40.0,
+"pct": 40,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"stack": 75,
+"note": "Must produce mainly for export in an Innovation PEI strategic sector.",
+"checked": "official"
 },
 "pe-workplace-skills-training": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Apply at least two weeks before training starts.",
+"checked": "official"
 },
 "qc-primo-adoptants-call": {
 "inc": true,
@@ -1758,7 +2488,13 @@
 "src": "auto"
 },
 "qc-multimedia-titles-tax-credit": {
-"src": "auto"
+"src": "redteam",
+"inc": true,
+"note": "Labour credit of 30% for commercial titles (37.5% with a French version, 26.25% otherwise); needs IQ certificates.",
+"checked": "official",
+"source": "https://www.investquebec.com/sites/default/files/2026-01/production-titres-multimedias-volet-general-fiche-detaillee.pdf",
+"forprofit": true,
+"pct": 30
 },
 "qc-cric-rd-innovation-tax-credit": {
 "inc": true,
@@ -1771,15 +2507,36 @@
 "src": "redteam"
 },
 "qc-film-tv-production-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"pct": 32,
+"note": "Credit is 32% of eligible labour (labour capped at 65% of production costs); needs a SODEC certificate; Québec-resident control.",
+"checked": "official"
 },
 "qc-film-production-services-tax-credit": {
-"src": "auto"
+"src": "redteam",
+"forprofit": true,
+"inc": true,
+"pct": 25,
+"note": "Production costs must be $250,000+ (whole series for series); SODEC certificate required; ads, news, sports, reality TV excluded.",
+"checked": "official",
+"source": "https://sodec.gouv.qc.ca/wp-content/uploads/lignes-credit-impot-services-production-cinema-tele-mars-2026-3.pdf",
+"proj_min": 250000
 },
 "qc-depart-regional-entrepreneurship": {
-"pct": 60.0,
+"pct": 60,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"emp_max": 250,
+"scope": "forprofit",
+"legal_excl": [
+"sole"
+],
+"proj_min": 25000,
+"stack": 80,
+"note": "Only businesses with an establishment in a targeted MRC (low-vitality MRCs, Gaspésie, etc.); proj_min derived from $15,000 minimum grant at 60%.",
+"checked": "official"
 },
 "qc-essor-volet-1-studies-digital": {
 "pct": 50.0,
@@ -1806,7 +2563,11 @@
 "proj_min": 10000000
 },
 "qc-fonds-impulsion": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"note": "Pre-seed/seed startups with a lead investor, referred by an IQ partner incubator or accelerator.",
+"checked": "official"
 },
 "qc-fonds-ecoleader-biodiversite": {
 "pct": 80.0,
@@ -1820,17 +2581,36 @@
 "niche": "tariff"
 },
 "qc-iq-productivity-loan": {
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"proj_min": 25000,
+"note": "Minimum project is $250,000 for regular businesses ($25,000 for co-ops/NPOs); finance, legal, accounting and crypto excluded.",
+"checked": "official"
 },
 "qc-iq-tax-credit-financing": {
-"src": "auto"
+"src": "phase1",
+"note": "Minimum loan $50,000 for SR&ED credits, $20,000 for other refundable credits; must have credits receivable.",
+"checked": "official"
 },
 "qc-priime-immigrant-hiring": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"note": "Employer must be registered with the REQ and hire a candidate holding a Services Québec PRIIME letter.",
+"checked": "official"
 },
 "qc-padat-tourism-attractions": {
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"sole"
+],
+"proj_min": 150000,
+"note": "Must be legally constituted in Québec with a tourism attraction; proj_min derived from $150,000 minimum loan; deadline Dec 31, 2026.",
+"checked": "official"
 },
 "qc-piec-social-economy-real-estate": {
 "rev_min": 100000,
@@ -1840,13 +2620,20 @@
 "src": "redteam"
 },
 "qc-ipop-foreign-trained-professionals": {
-"pct": 70.0,
+"pct": 70,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"note": "Hire a foreign-trained professional referred via a professional order with a Services Québec letter; public bodies excluded.",
+"checked": "official"
 },
 "qc-workforce-training-program": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Amount set case by case by a Services Québec business advisor; contact the regional office first.",
+"checked": "official"
 },
 "qc-psce-volet-2-export-diversification": {
 "rev_min": 1000000,
@@ -1858,20 +2645,31 @@
 },
 "qc-programme-innovation-volet-1": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Continuous intake suspended; only targeted calls for projects.",
+"checked": "official"
 },
 "qc-programme-innovation-volet-2-collaborative": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Consortia of private businesses with universities/research centres; only during a specific call; program ends Mar 31, 2027.",
+"checked": "official"
 },
 "qc-prime-vert-volet-1": {
-"pct": 70.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"note": "Agricultural operations and CUMAs only; 50-70% by practice, +15% for young farmers and CUMAs.",
+"checked": "official"
 },
 "qc-hydro-quebec-solutions-efficaces": {
-"pct": 90.0,
-"src": "auto"
+"pct": 75,
+"src": "phase1",
+"note": "Must be a Hydro-Québec (or eligible off-grid/municipal/co-op grid) customer; small businesses on rate G can get up to 90%.",
+"checked": "official"
 },
 "qc-programme-transformation-alimentaire": {
 "rev_max": 200000000,
@@ -1881,34 +2679,55 @@
 "src": "redteam"
 },
 "qc-ecoperformance": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "Simplified stream is for users under 36,000 GJ/yr of fossil fuel; large industrial projects are for cap-and-trade (SPEDE) emitters.",
+"checked": "official",
+"source": "https://cdn-contenu.quebec.ca/cdn-contenu/environnement/transition-energetique/affaires-ecoperformance/cadre-normatif-ecoperformance.pdf",
+"stack": 75,
+"data": {
+"industries": [
+"All industries"
+]
+}
 },
 "qc-wage-subsidy-subvention-salariale": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"legal_excl": [
+"none"
+],
+"note": "Candidate must be assessed by Services Québec and hold a wage subsidy letter; employer registered with the REQ.",
+"checked": "official"
 },
 "qc-un-premier-emploi-pour-toi": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Hire a 16-30 graduate (Apr 2025-Dec 2026 diploma) holding a Services Québec letter; NPOs get up to 100%, 16 weeks.",
+"checked": "official"
 },
 "sk-creative-sask-book-publishing-production": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "Publisher must have produced 2+ commercial books in the past 12 months via 2+ channels.",
+"checked": "official"
 },
 "sk-creative-sask-business-improvement-grant": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Must be active in a Creative Saskatchewan sector; start-up costs ineligible; film and live performing arts paused 2026-27.",
+"checked": "official"
 },
 "sk-creative-sask-craft-visual-arts-production": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"checked": "official"
 },
 "sk-critical-minerals-processing-investment-incentive": {
 "pct": 15.0,
@@ -1916,43 +2735,63 @@
 "proj_min": 10000000
 },
 "sk-creative-sask-digital-game-development": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Game must be made available for commercial sale; commissioned projects ineligible.",
+"checked": "official"
 },
 "sk-creative-sask-feature-film-tv-production": {
-"pct": 25.0,
+"pct": 30,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "30% Saskatchewan Stream / 25% Service Stream of SK spend; needs a market trigger; budgets over $250,000 need a single-purpose production company.",
+"checked": "official"
 },
 "sk-creative-sask-film-tv-development": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
 "multi": true,
-"src": "auto"
+"src": "phase1",
+"note": "First/Final Draft need market development money of 10%+ of budget; Slate needs prior commercially distributed content.",
+"checked": "official"
 },
 "sk-creative-sask-live-performing-arts-production": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"checked": "official"
 },
 "sk-scap-livestock-facility-emissions": {
-"pct": 60.0,
-"src": "auto"
+"pct": 60,
+"src": "phase1",
+"forprofit": true,
+"rev_min": 50000,
+"yrs_min": 2,
+"note": "Closed to new applications; permitted hog/sheep barns with 300+ animal units indoors; rebate max $36 per animal unit.",
+"checked": "official"
 },
 "sk-manufacturing-processing-tax-incentives": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"note": "For manufacturing and processing corporations; claimed on the T2 (Schedules 402/404).",
+"checked": "official"
 },
 "sk-creative-sask-marketing-grant-major": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Projects eligible for a production grant must apply there; film sector paused 2026-27.",
+"checked": "official"
 },
 "sk-creative-sask-marketing-grant-micro": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "One Micro grant per applicant per fiscal year; film sector paused 2026-27.",
+"checked": "official"
 },
 "sk-oil-gas-processing-investment-incentive": {
 "pct": 15.0,
@@ -1970,10 +2809,20 @@
 }
 },
 "sk-chemical-fertilizer-incentive": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"proj_min": 10000000,
+"pct": 15,
+"note": "Synthetic fertilizer production (not potash-based) with $10M+ new capital; conditional approval applications by Dec 31, 2026.",
+"checked": "official"
 },
 "sk-commercial-innovation-incentive": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"note": "Corporation's only revenue must come from commercializing the qualifying IP.",
+"checked": "official"
 },
 "sk-scap-lean-improvements-in-manufacturing": {
 "inc": true,
@@ -1990,14 +2839,25 @@
 "proj_min": 1000000
 },
 "sk-research-development-tax-credit": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"pct": 10,
+"note": "Refundable only for Saskatchewan CCPCs on the first $2M a year; credits capped at $1M a year.",
+"checked": "official"
 },
 "sk-technology-start-up-incentive": {
 "emp_max": 49,
 "src": "auto"
 },
 "sk-value-added-agriculture-incentive": {
-"src": "auto"
+"src": "phase1",
+"forprofit": true,
+"inc": true,
+"proj_min": 10000000,
+"pct": 15,
+"note": "Non-refundable credit against corporate income tax; $10M+ new capital that increases productive capacity.",
+"checked": "official"
 },
 "sk-smeitc": {
 "emp_min": 5,
@@ -2005,9 +2865,11 @@
 "src": "auto"
 },
 "sk-creative-sask-sound-recording": {
-"pct": 50.0,
+"pct": 50,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Recording and mixing must be done in Saskatchewan.",
+"checked": "official"
 },
 "yt-media-development-fund": {
 "inc": true,
@@ -2017,9 +2879,11 @@
 "src": "auto"
 },
 "yt-economic-development-fund": {
-"pct": 75.0,
+"pct": 75,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Businesses must meet 3 of 4 Yukon presence conditions; capital costs funded at up to 50%.",
+"checked": "official"
 },
 "yt-commercial-institutional-energy-rebates": {
 "pct": 25.0,
@@ -2032,22 +2896,38 @@
 "src": "auto"
 },
 "yt-spark-tourism-microgrant": {
-"pct": 100.0,
+"pct": 100,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "For new and emerging tourism entrepreneurs; not for established entities expanding existing offerings.",
+"checked": "official"
 },
 "yt-staffing-up": {
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"emp_min": 1,
+"pct": 60,
+"note": "Must employ at least one worker besides the owner; contact the program to build a plan first.",
+"checked": "official"
 },
 "yt-sustainable-cap": {
-"pct": 60.0,
+"pct": 60,
 "pre": true,
-"src": "auto"
+"src": "phase1",
+"note": "Commercial stream needs 1+ year in Yukon and $15,000+ revenue or AgriStability; new entrants capped at $30,000.",
+"checked": "official"
 },
 "yt-tourism-cooperative-marketing-fund": {
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"note": "Projects $5,000+ (grants $2,500-$35,000); needs Travel Yukon listing and Yukon registration; next intake Jan 1-Feb 1, 2027.",
+"checked": "official",
+"source": "https://yukon.ca/sites/default/files/tc-tourism-cooperative-marketing-fund-guidelines-2026-27.pdf",
+"proj_min": 5000,
+"pct": 50,
+"legal_excl": [
+"none"
+]
 },
 "yt-business-investment-tax-credit": {
 "inc": true,

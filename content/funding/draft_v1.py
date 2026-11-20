@@ -80,14 +80,23 @@ def main():
     s, k = HERO_OLD.subn(hero(n), s, count=1); assert k == 1
     s = s.replace('<section class="section gr-section" id="finder"', SECTION + '\n<section class="section gr-section" id="finder"', 1)
     s = s.replace('<p class="eyebrow">Program directory</p>', '<p class="eyebrow">Program directory</p>', 1)
+    # refresh the directory data and cards from content/grants.json (Phase 1 status updates)
+    import sys; sys.path.insert(0, os.path.join(ROOT, "content", "gen"))
+    import grants_page as G
+    recs = json.load(open(os.path.join(ROOT, "content", "grants.json"), encoding="utf-8"))
+    recs = [r for r in recs if r.get("id") and r.get("name") and r.get("url")]; recs.sort(key=lambda r: r["name"].lower())
+    for r in recs:
+        s = re.sub(r'<article class="gr-card" id="p-' + re.escape(r["id"]) + r'".*?</article>', lambda m: G.card(r), s, count=1, flags=re.S)
+    dj = json.dumps(recs, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    s = re.sub(r'(<script type="application/json" id="grants-data">).*?(</script>)', lambda m: m.group(1) + dj + m.group(2), s, count=1, flags=re.S)
     rules = json.load(open(RULES, encoding="utf-8"))
     rj = json.dumps(rules, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     s = s.replace('<script type="application/json" id="grants-data">', f'<script type="application/json" id="fm-rules">{rj}</script>\n<script type="application/json" id="grants-data">', 1)
     import hashlib
     def ver(path): return hashlib.md5(open(os.path.join(ROOT, path), "rb").read()).hexdigest()[:8]
-    css = ''.join(f'<link rel="stylesheet" href="assets/css/{c}.css?v={ver("assets/css/" + c + ".css")}">\n' for c in ("course-finder", "erp", "assess", "funding-match"))
+    css = ''.join(f'<link rel="stylesheet" href="assets/css/{c}.css">\n' for c in ("course-finder", "erp", "assess", "funding-match"))
     s = s.replace('<link rel="stylesheet" href="assets/css/grants.css', css + '<link rel="stylesheet" href="assets/css/grants.css', 1)
-    s = re.sub(r'(<script src="assets/js/grants\.js[^"]*" defer></script>)', r'\1\n<script src="assets/js/funding-match.js?v=' + ver("assets/js/funding-match.js") + r'" defer></script>\n<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>', s, count=1)
+    s = re.sub(r'(<script src="assets/js/grants\.js[^"]*" defer></script>)', r'\1\n<script src="assets/js/funding-match.js" defer></script>\n<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>', s, count=1)
     open(FP, "w", encoding="utf-8").write(s)
     print("funding.html patched:", n, "programs")
 

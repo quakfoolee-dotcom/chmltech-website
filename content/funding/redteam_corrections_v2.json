@@ -500,5 +500,105 @@
   "bc-employer-training-grant": {
    "per_unit": 10000
   }
+ },
+ "P1spot": {
+  "fed-aafc-agriscience-projects": {
+   "yrs_min": null,
+   "note": "Must be incorporated with 2 years of audited statements (newer firms can ask for alternatives); sole proprietorships and academics cannot apply directly."
+  },
+  "ns-capital-investment-tax-credit": {
+   "proj_min": 15000000,
+   "note": "Approved project needs $15M+ of new qualified property acquired by Dec 31, 2029; manufacturing, processing, farming, fishing, logging only.",
+   "data": {
+    "industries": [
+     "Manufacturing",
+     "Agriculture & agri-food",
+     "Fisheries & aquaculture",
+     "Forestry"
+    ],
+    "purposes": [
+     "Equipment & capital investment",
+     "Manufacturing",
+     "Business expansion"
+    ]
+   }
+  },
+  "on-ontario-creates-ip-fund-interactive": {
+   "inc": true
+  },
+  "fed-ced-business-scale-up-productivity": {
+   "scope": null
+  },
+  "nt-seed-strategic-investments": {
+   "pct": null
+  }
+ },
+ "P1guide": {
+  "fed-green-freight-program": {
+   "source": "https://natural-resources.canada.ca/node/55507",
+   "stack": 75,
+   "note": "Must operate heavy-duty vehicles (Class 2B-8); Stream 1 closed January 16, 2026; up to $250,000 per applicant per year."
+  },
+  "fed-aafc-poultry-egg-on-farm-investment": {
+   "source": "https://agriculture.canada.ca/en/programs/poultry-egg-farm-investment/step-3-before-apply",
+   "stack": 85
+  },
+  "mb-efficiency-mb-business-lighting": {
+   "source": "https://efficiencymb.ca/business_lighting_program_guide_fnl/",
+   "note": "Owner must be a Manitoba Hydro general service customer; building occupied 2+ years; approval before purchase."
+  },
+  "nb-nbif-venture-capital": {
+   "forprofit": true,
+   "note": "Tech startup with an NB-based team, real customers and global scale plans; equity via shares or convertible debentures."
+  },
+  "nl-business-growth-program": {
+   "source": "https://www.gov.nl.ca/jgrd/files/BGP-APPLICANT-GUIDE-Pillars-2-4-September-2024-.pdf",
+   "stack": 80,
+   "note": "Real estate, wholesale and bars are ineligible and professional services normally are; applicant must put in 20%."
+  },
+  "nl-takecharge-business-product-rebates": {
+   "source": "https://takechargenl.ca/business/product-rebates/led-tubes/",
+   "note": "Retrofits in existing buildings with an active commercial electricity account; rebate criteria set per product."
+  },
+  "on-skills-development-fund-capital": {
+   "source": "https://forms.mgcs.gov.on.ca/dataset/ccb151bc-f926-48d1-a9c9-5a41d00478a1/resource/6687177e-f506-4fab-83dc-3afa9300b5bb/download/sdf-capital-stream-grow-pathway-guideline-english.pdf",
+   "pct": 49,
+   "stack": 70,
+   "note": "GROW pays up to 49% (SEED planning/design: 70% up to $200,000); applicant funds 30%; needs a training-delivery track record."
+  },
+  "on-skills-development-fund-training": {
+   "source": "https://forms.mgcs.gov.on.ca/dataset/5f0dd16c-f826-4cc4-822e-42e82c78b991/resource/5bdff2a4-18a5-4f7d-bb59-6e0ff7a030fd/download/sdf-ts-r6-application-guide-final-english.pdf",
+   "note": "Round 6 closed October 1, 2025; ministry first considers project budgets above $150,000."
+  },
+  "qc-multimedia-titles-tax-credit": {
+   "source": "https://www.investquebec.com/sites/default/files/2026-01/production-titres-multimedias-volet-general-fiche-detaillee.pdf",
+   "forprofit": true,
+   "pct": 30,
+   "note": "Labour credit of 30% for commercial titles (37.5% with a French version, 26.25% otherwise); needs IQ certificates."
+  },
+  "qc-film-production-services-tax-credit": {
+   "source": "https://sodec.gouv.qc.ca/wp-content/uploads/lignes-credit-impot-services-production-cinema-tele-mars-2026-3.pdf",
+   "proj_min": 250000,
+   "note": "Production costs must be $250,000+ (whole series for series); SODEC certificate required; ads, news, sports, reality TV excluded."
+  },
+  "qc-ecoperformance": {
+   "source": "https://cdn-contenu.quebec.ca/cdn-contenu/environnement/transition-energetique/affaires-ecoperformance/cadre-normatif-ecoperformance.pdf",
+   "stack": 75,
+   "note": "Simplified stream is for users under 36,000 GJ/yr of fossil fuel; large industrial projects are for cap-and-trade (SPEDE) emitters.",
+   "data": {
+    "industries": [
+     "All industries"
+    ]
+   }
+  },
+  "yt-tourism-cooperative-marketing-fund": {
+   "source": "https://yukon.ca/sites/default/files/tc-tourism-cooperative-marketing-fund-guidelines-2026-27.pdf",
+   "proj_min": 5000,
+   "pct": 50,
+   "legal_excl": [
+    "none"
+   ],
+   "note": "Projects $5,000+ (grants $2,500-$35,000); needs Travel Yukon listing and Yukon registration; next intake Jan 1-Feb 1, 2027."
+  }
  }
 }
