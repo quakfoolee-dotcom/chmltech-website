@@ -44,7 +44,21 @@
     var status = form.querySelector('.form-status');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (!form.checkValidity()) {
+        // Say what is missing in the page itself: the browser's own pop-up does not show in every viewer.
+        var miss = [];
+        Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (f) {
+          var bad = !f.checkValidity();
+          f.setAttribute('aria-invalid', bad ? 'true' : 'false');
+          if (!bad) return;
+          if (f.type === 'checkbox') miss.push('tick the consent box');
+          else if (f.type === 'email' && f.value) miss.push('enter a valid email address');
+          else { var l = form.querySelector('label[for="' + f.id + '"]'); miss.push('fill in ' + (l ? l.firstChild.textContent.trim().toLowerCase() : f.name)); }
+        });
+        show('err', 'Please ' + miss.join(', ') + '.');
+        var first = form.querySelector('[aria-invalid="true"]'); if (first) first.focus();
+        return;
+      }
       var data = new FormData(form);
       if (data.get('botcheck')) return; // spam honeypot
       var endpoint = form.getAttribute('data-endpoint');
@@ -85,7 +99,10 @@
             mailtoFallback('Sorry, your message could not be sent.');
           }
         })
-        .catch(function () { mailtoFallback('Sorry, your message could not be sent.'); })
+        .catch(function () {
+          var preview = location.protocol === 'file:' || window.self !== window.top;
+          mailtoFallback(preview ? 'Sending is blocked in this preview (it works on the live website).' : 'Sorry, your message could not be sent.');
+        })
         .then(function () { btn.disabled = false; btn.textContent = label; });
     });
     function show(kind, msg) {
@@ -95,6 +112,12 @@
       status.focus();
     }
   });
+
+  /* Pre-fill message for software vendors submitting product information (?topic=vendor) */
+  if (params.get('topic') === 'vendor') {
+    var vmsg = document.querySelector('textarea[name="message"]');
+    if (vmsg && !vmsg.value) vmsg.value = 'Product information for the Chmltech Digital Assessment\n\nCompany:\nProduct name:\nSoftware category (e.g. ERP, WMS, CRM):\nWebsite:\nCanadian head office or Canadian presence:\nTypical customer size (employees):\nIndustries served:\nPublished pricing or first-year cost range:\nLinks to documentation that support key capabilities:\n';
+  }
 
   /* Pre-fill message when arriving from a course page (?course=) */
   var course = params.get('course');

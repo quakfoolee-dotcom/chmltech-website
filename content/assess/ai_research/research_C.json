@@ -1,0 +1,794 @@
+{
+ "jobs": {
+  "data": [
+   {
+    "name": "Microsoft 365 Copilot (Copilot in Excel)",
+    "match_existing": null,
+    "url": "https://www.microsoft.com/en-ca/microsoft-365-copilot",
+    "best": "Teams already on Microsoft 365 who live in Excel, Outlook and Teams",
+    "price": "CAD $24.43/user/mo annual (Copilot Business add-on, promo to Dec 31 2026; regular CAD $28.50); Copilot Chat included with M365",
+    "s": [
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.microsoft.com/en-ca/microsoft-365-copilot/pricing",
+     "https://www.microsoft.com/en-ca/microsoft-365-copilot/pricing",
+     "https://learn.microsoft.com/microsoft-copilot-service/about-supported-languages",
+     "https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy",
+     "https://www.microsoft.com/en-ca/microsoft-365-copilot/pricing",
+     "https://www.microsoft.com/en-ca/microsoft-365-copilot/pricing",
+     "https://www.microsoft.com/en-ca/microsoft-365-copilot/pricing",
+     "https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy"
+    ],
+    "notes": [
+     "1-month trial, card required; Copilot Chat free with M365",
+     "Native in M365 apps only",
+     "French UI and output",
+     "No training; Purview retention; Canadian data at rest",
+     "Copilot built into Excel",
+     "Ask questions of your workbook",
+     "Builds charts/PivotTables",
+     "Cites files; shows formulas"
+    ],
+    "unconfirmed": [
+     "cite"
+    ],
+    "rc": "Works best when files live in OneDrive/SharePoint and are tidy tables; messy spreadsheets give weak answers.",
+    "canada": "CAD billing; French UI; M365 data stored in Canadian datacentres, but Copilot in-country processing for Canada now slated for 2027."
+   },
+   {
+    "name": "ChatGPT Business (data analysis)",
+    "match_existing": null,
+    "url": "https://chatgpt.com/business/",
+    "best": "Ad-hoc analysis of uploaded spreadsheets and CSVs with charts in plain English",
+    "price": "USD $20/user/mo annual or $25 monthly; 2-user minimum (per third-party summary of OpenAI pricing)",
+    "s": [
+     3,
+     2,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.eesel.ai/blog/chatgpt-work-pricing",
+     "https://www.eesel.ai/blog/chatgpt-work-pricing",
+     "",
+     "https://openai.com/business-data/",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "notes": [
+     "Free tier exists; Business paid",
+     "Connectors to M365 and Google Drive; no Excel add-in",
+     "French UI and output",
+     "No training by default; residency only on Enterprise",
+     "Reads Excel/CSV uploads",
+     "Plain-English questions",
+     "Generates charts",
+     "Shows code and cites web sources"
+    ],
+    "unconfirmed": [
+     "free",
+     "suite",
+     "fr",
+     "sheets",
+     "ask",
+     "charts",
+     "cite"
+    ],
+    "rc": "Great for one-off analysis, but it is not a live dashboard; staff re-upload files and should check numbers before sharing.",
+    "canada": "French UI; USD billing; Canadian data residency only on ChatGPT Enterprise/Edu, not Business."
+   },
+   {
+    "name": "NotebookLM + Gemini in Google Sheets",
+    "match_existing": "NotebookLM (Google)",
+    "url": "https://workspace.google.com/products/notebooklm/",
+    "best": "Google Workspace firms that want answers from Sheets and from their own documents",
+    "price": "Included in Google Workspace Business Standard (about USD $14/user/mo annual; CAD at checkout); NotebookLM free for personal use",
+    "s": [
+     2,
+     2,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://workspace.google.com/intl/en_ca/pricing",
+     "https://workspace.google.com/intl/en_ca/pricing",
+     "https://support.google.com/notebooklm/answer/16164461",
+     "https://knowledge.workspace.google.com/admin/generative-ai/generative-ai-in-google-workspace-privacy-hub",
+     "https://workspaceupdates.googleblog.com/2025/10/gemini-in-google-sheets-analyze-data.html",
+     "https://workspaceupdates.googleblog.com/2025/10/gemini-in-google-sheets-analyze-data.html",
+     "https://workspaceupdates.googleblog.com/2025/01/generate-charts-and-insights-with-gemini-google-sheets.html",
+     "https://support.google.com/notebooklm/answer/16164461"
+    ],
+    "notes": [
+     "14-day Workspace trial",
+     "Native in Google only",
+     "80+ languages incl. French",
+     "No training; admin retention; no Canada region",
+     "Gemini built into Sheets",
+     "Ask questions of sheets and docs",
+     "Generates charts and insights",
+     "NotebookLM cites source passages"
+    ],
+    "unconfirmed": [],
+    "rc": "Gemini in Sheets needs Business Standard or higher; Business Starter gets only basic NotebookLM.",
+    "canada": "French UI; Workspace data regions are US/EU only, and NotebookLM ignores data-region settings."
+   },
+   {
+    "name": "Julius AI",
+    "match_existing": "Julius AI",
+    "url": "https://julius.ai",
+    "best": "Non-technical staff who want to chat with spreadsheets and get charts fast",
+    "price": "USD $20/mo Plus ($16 annual), 1 seat; Business $450/mo ($375 annual) for 10 seats",
+    "s": [
+     3,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://julius.ai/pricing",
+     "https://julius.ai/pricing",
+     "",
+     "https://julius.ai/security",
+     "https://julius.ai/pricing",
+     "https://julius.ai/pricing",
+     "https://julius.ai/pricing",
+     "https://coefficient.io/julius-ai-pricing"
+    ],
+    "notes": [
+     "Free plan with daily credits",
+     "Drive/OneDrive/SharePoint connectors; no add-in",
+     "Understands French; English UI",
+     "No training; deletion on request; US-only",
+     "Excel uploads; Drive/OneDrive",
+     "Plain-English questions",
+     "Charts and dashboards",
+     "Shows code behind results"
+    ],
+    "unconfirmed": [
+     "fr",
+     "cite"
+    ],
+    "rc": "Credit-based plans can run out mid-project, and Team features start at the pricey Business tier.",
+    "canada": "USD billing; data stored and processed in the US only; English interface."
+   },
+   {
+    "name": "Perplexity (Pro / Enterprise Pro)",
+    "match_existing": "Perplexity Pro",
+    "url": "https://www.perplexity.ai/enterprise",
+    "best": "Fast cited market and competitor research for owners and sales staff",
+    "price": "Pro USD $17/mo annual ($20 monthly); Enterprise Pro USD $40/seat/mo or $400/yr",
+    "s": [
+     3,
+     2,
+     3,
+     2,
+     2,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.perplexity.ai/pro",
+     "https://www.perplexity.ai/help-center/en/articles/10672063-introduction-to-file-connectors-for-enterprise-organizations",
+     "",
+     "https://hub-prod.perplexity.ai/hub/blog/how-perplexity-enterprise-pro-keeps-your-data-secure",
+     "https://www.perplexity.ai/pro",
+     "https://www.perplexity.ai/enterprise",
+     "",
+     "https://www.perplexity.ai/enterprise"
+    ],
+    "notes": [
+     "Free tier; no Enterprise trial",
+     "Drive/SharePoint/OneDrive connectors",
+     "French UI and answers",
+     "Enterprise: no training; file retention controls",
+     "Reads uploaded files",
+     "Plain-English questions",
+     "Labs can build charts",
+     "Citations on every answer"
+    ],
+    "unconfirmed": [
+     "fr",
+     "sheets",
+     "charts"
+    ],
+    "rc": "Strong for web research, weaker for crunching your own spreadsheets; privacy terms apply only on Enterprise Pro, not personal Pro.",
+    "canada": "French UI; USD billing; no published Canadian data residency."
+   },
+   {
+    "name": "Zoho Analytics (Ask Zia)",
+    "match_existing": null,
+    "url": "https://www.zoho.com/analytics/",
+    "best": "SMEs wanting low-cost dashboards with plain-English questions and Canadian hosting",
+    "price": "Free (2 users, 10K rows); Standard about USD $60/mo for 5 users (yearly saves 20%); currency by country",
+    "s": [
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.zoho.com/analytics/pricing.html",
+     "",
+     "",
+     "https://www.businesswire.com/news/home/20231102557441/en/Zoho-Launches-New-Data-Centers-in-Canada-Offering-Local-Businesses-Fast-Reliable-and-Secure-Access-to-their-Data",
+     "https://www.zoho.com/analytics/pricing.html",
+     "https://www.zoho.com/analytics/pricing.html",
+     "https://www.zoho.com/analytics/pricing.html",
+     "https://www.zoho.com/zia/llm.html"
+    ],
+    "notes": [
+     "Permanent free plan; 15-day trial",
+     "Excel/Sheets/OneDrive connectors",
+     "French UI",
+     "Zia LLM in Zoho DCs; Canada DCs",
+     "Imports Excel/Google Sheets",
+     "Ask Zia answers in plain English",
+     "Reports and dashboards",
+     "Shows report behind answer"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "priv",
+     "cite"
+    ],
+    "rc": "More of a BI tool than a chat box: someone has to connect data sources and build the first dashboards.",
+    "canada": "Zoho runs Montreal and Toronto data centres for Canadian sign-ups (confirm Analytics is hosted there); French UI."
+   }
+  ],
+  "auto": [
+   {
+    "name": "Zapier",
+    "match_existing": "Zapier AI",
+    "url": "https://zapier.com",
+    "best": "The widest app coverage for no-code automations and simple AI agents",
+    "price": "Free (100 tasks/mo); Professional from USD $19.99/mo (annual); Team from $69/mo",
+    "s": [
+     3,
+     3,
+     2,
+     1,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://zapier.com/pricing",
+     "https://zapier.com/pricing",
+     "https://help.zapier.com/hc/en-us/articles/35201074788877-Can-I-change-Zapier-s-interface-language",
+     "https://zapier.com/legal/automation-platform-information",
+     "https://zapier.com/pricing",
+     "https://zapier.com/pricing",
+     "https://help.zapier.com/hc/en-us/articles/38733184458765/",
+     "https://zapier.com/pricing"
+    ],
+    "notes": [
+     "Free forever plan",
+     "Gmail, Outlook, Teams, Sheets apps",
+     "English-only UI; AI steps handle French",
+     "Training opt-out (auto only on Enterprise)",
+     "Visual Zap and agent builder",
+     "9,000+ apps",
+     "Human in the Loop steps",
+     "Custom error notifications"
+    ],
+    "unconfirmed": [],
+    "rc": "Task-based pricing climbs fast as volumes grow, and non-Enterprise plans must opt out of AI training.",
+    "canada": "English-only interface and help centre; USD billing; no Canadian data region published."
+   },
+   {
+    "name": "Make",
+    "match_existing": "Make (Integromat)",
+    "url": "https://www.make.com",
+    "best": "Visual multi-step workflows with branching at a low price",
+    "price": "Free (1,000 credits/mo); Core from about USD $9-$10.59/mo (annual)",
+    "s": [
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     2,
+     3
+    ],
+    "evidence": [
+     "https://www.make.com/en/pricing",
+     "https://www.make.com/en/integrations",
+     "",
+     "https://www.make.com/en/privacy-notice",
+     "https://www.make.com/en/pricing",
+     "https://www.make.com/en/pricing",
+     "https://make.com/en/help/app/human-in-the-loop",
+     "https://www.make.com/en/help/errors/how-to-handle-errors-in-make/overview-of-error-handling-in-make"
+    ],
+    "notes": [
+     "Free plan, 1,000 credits",
+     "Native M365 and Google apps",
+     "English UI; AI modules handle French",
+     "EU/US zones; AI training not stated",
+     "Visual scenario builder",
+     "3,000+ apps",
+     "HITL app or approval pattern",
+     "Error handlers and alerts"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv"
+    ],
+    "rc": "More flexible than Zapier but harder to learn; credits are consumed per step, so busy scenarios cost more than expected.",
+    "canada": "USD billing; EU or US hosting only; English interface."
+   },
+   {
+    "name": "Microsoft Power Automate",
+    "match_existing": "Power Automate AI",
+    "url": "https://www.microsoft.com/en-ca/power-platform/products/power-automate",
+    "best": "Microsoft 365 shops automating approvals, forms and files",
+    "price": "Standard connectors with M365 plans; Premium CAD $20.40/user/mo (annual)",
+    "s": [
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.microsoft.com/en-ca/power-platform/products/power-automate/pricing",
+     "https://www.microsoft.com/en-ca/power-platform/products/power-automate/pricing",
+     "https://azurecurve.co.uk/2024/07/new-functionality-in-microsoft-power-automate-2024-wave-1-use-copilot-with-french-language",
+     "https://learn.microsoft.com/en-us/power-platform/admin/regions-overview",
+     "https://www.microsoft.com/en-ca/power-platform/products/power-automate/pricing",
+     "https://www.microsoft.com/en-ca/power-platform/products/power-automate/pricing",
+     "",
+     ""
+    ],
+    "notes": [
+     "30-day trial; basic flows with M365",
+     "Native M365; Gmail/Sheets connectors",
+     "French UI and Copilot",
+     "No training; Canada region available",
+     "Copilot + visual flow designer",
+     "1,000+ connectors",
+     "Built-in Approvals",
+     "Failure emails and run history"
+    ],
+    "unconfirmed": [
+     "apps",
+     "approve",
+     "alerts",
+     "priv"
+    ],
+    "rc": "Excellent inside Microsoft 365, but premium connectors and desktop (RPA) flows add per-user or per-bot costs.",
+    "canada": "CAD pricing; French UI; Power Platform environments can be created in the Canada region."
+   },
+   {
+    "name": "n8n (Cloud)",
+    "match_existing": "n8n",
+    "url": "https://n8n.io",
+    "best": "Tech-savvy teams wanting powerful AI agent workflows at flat per-run pricing",
+    "price": "Starter EUR 20/mo (annual) for 2,500 executions; Pro EUR 50/mo",
+    "s": [
+     2,
+     3,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://n8n.io/pricing/",
+     "https://n8n.io/integrations/",
+     "",
+     "https://n8n.io/pricing/",
+     "https://n8n.io/pricing/",
+     "https://n8n.io/integrations/",
+     "https://docs.n8n.io/advanced-ai/human-in-the-loop-tools",
+     "https://n8n.io/pricing/"
+    ],
+    "notes": [
+     "Cloud trial, no card; free self-host",
+     "Gmail, Outlook, Sheets, Excel nodes",
+     "English UI; AI nodes handle French",
+     "Hosted in Frankfurt, EU",
+     "Visual builder, steeper learning curve",
+     "2,000+ listed incl. community",
+     "HITL for AI tool calls",
+     "Error workflows on all plans"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv",
+     "apps"
+    ],
+    "rc": "Most powerful and cheapest per run, but a non-technical owner will usually need a consultant to build and maintain it.",
+    "canada": "Billed in EUR; cloud data hosted in Germany only; English interface."
+   },
+   {
+    "name": "Lindy AI (Agent Builder)",
+    "match_existing": "Lindy AI (Agent Builder)",
+    "url": "https://www.lindy.ai",
+    "best": "Ready-made AI assistants for inbox triage, scheduling and CRM updates",
+    "price": "Free trial ($50 credits, 7 days); Team USD $29.99/user/mo",
+    "s": [
+     2,
+     3,
+     2,
+     2,
+     3,
+     3,
+     3,
+     2
+    ],
+    "evidence": [
+     "https://www.lindy.ai/pricing",
+     "https://www.lindy.ai/pricing",
+     "",
+     "https://www.lindy.ai/pricing",
+     "https://www.lindy.ai/pricing",
+     "https://www.lindy.ai/pricing",
+     "https://www.lindy.ai/pricing",
+     "https://docs.lindy.ai/testing/debugging.md"
+    ],
+    "notes": [
+     "7-day credit trial",
+     "Gmail, Outlook, calendars",
+     "English UI; works in French",
+     "Never trains on data; SOC 2",
+     "No-code agent builder",
+     "1,500+ integrations",
+     "Approval before outside actions",
+     "Task logs; alerting unclear"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "alerts"
+    ],
+    "rc": "Credit use is hard to predict; agents that send email for you need careful approval rules and testing.",
+    "canada": "USD billing; English interface; no Canadian data region published."
+   },
+   {
+    "name": "Relay.app",
+    "match_existing": "Relay.app",
+    "url": "https://www.relay.app",
+    "best": "Small teams wanting simple automations with people-in-the-loop steps",
+    "price": "Free (100 steps/mo); paid tiers up to USD $59/mo at 25,000 steps",
+    "s": [
+     3,
+     3,
+     2,
+     1,
+     3,
+     1,
+     3,
+     2
+    ],
+    "evidence": [
+     "https://www.relay.app/pricing",
+     "",
+     "",
+     "https://www.relay.app/security",
+     "https://www.relay.app/pricing",
+     "https://www.relay.app/pricing",
+     "https://www.relay.app/pricing",
+     ""
+    ],
+    "notes": [
+     "Free plan with all features",
+     "Gmail, Outlook, Sheets apps",
+     "English UI; AI steps handle French",
+     "SOC 2; training policy not stated",
+     "Simple visual builder",
+     "100+ apps",
+     "Human-in-the-loop on all plans",
+     "Run history; alerts unconfirmed"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "priv",
+     "alerts"
+    ],
+    "rc": "Easiest builder for approvals, but its app library is small, so check your key apps are supported first.",
+    "canada": "USD billing; English interface; hosting location not published."
+   }
+  ],
+  "sec": [
+   {
+    "name": "Microsoft Defender for Business",
+    "match_existing": null,
+    "url": "https://www.microsoft.com/en-ca/security/business/endpoint-security/microsoft-defender-business",
+    "best": "Affordable AI-powered endpoint protection for Microsoft 365 businesses",
+    "price": "CAD $4.10/user/mo (annual), up to 5 devices per user; included in M365 Business Premium (CAD $29.80)",
+    "s": [
+     2,
+     2,
+     3,
+     2,
+     2,
+     0,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.microsoft.com/en-ca/security/business/endpoint-security/microsoft-defender-business",
+     "https://www.microsoft.com/en-ca/security/business/endpoint-security/microsoft-defender-business",
+     "",
+     "https://learn.microsoft.com/en-us/defender-endpoint/data-storage-privacy",
+     "https://www.microsoft.com/en-ca/security/business/endpoint-security/microsoft-defender-business",
+     "",
+     "https://www.microsoft.com/en-ca/security/business/endpoint-security/microsoft-defender-business",
+     "https://www.microsoft.com/en-ca/security/business/endpoint-security/microsoft-defender-business"
+    ],
+    "notes": [
+     "30-day trial, card required",
+     "Microsoft 365 only",
+     "French portal",
+     "No ads use; storage US/EU etc., not Canada",
+     "Email phishing needs Defender for Office 365",
+     "None",
+     "AI EDR, auto investigation",
+     "Lighthouse multi-tenant view"
+    ],
+    "unconfirmed": [
+     "fr"
+    ],
+    "rc": "Best value when bought inside Business Premium; on its own it protects devices but not email.",
+    "canada": "CAD pricing and French UI; Defender data stored in US/EU/other regions, not Canada."
+   },
+   {
+    "name": "Field Effect MDR",
+    "match_existing": null,
+    "url": "https://fieldeffect.com",
+    "best": "Canadian 24/7 managed detection and response sized for small firms",
+    "price": "About $5-$25/user/mo depending on package (quote required)",
+    "s": [
+     1,
+     3,
+     1,
+     2,
+     2,
+     0,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://fieldeffect.com/products/mdr/pricing",
+     "https://fieldeffect.com/products/mdr/packages",
+     "",
+     "",
+     "https://fieldeffect.com/products/mdr/packages",
+     "",
+     "https://fieldeffect.com/products/mdr/packages",
+     "https://fieldeffect.com/products/mdr/packages"
+    ],
+    "notes": [
+     "Quote and free exposure report only",
+     "M365 or Google Workspace monitoring",
+     "French support unconfirmed",
+     "Canadian vendor; residency unconfirmed",
+     "Suspicious email review; SAT add-on",
+     "None",
+     "EDR on Windows, Mac, Linux",
+     "MSP portal with PSA links"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv",
+     "free"
+    ],
+    "rc": "You buy a service, not just software, so pricing is by quote and often comes through an MSP.",
+    "canada": "Ottawa-based Canadian vendor; confirm French service and Canadian data hosting at quote."
+   },
+   {
+    "name": "Huntress",
+    "match_existing": null,
+    "url": "https://www.huntress.com",
+    "best": "MSP-delivered managed EDR, M365/Google account protection and phishing training",
+    "price": "USD $8.99/endpoint/mo EDR; $4.80/identity ITDR; $2.08/learner SAT (50-seat minimum direct; none via MSP)",
+    "s": [
+     2,
+     3,
+     1,
+     1,
+     3,
+     0,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.huntress.com/pricing",
+     "https://www.huntress.com/pricing",
+     "",
+     "",
+     "https://www.huntress.com/pricing",
+     "",
+     "https://www.huntress.com/pricing",
+     "https://www.huntress.com/pricing"
+    ],
+    "notes": [
+     "Free trial of full product",
+     "ITDR for M365 and Google",
+     "English UI; French unconfirmed",
+     "Data handling and region not stated",
+     "Managed SAT with phishing sims",
+     "None",
+     "Managed EDR with 24/7 SOC",
+     "Built for MSP multi-tenant use"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv"
+    ],
+    "rc": "The 50-seat direct minimum means most small firms buy it through an IT provider.",
+    "canada": "USD pricing; no published Canadian data region or French interface."
+   },
+   {
+    "name": "KnowBe4 Security Awareness Training",
+    "match_existing": null,
+    "url": "https://www.knowbe4.com",
+    "best": "AI-driven phishing simulations and staff training at scale",
+    "price": "USD $2.40/seat/mo (Foundation) or $3.75 (Advanced), 25-50 seats, 3-year term",
+    "s": [
+     1,
+     3,
+     3,
+     3,
+     3,
+     0,
+     0,
+     3
+    ],
+    "evidence": [
+     "https://www.knowbe4.com/pricing-kevin-mitnick-security-awareness-training",
+     "https://www.knowbe4.com/products/security-awareness-training",
+     "https://www.knowbe4.com/security-awareness-training-languages",
+     "https://support.knowbe4.com/hc/en-us/articles/45880984844179-KnowBe4-Data-Storage-Locations",
+     "https://www.knowbe4.com/products/security-awareness-training",
+     "",
+     "",
+     ""
+    ],
+    "notes": [
+     "Demo and free tools only",
+     "Phish Alert Button for Outlook and Gmail",
+     "French (Canada) content and learner UI",
+     "Canadian data centre (Montreal)",
+     "AI phishing sims and coaching",
+     "None",
+     "None",
+     "MSP partner console"
+    ],
+    "unconfirmed": [
+     "suite",
+     "priv",
+     "msp"
+    ],
+    "rc": "Listed prices assume a 3-year term; training only works if someone reviews results and follows up.",
+    "canada": "Canadian data centre (AWS Montreal) for training and PhishER; French (Canada) content suits Quebec and Bill 96."
+   },
+   {
+    "name": "Beauceron Security",
+    "match_existing": null,
+    "url": "https://www.beauceronsecurity.com",
+    "best": "Canadian awareness training with risk scores and adaptive phishing",
+    "price": "CAD $22.99/user for a 3-year term (via CDW Canada)",
+    "s": [
+     1,
+     2,
+     3,
+     3,
+     3,
+     0,
+     0,
+     3
+    ],
+    "evidence": [
+     "https://www.cdw.ca/product/beauceron-cyber-awareness-training-phishing-3-year/6105602",
+     "",
+     "",
+     "https://ehlist-ca.pages.dev/blog/is-beauceron-security-really-canadian/",
+     "https://beauceronsecurity.com/offerings",
+     "",
+     "",
+     "https://www.beauceronsecurity.com/msp-partners"
+    ],
+    "notes": [
+     "Demo only",
+     "Mailbox integration for purge assumed",
+     "Bilingual unconfirmed",
+     "Data hosted in Canada",
+     "Adaptive phishing; AI email analyst",
+     "None",
+     "None",
+     "Partner View multi-client console"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "priv"
+    ],
+    "rc": "Strong Canadian option, but you will likely buy through a reseller or MSP and need a 3-year term for best pricing.",
+    "canada": "Fredericton-based; data hosted in Canada (third-party source); CAD pricing through Canadian resellers."
+   },
+   {
+    "name": "1Password Business",
+    "match_existing": null,
+    "url": "https://1password.com",
+    "best": "Team password manager with admin controls and phishing-resistant autofill",
+    "price": "USD $8.99/user/mo (Business, annual); Teams Starter Pack $24.95/mo for up to 10 users; CAD pricing offered",
+    "s": [
+     2,
+     3,
+     3,
+     3,
+     2,
+     3,
+     2,
+     3
+    ],
+    "evidence": [
+     "https://1password.com/business-pricing",
+     "",
+     "https://1password.com/business-pricing",
+     "https://1password.com/business-pricing",
+     "",
+     "https://1password.com/business-pricing",
+     "https://1password.com/business-pricing",
+     "https://1password.com/business-pricing"
+    ],
+    "notes": [
+     "14-day trial, no card",
+     "Entra ID and Google Workspace sign-in",
+     "French apps and site",
+     "Zero-knowledge; data stored in currency region (CAD = Canada)",
+     "Autofill only on real sites; warnings",
+     "Built in",
+     "Device Trust is extra",
+     "MSP Edition console"
+    ],
+    "unconfirmed": [
+     "suite",
+     "phish",
+     "priv"
+    ],
+    "rc": "Only protects accounts staff actually store in it; rollout and admin recovery setup matter more than the software.",
+    "canada": "CAD pricing; accounts billed in CAD are stored in 1Password's Canadian region; French interface."
+   }
+  ]
+ }
+}

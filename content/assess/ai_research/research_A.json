@@ -1,0 +1,794 @@
+{
+ "jobs": {
+  "write": [
+   {
+    "name": "Microsoft 365 Copilot (Outlook)",
+    "match_existing": "Copilot for Outlook",
+    "url": "https://www.microsoft.com/en-us/microsoft-365/copilot/business",
+    "best": "Firms already on Microsoft 365 that want AI drafting and thread summaries inside Outlook, Word and Teams",
+    "price": "Copilot Chat free with M365 business plans; Copilot Business add-on US$18/user/mo annual (promo to Dec 31 2026, list $21); 1-month trial (card required)",
+    "s": [
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.microsoft.com/en-us/microsoft-365/copilot/business",
+     "https://www.microsoft.com/en-us/microsoft-365/copilot/business",
+     "",
+     "https://www.microsoft.com/en-us/microsoft-365/blog/2025/11/04/microsoft-offers-in-country-data-processing-to-15-countries-to-strengthen-sovereign-controls-for-microsoft-365-copilot/",
+     "https://support.microsoft.com/outlook/copilot-outlook/ask-copilot-to-make-email-drafts-sound-like-you",
+     "https://www.microsoft.com/en-us/microsoft-365/copilot/business",
+     "",
+     "https://www.microsoft.com/en-us/microsoft-365/copilot/business"
+    ],
+    "notes": [
+     "Free Copilot Chat tier; paid add-on 1-mo trial",
+     "Microsoft only; no Gmail",
+     "Full French UI and output",
+     "No training; M365 data at rest in Canada; local inference 2027",
+     "'Sound like me' drafts",
+     "Native in Outlook",
+     "Prompt gallery sharing",
+     "M365 admin centre, usage policies"
+    ],
+    "unconfirmed": [
+     "fr",
+     "templ"
+    ],
+    "rc": "Free Copilot Chat covers basic drafting, but the in-Outlook mailbox-aware features need the paid add-on per seat, and the $18 promo price ends after year one.",
+    "canada": "Canadian M365 tenants keep data at rest in Canadian datacentres; in-country Copilot inference for Canada slipped to 2027. Full Canadian French; CAD billing via Microsoft/CSP partners."
+   },
+   {
+    "name": "Gemini in Gmail (Google Workspace)",
+    "match_existing": "Gemini for Gmail",
+    "url": "https://workspace.google.com/products/gemini/",
+    "best": "Google Workspace shops that want Help me write, thread summaries and Gems inside Gmail and Docs",
+    "price": "Included in Workspace Business Starter US$7/user/mo (Standard $14, Plus $22); 14-day trial",
+    "s": [
+     3,
+     2,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://workspace.google.com/pricing",
+     "https://workspace.google.com/pricing",
+     "",
+     "https://knowledge.workspace.google.com/admin/generative-ai/generative-ai-in-google-workspace-privacy-hub",
+     "https://workspace.google.com/blog/product-announcements/more-personalized-and-proactive-assistance-in-gmail-coming-to-business-customers",
+     "https://workspace.google.com/pricing",
+     "",
+     "https://knowledge.workspace.google.com/admin/generative-ai/generative-ai-in-google-workspace-privacy-hub"
+    ],
+    "notes": [
+     "Included at no extra cost in all Workspace plans",
+     "Google only",
+     "French UI and output",
+     "No training; admin retention 90d+; no Canada region",
+     "Help me write matches your tone",
+     "Native in Gmail",
+     "Shareable Gems",
+     "Workspace admin console"
+    ],
+    "unconfirmed": [
+     "fr",
+     "templ"
+    ],
+    "rc": "Cheapest route if you already pay for Workspace, but Gemini only sees Google data; data regions are EU/US only and only on Enterprise-tier editions.",
+    "canada": "No Canadian data region for Gemini; good Canadian French. CAD billing available on Workspace."
+   },
+   {
+    "name": "Grammarly",
+    "match_existing": "Grammarly",
+    "url": "https://www.grammarly.com",
+    "best": "Mixed-app teams that want consistent tone and brand style everywhere staff type (Outlook, Gmail, Word, Docs)",
+    "price": "Free plan; Pro US$12/member/mo (annual); Enterprise custom",
+    "s": [
+     3,
+     3,
+     2,
+     1,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.grammarly.com/plans",
+     "https://www.grammarly.com/plans",
+     "https://www.grammarly.com/blog/product/multilingual-support-launch/",
+     "https://help.superhuman.com/hc/en-us/articles/46242180015501-Product-Improvement-and-Training-Control",
+     "https://www.grammarly.com/plans",
+     "https://www.grammarly.com/plans",
+     "https://www.grammarly.com/plans",
+     "https://www.grammarly.com/plans"
+    ],
+    "notes": [
+     "Free plan, 100 AI prompts/mo",
+     "Works in Word/Outlook and Gmail/Docs",
+     "French suggestions since 2025; English UI",
+     "Self-serve Pro teams: training ON by default (admin opt-out)",
+     "Brand tones (1 on Pro)",
+     "Runs in inbox via add-in/extension",
+     "Snippets and style guide",
+     "Roles and user groups; SSO Enterprise only"
+    ],
+    "unconfirmed": [
+     "suite",
+     "inbox"
+    ],
+    "rc": "Self-serve Pro team accounts are opted IN to AI training by default, so an admin must switch it off; French support is newer and lighter than English.",
+    "canada": "French grammar support added 2025 (English-only interface). Data hosted in the US; no Canadian region."
+   },
+   {
+    "name": "ChatGPT Business (OpenAI)",
+    "match_existing": "ChatGPT (OpenAI)",
+    "url": "https://chatgpt.com/business",
+    "best": "General-purpose drafting, rewriting and research for staff who will copy results into email and documents",
+    "price": "Free plan; Business US$20/user/mo annual or $25 monthly (2-seat min)",
+    "s": [
+     3,
+     3,
+     3,
+     2,
+     2,
+     1,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://chatgpt.com/pricing",
+     "",
+     "",
+     "https://www.eesel.ai/blog/chatgpt-work-pricing",
+     "",
+     "",
+     "https://www.eesel.ai/blog/chatgpt-work-pricing",
+     "https://www.eesel.ai/blog/chatgpt-work-pricing"
+    ],
+    "notes": [
+     "Free tier (trains by default)",
+     "Connectors for Gmail/Drive and Outlook/SharePoint",
+     "French UI and output",
+     "Business not trained on; Canada residency Enterprise-only",
+     "Custom instructions/GPTs need set-up",
+     "No inbox add-in; separate app",
+     "Shared GPTs and projects",
+     "SAML SSO, admin console"
+    ],
+    "unconfirmed": [
+     "suite",
+     "inbox",
+     "voice",
+     "templ"
+    ],
+    "rc": "Staff love it, but the free tier trains on prompts, so move work use to Business seats; it lives outside the inbox, which means copy-paste.",
+    "canada": "Canadian data residency exists but only for Enterprise/Edu; Business data is US-hosted. Strong French."
+   },
+   {
+    "name": "Claude Team (Anthropic)",
+    "match_existing": "Claude (Anthropic)",
+    "url": "https://claude.com/pricing",
+    "best": "Long, careful writing (proposals, policies, client letters) with shared projects and an Outlook add-in",
+    "price": "Free plan; Team US$20/seat/mo annual or $25 monthly (2-150 seats)",
+    "s": [
+     3,
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://claude.com/pricing",
+     "https://claude.com/pricing",
+     "",
+     "https://claude.com/pricing",
+     "",
+     "https://support.claude.com/en/articles/14855664",
+     "https://claude.com/pricing",
+     "https://claude.com/pricing"
+    ],
+    "notes": [
+     "Free plan for individuals",
+     "Claude for Microsoft 365/Outlook plus Google connectors",
+     "French UI and output",
+     "No training by default on Team; no Canada region",
+     "Styles learn from writing samples",
+     "Claude for Outlook add-in",
+     "Shared projects and org skills",
+     "SSO, central admin, usage analytics"
+    ],
+    "unconfirmed": [
+     "fr",
+     "voice"
+    ],
+    "rc": "Excellent writer, but usage limits per seat can bite heavy users (Premium seats are $100+); the Gmail side is a connector, not an in-inbox add-in.",
+    "canada": "No Canadian data residency for Team; good French output and interface."
+   },
+   {
+    "name": "MailMaestro",
+    "match_existing": "MailMaestro",
+    "url": "https://www.maestrolabs.com/mailmaestro",
+    "best": "Low-cost AI email assistant that drafts and summarises inside both Outlook and Gmail",
+    "price": "Free plan; paid US$12/seat/mo (20% off annual); 14-day trial, no card",
+    "s": [
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     2,
+     3
+    ],
+    "evidence": [
+     "https://www.maestrolabs.com/pricing",
+     "https://www.maestrolabs.com/pricing",
+     "",
+     "https://www.maestrolabs.com/pricing",
+     "",
+     "https://www.maestrolabs.com/pricing",
+     "https://maestrolabs.com/tips/magic-templates",
+     "https://www.maestrolabs.com/tips/how-to-manage-mailmaestro-and-teamsmaestro-in-one-dashboard"
+    ],
+    "notes": [
+     "Free plan after trial",
+     "Outlook add-in and Gmail extension",
+     "Writes in 40+ languages; English UI",
+     "States data never used for training; SOC 2",
+     "Tone and personal style settings",
+     "Runs inside Outlook/Gmail",
+     "Magic templates; team sharing unclear",
+     "Admin dashboard; SSO 100+ seats"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv",
+     "voice",
+     "templ"
+    ],
+    "rc": "Inexpensive and simple, but it is a small UK vendor; SSO and enterprise controls start at 100 seats.",
+    "canada": "Data location not published; check DPA if handling Quebec Law 25 personal data."
+   }
+  ],
+  "meet": [
+   {
+    "name": "Fellow",
+    "match_existing": "Fellow AI",
+    "url": "https://fellow.ai",
+    "best": "Canadian-built AI notetaker plus meeting agendas and action items, with strong privacy defaults",
+    "price": "Free plan; Team US$7/user/mo annual ($11 monthly); Business $15 annual",
+    "s": [
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://fellow.ai/pricing",
+     "https://fellow.ai/pricing",
+     "https://fellow.ai/pricing",
+     "https://fellow.ai/blog/ai-meeting-notetaker-training-on-data/",
+     "https://fellow.ai/pricing",
+     "https://help.fellow.ai/en/articles/12015496-desktop-botless-recording",
+     "https://fellow.ai/pricing",
+     "https://fellow.ai/pricing"
+    ],
+    "notes": [
+     "Free plan with limited history",
+     "Google and Outlook calendars, Teams/Meet/Zoom",
+     "100+ transcription languages; UI language unclear",
+     "Never trains on customer content; custom retention 'coming soon'",
+     "Zoom, Teams, Meet on all plans",
+     "Desktop botless recording",
+     "Asana/Jira (Team), HubSpot/Salesforce (Business)",
+     "Ask Fellow AI chat across meetings"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv"
+    ],
+    "rc": "Cheapest entry price, but CRM push needs Business ($15) and transcript redaction/user provisioning are Enterprise-only.",
+    "canada": "Ottawa-based Canadian vendor; data hosted on AWS (region not published), confirm for Law 25."
+   },
+   {
+    "name": "Otter.ai",
+    "match_existing": "Otter.ai",
+    "url": "https://otter.ai",
+    "best": "Simple, well-known transcription and meeting summaries for small teams on any platform",
+    "price": "Free plan (300 min/mo); Pro US$8.33/user/mo annual; Business $19.99 annual ($30 monthly)",
+    "s": [
+     3,
+     3,
+     2,
+     1,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://otter.ai/pricing",
+     "https://otter.ai/pricing",
+     "https://otter.ai/pricing",
+     "https://www.deepinspect.ai/blog/does-otter-ai-train-on-your-data",
+     "https://otter.ai/pricing",
+     "https://otter.ai/pricing",
+     "https://otter.ai/pricing",
+     "https://otter.ai/pricing"
+    ],
+    "notes": [
+     "Free 300 min/mo",
+     "Google/Outlook calendars, Teams/Meet/Zoom",
+     "French transcription; English UI",
+     "Trains on de-identified data; opt-out Enterprise",
+     "Joins Zoom, Teams, Meet",
+     "Desktop app mic capture",
+     "Salesforce/HubSpot on Pro; Takeaways",
+     "AI Chat across meetings"
+    ],
+    "unconfirmed": [
+     "nobot"
+    ],
+    "rc": "Otter trains on de-identified recordings by default and faced a 2025 class action over consent; set auto-join carefully and tell participants.",
+    "canada": "US-hosted; French transcription available but no French interface."
+   },
+   {
+    "name": "Fireflies.ai",
+    "match_existing": "Fireflies.ai",
+    "url": "https://fireflies.ai",
+    "best": "Searchable meeting library with many CRM and task integrations at a low per-seat price",
+    "price": "Free plan; Pro US$10/seat/mo annual ($18 monthly); Business $19 annual ($29 monthly)",
+    "s": [
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://fireflies.ai/pricing",
+     "https://fireflies.ai/pricing",
+     "https://fireflies.ai/pricing",
+     "https://fireflies.ai/pricing",
+     "https://fireflies.ai/pricing",
+     "https://guide.fireflies.ai/articles/6666374717-how-to-record-meetings-without-a-bot-on-the-fireflies-desktop-app",
+     "https://fireflies.ai/pricing",
+     "https://fireflies.ai/pricing"
+    ],
+    "notes": [
+     "Free forever, 400 min storage",
+     "Calendar + Teams/Meet/Zoom",
+     "100+ languages; French site, app UI unclear",
+     "No training on meeting data; custom retention Enterprise",
+     "10+ platforms incl. all three",
+     "Bot-free desktop/Chrome capture",
+     "CRM and task integrations",
+     "AskFred across meetings"
+    ],
+    "unconfirmed": [
+     "fr"
+    ],
+    "rc": "AI credits are limited even on paid tiers, and custom retention and SSO need Enterprise ($39).",
+    "canada": "No published Canadian data region (private storage on Enterprise). Multilingual mode on Business."
+   },
+   {
+    "name": "Fathom",
+    "match_existing": "Fathom",
+    "url": "https://www.fathom.ai",
+    "best": "Generous free notetaker for client-facing staff, with HubSpot/Salesforce sync on paid tiers",
+    "price": "Free plan (unlimited recordings); Premium US$16/user/mo annual; Team $15 annual (2-user min); Business $25",
+    "s": [
+     3,
+     3,
+     2,
+     1,
+     3,
+     2,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.fathom.ai/pricing",
+     "https://www.fathom.ai/pricing",
+     "",
+     "https://help.fathom.video/en/articles/296512",
+     "https://www.fathom.ai/pricing",
+     "https://www.fathom.ai/pricing",
+     "https://www.fathom.ai/pricing",
+     "https://www.fathom.ai/pricing"
+    ],
+    "notes": [
+     "Unlimited free recordings",
+     "Google/Outlook calendars, Teams/Meet/Zoom",
+     "Multi-language summaries; English UI",
+     "De-identified data trains own models; opt-out",
+     "Zoom, Meet, Teams",
+     "Bot-free capture beta, Mac only",
+     "CRM sync (Business), Asana",
+     "Ask Fathom across team calls"
+    ],
+    "unconfirmed": [
+     "fr"
+    ],
+    "rc": "The free plan is genuinely useful, but CRM field sync needs Business ($25) and training must be switched off by an admin.",
+    "canada": "All data stored in the United States."
+   },
+   {
+    "name": "Read AI",
+    "match_existing": "Read AI",
+    "url": "https://www.read.ai",
+    "best": "Meeting reports plus search across meetings, email and chat, with a Canadian hosting option",
+    "price": "Free plan (5 meetings/mo); Pro US$15/user/mo annual ($19.75 monthly); Enterprise+ $29.75 annual",
+    "s": [
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.read.ai/plans-pricing",
+     "https://www.read.ai/plans-pricing",
+     "https://www.read.ai/plans-pricing",
+     "https://www.read.ai/plans-pricing",
+     "https://www.read.ai/plans-pricing",
+     "https://www.read.ai/desktop",
+     "https://www.read.ai/plans-pricing",
+     "https://www.read.ai/plans-pricing"
+    ],
+    "notes": [
+     "Free 5 transcripts/mo",
+     "Gmail/Outlook, Teams/Meet/Zoom",
+     "Reports in French; UI unclear",
+     "EU/CA hosting and custom retention on Enterprise+",
+     "Zoom, Teams, Meet",
+     "Desktop app records without bot",
+     "HubSpot, Salesforce, Asana, Jira",
+     "Ask Read across meetings and email"
+    ],
+    "unconfirmed": [
+     "fr",
+     "priv"
+    ],
+    "rc": "Canada hosting, SSO and custom retention all sit on the top Enterprise+ tier (5+ licences); free tier caps at 5 meetings.",
+    "canada": "One of few notetakers offering Canadian (CA) data hosting, on Enterprise+."
+   },
+   {
+    "name": "Notion AI Meeting Notes",
+    "match_existing": "Notion AI Projects",
+    "url": "https://www.notion.com/product/ai-meeting-notes",
+    "best": "Teams that run projects and docs in Notion and want meeting notes and tasks in the same place",
+    "price": "Business US$20/member/mo (AI Meeting Notes included); Free/Plus include a limited AI trial",
+    "s": [
+     2,
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.notion.com/pricing",
+     "",
+     "",
+     "https://www.notion.com/pricing",
+     "",
+     "",
+     "https://www.notion.com/pricing",
+     "https://www.notion.com/pricing"
+    ],
+    "notes": [
+     "AI trial only; meeting notes need Business",
+     "Google and Microsoft connectors",
+     "French UI and output",
+     "No training unless you opt in; zero retention on Enterprise",
+     "Desktop capture works on any call",
+     "Captures system audio, no bot",
+     "Turns action items into Notion tasks",
+     "Enterprise Search across workspace"
+    ],
+    "unconfirmed": [
+     "suite",
+     "conf",
+     "nobot",
+     "tasks"
+    ],
+    "rc": "Best only if the team already lives in Notion; pushing tasks to outside CRMs needs connectors, and $20/member adds up.",
+    "canada": "French interface available; no Canadian data region (EU/US options on Enterprise)."
+   }
+  ],
+  "sales": [
+   {
+    "name": "HubSpot (Breeze AI)",
+    "match_existing": "HubSpot AI",
+    "url": "https://www.hubspot.com",
+    "best": "All-in-one CRM, email marketing and sales tools that grow with a small team",
+    "price": "Free CRM (2 users); Starter from US$20/seat/mo ($7 promo); Sales Hub Professional from $100/seat/mo",
+    "s": [
+     3,
+     3,
+     3,
+     1,
+     3,
+     2,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.hubspot.com/pricing/marketing",
+     "",
+     "",
+     "https://knowledge.hubspot.com/account-management/hubspot-ai-mode-training",
+     "",
+     "https://www.hubspot.com/pricing/sales",
+     "",
+     "https://www.hubspot.com/pricing/sales"
+    ],
+    "notes": [
+     "Free for up to 2 users",
+     "Gmail and Outlook add-ins",
+     "French UI and AI",
+     "AI training ON by default (admin opt-out); Canada DC",
+     "Is a CRM; native Salesforce sync",
+     "Sequences need Professional",
+     "Breeze social/ad/blog copy",
+     "Dashboards and email reports"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "crm",
+     "copy"
+    ],
+    "rc": "Starter is cheap, but sequences and serious automation need Professional (~$100/seat), a big jump; switch off AI training in settings.",
+    "canada": "HubSpot runs a Canadian data centre (new paid accounts assigned by location; migration free). Full French. Billed in USD."
+   },
+   {
+    "name": "Apollo.io",
+    "match_existing": "Apollo.io",
+    "url": "https://www.apollo.io",
+    "best": "Finding B2B prospects and running cold email sequences from one tool",
+    "price": "Free plan; Basic US$49/user/mo annual ($65 monthly); Professional $79 annual",
+    "s": [
+     3,
+     3,
+     2,
+     0,
+     3,
+     3,
+     1,
+     3
+    ],
+    "evidence": [
+     "https://www.apollo.io/pricing",
+     "https://www.apollo.io/pricing",
+     "",
+     "https://www.apollo.io/ai-policy",
+     "https://salesmotion.io/blog/apollo-pricing",
+     "https://www.apollo.io/pricing",
+     "",
+     ""
+    ],
+    "notes": [
+     "Free plan, no time limit",
+     "Gmail (free) and Outlook (paid)",
+     "French site; app UI unclear",
+     "Internal models may train on customer data",
+     "HubSpot and Salesforce sync (Basic+)",
+     "Email sequences (Basic+)",
+     "Writes emails, not ads/social",
+     "Sequence analytics"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "rep"
+    ],
+    "rc": "Contact data and cold email must respect CASL (express or implied consent) — Apollo's database does not make outreach compliant; credits run out fast.",
+    "canada": "US-hosted on Google Cloud; check CASL before emailing Canadian prospects."
+   },
+   {
+    "name": "Mailchimp",
+    "match_existing": null,
+    "url": "https://mailchimp.com",
+    "best": "Easy newsletters and automated email journeys for small retailers and service firms",
+    "price": "Free plan (250 contacts); Essentials from US$13/mo; Standard from $20/mo; 14-day trial",
+    "s": [
+     3,
+     1,
+     2,
+     1,
+     2,
+     3,
+     2,
+     3
+    ],
+    "evidence": [
+     "https://mailchimp.com/pricing/marketing/",
+     "",
+     "",
+     "https://mailchimp.com/help/mailchimp-intuit-privacy-faq/",
+     "",
+     "https://mailchimp.com/pricing/marketing/",
+     "https://mailchimp.com/pricing/marketing/",
+     "https://mailchimp.com/pricing/marketing/"
+    ],
+    "notes": [
+     "Free plan, 250 contacts",
+     "No Outlook/Gmail add-in",
+     "French UI; AI writer English-only beta",
+     "Training use not stated; US data centres",
+     "Salesforce and HubSpot integrations",
+     "Customer journeys (Standard)",
+     "Intuit Assist beta, English only",
+     "Campaign and custom reports"
+    ],
+    "unconfirmed": [
+     "suite",
+     "priv",
+     "crm"
+    ],
+    "rc": "Price climbs quickly with contact count, and the AI writer is English-only beta, so French campaigns are written by hand.",
+    "canada": "Data in US data centres; French interface; CAD shown in currency selector."
+   },
+   {
+    "name": "ActiveCampaign",
+    "match_existing": "ActiveCampaign",
+    "url": "https://www.activecampaign.com",
+    "best": "Small teams wanting powerful email automation and a light CRM at mid-range cost",
+    "price": "No free plan; Starter US$15/mo annual (1,000 contacts, $19 monthly); Plus $49 annual; 14-day trial, no card",
+    "s": [
+     2,
+     3,
+     3,
+     2,
+     2,
+     3,
+     2,
+     3
+    ],
+    "evidence": [
+     "https://www.activecampaign.com/pricing",
+     "",
+     "",
+     "https://help.activecampaign.com/hc/en-us/articles/15019639052700-Get-started-with-AI-in-ActiveCampaign",
+     "https://www.activecampaign.com/pricing",
+     "https://www.activecampaign.com/pricing",
+     "https://help.activecampaign.com/hc/en-us/articles/15019639052700-Get-started-with-AI-in-ActiveCampaign",
+     "https://www.activecampaign.com/pricing"
+    ],
+    "notes": [
+     "14-day trial, no card",
+     "Gmail extension and Outlook add-in",
+     "French UI and content",
+     "Does not train on your data",
+     "Salesforce on Enterprise only",
+     "Automations and sequences",
+     "AI email content and images",
+     "Campaign reporting"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "priv"
+    ],
+    "rc": "Generative AI and CRM start on Plus ($49), and native Salesforce sync is Enterprise-only.",
+    "canada": "French interface; data hosting region not published (US by default)."
+   },
+   {
+    "name": "Klaviyo",
+    "match_existing": "Klaviyo AI",
+    "url": "https://www.klaviyo.com",
+    "best": "Shopify and e-commerce stores running email, SMS and reviews from purchase data",
+    "price": "Free plan (250 profiles); Email from US$20/mo (500 profiles); Marketing $25/mo",
+    "s": [
+     3,
+     1,
+     2,
+     1,
+     2,
+     3,
+     2,
+     3
+    ],
+    "evidence": [
+     "https://www.klaviyo.com/pricing",
+     "",
+     "https://www.klaviyo.com/pricing",
+     "https://www.klaviyo.com/legal/ai-faqs",
+     "https://www.klaviyo.com/pricing",
+     "https://www.klaviyo.com/pricing",
+     "https://www.klaviyo.com/pricing",
+     "https://www.klaviyo.com/pricing"
+    ],
+    "notes": [
+     "Free plan, 250 profiles",
+     "No M365/Google add-in",
+     "French site; product UI unclear",
+     "Trains own models on de-identified data",
+     "Salesforce/HubSpot integrations listed",
+     "Flows (multi-step automations)",
+     "AI composer; social as add-on",
+     "Revenue attribution reporting"
+    ],
+    "unconfirmed": [
+     "fr",
+     "crm",
+     "copy"
+    ],
+    "rc": "Great with Shopify, but cost rises per active profile and SMS is an add-on; weaker fit for B2B service firms.",
+    "canada": "Works natively with Shopify (Canadian); CASL consent tools needed for SMS/email."
+   },
+   {
+    "name": "Hootsuite",
+    "match_existing": null,
+    "url": "https://www.hootsuite.com",
+    "best": "Scheduling, writing and reporting on social posts across LinkedIn, Facebook, Instagram and more",
+    "price": "Standard US$99/user/mo annual; Advanced $399; 14-day trial",
+    "s": [
+     2,
+     1,
+     3,
+     0,
+     2,
+     0,
+     3,
+     3
+    ],
+    "evidence": [
+     "https://www.hootsuite.com/plans",
+     "",
+     "",
+     "https://www.hootsuite.com/legal/ai-terms",
+     "https://www.hootsuite.com/plans",
+     "",
+     "https://www.hootsuite.com/plans",
+     "https://www.hootsuite.com/plans"
+    ],
+    "notes": [
+     "14-day trial",
+     "No Outlook/Gmail add-in",
+     "French UI and captions",
+     "AI terms let Hootsuite train on content",
+     "CRM link on Professional+",
+     "No email sequences",
+     "AI captions and hashtags",
+     "Post and network reports"
+    ],
+    "unconfirmed": [
+     "suite",
+     "fr",
+     "crm"
+    ],
+    "rc": "Per-user price is high for a 1–2 person marketing team, and its AI terms allow training on your content with no opt-out.",
+    "canada": "Vancouver-based Canadian vendor; French interface. Billed in USD."
+   }
+  ]
+ }
+}

@@ -1,0 +1,881 @@
+{
+ "reviewer": "D AI tools 1",
+ "summary": "262 rows desk-checked; ~95 web calls. 77 findings: 9 defunct/sunset (Mariner, Ottogrid, AgentGPT, Lightfern, Tome, Flowrite, Phind, Drift x2, Wepik), 6 renamed (Operator->ChatGPT agent, Moltbot->OpenClaw, Phrasee->Jacquard, DALL-E 3->ChatGPT Images, Gemini Advanced->Google AI Pro, CodeWhisperer->Amazon Q Developer), 7 duplicates (Perplexity, Scalenut, Lindy, Gumloop, Gong, Drift, Canva), wrong domains (Flux->bfl.ai, Manus->manus.im, Moltbot, Windsurf), and many stale prices among surfaced rows (Skyvern, Gumloop, Sintra, Relevance, Fyxer, Shortwave, Spark, Instantly, Jasper, Copilot Outlook, Notion AI, Freshdesk, Manus 'invite'). Logic: Email/Inbox and Research are mis-mapped for p6 and p9; Customer Support is wrong for reminder/no-show problems (p46, p72); p48 clinical charting should not map to generic notetakers.",
+ "findings": [
+  {
+   "idx": 1,
+   "name": "OpenAI Operator",
+   "field": "status",
+   "current": "OpenAI Operator",
+   "proposed": "ChatGPT agent (agent mode in ChatGPT)",
+   "why": "Operator research preview was sunset; capabilities folded into ChatGPT agent (Jul 2025), available on Plus/Pro/Team.",
+   "evidence": "https://openai.com/index/introducing-chatgpt-agent/",
+   "confidence": "high"
+  },
+  {
+   "idx": 1,
+   "name": "OpenAI Operator",
+   "field": "pricing",
+   "current": "ChatGPT Pro $200/mo",
+   "proposed": "ChatGPT Plus $20/mo (Pro $200 for higher limits)",
+   "why": "ChatGPT agent is included in Plus and Team, not only Pro.",
+   "evidence": "https://openai.com/index/introducing-chatgpt-agent/",
+   "confidence": "high"
+  },
+  {
+   "idx": 3,
+   "name": "Google Project Mariner",
+   "field": "status",
+   "current": "Google Project Mariner",
+   "proposed": "remove (or replace with 'Gemini Agent / Chrome auto-browse')",
+   "why": "Google shut down Project Mariner on May 4, 2026; tech moved into Gemini Agent and Chrome auto-browse. It was also US-only AI Ultra ($249.99) - never suitable for Canadian SMEs.",
+   "evidence": "https://www.androidheadlines.com/2026/05/google-shuts-down-project-mariner-ai-agent.html",
+   "confidence": "high"
+  },
+  {
+   "idx": 4,
+   "name": "Moltbot",
+   "field": "status",
+   "current": "Moltbot",
+   "proposed": "OpenClaw",
+   "why": "Clawdbot -> Moltbot -> renamed OpenClaw on Jan 30, 2026. Also flagged for malicious 'skills' / security risk; consider not recommending to SMEs without caveat.",
+   "evidence": "https://techradar.com/pro/moltbot-is-now-openclaw-but-watch-out-malicious-skills-are-still-trying-to-trick-victims-into-spreading-malware",
+   "confidence": "high"
+  },
+  {
+   "idx": 4,
+   "name": "Moltbot",
+   "field": "website",
+   "current": "https://moltbot.io",
+   "proposed": "https://openclaw.ai",
+   "why": "Project domain is openclaw.ai (docs.openclaw.ai).",
+   "evidence": "https://docs.openclaw.ai/start/lore",
+   "confidence": "high"
+  },
+  {
+   "idx": 4,
+   "name": "Moltbot",
+   "field": "pricing",
+   "current": "Beta / Free",
+   "proposed": "Free (open-source; bring your own model API)",
+   "why": "Open-source self-hosted agent, not a beta product.",
+   "evidence": "https://en.wikipedia.org/wiki/OpenClaw",
+   "confidence": "medium"
+  },
+  {
+   "idx": 5,
+   "name": "Manus AI",
+   "field": "pricing",
+   "current": "Invite / Beta",
+   "proposed": "Free / $20/mo (Standard)",
+   "why": "No longer invite-only; public Free, Standard $20/mo ($16.67 annual), Customizable, Extended, Team plans. Acquired by Meta (Dec 2025) - consider noting.",
+   "evidence": "https://pricingsaas.com/companies/manus",
+   "confidence": "high"
+  },
+  {
+   "idx": 5,
+   "name": "Manus AI",
+   "field": "website",
+   "current": "https://manus.ai",
+   "proposed": "https://manus.im",
+   "why": "Official domain is manus.im.",
+   "evidence": "https://manus.im/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 6,
+   "name": "Skyvern",
+   "field": "pricing",
+   "current": "Free / $99/mo",
+   "proposed": "$29/mo (Hobby) / $149/mo (Pro); 14-day trial",
+   "why": "Current plans: Hobby $29, Pro $149, Enterprise custom; no $99 tier.",
+   "evidence": "https://www.skyvern.com/md/pricing.md",
+   "confidence": "high"
+  },
+  {
+   "idx": 8,
+   "name": "CrewAI",
+   "field": "pricing",
+   "current": "Free / $99/mo",
+   "proposed": "Free / Enterprise (custom)",
+   "why": "Pricing page lists only Free (50 executions/mo) and Enterprise custom; no $99 tier shown.",
+   "evidence": "https://www.crewai.com/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 9,
+   "name": "AutoGPT",
+   "field": "pricing",
+   "current": "Free (open-source)",
+   "proposed": "Free self-hosted / hosted Pro $50/mo",
+   "why": "Hosted AutoGPT platform is Pro $50/mo, Max $320/mo; self-hosting remains free.",
+   "evidence": "https://agpt.co",
+   "confidence": "medium"
+  },
+  {
+   "idx": 10,
+   "name": "Gumloop",
+   "field": "pricing",
+   "current": "Free / $97/mo",
+   "proposed": "Pro $37/mo (14-day trial) / Enterprise",
+   "why": "Official pricing page now lists Pro $37/mo and Enterprise; $97 tier gone.",
+   "evidence": "https://www.gumloop.com/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 11,
+   "name": "Microsoft Copilot Studio",
+   "field": "pricing",
+   "current": "Pay-per-use",
+   "proposed": "Pay-as-you-go or CAD $271.40/mo per 25,000-credit pack",
+   "why": "Clarify: packs or PAYG credits; requires Azure subscription.",
+   "evidence": "https://www.microsoft.com/en-ca/microsoft-365/copilot/pricing/copilot-studio",
+   "confidence": "medium"
+  },
+  {
+   "idx": 11,
+   "name": "Microsoft Copilot Studio",
+   "field": "website",
+   "current": "https://microsoft.com/copilot",
+   "proposed": "https://www.microsoft.com/en-ca/microsoft-365/copilot/pricing/copilot-studio",
+   "why": "Generic Copilot URL is shared by 3 rows (11, 29, 156); point to product page.",
+   "evidence": "https://www.microsoft.com/en-ca/microsoft-365/copilot/pricing/copilot-studio",
+   "confidence": "medium"
+  },
+  {
+   "idx": 14,
+   "name": "Sintra AI",
+   "field": "pricing",
+   "current": "Free / $49/mo",
+   "proposed": "$48.50/mo monthly (Sintra X; lower on 3/12-month terms); no free plan",
+   "why": "Help centre: only Sintra X bundle sold, no free or lifetime plan.",
+   "evidence": "https://help.sintra.ai/en/articles/12606895-plans-and-pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 15,
+   "name": "Lindy AI (Agent Builder)",
+   "field": "pricing",
+   "current": "Free / $49/mo",
+   "proposed": "7-day trial ($50 credits) / Team $49.99/user/mo",
+   "why": "Free is only a 7-day trial, not ongoing free tier.",
+   "evidence": "https://www.lindy.ai/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 16,
+   "name": "Cognosys / Ottogrid",
+   "field": "status",
+   "current": "Cognosys / Ottogrid",
+   "proposed": "remove",
+   "why": "ottogrid.ai now redirects to a GoDaddy domain-for-sale page; product appears defunct.",
+   "evidence": "https://ottogrid.ai",
+   "confidence": "high"
+  },
+  {
+   "idx": 17,
+   "name": "Relevance AI",
+   "field": "pricing",
+   "current": "Free / $19/mo",
+   "proposed": "Pro $29/mo ($19 annual); Free plan retired",
+   "why": "Docs: 'The Free plan is retired for new signups and existing accounts.' Pro $19 annual / $29 monthly.",
+   "evidence": "https://relevanceai.com/docs/get-started/pricing.md",
+   "confidence": "high"
+  },
+  {
+   "idx": 19,
+   "name": "AgentGPT",
+   "field": "status",
+   "current": "AgentGPT",
+   "proposed": "remove",
+   "why": "Reworkd archived the AgentGPT repo on Jan 28, 2026 (no fixes or security patches since v1.0.0, Nov 2023); hosted site only in limited demo state.",
+   "evidence": "https://www.voiceflow.com/blog/agentgpt",
+   "confidence": "high"
+  },
+  {
+   "idx": 21,
+   "name": "Fyxer AI",
+   "field": "pricing",
+   "current": "$20/mo",
+   "proposed": "$30/mo ($22.50/mo annual) Standard",
+   "why": "Fyxer Standard $30 monthly / $22.50 annual; Pro $50/$37.50.",
+   "evidence": "https://support.fyxer.com/en/articles/10922615-fyxer-ai-pricing-and-plan-comparison",
+   "confidence": "high"
+  },
+  {
+   "idx": 22,
+   "name": "Shortwave",
+   "field": "pricing",
+   "current": "Free / $14/mo",
+   "proposed": "$30/seat/mo (Business); 14-day trial",
+   "why": "Current plans Business $30, Premier $45, Max $120; no free/$14 tier listed.",
+   "evidence": "https://www.shortwave.com/pricing/",
+   "confidence": "high"
+  },
+  {
+   "idx": 23,
+   "name": "Grammarly",
+   "field": "pricing",
+   "current": "Free / $30/mo",
+   "proposed": "Free / $12/mo (Pro, annual; $15 monthly)",
+   "why": "Grammarly (now part of Superhuman suite) Pro is $12-15/mo; $30 was old monthly Premium.",
+   "evidence": "https://www.usecarly.com/blog/superhuman-pricing/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 23,
+   "name": "Grammarly",
+   "field": "desc",
+   "current": "AI writing assistant that now functions as a full productivity and communication suite.",
+   "proposed": "AI writing assistant, now part of the Superhuman suite (Grammarly, Coda, Superhuman Mail, Go).",
+   "why": "Company renamed Superhuman (Oct 2025); Grammarly remains a product in the suite. Note row 20 Superhuman overlap.",
+   "evidence": "https://www.tomsguide.com/ai/grammarly-just-became-superhuman-meet-the-companys-new-ai-writing-powers",
+   "confidence": "medium"
+  },
+  {
+   "idx": 24,
+   "name": "Lightfern",
+   "field": "status",
+   "current": "Lightfern",
+   "proposed": "remove",
+   "why": "Lightfern (lightfern.com) is now a beta desktop workspace for people and AI agents with a waitlist - no longer a Gmail autocomplete tool; listed domain lightfern.app is wrong. Invite/beta - not suitable for SMEs.",
+   "evidence": "https://lightfern.com/",
+   "confidence": "high"
+  },
+  {
+   "idx": 26,
+   "name": "Lex Email",
+   "field": "desc",
+   "current": "AI-powered email writing assistant...",
+   "proposed": "Lex: AI document editor for long-form writing (essays, articles, reports).",
+   "why": "Lex is a document editor, not an email tool; rename to 'Lex' and move to Writing & Content.",
+   "evidence": "https://www.creatorstackclub.com/software/lex/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 26,
+   "name": "Lex Email",
+   "field": "category",
+   "current": "Email / Inbox",
+   "proposed": "Writing & Content",
+   "why": "Lex is a long-form document editor.",
+   "evidence": "https://www.creatorstackclub.com/software/lex/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 26,
+   "name": "Lex Email",
+   "field": "pricing",
+   "current": "$15/mo",
+   "proposed": "Free / $18/mo",
+   "why": "Free and Pro $18/mo.",
+   "evidence": "https://www.creatorstackclub.com/software/lex/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 27,
+   "name": "Boomerang for Gmail",
+   "field": "pricing",
+   "current": "Free / $14.99/mo",
+   "proposed": "Free / $4.98/mo (Personal, annual)",
+   "why": "Cheapest paid tier is Personal $4.98; Pro $14.98.",
+   "evidence": "https://www.boomeranggmail.com/subscriptions.html",
+   "confidence": "medium"
+  },
+  {
+   "idx": 29,
+   "name": "Copilot for Outlook",
+   "field": "pricing",
+   "current": "M365 Business $22/mo",
+   "proposed": "Microsoft 365 Copilot Business US$21/user/mo add-on (plus M365 licence)",
+   "why": "Copilot is an add-on; $22 is the Business Premium licence, which does not include full Copilot.",
+   "evidence": "https://www.microsoft.com/en-us/microsoft-365/blog/2025/12/02/microsoft-365-copilot-business-the-future-of-work-for-small-businesses/",
+   "confidence": "high"
+  },
+  {
+   "idx": 31,
+   "name": "Gemini for Gmail",
+   "field": "pricing",
+   "current": "Google Workspace $7/mo",
+   "proposed": "Google Workspace Business Starter $7/user/mo (annual; $8.40 flexible)",
+   "why": "Correct base price but clarify annual vs flexible.",
+   "evidence": "https://knowledge.workspace.google.com/admin/billing/ai-features-and-pricing-updates-for-google-workspace-business-editions?hl=en",
+   "confidence": "low"
+  },
+  {
+   "idx": 32,
+   "name": "Spark Mail AI",
+   "field": "pricing",
+   "current": "Free / $5/mo",
+   "proposed": "Free / $10/mo (Plus; $8.25/mo annual)",
+   "why": "Spark Plus $10 monthly or $99/yr; AI features not in free tier.",
+   "evidence": "https://sparkmailapp.com/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 33,
+   "name": "Flowrite",
+   "field": "status",
+   "current": "Flowrite",
+   "proposed": "remove (duplicate of MailMaestro, row 30)",
+   "why": "Maestro Labs acquired Flowrite (Jan 2025) and folded it into MailMaestro.",
+   "evidence": "https://maestrolabs.com/flowrite",
+   "confidence": "high"
+  },
+  {
+   "idx": 34,
+   "name": "Lyne.ai",
+   "field": "desc",
+   "current": "AI personalisation tool that writes hyper-customised cold email openers at scale",
+   "proposed": "Gmail reply-drafting agent that runs in the customer's own Google Cloud, plus a small outreach-sequence manager",
+   "why": "Product has changed; now set up via install call.",
+   "evidence": "https://lyne.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 34,
+   "name": "Lyne.ai",
+   "field": "pricing",
+   "current": "$120/mo",
+   "proposed": "Custom (setup fee + per-inbox, 3-month term)",
+   "why": "No list prices; set on install call.",
+   "evidence": "https://lyne.ai",
+   "confidence": "medium"
+  },
+  {
+   "idx": 35,
+   "name": "Postaga",
+   "field": "pricing",
+   "current": "Free / $99/mo",
+   "proposed": "14-day trial / paid plans (no free plan)",
+   "why": "Pricing page mentions only 14-day trial, no free plan.",
+   "evidence": "https://postaga.com/pricing",
+   "confidence": "low"
+  },
+  {
+   "idx": 40,
+   "name": "Gamma",
+   "field": "pricing",
+   "current": "Free / $10/mo",
+   "proposed": "Free / $10/mo (Plus; $8 annual)",
+   "why": "Confirmed; prices shown in EUR by source, USD similar.",
+   "evidence": "https://dupple.com/pricing/gamma",
+   "confidence": "low"
+  },
+  {
+   "idx": 41,
+   "name": "Beautiful.ai",
+   "field": "pricing",
+   "current": "$12/mo",
+   "proposed": "$14.50/mo (Pro, annual) / $45 monthly; no free plan",
+   "why": "Pro $174/yr; 14-day trial.",
+   "evidence": "https://dupple.com/learn/beautiful-ai-pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 43,
+   "name": "Tome",
+   "field": "status",
+   "current": "Tome",
+   "proposed": "remove",
+   "why": "Tome sunset its presentation product on April 30, 2025 (pivoted to sales CRM).",
+   "evidence": "https://www.chatslide.ai/articles/tome-ai-shut-down-what-happened",
+   "confidence": "high"
+  },
+  {
+   "idx": 59,
+   "name": "Wepik AI",
+   "field": "status",
+   "current": "Wepik AI",
+   "proposed": "remove (or rename to Freepik/Magnific design editor)",
+   "why": "Wepik became Freepik Designer; the old Wepik doc now redirects to magnific.com design editor (Freepik rebranded as Magnific, Apr 2026).",
+   "evidence": "https://tr.freepik.com/ai/docs/wepik-is-now-freepik-designer",
+   "confidence": "medium"
+  },
+  {
+   "idx": 69,
+   "name": "Bing Deep Search / Copilot",
+   "field": "pricing",
+   "current": "Free / Copilot Pro $20/mo",
+   "proposed": "Free / Microsoft 365 Premium $19.99/mo",
+   "why": "Microsoft retired Copilot Pro and replaced it with Microsoft 365 Premium (Oct 2025).",
+   "evidence": "https://www.pcworld.com/article/2925962/microsoft-adds-microsoft-365-premium-cuts-copilot-pro.html",
+   "confidence": "high"
+  },
+  {
+   "idx": 69,
+   "name": "Bing Deep Search / Copilot",
+   "field": "website",
+   "current": "https://bing.com/chat",
+   "proposed": "https://copilot.microsoft.com",
+   "why": "bing.com/chat redirects to Copilot.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 72,
+   "name": "Typeset (SciSpace)",
+   "field": "website",
+   "current": "https://typeset.io",
+   "proposed": "https://scispace.com",
+   "why": "Product rebranded SciSpace; typeset.io redirects.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 82,
+   "name": "Instantly",
+   "field": "pricing",
+   "current": "$30/mo",
+   "proposed": "$47/mo ($37.60/mo annual) Growth",
+   "why": "Cheapest outreach plan is Growth $47 monthly / $37.60 annual.",
+   "evidence": "https://instantly.ai/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 95,
+   "name": "Drift (Salesloft)",
+   "field": "status",
+   "current": "Drift (Salesloft)",
+   "proposed": "remove",
+   "why": "Salesloft announced a gradual sunset of standalone Drift in March 2026; features moving into Salesloft.",
+   "evidence": "https://www.chat-data.com/blog/drift-alternatives",
+   "confidence": "medium"
+  },
+  {
+   "idx": 101,
+   "name": "Jasper",
+   "field": "pricing",
+   "current": "$49/mo",
+   "proposed": "$69/mo ($59/mo annual) Pro",
+   "why": "$49 Creator plan discontinued; only Pro self-serve.",
+   "evidence": "https://dupple.com/learn/jasper-ai-pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 113,
+   "name": "Phrasee",
+   "field": "status",
+   "current": "Phrasee",
+   "proposed": "Jacquard",
+   "why": "Phrasee rebranded as Jacquard (jacquard.com).",
+   "evidence": "https://www.g2.com/products/jacquard/reviews",
+   "confidence": "high"
+  },
+  {
+   "idx": 113,
+   "name": "Phrasee",
+   "field": "website",
+   "current": "https://phrasee.co",
+   "proposed": "https://jacquard.com",
+   "why": "Rebrand.",
+   "evidence": "https://logos-world.net/jacquard-unveils-new-logo-and-brand-identity/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 129,
+   "name": "DALL-E 3",
+   "field": "status",
+   "current": "DALL-E 3",
+   "proposed": "ChatGPT Images (GPT Image)",
+   "why": "DALL-E 3 was replaced in ChatGPT by GPT-4o native image generation (Mar 2025); desc 'latest image model' is wrong.",
+   "evidence": "https://techcrunch.com/2025/03/25/chatgpts-image-generation-feature-gets-an-upgrade/",
+   "confidence": "high"
+  },
+  {
+   "idx": 134,
+   "name": "Flux (Black Forest Labs)",
+   "field": "website",
+   "current": "https://flux.ai",
+   "proposed": "https://bfl.ai",
+   "why": "flux.ai is an unrelated company (Flux PCB design); Black Forest Labs is bfl.ai.",
+   "evidence": "https://bfl.ai/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 137,
+   "name": "Udio",
+   "field": "desc",
+   "current": "AI music generation tool that creates original, full-length songs...",
+   "proposed": "Note: after UMG settlement (Oct 2025) downloads were disabled; pivoting to licensed walled-garden platform",
+   "why": "Commercial use for SMEs is restricted; consider removing.",
+   "evidence": "https://www.digitalmusicnews.com/2025/10/31/udio-downloads-disabled-umg-deal/",
+   "confidence": "medium"
+  },
+  {
+   "idx": 139,
+   "name": "Magnific AI",
+   "field": "website",
+   "current": "https://magnific.ai",
+   "proposed": "https://www.magnific.com",
+   "why": "Freepik rebranded as Magnific (Apr 2026); Magnific is now the whole Freepik creative platform.",
+   "evidence": "https://thenextweb.com/news/freepik-rebrands-as-magnific",
+   "confidence": "medium"
+  },
+  {
+   "idx": 142,
+   "name": "Canva Presentations",
+   "field": "duplicate",
+   "current": "Canva Presentations (Brand / Creatives)",
+   "proposed": "remove (duplicate of row 42 Canva Magic Studio, Presentation)",
+   "why": "Same product/URL/price as row 42; also wrong category (presentations under Brand/Creatives).",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 146,
+   "name": "Notion AI",
+   "field": "pricing",
+   "current": "+$10/mo add-on",
+   "proposed": "Included in Business plan $20/member/mo (add-on discontinued)",
+   "why": "Standalone Notion AI add-on removed; full AI only on Business/Enterprise.",
+   "evidence": "https://krater.ai/blog/notion-ai-pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 154,
+   "name": "Perplexity AI (Writing)",
+   "field": "duplicate",
+   "current": "Perplexity AI (Writing)",
+   "proposed": "remove (duplicate of row 60 Perplexity Pro)",
+   "why": "Same product, URL and price.",
+   "evidence": "desk",
+   "confidence": "high"
+  },
+  {
+   "idx": 155,
+   "name": "Gemini Advanced",
+   "field": "status",
+   "current": "Gemini Advanced",
+   "proposed": "Google AI Pro",
+   "why": "Gemini Advanced / Google One AI Premium renamed Google AI Pro ($19.99) in May 2025.",
+   "evidence": "https://9to5google.com/2025/05/20/google-ai-pro-ultra/",
+   "confidence": "high"
+  },
+  {
+   "idx": 162,
+   "name": "Scalenut (Writing)",
+   "field": "duplicate",
+   "current": "Scalenut (Writing)",
+   "proposed": "remove (duplicate of row 229 Scalenut)",
+   "why": "Same product, URL and price.",
+   "evidence": "desk",
+   "confidence": "high"
+  },
+  {
+   "idx": 168,
+   "name": "Claude Code",
+   "field": "pricing",
+   "current": "API pay-as-go",
+   "proposed": "Included with Claude Pro $20/mo (or API pay-as-you-go)",
+   "why": "Claude Code is included in all paid Claude plans.",
+   "evidence": "https://claude.com/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 168,
+   "name": "Claude Code",
+   "field": "website",
+   "current": "https://anthropic.com",
+   "proposed": "https://claude.com/product/claude-code",
+   "why": "Point to product page.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 169,
+   "name": "Windsurf (Codeium)",
+   "field": "website",
+   "current": "https://codeium.com",
+   "proposed": "https://windsurf.com",
+   "why": "Codeium renamed to Windsurf; now owned by Cognition and windsurf.com/pricing redirects to devin.ai/pricing (Free/Pro $20).",
+   "evidence": "https://devin.ai/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 169,
+   "name": "Windsurf (Codeium)",
+   "field": "pricing",
+   "current": "Free / $15/mo",
+   "proposed": "Free / $20/mo",
+   "why": "windsurf.com/pricing redirects to Devin plans: Free, Pro $20, Max $200.",
+   "evidence": "https://devin.ai/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 173,
+   "name": "Devin (Cognition AI)",
+   "field": "pricing",
+   "current": "$500/mo",
+   "proposed": "Free / Pro $20/mo / Max $200/mo",
+   "why": "Apr 2026 self-serve plans replaced Core/Team; $500 plan gone.",
+   "evidence": "https://cognition.com/blog/new-self-serve-plans-for-devin",
+   "confidence": "high"
+  },
+  {
+   "idx": 173,
+   "name": "Devin (Cognition AI)",
+   "field": "website",
+   "current": "https://cognition.ai",
+   "proposed": "https://devin.ai",
+   "why": "cognition.ai redirects to cognition.com; product at devin.ai.",
+   "evidence": "https://devin.ai/pricing",
+   "confidence": "medium"
+  },
+  {
+   "idx": 175,
+   "name": "Cline (VS Code)",
+   "field": "website",
+   "current": "https://github.com/clinebot",
+   "proposed": "https://cline.bot",
+   "why": "Official site is cline.bot.",
+   "evidence": "desk",
+   "confidence": "low"
+  },
+  {
+   "idx": 180,
+   "name": "AWS CodeWhisperer",
+   "field": "status",
+   "current": "AWS CodeWhisperer",
+   "proposed": "Amazon Q Developer",
+   "why": "CodeWhisperer was renamed Amazon Q Developer (Apr 2024).",
+   "evidence": "https://techcrunch.com/2024/04/30/amazon-codewhisperer-is-now-called-q-developer-and-is-expanding-its-functions",
+   "confidence": "high"
+  },
+  {
+   "idx": 180,
+   "name": "AWS CodeWhisperer",
+   "field": "website",
+   "current": "https://aws.amazon.com/codewhisperer",
+   "proposed": "https://aws.amazon.com/q/developer",
+   "why": "Rename.",
+   "evidence": "https://docs.aws.amazon.com/codewhisperer/latest/userguide/whisper-legacy.html",
+   "confidence": "high"
+  },
+  {
+   "idx": 182,
+   "name": "Phind",
+   "field": "status",
+   "current": "Phind",
+   "proposed": "remove",
+   "why": "phind.com shut down Jan 29, 2026 (community report; site no longer responds).",
+   "evidence": "https://discuss.privacyguides.net/t/phind-got-shut-down/35042",
+   "confidence": "medium"
+  },
+  {
+   "idx": 205,
+   "name": "Moveworks",
+   "field": "desc",
+   "current": "Enterprise AI copilot that resolves IT, HR, and finance requests...",
+   "proposed": "Now part of ServiceNow (acquisition closed Dec 2025)",
+   "why": "Acquired.",
+   "evidence": "https://www.businesswire.com/news/home/20251215128980/en/ServiceNow-completes-acquisition-of-Moveworks",
+   "confidence": "medium"
+  },
+  {
+   "idx": 211,
+   "name": "Lindy AI",
+   "field": "duplicate",
+   "current": "Lindy AI (Automation / Workflow)",
+   "proposed": "remove (duplicate of row 15)",
+   "why": "Same product, URL and price as row 15.",
+   "evidence": "desk",
+   "confidence": "high"
+  },
+  {
+   "idx": 214,
+   "name": "Boomi AI",
+   "field": "desc",
+   "current": "Dell Boomi's AI integration platform...",
+   "proposed": "Boomi's AI integration platform...",
+   "why": "Boomi has been independent of Dell since 2021 (sold to Francisco Partners/TPG).",
+   "evidence": "desk",
+   "confidence": "medium"
+  },
+  {
+   "idx": 220,
+   "name": "Gumloop (Workflow)",
+   "field": "duplicate",
+   "current": "Gumloop (Workflow)",
+   "proposed": "remove (duplicate of row 10)",
+   "why": "Same product/URL.",
+   "evidence": "desk",
+   "confidence": "high"
+  },
+  {
+   "idx": 224,
+   "name": "Ahrefs",
+   "field": "pricing",
+   "current": "$99/mo",
+   "proposed": "$129/mo (Lite); free Ahrefs Webmaster Tools",
+   "why": "Lite is $129/mo.",
+   "evidence": "https://ahrefs.com/pricing",
+   "confidence": "high"
+  },
+  {
+   "idx": 244,
+   "name": "Freshdesk Freddy AI",
+   "field": "pricing",
+   "current": "Free / $35/mo",
+   "proposed": "$19/agent/mo (Growth, annual); Freddy AI Copilot +$29/agent/mo; no free plan",
+   "why": "Pricing page lists no free plan; 14-day trial.",
+   "evidence": "https://www.freshworks.com/freshdesk/pricing/",
+   "confidence": "high"
+  },
+  {
+   "idx": 246,
+   "name": "Gong",
+   "field": "duplicate",
+   "current": "Gong (Customer Support)",
+   "proposed": "remove (duplicate of row 86, Sales)",
+   "why": "Same product; revenue intelligence is not customer support.",
+   "evidence": "desk",
+   "confidence": "high"
+  },
+  {
+   "idx": 247,
+   "name": "Drift",
+   "field": "duplicate",
+   "current": "Drift (Customer Support)",
+   "proposed": "remove (duplicate of row 95; product sunsetting)",
+   "why": "Duplicate and being sunset by Salesloft.",
+   "evidence": "https://www.chat-data.com/blog/drift-alternatives",
+   "confidence": "high"
+  },
+  {
+   "idx": 0,
+   "name": "Claude Cowork",
+   "field": "desc",
+   "current": "Claude that operates your Mac...",
+   "proposed": "Claude desktop agent for Mac and Windows that handles files, browser and apps",
+   "why": "Cowork launched on Windows and opened to all paid plans.",
+   "evidence": "https://venturebeat.com/technology/anthropics-claude-cowork-finally-lands-on-windows-and-it-wants-to-automate",
+   "confidence": "medium"
+  },
+  {
+   "idx": 0,
+   "name": "Claude Cowork",
+   "field": "website",
+   "current": "https://claude.ai",
+   "proposed": "https://claude.com/product/cowork",
+   "why": "Product page.",
+   "evidence": "https://claude.com/product/cowork?pp=env",
+   "confidence": "low"
+  },
+  {
+   "idx": 243,
+   "name": "Zendesk AI",
+   "field": "pricing",
+   "current": "$55/mo",
+   "proposed": "$55/agent/mo (Suite Team, annual; $69 monthly)",
+   "why": "Confirmed; clarify per agent/annual.",
+   "evidence": "https://www.zendesk.com/pricing/",
+   "confidence": "low"
+  }
+ ],
+ "logic": [
+  {
+   "problem": "p6",
+   "current": [
+    "Marketing",
+    "Email / Inbox"
+   ],
+   "proposed": [
+    "Marketing"
+   ],
+   "why": "Email / Inbox tools are personal inbox productivity apps (Superhuman, SaneBox, Boomerang), not customer-nurture email marketing; staying in touch with past customers is Marketing (ActiveCampaign, HubSpot)."
+  },
+  {
+   "problem": "p9",
+   "current": [
+    "Meeting & Notes",
+    "Research"
+   ],
+   "proposed": [
+    "Meeting & Notes",
+    "Writing & Content"
+   ],
+   "why": "Research category is academic/market-research search (Elicit, Semantic Scholar, AlphaSense) and does not capture tacit knowledge; knowledge-base/docs tools like Notion AI (Writing & Content) and meeting capture fit. Education & Learning (SOP/training) also reasonable."
+  },
+  {
+   "problem": "p46",
+   "current": [
+    "Customer Support"
+   ],
+   "proposed": [
+    "Automation / Workflow"
+   ],
+   "why": "Customer Support category is helpdesk/ticketing (Zendesk, Intercom, Gong); appointment reminders are handled by booking software or automation (Zapier/Make SMS reminders)."
+  },
+  {
+   "problem": "p72",
+   "current": [
+    "Customer Support"
+   ],
+   "proposed": [
+    "Automation / Workflow"
+   ],
+   "why": "Same as p46: no-shows/cancellations are a booking/reminder automation problem, not helpdesk."
+  },
+  {
+   "problem": "p48",
+   "current": [
+    "Meeting & Notes"
+   ],
+   "proposed": [],
+   "why": "General notetakers (Otter, Fireflies, Read AI) are not clinical scribes and raise patient-privacy issues (see p49); rely on clinic/EMR group, or add a dedicated health-compliant AI scribe category."
+  },
+  {
+   "problem": "p27",
+   "current": [
+    "Writing & Content"
+   ],
+   "proposed": [
+    "Sales",
+    "Writing & Content"
+   ],
+   "why": "Consistency with p17 (quotes); estimating/quoting is a sales workflow."
+  },
+  {
+   "problem": "p44",
+   "current": [
+    "Writing & Content",
+    "Finance & Legal"
+   ],
+   "proposed": [
+    "Writing & Content",
+    "Finance & Legal",
+    "Presentation"
+   ],
+   "why": "Proposal builders (Storydoc, Gamma, Pitch) sit in Presentation."
+  }
+ ],
+ "confirmed": [
+  2,
+  7,
+  12,
+  13,
+  18,
+  20,
+  25,
+  28,
+  30,
+  42,
+  60,
+  61,
+  62,
+  80,
+  81,
+  102,
+  103,
+  144,
+  145,
+  184,
+  185,
+  186,
+  202,
+  203,
+  204,
+  242
+ ]
+}
