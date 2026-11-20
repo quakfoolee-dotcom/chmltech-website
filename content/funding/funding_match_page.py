@@ -50,14 +50,14 @@ SECTION = '''
       <div class="finder-nav"><button type="button" class="btn btn-ghost" id="fm-back">← Back</button><button type="button" class="btn" id="fm-next" disabled>Next →</button></div>
     </div>
     <div class="stack" id="fm-result" hidden tabindex="-1" aria-labelledby="fm-res-h" style="gap:28px">
-      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your funding match</p><h2 class="h-lg" id="fm-res-h">Programs that fit your business</h2><p class="lead" id="fm-res-lead"></p></div>
-        <div class="btn-row"><button type="button" class="btn btn-ghost" data-fm="print">Download PDF</button><button type="button" class="btn btn-ghost" data-fm="restart">Start again</button></div></div>
+      <div class="finder-intro"><div class="stack"><p class="eyebrow">Your funding match</p><h2 class="h-lg" id="fm-res-h">Programs that fit your business</h2><p class="lead" id="fm-res-lead"></p><p class="fm-jump"><a href="#fm-report">Get this as a PDF in your inbox →</a></p></div>
+        <div class="btn-row"><button type="button" class="btn btn-ghost" data-fm="restart">Start again</button></div></div>
       <div class="fm-tiles" id="fm-tiles"></div>
       <div id="fm-stack"></div>
       <div id="fm-groups" class="stack" style="gap:30px"></div>
       <div class="fm-two"><div id="fm-near"></div><div id="fm-watch"></div></div>
       <div id="fm-ready"></div>
-      <div class="erp-lead">
+      <div class="erp-lead" id="fm-report" style="scroll-margin-top:96px">
         <form class="panel form" data-endpoint="https://api.web3forms.com/submit" data-report-endpoint="https://chmltech-report.quakfoo-lee.workers.dev/" data-report-kind="funding" data-success-report="Thank you. Your Funding Match PDF is on its way to your inbox from reports@mail.chmltech.com. If you do not see it in a few minutes, check your junk folder." data-subject="Funding match report" data-success="Thank you. We have your results and will email your full report within one business day." novalidate>
           <h3 class="h-md" style="font-size:22px">Get the full report</h3>
           <p class="muted" style="font-size:14.5px">Your Funding Match as a PDF: best-fit programs with links, the funding stack, near misses and your readiness checklist. Sent to your inbox in a minute.</p>
