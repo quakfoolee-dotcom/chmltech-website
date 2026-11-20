@@ -1,5 +1,8 @@
 # Funding Match — changelog
 
+## V5.59 — 2026-11-20
+- PDF: section headings keep space for their first entry; trailing periods removed from notes in the checks; new `place` niche (single-community programs, score -35) applied to Lytton Business Restart; GAPP `pct` 33.3.
+
 ## V5.58 — 2026-11-20: published
 - Draft V4 published as site V5.58. The draft builder became `content/funding/funding_match_page.py`: it can be run any number of times (it removes an earlier patch first) and also refreshes the directory filter counts. Digital Assessment funding links now open `funding.html#match`. Cache stamps by `seo_pass.py`.
 
