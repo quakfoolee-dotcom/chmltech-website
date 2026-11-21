@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warehouse Layout Lab</title>
+<!-- Warehouse Layout Lab V1 (warehouse layout series, Part 1). Add #embed to the address to run it inside an article
+     (no header, reports its height to the parent page). Model: ../js/wl-engine.js; drawing and controls: ../js/wl-lab.js. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --navy:#0B2A5A; --navy-2:#13366E; --blue:#0B6FA4; --sky:#3FA7F5; --green:#8DC63F; --green-d:#4D7F12;
+  --orange:#FF8A3D; --red:#E2574C; --red-d:#B43E3E; --ink:#0B2A5A; --body:#3F4A5C; --muted:#5A6475;
+  --paper:#F6F5F1; --line:#E4E1D8; --line-2:#D9D5CA; --white:#fff;
+  --head:'Space Grotesk',system-ui,sans-serif; --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}   /* hidden must win over the canvas and pane display rules */
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
+.wrap{max-width:1320px;margin:0 auto;padding:22px 16px 36px;display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-family:var(--head);font-weight:600;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:0}
+h1{font-family:var(--head);font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin:4px 0 6px;font-weight:600}
+.lede{max-width:72ch;color:var(--body);margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #0A9AD8;outline-offset:2px}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.grp>span{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chip{border:1px solid var(--line-2);background:var(--white);border-radius:999px;padding:6px 13px;font-size:14px;font-weight:500}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+
+.stage{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;background:radial-gradient(ellipse 80% 70% at 50% 45%,#16427e,#0b2a5a 70%);border-radius:12px;overflow:hidden;border:1px solid #0b2a5a}
+.stage.one{grid-template-columns:1fr}
+.pane{position:relative;aspect-ratio:1/1.1;min-width:0}
+.stage.one .pane{aspect-ratio:16/11}
+.pane+.pane::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18);z-index:2}
+.pane canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pane canvas.gl{cursor:grab;touch-action:pan-y}
+.pane canvas.gl:active{cursor:grabbing}
+.pane[hidden]{display:none}
+.tag{position:absolute;left:12px;top:10px;z-index:3;display:flex;gap:8px;align-items:center;pointer-events:none}
+.tag b{font-family:var(--head);font-weight:600;font-size:13.5px;color:#fff;padding:4px 10px;border-radius:6px;background:rgba(180,62,62,.92)}
+.pane.good .tag b{background:rgba(77,127,18,.95)}
+.tag em{font-style:normal;font-family:var(--head);font-size:12.5px;font-weight:600;color:#fff;background:rgba(7,28,61,.75);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:3px 8px;font-variant-numeric:tabular-nums}
+.ov{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.badge{position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--head);color:#fff;background:var(--red-d);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);pointer-events:auto;cursor:help;will-change:transform}
+.pane.good .badge{background:var(--green-d)}
+.badge.hot{animation:pulse 1s ease-in-out 3}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,255,255,.35)}}
+.badge[hidden]{display:none}
+.lbl{position:absolute;left:0;top:0;font:600 11px/1.2 var(--head);color:rgba(230,239,255,.9);letter-spacing:.02em;white-space:nowrap;transform-origin:0 0;will-change:transform;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.lbl.k-aisle{color:#fff}
+.tip{position:absolute;z-index:5;max-width:250px;background:#fff;color:var(--ink);border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.25);pointer-events:none}
+.tip b{display:block;font-family:var(--head);font-size:13px;margin-bottom:2px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;font-size:12px;color:var(--muted);margin-top:-4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.legend i.dot{border-radius:50%}
+.tour{height:3px;background:#dfe5ee;border-radius:2px;overflow:hidden;margin-top:-8px}
+.tour i{display:block;height:100%;width:0;background:var(--blue)}
+.tour.off i{background:transparent}
+.nogl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#dbe6f5;z-index:4}
+.busy{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#dbe6f5;font-family:var(--head);font-weight:600;z-index:6;background:rgba(11,42,90,.55)}
+.busy[hidden]{display:none}
+
+.main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h2{font-family:var(--head);font-size:15px;margin:0 0 8px;font-weight:600}
+.sl{display:grid;grid-template-columns:1fr auto;gap:0 8px;align-items:baseline;margin-top:8px}
+.sl:first-of-type{margin-top:0}
+.sl label{font-size:14px}
+.sl output{font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}
+.sl input{grid-column:1/-1;width:100%;accent-color:var(--blue);margin:4px 0 0}
+.sl small{grid-column:1/-1;color:var(--muted);font-size:12.5px}
+.say{margin:12px 0 0;padding:10px 12px;background:#E6F0F7;border-left:3px solid var(--blue);border-radius:0 6px 6px 0;font-size:14px;min-height:44px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 5px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{font-family:var(--head);font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.good{color:var(--green-d);font-weight:600} td.bad{color:var(--red-d);font-weight:600}
+.split{margin-top:12px;display:grid;grid-template-columns:96px minmax(0,1fr) 58px;gap:6px 8px;align-items:center;font-size:13px}
+.split .t{display:flex;height:18px;border-radius:4px;overflow:hidden;background:#eef1f4}
+.split .t i{display:block;height:100%}
+.split .v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.keys{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted);margin:8px 0 0;padding:0;list-style:none}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.faults{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.faults ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.faults li button{display:grid;grid-template-columns:22px 1fr;gap:8px;text-align:left;width:100%;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 9px;font-size:13px;line-height:1.35}
+.faults li button:hover,.faults li button[aria-pressed="true"]{border-color:var(--blue);background:#F2F7FB}
+.faults li button span{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--head);color:#fff;background:var(--red-d)}
+.faults .good li button span{background:var(--green-d)}
+.faults li strong{display:block;font-family:var(--head);font-size:13.5px}
+.faults h3{font-family:var(--head);font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px;color:var(--red-d)}
+.faults .good h3{color:var(--green-d)}
+details{font-size:13.5px;color:var(--body)}
+details summary{cursor:pointer;color:var(--ink);font-weight:600;font-family:var(--head)}
+details ul{margin:8px 0 0;padding-left:18px}
+@media (max-width:900px){.main{grid-template-columns:1fr}}
+@media (max-width:600px){.stage{grid-template-columns:1fr}.pane+.pane::before{left:0;right:0;top:0;bottom:auto;width:auto;height:1px}.stage.one .pane,.pane{aspect-ratio:1/1.02}.faults{grid-template-columns:1fr}}
+@media (max-width:520px){.legend{font-size:11px;gap:3px 10px}.lbl{display:none}.tag b{font-size:12.5px}}
+.embed body{background:transparent}.embed .wrap{padding:0 0 4px;max-width:none}.embed header{display:none}
+</style>
+</head>
+<body>
+<div class="wrap" id="lab">
+  <header>
+    <p class="eyebrow">Warehouse layout series · Part 1</p>
+    <h1>Warehouse Layout Lab: the same building, two layouts</h1>
+    <p class="lede">The example Vancouver distributor from the warehouse operations series: 72 by 52 m (about 40,300 sq ft), 780 SKUs on pallet racks, 300 orders a day. Both floors run the same order stream and the same inbound trucks through one shift, side by side. Only the layout differs.</p>
+  </header>
+
+  <div class="bar" role="group" aria-label="What to show">
+    <div class="grp" role="group" aria-label="Layout"><span>Show</span>
+      <button class="chip" data-v="both" aria-pressed="true">Side by side</button>
+      <button class="chip" data-v="asis" aria-pressed="false">As-is</button>
+      <button class="chip" data-v="redesign" aria-pressed="false">Redesigned</button>
+    </div>
+    <div class="grp" role="group" aria-label="View"><span>View</span>
+      <button class="chip" data-d="2d" aria-pressed="true">2D plan</button>
+      <button class="chip" data-d="3d" aria-pressed="false">3D</button>
+    </div>
+    <div class="grp" role="group" aria-label="Overlays"><span>Overlay</span>
+      <button class="chip" data-h="heat" aria-pressed="true">Travel heat map</button>
+      <button class="chip" data-h="faults" aria-pressed="true">Numbered points</button>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="pane bad" data-k="asis"><div class="tag"><b>As-is layout</b><em class="clk">07:00</em></div><canvas class="c2"></canvas><canvas class="gl" hidden></canvas><div class="ov"></div></div>
+    <div class="pane good" data-k="redesign"><div class="tag"><b>Redesigned layout</b><em class="clk">07:00</em></div><canvas class="c2"></canvas><canvas class="gl" hidden></canvas><div class="ov"></div></div>
+    <div class="busy" id="busy">Simulating the shift…</div>
+  </div>
+  <div class="tour" id="tour" aria-hidden="true"><i></i></div>
+  <div class="legend" aria-hidden="true"><span><i style="background:#8DC63F"></i>A SKU face</span><span><i style="background:#3FA7F5"></i>B</span><span><i style="background:#7F93B2"></i>C</span><span><i class="dot" style="background:#fff"></i>Picker</span><span><i style="background:#FF8A3D"></i>Forklift</span><span><i style="background:#B18CFF"></i>Pallet jack</span><span><i class="dot" style="background:#FFE27A"></i>Picking</span><span><i style="background:#C9955A"></i>Inbound pallet</span><span><i style="background:#E6DFC9;outline:1.5px solid #8DC63F"></i>Outbound pallet</span><span><i style="background:transparent;border:1px dashed #F2C94C"></i>Staging spot</span><span><i style="background:#3FA7F5"></i>IN door</span><span><i style="background:#8DC63F"></i>OUT door</span><span><i style="background:#C9A2FF"></i>Shared door</span><span><i class="dot" style="background:transparent;border:2px solid #FF5A4E"></i>Giving way now</span><span><i class="dot" style="background:transparent;border:2px dashed #FFB02E"></i>Most stops over the shift</span><span><i style="background:linear-gradient(90deg,rgba(255,70,20,.3),#ff9a50,#fff08c)"></i>Travel (same scale both)</span></div>
+
+  <div class="main">
+    <div class="card">
+      <h2>One shift, 07:00 to 15:00</h2>
+      <table id="kpi">
+        <thead><tr><th>Measure</th><th>As-is</th><th>Redesigned</th><th>Change</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p style="font-size:12px;color:var(--muted);margin:6px 0 0">* Trucks still at a door or waiting at 15:00 are counted up to 15:00, so these are lower bounds.</p>
+      <div class="split" id="split" aria-hidden="true"></div>
+      <ul class="keys" aria-hidden="true"><li><i style="background:#0B6FA4"></i>Walking</li><li><i style="background:#8DC63F"></i>Picking</li><li><i style="background:#9AA8BA"></i>List, cart and drop-off</li><li><i style="background:#E2574C"></i>Giving way</li></ul>
+      <p class="say" id="say" aria-live="polite"></p>
+    </div>
+    <div class="card">
+      <h2>Try it</h2>
+      <div class="sl"><label for="wl-orders">Orders a day</label><output id="wl-orders-o">300</output><input type="range" id="wl-orders" min="150" max="600" step="50" value="300"><small id="wl-crew">6 pickers, 1 forklift, 14 inbound trucks</small></div>
+      <div class="sl"><label for="wl-share">Share of picks from the busiest 20% of SKUs</label><output id="wl-share-o">80%</output><input type="range" id="wl-share" min="60" max="90" step="5" value="80"><small>Higher means a few fast movers do most of the work, so where they sit matters more.</small></div>
+      <details style="margin-top:14px"><summary>How the model works</summary>
+        <ul>
+          <li>Both layouts hold about the same racks (780 and 840 pallet positions a level, 780 SKUs) in the same 72 × 52 m building, with five dock doors each.</li>
+          <li>Orders arrive through the day (30 waiting at 07:00, the rest by 14:00), about 3 lines each. Pickers walk at 0.9 m/s with a cart, take 20 s a case pick, 45 s to start an order and 30 s to drop it at packing.</li>
+          <li>A receiving-heavy day: at 300 orders a day, 14 inbound trucks (5 full loads of 24 pallets, the rest part loads), far more pallets in than go out. Each unloads at 2.5 minutes a pallet into staging. One forklift (two from 400 orders a day) puts each pallet away above its SKU's pick face, at 2 m/s.</li>
+          <li>Every 20 packed orders make an outbound pallet, moved to shipping staging by a pallet jack. Carriers collect at 10:30, 12:30 and 14:30.</li>
+          <li>People and vehicles move on a 1 m grid. When two meet within a metre, one gives way and squeezes past after a few seconds.</li>
+          <li>Labour at $40 an hour loaded, 250 days a year; truck detention at $65 an hour after two hours on site. The table is the full simulated shift; the animation replays it 12 times faster than life (with reduced motion turned on, it shows the floor at 10:30, still). Trucks still on site at 15:00 are counted up to 15:00.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+
+  <div class="card faults">
+    <div><h3>What is wrong with the as-is layout</h3><ol id="f-asis"></ol></div>
+    <div class="good"><h3>What the redesign changes</h3><ol id="f-redesign"></ol></div>
+  </div>
+</div>
+<script src="../js/vendor/three-r128.min.js"></script>
+<script src="../js/vendor/OrbitControls-r128.js"></script>
+<script src="../js/wl-engine.js"></script>
+<script src="../js/wl-lab.js"></script>
+</body>
+</html>

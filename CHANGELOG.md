@@ -1,5 +1,24 @@
 # Changelog
 
+## V5.67 — 2026-11-21
+- **New: Warehouse layout series, Part 1: "Good Layout, Bad Layout: What Travel and Congestion Cost an SME Warehouse"** (`/post/good-layout-bad-layout-what-travel-and-congestion-cost-an-sme-warehouse`, Operational Efficiency and Inventory Management). The Vancouver distributor of the warehouse operations series in two layouts of about the same racks: as-is (65 m dead-end aisles, random slotting, five shared doors, overflow staging in the main aisle, packing far from the doors) and redesigned (30 m aisles with front and back cross-aisles, fast movers next to packing, U-flow with 3 receiving and 2 shipping doors, separate staging lanes). At 300 orders a day the walk per order falls from 233 to 70 m, picker-hours a day from 32.9 to 17.7 (about $152,000 a year at $40 an hour), give-way stops from 261 to 41 and inbound truck time from 86 to 34 minutes (lower bound), with at least $52,000 a year of detention avoided. Re-slotting alone gives 84% of the picking gain if done first (39% if the aisles are rebuilt first). At the dock the single forklift's long put-away trips are the bottleneck, not the shared doors. Also: the spread over ten other simulated days, six faults with how to spot them, a one-afternoon layout check and what the model leaves out.
+- **Warehouse Layout Lab** (`assets/sim/layout-lab.html`, embedded in the article with `#embed`; engine `assets/js/wl-engine.js`, drawing and controls `assets/js/wl-lab.js`, frame sizing `assets/js/wl1.js`). Both layouts run the same shift side by side, in a 2D plan or a 3D view through one shared camera. Pickers, forklifts, a pallet jack and tractor-trailers move on a 1 m grid and give way to each other. Trucks come in with the door on the driver's side, swing out and back in with the trailer straight before it reaches the next doors, then pull out and turn onto the exit lane. The Lab shows a travel heat map on one scale for both floors, whole-shift stop spots, numbered fault points and a KPI table, with sliders for orders a day (150–600) and how concentrated the picks are. It plays on its own and switches 2D/3D every 30 s until the reader picks a view. With reduced motion turned on it shows the floor at 10:30, still.
+- **Numbers from the same engine:** `content/articles/wl1_model.js` writes `wl1_results.json`, which `wl1_articles.py` quotes. Rerun both if the engine changes.
+- **Red team QC before release:** 3 critical, 9 major and 13 minor findings, all addressed:
+  - trucks still on site at 15:00 are now counted;
+  - the dock cause is corrected;
+  - the slotting share is given both ways;
+  - path-search buckets fixed;
+  - each picker has its own bench place;
+  - vehicles drive round staged pallets;
+  - one heat scale for both layouts;
+  - old 3D scenes are freed before a rebuild;
+  - the frame resizes when "How the model works" opens;
+  - label and legend fixes.
+
+  Later fixes from review: tractor-trailer turning and backing, 2D/3D canvases no longer overlapping, 3D framing at every pane size, and both 3D views at the same angle.
+- **Insights:** new series shelf entry "Warehouse layout series"; Part 1 heads the "Run a leaner warehouse" reading list (`content/insights/finder.json`).
+
 ## V5.66 — 2026-11-21
 - **Funding Match no longer estimates dollar amounts** (after an external review of a test report). The funding stack lists programs with what each program publishes (amount and cost share, labelled "Program publishes") instead of calculated "about $X" figures; the combined total, the bar and the 50% default share are gone from the page and the PDF. A note explains that the amount depends on which costs each program accepts and on its stacking rules, worked out in the free review. Intro, results and report disclaimer say Funding Match shortlists programs and does not estimate amounts.
 - **Leads:** 44 programs that need something the tool cannot confirm show "Lead – confirm fit" (no fit score) with a program-specific reason first under "Check before you apply", sort after confirmed fits and are kept out of the stack when another program fits: research or consortium partners (Genome Canada GAPP, NSERC, Mitacs, Global Innovation Clusters, NGen, Scale AI, CanExport Innovation, OCI C2C and others), advisor- or invitation-led programs (NRC IRAP, Strategic Response Fund), incentives priced by energy savings, demand reduction or products installed (BC Hydro, FortisBC, Efficiency Manitoba and Nova Scotia, Save on Energy, Hydro-Québec, ÉcoPerformance and others), and student programs.
