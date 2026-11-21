@@ -4,7 +4,7 @@
      format   <- data-cats (chmltech-online-journal / case-study / book-review, else article)
      date     <- the last "Mon D, YYYY" in .meta        read time <- "N min read" in .meta
      series   <- .series "Name series · Part N of M"    journal division <- the card's subject label
-   Then it shows, hides and re-orders the cards. Live counts, shareable #format=…&topic=… links,
+   Then it shows, hides and re-orders the cards. Live counts, #format=…&topic=… in the address,
    old #cat= links still work. No libraries. */
 (function () {
   var root = document.querySelector('[data-ifl]'); if (!root) return;
@@ -264,11 +264,6 @@
   var timer;
   $('[data-q]').addEventListener('input', function (e) { var v = e.target.value.slice(0, 200); clearTimeout(timer); timer = setTimeout(function () { change(function () { st.q = v.trim(); }); }, 120); });
   $('[data-sort]').addEventListener('change', function (e) { var v = e.target.value; change(function () { st.sort = v; }); });
-  function copied(ok) { var c = $('[data-copied]'); c.textContent = ok ? 'Link copied' : 'Copy failed: copy the address bar instead'; c.hidden = false; setTimeout(function () { c.hidden = true; }, 2200); }
-  function fallbackCopy(u) {
-    try { var ta = document.createElement('textarea'); ta.value = u; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select(); var ok = document.execCommand('copy'); document.body.removeChild(ta); return ok; } catch (e) { return false; }
-  }
   root.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     if (b.hasAttribute('data-clear')) {
@@ -290,11 +285,6 @@
     if (b.hasAttribute('data-more')) {
       var firstNew = shown; shown += PAGE; render(true);
       var vis = $$('article', grid).filter(function (a) { return !a.hidden; }), a = vis[firstNew] && vis[firstNew].querySelector('h3 a'); if (a) a.focus({ preventScroll: true });
-    }
-    if (b.hasAttribute('data-copy')) {
-      var u = location.href;
-      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(u).then(function () { copied(true); }, function () { copied(fallbackCopy(u)); });
-      else copied(fallbackCopy(u));
     }
   });
 

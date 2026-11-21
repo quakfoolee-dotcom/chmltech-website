@@ -44,8 +44,6 @@
 .ifl-act button{font:inherit;font-size:13.5px;display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--line-2);color:var(--ink);border-radius:999px;padding:5px 10px 5px 13px;cursor:pointer;min-height:34px}
 .ifl-act button:hover{border-color:var(--ink)}
 .ifl-act svg{width:10px;height:10px}
-.ifl-res .sp{flex:1}
-.ifl-copied{font-size:13px;color:var(--green-dark);font-weight:600}
 .ifl-sintro{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;font-size:15px}
 .ifl-sintro b{font-family:var(--font-head);font-size:17px;color:var(--ink)}
 .ifl-sintro span{color:var(--muted)}
@@ -85,7 +83,6 @@
   .ifl-tools .search{flex-basis:100%}
   .ifl-sort{flex:1}
   .ifl-sort select{flex:1}
-  .ifl-res .sp{display:none}
 }
 @media (max-width:600px){
   [data-ifl] .article .body{padding:18px 18px 20px}
