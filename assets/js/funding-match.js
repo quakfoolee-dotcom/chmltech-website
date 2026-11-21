@@ -60,7 +60,7 @@
     { k: 'rev', st: 0, q: 'What was your revenue in the last full year?', o: function () { return opt(REV); }, cols: 2, when: function () { return ans.legal !== 'none'; } },
     { k: 'yrs', st: 0, q: 'How long has the business been operating?', o: function () { return opt(YRS); }, cols: 3, when: function () { return ans.legal !== 'none'; } },
     { k: 'goal', st: 1, q: 'What do you want funding for?', hint: 'Pick up to three.', max: 3, o: function () { return GOALS.map(function (g) { return [g[0], g[1], g[2]]; }); } },
-    { k: 'budget', st: 1, q: 'About how much will the project cost in total?', hint: 'Pick a range. If you know the figure, enter it below for more precise amounts.', o: function () { return BUDGET.map(function (b) { return [b[0], b[1], '']; }); }, extra: costHTML },
+    { k: 'budget', st: 1, q: 'About how much will the project cost in total?', hint: 'Pick a range. If you know the figure, enter it below; it is used to check programs\' minimum project sizes.', o: function () { return BUDGET.map(function (b) { return [b[0], b[1], '']; }); }, extra: costHTML },
     { k: 'start', st: 1, q: 'When will the project start?', hint: 'Most grants only cover costs after approval.', o: function () { return opt(START); } },
     { k: 'who', st: 2, q: 'Do any of these describe your business?', hint: 'Optional. Some programs are reserved for these groups. Pick all that apply, or "None of these".', max: 9, o: function () { return opt(WHO); }, cols: 2, excl: 'none' },
     { k: 'sit', st: 2, q: 'Do any of these situations apply?', hint: 'Some programs are only for these situations. Pick all that apply, or "None of these".', max: 4, o: function () { return [['tariff', 'Affected by U.S. tariffs', 'Lost sales, higher costs or a need to find new markets'], ['defence', 'Supplying or planning to supply defence or security customers'], ['energy', 'Large energy user', 'Industrial or large commercial electricity or gas account'], ['none', 'None of these']]; }, excl: 'none' },
@@ -170,8 +170,13 @@
   function groupOf(r) { return TYPEGROUP[r.funding_types[0]] || 'grant'; }
   function rep(x) { return x.r.funding_types.indexOf('Repayable contribution') >= 0 || x.g === 'loan'; }
   var SIZE_TAGS = ['Small & medium business', 'Large business', 'Non-profit', 'Co-operative', 'Startup'];
+  var LEAD = {
+    partner: 'Needs a research partner (a university, college or research organization usually leads or co-applies). Confirm you have one before you plan around it.',
+    advisor: 'A program advisor or officer reviews your project first and decides whether to invite an application.',
+    savings: 'The incentive is set by your project\'s measured energy savings, demand reduction or the products you install, so the amount depends on an energy study or the program\'s rates.',
+    student: 'The founder or intern must be a current student or recent graduate.' };
   var NICHE = { tariff: ['tariff', 'businesses affected by U.S. tariffs'], defence: ['defence', 'defence and security supply chains'], energy: ['energy', 'large energy users (industrial or large commercial accounts)'],
-    ccus: [null, 'carbon capture, utilization and storage projects'], worksharing: [null, 'employers in an approved Work-Sharing agreement'], cea: [null, 'greenhouse and vertical farming projects'], building: [null, 'owners of large commercial or industrial buildings'], place: [null, 'businesses in one named community'] };
+    ccus: [null, 'carbon capture, utilization and storage projects'], worksharing: [null, 'employers in an approved Work-Sharing agreement'], cea: [null, 'greenhouse and vertical farming projects'], building: [null, 'owners of large commercial or industrial buildings'], place: [null, 'businesses in one named community'], biofuel: [null, 'existing biodiesel or renewable diesel producers'], large: [null, 'large clean-economy projects seeking major investment'] };
   function evaluate(r0, P) {
     if (!inProv(r0, P)) return null;
     var ru = RULES[r0.id] || {};
@@ -231,8 +236,12 @@
     if (ru.niche === 'cea' && P.ind === 'Agriculture & agri-food') nicheOk = true;
     if (P.ind === 'food' && /\b(?:farms?|farmers?|producers?|livestock|growers?)\b/i.test(r.eligibility) && !/process/i.test(r.eligibility + ' ' + r.summary)) s -= 15;   // farm-only programs for a food processor
     if (ru.niche === 'building' && goals.indexOf('clean') >= 0 && +ans.budget >= 4) nicheOk = true;
+    if (ru.niche === 'large' && goals.indexOf('clean') >= 0 && P.budgetHi > 2e6) nicheOk = true;
     if (niche && !nicheOk) s -= ru.niche === 'place' ? 35 : 20;
     if (ru.investor) s -= 15;
+    if (ru.needs_goal && goals.indexOf(ru.needs_goal) < 0) s -= 15;   // e.g. AI programs when digital/AI is not a goal
+    var lead = ru.lead && LEAD[ru.lead];
+    if (ru.lead === 'partner' && goals.indexOf('rd') < 0) s -= 12;   // partner-led research programs fit best when R&D is a goal
     if (r.confidence === 'Low') s -= 5;
     if (P.started && ru.pre) s -= 4;
     s = Math.max(5, Math.min(100, Math.round(s)));
@@ -244,8 +253,10 @@
     if (nicheOk && niche[0]) why.push('Fits your situation: ' + niche[1]);
     if (r.status === 'Continuous intake' || r.status === 'Open') why.push('Accepting applications now'); else if (r.status === 'Periodic intake') why.push('Takes applications in intake windows');
     var check = [];
+    if (lead) check.push(ru.lead_note || LEAD[ru.lead]);
     if (niche && !nicheOk && ru.niche !== 'place') check.push('Only for ' + niche[1]);
     if (ru.investor) check.push('The credit goes to your investors, not to the business');
+    if (ru.needs_goal === 'dig' && goals.indexOf('dig') < 0) check.push('Funds projects where artificial intelligence is central, and you did not pick digital tools or AI as a goal');
     if (ru.note) check.push(String(ru.note).replace(/[.\s]+$/, ''));
     if (ru.inc) check.push(P.legal === 'coop' ? 'Must be an incorporated company: check whether co-operatives qualify' : 'Your business must be incorporated');
     if (ru.emp_min || ru.emp_max) check.push((ru.emp_max ? 'Size: ' + (ru.emp_min || 1) + ' to ' + ru.emp_max + ' employees' : 'At least ' + ru.emp_min + ' employee' + (ru.emp_min > 1 ? 's' : '')) + (ru.scope === 'forprofit' ? ' (businesses)' : ''));
@@ -258,7 +269,7 @@
     if (r.funding_types.indexOf('Repayable contribution') >= 0) check.push(r.funding_types.indexOf('Grant') >= 0 ? 'Partly repayable: some projects must pay the contribution back' : 'Repayable: the contribution is paid back, usually interest-free');
     if (ru.stack) check.push('Total government funding capped at ' + ru.stack + '% of eligible costs');
     if (r.confidence !== 'High' || ru.multi) check.push('Rules vary by stream: confirm the details on the official page');
-    return { r: r, ru: ru, g: g, score: s, soft: soft, why: why, check: check, typeHit: typeHit };
+    return { r: r, ru: ru, g: g, score: s, soft: soft, why: why, check: check, typeHit: typeHit, lead: !!lead };
   }
 
   var RES = null;
@@ -271,7 +282,8 @@
       if (r.status === CLOSED || r.status === 'Paused') { if (x.score >= 50) watch.push(x); return; }
       open.push(x);
     });
-    function byScore(a, b) { return b.score - a.score || (b.r.max_amount_cad || 0) - (a.r.max_amount_cad || 0); }
+    // leads (programs needing something this tool cannot confirm) come after confirmed fits in each group
+    function byScore(a, b) { return (a.lead - b.lead) || b.score - a.score || (b.r.max_amount_cad || 0) - (a.r.max_amount_cad || 0); }
     open.sort(byScore); near.sort(byScore); watch.sort(byScore);
     var groups = {}; open.forEach(function (x) { (groups[x.g] = groups[x.g] || []).push(x); });
     var order = ['grant', 'tax', 'loan', 'adv'].sort(function (a, b) { return (P.pref.indexOf(b) >= 0) - (P.pref.indexOf(a) >= 0); });
@@ -280,44 +292,37 @@
     quiz.hidden = true; result.hidden = false; result.focus(); $('#match').scrollIntoView({ behavior: 'smooth' });
   }
 
+  // V5.62: the stack lists programs only. No amounts are calculated: what each program pays depends on which of your
+  // costs it accepts and on its stacking rules, so the stack shows what the program itself publishes.
   function buildStack(P, groups) {
-    var pick = [], used = {}, cap = 75, gov = 0, govRep = 0;
-    function estimate(x) {
-      if (x.ru.per_unit || (!x.ru.pct && !x.r.max_amount_cad)) return null;   // per-person amounts or unknown amounts: say so, do not guess
-      var e = P.budget * ((x.ru.pct || 50) / 100);
-      if (x.r.max_amount_cad) e = Math.min(e, x.r.max_amount_cad);
-      if (x.ru.per_unit) e = Math.min(e, x.ru.per_unit * P.emp[1]);
-      return e;
+    var pick = [], used = {};
+    function take(g, filt) {
+      var list = (groups[g] || []).filter(function (y) { return !used[y.r.id] && (!filt || filt(y)); });
+      var x = list.filter(function (y) { return !y.lead; })[0] || list[0];
+      if (x) { used[x.r.id] = 1; pick.push(x); }
     }
-    function takeGrant(filt) {
-      var list = (groups.grant || []).filter(filt);
-      for (var i = 0; i < list.length; i++) {
-        var x = list[i]; if (used[x.r.id]) continue;
-        var c = x.ru.stack && x.ru.stack < cap ? x.ru.stack : cap, room = P.budget * c / 100 - gov - govRep;
-        var e = estimate(x);
-        if (e != null) { e = Math.min(e, room); if (e < 1000) continue; }      // no room left under the cap: try the next program
-        used[x.r.id] = 1; cap = c; x.est = e == null ? null : Math.round(e / 1000) * 1000; x.rep = rep(x);
-        if (x.est) { if (x.rep) govRep += x.est; else gov += x.est; }
-        pick.push(x); return;
-      }
-    }
-    function take(g) { var x = (groups[g] || []).filter(function (y) { return !used[y.r.id]; })[0]; if (x) { used[x.r.id] = 1; x.est = null; pick.push(x); } }
-    if (P.pref.indexOf('grant') >= 0) { takeGrant(function (x) { return x.r.jurisdiction === 'Federal'; }); takeGrant(function (x) { return x.r.jurisdiction !== 'Federal'; }); }
+    if (P.pref.indexOf('grant') >= 0) { take('grant', function (x) { return x.r.jurisdiction === 'Federal'; }); take('grant', function (x) { return x.r.jurisdiction !== 'Federal'; }); }
     if (P.pref.indexOf('tax') >= 0) take('tax');
     if (P.pref.indexOf('loan') >= 0) take('loan');
     if (P.pref.indexOf('adv') >= 0) take('adv');
-    return { pick: pick, cap: cap, gov: gov, govRep: govRep, budget: P.budget, share: P.budget - gov - govRep };
+    return { pick: pick };
   }
 
   /* ---------- results ---------- */
+  function repLabel(x) {
+    var ft = x.r.funding_types;
+    if (x.g !== 'grant' || ft.indexOf('Repayable contribution') < 0) return '';
+    return ft.indexOf('Grant') >= 0 ? ' (partly repayable)' : ' (repayable)';
+  }
   function chip(t, c) { return '<span class="fm-chip' + (c ? ' ' + c : '') + '">' + esc(t) + '</span>'; }
   function statusCls(s) { return s === 'Open' || s === 'Continuous intake' ? 'ok' : s === CLOSED ? 'no' : 'mid'; }
   function card(x) {
     var r = x.r;
     return '<article class="fm-card"><div class="fm-card-top"><div class="fm-card-h"><h4>' + esc(r.name) + '</h4><p class="fm-admin">' + esc(r.administrator) + '</p></div>' +
-      '<div class="fm-fit" title="How closely the program matches your answers. Not a chance of approval."><b>' + x.score + '</b><span>fit score</span><i style="--w:' + x.score + '%"></i></div></div>' +
+      (x.lead ? '<div class="fm-fit fm-lead" title="A lead: the program needs something this tool cannot confirm. See the first point under Check before you apply."><b>Lead</b><span>confirm fit</span></div></div>' :
+      '<div class="fm-fit" title="How closely the program matches your answers. Not a chance of approval."><b>' + x.score + '</b><span>fit score</span><i style="--w:' + x.score + '%"></i></div></div>') +
       '<p class="fm-chips">' + chip(r.jurisdiction) + r.funding_types.map(function (t) { return chip(t, 't'); }).join('') + chip(r.status, statusCls(r.status)) + '</p>' +
-      '<p class="fm-amt">' + esc(r.amount_text) + '</p>' +
+      '<p class="fm-amt"><span class="fm-amt-l">Program publishes:</span> ' + esc(r.amount_text) + '</p>' +
       '<div class="fm-cols"><div><h5>Why it fits</h5><ul class="fm-why">' + x.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul></div>' +
       '<div><h5>Check before you apply</h5><ul class="fm-check">' + (x.check.length ? x.check : ['Confirm eligibility and eligible costs on the official page']).map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul></div></div>' +
       '<p class="fm-links"><a href="' + esc(r.url) + '" target="_blank" rel="noopener">Official program page ↗</a><a href="#p-' + esc(r.id) + '" data-fm-goto="' + esc(r.id) + '">See in directory</a><span class="muted">Deadline: ' + esc(r.deadline) + '</span></p></article>';
@@ -326,7 +331,8 @@
     var R = RES, P = R.P;
     var n = R.open.length;
     var bl = P.exact ? full(P.budget) : row(BUDGET, ans.budget)[1].toLowerCase(), art = /^[uo]/.test(bl) ? 'an ' : 'a ';
-    $('#fm-res-lead').textContent = n ? n + (n === 1 ? ' program fits' : ' programs fit') + ' your answers for ' + art + bl + ' project in ' + P.prov + '. Here are the strongest matches, grouped by type.' :
+    var nl = R.open.filter(function (x) { return x.lead; }).length;
+    $('#fm-res-lead').textContent = n ? n + (n === 1 ? ' program fits' : ' programs fit') + ' your answers for ' + art + bl + ' project in ' + P.prov + (nl ? ' (' + nl + ' of them ' + (nl === 1 ? 'is a lead' : 'are leads') + ' to confirm)' : '') + '. Here are the strongest matches, grouped by type.' :
       'No open programs fit every answer. ' + (R.near.length + R.watch.length ? 'See the near misses and programs opening again below, or try ' : 'Try ') + 'more goals or funding types, or browse the directory below.';
     // summary tiles
     var tiles = R.order.map(function (g) { return '<div><strong>' + ((R.groups[g] || []).length) + '</strong><span>' + GROUPNAME[g].toLowerCase() + '</span></div>'; }).join('') +
@@ -335,19 +341,16 @@
     // stack
     var S = R.stack, sh = '';
     if (S.pick.length) {
-      var gp = Math.round(S.gov / S.budget * 100), rp = Math.round(S.govRep / S.budget * 100), yp = 100 - gp - rp, anyAmt = S.gov + S.govRep > 0;
-      function amt(x) {
-        if (x.g === 'grant') return x.est != null ? money(x.est) + (x.rep ? ' (repayable or partly repayable)' : '') : x.ru.per_unit ? 'Up to ' + money(x.ru.per_unit) + ' per participant' : 'Amount varies: check the program';
-        return x.g === 'tax' ? 'Claimed after you spend' : x.g === 'loan' ? 'Financing, repayable' : 'Advice and support';
+      function pub(x) {
+        var t = x.r.amount_text || 'See the program page';
+        if (x.r.cost_share && x.g !== 'tax') t += ' · ' + x.r.cost_share;
+        return t;
       }
-      sh = '<div class="as-card fm-stack"><h3>A funding stack to explore</h3><p class="muted">Up to two grants (one federal, one provincial or territorial) and one program from each other type you chose, best fit first. Each program sets its own stacking limit, often 50% to 100% of eligible costs, and tax credits may count. As a guide we keep grants and contributions within ' + S.cap + '% of ' + (P.exact ? 'your ' + full(S.budget) + ' project (your figure).' : 'a project assumed at about ' + money(S.budget) + ' (you chose ' + esc(row(BUDGET, ans.budget)[1]) + '). Enter an exact cost for more precise amounts.') + '</p>' +
-        '<table class="fm-stack-t"><thead><tr><th>Program</th><th>Type</th><th class="num">Indicative amount</th></tr></thead><tbody>' +
-        S.pick.map(function (x) { return '<tr><td><a href="' + esc(x.r.url) + '" target="_blank" rel="noopener">' + esc(x.r.name) + '</a></td><td>' + esc(GROUPNAME[x.g]) + '</td><td class="num">' + esc(amt(x)) + '</td></tr>'; }).join('') + '</tbody></table>' +
-        (anyAmt ? '<div class="fm-bar2" role="img" aria-label="Non-repayable funding about ' + gp + '%, repayable about ' + rp + '%, your share about ' + yp + '% of the project"><span style="width:' + gp + '%"></span><span class="r" style="width:' + rp + '%"></span></div>' +
-        '<p class="fm-bar2-l">' + (S.gov ? '<span><i class="g"></i>Non-repayable: about ' + money(S.gov) + ' (' + gp + '%)</span>' : '') + (S.govRep ? '<span><i class="rr"></i>Repayable: about ' + money(S.govRep) + ' (' + rp + '%)</span>' : '') + '<span><i></i>Your share: about ' + money(S.share) + ' (' + yp + '%)</span></p>' +
-        (P.cash && P.cash < yp ? '<p class="fm-warn">You said you could pay about ' + P.cash + '% yourself. This stack needs about ' + yp + '% from you up front. A loan, a tax credit claimed later or a smaller first phase can close the gap.</p>' : '') +
-        (!P.cash ? '<p class="fm-small muted">You were not sure how much you could pay yourself. Most programs need your share in cash, so check this before you apply.</p>' : '') : '') +
-        '<p class="muted fm-small">Indicative only, based on each program\'s usual share and maximum. Programs decide the real amount, and most pay after you spend. Some programs count tax credits toward their stacking limit too.</p></div>';
+      sh = '<div class="as-card fm-stack"><h3>A funding stack to explore</h3><p class="muted">The best-fitting grant from federal and from provincial or territorial programs, plus the best fit for each other type you chose. The amounts are what each program publishes, not an estimate for your project.</p>' +
+        '<table class="fm-stack-t"><thead><tr><th>Program</th><th>Type</th><th>What the program publishes</th></tr></thead><tbody>' +
+        S.pick.map(function (x) { return '<tr><td><a href="' + esc(x.r.url) + '" target="_blank" rel="noopener">' + esc(x.r.name) + '</a>' + (x.lead ? ' <span class="fm-chip mid">Lead</span>' : '') + '</td><td>' + esc(GROUPNAME[x.g] + repLabel(x)) + '</td><td>' + esc(pub(x)) + '</td></tr>'; }).join('') + '</tbody></table>' +
+        '<p class="fm-note2">How much you receive depends on which of your costs each program accepts and on its stacking rules (the total government funding allowed on one project). We work this out with you in the free 30-minute review.</p>' +
+        (P.cash ? '<p class="fm-small muted">You said you could pay about ' + P.cash + '% of the project yourself. Most programs pay only part of eligible costs, after you spend, so check each program\'s share above.</p>' : '<p class="fm-small muted">You were not sure how much you could pay yourself. Most programs pay only part of eligible costs, after you spend, and need your share in cash.</p>') + '</div>';
     }
     $('#fm-stack').innerHTML = sh;
     // groups
@@ -397,19 +400,19 @@
       P.who.length ? 'About you: ' + P.who.map(function (w) { return lab(WHO, w); }).join('; ') : '',
       'Funding types: ' + (ans.pref || []).map(function (g) { return lab(PREF, g); }).join('; '), 'Your cash share: ' + lab(CASH, ans.cash), 'In place: ' + (ans.ready || []).map(function (g) { return lab(READY, g); }).join('; ')].filter(Boolean).join('\n')]);
     var S = R.stack;
-    if (S.pick.length) secs.push(['2. A funding stack to explore', S.pick.map(function (x, i) { return (i + 1) + '. ' + x.r.name + ' (' + GROUPNAME[x.g] + '): ' + (x.est != null ? 'about ' + money(x.est) + (x.rep ? ' (repayable or partly repayable)' : '') : x.g === 'grant' ? 'amount varies' : x.g === 'tax' ? 'claimed after you spend' : x.g === 'loan' ? 'repayable financing' : 'advice and support') + '\n   ' + x.r.url; }).join('\n') +
-      '\n\nNon-repayable: about ' + money(S.gov) + (S.govRep ? '; repayable: about ' + money(S.govRep) : '') + ' of ' + (P.exact ? 'your ' + full(S.budget) : 'a project assumed at ' + money(S.budget)) + (P.exact ? ' project' : '') + ' (kept within ' + S.cap + '% of the project cost). Your share: about ' + money(S.share) + '. Indicative only; each program decides the real amount.']);
+    if (S.pick.length) secs.push(['2. A funding stack to explore', S.pick.map(function (x, i) { return (i + 1) + '. ' + x.r.name + ' (' + GROUPNAME[x.g] + repLabel(x).replace(/^ \(|\)$/g, function (m) { return m === ' (' ? ', ' : ''; }) + (x.lead ? ', lead: confirm fit' : '') + ')' + (x.lead ? '\n   Lead: ' + (x.ru.lead_note || LEAD[x.ru.lead]) : '') + '\n   Program publishes: ' + (x.r.amount_text || 'see the program page') + (x.r.cost_share && x.g !== 'tax' ? '; ' + x.r.cost_share : '') + '\n   ' + x.r.url; }).join('\n') +
+      '\n\nThese are what each program publishes, not estimates for your project. How much you receive depends on which of your costs each program accepts and on its stacking rules; we work this out with you in the free review.']);
     var n = 3;
     R.order.forEach(function (g) {
       var list = (R.groups[g] || []).slice(0, 5); if (!list.length) return;
       secs.push([(n++) + '. ' + GROUPNAME[g], list.map(function (x, i) {
-        return (i + 1) + '. ' + x.r.name + ' (fit score ' + x.score + '/100)\n   ' + x.r.administrator + ' | ' + x.r.status + '\n   Amount: ' + x.r.amount_text + '\n   Why it fits: ' + x.why.join('; ') + '\n   Check: ' + (x.check.join('; ') || 'confirm on the official page') + '\n   ' + x.r.url;
+        return (i + 1) + '. ' + x.r.name + (x.lead ? ' (lead: confirm fit)' : ' (fit score ' + x.score + '/100)') + '\n   ' + x.r.administrator + ' | ' + x.r.status + '\n   Amount: ' + x.r.amount_text + '\n   Why it fits: ' + x.why.join('; ') + '\n   Check: ' + (x.check.join('; ') || 'confirm on the official page') + '\n   ' + x.r.url;
       }).join('\n\n')]);
     });
     if (R.near.length) secs.push([(n++) + '. Near misses', R.near.map(function (x) { return '- ' + x.r.name + ': needs ' + x.soft[0].t + '. ' + x.r.url; }).join('\n')]);
     if (R.watch.length) secs.push([(n++) + '. Watch for the next intake', R.watch.map(function (x) { return '- ' + x.r.name + ': ' + x.r.deadline; }).join('\n')]);
     secs.push([(n++) + '. Readiness checklist', $$('#fm-ready li').map(function (li) { return '- ' + li.querySelector('b').textContent + ': ' + li.querySelector('span').textContent; }).join('\n')]);
-    secs.push([(n++) + '. Important', 'This report is a starting point, not a decision on eligibility. Programs, amounts and deadlines change often. Confirm every rule on the official program page before you apply. Chmltech is not affiliated with any government program and does not decide funding applications. Program data checked November 2026.']);
+    secs.push([(n++) + '. Important', 'Funding Match shortlists programs; it does not estimate funding amounts. This report is a starting point, not a decision on eligibility. Programs, amounts and deadlines change often. Confirm every rule on the official program page before you apply. Chmltech is not affiliated with any government program and does not decide funding applications. Program data checked November 2026.']);
     return { secs: secs };
   }
   function loadJsPDF() {

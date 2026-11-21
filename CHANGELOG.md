@@ -1,5 +1,12 @@
 # Changelog
 
+## V5.66 — 2026-11-21
+- **Funding Match no longer estimates dollar amounts** (after an external review of a test report). The funding stack lists programs with what each program publishes (amount and cost share, labelled "Program publishes") instead of calculated "about $X" figures; the combined total, the bar and the 50% default share are gone from the page and the PDF. A note explains that the amount depends on which costs each program accepts and on its stacking rules, worked out in the free review. Intro, results and report disclaimer say Funding Match shortlists programs and does not estimate amounts.
+- **Leads:** 44 programs that need something the tool cannot confirm show "Lead – confirm fit" (no fit score) with a program-specific reason first under "Check before you apply", sort after confirmed fits and are kept out of the stack when another program fits: research or consortium partners (Genome Canada GAPP, NSERC, Mitacs, Global Innovation Clusters, NGen, Scale AI, CanExport Innovation, OCI C2C and others), advisor- or invitation-led programs (NRC IRAP, Strategic Response Fund), incentives priced by energy savings, demand reduction or products installed (BC Hydro, FortisBC, Efficiency Manitoba and Nova Scotia, Save on Energy, Hydro-Québec, ÉcoPerformance and others), and student programs.
+- **Ranking:** AI-only programs (Regional AI Initiatives, Scale AI) rank lower unless digital/AI is a goal; Biofuels Production Incentive and Canada Growth Fund rank low unless they fit; Strategic Response Fund needs a project of at least $20 million.
+- **Directory data:** Strategic Response Fund amount and repayable type, Canada Growth Fund amount text corrected; FortisBC Custom Efficiency rate removed.
+- Verified by two red-team reviews (output/code and lead data); reviewer's test case shows no calculated amounts on screen or in the PDF; 6,240-profile run checks no amount or total is produced.
+
 ## V5.65 — 2026-11-21
 - **"More from the journal" was empty on Vol. 106(10) and 106(12).** Those two pages were built before the newer papers in the batch had cards, so the three related cards had nothing to copy. Both rebuilt; they now show the three newest journal papers. `add_journal_paper.py` now prints a warning when a related card is missing, so a batch is re-run in the right order. No other page had an empty section.
 

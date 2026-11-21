@@ -68,9 +68,10 @@
 "note": "Must be profitable"
 },
 "fed-biofuels-production-incentive": {
-"src": "phase1",
+"src": "redteam",
 "note": "Must already produce biodiesel or renewable diesel eligible for Clean Fuels Regulations credits.",
-"checked": "official"
+"checked": "official",
+"niche": "biofuel"
 },
 "fed-black-entrepreneurship-loan-fund": {
 "src": "redteam",
@@ -128,9 +129,10 @@
 "src": "auto"
 },
 "fed-canada-growth-fund": {
-"src": "phase1",
+"src": "redteam",
 "note": "Commercial investor for large decarbonization projects and scaling clean-tech firms, not a grant.",
-"checked": "official"
+"checked": "official",
+"niche": "large"
 },
 "fed-cib-building-retrofits": {
 "forprofit": true,
@@ -216,7 +218,9 @@
 "emp_max": 499,
 "pct": 75.0,
 "pre": true,
-"src": "redteam"
+"src": "redteam",
+"lead": "partner",
+"lead_note": "You need a pre-identified foreign R&D partner with written proof of interest."
 },
 "fed-canexport-smes": {
 "inc": true,
@@ -359,12 +363,15 @@
 "pct": 33.3,
 "pre": true,
 "src": "redteam",
-"proj_min": 900000
+"proj_min": 900000,
+"lead": "partner"
 },
 "fed-global-innovation-clusters": {
 "inc": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"lead": "partner",
+"lead_note": "Funding flows through a cluster-led collaborative project; join a cluster and find project partners first."
 },
 "fed-green-freight-program": {
 "pre": true,
@@ -441,17 +448,19 @@
 },
 "fed-mitacs-accelerate": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "pct": 50,
 "per_unit": 7500,
 "note": "Requires a university supervisor and intern; for-profit partners must pay their share with private funds.",
-"checked": "official"
+"checked": "official",
+"lead": "partner"
 },
 "fed-mitacs-accelerate-entrepreneur": {
 "inc": true,
 "pre": true,
 "src": "redteam",
-"note": "The founder must be a current student or recent graduate"
+"note": "The founder must be a current student or recent graduate",
+"lead": "student"
 },
 "fed-mitacs-business-strategy-internship": {
 "inc": true,
@@ -462,13 +471,16 @@
 "Hiring & wages",
 "Innovation & commercialization"
 ]
-}
+},
+"lead": "partner"
 },
 "fed-ngen-project-funding": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "note": "Collaborative projects through NGen calls; NGen membership appears required.",
-"checked": "official"
+"checked": "official",
+"lead": "partner",
+"lead_note": "Collaborative projects need a consortium of at least two Canadian partners including an SME, and NGen membership."
 },
 "fed-cannor-nieop-entrepreneurship-business-development": {
 "pre": true,
@@ -485,7 +497,9 @@
 "src": "redteam",
 "legal_excl": [
 "coop"
-]
+],
+"lead": "advisor",
+"lead_note": "An NRC IRAP industrial technology advisor reviews your project first and decides whether to invite an application."
 },
 "fed-nrc-irap-clean-technology": {
 "inc": true,
@@ -495,7 +509,9 @@
 "src": "redteam",
 "legal_excl": [
 "coop"
-]
+],
+"lead": "advisor",
+"lead_note": "An NRC IRAP industrial technology advisor reviews your project first and decides whether to invite an application."
 },
 "fed-nrc-irap-di-assist": {
 "inc": true,
@@ -505,7 +521,9 @@
 "src": "redteam",
 "legal_excl": [
 "coop"
-]
+],
+"lead": "advisor",
+"lead_note": "An NRC IRAP industrial technology advisor reviews your project first and decides whether to invite an application."
 },
 "fed-nrc-irap-ip-assist": {
 "inc": true,
@@ -515,19 +533,23 @@
 "src": "redteam",
 "legal_excl": [
 "coop"
-]
+],
+"lead": "advisor",
+"lead_note": "An NRC IRAP industrial technology advisor reviews your project first and decides whether to invite an application."
 },
 "fed-nserc-alliance-advantage": {
 "pct": 66.7,
 "pre": true,
-"src": "redteam"
+"src": "redteam",
+"lead": "partner"
 },
 "fed-nserc-applied-research-development": {
 "pre": true,
 "multi": true,
-"src": "phase1",
+"src": "redteam",
 "note": "A college applies; businesses join as partners and contribute cash of at least 25% of the grant.",
-"checked": "official"
+"checked": "official",
+"lead": "partner"
 },
 "fed-aafc-poultry-egg-on-farm-investment": {
 "pct": 70,
@@ -554,15 +576,17 @@
 "pct": 50.0,
 "pre": true,
 "src": "redteam",
-"region": "north"
+"region": "north",
+"needs_goal": "dig"
 },
 "fed-acoa-raii": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "forprofit": true,
 "proj_min": 1000000,
 "note": "Minimum contribution request $1M (proj_min derived); AI must be central; call closes Nov 20, 2026.",
-"checked": "official"
+"checked": "official",
+"needs_goal": "dig"
 },
 "fed-pacifican-raii": {
 "inc": true,
@@ -571,15 +595,17 @@
 "yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "redteam"
+"src": "redteam",
+"needs_goal": "dig"
 },
 "fed-ced-raii": {
 "pct": 50,
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "scope": "forprofit",
 "note": "AI must be central; retail, food services, transportation, construction, daycare and salons excluded.",
-"checked": "official"
+"checked": "official",
+"needs_goal": "dig"
 },
 "fed-feddev-raii": {
 "inc": true,
@@ -590,7 +616,8 @@
 "pct": 50.0,
 "pre": true,
 "src": "redteam",
-"region": "south"
+"region": "south",
+"needs_goal": "dig"
 },
 "fed-prairiescan-raii": {
 "inc": true,
@@ -598,13 +625,15 @@
 "yrs_min": 1,
 "pct": 50.0,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"needs_goal": "dig"
 },
 "fed-cannor-raii": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "note": "Contact CanNor for amounts and cost share; for projects starting in 2026-27.",
-"checked": "official"
+"checked": "official",
+"needs_goal": "dig"
 },
 "fed-pacifican-regional-defence-investment-initiative": {
 "inc": true,
@@ -661,7 +690,10 @@
 "fed-scale-ai-projects": {
 "pct": 40.0,
 "pre": true,
-"src": "redteam"
+"src": "redteam",
+"needs_goal": "dig",
+"lead": "partner",
+"lead_note": "Projects need more than one participant (e.g. an AI solution provider) including at least one SME; you must join Scale AI before funding."
 },
 "fed-sred": {
 "forprofit": true,
@@ -686,7 +718,16 @@
 "fed-strategic-response-fund": {
 "inc": true,
 "pre": true,
-"src": "auto"
+"src": "redteam",
+"lead": "advisor",
+"lead_note": "A consultation with SRF officials is mandatory; SRF then decides whether to invite a statement of interest and a full application. Minimum $10 million contribution on at least $20 million of eligible costs.",
+"proj_min": 20000000,
+"data": {
+"funding_types": [
+"Repayable contribution",
+"Grant"
+]
+}
 },
 "fed-student-work-placement-program": {
 "pre": true,
@@ -977,10 +1018,11 @@
 "src": "redteam"
 },
 "bc-hydro-business-energy-saving-incentives": {
-"src": "phase1",
+"src": "redteam",
 "pct": 40,
 "note": "For BC Hydro commercial and small industrial sites; contractor must be a registered Alliance of Energy Professionals member.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "bc-hydro-custom-project-incentives": {
 "src": "redteam",
@@ -990,7 +1032,8 @@
 "Clean technology & energy efficiency",
 "Equipment & capital investment"
 ]
-}
+},
+"lead": "savings"
 },
 "bc-manufacturing-jobs-fund": {
 "forprofit": true,
@@ -1086,10 +1129,10 @@
 "checked": "official"
 },
 "bc-fortisbc-custom-efficiency-program": {
-"pct": 50.0,
-"src": "phase1",
+"src": "redteam",
 "note": "Project must save at least 1,000 GJ gas or 50,000 kWh per year; written pre-approval required.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "bc-go-electric-fleet-charging": {
 "pct": 50,
@@ -1118,9 +1161,11 @@
 },
 "bc-innovate-bc-integrated-marketplace": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "note": "Lead applicant is a Solution Adopter in an approved testbed; B.C. tech firms take part as Solution Providers.",
-"checked": "official"
+"checked": "official",
+"lead": "partner",
+"lead_note": "The applicant must be a Solution Adopter operating in an approved testbed; a tech company normally joins as the Solution Provider chosen by that adopter."
 },
 "bc-innovate-bc-early-stage-demonstration-call": {
 "inc": true,
@@ -1248,7 +1293,8 @@
 "src": "redteam",
 "note": "Owner must be a Manitoba Hydro general service customer; building occupied 2+ years; approval before purchase.",
 "checked": "official",
-"source": "https://efficiencymb.ca/business_lighting_program_guide_fnl/"
+"source": "https://efficiencymb.ca/business_lighting_program_guide_fnl/",
+"lead": "savings"
 },
 "mb-workforce-tariff-response-employee-training": {
 "pct": 100.0,
@@ -1285,9 +1331,10 @@
 },
 "mb-efficiency-mb-custom-energy-solutions": {
 "pct": 50,
-"src": "phase1",
+"src": "redteam",
 "note": "Pre-approval required; incentive capped at 50% of incremental cost or one-year payback.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "mb-export-development-program": {
 "forprofit": true,
@@ -1445,9 +1492,10 @@
 "checked": "official"
 },
 "nb-saveenergynb-commercial-buildings-retrofit": {
-"src": "phase1",
+"src": "redteam",
 "note": "Audit refunded up to 100% only if upgrades are done; upgrades paid $120/GJ (electric) or 25% (non-electric).",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "nb-scap-crop-livestock-sector-development": {
 "pct": 50,
@@ -1475,9 +1523,10 @@
 "checked": "official"
 },
 "nb-saveenergynb-industrial-energy-efficiency": {
-"src": "phase1",
+"src": "redteam",
 "note": "Industrial facilities only; project must be pre-approved by NB Power before work starts.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "nb-nbif-innovation-voucher-fund": {
 "inc": true,
@@ -1533,10 +1582,11 @@
 "checked": "official"
 },
 "nb-saveenergynb-peak-rebate": {
-"src": "phase1",
+"src": "redteam",
 "niche": "energy",
 "note": "Must be able to cut at least 100 kW per winter peak event.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "nb-scap-risk-management-food-safety": {
 "pct": 50,
@@ -1642,15 +1692,17 @@
 "checked": "official"
 },
 "nl-takecharge-business-efficiency-custom": {
-"src": "phase1",
+"src": "redteam",
 "note": "Contact takeCHARGE and get project approval before starting; $0.10/kWh first-year savings, max $100,000.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "nl-takecharge-business-product-rebates": {
 "src": "redteam",
 "note": "Retrofits in existing buildings with an active commercial electricity account; rebate criteria set per product.",
 "checked": "official",
-"source": "https://takechargenl.ca/business/product-rebates/led-tubes/"
+"source": "https://takechargenl.ca/business/product-rebates/led-tubes/",
+"lead": "savings"
 },
 "nt-prosper-nwt-adapt-fund": {
 "forprofit": true,
@@ -1667,9 +1719,10 @@
 },
 "nt-aea-renewable-energy-rebate": {
 "pct": 50,
-"src": "phase1",
+"src": "redteam",
 "note": "Pre-approval required; contact AEA before applying; project must finish within 4 months.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "nt-prosper-nwt-northern-ai-adoption": {
 "pre": true,
@@ -1771,9 +1824,10 @@
 },
 "ns-ens-business-energy-rebates": {
 "pct": 50,
-"src": "phase1",
+"src": "redteam",
 "note": "Pre-approval needed for rebates over $15,000 and for data centre, water heating and solar measures.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "ns-climate-adaptation-program": {
 "emp_max": 149,
@@ -1788,15 +1842,17 @@
 "checked": "official"
 },
 "ns-ens-commercial-new-construction": {
-"src": "phase1",
+"src": "redteam",
 "niche": "building",
 "note": "Design-stage buildings of at least 15,000 sq ft targeting 40% better than code; must work with an approved energy modeller.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "ns-ens-custom-energy-retrofits": {
-"src": "phase1",
+"src": "redteam",
 "note": "Electricity-saving retrofits only, simple payback before incentives of 1-15 years; agreement must be signed before buying equipment.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "ns-digital-animation-tax-credit": {
 "src": "phase1",
@@ -1975,15 +2031,17 @@
 "proj_min": 60000
 },
 "ns-ens-small-business-energy-solutions": {
-"src": "phase1",
+"src": "redteam",
 "forprofit": true,
 "note": "Annual electricity use under 600,000 kWh; retrofit projects only; pre-approval before purchase.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "ns-ens-smart-synergy": {
-"src": "phase1",
+"src": "redteam",
 "note": "Nova Scotia Power account holders on rate codes 10-12 or 21-23 with 15-minute interval metering; 2026-27 enrolment closed.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "ns-start-hiring-incentive": {
 "pre": true,
@@ -2054,7 +2112,8 @@
 "emp_min": 5,
 "yrs_min": 2,
 "pre": true,
-"src": "redteam"
+"src": "redteam",
+"lead": "partner"
 },
 "on-oci-digital-modernization-adoption-plan": {
 "forprofit": true,
@@ -2168,12 +2227,14 @@
 "checked": "official"
 },
 "on-ontario-business-research-institute-tax-credit": {
-"src": "phase1",
+"src": "redteam",
 "inc": true,
 "forprofit": true,
 "pct": 20,
 "note": "Research must be contracted to an eligible Ontario research institute the company is not connected to.",
-"checked": "official"
+"checked": "official",
+"lead": "partner",
+"lead_note": "Credit is 20% of what you pay an eligible Ontario research institute under an eligible research contract."
 },
 "on-ontario-computer-animation-special-effects-tax-credit": {
 "pct": 18,
@@ -2298,20 +2359,23 @@
 "src": "redteam"
 },
 "on-save-on-energy-energy-performance": {
-"src": "phase1",
+"src": "redteam",
 "note": "Requires 12 months of hourly interval meter data and a commitment to 5% whole-facility savings.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "on-save-on-energy-peak-performance": {
-"src": "phase1",
+"src": "redteam",
 "note": "Class B customers only; facilities under 500 kW of demand response must join through an aggregator.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "on-save-on-energy-retrofit": {
 "pct": 50,
-"src": "phase1",
+"src": "redteam",
 "note": "Pre-project approval required; lessees need the owner's consent.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "on-save-on-energy-small-business": {
 "emp_max": 50,
@@ -2347,18 +2411,20 @@
 },
 "on-summer-company": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "req_who": [
 "Youth entrepreneur"
 ],
 "yrs_max": 0,
 "note": "Students aged 15-29 returning to school; cannot already be running a business.",
-"checked": "official"
+"checked": "official",
+"lead": "student"
 },
 "pe-efficiencypei-business-energy-rebates": {
-"src": "phase1",
+"src": "redteam",
 "note": "Existing non-residential building occupied at least 6 months; new construction not eligible.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "pe-capital-acquisition-assistance": {
 "pct": 25,
@@ -2463,9 +2529,10 @@
 },
 "pe-efficiencypei-strategic-energy-solutions": {
 "pct": 50,
-"src": "phase1",
+"src": "redteam",
 "note": "Project must be approved before purchase or installation.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "pe-strategic-improvement-assistance": {
 "pct": 40,
@@ -2654,10 +2721,12 @@
 },
 "qc-programme-innovation-volet-2-collaborative": {
 "pre": true,
-"src": "phase1",
+"src": "redteam",
 "forprofit": true,
 "note": "Consortia of private businesses with universities/research centres; only during a specific call; program ends Mar 31, 2027.",
-"checked": "official"
+"checked": "official",
+"lead": "partner",
+"lead_note": "Consortium of businesses with a university or public research centre, only during a call."
 },
 "qc-prime-vert-volet-1": {
 "pct": 50,
@@ -2669,9 +2738,10 @@
 },
 "qc-hydro-quebec-solutions-efficaces": {
 "pct": 75,
-"src": "phase1",
+"src": "redteam",
 "note": "Must be a Hydro-Québec (or eligible off-grid/municipal/co-op grid) customer; small businesses on rate G can get up to 90%.",
-"checked": "official"
+"checked": "official",
+"lead": "savings"
 },
 "qc-programme-transformation-alimentaire": {
 "rev_max": 200000000,
@@ -2692,7 +2762,9 @@
 "industries": [
 "All industries"
 ]
-}
+},
+"lead": "savings",
+"lead_note": "Aid is the lowest of 75% of eligible costs, a payback-period limit and a $/tonne CO2e avoided amount."
 },
 "qc-wage-subsidy-subvention-salariale": {
 "pre": true,
@@ -2889,7 +2961,9 @@
 },
 "yt-commercial-institutional-energy-rebates": {
 "pct": 25.0,
-"src": "redteam"
+"src": "redteam",
+"lead": "savings",
+"lead_note": "Capped per tonne of CO2 reduced per year."
 },
 "yt-media-production-fund": {
 "inc": true,

@@ -44,11 +44,6 @@
 .fm-stack-t td{border-bottom:1px solid var(--line);padding:9px 8px 9px 0;vertical-align:top}
 .fm-stack-t .num{text-align:right;white-space:nowrap}
 .fm-stack-t a{color:var(--blue);font-weight:600}
-.fm-bar2{height:14px;border-radius:7px;background:var(--sand);overflow:hidden}
-.fm-bar2 span{display:block;height:100%;background:var(--green-dark)}
-.fm-bar2-l{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px;margin:8px 0 0}
-.fm-bar2-l i{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--sand);margin-right:6px;vertical-align:-1px;border:1px solid var(--line-2)}
-.fm-bar2-l i.g{background:var(--green-dark);border-color:var(--green-dark)}
 .fm-warn{background:#FFF3D6;border-radius:8px;padding:10px 14px;font-size:14.5px;margin:12px 0 0;color:#5A4300}
 .fm-small{font-size:13px;margin:10px 0 0}
 .fm-near{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
@@ -63,9 +58,6 @@
 .fm-note{font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin:0}
 .fm-draft{background:#FFF3D6;color:#5A4300;font-size:14px;font-weight:600;text-align:center;padding:8px 16px}
 .gr-card.fm-flash,.fm-flash{box-shadow:0 0 0 3px var(--blue-bright);transition:box-shadow .3s}
-.fm-bar2{display:flex}
-.fm-bar2 span.r{background:#8FB3D9}
-.fm-bar2-l i.rr{background:#8FB3D9;border-color:#8FB3D9}
 .fm-limit{font-size:14px;color:#7A5A00;margin:6px 0 0;min-height:1em}
 .finder-opt input:disabled+span{opacity:.55}
 @media (max-width:600px){
@@ -98,3 +90,12 @@ html{scroll-padding-top:auto}
 @media (max-width:720px){#match.finder-section{padding-bottom:56px}}
 /* V5.61: directory band starts with the same top space as the Digital Assessment's Software Finder band */
 @media (min-width:721px){#finder.sand.gr-section{padding-top:104px}}
+/* V5.62: leads (programs that need something the tool cannot confirm) and the stack note */
+.fm-fit.fm-lead b{font-size:18px;color:#7A5A00}
+.fm-fit.fm-lead{background:#FFF3D6;border-radius:10px;padding:8px 6px}
+.fm-note2{background:var(--sand);border-radius:8px;padding:10px 14px;font-size:14.5px;margin:4px 0 0}
+.fm-stack-t td:last-child{font-size:14px}
+.fm-fit.fm-lead{flex-basis:104px}
+.fm-fit.fm-lead span{white-space:nowrap;font-size:11px}
+.fm-amt-l{font-weight:400;color:var(--muted);font-size:14px}
+@media (max-width:600px){.fm-stack-t td:last-child::before{content:"Program publishes: ";color:var(--muted)}}

@@ -41,7 +41,7 @@ SECTION = '''
     <div class="finder-intro" id="fm-intro">
       <div class="stack"><p class="eyebrow">How it works</p><h2 class="h-lg">Five quick steps to your funding shortlist.</h2>
       <ol class="as-stepline"><li>Your business</li><li>Your project</li><li>About you</li><li>Funding type</li><li>Readiness</li></ol>
-      <p class="muted">Your matches appear straight away. No sign-up.</p></div>
+      <p class="muted">Your shortlist appears straight away. No sign-up. It lists programs that fit; each program sets its own amounts.</p></div>
       <div class="btn-row"><button type="button" class="btn" data-fm="start">Start</button></div>
     </div>
     <div class="finder-quiz" id="fm-quiz" hidden>
@@ -83,7 +83,7 @@ SECTION = '''
           <div class="btn-row"><a class="btn" href="book.html">Book my free 30-minute review</a></div>
         </div>
       </div>
-      <p class="fm-note">Results are a starting point, not a decision on eligibility. Each program sets its own rules and decides every application; confirm the details on the official program page before you apply. Programs checked November 2026. Chmltech is not affiliated with any government program and takes no fee from funders.</p>
+      <p class="fm-note">Funding Match shortlists programs; it does not estimate funding amounts. Results are a starting point, not a decision on eligibility. Each program sets its own rules and decides every application; confirm the details on the official program page before you apply. Programs checked November 2026. Chmltech is not affiliated with any government program and takes no fee from funders.</p>
     </div>
   </div>
 </div></section>
