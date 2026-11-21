@@ -69,6 +69,12 @@ TOPIC = {
     # Volume 106: Multi-Agent AI Engineering series
     "multi-agent-ai-orchestration-architectures-five-coordination-models-compared": "artificial-intelligence",
     "research-analyze-draft-review-finalize-engineering-a-reliable-five-agent-ai-workflow": "artificial-intelligence",
+    "sequential-and-parallel-multi-agent-workflows-four-execution-patterns-and-their-engineering-trade-offs": "artificial-intelligence",
+    "stage-gate-orchestration-building-reliable-multi-agent-workflows-with-feedback-loops": "artificial-intelligence",
+    "agents-skills-and-harnesses-a-reference-architecture-for-reliable-agentic-ai": "artificial-intelligence",
+    "harness-engineering-designing-validating-and-operating-reliable-multi-agent-ai-systems": "artificial-intelligence",
+    "ai-skills-engineering-designing-building-testing-and-governing-reusable-agent-capabilities": "artificial-intelligence",
+    "end-to-end-multi-agent-ai-workflows-from-user-request-to-verified-results": "artificial-intelligence",
     # Volume 106, Issues 3-4: operations papers (V5.41)
     "beyond-the-formula-setting-safety-stock-with-monte-carlo-simulation": ["operational-efficiency", "inventory-management"],
     "why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers": ["operational-efficiency", "erp"],

@@ -1,0 +1,241 @@
+"""Chmltech Online Journal, Vol. 106, Issue 15 (Multi-Agent AI Engineering series, Article 7). Figure 1 is interactive (live/mae7.html)."""
+
+SLUG = 'end-to-end-multi-agent-ai-workflows-from-user-request-to-verified-results'
+META = dict(
+    volume=106,
+    issue=15,
+    title='End-to-End Multi-Agent AI Workflows: From User Request to Verified Results',
+    short_title='End-to-End Multi-Agent AI Workflows',
+    meta='How one request moves through a multi-agent AI system: intake, planning, parallel specialists, synthesis, assurance gates, state, metrics and authorized release.',
+    keywords=['multi-agent AI', 'agent workflows', 'orchestration', 'handoff contracts', 'stage gates', 'observability', 'human-in-the-loop', 'LLM agents'],
+)
+ABSTRACT = 'A multi-agent AI system is more than a group of language-model agents connected by arrows. It is an execution system that translates an authorized user request into bounded work, coordinates specialized contributors, validates intermediate artifacts, and delivers a result with traceable evidence. The engineering challenge is to maintain reliable control while the work itself is probabilistic, may involve external tools, and can change direction as new information arrives. This paper develops an end-to-end reference workflow comprising request intake, orchestration, agent collaboration, synthesis, verification and controlled delivery. It distinguishes task routing from ownership transfer, describes structured handoff contracts, compares sequential, concurrent and hybrid execution, and introduces explicit quality gates for evidence, calculations, review and release. A hypothetical small-business digital transformation assessment demonstrates how research, analysis, writing and review agents can collaborate without acquiring unnecessary permissions. The article also develops a lightweight evaluation framework covering accepted-task rate, source traceability, rework, latency, cost and authorized actions. The resulting workflow is presented as a practical Chmltech engineering synthesis, not as a new industry standard or a claim that multiple agents always outperform one.'
+
+REFS = {
+    'r1': ('Microsoft. (2026). <em>AI agent orchestration patterns</em>. Azure Architecture Center.',
+           'https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns'),
+    'r2': ('Schluntz, E., &amp; Zhang, B. (2024, December 19). <em>Building effective agents</em>. Anthropic.',
+           'https://www.anthropic.com/research/building-effective-agents'),
+    'r3': ('Anthropic. (2025, June 13). <em>How we built our multi-agent research system</em>. Anthropic Engineering.',
+           'https://www.anthropic.com/engineering/multi-agent-research-system'),
+    'r4': ('OpenAI. (n.d.). <em>Orchestration and handoffs</em>. OpenAI API documentation.',
+           'https://developers.openai.com/api/docs/guides/agents/orchestration'),
+    'r5': ('OpenAI. (n.d.). <em>Guardrails and human review</em>. OpenAI API documentation.',
+           'https://developers.openai.com/api/docs/guides/agents/guardrails-approvals'),
+    'r6': ('OpenAI. (n.d.). <em>Results and state</em>. OpenAI API documentation.',
+           'https://developers.openai.com/api/docs/guides/agents/results'),
+    'r7': ('OpenAI. (n.d.). <em>Evaluate agent workflows</em>. OpenAI API documentation.',
+           'https://developers.openai.com/api/docs/guides/agent-evals'),
+    'r8': ('OpenAI. (n.d.). <em>Integrations and observability</em>. OpenAI API documentation.',
+           'https://developers.openai.com/api/docs/guides/agents/integrations-observability'),
+    'r9': ('OWASP GenAI Security Project. (2025). <em>OWASP Top 10 for Agentic Applications 2026</em>.',
+           'https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/'),
+    'r10': ('Autio, C., Schwartz, R., Dunietz, J., Jain, S., Stanley, M., Tabassi, E., Hall, P., &amp; Roberts, K. (2024). <em>Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile</em> (NIST AI 600-1). National Institute of Standards and Technology.',
+           'https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence'),
+    'r11': ('LangChain. (n.d.). <em>Interrupts</em>. LangGraph documentation.',
+           'https://docs.langchain.com/oss/python/langgraph/interrupts'),
+    'r12': ('Anthropic. (2026, February 18). <em>Measuring AI agent autonomy in practice</em>.',
+           'https://www.anthropic.com/research/measuring-agent-autonomy'),
+    'r13': ('Lee, Q. F. (2026). Multi-agent AI systems: Architectures, coordination patterns and failure modes. <em>Chmltech Online Journal</em>, 104(2).',
+           'https://www.chmltech.com/post/multi-agent-ai-systems-architectures-coordination-and-failure-modes.html'),
+}
+
+CODE = {
+    'handoff': '{\n  "task_id": "WMS-RESEARCH-03",\n  "owner_role": "ResearchAgent",\n  "objective": "Verify vendor integration claims",\n  "inputs": ["approved_requirements_v2", "vendor_shortlist_v1"],\n  "allowed_actions": ["read", "search_public_sources"],\n  "required_output": {\n    "claims": ["statement", "source_url", "checked_at", "confidence"],\n    "unknowns": ["string"],\n    "status": "completed | blocked | needs_review"\n  },\n  "quality_rules": ["no_unsourced_material_claims", "primary_sources_first"],\n  "approval_required_for": ["send_email", "write_external_system"]\n}\n',
+}
+
+BODY = r"""
+## Introduction
+
+A conventional software pipeline specifies what code runs next. An agentic pipeline must also manage a model that can choose tools, generate intermediate content, request additional information and propose actions not anticipated when the workflow was designed. When several such agents collaborate, a task can fail even if each individual agent appears competent. A researcher may return weak evidence; an analyst may treat an estimate as a fact; a writer may omit a material limitation; a reviewer may approve a fluent but unsupported conclusion. A polished final document is therefore not sufficient evidence that the system worked correctly.
+
+The central engineering question is **how to preserve task intent, evidence and authority from the first request to the final release**. That requires boundaries at three levels: the *work boundary* (what has been requested), the *communication boundary* (what agents exchange), and the *action boundary* (what the system may actually change or send). It also requires a record that explains how conclusions were reached, including uncertainty and rejected alternatives. Modern platform guides describe sequential, concurrent, handoff and manager-led patterns, but their common message is to choose the least complicated arrangement that meets the task's requirements [@r1, @r2, @r4].
+
+This paper is a workflow companion to an earlier analysis in this journal of multi-agent coordination and failure modes [@r13]. It moves from topology selection to the complete operational journey of an individual request. Section 2 defines the execution system; Section 3 examines each stage; Section 4 treats handoffs; Sections 5–7 cover execution patterns, gates and state; Sections 8–9 develop metrics and a worked example; Sections 10–11 discuss risks and implementation; Section 12 concludes.
+
+## Anatomy of an End-to-End Multi-Agent System
+
+The reference architecture in Figure 1 has six functional elements: (1) an incoming request and its context; (2) an orchestrator or router; (3) specialist agents; (4) shared tools, data and controlled memory; (5) an aggregation and assurance layer; and (6) an authorized delivery interface. The arrows depict dependencies and communication, not an obligation for every system to use four distinct agents. An implementation can collapse roles into one agent when simpler is better.
+
+FIG fig1-run || One request from intake to verified result. The figure plays through each gate in turn, following a hypothetical SME assessment: the orchestrator plans, research and analysis agents work in parallel through shared tools, the writer synthesizes, the reviewer tests, a targeted rework returns to the affected stage, and only an authorized result is released; select a gate to jump to it, or <em>All gates</em> to compare them side by side. Roles are conceptual; permissions and gates are engineered separately. || A user request enters an orchestrator at the top; below it research, analysis, writer and reviewer agents; beneath them shared tools and data with a versioned workspace; an approver beside the release step; each gate G0 to G4 shown with its check, output and main risk. || 
+
+### 2.1 Input and context are not instructions of equal authority
+
+An incoming task includes the user objective, attachments, constraints, available databases and possibly retrieved external material. These sources have different trust levels. A retrieved page can supply facts but should not redefine the agent's system instructions or grant itself permission to call tools. The workflow must record the requesting identity and permitted scope, since identity and privilege abuse is a named agentic risk [@r9]; the output format, time budget and whether any consequential action requires approval complete the request contract.
+
+### 2.2 The orchestrator is a coordinator, not a universal expert
+
+A manager or orchestrator interprets the request, creates work items, assigns agent roles and tracks completion. It may be deterministic application code or an LLM-driven planner; both are valid. An orchestrator should know the capability and authorization limits of each agent. Its job is to reduce uncertainty about *who does what next*, not to bypass evidence checks because it has a high-level view.
+
+### 2.3 Specialist agents carry bounded responsibilities
+
+The Research Agent locates evidence and records citations; the Data Analysis Agent evaluates structured information; the Writer Agent produces a coherent artifact; and the Reviewer Agent tests claims against acceptance criteria. This is an illustrative division of labor, not a required framework API. Sharing one underlying model across roles does not make their outputs statistically independent; a review agent should therefore prefer ground truth from tool results, calculations or source checks [@r2] over agreement between agents that share training data and blind spots [@r13].
+
+### 2.4 Aggregation and release are separate operations
+
+**Aggregation** reconciles specialist outputs, preserves traceability and builds a consistent result. **Assurance** decides whether that result meets specified criteria. **Release** is a governed action: the system may show a draft to the user without automatically emailing it, updating a CRM, approving a purchase or publishing on a website. This separation matters most when model-proposed actions have side effects such as cancellations, edits or outbound changes [@r5].
+
+## The Six Operational Stages
+
+### 3.1 Stage 1 — Intake and classify the request
+
+First identify the task's purpose and success criteria. Classify it by confidentiality, consequence and reversibility. A research summary with no write access differs materially from a procurement workflow that could create a purchase order. Normalize inputs, check file types and provenance, establish the authoritative sources, and create a unique run identifier. If a required fact is absent, the workflow should request it or explicitly proceed under an identified assumption—not quietly invent it.
+
+**Minimum output:** an approved task brief with objective, scope, inputs, exclusions, deliverable definition, owner and authorization policy. The first stage is complete only when an independent reviewer could tell whether the final artifact meets the request.
+
+### 3.2 Stage 2 — Plan, route and establish dependency edges
+
+The orchestrator decomposes the brief into work packages. For a vendor study it might assign primary-source collection, requirements mapping, fit-gap analysis, cost modeling and a separate critical review. Dependencies determine the graph: cost modeling cannot finalize before inputs are known, while unrelated vendor evidence gathering can often proceed concurrently. The plan should include a token or cost budget, a time limit, retry rules, fallback behavior and a definition of *done*.
+
+The manager must also choose between two distinct delegation mechanisms. In a **manager-retains-control** design, specialist agents act as bounded subroutines and return outputs to the manager. In a **handoff** design, active control moves to another agent, which may directly continue the user-facing interaction. OpenAI's orchestration documentation distinguishes handoffs, where a specialist takes over, from agents used as tools, where a manager keeps control [@r4]. For a reviewable consulting deliverable, manager-retained control is often easier to govern; customer support triage may benefit from handoffs.
+
+### 3.3 Stage 3 — Execute specialist work
+
+Each worker receives only the task instructions, inputs and tools it needs. A Research Agent may search approved sources and return a claim–source matrix; an Analyst may use a calculator or code execution for auditable figures; a Writer may draft using only validated analysis; a Reviewer may flag contradictions, missing evidence and formatting errors. The runtime records which resources each worker accessed and which artifacts it produced.
+
+Parallelism reduces elapsed time only when tasks are sufficiently independent. A fan-out design can create resource contention, duplicate research and conflicting evidence unless it partitions the task carefully [@r1, @r3]. Outputs should be versioned or immutable for each stage; unbounded editing of a shared document by multiple workers invites race conditions.
+
+### 3.4 Stage 4 — Aggregate, reconcile and synthesize
+
+The aggregator checks that all required work packages are present, reconciles incompatible units or assumptions, deduplicates sources, and resolves conflicting conclusions through rules or explicit review. It must keep a *provenance trail*: a material recommendation should point to the evidence or calculation supporting it. Where evidence conflicts, the final output should preserve the disagreement rather than create false certainty.
+
+**Synthesis is not simple concatenation.** It joins work products into a coherent analysis while preserving the meaning and limits of each input. For example, the lowest quoted software price is not necessarily the lowest total cost of ownership when configuration, integration, support and implementation risk differ.
+
+### 3.5 Stage 5 — Assure results against a quality gate
+
+Assurance combines deterministic validation and, where useful, specialist review. Deterministic checks can verify schema completeness, numbers, units, hyperlinks, missing sections and tool permissions. A Reviewer Agent can examine reasoning, compare conclusions against evidence and identify unsupported claims. Higher-consequence outputs should be subject to human approval before any irreversible action; in observed use, experienced users auto-approve agent actions more often yet also interrupt more often, so oversight should be designed and measured rather than assumed [@r12]. Current platform guidance distinguishes automatic guardrails from resumable human review and warns that guardrails must be placed near the tool or output they actually control [@r5]. Built-in tracing then gives an end-to-end record of prompts, tools, handoffs and approvals [@r8].
+
+If a gate fails, the workflow should return a *bounded, actionable defect report* to the appropriate stage. “Improve the answer” is a poor rework instruction; “recalculate three-year TCO using the verified subscription quote and identify the missing implementation fee” is a testable correction. A finite rework budget and escalation route prevent endless reviewer–writer loops.
+
+### 3.6 Stage 6 — Deliver, record and improve
+
+The final artifact includes its version, scope, assumptions, unresolved issues and evidence references where appropriate. The system then releases the approved form through an explicitly authorized channel: chat, file, dashboard, email or integration. Delivery confirmation is different from mere generation of the output. The harness should retain traces and run state, including pending approvals and their decisions [@r6, @r7], and should log the final state as completed, rejected, escalated or partially completed.
+
+Feedback can improve prompts, procedures, evaluation datasets and memory, but it does **not** imply that the model's weights were updated. Lessons admitted to a shared knowledge base should be curated, attributable and reversible rather than allowing one flawed run to contaminate future work.
+
+## Structured Handoffs: The Contract Between Agents
+
+An inter-agent message should be treated as a typed interface, not an informal chat fragment. At minimum, a work item needs a task_id, owner, objective, bounded input references, permitted operations, output schema, evidence requirements, status, and due or stop conditions. A handoff artifact needs enough provenance for a downstream agent to audit it without inheriting every preceding conversation turn.
+
+Example 1 shows a conceptual handoff contract.
+
+CODE handoff || Example 1. Conceptual handoff contract in illustrative JSON, not a vendor-specific schema.
+
+Four properties make a handoff reliable. **Completeness:** required fields are populated. **Traceability:** claims point to sources or computations. **Scope:** the receiving agent cannot promote untrusted content into authority. **Recoverability:** a failure can restart from a versioned artifact without blindly repeating an external side effect. This design resembles ordinary API engineering, with additional attention to the uncertain semantics of generated text.
+
+## Choosing an Execution Pattern
+
+Agent workflows may be expressed as a directed graph of tasks and stage gates. A clean handoff does not dictate whether execution should be sequential or concurrent; that is determined by data dependencies and operational risk. Microsoft documents sequential, concurrent, group-chat, handoff and adaptive manager patterns, while Anthropic describes prompt chaining, parallelization, orchestrator-workers and evaluator-optimizer workflows [@r1, @r2]. Table 1 summarizes the practical workflow patterns.
+
+TABLE Practical workflow patterns. || These are descriptive categories rather than exclusive platform features. Real systems commonly combine them.
+| Pattern | Control logic | Advantage | Main engineering risk | Suitable example |
+| Sequential | A → B → C | Clear dependencies and audit trail | Upstream error propagation; additive latency | Draft → review → finalize |
+| Parallel | A, B and C run concurrently → merge | Shorter critical path for independent work | Duplicated effort, conflicts, concurrency pressure | Research three unrelated vendor categories |
+| Series–parallel | Initial stage → parallel workers → integration | Balances controlled setup with concurrent execution | Weak integration and inconsistent assumptions | Scope → research vendors → compare |
+| Parallel–series | Multiple parallel branches, each with dependent steps | Independent specialized pipelines | Complex branch failure and join logic | Separate technical, financial and risk assessments |
+| Bounded stage-gate loop | Execute → verify → revise or escalate | Explicit quality control | Endless loops without budgets and exit criteria | Technical report acceptance |
+
+The right design often blends patterns. Intake and authorization are typically sequential. Independent research can run in parallel. Synthesis and approval depend on all required work packages and return to sequential control. A task graph is only valid if it has explicit completion criteria, exception paths and an owner for the final result.
+
+## Stage Gates: Turning a Diagram into a Controlled Workflow
+
+The gate view of Figure 1 shows a practical series–parallel–series workflow. The dotted return path represents rework from assurance to the affected earlier stage; it is neither a free-form conversation nor an infinite loop. The gate evaluates evidence against stated criteria, records the outcome and changes workflow state. Table 2 gives a stage-gate checklist.
+
+TABLE Proposed stage-gate checklist. || Projects should adapt thresholds to their own risk and consequence level.
+| Gate | Entry requirement | Pass condition | Fail or exception route |
+| G0 — Intake | Request and scope received | Authorized objective, sources and deliverable agreed | Request clarification or decline |
+| G1 — Evidence | Research artifacts submitted | Mandatory facts sourced and gaps labeled | Re-search; flag unsupported claim |
+| G2 — Integration | Agent outputs and calculations available | Consistent assumptions, units, versions and traceability | Return to responsible specialist |
+| G3 — Assurance | Complete draft and validation report | Tests pass; high-impact limitations visible | Bounded revision or human escalation |
+| G4 — Release | Approved artifact and channel | Correct recipient and authorization confirmed | Hold, do not send or publish |
+
+A gate can return **pass**, **revise**, **escalate** or **stop**. For bounded revision, record the responsible agent, precise defect, accepted corrective action and remaining attempts. A common default is a small fixed retry cap, but the number should come from evaluation data and risk classification, not a universal rule. In a high-consequence case the correct result may be “not enough evidence to recommend,” even after technically successful execution.
+
+## State, Context, Memory and Durable Recovery
+
+A long-running multi-agent workflow needs explicit state distinct from the natural-language transcript. **Workflow state** records the task graph, owners, statuses, checkpoint identifiers, approvals, artifact versions and retry counters. **Task context** contains the inputs and sources relevant to a particular agent. **Durable knowledge** stores curated lessons or reusable business information; it should not be confused with a checkpoint.
+
+Persist state at meaningful boundaries, especially before human approval and before an action with external consequences. Frameworks such as LangGraph use checkpointers to support interruption and resumption, while OpenAI's runtime docs describe resumable state for pending approvals [@r6, @r11]. Recovery design must also address **idempotency**. Restarting after a failure must not submit the same purchase order twice or resend the same customer email. Use idempotency keys, write-ahead action records or provider-side duplicate protection, depending on the system.
+
+Because prompt context is finite, pass *artifacts and references* rather than entire histories when possible. A concise source pack, validated table and issue log allow a downstream reviewer to verify claims without inheriting unnecessary tokens, privacy exposure or instructions embedded in retrieved pages. Shared memory should have provenance, ownership, expiry rules and access control.
+
+## Performance and Evaluation: Measure the Whole Workflow
+
+A useful evaluation suite judges the *accepted end result*, not simply whether each specialist returned fluent text. It should contain cases that represent typical tasks, difficult tasks, missing inputs, contradictory sources, tool outages, malicious instructions in documents, and prohibited external actions. OpenAI's evaluation guidance recommends using traces to examine routing and tool use before comparing workflow versions on repeatable datasets [@r7].
+
+Table 3 lists the recommended operational indicators as candidate metrics.
+
+TABLE Candidate metrics. || Thresholds are application-specific; an observed zero unauthorized actions does not prove that the system is secure.
+| Measure | Definition | Why it matters |
+| Accepted-task rate | Deliverables passing all required quality gates ÷ attempted tasks | Outcome quality at the workflow level |
+| Source traceability | Material claims linked to verifiable evidence ÷ material claims sampled | Detects fabricated or unsupported conclusions |
+| Rework ratio | Tasks requiring one or more correction cycles ÷ completed tasks | Reveals weak upstream stages |
+| Human intervention rate | Runs requiring review, correction or escalation ÷ runs | Indicates autonomy boundaries and operating load |
+| End-to-end latency | Time from accepted request to approved delivery | Captures critical-path cost, including pauses |
+| Cost per accepted deliverable | Total model, tool and infrastructure cost ÷ accepted outputs | Prevents optimizing token cost at the expense of quality |
+| Unauthorized-action rate | Confirmed prohibited actions ÷ exercised high-risk action opportunities | Tests whether permissions actually hold |
+
+For a simple independent fan-out over workers *k* = 1 … *N*, an approximate latency model is Eq. (1):
+
+TEX T_{\text{total}} \approx T_{\text{intake}} + T_{\text{plan}} + \max_{k} T_k + T_{\text{merge}} + T_{\text{review}} + T_{\text{release}}
+
+A sequential design replaces the maximum worker time in Eq. (1) with the sum of worker times. This estimate assumes that parallel tasks really can run concurrently and excludes retries, queue delays, contention and human waiting. It is therefore a planning approximation, not a benchmark claim.
+
+As an illustrative calculation, suppose an orchestrator spends 2 minutes planning, three independent specialists take 4, 6 and 5 minutes, and synthesis plus review takes 5 minutes. Ignoring intake and release overhead, sequential execution takes **22 minutes** (2 + 4 + 6 + 5 + 5), while perfect parallel fan-out takes **13 minutes** (2 + 6 + 5). Real time savings are lower if workers compete for the same rate limits or depend on each other's results. Quality must be compared at the same time as speed and cost.
+
+## Worked Example: A Digital Transformation Assessment
+
+Consider a **hypothetical, anonymized** Vancouver SME that wants to modernize order intake, inventory visibility and warehouse operations. The task is to produce a reviewable digital transformation assessment and a short software shortlist—not to buy software or contact vendors automatically. The company provides its process map, non-sensitive system requirements and sample anonymized transactions. These facts are illustrative and do not represent a particular client.
+
+**Intake (G0).** The system records the scope: compare three feasible solution approaches, identify operational gaps, estimate three-year ownership costs using disclosed assumptions, and recommend a validation plan. Direct vendor outreach, contractual commitments and edits to live accounting data are prohibited without approval.
+
+**Plan.** An orchestrator creates parallel research and analysis work packages. A Requirements Agent normalizes the process requirements; a Research Agent verifies publicly documented vendor functions and integration methods; an Analyst calculates indicative process impacts and scenario costs. Their outputs follow distinct schemas and cite their input versions.
+
+**Execute (G1).** Research returns a claim matrix distinguishing demonstrated capabilities from marketing statements. The Analyst produces a cost workbook and records which figures are estimates. The Requirements Agent flags must-have requirements that cannot be checked from public information. A missing integration specification is labeled *unverified*, not assumed supported.
+
+**Synthesize (G2).** The orchestrator reconciles three forms of evidence: requirements coverage, integration feasibility and cost scenarios. It creates an options matrix, a risk register and an assumptions table. The Writer Agent builds a report that consistently separates facts, estimates and recommendations.
+
+**Assure (G3).** A Reviewer Agent checks each material claim against the sources, recalculates totals using a separate calculation path and identifies unresolved issues. An arithmetic error or unsupported claim sends a structured rework request to the Analyst or Research Agent. Only revised, verified artifacts re-enter synthesis; a previous rejected draft cannot silently be released.
+
+**Deliver (G4).** The approved report is made available to the authorized advisor, alongside a version number, evidence register and unresolved questions. Sending an email, scheduling vendor demos, or updating a client's systems remains a separate human-approved action. After delivery, confirmed lessons can improve the requirements checklist or scoring rubric for future projects.
+
+This example explains the value of multiple agents only where separation improves **specialization, independent verification or permission control**. If a single agent with the same tools, budget and checks performs as well or better, that simpler implementation should be the preferred baseline [@r1, @r13].
+
+## Failure Modes, Security and Operating Controls
+
+The major failure modes arise at interfaces. An intake failure changes the task. A routing failure assigns work to an inappropriate agent. An evidence failure replaces verified facts with plausible prose. A merge failure mixes inconsistent versions. A review failure accepts unsupported conclusions. A release failure performs an unapproved external action. Additional agents may catch some of these mistakes, but they also create more interfaces through which mistakes and untrusted instructions can propagate. Table 4 sets out selected control points.
+
+TABLE Selected control points. || These mitigations lower risk; they are not a proof of complete security.
+| Failure mode | Observable symptom | Primary mitigation |
+| Task drift | Output optimizes a different goal | Immutable task brief and acceptance criteria |
+| Unsupported source claim | Plausible statement without evidence | Claim–source matrix and primary-source recheck |
+| Handoff loss | Agent omits key constraints | Typed artifacts and required fields |
+| Shared-state collision | Conflicting edits or mismatched versions | Ownership rules and immutable stage outputs |
+| Reviewer echo | Reviewer repeats the generator's assumption | Independent calculations and external verification |
+| Prompt injection | Retrieved content instructs agent to change policy | Treat external text as data; scoped tools; approval |
+| Infinite refinement | Critic and writer iterate without improvement | Retry budget and escalation condition |
+| Unsafe release | Unapproved email, write or purchase | Tool-level authorization and human gate |
+
+OWASP's 2026 agentic-application guidance foregrounds risks specific to agents that can plan and act across tools [@r9]. NIST's Generative AI Profile provides broader governance and risk-management framing [@r10]. In both contexts the operative principle is to evaluate what an agent **can cause to happen**, not merely what it says. Human oversight belongs at the points of material consequence, with technical permission boundaries that do not depend solely on an LLM's willingness to follow instructions.
+
+## A Practical Implementation Blueprint
+
+Organizations can adopt the workflow incrementally. A full agent fleet is seldom the best first experiment. Start with one bounded task, one authorized output artifact and a repeatable evaluation set. Only add specialist agents when evidence indicates that specialization, independence or isolation improves the result.
+
+1. **Baseline the task:** document the user goal, input contracts and a strong single-agent implementation for comparison.
+2. **Add a deterministic outer workflow:** intake, explicit completion state, audit logging, timeouts, budget limits and output validation.
+3. **Separate one specialist boundary:** delegate research or verification to a worker with a defined artifact contract and minimal permissions.
+4. **Introduce parallelism selectively:** split only work packages whose inputs are sufficiently independent, and design the merge rules before fan-out.
+5. **Implement gated assurance:** test evidence, math, schema and high-risk actions; add human approval at consequential release points.
+6. **Build a recovery test:** deliberately interrupt a run and confirm no duplicate external writes occur during resumption.
+7. **Compare versions:** run the same representative and adversarial cases against the single-agent baseline and proposed multi-agent workflow; assess quality, latency and cost together.
+8. **Operationalize change control:** version prompts, skill procedures, tools, schemas and evaluation datasets; keep traces sufficient for diagnosis without retaining unnecessary sensitive content.
+
+An implementation is ready for limited deployment only when it can answer four questions from recorded evidence: **What was requested? Which work and tool calls actually happened? Why was the final result accepted? Which external actions were authorized?** Without those answers, the system may be an impressive demonstration but not a dependable business workflow.
+
+## Conclusion
+
+The essential unit of multi-agent engineering is not the agent itself but the **controlled passage of work from intention to verified outcome**. An orchestrator translates the request into bounded tasks; specialists gather or transform information; the aggregator reconciles their outputs; assurance gates test the result; and the runtime releases only what is authorized. State, evidence, policies and observability connect these stages so that errors are detected rather than merely passed downstream.
+
+The proposed architecture is intentionally conservative: start with a single-agent baseline, introduce a multi-agent structure only for a demonstrated engineering reason, separate drafting from independent verification, and apply stage gates before consequential actions. The next design question is how to choose the best dependency graph—sequential, parallel, series–parallel or a bounded feedback loop—which the companion article on execution patterns will examine in detail.
+"""

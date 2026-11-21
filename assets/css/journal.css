@@ -102,7 +102,7 @@
 /* ---------- Vol. 106 orch5: interactive Figure 1 (assets/js/orch5.js; markup content/journal/live/orch5.html) ---------- */
 .j-fig-live-on > .j-fig-static{display:none}
 .o5{--c:#0B6FA4;font-family:var(--font-body)}
-.o5-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) minmax(0,.9fr);gap:8px;margin-bottom:14px}
+.o5-tabs{display:grid;grid-template-columns:repeat(var(--o5n,5),minmax(0,1fr)) minmax(0,.9fr);gap:8px;margin-bottom:14px}
 .o5-tab{appearance:none;cursor:pointer;border:1px solid #DDE6F0;background:#fff;border-radius:9px;padding:10px 10px 9px;text-align:left;font:inherit;color:#26324A;border-top:4px solid var(--c);display:flex;flex-direction:column;gap:2px;transition:background .15s,box-shadow .15s}
 .o5-tab-all{--c:#0B2A5A;border-top-style:dashed}
 .o5-tab.on{background:var(--c);color:#fff;border-color:var(--c);box-shadow:0 4px 14px rgba(11,42,90,.16)}
@@ -111,6 +111,7 @@
 .o5-tab:hover:not(.on){background:#F3F6FA;border-color:var(--c)}
 .o5-tab:focus-visible{outline:3px solid var(--c);outline-offset:2px}
 .o5-tab-kind{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.75;margin-top:2px}
+.o5-tabs.o5-many{grid-template-columns:repeat(var(--o5n,7),minmax(0,1fr)) minmax(0,1.15fr);gap:6px}.o5-many .o5-tab{padding:9px 7px 8px}.o5-many .o5-tab-name{font-size:clamp(12px,1.05vw,14px)}.o5-many .o5-tab-kind{font-size:9.5px;letter-spacing:.03em;white-space:nowrap}
 .o5-panel{border:1px solid #E4EAF2;border-radius:10px;padding:16px 18px 14px;background:linear-gradient(#fff,#FBFCFE)}
 .j-paper .o5-kind{margin:0!important;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
 .j-paper .o5-name{margin:2px 0 12px!important;line-height:1.2;font-size:21px;color:#0B2A5A}
@@ -191,7 +192,7 @@
 .j-fig-live .j-fig-static{margin-top:0}
 .o5-compare{border:1px solid #E4EAF2;border-radius:10px;padding:14px;background:linear-gradient(#fff,#FBFCFE)}
 .j-paper .o5-compare-note{margin:0 0 10px!important;font-size:13.5px;color:#5A6475}
-.o5-cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.o5-cards{display:grid;grid-template-columns:repeat(var(--o5c,5),minmax(0,1fr));gap:8px}
 .o5-card{border:1px solid #DDE6F0;border-radius:9px;background:#fff;overflow:hidden;display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:0}
 .o5-card header{background:var(--c);color:#fff;padding:8px 10px 9px;min-height:86px;box-sizing:border-box}
 .o5-card header span{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85}

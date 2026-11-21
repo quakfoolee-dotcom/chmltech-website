@@ -126,8 +126,8 @@ def live_html(models=None, L=None, profile=None):
                   ((lab, m[k]) for lab, k in L["card_rows"]))
         + '</dl></article>' for m in models)
     return f'''<div class="o5" id="o5" hidden>
-<div class="o5-tabs" role="group" aria-label="{L["group"]}">{tabs}</div>
-<div class="o5-compare" id="o5-compare" hidden><p class="o5-compare-note">{L["note"]}</p><div class="o5-cards">{cards}</div></div>
+<div class="o5-tabs{" o5-many" if len(models) >= 7 else ""}" role="group" aria-label="{L["group"]}" style="--o5n:{len(models)}">{tabs}</div>
+<div class="o5-compare" id="o5-compare" hidden><p class="o5-compare-note">{L["note"]}</p><div class="o5-cards" style="--o5c:{len(models) if len(models) <= 5 else 4}">{cards}</div></div>
 <div class="o5-panel" id="o5-panel">
 <div class="o5-head"><p class="o5-kind" id="o5-kind"></p><h3 class="o5-name" id="o5-name"></h3></div>
 <div class="o5-main">
@@ -178,8 +178,10 @@ def mini(m, ox, oy):
         if kk == "board":
             s.append(f'<rect x="{x - 26:.1f}" y="{y - 13:.1f}" width="52" height="26" rx="4" fill="#FFF7EC" stroke="{c}" stroke-width="1.6"/>')
         elif kk in ("req", "gate", "ledger"):
-            s.append(f'<rect x="{x - 9:.1f}" y="{y - 7:.1f}" width="18" height="14" rx="3" fill="#F3F1EC" stroke="#8A94A6" stroke-width="1.1"/>')
+            f = a == m.get("focus")   # the focus node is filled in the model colour, whatever its shape
+            s.append(f'<rect x="{x - 9:.1f}" y="{y - 7:.1f}" width="18" height="14" rx="3" fill="{c if f else "#F3F1EC"}" stroke="{c if f else "#8A94A6"}" stroke-width="1.1"/>')
         elif kk in ("lead", "sup"):
+            if a == m.get("focus"): s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{15 if kk == "lead" else 13}" fill="none" stroke="{c}" stroke-width="1.6"/>')
             s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{11 if kk == "lead" else 9}" fill="{c}"/>')
         elif a == m.get("focus"):
             s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8.5" fill="{c}"/>')
@@ -193,7 +195,8 @@ def static_svg(models=None, rows=None, tabkind=None, PH=400):
     models = models or MODELS
     rows = rows or (("Control", "control"), ("Communication", "comm"), ("State", "state"), ("Chief hazard", "hazard"))
     tabkind = tabkind or ORCH_LABELS["tabkind"]
-    W, PW = 1210, 230
+    PW = 230
+    W = 6 + len(models) * (PW + 9)
     s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {PH}" font-family="Inter, Segoe UI, Arial, sans-serif">']
     s.append('<defs><marker id="o5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5A6B82"/></marker></defs>')
     for i, m in enumerate(models):

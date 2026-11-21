@@ -18,7 +18,7 @@
 
   function el(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    for (var k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
     if (parent) parent.appendChild(e);
     return e;
   }
@@ -59,7 +59,7 @@
         el('text', { y: s.r + 16, 'class': 'o5-label' }, g).textContent = n.label;
       } else {
         el('rect', { x: -s.w / 2, y: -s.h / 2, width: s.w, height: s.h, rx: n.k === 'board' ? 8 : 7, 'class': 'o5-shape' }, g);
-        el('text', { y: n.k === 'board' ? -8 : 4.5, 'class': 'o5-label-in' }, g).textContent = n.label;
+        el('text', { y: n.k === 'board' ? -8 : 4.5, 'class': 'o5-label-in', id: n.k === 'board' ? 'o5-boardl' : null }, g).textContent = n.label;
         if (n.k === 'board') el('text', { y: 16, 'class': 'o5-ver', id: 'o5-ver' }, g).textContent = '';
       }
       nodeEls[n.id] = g;
@@ -83,19 +83,19 @@
     }
     [].forEach.call(svg.querySelectorAll('.o5-edge'), function (e) { e.classList.remove('live'); });
     var ver = $('o5-ver'); if (ver) ver.textContent = s.board ? 'version ' + s.board.slice(1) : '';
+    var bl = $('o5-boardl'); if (bl) bl.setAttribute('y', s.board ? -8 : 4.5);   // centred when no version line shows
     var hops = $('o5-hops');
     if (hops) { var h = [0, 0, 1, 2, 3, 3, 3][i + 1] || 0; hops.textContent = 'Hops used: ' + h + ' of 3'; hops.classList.toggle('max', h >= 3); }
     var tk = $('o5-tokens'); while (tk.firstChild) tk.removeChild(tk.firstChild);
+    var tl = $('o5-toklab'); if (!tl) tl = el('g', { 'class': 'o5-toklab', id: 'o5-toklab' }, svg);   // labels sit above the nodes
+    while (tl.firstChild) tl.removeChild(tl.firstChild);
     cancelAnimationFrame(raf);
+    var obst = nodeBoxes();
     var toks = s.msgs.map(function (mm) {
       var a = m._byId[mm[0]], b = m._byId[mm[1]], p = edgePoint(a, b.x, b.y), q = edgePoint(b, a.x, a.y);
       var line = svg.querySelector('[data-e="' + mm[0] + '>' + mm[1] + '"],[data-e="' + mm[1] + '>' + mm[0] + '"]');
       if (line) { line.classList.add('live'); line.classList.toggle('rev', line.getAttribute('data-e') !== mm[0] + '>' + mm[1]); }
-      if (mm[2]) {   // the message label stays on the edge for the whole step: near the spread-out end when several messages share an end
-        var nS = s.msgs.filter(function (o) { return o[0] === mm[0]; }).length, nT = s.msgs.filter(function (o) { return o[1] === mm[1]; }).length;
-        var f = nS > 1 ? 0.66 : nT > 1 ? 0.34 : 0.5, lx = p[0] + (q[0] - p[0]) * f, ly = p[1] + (q[1] - p[1]) * f;
-        var lab = el('text', { x: lx.toFixed(1), y: (ly - 7).toFixed(1), 'class': 'o5-tok-l' }, tk); lab.textContent = mm[2];
-      }
+      if (mm[2]) placeLabel(mm, p, q, s.msgs, tl, obst);
       var g = el('g', { 'class': 'o5-tok' }, tk);
       el('circle', { r: 6 }, g);
       return { g: g, p: p, q: q };
@@ -120,12 +120,56 @@
     })(t0);
   }
 
+
+  // Boxes (SVG user units) of every node shape plus its label, so message labels can be kept clear of them.
+  function nodeBoxes() {
+    var out = [];
+    Object.keys(nodeEls).forEach(function (id) {
+      var g = nodeEls[id], n = M[cur]._byId[id], bb;
+      try { bb = g.getBBox(); } catch (e) { return; }
+      if (!bb.width) return;
+      out.push({ x: n.x + bb.x - 2, y: n.y + bb.y - 2, w: bb.width + 4, h: bb.height + 4 });
+    });
+    return out;
+  }
+  // A message label goes at the first spot along or beside its edge that overlaps no node, node label or earlier label
+  // and stays inside the 560 x 330 frame; failing that, at the spot with the least overlap.
+  function placeLabel(mm, p, q, msgs, layer, obst) {
+    var nS = msgs.filter(function (o) { return o[0] === mm[0]; }).length, nT = msgs.filter(function (o) { return o[1] === mm[1]; }).length;
+    var f0 = nS > 1 ? 0.66 : nT > 1 ? 0.34 : 0.5;
+    var lab = el('text', { x: 0, y: 0, 'class': 'o5-tok-l' }, layer); lab.textContent = mm[2];
+    var w, h;
+    try { var bb = lab.getBBox(); w = bb.width + 6; h = bb.height + 2; } catch (e) { w = 0; }
+    if (!w) { w = mm[2].length * 7 + 6; h = 15; }
+    var dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+    if (ny > 0 || (Math.abs(ny) < 1e-6 && nx < 0)) { nx = -nx; ny = -ny; }   // normal points up (or right on vertical edges)
+    var off = h / 2 + 3, best = null;
+    [f0, 0.5, 0.36, 0.64, 0.25, 0.75].forEach(function (f) {
+      [off, -off, off + 12, -off - 12, off + 24, -off - 24].forEach(function (d) {
+        var cx = p[0] + dx * f + nx * d, cy = p[1] + dy * f + ny * d;
+        if (Math.abs(ny) < 0.3) cx += (d > 0 ? 1 : -1) * w / 2;   // beside a near-vertical edge: start the text next to the line
+        var r = { x: cx - w / 2, y: cy - h / 2, w: w, h: h }, sc = 0;
+        obst.forEach(function (o) {
+          var ix = Math.min(r.x + r.w, o.x + o.w) - Math.max(r.x, o.x), iy = Math.min(r.y + r.h, o.y + o.h) - Math.max(r.y, o.y);
+          if (ix > 0 && iy > 0) sc += ix * iy;
+        });
+        if (r.x < 2 || r.x + r.w > 558 || r.y < 2 || r.y + r.h > 328) sc += 5000;
+        if (!best || sc < best.sc - 0.5) best = { sc: sc, cx: cx, cy: cy, r: r };
+      });
+    });
+    lab.setAttribute('x', best.cx.toFixed(1)); lab.setAttribute('y', (best.cy + h * 0.32).toFixed(1));
+    obst.push(best.r);
+  }
+
   function select(i, animate) {
     cur = i; setCompare(false);
     var m = M[i];
     [].forEach.call(root.querySelectorAll('.o5-tab:not(.o5-tab-all)'), function (b, k) {
       b.classList.toggle('on', k === i); b.setAttribute('aria-pressed', k === i ? 'true' : 'false');
     });
+    var strip = root.querySelector('.o5-tabs'), at = root.querySelectorAll('.o5-tab:not(.o5-tab-all)')[i];
+    if (strip && at && strip.scrollWidth > strip.clientWidth + 2)   // phone: keep the playing tab in view (scroll the strip only, never the page)
+      strip.scrollTo({ left: strip.scrollLeft + at.getBoundingClientRect().left - strip.getBoundingClientRect().left - (strip.clientWidth - at.offsetWidth) / 2, behavior: 'smooth' });
     root.style.setProperty('--c', m.color);
     $('o5-kind').textContent = m.n + ' · ' + m.kind;
     $('o5-name').textContent = m.name;

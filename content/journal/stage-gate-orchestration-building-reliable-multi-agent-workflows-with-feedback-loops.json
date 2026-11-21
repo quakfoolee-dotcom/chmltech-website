@@ -1,0 +1,605 @@
+{
+ "slug": "stage-gate-orchestration-building-reliable-multi-agent-workflows-with-feedback-loops",
+ "volume": 106,
+ "issue": 11,
+ "published": "2026-11-21",
+ "revised": "2026-11-21",
+ "title": "Stage-Gate Orchestration: Building Reliable Multi-Agent Workflows with Feedback Loops",
+ "short_title": "Stage-Gate Orchestration for Multi-Agent Workflows",
+ "meta": "Stage gates for LLM agent workflows: PASS, REWORK, ESCALATE and STOP transitions, five reference gates, bounded rework loops, approval binding and a worked SME example.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Vancouver, BC, Canada"
+ },
+ "abstract": "A multi-agent workflow can execute every assigned task and still deliver an unacceptable outcome. Research agents can rely on weak evidence, analyst agents can propagate incompatible assumptions, and drafting agents can turn provisional findings into confident recommendations. Stage-gate orchestration introduces explicit decision points that determine whether an artifact may proceed, must be revised, requires human review, or should be stopped. This paper treats stage gates as engineering controls layered over sequential, parallel, and hybrid multi-agent workflows. It proposes a state-and-evidence model for gates; distinguishes deterministic checks, independent AI review, and human authorization; and shows how targeted feedback loops, checkpoints, retry budgets, and audit records change reliability, latency, and cost. A hypothetical SME warehouse-management-system (WMS) advisory assessment illustrates a five-gate design, including a revision loop and an intentionally withheld recommendation. The result is a practical blueprint for bounded, observable, evidence-led multi-agent execution—not a claim that additional reviewing agents automatically make systems correct.",
+ "keywords": [
+  "multi-agent AI",
+  "stage gates",
+  "workflow orchestration",
+  "feedback loops",
+  "human-in-the-loop",
+  "quality assurance",
+  "LLM agents",
+  "agent governance"
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction: Completion Is Not Acceptance",
+   "blocks": [
+    {
+     "p": "A typical multi-agent workflow hands work from one specialist to another: a research agent gathers sources, an analyst evaluates evidence, a drafting agent prepares a recommendation, and a reviewer inspects the result. The existence of a final message, however, establishes only that the execution path reached its end. It does not establish that the sources are trustworthy, the calculations reproducible, the recommendation authorized, or the output fit for a particular decision."
+    },
+    {
+     "p": "A <strong>stage gate</strong> is an explicit decision boundary between stages. It evaluates a defined artifact against predefined acceptance criteria, then selects a controlled transition: <strong>PASS</strong>, <strong>REWORK</strong>, <strong>ESCALATE</strong>, or <strong>STOP</strong>. A gate may be a deterministic validator, an independent review agent, a qualified human, or a combination. This is distinct from merely asking the same model to “check its work,” a practice that can reproduce the original error without adding independent evidence. An earlier paper in this journal recommends bounded loops, structured handoffs, and externally grounded verification [1]."
+    },
+    {
+     "p": "Contemporary agent runtimes make these controls implementable. Microsoft Agent Framework documents explicit workflow edges and human-in-the-loop interactions; LangGraph supports persistence-backed interruptions; OpenAI's Agents SDK supports tool approvals, guardrails, and run-state restoration. These are framework capabilities, not a guarantee that a configured gate will reach the right decision [2–5]. The engineering task is to specify what a gate checks, what evidence it uses, and what happens if it disagrees with the upstream agent."
+    },
+    {
+     "p": "<strong>Scope.</strong> This paper addresses review-oriented knowledge work, enterprise software assessments, and technical engineering documentation. In safety-critical applications, stage gates support—but do not replace—qualified engineering review, formal management of change, or authorized operating procedures. The proposed five-gate structure is an illustrative design pattern, not a formal industry standard."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "The Stage-Gate Principle: Separate Work from Authorization",
+   "blocks": [
+    {
+     "h3": "2.1 Four distinct layers"
+    },
+    {
+     "p": "A reliable agentic workflow separates four functions. <strong>Execution</strong> produces an artifact; <strong>validation</strong> tests schema, arithmetic, consistency, and other machine-checkable properties; <strong>assurance</strong> challenges the substantive reasoning and evidence; and <strong>authorization</strong> grants permission for an external effect. These functions can run in the same application, but they should not be silently collapsed into one successful model message."
+    },
+    {
+     "p": "For example, a vendor-comparison report may pass formatting and arithmetic checks while using an obsolete product description. An independent reviewer could flag that weakness without having permission to approve a procurement decision. A human could approve the report for internal discussion without authorizing contact with a supplier. The gates must represent those outcomes as different states. Table 1 separates the four kinds of control and what each must not be taken to imply."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "Four kinds of controls.",
+      "head": [
+       "Layer",
+       "Typical controller",
+       "What it tests or decides",
+       "What it must not imply"
+      ],
+      "rows": [
+       [
+        "Technical validation",
+        "Schema validator, code, test harness",
+        "Required fields, types, totals, links, task completeness",
+        "Evidence is necessarily true"
+       ],
+       [
+        "Substantive assurance",
+        "Independent reviewer, domain expert",
+        "Provenance, assumptions, risks, contradictions, recommendation logic",
+        "Final authority to commit resources"
+       ],
+       [
+        "Risk and policy control",
+        "Access-control service, rule engine, risk owner",
+        "Data classification, allowed destinations, tool scopes",
+        "A model's confidence is permission"
+       ],
+       [
+        "External authorization",
+        "Named accountable human or delegated policy owner",
+        "Whether an action may be taken now",
+        "Permission for later or different actions"
+       ]
+      ],
+      "note": "A workflow may have more than one controller at a gate; each controller retains a distinct responsibility."
+     }
+    },
+    {
+     "h3": "2.2 Why one model's self-review is insufficient"
+    },
+    {
+     "p": "Reviewing the same output with the same evidence and nearly identical prompts can yield correlated mistakes. A stronger assurance step uses <strong>different tests</strong>: a source-retrieval check rather than another summary; arithmetic recomputation rather than agreement with a narrative; a policy service rather than a model-authored approval sentence; or an accountable human for a high-impact release. Use evaluator agents as <em>assistance to assurance</em>, not as proof of independent correctness. As a design recommendation, traces should record which reviewer, tests, source set, and version supported each gate result; the OpenAI Agents SDK already traces guardrail checks as spans [6]."
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "State Machine and Gate Contract",
+   "blocks": [
+    {
+     "h3": "3.1 A gate is a state transition, not a suggestion"
+    },
+    {
+     "p": "The controller should track a workflow as structured state, not reconstruct the entire history from chat text. A useful state model includes run ID, stage, artifact version, evidence manifest, gate ID, gate result, issue list, attempt count, approval scope, deadline, and event log. The <strong>artifact version</strong> matters: approval of draft v2 must not silently authorize delivery of edited draft v3."
+    },
+    {
+     "p": "A gate evaluates a specific artifact and returns a <strong>machine-readable decision record</strong>. Example fields include decision, criteria results, severity, required rework, reviewer identity, evidence references, expiry time, and a signature or record ID. This record is stored separately from the agent's explanation. The platform—not the language model—enforces whether a transition is allowed. Table 2 gives the recommended meaning of each gate result."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Recommended gate-result semantics.",
+      "head": [
+       "Gate result",
+       "Meaning",
+       "Permitted next step",
+       "Control requirement"
+      ],
+      "rows": [
+       [
+        "PASS",
+        "All mandatory criteria satisfied",
+        "Advance to the authorized next stage",
+        "Bind decision to artifact version"
+       ],
+       [
+        "REWORK",
+        "Correctable deficiency identified",
+        "Return to named owner with explicit defect list",
+        "Bound retry count and time budget"
+       ],
+       [
+        "ESCALATE",
+        "Ambiguous or high-impact issue",
+        "Pause for accountable reviewer or policy owner",
+        "Durable checkpoint; authenticated reviewer"
+       ],
+       [
+        "STOP",
+        "Prohibited or unrecoverable condition",
+        "End or quarantine the run",
+        "Preserve evidence; block side effects"
+       ]
+      ],
+      "note": "A real system may add CANCELLED, EXPIRED, or SUPERSEDED states, but it should never treat an unknown decision as PASS."
+     }
+    },
+    {
+     "h3": "3.2 Three acceptance criteria, three different mechanisms"
+    },
+    {
+     "p": "A gate specification should distinguish <strong>hard predicates</strong> (e.g., every mandatory vendor field is populated), <strong>evidence-based judgments</strong> (e.g., a migration risk is adequately supported), and <strong>discretionary authorization</strong> (e.g., a client-facing report may be sent). Hard predicates belong in code when possible; OpenAI's guardrails, for example, halt a run by raising a tripwire exception when a check fails [7]. Evidence judgments should reference an explicit rubric and source manifest. Authorization belongs to a named user, a role-backed workflow service, or a separately approved policy; a reviewer agent cannot grant itself new privileges."
+    },
+    {
+     "p": "AWS Step Functions describes Choice routing, retry/catch behavior, and explicit error handling. These conventional workflow concepts remain useful for agentic designs: an undefined choice branch, unhandled timeout, or unbounded retry is an application defect, regardless of how capable the agent appears [8, 9]."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "A Five-Gate Reference Architecture",
+   "blocks": [
+    {
+     "p": "The proposed design uses <strong>G0 Intake, G1 Evidence, G2 Analysis, G3 Assurance, and G4 Release</strong>. Each gate is placed where a wrong assumption would otherwise become more expensive to correct. Between gates, agents may execute sequentially or concurrently, depending on dependencies. Figure 1 shows the required distinction between the forward PASS path and the backward REWORK path."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-gates",
+      "caption": "The five-gate reference pattern. The figure plays through each gate in turn: the artifact advances on PASS, returns to the stage that owns the defect on REWORK, pauses for an accountable person on ESCALATE, and is quarantined on STOP; select a gate to jump to it, or <em>All gates</em> to see the five side by side. The gate is a policy-enforced transition, not simply the reply of a reviewer agent.",
+      "alt": "Five gates in a row, G0 intake, G1 evidence, G2 analysis, G3 assurance and G4 release, with a controller above, a versioned artifact store below, a reviewer beside the last gate, and each gate shown with what it checks, what it hands on and how it fails.",
+      "source": "",
+      "live": "mae3"
+     }
+    },
+    {
+     "h3": "G0 — Intake and scope acceptance"
+    },
+    {
+     "p": "Before research begins, verify the request's owner, objective, success criteria, source restrictions, deadline, data sensitivity, permitted tools, and forbidden actions. Ambiguous project scope is a rework item; an unauthorized request for client information is a STOP or policy escalation. <strong>Output:</strong> signed-off scope and an execution contract."
+    },
+    {
+     "h3": "G1 — Evidence sufficiency"
+    },
+    {
+     "p": "Research agents may fan out to gather sources, but G1 requires provenance, publication dates, conflicting evidence, and unresolved gaps. Missing mandatory evidence blocks claims that depend on it. G1 may ask a specific research branch to repeat a source check while retaining completed independent branches. <strong>Output:</strong> evidence pack, assumptions register, source manifest, and explicit unknowns."
+    },
+    {
+     "h3": "G2 — Analytical validity"
+    },
+    {
+     "p": "Analysis and drafting are evaluated for consistent assumptions, reproducible calculations, supported comparisons, and transparent treatment of unknowns. Numerical totals should be recomputed by code where practical. G2 does not approve the business recommendation; it establishes that the analysis is sufficiently coherent and inspectable to merit assurance. <strong>Output:</strong> validated analysis package or itemized defects."
+    },
+    {
+     "h3": "G3 — Independent assurance"
+    },
+    {
+     "p": "A reviewer agent or expert evaluates contrary evidence, alternative interpretations, security, methodological limitations, material omissions, and alignment with the original scope. A single serious unresolved defect can block release even when an average quality score appears high. <strong>Output:</strong> accepted artifact version, residual-risk register, and independent review record."
+    },
+    {
+     "h3": "G4 — Human-authorized release"
+    },
+    {
+     "p": "The final stage checks who is permitted to send, publish, purchase, change a record, or operate an external system. Human approval is required when the task or policy calls for it. The approval must identify the exact action, destination, payload/version, reviewer, and validity period. G4 can authorize publication of a report without authorizing any recommendations in that report to be executed automatically. <strong>Output:</strong> released artifact and auditable authorization receipt."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Feedback Loops: Bounded Rework, Not Infinite Self-Correction",
+   "blocks": [
+    {
+     "h3": "5.1 Targeted repair beats restarting the entire workflow"
+    },
+    {
+     "p": "If a source is missing at G1, rerun the affected research branch rather than restarting every agent. If G2 finds arithmetic inconsistency, return the incorrect calculations and affected downstream sections for regeneration. If G3 identifies a new scope issue, the correct destination may be G0 rather than G2. This requires a <strong>dependency-aware invalidation rule</strong>: when an upstream fact changes, every downstream artifact depending on that fact is marked stale and must be revalidated."
+    },
+    {
+     "p": "A meaningful feedback message states the failed criterion, severity, failing evidence, target owner, requested correction, and re-evaluation deadline. “Improve the answer” is not a satisfactory rework contract because the next attempt cannot know whether the defect was resolved."
+    },
+    {
+     "h3": "5.2 Bound the loop at three levels"
+    },
+    {
+     "p": "An agentic stage-gate loop should have <strong>(1) a maximum revision count, (2) a time or token/cost budget, and (3) an escalation or stop condition</strong>. Google ADK's loop-workflow guidance explicitly provides iteration limits and ways to terminate a repeating agent workflow; AWS's retry policies use bounded attempts and backoff for recoverable errors [9, 10]. Retries for network timeouts and revisions for factual defects should be separate counters and policies."
+    },
+    {
+     "p": "For example, permit up to <strong>two revisions after the initial draft</strong>, not two indefinite cycles per reviewer. If the same material defect remains, escalate to a human or stop the run with an incomplete-result disclosure. A new prompt phrasing is not, by itself, new evidence. High-severity policy breaches, source fabrication, prohibited tool calls, or uncertain external side effects may demand immediate STOP rather than another model attempt."
+    },
+    {
+     "h3": "5.3 Rework and external side effects"
+    },
+    {
+     "p": "Approval to send a message, modify a database, or trigger purchasing is not proof that the action occurred exactly once. A resumed workflow can re-enter a previously approved tool path after a crash. Use destination-side idempotency keys where available, persist action receipts, and reconcile ambiguous outcomes before retrying. OpenAI's human-in-the-loop guidance explicitly warns that approved consequential actions can be duplicated after crash recovery without such protections [4]."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Combining Gates with Sequential and Parallel Execution",
+   "blocks": [
+    {
+     "p": "Stage gates can guard <strong>sequential chains</strong> between each dependent task, or they can sit at <strong>fan-in barriers</strong> where concurrent branches are reconciled. In a series–parallel arrangement, the common pattern is intake → G0 → parallel investigation → G1 → synthesis → G2 → assurance → G3 → G4. In a parallel–series arrangement, each specialist lane can have internal checks while one shared cross-lane gate verifies that assumptions and evidence are compatible."
+    },
+    {
+     "p": "The most important design choice is whether a gate has <strong>ALL</strong>, <strong>CONDITIONAL</strong>, or <strong>QUORUM</strong> joining semantics. A financial risk check may be mandatory even if four other branches are complete; a noncritical appendix may be omitted with an explicit warning. A quorum is appropriate only when the task's risk policy allows it. Treating “three out of four agents agreed” as sufficient evidence can be especially misleading when the agents share prompts or sources. Table 3 sets out where gates naturally sit in each execution pattern."
+    },
+    {
+     "p": "Gate placement also follows the cost of late discovery. A defect found at G1 costs one research branch; the same defect found at G4 can invalidate the evidence pack, the analysis, the draft and the review record, and may already have consumed a reviewer's time. A practical rule is to place a gate immediately before any step whose output many later steps depend on, and immediately before any step that is expensive or impossible to undo. Conversely, a gate between two cheap, reversible steps mostly adds latency, and its checks can usually move to the next gate without loss."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Gate placement in each execution pattern.",
+      "head": [
+       "Workflow pattern",
+       "Natural gate placement",
+       "Common failure",
+       "Suggested mitigation"
+      ],
+      "rows": [
+       [
+        "Sequential",
+        "Every significant handoff",
+        "An early factual error spreads through all later stages",
+        "Versioned outputs and upstream-source validation"
+       ],
+       [
+        "Parallel",
+        "Fan-in / aggregation point",
+        "Fast branches mask one missing or stale result",
+        "Mandatory-branch manifest and timeout policy"
+       ],
+       [
+        "Series–parallel",
+        "End of each major stage",
+        "Barrier waits forever for a stalled branch",
+        "Deadline, fallback, and explicit incomplete-state routing"
+       ],
+       [
+        "Parallel–series",
+        "Within each lane and at final merge",
+        "Specialist lanes use incompatible assumptions",
+        "Shared scope baseline and cross-lane consistency gate"
+       ],
+       [
+        "Iterative stage-gate",
+        "After an artifact is produced",
+        "Reviewer/revision loop never converges",
+        "Revision budget, changed-evidence requirement, escalation"
+       ]
+      ],
+      "note": "Stage gates are composable with execution patterns; their placement depends on the type of error and the cost of discovering it late."
+     }
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Worked Example: A Hypothetical SME WMS Recommendation",
+   "blocks": [
+    {
+     "p": "Consider a fictional Vancouver distributor evaluating warehouse-management software. The requested deliverable is a <strong>shortlist recommendation with integration, bilingual-operation, and cost considerations</strong>. No actual client details, private vendor records, or procurement authority are assumed. The workflow uses specialists for process mapping, vendor research, integration analysis, commercial modeling, writing, and independent review."
+    },
+    {
+     "p": "At G0, the intake agent records five mandatory decision criteria: functional fit, accounting integration, bilingual usability, total cost, and implementation support. At G1, the research bundle lists product claims and provenance. At G2, the analyst checks normalized cost assumptions and the consistency of evaluation weights. At G3, the reviewer searches for unsupported assertions and conflicting findings. At G4, the named human approves only the <strong>distribution of a draft advisory report</strong>, not supplier selection or a purchase order."
+    },
+    {
+     "h3": "7.1 A revision loop with a withheld claim"
+    },
+    {
+     "p": "Assume an initial draft contains <strong>24 material claims</strong>: 20 have acceptable support, four do not. The G3 gate rejects the draft because the publication policy requires all material claims to be sourced or explicitly identified as unverified. After one targeted research-and-draft revision, <strong>23 claims</strong> have acceptable support, while the remaining claim cannot be substantiated. The unsupported claim is <strong>removed or disclosed as unknown</strong>, not carried into the final recommendation as fact (Figure 2). The published set consequently contains 23 supported material claims; the record retains the excluded question for follow-up."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-claim-rework",
+      "caption": "A targeted evidence rework at G3 (illustrative, not measured performance). An assumed 24-claim draft moves from 20 of 24 claims supported to 23 of 24 after one revision; the final report excludes the last unverified claim. PASS applies to the included claims and all other mandatory criteria, not to an average score.",
+      "alt": "Three panels left to right: draft version 1 with 20 of 24 claims supported and a G3 fail, revised version 2 with 23 of 24 supported and a G3 hold, and the final candidate with 23 of 23 supported and a G3 pass, above a review-logic strip leading to a separate human release gate.",
+      "source": ""
+     }
+    },
+    {
+     "h3": "7.2 Example gate register"
+    },
+    {
+     "table": {
+      "n": 4,
+      "caption": "Illustrative WMS gate register.",
+      "head": [
+       "Gate",
+       "Example acceptance condition",
+       "Outcome if unmet",
+       "Who owns resolution"
+      ],
+      "rows": [
+       [
+        "G0 Intake",
+        "Mandatory objectives and constraints confirmed",
+        "Return to sponsor for scope correction",
+        "Planner / sponsor"
+       ],
+       [
+        "G1 Evidence",
+        "Mandatory product and integration assertions have dated sources",
+        "Targeted research rework or explicit exclusion",
+        "Research agent"
+       ],
+       [
+        "G2 Analysis",
+        "Cost assumptions, comparison weights and arithmetic validated",
+        "Recompute affected outputs and invalidate dependent draft sections",
+        "Analyst agent"
+       ],
+       [
+        "G3 Assurance",
+        "No unsupported material claim in the publishable text; high-severity risks disclosed",
+        "Revise with issue list; escalate unresolved material items",
+        "Independent reviewer"
+       ],
+       [
+        "G4 Release",
+        "Named authorized human approves exact report version and destination",
+        "Hold publication; no external action",
+        "Accountable human"
+       ]
+      ],
+      "note": "Actual thresholds, review roles, and evidence standards must be defined for the specific project."
+     }
+    },
+    {
+     "p": "Table 4 records the acceptance condition, outcome and owner at each gate. The example illustrates why a gate should be <strong>defect-driven rather than score-driven</strong>. A report with excellent wording and 96% supported claims may still be inappropriate if the missing 4% concerns migration feasibility or a binding commercial commitment. The workflow must preserve the excluded assertion as an open issue rather than quietly inventing a workaround."
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "Reliability and Performance Engineering",
+   "blocks": [
+    {
+     "h3": "8.1 The cost of rejected work"
+    },
+    {
+     "p": "If stage <em>i</em> has execution cost <em>c</em><sub>i</sub> per attempt and gate cost <em>g</em><sub>i</sub> per evaluation, with <em>a</em><sub>i</sub> attempts and <em>e</em><sub>i</sub> evaluations, a simple accounting identity is Eq. (1), where <em>C</em><sub>human</sub> is review time and <em>C</em><sub>shared</sub> shared infrastructure:"
+    },
+    {
+     "tex": "C_{\\text{total}} = \\sum_i \\left( c_i a_i + g_i e_i \\right) + C_{\\text{human}} + C_{\\text{shared}}",
+     "n": 1
+    },
+    {
+     "p": "It is a cost ledger, not a predictive law: tokens, tool calls, human time, and infrastructure should be measured separately. A gate can increase per-run latency but <strong>reduce cost per accepted deliverable</strong> if it prevents costly downstream rework or incorrect external actions."
+    },
+    {
+     "p": "A useful scenario calculation treats each independent validation attempt as having probability p of success. If there are <em>m</em> total attempts, the probability of at least one pass is Eq. (2):"
+    },
+    {
+     "tex": "P_{\\text{pass}} = 1 - (1 - p)^m",
+     "n": 2
+    },
+    {
+     "p": "At <em>p</em> = 0.75 and <em>m</em> = 3, Eq. (2) gives 98.44%. <strong>This is not a real-world agent reliability estimate.</strong> Attempts after feedback are rarely independent, and a gate that falsely accepts bad work invalidates the assumed probability. The calculation is useful mainly for explaining why retries alone cannot substitute for better evidence and test design."
+    },
+    {
+     "h3": "8.2 Operational metrics"
+    },
+    {
+     "p": "Measure (a) <strong>first-pass acceptance rate</strong>; (b) <strong>accepted artifact rate</strong>; (c) <strong>false-pass rate</strong> measured against independent adjudication; (d) <strong>revisions per accepted artifact</strong>; (e) <strong>gate dwell time</strong>; (f) <strong>time and cost per accepted artifact</strong>; (g) <strong>high-severity escape count</strong>; and (h) <strong>number of actions executed without valid authorization</strong>. The last two should normally have zero-tolerance or risk-governed thresholds. OpenAI tracing records model generations, tool calls, handoffs, and guardrail events; equivalent instrumentation should correlate every gate result with the relevant run and artifact versions [6]."
+    },
+    {
+     "p": "False-pass rate deserves particular attention because it cannot be read from the workflow's own logs. It requires a sample of accepted artifacts to be re-examined by an adjudicator who took no part in the run, using the same rubric and source set. A small regular sample, stratified by gate and by task type, is usually enough to show whether a gate is drifting toward rubber-stamping or toward excessive rejection, and it gives the team evidence for tightening or relaxing a rubric instead of relying on impressions."
+    },
+    {
+     "p": "Be careful with a misleading optimization target: increasing the pass rate by weakening the rubric can make the metric look better while worsening the system. Similarly, a high rejection rate can signal either poor upstream quality <strong>or</strong> a miscalibrated reviewer. Compare gate decisions with independent case reviews, not only with downstream model satisfaction."
+    }
+   ]
+  },
+  {
+   "num": "9",
+   "title": "Security, Governance, and Human Oversight",
+   "blocks": [
+    {
+     "p": "Stage gates become security boundaries only when a <strong>separate enforcement component</strong> controls execution. A prompt that tells an agent not to send data is not an access-control rule. The tool adapter must enforce an allowlist of destinations, per-agent credentials, least privilege, and approval requirements. OWASP's Excessive Agency guidance identifies excessive functionality, permissions, and autonomy as core pathways to agentic harm; NIST's AI Risk Management Framework provides a wider govern–map–measure–manage context for risk controls [11, 12]."
+    },
+    {
+     "p": "<strong>Prompt-injection risk</strong> grows when research agents consume websites, tickets, retrieved documents, and prior agent messages. Treat all source content and peer outputs as potentially untrusted. Never allow a retrieved instruction to redefine G4 authority, rewrite the permitted tool list, or suppress an issue from the audit record. Store the decision policy outside editable agent context. OWASP also documents how malicious instructions embedded in data can redirect model behavior [13]."
+    },
+    {
+     "p": "A safe human-in-the-loop process authenticates the reviewer, verifies their authority for <strong>that particular action</strong>, displays the exact payload and supporting evidence, records the decision, and resumes only the authorized transition. Durable pause/resume facilities exist in LangGraph, Microsoft Agent Framework, and OpenAI's Agents SDK, but applications still need to protect serialized state and guard against replay and duplicated side effects [3, 4, 14]; approval expiry is an additional application-level control. <strong>Approval of a report is not approval of the actions recommended inside it.</strong>"
+    }
+   ]
+  },
+  {
+   "num": "10",
+   "title": "Engineering Blueprint: A Bounded Gate Controller",
+   "blocks": [
+    {
+     "p": "The pseudocode in Example 1 is intentionally framework-neutral. It shows the control structure, not a production-ready authorization or durable-transaction implementation. In deployment, state transitions and side-effect receipts must be stored durably, with a concurrency-safe claim on each pending approval."
+    },
+    {
+     "code": "MAX_REVISIONS = 2   # revisions after first submission\n\nwhile workflow.has_next_stage():\n    stage = workflow.next_stage()\n    artifact = execute_stage(stage, validated_inputs=True)\n    save_artifact_version(artifact)\n\n    while True:\n        decision = evaluate_gate(stage.gate, artifact)\n        record_gate_decision(decision, artifact.version)\n\n        if decision.kind == \"PASS\":\n            workflow.advance(artifact.version)\n            break\n\n        if decision.kind == \"STOP\":\n            workflow.quarantine(decision.reason)\n            raise WorkflowStopped(decision.reason)\n\n        if decision.kind == \"ESCALATE\":\n            request_authorized_review(\n                artifact.version, decision, stage.gate\n            )\n            # Return control to the event handler: no busy-loop polling.\n            workflow.persist_wait_state(artifact.version, decision)\n            return \"WAITING_FOR_HUMAN\"\n\n        if decision.kind == \"REWORK\":\n            if stage.revisions_used >= MAX_REVISIONS:\n                workflow.hold_for_review()\n                raise WorkflowHeld(\"Revision budget exhausted\")\n            artifact = rework_targeted_defects(\n                owner=decision.owner,\n                issues=decision.issues,\n                prior_version=artifact.version\n            )\n            stage.revisions_used += 1\n            invalidate_downstream_dependents(artifact)\n            save_artifact_version(artifact)\n\n# External actions require a separate final authorization and idempotency.\nauthorized_release = verify_release_scope_and_version(workflow)\nexecute_external_action_once_or_reconcile(authorized_release)\n",
+     "caption": "Example 1. Framework-neutral gate controller with bounded rework, escalation to a durable waiting state, and a separate release authorization."
+    },
+    {
+     "p": "A minimal implementation also needs timeout handling, cancellation, locking, exception classification, artifact storage, reviewer authentication, resource quotas, data-retention rules, and a test suite covering every transition. The <strong>ESCALATE branch returns to a durable waiting state</strong>. A separate authenticated event handler must verify reviewer identity, permission scope, artifact version, approval expiry, and disposition before resuming the run; it must never turn reviewer acceptance into a waiver of hard validation failures. The pseudocode illustrates state separation but does not implement the full storage and event infrastructure [4, 8, 9]."
+    }
+   ]
+  },
+  {
+   "num": "11",
+   "title": "Failure Modes and Engineering Checklist",
+   "blocks": [
+    {
+     "table": {
+      "n": 5,
+      "caption": "Failure-mode register for stage-gated multi-agent systems.",
+      "head": [
+       "Failure mode",
+       "Observable symptom",
+       "Proposed control"
+      ],
+      "rows": [
+       [
+        "Infinite reviewer–writer loop",
+        "Same issue repeats with growing token spend",
+        "Max revisions; convergence check; escalation"
+       ],
+       [
+        "Rubber-stamp gate",
+        "Near-universal passes, unsupported claims remain",
+        "Independent adjudication and adversarial evaluations"
+       ],
+       [
+        "Stale approval",
+        "Draft modified after reviewer signs off",
+        "Bind approval to version/hash and destination"
+       ],
+       [
+        "Gate bypass",
+        "Tool sends content before final authorization",
+        "Policy enforcement at tool/service boundary"
+       ],
+       [
+        "Cascading invalidation",
+        "Revised assumption leaves downstream sections unchanged",
+        "Dependency ledger and downstream revalidation"
+       ],
+       [
+        "Parallel partial success",
+        "Merge presents incomplete branch output as full result",
+        "Explicit required-branch join policy"
+       ],
+       [
+        "Approval replay / duplicate effect",
+        "Message or transaction occurs twice after restore",
+        "Destination idempotency and authoritative reconciliation"
+       ],
+       [
+        "Evidence injection",
+        "Source text changes routing or tool permissions",
+        "Trusted/untrusted separation; allowlists; least privilege"
+       ]
+      ],
+      "note": "Controls are engineering recommendations; effectiveness must be tested in the deployed environment."
+     }
+    },
+    {
+     "p": "Table 5 lists the failure modes to rehearse before release. <strong>Implementation checklist.</strong> Define success criteria before agent roles; publish a gate register; distinguish quality checks from authorization; require artifact versions and provenance; route defects to owners; bound revision attempts and cost; add durable checkpoints; validate negative branches and timeouts; secure all tool permissions independently of prompts; and monitor <strong>cost per accepted artifact</strong> rather than only response time. Before enabling any external action, test the exact failure path after approval but before completion logging."
+    },
+    {
+     "h3": "Where a stage gate is not warranted"
+    },
+    {
+     "p": "Not every small task needs five gates. A read-only classification or low-risk draft may be better handled by a single agent and a deterministic validator. Gates impose latency, storage, and review cost, and poor rubrics can create false confidence. Use the smallest set that addresses <strong>material failure consequences</strong>; add controls when uncertainty, impact, regulation, or external side effects demand them. Framework capabilities should not drive governance complexity by default [2]."
+    }
+   ]
+  },
+  {
+   "num": "12",
+   "title": "Conclusion",
+   "blocks": [
+    {
+     "p": "A well-engineered multi-agent system should not treat “task completed” as equivalent to “result accepted.” Stage-gate orchestration adds explicit acceptance criteria, versioned artifacts, targeted rework, stopping rules, independent assurance, and human authorization to otherwise ordinary execution graphs. It is particularly valuable when agent outputs become the basis for advisory recommendations, technical decisions, or external actions."
+    },
+    {
+     "p": "The design principle is <strong>assurance by evidence and enforceable transitions, not by agent agreement</strong>. Keep retries bounded; distinguish a failed quality test from a transient tool failure; make escalation an expected outcome rather than a system embarrassment; and ensure that approval of a document never silently authorizes operational side effects. A companion paper applies these principles to a concrete <strong>Research → Analyze → Draft → Review → Finalize</strong> workflow [15]."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Lee, Q. F. (2026). <em>Multi-Agent AI Systems: Architectures, Coordination Patterns and Failure Modes.</em> Chmltech Online Journal.",
+   "url": "https://www.chmltech.com/post/multi-agent-ai-systems-architectures-coordination-and-failure-modes.html"
+  },
+  {
+   "text": "Microsoft. (2026). <em>Workflows</em> (section: Choosing the right pattern). Microsoft Agent Framework documentation.",
+   "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows"
+  },
+  {
+   "text": "LangChain. (n.d.). <em>LangGraph: Interrupts and human-in-the-loop execution.</em>",
+   "url": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+  },
+  {
+   "text": "OpenAI. (n.d.). <em>Agents SDK: Human-in-the-loop approvals and durable run state.</em>",
+   "url": "https://openai.github.io/openai-agents-python/human_in_the_loop/"
+  },
+  {
+   "text": "Microsoft. (n.d.). <em>Agent Framework: Human-in-the-loop requests and checkpoints.</em>",
+   "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/human-in-the-loop"
+  },
+  {
+   "text": "OpenAI. (n.d.). <em>Agents SDK: Tracing.</em>",
+   "url": "https://openai.github.io/openai-agents-python/tracing/"
+  },
+  {
+   "text": "OpenAI. (n.d.). <em>Agents SDK: Guardrails and tripwires.</em>",
+   "url": "https://openai.github.io/openai-agents-python/guardrails/"
+  },
+  {
+   "text": "Amazon Web Services. (n.d.). <em>AWS Step Functions: Choice workflow state.</em>",
+   "url": "https://docs.aws.amazon.com/step-functions/latest/dg/state-choice.html"
+  },
+  {
+   "text": "Amazon Web Services. (n.d.). <em>Handling errors in Step Functions workflows</em>. AWS Step Functions Developer Guide.",
+   "url": "https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html"
+  },
+  {
+   "text": "Google. (n.d.). <em>Agent Development Kit: Loop workflow.</em>",
+   "url": "https://adk.dev/agents/workflow-agents/loop-agents/"
+  },
+  {
+   "text": "OWASP. (n.d.). <em>LLM06:2025—Excessive Agency.</em>",
+   "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+  },
+  {
+   "text": "National Institute of Standards and Technology. (2023). <em>AI RMF Core</em> (AI RMF 1.0). NIST Trustworthy and Responsible AI Resource Center.",
+   "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
+  },
+  {
+   "text": "OWASP. (n.d.). <em>Prompt Injection: Security Glossary.</em>",
+   "url": "https://genai.owasp.org/glossary/prompt-injection/"
+  },
+  {
+   "text": "Microsoft. (n.d.). <em>Agent Framework: Workflow checkpoints and restoration.</em>",
+   "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Research, Analyze, Draft, Review, Finalize: Engineering a reliable five-agent AI workflow. <em>Chmltech Online Journal</em>, 106(2).",
+   "url": "https://www.chmltech.com/post/research-analyze-draft-review-finalize-engineering-a-reliable-five-agent-ai-workflow"
+  }
+ ],
+ "corrections": [],
+ "downloads": []
+}
