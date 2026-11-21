@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.63 — 2026-11-21
+- **Insights filter: "Copy link to this view" removed** from the results line. Filtered views still keep their filters in the address bar (`#format=journal&division=ai`), so a link copied from there opens the same list (`content/gen/build_insights_filter.py`, `assets/js/insights-filter.js`, `assets/css/insights-filter.css`).
+
 ## V5.62 — 2026-11-21
 - **New Insights filter: a sidebar replaces the 19 category chips.** Format (All, Articles, Journal papers, Case studies, Book reviews), Journal division (AI & Machine Learning, Clean Energy Technology, Operational Excellence; shown when Journal papers is picked), Topic (5 groups with sub-topics: Operations, Improvement & Quality, AI & Digital, Process Engineering, Strategy & Growth), Series, Reading time and Published year. Counts update with every choice; options with no matches are greyed out. Results line with removable filter chips, Clear all and Copy link; a series banner with "Start at Part 1" and part-order sorting; sort by newest, oldest, quick reads or in-depth. Phones and tablets get a "Filters" button (stays at the top while scrolling) that opens a bottom sheet. Filtered views have their own link (`#format=journal&division=ai`); old `#cat=` links from post tags and the "Start here" panel still work and scroll to the list (`assets/js/insights-filter.js`, `assets/css/insights-filter.css`, `content/gen/build_insights_filter.py`).
 - **Cards unchanged:** the filter reads format, date, read time, series, part and journal division from the card text, so new articles and papers need nothing extra. Change Management and Project Management are filtered together as "Change & Project Mgmt".
