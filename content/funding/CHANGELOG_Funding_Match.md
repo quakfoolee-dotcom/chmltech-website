@@ -1,5 +1,10 @@
 # Funding Match — changelog
 
+## V5.66 — 2026-11-21: no dollar estimates
+- `buildStack()` lists programs only (no estimate(), no 50% default, no cap arithmetic); stack table shows "What the program publishes" (amount_text + cost_share); total line, bar and cash-gap warning removed; report text and PDF likewise.
+- Red-team verification (output and lead data) before publication: leads extended to 44 programs with program-specific reasons (`lead_note`), including Strategic Response Fund (consultation and invitation, $20M minimum project), Global Innovation Clusters, NGen, Scale AI, CanExport Innovation, Innovate BC Integrated Marketplace, OCI C2C, Québec Programme innovation volet 2, OBRITC, per-product and per-GJ energy rebates, Ontario Summer Company; AI-only programs (7 Regional AI Initiatives, Scale AI) ranked lower unless digital/AI is a goal (`needs_goal`); Biofuels Production Incentive and Canada Growth Fund ranked low unless they fit (`niche` biofuel, large); repayable labels in the PDF; amount line labelled "Program publishes"; lead count in the results heading; budget hint no longer promises precise amounts; dead bar CSS removed.
+- New rule field `lead` (`partner` | `advisor` | `savings` | `student`) in `redteam_corrections_v2.json` (V562, 24 programs): "Lead – confirm fit" badge, reason in checks, sorted after non-leads, avoided in the stack, partner leads -12 unless R&D is a goal. FortisBC Custom Efficiency `pct` removed.
+
 ## V5.59 — 2026-11-20
 - "Download PDF" button removed (PDF by email only); new "Get this as a PDF in your inbox →" link under the results heading jumps to the form. Same change on the Digital Assessment.
 - PDF: section headings keep space for their first entry; trailing periods removed from notes in the checks; new `place` niche (single-community programs, score -35) applied to Lytton Business Restart; GAPP `pct` 33.3.
