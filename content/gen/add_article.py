@@ -120,6 +120,12 @@ def post_page(a, listing, total):
     wr(f"post/{a['slug']}.html", head + '<article class="prose">\n' + a["body"].rstrip("\n") + "\n  " + tail)
 
 
+def total_of(s):
+    """Article total on insights.html: data-total="N" on the sidebar filter (V5.62), or the old "All (N)" chip."""
+    m = re.search(r'data-ifl data-total="(\d+)"', s) or re.search(r">All \((\d+)\)<", s)
+    return int(m.group(1))
+
+
 def bump(s, pat, n=1):
     return re.sub(pat, lambda m: m.group(1) + str(int(m.group(2)) + n) + m.group(3), s)
 
@@ -127,8 +133,9 @@ def bump(s, pat, n=1):
 def listing_page(a):
     s = rd("insights.html")
     if f'href="post/{a["slug"]}.html"' in s:
-        return s, int(re.search(r">All \((\d+)\)<", s).group(1)), False
+        return s, total_of(s), False
     s = bump(s, r"(>All \()(\d+)(\)<)")
+    s = bump(s, r'(data-ifl data-total=")(\d+)(")')
     for c in a["cats"]:
         s = bump(s, r'(data-cat="' + c + r'" aria-pressed="false">[^<(]*\()(\d+)(\)<)')
     s = bump(s, r'(content=")(\d+)( articles from Chmltech)')
@@ -152,7 +159,7 @@ def listing_page(a):
             at = grid + last.end(); s = s[:at] + card(a) + s[at:]
     else:
         s = s[:at] + card(a) + s[at:]
-    return s, int(re.search(r">All \((\d+)\)<", s).group(1)), True
+    return s, total_of(s), True
 
 
 def cover(a, fonts=None):
