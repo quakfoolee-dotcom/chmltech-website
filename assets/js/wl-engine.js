@@ -56,7 +56,16 @@
     for (x = 0; x < BX; x++) { L.blocked[cell(x, 0)] = 1; L.blocked[cell(x, BZ - 1)] = 1; }
     for (z = 0; z < BZ; z++) { L.blocked[cell(0, z)] = 1; L.blocked[cell(BX - 1, z)] = 1; }
     function row(x0, z0, x1, z1, dir) { L.racks.push({ x0: x0, z0: z0, x1: x1, z1: z1, dir: dir }); rect(L, x0, z0, x1, z1); }
-    function door(x, use) { L.doors.push({ x: x, use: use, c: cell(x, BZ - 2), truck: null }); L.blocked[cell(x, BZ - 1)] = 0; }
+    // a dock door on the south (S), west (W) or east (E) wall; pos is x for S, z for W and E. c: the floor cell just inside
+    function door(pos, use, wall) {
+      wall = wall || 'S';
+      var d = { wall: wall, pos: pos, use: use, truck: null };
+      if (wall === 'S') { d.x = pos; d.z = BZ - 1; d.c = cell(pos, BZ - 2); L.blocked[cell(pos, BZ - 1)] = 0; }
+      else if (wall === 'W') { d.x = 0; d.z = pos; d.c = cell(1, pos); L.blocked[cell(0, pos)] = 0; }
+      else { d.x = BX - 1; d.z = pos; d.c = cell(BX - 2, pos); L.blocked[cell(BX - 1, pos)] = 0; }
+      L.doors.push(d);
+    }
+    function homeCol(x, z0, z1) { L.homeCol = [x, z0, z1]; }
     if (kind === 'asis') {
       L.name = 'As-is layout';
       // rows along the building (x), from the west cross-aisle (x 1-5) to the east wall: aisles open at one end only
@@ -67,7 +76,7 @@
       for (x = 37; x <= 53; x++) { L.spill.push(cell(x, 34), cell(x, 35)); }
       rect(L, 37, 34, 53, 35);
       // packing at the west end
-      rect(L, 2, 40, 11, 41); L.drops = [cell(4, 39), cell(7, 39), cell(10, 39)]; L.homeRows = [[2, 11, 39], [2, 11, 38]];
+      rect(L, 2, 40, 11, 41); L.bench = [2, 40, 11, 41]; L.drops = [cell(4, 39), cell(7, 39), cell(10, 39)]; L.homeRows = [[2, 11, 39], [2, 11, 38]];
       L.packSpot = cell(7, 44);
       // five doors shared by receiving and shipping, one staging area for both
       [38, 43, 48, 53, 58].forEach(function (x) { door(x, 'both'); });
@@ -87,13 +96,13 @@
         { n: 5, x: 48, z: 56.5, t: 'Shared doors and staging', d: 'Receiving and shipping share the doors and one staging area. When the forklift falls behind, staging fills and unloading stops.' },
         { n: 6, x: 14, z: 42.5, t: 'Packing far from the doors', d: 'Every outbound pallet is pushed across the receiving area to reach a door.' }
       ];
-    } else {
-      L.name = 'Redesigned layout';
+    } else if (kind === 'redesign') {
+      L.name = 'Redesigned layout'; L.short = 'U-shape';
       // rows across the building (z), aisles open to a back cross-aisle (z 1-3) and a front cross-aisle (z 34-37)
       var xr = [[1, 1]]; for (x = 5; x <= 65; x += 5) xr.push([x, x + 1]); xr.push([70, 70]);
       xr.forEach(function (q) { row(q[0], 4, q[1], 33, 'z'); });
       rect(L, 1, 1, 1, 3);
-      rect(L, 40, 39, 57, 40); L.drops = [cell(42, 38), cell(48, 38), cell(54, 38)]; L.homeRows = [[40, 57, 38], [40, 57, 37]];
+      rect(L, 40, 39, 57, 40); L.bench = [40, 39, 57, 40]; L.drops = [cell(42, 38), cell(48, 38), cell(54, 38)]; L.homeRows = [[40, 57, 38], [40, 57, 37]];
       L.packSpot = cell(49, 42);
       [8, 14, 20].forEach(function (x) { door(x, 'in'); });
       [56, 63].forEach(function (x) { door(x, 'out'); });
@@ -114,6 +123,83 @@
         { n: 4, x: 7, z: 36.5, t: 'Main aisle kept clear', d: 'Staging has its own lanes in the dock zone, out of the aisles.' },
         { n: 5, x: 59.5, z: 56.5, t: 'Separate doors', d: 'Three receiving and two shipping doors, each with its own staging lanes.' },
         { n: 6, x: 48.5, z: 42.5, t: 'Packing next to shipping', d: 'Outbound pallets travel under 10 m to their lane.' }
+      ];
+    }
+
+    if (kind === 'redesign') L.flow = [
+      { n: 1, x: 30, z: 40, t: 'One dock wall', d: 'Receiving and shipping share the south wall, so one yard, one gatehouse and one set of dock equipment serve both.' },
+      { n: 2, x: 58, z: 30, t: 'Fast movers by the doors', d: 'The busiest SKUs sit in the front bays, close to packing and to receiving, so both their picks and their put-aways are short.' },
+      { n: 3, x: 20, z: 2, t: 'Slow movers at the back', d: 'C items fill the far end of the aisles, where few trips go.' },
+      { n: 4, x: 33, z: 47, t: 'In and out side by side', d: 'Receiving and shipping lanes sit next to each other: trucks and staging have to be kept apart by markings and door rules.' },
+      { n: 5, x: 54, z: 0.6, t: 'Room to grow away from the dock', d: 'The building can be extended north without moving a door.' }
+    ];
+    if (kind === 'ucentre') {
+      // model-only variant for Part 2's article: the U-shape with its receiving doors moved toward the middle of the wall
+      L.name = 'U-shape, receiving doors moved to the middle'; L.short = 'U-shape (doors moved)';
+      var xu = [[1, 1]]; for (x = 5; x <= 65; x += 5) xu.push([x, x + 1]); xu.push([70, 70]);
+      xu.forEach(function (q) { row(q[0], 4, q[1], 33, 'z'); });
+      rect(L, 1, 1, 1, 3);
+      rect(L, 44, 39, 57, 40); L.bench = [44, 39, 57, 40]; L.drops = [cell(46, 38), cell(51, 38), cell(56, 38)]; L.homeRows = [[44, 57, 38], [44, 57, 37]];
+      L.packSpot = cell(51, 42);
+      [24, 30, 36].forEach(function (x) { door(x, 'in'); });
+      [56, 63].forEach(function (x) { door(x, 'out'); });
+      L.recv = spots(range(18, 40, 2), [42, 44, 46]);
+      L.ship = spots(range(52, 68, 2), [44, 46]);
+      L.fork0 = [cell(10, 45), cell(10, 47)]; L.jack0 = cell(46, 46);
+      L.areas = []; L.flow = [];
+    }
+    if (kind === 'thru') {
+      L.name = 'Straight-through layout'; L.short = 'Straight-through';
+      // rows along the building (x 15-56) between a receiving zone on the west wall and a shipping zone on the east wall
+      var zt = [[1, 1]]; for (z = 5; z <= 45; z += 5) zt.push([z, z + 1]); zt.push([50, 50]);
+      zt.forEach(function (q) { row(15, q[0], 56, q[1], 'x'); });
+      rect(L, 60, 14, 61, 37); L.bench = [60, 14, 61, 37]; L.drops = [cell(59, 18), cell(59, 26), cell(59, 34)]; homeCol(59, 15, 36);
+      L.packSpot = cell(62, 26);
+      [18, 24, 30].forEach(function (z) { door(z, 'in', 'W'); });
+      [22, 30].forEach(function (z) { door(z, 'out', 'E'); });
+      L.recv = spots([4, 6, 8], range(13, 35, 2));                          // 36 spots on the receiving side
+      L.ship = spots([63, 65, 67], range(20, 30, 2));                       // 18 spots on the shipping side
+      L.fork0 = [cell(11, 40), cell(11, 42)]; L.jack0 = cell(63, 36);
+      L.areas = [
+        { t: 'Pallet racks', x: 36, z: 25.5, k: 'rack' },
+        { t: 'Receiving', x: 6, z: 38, k: 'stage' },
+        { t: 'Shipping', x: 65, z: 33, k: 'stage' },
+        { t: 'Packing', x: 60.5, z: 12, k: 'pack' }
+      ];
+      L.flow = [
+        { n: 1, x: 6, z: 9, t: 'In one side, out the other', d: 'Receiving on the west wall, shipping on the east wall: goods move one way through the building.' },
+        { n: 2, x: 52, z: 25.5, t: 'Fast movers at the shipping end', d: 'The busiest SKUs sit at the east ends of the aisles, next to packing, so picks stay short.' },
+        { n: 3, x: 30, z: 18, t: 'Long put-away for fast movers', d: 'The forklift carries every fast-mover pallet the full length of the building, from the receiving side to the shipping end.' },
+        { n: 4, x: 12.5, z: 46, t: 'Separate sides, shared aisles', d: 'Receiving and packing are on opposite sides, but the forklift still carries fast-mover pallets to the east end, where the pickers work.' },
+        { n: 5, x: 36, z: -0.2, t: 'Two yards', d: 'Trucks need a yard on both sides of the building: more paving, two gates and two sets of dock staff or a walk across the building.' }
+      ];
+    }
+    if (kind === 'lshape') {
+      L.name = 'L-shape layout'; L.short = 'L-shape';
+      // the U-shape's racks (x 1-70, z 4-33, front and back cross-aisles); receiving on the south wall toward the
+      // south-east corner, shipping on the east wall, packing between them in the corner
+      var xl = [[1, 1]]; for (x = 5; x <= 65; x += 5) xl.push([x, x + 1]); xl.push([70, 70]);
+      xl.forEach(function (q) { row(q[0], 4, q[1], 33, 'z'); });
+      rect(L, 1, 1, 1, 3);
+      rect(L, 46, 39, 59, 40); L.bench = [46, 39, 59, 40]; L.drops = [cell(48, 38), cell(53, 38), cell(58, 38)]; L.homeRows = [[46, 59, 38], [46, 59, 37]];
+      L.packSpot = cell(61, 41);
+      [28, 34, 40].forEach(function (x) { door(x, 'in', 'S'); });
+      [42, 48].forEach(function (z) { door(z, 'out', 'E'); });
+      L.recv = spots(range(20, 42, 2), [42, 44, 46]);                      // 36 spots in front of the receiving doors
+      L.ship = spots([63, 65, 67], range(39, 49, 2));                       // 18 spots in front of the shipping doors
+      L.fork0 = [cell(14, 44), cell(14, 46)]; L.jack0 = cell(56, 46);
+      L.areas = [
+        { t: 'Pallet racks', x: 36, z: 19, k: 'rack' },
+        { t: 'Receiving staging', x: 31, z: 48.5, k: 'stage' },
+        { t: 'Shipping', x: 65, z: 37.3, k: 'stage' },
+        { t: 'Packing', x: 52.5, z: 42.6, k: 'pack' }
+      ];
+      L.flow = [
+        { n: 1, x: 22, z: 49.5, t: 'In on one wall, out on the next', d: 'Receiving on the south wall, shipping on the east wall: goods turn one corner on the way through.' },
+        { n: 2, x: 58, z: 30, t: 'Fast movers by the corner', d: 'The busiest SKUs sit in the front bays at the east end, close to packing and to the receiving doors near the corner.' },
+        { n: 3, x: 80, z: 60, t: 'Two yards that meet', d: 'Inbound trucks use the south yard and outbound trucks the east yard. Their lanes meet beyond the corner, so the site needs room and traffic rules there.' },
+        { n: 4, x: 10, z: 40, t: 'Free floor to the west', d: 'With the doors near the corner, the south-west of the dock zone is free for value-added work, returns or more staging.' },
+        { n: 5, x: 0.6, z: 18, t: 'Two walls for growth', d: 'The north and west walls stay free to extend the building.' }
       ];
     }
     // pick faces: every rack cell on the long side of a row that borders an aisle; the picker stands in that aisle cell
@@ -236,9 +322,14 @@
       S.agents.push(a); return a;
     }
     // each picker has its own place at the packing bench (where it starts an order and drops it off)
-    var homes = [], row0 = L.homeRows[0], n0 = Math.min(nPick, row0[1] - row0[0] + 1);
-    for (i = 0; i < n0; i++) homes.push(cell(Math.round(row0[0] + (row0[1] - row0[0]) * (n0 > 1 ? i / (n0 - 1) : 0.5)), row0[2]));
-    for (i = n0; i < nPick; i++) homes.push(cell(L.homeRows[1][0] + (i - n0) * 2 + 1, L.homeRows[1][2]));
+    var homes = [];
+    if (L.homeCol) {                                                   // a bench along x: places spread down the column
+      var hc = L.homeCol; for (i = 0; i < nPick; i++) homes.push(cell(hc[0] - (i % 2 && nPick > hc[2] - hc[1] + 1 ? 1 : 0), Math.round(hc[1] + (hc[2] - hc[1]) * (nPick > 1 ? i / (nPick - 1) : 0.5))));
+    } else {
+      var row0 = L.homeRows[0], n0 = Math.min(nPick, row0[1] - row0[0] + 1);
+      for (i = 0; i < n0; i++) homes.push(cell(Math.round(row0[0] + (row0[1] - row0[0]) * (n0 > 1 ? i / (n0 - 1) : 0.5)), row0[2]));
+      for (i = n0; i < nPick; i++) homes.push(cell(L.homeRows[1][0] + (i - n0) * 2 + 1, L.homeRows[1][2]));
+    }
     for (i = 0; i < nPick; i++) { var p = agent('picker', homes[i]); p.state = 'setup'; S.queue--; p.timer = P.tSetup * (0.3 + 0.7 * i / nPick); p.home = homes[i]; }
     for (i = 0; i < nForks; i++) agent('fork', L.fork0[i]);
     var jack = agent('jack', L.jack0);
@@ -355,7 +446,11 @@
     }
 
     /* trucks and doors */
-    function freeRecv(door) { var best = null, dx = door.x; L.recv.forEach(function (s) { if (!s.busy && (!best || Math.abs(s.x - dx) + s.z * 0.1 < Math.abs(best.x - dx) + best.z * 0.1)) best = s; }); return best; }
+    function freeRecv(door) {                                    // the free staging spot nearest the door (south wall: same rule as Part 1)
+      var best = null, bd = 1e9;
+      L.recv.forEach(function (s) { var d = door.wall === 'S' ? Math.abs(s.x - door.x) + s.z * 0.1 : Math.abs(s.z - door.z) + Math.abs(s.x - door.x) * 0.1; if (!s.busy && d < bd) { bd = d; best = s; } });
+      return best;
+    }
     function doorFor(tr) {
       var ok = L.doors.filter(function (d) { return !d.truck && (d.use === 'both' || d.use === tr.dir); });
       if (!ok.length) return null;
