@@ -1,5 +1,29 @@
 # Changelog
 
+## V5.68 — 2026-11-21
+- **New: Warehouse layout series, Part 2: "U-Shape, Straight-Through or L-Shape? Choosing a Warehouse Flow Pattern"** (`/post/u-shape-straight-through-or-l-shape-choosing-a-warehouse-flow-pattern`). The Part 1 distributor, racks, orders and trucks in three flow patterns: U-shape (the Part 1 redesign), straight-through (receiving on the west wall, shipping on the east) and L-shape (receiving on the south wall toward the corner, shipping on the east). At 300 orders a day picking hardly changes (17.7 / 17.9 / 17.6 picker-hours; within 0.5–2.8% on ten other simulated days). Put-away depends on where receiving sits: 2.15 / 2.24 / 1.91 forklift minutes a pallet, and dock-to-stock of 33 / 38 / 14 minutes. A model-only U-shape with its receiving doors moved to the middle matches the L-shape (1.95 min). Also covered: what the shift does not show (site, dock capacity, separation, growth), rules-of-thumb tables, a five-step check, and what the model leaves out.
+- **Layout Lab extended for the series:** `s=p2` in the address (`#embed&s=p2` in the article) opens Part 2's three layouts; without it, the Lab is Part 1 as published.
+  - Docks on the south, west or east wall, each with its own yard and lane. Trucks are driven in each wall's frame and back in from the driver's side.
+  - Panes, view buttons ("All three" plus one per pattern), fault lists and the KPI table are built for N layouts, with the best value in each row marked.
+  - Single views use their own plan extents.
+  - Engine (`wl-engine.js`):
+    - doors on any wall;
+    - new layouts `thru`, `lshape` and the model-only `ucentre`;
+    - bench places in a column;
+    - Part 1 numbers unchanged (checked field by field).
+- **Trucks (both parts):** trucks give way in order (backing, then pulling out, then arriving, then queued). They wait for the last truck at their door to clear and keep first-come order on each lane. New trucks start behind the last one. Each truck is drawn only on its own yard.
+- **Fix (Part 1 too):** the fault lists stack on phones again (the column count is now set in CSS instead of an inline style).
+- **Numbers:** `content/articles/wl2_model.js` writes `wl2_results.json`, which `wl2_articles.py` quotes. Part 1's "Next" now links to Part 2. Part 2 is added after Part 1 in the "Run a leaner warehouse" reading list.
+- **Red team QC before release:** 0 critical, 5 major, 7 minor, all addressed:
+  - L-shape redesigned fairly (the first version's penalty came from its rack block and door positions);
+  - mobile stacking;
+  - truck right of way and queuing;
+  - Part 2 wording in the model box and legend;
+  - article statements corrected;
+  - exact ranges;
+  - an unsourced rule of thumb removed;
+  - badges repositioned.
+
 ## V5.67 — 2026-11-21
 - **New: Warehouse layout series, Part 1: "Good Layout, Bad Layout: What Travel and Congestion Cost an SME Warehouse"** (`/post/good-layout-bad-layout-what-travel-and-congestion-cost-an-sme-warehouse`, Operational Efficiency and Inventory Management). The Vancouver distributor of the warehouse operations series in two layouts of about the same racks: as-is (65 m dead-end aisles, random slotting, five shared doors, overflow staging in the main aisle, packing far from the doors) and redesigned (30 m aisles with front and back cross-aisles, fast movers next to packing, U-flow with 3 receiving and 2 shipping doors, separate staging lanes). At 300 orders a day the walk per order falls from 233 to 70 m, picker-hours a day from 32.9 to 17.7 (about $152,000 a year at $40 an hour), give-way stops from 261 to 41 and inbound truck time from 86 to 34 minutes (lower bound), with at least $52,000 a year of detention avoided. Re-slotting alone gives 84% of the picking gain if done first (39% if the aisles are rebuilt first). At the dock the single forklift's long put-away trips are the bottleneck, not the shared doors. Also: the spread over ten other simulated days, six faults with how to spot them, a one-afternoon layout check and what the model leaves out.
 - **Warehouse Layout Lab** (`assets/sim/layout-lab.html`, embedded in the article with `#embed`; engine `assets/js/wl-engine.js`, drawing and controls `assets/js/wl-lab.js`, frame sizing `assets/js/wl1.js`). Both layouts run the same shift side by side, in a 2D plan or a 3D view through one shared camera. Pickers, forklifts, a pallet jack and tractor-trailers move on a 1 m grid and give way to each other. Trucks come in with the door on the driver's side, swing out and back in with the trailer straight before it reaches the next doors, then pull out and turn onto the exit lane. The Lab shows a travel heat map on one scale for both floors, whole-shift stop spots, numbered fault points and a KPI table, with sliders for orders a day (150–600) and how concentrated the picks are. It plays on its own and switches 2D/3D every 30 s until the reader picks a view. With reduced motion turned on it shows the floor at 10:30, still.

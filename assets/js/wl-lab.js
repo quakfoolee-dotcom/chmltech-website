@@ -7,27 +7,67 @@
 (function () {
   'use strict';
   var E = window.WLEngine; if (!E) return;
-  var BX = E.BX, BZ = E.BZ, KINDS = ['asis', 'redesign'];
-  var EMBED = location.hash === '#embed' || (window.parent !== window && location.href === 'about:srcdoc');   // srcdoc: the self-contained preview
+  var BX = E.BX, BZ = E.BZ;
+  // which layouts to show: Part 1 compares as-is with the redesign (p1), Part 2 the three flow patterns (p2).
+  // Chosen with s=p2 in the address (#embed&s=p2 inside an article) or window.WL_SCENE in the self-contained preview.
+  var SCN = window.WL_SCENE || ((location.hash + location.search).match(/[#&?]s=(p\d)/) || [])[1] || 'p1';
+  var SETS = { p1: { kinds: ['asis', 'redesign'], tone: { asis: 'bad', redesign: 'good' } }, p2: { kinds: ['redesign', 'thru', 'lshape'], tone: {} } };
+  if (!SETS[SCN]) SCN = 'p1';
+  var KINDS = SETS[SCN].kinds, P2 = SCN === 'p2';
+  var LAYS = {}; KINDS.forEach(function (k) { LAYS[k] = E.makeLayout(k); });
+  function nameOf(k) { return P2 ? LAYS[k].short : LAYS[k].name; }
+  var EMBED = /embed/.test(location.hash) || (window.parent !== window && location.href === 'about:srcdoc');   // srcdoc: the self-contained preview
   if (EMBED) document.documentElement.classList.add('embed');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (id) { return document.getElementById(id); };
   var stage = $('stage'), busy = $('busy');
   var S = { v: 'both', d: '2d', heat: true, faults: true, orders: 300, share: 0.8, tour: !reduce, idleAt: 0 };
   var SPEED = 12;                                  // simulated seconds per real second
-  var WX0 = -1.5, WX1 = BX + 1.5, WZ0 = -1.5, WZ1 = BZ + 31, YD = WZ1 - BZ;   // plan extents: building and the truck yard
-  var LANE = BZ + 18;                                             // the yard's one-way lane (z), trucks run west to east
+  // truck yards: each dock wall has its own frame (u along the wall, w out from it), so the yard, the lane and the
+  // truck manoeuvres are the same on the south (S), west (W) and east (E) walls
+  var YD = 31, LANE_W = 18;
+  var WF = { S: { o: [0, BZ], U: [1, 0], W: [0, 1], th: 0, len: BX }, E: { o: [BX, BZ], U: [0, -1], W: [1, 0], th: -Math.PI / 2, len: BZ }, W: { o: [0, 0], U: [0, 1], W: [-1, 0], th: Math.PI / 2, len: BZ } };
+  function toW(f, u, w) { return [f.o[0] + u * f.U[0] + w * f.W[0], f.o[1] + u * f.U[1] + w * f.W[1]]; }
+  function doorU(q) { return q.wall === 'S' ? q.x + 0.5 : q.wall === 'W' ? q.z + 0.5 : BZ - (q.z + 0.5); }
+  var WALLS = {}; KINDS.forEach(function (k) { LAYS[k].doors.forEach(function (d) { WALLS[d.wall] = 1; }); });
+  var WX0 = WALLS.W ? -YD : -1.5, WX1 = WALLS.E ? BX + YD : BX + 1.5, WZ0 = -1.5, WZ1 = WALLS.S ? BZ + YD : BZ + 1.5;   // plan extents: building and yards
+  var LANE = BZ + LANE_W;                                        // lane in the truck frame (the south-wall frame)
   var COL = { A: '#8DC63F', B: '#3FA7F5', C: '#7F93B2' };
   var H = {}, LIVE = {}, PANE = {}, TV = {}, TLAST = {};
   function fmt(n, d) { return Number(n).toLocaleString('en-CA', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
   function money(n) { return '$' + fmt(Math.round(n / 1000) * 1000); }
   function clock(t) { var m = Math.floor(t / 60) + 7 * 60; return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
 
-  /* ---------- panes ---------- */
+  /* ---------- panes, view buttons and lists, built for the chosen layouts ---------- */
+  stage.querySelectorAll('.pane').forEach(function (e) { e.remove(); });
+  stage.insertAdjacentHTML('afterbegin', KINDS.map(function (k) {
+    return '<div class="pane ' + (SETS[SCN].tone[k] || 'neu') + '" data-k="' + k + '"><div class="tag"><b>' + nameOf(k) + '</b><em class="clk">07:00</em></div><canvas class="c2"></canvas><canvas class="gl" hidden></canvas><div class="ov"></div></div>';
+  }).join(''));
+  stage.classList.add('n' + KINDS.length);
+  var vg = document.querySelector('[data-v]').parentNode;
+  vg.querySelectorAll('[data-v]').forEach(function (b) { b.remove(); });
+  vg.insertAdjacentHTML('beforeend', '<button class="chip" data-v="both" aria-pressed="true">' + (KINDS.length > 2 ? 'All three' : 'Side by side') + '</button>' +
+    KINDS.map(function (k) { return '<button class="chip" data-v="' + k + '" aria-pressed="false">' + (P2 ? LAYS[k].short : k === 'asis' ? 'As-is' : 'Redesigned') + '</button>'; }).join(''));
+  var fc0 = document.querySelector('.card.faults');
+  fc0.classList.add('n' + KINDS.length);                        // column count set in CSS, so phones still stack
+  fc0.innerHTML = KINDS.map(function (k) {
+    var t = P2 ? LAYS[k].short + ': what to notice' : k === 'asis' ? 'What is wrong with the as-is layout' : 'What the redesign changes';
+    return '<div class="' + (SETS[SCN].tone[k] || 'neu') + '"><h3>' + t + '</h3><ol id="f-' + k + '"></ol></div>';
+  }).join('');
+  if (P2 && !EMBED) {
+    document.querySelector('header .eyebrow').textContent = 'Warehouse layout series · Part 2';
+    document.querySelector('header h1').textContent = 'Warehouse Layout Lab: U-shape, straight-through or L-shape?';
+    document.querySelector('header .lede').textContent = 'The same Vancouver distributor, racks, orders and trucks in three flow patterns. Only where the docks sit, and so where packing and the fast movers go, changes.';
+  }
+  if (P2) {                                                      // the model box and legend in Part 2 wording
+    var li = document.querySelectorAll('details li');
+    if (li[0]) li[0].textContent = 'All three layouts hold the same pallet racks (about 840 pallet positions a level, 780 SKUs) in the same 72 × 52 m building, with three receiving and two shipping doors each. Only the walls the doors are on, and so where staging, packing and the fast movers go, differ.';
+    document.querySelectorAll('.legend span').forEach(function (sp) { if (/same scale/.test(sp.textContent)) sp.lastChild.textContent = 'Travel (same scale for all)'; });
+  }
   KINDS.forEach(function (k) {
     var el = stage.querySelector('.pane[data-k="' + k + '"]');
-    el.querySelectorAll('canvas').forEach(function (c) { c.setAttribute('role', 'img'); c.setAttribute('aria-label', (k === 'asis' ? 'As-is' : 'Redesigned') + ' layout, animated plan of pickers, forklifts and trucks during the shift. The numbered points and the table below give the same information.'); });
-    PANE[k] = { el: el, c2: el.querySelector('.c2'), gl: el.querySelector('.gl'), ov: el.querySelector('.ov'), clk: el.querySelector('.clk'), W: 0, H: 0, dpr: 1, stat: null, badges: [], lbls: [] };
+    el.querySelectorAll('canvas').forEach(function (c) { c.setAttribute('role', 'img'); c.setAttribute('aria-label', nameOf(k) + ', animated plan of pickers, forklifts and trucks during the shift. The numbered points and the table below give the same information.'); });
+    PANE[k] = { k: k, el: el, c2: el.querySelector('.c2'), gl: el.querySelector('.gl'), ov: el.querySelector('.ov'), clk: el.querySelector('.clk'), W: 0, H: 0, dpr: 1, stat: null, badges: [], lbls: [] };
   });
 
   /* ---------- simulation runs ---------- */
@@ -51,7 +91,7 @@
         TV[k] = {};
         PANE[k].stat = null;
       });
-      var shared = H.asis.p95; KINDS.forEach(function (k) { H[k].p95 = shared; });   // one heat scale for both floors, set by the as-is 96th percentile
+      var shared = Math.max.apply(null, KINDS.map(function (k) { return H[k].p95; })); KINDS.forEach(function (k) { H[k].p95 = shared; });   // one heat scale for every floor, set by the busiest one's 96th percentile
       busy.hidden = true;
       build3d(); if (!GL) noGL();
       numbers(); faults();
@@ -63,7 +103,37 @@
   function restartLive() { KINDS.forEach(function (k) { LIVE[k] = E.Sim(k, { orders: S.orders, share: S.share }); TV[k] = {}; }); }
 
   /* ---------- numbers ---------- */
+  function numbersN() {                                          // three or more layouts: best value in each row marked
+    var R = KINDS.map(function (k) { return H[k].r; });
+    var rows = [
+      ['Walk per order', 'walkOrder', ' m', 0, -1], ['Lines per picker-hour', 'lph', '', 0, 1], ['Picker-hours a day', 'pickHoursDay', '', 1, -1],
+      ['Give-way stops in the shift', 'waits', '', 0, -1], ['Forklift time per pallet put away', 'forkCycle', ' min', 1, -1], ['Dock-to-stock time (average)', 'dts', ' min', 0, -1],
+      ['Inbound truck time on site*', 'truckIn', ' min', 0, -1], ['Inbound pallets not put away by 15:00', 'notAway', '', 0, -1], ['Picking labour a year', 'pickCostYear', '$', 0, -1]
+    ];
+    $('kpi').querySelector('thead').innerHTML = '<tr><th>Measure</th>' + KINDS.map(function (k) { return '<th>' + LAYS[k].short + '</th>'; }).join('') + '</tr>';
+    $('kpi').querySelector('tbody').innerHTML = rows.map(function (q) {
+      var vals = R.map(function (r) { return r[q[1]]; }), best = q[4] < 0 ? Math.min.apply(null, vals) : Math.max.apply(null, vals);
+      var fv = function (z) { return q[2] === '$' ? money(z) : fmt(z, q[3]) + q[2]; };
+      var allSame = vals.every(function (v) { return fv(v) === fv(vals[0]); });
+      return '<tr><td>' + q[0] + '</td>' + vals.map(function (v) { return '<td class="' + (!allSame && fv(v) === fv(best) ? 'good' : '') + '">' + fv(v) + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    var mx = Math.max.apply(null, R.map(function (r) { return r.busy; })), sp = '';
+    KINDS.forEach(function (k, i) {
+      var r = R[i], s2 = r.split, w = function (v) { return (v / mx * 100).toFixed(2) + '%'; };
+      sp += '<span>' + LAYS[k].short + '</span><span class="t"><i style="width:' + w(s2.walk) + ';background:#0B6FA4"></i><i style="width:' + w(s2.pick) + ';background:#8DC63F"></i><i style="width:' + w(s2.other) + ';background:#9AA8BA"></i><i style="width:' + w(s2.wait) + ';background:#E2574C"></i></span><span class="v">' + fmt(r.busy, 1) + ' h</span>';
+    });
+    $('split').innerHTML = '<span></span><span style="font-size:12px;color:#5A6475">Picker-hours a day, by activity</span><span></span>' + sp;
+    var hs = R.map(function (r) { return r.pickHoursDay; }), spread = (Math.max.apply(null, hs) - Math.min.apply(null, hs)) / Math.min.apply(null, hs);
+    $('say').textContent = 'At ' + fmt(S.orders) + ' orders a day: ' + KINDS.map(function (k, i) { return LAYS[k].short + ' ' + fmt(R[i].walkOrder) + ' m an order and ' + fmt(R[i].pickHoursDay, 1) + ' picker-hours'; }).join('; ') + '. ' +
+      (spread < 0.03 ? 'Picking is within ' + fmt(spread * 100) + '% across the three; the difference is in put-away: the forklift needs ' : 'The forklift needs ') +
+      KINDS.map(function (k, i) { return fmt(R[i].forkCycle, 2); }).join(', ') + ' minutes a pallet, depending on how far the receiving doors are from the fast movers.';
+    $('wl-orders-o').textContent = fmt(S.orders); $('wl-share-o').textContent = Math.round(S.share * 100) + '%';
+    var trucks = H[KINDS[0]].sim.trucks.filter(function (t) { return t.dir === 'in'; }).length;
+    $('wl-crew').textContent = R[0].pickers + ' pickers, ' + R[0].forklifts + ' forklift' + (R[0].forklifts > 1 ? 's' : '') + ', ' + trucks + ' inbound trucks a day';
+    report();
+  }
   function numbers() {
+    if (KINDS.length !== 2 || KINDS[0] !== 'asis') return numbersN();
     var a = H.asis.r, b = H.redesign.r;
     function pct(x, y) { return (y - x) / x; }
     var rows = [
@@ -108,10 +178,11 @@
   function faults() {
     KINDS.forEach(function (k) {
       var L = H[k].sim.L, ol = $('f-' + k), p = PANE[k];
-      ol.innerHTML = L.faults.map(function (f) { return '<li><button type="button" data-k="' + k + '" data-n="' + f.n + '" aria-pressed="false"><span>' + f.n + '</span><span style="all:unset"><strong>' + f.t + '</strong>' + f.d + '</span></button></li>'; }).join('');
+      var FL = P2 ? L.flow : L.faults;
+      ol.innerHTML = FL.map(function (f) { return '<li><button type="button" data-k="' + k + '" data-n="' + f.n + '" aria-pressed="false"><span>' + f.n + '</span><span style="all:unset"><strong>' + f.t + '</strong>' + f.d + '</span></button></li>'; }).join('');
       p.ov.innerHTML = '';
-      p.badges = L.faults.map(function (f) {
-        var b = document.createElement('div'); b.className = 'badge'; b.textContent = f.n; b.setAttribute('role', 'button'); b.tabIndex = 0; b.setAttribute('aria-label', (k === 'asis' ? 'As-is layout, ' : 'Redesigned layout, ') + f.n + '. ' + f.t + ': ' + f.d);
+      p.badges = FL.map(function (f) {
+        var b = document.createElement('div'); b.className = 'badge'; b.textContent = f.n; b.setAttribute('role', 'button'); b.tabIndex = 0; b.setAttribute('aria-label', nameOf(k) + ', ' + f.n + '. ' + f.t + ': ' + f.d);
         b.addEventListener('mouseenter', function () { tip(k, f, b); }); b.addEventListener('mouseleave', untip);
         b.addEventListener('focus', function () { tip(k, f, b); }); b.addEventListener('blur', untip);
         b.addEventListener('click', function () { tip(k, f, b); });
@@ -149,16 +220,21 @@
       var p = PANE[k], r = p.el.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
       if (!r.width) return;
       if (Math.abs(r.width - p.W) > 0.5 || Math.abs(r.height - p.H) > 0.5 || d !== p.dpr) {
-        p.W = r.width; p.H = r.height; p.dpr = d; p.c2.width = Math.round(p.W * d); p.c2.height = Math.round(p.H * d); p.stat = null;
+        p.W = r.width; p.H = r.height; p.dpr = d; p.el.classList.toggle('small', p.W < 520); /* small panes: area labels off, badges only */ p.c2.width = Math.round(p.W * d); p.c2.height = Math.round(p.H * d); p.stat = null;
         if (p.R) { p.R.setPixelRatio(d); p.R.setSize(p.W, p.H, false); p.cam.aspect = p.W / p.H; p.cam.fov = 34; p.cam.updateProjectionMatrix(); frame3d(p); }
       }
     });
   }
-  function view(p) {                                         // world metres -> canvas pixels
-    var W = p.W, Hh = p.H - 8, s = Math.min(W / (WX1 - WX0), Hh / (WZ1 - WZ0));
-    return { s: s, ox: (W - s * (WX1 - WX0)) / 2 - s * WX0, oz: 34 + (Hh - 34 - s * (WZ1 - WZ0)) / 2 - s * WZ0 + 0 };
+  function ext(p) {                                              // plan extents: all layouts' yards side by side (same scale), its own yards alone
+    if (!P2 || S.v === 'both') return [WX0, WX1, WZ0, WZ1];
+    var w = {}; LAYS[p.k].doors.forEach(function (d) { w[d.wall] = 1; });
+    return [w.W ? -YD : -1.5, w.E ? BX + YD : BX + 1.5, -1.5, w.S ? BZ + YD : BZ + 1.5];
   }
-  function fitView(p) { var v = view(p); if (v.oz + v.s * WZ0 < 36) { var s = Math.min(p.W / (WX1 - WX0), (p.H - 46) / (WZ1 - WZ0)); v = { s: s, ox: (p.W - s * (WX1 - WX0)) / 2 - s * WX0, oz: 38 - s * WZ0 }; } return v; }
+  function view(p) {                                         // world metres -> canvas pixels
+    var e = ext(p), W = p.W, Hh = p.H - 8, s = Math.min(W / (e[1] - e[0]), Hh / (e[3] - e[2]));
+    return { s: s, ox: (W - s * (e[1] - e[0])) / 2 - s * e[0], oz: 34 + (Hh - 34 - s * (e[3] - e[2])) / 2 - s * e[2] + 0 };
+  }
+  function fitView(p) { var e = ext(p), v = view(p); if (v.oz + v.s * e[2] < 36) { var s = Math.min(p.W / (e[1] - e[0]), (p.H - 46) / (e[3] - e[2])); v = { s: s, ox: (p.W - s * (e[1] - e[0])) / 2 - s * e[0], oz: 38 - s * e[2] }; } return v; }
   function heatColor(v) {                                    // 0..1 -> rgba, dark orange to pale yellow
     v = Math.min(1, v); var r = 255, g = Math.round(70 + 170 * v), b = Math.round(20 + 120 * v * v), a = 0.1 + 0.55 * Math.sqrt(v);
     return 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(3) + ')';
@@ -168,12 +244,16 @@
     var cv = document.createElement('canvas'); cv.width = p.c2.width; cv.height = p.c2.height;
     var g = cv.getContext('2d'); g.scale(d, d);
     var X = function (x) { return v.ox + x * v.s; }, Z = function (z) { return v.oz + z * v.s; }, s = v.s;
-    // yard
-    g.fillStyle = 'rgba(255,255,255,0.045)'; g.fillRect(X(-1.5), Z(BZ), (BX + 3) * s, YD * s);
-    g.strokeStyle = 'rgba(255,255,255,0.28)'; g.setLineDash([6, 6]); g.lineWidth = 1;
-    [LANE - 2.6, LANE + 2.6].forEach(function (zz) { g.beginPath(); g.moveTo(X(-1.5), Z(zz)); g.lineTo(X(BX + 1.5), Z(zz)); g.stroke(); }); g.setLineDash([]);
-    g.fillStyle = 'rgba(220,230,245,0.55)'; g.font = '600 ' + Math.max(9, s * 1.5) + 'px "Space Grotesk",system-ui'; g.textAlign = 'left';
-    g.fillText('Trucks in ▸', X(-1), Z(LANE + 5)); g.textAlign = 'right'; g.fillText('Trucks out ▸', X(BX + 1), Z(LANE + 5));
+    // a truck yard on each wall that has doors: paving, the one-way lane and its direction
+    var walls = {}; L.doors.forEach(function (q) { walls[q.wall] = 1; });
+    Object.keys(walls).forEach(function (wk) {
+      var f = WF[wk], a = toW(f, -1.5, 0), b = toW(f, f.len + 1.5, YD);
+      g.fillStyle = 'rgba(255,255,255,0.045)'; g.fillRect(X(Math.min(a[0], b[0])), Z(Math.min(a[1], b[1])), Math.abs(b[0] - a[0]) * s, Math.abs(b[1] - a[1]) * s);
+      g.strokeStyle = 'rgba(255,255,255,0.28)'; g.setLineDash([6, 6]); g.lineWidth = 1;
+      [LANE_W - 2.6, LANE_W + 2.6].forEach(function (ww) { var p1 = toW(f, -1.5, ww), p2 = toW(f, f.len + 1.5, ww); g.beginPath(); g.moveTo(X(p1[0]), Z(p1[1])); g.lineTo(X(p2[0]), Z(p2[1])); g.stroke(); }); g.setLineDash([]);
+      g.fillStyle = 'rgba(220,230,245,0.55)'; g.font = '600 ' + Math.max(9, s * 1.5) + 'px "Space Grotesk",system-ui';
+      [[-1, 'left', 'Trucks in ▸'], [f.len + 1, 'right', 'Trucks out ▸']].forEach(function (q) { var pt = toW(f, q[0], LANE_W + 5); g.save(); g.translate(X(pt[0]), Z(pt[1])); g.rotate(f.th); g.textAlign = q[1]; g.fillText(q[2], 0, 0); g.restore(); });
+    });
     // floor
     g.fillStyle = '#123866'; g.fillRect(X(0), Z(0), BX * s, BZ * s);
     // heat map (whole shift)
@@ -210,22 +290,31 @@
       g.setLineDash([]);
     }
     // pack benches (blocked cells near the drops)
-    var pb = L.kind === 'asis' ? [2, 40, 11, 41] : [40, 39, 57, 40];
+    var pb = L.bench, vert = pb[3] - pb[1] > pb[2] - pb[0];
     g.fillStyle = '#A7B6CC'; g.fillRect(X(pb[0]), Z(pb[1]), (pb[2] - pb[0] + 1) * s, (pb[3] - pb[1] + 1) * s);
-    g.fillStyle = '#6F86A8'; for (var b = pb[0] + 1; b < pb[2]; b += 3) g.fillRect(X(b), Z(pb[1]) + 2, s * 1.4, s * 2 - 4);
+    g.fillStyle = '#6F86A8';
+    if (vert) for (var bz = pb[1] + 1; bz < pb[3]; bz += 3) g.fillRect(X(pb[0]) + 2, Z(bz), s * 2 - 4, s * 1.4);
+    else for (var b = pb[0] + 1; b < pb[2]; b += 3) g.fillRect(X(b), Z(pb[1]) + 2, s * 1.4, s * 2 - 4);
     // walls with door openings
-    g.strokeStyle = '#9DB2D2'; g.lineWidth = 2.5; g.beginPath();
-    g.moveTo(X(0), Z(BZ)); g.lineTo(X(0), Z(0)); g.lineTo(X(BX), Z(0)); g.lineTo(X(BX), Z(BZ));
-    var xs = L.doors.map(function (q) { return q.x; }).sort(function (a, c2) { return a - c2; }), cur = BX;
-    for (var q = xs.length - 1; q >= 0; q--) { g.lineTo(X(xs[q] + 2), Z(BZ)); g.moveTo(X(xs[q] - 1), Z(BZ)); }
-    g.lineTo(X(0), Z(BZ)); g.stroke();
+    g.strokeStyle = '#9DB2D2'; g.lineWidth = 2.5;
+    wallRuns(L).forEach(function (r) { g.beginPath(); g.moveTo(X(r[0]), Z(r[1])); g.lineTo(X(r[2]), Z(r[3])); g.stroke(); });
     L.doors.forEach(function (q) {
-      var col = q.use === 'in' ? '#3FA7F5' : q.use === 'out' ? '#8DC63F' : '#C9A2FF';
-      g.fillStyle = col; g.fillRect(X(q.x - 1) + 1, Z(BZ) - 2, s * 3 - 2, 4);
-      g.fillStyle = col; g.font = '600 ' + Math.max(8, s * 1.15) + 'px "Space Grotesk",system-ui'; g.textAlign = 'center';
-      g.fillText(q.use === 'in' ? 'IN' : q.use === 'out' ? 'OUT' : 'IN/OUT', X(q.x + 0.5), Z(BZ) + Math.max(9, s * 1.15) + 4);   // in the yard, clear of the staging labels
+      var col = q.use === 'in' ? '#3FA7F5' : q.use === 'out' ? '#8DC63F' : '#C9A2FF', f = WF[q.wall], u = doorU(q), a = toW(f, u - 1.5, 0), b = toW(f, u + 1.5, 0);
+      g.strokeStyle = col; g.lineWidth = 4; g.beginPath(); g.moveTo(X(a[0]), Z(a[1])); g.lineTo(X(b[0]), Z(b[1])); g.stroke();
+      var tp = toW(f, u, 2.6); g.fillStyle = col; g.font = '600 ' + Math.max(8, s * 1.15) + 'px "Space Grotesk",system-ui'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText(q.use === 'in' ? 'IN' : q.use === 'out' ? 'OUT' : 'IN/OUT', X(tp[0]), Z(tp[1])); g.textBaseline = 'alphabetic';   // in the yard, clear of the staging labels
     });
     p.stat = cv; p.view = v;
+  }
+  function wallRuns(L) {                                         // the four walls as segments, with a 3 m gap at each door
+    var out = [], ends = { N: [[0, 0], [BX, 0]], S: [[0, BZ], [BX, BZ]], W: [[0, 0], [0, BZ]], E: [[BX, 0], [BX, BZ]] };
+    Object.keys(ends).forEach(function (wk) {
+      var a = ends[wk][0], b = ends[wk][1], horiz = a[1] === b[1], len = horiz ? BX : BZ, cuts = [];
+      L.doors.forEach(function (q) { if (q.wall === wk) { var c = horiz ? q.x + 0.5 : q.z + 0.5; cuts.push([c - 1.5, c + 1.5]); } });
+      cuts.sort(function (p, q) { return p[0] - q[0]; });
+      var t0 = 0; cuts.concat([[len, len]]).forEach(function (c) { if (c[0] > t0) out.push(horiz ? [t0, a[1], c[0], a[1]] : [a[0], t0, a[0], c[0]]); t0 = c[1]; });
+    });
+    return out;
   }
   function rectAt(g, X, Z, s, cx, cz, th, u0, u1, w, col) {     // a box along heading th, from u0 to u1 metres
     g.save(); g.translate(X(cx), Z(cz)); g.rotate(th); g.fillStyle = col; g.fillRect(u0 * s, -w / 2 * s, (u1 - u0) * s, w * s); g.restore();
@@ -260,9 +349,12 @@
     for (var o = 0; o < Math.min(3, sim.outQ); o++) { var pc = L.packSpot; g.fillStyle = '#E6DFC9'; g.fillRect(X(pc % BX + 0.1 + o * 1.0), Z(Math.floor(pc / BX) + 0.15), s * 0.8, s * 0.7); }
     // trucks
     trucks(k);
-    g.save(); g.beginPath(); g.rect(X(WX0), Z(WZ0), (WX1 - WX0) * s, (WZ1 - WZ0) * s); g.clip();   // trucks enter and leave at the plan's edges
-    for (var id in TV[k]) { var t = TV[k][id]; if (t.show) truckShape(g, X, Z, s, t); }
-    g.restore();
+    for (var id in TV[k]) {                                       // each truck is drawn only on its own yard's paving
+      var t = TV[k][id]; if (!t.show) continue;
+      var f = WF[t.wall], a = toW(f, -1.5, 0), b = toW(f, f.len + 1.5, YD);
+      g.save(); g.beginPath(); g.rect(X(Math.min(a[0], b[0])), Z(Math.min(a[1], b[1])), Math.abs(b[0] - a[0]) * s, Math.abs(b[1] - a[1]) * s); g.clip();
+      truckShape(g, X, Z, s, wpose(t)); g.restore();
+    }
     // agents
     sim.agents.forEach(function (a) {
       var x = X(a.x), z = Z(a.z);
@@ -323,7 +415,7 @@
   function planLeave(t) {
     var D = t.A[0], f = line(t.R, [D, SET.TURN]), r = LANE - SET.TURN, n = Math.ceil(Math.PI / 2 * r / 0.25), i;
     for (i = 1; i <= n; i++) { var a = Math.PI / 2 * i / n; f.push([D + r - r * Math.cos(a), SET.TURN + r * Math.sin(a)]); }
-    return [{ k: 'f', p: f.concat(line(f[f.length - 1], [BX + 30, LANE])) }];
+    return [{ k: 'f', p: f.concat(line(f[f.length - 1], [t.len + 30, LANE])) }];
   }
   function bodyPts(t) {                                           // points along both bodies, for keeping trucks apart
     var o = [], k;
@@ -331,16 +423,24 @@
     for (k = 0; k <= 2; k++) { var v = -RA + LC * k / 2; o.push([t.R[0] + v * Math.cos(t.th1), t.R[1] + v * Math.sin(t.th1)]); }
     return o;
   }
-  function inWay(t, tv) {
-    var seg = t.segs[0], probe = [], k;
+  function wpose(t) {                                             // the truck in world coordinates (it is driven in its wall's frame)
+    var f = WF[t.wall], A = toW(f, t.A[0], t.A[1] - BZ), R = toW(f, t.R[0], t.R[1] - BZ);
+    return { A: A, R: R, th1: t.th1 + f.th, th2: t.th2 + f.th, dir: t.dir };
+  }
+  function onYard(t) { return t.A[0] > -3 && t.A[0] < t.len + 3 && t.R[0] > -3 && t.R[0] < t.len + 3; }   // inside its own yard's paving
+  function prio(t) { return t.segs.length && t.segs[0].k === 'b' ? 4 : t.st === 'leave' ? 3 : t.st === 'dock' ? 2 : 1; }   // backing > pulling out > arriving > queued
+  function blockers(t0, tv) {                                     // the trucks in this truck's way (list of ids)
+    var t = wpose(t0), seg = t0.segs[0], probe = [], k, out = [];
     if (seg.k === 'f') for (k = 1; k <= 4; k++) probe.push([t.R[0] + (LC - RA + k * 1.5) * Math.cos(t.th1), t.R[1] + (LC - RA + k * 1.5) * Math.sin(t.th1)]);
     else for (k = 1; k <= 3; k++) probe.push([t.A[0] - (LTA + k * 1.2) * Math.cos(t.th2), t.A[1] - (LTA + k * 1.2) * Math.sin(t.th2)]);
     for (var id in tv) {
-      var o = tv[id]; if (o === t || !o.show || o.st === 'dock' && !o.segs.length) continue;       // parked at a door: paths keep clear
-      var bp = bodyPts(o);
-      for (var i = 0; i < probe.length; i++) for (var j = 0; j < bp.length; j++) if (Math.hypot(probe[i][0] - bp[j][0], probe[i][1] - bp[j][1]) < 2.4) return true;
+      var o = tv[id]; if (o === t0 || !o.show || o.st === 'dock' && !o.segs.length) continue;       // parked at a door: paths keep clear
+      if (o.wall !== t0.wall && !onYard(o)) continue;               // off the plan in another yard's lane
+      var bp = bodyPts(wpose(o)), hit = false;
+      for (var i = 0; i < probe.length && !hit; i++) for (var j = 0; j < bp.length; j++) if (Math.hypot(probe[i][0] - bp[j][0], probe[i][1] - bp[j][1]) < 2.4) { hit = true; break; }
+      if (hit) out.push(id);
     }
-    return false;
+    return out;
   }
   function advance(t, dist) {
     while (dist > 1e-6 && t.segs.length) {
@@ -366,33 +466,54 @@
   }
   function trucks(k) {
     var sim = LIVE[k], tv = TV[k], now = performance.now();
+    var fifo = {};                                                 // per lane: once a truck has to wait for its door, the trucks behind it wait too
     sim.trucks.forEach(function (tr) {
       if (tr.state === 'due') return;
       var t = tv[tr.id];
       if (!t) {
         if (tr.state === 'gone') return;
-        t = tv[tr.id] = { id: tr.id, dir: tr.dir, th1: 0, th2: 0, R: [-22, LANE], A: null, segs: [], pi: 0, show: true, st: 'road', hold: 0 };
+        var dr = tr.door || sim.L.doors.filter(function (q) { return q.use === 'both' || q.use === tr.dir; })[0];   // a queued truck waits in its doors' yard
+        var u0 = -22; for (var oi in tv) { var o2 = tv[oi]; if (o2.wall === dr.wall && o2.st === 'road') u0 = Math.min(u0, o2.R[0] - 15); }   // behind the last truck on this lane, never on top of it
+        t = tv[tr.id] = { id: tr.id, dir: tr.dir, wall: dr.wall, len: WF[dr.wall].len, th1: 0, th2: 0, R: [u0, LANE], A: null, segs: [], pi: 0, show: true, st: 'road', hold: 0 };
         aFromHitch(t);
-        if (tr.state === 'dock' && sim.t - tr.docked > 60) { docked(t, tr.door.x + 0.5); t.st = 'dock'; }
+        if (tr.state === 'dock' && sim.t - tr.docked > 60) { docked(t, doorU(tr.door)); t.st = 'dock'; t.D = doorU(tr.door); }
       }
+      if (t.st === 'road' && (tr.state === 'yard' || t.segs.length) ) fifo[t.wall] = fifo[t.wall] || (tr.state === 'yard' || t.qx != null);   // a truck still queuing holds the trucks behind it
       if (tr.state === 'yard' && t.st === 'road') {                 // queue on the lane at the west end of the yard
         var slot = sim.yard.indexOf(tr), qx = 4 - slot * 15;
         if (t.qx !== qx) { t.qx = qx; t.segs = [{ k: 'f', p: line(t.R, [Math.max(t.R[0], qx), LANE]) }]; t.pi = 0; }
       } else if ((tr.state === 'dock' || tr.state === 'gone') && t.st === 'road' && !t.segs.length) {
-        var plan = planArrive(t, tr.door.x + 0.5);
-        if (plan) { t.segs = plan; t.pi = 0; } else docked(t, tr.door.x + 0.5);
-        t.st = 'dock';
+        var D0 = doorU(tr.door), busy = false;                     // wait until the last truck at this door has pulled clear
+        for (var ok in tv) { var o4 = tv[ok]; if (o4 !== t && o4.show && o4.wall === t.wall && o4.D === D0 && (o4.st === 'dock' || (o4.st === 'leave' && o4.R[1] < LANE - 1))) busy = true;
+          if (o4 !== t && o4.show && o4.wall === t.wall && o4.st === 'leave' && o4.segs.length && Math.abs(o4.R[0] - D0) < 30) busy = true; }   // let a truck that is pulling out clear the lane first
+        if (fifo[t.wall]) busy = true;
+        if (busy) fifo[t.wall] = true;
+        if (!busy) {
+          var plan = planArrive(t, D0);
+          if (plan) { t.segs = plan; t.pi = 0; } else docked(t, D0);
+          t.st = 'dock'; t.D = D0;
+        }
       } else if (tr.state === 'dock' && t.st === 'road' && t.segs.length && t.qx == null) {
         // still driving in from the edge with no queue: let the arrival plan take over once on the lane
       }
-      if (tr.state === 'gone' && t.st === 'dock' && !t.segs.length) { t.segs = planLeave(t); t.pi = 0; t.st = 'leave'; }
+      if (tr.state === 'gone' && t.st === 'dock' && !t.segs.length) {   // pull out only when no moving truck is near this door
+        var clear = true, me = wpose(t).R;
+        for (var oj in tv) { var o3 = tv[oj]; if (o3 !== t && o3.show && o3.moving && onYard(o3)) { var r3 = wpose(o3).R; if (Math.hypot(r3[0] - me[0], r3[1] - me[1]) < 30) clear = false; } }
+        if (clear) { t.segs = planLeave(t); t.pi = 0; t.st = 'leave'; }
+      }
     });
     var dt = reduce ? 0 : Math.min(0.05, (now - (TLAST[k] || now)) / 1000); TLAST[k] = now;
+    var B = {};
+    for (var bid in tv) if (tv[bid].segs.length && tv[bid].show) B[bid] = blockers(tv[bid], tv);
+    function ahead(a, b) { var pa = prio(tv[a]), pb = prio(tv[b]); return pa > pb || (pa === pb && +a < +b); }
     for (var id in tv) {
       var t = tv[id];
-      if (!t.segs.length) { if (t.st === 'leave') t.show = false; continue; }
-      if (inWay(t, tv) && t.hold < 8) { t.hold += dt; continue; }
-      t.hold = 0;
+      if (!t.segs.length) { t.moving = false; if (t.st === 'leave') t.show = false; continue; }
+      // wait for any truck in the way; if two block each other, the one with right of way goes first
+      var wait = (B[id] || []).some(function (o) { return !((B[o] || []).indexOf(id) >= 0 && ahead(id, o)); });
+      t.moving = false;
+      if (wait && t.hold < 25) { t.hold += dt; continue; }
+      t.hold = 0; t.moving = true;
       advance(t, (t.segs[0].k === 'f' ? SET.VF : SET.VB) * dt * (SPEED / 12));
       if (t.st === 'road' && t.qx != null && !t.segs.length) t.queued = true;
     }
@@ -414,7 +535,7 @@
         try { p.R = new T.WebGLRenderer({ canvas: p.gl, antialias: true, alpha: true }); } catch (e) { GL = false; return; }
         p.R.setPixelRatio(p.dpr || 1);
         // one camera and one pivot for both panes, so the two buildings are always seen from exactly the same angle
-        if (!CAM) { CAM = new T.PerspectiveCamera(34, 1, 1, 800); CAM.position.set(BX / 2 + 18, 80, WZ1 + 70); PIVOT = new T.Vector3(BX / 2, 0, (BZ + 22) / 2); }
+        if (!CAM) { CAM = new T.PerspectiveCamera(34, 1, 1, 800); CAM.position.set(BX / 2 + 18, 80, WZ1 + 70); PIVOT = new T.Vector3(BX / 2, 0, BZ / 2); }
         p.cam = CAM; p.ctl = new T.OrbitControls(CAM, p.gl); p.ctl.target = PIVOT; p.ctl.enableDamping = true; p.ctl.dampingFactor = 0.12;
         p.ctl.minDistance = 30; p.ctl.maxDistance = 320; p.ctl.maxPolarAngle = 1.38; p.ctl.enablePan = false; p.ctl.update();
         p.ctl.addEventListener('start', function () { hold(); KINDS.forEach(function (o) { PANE[o].turned = true; }); });
@@ -426,23 +547,35 @@
       var M = function (c, op) { return new T.MeshLambertMaterial({ color: c, transparent: !!op, opacity: op || 1, depthWrite: !op }); };
       function box(w, hh, dd, x, y, z, m, par) { var b = new T.Mesh(new T.BoxGeometry(w, hh, dd), m); b.position.set(x, y + hh / 2, z); (par || sc).add(b); return b; }
       // floor with the heat map drawn into its texture
-      var fc = document.createElement('canvas'); fc.width = BX * 8; fc.height = (BZ + YD) * 8; var g = fc.getContext('2d');
-      g.fillStyle = '#1b2d4a'; g.fillRect(0, 0, fc.width, fc.height);
-      g.fillStyle = '#16406f'; g.fillRect(0, 0, BX * 8, BZ * 8);
-      if (S.heat) { var heat = h.sim.heat; for (var c = 0; c < heat.length; c++) { var hv = heat[c] / h.p95; if (hv < 0.02) continue; g.fillStyle = heatColor(hv); g.fillRect((c % BX) * 8, Math.floor(c / BX) * 8, 8, 8); } }
+      // floor texture over the whole plan: building floor, heat map, staging spots, and paving for this layout's yards
+      var FX = function (x) { return (x - WX0) * 8; }, FZ = function (z) { return (z - WZ0) * 8; };
+      var fc = document.createElement('canvas'); fc.width = Math.round((WX1 - WX0) * 8); fc.height = Math.round((WZ1 - WZ0) * 8); var g = fc.getContext('2d');
+      var walls = {}; L.doors.forEach(function (q) { walls[q.wall] = 1; });
+      Object.keys(walls).forEach(function (wk) {
+        var f = WF[wk], a = toW(f, -1.5, 0), b = toW(f, f.len + 1.5, YD);
+        g.fillStyle = '#1b2d4a'; g.fillRect(FX(Math.min(a[0], b[0])), FZ(Math.min(a[1], b[1])), Math.abs(b[0] - a[0]) * 8, Math.abs(b[1] - a[1]) * 8);
+        g.setLineDash([6, 6]); g.strokeStyle = 'rgba(255,255,255,0.4)'; g.lineWidth = 1.5;
+        [LANE_W - 2.6, LANE_W + 2.6].forEach(function (ww) { var p1 = toW(f, -1.5, ww), p2 = toW(f, f.len + 1.5, ww); g.beginPath(); g.moveTo(FX(p1[0]), FZ(p1[1])); g.lineTo(FX(p2[0]), FZ(p2[1])); g.stroke(); });
+      });
+      g.setLineDash([]);
+      g.fillStyle = '#16406f'; g.fillRect(FX(0), FZ(0), BX * 8, BZ * 8);
+      if (S.heat) { var heat = h.sim.heat; for (var c = 0; c < heat.length; c++) { var hv = heat[c] / h.p95; if (hv < 0.02) continue; g.fillStyle = heatColor(hv); g.fillRect(FX(c % BX), FZ(Math.floor(c / BX)), 8, 8); } }
       g.strokeStyle = 'rgba(242,201,76,0.7)'; g.lineWidth = 1.5; g.setLineDash([4, 3]);
-      (L.recv === L.ship ? L.recv : L.recv.concat(L.ship)).forEach(function (q) { g.strokeRect(q.x * 8 + 1, q.z * 8 + 1, 6.5, 6.5); });
-      g.setLineDash([6, 6]); g.strokeStyle = 'rgba(255,255,255,0.4)'; [LANE - 2.6, LANE + 2.6].forEach(function (zz) { g.beginPath(); g.moveTo(0, zz * 8); g.lineTo(fc.width, zz * 8); g.stroke(); });
+      (L.recv === L.ship ? L.recv : L.recv.concat(L.ship)).forEach(function (q) { g.strokeRect(FX(q.x) + 1, FZ(q.z) + 1, 6.5, 6.5); });
+      g.setLineDash([]);
       var tex = new T.CanvasTexture(fc); tex.anisotropy = 4;
-      var fl = new T.Mesh(new T.PlaneGeometry(BX, BZ + YD), new T.MeshLambertMaterial({ map: tex }));
-      fl.rotation.x = -Math.PI / 2; fl.position.set(BX / 2, 0, (BZ + YD) / 2); sc.add(fl);
+      var fl = new T.Mesh(new T.PlaneGeometry(WX1 - WX0, WZ1 - WZ0), new T.MeshLambertMaterial({ map: tex, transparent: true }));
+      fl.rotation.x = -Math.PI / 2; fl.position.set((WX0 + WX1) / 2, 0, (WZ0 + WZ1) / 2); sc.add(fl);
       // walls with door gaps
       var wall = M(0x6e86aa, 0.5);
-      box(BX, 1.4, 0.25, BX / 2, 0, 0, wall); box(0.25, 1.4, BZ, 0, 0, BZ / 2, wall); box(0.25, 1.4, BZ, BX, 0, BZ / 2, wall);
-      var xs = L.doors.map(function (q) { return q.x; }).sort(function (a, b) { return a - b; }), x0 = 0;
-      xs.forEach(function (x) { if (x - 1 > x0) box(x - 1 - x0, 1.4, 0.25, (x0 + x - 1) / 2, 0, BZ, wall); x0 = x + 2; });
-      if (BX > x0) box(BX - x0, 1.4, 0.25, (x0 + BX) / 2, 0, BZ, wall);
-      L.doors.forEach(function (q) { var col = q.use === 'in' ? 0x3fa7f5 : q.use === 'out' ? 0x8dc63f : 0xc9a2ff; box(3, 0.15, 1.6, q.x + 0.5, 0.0, BZ - 0.7, M(col)); box(0.2, 4.2, 0.3, q.x - 1, 0, BZ, M(0x9db2d2)); box(0.2, 4.2, 0.3, q.x + 2, 0, BZ, M(0x9db2d2)); box(3.2, 0.25, 0.3, q.x + 0.5, 4.2, BZ, M(0x9db2d2)); });
+      wallRuns(L).forEach(function (r) { var horiz = r[1] === r[3]; box(horiz ? r[2] - r[0] : 0.25, 1.4, horiz ? 0.25 : r[3] - r[1], (r[0] + r[2]) / 2, 0, (r[1] + r[3]) / 2, wall); });
+      L.doors.forEach(function (q) {                      // dock leveller just inside, and a door frame in the wall
+        var col = q.use === 'in' ? 0x3fa7f5 : q.use === 'out' ? 0x8dc63f : 0xc9a2ff, f = WF[q.wall], u = doorU(q), fr = M(0x9db2d2);
+        var lv = toW(f, u, -0.7), j1 = toW(f, u - 1.5, 0), j2 = toW(f, u + 1.5, 0), hd = toW(f, u, 0), along = q.wall === 'S';
+        box(along ? 3 : 1.6, 0.15, along ? 1.6 : 3, lv[0], 0, lv[1], M(col));
+        box(0.2, 4.2, 0.3, j1[0], 0, j1[1], fr); box(0.2, 4.2, 0.3, j2[0], 0, j2[1], fr);
+        box(along ? 3.2 : 0.3, 0.25, along ? 0.3 : 3.2, hd[0], 4.2, hd[1], fr);
+      });
       // racks: uprights, beams and pallets (ground level coloured by the SKU's class)
       var LV = [0, 1.7, 3.4, 5.1], TOP = 6.6, m4 = new T.Matrix4(), qt = new T.Quaternion(), sv = new T.Vector3(), pv = new T.Vector3();
       var nUp = 0, nBeam = 0, cells = [];
@@ -478,7 +611,7 @@
       // overflow pallets in the main aisle, pack benches
       L.spill.forEach(function (c, i) { if (i % 2) return; box(0.85, 1.1, 1.8, c % BX + 0.5, 0, Math.floor(c / BX) + 1, M(0x9c7a4e)); });
       if (L.spill.length) { var ring = new T.Mesh(new T.PlaneGeometry(18, 3), new T.MeshBasicMaterial({ color: 0xff5a4e, transparent: true, opacity: 0.18, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.position.set(45.5, 0.03, 35); sc.add(ring); }
-      var pb = L.kind === 'asis' ? [2, 40, 11, 41] : [40, 39, 57, 40];
+      var pb = L.bench;
       box(pb[2] - pb[0] + 1, 0.95, pb[3] - pb[1] + 1, (pb[0] + pb[2] + 1) / 2, 0, (pb[1] + pb[3] + 1) / 2, M(0xa7b6cc));
       // dynamic things
       p.stage3 = new T.InstancedMesh(new T.BoxGeometry(0.85, 1.1, 0.85), new T.MeshLambertMaterial({ color: 0xffffff }), 80);
@@ -535,11 +668,14 @@
     if (!p.cam || !p.W) return;
     // aim at the building and the part of the yard where trucks turn; a narrow pane looks down more steeply so the
     // wide site still fills it. Once the reader has turned the view, keep their direction and only refit the distance.
-    var c = new T.Vector3(BX / 2, 0, (BZ + 22) / 2), dir = p.cam.position.clone().sub(p.ctl.target);
+    var WS = WALLS; if (P2 && S.v !== 'both') { WS = {}; LAYS[S.v].doors.forEach(function (d) { WS[d.wall] = 1; }); }
+    var bx0 = WS.W ? -22 : 0, bx1 = WS.E ? BX + 22 : BX, bz1 = WS.S ? BZ + 22 : BZ;   // building and the turning part of each yard
+    var c = new T.Vector3((bx0 + bx1) / 2, 0, bz1 / 2), dir = p.cam.position.clone().sub(p.ctl.target);
     if (!p.turned || dir.lengthSq() < 1e-6) dir = p.W / p.H < 1.2 ? new T.Vector3(12, 100, 60) : new T.Vector3(18, 80, 100);
     dir.normalize();
     var corners = [], v = new T.Vector3();
-    [0, BX].forEach(function (x) { [0, BZ].forEach(function (z) { [0, 7].forEach(function (y) { corners.push(new T.Vector3(x, y, z)); }); }); corners.push(new T.Vector3(x, 0, BZ + 22)); });
+    [0, BX].forEach(function (x) { [0, BZ].forEach(function (z) { [0, 7].forEach(function (y) { corners.push(new T.Vector3(x, y, z)); }); }); });
+    [bx0, bx1].forEach(function (x) { [0, bz1].forEach(function (z) { corners.push(new T.Vector3(x, 0, z)); }); });
     function fits(dist) {
       p.cam.position.copy(c).addScaledVector(dir, dist); p.cam.lookAt(c); p.cam.updateMatrixWorld(); p.cam.updateProjectionMatrix();
       var mx = 0, my = 0, top = -9;
@@ -568,8 +704,8 @@
     trucks(k);
     var seen = {};
     for (var id in TV[k]) {
-      var t = TV[k][id], tm = p.tr3[id] || (p.tr3[id] = p.mkTruck(t.dir)); seen[id] = 1;
-      tm.tr.visible = tm.tc.visible = t.show;
+      var t = wpose(TV[k][id]), tm = p.tr3[id] || (p.tr3[id] = p.mkTruck(t.dir)); seen[id] = 1;
+      tm.tr.visible = tm.tc.visible = TV[k][id].show && onYard(TV[k][id]);
       tm.tr.position.set(t.A[0], 0, t.A[1]); tm.tr.rotation.y = -t.th2;
       tm.tc.position.set(t.R[0], 0, t.R[1]); tm.tc.rotation.y = -t.th1;
     }
@@ -593,7 +729,7 @@
   var last = 0, visible = true, acc = 0;
   function frame(now) {
     requestAnimationFrame(frame);
-    if (!visible || document.hidden || !H.asis) { last = now; return; }
+    if (!visible || document.hidden || !H[KINDS[0]]) { last = now; return; }
     var dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
     sizePanes();
     acc += reduce ? 0 : dt * SPEED;
@@ -602,7 +738,7 @@
       KINDS.forEach(function (k) { if (!LIVE[k].tick(E.P.dt)) { /* shift over: start again */ } });
       acc -= E.P.dt; steps++;
     }
-    if (LIVE.asis.t >= E.P.shift && LIVE.redesign.t >= E.P.shift) restartLive();
+    if (KINDS.every(function (k) { return LIVE[k].t >= E.P.shift; })) restartLive();
     KINDS.forEach(function (k) {
       var p = PANE[k]; if (p.el.hidden) return;
       p.clk.textContent = clock(LIVE[k].t);
@@ -626,10 +762,14 @@
   }
 
   /* ---------- controls ---------- */
+  function aspect() {                                            // Part 2: panes shaped like the plan (building and yards on three sides)
+    if (!P2) return;
+    KINDS.forEach(function (k) { var e = ext(PANE[k]); PANE[k].el.style.aspectRatio = String(Math.max(1.2, (e[1] - e[0]) / (e[3] - e[2] + 6))); });
+  }
   function setView(v, auto) {
     S.v = v; if (!auto) hold();
     document.querySelectorAll('[data-v]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === v ? 'true' : 'false'); });
-    stage.classList.toggle('one', v !== 'both');
+    stage.classList.toggle('one', v !== 'both'); aspect();
     KINDS.forEach(function (k) { PANE[k].el.hidden = v !== 'both' && v !== k; PANE[k].W = 0; });
     report();
   }
@@ -665,5 +805,6 @@
   if ('ResizeObserver' in window) new ResizeObserver(function () { report(); }).observe($('lab'));   // e.g. opening "How the model works"
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(stage);
 
+  aspect();
   runAll(function () { setDisp('2d', true); requestAnimationFrame(frame); setTimeout(report, 100); });
 })();

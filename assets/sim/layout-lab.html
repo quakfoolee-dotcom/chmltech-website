@@ -45,6 +45,16 @@ button:focus-visible,input:focus-visible{outline:3px solid #0A9AD8;outline-offse
 .pane canvas.gl{cursor:grab;touch-action:pan-y}
 .pane canvas.gl:active{cursor:grabbing}
 .pane[hidden]{display:none}
+.stage.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stage.n3.one,.stage.one{grid-template-columns:1fr}
+.pane.neu .tag b{background:rgba(11,111,164,.95)}
+.pane.neu .badge{background:#0B6FA4}
+.pane.small .lbl{display:none}
+.faults .neu h3{color:#0B6FA4}
+.faults.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.faults.n3{grid-template-columns:1fr}}
+.faults .neu li button span{background:#0B6FA4}
+@media (max-width:1000px){.stage.n3{grid-template-columns:1fr}.stage.n3 .pane+.pane::before{left:0;right:0;top:0;bottom:auto;width:auto;height:1px}}
 .tag{position:absolute;left:12px;top:10px;z-index:3;display:flex;gap:8px;align-items:center;pointer-events:none}
 .tag b{font-family:var(--head);font-weight:600;font-size:13.5px;color:#fff;padding:4px 10px;border-radius:6px;background:rgba(180,62,62,.92)}
 .pane.good .tag b{background:rgba(77,127,18,.95)}

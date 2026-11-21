@@ -21,6 +21,7 @@ ABC1 = "abc-inventory-analysis"
 
 DATE = "2026-11-21"
 WL1 = "good-layout-bad-layout-what-travel-and-congestion-cost-an-sme-warehouse"
+WL2 = "u-shape-straight-through-or-l-shape-choosing-a-warehouse-flow-pattern"
 SER = lambda n: {"name": "Warehouse layout series", "part": n, "of": 5}
 SIM = "../assets/sim/layout-lab.html"
 D = json.load(open(os.path.join(HERE, "wl1_results.json"), encoding="utf-8"))
@@ -198,7 +199,7 @@ def part1():
 <li>Separating flows cuts the moments when people and forklifts share an aisle, which is a safety gain as much as a time gain.</li>
 <li>Measure first: a spaghetti diagram of ten orders and a day's dock log tell you which fault you have.</li>
 </ul>
-<p>Next in this series: Part&nbsp;2 compares the three common flow patterns (U-shape, straight-through and L-shape) and where each one puts the docks, packing and fast movers. Related: <a href="{W1}.html">cube utilization and slotting</a>, <a href="{W2}.html">pick methods and pick paths</a> and <a href="{W3}.html">the dock door bottleneck</a> in the warehouse operations series.</p>
+<p>Next in this series: <a href="{WL2}.html">Part&nbsp;2</a> compares the three common flow patterns (U-shape, straight-through and L-shape) and where each one puts the docks, packing and fast movers. Related: <a href="{W1}.html">cube utilization and slotting</a>, <a href="{W2}.html">pick methods and pick paths</a> and <a href="{W3}.html">the dock door bottleneck</a> in the warehouse operations series.</p>
 <h2>Sources</h2>
 <ul>
 <li><a href="https://doi.org/10.1016/j.ejor.2006.07.009" rel="noopener" target="_blank">De Koster, Le-Duc and Roodbergen (2007), Design and control of warehouse order picking: a literature review, European Journal of Operational Research</a> (travel as the largest share of picking time; layout, storage assignment and routing)</li>
