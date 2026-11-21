@@ -50,8 +50,6 @@ def shell(n, grid):
         <p class="ifl-count" role="status" data-count aria-live="polite">{n} articles</p>
         <ul class="ifl-act" data-act aria-label="Active filters"></ul>
         <button type="button" class="ifl-link" data-clear hidden>Clear all</button>
-        <span class="sp"></span>
-        <button type="button" class="ifl-link" data-copy>Copy link to this view</button><span class="ifl-copied" data-copied role="status" hidden>Link copied</span>
       </div>
       <div class="ifl-sintro" data-sintro hidden></div>
 {grid}
