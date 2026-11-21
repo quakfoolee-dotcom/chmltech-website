@@ -28,6 +28,7 @@ def pages():
 def counts(s, cats, n):
     """Raise (n=1) or lower (n=-1) the article counts in insights.html for one article."""
     s = A.bump(s, r"(>All \()(\d+)(\)<)", n)
+    s = A.bump(s, r'(data-ifl data-total=")(\d+)(")', n)
     for c in cats:
         s = A.bump(s, r'(data-cat="' + c + r'" aria-pressed="false">[^<(]*\()(\d+)(\)<)', n)
     s = A.bump(s, r'(content=")(\d+)( articles from Chmltech)', n)

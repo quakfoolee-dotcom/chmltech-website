@@ -124,7 +124,7 @@ block = f'''<!-- insights-finder:start -->
 <!-- insights-finder:end -->
 '''
 
-anchor = re.search(r'<section class="section"[^>]*><div class="container" data-list="posts"', s)
+anchor = re.search(r'<section class="section"[^>]*><div class="container" data-(?:list="posts"|ifl)', s)   # data-ifl: sidebar filter (V5.62)
 if not anchor:
     sys.exit("insights.html: article list section not found")
 s = s[:anchor.start()] + block + s[anchor.start():]
