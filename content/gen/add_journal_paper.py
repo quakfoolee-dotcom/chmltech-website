@@ -72,7 +72,11 @@ def main():
         jp.load = real_load
     fp = os.path.join(ROOT, "post", slug + ".html")
     s = open(fp, encoding="utf-8").read()
-    s = s.replace('<div class="grid grid-3"></div>', '<div class="grid grid-3">' + "".join(aa.existing_card(x["slug"], listing) for x in others) + "</div>", 1)
+    rel = [aa.existing_card(x["slug"], listing) for x in others]
+    if not all(rel):   # V5.65: a paper added before its newer siblings got an empty "More from the journal"; say so
+        print("WARNING: no card on insights.html yet for", [x["slug"] for x, c in zip(others, rel) if not c],
+              "- run this script again for", slug, "after adding them")
+    s = s.replace('<div class="grid grid-3"></div>', '<div class="grid grid-3">' + "".join(rel) + "</div>", 1)
     s = re.sub(r"All \d+ articles", f"All {total} articles", s)
     open(fp, "w", encoding="utf-8").write(s)
     if added:
