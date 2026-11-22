@@ -614,9 +614,11 @@ svc_strip = f'''
   <div class="section-head" style="margin-bottom:28px"><div class="stack"><p class="eyebrow">Paid expert sessions</p><h2 class="h-md">Or book a one-hour session</h2></div><p>The strategy call is free. For focused expert input, choose a paid session in the form below.</p></div>
   <div class="grid grid-3">{"".join(f'<div class="card" style="padding:24px"><h3 style="font-size:20px">{esc(s["title"])}</h3><p class="price" style="font-size:24px">CA${s["price"]} <small>/ {s["dur"]}, online</small></p></div>' for s in SERVICES)}</div>
 </div></section>'''
-bk = bk.replace('<section class="section"><div class="container split">', svc_strip + '\n<section class="section"><div class="container split">', 1)
+# V5.72: the paid one-hour sessions were removed from the Book page (strip and form options no longer added)
+import re as _re
+bk = _re.sub(r'<option value="[^"]*session \(1 hr, CA\$\d+\)">[^<]*</option>', '', bk)
 bk = bk.replace('Tell us a little about your business and pick a time that works.', 'The first strategy call is free. Tell us a little about your business and pick a time that works.')
-page("book.html", "Book Online", "Book a free strategy call or a paid expert session with Chmltech Ltd.", bk, cta=False)
+page("book.html", "Book Online", "Book a free strategy call with Chmltech Ltd.", bk, cta=False)
 
 # ---------------------------------------------------------------- PROJECTS
 pj = pages_raw.get("projects")

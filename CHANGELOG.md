@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.72 — 2026-11-22
+- **Book page:** removed the "Paid expert sessions" section (Corporate Strategy CA$450, Operational Consulting CA$350, Project Management CA$250, one hour online) and the three paid-session options from the form's topic list. The page's meta and social descriptions, the SEO keyword source and llms.txt now say "Book a free strategy call" only. `build_v3.py` no longer adds the section or the options to the Book page. The Contact page form is unchanged.
+
 ## V5.71 — 2026-11-22
 - **New: Warehouse layout series, Part 5: "From Layout to Cash: Inventory Turns and a Layout Payback Calculator"** (`/post/from-layout-to-cash-inventory-turns-and-a-layout-payback-calculator`). This completes the five-part series.
   - Shows the three ways a layout turns into cash: running costs, space and inventory.
