@@ -1,5 +1,26 @@
 # Changelog
 
+## V5.69 — 2026-11-22
+- **New: Warehouse layout series, Part 3: "Wide, Narrow or Very Narrow Aisles? Warehouse Density Against Access"** (`/post/wide-narrow-or-very-narrow-aisles-warehouse-density-against-access`). The Part 2 U-shape building with 4 m aisles (counterbalance truck), 3 m aisles (reach truck) and 2 m aisles (wire-guided turret truck). At 300 orders a day: 2,640 / 3,360 / 4,080 pallet positions; 18.0 / 17.7 / 17.5 picker-hours; the turret truck waits 9.4 minutes a shift for pickers to leave an aisle, rising to about 40 at 600 orders, when very narrow aisles pick slower than narrow aisles. Costs use published ranges (racking, trucks, superflat floors; USD at 1.42) and Metro Vancouver rent (CBRE Q3 2026 net asking plus additional rent): narrow aisles cost $185–539 an added position and pay back in 0.8–2.3 years against leasing the same space; very narrow aisles $479–1,314 and 2.1–5.8 years, only if the positions would otherwise be leased.
+- **Layout Lab:** scenario `s=p3` (`wide`, `redesign` shown as "Narrow aisles", `vna`), with pallet positions and truck waiting in the KPI table, Part 3 numbered points and model notes. KPI headers shorten to "4 m / 3 m / 2 m aisles" on phones.
+- **Engine:**
+  - new `wide` and `vna` layouts;
+  - slow SKUs share faces when SKUs outnumber faces;
+  - per-truck put-away and wire-guidance times;
+  - a VNA aisle lock (pickers and the turret truck never share an aisle).
+  - Parts 1 and 2 results are byte-identical.
+- **Numbers:** `content/articles/wl3_model.js` writes `wl3_results.json` (shift, volume sweep, ten seeds and the cost model), quoted by `wl3_articles.py`. Part 2's "Next" links to Part 3; Part 3 added to the "Run a leaner warehouse" reading list.
+- **Fixes:**
+  - The Part 2 post's contents list had picked up another article's; it is rebuilt.
+  - Lab cards no longer overflow at phone width (Part 2 too).
+- **Red team QC before release:** 3 high, 2 medium and several minor findings, all addressed:
+  - the VNA lock leak at aisle-end cells;
+  - the wrong contents lists;
+  - phone overflow;
+  - VNA costs made consistent with the model;
+  - unsupported claims reworded;
+  - a weak source replaced.
+
 ## V5.68 — 2026-11-21
 - **New: Warehouse layout series, Part 2: "U-Shape, Straight-Through or L-Shape? Choosing a Warehouse Flow Pattern"** (`/post/u-shape-straight-through-or-l-shape-choosing-a-warehouse-flow-pattern`). The Part 1 distributor, racks, orders and trucks in three flow patterns: U-shape (the Part 1 redesign), straight-through (receiving on the west wall, shipping on the east) and L-shape (receiving on the south wall toward the corner, shipping on the east). At 300 orders a day picking hardly changes (17.7 / 17.9 / 17.6 picker-hours; within 0.5–2.8% on ten other simulated days). Put-away depends on where receiving sits: 2.15 / 2.24 / 1.91 forklift minutes a pallet, and dock-to-stock of 33 / 38 / 14 minutes. A model-only U-shape with its receiving doors moved to the middle matches the L-shape (1.95 min). Also covered: what the shift does not show (site, dock capacity, separation, growth), rules-of-thumb tables, a five-step check, and what the model leaves out.
 - **Layout Lab extended for the series:** `s=p2` in the address (`#embed&s=p2` in the article) opens Part 2's three layouts; without it, the Lab is Part 1 as published.

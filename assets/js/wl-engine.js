@@ -126,6 +126,12 @@
       ];
     }
 
+    if (kind === 'redesign') L.p3 = [
+      { n: 1, x: 36, z: 2, t: '3 m aisles', d: 'Reach-truck aisles: the truck stands in the aisle and reaches the forks out, so it needs less room than a counterbalance truck.' },
+      { n: 2, x: 58, z: 30, t: 'Every SKU has its own face', d: 'Enough rows for a pick face per SKU, with reserve pallets above.' },
+      { n: 3, x: 20, z: 30, t: 'People and trucks share aisles', d: 'Pickers and the reach truck can pass in a 3 m aisle, with care and give-way rules.' },
+      { n: 4, x: 29, z: 43, t: 'Dock work by jack', d: 'A reach truck is not built for trailers; unloading stays with pallet jacks, as in every set-up here.' }
+    ];
     if (kind === 'redesign') L.flow = [
       { n: 1, x: 30, z: 40, t: 'One dock wall', d: 'Receiving and shipping share the south wall, so one yard, one gatehouse and one set of dock equipment serve both.' },
       { n: 2, x: 58, z: 30, t: 'Fast movers by the doors', d: 'The busiest SKUs sit in the front bays, close to packing and to receiving, so both their picks and their put-aways are short.' },
@@ -133,6 +139,51 @@
       { n: 4, x: 33, z: 47, t: 'In and out side by side', d: 'Receiving and shipping lanes sit next to each other: trucks and staging have to be kept apart by markings and door rules.' },
       { n: 5, x: 54, z: 0.6, t: 'Room to grow away from the dock', d: 'The building can be extended north without moving a door.' }
     ];
+    if (kind === 'wide' || kind === 'vna') {
+      // Part 3: the U-shape plan (same doors, staging and packing) with the racks re-spaced for the truck type:
+      // wide = 4 m aisles for a counterbalance truck, vna = 2 m aisles for a wire-guided turret truck
+      var wide = kind === 'wide', aw = wide ? 4 : 2, x0 = wide ? 3 : 2, nd = wide ? 10 : 16, i;
+      L.name = wide ? 'Wide aisles, counterbalance truck' : 'Very narrow aisles, turret truck'; L.short = wide ? 'Wide aisles' : 'Very narrow aisles';
+      L.truck = wide ? 'counterbalance' : 'turret'; L.aisleW = aw;
+      var xs = [[x0, x0]], xx = x0 + 1 + aw;
+      for (i = 0; i < nd; i++) { xs.push([xx, xx + 1]); xx += 2 + aw; }
+      xs.push([xx, xx]);
+      xs.forEach(function (q) { row(q[0], 4, q[1], 33, 'z'); });
+      rect(L, 1, 4, x0 - 1, 33); rect(L, xx + 1, 4, 70, 33);             // the strips along the walls are not aisles
+      rect(L, 1, 1, 1, 3);
+      rect(L, 40, 39, 57, 40); L.bench = [40, 39, 57, 40]; L.drops = [cell(42, 38), cell(48, 38), cell(54, 38)]; L.homeRows = [[40, 57, 38], [40, 57, 37]];
+      L.packSpot = cell(49, 42);
+      [8, 14, 20].forEach(function (x) { door(x, 'in'); });
+      [56, 63].forEach(function (x) { door(x, 'out'); });
+      L.recv = spots(range(4, 26, 2), [42, 44, 46]);
+      L.ship = spots(range(52, 68, 2), [44, 46]);
+      L.fork0 = [cell(29, 45), cell(29, 47)]; L.jack0 = cell(45, 46);
+      if (wide) L.putExtra = 15;                                      // a counterbalance truck turns 90 degrees in the aisle to face the rack
+      if (!wide) {                                                   // one truck per aisle and no people in it while the truck works
+        L.lock = true;
+        L.putExtra = -10;                                             // lifts while it drives and swivels its forks: no turning into the rack (net of lining up on the wire)
+        L.loadExtra = 20;                                             // a man-down turret truck also fetches from staging; s to leave and rejoin the guide wire
+      }
+      L.areas = [
+        { t: 'Pallet racks', x: 36, z: 19, k: 'rack' },
+        { t: 'Packing', x: 48.5, z: 39.5, k: 'pack' },
+        { t: 'Receiving staging', x: 15, z: 48.5, k: 'stage' },
+        { t: 'Shipping staging', x: 60, z: 48.5, k: 'stage' }
+      ];
+      L.flow = wide ? [
+        { n: 1, x: 36, z: 2, t: '4 m aisles', d: 'Room for a counterbalance truck to turn into the racks, and for pickers and the truck to pass each other.' },
+        { n: 2, x: 58, z: 30, t: 'Fewer pallet positions', d: 'Wider aisles leave room for fewer rows: about a fifth fewer positions than with 3 m aisles.' },
+        { n: 3, x: 20, z: 30, t: 'Slow movers share faces', d: 'There are fewer pick faces than SKUs, so the slowest SKUs share a pallet position, two to a face.' },
+        { n: 4, x: 29, z: 43, t: 'One truck does it all', d: 'The counterbalance truck can also work the dock and load trailers.' }
+      ] : [
+        { n: 1, x: 36, z: 2, t: '2 m aisles', d: 'A wire-guided turret truck stores pallets on both sides without turning in the aisle.' },
+        { n: 2, x: 58, z: 30, t: 'The most pallet positions', d: 'About a fifth more positions than with 3 m aisles, in the same building and height.' },
+        { n: 3, x: 44, z: 20, t: 'One at a time in an aisle', d: 'While the turret truck works an aisle, pickers wait outside it, and the truck waits for pickers to leave.' },
+        { n: 4, x: 29, z: 43, t: 'Off the wire to staging', d: 'A man-down turret truck fetches pallets from staging itself, but loses time each trip leaving and rejoining the guide wire.' },
+        { n: 5, x: 64, z: 30, t: 'Flat floor and guidance', d: 'VNA needs a superflat floor in the aisles and a guide wire or rail, both paid for once, before the first pallet goes in.' }
+      ];
+    }
+    if (kind === 'redesign') L.truck = 'reach';
     if (kind === 'ucentre') {
       // model-only variant for Part 2's article: the U-shape with its receiving doors moved toward the middle of the wall
       L.name = 'U-shape, receiving doors moved to the middle'; L.short = 'U-shape (doors moved)';
@@ -212,6 +263,12 @@
       }
     });
     L.recv.concat(L.ship).forEach(function (s) { L.blocked[s.c] = 0; });
+    if (L.lock) {                                                   // which aisle each free cell in the rack block belongs to (by x)
+      L.aisleOf = new Int16Array(N).fill(-1);
+      for (z = 4; z <= 33; z++) for (x = 1; x < BX - 1; x++) { var cc = cell(x, z); if (!L.blocked[cc]) L.aisleOf[cc] = x; }
+      for (x = 0; x < BX; x++) { /* the two cells of a 2 m aisle share one id */ }
+      for (z = 4; z <= 33; z++) for (x = 1; x < BX - 1; x++) { var c1 = cell(x, z); if (L.aisleOf[c1] >= 0 && L.aisleOf[c1 - 1] >= 0) L.aisleOf[c1] = L.aisleOf[c1 - 1]; }
+    }
     return L;
   }
 
@@ -293,7 +350,7 @@
     var L = makeLayout(kind), PT = Paths(L), V = velocities(share);
     var rS = rng(seed + 1), rO = rng(seed + 2), rT = rng(seed + 3), rF = rng(seed + 4);
     // slotting: as-is random; redesign by velocity, nearest faces (walking distance from packing) first
-    var faces = L.faces, i;
+    var faces = L.faces, i, shared = [];
     var slot = opt.slot || (kind === 'asis' ? 'random' : 'velocity');
     if (slot === 'random') {
       var idx = faces.map(function (_, k) { return k; });
@@ -303,9 +360,13 @@
       var fd = new Float64Array(N); fd.fill(1e12);
       L.drops.forEach(function (d) { var f = PT.field(d); for (var c = 0; c < N; c++) if (f[c] < fd[c]) fd[c] = f[c]; });
       var ord = faces.map(function (_, k) { return k; }).sort(function (a, b) { return fd[faces[a].c] - fd[faces[b].c] || faces[a].c - faces[b].c; });
-      for (i = 0; i < SKUS; i++) faces[ord[i]].sku = i;
+      var nf = Math.min(SKUS, faces.length);
+      for (i = 0; i < nf; i++) faces[ord[i]].sku = i;
+      shared = [];                                                // more SKUs than faces: the slowest share the farthest faces
+      for (i = nf; i < SKUS; i++) shared.push([i, ord[nf - 1 - ((i - nf) % nf)]]);
     }
     var faceOf = new Int32Array(SKUS); faces.forEach(function (f, k) { if (f.sku >= 0) faceOf[f.sku] = k; });
+    shared.forEach(function (q) { faceOf[q[0]] = q[1]; faces[q[1]].sku2 = q[0]; });
 
     var S = {
       kind: kind, L: L, V: V, t: 0, agents: [], trucks: [], yard: [], pallets: [], outQ: 0, packed: 0,
@@ -346,6 +407,18 @@
     function cx(c) { return c % BX + 0.5; } function cz(c) { return Math.floor(c / BX) + 0.5; }
     function go(a, dst) { a.path = PT.path(a.cell, dst); a.pi = 0; a.cleared = false; a.dst = dst; }
     function moving(a) { return a.pi < a.path.length; }
+    function lockBy(a, nx, nz) {                                 // VNA: people and the turret truck never share an aisle, even for the last step
+      a.locked = false;
+      if (!L.lock || a.type === 'jack') return null;
+      if (L.lock && a.type !== 'jack') {                            // VNA: people and the turret truck never share an aisle
+        var nc = Math.floor(nz) * BX + Math.floor(nx), ai = L.aisleOf[nc];
+        if (ai >= 0 && L.aisleOf[a.cell] !== ai) {
+          a.locked = false;
+          for (var q = 0; q < S.agents.length; q++) { var o2 = S.agents[q]; if (o2 !== a && o2.type !== 'jack' && (o2.type === 'fork') !== (a.type === 'fork') && (L.aisleOf[o2.cell] === ai || (!o2.locked && o2.pi < o2.path.length && L.aisleOf[o2.path[o2.pi]] === ai))) { a.locked = true; return o2; } }
+        }
+      }
+      return null;
+    }
     function blockedBy(a, nx, nz) {
       if (a.waitT > P.maxWait) return null;
       for (var k = 0; k < S.agents.length; k++) {
@@ -362,7 +435,7 @@
         var c = a.path[a.pi], tx = cx(c), tz = cz(c), dx = tx - a.x, dz = tz - a.z, d = Math.sqrt(dx * dx + dz * dz);
         if (!a.cleared) {
           var last = a.pi === a.path.length - 1;
-          if (!last && blockedBy(a, tx, tz)) { a.waitT += dt; if (!walked) { a.held = true; S.heatWait[a.cell] += dt; } return walked; }
+          if ((L.lock && lockBy(a, tx, tz)) || (!last && blockedBy(a, tx, tz))) { a.waitT += dt; if (!walked) { a.held = true; S.heatWait[a.cell] += dt; } return walked; }
           if (a.waitT > 0) { if (a.waitT >= 1) S.k.waits++; a.waitT = 0; }
           a.cleared = true;
         }
@@ -421,8 +494,8 @@
       }
       var w = step(a, dt); if (w > 0) { S.k.fWalk += w; S.heat[a.cell] += dt; } else if (a.held) S.k.fWait += dt;
       if (!moving(a)) {
-        if (a.state === 'fetch') { a.state = 'load'; a.timer = P.tLoad; }
-        else if (a.state === 'carry') { a.state = 'put'; a.timer = P.tPut; }
+        if (a.state === 'fetch') { a.state = 'load'; a.timer = P.tLoad + (L.loadExtra || 0); }
+        else if (a.state === 'carry') { a.state = 'put'; a.timer = P.tPut + (L.putExtra || 0); }
       }
     }
 

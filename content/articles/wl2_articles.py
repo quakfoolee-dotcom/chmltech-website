@@ -189,7 +189,7 @@ def part2():
 <li>Straight-through separates the docks but not the people and forklifts inside.</li>
 <li>Site, dock capacity, separation and growth usually decide the pattern before productivity does.</li>
 </ul>
-<p>Earlier in this series: <a href="{WL1}.html">Part&nbsp;1</a>, what a bad layout costs. Next: Part&nbsp;3 looks at density against access: storage types and aisle widths. Related: <a href="{W1}.html">cube utilization and slotting</a> and <a href="{W3}.html">the dock door bottleneck</a> in the warehouse operations series.</p>
+<p>Earlier in this series: <a href="{WL1}.html">Part&nbsp;1</a>, what a bad layout costs. Next: <a href="wide-narrow-or-very-narrow-aisles-warehouse-density-against-access.html">Part&nbsp;3</a>, density against access: wide, narrow or very narrow aisles. Related: <a href="{W1}.html">cube utilization and slotting</a> and <a href="{W3}.html">the dock door bottleneck</a> in the warehouse operations series.</p>
 <h2>Sources</h2>
 <ul>
 <li><a href="https://learn.g2.com/warehouse-layout" rel="noopener" target="_blank">G2 Learn Hub: How to plan a warehouse layout that boosts efficiency</a> (the three common flow types and the uses usually given for each)</li>
