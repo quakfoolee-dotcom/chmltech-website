@@ -146,7 +146,7 @@ KEYWORDS = {
         title="Book a Free Strategy Call | Chmltech, Vancouver BC",
         h1="Book a free strategy call",
         slogan="",
-        desc="Book a free strategy call or a paid expert session with Chmltech Ltd., a Vancouver "
+        desc="Book a free strategy call with Chmltech Ltd., a Vancouver "
              "consulting firm for AI, process improvement and operations."),
     "projects.html": dict(
         title="Consulting & Engineering Projects | Chmltech",
