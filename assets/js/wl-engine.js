@@ -20,7 +20,10 @@
     shift: 8 * 3600, dt: 0.5, start: 7,                   // s; s a step; 07:00
     lines: 3, ordersPallet: 20, backlog: 30, cutoff: 7 * 3600,   // orders waiting at 07:00; new orders stop at 14:00
     wage: 40, days: 250, detention: 65, freeMin: 120,     // $ an hour loaded; days a year; $ an hour after 2 h on site (Part 3)
-    near: 0.95, maxWait: 6                                // m: give-way distance; s before squeezing past
+    near: 0.95, maxWait: 6,                               // m: give-way distance; s before squeezing past
+    // Part 4 (manufacturer): pails a minute per filling line; pails a pallet; handler times (s); milk-run interval (min);
+    // supermarket reorder point and forklift top-up (loads)
+    mRate: 3, mPailsPallet: 36, mSetup: 20, mPick: 40, mDrop: 30, mLoop: 20, mIssue: 120, mReorder: 2, mReplQty: 3, mSm0: 4
   };
   var SKUS = 780;
 
@@ -139,6 +142,61 @@
       { n: 4, x: 33, z: 47, t: 'In and out side by side', d: 'Receiving and shipping lanes sit next to each other: trucks and staging have to be kept apart by markings and door rules.' },
       { n: 5, x: 54, z: 0.6, t: 'Room to grow away from the dock', d: 'The building can be extended north without moving a door.' }
     ];
+    if (kind === 'mstore' || kind === 'mside' || kind === 'mkanban') {
+      // Part 4: Ridgeline Coatings. A central raw-material store (west), two mixing tanks feeding two filling lines (east),
+      // and, in mside and mkanban, a line-side supermarket between the lines. Same building, doors and staging as Part 2.
+      L.mfg = kind; var sm = kind !== 'mstore';
+      L.name = kind === 'mstore' ? 'Central store, call when empty' : kind === 'mside' ? 'Line-side supermarket, call when empty' : 'Supermarket with kanban milk run';
+      L.short = kind === 'mstore' ? 'Central store' : kind === 'mside' ? 'Line-side' : 'Kanban';
+      [[1, 1], [5, 6], [10, 11], [15, 16], [20, 21], [25, 25]].forEach(function (q) { row(q[0], 4, q[1], 33, 'z'); });   // the central store
+      rect(L, 1, 1, 1, 3);
+      // equipment: mixing tank and filling line for lines A (north) and B (south)
+      L.equip = [];
+      [[6, 'A'], [21, 'B']].forEach(function (q, i) {
+        var z0 = q[0];
+        rect(L, 36, z0, 39, z0 + 3); L.equip.push({ k: 'mixer', line: i, x0: 36, z0: z0, x1: 39, z1: z0 + 3, t: 'Mixer ' + q[1] });
+        rect(L, 42, z0 + 1, 64, z0 + 2); L.equip.push({ k: 'filler', line: i, x0: 42, z0: z0 + 1, x1: 64, z1: z0 + 2, t: 'Filling line ' + q[1] });
+      });
+      // where each line's materials are dropped: resin and pigment at the mixer, pails, lids and labels at the filler
+      var dz = [10, 20];                                              // the side of each line that faces the supermarket aisle
+      L.mdrops = [0, 1].map(function (i) { var z = dz[i]; return [cell(37, z), cell(38, z), cell(45, z), cell(50, z), cell(55, z)]; });
+      L.drops = L.mdrops[0].concat(L.mdrops[1]);
+      if (sm) row(44, 15, 60, 16, 'x');                                   // the supermarket: a double row between the lines
+      rect(L, 60, 31, 66, 32); L.bench = [60, 31, 66, 32]; L.packSpot = cell(63, 34);   // palletising at the line ends
+      L.homeRows = [[32, 34, 36], [32, 34, 35]];
+      [8, 14, 20].forEach(function (x) { door(x, 'in'); });
+      [56, 63].forEach(function (x) { door(x, 'out'); });
+      L.recv = spots(range(4, 26, 2), [42, 44, 46]);
+      L.ship = spots(range(52, 68, 2), [44, 46]);
+      L.fork0 = [cell(29, 45), cell(29, 47)]; L.jack0 = cell(45, 46);
+      L.areas = [
+        { t: 'Central store', x: 13, z: 19, k: 'rack' },
+        { t: 'Mixing', x: 33, z: 15, k: 'pack' },
+        { t: 'Filling line A', x: 53, z: 4.6, k: 'pack' },
+        { t: 'Filling line B', x: 53, z: 25.5, k: 'pack' },
+        { t: 'Palletising', x: 63, z: 30, k: 'pack' },
+        { t: 'Receiving staging', x: 15, z: 48.5, k: 'stage' },
+        { t: 'Shipping staging', x: 60, z: 48.5, k: 'stage' }
+      ];
+      L.smRect = [43, 12, 61, 18]; L.smGhost = !sm;                   // the one area that changes between the set-ups
+      L.areas.push(sm ? { t: 'Supermarket (line materials)', ts: 'Supermarket', x: 52.5, z: 11.2, k: 'sm' } : { t: 'No supermarket: materials come from the store', ts: 'No supermarket', x: 52.5, z: 11.2, k: 'sm' });
+      L.flow = kind === 'mstore' ? [
+        { n: 1, x: 13, z: 2, t: 'Everything in the central store', d: 'Resin, pigment, pails, lids and labels are kept with all the other stock, in locations set by part number rather than by how close they are to the lines.' },
+        { n: 2, x: 41, z: 4.6, t: 'One load at the line', d: 'Each line holds one load of each material: one pallet of pails, one drum of resin.' },
+        { n: 3, x: 33, z: 37, t: 'Called when it runs out', d: 'An operator calls a material handler when a load runs out. The line stops until the next load arrives from the store.' },
+        { n: 4, x: 29, z: 25, t: 'The long trip', d: 'Every refill is a round trip of about 60 to 100 m between the store and the line.' }
+      ] : kind === 'mside' ? [
+        { n: 1, x: 66.5, z: 18.5, t: 'Supermarket between the lines', d: 'A few loads of each line material are kept in racks next to the lines, refilled from the store by forklift.' },
+        { n: 2, x: 41, z: 4.6, t: 'One load at the line', d: 'Still one load of each material at the line, still called when it runs out.' },
+        { n: 3, x: 33, z: 37, t: 'Short trips', d: 'A refill is a few metres from the supermarket, so the line stops for less time each run-out.' },
+        { n: 4, x: 22, z: 37, t: 'The forklift tops up', d: 'When a supermarket face is down to two loads, the forklift brings more from the store, between inbound put-aways.' }
+      ] : [
+        { n: 1, x: 66.5, z: 18.5, t: 'Supermarket between the lines', d: 'The same supermarket, refilled from the store by forklift.' },
+        { n: 2, x: 41, z: 4.6, t: 'Two bins at the line', d: 'Each material has two loads at the line. When the first runs out, the line runs on the second and a kanban card goes up.' },
+        { n: 3, x: 33, z: 37, t: 'A milk run every 20 minutes', d: 'A handler collects the cards and delivers every carded load in one loop, on a fixed timetable.' },
+        { n: 4, x: 66.5, z: 22.5, t: 'More stock at the line', d: 'Two bins instead of one means more stock and more floor space at the lines, in return for fewer stops.' }
+      ];
+    }
     if (kind === 'wide' || kind === 'vna') {
       // Part 3: the U-shape plan (same doors, staging and packing) with the racks re-spaced for the truck type:
       // wide = 4 m aisles for a counterbalance truck, vna = 2 m aisles for a wire-guided turret truck
@@ -343,6 +401,36 @@
     return { field: field, path: path, dist: dist };
   }
 
+  /* ---------- Part 4: materials of the two filling lines ---------- */
+  var MATS = [                                                       // name, minutes of running one load covers at standard speed, value of a load ($)
+    ['Resin', 40, 1500], ['Pigment', 120, 900], ['Pails', 60, 1100], ['Lids', 90, 700], ['Labels', 150, 500]
+  ];
+  function mfgSetup(L, opt, faces, storeF, smF, PT) {
+    var r = rng((opt.seed || 20261121) + 7), sm = L.mfg !== 'mstore', kan = L.mfg === 'mkanban', speed = (opt.orders || 300) / 300;
+    var two = kan || !!opt.twoBin;                                    // model check: two bins at the line, but called (no milk run)
+    var M = { sm: sm, kanban: kan, two: two, issue: opt.issue !== undefined ? opt.issue : P.mIssue, late: !!opt.lateCards, speed: speed, rate: P.mRate * speed, lines: [], req: [], repl: [], nextLoop: 60, lastLoop: 0, loopOn: 0, nStore: storeF.length,
+      k: { deliv: 0, calls: 0, cards: 0, loops: 0, resp: 0, repl: 0, replT: 0, smWait: 0, lineStock: 0, smStock: 0, hBusy: 0 } };
+    var smOrder = smF.slice();
+    for (var li = 0; li < 2; li++) {
+      var ln = { run: 0, starved: 0, made: 0, nextPal: P.mPailsPallet, mats: [] };
+      MATS.forEach(function (q, j) {
+        var idx = li * MATS.length + j, cover = q[1] * 60;
+        var m = { name: q[0], line: li, sku: idx, cover: cover, value: q[2], drop: L.mdrops[li][j], store: storeF[idx], sm: -1, smStock: 0, starved: 0, called: 0, card: 0, pend: false, taken: 0, maxSm: 0 };
+        // staggered starting stock, so the run-outs do not all come at once
+        m.level = cover * ((two ? 1 : 0) + 0.25 + 0.75 * r());
+        if (sm) {                                                        // the supermarket face nearest this material's drop point
+          var f = PT.field(m.drop), bi = 0, bd = 1e18;
+          for (var k = 0; k < smOrder.length; k++) { var d = f[faces[smOrder[k]].c]; if (d < bd) { bd = d; bi = k; } }
+          m.sm = smOrder.splice(bi, 1)[0]; faces[m.sm].sku = idx; m.smStock = P.mSm0;
+        }
+        ln.mats.push(m);
+      });
+      M.lines.push(ln);
+    }
+    // the remaining supermarket faces show as empty
+    return M;
+  }
+
   /* ---------- one simulation ---------- */
   function Sim(kind, opt) {
     opt = opt || {};
@@ -352,7 +440,23 @@
     // slotting: as-is random; redesign by velocity, nearest faces (walking distance from packing) first
     var faces = L.faces, i, shared = [];
     var slot = opt.slot || (kind === 'asis' ? 'random' : 'velocity');
-    if (slot === 'random') {
+    var M = null;                                                    // Part 4: the manufacturer's materials and lines
+    if (L.mfg) {
+      slot = 'mfg';
+      var dropField = new Float64Array(N); dropField.fill(1e12);
+      L.drops.forEach(function (d) { var f = PT.field(d); for (var c = 0; c < N; c++) if (f[c] < dropField[c]) dropField[c] = f[c]; });
+      var byDist = function (a, b) { return dropField[faces[a].c] - dropField[faces[b].c] || faces[a].c - faces[b].c; };
+      var storeF = [], smF = [];
+      faces.forEach(function (f, k) { (f.rx > 40 ? smF : storeF).push(k); });
+      storeF.sort(byDist); smF.sort(byDist);
+      // the store is laid out by part number, not for the lines: SKUs sit in a shuffled order (fixed seed)
+      var rS2 = rng(seed + 11);                                      // (model checks: opt.storeNear keeps the nearest-first order)
+      if (!opt.storeNear) for (i = storeF.length - 1; i > 0; i--) { var j2 = Math.floor(rS2() * (i + 1)), t2 = storeF[i]; storeF[i] = storeF[j2]; storeF[j2] = t2; }
+      storeF.forEach(function (k, i) { faces[k].sku = i; });
+      M = mfgSetup(L, opt, faces, storeF, smF, PT);
+    }
+    if (slot === 'mfg') { /* slotted above */ }
+    else if (slot === 'random') {
       var idx = faces.map(function (_, k) { return k; });
       for (i = idx.length - 1; i > 0; i--) { var j = Math.floor(rS() * (i + 1)), t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
       for (i = 0; i < SKUS; i++) faces[idx[i]].sku = i;
@@ -365,7 +469,7 @@
       shared = [];                                                // more SKUs than faces: the slowest share the farthest faces
       for (i = nf; i < SKUS; i++) shared.push([i, ord[nf - 1 - ((i - nf) % nf)]]);
     }
-    var faceOf = new Int32Array(SKUS); faces.forEach(function (f, k) { if (f.sku >= 0) faceOf[f.sku] = k; });
+    var faceOf = new Int32Array(SKUS); faces.forEach(function (f, k) { if (f.sku >= 0 && (!L.mfg || f.rx < 40)) faceOf[f.sku] = k; });
     shared.forEach(function (q) { faceOf[q[0]] = q[1]; faces[q[1]].sku2 = q[0]; });
 
     var S = {
@@ -373,9 +477,9 @@
       heat: new Float32Array(N), heatWait: new Float32Array(N), events: [],
       k: { orders: 0, lines: 0, walk: 0, tWalk: 0, tWait: 0, tPick: 0, tOther: 0, fWait: 0, fWalk: 0, dts: [], trucks: [], waits: 0, tIdle: 0, fBusy: 0, jWait: 0 }
     };
-    var nPick = Math.max(3, Math.min(12, Math.round(orders / 50)));
+    var nPick = L.mfg ? 2 : Math.max(3, Math.min(12, Math.round(orders / 50)));
     S.queue = P.backlog; S.released = P.backlog; var gap = P.cutoff / (orders - P.backlog), nextOrder = gap;
-    var nForks = Math.max(1, Math.round(orders / 250));             // one forklift below 375 orders a day (350 on the slider), two from 375 (400)
+    var nForks = L.mfg ? 1 : Math.max(1, Math.round(orders / 250));             // one forklift below 375 orders a day (350 on the slider), two from 375 (400)
 
     function agent(type, c) {
       var a = { id: S.agents.length, type: type, prio: type === 'fork' ? 3 : type === 'jack' ? 2 : 1, x: c % BX + 0.5, z: Math.floor(c / BX) + 0.5, cell: c, path: [], pi: 0,
@@ -391,17 +495,17 @@
       for (i = 0; i < n0; i++) homes.push(cell(Math.round(row0[0] + (row0[1] - row0[0]) * (n0 > 1 ? i / (n0 - 1) : 0.5)), row0[2]));
       for (i = n0; i < nPick; i++) homes.push(cell(L.homeRows[1][0] + (i - n0) * 2 + 1, L.homeRows[1][2]));
     }
-    for (i = 0; i < nPick; i++) { var p = agent('picker', homes[i]); p.state = 'setup'; S.queue--; p.timer = P.tSetup * (0.3 + 0.7 * i / nPick); p.home = homes[i]; }
+    for (i = 0; i < nPick; i++) { var p = agent('picker', homes[i]); p.home = homes[i]; if (L.mfg) { p.state = 'idle'; continue; } p.state = 'setup'; S.queue--; p.timer = P.tSetup * (0.3 + 0.7 * i / nPick); }
     for (i = 0; i < nForks; i++) agent('fork', L.fork0[i]);
     var jack = agent('jack', L.jack0);
 
     // trucks: inbound from 07:15 to about 13:00 (5 full loads of 24 pallets, the rest part loads), carriers at 10:30, 12:30, 14:30
-    var nIn = Math.max(4, Math.round(14 * orders / 300)), nFtl = Math.round(nIn * 5 / 14);
+    var nIn = L.mfg ? 6 : Math.max(4, Math.round(14 * orders / 300)), nFtl = L.mfg ? 2 : Math.round(nIn * 5 / 14);
     for (i = 0; i < nIn; i++) {
       var arr = 900 + i * (21000 / nIn) + (rT() - 0.5) * 1200;
       S.trucks.push({ id: i, dir: 'in', arr: Math.max(300, arr), left: i % 3 === 0 && nFtl-- > 0 ? 24 : 4 + Math.floor(rT() * 7), door: null, state: 'due', next: 0, x: 0, z: 0 });
     }
-    [3.5, 5.5, 7.5].forEach(function (h, k) { S.trucks.push({ id: 100 + k, dir: 'out', arr: h * 3600, left: 0, door: null, state: 'due', next: 0, x: 0, z: 0 }); });
+    (L.mfg ? [1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5] : [3.5, 5.5, 7.5]).forEach(function (h, k) { S.trucks.push({ id: 100 + k, dir: 'out', arr: h * 3600, left: 0, door: null, state: 'due', next: 0, x: 0, z: 0 }); });
     S.trucks.sort(function (a, b) { return a.arr - b.arr; });
 
     function cx(c) { return c % BX + 0.5; } function cz(c) { return Math.floor(c / BX) + 0.5; }
@@ -486,6 +590,15 @@
         else { S.k.dts.push(S.t - a.load.t0); S.k.fBusy += S.t - a.t0; a.load.done = S.t; a.load = null; a.state = 'idle'; }
         return;
       }
+      if ((a.state === 'idle' || a.state === 'park') && M && M.repl.length) {     // Part 4: top up a supermarket face first
+        var job = M.repl.shift(); a.job = job; a.t0 = S.t; a.load = null; go(a, faces[job.mat.store].c); a.state = 'rfetch';
+      }
+      if (a.state === 'rload' || a.state === 'rput') {
+        a.timer -= dt; if (a.timer > 0) return;
+        if (a.state === 'rload') { a.load = { sku: a.job.mat.sku, repl: true }; go(a, faces[a.job.mat.sm].c); a.state = 'rcarry'; }
+        else { a.job.mat.smStock += P.mReplQty; a.job.mat.maxSm = Math.max(a.job.mat.maxSm, a.job.mat.smStock); a.job.mat.pend = false; M.k.repl++; M.k.replT += S.t - a.t0; a.load = null; a.job = null; a.state = 'idle'; }
+        return;
+      }
       if (a.state === 'idle' || a.state === 'park') {
         var best = null;
         S.pallets.forEach(function (p) { if (!p.claimed && p.spot && p.dir === 'in' && (!best || p.t0 < best.t0)) best = p; });
@@ -496,6 +609,85 @@
       if (!moving(a)) {
         if (a.state === 'fetch') { a.state = 'load'; a.timer = P.tLoad + (L.loadExtra || 0); }
         else if (a.state === 'carry') { a.state = 'put'; a.timer = P.tPut + (L.putExtra || 0); }
+        else if (a.state === 'rfetch') { a.state = 'rload'; a.timer = P.tLoad + P.tPut; }      // take the pallet down from the store rack
+        else if (a.state === 'rcarry') { a.state = 'rput'; a.timer = P.tPut; }
+      }
+    }
+    /* ---------- Part 4: production and material handlers ---------- */
+    function produce(dt) {
+      M.lines.forEach(function (ln) {
+        var run = ln.mats.every(function (m) { return m.level > 0; });
+        if (run) {
+          ln.run += dt; ln.made += M.rate * dt / 60;
+          ln.mats.forEach(function (m) {
+            m.level -= dt * M.speed;
+            if (M.kanban) { if (m.level <= m.cover && !m.card) { m.card = S.t; M.k.cards++; } }
+            else if (m.level <= (M.two ? m.cover : 0) && !m.called) { m.called = S.t; M.req.push(m); M.k.calls++; }
+          });
+          while (ln.made >= ln.nextPal) { ln.nextPal += P.mPailsPallet; S.outQ++; }
+        } else {
+          ln.starved += dt;
+          ln.mats.forEach(function (m) { if (m.level <= 0) { m.starved += dt; if (!M.kanban && !m.called) { m.called = S.t; M.req.push(m); M.k.calls++; } } });
+        }
+        ln.mats.forEach(function (m) { M.k.lineStock += Math.max(0, m.level) / m.cover * m.value * dt; if (m.sm >= 0) M.k.smStock += m.smStock * m.value * dt; });
+      });
+    }
+    function mSource(m) { return M.sm ? m.sm : m.store; }
+    function deliver(m) {
+      m.level += m.cover; M.k.deliv++;
+      if (m.called) { M.k.resp += S.t - m.called; m.called = 0; }
+      if (m.card) { M.k.resp += S.t - m.card; m.card = 0; }
+    }
+    function nearest(a, list, key) {
+      var f = PT.field(a.cell), bi = 0, bd = 1e18;
+      for (var k = 0; k < list.length; k++) { var d = f[key(list[k])]; if (d < bd) { bd = d; bi = k; } }
+      return bi;
+    }
+    function handler(a, dt) {
+      if (a.state === 'idle' || a.state === 'park') {
+        if (M.kanban) {
+          if (S.t >= M.nextLoop && !M.loopOn) {                  // the milk run leaves on time, with every card posted so far
+            M.nextLoop += P.mLoop * 60;
+            var cut = M.late ? M.lastLoop : S.t; M.lastLoop = S.t;      // model check: paper cards are only seen on the next round
+            var cards = []; M.lines.forEach(function (ln) { ln.mats.forEach(function (m) { if (m.card && !m.taken && m.card <= cut) { m.taken = 1; cards.push(m); } }); });
+            M.k.loops++;
+            if (cards.length) { M.loopOn = a.id; a.picks = cards.slice(); a.drops = []; a.state = 'setup'; a.timer = P.mSetup; }
+          }
+        } else if (M.req.length) { var m = M.req.shift(); a.picks = [m]; a.drops = []; a.state = 'setup'; a.timer = P.mSetup; }
+        if (a.state === 'idle') { S.k.tIdle += dt; if (a.cell !== a.home && !moving(a)) { go(a, a.home); a.state = 'park'; } }
+      }
+      if (a.state === 'setup' || a.state === 'pick' || a.state === 'drop') {
+        a.timer -= dt; if (a.state === 'pick') S.k.tPick += dt; else S.k.tOther += dt;
+        if (a.timer > 0) return;
+        if (a.state === 'pick') { a.drops.push(a.cur); }
+        else if (a.state === 'drop') { deliver(a.cur); a.cur.taken = 0; }
+        mNext(a); return;
+      }
+      if (a.state === 'wait') {                                  // the supermarket face is empty: wait for the forklift
+        S.k.tWait += dt; M.k.smWait += dt;
+        if (a.cur.smStock > 0) { a.cur.smStock--; a.state = 'pick'; a.timer = P.mPick; mRepl(a.cur); }
+        return;
+      }
+      var w = step(a, dt); S.k.walk += w; if (w > 0) { S.k.tWalk += dt; S.heat[a.cell] += dt; } else if (a.held) S.k.tWait += dt; else if (moving(a)) S.k.tWalk += dt;
+      if (!moving(a)) {
+        if (a.state === 'walk') {
+          if (M.sm) { if (a.cur.smStock > 0) { a.cur.smStock--; mRepl(a.cur); a.state = 'pick'; a.timer = P.mPick; } else a.state = 'wait'; }
+          else { a.state = 'pick'; a.timer = P.mPick + (M.issue); }   // central store: the issue is booked at the store
+        } else if (a.state === 'carry') { a.state = 'drop'; a.timer = P.mDrop; }
+        else if (a.state === 'park') a.state = 'idle';
+      }
+    }
+    function mRepl(m) { if (M.sm && m.smStock <= P.mReorder && !m.pend) { m.pend = true; M.repl.push({ mat: m }); } }
+    function mNext(a) {
+      if (a.picks.length) {                                      // collect the loads: nearest supermarket or store face first
+        var bi = nearest(a, a.picks, function (m) { return faces[mSource(m)].c; });
+        a.cur = a.picks.splice(bi, 1)[0]; go(a, faces[mSource(a.cur)].c); a.state = 'walk';
+      } else if (a.drops.length) {                               // then deliver them: nearest drop point first
+        var bj = nearest(a, a.drops, function (m) { return m.drop; });
+        a.cur = a.drops.splice(bj, 1)[0]; go(a, a.cur.drop); a.state = 'carry';
+      } else {
+        if (M.loopOn === a.id) M.loopOn = 0;
+        a.state = 'idle';
       }
     }
 
@@ -544,7 +736,7 @@
         if (tr.dir === 'in') {
           if (tr.left > 0) {
             var s = freeRecv(tr.door);
-            if (s) { var p = { dir: 'in', spot: s, t0: S.t, sku: pickSku(V, rF) }; s.busy = p; S.pallets.push(p); tr.left--; tr.next = S.t + P.tUnload; }
+            if (s) { var sk = pickSku(V, rF); if (L.mfg) sk = sk % M.nStore; var p = { dir: 'in', spot: s, t0: S.t, sku: sk }; s.busy = p; S.pallets.push(p); tr.left--; tr.next = S.t + P.tUnload; }
             else { tr.next = S.t + 30; tr.stalled = (tr.stalled || 0) + 30; }
           }
           if (tr.left <= 0) { tr.state = 'gone'; tr.door.truck = null; S.k.trucks.push({ dir: 'in', time: S.t - tr.arr, wait: tr.docked - tr.arr, stall: tr.stalled || 0 }); }
@@ -560,10 +752,11 @@
       dt = dt || P.dt;
       if (S.t >= P.shift) return false;
       trucks(dt);
-      while (S.t >= nextOrder && S.released < orders) { S.queue++; S.released++; nextOrder += gap; }
+      if (L.mfg) produce(dt);
+      while (!L.mfg && S.t >= nextOrder && S.released < orders) { S.queue++; S.released++; nextOrder += gap; }
       for (var k = 0; k < S.agents.length; k++) {
         var a = S.agents[k];
-        if (a.type === 'picker') picker(a, dt); else if (a.type === 'fork') fork(a, dt); else jackRun(a, dt);
+        if (a.type === 'picker') (L.mfg ? handler : picker)(a, dt); else if (a.type === 'fork') fork(a, dt); else jackRun(a, dt);
       }
       S.t += dt;
       return S.t < P.shift;
@@ -578,7 +771,7 @@
       var openP = S.pallets.filter(function (p) { return p.dir === 'in' && !p.done; });
       var dtsAll = K.dts.concat(openP.map(function (p) { return S.t - p.t0; }));     // pallets still waiting count up to now
       var det = inT.reduce(function (s, t) { return s + Math.max(0, t.time / 60 - P.freeMin) / 60 * P.detention; }, 0);
-      return {
+      var out = {
         kind: kind, slot: slot, orders: orders, share: share, pickers: nPick, done: K.orders, lines: K.lines,
         walkOrder: K.walk / Math.max(1, K.orders), lph: lph,
         split: { walk: K.tWalk / 3600, pick: K.tPick / 3600, wait: K.tWait / 3600, other: K.tOther / 3600 },
@@ -592,8 +785,24 @@
         pickHoursDay: needH, pickCostYear: needH * P.wage * P.days, detYear: det * P.days,
         waits: K.waits
       };
+      if (M) out.mfg = mfgResults();
+      return out;
     }
-    S.tick = tick; S.run = run; S.results = results; S.P = P; S.faces = faces; S.cx = cx; S.cz = cz; S.nPick = nPick;
+    function mfgResults() {
+      var T = S.t, planned = T / 60, ls = M.lines.map(function (ln) {
+        return { run: ln.run / 60, starved: ln.starved / 60, avail: ln.run / T, made: ln.made,
+          byMat: ln.mats.map(function (m) { return { t: m.name, starved: m.starved / 60 }; }) };
+      });
+      var hBusy = (S.k.tWalk + S.k.tPick + S.k.tWait + S.k.tOther) / 3600;
+      return {
+        lines: ls, avail: ls.reduce(function (s, l) { return s + l.avail; }, 0) / ls.length, starved: ls.reduce(function (s, l) { return s + l.starved; }, 0),
+        made: ls.reduce(function (s, l) { return s + l.made; }, 0), planned: planned, rate: M.rate,
+        handlerHours: hBusy, handlerKm: S.k.walk / 1000, deliveries: M.k.deliv, calls: M.k.calls, cards: M.k.cards, loops: M.k.loops,
+        resp: M.k.resp / Math.max(1, M.k.deliv) / 60, repl: M.k.repl, replMin: M.k.replT / Math.max(1, M.k.repl) / 60, smWait: M.k.smWait / 60,
+        lineStock: M.k.lineStock / T, smStock: M.k.smStock / T, smMax: M.lines.reduce(function (s, l) { return Math.max(s, l.mats.reduce(function (q, m) { return Math.max(q, m.maxSm, P.mSm0); }, 0)); }, 0), palletsOut: Math.floor(ls.reduce(function (s, l) { return s + l.made; }, 0) / P.mPailsPallet)
+      };
+    }
+    S.tick = tick; S.run = run; S.results = results; S.P = P; S.faces = faces; S.cx = cx; S.cz = cz; S.nPick = nPick; S.M = M;
     return S;
   }
 

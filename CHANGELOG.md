@@ -1,5 +1,25 @@
 # Changelog
 
+## V5.70 — 2026-11-22
+- **New: Warehouse layout series, Part 4: "Central Store, Supermarket or Kanban? Feeding the Production Line"** (`/post/central-store-supermarket-or-kanban-feeding-the-production-line`).
+  - The plant: Ridgeline Coatings (the fictional Vancouver coatings maker of the ABC posts), with two mixing tanks and two filling lines, fed three ways:
+    - from a central store, called when a load runs out;
+    - from a line-side supermarket, called when a load runs out;
+    - by a kanban milk run, with two bins and a run every 20 minutes.
+  - Line minutes lost waiting for material at standard speed: 237 / 118 / 0. Handler hours: 4.3 / 2.4 / 1.9. Kanban holds 2.6× the stock at the lines.
+  - One-change-at-a-time model checks show the trigger (calling before a load runs out) removes the waiting wherever material is kept. The supermarket's gain comes mostly from skipping the store's issue booking and part-number layout.
+  - Includes milk-run sizing (and the late-card case), overtime cost ($178k a year for the central store, $89k for the supermarket), and supermarket racking for 68 positions.
+  - New Figure 1: a plan of the plant with the supermarket highlighted as the one area that changes.
+- **Layout Lab:** scenario `s=p4`.
+  - Mixers and filling lines in 2D and 3D, with line running/waiting outlines and lamps, and the loads at the line.
+  - The supermarket area is shaded, or outlined with dashes where there is none.
+  - Part 4 KPI table, legend, model notes, and a "Line speed" slider (50–200%).
+  - Engine and Lab script tags now carry `?v=5.70`.
+- **Engine:** manufacturer mode (`mstore`, `mside`, `mkanban`) with line starvation, call or card triggers, milk runs and forklift top-ups of the supermarket, plus model-only options for the checks. Parts 1–3 results are unchanged.
+- **Numbers:** `content/articles/wl4_model.js` writes `wl4_results.json`, which `wl4_articles.py` quotes.
+- **Links:** Part 3's "Next" links to Part 4; Part 4 added to the "Run a leaner warehouse" reading list.
+- **Red team QC:** three rounds before release (V1, V2 and V3 samples), all findings addressed.
+
 ## V5.69 — 2026-11-22
 - **New: Warehouse layout series, Part 3: "Wide, Narrow or Very Narrow Aisles? Warehouse Density Against Access"** (`/post/wide-narrow-or-very-narrow-aisles-warehouse-density-against-access`). The Part 2 U-shape building with 4 m aisles (counterbalance truck), 3 m aisles (reach truck) and 2 m aisles (wire-guided turret truck). At 300 orders a day: 2,640 / 3,360 / 4,080 pallet positions; 18.0 / 17.7 / 17.5 picker-hours; the turret truck waits 9.4 minutes a shift for pickers to leave an aisle, rising to about 40 at 600 orders, when very narrow aisles pick slower than narrow aisles. Costs use published ranges (racking, trucks, superflat floors; USD at 1.42) and Metro Vancouver rent (CBRE Q3 2026 net asking plus additional rent): narrow aisles cost $185–539 an added position and pay back in 0.8–2.3 years against leasing the same space; very narrow aisles $479–1,314 and 2.1–5.8 years, only if the positions would otherwise be leased.
 - **Layout Lab:** scenario `s=p3` (`wide`, `redesign` shown as "Narrow aisles", `vna`), with pallet positions and truck waiting in the KPI table, Part 3 numbered points and model notes. KPI headers shorten to "4 m / 3 m / 2 m aisles" on phones.

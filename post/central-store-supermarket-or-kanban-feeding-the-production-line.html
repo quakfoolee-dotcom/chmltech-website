@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Central Store, Supermarket or Kanban? Feeding the Production Line</title>
+<meta name="description" content="Two filling lines fed three ways in the same plant, simulated: how a central store, a line-side supermarket and a kanban milk run change line stops.">
+<link rel="canonical" href="https://www.chmltech.com/post/central-store-supermarket-or-kanban-feeding-the-production-line">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Central Store, Supermarket or Kanban? Feeding the Production Line">
+<meta property="og:description" content="Two filling lines fed three ways in the same plant, simulated: how a central store, a line-side supermarket and a kanban milk run change line stops.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/central-store-supermarket-or-kanban-feeding-the-production-line.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=689272f3">
+<meta property="og:url" content="https://www.chmltech.com/post/central-store-supermarket-or-kanban-feeding-the-production-line">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-22">
+<meta property="article:modified_time" content="2026-11-22">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Central Store, Supermarket or Kanban? Feeding the Production Line","item":"https://www.chmltech.com/post/central-store-supermarket-or-kanban-feeding-the-production-line"}]}]}</script>
+<script>(function(c,l,a,r,i,t,y){try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../courses.html">Courses</a>
+      <a href="../llm-leaderboard.html">AI Models</a>
+      <a href="../digital-assessment.html">Digital Assessment</a>
+      <a href="../funding.html">Funding</a>
+      <a href="../contact.html">Contact</a>
+      <a class="btn" href="../book.html">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark" style="padding-bottom:72px">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
+    <div class="tags"><a href="../insights.html#cat=operational-efficiency">Operational Efficiency</a><a href="../insights.html#cat=inventory-management">Inventory Management</a></div>
+    <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Warehouse layout series · Part 4 of 5</p>
+    <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Central Store, Supermarket or Kanban? Feeding the Production Line</h1>
+    <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 22, 2026</span><span>11 min read</span></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px"><div class="container layout-aside">
+  <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#three-ways-to-feed-a-line">Three ways to feed a line</a></li><li><a href="#the-plant">The plant</a></li><li><a href="#the-layout-lab">The Layout Lab</a></li><li><a href="#what-the-simulation-shows">What the simulation shows</a></li><li><a href="#what-each-change-contributes">What each change contributes</a></li><li><a href="#sizing-the-milk-run">Sizing the milk run</a></li><li><a href="#what-the-waiting-costs">What the waiting costs</a></li><li><a href="#what-the-shift-does-not-show">What the shift does not show</a></li><li><a href="#how-to-check-your-own-plant">How to check your own plant</a></li><li><a href="#what-the-model-leaves-out">What the model leaves out</a></li><li><a href="#key-points">Key points</a></li><li><a href="#sources">Sources</a></li></ol></details>
+
+<link rel="stylesheet" href="../assets/css/oee.css?v=8bc91df5">
+<p>Parts <a href="good-layout-bad-layout-what-travel-and-congestion-cost-an-sme-warehouse.html">1</a>, <a href="u-shape-straight-through-or-l-shape-choosing-a-warehouse-flow-pattern.html">2</a> and <a href="wide-narrow-or-very-narrow-aisles-warehouse-density-against-access.html">3</a> laid out a distributor's warehouse. A manufacturer has a second customer inside the building: the production line. When a line runs out of a material, it stops, and every minute it waits is lost output. In OEE terms it is an availability loss (see <a href="what-oee-really-measures.html">what OEE really measures</a>), and it often starts with the layout: where the materials are kept, and how they reach the line.</p>
+<p>This part follows Ridgeline Coatings, the fictional Vancouver coatings maker from the <a href="abc-analysis-for-manufacturers.html">ABC analysis for manufacturers</a> post, through one shift with three ways of feeding its two filling lines.</p>
+<h2 id="three-ways-to-feed-a-line">Three ways to feed a line</h2>
+<p class="oee-cap">Table 1. The three set-ups</p>
+<table>
+<tr><th class="nw">Set-up</th><th>Where the materials wait</th><th>At the line</th><th>How a refill is triggered</th></tr>
+<tr><td class="nw">Central store</td><td>In the central store with everything else, laid out by part number</td><td>One load of each material</td><td>The operator calls a material handler when a load runs out; the store issues the load</td></tr>
+<tr><td class="nw">Line-side supermarket</td><td>A small rack between the lines, holding a few loads of each line material, topped up from the store by forklift</td><td>One load of each material</td><td>The same: called when a load runs out</td></tr>
+<tr><td class="nw">Kanban milk run</td><td>The same supermarket</td><td>Two loads (two bins)</td><td>When the first load is used up, a card goes up; a handler on a fixed 20-minute loop delivers every carded load</td></tr>
+</table>
+<p>A supermarket, in lean terms, is a small store owned by production and placed next to the lines it serves, from which material handlers take what the lines use. The two-bin system needs no cards at all: the empty bin is the signal, and the second bin keeps the line running while the first is refilled. A milk run is a handler who follows a standard route on a fixed timetable, for example every 20 minutes, collecting the signals and delivering the materials.</p>
+<h2 id="the-plant">The plant</h2>
+<p>The building is the 72 by 52&nbsp;m building of the earlier parts, with the same doors and staging. The west third is the central store: about 330 pallet faces, each with several levels above. In the east, two mixing tanks feed two filling lines, each filling 3 pails a minute at standard speed. Each line uses five materials: resin and pigment at the mixer, and pails, lids and labels at the filler. One load (a drum of resin, a pallet of pails, a box of label rolls) lasts 40 to 150 minutes of running, and a line stops when any one of its five materials runs out.</p>
+<ul>
+<li><strong>Two material handlers</strong> walk at 0.9&nbsp;m/s with a pallet jack or cart: 20 seconds to start a job, 40 seconds to pick up a load, 30 seconds to set it down at the line. At the central store, booking the issue of a load adds 2 minutes.</li>
+<li><strong>One forklift</strong> puts away inbound pallets (6 trucks a day) and, with a supermarket, brings 3 more loads from the store when a supermarket face is down to 2.</li>
+<li><strong>Finished pails</strong> are palletised at the end of the lines (36 to a pallet) and taken to shipping by pallet jack; carriers collect every hour.</li>
+</ul>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Plan of Ridgeline Coatings' plant: the central store to the west, two mixing tanks and two filling lines to the east, palletising at the end of the lines, receiving and shipping staging along the south wall. The supermarket, a double rack between the two filling lines, is highlighted as the only area that changes between the set-ups." viewBox="0 0 740 439" style="width:100%;height:auto;display:block;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><rect x="20.0" y="20.0" width="547.1999999999999" height="395.2" fill="#FBFAF6" stroke="#0B2A5A" stroke-width="2"/><rect x="27.6" y="50.4" width="7.6" height="228.0" fill="#C9D3E0" stroke="#9AA8BA"/><rect x="58.0" y="50.4" width="15.2" height="228.0" fill="#C9D3E0" stroke="#9AA8BA"/><rect x="96.0" y="50.4" width="15.2" height="228.0" fill="#C9D3E0" stroke="#9AA8BA"/><rect x="134.0" y="50.4" width="15.2" height="228.0" fill="#C9D3E0" stroke="#9AA8BA"/><rect x="172.0" y="50.4" width="15.2" height="228.0" fill="#C9D3E0" stroke="#9AA8BA"/><rect x="210.0" y="50.4" width="7.6" height="228.0" fill="#C9D3E0" stroke="#9AA8BA"/><text x="122.6" y="38.239999999999995" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Central store</text><circle cx="308.8" cy="80.8" r="14.44" fill="#E4EAF3" stroke="#7F93B2" stroke-width="2"/><rect x="339.2" y="73.19999999999999" width="174.79999999999998" height="15.2" fill="#7F93B2"/><text x="426.59999999999997" y="85.3" text-anchor="middle" font-size="11.5" fill="#FFFFFF" font-weight="600">Filling line A</text><circle cx="308.8" cy="194.79999999999998" r="14.44" fill="#E4EAF3" stroke="#7F93B2" stroke-width="2"/><rect x="339.2" y="187.2" width="174.79999999999998" height="15.2" fill="#7F93B2"/><text x="426.59999999999997" y="199.29999999999998" text-anchor="middle" font-size="11.5" fill="#FFFFFF" font-weight="600">Filling line B</text><text x="308.8" y="146.16000000000003" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">Mixing</text><rect x="346.8" y="111.19999999999999" width="144.4" height="53.199999999999996" fill="#E0A12E" fill-opacity="0.22" stroke="#E0A12E" stroke-width="2" stroke-dasharray="6 4"/><rect x="354.4" y="134.0" width="129.2" height="15.2" fill="#E0A12E"/><text x="419.0" y="127.91999999999999" text-anchor="middle" font-size="12" fill="#8A5A00" font-weight="600">Supermarket</text><rect x="476.0" y="255.6" width="53.199999999999996" height="15.2" fill="#C9D3E0" stroke="#9AA8BA"/><text x="502.59999999999997" y="249.51999999999998" text-anchor="middle" font-size="12" fill="#0B2A5A" font-weight="600">Palletising</text><rect x="42.8" y="335.4" width="182.39999999999998" height="45.599999999999994" fill="none" stroke="#9AA8BA" stroke-dasharray="4 3"/><text x="134.0" y="396.96" text-anchor="middle" font-size="12" fill="#5A6475">Receiving staging</text><rect x="407.59999999999997" y="335.4" width="136.79999999999998" height="45.599999999999994" fill="none" stroke="#9AA8BA" stroke-dasharray="4 3"/><text x="476.0" y="396.96" text-anchor="middle" font-size="12" fill="#5A6475">Shipping staging</text><rect x="69.4" y="412.2" width="22.799999999999997" height="6" fill="#0B6FA4"/><rect x="115.0" y="412.2" width="22.799999999999997" height="6" fill="#0B6FA4"/><rect x="160.6" y="412.2" width="22.799999999999997" height="6" fill="#0B6FA4"/><rect x="434.2" y="412.2" width="22.799999999999997" height="6" fill="#8DC63F"/><rect x="487.4" y="412.2" width="22.799999999999997" height="6" fill="#8DC63F"/><polyline points="491.2,137.8 575.2,137.8" fill="none" stroke="#E0A12E" stroke-width="1.6"/><text x="581.1999999999999" y="111.80000000000001" text-anchor="start" font-size="12" fill="#8A5A00" font-weight="600">The only area that</text><text x="581.1999999999999" y="126.80000000000001" text-anchor="start" font-size="12" fill="#8A5A00">changes: none in</text><text x="581.1999999999999" y="141.8" text-anchor="start" font-size="12" fill="#8A5A00">the central-store</text><text x="581.1999999999999" y="156.8" text-anchor="start" font-size="12" fill="#8A5A00">set-up; a double</text><text x="581.1999999999999" y="171.8" text-anchor="start" font-size="12" fill="#8A5A00">rack in the other two</text></svg></div>
+<figcaption>Figure 1. Ridgeline's plant. Mixing, the filling lines, palletising and the central store are the same in all three set-ups; only the supermarket changes.</figcaption>
+</figure>
+<p>Mixing and palletising are part of the plant in every set-up: the mixers use the resin and pigment, and palletising stacks the finished pails for shipping. They are drawn so you can follow the materials and the output, but the comparison is about one area, the supermarket between the lines, and about when a refill is asked for.</p>
+<h2 id="the-layout-lab">The Layout Lab</h2>
+<p>The simulator runs the three set-ups through the same shift. The supermarket area is shaded amber where it exists and outlined in dashes where it does not. Each line's outline turns red when it is waiting for material, and the loads waiting at each line are drawn next to it: one in the first two set-ups, two with kanban. Change the line speed to see how each set-up copes when the lines run faster or slower.</p>
+<figure>
+<iframe id="wl-sim" src="../assets/sim/layout-lab.html#embed&amp;s=p4" title="Warehouse Layout Lab: two filling lines fed from a central store, a line-side supermarket and a kanban milk run, simulated side by side" loading="lazy" style="width:100%;height:3870px;border:0;display:block"></iframe>
+<figcaption>Figure 2. The Warehouse Layout Lab with Ridgeline's three set-ups. The animation replays the shift 12 times faster than life; the table is the whole simulated shift.</figcaption>
+</figure>
+<p class="oee-hint"><a href="../assets/sim/layout-lab.html?s=p4">Open the Layout Lab on its own page</a> for a larger view.</p>
+<h2 id="what-the-simulation-shows">What the simulation shows</h2>
+<p class="oee-cap">Table 2. One shift at standard line speed</p>
+<table>
+<tr><th class="nw">Measure</th><th class="num">Central store</th><th class="num">Line-side supermarket</th><th class="num">Kanban milk run</th></tr>
+<tr><td>Line time lost waiting for material (both lines)</td><td class="num">237&nbsp;min</td><td class="num">118&nbsp;min</td><td class="num">0&nbsp;min</td></tr><tr><td>Availability, counting material losses only</td><td class="num">75.3%</td><td class="num">87.7%</td><td class="num">100.0%</td></tr><tr><td class="nw">Pails filled</td><td class="num">2,169</td><td class="num">2,525</td><td class="num">2,880</td></tr><tr><td>Material deliveries to the lines</td><td class="num">47</td><td class="num">56</td><td class="num">61</td></tr><tr><td>Call or card to delivery (average)</td><td class="num">5.0&nbsp;min</td><td class="num">2.1&nbsp;min</td><td class="num">15.0&nbsp;min</td></tr><tr><td class="nw">Material handler hours</td><td class="num">4.3</td><td class="num">2.4</td><td class="num">1.9</td></tr><tr><td class="nw">Handler walking</td><td class="num">5.0&nbsp;km</td><td class="num">3.3&nbsp;km</td><td class="num">1.9&nbsp;km</td></tr><tr><td>Stock at the lines (average value)</td><td class="num">$4,400</td><td class="num">$4,500</td><td class="num">$11,900</td></tr><tr><td>Stock in the supermarket (average value)</td><td class="num">None</td><td class="num">$36,600</td><td class="num">$36,500</td></tr>
+</table>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Bar chart of line minutes in the shift. Central store: 237 minutes waiting for material, availability 75%, Line-side supermarket: 118 minutes waiting for material, availability 88%, Kanban milk run: 0 minutes waiting for material, availability 100%." viewBox="0 0 700 224" style="width:100%;height:auto;display:block;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="190.0" y1="32" x2="190.0" y2="180" stroke="#E4E1D8"/><text x="190.0" y="196" text-anchor="middle" font-size="12" fill="#5A6475">0</text><line x1="242.5" y1="32" x2="242.5" y2="180" stroke="#E4E1D8"/><text x="242.5" y="196" text-anchor="middle" font-size="12" fill="#5A6475">120</text><line x1="295.0" y1="32" x2="295.0" y2="180" stroke="#E4E1D8"/><text x="295.0" y="196" text-anchor="middle" font-size="12" fill="#5A6475">240</text><line x1="347.5" y1="32" x2="347.5" y2="180" stroke="#E4E1D8"/><text x="347.5" y="196" text-anchor="middle" font-size="12" fill="#5A6475">360</text><line x1="400.0" y1="32" x2="400.0" y2="180" stroke="#E4E1D8"/><text x="400.0" y="196" text-anchor="middle" font-size="12" fill="#5A6475">480</text><line x1="452.5" y1="32" x2="452.5" y2="180" stroke="#E4E1D8"/><text x="452.5" y="196" text-anchor="middle" font-size="12" fill="#5A6475">600</text><line x1="505.0" y1="32" x2="505.0" y2="180" stroke="#E4E1D8"/><text x="505.0" y="196" text-anchor="middle" font-size="12" fill="#5A6475">720</text><line x1="557.5" y1="32" x2="557.5" y2="180" stroke="#E4E1D8"/><text x="557.5" y="196" text-anchor="middle" font-size="12" fill="#5A6475">840</text><line x1="610.0" y1="32" x2="610.0" y2="180" stroke="#E4E1D8"/><text x="610.0" y="196" text-anchor="middle" font-size="12" fill="#5A6475">960</text><text x="400.0" y="216" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Line minutes in the shift (two lines, 960 in all)</text><text x="178" y="60.0" text-anchor="end" font-size="13" fill="#0B2A5A" font-weight="600">Central store</text><rect x="190" y="40" width="316.3" height="30" fill="#8DC63F"/><rect x="506.3" y="40" width="103.7" height="30" fill="#E2574C"/><text x="618.0" y="60.0" text-anchor="start" font-size="13" fill="#0B2A5A" font-weight="600">75%</text><text x="178" y="112.0" text-anchor="end" font-size="13" fill="#0B2A5A" font-weight="600">Line-side supermarket</text><rect x="190" y="92" width="368.2" height="30" fill="#8DC63F"/><rect x="558.2" y="92" width="51.8" height="30" fill="#E2574C"/><text x="618.0" y="112.0" text-anchor="start" font-size="13" fill="#0B2A5A" font-weight="600">88%</text><text x="178" y="164.0" text-anchor="end" font-size="13" fill="#0B2A5A" font-weight="600">Kanban milk run</text><rect x="190" y="144" width="420.0" height="30" fill="#8DC63F"/><text x="618.0" y="164.0" text-anchor="start" font-size="13" fill="#0B2A5A" font-weight="600">100%</text><rect x="190" y="10" width="12" height="12" rx="2" fill="#8DC63F"/><text x="208" y="21" text-anchor="start" font-size="12.5" fill="#0B2A5A">Running</text><rect x="276.4" y="10" width="12" height="12" rx="2" fill="#E2574C"/><text x="294.4" y="21" text-anchor="start" font-size="12.5" fill="#0B2A5A">Waiting for material</text></svg></div>
+<figcaption>Figure 3. Line minutes running and waiting for material. Only material losses are counted; breakdowns, changeovers and slow running would come on top.</figcaption>
+</figure>
+<ul>
+<li><strong>From the central store, the lines wait 237 minutes a shift</strong>, about a quarter of the time. Every run-out stops a line for the whole refill: the call, the walk to the store, the issue, the walk back. That takes 5.0 minutes on average, and it happens 47 times a shift across the two lines.</li>
+<li><strong>A supermarket halves the waiting, but does not remove it.</strong> A refill takes 2.1 minutes and the lines wait 118 minutes. Most of the gain comes from skipping the store's issue booking and its part-number layout, not from the shorter walk (see the next section). The line still stops at every run-out, because nobody is asked for material until it has run out.</li>
+<li><strong>Two bins and a milk run remove the waiting here.</strong> The card goes up when the first load is used up, so the line runs on the second load while the milk run comes round. This assumes steady use and cards seen as soon as they go up; see <a href="#sizing-the-milk-run">sizing the milk run</a>. Cards wait 15.0 minutes on average for delivery, and the lines never notice. Across ten other simulated days the lines waited 232 to 249 minutes with the central store, 116 to 122 with the supermarket and 0 with kanban.</li>
+<li><strong>The milk run also needs less handling.</strong> One loop delivers every carded load, so the handlers work 1.9 hours against 4.3 from the central store, and walk 1.9&nbsp;km instead of 5.0&nbsp;km. All three set-ups keep two handlers; the time is freed for other work, not saved as cash, and a timed milk run ties one person to its timetable.</li>
+<li><strong>The price is stock and space at the line.</strong> Two bins hold 2.6 times as much at the lines: $11,900 on average against $4,500. The supermarket holds about $36,500, but that stock moves out of the central store; it does not have to be extra if the store's reorder points are lowered to match.</li>
+</ul>
+<h2 id="what-each-change-contributes">What each change contributes</h2>
+<p>The three set-ups change several things at once: where the materials are, how the store is run, how many loads wait at the line and what triggers a refill. To separate them, the model was also run with one change at a time, averaged over ten simulated days.</p>
+<p class="oee-cap">Table 3. One change at a time (ten-day averages; rows 2, 3, 5 and 6 are model checks, not set-ups in the Lab)</p>
+<table>
+<tr><th>Set-up</th><th class="num">Line minutes lost a shift</th><th class="num">Handler hours</th></tr>
+<tr><td>Central store, as set up</td><td class="num">240</td><td class="num">4.4</td></tr><tr><td>Central store, no 2-minute issue booking</td><td class="num">159</td><td class="num">3.1</td></tr><tr><td>Central store, no issue booking, line materials in the store faces nearest the lines</td><td class="num">128</td><td class="num">2.6</td></tr><tr><td>Line-side supermarket, called when a load runs out</td><td class="num">119</td><td class="num">2.4</td></tr><tr><td>Central store, two bins at the line, called when the first runs out</td><td class="num">0</td><td class="num">5.8</td></tr><tr><td>Supermarket, two bins at the line, called when the first runs out</td><td class="num">0</td><td class="num">2.8</td></tr><tr><td>Supermarket, two bins and a 20-minute milk run</td><td class="num">0</td><td class="num">1.9</td></tr>
+</table>
+<ul>
+<li><strong>The trigger matters most.</strong> With two bins at the line and a call when the first runs out, the lines stopped waiting even when every load still came from the central store. Calling before a material runs out, not where it is kept, removes the waiting.</li>
+<li><strong>The store's way of working costs more than its distance.</strong> Booking each issue (2 minutes) and keeping line materials in part-number order account for most of the central store's extra waiting. With both removed, the central store loses 128 minutes against 119 for the supermarket.</li>
+<li><strong>The supermarket and the milk run cut the handling.</strong> Two bins fed from the central store need 5.8 handler-hours a shift; from the supermarket, 2.8; with the milk run, 1.9. Note that in the central-store set-up the handlers are idle most of the shift while the lines wait: the problem there is calling late, not a shortage of people.</li>
+</ul>
+<h2 id="sizing-the-milk-run">Sizing the milk run</h2>
+<p>Kanban works here because every load lasts longer than the time it can take to replace it. The worst case is a card that goes up just after the milk run has left: it waits a full loop, then the handler collects and delivers. So the rule is</p>
+<p class="eq">\[t_{\text{load}} > t_{\text{loop}} + t_{\text{deliver}}\]</p>
+<p>where \(t_{\text{load}}\) is how long one load lasts at the line, \(t_{\text{loop}}\) the time between milk runs and \(t_{\text{deliver}}\) the time to collect and deliver. The load that runs out first sets the limit: here a drum of resin lasts 40 minutes.</p>
+<figure>
+<div style="overflow-x:auto"><svg role="img" aria-label="Line chart: with the kanban milk run, no line minutes are lost for intervals of 10 to 40 minutes; at 50 minutes 134 minutes are lost and at 60 minutes 256, because a drum of resin lasts 40 minutes." viewBox="0 0 700 300" style="width:100%;height:auto;display:block;min-width:560px" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13"><line x1="70" y1="250.0" x2="630" y2="250.0" stroke="#E4E1D8"/><text x="62" y="254.0" text-anchor="end" font-size="12" fill="#5A6475">0</text><line x1="70" y1="206.0" x2="630" y2="206.0" stroke="#E4E1D8"/><text x="62" y="210.0" text-anchor="end" font-size="12" fill="#5A6475">60</text><line x1="70" y1="162.0" x2="630" y2="162.0" stroke="#E4E1D8"/><text x="62" y="166.0" text-anchor="end" font-size="12" fill="#5A6475">120</text><line x1="70" y1="118.0" x2="630" y2="118.0" stroke="#E4E1D8"/><text x="62" y="122.0" text-anchor="end" font-size="12" fill="#5A6475">180</text><line x1="70" y1="74.0" x2="630" y2="74.0" stroke="#E4E1D8"/><text x="62" y="78.0" text-anchor="end" font-size="12" fill="#5A6475">240</text><line x1="70" y1="30.0" x2="630" y2="30.0" stroke="#E4E1D8"/><text x="62" y="34.0" text-anchor="end" font-size="12" fill="#5A6475">300</text><text x="163.33333333333331" y="268" text-anchor="middle" font-size="12" fill="#5A6475">10</text><text x="256.66666666666663" y="268" text-anchor="middle" font-size="12" fill="#5A6475">20</text><text x="350.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">30</text><text x="443.3333333333333" y="268" text-anchor="middle" font-size="12" fill="#5A6475">40</text><text x="536.6666666666667" y="268" text-anchor="middle" font-size="12" fill="#5A6475">50</text><text x="630.0" y="268" text-anchor="middle" font-size="12" fill="#5A6475">60</text><text x="350.0" y="290" text-anchor="middle" font-size="12.5" fill="#0B2A5A" font-weight="600">Minutes between milk runs</text><text x="20" y="140.0" transform="rotate(-90 20 140.0)" text-anchor="middle" font-size="12.5" font-weight="600" fill="#0B2A5A">Line minutes lost a shift</text><line x1="443.3" y1="30" x2="443.3" y2="250" stroke="#C27712" stroke-dasharray="5 4" stroke-width="1.5"/><text x="437.3333333333333" y="44" text-anchor="end" font-size="12" fill="#C27712" font-weight="600">One drum of resin lasts 40 min</text><polyline points="163.3,250.0 256.7,250.0 350.0,250.0 443.3,250.0 536.7,152.0 630.0,62.2" fill="none" stroke="#4D7F12" stroke-width="2.6"/><circle cx="163.3" cy="250.0" r="3.4" fill="#4D7F12"/><circle cx="256.7" cy="250.0" r="3.4" fill="#4D7F12"/><circle cx="350.0" cy="250.0" r="3.4" fill="#4D7F12"/><circle cx="443.3" cy="250.0" r="3.4" fill="#4D7F12"/><circle cx="536.7" cy="152.0" r="3.4" fill="#4D7F12"/><circle cx="630.0" cy="62.2" r="3.4" fill="#4D7F12"/></svg></div>
+<figcaption>Figure 4. Line minutes lost with the kanban milk run, as the time between runs grows. Once a run takes longer than a drum of resin lasts, the lines start to wait.</figcaption>
+</figure>
+<p>With loops of 10 to 30 minutes the lines lost nothing. At 40 minutes the loop is right at the limit: the lines happened to lose nothing on this day, but one unlucky card would stop a line. At 50 and 60 minutes they lost 134 and 256 minutes. Line speed works the same way: at 200% speed every load lasts half as long. The central store then loses 382 minutes a shift and the supermarket 210. Kanban loses 0, but the 20-minute loop is now at its limit: in the speed sweep it lost 21 minutes at one speed. When lines speed up or loads get smaller, shorten the loop or add a bin.</p>
+<p>The model also assumes the milk run sees every card posted before it leaves, as with an electronic signal or a light. With paper cards picked up on the round, a card can wait a whole extra loop, so the rule becomes \(t_{\text{load}} > 2\,t_{\text{loop}} + t_{\text{deliver}}\), and a 20-minute loop is too long for a 40-minute drum. In the model, cards seen one loop late cost 2 minutes a shift at standard speed, 289 at 150% and 448 at 200%.</p>
+<h2 id="what-the-waiting-costs">What the waiting costs</h2>
+<p>If Ridgeline makes up the lost pails with overtime, each line-hour lost costs a crew of 3 operators at time and a half:</p>
+<p class="eq">\[\text{Overtime a year} = h \times c \times w \times 1.5 \times d\]</p>
+<p>where \(h\) is line-hours lost a day, \(c\) the crew per line, \(w\) $40 an hour loaded and \(d\) 250 days a year. For the central store that is 3.95 × 3 × $40 × 1.5 × 250 = $178,000 a year.</p>
+<p class="oee-cap">Table 4. What each set-up costs a year (Canadian dollars)</p>
+<table>
+<tr><th>Item</th><th class="num">Central store</th><th class="num">Line-side supermarket</th><th class="num">Kanban milk run</th></tr>
+<tr><td>Line-hours lost a day (both lines)</td><td class="num">3.9</td><td class="num">2.0</td><td class="num">0.0</td></tr><tr><td>Overtime to make up the lost pails, a year</td><td class="num">$178,000</td><td class="num">$89,000</td><td class="num">$0</td></tr><tr><td>Material handler time, a year (time freed, not cash unless reused)</td><td class="num">$43,000</td><td class="num">$24,000</td><td class="num">$19,000</td></tr><tr><td>Extra stock at the lines against line-side, carrying cost a year</td><td class="num">–</td><td class="num">–</td><td class="num">$2,000</td></tr><tr><td>Supermarket racking, one-off</td><td class="num">None</td><td class="num">$5,000 to $12,000</td><td class="num">$5,000 to $12,000</td></tr>
+</table>
+<ul>
+<li><strong>Moving to a supermarket</strong> saves about $89,000 a year in overtime, for $5,000 to $12,000 of racking (34 faces on two levels, 68 positions, at the Part&nbsp;3 price range; a material can hold up to 5 loads across its positions).</li>
+<li><strong>Adding two bins and a milk run</strong> saves about $176,000 a year in overtime against the central store, after the carrying cost of the extra stock at the lines (at 25% a year). Handler time falls too, but it only becomes cash if the freed hours replace other paid work.</li>
+<li><strong>If the lines are sold out,</strong> the cost is lost sales, not overtime. At an illustrative $8 contribution a pail, the 355 pails a day the line-side set-up loses against kanban would be worth $2,800 a day. See <a href="what-oee-losses-cost.html">what OEE losses cost</a> for how to value lost output.</li>
+</ul>
+<h2 id="what-the-shift-does-not-show">What the shift does not show</h2>
+<ul>
+<li><strong>Shelf life and lot control.</strong> Coatings materials have expiry dates and lot numbers. A supermarket must still be used first-expired, first-out, and every load moved to the line must stay traceable.</li>
+<li><strong>Inventory records.</strong> Stock that moves to a supermarket or the line without a transaction is how record errors start. Decide where the stock is booked: issued to the line when it leaves the store, or when it is used.</li>
+<li><strong>Batch changes.</strong> When a line changes colour or product, the line-side loads change too. Kanban works best for the materials every batch uses (pails, lids, labels); batch-specific materials are often kitted for each batch instead.</li>
+<li><strong>Space and safety at the lines.</strong> Two bins and a supermarket need floor space next to the lines, clear of walkways and fire exits, with forklift traffic kept away from operators.</li>
+<li><strong>Other losses.</strong> Breakdowns, changeovers and slow running are not modelled. A line that never waits for material can still have a low OEE.</li>
+<li><strong>The receiving dock.</strong> Topping up the supermarket takes forklift time ahead of inbound put-away, so pallets wait a little longer at receiving: 2.4, 4.0 and 4.7 minutes on average.</li>
+</ul>
+<p class="oee-cap">Table 5. Choosing how to feed a line (rules of thumb; the model checks inform the first three rows)</p>
+<table>
+<tr><th>If this is true</th><th>Start with</th></tr>
+<tr><td>Lines stop at every run-out while a refill is fetched</td><td>Two bins, so the signal comes before the line runs dry, wherever the material is kept</td></tr>
+<tr><td>Each refill from the store takes long because of paperwork or a part-number layout</td><td>A supermarket next to the lines for the materials every batch uses, issued in bulk to it</td></tr>
+<tr><td>Handlers spend their day walking separate refills</td><td>A timed milk run, with the loop sized for the load that runs out fastest</td></tr>
+<tr><td>Materials are specific to each batch or product</td><td>A kit for each batch, delivered before the batch starts</td></tr>
+<tr><td>Floor space at the line is very tight</td><td>Smaller loads and a shorter loop, rather than more stock at the line</td></tr>
+</table>
+<h2 id="how-to-check-your-own-plant">How to check your own plant</h2>
+<ol>
+<li><strong>Log every stop for a week</strong> with its cause, and count the minutes waiting for material.</li>
+<li><strong>Time a refill</strong> from the moment a material runs out to the moment the line restarts.</li>
+<li><strong>List the materials each line uses every batch,</strong> how long one load lasts, and where each one is stored today. Use the <a href="abc-analysis-for-manufacturers.html">criticality rating</a> to find the cheap items that can stop a line.</li>
+<li><strong>Size the loop</strong> from the load that runs out fastest, and check that one load lasts longer than the loop plus the delivery time.</li>
+<li><strong>Try it on one line</strong> with a temporary rack and cards before buying racking for every line.</li>
+</ol>
+<h2 id="what-the-model-leaves-out">What the model leaves out</h2>
+<ul>
+<li>One shift with fixed times, two lines and five materials a line; real lines use many more items, often in boxes rather than pallets.</li>
+<li>Material is always in stock in the store; supplier shortages (see <a href="safety-stock-for-manufacturers.html">safety stock for manufacturers</a>) are a separate problem.</li>
+<li>Loads last a fixed time at a given speed; no scrap, no batch changes, no breakdowns.</li>
+<li>Calls are answered in order by the first free handler; in a real plant calls are often noticed late.</li>
+<li>The milk run sees every card posted before it leaves; with paper cards collected on the round, add one loop to the delivery time.</li>
+</ul>
+<h2 id="key-points">Key points</h2>
+<ul>
+<li>A line waiting for material is an availability loss, and where materials are kept decides how long each wait is.</li>
+<li>Calling before a material runs out, with a second load at the line, removed the waiting in the model wherever the material was kept.</li>
+<li>Here, a supermarket halved the waiting from 237 to 118 minutes, mostly by skipping the store's issue booking and part-number layout.</li>
+<li>Two bins and a timed milk run kept the lines fed with the fewest handler hours, for 2.6 times the stock at the lines.</li>
+<li>Size the milk run from the load that runs out fastest: the loop plus delivery must be shorter than that load lasts.</li>
+</ul>
+<p>Earlier in this series: <a href="good-layout-bad-layout-what-travel-and-congestion-cost-an-sme-warehouse.html">Part&nbsp;1</a>, what a bad layout costs; <a href="u-shape-straight-through-or-l-shape-choosing-a-warehouse-flow-pattern.html">Part&nbsp;2</a>, flow patterns; <a href="wide-narrow-or-very-narrow-aisles-warehouse-density-against-access.html">Part&nbsp;3</a>, aisle widths. Next: Part&nbsp;5, from layout to cash: inventory turns and a layout payback calculator. Related: <a href="what-oee-really-measures.html">what OEE really measures</a> and <a href="abc-analysis-for-manufacturers.html">ABC analysis for manufacturers</a>.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://lean.org/?p=1756" rel="noopener" target="_blank">Lean Enterprise Institute: Material handling</a> (a standard route at precisely set intervals, such as every 20 minutes, collecting kanban cards)</li>
+<li><a href="https://www.taylorfrancis.com/chapters/mono/10.1201/b18933-7/two-bin-systems-material-handling-chris-ortiz" rel="noopener" target="_blank">Chris Ortiz: Two-bin systems for material handling</a> (the empty bin is the signal and the second bin covers the refill; described for small parts, the same logic used here with drums and pallets)</li>
+<li><a href="https://michelbaudin.com/tag/milk-run/" rel="noopener" target="_blank">Michel Baudin: Supermarkets and milk runs</a> (what a supermarket is in lean manufacturing, and who owns it)</li>
+<li><a href="https://www.allaboutlean.com/milk-run-intro/" rel="noopener" target="_blank">AllAboutLean: The milk run</a> (fixed schedule and fixed stops)</li>
+<li><a href="https://www.informs-sim.org/wsc16papers/251.pdf" rel="noopener" target="_blank">Bae: Lean design and analysis of a milk-run delivery system, Winter Simulation Conference 2016</a> (a simulated milk-run case study)</li>
+</ul>
+<p class="oee-note"><em>Ridgeline Coatings, its plant, materials, times and costs are an illustrative example built from stated assumptions, and the simulator is a simplified model. It shows how much the way materials reach a line can matter; it does not predict your plant's losses. Measure your own lines' waiting time before you change anything.</em></p>
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+<script src="../assets/js/wl1.js?v=bef21ba4" defer></script>
+  </article>
+  <aside class="aside-sticky">
+    <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#three-ways-to-feed-a-line">Three ways to feed a line</a></li><li><a href="#the-plant">The plant</a></li><li><a href="#the-layout-lab">The Layout Lab</a></li><li><a href="#what-the-simulation-shows">What the simulation shows</a></li><li><a href="#what-each-change-contributes">What each change contributes</a></li><li><a href="#sizing-the-milk-run">Sizing the milk run</a></li><li><a href="#what-the-waiting-costs">What the waiting costs</a></li><li><a href="#what-the-shift-does-not-show">What the shift does not show</a></li><li><a href="#how-to-check-your-own-plant">How to check your own plant</a></li><li><a href="#what-the-model-leaves-out">What the model leaves out</a></li><li><a href="#key-points">Key points</a></li><li><a href="#sources">Sources</a></li></ol></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>line-side supermarket</span><span>kanban</span><span>milk run</span><span>two-bin system</span><span>OEE availability</span><span>warehouse simulation</span></div></div>
+  </aside>
+</div></section>
+<section class="section sand"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 185 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="operational-efficiency inventory-management" data-search="wide, narrow or very narrow aisles? warehouse density against access three aisle widths in the same warehouse, simulated and priced: what more pallet positions cost against leasing space in metro vancouver. warehouse layout narrow aisle very narrow aisle reach truck pallet racking cost warehouse simulation"><div class="thumb"><img src="../assets/media/covers/thumbs/wide-narrow-or-very-narrow-aisles-warehouse-density-against-access.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Warehouse layout series · Part 3 of 5</p><h3><a href="../post/wide-narrow-or-very-narrow-aisles-warehouse-density-against-access.html">Wide, Narrow or Very Narrow Aisles? Warehouse Density Against Access</a></h3><p class="muted">Three aisle widths in the same warehouse, simulated and priced: what more pallet positions cost against leasing space in Metro Vancouver.</p><p class="meta">Nov 21, 2026 · 11 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement" data-search="what oee really measures: where your production hours go oee shows how many scheduled hours became good product. the three factors, the six big losses, a worked example and a live calculator. oee overall equipment effectiveness six big losses availability teep"><div class="thumb"><img src="../assets/media/covers/thumbs/what-oee-really-measures.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">OEE series · Part 1 of 3</p><h3><a href="../post/what-oee-really-measures.html">What OEE Really Measures: Where Your Production Hours Go</a></h3><p class="muted">OEE shows how many scheduled hours became good product. The three factors, the six big losses, a worked example and a live calculator.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="abc analysis for manufacturers: why dollar value is not enough in a plant, a $40 part can stop a line. how to add a criticality rating to abc analysis for raw materials, packaging and spare parts, with an example. abc analysis criticality spare parts raw materials manufacturing inventory"><div class="thumb"><img src="../assets/media/covers/thumbs/abc-analysis-for-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 3 of 6</p><h3><a href="../post/abc-analysis-for-manufacturers.html">ABC Analysis for Manufacturers: Why Dollar Value Is Not Enough</a></h3><p class="muted">In a plant, a $40 part can stop a line. How to add a criticality rating to ABC analysis for raw materials, packaging and spare parts, with an example.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article></div>
+</div></section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Central Store, Supermarket or Kanban? Feeding the Production Line", "datePublished": "2026-11-22", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/central-store-supermarket-or-kanban-feeding-the-production-line", "description": "Two filling lines fed three ways in the same plant, simulated: how a central store, a line-side supermarket and a kanban milk run change line stops.", "image": "https://www.chmltech.com/assets/media/covers/central-store-supermarket-or-kanban-feeding-the-production-line.jpg", "dateModified": "2026-11-22"}</script>
+<section class="cta">
+  <div class="container">
+    <div class="stack">
+      <h2 class="h-lg">Ready to find your next improvement?</h2>
+      <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
+    </div>
+    <div class="stack" style="align-items:flex-start">
+      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries.html">Industries</a>
+      <a href="../solutions.html">Solutions</a>
+      <a href="../training.html">Training</a>
+      <a href="../courses.html">Free courses</a>
+      <a href="../training.html">Free practice exams</a>
+      <a href="../insights.html">Insights</a>
+      <a href="../funding.html">Funding finder</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book.html">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=2135cd2c" defer></script>
+</body>
+</html>

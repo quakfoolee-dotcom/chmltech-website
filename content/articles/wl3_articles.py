@@ -255,7 +255,7 @@ def part3():
 <li>Against Metro Vancouver rents, narrow aisles paid back in about {f1(oN["payback"][0])} to {f1(oN["payback"][1])} years and very narrow aisles in about {f1(oV["payback"][0])} to {f1(oV["payback"][1])} years, but only if the extra positions would otherwise be leased.</li>
 <li>Check how full the racks really are before you pay for density.</li>
 </ul>
-<p>Earlier in this series: <a href="{WL1}.html">Part&nbsp;1</a>, what a bad layout costs, and <a href="{WL2}.html">Part&nbsp;2</a>, choosing a flow pattern. Related: <a href="{W1}.html">cube utilization and slotting</a> and <a href="{W3}.html">the dock door bottleneck</a> in the warehouse operations series.</p>
+<p>Earlier in this series: <a href="{WL1}.html">Part&nbsp;1</a>, what a bad layout costs, and <a href="{WL2}.html">Part&nbsp;2</a>, choosing a flow pattern. Next: <a href="central-store-supermarket-or-kanban-feeding-the-production-line.html">Part&nbsp;4</a>, feeding the production line. Related: <a href="{W1}.html">cube utilization and slotting</a> and <a href="{W3}.html">the dock door bottleneck</a> in the warehouse operations series.</p>
 <h2>Sources</h2>
 <ul>
 <li><a href="https://www.logisticsmgmt.com/article/jumping_on_the_narrow_aisle_trend/Racks" rel="noopener" target="_blank">Logistics Management: Jumping on the narrow aisle trend</a> (aisle widths by truck type)</li>

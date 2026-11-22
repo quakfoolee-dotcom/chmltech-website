@@ -11,9 +11,9 @@
   // which layouts to show: Part 1 compares as-is with the redesign (p1), Part 2 the three flow patterns (p2).
   // Chosen with s=p2 in the address (#embed&s=p2 inside an article) or window.WL_SCENE in the self-contained preview.
   var SCN = window.WL_SCENE || ((location.hash + location.search).match(/[#&?]s=(p\d)/) || [])[1] || 'p1';
-  var SETS = { p1: { kinds: ['asis', 'redesign'], tone: { asis: 'bad', redesign: 'good' } }, p2: { kinds: ['redesign', 'thru', 'lshape'], tone: {} }, p3: { kinds: ['wide', 'redesign', 'vna'], tone: {} } };
+  var SETS = { p1: { kinds: ['asis', 'redesign'], tone: { asis: 'bad', redesign: 'good' } }, p2: { kinds: ['redesign', 'thru', 'lshape'], tone: {} }, p3: { kinds: ['wide', 'redesign', 'vna'], tone: {} }, p4: { kinds: ['mstore', 'mside', 'mkanban'], tone: {} } };
   if (!SETS[SCN]) SCN = 'p1';
-  var KINDS = SETS[SCN].kinds, P2 = SCN !== 'p1', P3 = SCN === 'p3';   // P2: any part with three layouts
+  var KINDS = SETS[SCN].kinds, P2 = SCN !== 'p1', P3 = SCN === 'p3', P4 = SCN === 'p4';   // P2: any part with three layouts
   var LAYS = {}; KINDS.forEach(function (k) { LAYS[k] = E.makeLayout(k); });
   if (P3) {                                                      // Part 3 names the set-ups by aisle width and truck
     LAYS.redesign.short = 'Narrow aisles'; LAYS.redesign.name = 'Narrow aisles, reach truck'; LAYS.redesign.flow = LAYS.redesign.p3;
@@ -63,6 +63,27 @@
     document.querySelector('header h1').textContent = 'Warehouse Layout Lab: U-shape, straight-through or L-shape?';
     document.querySelector('header .lede').textContent = 'The same Vancouver distributor, racks, orders and trucks in three flow patterns. Only where the docks sit, and so where packing and the fast movers go, changes.';
   }
+  if (P4) {
+    if (!EMBED) {
+      document.querySelector('header .eyebrow').textContent = 'Warehouse layout series · Part 4';
+      document.querySelector('header h1').textContent = 'Warehouse Layout Lab: feeding the filling lines';
+      document.querySelector('header .lede').textContent = 'Ridgeline Coatings, a Vancouver coatings maker, feeds two filling lines three ways: from a central store, from a line-side supermarket, and by a kanban milk run. Watch the lines stop when a material runs out.';
+    }
+    document.querySelector('label[for="wl-orders"]').textContent = 'Line speed';
+    $('wl-orders').step = 75;
+    document.body.classList.add('p4');
+    var lgd = document.querySelector('.legend');
+    if (lgd) {
+      lgd.querySelectorAll('span').forEach(function (sp) { var t = sp.lastChild; if (t && t.nodeType === 3 && /^(A SKU face|B|C)$/.test(t.textContent.trim())) sp.hidden = true; });
+      [['<i style="background:rgba(255,210,122,.35);outline:1.5px solid #FFD27A"></i>', 'Supermarket area'], ['<i style="background:transparent;border:1.5px dashed #FFD27A"></i>', 'No supermarket'],
+       ['<i style="background:transparent;border:2px solid #8DC63F"></i>', 'Line running'], ['<i style="background:transparent;border:2px solid #FF5A4E"></i>', 'Line waiting for material'], ['<i style="background:#C9955A"></i>', 'Load at the line']].forEach(function (q, i) {
+        var sp = document.createElement('span'); sp.innerHTML = q[0] + q[1]; lgd.insertBefore(sp, lgd.children[i] || null);
+      });
+    }
+    document.querySelectorAll('p').forEach(function (pp) { if (/^\* Trucks still/.test(pp.textContent)) pp.hidden = true; });
+    document.querySelector('label[for="wl-share"]').parentNode.hidden = true;
+    document.querySelectorAll('.legend span').forEach(function (sp) { var t = sp.lastChild; if (!t || t.nodeType !== 3) return; if (t.textContent.trim() === 'Picker') t.textContent = 'Material handler'; else if (t.textContent.trim() === 'Shared door') sp.hidden = true; else if (t.textContent.trim() === 'Picking') t.textContent = 'Picking up a load'; });
+  }
   if (P3 && !EMBED) {
     document.querySelector('header .eyebrow').textContent = 'Warehouse layout series · Part 3';
     document.querySelector('header h1').textContent = 'Warehouse Layout Lab: wide, narrow or very narrow aisles?';
@@ -70,9 +91,19 @@
   }
   if (P2) {                                                      // the model box and legend in Part 2 wording
     var li = document.querySelectorAll('details li');
-    if (li[0] && P3) li[0].textContent = 'All three set-ups use the U-shape plan from Part 2 in the same 72 × 52 m building, with the same doors, staging and packing. Only the aisle width changes: 4 m for a counterbalance truck (660 pick faces, so 120 slow SKUs share a face), 3 m for a reach truck (840) and 2 m for a wire-guided turret truck (1,020). With a floor and three beam levels that is 2,640, 3,360 and 4,080 pallet positions. In the 2 m aisles the turret truck and pickers never share an aisle: whoever arrives second waits at the aisle end.';
+    if (P4) {
+      var mt = [
+        'All three set-ups use the same 72 × 52 m building, doors and staging. A central store of about 330 pallet faces sits to the west; two mixing tanks feed two filling lines to the east. In the line-side and kanban set-ups, a double rack of 34 faces on two levels between the lines is the supermarket. The model counts material waits only: no breakdowns, changeovers or scrap.',
+        'Each line fills 3 pails a minute at standard speed and uses five materials: resin and pigment at the mixer, pails, lids and labels at the filler. One load (a drum, a pallet, a box of labels) covers 40 to 150 minutes of running. A line stops when any of its five materials runs out.',
+        'Two material handlers walk at 0.9 m/s with a pallet jack or cart: 20 s to start a job, 40 s to pick up a load, 30 s to set it down. At the central store, issuing a load takes another 2 minutes. Central store and line-side: one load of each material at the line, and the operator calls a handler when it runs out. Kanban: two loads at the line; when the first is used up a card goes up, and a milk run every 20 minutes delivers every carded load.',
+        'One forklift puts away inbound pallets (6 trucks) and, with a supermarket, tops a face up with 3 loads from the store when it is down to 2. A pallet jack takes finished pallets (36 pails) from palletising to shipping; carriers collect every hour from 08:30.'
+      ];
+      mt.forEach(function (t, i) { if (li[i]) li[i].textContent = t; });
+      for (var lj = mt.length; lj < li.length; lj++) li[lj].hidden = true;
+    }
+    else if (li[0] && P3) li[0].textContent = 'All three set-ups use the U-shape plan from Part 2 in the same 72 × 52 m building, with the same doors, staging and packing. Only the aisle width changes: 4 m for a counterbalance truck (660 pick faces, so 120 slow SKUs share a face), 3 m for a reach truck (840) and 2 m for a wire-guided turret truck (1,020). With a floor and three beam levels that is 2,640, 3,360 and 4,080 pallet positions. In the 2 m aisles the turret truck and pickers never share an aisle: whoever arrives second waits at the aisle end.';
     if (li[2] && P3) li[2].textContent = 'A receiving-heavy day: at 300 orders a day, 14 inbound trucks, far more pallets in than go out, unloaded at 2.5 minutes a pallet into staging. One pallet truck (two from 400 orders a day) drives at 2 m/s and puts each pallet away above its SKU\'s pick face in 60 s with a reach truck, 75 s with a counterbalance truck (it turns to face the rack) and 50 s with a turret truck, which also loses 20 s each trip leaving and rejoining the guide wire to fetch from staging.';
-    else if (li[0]) li[0].textContent = 'All three layouts hold the same pallet racks (about 840 pallet positions a level, 780 SKUs) in the same 72 × 52 m building, with three receiving and two shipping doors each. Only the walls the doors are on, and so where staging, packing and the fast movers go, differ.';
+    else if (li[0] && !P4) li[0].textContent = 'All three layouts hold the same pallet racks (about 840 pallet positions a level, 780 SKUs) in the same 72 × 52 m building, with three receiving and two shipping doors each. Only the walls the doors are on, and so where staging, packing and the fast movers go, differ.';
     document.querySelectorAll('.legend span').forEach(function (sp) { if (/same scale/.test(sp.textContent)) sp.lastChild.textContent = 'Travel (same scale for all)'; });
   }
   KINDS.forEach(function (k) {
@@ -114,7 +145,37 @@
   function restartLive() { KINDS.forEach(function (k) { LIVE[k] = E.Sim(k, { orders: S.orders, share: S.share }); TV[k] = {}; }); }
 
   /* ---------- numbers ---------- */
+  function numbersM() {                                          // Part 4: the manufacturer's lines
+    var R = KINDS.map(function (k) { return H[k].r.mfg; });
+    var rows = [
+      ['Line time lost waiting for material (both lines)', 'starved', ' min', 0, -1], ['Availability (material losses only)', 'availP', '%', 1, 1],
+      ['Pails filled', 'made', '', 0, 1], ['Material deliveries', 'deliveries', '', 0, 0], ['Call or card to delivery (average)', 'resp', ' min', 1, 0],
+      ['Material handler hours', 'handlerHours', '', 1, -1], ['Handler walking', 'handlerKm', ' km', 1, -1],
+      ['Stock at the lines (average)', 'lineStock', '$', 0, -1], ['Stock in the supermarket (average)', 'smStock', '$', 0, 0], ['Forklift top-ups of the supermarket', 'repl', '', 0, 0]
+    ];
+    R.forEach(function (r) { r.availP = r.avail * 100; });
+    $('kpi').querySelector('thead').innerHTML = '<tr><th>Measure</th>' + KINDS.map(function (k) { return '<th>' + LAYS[k].short + '</th>'; }).join('') + '</tr>';
+    $('kpi').querySelector('tbody').innerHTML = rows.map(function (q) {
+      var vals = R.map(function (r) { return r[q[1]]; }), best = q[4] < 0 ? Math.min.apply(null, vals) : Math.max.apply(null, vals);
+      var fv = function (z) { return q[2] === '$' ? '$' + fmt(Math.round(z / 100) * 100) : fmt(z, q[3]) + q[2]; };
+      var allSame = vals.every(function (v) { return fv(v) === fv(vals[0]); });
+      return '<tr><td>' + q[0] + '</td>' + vals.map(function (v) { return '<td class="' + (q[4] && !allSame && fv(v) === fv(best) ? 'good' : '') + '">' + fv(v) + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    var mx = R[0].planned * 2, sp = '';
+    KINDS.forEach(function (k, i) {
+      var r = R[i], w = function (v) { return (v / mx * 100).toFixed(2) + '%'; }, run = r.lines[0].run + r.lines[1].run;
+      sp += '<span>' + LAYS[k].short + '</span><span class="t"><i style="width:' + w(run) + ';background:#8DC63F"></i><i style="width:' + w(r.starved) + ';background:#E2574C"></i></span><span class="v">' + fmt(r.avail * 100, 0) + '%</span>';
+    });
+    $('split').innerHTML = '<span></span><span style="font-size:12px;color:#5A6475">Line minutes: running and waiting for material</span><span></span>' + sp;
+    document.querySelectorAll('.keys li').forEach(function (li2, i) { li2.hidden = i > 0 && i < 3; if (i === 0) li2.lastChild.textContent = 'Running'; if (i === 3) li2.lastChild.textContent = 'Waiting for material'; });
+    $('say').textContent = 'At ' + fmt(S.orders / 3) + '% line speed the lines wait ' + KINDS.map(function (k, i) { return fmt(R[i].starved) + ' minutes (' + LAYS[k].short.toLowerCase() + ')'; }).join(', ') +
+      ' for material in the shift. Moving the materials to a supermarket shortens each wait; calling before a material runs out, with two bins and a timed milk run, ' + (R[2].starved < 1 ? 'removes the waits' : 'cuts them to ' + fmt(R[2].starved) + ' minutes') + ', for ' + money(R[2].lineStock - R[1].lineStock) + ' more stock at the lines.';
+    $('wl-orders-o').textContent = fmt(S.orders / 3) + '%';
+    $('wl-crew').textContent = fmt(R[0].rate, 1) + ' pails a minute per line, 2 material handlers, 1 forklift';
+    report();
+  }
   function numbersN() {                                          // three or more layouts: best value in each row marked
+    if (P4) return numbersM();
     var R = KINDS.map(function (k) { return H[k].r; });
     var rows = [
       ['Walk per order', 'walkOrder', ' m', 0, -1], ['Lines per picker-hour', 'lph', '', 0, 1], ['Picker-hours a day', 'pickHoursDay', '', 1, -1],
@@ -206,7 +267,7 @@
         b.addEventListener('click', function () { tip(k, f, b); });
         p.ov.appendChild(b); return { el: b, f: f };
       });
-      p.lbls = L.areas.map(function (a) { var e = document.createElement('div'); e.className = 'lbl k-' + a.k; e.textContent = a.t; p.ov.appendChild(e); return { el: e, a: a }; });
+      p.lbls = L.areas.map(function (a) { var e = document.createElement('div'); e.className = 'lbl k-' + a.k; if (a.ts) { var e1 = document.createElement('span'); e1.className = 'lg'; e1.textContent = a.t; var e2 = document.createElement('span'); e2.className = 'sh'; e2.textContent = a.ts; e.appendChild(e1); e.appendChild(e2); } else e.textContent = a.t; p.ov.appendChild(e); return { el: e, a: a }; });
     });
     document.querySelectorAll('.faults button').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -307,6 +368,25 @@
       g.strokeRect(X(Math.min.apply(null, sx)) - 2, Z(Math.min.apply(null, sz)) - 2, (Math.max.apply(null, sx) - Math.min.apply(null, sx) + 1) * s + 4, (Math.max.apply(null, sz) - Math.min.apply(null, sz) + 1) * s + 4);
       g.setLineDash([]);
     }
+    // Part 4: the supermarket area, shaded where it exists and outlined where it does not
+    if (L.smRect) {
+      var sr = L.smRect, sx = X(sr[0]), sy = Z(sr[1]), sw = (sr[2] - sr[0] + 1) * s, sh = (sr[3] - sr[1] + 1) * s;
+      if (L.smGhost) { g.setLineDash([6, 4]); g.strokeStyle = 'rgba(255,210,122,.85)'; g.lineWidth = 1.5; g.strokeRect(sx, sy, sw, sh); g.setLineDash([]); }
+      else { g.fillStyle = 'rgba(255,210,122,.16)'; g.fillRect(sx, sy, sw, sh); g.strokeStyle = 'rgba(255,210,122,.9)'; g.lineWidth = 1.5; g.strokeRect(sx, sy, sw, sh); }
+    }
+    // Part 4: mixing tanks and filling lines
+    (L.equip || []).forEach(function (q) {
+      if (q.k === 'mixer') {
+        g.fillStyle = '#5B6F8E'; g.fillRect(X(q.x0), Z(q.z0), (q.x1 - q.x0 + 1) * s, (q.z1 - q.z0 + 1) * s);
+        g.fillStyle = '#C8D3E3'; g.beginPath(); g.arc(X((q.x0 + q.x1 + 1) / 2), Z((q.z0 + q.z1 + 1) / 2), s * 1.7, 0, 7); g.fill();
+        g.strokeStyle = '#5B6F8E'; g.lineWidth = 1.5; g.beginPath(); g.arc(X((q.x0 + q.x1 + 1) / 2), Z((q.z0 + q.z1 + 1) / 2), s * 1.1, 0, 7); g.stroke();
+      } else {
+        g.fillStyle = '#A7B6CC'; g.fillRect(X(q.x0), Z(q.z0), (q.x1 - q.x0 + 1) * s, (q.z1 - q.z0 + 1) * s);
+        g.strokeStyle = '#6F86A8'; g.lineWidth = 1; g.beginPath();
+        for (var rx = q.x0 + 1; rx <= q.x1; rx++) { g.moveTo(X(rx), Z(q.z0) + 2); g.lineTo(X(rx), Z(q.z1 + 1) - 2); }
+        g.stroke();
+      }
+    });
     // pack benches (blocked cells near the drops)
     var pb = L.bench, vert = pb[3] - pb[1] > pb[2] - pb[0];
     g.fillStyle = '#A7B6CC'; g.fillRect(X(pb[0]), Z(pb[1]), (pb[2] - pb[0] + 1) * s, (pb[3] - pb[1] + 1) * s);
@@ -364,6 +444,23 @@
       g.fillStyle = out ? '#E6DFC9' : '#C9955A'; g.fillRect(X(q.x + 0.15), Z(q.z + 0.15), s * 0.7, s * 0.7);
       if (out) { g.strokeStyle = '#8DC63F'; g.lineWidth = 1.2; g.strokeRect(X(q.x + 0.15), Z(q.z + 0.15), s * 0.7, s * 0.7); }
     });
+    if (sim.M) {                                                  // Part 4: line running (green) or waiting for material (red), and the loads at the line
+      sim.M.lines.forEach(function (ln, li) {
+        var run = ln.mats.every(function (m) { return m.level > 0; });
+        L.equip.filter(function (q) { return q.line === li; }).forEach(function (q) {
+          g.strokeStyle = run ? '#8DC63F' : '#FF5A4E'; g.lineWidth = run ? 2 : 3; g.strokeRect(X(q.x0) - 1.5, Z(q.z0) - 1.5, (q.x1 - q.x0 + 1) * s + 3, (q.z1 - q.z0 + 1) * s + 3);
+        });
+        ln.mats.forEach(function (m) {
+          var x = m.drop % BX, z = Math.floor(m.drop / BX), n = m.level <= 0 ? 0 : m.level > m.cover ? 2 : 1;
+          for (var b = 0; b < 2; b++) {
+            if (b >= n && !(b === 0 && n === 0)) continue;
+            if (n === 0) { g.strokeStyle = '#FF5A4E'; g.lineWidth = 1.5; g.strokeRect(X(x + 0.15), Z(z + 0.15), s * 0.7, s * 0.7); }
+            else if (n === 1) { g.fillStyle = '#C9955A'; g.fillRect(X(x + 0.15), Z(z + 0.15), s * 0.7, s * 0.7); }
+            else { g.fillStyle = b ? '#B3824A' : '#C9955A'; g.fillRect(X(x + 0.08 + b * 0.44), Z(z + 0.15), s * 0.4, s * 0.7); }
+          }
+        });
+      });
+    }
     for (var o = 0; o < Math.min(3, sim.outQ); o++) { var pc = L.packSpot; g.fillStyle = '#E6DFC9'; g.fillRect(X(pc % BX + 0.1 + o * 1.0), Z(Math.floor(pc / BX) + 0.15), s * 0.8, s * 0.7); }
     // trucks
     trucks(k);
@@ -629,6 +726,27 @@
       // overflow pallets in the main aisle, pack benches
       L.spill.forEach(function (c, i) { if (i % 2) return; box(0.85, 1.1, 1.8, c % BX + 0.5, 0, Math.floor(c / BX) + 1, M(0x9c7a4e)); });
       if (L.spill.length) { var ring = new T.Mesh(new T.PlaneGeometry(18, 3), new T.MeshBasicMaterial({ color: 0xff5a4e, transparent: true, opacity: 0.18, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.position.set(45.5, 0.03, 35); sc.add(ring); }
+      p.lamps = [];
+      if (L.smRect) {
+        var r3 = L.smRect, w3 = r3[2] - r3[0] + 1, d3 = r3[3] - r3[1] + 1, cx3 = r3[0] + w3 / 2, cz3 = r3[1] + d3 / 2;
+        if (!L.smGhost) { var pl = new T.Mesh(new T.PlaneGeometry(w3, d3), new T.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: 0.32, depthWrite: false })); pl.rotation.x = -Math.PI / 2; pl.position.set(cx3, 0.03, cz3); sc.add(pl); }
+        var eg = new T.BufferGeometry().setFromPoints([new T.Vector3(r3[0], 0.05, r3[1]), new T.Vector3(r3[2] + 1, 0.05, r3[1]), new T.Vector3(r3[2] + 1, 0.05, r3[3] + 1), new T.Vector3(r3[0], 0.05, r3[3] + 1), new T.Vector3(r3[0], 0.05, r3[1])]);
+        var ln3 = new T.Line(eg, L.smGhost ? new T.LineDashedMaterial({ color: 0xffd27a, dashSize: 1, gapSize: 0.6 }) : new T.LineBasicMaterial({ color: 0xffd27a }));
+        if (L.smGhost) ln3.computeLineDistances(); sc.add(ln3);
+      }
+      (L.equip || []).forEach(function (q) {
+        var cx = (q.x0 + q.x1 + 1) / 2, cz = (q.z0 + q.z1 + 1) / 2;
+        if (q.k === 'mixer') {
+          var tank = new T.Mesh(new T.CylinderGeometry(1.7, 1.7, 3.6, 24), M(0xc8d3e3)); tank.position.set(cx, 1.8, cz); sc.add(tank);
+          var top = new T.Mesh(new T.CylinderGeometry(0.35, 0.35, 1.2, 12), M(0x5b6f8e)); top.position.set(cx, 4.2, cz); sc.add(top);
+        } else {
+          box(q.x1 - q.x0 + 1, 0.9, q.z1 - q.z0 + 1, cx, 0, cz, M(0xa7b6cc));
+          for (var fx = q.x0 + 3; fx < q.x1; fx += 6) box(1.4, 1.6, q.z1 - q.z0 + 1.2, fx + 0.5, 0.9, cz, M(0x6f86a8));
+          var lamp = new T.Mesh(new T.CylinderGeometry(0.25, 0.25, 0.6, 12), new T.MeshBasicMaterial({ color: 0x8dc63f })); lamp.position.set(q.x0 + 0.5, 3.2, cz); sc.add(lamp);
+          var pole = new T.Mesh(new T.CylinderGeometry(0.06, 0.06, 2.4, 6), M(0x9db2d2)); pole.position.set(q.x0 + 0.5, 1.8, cz); sc.add(pole);
+          p.lamps.push({ m: lamp, line: q.line });
+        }
+      });
       var pb = L.bench;
       box(pb[2] - pb[0] + 1, 0.95, pb[3] - pb[1] + 1, (pb[0] + pb[2] + 1) / 2, 0, (pb[1] + pb[3] + 1) / 2, M(0xa7b6cc));
       // dynamic things
@@ -712,6 +830,16 @@
     var spots = L.recv === L.ship ? L.recv : L.recv.concat(L.ship);
     spots.forEach(function (q) { if (!q.busy || n >= 80) return; var out = q.busy !== 'res' && q.busy.dir === 'out'; pv.set(q.x + 0.5, 0.7, q.z + 0.5); m4.compose(pv, qt, sv); p.stage3.setMatrixAt(n, m4); col.set(out ? 0xe6dfc9 : 0xc9955a); p.stage3.setColorAt(n, col); n++; });
     for (var o = 0; o < Math.min(3, sim.outQ) && n < 80; o++) { pv.set(L.packSpot % BX + 0.5 + o, 0.7, Math.floor(L.packSpot / BX) + 0.5); m4.compose(pv, qt, sv); p.stage3.setMatrixAt(n, m4); col.set(0xe6dfc9); p.stage3.setColorAt(n, col); n++; }
+    if (sim.M) {
+      sim.M.lines.forEach(function (ln, li) {
+        var run = ln.mats.every(function (m) { return m.level > 0; });
+        (p.lamps || []).forEach(function (lp) { if (lp.line === li) lp.m.material.color.setHex(run ? 0x8dc63f : 0xff5a4e); });
+        ln.mats.forEach(function (m) {
+          var nb = m.level <= 0 ? 0 : m.level > m.cover ? 2 : 1;
+          for (var b = 0; b < nb && n < 80; b++) { pv.set(m.drop % BX + 0.5, 0.7 + b * 1.15, Math.floor(m.drop / BX) + 0.5); m4.compose(pv, qt, sv); p.stage3.setMatrixAt(n, m4); col.set(b ? 0xb3824a : 0xc9955a); p.stage3.setColorAt(n, col); n++; }
+        });
+      });
+    }
     p.stage3.count = n; p.stage3.instanceMatrix.needsUpdate = true; if (p.stage3.instanceColor) p.stage3.instanceColor.needsUpdate = true;
     sim.agents.forEach(function (a) {
       var gp = p.ag3[a.id] || (p.ag3[a.id] = p.mkAgent(a));
@@ -740,7 +868,7 @@
       var v = p.view || fitView(p); return [v.ox + x * v.s, v.oz + z * v.s, true];
     }
     p.badges.forEach(function (b) { var q = xy(b.f.x, 3, b.f.z); b.el.hidden = !S.faults || !q[2]; b.el.style.transform = 'translate(' + q[0].toFixed(1) + 'px,' + q[1].toFixed(1) + 'px)'; });
-    p.lbls.forEach(function (l) { var q = xy(l.a.x, s3 ? 7.5 : 0, l.a.z); l.el.hidden = !q[2] || (s3 && (l.a.k === 'aisle' || l.a.k === 'rack')); var w = l.el.offsetWidth; l.el.style.transform = 'translate(' + (q[0] - w / 2).toFixed(1) + 'px,' + (q[1] - 7).toFixed(1) + 'px)'; });
+    p.lbls.forEach(function (l) { var q = xy(l.a.x, s3 ? (!P4 ? 7.5 : l.a.k === 'pack' ? 3 : 1.2) : 0, l.a.z); l.el.hidden = !q[2] || (s3 && (l.a.k === 'aisle' || l.a.k === 'rack')); var w = l.el.offsetWidth; l.el.style.transform = 'translate(' + (q[0] - w / 2).toFixed(1) + 'px,' + (q[1] - 7).toFixed(1) + 'px)'; });
   }
 
   /* ---------- loop ---------- */
@@ -808,7 +936,7 @@
   var pend = 0;
   function slid() {
     S.orders = +$('wl-orders').value; S.share = +$('wl-share').value / 100; hold();
-    $('wl-orders-o').textContent = fmt(S.orders); $('wl-share-o').textContent = Math.round(S.share * 100) + '%';
+    $('wl-orders-o').textContent = P4 ? fmt(S.orders / 3) + '%' : fmt(S.orders); $('wl-share-o').textContent = Math.round(S.share * 100) + '%';
     clearTimeout(pend); pend = setTimeout(function () { runAll(); }, 250);
   }
   $('wl-orders').addEventListener('input', slid); $('wl-share').addEventListener('input', slid);
