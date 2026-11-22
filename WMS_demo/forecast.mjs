@@ -1,9 +1,9 @@
-import {outstandingLines} from './fulfillment.mjs';
-import {translate} from './locale.mjs';
-import {business,locationScope,orderScope,replenishmentRule,profile} from './business.mjs';
-import {purchaseLines} from './purchasing.mjs';
-import {localDay} from './dashboard.mjs';
-import {csvText} from './exchange.mjs';
+import {outstandingLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope,orderScope,replenishmentRule,profile} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseLines} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
+import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const shiftDay=(d,n)=>{const v=new Date(d+'T12:00:00Z');v.setUTCDate(v.getUTCDate()+n);return v.toISOString().slice(0,10);};
 export const calendarDay=d=>{must(/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&new Date(d+'T12:00:00Z').toISOString().slice(0,10)===d,'Choose a valid forecast date.');return d;};

@@ -1,13 +1,13 @@
-import {returnShipment,deliveryLines} from './fulfillment.mjs';
-import {businessDay} from './company-date.mjs';
-import {isFIFO} from './fifo.mjs';
-import {fifoSupplierCreditBookValue,validateFIFOSupplierReturn} from './fifo-supplier.mjs';
+import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {fifoSupplierCreditBookValue,validateFIFOSupplierReturn} from './fifo-supplier.mjs?demo=5d9e5d1ce6c83eb1';
 // Reviewed return accounting. Inventory uses its saved FIFO ranges or average;
 // supplier credits retain their original bill's net price and frozen FX rate.
-import {business,locationScope,inventoryValue} from './business.mjs';
-import {billing,receiptLine} from './billing.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
-import {csvText} from './exchange.mjs';
+import {business,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {billing,receiptLine} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Return accounting record not found.');return r;};
 const cents=v=>Math.round((v+Number.EPSILON)*100);

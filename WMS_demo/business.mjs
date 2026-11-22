@@ -1,12 +1,12 @@
-import {pickLines,deliveryLines,returnShipment,outstandingLines} from './fulfillment.mjs';
-import {businessDay} from './company-date.mjs';
-import {isFIFO,fifoValue} from './fifo.mjs';
-import {resolveProductBarcode,selectedUnit,unitQuantity} from './packaging.mjs';
-import {explainPrice,salesToday} from './pricing.mjs';
+import {pickLines,deliveryLines,returnShipment,outstandingLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO,fifoValue} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {resolveProductBarcode,selectedUnit,unitQuantity} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {explainPrice,salesToday} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';
 // Original local business workflows. All writes run inside the stock engine transaction.
-import {disposeCustomerReturn,recordCustomerReturn,validateCustomerReturns} from './customer-returns.mjs';
-import {purchaseLines,suppliers} from './purchasing.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
+import {disposeCustomerReturn,recordCustomerReturn,validateCustomerReturns} from './customer-returns.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseLines,suppliers} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(a,id,label='Record')=>{const r=a.find(x=>x.id===id);must(r,`${label} not found.`);return r;};
 const text=(v,label='Text',max=240,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),`${label} is required and must be valid text up to ${max} characters.`);return t;};

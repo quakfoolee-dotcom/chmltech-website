@@ -1,5 +1,5 @@
-import {mountAccount} from './account.mjs';
-import {api} from './shared.mjs';import {startLocalization,interfaceLanguage} from './locale.mjs';import {scannerMarkup,mountScanner} from './camera-scanner.mjs';import {resolveDocument,setPhoneAddress} from './document-scan.mjs';import {scanSummary} from './document-scan-ui.mjs';
+import {mountAccount} from './account.mjs?demo=5d9e5d1ce6c83eb1';
+import {api} from './shared.mjs?demo=5d9e5d1ce6c83eb1';import {startLocalization,interfaceLanguage} from './locale.mjs?demo=5d9e5d1ce6c83eb1';import {scannerMarkup,mountScanner} from './camera-scanner.mjs?demo=5d9e5d1ce6c83eb1';import {resolveDocument,setPhoneAddress} from './document-scan.mjs?demo=5d9e5d1ce6c83eb1';import {scanSummary} from './document-scan-ui.mjs?demo=5d9e5d1ce6c83eb1';
 let state,reader,user;const notice=document.querySelector('#notice'),result=document.querySelector('#result');
 const error=text=>{notice.textContent=text;notice.className='scan-error';};
 function open(text){result.innerHTML='';if(!state)throw Error('Sign in and load the shared workspace first.');const r=resolveDocument(state,text,{origin:location.origin});result.innerHTML=scanSummary(r);notice.textContent='Document found.';notice.className='scan-success';result.scrollIntoView({behavior:'smooth',block:'start'});}

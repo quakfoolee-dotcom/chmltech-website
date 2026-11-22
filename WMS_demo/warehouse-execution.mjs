@@ -1,8 +1,8 @@
-import {executionGroup,executionPack} from './execution-view.mjs';
-export {executionGroup,executionPack,groupView,packView} from './execution-view.mjs';
-import {scanItem,orderScope,locationScope} from './business.mjs';
-import {pickMeta,shippingMeta} from './operations.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
+import {executionGroup,executionPack} from './execution-view.mjs?demo=5d9e5d1ce6c83eb1';
+export {executionGroup,executionPack,groupView,packView} from './execution-view.mjs?demo=5d9e5d1ce6c83eb1';
+import {scanItem,orderScope,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickMeta,shippingMeta} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const find=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Record not found.');return r;};
 const text=(v,max=100)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max,'Invalid scan text.');return t;};

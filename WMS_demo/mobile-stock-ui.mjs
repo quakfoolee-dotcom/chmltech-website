@@ -1,6 +1,6 @@
-import {stockLookup} from './mobile-stock.mjs';
-import {productUnits,resolveProductBarcode,scannedQuantity} from './packaging.mjs';
-import {translate} from './locale.mjs';
+import {stockLookup} from './mobile-stock.mjs?demo=5d9e5d1ce6c83eb1';
+import {productUnits,resolveProductBarcode,scannedQuantity} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const field=(key,label,value='',extra='')=>`<label>${label}<input name="${key}" value="${e(value)}" ${extra}></label>`;
 const scan=(key,label,value='')=>field(key,label,value,'required autocomplete="off"')+`<button type="button" data-scan-target="${key}">Camera</button>`;

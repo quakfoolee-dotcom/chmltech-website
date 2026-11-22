@@ -1,9 +1,9 @@
-import {translatedWords} from './locale.mjs';
+import {translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
 // Read-only inventory explanations. A checkpoint records identities as well as
 // values, so backdated transactions added later remain visible in the bridge.
-import {business,locationScope,scopeInventoryValue} from './business.mjs';
-import {valuation} from './costing.mjs';
-import {csvText} from './exchange.mjs';
+import {business,locationScope,scopeInventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {valuation} from './costing.mjs?demo=5d9e5d1ce6c83eb1';
+import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
 const cents=n=>Math.round((n+Number.EPSILON)*100);
 export const journalInventory=j=>(j.lines||[]).filter(l=>l.account==='Inventory asset').reduce((n,l)=>n+l.debit-l.credit,0);
 export function warehouseValuation(s){

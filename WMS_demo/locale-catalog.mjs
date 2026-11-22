@@ -1,11 +1,11 @@
-import {receivingCatalogue} from './locale-receiving.mjs';
-import {workflowCatalogue} from './locale-workflow.mjs';
-import {securityCatalogue} from './locale-security.mjs';
-import {extraRows} from './locale-extra.mjs';
-import {unitRows} from './locale-units.mjs';
-import {salesRows} from './locale-sales.mjs';
-import {crmRows} from './locale-crm.mjs';
-import {productionRows} from './locale-production.mjs';
+import {receivingCatalogue} from './locale-receiving.mjs?demo=5d9e5d1ce6c83eb1';
+import {workflowCatalogue} from './locale-workflow.mjs?demo=5d9e5d1ce6c83eb1';
+import {securityCatalogue} from './locale-security.mjs?demo=5d9e5d1ce6c83eb1';
+import {extraRows} from './locale-extra.mjs?demo=5d9e5d1ce6c83eb1';
+import {unitRows} from './locale-units.mjs?demo=5d9e5d1ce6c83eb1';
+import {salesRows} from './locale-sales.mjs?demo=5d9e5d1ce6c83eb1';
+import {crmRows} from './locale-crm.mjs?demo=5d9e5d1ce6c83eb1';
+import {productionRows} from './locale-production.mjs?demo=5d9e5d1ce6c83eb1';
 // Original Harbor translations. Keys describe presentation, never stored records.
 const rows=`
 Language|语言|語言|Langue

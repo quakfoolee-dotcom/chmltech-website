@@ -1,5 +1,5 @@
-import {productionActionCommands,productionActionAllowed} from './production-policy.mjs';
-import {translate} from './locale.mjs';
+import {productionActionCommands,productionActionAllowed} from './production-policy.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
 // Only mapped production mutations are restricted; previews, exports and filters stay readable.
 export function applyProductionRoleControls(root,role){
  for(const el of root.querySelectorAll('[data-action]')){

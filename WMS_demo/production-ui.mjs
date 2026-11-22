@@ -1,10 +1,10 @@
-import {dateInputBounds} from './date-input.mjs';
-import {manufacturingPlanningView,manufacturingPlanningAction,manufacturingPlanningSections} from './production-planning-ui.mjs';
-import {productionStatus,workAttention,orderAttention,stageAttention,laborAttention} from './production-signals.mjs';
-import {productionCopy,productionCopyHTML,productionCopyValueAttribute} from './production-locale.mjs';
-import {production,bomVersion,productionWork,productionWIP,productionEstimate,productionShortages} from './production.mjs';
-import {translate} from './locale.mjs';
-import {formatMoney} from './currency-display.mjs';import {csvText} from './exchange.mjs';
+import {dateInputBounds} from './date-input.mjs?demo=5d9e5d1ce6c83eb1';
+import {manufacturingPlanningView,manufacturingPlanningAction,manufacturingPlanningSections} from './production-planning-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {productionStatus,workAttention,orderAttention,stageAttention,laborAttention} from './production-signals.mjs?demo=5d9e5d1ce6c83eb1';
+import {productionCopy,productionCopyHTML,productionCopyValueAttribute} from './production-locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {production,bomVersion,productionWork,productionWIP,productionEstimate,productionShortages} from './production.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {formatMoney} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),record=v=>`<span data-l10n-skip>${e(v)}</span>`,button=(label,action,id='')=>`<button type="button" class="btn" data-action="prod-${action}" data-id="${e(id)}">${e(label)}</button>`,link=(label,section,id)=>`<a class="production-record-link" href="#business/${section}/${e(id)}" data-l10n-skip>${e(label)}</a>`,table=(heads,rows)=>`<div class="table-scroll"><table><thead><tr>${heads.map(h=>'<th>'+e(h)+'</th>').join('')}</tr></thead><tbody>${rows.map(row=>'<tr>'+row.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="'+heads.length+'">No production records yet.</td></tr>'}</tbody></table></div>`;
 const receiptButton=w=>button('Receive finished goods','complete',w.id).replace('class="btn"','class="btn production-receive-button"');
 const openRecord=(section,id)=>`<a class="btn production-open-link" href="#business/${e(section)}/${e(id)}">Open record</a>`;

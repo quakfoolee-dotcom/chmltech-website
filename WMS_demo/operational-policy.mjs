@@ -1,5 +1,5 @@
-import {roleCommands,commandRoleAllowed} from './command-policy.mjs';
-import {inventoryCommands} from './inventory-policy.mjs';
+import {roleCommands,commandRoleAllowed} from './command-policy.mjs?demo=5d9e5d1ce6c83eb1';
+import {inventoryCommands} from './inventory-policy.mjs?demo=5d9e5d1ce6c83eb1';
 // The full cloud transaction path is opt-in per tenant. It never exposes
 // workspace replacement/reset, user administration, synthetic seeds or QBO send.
 const excluded=new Set(['removeCarton','receiving:loadDemo']);

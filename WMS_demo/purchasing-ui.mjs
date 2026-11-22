@@ -1,9 +1,9 @@
-import {locationScope,orderScope} from './business.mjs';
-import {purchaseStatus,procurement} from './procurement.mjs';
-import {approvalPanel} from './planning-ui.mjs';
-import {suppliers,purchaseLines,purchaseTotals,supplierProductCode} from './purchasing.mjs';
-import {matchesText} from './unicode.mjs';
-import {chineseDemoOrder,chineseDemoNeedsUpgrade} from './chinese-demo.mjs';
+import {locationScope,orderScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseStatus,procurement} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
+import {approvalPanel} from './planning-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {suppliers,purchaseLines,purchaseTotals,supplierProductCode} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {matchesText} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {chineseDemoOrder,chineseDemoNeedsUpgrade} from './chinese-demo.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>Number(v).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2});
 const unitMoney=v=>Number(v).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:4});

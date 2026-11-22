@@ -1,5 +1,5 @@
-import {businessDay} from './company-date.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const salesToday=(value=new Date(),s)=>s?.organization?.timezone?businessDay(s,value):new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value));
 export const salesDesk=s=>s.salesDesk||{version:1,sequence:0,groups:[],rules:[],quotes:[]};

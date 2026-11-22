@@ -1,8 +1,8 @@
-import {business,orderScope,locationScope} from './business.mjs';
-import {purchaseLines,purchaseTotals,suppliers,purchaseFields} from './purchasing.mjs';
-import {forecastReport,calendarDay,shiftDay} from './forecast.mjs';
-import {localDay} from './dashboard.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
+import {business,orderScope,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseLines,purchaseTotals,suppliers,purchaseFields} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {forecastReport,calendarDay,shiftDay} from './forecast.mjs?demo=5d9e5d1ce6c83eb1';
+import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);},get=(a,id)=>{const r=a.find(x=>x.id===id);must(r,'Purchase order not found.');return r;};
 const txt=(v,max=240,required=false)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid text within the field limit.');return t;};
 const money=v=>{v=Number(v);must(Number.isFinite(v)&&v>=0&&v<=10000000,'Enter a valid purchasing amount.');return Math.round(v*100)/100;};
