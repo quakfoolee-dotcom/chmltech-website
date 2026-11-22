@@ -1,5 +1,33 @@
 # Changelog
 
+## V5.71 — 2026-11-22
+- **New: Warehouse layout series, Part 5: "From Layout to Cash: Inventory Turns and a Layout Payback Calculator"** (`/post/from-layout-to-cash-inventory-turns-and-a-layout-payback-calculator`). This completes the five-part series.
+  - Shows the three ways a layout turns into cash: running costs, space and inventory.
+  - Explains inventory turns and days of stock.
+  - Runs a new Layout Lab check: can the dock take the same pallets in more, smaller deliveries? The as-is dock already cannot keep up; the redesigned one can, and so can the as-is dock with a second forklift.
+  - Works out the break-even freight per extra delivery: $16 at a 10% cash carrying cost, $41 at 25%.
+  - Distributor example: the layout pays back in 4.6–15.3 months on labour and detention alone (ten-day averages). Cycle stock freed: $300K once. Turns: 6.0 → 7.0.
+  - Ridgeline example: pays back in 0.9–1.3 months on overtime alone. Turns: 4.00 → 3.95, because the second bin adds stock at the lines.
+  - Ends with a one-table summary of the series.
+- **Calculator:** `assets/js/wl5.js`.
+  - Presets for the distributor (Parts 1–3) and Ridgeline (Part 4); readers can enter their own numbers.
+  - Results: cash every year, cash once, payback (layout only and with all moves), cash over 3 years, turns and days of stock, cycle stock freed and break-even freight.
+  - Inputs are clamped (blanks and negatives count as zero), and results are announced to screen readers.
+- **Engine:** `opt.inTrucks` (the same pallets in more, smaller deliveries) and `opt.forks`. Parts 1–4 results are unchanged.
+- **Numbers:** `content/articles/wl5_model.js` writes `wl5_results.json`, which `wl5_articles.py` quotes. `wl4_results.json` was regenerated (numbered-point positions only).
+- **Links and lists:**
+  - Part 1's mention of Part 5 and Part 4's "Next" now link to Part 5.
+  - Part 5 was added to the "Run a leaner warehouse" reading list; the series shelf now shows 5 parts.
+- **Red team QC:** two rounds before release, all findings addressed. Among them:
+  - the carrying cost now counts only the cash part;
+  - the layout-only payback is shown separately;
+  - the "covered" and "never" payback states;
+  - ten-day averages;
+  - the second-forklift check;
+  - phone-width equations;
+  - calculator edge cases;
+  - the Insights panel rebuilt.
+
 ## V5.70 — 2026-11-22
 - **New: Warehouse layout series, Part 4: "Central Store, Supermarket or Kanban? Feeding the Production Line"** (`/post/central-store-supermarket-or-kanban-feeding-the-production-line`).
   - The plant: Ridgeline Coatings (the fictional Vancouver coatings maker of the ABC posts), with two mixing tanks and two filling lines, fed three ways:
