@@ -1,0 +1,44 @@
+import {interfaceLanguage} from './locale.mjs';
+import {api} from './shared.mjs';
+import {inventoryDiagnostics,reconciliationCSV,reconciliationDocuments} from './inventory-diagnostics.mjs';
+import {documentHTML,languages} from './documents.mjs';
+import {createDocumentPDF} from './pdf.mjs';
+const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const button=(label,act)=>`<button class="btn" data-action="recon-${act}">${e(label)}</button>`,row=c=>`<tr>${c.map(x=>`<td>${x}</td>`).join('')}</tr>`,table=(h,r)=>`<div class="table-scroll"><table><thead>${row(h.map(e))}</thead><tbody>${r.join('')||row(['No records.'])}</tbody></table></div>`,note=t=>`<div class="note-box"><p>${e(t)}</p></div>`;
+let q=null,state=null,selected='',locale='zh-Hans',generation=0;const fonts=new Map();
+export const reconciliationView=()=>({intro:'Explain stock values, unsynced journals and changes since a preserved comparison checkpoint.',actions:'',body:'<div id="reconciliation-workspace"><p>Loading inventory comparison…</p></div>'});
+export async function mountReconciliation(s){const root=document.querySelector('#reconciliation-workspace');if(!root)return;const n=++generation;state=s;try{q=await api('qbo/status');if(n===generation&&root.isConnected)draw();}catch(err){if(root.isConnected)root.innerHTML=note(err.message)+button('Retry','load');}}
+function report(){return inventoryDiagnostics(state,q,q.inventoryReconciliation,selected);}
+function draw(){const root=document.querySelector('#reconciliation-workspace');if(!root||!q)return;const d=report(),m=n=>n===null?'Unavailable':`${d.currency} ${(n/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+ let body=`<div class="actions">${button('Refresh comparison','refresh')}${button('Record checkpoint','checkpoint')}${button('Export reconciliation CSV','csv')}${button('Preview / PDF / 中文','preview')}<a class="btn" href="#business/quickbooks">QuickBooks sandbox</a></div>`+note(d.notice);
+ body+=note(`${q.company?.name||'Sandbox not connected'} · ${d.stale?'Comparison needs refresh after workspace changes.':'Checked '+d.checkedAt} · ${d.complete?'All owned stock has costs.':'Missing costs: '+d.missing.join(', ')}`);
+ body+=table(['Current company comparison','Harbor','QuickBooks','Difference'],[row(['Inventory value',m(d.local),m(d.remote),m(d.difference)])]);
+ const checkpoints=q.inventoryCheckpoints||[];body+=`<label class="field">Preserved checkpoint<select aria-label="Preserved checkpoint" data-reconciliation-checkpoint>${checkpoints.length?checkpoints.map(x=>`<option value="${e(x.id)}" ${x.id===(d.checkpoint?.id||selected)?'selected':''}>${e(x.label)} · ${e(x.time)}</option>`).join(''):'<option>No checkpoint yet</option>'}</select></label>`;
+ if(d.bridge){const b=d.bridge;body+='<h2>Movement since checkpoint / 检查点变动 / 檢查點變動</h2>'+note(b.matches?'Checkpoint movement matched. The starting historical difference is retained.':'Review the movement, residuals or stale comparison below.')+table(['Measure','Harbor','QuickBooks','Difference'],[row(['Starting values',m(d.checkpoint.local),m(d.checkpoint.remote),m(b.openingDifference)]),row(['Actual movement',m(b.localChange),m(b.remoteChange),m(b.movementDifference)]),row(['Movement traced to journals / synced records',m(b.localJournalDelta),m(b.knownPostingDelta),m(b.localJournalDelta-b.knownPostingDelta)]),row(['Unexplained change',m(b.localResidual),m(b.remoteResidual),m(b.localResidual-b.remoteResidual)]),row(['Ending values',m(d.local),m(d.remote),m(b.endingDifference)])]);
+  body+='<h3>Source movements since checkpoint</h3>'+table(['Journal / source','Warehouse','Inventory change','Sync status / IDs'],b.journals.map(j=>row([e(j.id)+'<br>'+e(j.reference)+'<br>'+e(j.sourceId),e(j.warehouseIds.map(id=>state.business.warehouses.find(w=>w.id===id)?.name||id).join(', ')||'Older source not recorded'),m(j.delta),e(j.sync)+'<br>'+e(j.remoteIds.join(', '))])));
+ }else body+=note(d.checkpointUnavailable?'The selected checkpoint belongs to another company, currency or inventory account. Choose a compatible checkpoint.':'Record a checkpoint before your next test. It preserves current values and source identities; later backdated records will still be included. It does not post an opening adjustment.');
+ if(d.dashboardSeparation){const x=d.dashboardSeparation;body+='<h2>Separate dashboard sample stock</h2>'+table(['Explanation','Amount'],[row(['Current inventory difference',m(d.difference)]),row(['Dashboard Demo stock shown separately',m(x.demoValue)]),row(['Difference after excluding that sample stock',m(x.otherDifference)]),row(['Original recorded opening difference',m(x.originalOpeningDifference)]),row(['Residual after these two components',m(x.residual)])])+note('This is a mathematical separation of the labelled dashboard stock. It changes neither ledger. The original opening difference still needs review. A zero residual here is not a full historical accounting audit.');}
+ body+='<h2>Warehouse stock values / 仓库价值 / 倉庫價值</h2>'+table(['Warehouse','Owned units','Known inventory value','Cost review'],d.warehouses.map(w=>row([e(w.name),w.units,m(w.value),w.missing.length?'Missing: '+e(w.missing.join(', ')):w.dashboardDemo?'Labelled dashboard examples':'Known costs'])));
+ body+='<h2>Unsynced inventory journals</h2>'+note(`${d.unsynced.length} unsynced local inventory journals. Their combined historical amount is ${m(d.unsyncedNet)}; it must not be treated as the current reconciliation difference. Legacy receipts may already be represented by bills. Review source and dependencies before syncing.`)+table(['Journal / source','Inventory change','Status / reason'],d.unsynced.slice().reverse().slice(0,20).map(j=>row([e(j.id)+'<br>'+e(j.reference)+'<br>'+e(j.sourceId),m(j.amount),e(j.sync)+'<br>'+e(j.reason)])))+'<p>The 20 most recent are shown. Export CSV for the complete list.</p>';
+ if(d.unverified.length)body+=note('Some sandbox writes have saved IDs but still need verification: '+d.unverified.map(x=>x.number+' / '+x.status).join(', '));
+ root.innerHTML=body;
+ const select=root.querySelector('[data-reconciliation-checkpoint]');select.onchange=()=>{selected=select.value;draw();};
+}
+export async function reconciliationAction(name,id,el,ctx){
+ if(!name.startsWith('recon-'))return false;const act=name.slice(6),{s,showModal,field,select,download}=ctx;state=s;
+ const load=async()=>{q=await api('qbo/status');draw();};if(!q)await load();
+ const call=async(route,p={})=>{q=await api('qbo/'+route,{revision:q.revision,...p});draw();return q;};
+ const fresh=()=>{const d=report();if(d.stale)throw Error('Refresh comparison before exporting this report.');return d;};
+ const preview=()=>showModal('Inventory reconciliation / 库存对账 / 庫存對帳',`<div class="document-controls">${select('Report language','reconciliationLanguage',languages,locale)}${button('Apply language','language')}${button('Download PDF','pdf')}</div>${documentHTML(reconciliationDocuments(fresh(),locale))}`);
+ switch(act){
+  case 'load':await load();break;
+  case 'refresh':el.disabled=true;try{await call('inventory-reconcile');}finally{el.disabled=false;}break;
+  case 'checkpoint':showModal('Record a preserved inventory checkpoint',note('This reads the current sandbox asset balance and saves source identities for future movement checks. It preserves the original baseline and posts no accounting entry.')+field('Checkpoint label / 名称 / 名稱','label','text','','required')+'<label><input type="checkbox" name="reviewed" required> I reviewed the company and inventory account.</label>','Record checkpoint',async p=>{await call('inventory-checkpoint',{label:p.label,workspaceRevision:s.revision,reviewed:p.reviewed==='on'});selected=q.inventoryCheckpoints.at(-1).id;document.querySelector('#modal').close();draw();});break;
+  case 'csv':download('Harbor-inventory-reconciliation.csv',reconciliationCSV(fresh()),'text/csv;charset=utf-8');break;
+  case 'preview':locale=interfaceLanguage();preview();break;
+  case 'language':locale=document.querySelector('[name="reconciliationLanguage"]').value;preview();break;
+  case 'pdf':{locale=document.querySelector('[name="reconciliationLanguage"]').value;const variant=locale==='zh-Hant'?'TC':'SC';el.disabled=true;try{if(!fonts.has(variant)){const r=await fetch('./fonts/NotoSans'+variant+'-Regular.ttf');if(!r.ok)throw Error('Chinese PDF font could not load.');fonts.set(variant,new Uint8Array(await r.arrayBuffer()));}const bytes=await createDocumentPDF(reconciliationDocuments(fresh(),locale),{PDFLib:globalThis.PDFLib,fontkit:globalThis.fontkit,fontBytes:fonts.get(variant)});download('Harbor-reconciliation-'+locale+'.pdf',bytes,'application/pdf');}finally{el.disabled=false;}break;}
+  default:throw Error('Unknown reconciliation action.');
+ }return true;
+}
+

@@ -1,0 +1,26 @@
+const rows=[
+['Includes product descriptions and preferred suppliers. Import previews additions and updates; stock quantities stay unchanged. Save files as CSV UTF-8.','包含产品描述和首选供应商。导入前会预览新增与更新；库存数量保持不变。请将文件保存为 CSV UTF-8。','包含產品描述及優先供應商。匯入前會預覽新增與更新；庫存數量保持不變。請將檔案儲存為 CSV UTF-8。','Inclut les descriptions et les fournisseurs préférés. L’import affiche un aperçu des ajouts et modifications ; les quantités en stock restent inchangées. Enregistrez les fichiers au format CSV UTF-8.'],
+['The selected company changed. Refresh and review the original company before continuing.','所选公司已更改。请刷新并核查原公司，再继续操作。','所選公司已變更。請重新整理並核查原公司，再繼續操作。','L’entreprise sélectionnée a changé. Actualisez et vérifiez l’entreprise d’origine avant de continuer.'],
+['Refresh the workspace before saving.','保存前请刷新工作区。','儲存前請重新整理工作區。','Actualisez l’espace avant d’enregistrer.'],
+['A saved request needs review in its original company before another change can be saved.','保存其他更改前，请先在原公司核查已保存的请求。','儲存其他變更前，請先在原公司核查已儲存的請求。','Vérifiez la demande enregistrée dans son entreprise d’origine avant d’enregistrer une autre modification.'],
+['Wait for the current save to finish.','请等待当前保存完成。','請等待目前儲存完成。','Attendez la fin de l’enregistrement.'],
+['Start with products','从产品开始','從產品開始','Commencer par les produits'],
+['Add products and receive a purchase order to begin.','添加产品并接收采购订单以开始使用。','新增產品並接收採購訂單以開始使用。','Ajoutez des produits et réceptionnez une commande fournisseur pour commencer.'],
+['Private beta · Company workspace','私有测试 · 公司工作区','私人測試 · 公司工作區','Bêta privée · Espace de société'],
+['Company actions are saved with revision checks and audit history. Your role controls available actions.','公司操作保存时会检查版本并保留审计历史。可用操作由您的角色决定。','公司操作儲存時會檢查版本並保留稽核歷程。可用操作由您的角色決定。','Les opérations sont enregistrées avec contrôle de version et historique. Votre rôle détermine les actions disponibles.'],
+['Company workspace','公司工作区','公司工作區','Espace de société'],
+['No company selected','尚未选择公司','尚未選擇公司','Aucune société sélectionnée'],
+['Choose a company from the account controls to continue.','请使用顶部公司选择控件继续。','請使用頂端公司選擇控制項繼續。','Choisissez une société dans les commandes du compte pour continuer.'],
+['Private company administration','私有公司管理','私人公司管理','Administration de la société privée'],
+['Use Company members above to review invited accounts and their roles.','使用顶部“公司成员”查看已邀请账户及其角色。','使用頂端「公司成員」檢視已邀請帳戶及其角色。','Utilisez Membres de la société ci-dessus pour examiner les comptes invités et leurs rôles.'],
+['Cloud backups','云端备份','雲端備份','Sauvegardes cloud'],
+['Company actions follow your role permissions.','公司操作遵循您的角色权限。','公司操作遵循您的角色權限。','Les opérations de société respectent les autorisations de votre rôle.'],
+['Your role cannot perform this beta operation.','您的角色不能执行此测试操作。','您的角色不能執行此測試操作。','Votre rôle ne permet pas cette opération bêta.'],
+['Use a supported operational command and revision.','请使用受支持的业务操作及版本。','請使用受支援的業務操作及版本。','Utilisez une opération et une version prises en charge.'],
+['Synthetic stock is unavailable in a private beta company.','私有测试公司不提供模拟库存工具。','私人測試公司不提供模擬庫存工具。','Le stock synthétique est indisponible dans une société bêta privée.'],
+['Choose an available company.','请选择可访问的公司。','請選擇可存取的公司。','Choisissez une société accessible.'],
+['Private beta administrator access required.','需要私有测试管理员权限。','需要私人測試管理員權限。','Accès administrateur de la bêta privée requis.'],
+['Review an invited account, role and reason.','请核查已邀请账户、角色及原因。','請核查已邀請帳戶、角色及原因。','Vérifiez le compte invité, le rôle et le motif.']
+];
+export const betaCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
+

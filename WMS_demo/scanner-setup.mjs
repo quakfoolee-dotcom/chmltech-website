@@ -1,0 +1,1 @@
+import {startLocalization,interfaceLanguage} from './locale.mjs';const draw=()=>{for(const el of document.querySelectorAll('[data-guide-language]'))el.hidden=el.dataset.guideLanguage!==interfaceLanguage();};document.querySelector('#interface-language').value=interfaceLanguage();document.addEventListener('harbor-language-changed',draw);startLocalization();draw();
