@@ -80,7 +80,7 @@ button:focus-visible,input:focus-visible{outline:3px solid #0A9AD8;outline-offse
 .busy[hidden]{display:none}
 
 .main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
-.card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card{min-width:0;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
 .card h2{font-family:var(--head);font-size:15px;margin:0 0 8px;font-weight:600}
 .sl{display:grid;grid-template-columns:1fr auto;gap:0 8px;align-items:baseline;margin-top:8px}
 .sl:first-of-type{margin-top:0}
@@ -89,6 +89,7 @@ button:focus-visible,input:focus-visible{outline:3px solid #0A9AD8;outline-offse
 .sl input{grid-column:1/-1;width:100%;accent-color:var(--blue);margin:4px 0 0}
 .sl small{grid-column:1/-1;color:var(--muted);font-size:12.5px}
 .say{margin:12px 0 0;padding:10px 12px;background:#E6F0F7;border-left:3px solid var(--blue);border-radius:0 6px 6px 0;font-size:14px;min-height:44px}
+#kpi .sm{display:none}@media(max-width:600px){#kpi .lg{display:none}#kpi .sm{display:inline}}
 table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
 th,td{padding:6px 5px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 th:first-child,td:first-child{text-align:left;white-space:normal}
@@ -153,10 +154,10 @@ details ul{margin:8px 0 0;padding-left:18px}
   <div class="main">
     <div class="card">
       <h2>One shift, 07:00 to 15:00</h2>
-      <table id="kpi">
+      <div style="overflow-x:auto"><table id="kpi">
         <thead><tr><th>Measure</th><th>As-is</th><th>Redesigned</th><th>Change</th></tr></thead>
         <tbody></tbody>
-      </table>
+      </table></div>
       <p style="font-size:12px;color:var(--muted);margin:6px 0 0">* Trucks still at a door or waiting at 15:00 are counted up to 15:00, so these are lower bounds.</p>
       <div class="split" id="split" aria-hidden="true"></div>
       <ul class="keys" aria-hidden="true"><li><i style="background:#0B6FA4"></i>Walking</li><li><i style="background:#8DC63F"></i>Picking</li><li><i style="background:#9AA8BA"></i>List, cart and drop-off</li><li><i style="background:#E2574C"></i>Giving way</li></ul>

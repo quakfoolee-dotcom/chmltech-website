@@ -11,10 +11,14 @@
   // which layouts to show: Part 1 compares as-is with the redesign (p1), Part 2 the three flow patterns (p2).
   // Chosen with s=p2 in the address (#embed&s=p2 inside an article) or window.WL_SCENE in the self-contained preview.
   var SCN = window.WL_SCENE || ((location.hash + location.search).match(/[#&?]s=(p\d)/) || [])[1] || 'p1';
-  var SETS = { p1: { kinds: ['asis', 'redesign'], tone: { asis: 'bad', redesign: 'good' } }, p2: { kinds: ['redesign', 'thru', 'lshape'], tone: {} } };
+  var SETS = { p1: { kinds: ['asis', 'redesign'], tone: { asis: 'bad', redesign: 'good' } }, p2: { kinds: ['redesign', 'thru', 'lshape'], tone: {} }, p3: { kinds: ['wide', 'redesign', 'vna'], tone: {} } };
   if (!SETS[SCN]) SCN = 'p1';
-  var KINDS = SETS[SCN].kinds, P2 = SCN === 'p2';
+  var KINDS = SETS[SCN].kinds, P2 = SCN !== 'p1', P3 = SCN === 'p3';   // P2: any part with three layouts
   var LAYS = {}; KINDS.forEach(function (k) { LAYS[k] = E.makeLayout(k); });
+  if (P3) {                                                      // Part 3 names the set-ups by aisle width and truck
+    LAYS.redesign.short = 'Narrow aisles'; LAYS.redesign.name = 'Narrow aisles, reach truck'; LAYS.redesign.flow = LAYS.redesign.p3;
+    KINDS.forEach(function (k) { var L = LAYS[k]; L.pos = L.faces.length * 4; });   // floor plus three beam levels
+  }
   function nameOf(k) { return P2 ? LAYS[k].short : LAYS[k].name; }
   var EMBED = /embed/.test(location.hash) || (window.parent !== window && location.href === 'about:srcdoc');   // srcdoc: the self-contained preview
   if (EMBED) document.documentElement.classList.add('embed');
@@ -59,9 +63,16 @@
     document.querySelector('header h1').textContent = 'Warehouse Layout Lab: U-shape, straight-through or L-shape?';
     document.querySelector('header .lede').textContent = 'The same Vancouver distributor, racks, orders and trucks in three flow patterns. Only where the docks sit, and so where packing and the fast movers go, changes.';
   }
+  if (P3 && !EMBED) {
+    document.querySelector('header .eyebrow').textContent = 'Warehouse layout series · Part 3';
+    document.querySelector('header h1').textContent = 'Warehouse Layout Lab: wide, narrow or very narrow aisles?';
+    document.querySelector('header .lede').textContent = 'The same Vancouver distributor, doors, orders and trucks with 4 m, 3 m and 2 m aisles. Narrower aisles fit more pallet positions; watch what they do to the people and trucks working in them.';
+  }
   if (P2) {                                                      // the model box and legend in Part 2 wording
     var li = document.querySelectorAll('details li');
-    if (li[0]) li[0].textContent = 'All three layouts hold the same pallet racks (about 840 pallet positions a level, 780 SKUs) in the same 72 × 52 m building, with three receiving and two shipping doors each. Only the walls the doors are on, and so where staging, packing and the fast movers go, differ.';
+    if (li[0] && P3) li[0].textContent = 'All three set-ups use the U-shape plan from Part 2 in the same 72 × 52 m building, with the same doors, staging and packing. Only the aisle width changes: 4 m for a counterbalance truck (660 pick faces, so 120 slow SKUs share a face), 3 m for a reach truck (840) and 2 m for a wire-guided turret truck (1,020). With a floor and three beam levels that is 2,640, 3,360 and 4,080 pallet positions. In the 2 m aisles the turret truck and pickers never share an aisle: whoever arrives second waits at the aisle end.';
+    if (li[2] && P3) li[2].textContent = 'A receiving-heavy day: at 300 orders a day, 14 inbound trucks, far more pallets in than go out, unloaded at 2.5 minutes a pallet into staging. One pallet truck (two from 400 orders a day) drives at 2 m/s and puts each pallet away above its SKU\'s pick face in 60 s with a reach truck, 75 s with a counterbalance truck (it turns to face the rack) and 50 s with a turret truck, which also loses 20 s each trip leaving and rejoining the guide wire to fetch from staging.';
+    else if (li[0]) li[0].textContent = 'All three layouts hold the same pallet racks (about 840 pallet positions a level, 780 SKUs) in the same 72 × 52 m building, with three receiving and two shipping doors each. Only the walls the doors are on, and so where staging, packing and the fast movers go, differ.';
     document.querySelectorAll('.legend span').forEach(function (sp) { if (/same scale/.test(sp.textContent)) sp.lastChild.textContent = 'Travel (same scale for all)'; });
   }
   KINDS.forEach(function (k) {
@@ -110,7 +121,12 @@
       ['Give-way stops in the shift', 'waits', '', 0, -1], ['Forklift time per pallet put away', 'forkCycle', ' min', 1, -1], ['Dock-to-stock time (average)', 'dts', ' min', 0, -1],
       ['Inbound truck time on site*', 'truckIn', ' min', 0, -1], ['Inbound pallets not put away by 15:00', 'notAway', '', 0, -1], ['Picking labour a year', 'pickCostYear', '$', 0, -1]
     ];
-    $('kpi').querySelector('thead').innerHTML = '<tr><th>Measure</th>' + KINDS.map(function (k) { return '<th>' + LAYS[k].short + '</th>'; }).join('') + '</tr>';
+    if (P3) {
+      KINDS.forEach(function (k) { H[k].r.pos = LAYS[k].pos; });
+      rows.unshift(['Pallet positions', 'pos', '', 0, 1]);
+      rows.splice(6, 0, ['Truck time waiting (give-way and aisle ends)', 'forkWait', ' min', 0, -1]);
+    }
+    $('kpi').querySelector('thead').innerHTML = '<tr><th>Measure</th>' + KINDS.map(function (k) { return '<th>' + (P3 ? '<span class="lg">' + LAYS[k].short + '</span><span class="sm">' + (LAYS[k].aisleW || 3) + ' m aisles</span>' : LAYS[k].short) + '</th>'; }).join('') + '</tr>';
     $('kpi').querySelector('tbody').innerHTML = rows.map(function (q) {
       var vals = R.map(function (r) { return r[q[1]]; }), best = q[4] < 0 ? Math.min.apply(null, vals) : Math.max.apply(null, vals);
       var fv = function (z) { return q[2] === '$' ? money(z) : fmt(z, q[3]) + q[2]; };
@@ -124,7 +140,9 @@
     });
     $('split').innerHTML = '<span></span><span style="font-size:12px;color:#5A6475">Picker-hours a day, by activity</span><span></span>' + sp;
     var hs = R.map(function (r) { return r.pickHoursDay; }), spread = (Math.max.apply(null, hs) - Math.min.apply(null, hs)) / Math.min.apply(null, hs);
-    $('say').textContent = 'At ' + fmt(S.orders) + ' orders a day: ' + KINDS.map(function (k, i) { return LAYS[k].short + ' ' + fmt(R[i].walkOrder) + ' m an order and ' + fmt(R[i].pickHoursDay, 1) + ' picker-hours'; }).join('; ') + '. ' +
+    if (P3) $('say').textContent = 'At ' + fmt(S.orders) + ' orders a day: ' + KINDS.map(function (k, i) { return LAYS[k].short.toLowerCase() + ' ' + fmt(LAYS[k].pos) + ' positions and ' + fmt(R[i].pickHoursDay, 1) + ' picker-hours'; }).join('; ') +
+      '. ' + (spread < 0.03 ? 'Picking is within ' + fmt(spread * 100) + '% across the three, because the busy SKUs are near packing in all of them. ' : '') + 'For put-away the truck needs ' + KINDS.map(function (k, i) { return fmt(R[i].forkCycle, 2); }).join(', ') + ' minutes a pallet, and in the very narrow aisles pickers and the turret truck wait ' + fmt(R[2].split.wait * 60) + ' and ' + fmt(R[2].forkWait) + ' minutes a shift for each other.';
+    else $('say').textContent = 'At ' + fmt(S.orders) + ' orders a day: ' + KINDS.map(function (k, i) { return LAYS[k].short + ' ' + fmt(R[i].walkOrder) + ' m an order and ' + fmt(R[i].pickHoursDay, 1) + ' picker-hours'; }).join('; ') + '. ' +
       (spread < 0.03 ? 'Picking is within ' + fmt(spread * 100) + '% across the three; the difference is in put-away: the forklift needs ' : 'The forklift needs ') +
       KINDS.map(function (k, i) { return fmt(R[i].forkCycle, 2); }).join(', ') + ' minutes a pallet, depending on how far the receiving doors are from the fast movers.';
     $('wl-orders-o').textContent = fmt(S.orders); $('wl-share-o').textContent = Math.round(S.share * 100) + '%';
@@ -178,7 +196,7 @@
   function faults() {
     KINDS.forEach(function (k) {
       var L = H[k].sim.L, ol = $('f-' + k), p = PANE[k];
-      var FL = P2 ? L.flow : L.faults;
+      var FL = P2 ? LAYS[k].flow : L.faults;
       ol.innerHTML = FL.map(function (f) { return '<li><button type="button" data-k="' + k + '" data-n="' + f.n + '" aria-pressed="false"><span>' + f.n + '</span><span style="all:unset"><strong>' + f.t + '</strong>' + f.d + '</span></button></li>'; }).join('');
       p.ov.innerHTML = '';
       p.badges = FL.map(function (f) {
