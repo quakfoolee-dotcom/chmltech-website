@@ -22,18 +22,18 @@ body{padding-top:var(--guest-bar-height,54px)!important}
 body[data-view] #sidebar .nav-group.current-group>.nav-group-toggle{background:#245d69;color:#fff;border-color:#4d8590}
 body[data-view] #sidebar .nav-count{background:#203e55;color:#fff;border-color:#526879}
 /* Classic keeps a compact, light desktop workspace; Modern keeps its dark navigation. */
-body[data-view="fishbowl"] #sidebar{background:#e6eef4;color:#183247;border-color:#b6c6d3}
-body[data-view="fishbowl"] #sidebar .brand,body[data-view="fishbowl"] #sidebar .nav-link,body[data-view="fishbowl"] #sidebar .nav-group-toggle,body[data-view="fishbowl"] #sidebar .nav-label,body[data-view="fishbowl"] #sidebar .sidebar-foot{color:#183247}
-body[data-view="fishbowl"] #sidebar .nav-group.current-group>.nav-group-toggle,body[data-view="fishbowl"] #sidebar .nav-group-toggle:hover,body[data-view="fishbowl"] #sidebar .nav-link.active,body[data-view="fishbowl"] #sidebar .nav-link:hover{background:#c7e4e1;color:#134e4a;border-color:#6a9994}
-body[data-view="fishbowl"] #sidebar .nav-count{background:#fff;color:#183247;border-color:#9eafbd}
-body[data-view="fishbowl"] #sidebar .nav-link svg{color:#31596f}
+body[data-view="classic"] #sidebar{background:#e6eef4;color:#183247;border-color:#b6c6d3}
+body[data-view="classic"] #sidebar .brand,body[data-view="classic"] #sidebar .nav-link,body[data-view="classic"] #sidebar .nav-group-toggle,body[data-view="classic"] #sidebar .nav-label,body[data-view="classic"] #sidebar .sidebar-foot{color:#183247}
+body[data-view="classic"] #sidebar .nav-group.current-group>.nav-group-toggle,body[data-view="classic"] #sidebar .nav-group-toggle:hover,body[data-view="classic"] #sidebar .nav-link.active,body[data-view="classic"] #sidebar .nav-link:hover{background:#c7e4e1;color:#134e4a;border-color:#6a9994}
+body[data-view="classic"] #sidebar .nav-count{background:#fff;color:#183247;border-color:#9eafbd}
+body[data-view="classic"] #sidebar .nav-link svg{color:#31596f}
 body[data-view] #sidebar .nav-close{color:inherit}
-body[data-view="fishbowl"] #topbar{height:auto;min-height:46px}
+body[data-view="classic"] #topbar{height:auto;min-height:46px}
 
 /* All module families use these same presentation tokens, including dialogs.
    Keep screen styling out of printable labels and exported documents. */
 @media screen {
- body[data-view="fishbowl"]{
+ body[data-view="classic"]{
   --workspace-radius:2px;--workspace-space:12px;--workspace-gap:10px;
   --workspace-heading:22px;--workspace-section:14px;--workspace-row-y:8px;
   --workspace-row-x:12px;--workspace-control:34px;--workspace-shadow:none;
@@ -95,25 +95,25 @@ body[data-view="fishbowl"] #topbar{height:auto;min-height:46px}
  body[data-view] :is(a,button,input,select,textarea,summary):focus-visible{outline:3px solid #147d88;outline-offset:3px}
 
  /* Classic: desktop title bands, grouped toolbars, ruled data grids. */
- body[data-view="fishbowl"] #main :is(.page-head,.dash-page-head){padding:12px 14px;background:#e6eef4;border:1px solid #b6c6d3;border-radius:2px}
- body[data-view="fishbowl"] #main th{text-transform:none;font-weight:700;letter-spacing:0;border-right:1px solid #cbd5e1}
- body[data-view="fishbowl"] #main td{border-right:1px solid #e0e7ed}
- body[data-view="fishbowl"] #main :is(th,td):last-child{border-right:0}
- body[data-view="fishbowl"] #main :is(.business-content td,.production-workspace td,.crm-workspace td){line-height:1.4}
- body[data-view="fishbowl"] :is(.business-tabs,.dash-view-tabs){gap:2px;padding:5px;background:#d4e0e9;border:1px solid #b6c6d3;margin-bottom:12px}
- body[data-view="fishbowl"] :is(.business-tabs a,.dash-view-tabs a){font-size:12px;padding:8px 10px}
- body[data-view="fishbowl"] #main :is(.toolbar,.billing-toolbar,.production-attention-summary,.dash-filterbar){padding:10px;background:#edf2f6;border:1px solid #cbd5e1;gap:10px}
- body[data-view="fishbowl"] #main .dash-widget>header{padding:8px 10px;background:#d4e0e9}
- body[data-view="fishbowl"] #main .dash-widget-body{padding:10px}
- body[data-view="fishbowl"] #main .dash-kpi{text-align:left}
- body[data-view="fishbowl"] #main .dash-kpi p{margin-bottom:8px}
- body[data-view="fishbowl"] #main .dash-kpi small{margin-top:8px}
- body[data-view="fishbowl"] #main .crm-card{border-left:3px solid #7c9cab}
- body[data-view="fishbowl"] #main .crm-column{background:#edf2f6}
- body[data-view="fishbowl"] :is(.badge,.production-signal){border-radius:2px}
- body[data-view="fishbowl"] .workflow-fields{margin:10px 0}
- body[data-view="fishbowl"] .workflow-heading strong{font-size:13px}
- body[data-view="fishbowl"] .workflow-panel{background:#f3f7fa}
+ body[data-view="classic"] #main :is(.page-head,.dash-page-head){padding:12px 14px;background:#e6eef4;border:1px solid #b6c6d3;border-radius:2px}
+ body[data-view="classic"] #main th{text-transform:none;font-weight:700;letter-spacing:0;border-right:1px solid #cbd5e1}
+ body[data-view="classic"] #main td{border-right:1px solid #e0e7ed}
+ body[data-view="classic"] #main :is(th,td):last-child{border-right:0}
+ body[data-view="classic"] #main :is(.business-content td,.production-workspace td,.crm-workspace td){line-height:1.4}
+ body[data-view="classic"] :is(.business-tabs,.dash-view-tabs){gap:2px;padding:5px;background:#d4e0e9;border:1px solid #b6c6d3;margin-bottom:12px}
+ body[data-view="classic"] :is(.business-tabs a,.dash-view-tabs a){font-size:12px;padding:8px 10px}
+ body[data-view="classic"] #main :is(.toolbar,.billing-toolbar,.production-attention-summary,.dash-filterbar){padding:10px;background:#edf2f6;border:1px solid #cbd5e1;gap:10px}
+ body[data-view="classic"] #main .dash-widget>header{padding:8px 10px;background:#d4e0e9}
+ body[data-view="classic"] #main .dash-widget-body{padding:10px}
+ body[data-view="classic"] #main .dash-kpi{text-align:left}
+ body[data-view="classic"] #main .dash-kpi p{margin-bottom:8px}
+ body[data-view="classic"] #main .dash-kpi small{margin-top:8px}
+ body[data-view="classic"] #main .crm-card{border-left:3px solid #7c9cab}
+ body[data-view="classic"] #main .crm-column{background:#edf2f6}
+ body[data-view="classic"] :is(.badge,.production-signal){border-radius:2px}
+ body[data-view="classic"] .workflow-fields{margin:10px 0}
+ body[data-view="classic"] .workflow-heading strong{font-size:13px}
+ body[data-view="classic"] .workflow-panel{background:#f3f7fa}
 
  /* Modern: open page headings, elevated cards, generous forms and pill navigation. */
  body[data-view="harbor"] #main :is(.page-head,.dash-page-head){padding:8px 0 20px;border-bottom:1px solid #d6e2e9}
@@ -137,7 +137,7 @@ body[data-view="fishbowl"] #topbar{height:auto;min-height:46px}
  }
  @media(max-width:760px){
   body[data-view="harbor"]{--workspace-heading:26px;--workspace-space:16px;--workspace-gap:14px}
-  body[data-view="fishbowl"]{--workspace-heading:21px;--workspace-space:12px;--workspace-gap:10px}
+  body[data-view="classic"]{--workspace-heading:21px;--workspace-space:12px;--workspace-gap:10px}
   body[data-view]{--workspace-control:44px}
   body[data-view] #main{padding:var(--workspace-space)}
   body[data-view] #main :is(.page-head,.dash-page-head){gap:12px}

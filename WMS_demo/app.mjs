@@ -1,44 +1,44 @@
-import {applyRoleControls} from './action-permissions.mjs';
-import {startWorkflowControls} from './workflow-ui.mjs';
-import {beginFormSave,endFormSave} from './shared-controls.mjs';
-import {commandRoleAllowed} from './command-policy.mjs';
-import {dateInputBounds} from './date-input.mjs';
-import {locationScope,sameScope} from './business.mjs';
-import {mountAccount} from './account.mjs';
-import {requiresVersionUpdate,versionNoticeHTML,versionUpdateMessage} from './version.mjs';
-import {documentScanAction} from './document-scan-ui.mjs';
-import {setPhoneAddress} from './document-scan.mjs';
-import {deliveryPanel,deliveryAction} from './fulfillment-ui.mjs';
-import {pickLines,deliveryLines} from './fulfillment.mjs';
-import {interfaceLanguages,interfaceLanguage,startLocalization,languageControlHTML,translate} from './locale.mjs';
-import {valuationAction} from './valuation-ui.mjs';
-import {navigationHTML,navigationContext} from './navigation.mjs';
-import {planningAction,planningChange} from './planning-ui.mjs';
-import {dashboardView,dashboardAction,dashboardChange,dashboardDates,dashboardInput,dashboardModalChange} from './dashboard-ui.mjs';
-import {createSeed,validateState,dispatch,totals,shortages,itemById,locationById,orderById,pickById} from './engine.mjs';
-import {classicView} from './classic.mjs';
-import {operationAction,receiveExtras,serialField} from './operations-ui.mjs';
+import {applyRoleControls} from './action-permissions.mjs?demo=5d9e5d1ce6c83eb1';
+import {startWorkflowControls} from './workflow-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {beginFormSave,endFormSave} from './shared-controls.mjs?demo=5d9e5d1ce6c83eb1';
+import {commandRoleAllowed} from './command-policy.mjs?demo=5d9e5d1ce6c83eb1';
+import {dateInputBounds} from './date-input.mjs?demo=5d9e5d1ce6c83eb1';
+import {locationScope,sameScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {mountAccount} from './account.mjs?demo=5d9e5d1ce6c83eb1';
+import {requiresVersionUpdate,versionNoticeHTML,versionUpdateMessage} from './version.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentScanAction} from './document-scan-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {setPhoneAddress} from './document-scan.mjs?demo=5d9e5d1ce6c83eb1';
+import {deliveryPanel,deliveryAction} from './fulfillment-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickLines,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {interfaceLanguages,interfaceLanguage,startLocalization,languageControlHTML,translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {valuationAction} from './valuation-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {navigationHTML,navigationContext} from './navigation.mjs?demo=5d9e5d1ce6c83eb1';
+import {planningAction,planningChange} from './planning-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {dashboardView,dashboardAction,dashboardChange,dashboardDates,dashboardInput,dashboardModalChange} from './dashboard-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {createSeed,validateState,dispatch,totals,shortages,itemById,locationById,orderById,pickById} from './engine.mjs?demo=5d9e5d1ce6c83eb1';
+import {classicView} from './classic.mjs?demo=5d9e5d1ce6c83eb1';
+import {operationAction,receiveExtras,serialField} from './operations-ui.mjs?demo=5d9e5d1ce6c83eb1';
 
-import {charLength,matchesText,decodeUTF8,createSearchHandler} from './unicode.mjs';
-import {catalogRows,exportCatalog} from './exchange.mjs';
-import {documentAction} from './documents-ui.mjs';
-import {supplierView,purchasingView,purchasingAction,purchasingChange} from './purchasing-ui.mjs';
-import {chineseDemoNeedsUpgrade} from './chinese-demo.mjs';
-import {businessView,businessAction} from './business-ui.mjs';
-import {insightAction} from './insights-ui.mjs';
-import {mountReconciliation,reconciliationAction} from './reconciliation-ui.mjs';
-import {costingAction} from './costing-ui.mjs';
-import {billingAction} from './billing-ui.mjs';
-import {qboAction,mountQuickBooks} from './qbo-ui.mjs';
-import {api} from './shared.mjs';
+import {charLength,matchesText,decodeUTF8,createSearchHandler} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {catalogRows,exportCatalog} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentAction} from './documents-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {supplierView,purchasingView,purchasingAction,purchasingChange} from './purchasing-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {chineseDemoNeedsUpgrade} from './chinese-demo.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessView,businessAction} from './business-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {insightAction} from './insights-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {mountReconciliation,reconciliationAction} from './reconciliation-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {costingAction} from './costing-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {billingAction} from './billing-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {qboAction,mountQuickBooks} from './qbo-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {api} from './shared.mjs?demo=5d9e5d1ce6c83eb1';
 const KEY='chmltech:WMS_demo:harbor-wms-v1';
 const VIEW_KEY='chmltech:WMS_demo:harbor-wms-view';
 const NAV_KEY='chmltech:WMS_demo:harbor-module-groups';
 let navOpen={};try{navOpen=JSON.parse(localStorage.getItem(NAV_KEY)||'{}')||{};}catch{}
-let viewMode='fishbowl';
-try{viewMode=localStorage.getItem(VIEW_KEY)==='harbor'?'harbor':'fishbowl';}catch{}
+let viewMode='classic';
+try{viewMode=localStorage.getItem(VIEW_KEY)==='harbor'?'harbor':'classic';}catch{}
 let recordTab='General',selectedStock='';
-const wording=label=>viewMode==='fishbowl'?({'Issue order':'Issue','Reserve stock':'Commit','Finish pick':'Finish','Reverse pick':'Void pick','Reverse shipment / packing':'Void shipment / packing','Reverse shipment':'Void shipment','Confirm reversal':'Confirm void','Pack shipment':'Pack','Ship order':'Ship'}[label]||label):label;
+const wording=label=>viewMode==='classic'?({'Issue order':'Issue','Reserve stock':'Commit','Finish pick':'Finish','Reverse pick':'Void pick','Reverse shipment / packing':'Void shipment / packing','Reverse shipment':'Void shipment','Confirm reversal':'Confirm void','Pack shipment':'Pack','Ship order':'Ship'}[label]||label):label;
 const $=s=>document.querySelector(s);
 const e=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=value=>Number(value).toLocaleString();
@@ -89,7 +89,7 @@ function shell(view){
   document.body.dataset.view=viewMode;
   const context=navigationContext(location.hash),title=context.module?.label||'Overview';
   $('#sidebar').innerHTML=`<button type="button" class="icon-btn mobile-menu nav-close" data-action="menu" aria-label="Close navigation">${icon('x')}</button><a class="brand" href="#overview"><span class="brand-symbol">${icon('box')}</span>harbor<em>WMS</em></a><div class="warehouse-switch">${icon('location')}<div><strong>Vancouver warehouse</strong><small>Primary location · Demo</small></div></div><div class="nav-label">Workspace</div>${navigationHTML(location.hash,{escape:e,icon,open:navOpen,orderCount:openOrders().length})}<div class="sidebar-bottom"><div class="sandbox-card"><strong><span class="dot"></span> Your working sandbox</strong><p>Explore the warehouse with sample stock and real workflows.</p></div><button class="nav-link" style="width:100%;background:transparent" data-action="settings">${icon('settings')}Data & settings</button><div class="profile"><span class="avatar">WM</span><div><strong data-l10n-skip>${e(sharedInfo?.user?.name||'Local workspace')}</strong><small>${e(sharedInfo?.user?.role||'Not signed in')}</small></div></div></div>`;
-  $('#topbar').innerHTML=`<div class="crumb"><button class="icon-btn mobile-menu" data-action="menu" aria-label="Toggle navigation" aria-expanded="${document.body.classList.contains('menu-open')}">${icon('menu')}</button><span>Workspace</span>${icon('chevron')}${context.group?`<span class="module-group-crumb">${e(context.group.label)}</span>`:''}<strong>${e(title)}</strong></div><div class="top-right">${btn('Scan to open','document-scan','','tiny')}${viewMode==='harbor'?btn('Warehouse tools','warehouse-tools','','tiny'):''}<label class="language-switch"><span>Language</span><select id="interface-language" aria-label="Interface language">${interfaceLanguages.map(([code,label])=>`<option value="${code}"${code===interfaceLanguage()?' selected':''}>${label}</option>`).join('')}</select></label><label class="view-switch">Interface <select id="view-mode" aria-label="Interface view"><option value="fishbowl"${viewMode==='fishbowl'?' selected':''}>Classic workspace</option><option value="harbor"${viewMode==='harbor'?' selected':''}>Harbor modern</option></select></label><span class="saved"><span class="dot"></span>${sharedInfo&&!sharedInfo.user?'Not signed in':loadError?'Connection needs attention':sharedReady?'Browser demo workspace':'Choose workspace'}</span><span class="prototype-tag">PROTOTYPE</span><button class="icon-btn" aria-label="Open walkthrough" data-action="help">${icon('help')}</button><div data-account-host>${account.html()}</div></div>`;
+  $('#topbar').innerHTML=`<div class="crumb"><button class="icon-btn mobile-menu" data-action="menu" aria-label="Toggle navigation" aria-expanded="${document.body.classList.contains('menu-open')}">${icon('menu')}</button><span>Workspace</span>${icon('chevron')}${context.group?`<span class="module-group-crumb">${e(context.group.label)}</span>`:''}<strong>${e(title)}</strong></div><div class="top-right">${btn('Scan to open','document-scan','','tiny')}${viewMode==='harbor'?btn('Warehouse tools','warehouse-tools','','tiny'):''}<label class="language-switch"><span>Language</span><select id="interface-language" aria-label="Interface language">${interfaceLanguages.map(([code,label])=>`<option value="${code}"${code===interfaceLanguage()?' selected':''}>${label}</option>`).join('')}</select></label><label class="view-switch">Interface <select id="view-mode" aria-label="Interface view"><option value="classic"${viewMode==='classic'?' selected':''}>Classic workspace</option><option value="harbor"${viewMode==='harbor'?' selected':''}>Harbor modern</option></select></label><span class="saved"><span class="dot"></span>${sharedInfo&&!sharedInfo.user?'Not signed in':loadError?'Connection needs attention':sharedReady?'Browser demo workspace':'Choose workspace'}</span><span class="prototype-tag">PROTOTYPE</span><button class="icon-btn" aria-label="Open walkthrough" data-action="help">${icon('help')}</button><div data-account-host>${account.html()}</div></div>`;
 }
 function overview(){
   const t=totals(state),low=state.items.filter(i=>totals(state,i.id).available<i.reorderPoint),picks=state.picks.filter(p=>p.status!=='Finished'&&orderById(state,p.orderId).status!=='Cancelled'),ready=state.shipments.filter(s=>['Entered','Packed'].includes(s.status));
@@ -153,10 +153,10 @@ function activity(){
 }
 function render(){
   const [view='dashboards',id]=(location.hash.slice(1)||'dashboards/sales').split('/');
-  if(route!==location.hash){if(viewMode!=='fishbowl'||route.slice(1).split('/')[0]!==view){query='';filter='All';}recordTab='General';selectedStock='';route=location.hash;}
+  if(route!==location.hash){if(viewMode!=='classic'||route.slice(1).split('/')[0]!==view){query='';filter='All';}recordTab='General';selectedStock='';route=location.hash;}
   shell(view);
   if(!sharedInfo?.user){$('#main').innerHTML=`<section class="account-gate"><h1>${e(navigationContext(location.hash).module?.label||'Workspace')}</h1><p>${sharedInfo?(sessionExpired?'Your session expired. Sign in again to continue.':'Sign in to the shared workspace.'):'Connecting to Harbor…'}</p>${sharedInfo?'<button type="button" data-account-action="signin">Sign in</button>':''}</section>`;return;}
-  try{let content=viewMode==='fishbowl'&&['inventory','orders','picking','shipping'].includes(view)?classicView(state,view,id,{query,filter,tab:recordTab,stockId:selectedStock}):({dashboards:()=>sharedReady?dashboardView(state,id,sharedInfo?.user?.username||'Local owner'):'<div class="page-head"><div><h1>Dashboards</h1><p>Loading shared dashboard records. Choose shared records or sign in if prompted above.</p></div></div>',overview,business:()=>businessView(state,id,location.hash.split('/')[2]),inventory:()=>id?itemDetail(id):inventory(),suppliers:()=>supplierView(state,id,{query,filter}),purchasing:()=>purchasingView(state,id,{query,filter}),orders:()=>id?orderDetail(id):orders(),picking:()=>id?pickDetail(id):picking(),shipping:()=>id?shipmentDetail(id):shipping(),locations,activity}[view]||overview)();$('#main').innerHTML=versionNoticeHTML(sharedInfo)+(loadError?`<div class="alert">${e(loadError)} ${btn('Data & settings','settings','','tiny')}</div>`:'')+(migration?`<div class="migration-banner"><strong>${migration==='initialize'?'Move your records into shared storage':'A saved browser workspace was found'}</strong><p>${migration==='initialize'?`This browser contains ${state.items.length} products and ${state.operations?.purchases?.length||0} purchase orders. A preserved copy will be kept.`:`Shared storage contains ${state.operations?.purchases?.length||0} POs. Your browser copy contains ${legacyState?.operations?.purchases?.length||0}. Both can be preserved; choose which workspace to use.`}</p>${btn(migration==='initialize'?'Use these records':'Use shared records','shared-use','','primary')}${migration==='compare'?btn('Review browser replacement','shared-replace'):''}</div>`:'')+content;}catch(err){$('#main').innerHTML=empty('This record is unavailable',err.message,nav('Return to overview','overview','back','primary'));}
+  try{let content=viewMode==='classic'&&['inventory','orders','picking','shipping'].includes(view)?classicView(state,view,id,{query,filter,tab:recordTab,stockId:selectedStock}):({dashboards:()=>sharedReady?dashboardView(state,id,sharedInfo?.user?.username||'Local owner'):'<div class="page-head"><div><h1>Dashboards</h1><p>Loading shared dashboard records. Choose shared records or sign in if prompted above.</p></div></div>',overview,business:()=>businessView(state,id,location.hash.split('/')[2]),inventory:()=>id?itemDetail(id):inventory(),suppliers:()=>supplierView(state,id,{query,filter}),purchasing:()=>purchasingView(state,id,{query,filter}),orders:()=>id?orderDetail(id):orders(),picking:()=>id?pickDetail(id):picking(),shipping:()=>id?shipmentDetail(id):shipping(),locations,activity}[view]||overview)();$('#main').innerHTML=versionNoticeHTML(sharedInfo)+(loadError?`<div class="alert">${e(loadError)} ${btn('Data & settings','settings','','tiny')}</div>`:'')+(migration?`<div class="migration-banner"><strong>${migration==='initialize'?'Move your records into shared storage':'A saved browser workspace was found'}</strong><p>${migration==='initialize'?`This browser contains ${state.items.length} products and ${state.operations?.purchases?.length||0} purchase orders. A preserved copy will be kept.`:`Shared storage contains ${state.operations?.purchases?.length||0} POs. Your browser copy contains ${legacyState?.operations?.purchases?.length||0}. Both can be preserved; choose which workspace to use.`}</p>${btn(migration==='initialize'?'Use these records':'Use shared records','shared-use','','primary')}${migration==='compare'?btn('Review browser replacement','shared-replace'):''}</div>`:'')+content;}catch(err){$('#main').innerHTML=empty('This record is unavailable',err.message,nav('Return to overview','overview','back','primary'));}
  applyRoleControls($('#main'),sharedInfo?.user?.role);
  if(view==='business'&&id==='quickbooks')mountQuickBooks();mountReconciliation(state);
 }
@@ -196,7 +196,7 @@ async function action(name,id,el){
   if(await purchasingAction(name,id,el,{s:state,run,showModal,field,select,itemOptions,locOptions}))return;
   if(await operationAction(name,id,el,{s:state,run,showModal,field,select,itemOptions,locOptions}))return;
   switch(name){
-    case 'warehouse-tools':viewMode='fishbowl';recordTab='General';try{localStorage.setItem(VIEW_KEY,viewMode);}catch{}render();if(!['inventory','orders','picking','shipping'].includes(location.hash.slice(1).split('/')[0]))location.hash='inventory';break;
+    case 'warehouse-tools':viewMode='classic';recordTab='General';try{localStorage.setItem(VIEW_KEY,viewMode);}catch{}render();if(!['inventory','orders','picking','shipping'].includes(location.hash.slice(1).split('/')[0]))location.hash='inventory';break;
     case 'record-tab':if(['General','Details','Memo','Costing','Custom'].includes(id)){recordTab=id;render();document.getElementById(`fb-tab-${id}`)?.focus();}break;
     case 'nav-group':{const panel=document.getElementById('nav-'+id),expanded=el.getAttribute('aria-expanded')!=='true';el.setAttribute('aria-expanded',String(expanded));panel.hidden=!expanded;navOpen[id]=expanded;try{localStorage.setItem(NAV_KEY,JSON.stringify(navOpen));}catch{}break;}
     case 'menu':document.body.classList.toggle('menu-open');shell(location.hash.slice(1).split('/')[0]||'overview');if(document.body.classList.contains('menu-open'))$('#sidebar .nav-close').focus();else $('#topbar .mobile-menu').focus();break;
@@ -243,7 +243,7 @@ document.addEventListener('change',ev=>{
   if(dashboardChange(ev,render))return;
   purchasingChange(ev,state);
   if(ev.target.id==='view-mode'){
-    viewMode=ev.target.value==='harbor'?'harbor':'fishbowl';recordTab='General';query='';filter='All';selectedStock='';
+    viewMode=ev.target.value==='harbor'?'harbor':'classic';recordTab='General';query='';filter='All';selectedStock='';
     try{localStorage.setItem(VIEW_KEY,viewMode);}catch{toast('View changed. The browser could not save this preference.',true);}
     render();$('#view-mode').focus();
   }

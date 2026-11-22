@@ -1,6 +1,6 @@
-import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs';
-import {unitQuantity} from './packaging.mjs';
-import {crmProfile,crmAddressText} from './crm.mjs';
+import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';
+import {unitQuantity} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {crmProfile,crmAddressText} from './crm.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export function quotationStatus(q,today=salesToday()){return ['Issued','Accepted'].includes(q.status)&&q.validUntil<today?'Expired':q.status;}
 const snapshot=q=>structuredClone(Object.fromEntries(Object.entries(q).filter(([k])=>!['versions','history'].includes(k))));

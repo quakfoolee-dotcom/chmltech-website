@@ -1,8 +1,8 @@
-import {workflowModel} from './workflow-model.mjs';
-import {actionRoleAllowed,isReadAction} from './action-permissions.mjs';
-import {translate} from './locale.mjs';
-import {enhanceSharedControls,formSavePending} from './shared-controls.mjs';
-import {cloudQBOActionAllowed} from './qbo-access.mjs';
+import {workflowModel} from './workflow-model.mjs?demo=5d9e5d1ce6c83eb1';
+import {actionRoleAllowed,isReadAction} from './action-permissions.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {enhanceSharedControls,formSavePending} from './shared-controls.mjs?demo=5d9e5d1ce6c83eb1';
+import {cloudQBOActionAllowed} from './qbo-access.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const t=v=>e(translate(v));
 const roles=['Admin','Warehouse','Purchasing','Sales','Manufacturing','Accounting','Viewer'];

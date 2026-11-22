@@ -1,7 +1,7 @@
-import {interfaceLanguage,translate,translatedWords} from './locale.mjs';
-import {isFIFO,fifoValue,nextFIFOCost,rangeCost,historicalValuation,layerWarehouse} from './fifo.mjs';
-import {business} from './business.mjs';import {formatMoney,formatUnitCost} from './currency-display.mjs';
-import {csvText} from './exchange.mjs';import {documentHTML,languages} from './documents.mjs';import {createDocumentPDF} from './pdf.mjs';
+import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO,fifoValue,nextFIFOCost,rangeCost,historicalValuation,layerWarehouse} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {business} from './business.mjs?demo=5d9e5d1ce6c83eb1';import {formatMoney,formatUnitCost} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';
+import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const btn=(label,action)=>`<button class="btn" data-action="value-${action}">${e(label)}</button>`,row=c=>`<tr>${c.map(x=>`<td>${x}</td>`).join('')}</tr>`,table=(h,r)=>`<div class="table-scroll"><table><thead>${row(h.map(e))}</thead><tbody>${r.join('')||row(['No records yet.'])}</tbody></table></div>`,note=v=>`<div class="note-box"><p>${e(v)}</p></div>`;
 let selection='',warehouse='',item='',asOf='',locale='zh-Hans';const fonts=new Map();

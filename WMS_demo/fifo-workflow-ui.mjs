@@ -1,9 +1,9 @@
-import {interfaceLanguage,translate} from './locale.mjs';
-import {business,locationScope} from './business.mjs';
-import {isFIFO,rangeCost,previewFIFOWithdrawal,fifoValue} from './fifo.mjs';
-import {documentHTML,languages} from './documents.mjs';
-import {createDocumentPDF} from './pdf.mjs';
-import {formatMoney} from './currency-display.mjs';
+import {interfaceLanguage,translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO,rangeCost,previewFIFOWithdrawal,fifoValue} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
+import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
+import {formatMoney} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,id='')=>`<button class="btn" data-action="biz-${action}" data-id="${e(id)}">${e(label)}</button>`;
 const origin=(s,id)=>s.costLayers.origins.find(o=>o.id===id);

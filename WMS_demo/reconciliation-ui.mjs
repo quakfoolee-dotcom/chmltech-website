@@ -1,8 +1,8 @@
-import {interfaceLanguage} from './locale.mjs';
-import {api} from './shared.mjs';
-import {inventoryDiagnostics,reconciliationCSV,reconciliationDocuments} from './inventory-diagnostics.mjs';
-import {documentHTML,languages} from './documents.mjs';
-import {createDocumentPDF} from './pdf.mjs';
+import {interfaceLanguage} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {api} from './shared.mjs?demo=5d9e5d1ce6c83eb1';
+import {inventoryDiagnostics,reconciliationCSV,reconciliationDocuments} from './inventory-diagnostics.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
+import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,act)=>`<button class="btn" data-action="recon-${act}">${e(label)}</button>`,row=c=>`<tr>${c.map(x=>`<td>${x}</td>`).join('')}</tr>`,table=(h,r)=>`<div class="table-scroll"><table><thead>${row(h.map(e))}</thead><tbody>${r.join('')||row(['No records.'])}</tbody></table></div>`,note=t=>`<div class="note-box"><p>${e(t)}</p></div>`;
 let q=null,state=null,selected='',locale='zh-Hans',generation=0;const fonts=new Map();

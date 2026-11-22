@@ -1,9 +1,9 @@
-import {returnShipment} from './fulfillment.mjs';
-import {business,setupBusiness,inventoryValue,locationScope} from './business.mjs';
-import {billing} from './billing.mjs';
-import {isFIFO,fifoOpenShipmentSlices} from './fifo.mjs';
-import {rangeTransferFees,validateTransferFees} from './fifo-fees.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
+import {returnShipment} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,setupBusiness,inventoryValue,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {billing} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO,fifoOpenShipmentSlices} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {rangeTransferFees,validateTransferFees} from './fifo-fees.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const cents=v=>Math.round((v+Number.EPSILON)*100);
 const own=(s,id)=>s.stock.filter(x=>x.itemId===id&&locationScope(s,x.locationId).ownerId==='owner-self').reduce((n,x)=>n+x.qty,0);

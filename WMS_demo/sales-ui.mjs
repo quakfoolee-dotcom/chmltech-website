@@ -1,6 +1,6 @@
-import {businessDay} from './company-date.mjs';
-import {shiftDay} from './forecast.mjs';
-import {salesDesk,explainPrice,salesToday,lineCents} from './pricing.mjs';import {quotationStatus} from './quotations.mjs';import {productUnits} from './packaging.mjs';import {quotationDocuments} from './quotation-documents.mjs';import {documentHTML,languages} from './documents.mjs';import {interfaceLanguage} from './locale.mjs';import {createDocumentPDF} from './pdf.mjs';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {shiftDay} from './forecast.mjs?demo=5d9e5d1ce6c83eb1';
+import {salesDesk,explainPrice,salesToday,lineCents} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';import {quotationStatus} from './quotations.mjs?demo=5d9e5d1ce6c83eb1';import {productUnits} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';import {quotationDocuments} from './quotation-documents.mjs?demo=5d9e5d1ce6c83eb1';import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';import {interfaceLanguage} from './locale.mjs?demo=5d9e5d1ce6c83eb1';import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),m=(n,c)=>`${c} ${(n/100).toFixed(2)}`,unitMoney=(n,c)=>`${c} ${(n/10000).toFixed(4)}`;
 const button=(label,action,id='',extra='')=>`<button class="btn" data-action="biz-sales-${action}" data-id="${e(id)}" ${extra}>${e(label)}</button>`,table=(heads,rows)=>`<div class="table-scroll"><table><thead><tr>${heads.map(h=>`<th>${e(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 let formState,previewId='',previewRevision=null,previewLanguage='en';const fonts=new Map();

@@ -1,24 +1,24 @@
-import {receivingCommand,beforeReceiving,validateReceiving} from './receiving-control.mjs';
-import {productionCommand,validateProduction,beforeProduction} from './production.mjs';
-import {pickLines,deliveryLines,outstandingLines,releaseDelivery,fulfillmentStatus,validateFulfillment} from './fulfillment.mjs';
-import {beforeExecution,afterExecution,executionCommand,validateExecution} from './warehouse-execution.mjs';
-import {beforeUnits,afterUnits,unitsCommand,validateUnits} from './packaging.mjs';
-import {mobileStockCommand,validateMobileStock} from './mobile-stock.mjs';
-import {pricingCommand,validateSalesDesk} from './pricing.mjs';
-import {quotationCommand,validateQuotations} from './quotations.mjs';
-import {crmCommand,validateCRM} from './crm.mjs';
-import {beforeTransferCosting,afterTransferCosting,transferCostCommand,validateTransferCosting} from './transfer-costing.mjs';
-import {beforeFIFO,afterFIFOStock,afterFIFOAccounting,validateFIFO} from './fifo.mjs';
-import {procurementCommand,beforeProcurement,afterProcurement,validateProcurement} from './procurement.mjs';
+import {receivingCommand,beforeReceiving,validateReceiving} from './receiving-control.mjs?demo=5d9e5d1ce6c83eb1';
+import {productionCommand,validateProduction,beforeProduction} from './production.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickLines,deliveryLines,outstandingLines,releaseDelivery,fulfillmentStatus,validateFulfillment} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {beforeExecution,afterExecution,executionCommand,validateExecution} from './warehouse-execution.mjs?demo=5d9e5d1ce6c83eb1';
+import {beforeUnits,afterUnits,unitsCommand,validateUnits} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {mobileStockCommand,validateMobileStock} from './mobile-stock.mjs?demo=5d9e5d1ce6c83eb1';
+import {pricingCommand,validateSalesDesk} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';
+import {quotationCommand,validateQuotations} from './quotations.mjs?demo=5d9e5d1ce6c83eb1';
+import {crmCommand,validateCRM} from './crm.mjs?demo=5d9e5d1ce6c83eb1';
+import {beforeTransferCosting,afterTransferCosting,transferCostCommand,validateTransferCosting} from './transfer-costing.mjs?demo=5d9e5d1ce6c83eb1';
+import {beforeFIFO,afterFIFOStock,afterFIFOAccounting,validateFIFO} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {procurementCommand,beforeProcurement,afterProcurement,validateProcurement} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
 // Original implementation of the stock-state model documented in this project.
 // Every command operates on a clone and validates before returning a new state.
-import {expired,stockCandidates,validateOperations,beforeOperation,afterOperation,extendedCommand,setupOps} from './operations.mjs';
-import {charLength,cutText,validUnicode} from './unicode.mjs';
-import {businessCommand,validateBusiness,beforeBusiness,afterBusiness,stockInScope,orderScope,locationScope} from './business.mjs';
-import {countCommand,validateInsights,afterInsights} from './insights.mjs';
-import {dashboardCommand,validateDashboard} from './dashboard.mjs';
-import {costCommand,beforeCosting,afterCosting,validateCosting} from './costing.mjs';
-import {billingCommand,validateBilling,beforeBilling} from './billing.mjs';
+import {expired,stockCandidates,validateOperations,beforeOperation,afterOperation,extendedCommand,setupOps} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
+import {charLength,cutText,validUnicode} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessCommand,validateBusiness,beforeBusiness,afterBusiness,stockInScope,orderScope,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {countCommand,validateInsights,afterInsights} from './insights.mjs?demo=5d9e5d1ce6c83eb1';
+import {dashboardCommand,validateDashboard} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
+import {costCommand,beforeCosting,afterCosting,validateCosting} from './costing.mjs?demo=5d9e5d1ce6c83eb1';
+import {billingCommand,validateBilling,beforeBilling} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
 export class WmsError extends Error {}
 const fail = message => { throw new WmsError(message); };
 const requireThat = (condition, message) => { if (!condition) fail(message); };

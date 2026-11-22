@@ -1,8 +1,8 @@
-import {interfaceLanguage,translate,translatedWords} from './locale.mjs';
-import {business,locationScope} from './business.mjs';
-import {insights,countableLocations,countIsStale,countCSV,traceReport,warehouseReport,reportTypes,reportCSV} from './insights.mjs';
-import {documentHTML,languages} from './documents.mjs';
-import {createDocumentPDF} from './pdf.mjs';
+import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {insights,countableLocations,countIsStale,countCSV,traceReport,warehouseReport,reportTypes,reportCSV} from './insights.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
+import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
 
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,id='')=>`<button type="button" class="btn" data-action="ins-${action}" data-id="${e(id)}">${e(label)}</button>`;

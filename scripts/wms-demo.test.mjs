@@ -39,3 +39,9 @@ test('the complete static import graph and nested-path pages contain no private 
  for(const file of ['.env','api','data','node_modules','service.mjs'])assert.equal(fs.existsSync(root+file),false);
  assert.ok(!fs.readFileSync(root+'shared.mjs','utf8').includes('/demo-api/'));
 });
+
+test('demo assets contain no legacy commercial product name and Classic layout uses neutral identifiers',()=>{
+ const hits=[];const walk=dir=>{for(const row of fs.readdirSync(dir,{withFileTypes:true})){const file=dir+'/'+row.name;if(row.isDirectory())walk(file);else if(/fishbowl/i.test(fs.readFileSync(file).toString('latin1')))hits.push(file);}};walk('WMS_demo');assert.deepEqual(hits,[]);
+ assert.ok(fs.readFileSync('WMS_demo/app.mjs','utf8').includes("let viewMode='classic'"));
+ for(const file of ['classic.css','navigation.css','guest-theme.css'])assert.ok(fs.readFileSync('WMS_demo/'+file,'utf8').includes('data-view="classic"'),file);
+});

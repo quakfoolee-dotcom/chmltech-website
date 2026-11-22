@@ -1,8 +1,8 @@
-import {navigationGroups,navigationContext} from './navigation.mjs';
-import {workAttention,orderAttention} from './production-signals.mjs';
-import {receivingSuggestions} from './receiving-control.mjs';
-import {purchaseStatus} from './procurement.mjs';
-import {billingStatus} from './billing.mjs';
+import {navigationGroups,navigationContext} from './navigation.mjs?demo=5d9e5d1ce6c83eb1';
+import {workAttention,orderAttention} from './production-signals.mjs?demo=5d9e5d1ce6c83eb1';
+import {receivingSuggestions} from './receiving-control.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseStatus} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
+import {billingStatus} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
 // Read-only projections of existing records. This module never dispatches or
 // stores workflow states; transactional validation remains authoritative.
 const spec=(path,steps,actions=[])=>({path,steps,actions});

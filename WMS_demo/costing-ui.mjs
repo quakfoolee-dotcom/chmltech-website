@@ -1,8 +1,8 @@
-import {costing,valuation,matchPreview} from './costing.mjs';
-import {receiptMatching,matchingCSV} from './return-costing.mjs';
-import {locationScope,business} from './business.mjs';
-import {billing} from './billing.mjs';
-import {suppliers} from './purchasing.mjs';
+import {costing,valuation,matchPreview} from './costing.mjs?demo=5d9e5d1ce6c83eb1';
+import {receiptMatching,matchingCSV} from './return-costing.mjs?demo=5d9e5d1ce6c83eb1';
+import {locationScope,business} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {billing} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {suppliers} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const formatMoney=(n,currency)=>`${currency} ${(n/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const btn=(label,action,id='')=>`<button class="btn" data-action="cost-${action}" data-id="${e(id)}">${e(label)}</button>`;

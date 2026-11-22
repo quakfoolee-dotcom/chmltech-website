@@ -1,9 +1,9 @@
-import {planningCommands,productionRoleAllowed} from './production-policy.mjs';
-import {businessDay} from './company-date.mjs';
-import {planningCommand,validatePlanning} from './production-planning.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
-import {setupBusiness,business,locationScope,inventoryValue} from './business.mjs';
-import {isFIFO,fifoValue,consumeFIFOProduction,receiveFIFOProduction} from './fifo.mjs';
+import {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {planningCommand,validatePlanning} from './production-planning.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {setupBusiness,business,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO,fifoValue,consumeFIFOProduction,receiveFIFOProduction} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const text=(v,max=240,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid production text within the allowed length.');return t;};
 const whole=(v,min=1,max=1000000)=>{const n=Number(v);must(v!==''&&Number.isSafeInteger(n)&&n>=min&&n<=max,'Enter a valid whole production quantity or number.');return n;};

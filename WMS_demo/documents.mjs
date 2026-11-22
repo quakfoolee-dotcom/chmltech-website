@@ -1,11 +1,11 @@
-import {documentScanHTML} from './scan-codes.mjs';
-import {translate,translatedWords} from './locale.mjs';
-import {invoiceHTML} from './invoice-layout.mjs';
-import {purchaseFormLayout} from './commercial-layout.mjs';
-import {forecastDocuments} from './forecast.mjs';
-import {procurement,purchaseStatus} from './procurement.mjs';
-import {ops,shippingMeta,shipmentLines} from './operations.mjs';
-import {purchaseLines,purchaseTotals} from './purchasing.mjs';
+import {documentScanHTML} from './scan-codes.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate,translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {invoiceHTML} from './invoice-layout.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseFormLayout} from './commercial-layout.mjs?demo=5d9e5d1ce6c83eb1';
+import {forecastDocuments} from './forecast.mjs?demo=5d9e5d1ce6c83eb1';
+import {procurement,purchaseStatus} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
+import {ops,shippingMeta,shipmentLines} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
 export const languages=[['en','English'],['zh-Hans','简体中文 · Simplified Chinese'],['zh-Hant','繁體中文 · Traditional Chinese'],['fr','Français · French']];
 const words={
  en:{purchase:'Purchase order',packing:'Packing slip',label:'Warehouse label',supplier:'Supplier',recipient:'Ship to',description:'Description',qty:'Quantity',cost:'Unit cost',total:'Order total',due:'Due date',status:'Status',delivery:'Delivery',reference:'Reference',carrier:'Carrier / service',carton:'Carton',dimensions:'Dimensions',weight:'Weight',received:'Received',note:'Local warehouse document. Currency is shown where specified. Not a tax invoice.',postage:'Local warehouse label. NOT POSTAGE.',page:'Page',continued:'continued',Warehouse:'To warehouse','Drop ship':'Direct to customer',Open:'Open',Closed:'Closed',Cancelled:'Cancelled',Entered:'Entered',Packed:'Packed',Shipped:'Shipped'},

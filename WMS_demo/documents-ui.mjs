@@ -1,6 +1,6 @@
-import {interfaceLanguage} from './locale.mjs';
-import {languages,buildDocuments,documentHTML} from './documents.mjs';
-import {createDocumentPDF} from './pdf.mjs';
+import {interfaceLanguage} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {languages,buildDocuments,documentHTML} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
+import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
 let language='en',active=null;const fontCache=new Map();
 try{const saved=localStorage.getItem('chmltech:WMS_demo:harbor-document-language');if(languages.some(([id])=>id===saved))language=saved;}catch{}
 export async function documentAction(name,id,el,{s,showModal,select,download}){

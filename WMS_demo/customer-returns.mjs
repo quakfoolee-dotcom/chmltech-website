@@ -1,7 +1,7 @@
-import {businessDay} from './company-date.mjs';
-import {returnShipment,deliveryLines} from './fulfillment.mjs';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
 // A received customer return can be inspected in several batches.
-import {business,locationScope,sameScope} from './business.mjs';
+import {business,locationScope,sameScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const dispositionTotals=r=>({restocked:(r.dispositions||[]).filter(x=>x.disposition==='Restock').reduce((n,x)=>n+x.qty,0),scrapped:(r.dispositions||[]).filter(x=>x.disposition==='Scrap').reduce((n,x)=>n+x.qty,0),pending:r.status==='Received'?r.qty-(r.dispositions||[]).reduce((n,x)=>n+x.qty,0):0});
 export function disposeCustomerReturn(s,p,ctx,run){

@@ -1,12 +1,12 @@
-import {APP_VERSION} from './version.mjs';
-import {createBrowserWorkspace} from './browser-store.mjs';
+import {APP_VERSION} from './version.mjs?demo=5d9e5d1ce6c83eb1';
+import {createBrowserWorkspace} from './browser-store.mjs?demo=5d9e5d1ce6c83eb1';
 let workspace,starting;
 export const invalidateAuthRequests=()=>{};
 export const hasPending=()=>false;
 export const retryGuest=async()=>{};
 export const storageMode=()=>workspace?.storageMode||'saved';
 export function startGuest(){return starting??=(async()=>{
- const response=await fetch(new URL('./sample-workspace.json',import.meta.url));if(!response.ok)throw Error('Sample warehouse could not load. Refresh this page.');
+ const response=await fetch(new URL('./sample-workspace.json?demo=5d9e5d1ce6c83eb1',import.meta.url));if(!response.ok)throw Error('Sample warehouse could not load. Refresh this page.');
  let storage;try{storage=globalThis.localStorage;}catch{}
  workspace=createBrowserWorkspace({storage,seed:await response.json()});return workspace.start();
 })();}

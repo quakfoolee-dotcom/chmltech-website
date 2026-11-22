@@ -1,5 +1,5 @@
-import {production,productionShortages} from './production.mjs';
-import {localDay} from './dashboard.mjs';
+import {production,productionShortages} from './production.mjs?demo=5d9e5d1ce6c83eb1';
+import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
 // Read-only projections. No alert is persisted as a workflow state or cost.
 const presentations=new Map([
  ['Planned',['neutral','○']],['Pending',['neutral','○']],['Cancelled',['neutral','—']],

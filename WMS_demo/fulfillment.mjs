@@ -1,5 +1,5 @@
 // First-class deliveries retain the original sales order and its prices.
-import {validUnicode,charLength} from './unicode.mjs';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const pickLines=(s,p)=>p.lines||s.orders.find(o=>o.id===p.orderId).lines;
 export const deliveryLines=(s,sh)=>sh.lines||s.operations?.shipping[sh.id]?.orderLines||pickLines(s,s.picks.find(p=>p.id===sh.pickId));

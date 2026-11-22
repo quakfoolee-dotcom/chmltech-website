@@ -1,6 +1,6 @@
-import {dateInputBounds} from './date-input.mjs';
-import {crm,crmProfile,crmProfiles,crmStages,crmKinds,crmDay,crmTimeline,crmTotals} from './crm.mjs';
-import {csvText} from './exchange.mjs';import {formatMoney} from './currency-display.mjs';
+import {dateInputBounds} from './date-input.mjs?demo=5d9e5d1ce6c83eb1';
+import {crm,crmProfile,crmProfiles,crmStages,crmKinds,crmDay,crmTimeline,crmTotals} from './crm.mjs?demo=5d9e5d1ce6c83eb1';
+import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';import {formatMoney} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=(n,c)=>formatMoney(n/100,c),button=(label,action,id='')=>`<button type="button" class="btn" data-action="biz-crm-${action}" data-id="${e(id)}">${e(label)}</button>`,link=(text,section,id)=>`<a href="#business/${section}/${e(id)}" data-l10n-skip>${e(text)}</a>`;
 const table=(heads,rows)=>`<div class="table-scroll"><table><thead><tr>${heads.map(h=>`<th>${e(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${heads.length}">No CRM records match this view.</td></tr>`}</tbody></table></div>`;

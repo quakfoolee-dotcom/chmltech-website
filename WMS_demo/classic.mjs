@@ -1,12 +1,12 @@
-import {deliveryPanel} from './fulfillment-ui.mjs';
-import {pickLines} from './fulfillment.mjs';
-import {business,orderScope,locationScope,sameScope,availableStock} from './business.mjs';
-import {totals, shortages, itemById, locationById, orderById, pickById} from './engine.mjs';
+import {deliveryPanel} from './fulfillment-ui.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,orderScope,locationScope,sameScope,availableStock} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {totals, shortages, itemById, locationById, orderById, pickById} from './engine.mjs?demo=5d9e5d1ce6c83eb1';
 
 // A presentation layer over Harbor's existing records and commands.
-// Original Harbor implementation; no Fishbowl code or artwork is used.
-import {ops,costSummary,supplyTotals,pickMeta,pickStatus,shippingMeta,shipmentLines,lotExpiry,customFields,familyOrders,expired} from './operations.mjs';
-import {matchesText} from './unicode.mjs';
+// Original Harbor implementation.
+import {ops,costSummary,supplyTotals,pickMeta,pickStatus,shippingMeta,shipmentLines,lotExpiry,customFields,familyOrders,expired} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
+import {matchesText} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const e = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n = value => Number(value).toLocaleString();
 const stamp = value => value ? new Date(value).toLocaleString() : 'Not yet';

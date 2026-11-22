@@ -1,9 +1,9 @@
-import {pickLines,deliveryLines,outstandingLines} from './fulfillment.mjs';
+import {pickLines,deliveryLines,outstandingLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
 // Read-only dashboard projections. Invoice amounts remain integer cents.
-import {business,locationScope,orderScope,reorderSuggestions} from './business.mjs';
-import {billing} from './billing.mjs';
-import {purchaseLines} from './purchasing.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
+import {business,locationScope,orderScope,reorderSuggestions} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {billing} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {purchaseLines} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const byId=(a,id)=>a.find(x=>x.id===id);
 export const dashboardData=s=>s.dashboard||{version:1,orders:{},customerGroups:{}};

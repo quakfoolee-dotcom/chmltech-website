@@ -1,4 +1,4 @@
-import {charLength,validUnicode} from './unicode.mjs';
+import {charLength,validUnicode} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id,label='Record')=>{const row=rows.find(x=>x.id===id);must(row,`${label} not found.`);return row;};
 const text=(value,label,max=240,required=false)=>{const out=String(value??'').trim();must(validUnicode(out)&&charLength(out)<=max,`${label} must contain valid text up to ${max} characters.`);must(!required||out,`${label} is required.`);return out;};

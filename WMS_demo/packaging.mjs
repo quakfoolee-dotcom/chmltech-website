@@ -1,6 +1,6 @@
 // Original Harbor unit/packaging boundary. The inventory and costing ledgers
 // continue to use their original, immutable whole base units.
-import {validUnicode,charLength} from './unicode.mjs';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id)=>{const row=rows.find(r=>r.id===id);must(row,'Product not found.');return row;};
 const text=(value,max=100,required=true)=>{const v=String(value??'').trim();must(validUnicode(v)&&charLength(v)<=max&&(!required||v),'Enter valid unit text.');return v;};

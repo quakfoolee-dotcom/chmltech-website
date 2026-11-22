@@ -1,7 +1,7 @@
-import {translatedWords} from './locale.mjs';
-import {billing,billingBalance,billingStatus,money} from './billing.mjs';
-import {invoiceLayout} from './invoice-layout.mjs';
-import {billingFormLayout} from './commercial-layout.mjs';
+import {translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {billing,billingBalance,billingStatus,money} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {invoiceLayout} from './invoice-layout.mjs?demo=5d9e5d1ce6c83eb1';
+import {billingFormLayout} from './commercial-layout.mjs?demo=5d9e5d1ce6c83eb1';
 const words={
  en:{Invoice:'Sales invoice',Bill:'Supplier bill record',Credit:'Credit note',supplierCredit:'Supplier credit record',issuer:'Our business',party:'Customer / supplier',address:'Address',contact:'Contact',taxId:'Tax registration',source:'Source document',reference:'Reference / supplier invoice',date:'Document date',due:'Due date',status:'Status',description:'Description',qty:'Quantity',price:'Unit price',discount:'Discount',net:'Net amount',tax:'Tax',total:'Total',balance:'Outstanding balance',credits:'Issued credits',paid:'Payments recorded',refunded:'Refunds recorded',refundDue:'Refund due',note:'Notes',instructions:'Payment instructions',payments:'Payment history',method:'Method / reference',Payment:'Payment',Refund:'Refund',Recorded:'Recorded',Reversed:'Reversed',Draft:'Draft',Voided:'Voided',Open:'Open',Paid:'Paid','Part paid':'Part paid',Credited:'Credited','Refund due':'Refund due','Credit issued':'Credit issued',footer:'Local billing record. Payment entries record transactions made separately; they do not transfer money.',page:'Page',continued:'continued'},
  'zh-Hans':{Invoice:'销售发票',Bill:'供应商账单记录',Credit:'贷项通知单',supplierCredit:'供应商贷项记录',issuer:'本公司',party:'客户 / 供应商',address:'地址',contact:'联系方式',taxId:'税务登记号',source:'来源单据',reference:'参考编号 / 供应商发票号',date:'单据日期',due:'付款到期日',status:'状态',description:'产品说明',qty:'数量',price:'单价',discount:'折扣',net:'未税金额',tax:'税额',total:'总额',balance:'未付余额',credits:'已开贷项',paid:'已记录付款',refunded:'已记录退款',refundDue:'应退金额',note:'备注',instructions:'付款说明',payments:'付款记录',method:'方式 / 参考编号',Payment:'付款',Refund:'退款',Recorded:'已记录',Reversed:'已冲销',Draft:'草稿',Voided:'已作废',Open:'待付款',Paid:'已付清','Part paid':'部分付款',Credited:'已全额抵扣','Refund due':'待退款','Credit issued':'贷项已开立',footer:'本地账务记录。付款记录用于登记另行完成的交易，不会自动转账。',page:'页',continued:'续页'},

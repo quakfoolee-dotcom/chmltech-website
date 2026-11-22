@@ -1,8 +1,8 @@
-import {business,locationScope,inventoryValue} from './business.mjs';
-import {businessDay} from './company-date.mjs';
-import {resolveProductBarcode} from './packaging.mjs';
-import {validUnicode,charLength} from './unicode.mjs';
-import {receivingRoleAllowed} from './receiving-policy.mjs';
+import {business,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {resolveProductBarcode} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {receivingRoleAllowed} from './receiving-policy.mjs?demo=5d9e5d1ce6c83eb1';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Receiving record not found.');return r;};
 const text=(v,max=500,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid receiving text within the allowed length.');return t;};
