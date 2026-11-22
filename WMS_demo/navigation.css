@@ -1,0 +1,37 @@
+/* Seven expandable module groups replace the flat business-module toolbar. */
+#sidebar{overflow-y:auto;overscroll-behavior:contain;padding-top:20px}
+#sidebar .brand{padding-bottom:18px;flex-shrink:0}
+#sidebar .nav-close{position:absolute;right:7px;top:8px}
+#sidebar .warehouse-switch{margin-bottom:15px;flex-shrink:0}
+.module-navigation{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:10px}
+.nav-group{margin:3px 0}
+.nav-group-toggle{display:flex;align-items:center;gap:9px;width:100%;padding:11px 9px;text-align:left;border-radius:5px;background:transparent;color:var(--ink);font-size:12px;font-weight:650}
+.nav-group-toggle>svg{width:17px;height:17px;flex-shrink:0}
+.nav-group-toggle>span{flex:1}
+.nav-group-toggle>svg:last-child{width:13px;transition:transform .12s}
+.nav-group-toggle[aria-expanded="false"]>svg:last-child{transform:rotate(-90deg)}
+.nav-group-toggle:hover,.nav-group.current-group>.nav-group-toggle{background:#e7edf4}
+.nav-group-modules[hidden]{display:none}
+#sidebar .module-link{margin:1px 0;padding:8px 8px 8px 35px;font-size:11px;line-height:1.35;border-radius:4px}
+.nav-group-modules{border-left:1px solid var(--line);margin-left:17px}
+#sidebar .module-link{padding-left:16px}
+#sidebar .module-link.active{font-weight:700}
+#sidebar .sidebar-bottom{flex-shrink:0;margin-top:9px}
+#sidebar .sandbox-card{display:none}
+#sidebar .profile{padding-top:10px}
+#sidebar .nav-label{margin:0 10px 9px}
+#sidebar .nav-link.overview-link{padding:9px;margin:0 0 5px}
+.module-group-crumb{color:var(--muted);font-weight:500}
+.module-group-crumb:after{content:' / ';margin:0 5px}
+.module-location{display:flex;align-items:center;gap:9px;padding:8px 12px;background:#eef2f7;border:1px solid var(--line);border-radius:4px;margin:0 0 18px;font-size:12px}
+.module-location strong{color:var(--ink)}
+.module-location a{margin-left:auto;font-size:11px}
+.business-metrics>.card{margin:0}
+body[data-view="fishbowl"] #sidebar{width:238px}
+body[data-view="fishbowl"] .workspace{margin-left:238px}
+body[data-view="fishbowl"] .nav-group-toggle{font-family:Arial,"Segoe UI",sans-serif;border:1px solid transparent;border-radius:2px;font-size:12px;padding:10px 7px}
+body[data-view="fishbowl"] .nav-group.current-group>.nav-group-toggle{background:linear-gradient(#e5edf9,#c8d9f0);border-color:#a3b9d7}
+body[data-view="fishbowl"] .module-link.active{background:linear-gradient(#f2f6fc,#dce7f6);border-color:#c0d0e5}
+@media(max-width:760px){body[data-view="fishbowl"] #sidebar,#sidebar{width:260px}body[data-view="fishbowl"] .workspace,.workspace{margin-left:0}.module-group-crumb{display:none}.module-location{flex-wrap:wrap}.module-location a{margin-left:0}.nav-group-toggle{min-height:42px}}
+@media print{.module-location{display:none}}
+

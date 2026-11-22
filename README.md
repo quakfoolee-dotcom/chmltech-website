@@ -136,3 +136,8 @@ Search the code for `TODO`:
 2. Add or change models and name aliases in `content/llm/catalog.py`. Matching rules are in `content/llm/match.py`.
 3. `python3 content/llm/build_dataset.py`, then `python3 content/gen/llm_page.py`.
 4. Have the result checked against the sources (red team) before publishing, and update the "data as of" date (`AS_OF` in `build_dataset.py`).
+
+## WMS browser demo
+
+The full browser-only Harbor demo lives in `WMS_demo/` and is served at `https://www.chmltech.com/WMS_demo/` after this change is deployed. It uses fictional English sample records and browser-local storage; no backend or login is required. See [WMS_demo/README.md](WMS_demo/README.md) for developer handoff, storage/reset behavior and the canonical build source. Run `node --test scripts/wms-demo.test.mjs` to verify the packaged workflows and asset graph. The dedicated workflow runs these checks on pull requests and main.
+

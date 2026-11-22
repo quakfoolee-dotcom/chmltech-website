@@ -1,0 +1,7 @@
+.language-switch{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#48617c;white-space:nowrap}.language-switch select{font:inherit;background:#fff;color:#264566;border:1px solid #b9c8da;border-radius:3px;padding:5px;min-width:106px;min-height:30px}.language-switch select:focus-visible{outline:2px solid #2863ab;outline-offset:2px}
+html:lang(zh-Hant) body,html:lang(zh-Hant) button,html:lang(zh-Hant) select,html:lang(zh-Hant) input{font-family:Arial,'Segoe UI',HarborTC,'Microsoft JhengHei',sans-serif!important}
+.nav-group-toggle span,.module-link{white-space:normal;overflow-wrap:anywhere}
+.modal-head{flex-wrap:wrap;gap:10px}.modal-head .language-switch{margin-left:auto}
+@media(max-width:1050px){#topbar .top-right{gap:8px}#topbar .language-switch>span{display:none}}
+@media(max-width:760px){#topbar{height:auto!important;min-height:88px;flex-wrap:wrap;gap:7px;padding:8px 12px!important}#topbar .crumb{flex-basis:100%;min-width:0}#topbar .top-right{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}#topbar .language-switch>span{display:inline}.language-switch select{min-width:112px}header:has(>a[href="/mobile.html"]){flex-wrap:wrap;gap:10px}}
+

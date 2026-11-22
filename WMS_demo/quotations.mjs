@@ -1,0 +1,39 @@
+import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs';
+import {unitQuantity} from './packaging.mjs';
+import {crmProfile,crmAddressText} from './crm.mjs';
+const must=(v,m)=>{if(!v)throw Error(m);};
+export function quotationStatus(q,today=salesToday()){return ['Issued','Accepted'].includes(q.status)&&q.validUntil<today?'Expired':q.status;}
+const snapshot=q=>structuredClone(Object.fromEntries(Object.entries(q).filter(([k])=>!['versions','history'].includes(k))));
+function content(s,p,ctx){
+ const customer=s.business.customers.find(c=>c.id===p.customerId);must(customer,'Customer not found.');const warehouseId=p.warehouseId||'wh-main';must(s.business.warehouses.some(w=>w.id===warehouseId),'Warehouse not found.');
+ const date=salesDay(p.date||salesToday(ctx.time,s)),validUntil=salesDay(p.validUntil);must(validUntil>=date,'Quotation expiry must follow the quotation date.');
+ must(Array.isArray(p.lines)&&p.lines.length>0&&p.lines.length<=50&&new Set(p.lines.map(l=>l.itemId)).size===p.lines.length,'Choose 1–50 distinct quotation products.');
+ const lines=p.lines.map(raw=>{const i=s.items.find(i=>i.id===raw.itemId);must(i,'Product not found.');const unit=unitQuantity(s,i.id,raw.unitId||'base',raw.qty),pricing=explainPrice(s,{customerId:customer.id,itemId:i.id,qty:unit.baseQty,date});must(pricing.ruleId||pricing.legacyRuleId,'Set a price rule before quoting this product.');const total=lineCents(unit.baseQty,pricing.price4);return {itemId:i.id,sku:i.sku,name:i.name,description:i.description||'',uom:i.uom,unit,qty:unit.baseQty,price4:pricing.price4,total,pricing};});
+ const total=lines.reduce((n,l)=>n+l.total,0);must(Number.isSafeInteger(total)&&total<=1e12,'Quotation total exceeds the allowed range.');
+ const profile=crmProfile(s,customer.id);
+ return {customerId:customer.id,party:{name:profile?.company||customer.name,address:profile?crmAddressText(profile):customer.address||'',contact:profile?.contacts.find(c=>c.primary)?.email||profile?.email||customer.email||'',taxId:''},issuer:structuredClone(s.billing?.profile||{name:'Harbor warehouse'}),warehouseId,date,validUntil,currency:s.business.homeCurrency,reference:salesText(p.reference),note:salesText(p.note,1000),lines,total};
+}
+export function quotationCommand(s,command,p,ctx){
+ if(!command.startsWith('quote:'))return null;const d=setupSalesDesk(s),today=salesToday(ctx.time,s),actor=ctx.actor||'Local operator',event=(type,q)=>({type,reference:q.number,resultId:q.id,message:'Quoted prices and existing costs were preserved.'}),audit=(q,action)=>q.history.push({time:ctx.time,actor,action,revision:q.revision});
+ if(command==='quote:create'){must(d.quotes.length<10000,'Quotation limit reached.');const id='quote-'+(++d.sequence),q={id,number:'QT-'+id.slice(6),revision:1,status:'Draft',...content(s,p,ctx),versions:[],history:[],orderId:'',acceptance:null};audit(q,'Quotation created');d.quotes.push(q);return event('Quotation created',q);}
+ const q=d.quotes.find(q=>q.id===p.id);must(q,'Quotation not found.');
+ if(command==='quote:revise'){must(q.status!=='Converted'&&q.status!=='Cancelled','Converted or cancelled quotations cannot be revised.');must(q.versions.length<100,'Quotation revision limit reached.');const next=content(s,p,ctx);q.versions.push(snapshot(q));Object.assign(q,next,{revision:q.revision+1,status:'Draft',acceptance:null,orderId:''});delete q.issuedAt;audit(q,'Quotation revised and repriced');return event('Quotation revised',q);}
+ if(command==='quote:issue'){must(q.status==='Draft','Only a draft quotation can be issued.');must(p.reviewed===true,'Review quotation details before issuing.');must(q.validUntil>=today&&q.date<=today,'Review quotation dates before issuing.');q.status='Issued';q.issuedAt=ctx.time;audit(q,'Quotation issued locally');return event('Quotation issued',q);}
+ if(command==='quote:accept'){must(quotationStatus(q,today)==='Issued','Only an unexpired issued quotation can be accepted.');must(p.reviewed===true,'Review customer acceptance before recording it.');q.acceptance={reference:salesText(p.reference,240,true),time:ctx.time,actor};q.status='Accepted';audit(q,'Customer acceptance recorded');return event('Quotation accepted',q);}
+ if(command==='quote:cancel'){must(!['Converted','Cancelled'].includes(q.status),'This quotation cannot be cancelled.');q.cancelReason=salesText(p.reason,240,true);q.status='Cancelled';audit(q,'Quotation cancelled');return event('Quotation cancelled',q);}
+ must(command==='quote:convert','Unknown quotation action.');must(quotationStatus(q,today)==='Accepted'&&!q.orderId,'Only an accepted, unexpired quotation can be converted once.');must(p.reviewed===true,'Review the quotation before creating the sales order.');
+ const result=ctx.dispatch(s,'createOrder',{customer:q.party.name,reference:[q.number,q.reference].filter(Boolean).join(' / ').slice(0,240),lines:q.lines.map(l=>({itemId:l.itemId,qty:l.qty}))},{now:ctx.time});Object.assign(s,result.state);const current=s.salesDesk.quotes.find(x=>x.id===q.id),order=s.orders.find(o=>o.id===result.resultId);
+ order.customerId=q.customerId;order.scope={warehouseId:q.warehouseId,ownerId:'owner-self'};order.currency=q.currency;order.pricedLines=q.lines.map(l=>({itemId:l.itemId,qty:l.qty,unitPrice:l.price4/10000}));order.amount=q.total/100;
+ const packs=q.lines.filter(l=>l.unit.unitId!=='base').map(l=>structuredClone(l.unit));if(packs.length)order.unitLines=packs;
+ order.quoteSnapshot={id:q.id,number:q.number,revision:q.revision,party:structuredClone(q.party),reference:q.reference,lines:structuredClone(q.lines)};current.orderId=order.id;current.status='Converted';current.convertedAt=ctx.time;audit(current,'Quotation converted to sales order');return {...event('Quotation converted',current),resultId:order.id};
+}
+export function validateQuotations(s){
+ for(const q of salesDesk(s).quotes){must(/^quote-[1-9]\d*$/.test(q.id)&&q.number==='QT-'+q.id.slice(6)&&['Draft','Issued','Accepted','Converted','Cancelled'].includes(q.status)&&Number.isSafeInteger(q.revision)&&q.revision>0&&Array.isArray(q.versions)&&q.versions.length===q.revision-1&&Array.isArray(q.history),'Invalid quotation history.');
+  for(const [index,version]of q.versions.entries())must(version.number===q.number&&version.revision===index+1,'Quotation revision sequence changed.');
+  for(const h of q.history)must(Number.isFinite(Date.parse(h.time))&&Number.isSafeInteger(h.revision)&&h.revision>=1&&h.revision<=q.revision,'Invalid quotation audit.');
+  if(['Issued','Accepted','Converted'].includes(q.status))must(Number.isFinite(Date.parse(q.issuedAt)),'Quotation issue evidence is missing.');
+  for(const v of [...q.versions,q]){salesDay(v.date);salesDay(v.validUntil);must(v.validUntil>=v.date&&v.party?.name&&s.business.customers.some(c=>c.id===v.customerId)&&s.business.warehouses.some(w=>w.id===v.warehouseId)&&v.currency===s.business.homeCurrency,'Invalid quotation details.');must(Array.isArray(v.lines)&&v.lines.length>0&&new Set(v.lines.map(l=>l.itemId)).size===v.lines.length,'Invalid quotation lines.');for(const l of v.lines){must(s.items.some(i=>i.id===l.itemId)&&Number.isSafeInteger(l.qty)&&l.qty>0&&Number.isSafeInteger(l.price4)&&l.price4>=0&&l.total===lineCents(l.qty,l.price4)&&l.qty===l.unit.quantity*l.unit.factor&&l.pricing.price4===l.price4,'Invalid frozen quotation price or unit conversion.');}must(v.total===v.lines.reduce((n,l)=>n+l.total,0),'Invalid quotation total.');}
+  if(['Accepted','Converted'].includes(q.status))must(q.acceptance?.reference&&q.issuedAt,'Quotation acceptance is missing.');if(q.status==='Converted')must(s.orders.some(o=>o.id===q.orderId&&o.quoteSnapshot?.id===q.id&&o.quoteSnapshot.revision===q.revision),'Quotation sales-order link is missing.');else must(!q.orderId,'Unconverted quotation has an order link.');
+ }
+}
+
