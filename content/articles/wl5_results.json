@@ -1,0 +1,372 @@
+{
+ "P": {
+  "vPick": 0.9,
+  "vFork": 2,
+  "vJack": 1.3,
+  "vTruck": 3,
+  "tPick": 20,
+  "tSetup": 45,
+  "tDrop": 30,
+  "tLoad": 25,
+  "tPut": 60,
+  "tJack": 20,
+  "tUnload": 150,
+  "tShipLoad": 60,
+  "shift": 28800,
+  "dt": 0.5,
+  "start": 7,
+  "lines": 3,
+  "ordersPallet": 20,
+  "backlog": 30,
+  "cutoff": 25200,
+  "wage": 40,
+  "days": 250,
+  "detention": 65,
+  "freeMin": 120,
+  "near": 0.95,
+  "maxWait": 6,
+  "mRate": 3,
+  "mPailsPallet": 36,
+  "mSetup": 20,
+  "mPick": 40,
+  "mDrop": 30,
+  "mLoop": 20,
+  "mIssue": 120,
+  "mReorder": 2,
+  "mReplQty": 3,
+  "mSm0": 4
+ },
+ "deliveries": [
+  {
+   "trucks": 14,
+   "asis": {
+    "truckIn": 86.15899882020074,
+    "detYear": 42933.04344589744,
+    "notAway": 21.8,
+    "inPallets": 180,
+    "dts": 50.80277170533641
+   },
+   "redesign": {
+    "truckIn": 32.28995120115312,
+    "detYear": 0,
+    "notAway": 0,
+    "inPallets": 180.8,
+    "dts": 27.113013076177992
+   }
+  },
+  {
+   "trucks": 18,
+   "asis": {
+    "truckIn": 80.51114584931688,
+    "detYear": 62170.383907339565,
+    "notAway": 21.8,
+    "inPallets": 179.8,
+    "dts": 51.01350922497589
+   },
+   "redesign": {
+    "truckIn": 25.11549770116874,
+    "detYear": 0,
+    "notAway": 0,
+    "inPallets": 180.8,
+    "dts": 27.42547969039809
+   }
+  },
+  {
+   "trucks": 21,
+   "asis": {
+    "truckIn": 76.60174046034084,
+    "detYear": 58430.10651257923,
+    "notAway": 22.2,
+    "inPallets": 179.8,
+    "dts": 51.23635204219003
+   },
+   "redesign": {
+    "truckIn": 21.528327761928125,
+    "detYear": 0,
+    "notAway": 0,
+    "inPallets": 180.8,
+    "dts": 28.35425048887249
+   }
+  },
+  {
+   "trucks": 24,
+   "asis": {
+    "truckIn": 73.47760884199964,
+    "detYear": 54085.66774055309,
+    "notAway": 22.6,
+    "inPallets": 180,
+    "dts": 51.63217138746296
+   },
+   "redesign": {
+    "truckIn": 18.83774773088853,
+    "detYear": 0,
+    "notAway": 0,
+    "inPallets": 180.8,
+    "dts": 28.685751020066068
+   }
+  },
+  {
+   "trucks": 28,
+   "asis": {
+    "truckIn": 73.9628968819049,
+    "detYear": 68692.72528553926,
+    "notAway": 22.8,
+    "inPallets": 179.8,
+    "dts": 51.780859130083535
+   },
+   "redesign": {
+    "truckIn": 16.147242120000133,
+    "detYear": 0,
+    "notAway": 0,
+    "inPallets": 180.8,
+    "dts": 29.42225362008885
+   }
+  }
+ ],
+ "twoForks": [
+  {
+   "trucks": 14,
+   "asis": {
+    "truckIn": 32.28995120115312,
+    "detYear": 0,
+    "notAway": 0
+   }
+  },
+  {
+   "trucks": 28,
+   "asis": {
+    "truckIn": 16.147242120000133,
+    "detYear": 0,
+    "notAway": 0
+   }
+  }
+ ],
+ "mix14": {
+  "asis": {
+   "truckIn": 74.95346848847744,
+   "day": 86.3023258626062
+  },
+  "redesign": {
+   "truckIn": 32.55775420276315,
+   "day": 33.93327824355857
+  }
+ },
+ "presets": {
+  "dist": {
+   "name": "Vancouver distributor (Parts 1 to 3)",
+   "labour": 150365.41666666666,
+   "other": 45216.363152565384,
+   "rent": 0,
+   "cost": [
+    74640,
+    249017.59999999998
+   ],
+   "inv": 3000000,
+   "cogs": 18000000,
+   "cycShare": 20,
+   "freqX": 2,
+   "extraDel": 35,
+   "delCost": 40,
+   "dead": 120000,
+   "recov": 30,
+   "hold": 5,
+   "carry": 10,
+   "lineStock": 0
+  },
+  "mfg": {
+   "name": "Ridgeline Coatings (Part 4)",
+   "labour": 0,
+   "other": 177712.49999999997,
+   "rent": 0,
+   "cost": [
+    12828,
+    19587.199999999997
+   ],
+   "inv": 600000,
+   "cogs": 2400000,
+   "cycShare": 0,
+   "freqX": 1,
+   "extraDel": 0,
+   "delCost": 0,
+   "dead": 0,
+   "recov": 0,
+   "hold": 5,
+   "carry": 10,
+   "lineStock": 7414.355041484851
+  }
+ },
+ "calc": {
+  "dist": {
+   "lo": {
+    "freed": 300000,
+    "freight": 72800,
+    "deadCash": 36000,
+    "writeDown": 84000,
+    "yearly": 158781.77981923203,
+    "oneOffIn": 336000,
+    "payback": 0,
+    "paybackLayout": 4.579567691979483,
+    "three": 737705.3394576961,
+    "turns0": 6,
+    "turns1": 6.976744186046512,
+    "dio0": 60.833333333333336,
+    "dio1": 52.31666666666667,
+    "breakEven": 16.483516483516482
+   },
+   "hi": {
+    "freed": 300000,
+    "freight": 72800,
+    "deadCash": 36000,
+    "writeDown": 84000,
+    "yearly": 158781.77981923203,
+    "oneOffIn": 336000,
+    "payback": 0,
+    "paybackLayout": 15.2785765768257,
+    "three": 563327.7394576961,
+    "turns0": 6,
+    "turns1": 6.976744186046512,
+    "dio0": 60.833333333333336,
+    "dio1": 52.31666666666667,
+    "breakEven": 16.483516483516482
+   }
+  },
+  "mfg": {
+   "lo": {
+    "freed": 0,
+    "freight": 0,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 176971.0644958515,
+    "oneOffIn": -7414.355041484851,
+    "payback": 1.3725874407197929,
+    "paybackLayout": 0.866208060772315,
+    "three": 510670.83844606957,
+    "turns0": 4,
+    "turns1": 3.9511743179597496,
+    "dio0": 91.25,
+    "dio1": 92.37759982922582,
+    "breakEven": null
+   },
+   "hi": {
+    "freed": 0,
+    "freight": 0,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 176971.0644958515,
+    "oneOffIn": -7414.355041484851,
+    "payback": 1.8309132140944642,
+    "paybackLayout": 1.3226216501371597,
+    "three": 503911.63844606956,
+    "turns0": 4,
+    "turns1": 3.9511743179597496,
+    "dio0": 91.25,
+    "dio1": 92.37759982922582,
+    "breakEven": null
+   }
+  },
+  "mfgLayout": {
+   "lo": {
+    "freed": 0,
+    "freight": 0,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 177712.49999999997,
+    "oneOffIn": 0,
+    "payback": 0.866208060772315,
+    "paybackLayout": 0.866208060772315,
+    "three": 520309.4999999999,
+    "turns0": 4,
+    "turns1": 4,
+    "dio0": 91.25,
+    "dio1": 91.25,
+    "breakEven": null
+   },
+   "hi": {
+    "freed": 0,
+    "freight": 0,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 177712.49999999997,
+    "oneOffIn": 0,
+    "payback": 1.3226216501371597,
+    "paybackLayout": 1.3226216501371597,
+    "three": 513550.2999999999,
+    "turns0": 4,
+    "turns1": 4,
+    "dio0": 91.25,
+    "dio1": 91.25,
+    "breakEven": null
+   }
+  },
+  "distNoDead": {
+   "lo": {
+    "freed": 300000,
+    "freight": 72800,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 152781.77981923203,
+    "oneOffIn": 300000,
+    "payback": 0,
+    "paybackLayout": 4.579567691979483,
+    "three": 683705.3394576961,
+    "turns0": 6,
+    "turns1": 6.666666666666667,
+    "dio0": 60.833333333333336,
+    "dio1": 54.75,
+    "breakEven": 16.483516483516482
+   }
+  },
+  "dist25": {
+   "lo": {
+    "freed": 300000,
+    "freight": 72800,
+    "deadCash": 36000,
+    "writeDown": 84000,
+    "yearly": 203781.77981923206,
+    "oneOffIn": 336000,
+    "payback": 0,
+    "paybackLayout": 4.579567691979483,
+    "three": 872705.3394576962,
+    "turns0": 6,
+    "turns1": 6.976744186046512,
+    "dio0": 60.833333333333336,
+    "dio1": 52.31666666666667,
+    "breakEven": 41.20879120879121
+   }
+  },
+  "distLayout": {
+   "lo": {
+    "freed": 0,
+    "freight": 0,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 195581.77981923203,
+    "oneOffIn": 0,
+    "payback": 4.579567691979483,
+    "paybackLayout": 4.579567691979483,
+    "three": 512105.33945769607,
+    "turns0": 6,
+    "turns1": 6,
+    "dio0": 60.833333333333336,
+    "dio1": 60.833333333333336,
+    "breakEven": null
+   },
+   "hi": {
+    "freed": 0,
+    "freight": 0,
+    "deadCash": 0,
+    "writeDown": 0,
+    "yearly": 195581.77981923203,
+    "oneOffIn": 0,
+    "payback": 15.2785765768257,
+    "paybackLayout": 15.2785765768257,
+    "three": 337727.7394576961,
+    "turns0": 6,
+    "turns1": 6,
+    "dio0": 60.833333333333336,
+    "dio1": 60.833333333333336,
+    "breakEven": null
+   }
+  }
+ }
+}

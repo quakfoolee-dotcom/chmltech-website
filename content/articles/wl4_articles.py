@@ -277,7 +277,7 @@ def part4():
 <li>Two bins and a timed milk run kept the lines fed with the fewest handler hours, for {Kb['lineStock'] / Sd['lineStock']:.1f} times the stock at the lines.</li>
 <li>Size the milk run from the load that runs out fastest: the loop plus delivery must be shorter than that load lasts.</li>
 </ul>
-<p>Earlier in this series: <a href="{WL1}.html">Part&nbsp;1</a>, what a bad layout costs; <a href="{WL2}.html">Part&nbsp;2</a>, flow patterns; <a href="{WL3}.html">Part&nbsp;3</a>, aisle widths. Next: Part&nbsp;5, from layout to cash: inventory turns and a layout payback calculator. Related: <a href="{OEE1}.html">what OEE really measures</a> and <a href="{ABCM}.html">ABC analysis for manufacturers</a>.</p>
+<p>Earlier in this series: <a href="{WL1}.html">Part&nbsp;1</a>, what a bad layout costs; <a href="{WL2}.html">Part&nbsp;2</a>, flow patterns; <a href="{WL3}.html">Part&nbsp;3</a>, aisle widths. Next: <a href="from-layout-to-cash-inventory-turns-and-a-layout-payback-calculator.html">Part&nbsp;5</a>, from layout to cash: inventory turns and a layout payback calculator. Related: <a href="{OEE1}.html">what OEE really measures</a> and <a href="{ABCM}.html">ABC analysis for manufacturers</a>.</p>
 <h2>Sources</h2>
 <ul>
 <li><a href="https://lean.org/?p=1756" rel="noopener" target="_blank">Lean Enterprise Institute: Material handling</a> (a standard route at precisely set intervals, such as every 20 minutes, collecting kanban cards)</li>

@@ -479,7 +479,7 @@
     };
     var nPick = L.mfg ? 2 : Math.max(3, Math.min(12, Math.round(orders / 50)));
     S.queue = P.backlog; S.released = P.backlog; var gap = P.cutoff / (orders - P.backlog), nextOrder = gap;
-    var nForks = L.mfg ? 1 : Math.max(1, Math.round(orders / 250));             // one forklift below 375 orders a day (350 on the slider), two from 375 (400)
+    var nForks = opt.forks || (L.mfg ? 1 : Math.max(1, Math.round(orders / 250)));             // one forklift below 375 orders a day (350 on the slider), two from 375 (400)
 
     function agent(type, c) {
       var a = { id: S.agents.length, type: type, prio: type === 'fork' ? 3 : type === 'jack' ? 2 : 1, x: c % BX + 0.5, z: Math.floor(c / BX) + 0.5, cell: c, path: [], pi: 0,
@@ -501,6 +501,15 @@
 
     // trucks: inbound from 07:15 to about 13:00 (5 full loads of 24 pallets, the rest part loads), carriers at 10:30, 12:30, 14:30
     var nIn = L.mfg ? 6 : Math.max(4, Math.round(14 * orders / 300)), nFtl = L.mfg ? 2 : Math.round(nIn * 5 / 14);
+    if (opt.inTrucks) {                                              // Part 5 check: the same pallets in more, smaller deliveries
+      var tot = 0, rT2 = rng(seed + 3), f2 = nFtl;
+      for (i = 0; i < nIn; i++) { rT2(); tot += i % 3 === 0 && f2-- > 0 ? 24 : 4 + Math.floor(rT2() * 7); }
+      nIn = opt.inTrucks;
+      for (i = 0; i < nIn; i++) {
+        var arr2 = 900 + i * (21000 / nIn) + (rT() - 0.5) * 1200, ld2 = Math.floor(tot / nIn) + (i < tot % nIn ? 1 : 0);
+        S.trucks.push({ id: i, dir: 'in', arr: Math.max(300, arr2), left: ld2, door: null, state: 'due', next: 0, x: 0, z: 0 });
+      }
+    } else
     for (i = 0; i < nIn; i++) {
       var arr = 900 + i * (21000 / nIn) + (rT() - 0.5) * 1200;
       S.trucks.push({ id: i, dir: 'in', arr: Math.max(300, arr), left: i % 3 === 0 && nFtl-- > 0 ? 24 : 4 + Math.floor(rT() * 7), door: null, state: 'due', next: 0, x: 0, z: 0 });
