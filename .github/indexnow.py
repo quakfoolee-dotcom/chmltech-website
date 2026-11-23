@@ -22,8 +22,16 @@ if not urls:
 
 body = json.dumps({"host": "www.chmltech.com", "key": KEY,
                    "keyLocation": f"{SITE}/{KEY}.txt", "urlList": urls[:10000]}).encode()
-req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
-                             headers={"Content-Type": "application/json; charset=utf-8"})
-with urllib.request.urlopen(req, timeout=30) as r:
-    print(f"IndexNow HTTP {r.status}: submitted {len(urls)} URLs")
-    for u in urls[:20]: print(" ", u)
+import time, urllib.error
+for attempt in range(1, 4):
+    req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
+                                 headers={"Content-Type": "application/json; charset=utf-8"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            print(f"IndexNow HTTP {r.status}: submitted {len(urls)} URLs")
+            for u in urls[:20]: print(" ", u)
+        break
+    except urllib.error.HTTPError as e:
+        print(f"Attempt {attempt}: HTTP {e.code} {e.read().decode(errors='replace')[:500]}")
+        if attempt == 3 or e.code not in (403, 429, 500, 503): raise
+        time.sleep(60 * attempt)
