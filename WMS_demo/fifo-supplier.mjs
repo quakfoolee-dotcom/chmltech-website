@@ -1,8 +1,8 @@
 // Commercial credit matching keeps the selected receipt; the accounting
 // withdrawal consumes the warehouse's oldest FIFO ranges. Settlement retains
 // the dispatch-time book cents even when the credit uses a different price.
-import {isFIFO,rangeCost,layerWarehouse} from './fifo.mjs?demo=9c44c6dabb8d4728';
-import {locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {isFIFO,rangeCost,layerWarehouse} from './fifo.mjs?demo=2d15b6e9cd84b84d';
+import {locationScope} from './business.mjs?demo=2d15b6e9cd84b84d';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const originFor=(s,id)=>s.costLayers.origins.find(o=>o.id===id);
 const atMovement=(origin,m)=>origin.baseCost+origin.adjustments.filter(a=>a.ordinal<m.ordinal).reduce((n,a)=>n+a.amount,0);

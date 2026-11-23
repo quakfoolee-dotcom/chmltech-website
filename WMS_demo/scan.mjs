@@ -1,5 +1,5 @@
-import {mountAccount} from './account.mjs?demo=9c44c6dabb8d4728';
-import {api} from './shared.mjs?demo=9c44c6dabb8d4728';import {startLocalization,interfaceLanguage} from './locale.mjs?demo=9c44c6dabb8d4728';import {scannerMarkup,mountScanner} from './camera-scanner.mjs?demo=9c44c6dabb8d4728';import {resolveDocument,setPhoneAddress} from './document-scan.mjs?demo=9c44c6dabb8d4728';import {scanSummary} from './document-scan-ui.mjs?demo=9c44c6dabb8d4728';
+import {mountAccount} from './account.mjs?demo=2d15b6e9cd84b84d';
+import {api} from './shared.mjs?demo=2d15b6e9cd84b84d';import {startLocalization,interfaceLanguage} from './locale.mjs?demo=2d15b6e9cd84b84d';import {scannerMarkup,mountScanner} from './camera-scanner.mjs?demo=2d15b6e9cd84b84d';import {resolveDocument,setPhoneAddress} from './document-scan.mjs?demo=2d15b6e9cd84b84d';import {scanSummary} from './document-scan-ui.mjs?demo=2d15b6e9cd84b84d';
 let state,reader,user;const notice=document.querySelector('#notice'),result=document.querySelector('#result');
 const error=text=>{notice.textContent=text;notice.className='scan-error';};
 function open(text){result.innerHTML='';if(!state)throw Error('Sign in and load the shared workspace first.');const r=resolveDocument(state,text,{origin:location.origin});result.innerHTML=scanSummary(r);notice.textContent='Document found.';notice.className='scan-success';result.scrollIntoView({behavior:'smooth',block:'start'});}

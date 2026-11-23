@@ -1,5 +1,5 @@
-import {invoiceLayout} from './invoice-layout.mjs?demo=9c44c6dabb8d4728';
-import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {invoiceLayout} from './invoice-layout.mjs?demo=2d15b6e9cd84b84d';
+import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=2d15b6e9cd84b84d';
 const captions={
  en:{purchase:'Purchase order',bill:'Supplier bill',credit:'Credit note',supplierCredit:'Supplier credit',number:'Document #',source:'Source document',original:'Original document',reference:'Reference',supplier:'Supplier',to:'To supplier',issuer:'Our business',delivery:'Delivery',due:'Due date',currency:'Currency',receipt:'Receipt',kind:'Document type',purchaseType:'Purchase',billType:'Bill',creditType:'Credit',quantity:'Quantity',received:'Received (stock units)',orderTotal:'Order total',creditTotal:'Credit total',extra:'Additional details',tax:'Line tax',customer:'Customer',ship:'Ship to',terms:'Payment terms',date:'Date'},
  'zh-Hans':{purchase:'采购订单',bill:'供应商账单',credit:'贷项通知单',supplierCredit:'供应商贷项',number:'单据号',source:'来源单据',original:'原始单据',reference:'参考编号',supplier:'供应商',to:'供应商地址',issuer:'本公司',delivery:'交货方式',due:'到期日',currency:'币种',receipt:'收货单',kind:'单据类型',purchaseType:'采购',billType:'账单',creditType:'贷项',quantity:'数量',received:'已收（库存单位）',orderTotal:'订单总额',creditTotal:'贷项总额',extra:'其他明细',tax:'行税额',customer:'客户',ship:'收货地址',terms:'付款条件',date:'日期'},

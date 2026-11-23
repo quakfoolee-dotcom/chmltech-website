@@ -1,8 +1,8 @@
-import {business,locationScope,inventoryValue} from './business.mjs?demo=9c44c6dabb8d4728';
-import {businessDay} from './company-date.mjs?demo=9c44c6dabb8d4728';
-import {resolveProductBarcode} from './packaging.mjs?demo=9c44c6dabb8d4728';
-import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
-import {receivingRoleAllowed} from './receiving-policy.mjs?demo=9c44c6dabb8d4728';
+import {business,locationScope,inventoryValue} from './business.mjs?demo=2d15b6e9cd84b84d';
+import {businessDay} from './company-date.mjs?demo=2d15b6e9cd84b84d';
+import {resolveProductBarcode} from './packaging.mjs?demo=2d15b6e9cd84b84d';
+import {validUnicode,charLength} from './unicode.mjs?demo=2d15b6e9cd84b84d';
+import {receivingRoleAllowed} from './receiving-policy.mjs?demo=2d15b6e9cd84b84d';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Receiving record not found.');return r;};
 const text=(v,max=500,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid receiving text within the allowed length.');return t;};

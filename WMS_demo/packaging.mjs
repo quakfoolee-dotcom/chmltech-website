@@ -1,6 +1,6 @@
 // Original Chmltech WMS unit/packaging boundary. The inventory and costing ledgers
 // continue to use their original, immutable whole base units.
-import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {validUnicode,charLength} from './unicode.mjs?demo=2d15b6e9cd84b84d';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id)=>{const row=rows.find(r=>r.id===id);must(row,'Product not found.');return row;};
 const text=(value,max=100,required=true)=>{const v=String(value??'').trim();must(validUnicode(v)&&charLength(v)<=max&&(!required||v),'Enter valid unit text.');return v;};

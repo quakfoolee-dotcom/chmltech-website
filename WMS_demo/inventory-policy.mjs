@@ -1,4 +1,4 @@
-import {receivingCommands,receivingRoleAllowed,receivingActionCommands} from './receiving-policy.mjs?demo=9c44c6dabb8d4728';
+import {receivingCommands,receivingRoleAllowed,receivingActionCommands} from './receiving-policy.mjs?demo=2d15b6e9cd84b84d';
 // Command policy shared by the browser, HTTP service and SQL-policy tests.
 // No engine imports: cloud cold starts must remain acyclic.
 export const inventoryRoles={

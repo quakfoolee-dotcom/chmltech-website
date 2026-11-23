@@ -1,4 +1,4 @@
-import {translate} from './locale.mjs?demo=9c44c6dabb8d4728';
+import {translate} from './locale.mjs?demo=2d15b6e9cd84b84d';
 const pending=new WeakMap();
 export const formSavePending=form=>pending.has(form);
 export function beginFormSave(form){

@@ -1,11 +1,11 @@
-import {rangeTransferFees} from './fifo-fees.mjs?demo=9c44c6dabb8d4728';
-import {deliveryLines,returnShipment} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
+import {rangeTransferFees} from './fifo-fees.mjs?demo=2d15b6e9cd84b84d';
+import {deliveryLines,returnShipment} from './fulfillment.mjs?demo=2d15b6e9cd84b84d';
 // Independent FIFO accounting. Physical pick-lot order remains separate.
 // Each cost origin owns unit-index ranges, so partial withdrawals and later
 // charges conserve integer cents instead of multiplying a rounded unit cost.
-import {business,locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
-import {prepareFIFOSupplierReturn} from './fifo-supplier.mjs?demo=9c44c6dabb8d4728';
-import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {business,locationScope} from './business.mjs?demo=2d15b6e9cd84b84d';
+import {prepareFIFOSupplierReturn} from './fifo-supplier.mjs?demo=2d15b6e9cd84b84d';
+import {validUnicode,charLength} from './unicode.mjs?demo=2d15b6e9cd84b84d';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const cents=n=>Math.round((n+Number.EPSILON)*100);
 const setup=s=>s.costLayers||(s.costLayers={version:1,sequence:0,policies:{},origins:[],layers:[],movements:[],history:null});

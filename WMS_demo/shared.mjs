@@ -1,5 +1,5 @@
-import {APP_VERSION} from './version.mjs?demo=9c44c6dabb8d4728';
-import {createBrowserWorkspace} from './browser-store.mjs?demo=9c44c6dabb8d4728';
+import {APP_VERSION} from './version.mjs?demo=2d15b6e9cd84b84d';
+import {createBrowserWorkspace} from './browser-store.mjs?demo=2d15b6e9cd84b84d';
 let workspace,starting;
 // Microsoft Clarity custom events. The site adds Clarity (with its ?notrack=on opt-out)
 // to the demo page; when it is absent or opted out, these calls do nothing.
@@ -14,7 +14,7 @@ export const storageMode=()=>workspace?.storageMode||'saved';
 // Saved warehouses from before the V5.73 sample tidy-up still carry test codes.
 export async function savedIsOutdated(){try{const state=await workspace.read();return state.items.some(i=>/^PLAY-/.test(i.sku));}catch{return false;}}
 export function startGuest(){return starting??=(async()=>{
- const response=await fetch(new URL('./sample-workspace.json?demo=9c44c6dabb8d4728',import.meta.url));if(!response.ok)throw Error('Sample warehouse could not load. Refresh this page.');
+ const response=await fetch(new URL('./sample-workspace.json?demo=2d15b6e9cd84b84d',import.meta.url));if(!response.ok)throw Error('Sample warehouse could not load. Refresh this page.');
  let storage;try{storage=globalThis.localStorage;}catch{}
  workspace=createBrowserWorkspace({storage,seed:await response.json()});return workspace.start();
 })();}

@@ -1,8 +1,8 @@
-import {workflowModel} from './workflow-model.mjs?demo=9c44c6dabb8d4728';
-import {actionRoleAllowed,isReadAction} from './action-permissions.mjs?demo=9c44c6dabb8d4728';
-import {translate} from './locale.mjs?demo=9c44c6dabb8d4728';
-import {enhanceSharedControls,formSavePending} from './shared-controls.mjs?demo=9c44c6dabb8d4728';
-import {cloudQBOActionAllowed} from './qbo-access.mjs?demo=9c44c6dabb8d4728';
+import {workflowModel} from './workflow-model.mjs?demo=2d15b6e9cd84b84d';
+import {actionRoleAllowed,isReadAction} from './action-permissions.mjs?demo=2d15b6e9cd84b84d';
+import {translate} from './locale.mjs?demo=2d15b6e9cd84b84d';
+import {enhanceSharedControls,formSavePending} from './shared-controls.mjs?demo=2d15b6e9cd84b84d';
+import {cloudQBOActionAllowed} from './qbo-access.mjs?demo=2d15b6e9cd84b84d';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const t=v=>e(translate(v));
 const roles=['Admin','Warehouse','Purchasing','Sales','Manufacturing','Accounting','Viewer'];

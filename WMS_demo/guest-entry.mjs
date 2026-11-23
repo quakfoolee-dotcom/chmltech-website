@@ -1,4 +1,4 @@
-import {startGuest,resetGuest,storageMode,track,savedIsOutdated} from './shared.mjs?demo=9c44c6dabb8d4728';
+import {startGuest,resetGuest,storageMode,track,savedIsOutdated} from './shared.mjs?demo=2d15b6e9cd84b84d';
 const banner=document.createElement('aside');banner.className='guest-demo-bar';banner.setAttribute('aria-label','Demo controls');
 banner.innerHTML='<strong>Chmltech WMS · Browser demo</strong><span id="demo-storage">Fictional sample records · Saved in this browser only</span><button id="demo-reset" type="button">Reset demo</button><a href="../">Back to Chmltech</a><span id="demo-message" role="status"></span>';
 document.body.prepend(banner);
@@ -9,5 +9,5 @@ button.onclick=()=>dialog.showModal();dialog.onclose=async()=>{if(dialog.returnV
 // Analytics: one event per module opened (the app changes #module, not the page address).
 let lastModule='';const moduleOf=()=>{const parts=location.hash.slice(1).split('/');return (parts[0]==='business'||parts[0]==='dashboards')&&parts[1]?parts[0]+'_'+parts[1]:parts[0]||'overview';};
 const trackModule=()=>{const name=moduleOf();if(name===lastModule)return;lastModule=name;track('wms_module_'+name,['wms_last_module',name]);};
-try{await startGuest();track('wms_demo_open',['wms_demo','browser']);if(storageMode()==='memory')document.querySelector('#demo-storage').textContent='Temporary session · Browser storage unavailable · Changes disappear when you leave';if(await savedIsOutdated())message.textContent='This browser has an older copy of the demo. Use Reset demo to load the latest sample warehouse.';await import('./app.mjs?demo=9c44c6dabb8d4728');trackModule();addEventListener('hashchange',trackModule);}
+try{await startGuest();track('wms_demo_open',['wms_demo','browser']);if(storageMode()==='memory')document.querySelector('#demo-storage').textContent='Temporary session · Browser storage unavailable · Changes disappear when you leave';if(await savedIsOutdated())message.textContent='This browser has an older copy of the demo. Use Reset demo to load the latest sample warehouse.';await import('./app.mjs?demo=2d15b6e9cd84b84d');trackModule();addEventListener('hashchange',trackModule);}
 catch(e){message.textContent=e.message;}
