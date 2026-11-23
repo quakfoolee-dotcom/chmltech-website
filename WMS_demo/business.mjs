@@ -1,12 +1,12 @@
-import {pickLines,deliveryLines,returnShipment,outstandingLines} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
-import {businessDay} from './company-date.mjs?demo=9c44c6dabb8d4728';
-import {isFIFO,fifoValue} from './fifo.mjs?demo=9c44c6dabb8d4728';
-import {resolveProductBarcode,selectedUnit,unitQuantity} from './packaging.mjs?demo=9c44c6dabb8d4728';
-import {explainPrice,salesToday} from './pricing.mjs?demo=9c44c6dabb8d4728';
+import {pickLines,deliveryLines,returnShipment,outstandingLines} from './fulfillment.mjs?demo=2d15b6e9cd84b84d';
+import {businessDay} from './company-date.mjs?demo=2d15b6e9cd84b84d';
+import {isFIFO,fifoValue} from './fifo.mjs?demo=2d15b6e9cd84b84d';
+import {resolveProductBarcode,selectedUnit,unitQuantity} from './packaging.mjs?demo=2d15b6e9cd84b84d';
+import {explainPrice,salesToday} from './pricing.mjs?demo=2d15b6e9cd84b84d';
 // Original local business workflows. All writes run inside the stock engine transaction.
-import {disposeCustomerReturn,recordCustomerReturn,validateCustomerReturns} from './customer-returns.mjs?demo=9c44c6dabb8d4728';
-import {purchaseLines,suppliers} from './purchasing.mjs?demo=9c44c6dabb8d4728';
-import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {disposeCustomerReturn,recordCustomerReturn,validateCustomerReturns} from './customer-returns.mjs?demo=2d15b6e9cd84b84d';
+import {purchaseLines,suppliers} from './purchasing.mjs?demo=2d15b6e9cd84b84d';
+import {validUnicode,charLength} from './unicode.mjs?demo=2d15b6e9cd84b84d';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(a,id,label='Record')=>{const r=a.find(x=>x.id===id);must(r,`${label} not found.`);return r;};
 const text=(v,label='Text',max=240,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),`${label} is required and must be valid text up to ${max} characters.`);return t;};

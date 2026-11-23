@@ -1,6 +1,6 @@
-import {dispatch,validateState} from './engine.mjs?demo=9c44c6dabb8d4728';
-import {operationalCommands} from './operational-policy.mjs?demo=9c44c6dabb8d4728';
-import {productionCommands} from './production.mjs?demo=9c44c6dabb8d4728';
+import {dispatch,validateState} from './engine.mjs?demo=2d15b6e9cd84b84d';
+import {operationalCommands} from './operational-policy.mjs?demo=2d15b6e9cd84b84d';
+import {productionCommands} from './production.mjs?demo=2d15b6e9cd84b84d';
 export const STORAGE_KEY='chmltech:WMS_demo:warehouse:v1';
 export const STORAGE_PREFIX='chmltech:WMS_demo:';
 const allowed=new Set([...operationalCommands,...productionCommands,'crm:saveProfile','crm:linkCustomer','crm:saveOpportunity','crm:stage','crm:linkQuote','crm:saveActivity','crm:completeActivity']);

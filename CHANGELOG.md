@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.75.1 — 2026-11-23
+- **WMS demo reset box:** the new design now also applies in the Classic layout, where a more specific dialog rule had kept square corners and the old text colour (harbor-wms PR #9).
+
 ## V5.75 — 2026-11-23
 - **WMS demo: redesigned "Reset this WMS demo?" box.** It was unstyled browser defaults; now it has:
   - rounded corners, spacing and a soft shadow over a dimmed, blurred page;

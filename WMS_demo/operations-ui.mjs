@@ -1,4 +1,4 @@
-import {ops,pickMeta,shippingMeta,customFields,lotExpiry} from './operations.mjs?demo=9c44c6dabb8d4728';
+import {ops,pickMeta,shippingMeta,customFields,lotExpiry} from './operations.mjs?demo=2d15b6e9cd84b84d';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const area=(label,name,value='',extra='')=>`<label class="field">${e(label)}<textarea name="${e(name)}" rows="4" ${extra}>${e(value)}</textarea></label>`;
 const button=(label,action,id='',extra='')=>`<button type="button" class="btn" data-action="${action}" data-id="${e(id)}" ${extra}>${e(label)}</button>`;

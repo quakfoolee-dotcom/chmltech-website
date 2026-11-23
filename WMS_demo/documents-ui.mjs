@@ -1,6 +1,6 @@
-import {interfaceLanguage} from './locale.mjs?demo=9c44c6dabb8d4728';
-import {languages,buildDocuments,documentHTML} from './documents.mjs?demo=9c44c6dabb8d4728';
-import {createDocumentPDF} from './pdf.mjs?demo=9c44c6dabb8d4728';
+import {interfaceLanguage} from './locale.mjs?demo=2d15b6e9cd84b84d';
+import {languages,buildDocuments,documentHTML} from './documents.mjs?demo=2d15b6e9cd84b84d';
+import {createDocumentPDF} from './pdf.mjs?demo=2d15b6e9cd84b84d';
 let language='en',active=null;const fontCache=new Map();
 try{const saved=localStorage.getItem('chmltech:WMS_demo:harbor-document-language');if(languages.some(([id])=>id===saved))language=saved;}catch{}
 export async function documentAction(name,id,el,{s,showModal,select,download}){

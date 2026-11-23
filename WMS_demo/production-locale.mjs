@@ -1,5 +1,5 @@
-import {interfaceLanguage,translate} from './locale.mjs?demo=9c44c6dabb8d4728';
-import {catalogue} from './locale-catalog.mjs?demo=9c44c6dabb8d4728';
+import {interfaceLanguage,translate} from './locale.mjs?demo=2d15b6e9cd84b84d';
+import {catalogue} from './locale-catalog.mjs?demo=2d15b6e9cd84b84d';
 const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Only recognized demo copy and standard stage names have reviewed translations.
 // Custom work instructions and entered notes remain exactly as saved.

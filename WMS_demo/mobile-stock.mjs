@@ -1,5 +1,5 @@
-import {resolveProductBarcode,scannedQuantity,wholeUnits} from './packaging.mjs?demo=9c44c6dabb8d4728';
-import {businessDay} from './company-date.mjs?demo=9c44c6dabb8d4728';
+import {resolveProductBarcode,scannedQuantity,wholeUnits} from './packaging.mjs?demo=2d15b6e9cd84b84d';
+import {businessDay} from './company-date.mjs?demo=2d15b6e9cd84b84d';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const scope=(s,id)=>s.business?.locationMeta[id]||{warehouseId:'wh-main',ownerId:'owner-self'};
 const loc=(s,code)=>{const rows=s.locations.filter(l=>l.code.toUpperCase()===String(code||'').trim().toUpperCase());must(rows.length===1,'Scan a known location barcode.');return rows[0];};

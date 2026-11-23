@@ -1,4 +1,4 @@
-import {valuation} from './costing.mjs?demo=9c44c6dabb8d4728';
+import {valuation} from './costing.mjs?demo=2d15b6e9cd84b84d';
 export function compareInventory(s,accounts,baseline=null,time=new Date().toISOString()){
  const local=valuation(s),ids=accounts.map(a=>String(a.Id)).sort(),available=accounts.length>0&&accounts.every(a=>Number.isFinite(a.CurrentBalance)),remote=available?Math.round(accounts.reduce((n,a)=>n+a.CurrentBalance,0)*100):null;
  const validBaseline=!!baseline&&JSON.stringify(ids)===JSON.stringify(baseline.accounts.map(a=>String(a.Id)).sort())&&baseline.currency===local.currency&&baseline.remote!==null;

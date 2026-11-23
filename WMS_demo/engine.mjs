@@ -1,24 +1,24 @@
-import {receivingCommand,beforeReceiving,validateReceiving} from './receiving-control.mjs?demo=9c44c6dabb8d4728';
-import {productionCommand,validateProduction,beforeProduction} from './production.mjs?demo=9c44c6dabb8d4728';
-import {pickLines,deliveryLines,outstandingLines,releaseDelivery,fulfillmentStatus,validateFulfillment} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
-import {beforeExecution,afterExecution,executionCommand,validateExecution} from './warehouse-execution.mjs?demo=9c44c6dabb8d4728';
-import {beforeUnits,afterUnits,unitsCommand,validateUnits} from './packaging.mjs?demo=9c44c6dabb8d4728';
-import {mobileStockCommand,validateMobileStock} from './mobile-stock.mjs?demo=9c44c6dabb8d4728';
-import {pricingCommand,validateSalesDesk} from './pricing.mjs?demo=9c44c6dabb8d4728';
-import {quotationCommand,validateQuotations} from './quotations.mjs?demo=9c44c6dabb8d4728';
-import {crmCommand,validateCRM} from './crm.mjs?demo=9c44c6dabb8d4728';
-import {beforeTransferCosting,afterTransferCosting,transferCostCommand,validateTransferCosting} from './transfer-costing.mjs?demo=9c44c6dabb8d4728';
-import {beforeFIFO,afterFIFOStock,afterFIFOAccounting,validateFIFO} from './fifo.mjs?demo=9c44c6dabb8d4728';
-import {procurementCommand,beforeProcurement,afterProcurement,validateProcurement} from './procurement.mjs?demo=9c44c6dabb8d4728';
+import {receivingCommand,beforeReceiving,validateReceiving} from './receiving-control.mjs?demo=2d15b6e9cd84b84d';
+import {productionCommand,validateProduction,beforeProduction} from './production.mjs?demo=2d15b6e9cd84b84d';
+import {pickLines,deliveryLines,outstandingLines,releaseDelivery,fulfillmentStatus,validateFulfillment} from './fulfillment.mjs?demo=2d15b6e9cd84b84d';
+import {beforeExecution,afterExecution,executionCommand,validateExecution} from './warehouse-execution.mjs?demo=2d15b6e9cd84b84d';
+import {beforeUnits,afterUnits,unitsCommand,validateUnits} from './packaging.mjs?demo=2d15b6e9cd84b84d';
+import {mobileStockCommand,validateMobileStock} from './mobile-stock.mjs?demo=2d15b6e9cd84b84d';
+import {pricingCommand,validateSalesDesk} from './pricing.mjs?demo=2d15b6e9cd84b84d';
+import {quotationCommand,validateQuotations} from './quotations.mjs?demo=2d15b6e9cd84b84d';
+import {crmCommand,validateCRM} from './crm.mjs?demo=2d15b6e9cd84b84d';
+import {beforeTransferCosting,afterTransferCosting,transferCostCommand,validateTransferCosting} from './transfer-costing.mjs?demo=2d15b6e9cd84b84d';
+import {beforeFIFO,afterFIFOStock,afterFIFOAccounting,validateFIFO} from './fifo.mjs?demo=2d15b6e9cd84b84d';
+import {procurementCommand,beforeProcurement,afterProcurement,validateProcurement} from './procurement.mjs?demo=2d15b6e9cd84b84d';
 // Original implementation of the stock-state model documented in this project.
 // Every command operates on a clone and validates before returning a new state.
-import {expired,stockCandidates,validateOperations,beforeOperation,afterOperation,extendedCommand,setupOps} from './operations.mjs?demo=9c44c6dabb8d4728';
-import {charLength,cutText,validUnicode} from './unicode.mjs?demo=9c44c6dabb8d4728';
-import {businessCommand,validateBusiness,beforeBusiness,afterBusiness,stockInScope,orderScope,locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
-import {countCommand,validateInsights,afterInsights} from './insights.mjs?demo=9c44c6dabb8d4728';
-import {dashboardCommand,validateDashboard} from './dashboard.mjs?demo=9c44c6dabb8d4728';
-import {costCommand,beforeCosting,afterCosting,validateCosting} from './costing.mjs?demo=9c44c6dabb8d4728';
-import {billingCommand,validateBilling,beforeBilling} from './billing.mjs?demo=9c44c6dabb8d4728';
+import {expired,stockCandidates,validateOperations,beforeOperation,afterOperation,extendedCommand,setupOps} from './operations.mjs?demo=2d15b6e9cd84b84d';
+import {charLength,cutText,validUnicode} from './unicode.mjs?demo=2d15b6e9cd84b84d';
+import {businessCommand,validateBusiness,beforeBusiness,afterBusiness,stockInScope,orderScope,locationScope} from './business.mjs?demo=2d15b6e9cd84b84d';
+import {countCommand,validateInsights,afterInsights} from './insights.mjs?demo=2d15b6e9cd84b84d';
+import {dashboardCommand,validateDashboard} from './dashboard.mjs?demo=2d15b6e9cd84b84d';
+import {costCommand,beforeCosting,afterCosting,validateCosting} from './costing.mjs?demo=2d15b6e9cd84b84d';
+import {billingCommand,validateBilling,beforeBilling} from './billing.mjs?demo=2d15b6e9cd84b84d';
 export class WmsError extends Error {}
 const fail = message => { throw new WmsError(message); };
 const requireThat = (condition, message) => { if (!condition) fail(message); };

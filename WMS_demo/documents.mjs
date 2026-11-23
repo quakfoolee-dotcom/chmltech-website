@@ -1,11 +1,11 @@
-import {documentScanHTML} from './scan-codes.mjs?demo=9c44c6dabb8d4728';
-import {translate,translatedWords} from './locale.mjs?demo=9c44c6dabb8d4728';
-import {invoiceHTML} from './invoice-layout.mjs?demo=9c44c6dabb8d4728';
-import {purchaseFormLayout} from './commercial-layout.mjs?demo=9c44c6dabb8d4728';
-import {forecastDocuments} from './forecast.mjs?demo=9c44c6dabb8d4728';
-import {procurement,purchaseStatus} from './procurement.mjs?demo=9c44c6dabb8d4728';
-import {ops,shippingMeta,shipmentLines} from './operations.mjs?demo=9c44c6dabb8d4728';
-import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {documentScanHTML} from './scan-codes.mjs?demo=2d15b6e9cd84b84d';
+import {translate,translatedWords} from './locale.mjs?demo=2d15b6e9cd84b84d';
+import {invoiceHTML} from './invoice-layout.mjs?demo=2d15b6e9cd84b84d';
+import {purchaseFormLayout} from './commercial-layout.mjs?demo=2d15b6e9cd84b84d';
+import {forecastDocuments} from './forecast.mjs?demo=2d15b6e9cd84b84d';
+import {procurement,purchaseStatus} from './procurement.mjs?demo=2d15b6e9cd84b84d';
+import {ops,shippingMeta,shipmentLines} from './operations.mjs?demo=2d15b6e9cd84b84d';
+import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=2d15b6e9cd84b84d';
 export const languages=[['en','English'],['zh-Hans','简体中文 · Simplified Chinese'],['zh-Hant','繁體中文 · Traditional Chinese'],['fr','Français · French']];
 const words={
  en:{purchase:'Purchase order',packing:'Packing slip',label:'Warehouse label',supplier:'Supplier',recipient:'Ship to',description:'Description',qty:'Quantity',cost:'Unit cost',total:'Order total',due:'Due date',status:'Status',delivery:'Delivery',reference:'Reference',carrier:'Carrier / service',carton:'Carton',dimensions:'Dimensions',weight:'Weight',received:'Received',note:'Local warehouse document. Currency is shown where specified. Not a tax invoice.',postage:'Local warehouse label. NOT POSTAGE.',page:'Page',continued:'continued',Warehouse:'To warehouse','Drop ship':'Direct to customer',Open:'Open',Closed:'Closed',Cancelled:'Cancelled',Entered:'Entered',Packed:'Packed',Shipped:'Shipped'},

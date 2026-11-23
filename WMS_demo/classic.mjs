@@ -1,12 +1,12 @@
-import {deliveryPanel} from './fulfillment-ui.mjs?demo=9c44c6dabb8d4728';
-import {pickLines} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
-import {business,orderScope,locationScope,sameScope,availableStock} from './business.mjs?demo=9c44c6dabb8d4728';
-import {totals, shortages, itemById, locationById, orderById, pickById} from './engine.mjs?demo=9c44c6dabb8d4728';
+import {deliveryPanel} from './fulfillment-ui.mjs?demo=2d15b6e9cd84b84d';
+import {pickLines} from './fulfillment.mjs?demo=2d15b6e9cd84b84d';
+import {business,orderScope,locationScope,sameScope,availableStock} from './business.mjs?demo=2d15b6e9cd84b84d';
+import {totals, shortages, itemById, locationById, orderById, pickById} from './engine.mjs?demo=2d15b6e9cd84b84d';
 
 // A presentation layer over Chmltech WMS's existing records and commands.
 // Original Chmltech WMS implementation.
-import {ops,costSummary,supplyTotals,pickMeta,pickStatus,shippingMeta,shipmentLines,lotExpiry,customFields,familyOrders,expired} from './operations.mjs?demo=9c44c6dabb8d4728';
-import {matchesText} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {ops,costSummary,supplyTotals,pickMeta,pickStatus,shippingMeta,shipmentLines,lotExpiry,customFields,familyOrders,expired} from './operations.mjs?demo=2d15b6e9cd84b84d';
+import {matchesText} from './unicode.mjs?demo=2d15b6e9cd84b84d';
 const e = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n = value => Number(value).toLocaleString();
 const stamp = value => value ? new Date(value).toLocaleString() : 'Not yet';

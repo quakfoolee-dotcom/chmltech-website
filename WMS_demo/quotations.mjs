@@ -1,6 +1,6 @@
-import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs?demo=9c44c6dabb8d4728';
-import {unitQuantity} from './packaging.mjs?demo=9c44c6dabb8d4728';
-import {crmProfile,crmAddressText} from './crm.mjs?demo=9c44c6dabb8d4728';
+import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs?demo=2d15b6e9cd84b84d';
+import {unitQuantity} from './packaging.mjs?demo=2d15b6e9cd84b84d';
+import {crmProfile,crmAddressText} from './crm.mjs?demo=2d15b6e9cd84b84d';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export function quotationStatus(q,today=salesToday()){return ['Issued','Accepted'].includes(q.status)&&q.validUntil<today?'Expired':q.status;}
 const snapshot=q=>structuredClone(Object.fromEntries(Object.entries(q).filter(([k])=>!['versions','history'].includes(k))));
