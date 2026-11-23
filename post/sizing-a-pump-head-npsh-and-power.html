@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=process-engineering">Process Engineering</a></div>
     <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 1 of 7</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Sizing a Pump: Head, NPSH and Power, Worked Step by Step</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 13, 2026</span><span>7 min read</span></p>
@@ -66,10 +66,10 @@
   <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#step-1-set-the-flow">Step 1: set the flow</a></li><li><a href="#step-2-add-up-the-head">Step 2: add up the head</a></li><li><a href="#step-3-check-the-system-curve">Step 3: check the system curve</a></li><li><a href="#step-4-check-the-suction-npsh">Step 4: check the suction (NPSH)</a></li><li><a href="#step-5-power-and-motor">Step 5: power and motor</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#key-points">Key points</a></li></ol></details>
 
 <link rel="stylesheet" href="../assets/css/oee.css?v=8bc91df5">
-<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This series sizes the main equipment in the feed section you met in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a>, feed tank T-101 in <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a>, the flow control valve in <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> and the lines in <a href="sizing-a-line-velocity-pressure-drop-and-pipe-schedule.html">Part&nbsp;5</a>. <a href="sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity.html">Part&nbsp;6</a> and <a href="sizing-an-agitator-impeller-types-flow-patterns-and-power.html">Part&nbsp;7</a> then size the jacket and the agitator of reactor R-101.</p>
+<p>Every process plant is full of pumps, and most of them were sized from the same handful of numbers: how much flow, against how much head, with how much suction margin, using how much power. Get one wrong and the pump runs off its curve, cavitates or trips its motor. This series sizes the main equipment in the feed section you met in <a href="how-to-read-a-pfd-and-a-pid">How to Read a PFD and a P&amp;ID</a>: pump P-101 here, heater E-101 in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area">Part&nbsp;2</a>, feed tank T-101 in <a href="sizing-a-tank-holdup-levels-and-wall-thickness">Part&nbsp;3</a>, the flow control valve in <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation">Part&nbsp;4</a> and the lines in <a href="sizing-a-line-velocity-pressure-drop-and-pipe-schedule">Part&nbsp;5</a>. <a href="sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity">Part&nbsp;6</a> and <a href="sizing-an-agitator-impeller-types-flow-patterns-and-power">Part&nbsp;7</a> then size the jacket and the agitator of reactor R-101.</p>
 <p>The aim is not to replace the engineer who specifies the pump. It is to show owners and managers where the numbers on a pump data sheet come from, so that they can check them and ask the right questions.</p>
 <h2 id="step-1-set-the-flow">Step 1: set the flow</h2>
-<p>P-101 moves the feed from T-101 through E-101 to reactor R-101 at 6,250&nbsp;kg/h. With a density of 850&nbsp;kg/m³ that is 7.35&nbsp;m³/h at normal flow. Pumps are specified at a <strong>rated flow</strong> above normal, to cover uncertainty and control. A 10% margin gives 8.09&nbsp;m³/h. Margins belong in the <a href="the-design-basis-ten-decisions-to-fix-before-engineering-starts.html">design basis</a>, stated once, not added again by each discipline.</p>
+<p>P-101 moves the feed from T-101 through E-101 to reactor R-101 at 6,250&nbsp;kg/h. With a density of 850&nbsp;kg/m³ that is 7.35&nbsp;m³/h at normal flow. Pumps are specified at a <strong>rated flow</strong> above normal, to cover uncertainty and control. A 10% margin gives 8.09&nbsp;m³/h. Margins belong in the <a href="the-design-basis-ten-decisions-to-fix-before-engineering-starts">design basis</a>, stated once, not added again by each discipline.</p>
 <h2 id="step-2-add-up-the-head">Step 2: add up the head</h2>
 <p>The pump must lift the liquid, overcome every pressure drop on the way and deliver it at the pressure the reactor needs. Work out the pressure the pump must produce at its discharge, subtract what it already has at its suction, and convert the difference to metres of liquid.</p>
 <table>
@@ -77,7 +77,7 @@
 <tr><td class="nw">Reactor operating pressure</td><td class="num">100</td><td>1.0&nbsp;barg</td></tr>
 <tr><td class="nw">Static lift to the reactor nozzle</td><td class="num">67</td><td>8&nbsp;m above the pump</td></tr>
 <tr><td class="nw">Pipe friction, discharge</td><td class="num">41</td><td>1½" pipe, 60&nbsp;m equivalent length</td></tr>
-<tr><td class="nw">Heater E-101, tube side</td><td class="num">50</td><td>Allowance; checked in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a></td></tr>
+<tr><td class="nw">Heater E-101, tube side</td><td class="num">50</td><td>Allowance; checked in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area">Part&nbsp;2</a></td></tr>
 <tr><td class="nw">Flow control valve</td><td class="num">120</td><td>Enough drop to control well</td></tr>
 <tr><td class="nw">Flow meter and strainer</td><td class="num">20</td><td>Allowance</td></tr>
 <tr><td class="nw"><strong>Required discharge pressure</strong></td><td class="num"><strong>398</strong></td><td><strong>3.98&nbsp;barg</strong></td></tr>
@@ -155,7 +155,7 @@
 <tr><td class="nw">NPSH available</td><td>12.6&nbsp;m</td></tr>
 <tr><td class="nw">Estimated shaft power</td><td>1.95&nbsp;kW; motor 3&nbsp;kW</td></tr>
 </table>
-<p>The data sheet goes to vendors, who return their curves. The engineer then checks each offer against the system curve, the NPSH margin and the motor size, and confirms that the shutoff head does not exceed the design pressure of the discharge piping and E-101. That last check links pump sizing to <a href="pressure-relief-basics-what-a-psv-protects-against.html">pressure relief</a>.</p>
+<p>The data sheet goes to vendors, who return their curves. The engineer then checks each offer against the system curve, the NPSH margin and the motor size, and confirms that the shutoff head does not exceed the design pressure of the discharge piping and E-101. That last check links pump sizing to <a href="pressure-relief-basics-what-a-psv-protects-against">pressure relief</a>.</p>
 <h2 id="key-points">Key points</h2>
 <ul>
 <li>Size at a rated flow above normal, with the margin set once in the design basis.</li>
@@ -164,7 +164,7 @@
 <li>Check NPSH at the worst case: lowest level, hottest liquid, highest flow.</li>
 <li>Size the motor for the end of the pump curve, and check shutoff head against the design pressure downstream.</li>
 </ul>
-<p>Next: <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> sizes the heater, E-101.</p>
+<p>Next: <a href="sizing-a-heat-exchanger-duty-lmtd-and-area">Part&nbsp;2</a> sizes the heater, E-101.</p>
 <p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
 <script src="../assets/js/vendor/three-r128.min.js" defer></script>
 <script src="../assets/js/pm3d.js?v=abf3c955" defer></script>
@@ -175,13 +175,13 @@
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-set-the-flow">Step 1: set the flow</a></li><li><a href="#step-2-add-up-the-head">Step 2: add up the head</a></li><li><a href="#step-3-check-the-system-curve">Step 3: check the system curve</a></li><li><a href="#step-4-check-the-suction-npsh">Step 4: check the suction (NPSH)</a></li><li><a href="#step-5-power-and-motor">Step 5: power and motor</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#key-points">Key points</a></li></ol></div>
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>pump sizing</span><span>total dynamic head</span><span>NPSH</span><span>system curve</span><span>centrifugal pump</span><span>process design</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 7</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area.html">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a tank: holdup, level settings and wall thickness how a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and api 650 shell thickness, on a worked feed tank. tank sizing level alarms api 650 storage tank holdup process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-tank-holdup-levels-and-wall-thickness.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 3 of 7</p><h3><a href="../post/sizing-a-tank-holdup-levels-and-wall-thickness.html">Sizing a Tank: Holdup, Level Settings and Wall Thickness</a></h3><p class="muted">How a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and API 650 shell thickness, on a worked feed tank.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 7</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a tank: holdup, level settings and wall thickness how a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and api 650 shell thickness, on a worked feed tank. tank sizing level alarms api 650 storage tank holdup process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-tank-holdup-levels-and-wall-thickness.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 3 of 7</p><h3><a href="../post/sizing-a-tank-holdup-levels-and-wall-thickness">Sizing a Tank: Holdup, Level Settings and Wall Thickness</a></h3><p class="muted">How a process storage tank is sized: holdup from what it must absorb, shape, level alarms and trips, and API 650 shell thickness, on a worked feed tank.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Sizing a Pump: Head, NPSH and Power, Worked Step by Step", "datePublished": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-a-pump-head-npsh-and-power", "description": "How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.", "image": "https://www.chmltech.com/assets/media/covers/sizing-a-pump-head-npsh-and-power.jpg", "dateModified": "2026-11-13"}</script>
 <section class="cta">
@@ -191,8 +191,8 @@
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -205,22 +205,22 @@
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -233,7 +233,7 @@
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>

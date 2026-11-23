@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=operational-efficiency">Operational Efficiency</a><a href="../insights.html#cat=process-improvement">Process Improvement</a><a href="../insights.html#cat=inventory-management">Inventory Management</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=operational-efficiency">Operational Efficiency</a><a href="../insights#cat=process-improvement">Process Improvement</a><a href="../insights#cat=inventory-management">Inventory Management</a></div>
     <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Inventory series · Part 3 of 6</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">ABC Analysis for Manufacturers: Why Dollar Value Is Not Enough</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 11, 2026</span><span>7 min read</span></p>
@@ -98,8 +98,8 @@
 
 <link rel="stylesheet" href="../assets/css/article-tables.css?v=8ad79c2e">
 <p>A $40 gasket set can shut down a filling line. On an ABC report it sits at the very bottom of class C, next to the drive belts, and gets the least attention of anything in the plant.</p>
-<p>That is the problem with applying standard ABC analysis in a factory. The method in <a href="abc-inventory-analysis.html">Post&nbsp;1</a> ranks items by annual dollar usage, and for a distributor that works well: when an item runs out, you lose that item's sales. In a plant, running out of one input can stop everything that depends on it. The cost of a stockout has little to do with the price of the part.</p>
-<p>This post keeps the ABC method and adds one thing to it: a criticality rating. If you have not read <a href="abc-inventory-analysis.html">Post&nbsp;1</a>, start there for the five steps. Here we cover only what changes for a manufacturer.</p>
+<p>That is the problem with applying standard ABC analysis in a factory. The method in <a href="abc-inventory-analysis">Post&nbsp;1</a> ranks items by annual dollar usage, and for a distributor that works well: when an item runs out, you lose that item's sales. In a plant, running out of one input can stop everything that depends on it. The cost of a stockout has little to do with the price of the part.</p>
+<p>This post keeps the ABC method and adds one thing to it: a criticality rating. If you have not read <a href="abc-inventory-analysis">Post&nbsp;1</a>, start there for the five steps. Here we cover only what changes for a manufacturer.</p>
 <h2 id="three-pools-of-inventory-three-behaviours">Three pools of inventory, three behaviours</h2>
 <p>A distributor holds one kind of inventory: finished goods for sale. A manufacturer holds several, and each follows different rules.</p>
 <table>
@@ -107,11 +107,11 @@
 <tr><td>Raw materials and packaging</td><td>The production schedule. Usage follows what you plan to make.</td><td>A delayed or cancelled batch, idle labour, late customer orders</td><td>ABC by annual value consumed, plus criticality</td></tr>
 <tr><td>Spare parts and maintenance supplies</td><td>Equipment wear and failure. Usage is low and irregular.</td><td>Downtime on the equipment, and everything downstream of it</td><td>Criticality first; value is almost irrelevant</td></tr>
 <tr><td style="white-space:nowrap">Work in progress</td><td>Your own process and batch sizes</td><td>Rarely a stockout; the cost is cash and floor space</td><td>Leave out of ABC. Control it through scheduling.</td></tr>
-<tr><td style="white-space:nowrap">Finished goods</td><td style="white-space:nowrap">Customer orders</td><td style="white-space:nowrap">A lost or late sale</td><td>Standard ABC by sales, as in <a href="abc-inventory-analysis.html">Post&nbsp;1</a></td></tr>
+<tr><td style="white-space:nowrap">Finished goods</td><td style="white-space:nowrap">Customer orders</td><td style="white-space:nowrap">A lost or late sale</td><td>Standard ABC by sales, as in <a href="abc-inventory-analysis">Post&nbsp;1</a></td></tr>
 </table>
 <p>Two practical points follow. First, use <strong>consumption</strong>, the quantity issued to production or maintenance, not purchases. Purchases reflect when you bought, not what you used. Second, keep the unit of measure consistent. If resin is bought by the drum and issued by the kilogram, convert before you multiply.</p>
 <h2 id="a-worked-example-a-coatings-manufacturer">A worked example: a coatings manufacturer</h2>
-<p>Ridgeline Coatings is a fictional maker of industrial coatings. The list below covers 20 purchased items across raw materials, packaging and spare parts, with a combined annual usage of $2,420,750. It is ranked exactly as in <a href="abc-inventory-analysis.html">Post&nbsp;1</a>, with cut-offs at 80% and 95% of cumulative value.</p>
+<p>Ridgeline Coatings is a fictional maker of industrial coatings. The list below covers 20 purchased items across raw materials, packaging and spare parts, with a combined annual usage of $2,420,750. It is ranked exactly as in <a href="abc-inventory-analysis">Post&nbsp;1</a>, with cut-offs at 80% and 95% of cumulative value.</p>
 <table class="t-wide">
 <tr><th>Rank</th><th>Item</th><th>Pool</th><th>Annual usage</th><th>Unit cost</th><th>Annual value</th><th>Cumulative %</th><th>Class</th></tr>
 <tr><td style="white-space:nowrap">1</td><td style="white-space:nowrap">RM-01 Epoxy resin</td><td style="white-space:nowrap">Raw material</td><td style="white-space:nowrap">180,000&nbsp;kg</td><td style="white-space:nowrap">$4.20</td><td style="white-space:nowrap">$756,000</td><td style="white-space:nowrap">31.2%</td><td style="white-space:nowrap">A</td></tr>
@@ -167,7 +167,7 @@
 <ul>
 <li><strong>The three vital C items get protection.</strong> Two spare mechanical seals on the shelf cost $3,700 and ten gasket sets cost $400. A three-month minimum of dispersant, 600 kg, costs $8,400. That is $12,500 in total to cover three items that can each stop the plant.</li>
 <li><strong>The non-vital A items get leaner.</strong> Xylene and steel pails are high in value but available from several local suppliers. They need frequent orders and close tracking, not a large buffer.</li>
-<li><strong>The vital A items get both.</strong> Epoxy resin, titanium dioxide and hardener are expensive and irreplaceable. These justify supply agreements, a qualified second source and the careful safety stock calculation covered in <a href="safety-stock-for-manufacturers.html">the next post</a>.</li>
+<li><strong>The vital A items get both.</strong> Epoxy resin, titanium dioxide and hardener are expensive and irreplaceable. These justify supply agreements, a qualified second source and the careful safety stock calculation covered in <a href="safety-stock-for-manufacturers">the next post</a>.</li>
 </ul>
 <h2 id="pitfalls-specific-to-manufacturers">Pitfalls specific to manufacturers</h2>
 <p><strong>One year is too short for spare parts.</strong> A seal that fails every three years shows zero usage in most years. Use three to five years of history for spares, and never delete a vital part because it did not move last year.</p>
@@ -187,8 +187,8 @@
 <li>Run a no-movement report for dead stock</li>
 </ul>
 <link rel="stylesheet" href="../assets/css/download.css?v=117d81c3"><div class="j-dl-box"><div><strong>Free Excel template</strong><span>The workbook for this series includes the Ridgeline example, with a criticality column and the combined policy for each item.</span></div><a class="btn" href="../assets/downloads/Chmltech_Inventory_ABC_SafetyStock_Template.xlsx" data-dl download>Download template</a></div>
-<p><strong>Next in the series:</strong> <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a> sets safety stock for a manufacturer, where raw material demand comes from the production schedule and spare parts need a different method altogether.</p>
-<p><em>Chmltech Ltd. helps small and mid-sized businesses improve operations and adopt digital tools. If you would like help applying this to your own inventory, <a href="../contact.html">get in touch</a>.</em></p>
+<p><strong>Next in the series:</strong> <a href="safety-stock-for-manufacturers">Post&nbsp;4</a> sets safety stock for a manufacturer, where raw material demand comes from the production schedule and spare parts need a different method altogether.</p>
+<p><em>Chmltech Ltd. helps small and mid-sized businesses improve operations and adopt digital tools. If you would like help applying this to your own inventory, <a href="../contact">get in touch</a>.</em></p>
 <dialog class="j-dialog" id="dl" aria-labelledby="dl-title" data-file="../assets/downloads/Chmltech_Inventory_ABC_SafetyStock_Template.xlsx" data-fname="Chmltech_Inventory_ABC_SafetyStock_Template.xlsx" data-title="Inventory ABC and Safety Stock Template (Excel)" data-ref="Inventory template">
   <form method="dialog" class="form j-dl-form" novalidate>
     <button type="button" class="j-dl-close" aria-label="Close">×</button>
@@ -200,7 +200,7 @@
     <div class="field"><label for="dl-email">Work email</label><input id="dl-email" name="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="dl-company">Company <span class="hint">(optional)</span></label><input id="dl-company" name="company" autocomplete="organization"></div>
     <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech articles and services. I can unsubscribe at any time.</label>
-    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy.html" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy" target="_blank" rel="noopener">privacy notice</a>.</p>
     <button type="submit" class="btn">Download template</button>
     <p class="form-status" role="status" tabindex="-1"></p>
   </form>
@@ -209,13 +209,13 @@
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#three-pools-of-inventory-three-behaviours">Three pools of inventory, three behaviours</a></li><li><a href="#a-worked-example-a-coatings-manufacturer">A worked example: a coatings manufacturer</a></li><li><a href="#what-the-value-ranking-misses">What the value ranking misses</a></li><li><a href="#add-a-criticality-rating">Add a criticality rating</a></li><li><a href="#pitfalls-specific-to-manufacturers">Pitfalls specific to manufacturers</a></li><li><a href="#your-checklist">Your checklist</a></li><li><a href="#dl-title">Download the template</a></li></ol></div>
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>ABC analysis</span><span>criticality</span><span>spare parts</span><span>raw materials</span><span>manufacturing inventory</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="abc inventory analysis: what it is, how to do it, and a worked example abc analysis ranks inventory by annual dollar usage so control goes where the money is. the five steps, a 20-item worked example and a free template. abc analysis inventory management pareto analysis inventory classification cycle counting"><div class="thumb"><img src="../assets/media/covers/thumbs/abc-inventory-analysis.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 1 of 6</p><h3><a href="../post/abc-inventory-analysis.html">ABC Inventory Analysis: What It Is, How to Do It, and a Worked Example</a></h3><p class="muted">ABC analysis ranks inventory by annual dollar usage so control goes where the money is. The five steps, a 20-item worked example and a free template.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="setting safety stock without guessing: three methods and a worked example why &quot;two weeks of everything&quot; is the wrong buffer. three ways to set safety stock and reorder points, with a worked example and a free excel template. safety stock reorder point service level lead time inventory management"><div class="thumb"><img src="../assets/media/covers/thumbs/setting-safety-stock.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 2 of 6</p><h3><a href="../post/setting-safety-stock.html">Setting Safety Stock Without Guessing: Three Methods and a Worked Example</a></h3><p class="muted">Why &quot;two weeks of everything&quot; is the wrong buffer. Three ways to set safety stock and reorder points, with a worked example and a free Excel template.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="safety stock for manufacturers: raw materials and spare parts safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the poisson method replaces the usual formula. safety stock spare parts poisson method raw materials lead time"><div class="thumb"><img src="../assets/media/covers/thumbs/safety-stock-for-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 4 of 6</p><h3><a href="../post/safety-stock-for-manufacturers.html">Safety Stock for Manufacturers: Raw Materials and Spare Parts</a></h3><p class="muted">Safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the Poisson method replaces the usual formula.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="abc inventory analysis: what it is, how to do it, and a worked example abc analysis ranks inventory by annual dollar usage so control goes where the money is. the five steps, a 20-item worked example and a free template. abc analysis inventory management pareto analysis inventory classification cycle counting"><div class="thumb"><img src="../assets/media/covers/thumbs/abc-inventory-analysis.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 1 of 6</p><h3><a href="../post/abc-inventory-analysis">ABC Inventory Analysis: What It Is, How to Do It, and a Worked Example</a></h3><p class="muted">ABC analysis ranks inventory by annual dollar usage so control goes where the money is. The five steps, a 20-item worked example and a free template.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="setting safety stock without guessing: three methods and a worked example why &quot;two weeks of everything&quot; is the wrong buffer. three ways to set safety stock and reorder points, with a worked example and a free excel template. safety stock reorder point service level lead time inventory management"><div class="thumb"><img src="../assets/media/covers/thumbs/setting-safety-stock.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 2 of 6</p><h3><a href="../post/setting-safety-stock">Setting Safety Stock Without Guessing: Three Methods and a Worked Example</a></h3><p class="muted">Why &quot;two weeks of everything&quot; is the wrong buffer. Three ways to set safety stock and reorder points, with a worked example and a free Excel template.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="safety stock for manufacturers: raw materials and spare parts safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the poisson method replaces the usual formula. safety stock spare parts poisson method raw materials lead time"><div class="thumb"><img src="../assets/media/covers/thumbs/safety-stock-for-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 4 of 6</p><h3><a href="../post/safety-stock-for-manufacturers">Safety Stock for Manufacturers: Raw Materials and Spare Parts</a></h3><p class="muted">Safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the Poisson method replaces the usual formula.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ABC Analysis for Manufacturers: Why Dollar Value Is Not Enough", "datePublished": "2026-11-11", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/abc-analysis-for-manufacturers", "description": "In a plant, a $40 part can stop a line. How to add a criticality rating to ABC analysis for raw materials, packaging and spare parts, with an example.", "image": "https://www.chmltech.com/assets/media/covers/abc-analysis-for-manufacturers.jpg", "dateModified": "2026-11-11"}</script>
 <section class="cta">
@@ -225,8 +225,8 @@
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -239,22 +239,22 @@
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -267,7 +267,7 @@
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>
