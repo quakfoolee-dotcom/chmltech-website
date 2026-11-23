@@ -1,8 +1,8 @@
-import {api} from './shared.mjs?demo=45f52980507d3a1b';
-import {warehouseLabelRows} from './warehouse-label-model.mjs?demo=45f52980507d3a1b';
-import {barcodeSVG} from './barcode.mjs?demo=45f52980507d3a1b';
-import {qrSVG} from './scan-codes.mjs?demo=45f52980507d3a1b';
-import {interfaceLanguage,startLocalization} from './locale.mjs?demo=45f52980507d3a1b';
+import {api} from './shared.mjs?demo=9c44c6dabb8d4728';
+import {warehouseLabelRows} from './warehouse-label-model.mjs?demo=9c44c6dabb8d4728';
+import {barcodeSVG} from './barcode.mjs?demo=9c44c6dabb8d4728';
+import {qrSVG} from './scan-codes.mjs?demo=9c44c6dabb8d4728';
+import {interfaceLanguage,startLocalization} from './locale.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;
 try{

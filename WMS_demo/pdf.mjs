@@ -1,5 +1,5 @@
-import {drawDocumentCodes} from './scan-codes.mjs?demo=45f52980507d3a1b';
-import {drawInvoicePDF} from './invoice-layout.mjs?demo=45f52980507d3a1b';
+import {drawDocumentCodes} from './scan-codes.mjs?demo=9c44c6dabb8d4728';
+import {drawInvoicePDF} from './invoice-layout.mjs?demo=9c44c6dabb8d4728';
 // One renderer shared by the browser download and the automated PDF checks.
 export async function createDocumentPDF(documents,{PDFLib,fontkit,fontBytes}){
  const {PDFDocument,rgb}=PDFLib,pdf=await PDFDocument.create();pdf.registerFontkit(fontkit);

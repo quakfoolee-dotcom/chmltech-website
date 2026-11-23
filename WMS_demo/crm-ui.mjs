@@ -1,6 +1,6 @@
-import {dateInputBounds} from './date-input.mjs?demo=45f52980507d3a1b';
-import {crm,crmProfile,crmProfiles,crmStages,crmKinds,crmDay,crmTimeline,crmTotals} from './crm.mjs?demo=45f52980507d3a1b';
-import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';import {formatMoney} from './currency-display.mjs?demo=45f52980507d3a1b';
+import {dateInputBounds} from './date-input.mjs?demo=9c44c6dabb8d4728';
+import {crm,crmProfile,crmProfiles,crmStages,crmKinds,crmDay,crmTimeline,crmTotals} from './crm.mjs?demo=9c44c6dabb8d4728';
+import {csvText} from './exchange.mjs?demo=9c44c6dabb8d4728';import {formatMoney} from './currency-display.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=(n,c)=>formatMoney(n/100,c),button=(label,action,id='')=>`<button type="button" class="btn" data-action="biz-crm-${action}" data-id="${e(id)}">${e(label)}</button>`,link=(text,section,id)=>`<a href="#business/${section}/${e(id)}" data-l10n-skip>${e(text)}</a>`;
 const table=(heads,rows)=>`<div class="table-scroll"><table><thead><tr>${heads.map(h=>`<th>${e(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${heads.length}">No CRM records match this view.</td></tr>`}</tbody></table></div>`;

@@ -1,8 +1,8 @@
-import {costing,valuation,matchPreview} from './costing.mjs?demo=45f52980507d3a1b';
-import {receiptMatching,matchingCSV} from './return-costing.mjs?demo=45f52980507d3a1b';
-import {locationScope,business} from './business.mjs?demo=45f52980507d3a1b';
-import {billing} from './billing.mjs?demo=45f52980507d3a1b';
-import {suppliers} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {costing,valuation,matchPreview} from './costing.mjs?demo=9c44c6dabb8d4728';
+import {receiptMatching,matchingCSV} from './return-costing.mjs?demo=9c44c6dabb8d4728';
+import {locationScope,business} from './business.mjs?demo=9c44c6dabb8d4728';
+import {billing} from './billing.mjs?demo=9c44c6dabb8d4728';
+import {suppliers} from './purchasing.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const formatMoney=(n,currency)=>`${currency} ${(n/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const btn=(label,action,id='')=>`<button class="btn" data-action="cost-${action}" data-id="${e(id)}">${e(label)}</button>`;

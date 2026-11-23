@@ -1,7 +1,7 @@
-import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=45f52980507d3a1b';
-import {isFIFO,fifoValue,nextFIFOCost,rangeCost,historicalValuation,layerWarehouse} from './fifo.mjs?demo=45f52980507d3a1b';
-import {business} from './business.mjs?demo=45f52980507d3a1b';import {formatMoney,formatUnitCost} from './currency-display.mjs?demo=45f52980507d3a1b';
-import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';import {documentHTML,languages} from './documents.mjs?demo=45f52980507d3a1b';import {createDocumentPDF} from './pdf.mjs?demo=45f52980507d3a1b';
+import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=9c44c6dabb8d4728';
+import {isFIFO,fifoValue,nextFIFOCost,rangeCost,historicalValuation,layerWarehouse} from './fifo.mjs?demo=9c44c6dabb8d4728';
+import {business} from './business.mjs?demo=9c44c6dabb8d4728';import {formatMoney,formatUnitCost} from './currency-display.mjs?demo=9c44c6dabb8d4728';
+import {csvText} from './exchange.mjs?demo=9c44c6dabb8d4728';import {documentHTML,languages} from './documents.mjs?demo=9c44c6dabb8d4728';import {createDocumentPDF} from './pdf.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const btn=(label,action)=>`<button class="btn" data-action="value-${action}">${e(label)}</button>`,row=c=>`<tr>${c.map(x=>`<td>${x}</td>`).join('')}</tr>`,table=(h,r)=>`<div class="table-scroll"><table><thead>${row(h.map(e))}</thead><tbody>${r.join('')||row(['No records yet.'])}</tbody></table></div>`,note=v=>`<div class="note-box"><p>${e(v)}</p></div>`;
 let selection='',warehouse='',item='',asOf='',locale='zh-Hans';const fonts=new Map();

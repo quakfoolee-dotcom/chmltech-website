@@ -1,10 +1,10 @@
-import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
-import {isFIFO,fifoCommand,applyFIFOAmount} from './fifo.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=9c44c6dabb8d4728';
+import {isFIFO,fifoCommand,applyFIFOAmount} from './fifo.mjs?demo=9c44c6dabb8d4728';
 // Prospective receipt accounting and moving-average landed costs, in home-currency cents.
-import {business,setupBusiness,locationScope,inventoryValue} from './business.mjs?demo=45f52980507d3a1b';
-import {purchaseLines,suppliers} from './purchasing.mjs?demo=45f52980507d3a1b';
-import {beforeReturns,afterReturns,returnCostCommand,validateReturns} from './return-costing.mjs?demo=45f52980507d3a1b';
-import {billing,billingCommand,billingSource,receiptLine} from './billing.mjs?demo=45f52980507d3a1b';
+import {business,setupBusiness,locationScope,inventoryValue} from './business.mjs?demo=9c44c6dabb8d4728';
+import {purchaseLines,suppliers} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {beforeReturns,afterReturns,returnCostCommand,validateReturns} from './return-costing.mjs?demo=9c44c6dabb8d4728';
+import {billing,billingCommand,billingSource,receiptLine} from './billing.mjs?demo=9c44c6dabb8d4728';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Costing record not found.');return r;};
 const cents=v=>Math.round((v+Number.EPSILON)*100);

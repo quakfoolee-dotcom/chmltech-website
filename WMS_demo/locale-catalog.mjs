@@ -1,11 +1,11 @@
-import {receivingCatalogue} from './locale-receiving.mjs?demo=45f52980507d3a1b';
-import {workflowCatalogue} from './locale-workflow.mjs?demo=45f52980507d3a1b';
-import {securityCatalogue} from './locale-security.mjs?demo=45f52980507d3a1b';
-import {extraRows} from './locale-extra.mjs?demo=45f52980507d3a1b';
-import {unitRows} from './locale-units.mjs?demo=45f52980507d3a1b';
-import {salesRows} from './locale-sales.mjs?demo=45f52980507d3a1b';
-import {crmRows} from './locale-crm.mjs?demo=45f52980507d3a1b';
-import {productionRows} from './locale-production.mjs?demo=45f52980507d3a1b';
+import {receivingCatalogue} from './locale-receiving.mjs?demo=9c44c6dabb8d4728';
+import {workflowCatalogue} from './locale-workflow.mjs?demo=9c44c6dabb8d4728';
+import {securityCatalogue} from './locale-security.mjs?demo=9c44c6dabb8d4728';
+import {extraRows} from './locale-extra.mjs?demo=9c44c6dabb8d4728';
+import {unitRows} from './locale-units.mjs?demo=9c44c6dabb8d4728';
+import {salesRows} from './locale-sales.mjs?demo=9c44c6dabb8d4728';
+import {crmRows} from './locale-crm.mjs?demo=9c44c6dabb8d4728';
+import {productionRows} from './locale-production.mjs?demo=9c44c6dabb8d4728';
 // Original Chmltech WMS translations. Keys describe presentation, never stored records.
 const rows=`
 Demo data & storage|示例数据与存储|範例資料與儲存|Données et stockage de la démonstration

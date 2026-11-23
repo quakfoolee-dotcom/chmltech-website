@@ -1,11 +1,11 @@
-import {deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
-import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {deliveryLines} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
+import {businessDay} from './company-date.mjs?demo=9c44c6dabb8d4728';
 // Local commercial subledger. Amounts are integer cents; unit prices have four decimals.
 // This module never moves stock and never sends money or connects to an accounting service.
-import {business} from './business.mjs?demo=45f52980507d3a1b';
-import {purchaseLines} from './purchasing.mjs?demo=45f52980507d3a1b';
-import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
-import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
+import {business} from './business.mjs?demo=9c44c6dabb8d4728';
+import {purchaseLines} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {csvText} from './exchange.mjs?demo=9c44c6dabb8d4728';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(rows,id,label='Record')=>{const r=rows.find(r=>r.id===id);must(r,`${label} not found.`);return r;};
 const txt=(v,label,max=240,required=false)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),`${label} must contain valid text${required?' and is required':''} (up to ${max} characters).`);return t;};

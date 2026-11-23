@@ -1,7 +1,7 @@
-import qrcode from './vendor/qrcode.mjs?demo=45f52980507d3a1b';
-import {barcodeSVG} from './barcode.mjs?demo=45f52980507d3a1b';
-import {documentQRValue,getPhoneAddress} from './document-scan.mjs?demo=45f52980507d3a1b';
-import {translate} from './locale.mjs?demo=45f52980507d3a1b';
+import qrcode from './vendor/qrcode.mjs?demo=9c44c6dabb8d4728';
+import {barcodeSVG} from './barcode.mjs?demo=9c44c6dabb8d4728';
+import {documentQRValue,getPhoneAddress} from './document-scan.mjs?demo=9c44c6dabb8d4728';
+import {translate} from './locale.mjs?demo=9c44c6dabb8d4728';
 // QR byte mode must preserve Chinese and French characters. ASCII document links are unchanged.
 qrcode.stringToBytes=value=>Array.from(new TextEncoder().encode(value));
 const e=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

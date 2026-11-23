@@ -1,8 +1,8 @@
-import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=45f52980507d3a1b';
-import {business,locationScope} from './business.mjs?demo=45f52980507d3a1b';
-import {insights,countableLocations,countIsStale,countCSV,traceReport,warehouseReport,reportTypes,reportCSV} from './insights.mjs?demo=45f52980507d3a1b';
-import {documentHTML,languages} from './documents.mjs?demo=45f52980507d3a1b';
-import {createDocumentPDF} from './pdf.mjs?demo=45f52980507d3a1b';
+import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=9c44c6dabb8d4728';
+import {business,locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {insights,countableLocations,countIsStale,countCSV,traceReport,warehouseReport,reportTypes,reportCSV} from './insights.mjs?demo=9c44c6dabb8d4728';
+import {documentHTML,languages} from './documents.mjs?demo=9c44c6dabb8d4728';
+import {createDocumentPDF} from './pdf.mjs?demo=9c44c6dabb8d4728';
 
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,id='')=>`<button type="button" class="btn" data-action="ins-${action}" data-id="${e(id)}">${e(label)}</button>`;

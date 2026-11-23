@@ -1,7 +1,7 @@
-import {receivingControl,receivingSuggestions,receivingBinCapacity} from './receiving-control.mjs?demo=45f52980507d3a1b';
-import {locationScope} from './business.mjs?demo=45f52980507d3a1b';
-import {translate} from './locale.mjs?demo=45f52980507d3a1b';
-import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
+import {receivingControl,receivingSuggestions,receivingBinCapacity} from './receiving-control.mjs?demo=9c44c6dabb8d4728';
+import {locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {translate} from './locale.mjs?demo=9c44c6dabb8d4728';
+import {csvText} from './exchange.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rec=v=>'<span data-l10n-skip>'+e(v)+'</span>';
 const btn=(text,action,id='',extra='')=>'<button type="button" class="btn" data-action="rcv-'+action+'" data-id="'+e(id)+'" '+extra+'>'+e(text)+'</button>';

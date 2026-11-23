@@ -1,7 +1,7 @@
-import {salesDashboard,warehouseDashboard,dateRange,previousRange,rangePresets,percentChange,localDay,gadgets,dashboardData} from './dashboard.mjs?demo=45f52980507d3a1b';
-import {business} from './business.mjs?demo=45f52980507d3a1b';
-import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
-import {formatMoney} from './currency-display.mjs?demo=45f52980507d3a1b';
+import {salesDashboard,warehouseDashboard,dateRange,previousRange,rangePresets,percentChange,localDay,gadgets,dashboardData} from './dashboard.mjs?demo=9c44c6dabb8d4728';
+import {business} from './business.mjs?demo=9c44c6dabb8d4728';
+import {csvText} from './exchange.mjs?demo=9c44c6dabb8d4728';
+import {formatMoney} from './currency-display.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const number=n=>Number(n).toLocaleString('en',{maximumFractionDigits:1});
 const money=(n,c='CAD')=>n===null?'Not available':new Intl.NumberFormat('en-CA',{style:'currency',currency:c}).format(n/100);

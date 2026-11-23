@@ -1,5 +1,14 @@
 # Changelog
 
+## V5.75 — 2026-11-23
+- **WMS demo: redesigned "Reset this WMS demo?" box.** It was unstyled browser defaults; now it has:
+  - rounded corners, spacing and a soft shadow over a dimmed, blurred page;
+  - a reset icon, and the title and text in the demo's colours;
+  - two clear buttons. "Keep exploring" is outlined and gets keyboard focus first; "Reset warehouse" is red, so the destructive choice stands out.
+  - On phones the buttons stack full width.
+  - It respects reduced motion, and the box is labelled for screen readers.
+  - Built in harbor-wms (`demo/browser-entry.mjs`, styles in `scripts/build-browser-demo.mjs`).
+
 ## V5.74 — 2026-11-23
 - **The WMS demo is renamed from Harbor WMS to Chmltech WMS** everywhere visitors see it:
   - the demo's logo, page titles, demo bar, help text, messages and translations;

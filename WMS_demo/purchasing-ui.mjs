@@ -1,9 +1,9 @@
-import {locationScope,orderScope} from './business.mjs?demo=45f52980507d3a1b';
-import {purchaseStatus,procurement} from './procurement.mjs?demo=45f52980507d3a1b';
-import {approvalPanel} from './planning-ui.mjs?demo=45f52980507d3a1b';
-import {suppliers,purchaseLines,purchaseTotals,supplierProductCode} from './purchasing.mjs?demo=45f52980507d3a1b';
-import {matchesText} from './unicode.mjs?demo=45f52980507d3a1b';
-import {chineseDemoOrder,chineseDemoNeedsUpgrade} from './chinese-demo.mjs?demo=45f52980507d3a1b';
+import {locationScope,orderScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {purchaseStatus,procurement} from './procurement.mjs?demo=9c44c6dabb8d4728';
+import {approvalPanel} from './planning-ui.mjs?demo=9c44c6dabb8d4728';
+import {suppliers,purchaseLines,purchaseTotals,supplierProductCode} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {matchesText} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {chineseDemoOrder,chineseDemoNeedsUpgrade} from './chinese-demo.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>Number(v).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2});
 const unitMoney=v=>Number(v).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:4});
