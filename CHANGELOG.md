@@ -1,5 +1,8 @@
 # Changelog
 
+## V5.77.1 — 2026-11-23
+- **IndexNow script** retries up to three times and logs the response body. The first automatic run got HTTP 403, most likely because it checked the key just after the key file went live. The full-sitemap run afterwards was accepted: HTTP 200 for 392 pages.
+
 ## V5.77 — 2026-11-23
 - **Internal links now use the clean addresses.** About 10,700 links on 341 pages pointed at `page.html`, while every canonical tag and the sitemap use `/page`. GitHub Pages serves both, so Google saw two addresses per page (Search Console listed 17 pages as "Google chose different canonical"). `seo_pass.py` gained `clean_links`, which runs after the generators and rewrites a link only when its target file exists. `index.html` becomes `./`. The WMS demo app is untouched.
 - **IndexNow for Bing:** key file `c3bf155879376468e8bf014cf323cbef.txt` at the root, plus `.github/workflows/indexnow.yml`. After each push to main it waits for Pages to publish, then submits the changed pages that are in `sitemap.xml`. It can also be run by hand to submit the whole sitemap.
