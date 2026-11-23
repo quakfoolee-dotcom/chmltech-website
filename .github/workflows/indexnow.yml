@@ -1,0 +1,31 @@
+name: IndexNow (Bing, Yandex and others)
+# V5.77: after a push to main, tell IndexNow which indexable pages changed so
+# Bing recrawls them within minutes instead of days. The key file is
+# c3bf155879376468e8bf014cf323cbef.txt at the site root. Only URLs listed in
+# sitemap.xml are sent, so noindex pages and the WMS demo app are never submitted.
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Submit every URL in sitemap.xml'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  submit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Wait for GitHub Pages to publish
+        run: sleep 120
+      - name: Submit changed URLs
+        env:
+          BEFORE: ${{ github.event.before }}
+          ALL: ${{ inputs.all }}
+        run: python3 .github/indexnow.py

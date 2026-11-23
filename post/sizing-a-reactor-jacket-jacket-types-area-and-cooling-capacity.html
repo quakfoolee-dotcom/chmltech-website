@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=process-engineering">Process Engineering</a></div>
     <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 6 of 7</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Sizing a Reactor Jacket: Jacket Types, Heat Transfer Area and Cooling Capacity</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 14, 2026</span><span>10 min read</span></p>
@@ -66,9 +66,9 @@
   <article class="prose"><details class="a-toc-m" data-toc><summary>Contents</summary><ol><li><a href="#step-1-state-the-duty">Step 1: state the duty</a></li><li><a href="#step-2-know-the-jacket-types">Step 2: know the jacket types</a></li><li><a href="#step-3-measure-the-area">Step 3: measure the area</a></li><li><a href="#step-4-build-the-overall-coefficient">Step 4: build the overall coefficient</a></li><li><a href="#step-5-calculate-the-cooling-capacity">Step 5: calculate the cooling capacity</a></li><li><a href="#step-6-add-area-when-the-wall-is-not-enough">Step 6: add area when the wall is not enough</a></li><li><a href="#step-7-check-the-worst-case">Step 7: check the worst case</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></details>
 
 <link rel="stylesheet" href="../assets/css/oee.css?v=8bc91df5">
-<p>A stirred reactor is a pot with a lid until the reaction starts giving off heat. From then on it is a heat exchanger with a very awkward shape, and the jacket around it decides how fast the plant can run. The <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a> showed that the 10,000&nbsp;L reactor R-101 has so little wall for its volume that a one-hour laboratory reaction has to be stretched to about three hours. This part of the sizing series looks at what can be done about that: which kinds of jacket exist, how to calculate what each can remove, and when a jacket is not enough.</p>
+<p>A stirred reactor is a pot with a lid until the reaction starts giving off heat. From then on it is a heat exchanger with a very awkward shape, and the jacket around it decides how fast the plant can run. The <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial">scale-up series</a> showed that the 10,000&nbsp;L reactor R-101 has so little wall for its volume that a one-hour laboratory reaction has to be stretched to about three hours. This part of the sizing series looks at what can be done about that: which kinds of jacket exist, how to calculate what each can remove, and when a jacket is not enough.</p>
 <h2 id="step-1-state-the-duty">Step 1: state the duty</h2>
-<p>A reactor jacket usually has three jobs in every batch: heat the charge to reaction temperature, remove the heat of reaction, and cool the product down afterwards. The energy balance in <a href="from-pilot-data-to-a-mass-and-energy-balance.html">From Pilot Data to a Mass and Energy Balance</a> sets them out for R-101. The one that fixes the jacket is the heat of reaction, because it cannot be made to wait.</p>
+<p>A reactor jacket usually has three jobs in every batch: heat the charge to reaction temperature, remove the heat of reaction, and cool the product down afterwards. The energy balance in <a href="from-pilot-data-to-a-mass-and-energy-balance">From Pilot Data to a Mass and Energy Balance</a> sets them out for R-101. The one that fixes the jacket is the heat of reaction, because it cannot be made to wait.</p>
 <p>R-101 holds a 10,000&nbsp;kg batch that releases 150&nbsp;kJ/kg, or 1.5&nbsp;GJ in all. One reactant is added over 3 hours and reacts almost as it arrives, so the heat appears at an average rate of:</p>
 <p class="eq">\[Q_{\text{gen}} = \dfrac{10{,}000\ \text{kg} \times 150\ \text{kJ/kg}}{3\ \text{h} \times 3{,}600\ \text{s/h}} = 139\ \text{kW}\]</p>
 <p>The batch is held at 60&nbsp;°C. Cooling water enters the jacket at 25&nbsp;°C. The jacket must remove at least 139&nbsp;kW across that temperature difference, with something in hand.</p>
@@ -99,7 +99,7 @@
 <h2 id="step-5-calculate-the-cooling-capacity">Step 5: calculate the cooling capacity</h2>
 <p>The heat a jacket removes is the overall coefficient times the area times the mean temperature difference:</p>
 <p class="eq">\[Q = U\, A\, \Delta T_{\text{mean}}\]</p>
-<p>The water warms as it goes round, so the mean is a log mean, as for the heater in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a>. With the batch at 60&nbsp;°C and water entering at 25&nbsp;°C and leaving at 34.5&nbsp;°C, the differences at the two ends are 35&nbsp;K and 25.5&nbsp;K and the log mean is 30&nbsp;K. For the plain jacket:</p>
+<p>The water warms as it goes round, so the mean is a log mean, as for the heater in <a href="sizing-a-heat-exchanger-duty-lmtd-and-area">Part&nbsp;2</a>. With the batch at 60&nbsp;°C and water entering at 25&nbsp;°C and leaving at 34.5&nbsp;°C, the differences at the two ends are 35&nbsp;K and 25.5&nbsp;K and the log mean is 30&nbsp;K. For the plain jacket:</p>
 <p class="eq">\[Q = 300 \times 17.1 \times 30 = 154{,}200\ \text{W} \approx 154\ \text{kW}\]</p>
 <p>That is the 154&nbsp;kW quoted in the mass and energy balance, against the 139&nbsp;kW the reaction releases, so about 10% of the capacity is in hand. Carrying that heat away with a 9.5&nbsp;K rise takes about 14&nbsp;m³/h of cooling water. The same calculation for each jacket, with the same 14&nbsp;m³/h of water, gives the table below. The coefficients are in W/m²·K.</p>
 <table>
@@ -113,7 +113,7 @@
 <p>The larger gains come from more area. An internal coil of 2-inch pipe, 9 turns at 1.6&nbsp;m diameter, adds 8.6&nbsp;m². It also works better per square metre than the jacket, because its wall is only 3.9&nbsp;mm thick and water runs fast inside it: about 493&nbsp;W/m²·K. With the same 14&nbsp;m³/h of water shared between jacket and coil, the coil adds 95&nbsp;kW, which takes the plain-jacketed reactor to 249&nbsp;kW and the addition down to 1.7&nbsp;hours. More water would raise it further.</p>
 <p>The price is paid elsewhere. A coil is hard to clean between products, it disturbs the flow pattern the agitator was chosen for, and a pinhole puts cooling water into the batch. Where those matter, the alternative is an external loop: the batch is pumped through a heat exchanger whose area can be whatever the duty needs. Either way, the choice between jacket, coil and loop is made at the design basis stage, because it changes the vessel, the agitator and the layout.</p>
 <h2 id="step-7-check-the-worst-case">Step 7: check the worst case</h2>
-<p>The capacity has to be compared with what happens when things go wrong, not only with the design rate. If the whole charge were added in one hour, as in the laboratory procedure, the heat would arrive at 417&nbsp;kW. The plain jacket removes 154&nbsp;kW. The difference starts warming the batch at about 47&nbsp;K an hour, and it heads for the boiling point of 110&nbsp;°C. No jacket in the table would hold that rate. The protection is the addition rate itself, a high-temperature trip on the feed, and the analysis in <a href="what-happens-if-the-cooling-fails-runaway-reactions.html">What Happens If the Cooling Fails</a>.</p>
+<p>The capacity has to be compared with what happens when things go wrong, not only with the design rate. If the whole charge were added in one hour, as in the laboratory procedure, the heat would arrive at 417&nbsp;kW. The plain jacket removes 154&nbsp;kW. The difference starts warming the batch at about 47&nbsp;K an hour, and it heads for the boiling point of 110&nbsp;°C. No jacket in the table would hold that rate. The protection is the addition rate itself, a high-temperature trip on the feed, and the analysis in <a href="what-happens-if-the-cooling-fails-runaway-reactions">What Happens If the Cooling Fails</a>.</p>
 <p>Two other cases belong in the check: cooling water at its summer temperature, which shrinks the temperature difference, and the start of the addition, when the level is low and only part of the jacket is doing anything.</p>
 <p>Figure 2 shows R-101 cut in half, with the batch circulating inside, coloured by temperature, and cooling water running round the jacket. Switch the jacket type and watch three things: the speed of the water in the jacket, the orange arrows that show how much heat the wall can pass, and the chart of temperature through the wall. Add an internal coil, and change the addition time, the cooling water and the agitator speed. Watch whether the jacket can hold the batch at 60&nbsp;°C or the temperature climbs away.</p>
 <figure class="rx3d" id="rx3d">
@@ -184,7 +184,7 @@
 <li>\(Q = U A\, \Delta T_{\text{mean}}\), with the wetted area only.</li>
 <li>When the wall is not enough, add area with an internal coil or an external loop, and control the heat release with the addition rate.</li>
 </ul>
-<p>Earlier in this series: <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> sized the pump, <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> the heater, <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a> the feed tank, <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> the control valve and <a href="sizing-a-line-velocity-pressure-drop-and-pipe-schedule.html">Part&nbsp;5</a> the lines. Next: <a href="sizing-an-agitator-impeller-types-flow-patterns-and-power.html">Part&nbsp;7</a> sizes the agitator that keeps the liquid moving past this jacket.</p>
+<p>Earlier in this series: <a href="sizing-a-pump-head-npsh-and-power">Part&nbsp;1</a> sized the pump, <a href="sizing-a-heat-exchanger-duty-lmtd-and-area">Part&nbsp;2</a> the heater, <a href="sizing-a-tank-holdup-levels-and-wall-thickness">Part&nbsp;3</a> the feed tank, <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation">Part&nbsp;4</a> the control valve and <a href="sizing-a-line-velocity-pressure-drop-and-pipe-schedule">Part&nbsp;5</a> the lines. Next: <a href="sizing-an-agitator-impeller-types-flow-patterns-and-power">Part&nbsp;7</a> sizes the agitator that keeps the liquid moving past this jacket.</p>
 <p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
 <script src="../assets/js/vendor/three-r128.min.js" defer></script>
 <script src="../assets/js/rx3d.js?v=5db7304d" defer></script>
@@ -195,13 +195,13 @@
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-state-the-duty">Step 1: state the duty</a></li><li><a href="#step-2-know-the-jacket-types">Step 2: know the jacket types</a></li><li><a href="#step-3-measure-the-area">Step 3: measure the area</a></li><li><a href="#step-4-build-the-overall-coefficient">Step 4: build the overall coefficient</a></li><li><a href="#step-5-calculate-the-cooling-capacity">Step 5: calculate the cooling capacity</a></li><li><a href="#step-6-add-area-when-the-wall-is-not-enough">Step 6: add area when the wall is not enough</a></li><li><a href="#step-7-check-the-worst-case">Step 7: check the worst case</a></li><li><a href="#the-data-sheet">The data sheet</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></div>
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>reactor jacket</span><span>half-pipe jacket</span><span>dimple jacket</span><span>heat transfer coefficient</span><span>cooling capacity</span><span>process design</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="lab to pilot to commercial: what changes when you scale up why a reaction that works in a flask can overheat in a plant reactor. surface area, heat removal and mixing at three scales, with a calculator. scale-up heat transfer jacketed reactor exothermic reaction mixing process design"><div class="thumb"><img src="../assets/media/covers/thumbs/scale-up-what-changes-from-lab-to-pilot-to-commercial.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 1 of 3</p><h3><a href="../post/scale-up-what-changes-from-lab-to-pilot-to-commercial.html">Lab to Pilot to Commercial: What Changes When You Scale Up</a></h3><p class="muted">Why a reaction that works in a flask can overheat in a plant reactor. Surface area, heat removal and mixing at three scales, with a calculator.</p><p class="meta">Nov 11, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="what happens if the cooling fails: runaway reactions and mtsr how hot a reactor can get when cooling stops. adiabatic temperature rise, accumulation, mtsr and criticality classes, with a calculator. process safety runaway reaction mtsr criticality class reaction calorimetry semi-batch"><div class="thumb"><img src="../assets/media/covers/thumbs/what-happens-if-the-cooling-fails-runaway-reactions.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 1 of 3</p><h3><a href="../post/what-happens-if-the-cooling-fails-runaway-reactions.html">What Happens If the Cooling Fails: Runaway Reactions and MTSR</a></h3><p class="muted">How hot a reactor can get when cooling stops. Adiabatic temperature rise, accumulation, MTSR and criticality classes, with a calculator.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 7</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area.html">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="lab to pilot to commercial: what changes when you scale up why a reaction that works in a flask can overheat in a plant reactor. surface area, heat removal and mixing at three scales, with a calculator. scale-up heat transfer jacketed reactor exothermic reaction mixing process design"><div class="thumb"><img src="../assets/media/covers/thumbs/scale-up-what-changes-from-lab-to-pilot-to-commercial.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 1 of 3</p><h3><a href="../post/scale-up-what-changes-from-lab-to-pilot-to-commercial">Lab to Pilot to Commercial: What Changes When You Scale Up</a></h3><p class="muted">Why a reaction that works in a flask can overheat in a plant reactor. Surface area, heat removal and mixing at three scales, with a calculator.</p><p class="meta">Nov 11, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="what happens if the cooling fails: runaway reactions and mtsr how hot a reactor can get when cooling stops. adiabatic temperature rise, accumulation, mtsr and criticality classes, with a calculator. process safety runaway reaction mtsr criticality class reaction calorimetry semi-batch"><div class="thumb"><img src="../assets/media/covers/thumbs/what-happens-if-the-cooling-fails-runaway-reactions.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 1 of 3</p><h3><a href="../post/what-happens-if-the-cooling-fails-runaway-reactions">What Happens If the Cooling Fails: Runaway Reactions and MTSR</a></h3><p class="muted">How hot a reactor can get when cooling stops. Adiabatic temperature rise, accumulation, MTSR and criticality classes, with a calculator.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a heat exchanger: duty, lmtd and area, worked step by step how a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater. heat exchanger sizing lmtd overall heat transfer coefficient shell and tube steam heater process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-heat-exchanger-duty-lmtd-and-area.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 2 of 7</p><h3><a href="../post/sizing-a-heat-exchanger-duty-lmtd-and-area">Sizing a Heat Exchanger: Duty, LMTD and Area, Worked Step by Step</a></h3><p class="muted">How a shell-and-tube heater is sized: duty, log mean temperature difference, overall coefficient, area and tube layout, on a worked steam heater.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Sizing a Reactor Jacket: Jacket Types, Heat Transfer Area and Cooling Capacity", "datePublished": "2026-11-14", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity", "description": "How a reactor jacket is sized: plain, dimple and half-pipe jackets compared, overall coefficient, cooling capacity, coils and the worst case.", "image": "https://www.chmltech.com/assets/media/covers/sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity.jpg", "dateModified": "2026-11-14"}</script>
 <section class="cta">
@@ -211,8 +211,8 @@
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -225,22 +225,22 @@
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -253,7 +253,7 @@
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>

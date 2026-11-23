@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=artificial-intelligence">Artificial Intelligence</a><a href="../insights.html#cat=digital-technology">Digital Technology</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=artificial-intelligence">Artificial Intelligence</a><a href="../insights#cat=digital-technology">Digital Technology</a></div>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Your Own Private AI Assistant: Building a Local LLM with AnythingLLM and Ollama</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 12, 2026</span><span>14 min read</span></p>
   </div>
@@ -277,7 +277,7 @@ ollama ps</code></pre>
 <tr><td>Changed settings made no difference</td><td>Old chunks are still in the database</td><td>Remove and re-embed the documents</td></tr>
 </table>
 <p class="oee-takeaway">A local assistant can still be wrong, fluently. Keep a person accountable for any answer that feeds a decision, and make the assistant show its sources so that person can check them in seconds.</p>
-<p>For a deeper treatment of retrieval design and evaluation, see the journal paper <a href="retrieval-augmented-generation-design-evaluation-and-failure-analysis.html">Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis</a>.</p>
+<p>For a deeper treatment of retrieval design and evaluation, see the journal paper <a href="retrieval-augmented-generation-design-evaluation-and-failure-analysis">Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis</a>.</p>
 
 <h2 id="security-what-stays-private-and-what-you-must-still-do">Security: what stays private, and what you must still do</h2>
 <p>With Ollama, the built-in embedder or an Ollama embedder, and LanceDB, your documents, vectors, chats and model inference all stay on the PC. That removes the largest risk of cloud AI. It does not make the setup secure by itself.</p>
@@ -310,18 +310,18 @@ ollama ps</code></pre>
 <li>Build a 20-question test set and rerun it after every change.</li>
 <li>Encrypt the disk, keep Ollama on localhost, review telemetry and back up the storage folder.</li>
 </ol>
-<p>A private assistant like this is often the first building block of a company's own AI operating system. The journal paper <a href="ai-operating-systems-architecture-and-governance-for-enterprise-ai.html">AI Operating Systems: A Reference Architecture and Governance Model</a> describes how the pieces fit together at company scale, and <a href="score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.html">Score Versus Cost Per Task</a> covers when a cloud model is worth paying for instead.</p>
+<p>A private assistant like this is often the first building block of a company's own AI operating system. The journal paper <a href="ai-operating-systems-architecture-and-governance-for-enterprise-ai">AI Operating Systems: A Reference Architecture and Governance Model</a> describes how the pieces fit together at company scale, and <a href="score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models">Score Versus Cost Per Task</a> covers when a cloud model is worth paying for instead.</p>
 <p class="oee-note"><em>Settings screens in this article are simplified redrawings, not screenshots, and some field names vary by version. Hardware guidance is a rule of thumb; check the model's page for its actual memory use.</em></p>
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#what-you-are-building">What you are building</a></li><li><a href="#training-the-model-what-actually-happens">&quot;Training&quot; the model: what actually happens</a></li><li><a href="#step-1-install-ollama-and-pull-two-models">Step 1: Install Ollama and pull two models</a></li><li><a href="#step-2-install-anythingllm-and-choose-the-ai-provider">Step 2: Install AnythingLLM and choose the AI provider</a></li><li><a href="#step-3-the-embedding-model-and-its-maximum-chunk-length">Step 3: The embedding model and its maximum chunk length</a></li><li><a href="#step-4-the-vector-database">Step 4: The vector database</a></li><li><a href="#step-5-text-splitting-and-chunking">Step 5: Text splitting and chunking</a></li><li><a href="#step-6-create-a-workspace-and-tune-retrieval">Step 6: Create a workspace and tune retrieval</a></li><li><a href="#step-7-agent-skills">Step 7: Agent skills</a></li><li><a href="#accuracy-testing-and-fixing-answers">Accuracy: testing and fixing answers</a></li><li><a href="#security-what-stays-private-and-what-you-must-still-do">Security: what stays private, and what you must still do</a></li><li><a href="#the-checklist">The checklist</a></li></ol></div>
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>AnythingLLM</span><span>Ollama</span><span>local LLM</span><span>RAG</span><span>embeddings</span><span>vector database</span><span>AI agents</span><span>AI security</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="retrieval-augmented generation: design, evaluation and failure analysis for enterprise knowledge systems a technical review of retrieval-augmented generation: dense, sparse and hybrid retrieval, re-ranking, advanced patterns, evaluation metrics, failure points and security. retrieval-augmented generation large language models dense retrieval hybrid search re-ranking rag evaluation prompt injection enterprise knowledge systems"><div class="thumb"><img src="../assets/media/covers/thumbs/retrieval-augmented-generation-design-evaluation-and-failure-analysis.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/retrieval-augmented-generation-design-evaluation-and-failure-analysis.html">Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis for Enterprise Knowledge Systems</a></h3><p class="muted">A technical review of retrieval-augmented generation: dense, sparse and hybrid retrieval, re-ranking, advanced patterns, evaluation metrics, failure…</p><p class="meta">Vol. 104, Issue 3 · Nov 9, 2026 · 19 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="ai operating systems: a reference architecture and governance model for enterprise ai a layered reference architecture for an organization-wide ai layer, with governance mapping, operating metrics, a maturity model and an sme example. ai operating system enterprise ai architecture ai governance llm agents model routing retrieval-augmented generation prompt injection model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/ai-operating-systems-architecture-and-governance-for-enterprise-ai.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/ai-operating-systems-architecture-and-governance-for-enterprise-ai.html">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</a></h3><p class="muted">A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.</p><p class="meta">Vol. 104, Issue 1 · Nov 9, 2026 · 21 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="score versus cost per task: measuring the returns to reasoning effort in frontier language models how much better do language models get when you pay for more reasoning? score against measured cost per task for current models, as of november 2026. large language models reasoning effort cost per task test-time compute benchmark evaluation llm pricing cost-performance trade-off"><div class="thumb"><img src="../assets/media/covers/thumbs/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.html">Score Versus Cost Per Task: Measuring the Returns to Reasoning Effort in Frontier Language Models</a></h3><p class="muted">How much better do language models get when you pay for more reasoning? Score against measured cost per task for current models, as of November 2026.</p><p class="meta">Vol. 104, Issue 7 · Nov 12, 2026 · 19 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="retrieval-augmented generation: design, evaluation and failure analysis for enterprise knowledge systems a technical review of retrieval-augmented generation: dense, sparse and hybrid retrieval, re-ranking, advanced patterns, evaluation metrics, failure points and security. retrieval-augmented generation large language models dense retrieval hybrid search re-ranking rag evaluation prompt injection enterprise knowledge systems"><div class="thumb"><img src="../assets/media/covers/thumbs/retrieval-augmented-generation-design-evaluation-and-failure-analysis.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/retrieval-augmented-generation-design-evaluation-and-failure-analysis">Retrieval-Augmented Generation: Design, Evaluation and Failure Analysis for Enterprise Knowledge Systems</a></h3><p class="muted">A technical review of retrieval-augmented generation: dense, sparse and hybrid retrieval, re-ranking, advanced patterns, evaluation metrics, failure…</p><p class="meta">Vol. 104, Issue 3 · Nov 9, 2026 · 19 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="ai operating systems: a reference architecture and governance model for enterprise ai a layered reference architecture for an organization-wide ai layer, with governance mapping, operating metrics, a maturity model and an sme example. ai operating system enterprise ai architecture ai governance llm agents model routing retrieval-augmented generation prompt injection model context protocol"><div class="thumb"><img src="../assets/media/covers/thumbs/ai-operating-systems-architecture-and-governance-for-enterprise-ai.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/ai-operating-systems-architecture-and-governance-for-enterprise-ai">AI Operating Systems: A Reference Architecture and Governance Model for Enterprise AI</a></h3><p class="muted">A layered reference architecture for an organization-wide AI layer, with governance mapping, operating metrics, a maturity model and an SME example.</p><p class="meta">Vol. 104, Issue 1 · Nov 9, 2026 · 21 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence" data-search="score versus cost per task: measuring the returns to reasoning effort in frontier language models how much better do language models get when you pay for more reasoning? score against measured cost per task for current models, as of november 2026. large language models reasoning effort cost per task test-time compute benchmark evaluation llm pricing cost-performance trade-off"><div class="thumb"><img src="../assets/media/covers/thumbs/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models">Score Versus Cost Per Task: Measuring the Returns to Reasoning Effort in Frontier Language Models</a></h3><p class="muted">How much better do language models get when you pay for more reasoning? Score against measured cost per task for current models, as of November 2026.</p><p class="meta">Vol. 104, Issue 7 · Nov 12, 2026 · 19 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Your Own Private AI Assistant: Building a Local LLM with AnythingLLM and Ollama", "datePublished": "2026-11-12", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/private-ai-assistant-on-your-own-pc-anythingllm-and-ollama", "description": "Set up a private document assistant on one PC: AI providers, embedding model, chunk length, vector database, text splitting, agent skills, accuracy and security.", "image": "https://www.chmltech.com/assets/media/covers/private-ai-assistant-on-your-own-pc-anythingllm-and-ollama.jpg", "dateModified": "2026-11-12"}</script>
 <section class="cta">
@@ -331,8 +331,8 @@ ollama ps</code></pre>
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -345,22 +345,22 @@ ollama ps</code></pre>
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -373,7 +373,7 @@ ollama ps</code></pre>
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>

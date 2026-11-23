@@ -1,5 +1,10 @@
 # Changelog
 
+## V5.77 — 2026-11-23
+- **Internal links now use the clean addresses.** About 10,700 links on 341 pages pointed at `page.html`, while every canonical tag and the sitemap use `/page`. GitHub Pages serves both, so Google saw two addresses per page (Search Console listed 17 pages as "Google chose different canonical"). `seo_pass.py` gained `clean_links`, which runs after the generators and rewrites a link only when its target file exists. `index.html` becomes `./`. The WMS demo app is untouched.
+- **IndexNow for Bing:** key file `c3bf155879376468e8bf014cf323cbef.txt` at the root, plus `.github/workflows/indexnow.yml`. After each push to main it waits for Pages to publish, then submits the changed pages that are in `sitemap.xml`. It can also be run by hand to submit the whole sitemap.
+- **Tests:** a new `scripts/site-seo.test.mjs` (no `.html` internal links; key file present) runs on every pull request via `site-checks.yml`.
+
 ## V5.76 — 2026-11-23
 - **Microsoft Clarity now runs only on chmltech.com.** The loader returns straight away on any other host (localhost previews, test servers, the github.io address), so local testing no longer inflates the analytics. Clarity had recorded, for example, 180 sessions on `localhost:8765/digital-assessment.html`. The owner opt-out (`?notrack=on`) is unchanged.
 - **`seo_pass.py`:** the loader gained the host check, and the pass now replaces older copies of the loader on every page (`refresh_clarity`, 395 pages updated), so future loader changes reach all pages.

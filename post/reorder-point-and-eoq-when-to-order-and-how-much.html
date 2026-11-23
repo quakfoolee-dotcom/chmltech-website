@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=operational-efficiency">Operational Efficiency</a><a href="../insights.html#cat=process-improvement">Process Improvement</a><a href="../insights.html#cat=inventory-management">Inventory Management</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=operational-efficiency">Operational Efficiency</a><a href="../insights#cat=process-improvement">Process Improvement</a><a href="../insights#cat=inventory-management">Inventory Management</a></div>
     <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Inventory series · Part 5 of 6</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Reorder Point and EOQ: When to Order and How Much</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 13, 2026</span><span>7 min read</span></p>
@@ -67,11 +67,11 @@
 
 
 <link rel="stylesheet" href="../assets/css/article-tables.css?v=8ad79c2e">
-<p><a href="setting-safety-stock.html">Post&nbsp;2</a> and <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a> answered <em>when</em> to order: when stock falls to the reorder point. They did not answer <em>how much</em> to order each time. Order too little and the business spends its days raising purchase orders and receiving small deliveries. Order too much and cash sits in the warehouse. This post sets the order quantity for two of the Ridgeline Coatings materials from <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a>, using the classic economic order quantity, and then shows why the real answer is often a truckload.</p>
+<p><a href="setting-safety-stock">Post&nbsp;2</a> and <a href="safety-stock-for-manufacturers">Post&nbsp;4</a> answered <em>when</em> to order: when stock falls to the reorder point. They did not answer <em>how much</em> to order each time. Order too little and the business spends its days raising purchase orders and receiving small deliveries. Order too much and cash sits in the warehouse. This post sets the order quantity for two of the Ridgeline Coatings materials from <a href="safety-stock-for-manufacturers">Post&nbsp;4</a>, using the classic economic order quantity, and then shows why the real answer is often a truckload.</p>
 <h2 id="the-two-questions-together">The two questions, together</h2>
 <p>A reorder-point system has two settings for each item:</p>
 <ul>
-<li><strong>Reorder point (when).</strong> Average demand during the lead time plus safety stock. <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a> set it at 33,324&nbsp;kg for epoxy resin RM-01.</li>
+<li><strong>Reorder point (when).</strong> Average demand during the lead time plus safety stock. <a href="safety-stock-for-manufacturers">Post&nbsp;4</a> set it at 33,324&nbsp;kg for epoxy resin RM-01.</li>
 <li><strong>Order quantity (how much).</strong> The amount ordered each time stock reaches the reorder point. This post sets it.</li>
 </ul>
 <p>The two interact. Average stock on hand is roughly the safety stock plus half the order quantity, so a larger order raises average inventory one for one.</p>
@@ -82,7 +82,7 @@
 <h2 id="worked-example-two-ridgeline-materials">Worked example: two Ridgeline materials</h2>
 <table>
 <tr><th>Input</th><th>RM-01 Epoxy resin</th><th>RM-08 Dispersant additive</th></tr>
-<tr><td>Average weekly use (from <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a>)</td><td>3,462&nbsp;kg</td><td>46&nbsp;kg</td></tr>
+<tr><td>Average weekly use (from <a href="safety-stock-for-manufacturers">Post&nbsp;4</a>)</td><td>3,462&nbsp;kg</td><td>46&nbsp;kg</td></tr>
 <tr><td>Annual demand, D</td><td>180,024&nbsp;kg</td><td>2,392&nbsp;kg</td></tr>
 <tr><td>Unit cost</td><td>$4.20</td><td>$14.00</td></tr>
 <tr><td>Cost per order, S</td><td>$250 (incl. incoming QC test)</td><td>$150</td></tr>
@@ -90,7 +90,7 @@
 <tr><td><strong>EOQ</strong></td><td><strong>9,259&nbsp;kg</strong></td><td><strong>453&nbsp;kg</strong></td></tr>
 <tr><td>Weeks of use per order</td><td>2.7</td><td>9.8</td></tr>
 <tr><td>Orders per year</td><td>19</td><td>5</td></tr>
-<tr><td>Reorder point (from <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a>)</td><td>33,324&nbsp;kg</td><td>599&nbsp;kg</td></tr>
+<tr><td>Reorder point (from <a href="safety-stock-for-manufacturers">Post&nbsp;4</a>)</td><td>33,324&nbsp;kg</td><td>599&nbsp;kg</td></tr>
 <tr><td>Average stock ≈ safety stock + EOQ/2</td><td>17,183&nbsp;kg</td><td>455&nbsp;kg</td></tr>
 </table>
 <p>For epoxy resin, the EOQ is about 2.7 weeks of use per order. For the low-volume dispersant it is about 10 weeks, because the fixed cost of an order is large relative to what is bought. Before accepting that, check the dispersant's shelf life: ten weeks of an additive with a six-month shelf life is fine; with a two-month shelf life it is not.</p>
@@ -118,7 +118,7 @@
 <li>Calculate the EOQ for class A and B items. For class C items, a simple rule, such as three or six months of use, is usually good enough.</li>
 <li>Round to the supplier's pack size, pallet or truckload, and test any quantity discount as above.</li>
 <li>Check the result against shelf life, storage capacity and cash.</li>
-<li>Enter the reorder point from <a href="setting-safety-stock.html">Post&nbsp;2</a> or <a href="safety-stock-for-manufacturers.html">Post&nbsp;4</a> and the order quantity from this post in the ERP, and review both at least yearly.</li>
+<li>Enter the reorder point from <a href="setting-safety-stock">Post&nbsp;2</a> or <a href="safety-stock-for-manufacturers">Post&nbsp;4</a> and the order quantity from this post in the ERP, and review both at least yearly.</li>
 </ol>
 <h2 id="your-checklist">Your checklist</h2>
 <ul>
@@ -128,17 +128,17 @@
 <li>Test pack sizes and quantity discounts against the EOQ</li>
 <li>Check peak stock against storage and shelf life</li>
 </ul>
-<p><strong>Next in the series:</strong> <a href="sales-and-operations-planning-for-small-manufacturers.html">Post&nbsp;6</a> steps back from individual items to the monthly plan that sets how much the plant will make and buy.</p>
-<p><em>Chmltech Ltd. helps small and mid-sized businesses improve operations and adopt digital tools. If you would like help applying this to your own inventory, <a href="../contact.html">get in touch</a>.</em></p>
+<p><strong>Next in the series:</strong> <a href="sales-and-operations-planning-for-small-manufacturers">Post&nbsp;6</a> steps back from individual items to the monthly plan that sets how much the plant will make and buy.</p>
+<p><em>Chmltech Ltd. helps small and mid-sized businesses improve operations and adopt digital tools. If you would like help applying this to your own inventory, <a href="../contact">get in touch</a>.</em></p>
   </article>
   <aside class="aside-sticky">
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>EOQ</span><span>economic order quantity</span><span>reorder point</span><span>order quantity</span><span>inventory management</span><span>quantity discount</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="safety stock for manufacturers: raw materials and spare parts safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the poisson method replaces the usual formula. safety stock spare parts poisson method raw materials lead time"><div class="thumb"><img src="../assets/media/covers/thumbs/safety-stock-for-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 4 of 6</p><h3><a href="../post/safety-stock-for-manufacturers.html">Safety Stock for Manufacturers: Raw Materials and Spare Parts</a></h3><p class="muted">Safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the Poisson method replaces the usual formula.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="setting safety stock without guessing: three methods and a worked example why &quot;two weeks of everything&quot; is the wrong buffer. three ways to set safety stock and reorder points, with a worked example and a free excel template. safety stock reorder point service level lead time inventory management"><div class="thumb"><img src="../assets/media/covers/thumbs/setting-safety-stock.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 2 of 6</p><h3><a href="../post/setting-safety-stock.html">Setting Safety Stock Without Guessing: Three Methods and a Worked Example</a></h3><p class="muted">Why &quot;two weeks of everything&quot; is the wrong buffer. Three ways to set safety stock and reorder points, with a worked example and a free Excel template.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="sales and operations planning for small manufacturers: one plan, once a month a monthly sales and operations planning routine for small manufacturers: the five steps, a worked capacity plan for a seasonal peak, and the measures. s&amp;op sales and operations planning capacity planning demand planning production planning manufacturing"><div class="thumb"><img src="../assets/media/covers/thumbs/sales-and-operations-planning-for-small-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 6 of 6</p><h3><a href="../post/sales-and-operations-planning-for-small-manufacturers.html">Sales and Operations Planning for Small Manufacturers: One Plan, Once a Month</a></h3><p class="muted">A monthly sales and operations planning routine for small manufacturers: the five steps, a worked capacity plan for a seasonal peak, and the measures.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="safety stock for manufacturers: raw materials and spare parts safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the poisson method replaces the usual formula. safety stock spare parts poisson method raw materials lead time"><div class="thumb"><img src="../assets/media/covers/thumbs/safety-stock-for-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 4 of 6</p><h3><a href="../post/safety-stock-for-manufacturers">Safety Stock for Manufacturers: Raw Materials and Spare Parts</a></h3><p class="muted">Safety stock for raw materials, where supplier lead time drives the buffer, and for spare parts, where the Poisson method replaces the usual formula.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="setting safety stock without guessing: three methods and a worked example why &quot;two weeks of everything&quot; is the wrong buffer. three ways to set safety stock and reorder points, with a worked example and a free excel template. safety stock reorder point service level lead time inventory management"><div class="thumb"><img src="../assets/media/covers/thumbs/setting-safety-stock.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 2 of 6</p><h3><a href="../post/setting-safety-stock">Setting Safety Stock Without Guessing: Three Methods and a Worked Example</a></h3><p class="muted">Why &quot;two weeks of everything&quot; is the wrong buffer. Three ways to set safety stock and reorder points, with a worked example and a free Excel template.</p><p class="meta">Nov 11, 2026 · 7 min read</p></div></article><article class="article" data-cats="operational-efficiency process-improvement inventory-management" data-search="sales and operations planning for small manufacturers: one plan, once a month a monthly sales and operations planning routine for small manufacturers: the five steps, a worked capacity plan for a seasonal peak, and the measures. s&amp;op sales and operations planning capacity planning demand planning production planning manufacturing"><div class="thumb"><img src="../assets/media/covers/thumbs/sales-and-operations-planning-for-small-manufacturers.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Operational Efficiency</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Inventory series · Part 6 of 6</p><h3><a href="../post/sales-and-operations-planning-for-small-manufacturers">Sales and Operations Planning for Small Manufacturers: One Plan, Once a Month</a></h3><p class="muted">A monthly sales and operations planning routine for small manufacturers: the five steps, a worked capacity plan for a seasonal peak, and the measures.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Reorder Point and EOQ: When to Order and How Much", "datePublished": "2026-11-13", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/reorder-point-and-eoq-when-to-order-and-how-much", "description": "How much to order each time: the economic order quantity, why its cost curve is flat, and when a truckload discount wins, on two worked materials.", "image": "https://www.chmltech.com/assets/media/covers/reorder-point-and-eoq-when-to-order-and-how-much.jpg", "dateModified": "2026-11-13"}</script>
 <section class="cta">
@@ -148,8 +148,8 @@
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -162,22 +162,22 @@
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -190,7 +190,7 @@
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>

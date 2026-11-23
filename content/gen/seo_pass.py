@@ -31,8 +31,8 @@ are redirect stubs and are left alone):
   8. Rebuilds sitemap.xml from the files (indexable pages only, clean URLs, lastmod) and
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
-import html, json, os, re, subprocess, sys, datetime
-from urllib.parse import quote
+import html, json, os, posixpath, re, subprocess, sys, datetime
+from urllib.parse import quote, unquote
 import assetver
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from seo_keywords import KEYWORDS
@@ -470,6 +470,35 @@ def refresh_clarity(rel):
     if new != raw:
         open(p, "w", encoding="utf-8", newline="").write(new); bump("Clarity loader updated")
 
+HREF_RE = re.compile(r'href="([^"]*?\.html)((?:[?#][^"]*)?)"')
+
+def clean_links(rel):
+    """V5.77: internal links point at the clean (canonical) address, without .html.
+
+    GitHub Pages serves x.html at /x, and every canonical tag and sitemap entry
+    uses /x, so a link to x.html made Google see two addresses per page. Only
+    links whose target file exists are changed; links into the WMS demo app and
+    pages inside it are left alone."""
+    if rel.startswith("WMS_demo/"): return
+    p = os.path.join(ROOT, rel); raw = open(p, encoding="utf-8", newline="").read()
+    base = posixpath.dirname(rel)
+    def fix(m):
+        path, tail = m.group(1), m.group(2)
+        if path.startswith(SITE + "/"): local, prefix = path[len(SITE) + 1:], SITE + "/"
+        elif path.startswith("/"): local, prefix = path[1:], "/"
+        elif re.match(r"[a-z][a-z0-9+.-]*:|//", path, re.I): return m.group(0)
+        else: local, prefix = None, ""
+        target = posixpath.normpath(local if local is not None else posixpath.join(base, path))
+        if target.startswith("../") or target.startswith("WMS_demo/"): return m.group(0)
+        if not os.path.isfile(os.path.join(ROOT, unquote(target))): return m.group(0)
+        new = path[:-5]
+        if new == "index" or new.endswith("/index"):
+            new = new[:-5] or ("./" if not prefix else "")
+        return f'href="{new}{tail}"'
+    new = HREF_RE.sub(fix, raw)
+    if new != raw:
+        open(p, "w", encoding="utf-8", newline="").write(new); bump("links -> clean URLs")
+
 def main():
     import article_toc
     print(f"contents lists: {article_toc.run(ROOT)} articles")
@@ -478,6 +507,7 @@ def main():
     sm, ll = [], []
     for rel in pages():
         refresh_clarity(rel)
+        clean_links(rel)
         process(rel, sm, ll)
     write_sitemap(sm); write_llms(ll)
     print(f"asset versions: {assetver.stamp_all(ROOT)} pages updated")

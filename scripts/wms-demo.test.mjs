@@ -62,7 +62,7 @@ test('lowercase /wms_demo/ forwards to /WMS_demo/ with the query and #module, wi
 });
 test('showcase page is indexable and linked from Solutions, Distribution & Warehousing and Part 7 (pages and generators)',()=>{
  const page=fs.readFileSync('wms-demo.html','utf8');assert.ok(!page.includes('Nothing is sent'));assert.ok(page.includes('Microsoft Clarity'));assert.ok(!/name="robots" content="noindex/.test(page));assert.ok(page.includes('href="WMS_demo/"'));assert.ok(page.includes('rel="canonical" href="https://www.chmltech.com/wms-demo"'));
- for(const file of ['solutions.html','distribution-and-warehousing.html','post/do-we-need-a-wms-yet-when-spreadsheets-stop-scaling.html']){const s=fs.readFileSync(file,'utf8');assert.ok(s.includes('data-wms-demo="1"'),file);assert.ok(/href="(\.\.\/)?wms-demo\.html"/.test(s),file);}
+ for(const file of ['solutions.html','distribution-and-warehousing.html','post/do-we-need-a-wms-yet-when-spreadsheets-stop-scaling.html']){const s=fs.readFileSync(file,'utf8');assert.ok(s.includes('data-wms-demo="1"'),file);assert.ok(/href="(\.\.\/)?wms-demo(\.html)?"/.test(s),file);}
  assert.ok(fs.readFileSync('content/gen/build_v3.py','utf8').includes('wms_demo_links.add_to_solutions(sol)'));
  assert.ok(fs.readFileSync('content/gen/industry_pages.py','utf8').includes('wms_demo_links.add_to_industry(b)'));
  assert.equal(JSON.parse(fs.readFileSync('content/industries/distribution-and-warehousing.json','utf8')).wms_demo,true);

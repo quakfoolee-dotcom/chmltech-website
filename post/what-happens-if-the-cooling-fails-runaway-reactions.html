@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=process-engineering">Process Engineering</a></div>
     <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Process safety series · Part 1 of 3</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">What Happens If the Cooling Fails: Runaway Reactions and MTSR</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 12, 2026</span><span>5 min read</span></p>
@@ -84,7 +84,7 @@
 
 
 <link rel="stylesheet" href="../assets/css/oee.css?v=8bc91df5"><p>Every exothermic reactor is designed to remove its heat of reaction. The safety question is what happens when that stops: a pump trips, a cooling water valve sticks, or the power fails. The answer depends on how much heat is still to come and how hot it can make the batch.</p>
-<p>This series uses examples from earlier posts. This part takes the 10,000&nbsp;L reactor from the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial.html">scale-up series</a>. <a href="a-worked-hazop-the-feed-heater-node-by-node.html">Post&nbsp;2</a> runs a HAZOP on the feed heater from <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>, and <a href="management-of-change-for-small-plants.html">Post&nbsp;3</a> shows how a small change can undo both.</p>
+<p>This series uses examples from earlier posts. This part takes the 10,000&nbsp;L reactor from the <a href="scale-up-what-changes-from-lab-to-pilot-to-commercial">scale-up series</a>. <a href="a-worked-hazop-the-feed-heater-node-by-node">Post&nbsp;2</a> runs a HAZOP on the feed heater from <a href="how-to-read-a-pfd-and-a-pid">How to Read a PFD and a P&amp;ID</a>, and <a href="management-of-change-for-small-plants">Post&nbsp;3</a> shows how a small change can undo both.</p>
 <h2 id="four-temperatures-decide-the-outcome">Four temperatures decide the outcome</h2>
 <p>A cooling failure assessment compares four temperatures. The method is widely used in the fine chemical and pharmaceutical industries and was set out by Francis Stoessel.</p>
 <p class="oee-cap">Table 1. The four temperatures in a cooling failure assessment</p>
@@ -133,7 +133,7 @@
 <ul>
 <li><strong>Stop the feed when cooling is lost.</strong> An interlock on cooling water flow or reactor temperature that stops the feed pump caps the accumulation at its current value.</li>
 <li><strong>Confirm the reaction has started before adding at full rate.</strong> A small first portion, followed by a check that heat is being released, shows the reaction is running.</li>
-<li><strong>Do not add reactant below the minimum temperature.</strong> A cold batch reacts slowly while the feed continues. The HAZOP in <a href="a-worked-hazop-the-feed-heater-node-by-node.html">Post&nbsp;2</a> finds exactly this case on the feed heater.</li>
+<li><strong>Do not add reactant below the minimum temperature.</strong> A cold batch reacts slowly while the feed continues. The HAZOP in <a href="a-worked-hazop-the-feed-heater-node-by-node">Post&nbsp;2</a> finds exactly this case on the feed heater.</li>
 </ul>
 <div class="oee-calc" role="group" aria-labelledby="rwh">
 <h3 id="rwh">Try it: cooling failure at your conditions</h3>
@@ -165,22 +165,22 @@
 <li><strong>Relief sizing.</strong> A Class&nbsp;3 or 4 result means the vent must be sized for boiling or two-phase flow. That is a specialist calculation.</li>
 <li><strong>The data.</strong> Heat of reaction, accumulation and TD24 come from calorimetry and thermal stability tests on the actual mixture. Literature values are a starting point only.</li>
 </ul>
-<p>To practise the underlying calculations, try the free <a href="../exams/process-chemeng/Process_Engineering_Reactor_Design_150Q_V2.html" target="_blank" rel="noopener">Reactor Design Exam</a>.</p>
+<p>To practise the underlying calculations, try the free <a href="../exams/process-chemeng/Process_Engineering_Reactor_Design_150Q_V2" target="_blank" rel="noopener">Reactor Design Exam</a>.</p>
 <div class="oee-takeaway"><p><strong>Takeaway.</strong> Calculate how hot the batch could get if cooling fails, and compare it with the boiling point and the decomposition temperature. In the example, a three-hour addition with 20% accumulation keeps the MTSR at 75&nbsp;°C. Charging everything at once would give 135&nbsp;°C.</p></div>
-<div class="oee-next"><a class="oee-fwd" href="a-worked-hazop-the-feed-heater-node-by-node.html">Next: Post&nbsp;2, a worked HAZOP →</a></div>
+<div class="oee-next"><a class="oee-fwd" href="a-worked-hazop-the-feed-heater-node-by-node">Next: Post&nbsp;2, a worked HAZOP →</a></div>
 <noscript><p class="oee-note">The calculator on this page needs JavaScript. The tables show the worked example.</p></noscript>
 <p class="oee-note"><em>The reaction, temperatures and equipment in this series are an illustrative example. The calculations are screening estimates. They do not replace calorimetry testing, a formal hazard study or a design by a qualified engineer.</em></p>
 <script src="../assets/js/runaway.js?v=300ed894" defer></script>
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#four-temperatures-decide-the-outcome">Four temperatures decide the outcome</a></li><li><a href="#step-1-the-adiabatic-temperature-rise">Step 1: the adiabatic temperature rise</a></li><li><a href="#step-2-how-much-reaction-is-still-to-come">Step 2: how much reaction is still to come</a></li><li><a href="#step-3-place-the-result-in-a-criticality-class">Step 3: place the result in a criticality class</a></li><li><a href="#accumulation-is-the-number-to-protect">Accumulation is the number to protect</a></li><li><a href="#what-this-assessment-does-not-cover">What this assessment does not cover</a></li></ol></div>
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>process safety</span><span>runaway reaction</span><span>MTSR</span><span>criticality class</span><span>reaction calorimetry</span><span>semi-batch</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="a worked hazop: the feed heater, node by node a hazop of one steam heater: guide words, two nodes, the worksheets, seven actions, and the p&amp;id before and after the study. hazop process safety p&amp;id iec 61882 safeguards hazard review"><div class="thumb"><img src="../assets/media/covers/thumbs/a-worked-hazop-the-feed-heater-node-by-node.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 2 of 3</p><h3><a href="../post/a-worked-hazop-the-feed-heater-node-by-node.html">A Worked HAZOP: The Feed Heater, Node by Node</a></h3><p class="muted">A HAZOP of one steam heater: guide words, two nodes, the worksheets, seven actions, and the P&amp;ID before and after the study.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="management of change for small plants how small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page moc form for small plants. management of change moc process safety csa z767 hazop"><div class="thumb"><img src="../assets/media/covers/thumbs/management-of-change-for-small-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 3 of 3</p><h3><a href="../post/management-of-change-for-small-plants.html">Management of Change for Small Plants</a></h3><p class="muted">How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="lab to pilot to commercial: what changes when you scale up why a reaction that works in a flask can overheat in a plant reactor. surface area, heat removal and mixing at three scales, with a calculator. scale-up heat transfer jacketed reactor exothermic reaction mixing process design"><div class="thumb"><img src="../assets/media/covers/thumbs/scale-up-what-changes-from-lab-to-pilot-to-commercial.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 1 of 3</p><h3><a href="../post/scale-up-what-changes-from-lab-to-pilot-to-commercial.html">Lab to Pilot to Commercial: What Changes When You Scale Up</a></h3><p class="muted">Why a reaction that works in a flask can overheat in a plant reactor. Surface area, heat removal and mixing at three scales, with a calculator.</p><p class="meta">Nov 11, 2026 · 5 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="a worked hazop: the feed heater, node by node a hazop of one steam heater: guide words, two nodes, the worksheets, seven actions, and the p&amp;id before and after the study. hazop process safety p&amp;id iec 61882 safeguards hazard review"><div class="thumb"><img src="../assets/media/covers/thumbs/a-worked-hazop-the-feed-heater-node-by-node.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 2 of 3</p><h3><a href="../post/a-worked-hazop-the-feed-heater-node-by-node">A Worked HAZOP: The Feed Heater, Node by Node</a></h3><p class="muted">A HAZOP of one steam heater: guide words, two nodes, the worksheets, seven actions, and the P&amp;ID before and after the study.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="management of change for small plants how small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page moc form for small plants. management of change moc process safety csa z767 hazop"><div class="thumb"><img src="../assets/media/covers/thumbs/management-of-change-for-small-plants.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Process safety series · Part 3 of 3</p><h3><a href="../post/management-of-change-for-small-plants">Management of Change for Small Plants</a></h3><p class="muted">How small changes undo a safe design, with two worked examples, a review scaled to risk and a one-page MOC form for small plants.</p><p class="meta">Nov 12, 2026 · 5 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="lab to pilot to commercial: what changes when you scale up why a reaction that works in a flask can overheat in a plant reactor. surface area, heat removal and mixing at three scales, with a calculator. scale-up heat transfer jacketed reactor exothermic reaction mixing process design"><div class="thumb"><img src="../assets/media/covers/thumbs/scale-up-what-changes-from-lab-to-pilot-to-commercial.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Scale-up series · Part 1 of 3</p><h3><a href="../post/scale-up-what-changes-from-lab-to-pilot-to-commercial">Lab to Pilot to Commercial: What Changes When You Scale Up</a></h3><p class="muted">Why a reaction that works in a flask can overheat in a plant reactor. Surface area, heat removal and mixing at three scales, with a calculator.</p><p class="meta">Nov 11, 2026 · 5 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "What Happens If the Cooling Fails: Runaway Reactions and MTSR", "datePublished": "2026-11-12", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/what-happens-if-the-cooling-fails-runaway-reactions", "description": "How hot a reactor can get when cooling stops. Adiabatic temperature rise, accumulation, MTSR and criticality classes, with a calculator.", "image": "https://www.chmltech.com/assets/media/covers/what-happens-if-the-cooling-fails-runaway-reactions.jpg", "dateModified": "2026-11-12"}</script>
 <section class="cta">
@@ -190,8 +190,8 @@
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -204,22 +204,22 @@
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -232,7 +232,7 @@
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>

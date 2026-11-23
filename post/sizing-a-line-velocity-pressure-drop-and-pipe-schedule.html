@@ -32,30 +32,30 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../courses.html">Courses</a>
-      <a href="../llm-leaderboard.html">AI Models</a>
-      <a href="../digital-assessment.html">Digital Assessment</a>
-      <a href="../funding.html">Funding</a>
-      <a href="../contact.html">Contact</a>
-      <a class="btn" href="../book.html">Book Online</a>
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <a href="../llm-leaderboard">AI Models</a>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
     </nav>
   </div>
 </header>
 <main id="main">
 <section class="page-hero dark" style="padding-bottom:72px">
   <div class="container stack-lg">
-    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../insights.html">Insights</a></p>
-    <div class="tags"><a href="../insights.html#cat=process-engineering">Process Engineering</a></div>
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a></p>
+    <div class="tags"><a href="../insights#cat=process-engineering">Process Engineering</a></div>
     <p class="series" style="margin:0;font-size:15px;font-weight:600;letter-spacing:.03em;color:var(--green)">Equipment sizing series · Part 5 of 7</p>
     <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,54px)">Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step</h1>
     <p class="post-meta"><span>Quak Foo Lee</span><span>Nov 14, 2026</span><span>10 min read</span></p>
@@ -67,7 +67,7 @@
 
 <link rel="stylesheet" href="../assets/css/oee.css?v=8bc91df5">
 <p>Pipe is the least glamorous item on a plant and the one there is most of. Each line is a small trade: a thin pipe is cheap to buy and expensive to pump through for the next twenty years, and a fat pipe is the reverse. Line sizing is how that trade is settled, one line at a time, with three numbers: the velocity, the pressure drop and the wall thickness.</p>
-<p><a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> of this series sized pump P-101 and simply stated that its discharge line was 1½-inch and its suction line 2-inch. This part shows where those sizes come from. The example is the discharge line from P-101 through the control valve of <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> and heater E-101 to reactor R-101, carrying 6,250&nbsp;kg/h of feed.</p>
+<p><a href="sizing-a-pump-head-npsh-and-power">Part&nbsp;1</a> of this series sized pump P-101 and simply stated that its discharge line was 1½-inch and its suction line 2-inch. This part shows where those sizes come from. The example is the discharge line from P-101 through the control valve of <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation">Part&nbsp;4</a> and heater E-101 to reactor R-101, carrying 6,250&nbsp;kg/h of feed.</p>
 <h2 id="step-1-start-from-the-flow-and-the-fluid">Step 1: start from the flow and the fluid</h2>
 <p>Lines are sized at the same rated flow as the equipment they connect: 8.09&nbsp;m³/h, 10% above the normal 7.35&nbsp;m³/h. The feed has a density of 850&nbsp;kg/m³ and a viscosity of 0.60&nbsp;mPa·s. Those four numbers and a pipe table are all the calculation needs.</p>
 <p>One trap comes first. A pipe's nominal size is a name, not a dimension. A 1½-inch schedule&nbsp;40 pipe has an outside diameter of 48.3&nbsp;mm, a wall of 3.68&nbsp;mm and an inside diameter of 40.9&nbsp;mm. The liquid only knows about the inside diameter, so that is the one to use.</p>
@@ -111,10 +111,10 @@
 <tr><td class="nw">Exit into the reactor</td><td class="num">1</td><td class="num">44</td><td class="num">1.8</td></tr>
 <tr><td class="nw"><strong>Equivalent length</strong></td><td class="num"></td><td class="num"></td><td class="num"><strong>60</strong></td></tr>
 </table>
-<p>About a third of this line's resistance is fittings, which is typical of the short, crooked runs inside a plant. Over 60&nbsp;m the line loses 41&nbsp;kPa, the figure used in the pump's head build-up in <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a>. The control valve, the heater, the flow meter and the strainer are not fittings in this sense. They have their own pressure drops and were counted separately.</p>
+<p>About a third of this line's resistance is fittings, which is typical of the short, crooked runs inside a plant. Over 60&nbsp;m the line loses 41&nbsp;kPa, the figure used in the pump's head build-up in <a href="sizing-a-pump-head-npsh-and-power">Part&nbsp;1</a>. The control valve, the heater, the flow meter and the strainer are not fittings in this sense. They have their own pressure drops and were counted separately.</p>
 <p>At the layout stage nobody knows the real number of elbows. A common allowance is to add 30% to 100% to the straight length, more for short runs, and to recheck when the piping drawings exist.</p>
 <h2 id="step-5-size-the-suction-line-more-gently">Step 5: size the suction line more gently</h2>
-<p>The pump's suction line is sized against the stricter guideline, because pressure lost there comes straight out of the NPSH margin. The usual result is a suction line one size larger than the discharge. Here that is 2-inch: 1.04&nbsp;m/s and 20&nbsp;kPa per 100&nbsp;m, so the 8&nbsp;m suction line loses only 1.6&nbsp;kPa. That is above the 10&nbsp;kPa per 100&nbsp;m guideline, but the line is so short and the NPSH margin in <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> so large that the next size up would buy nothing. With a hot or volatile liquid the same check would push it to 3-inch.</p>
+<p>The pump's suction line is sized against the stricter guideline, because pressure lost there comes straight out of the NPSH margin. The usual result is a suction line one size larger than the discharge. Here that is 2-inch: 1.04&nbsp;m/s and 20&nbsp;kPa per 100&nbsp;m, so the 8&nbsp;m suction line loses only 1.6&nbsp;kPa. That is above the 10&nbsp;kPa per 100&nbsp;m guideline, but the line is so short and the NPSH margin in <a href="sizing-a-pump-head-npsh-and-power">Part&nbsp;1</a> so large that the next size up would buy nothing. With a hot or volatile liquid the same check would push it to 3-inch.</p>
 <h2 id="step-6-check-whether-a-larger-pipe-pays">Step 6: check whether a larger pipe pays</h2>
 <p>The 2-inch discharge line would save 29&nbsp;kPa of pump head. At 8.09&nbsp;m³/h and the pump's 45% efficiency that is about 0.15&nbsp;kW at the shaft, or roughly 1,200&nbsp;kWh in a year of continuous running. That is a small saving to set against a larger pipe, larger valves and a larger control valve body. For a line this size the 1½-inch choice stands. The balance tips the other way on big flows and long distances, where the energy runs to megawatt-hours and an economic pipe diameter study is worth doing.</p>
 <h2 id="step-7-choose-the-schedule">Step 7: choose the schedule</h2>
@@ -175,7 +175,7 @@
 <tr><td class="nw">Design pressure</td><td>10&nbsp;barg</td></tr>
 <tr><td class="nw">Required / selected wall</td><td>1.91&nbsp;mm / 3.68&nbsp;mm</td></tr>
 </table>
-<p>Every line on the P&amp;ID gets a row like this in the <strong>line list</strong>. The line number ties the row to the drawing, as described in <a href="how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID</a>, and the list is what the piping designers, the stress engineers and the estimators all work from.</p>
+<p>Every line on the P&amp;ID gets a row like this in the <strong>line list</strong>. The line number ties the row to the drawing, as described in <a href="how-to-read-a-pfd-and-a-pid">How to Read a PFD and a P&amp;ID</a>, and the list is what the piping designers, the stress engineers and the estimators all work from.</p>
 <h2 id="common-mistakes">Common mistakes</h2>
 <ul>
 <li><strong>Using the nominal size as the diameter.</strong> A 1½-inch pipe is not 38&nbsp;mm inside. Use the inside diameter for the schedule chosen.</li>
@@ -192,7 +192,7 @@
 <li>In turbulent flow, pressure drop varies roughly with the inverse fifth power of diameter: one size down is a large step.</li>
 <li>Small-bore wall thickness is usually set by the piping class and mechanical strength. The pressure calculation confirms it.</li>
 </ul>
-<p>Earlier in this series: <a href="sizing-a-pump-head-npsh-and-power.html">Part&nbsp;1</a> sized the pump, <a href="sizing-a-heat-exchanger-duty-lmtd-and-area.html">Part&nbsp;2</a> the heater, <a href="sizing-a-tank-holdup-levels-and-wall-thickness.html">Part&nbsp;3</a> the feed tank and <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Part&nbsp;4</a> the control valve. Next: <a href="sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity.html">Part&nbsp;6</a> sizes the jacket of the reactor this line feeds.</p>
+<p>Earlier in this series: <a href="sizing-a-pump-head-npsh-and-power">Part&nbsp;1</a> sized the pump, <a href="sizing-a-heat-exchanger-duty-lmtd-and-area">Part&nbsp;2</a> the heater, <a href="sizing-a-tank-holdup-levels-and-wall-thickness">Part&nbsp;3</a> the feed tank and <a href="sizing-a-control-valve-cv-pressure-drop-and-cavitation">Part&nbsp;4</a> the control valve. Next: <a href="sizing-a-reactor-jacket-jacket-types-area-and-cooling-capacity">Part&nbsp;6</a> sizes the jacket of the reactor this line feeds.</p>
 <p class="oee-note"><em>The plant, fluid properties and equipment in this series are an illustrative example. The calculations are preliminary sizing estimates. Final sizing needs vendor data, the applicable codes and a qualified engineer.</em></p>
 <script src="../assets/js/vendor/three-r128.min.js" defer></script>
 <script src="../assets/js/ln3d.js?v=87988e25" defer></script>
@@ -203,13 +203,13 @@
   </article>
   <aside class="aside-sticky">
     <div class="card a-toc" data-toc aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#step-1-start-from-the-flow-and-the-fluid">Step 1: start from the flow and the fluid</a></li><li><a href="#step-2-set-the-criteria">Step 2: set the criteria</a></li><li><a href="#step-3-try-the-standard-sizes">Step 3: try the standard sizes</a></li><li><a href="#step-4-count-the-fittings">Step 4: count the fittings</a></li><li><a href="#step-5-size-the-suction-line-more-gently">Step 5: size the suction line more gently</a></li><li><a href="#step-6-check-whether-a-larger-pipe-pays">Step 6: check whether a larger pipe pays</a></li><li><a href="#step-7-choose-the-schedule">Step 7: choose the schedule</a></li><li><a href="#the-line-list-entry">The line list entry</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#key-points">Key points</a></li></ol></div>
-    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book.html" style="align-self:flex-start">Book a Strategy Call</a></div>
+    <div class="card card-dark" style="padding:28px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:22px">Want help applying this?</h3><p>Book a strategy call to talk through your goals and where to start.</p><a class="btn" href="../book" style="align-self:flex-start">Book a Strategy Call</a></div>
     <div class="card" style="padding:24px"><p class="eyebrow">Tags</p><div class="tags"><span>line sizing</span><span>pipe sizing</span><span>pressure drop</span><span>Reynolds number</span><span>pipe schedule</span><span>process design</span></div></div>
   </aside>
 </div></section>
 <section class="section sand"><div class="container">
-  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights.html">All 186 articles</a></div>
-  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a pump: head, npsh and power, worked step by step how a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, npsh check, power and motor, on a worked example. pump sizing total dynamic head npsh system curve centrifugal pump process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-pump-head-npsh-and-power.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 1 of 7</p><h3><a href="../post/sizing-a-pump-head-npsh-and-power.html">Sizing a Pump: Head, NPSH and Power, Worked Step by Step</a></h3><p class="muted">How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a control valve: cv, pressure drop and cavitation, worked step by step how a liquid control valve is sized: flow cases, pressure drop, cv, trim and travel, cavitation check and failure position, on a worked example. control valve sizing cv flow coefficient cavitation equal percentage trim process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-control-valve-cv-pressure-drop-and-cavitation.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 4 of 7</p><h3><a href="../post/sizing-a-control-valve-cv-pressure-drop-and-cavitation.html">Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step</a></h3><p class="muted">How a liquid control valve is sized: flow cases, pressure drop, Cv, trim and travel, cavitation check and failure position, on a worked example.</p><p class="meta">Nov 14, 2026 · 9 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid.html">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
+  <div class="section-head"><div class="stack"><p class="eyebrow">Keep reading</p><h2 class="h-lg">Related articles</h2></div><a class="btn btn-ghost" href="../insights">All 186 articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="process-engineering" data-search="sizing a pump: head, npsh and power, worked step by step how a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, npsh check, power and motor, on a worked example. pump sizing total dynamic head npsh system curve centrifugal pump process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-pump-head-npsh-and-power.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 1 of 7</p><h3><a href="../post/sizing-a-pump-head-npsh-and-power">Sizing a Pump: Head, NPSH and Power, Worked Step by Step</a></h3><p class="muted">How a centrifugal pump is sized: rated flow, head from the pressure build-up, system curve, NPSH check, power and motor, on a worked example.</p><p class="meta">Nov 13, 2026 · 7 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="sizing a control valve: cv, pressure drop and cavitation, worked step by step how a liquid control valve is sized: flow cases, pressure drop, cv, trim and travel, cavitation check and failure position, on a worked example. control valve sizing cv flow coefficient cavitation equal percentage trim process design"><div class="thumb"><img src="../assets/media/covers/thumbs/sizing-a-control-valve-cv-pressure-drop-and-cavitation.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><p class="series" style="margin:0;font-size:13px;font-weight:600;color:var(--green-dark)">Equipment sizing series · Part 4 of 7</p><h3><a href="../post/sizing-a-control-valve-cv-pressure-drop-and-cavitation">Sizing a Control Valve: Cv, Pressure Drop and Cavitation, Worked Step by Step</a></h3><p class="muted">How a liquid control valve is sized: flow cases, pressure drop, Cv, trim and travel, cavitation check and failure position, on a worked example.</p><p class="meta">Nov 14, 2026 · 9 min read</p></div></article><article class="article" data-cats="process-engineering" data-search="how to read a pfd and a p&amp;id: a guide for owners and managers a worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions. pfd p&amp;id isa-5.1 instrument tags control loop process drawings"><div class="thumb"><img src="../assets/media/covers/thumbs/how-to-read-a-pfd-and-a-pid.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/how-to-read-a-pfd-and-a-pid">How to Read a PFD and a P&amp;ID: A Guide for Owners and Managers</a></h3><p class="muted">A worked example of one heater on both drawings: equipment tags, stream tables, instrument symbols, control loops, line numbers and review questions.</p><p class="meta">Nov 11, 2026 · 6 min read</p></div></article></div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Sizing a Line: Velocity, Pressure Drop and Pipe Schedule, Worked Step by Step", "datePublished": "2026-11-14", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-a-line-velocity-pressure-drop-and-pipe-schedule", "description": "How a liquid line is sized: velocity and pressure drop criteria, Reynolds number, friction factor, fittings, suction lines and wall thickness.", "image": "https://www.chmltech.com/assets/media/covers/sizing-a-line-velocity-pressure-drop-and-pipe-schedule.jpg", "dateModified": "2026-11-14"}</script>
 <section class="cta">
@@ -219,8 +219,8 @@
       <p>Book a strategy call. We will talk through your goals, pain points and where AI, systems or process work can make the biggest difference.</p>
     </div>
     <div class="stack" style="align-items:flex-start">
-      <a class="btn btn-navy" href="../book.html">Book a Strategy Call</a>
-      <p style="font-size:15px">Or email <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
+      <a class="btn btn-navy" href="../book">Book a Strategy Call</a>
+      <p style="font-size:15px">Or email <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a></p>
     </div>
   </div>
 </section>
@@ -233,22 +233,22 @@
     </div>
     <div class="col">
       <span class="title">Explore</span>
-      <a href="../industries.html">Industries</a>
-      <a href="../solutions.html">Solutions</a>
-      <a href="../training.html">Training</a>
-      <a href="../courses.html">Free courses</a>
-      <a href="../training.html">Free practice exams</a>
-      <a href="../insights.html">Insights</a>
-      <a href="../funding.html">Funding finder</a>
-      <a href="../projects.html">Projects</a>
-      <a href="../about.html">About Chmltech</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
     </div>
     <div class="col">
       <span class="title">Contact</span>
       <span>Chmltech Ltd.</span>
       <span>Vancouver, British Columbia, Canada</span>
-      <a class="js-mail" href="../contact.html" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
-      <a href="../book.html">Book a strategy call</a>
+      <a class="js-mail" href="../contact" data-u="info" data-d="chmltech.com">info [at] chmltech [dot] com</a>
+      <a href="../book">Book a strategy call</a>
     </div>
     <div class="col">
       <span class="title">Follow</span>
@@ -261,7 +261,7 @@
     </div>
   </div>
   <div class="container bottom">
-    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy.html">Privacy</a></span>
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
     <span>Advisory Services · Business Consulting · Executive Coaching</span>
   </div>
 </footer>
