@@ -1,9 +1,9 @@
-import {outstandingLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {business,locationScope,orderScope,replenishmentRule,profile} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {outstandingLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {business,locationScope,orderScope,replenishmentRule,profile} from './business.mjs?demo=45f52980507d3a1b';
+import {purchaseLines} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {localDay} from './dashboard.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const shiftDay=(d,n)=>{const v=new Date(d+'T12:00:00Z');v.setUTCDate(v.getUTCDate()+n);return v.toISOString().slice(0,10);};
 export const calendarDay=d=>{must(/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&new Date(d+'T12:00:00Z').toISOString().slice(0,10)===d,'Choose a valid forecast date.');return d;};
@@ -38,4 +38,3 @@ export function forecastDocuments(s,p,locale='en'){
  const r=forecastReport(s,p),tc=locale==='zh-Hant',cn=locale!=='en',word=(en,sc,tr)=>locale==='fr'?translate(en,'fr'):cn?(tc?tr:sc):en,field=(label,text)=>({kind:'field',label,text:String(text)});
  return [{locale,size:'A4',density:'compact',title:word('Demand forecast','需求预测','需求預測'),ref:`${r.warehouse.name} / ${r.from} - ${r.to}`,footer:word('Planning estimate only. Demo data is synthetic. No supplier order or accounting export.','仅供计划参考。示例数据为模拟数据，不会发送供应商订单或会计数据。','僅供計劃參考。範例資料為模擬資料，不會發送供應商訂單或會計資料。'),pageWord:word('Page','页','頁'),continued:word('continued','续页','續頁'),blocks:[field(word('Data mode','数据模式','資料模式'),word(r.options.mode,r.options.mode==='demo'?'模拟示例':'实际记录',r.options.mode==='demo'?'模擬範例':'實際記錄')),field(word('Method','方法','方法'),r.options.method==='weighted'?word('Recent 30/30/30 days weighted 50/30/20%; includes zero-sale days','最近三个30天窗口，权重50/30/20%；包括零销售日','最近三個30天窗口，權重50/30/20%；包括零銷售日'):word('Average daily shipped demand','平均每日发货需求','平均每日發貨需求')),field(word('Assumptions','计划假设','計劃假設'),word(`Review ${r.options.reviewDays} days; safety ${r.options.safetyDays} days`, `采购检查周期${r.options.reviewDays}天；安全库存${r.options.safetyDays}天`,`採購檢查週期${r.options.reviewDays}天；安全庫存${r.options.safetyDays}天`)),...r.rows.flatMap(x=>[{kind:'item',text:x.sku+' / '+x.name},field(word('Description','产品说明','產品說明'),x.description),field(word('Recorded demand / data','记录需求 / 数据','記錄需求 / 資料'),`${x.total} ${x.uom} / ${x.sellingDays} ${word('selling days','销售日','銷售日')} / ${word(x.adequate?'Enough for rolling-demand test':x.quality,x.adequate?'足够用于滚动需求测试':'数据不足，需人工检查',x.adequate?'足夠用於滾動需求測試':'資料不足，需人工檢查')}`),field(word('Daily demand / next 30 days','每日需求 / 未来30天','每日需求 / 未來30天'),`${x.daily.toFixed(2)} / ${x.next30} ${x.uom}`),field(word('Lead / safety / net stock / timely PO','交期 / 安全库存 / 净库存 / 按期采购','交期 / 安全庫存 / 淨庫存 / 按期採購'),`${x.leadDays} / ${x.safety} / ${x.netStock} / ${x.onOrder}`),field(word('Suggested purchase','建议采购','建議採購'),`${x.suggested} ${x.uom} (${word('review before ordering','下单前请审核','下單前請審核')})`)] )]}];
 }
-

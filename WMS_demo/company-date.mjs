@@ -8,4 +8,3 @@ export function businessDay(state,now=new Date()){
  let formatter=formatters.get(timezone);if(!formatter){formatter=new Intl.DateTimeFormat('en-US',{timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit'});formatters.set(timezone,formatter);}
  const parts=Object.fromEntries(formatter.formatToParts(instant).filter(p=>['year','month','day'].includes(p.type)).map(p=>[p.type,p.value]));return parts.year.padStart(4,'0')+'-'+parts.month+'-'+parts.day;
 }
-

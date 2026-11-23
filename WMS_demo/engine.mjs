@@ -1,24 +1,24 @@
-import {receivingCommand,beforeReceiving,validateReceiving} from './receiving-control.mjs?demo=5d9e5d1ce6c83eb1';
-import {productionCommand,validateProduction,beforeProduction} from './production.mjs?demo=5d9e5d1ce6c83eb1';
-import {pickLines,deliveryLines,outstandingLines,releaseDelivery,fulfillmentStatus,validateFulfillment} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {beforeExecution,afterExecution,executionCommand,validateExecution} from './warehouse-execution.mjs?demo=5d9e5d1ce6c83eb1';
-import {beforeUnits,afterUnits,unitsCommand,validateUnits} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
-import {mobileStockCommand,validateMobileStock} from './mobile-stock.mjs?demo=5d9e5d1ce6c83eb1';
-import {pricingCommand,validateSalesDesk} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';
-import {quotationCommand,validateQuotations} from './quotations.mjs?demo=5d9e5d1ce6c83eb1';
-import {crmCommand,validateCRM} from './crm.mjs?demo=5d9e5d1ce6c83eb1';
-import {beforeTransferCosting,afterTransferCosting,transferCostCommand,validateTransferCosting} from './transfer-costing.mjs?demo=5d9e5d1ce6c83eb1';
-import {beforeFIFO,afterFIFOStock,afterFIFOAccounting,validateFIFO} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
-import {procurementCommand,beforeProcurement,afterProcurement,validateProcurement} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
+import {receivingCommand,beforeReceiving,validateReceiving} from './receiving-control.mjs?demo=45f52980507d3a1b';
+import {productionCommand,validateProduction,beforeProduction} from './production.mjs?demo=45f52980507d3a1b';
+import {pickLines,deliveryLines,outstandingLines,releaseDelivery,fulfillmentStatus,validateFulfillment} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {beforeExecution,afterExecution,executionCommand,validateExecution} from './warehouse-execution.mjs?demo=45f52980507d3a1b';
+import {beforeUnits,afterUnits,unitsCommand,validateUnits} from './packaging.mjs?demo=45f52980507d3a1b';
+import {mobileStockCommand,validateMobileStock} from './mobile-stock.mjs?demo=45f52980507d3a1b';
+import {pricingCommand,validateSalesDesk} from './pricing.mjs?demo=45f52980507d3a1b';
+import {quotationCommand,validateQuotations} from './quotations.mjs?demo=45f52980507d3a1b';
+import {crmCommand,validateCRM} from './crm.mjs?demo=45f52980507d3a1b';
+import {beforeTransferCosting,afterTransferCosting,transferCostCommand,validateTransferCosting} from './transfer-costing.mjs?demo=45f52980507d3a1b';
+import {beforeFIFO,afterFIFOStock,afterFIFOAccounting,validateFIFO} from './fifo.mjs?demo=45f52980507d3a1b';
+import {procurementCommand,beforeProcurement,afterProcurement,validateProcurement} from './procurement.mjs?demo=45f52980507d3a1b';
 // Original implementation of the stock-state model documented in this project.
 // Every command operates on a clone and validates before returning a new state.
-import {expired,stockCandidates,validateOperations,beforeOperation,afterOperation,extendedCommand,setupOps} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
-import {charLength,cutText,validUnicode} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessCommand,validateBusiness,beforeBusiness,afterBusiness,stockInScope,orderScope,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {countCommand,validateInsights,afterInsights} from './insights.mjs?demo=5d9e5d1ce6c83eb1';
-import {dashboardCommand,validateDashboard} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
-import {costCommand,beforeCosting,afterCosting,validateCosting} from './costing.mjs?demo=5d9e5d1ce6c83eb1';
-import {billingCommand,validateBilling,beforeBilling} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {expired,stockCandidates,validateOperations,beforeOperation,afterOperation,extendedCommand,setupOps} from './operations.mjs?demo=45f52980507d3a1b';
+import {charLength,cutText,validUnicode} from './unicode.mjs?demo=45f52980507d3a1b';
+import {businessCommand,validateBusiness,beforeBusiness,afterBusiness,stockInScope,orderScope,locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {countCommand,validateInsights,afterInsights} from './insights.mjs?demo=45f52980507d3a1b';
+import {dashboardCommand,validateDashboard} from './dashboard.mjs?demo=45f52980507d3a1b';
+import {costCommand,beforeCosting,afterCosting,validateCosting} from './costing.mjs?demo=45f52980507d3a1b';
+import {billingCommand,validateBilling,beforeBilling} from './billing.mjs?demo=45f52980507d3a1b';
 export class WmsError extends Error {}
 const fail = message => { throw new WmsError(message); };
 const requireThat = (condition, message) => { if (!condition) fail(message); };
@@ -101,7 +101,7 @@ export function createSeed(now = '2026-10-13T09:00:00.000Z') {
 
 export function validateState(s,validationContext={}) {
   validateBusiness(s);
-  requireThat(s && s.schemaVersion === 1, 'This is not a supported Harbor WMS backup.');
+  requireThat(s && s.schemaVersion === 1, 'This is not a supported Chmltech WMS backup.');
   requireThat(Number.isSafeInteger(s.revision) && s.revision >= 0, 'Invalid data revision.');
   for (const key of ['items','locations','stock','orders','picks','shipments','events']) {
     requireThat(Array.isArray(s[key]) && s[key].length <= 10000, `Invalid ${key} data.`);
@@ -302,4 +302,3 @@ export function dispatch(current, command, payload = {}, options = {}) {
   requireThat(s.events.length<10000,'Activity history capacity reached. Export and review before continuing.');s.events.unshift({id:uid(s,'event'),time,type,message,reference,changes});s.revision++;s.updatedAt=time;
   validateState(s,context);return {state:s,resultId};
 }
-

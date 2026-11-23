@@ -134,4 +134,3 @@ Review the quotation before creating the sales order.|创建销售订单前请�
 Quoted prices and existing costs were preserved.|已保留报价价格和现有成本。|已保留報價價格與現有成本。|Les prix du devis et les coûts existants ont été conservés.
 Existing quotations and issued prices were preserved.|已保留现有报价和已签发价格。|已保留現有報價與已簽發價格。|Les devis existants et les prix émis ont été conservés.
 `;
-

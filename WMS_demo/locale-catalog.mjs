@@ -1,13 +1,63 @@
-import {receivingCatalogue} from './locale-receiving.mjs?demo=5d9e5d1ce6c83eb1';
-import {workflowCatalogue} from './locale-workflow.mjs?demo=5d9e5d1ce6c83eb1';
-import {securityCatalogue} from './locale-security.mjs?demo=5d9e5d1ce6c83eb1';
-import {extraRows} from './locale-extra.mjs?demo=5d9e5d1ce6c83eb1';
-import {unitRows} from './locale-units.mjs?demo=5d9e5d1ce6c83eb1';
-import {salesRows} from './locale-sales.mjs?demo=5d9e5d1ce6c83eb1';
-import {crmRows} from './locale-crm.mjs?demo=5d9e5d1ce6c83eb1';
-import {productionRows} from './locale-production.mjs?demo=5d9e5d1ce6c83eb1';
-// Original Harbor translations. Keys describe presentation, never stored records.
+import {receivingCatalogue} from './locale-receiving.mjs?demo=45f52980507d3a1b';
+import {workflowCatalogue} from './locale-workflow.mjs?demo=45f52980507d3a1b';
+import {securityCatalogue} from './locale-security.mjs?demo=45f52980507d3a1b';
+import {extraRows} from './locale-extra.mjs?demo=45f52980507d3a1b';
+import {unitRows} from './locale-units.mjs?demo=45f52980507d3a1b';
+import {salesRows} from './locale-sales.mjs?demo=45f52980507d3a1b';
+import {crmRows} from './locale-crm.mjs?demo=45f52980507d3a1b';
+import {productionRows} from './locale-production.mjs?demo=45f52980507d3a1b';
+// Original Chmltech WMS translations. Keys describe presentation, never stored records.
 const rows=`
+Demo data & storage|示例数据与存储|範例資料與儲存|Données et stockage de la démonstration
+Your demo warehouse is saved only in this browser. Reset it, export it or review its activity here.|您的示例仓库仅保存在此浏览器中。可在此重置、导出或查看其活动记录。|您的範例倉庫僅儲存在此瀏覽器中。可在此重設、匯出或檢視其活動記錄。|Votre entrepôt de démonstration est enregistré uniquement dans ce navigateur. Réinitialisez-le, exportez-le ou consultez son activité ici.
+Download demo data (JSON)|下载示例数据 (JSON)|下載範例資料 (JSON)|Télécharger les données de démonstration (JSON)
+Export catalog (CSV)|导出产品目录 (CSV)|匯出產品目錄 (CSV)|Exporter le catalogue (CSV)
+Activity log|活动日志|活動日誌|Journal d’activité
+Saved in this browser only|仅保存在此浏览器中|僅儲存在此瀏覽器中|Enregistré dans ce navigateur uniquement
+Every change is saved in this browser’s storage on this device. Other browsers, devices and visitors never see it. Clearing your browser data removes it.|每项更改都保存在此设备上此浏览器的存储中。其他浏览器、设备和访客都看不到。清除浏览器数据会将其删除。|每項變更都儲存在此裝置上此瀏覽器的儲存空間中。其他瀏覽器、裝置和訪客都看不到。清除瀏覽器資料會將其刪除。|Chaque modification est enregistrée dans le stockage de ce navigateur, sur cet appareil. Les autres navigateurs, appareils et visiteurs ne la voient jamais. Effacer les données du navigateur la supprime.
+Start again|重新开始|重新開始|Recommencer
+Reset demo restores the fictional sample warehouse. It changes only this WMS demo; other pages of the website are not affected.|“重置示例”会恢复虚构的示例仓库，只影响此 WMS 示例，不影响网站的其他页面。|「重設範例」會還原虛構的範例倉庫，只影響此 WMS 範例，不影響網站的其他頁面。|« Réinitialiser la démonstration » rétablit l’entrepôt fictif d’exemple. Seule cette démonstration WMS est modifiée ; les autres pages du site ne sont pas touchées.
+Export your demo data|导出您的示例数据|匯出您的範例資料|Exporter vos données de démonstration
+Download the whole workspace as a JSON file, or the product catalog as a CSV file. Exports contain only fictional demo records. Restoring a file is not available in the browser demo.|可将整个工作区下载为 JSON 文件，或将产品目录下载为 CSV 文件。导出内容仅包含虚构的示例记录。浏览器示例不支持从文件恢复。|可將整個工作區下載為 JSON 檔案，或將產品目錄下載為 CSV 檔案。匯出內容僅包含虛構的範例記錄。瀏覽器範例不支援從檔案還原。|Téléchargez tout l’espace de travail en fichier JSON, ou le catalogue de produits en fichier CSV. Les exports ne contiennent que des données fictives. La restauration d’un fichier n’est pas disponible dans la démonstration.
+No real accounts or server backups|没有真实账户，也没有服务器备份|沒有真實帳戶，也沒有伺服器備份|Aucun compte réel ni sauvegarde sur serveur
+You use the demo as Demo visitor with full access, so you can try every module. There are no sign-ins, passwords, user accounts or server backups, and your records are not saved on any server. The website’s Microsoft Clarity analytics records which screens are used, with record details masked. Do not enter real customer or company data.|您以“示例访客”身份使用，拥有完整权限，可试用所有模块。这里没有登录、密码、用户账户或服务器备份，您的记录也不会保存在任何服务器上。本网站使用 Microsoft Clarity 分析记录访客使用了哪些页面，记录详情会被遮盖。请勿输入真实的客户或公司数据。|您以「範例訪客」身分使用，擁有完整權限，可試用所有模組。這裡沒有登入、密碼、使用者帳戶或伺服器備份，您的記錄也不會儲存在任何伺服器上。本網站使用 Microsoft Clarity 分析記錄訪客使用了哪些頁面，記錄詳情會被遮蓋。請勿輸入真實的客戶或公司資料。|Vous utilisez la démonstration en tant que « Visiteur de démonstration » avec un accès complet, pour essayer tous les modules. Il n’y a ni connexion, ni mot de passe, ni compte utilisateur, ni sauvegarde sur serveur, et vos données ne sont enregistrées sur aucun serveur. L’outil d’analyse Microsoft Clarity du site enregistre les écrans consultés, en masquant le détail des données. N’entrez pas de données réelles de clients ou d’entreprise.
+This demo is saved only in this browser on this device. Other browsers and visitors never see it. There are no automatic backups: download a JSON copy if you want to keep your work.|此示例仅保存在此设备的此浏览器中，其他浏览器和访客都看不到。没有自动备份：如需保留您的操作，请下载 JSON 副本。|此範例僅儲存在此裝置的此瀏覽器中，其他瀏覽器和訪客都看不到。沒有自動備份：如需保留您的操作，請下載 JSON 副本。|Cette démonstration est enregistrée uniquement dans ce navigateur, sur cet appareil. Les autres navigateurs et visiteurs ne la voient jamais. Il n’y a pas de sauvegarde automatique : téléchargez une copie JSON pour conserver votre travail.
+Browser demo scope|浏览器示例范围|瀏覽器範例範圍|Portée de la démonstration
+Warehouse, purchasing, sales, manufacturing and accounting workflows with fictional records. QuickBooks, EDI, carrier, email and payment connections are disconnected. Open a sidebar group to find its modules.|使用虚构记录体验仓库、采购、销售、生产和会计流程。QuickBooks、EDI、承运商、电子邮件和付款连接均已断开。打开侧边栏分组即可找到相应模块。|使用虛構記錄體驗倉庫、採購、銷售、生產與會計流程。QuickBooks、EDI、承運商、電子郵件與付款連線均已中斷。開啟側邊欄群組即可找到相應模組。|Flux d’entrepôt, d’achats, de ventes, de fabrication et de comptabilité avec des données fictives. Les connexions QuickBooks, EDI, transporteurs, e-mail et paiement sont désactivées. Ouvrez un groupe de la barre latérale pour trouver ses modules.
+Demo activity — latest 500 changes|示例活动 — 最近 500 项更改|範例活動 — 最近 500 項變更|Activité de la démonstration — 500 dernières modifications
+Loading activity…|正在加载活动…|正在載入活動…|Chargement de l’activité…
+Activity could not be loaded.|无法加载活动。|無法載入活動。|L’activité n’a pas pu être chargée.
+Retry|重试|重試|Réessayer
+This action is not available in the browser demo because it needs a real account or server. Your demo data is unchanged.|此操作在浏览器示例中不可用，因为它需要真实账户或服务器。您的示例数据未更改。|此操作在瀏覽器範例中無法使用，因為它需要真實帳戶或伺服器。您的範例資料未變更。|Cette action n’est pas disponible dans la démonstration, car elle nécessite un vrai compte ou un serveur. Vos données de démonstration sont inchangées.
+Restoring a backup file is not available in the browser demo. Use Reset demo to start again.|浏览器示例不支持从备份文件恢复。请使用“重置示例”重新开始。|瀏覽器範例不支援從備份檔案還原。請使用「重設範例」重新開始。|La restauration d’un fichier de sauvegarde n’est pas disponible dans la démonstration. Utilisez « Réinitialiser la démonstration » pour recommencer.
+Changes are saved in this browser only. No carrier booking or postage purchase.|更改仅保存在此浏览器中，不会预订承运商或购买运费。|變更僅儲存在此瀏覽器中，不會預訂承運商或購買運費。|Les modifications sont enregistrées dans ce navigateur uniquement. Aucune réservation de transporteur ni achat d’affranchissement.
+Inventory records are saved in this browser only. Use Reset demo to restore the sample warehouse.|库存记录仅保存在此浏览器中。使用“重置示例”可恢复示例仓库。|庫存記錄僅儲存在此瀏覽器中。使用「重設範例」可還原範例倉庫。|Les données de stock sont enregistrées dans ce navigateur uniquement. Utilisez « Réinitialiser la démonstration » pour rétablir l’entrepôt d’exemple.
+No purchase orders are saved in this workspace yet. Choose New purchase order to create one.|此工作区尚未保存任何采购订单。选择“新建采购订单”即可创建。|此工作區尚未儲存任何採購訂單。選擇「新增採購訂單」即可建立。|Aucun bon de commande n’est encore enregistré dans cet espace. Choisissez « Nouveau bon de commande » pour en créer un.
+Chmltech WMS · Browser demo|Chmltech WMS · 浏览器示例|Chmltech WMS · 瀏覽器範例|Chmltech WMS · Démonstration dans le navigateur
+Fictional sample records · Saved in this browser only|虚构示例记录 · 仅保存在此浏览器中|虛構範例記錄 · 僅儲存在此瀏覽器中|Données fictives · Enregistrées dans ce navigateur uniquement
+Temporary session · Browser storage unavailable · Changes disappear when you leave|临时会话 · 浏览器存储不可用 · 离开后更改将消失|臨時工作階段 · 瀏覽器儲存空間無法使用 · 離開後變更將消失|Session temporaire · Stockage du navigateur indisponible · Les modifications disparaîtront à votre départ
+Back to Chmltech|返回 Chmltech|返回 Chmltech|Retour à Chmltech
+Reset this WMS demo?|要重置此 WMS 示例吗？|要重設此 WMS 範例嗎？|Réinitialiser cette démonstration WMS ?
+This replaces the WMS sample warehouse saved in this browser. Your other website apps and other visitors are unaffected.|这会替换此浏览器中保存的 WMS 示例仓库。网站的其他应用和其他访客不受影响。|這會取代此瀏覽器中儲存的 WMS 範例倉庫。網站的其他應用程式和其他訪客不受影響。|Cette action remplace l’entrepôt d’exemple enregistré dans ce navigateur. Les autres applications du site et les autres visiteurs ne sont pas touchés.
+Keep exploring|继续探索|繼續探索|Continuer l’exploration
+Reset warehouse|重置仓库|重設倉庫|Réinitialiser l’entrepôt
+This browser has an older copy of the demo. Use Reset demo to load the latest sample warehouse.|此浏览器中保存的是旧版示例。使用“重置示例”可加载最新的示例仓库。|此瀏覽器中儲存的是舊版範例。使用「重設範例」可載入最新的範例倉庫。|Ce navigateur contient une ancienne copie de la démonstration. Utilisez « Réinitialiser la démonstration » pour charger le dernier entrepôt d’exemple.
+Try a complete warehouse workflow|试用完整的仓库流程|試用完整的倉庫流程|Essayez un flux d’entrepôt complet
+Start with the Insulated travel bottle sample. Each pack contains 3 bottles, each carton contains 12, and each pallet contains 480.|从“保温旅行瓶”示例开始。每包 3 个，每箱 12 个，每托盘 480 个。|從「保溫旅行瓶」範例開始。每包 3 個，每箱 12 個，每棧板 480 個。|Commencez par l’exemple de la bouteille isotherme de voyage. Un paquet contient 3 bouteilles, un carton 12 et une palette 480.
+Open Purchasing and receive the sample purchase order for two cartons: 24 bottles.|打开“采购”，接收两箱（24 个瓶子）的示例采购订单。|開啟「採購」，接收兩箱（24 個瓶子）的範例採購訂單。|Ouvrez Achats et réceptionnez le bon de commande d’exemple de deux cartons : 24 bouteilles.
+Open the draft sales order for two packs: 6 bottles.|打开两包（6 个瓶子）的销售订单草稿。|開啟兩包（6 個瓶子）的銷售訂單草稿。|Ouvrez la commande client brouillon de deux paquets : 6 bouteilles.
+Issue the order, reserve its stock and finish picking.|下达订单，预留库存并完成拣货。|下達訂單，預留庫存並完成揀貨。|Émettez la commande, réservez le stock et terminez la préparation.
+Pack and ship the shipment. The stock balance falls by 6 bottles.|装箱并发运。库存余额减少 6 个瓶子。|裝箱並出貨。庫存餘額減少 6 個瓶子。|Emballez et expédiez l’envoi. Le solde du stock baisse de 6 bouteilles.
+Edit packaging in Inventory, or use Reset demo to restore the sample warehouse.|在“库存”中编辑包装单位，或使用“重置示例”恢复示例仓库。|在「庫存」中編輯包裝單位，或使用「重設範例」還原範例倉庫。|Modifiez les conditionnements dans Stocks, ou utilisez « Réinitialiser la démonstration » pour rétablir l’entrepôt d’exemple.
+Open the sample sales order|打开示例销售订单|開啟範例銷售訂單|Ouvrir la commande client d’exemple
+Changes are saved in this browser only.|更改仅保存在此浏览器中。|變更僅儲存在此瀏覽器中。|Les modifications sont enregistrées dans ce navigateur uniquement.
+Download demo data|下载示例数据|下載範例資料|Télécharger les données de démonstration
+Demo data download started|示例数据下载已开始|範例資料下載已開始|Téléchargement des données de démonstration lancé
+QR codes on printed documents can be read with the scanner on this device.|打印文档上的二维码可用此设备上的扫描器读取。|列印文件上的 QR 碼可用此裝置上的掃描器讀取。|Les codes QR des documents imprimés peuvent être lus avec le scanner de cet appareil.
+Recording or reversing a payment updates this demo only. No bank transfer occurs, and QuickBooks is disconnected in the browser demo.|记录或冲销付款只会更新此示例，不会进行银行转账，浏览器示例中 QuickBooks 已断开。|記錄或沖銷付款只會更新此範例，不會進行銀行轉帳，瀏覽器範例中 QuickBooks 已中斷。|Enregistrer ou annuler un paiement ne modifie que cette démonstration. Aucun virement n’a lieu et QuickBooks est déconnecté dans la démonstration.
+Inventory reconciliation compares Chmltech WMS stock values with QuickBooks, which is disconnected in the browser demo. Use Historical valuation and Inventory journals to review stock values.|库存对账会将 Chmltech WMS 的库存价值与 QuickBooks 比较，而浏览器示例中 QuickBooks 已断开。请使用“历史估值”和“库存会计凭证”查看库存价值。|庫存對帳會將 Chmltech WMS 的庫存價值與 QuickBooks 比較，而瀏覽器範例中 QuickBooks 已中斷。請使用「歷史估值」和「庫存會計憑證」檢視庫存價值。|Le rapprochement des stocks compare les valeurs de Chmltech WMS avec QuickBooks, déconnecté dans la démonstration. Utilisez l’évaluation historique et les écritures de stock pour examiner les valeurs.
+Chinese print font could not load. Refresh this page and try again.|中文打印字体无法加载。请刷新此页面后重试。|中文列印字型無法載入。請重新整理此頁面後再試。|La police chinoise d’impression n’a pas pu être chargée. Actualisez cette page et réessayez.
+Chinese font could not load. Refresh this page and try again.|中文字体无法加载。请刷新此页面后重试。|中文字型無法載入。請重新整理此頁面後再試。|La police chinoise n’a pas pu être chargée. Actualisez cette page et réessayez.
 Language|语言|語言|Langue
 Currency|币种|幣別|Devise
 Exchange rate|汇率|匯率|Taux de change
@@ -18,7 +68,7 @@ Pick|拣货|揀貨|Préparer
 Count|盘点|盤點|Compter
 Warehouse scanning|仓库扫码|倉庫掃碼|Lecture de codes d’entrepôt
 Mobile warehouse|移动仓库|行動倉庫|Entrepôt mobile
-Connecting to Harbor…|正在连接 Harbor…|正在連接 Harbor…|Connexion à Harbor…
+Connecting to Chmltech WMS…|正在连接 Chmltech WMS…|正在連接 Chmltech WMS…|Connexion à Chmltech WMS…
 Committed pick|已分配拣货单|已分配揀貨單|Préparation affectée
 Stock row|库存行|庫存列|Ligne de stock
 Receive into|收货库位|收貨庫位|Réceptionner dans
@@ -98,7 +148,7 @@ Admin|管理员|管理員|Administrateur
 Accounting role|会计角色|會計角色|Rôle comptable
 Interface|界面|介面|Interface
 Classic workspace|经典工作区|經典工作區|Espace classique
-Harbor modern|Harbor 现代风格|Harbor 現代風格|Harbor moderne
+Modern workspace|现代工作区|現代工作區|Espace de travail moderne
 Shared local database|共享本地数据库|共用本機資料庫|Base de données locale partagée
 Connection needs attention|连接需要处理|連線需要處理|Connexion à vérifier
 Choose workspace|选择工作区|選擇工作區|Choisir l’espace de travail
@@ -345,7 +395,7 @@ Discount|折扣|折扣|Remise
 Document date|单据日期|單據日期|Date du document
 Draft - not issued|草稿 - 尚未下单|草稿 - 尚未下單|Brouillon - non émis
 FIFO layer|FIFO 成本层|FIFO 成本層|Couche FIFO
-Harbor inventory|Harbor 库存价值|Harbor 庫存價值|Valeur des stocks Harbor
+Chmltech WMS inventory|Chmltech WMS 库存价值|Chmltech WMS 庫存價值|Valeur des stocks Chmltech WMS
 Historical inventory valuation|历史库存估值|歷史庫存估值|Évaluation historique des stocks
 Inventory book value returned|退货库存账面价值|退貨庫存帳面價值|Valeur comptable des stocks retournés
 Issued credits|已开贷项|已開貸項|Crédits émis
@@ -627,20 +677,20 @@ Object.assign(catalogue,{
   "zh-Hant": "雲端行動存取",
   "fr": "Accès mobile au cloud"
  },
- "Warehouse scanning uses local Harbor in this phase. Cloud mobile saving is unavailable.": {
-  "zh-Hans": "本阶段仓库扫描使用本地 Harbor。云端移动保存尚未开放。",
-  "zh-Hant": "此階段倉庫掃描使用本地 Harbor。雲端行動儲存尚未開放。",
-  "fr": "À cette étape, la lecture en entrepôt utilise Harbor local. L’enregistrement mobile cloud est indisponible."
+ "Warehouse scanning uses local Chmltech WMS in this phase. Cloud mobile saving is unavailable.": {
+  "zh-Hans": "本阶段仓库扫描使用本地 Chmltech WMS。云端移动保存尚未开放。",
+  "zh-Hant": "此階段倉庫掃描使用本地 Chmltech WMS。雲端行動儲存尚未開放。",
+  "fr": "À cette étape, la lecture en entrepôt utilise Chmltech WMS local. L’enregistrement mobile cloud est indisponible."
  },
- "You can browse cloud inventory in the full Harbor app. Your account permissions still apply.": {
-  "zh-Hans": "您可在完整 Harbor 应用中浏览云端库存。账户权限仍然适用。",
-  "zh-Hant": "您可在完整 Harbor 應用程式中瀏覽雲端庫存。帳戶權限仍然適用。",
-  "fr": "Consultez le stock cloud dans l’application Harbor complète. Les droits de votre compte restent applicables."
+ "You can browse cloud inventory in the full Chmltech WMS app. Your account permissions still apply.": {
+  "zh-Hans": "您可在完整 Chmltech WMS 应用中浏览云端库存。账户权限仍然适用。",
+  "zh-Hant": "您可在完整 Chmltech WMS 應用程式中瀏覽雲端庫存。帳戶權限仍然適用。",
+  "fr": "Consultez le stock cloud dans l’application Chmltech WMS complète. Les droits de votre compte restent applicables."
  },
- "Open Harbor inventory": {
-  "zh-Hans": "打开 Harbor 库存",
-  "zh-Hant": "開啟 Harbor 庫存",
-  "fr": "Ouvrir le stock Harbor"
+ "Open Chmltech WMS inventory": {
+  "zh-Hans": "打开 Chmltech WMS 库存",
+  "zh-Hant": "開啟 Chmltech WMS 庫存",
+  "fr": "Ouvrir le stock Chmltech WMS"
  },
  "Inventory editing is enabled for your role.": {
   "zh-Hans": "您的角色已获准编辑库存。",
@@ -759,10 +809,10 @@ Object.assign(catalogue,{
   "zh-Hant": "庫存資產餘額比較",
   "fr": "Comparaison des soldes de stock"
  },
- "Select only the sandbox accounts that represent Harbor inventory. Existing sandbox sample data can cause a difference.": {
-  "zh-Hans": "仅选择代表 Harbor 库存的沙盒科目。现有沙盒示例数据可能导致差额。",
-  "zh-Hant": "僅選擇代表 Harbor 庫存的沙盒科目。現有沙盒範例資料可能導致差額。",
-  "fr": "Choisissez uniquement les comptes représentant le stock Harbor. Les exemples du sandbox peuvent créer un écart."
+ "Select only the sandbox accounts that represent Chmltech WMS inventory. Existing sandbox sample data can cause a difference.": {
+  "zh-Hans": "仅选择代表 Chmltech WMS 库存的沙盒科目。现有沙盒示例数据可能导致差额。",
+  "zh-Hant": "僅選擇代表 Chmltech WMS 庫存的沙盒科目。現有沙盒範例資料可能導致差額。",
+  "fr": "Choisissez uniquement les comptes représentant le stock Chmltech WMS. Les exemples du sandbox peuvent créer un écart."
  },
  "Load sandbox lists to choose inventory asset accounts.": {
   "zh-Hans": "加载沙盒列表以选择库存资产科目。",
@@ -774,20 +824,20 @@ Object.assign(catalogue,{
   "zh-Hant": "比較餘額",
   "fr": "Comparer les soldes"
  },
- "Harbor inventory value": {
-  "zh-Hans": "Harbor 库存价值",
-  "zh-Hant": "Harbor 庫存價值",
-  "fr": "Valeur du stock Harbor"
+ "Chmltech WMS inventory value": {
+  "zh-Hans": "Chmltech WMS 库存价值",
+  "zh-Hant": "Chmltech WMS 庫存價值",
+  "fr": "Valeur du stock Chmltech WMS"
  },
  "Selected QuickBooks balance": {
   "zh-Hans": "所选 QuickBooks 余额",
   "zh-Hant": "所選 QuickBooks 餘額",
   "fr": "Solde QuickBooks sélectionné"
  },
- "Harbor revision": {
-  "zh-Hans": "Harbor 版本",
-  "zh-Hant": "Harbor 版本",
-  "fr": "Révision Harbor"
+ "Chmltech WMS revision": {
+  "zh-Hans": "Chmltech WMS 版本",
+  "zh-Hant": "Chmltech WMS 版本",
+  "fr": "Révision Chmltech WMS"
  },
  "Compared at": {
   "zh-Hans": "比较时间",
@@ -799,15 +849,15 @@ Object.assign(catalogue,{
   "zh-Hant": "未調整任何庫存、成本或會計餘額。",
   "fr": "Aucun stock, coût ou solde comptable n’a été ajusté."
  },
- "Some Harbor stock has no known cost. Review the missing costs before interpreting the difference.": {
-  "zh-Hans": "部分 Harbor 库存缺少已知成本。请先核查缺失成本，再分析差额。",
-  "zh-Hant": "部分 Harbor 庫存缺少已知成本。請先核查缺失成本，再分析差額。",
-  "fr": "Certains stocks Harbor n’ont pas de coût connu. Vérifiez les coûts manquants avant d’interpréter l’écart."
+ "Some Chmltech WMS stock has no known cost. Review the missing costs before interpreting the difference.": {
+  "zh-Hans": "部分 Chmltech WMS 库存缺少已知成本。请先核查缺失成本，再分析差额。",
+  "zh-Hant": "部分 Chmltech WMS 庫存缺少已知成本。請先核查缺失成本，再分析差額。",
+  "fr": "Certains stocks Chmltech WMS n’ont pas de coût connu. Vérifiez les coûts manquants avant d’interpréter l’écart."
  },
- "Some Harbor values use demo sample costs.": {
-  "zh-Hans": "部分 Harbor 价值使用示例成本。",
-  "zh-Hant": "部分 Harbor 價值使用範例成本。",
-  "fr": "Certaines valeurs Harbor utilisent des coûts de démonstration."
+ "Some Chmltech WMS values use demo sample costs.": {
+  "zh-Hans": "部分 Chmltech WMS 价值使用示例成本。",
+  "zh-Hant": "部分 Chmltech WMS 價值使用範例成本。",
+  "fr": "Certaines valeurs Chmltech WMS utilisent des coûts de démonstration."
  },
  "QuickBooks did not provide a balance for every selected account.": {
   "zh-Hans": "QuickBooks 未提供所有所选科目的余额。",
@@ -854,10 +904,10 @@ Object.assign(catalogue,{
   "zh-Hant": "正在載入沙盒清單…",
   "fr": "Chargement des listes du sandbox…"
  },
- "Disconnect this cloud sandbox connection. The local PC connection and Harbor records are preserved.": {
-  "zh-Hans": "断开此云端沙盒连接。本地电脑连接和 Harbor 记录将保留。",
-  "zh-Hant": "中斷此雲端沙盒連線。本機電腦連線和 Harbor 記錄將保留。",
-  "fr": "Déconnectez ce sandbox cloud. La connexion locale et les données Harbor sont conservées."
+ "Disconnect this cloud sandbox connection. The local PC connection and Chmltech WMS records are preserved.": {
+  "zh-Hans": "断开此云端沙盒连接。本地电脑连接和 Chmltech WMS 记录将保留。",
+  "zh-Hant": "中斷此雲端沙盒連線。本機電腦連線和 Chmltech WMS 記錄將保留。",
+  "fr": "Déconnectez ce sandbox cloud. La connexion locale et les données Chmltech WMS sont conservées."
  },
  "Private accounting access is required.": {
   "zh-Hans": "需要私有会计访问权限。",
@@ -964,10 +1014,10 @@ Object.assign(catalogue,{
   "zh-Hant": "沙盒清單已載入。過帳仍停用。",
   "fr": "Listes chargées. La comptabilisation reste désactivée."
  },
- "The sandbox and Harbor home currencies must match.": {
-  "zh-Hans": "沙盒与 Harbor 的本位币必须相同。",
-  "zh-Hant": "沙盒與 Harbor 的本位幣必須相同。",
-  "fr": "Les devises de base du sandbox et de Harbor doivent correspondre."
+ "The sandbox and Chmltech WMS home currencies must match.": {
+  "zh-Hans": "沙盒与 Chmltech WMS 的本位币必须相同。",
+  "zh-Hant": "沙盒與 Chmltech WMS 的本位幣必須相同。",
+  "fr": "Les devises de base du sandbox et de Chmltech WMS doivent correspondre."
  },
  "Choose inventory asset accounts for comparison.": {
   "zh-Hans": "请选择要比较的库存资产科目。",
@@ -1084,4 +1134,5 @@ Object.assign(catalogue,{
 Object.assign(catalogue,receivingCatalogue);
 for(const [key,value] of Object.entries(workflowCatalogue))if(!catalogue[key])catalogue[key]=value;
 for(const [key,value] of Object.entries(securityCatalogue))if(!catalogue[key])catalogue[key]=value;
+
 

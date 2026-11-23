@@ -1,6 +1,6 @@
-import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';
-import {unitQuantity} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
-import {crmProfile,crmAddressText} from './crm.mjs?demo=5d9e5d1ce6c83eb1';
+import {salesDesk,setupSalesDesk,explainPrice,salesText,salesDay,salesToday,lineCents} from './pricing.mjs?demo=45f52980507d3a1b';
+import {unitQuantity} from './packaging.mjs?demo=45f52980507d3a1b';
+import {crmProfile,crmAddressText} from './crm.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export function quotationStatus(q,today=salesToday()){return ['Issued','Accepted'].includes(q.status)&&q.validUntil<today?'Expired':q.status;}
 const snapshot=q=>structuredClone(Object.fromEntries(Object.entries(q).filter(([k])=>!['versions','history'].includes(k))));
@@ -11,7 +11,7 @@ function content(s,p,ctx){
  const lines=p.lines.map(raw=>{const i=s.items.find(i=>i.id===raw.itemId);must(i,'Product not found.');const unit=unitQuantity(s,i.id,raw.unitId||'base',raw.qty),pricing=explainPrice(s,{customerId:customer.id,itemId:i.id,qty:unit.baseQty,date});must(pricing.ruleId||pricing.legacyRuleId,'Set a price rule before quoting this product.');const total=lineCents(unit.baseQty,pricing.price4);return {itemId:i.id,sku:i.sku,name:i.name,description:i.description||'',uom:i.uom,unit,qty:unit.baseQty,price4:pricing.price4,total,pricing};});
  const total=lines.reduce((n,l)=>n+l.total,0);must(Number.isSafeInteger(total)&&total<=1e12,'Quotation total exceeds the allowed range.');
  const profile=crmProfile(s,customer.id);
- return {customerId:customer.id,party:{name:profile?.company||customer.name,address:profile?crmAddressText(profile):customer.address||'',contact:profile?.contacts.find(c=>c.primary)?.email||profile?.email||customer.email||'',taxId:''},issuer:structuredClone(s.billing?.profile||{name:'Harbor warehouse'}),warehouseId,date,validUntil,currency:s.business.homeCurrency,reference:salesText(p.reference),note:salesText(p.note,1000),lines,total};
+ return {customerId:customer.id,party:{name:profile?.company||customer.name,address:profile?crmAddressText(profile):customer.address||'',contact:profile?.contacts.find(c=>c.primary)?.email||profile?.email||customer.email||'',taxId:''},issuer:structuredClone(s.billing?.profile||{name:'Chmltech WMS warehouse'}),warehouseId,date,validUntil,currency:s.business.homeCurrency,reference:salesText(p.reference),note:salesText(p.note,1000),lines,total};
 }
 export function quotationCommand(s,command,p,ctx){
  if(!command.startsWith('quote:'))return null;const d=setupSalesDesk(s),today=salesToday(ctx.time,s),actor=ctx.actor||'Local operator',event=(type,q)=>({type,reference:q.number,resultId:q.id,message:'Quoted prices and existing costs were preserved.'}),audit=(q,action)=>q.history.push({time:ctx.time,actor,action,revision:q.revision});
@@ -36,4 +36,3 @@ export function validateQuotations(s){
   if(['Accepted','Converted'].includes(q.status))must(q.acceptance?.reference&&q.issuedAt,'Quotation acceptance is missing.');if(q.status==='Converted')must(s.orders.some(o=>o.id===q.orderId&&o.quoteSnapshot?.id===q.id&&o.quoteSnapshot.revision===q.revision),'Quotation sales-order link is missing.');else must(!q.orderId,'Unconverted quotation has an order link.');
  }
 }
-

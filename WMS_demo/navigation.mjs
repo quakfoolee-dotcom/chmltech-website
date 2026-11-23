@@ -1,4 +1,4 @@
-// Harbor's module registry. These routes preserve existing workspace records.
+// Chmltech WMS's module registry. These routes preserve existing workspace records.
 const module=(label,route)=>({label,route});
 export const navigationGroups=[
  {id:'inventory',label:'Inventory',icon:'box',classic:'Materials',modules:[module('Products & stock','inventory'),module('FIFO cost layers','business/fifo'),module('Product rules','business/products'),module('Units & packaging','business/units'),module('Replenishment','business/reorder'),module('Picking replenishment','business/bin-replenishment'),module('Transfer orders','business/transfers'),module('Cycle counts','business/counts'),module('Traceability & recalls','business/trace'),module('Barcode station','business/scanner')]},
@@ -7,7 +7,7 @@ export const navigationGroups=[
  {id:'manufacturing',label:'Manufacturing',icon:'layers',classic:'Manufacturing',modules:[module('Multi-level BOMs','business/production-boms'),module('Manufacture orders','business/production-orders'),module('Labor approvals','business/production-labor'),module('Material planning','business/production-materials'),module('Production schedule','business/production-schedule'),module('Legacy BOMs & work orders','business/manufacturing')]},
  {id:'accounting',label:'Accounting',icon:'activity',classic:'Accounting',modules:[module('Invoices','business/invoices'),module('Supplier bills','business/bills'),module('Credit notes','business/credits'),module('Payments & balances','business/payments'),module('Inventory journals','business/accounting'),module('Inventory reconciliation','business/reconciliation'),module('Historical valuation','business/valuation')]},
  {id:'reports',label:'Reports & dashboards',icon:'grid',classic:'Reporting / Dashboard',modules:[module('Dashboards','dashboards'),module('Business dashboard','business/dashboard'),module('Demand forecasting','business/forecast'),module('Report centre','business/reports'),module('Activity history','activity')]},
- {id:'setup',label:'Setup & integrations',icon:'settings',classic:'Setup / Integrations',modules:[module('Locations','locations'),module('Warehouses & owners','business/network'),module('QuickBooks sandbox','business/quickbooks'),module('Partner exchange','business/exchange'),module('Users & backups','business/admin')]}
+ {id:'setup',label:'Setup & integrations',icon:'settings',classic:'Setup / Integrations',modules:[module('Locations','locations'),module('Warehouses & owners','business/network'),module('QuickBooks sandbox','business/quickbooks'),module('Partner exchange','business/exchange'),module('Demo data & storage','business/admin')]}
 ];
 export function navigationContext(hash=''){
  const route=hash.replace(/^#/,'')||'dashboards/sales';
@@ -19,4 +19,3 @@ export function navigationHTML(hash,{escape,icon,open={},orderCount=0}={}){
  const context=navigationContext(hash),link=(m,active)=>`<a class="nav-link module-link${active?' active':''}" href="#${m.route}"${active?' aria-current="page"':''}>${escape(m.label)}${m.route==='orders'?`<span class="nav-count">${orderCount}</span>`:''}</a>`;
  return `<nav class="module-navigation" aria-label="Main navigation"><a class="nav-link overview-link${context.route.startsWith('overview')?' active':''}" href="#overview"${context.route.startsWith('overview')?' aria-current="page"':''}>${icon('grid')}Overview</a>${navigationGroups.map(g=>{const active=context.group?.id===g.id;return `<section class="nav-group${active?' current-group':''}"><button type="button" class="nav-group-toggle" data-action="nav-group" data-id="${g.id}" aria-expanded="${active||!!open[g.id]}" aria-controls="nav-${g.id}">${icon(g.icon)}<span>${escape(g.label)}</span>${icon('chevrondown')}</button><div class="nav-group-modules" id="nav-${g.id}"${active||open[g.id]?'':' hidden'}>${g.modules.map(m=>link(m,active&&context.module?.route===m.route)).join('')}</div></section>`;}).join('')}</nav>`;
 }
-

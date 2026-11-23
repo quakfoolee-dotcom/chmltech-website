@@ -45,3 +45,27 @@ test('demo assets contain no legacy commercial product name and Classic layout u
  assert.ok(fs.readFileSync('WMS_demo/app.mjs','utf8').includes("let viewMode='classic'"));
  for(const file of ['classic.css','navigation.css','guest-theme.css'])assert.ok(fs.readFileSync('WMS_demo/'+file,'utf8').includes('data-view="classic"'),file);
 });
+
+// V5.73 public launch: analytics, search visibility, redirect and links to the showcase page.
+test('demo pages carry Clarity with the notrack opt-out and stay out of search',()=>{
+ const index=fs.readFileSync('WMS_demo/index.html','utf8');
+ assert.ok(index.includes('"clarity","script"')&&index.includes('chm_notrack')&&index.includes('notrack'),'Clarity loader with opt-out');
+ for(const file of ['mobile.html','scan.html'])assert.ok(fs.readFileSync('WMS_demo/'+file,'utf8').includes('"clarity","script"'),file);
+ for(const file of fs.readdirSync('WMS_demo').filter(f=>f.endsWith('.html')))assert.match(fs.readFileSync('WMS_demo/'+file,'utf8'),/<meta name="robots" content="noindex/,file);
+ const sitemap=fs.readFileSync('sitemap.xml','utf8');assert.ok(!/WMS_demo|wms_demo/.test(sitemap));assert.ok(sitemap.includes('<loc>https://www.chmltech.com/wms-demo</loc>'));
+ assert.ok(!fs.readFileSync('WMS_demo/chinese.css','utf8').match(/(?:^|[}\s])body,input,button,textarea,select\{font-family:[^}]*HarborSC/),'no web font in the global interface rule');
+});
+test('lowercase /wms_demo/ forwards to /WMS_demo/ with the query and #module, without a second folder',()=>{
+ const s=fs.readFileSync('404.html','utf8');assert.ok(s.includes('data-wms-demo-redirect'));
+ assert.ok(s.includes('location.replace("/WMS_demo"+(m[1]||"/")+location.search+location.hash)'));
+ assert.deepEqual(fs.readdirSync('.').filter(f=>/^wms_demo$/i.test(f)),['WMS_demo'],'only one demo folder (case-insensitive file systems)');
+});
+test('showcase page is indexable and linked from Solutions, Distribution & Warehousing and Part 7 (pages and generators)',()=>{
+ const page=fs.readFileSync('wms-demo.html','utf8');assert.ok(!page.includes('Nothing is sent'));assert.ok(page.includes('Microsoft Clarity'));assert.ok(!/name="robots" content="noindex/.test(page));assert.ok(page.includes('href="WMS_demo/"'));assert.ok(page.includes('rel="canonical" href="https://www.chmltech.com/wms-demo"'));
+ for(const file of ['solutions.html','distribution-and-warehousing.html','post/do-we-need-a-wms-yet-when-spreadsheets-stop-scaling.html']){const s=fs.readFileSync(file,'utf8');assert.ok(s.includes('data-wms-demo="1"'),file);assert.ok(/href="(\.\.\/)?wms-demo\.html"/.test(s),file);}
+ assert.ok(fs.readFileSync('content/gen/build_v3.py','utf8').includes('wms_demo_links.add_to_solutions(sol)'));
+ assert.ok(fs.readFileSync('content/gen/industry_pages.py','utf8').includes('wms_demo_links.add_to_industry(b)'));
+ assert.equal(JSON.parse(fs.readFileSync('content/industries/distribution-and-warehousing.json','utf8')).wms_demo,true);
+ assert.ok(fs.readFileSync('content/articles/wh7_articles.py','utf8').includes('{WMS_DEMO}<h2>Key points</h2>'));
+ assert.ok(JSON.parse(fs.readFileSync('content/articles/do-we-need-a-wms-yet-when-spreadsheets-stop-scaling.json','utf8')).body.includes('data-wms-demo="1"'));
+});

@@ -18,11 +18,14 @@ from wh3_articles import W3
 from wh4_articles import W4
 from wh5_articles import W5
 from wh6_articles import W6
+sys.path.insert(0, os.path.join(HERE, "..", "gen"))
+from wms_demo_links import ARTICLE as WMS_DEMO  # V5.73: link to the Chmltech WMS demo showcase
 
 DATE = "2026-11-16"
 W7 = "do-we-need-a-wms-yet-when-spreadsheets-stop-scaling"
 NOTE = ('<p class="oee-note"><em>The distributor, its volumes, labour times, error rates and software prices are an illustrative example built from stated '
-        'assumptions and published price ranges. Real quotes vary widely by vendor, users and scope. Chmltech does not sell or resell any WMS.</em></p>')
+        'assumptions and published price ranges. Real quotes vary widely by vendor, users and scope. The four options are generic categories, not named products; '
+        'Chmltech\'s own WMS is not one of them.</em></p>')
 f0 = lambda x: f"{x:,.0f}"
 f1 = lambda x: f"{x:,.1f}"
 pc = lambda x: f"{x * 100:.0f}%"
@@ -238,7 +241,7 @@ def part7():
 <tr><td>Dock-to-stock time</td><td>How quickly received goods can be sold (Part&nbsp;3)</td></tr>
 <tr><td>Office hours on warehouse paperwork</td><td>The keying saving</td></tr>
 </table>
-<h2>Key points</h2>
+{WMS_DEMO}<h2>Key points</h2>
 <ul>
 <li>A WMS's value is knowing where every item is, and directing the work, not keeping a stock list.</li>
 <li>In the example, paper is cheapest below about {X_SE} orders a day, the ERP module with scanners up to about {X_EC}, and a cloud WMS above that.</li>

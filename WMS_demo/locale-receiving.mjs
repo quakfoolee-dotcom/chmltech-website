@@ -117,4 +117,3 @@ const rows=[
 ];
 rows.push(['Product / lot','产品 / 批次','產品 / 批號','Produit / lot']);
 export const receivingCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

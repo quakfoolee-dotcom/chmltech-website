@@ -1,5 +1,5 @@
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const salesToday=(value=new Date(),s)=>s?.organization?.timezone?businessDay(s,value):new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value));
 export const salesDesk=s=>s.salesDesk||{version:1,sequence:0,groups:[],rules:[],quotes:[]};
@@ -49,4 +49,3 @@ export function validateSalesDesk(s){
  for(const g of d.groups){salesText(g.name,100,true);must(Array.isArray(g.customerIds)&&new Set(g.customerIds).size===g.customerIds.length&&g.customerIds.every(id=>s.business.customers.some(c=>c.id===id)),'Invalid pricing group membership.');}
  for(const r of d.rules){salesText(r.name,100,true);must(typeof r.active==='boolean'&&['Fixed','Discount','Markup','Margin'].includes(r.type),'Invalid pricing rule.');whole(r.priority,0,1000);whole(r.minimum,1);whole(r.maximum);must(!r.maximum||r.maximum>=r.minimum,'Invalid pricing quantity range.');must(!r.customerId||s.business.customers.some(c=>c.id===r.customerId),'Pricing customer is missing.');must(!r.groupId||d.groups.some(g=>g.id===r.groupId),'Pricing group is missing.');must(!r.itemId||s.items.some(i=>i.id===r.itemId),'Pricing product is missing.');must(!(r.customerId&&r.groupId)&&!(r.itemId&&r.category),'Invalid pricing scope.');if(r.from)salesDay(r.from);if(r.until)salesDay(r.until);must(!r.from||!r.until||r.until>=r.from,'Invalid pricing dates.');must(Number.isSafeInteger(r.percentBP)&&r.percentBP>=0&&r.percentBP<=(r.type==='Markup'?100000:10000)&&!(r.type==='Margin'&&r.percentBP===10000),'Invalid pricing percentage.');must(Number.isSafeInteger(r.value4)&&r.value4>=0&&r.value4<=1e11,'Invalid fixed price.');must(['None','Nearest','Up','Down'].includes(r.rounding)&&Number.isSafeInteger(r.roundStep4)&&(r.rounding==='None'?r.roundStep4===0:r.roundStep4>0),'Invalid rounding.');}
 }
-

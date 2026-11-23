@@ -298,4 +298,3 @@ Materials expected|等待预计供应|等待預計供應|Matières attendues
 Materials available|物料可用|物料可用|Matières disponibles
 Purchase packs changed. Recreate the proposal.|采购包装已变更，请重新创建建议。|採購包裝已變更，請重新建立建議。|Le conditionnement d’achat a changé. Recréez la proposition.
 `;
-

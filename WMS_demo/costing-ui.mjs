@@ -1,8 +1,8 @@
-import {costing,valuation,matchPreview} from './costing.mjs?demo=5d9e5d1ce6c83eb1';
-import {receiptMatching,matchingCSV} from './return-costing.mjs?demo=5d9e5d1ce6c83eb1';
-import {locationScope,business} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {billing} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
-import {suppliers} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {costing,valuation,matchPreview} from './costing.mjs?demo=45f52980507d3a1b';
+import {receiptMatching,matchingCSV} from './return-costing.mjs?demo=45f52980507d3a1b';
+import {locationScope,business} from './business.mjs?demo=45f52980507d3a1b';
+import {billing} from './billing.mjs?demo=45f52980507d3a1b';
+import {suppliers} from './purchasing.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const formatMoney=(n,currency)=>`${currency} ${(n/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const btn=(label,action,id='')=>`<button class="btn" data-action="cost-${action}" data-id="${e(id)}">${e(label)}</button>`;
@@ -23,12 +23,12 @@ export function costingView(s){
  body+='<h2>4. Where the adjustments went</h2>'+table(['Bill','Inventory still held','Goods already sold','Write-offs','Journal'],[...c.matches,...c.allocations].map(a=>row([e(docs.find(d=>d.id===a.billId)?.number),money(a.rows.reduce((n,r)=>n+r.inventory,0)),money(a.rows.reduce((n,r)=>n+r.cogs,0)),money(a.rows.reduce((n,r)=>n+r.adjustments,0)),e(a.journalId||'No variance')])));
  body+='<h2>Supplier returns & credits / 退货贷项 / 退貨貸項</h2>'+table(['Return / source','Product / reason','Book value removed','Credit / net amount','Unrecovered cost difference','Posting'],business(s).returns.filter(r=>r.costPosting).slice().reverse().map(r=>{const rows=(c.returnCredits||[]).filter(x=>x.returnId===r.id);return row([e(r.number)+'<br>'+e(s.operations.purchases.find(x=>x.id===r.sourceId)?.number)+' / '+e(r.receiptId),e(s.items.find(i=>i.id===r.itemId)?.name)+' × '+r.qty+'<br>'+e(r.reason),money(r.costPosting.value),rows.length?rows.map(x=>`<button class="btn" data-action="bill-navigate" data-id="${e(x.creditId)}">${e(docs.find(d=>d.id===x.creditId)?.number)}</button> · ${money(x.creditNet)}`).join('<br>'):'Awaiting supplier credit',money(rows.reduce((n,x)=>n+x.variance,0)),e(r.costPosting.journalId)+'<br>'+rows.map(x=>e(x.journalId)).join('<br>')]);}));
  body+='<h2>5. Inventory valuation</h2>'+note(`Known value: ${v.currency} ${(v.value/100).toFixed(2)}. ${v.missing.length} products need opening costs.`)+table(['Product','Owned units','Unit cost','Value / basis'],v.rows.map(r=>row([e(r.sku)+'<br>'+e(r.name),r.qty,r.cost===null?'Not entered':`${e(v.currency)} ${r.cost.toFixed(4)}`,r.cost===null?'Unvalued':money(Math.round(r.qty*r.cost*100))+(r.sample?'<br>Illustrative sample opening cost':'' )])));
- body+=note('Review new receipt and adjustment journals under Inventory journals, then send them in QuickBooks sandbox. Controlled supplier returns post book value once; linked credits reverse the original bill and settle the return clearing balance. Unrecovered freight is shown as an adjustment. Older shipment returns and manufacturing consumption may still require manual review. Historical local journals are not exported automatically.');
+ body+=note('Review new receipt and adjustment journals under Inventory journals, then review them; QuickBooks sending is disconnected in the browser demo. Controlled supplier returns post book value once; linked credits reverse the original bill and settle the return clearing balance. Unrecovered freight is shown as an adjustment. Older shipment returns and manufacturing consumption may still require manual review. Historical local journals are not exported automatically.');
  return {intro:'Reconcile PO prices, received quantities, supplier bills and late landed costs.',actions:btn('Export matching CSV','export')+btn('New landed charge bill','charge')+'<a class="btn" href="#business/returns">Physical returns</a>'+ '<a class="btn" href="#business/bills">Supplier bills</a><a class="btn" href="#business/accounting">Inventory journals</a><a class="btn" href="#business/quickbooks">QuickBooks comparison</a>',body:'<div class='+String.fromCharCode(34)+'costing-content'+String.fromCharCode(34)+'>'+body+'</div>'};
 }
 export async function costingAction(name,id,el,ctx){
  if(!name.startsWith('cost-'))return false;const {s,showModal,field,select,run}=ctx,money=n=>formatMoney(n,s.business.homeCurrency),c=costing(s),act=name.slice(5),f=(label,key,type,value='',extra='')=>field(label,key,type,value,extra);
- if(act==='export')ctx.download('Harbor-receipt-matching.csv',matchingCSV(s),'text/csv;charset=utf-8');
+ if(act==='export')ctx.download('Chmltech-WMS-receipt-matching.csv',matchingCSV(s),'text/csv;charset=utf-8');
  else if(act==='enable')showModal('Enable receipt accounting',note('Future receipts on this PO will debit inventory and credit Goods received not invoiced. Its supplier bills must be matched before QuickBooks sync.'),'Enable',()=>run('cost:enablePurchase',{id}));
  else if(act==='match'){const m=matchPreview(s,id);showModal('Review PO / receipt / bill',note(`Expected ${money(m.expected)}; billed ${money(m.actual)}; variance ${money(m.variance)}. ${m.outsideTolerance?'Above the 2% price tolerance.':''}`)+f('Review reason','reason','text','','required')+'<label><input name="approved" type="checkbox" required> I approve the quantities, price variance and cost allocation.</label>','Apply match',v=>run('cost:matchBill',{id,reason:v.reason,approved:v.approved==='on'}));}
  else if(['inspect','discrepancy','return'].includes(act)){
@@ -42,7 +42,6 @@ export async function costingAction(name,id,el,ctx){
  else if(act==='allocate'){const keys=[...new Set(c.pools.map(x=>`${x.purchaseId}/${x.receiptId}`))];if(!keys.length)throw Error('Receive a PO with receipt accounting enabled first.');showModal('Allocate landed costs',note('Select receipts. The home-currency net amount is shared by quantity or original PO value, then split between retained inventory and goods already sold.')+keys.map(k=>`<label class="field"><span><input type="checkbox" name="receipts" value="${e(k)}"> ${e(receiptName(s,k))}</span></label>`).join('')+select('Allocate by','basis',[['Value','PO value'],['Quantity','Received quantity']])+f('Review reason','reason','text','','required'),'Apply allocation',(v,form)=>run('cost:allocateCharge',{id,basis:v.basis,reason:v.reason,receipts:[...form.querySelectorAll('[name="receipts"]:checked')].map(x=>x.value)}));}
  else throw Error('Unknown cost action.');return true;
 }
-
 
 
 

@@ -1,5 +1,5 @@
-import {drawDocumentCodes} from './scan-codes.mjs?demo=5d9e5d1ce6c83eb1';
-import {drawInvoicePDF} from './invoice-layout.mjs?demo=5d9e5d1ce6c83eb1';
+import {drawDocumentCodes} from './scan-codes.mjs?demo=45f52980507d3a1b';
+import {drawInvoicePDF} from './invoice-layout.mjs?demo=45f52980507d3a1b';
 // One renderer shared by the browser download and the automated PDF checks.
 export async function createDocumentPDF(documents,{PDFLib,fontkit,fontBytes}){
  const {PDFDocument,rgb}=PDFLib,pdf=await PDFDocument.create();pdf.registerFontkit(fontkit);
@@ -9,7 +9,7 @@ export async function createDocumentPDF(documents,{PDFLib,fontkit,fontBytes}){
  const all=documents.flatMap(d=>[d.title,d.ref,d.footer,d.pageWord,d.continued,...d.blocks.flatMap(b=>[b.label||'',b.text]),...strings(d.invoice||d.form)]).join('');
  const missing=[...new Set(Array.from(all).filter(c=>!/[\r\n\t]/.test(c)&&!supported.has(c.codePointAt(0))))];
  if(missing.length)throw Error('PDF font does not contain these characters: '+missing.join(' ')+' — edit the text or choose another font-supported character.');
- pdf.setTitle(documents.map(d=>`${d.title} ${d.ref}`).join(' / '));pdf.setAuthor('Harbor WMS');pdf.setSubject('Local warehouse document');
+ pdf.setTitle(documents.map(d=>`${d.title} ${d.ref}`).join(' / '));pdf.setAuthor('Chmltech WMS');pdf.setSubject('Local warehouse document');
  const ink=rgb(.10,.20,.20),muted=rgb(.36,.42,.42),green=rgb(.08,.25,.23),rule=rgb(.78,.83,.81);
  const wrap=(text,size,width)=>wrapDocumentText(text,width,value=>font.widthOfTextAtSize(value,size));
  for(const d of documents){
@@ -58,4 +58,3 @@ export function wrapDocumentText(text,width,measure){
  }
  return lines;
 }
-

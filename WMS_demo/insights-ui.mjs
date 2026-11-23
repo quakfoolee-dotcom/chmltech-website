@@ -1,8 +1,8 @@
-import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {business,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {insights,countableLocations,countIsStale,countCSV,traceReport,warehouseReport,reportTypes,reportCSV} from './insights.mjs?demo=5d9e5d1ce6c83eb1';
-import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
-import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
+import {interfaceLanguage,translate,translatedWords} from './locale.mjs?demo=45f52980507d3a1b';
+import {business,locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {insights,countableLocations,countIsStale,countCSV,traceReport,warehouseReport,reportTypes,reportCSV} from './insights.mjs?demo=45f52980507d3a1b';
+import {documentHTML,languages} from './documents.mjs?demo=45f52980507d3a1b';
+import {createDocumentPDF} from './pdf.mjs?demo=45f52980507d3a1b';
 
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,id='')=>`<button type="button" class="btn" data-action="ins-${action}" data-id="${e(id)}">${e(label)}</button>`;
@@ -90,25 +90,24 @@ export async function insightAction(name,id,el,ctx){
   case 'countExport':download(`${c().number}.csv`,countCSV(s,c()),'text/csv;charset=utf-8');break;
   case 'roundExport':{const [cid,round]=id.split('|'),count=d.counts.find(c=>c.id===cid),r=count?.rounds.find(r=>r.round===Number(round));if(!r)throw Error('Round not found.');download(`${count.number}-round-${round}.csv`,countCSV(s,{...count,...r,status:'Previous round'}),'text/csv;charset=utf-8');break;}
   case 'countPreview':{
-   const count=c(),visible=!count.blind||count.status!=='Counting';preview={title:`${count.number} · ${count.name} · ${count.status}`,generatedAt:new Date().toISOString(),note:visible?'Review before posting. This printout does not change inventory.':'Blind count sheet: expected quantities hidden. Write physical quantities and serials, then enter them in Harbor.',headers:['SKU','Product','Location','Lot',...(visible?['Expected']:[]),'Counted','Serials','Note'],rows:count.lines.map(l=>[s.items.find(i=>i.id===l.itemId).sku,s.items.find(i=>i.id===l.itemId).name,s.locations.find(r=>r.id===l.locationId).code,l.lot,...(visible?[l.expected]:[]),l.counted??'________',l.countedSerials.join('\n')||'________',l.note])};language=interfaceLanguage();showPreview();break;
+   const count=c(),visible=!count.blind||count.status!=='Counting';preview={title:`${count.number} · ${count.name} · ${count.status}`,generatedAt:new Date().toISOString(),note:visible?'Review before posting. This printout does not change inventory.':'Blind count sheet: expected quantities hidden. Write physical quantities and serials, then enter them in Chmltech WMS.',headers:['SKU','Product','Location','Lot',...(visible?['Expected']:[]),'Counted','Serials','Note'],rows:count.lines.map(l=>[s.items.find(i=>i.id===l.itemId).sku,s.items.find(i=>i.id===l.itemId).name,s.locations.find(r=>r.id===l.locationId).code,l.lot,...(visible?[l.expected]:[]),l.counted??'________',l.countedSerials.join('\n')||'________',l.note])};language=interfaceLanguage();showPreview();break;
   }
   case 'traceSearch':showModal('Trace a lot or serial',f('Exact lot or serial','query',traceQuery,'text','required maxlength="100"')+optional('Product','itemId',[['','All products'],...s.items.map(i=>[i.id,`${i.sku} · ${i.name}`])],traceItem),'Search',data=>{traceReport(s,data.query,data.itemId);traceQuery=data.query.trim();traceItem=data.itemId;close();refreshView();});break;
-  case 'traceExport':download('Harbor-trace.json',JSON.stringify(traceReport(s,traceQuery,traceItem),null,2));break;
+  case 'traceExport':download('Chmltech-WMS-trace.json',JSON.stringify(traceReport(s,traceQuery,traceItem),null,2));break;
   case 'tracePreview':{
    const t=traceReport(s,traceQuery,traceItem);preview={title:`Recall review · ${traceQuery}`,generatedAt:new Date().toISOString(),note:t.note+' '+(t.unlinkedBuilds.length?'Unlinked older production: '+t.unlinkedBuilds.map(w=>w.number).join(', '):''),headers:['Record','Party / location','Product','Lot','Quantity','Status / date'],rows:[...t.inventory.map(r=>['Stock',s.locations.find(l=>l.id===r.locationId).code,s.items.find(i=>i.id===r.itemId).name,r.lot,r.qty,'Current bucket quantity']),...t.purchases.map(({purchase:p,receipt:r,line:l})=>[p.number,p.supplier,s.items.find(i=>i.id===l.itemId).name,l.lot,l.qty,r.time]),...t.customers.flatMap(sh=>sh.allocations.map(a=>[sh.number,sh.customer,s.items.find(i=>i.id===a.itemId).name,a.lot,a.qty,`${sh.status==='Shipped'?'Shipped':'Reversed / '+sh.status} · ${sh.time||'Unknown date'}${a.serials?.includes(traceQuery)?' · Serial '+traceQuery:''}`]))]};language=interfaceLanguage();showPreview();break;
   }
   case 'reportType':reportType=id;refreshView();break;
   case 'reportFilter':showModal('Report and filters',select('Report','type',reportTypes,reportType)+optional('Warehouse','warehouseId',[['','All warehouses'],...opts(b.warehouses)],filters.warehouseId)+optional('Owner','ownerId',[['','All owners'],...opts(b.owners)],filters.ownerId)+optional('Product','itemId',[['','All products'],...s.items.map(i=>[i.id,`${i.sku} · ${i.name}`])],filters.itemId)+f('From date (optional)','from',filters.from||'','date')+f('Through date (optional)','to',filters.to||'','date')+note('Dates use UTC calendar days. Movement dates, PO due dates, order creation dates or shipment dates apply according to the report. Valuation and age are current snapshots.'),'Apply filters',data=>{warehouseReport(s,data.type,data);reportType=data.type;filters={warehouseId:data.warehouseId,ownerId:data.ownerId,itemId:data.itemId,from:data.from,to:data.to};close();refreshView();});break;
-  case 'reportExport':download(`Harbor-${reportType}.csv`,reportCSV(warehouseReport(s,reportType,filters)),'text/csv;charset=utf-8');break;
+  case 'reportExport':download(`Chmltech-WMS-${reportType}.csv`,reportCSV(warehouseReport(s,reportType,filters)),'text/csv;charset=utf-8');break;
   case 'reportPreview':language=interfaceLanguage();preview=warehouseReport(s,reportType,filters);showPreview();break;
   case 'language':language=document.querySelector('[name="insLanguage"]').value;showPreview();break;
   case 'pdf':{
    language=document.querySelector('[name="insLanguage"]').value;const variant=language==='zh-Hant'?'TC':'SC';el.disabled=true;
-   try{if(!fontCache.has(variant)){const response=await fetch(`./fonts/NotoSans${variant}-Regular.ttf?v=1.3.1`);if(!response.ok)throw Error('Chinese font could not load. Refresh Harbor and try again.');fontCache.set(variant,new Uint8Array(await response.arrayBuffer()));}const bytes=await createDocumentPDF(reportDoc(preview,language),{PDFLib:globalThis.PDFLib,fontkit:globalThis.fontkit,fontBytes:fontCache.get(variant)});download(`Harbor-report-${language}.pdf`,bytes,'application/pdf');}finally{el.disabled=false;}break;
+   try{if(!fontCache.has(variant)){const response=await fetch(`./fonts/NotoSans${variant}-Regular.ttf?v=1.3.1`);if(!response.ok)throw Error('Chinese font could not load. Refresh Chmltech WMS and try again.');fontCache.set(variant,new Uint8Array(await response.arrayBuffer()));}const bytes=await createDocumentPDF(reportDoc(preview,language),{PDFLib:globalThis.PDFLib,fontkit:globalThis.fontkit,fontBytes:fontCache.get(variant)});download(`Chmltech-WMS-report-${language}.pdf`,bytes,'application/pdf');}finally{el.disabled=false;}break;
   }
-  case 'print':{language=document.querySelector('[name="insLanguage"]').value;showPreview();for(const article of document.querySelectorAll('.business-document')){const fonts=await document.fonts.load(`400 14px ${language==='zh-Hant'?'HarborTC':'HarborSC'}`,article.textContent);if(!fonts.length)throw Error('Chinese print font could not load.');}await document.fonts.ready;window.print();break;}
+  case 'print':{language=document.querySelector('[name="insLanguage"]').value;showPreview();for(const article of document.querySelectorAll('.business-document')){const fonts=await document.fonts.load(`400 14px ${language==='zh-Hant'?'HarborTC':'HarborSC'}`,article.textContent);if(!fonts.length&&/[\u3400-\u9fff\uf900-\ufaff]/.test(article.textContent))throw Error('Chinese print font could not load. Refresh this page and try again.');}await document.fonts.ready;window.print();break;}
   default:throw Error('Unknown report action.');
  }
  return true;
 }
-

@@ -1,6 +1,6 @@
-@font-face{font-family:HarborSC;src:url('./fonts/NotoSansSC-Regular.ttf?v=1.3.1') format('truetype');font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:HarborTC;src:url('./fonts/NotoSansTC-Regular.ttf?v=1.3.1') format('truetype');font-style:normal;font-weight:400;font-display:swap}
-body,input,button,textarea,select{font-family:Arial,'Segoe UI',HarborSC,'Microsoft YaHei','Microsoft JhengHei',sans-serif!important}
+@font-face{font-family:HarborSC;unicode-range:U+2E80-2FDF,U+3000-303F,U+3100-312F,U+31A0-31BF,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,U+FE30-FE4F,U+FF00-FFEF,U+20000-2FA1F;src:url('./fonts/NotoSansSC-Regular.ttf?v=1.3.1') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:HarborTC;unicode-range:U+2E80-2FDF,U+3000-303F,U+3100-312F,U+31A0-31BF,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,U+FE30-FE4F,U+FF00-FFEF,U+20000-2FA1F;src:url('./fonts/NotoSansTC-Regular.ttf?v=1.3.1') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+body,input,button,textarea,select{font-family:Arial,'Segoe UI','Microsoft YaHei','Microsoft JhengHei','PingFang SC','PingFang TC','Hiragino Sans GB','Noto Sans CJK SC','Noto Sans CJK TC',sans-serif!important}:lang(zh) body,:lang(zh) input,:lang(zh) button,:lang(zh) textarea,:lang(zh) select{font-family:Arial,'Segoe UI',HarborSC,'Microsoft YaHei','Microsoft JhengHei',sans-serif!important}
 .fb-pair strong,.fb-memo,.document-field div{white-space:pre-wrap;overflow-wrap:anywhere}
 .business-document{font-family:HarborSC,sans-serif!important;background:#fff;color:#183631;border:1px solid #cddad5;margin:20px auto;padding:24px;max-width:650px;line-height:1.7;overflow-wrap:anywhere}
 .business-document:lang(zh-Hant){font-family:HarborTC,sans-serif!important}
@@ -50,4 +50,3 @@ body,input,button,textarea,select{font-family:Arial,'Segoe UI',HarborSC,'Microso
 .document-qr{text-align:center}.document-qr svg{width:106px;height:106px;max-width:100%;display:block;margin:auto}.document-qr small{display:block;font-size:10px;line-height:1.4;color:#172b3b}
 @media(max-width:700px){.document-scan-codes{grid-template-columns:minmax(0,1fr) 90px;gap:8px}.document-linear svg{height:112px}.document-qr svg{width:84px;height:84px}}
 @media print{.invoice-document .invoice-heading{grid-template-columns:minmax(0,1fr) auto;min-height:80px}.document-scan-codes{grid-template-columns:1fr 30mm;padding:0}.document-linear svg{width:100mm;height:32mm}.document-qr svg{width:28mm;height:28mm}}
-

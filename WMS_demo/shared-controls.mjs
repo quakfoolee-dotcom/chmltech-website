@@ -1,4 +1,4 @@
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
 const pending=new WeakMap();
 export const formSavePending=form=>pending.has(form);
 export function beginFormSave(form){
@@ -17,4 +17,3 @@ export function enhanceSharedControls(root){
   if(!input.max||input.max.slice(0,4)>'9999'||input.max.split('-')[0].length>4)input.max=time?'9999-12-31T23:59:59':'9999-12-31';
  }
 }
-

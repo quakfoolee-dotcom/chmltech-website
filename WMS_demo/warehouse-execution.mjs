@@ -1,8 +1,8 @@
-import {executionGroup,executionPack} from './execution-view.mjs?demo=5d9e5d1ce6c83eb1';
-export {executionGroup,executionPack,groupView,packView} from './execution-view.mjs?demo=5d9e5d1ce6c83eb1';
-import {scanItem,orderScope,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {pickMeta,shippingMeta} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {executionGroup,executionPack} from './execution-view.mjs?demo=45f52980507d3a1b';
+export {executionGroup,executionPack,groupView,packView} from './execution-view.mjs?demo=45f52980507d3a1b';
+import {scanItem,orderScope,locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {pickMeta,shippingMeta} from './operations.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const find=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Record not found.');return r;};
 const text=(v,max=100)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max,'Invalid scan text.');return t;};
@@ -80,4 +80,3 @@ export function validateExecution(s){
  for(const [id,c]of Object.entries(w.packing)){const sh=find(s.shipments,id),pk=find(s.picks,sh.pickId);must(Array.isArray(c.cartons)&&c.cartons.length<=50&&new Set(c.cartons.map(x=>x.code)).size===c.cartons.length,'Invalid scan cartons.');const used={};for(const [index,box]of c.cartons.entries()){must(box.code===`${sh.number}-C${index+1}`&&text(box.name,60),'Invalid carton barcode.');if(c.reversed)continue;check(pk,box.counts);for(const [i,r]of Object.entries(box.counts)){used[i]||={qty:0,serials:[]};used[i].qty+=r.qty;used[i].serials.push(...r.serials);}}if(!c.reversed){check(pk,used);if(c.sealed){must(c.cartons.length>0&&complete(pk,used),'Sealed packing is incomplete.');const actual=shippingMeta(s,id).cartons;must(actual.length===c.cartons.length&&c.cartons.every(box=>{const a=actual.find(a=>a.id===box.cartonId),lines={};for(const [i,r]of Object.entries(box.counts)){const item=pk.allocations[Number(i)].itemId;lines[item]=(lines[item]||0)+r.qty;}return a&&a.tracking===box.code&&a.lines.length===Object.keys(lines).length&&a.lines.every(l=>l.qty===lines[l.itemId]);}),'Sealed carton contents changed.');}if(['Packed','Shipped'].includes(sh.status))must(c.sealed,'Scan-controlled shipment must be sealed before dispatch.');}}
  return true;
 }
-

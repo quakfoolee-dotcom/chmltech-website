@@ -8,4 +8,3 @@ export function decodePixels(pixels,width,height,{rotate=true}={}){
  for(let turn=0;turn<(rotate?4:1);turn++){for(const reader of [new Z.QRCodeReader(),new Z.MultiFormatOneDReader(hints)]){try{const result=reader.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(new Z.RGBLuminanceSource(gray,width,height))),hints);return {text:result.getText(),format:Z.BarcodeFormat[result.getBarcodeFormat()]};}catch{}finally{reader.reset();}}const next=new Uint8ClampedArray(gray.length);for(let y=0;y<height;y++)for(let x=0;x<width;x++)next[x*height+height-y-1]=gray[y*width+x];gray=next;[width,height]=[height,width];}
  throw Error('No readable barcode found. Move closer, improve lighting or choose a sharper photo.');
 }
-

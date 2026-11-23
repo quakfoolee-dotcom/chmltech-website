@@ -1,4 +1,4 @@
-import {productUnits} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {productUnits} from './packaging.mjs?demo=45f52980507d3a1b';
 export function warehouseLabelRows(s,{warehouseId='wh-main',itemId=''}={}){
  const scope=id=>s.business?.locationMeta[id]||{warehouseId:'wh-main',ownerId:'owner-self'},rows=[];
  for(const l of s.locations.filter(l=>scope(l.id).warehouseId===warehouseId&&['Storage','Receiving','Hold'].includes(l.type)&&!scope(l.id).transit&&!scope(l.id).production))rows.push({code:l.code,caption:'Source / destination bin',description:l.name});
@@ -9,4 +9,3 @@ export function warehouseLabelRows(s,{warehouseId='wh-main',itemId=''}={}){
  }
  return rows;
 }
-

@@ -10,9 +10,8 @@ const rows=[
  ,['Too many sign-in attempts. Try again later.','登录尝试次数过多，请稍后重试。','登入嘗試次數過多，請稍後再試。','Trop de tentatives de connexion. Réessayez plus tard.']
  ,['The beta service is temporarily unavailable. Try again shortly.','测试版服务暂时不可用，请稍后重试。','測試版服務暫時無法使用，請稍後再試。','Le service bêta est temporairement indisponible. Réessayez dans un instant.']
  ,['Cloud access is not configured.','云端访问尚未配置。','雲端存取尚未設定。','L’accès au service infonuagique n’est pas configuré.']
- ,['Use the approved Harbor page to submit changes.','请从已批准的 Harbor 页面提交更改。','請從已核准的 Harbor 頁面提交變更。','Utilisez la page Harbor approuvée pour soumettre les modifications.']
+ ,['Use the approved Chmltech WMS page to submit changes.','请从已批准的 Chmltech WMS 页面提交更改。','請從已核准的 Chmltech WMS 頁面提交變更。','Utilisez la page Chmltech WMS approuvée pour soumettre les modifications.']
  ,['The selected company changed. Refresh and review this request in its original company.','所选公司已更改。请刷新并在原公司中检查此请求。','所選公司已變更。請重新整理，並在原公司中檢查此請求。','L’entreprise sélectionnée a changé. Actualisez et vérifiez cette demande dans son entreprise d’origine.']
  ,['The requested values are invalid. Refresh and review before trying again.','请求的值无效。请刷新并检查后再试。','請求的值無效。請重新整理並檢查後再試。','Les valeurs demandées sont invalides. Actualisez et vérifiez avant de réessayer.']
 ];
 export const securityCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

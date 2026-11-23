@@ -21,4 +21,3 @@ const rows=[
  ['Enter an existing invited account ID.','请输入已邀请账户的有效 ID。','請輸入已邀請帳戶的有效 ID。','Saisissez l’identifiant valide d’un compte déjà invité.']
 ];
 export const tenantCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

@@ -1,6 +1,6 @@
-import {dateInputBounds} from './date-input.mjs?demo=5d9e5d1ce6c83eb1';
-import {crm,crmProfile,crmProfiles,crmStages,crmKinds,crmDay,crmTimeline,crmTotals} from './crm.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';import {formatMoney} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';
+import {dateInputBounds} from './date-input.mjs?demo=45f52980507d3a1b';
+import {crm,crmProfile,crmProfiles,crmStages,crmKinds,crmDay,crmTimeline,crmTotals} from './crm.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';import {formatMoney} from './currency-display.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=(n,c)=>formatMoney(n/100,c),button=(label,action,id='')=>`<button type="button" class="btn" data-action="biz-crm-${action}" data-id="${e(id)}">${e(label)}</button>`,link=(text,section,id)=>`<a href="#business/${section}/${e(id)}" data-l10n-skip>${e(text)}</a>`;
 const table=(heads,rows)=>`<div class="table-scroll"><table><thead><tr>${heads.map(h=>`<th>${e(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${heads.length}">No CRM records match this view.</td></tr>`}</tbody></table></div>`;
@@ -53,7 +53,6 @@ export async function crmUIAction(name,id,el,ctx){
   if(!profiles.length)throw Error('Create a customer profile first.');showModal(a?'Edit follow-up':'New follow-up',select('Customer profile','profileId',options,a?.profileId||o?.profileId||p?.id)+optional(select('Opportunity (optional)','opportunityId',[['','No opportunity'],...d.opportunities.map(o=>[o.id,o.number+' · '+o.title])],a?.opportunityId||o?.id||''))+`<div class="form-grid">${input('Activity title','title',a?.title,'text','required maxlength="140"')}${select('Activity type','kind',crmKinds.map(x=>[x,x]),a?.kind||'Task')}${input('Owner','owner',a?.owner||o?.owner||p?.owner,'text','required maxlength="100"')}${input('Due date','due',a?.due||crmDay(undefined,s),'date')}${select('Priority','priority',['Low','Normal','High'].map(x=>[x,x]),a?.priority||'Normal')}</div>`+area('Notes','notes',a?.notes)+'<p>Activities record conversations and tasks only. No email or message is sent.</p>','Save follow-up',data=>run('crm:saveActivity',{...data,...(a?{id:a.id}:{})},'business/followups'));return true;
  }
  if(act==='complete'){showModal('Complete follow-up',select('Result','status',[['Done','Done'],['Cancelled','Cancelled']],'Done')+area('Outcome','outcome'),'Save outcome',data=>run('crm:completeActivity',{id,...data}));return true;}
- if(act==='export'){download('Harbor-CRM-followups.csv',csvText([['Customer','Activity','Type','Owner','Due','Status','Outcome'],...d.activities.map(a=>[crmProfile(s,a.profileId)?.company,a.title,a.kind,a.owner,a.due,a.status,a.outcome])]),'text/csv;charset=utf-8');return true;}
+ if(act==='export'){download('Chmltech-WMS-CRM-followups.csv',csvText([['Customer','Activity','Type','Owner','Due','Status','Outcome'],...d.activities.map(a=>[crmProfile(s,a.profileId)?.company,a.title,a.kind,a.owner,a.due,a.status,a.outcome])]),'text/csv;charset=utf-8');return true;}
  throw Error('Unknown CRM action.');
 }
-

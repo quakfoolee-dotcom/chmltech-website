@@ -1,8 +1,8 @@
-import {workflowModel} from './workflow-model.mjs?demo=5d9e5d1ce6c83eb1';
-import {actionRoleAllowed,isReadAction} from './action-permissions.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {enhanceSharedControls,formSavePending} from './shared-controls.mjs?demo=5d9e5d1ce6c83eb1';
-import {cloudQBOActionAllowed} from './qbo-access.mjs?demo=5d9e5d1ce6c83eb1';
+import {workflowModel} from './workflow-model.mjs?demo=45f52980507d3a1b';
+import {actionRoleAllowed,isReadAction} from './action-permissions.mjs?demo=45f52980507d3a1b';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {enhanceSharedControls,formSavePending} from './shared-controls.mjs?demo=45f52980507d3a1b';
+import {cloudQBOActionAllowed} from './qbo-access.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const t=v=>e(translate(v));
 const roles=['Admin','Warehouse','Purchasing','Sales','Manufacturing','Accounting','Viewer'];
@@ -15,7 +15,7 @@ export function controlBlockReason(el,info,model){
  if(!el)return model.terminal?'No action needed.':'Choose a record to see its next step.';
  if(!el.disabled)return 'No blocking issue detected.';
  if(info?.workspace?.isDemo||info?.user?.role==='Viewer')return 'This workspace is read-only.';
- if(el.dataset.cloudBlocked==='true')return el.title||'Available in local Harbor.';
+ if(el.dataset.cloudBlocked==='true')return el.title||'Available in local Chmltech WMS.';
  if(el.dataset.roleBlocked==='true')return 'Permission required.';
  return el.title||'This action is unavailable for the current record.';
 }
@@ -62,4 +62,3 @@ export function startWorkflowControls(context){
  document.addEventListener('click',pendingClick,true);
  queue();return {refresh:queue,disconnect(){observer.disconnect();main.removeEventListener('click',click);document.removeEventListener('harbor-language-changed',language);modal.removeEventListener('cancel',cancel);document.removeEventListener('click',pendingClick,true);}};
 }
-

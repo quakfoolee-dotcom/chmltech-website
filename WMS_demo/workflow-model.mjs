@@ -1,8 +1,8 @@
-import {navigationGroups,navigationContext} from './navigation.mjs?demo=5d9e5d1ce6c83eb1';
-import {workAttention,orderAttention} from './production-signals.mjs?demo=5d9e5d1ce6c83eb1';
-import {receivingSuggestions} from './receiving-control.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseStatus} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
-import {billingStatus} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {navigationGroups,navigationContext} from './navigation.mjs?demo=45f52980507d3a1b';
+import {workAttention,orderAttention} from './production-signals.mjs?demo=45f52980507d3a1b';
+import {receivingSuggestions} from './receiving-control.mjs?demo=45f52980507d3a1b';
+import {purchaseStatus} from './procurement.mjs?demo=45f52980507d3a1b';
+import {billingStatus} from './billing.mjs?demo=45f52980507d3a1b';
 // Read-only projections of existing records. This module never dispatches or
 // stores workflow states; transactional validation remains authoritative.
 const spec=(path,steps,actions=[])=>({path,steps,actions});
@@ -101,4 +101,3 @@ export function workflowModel(s,hash,{focusId=''}={}){
  if(record&&route==='picking'&&status==='Finished'){const sh=(s.shipments||[]).find(x=>x.pickId===record.id);if(sh){nextRoute='shipping/'+sh.id;nextLabel='Review shipping';}}
  return {route,label:d.label,steps:d.steps,status,recordId:record?.id||'',recordLabel:record?.number||record?.reference||record?.sku||record?.id||'',count:rows.length,blockers,actionBlocked:blockers.length>0&&actions[0]!=='prod-labor',actions,nextRoute,nextLabel,terminal:!!record&&(['Completed','Cancelled','Closed','Fulfilled','Paid','Voided','Restocked','Scrapped','Sent'].includes(status)||route==='shipping'&&status==='Shipped'||route==='business/transfers'&&status==='Received'||route==='business/quality-inspections'&&status==='Released'&&record.moved===record.accepted)};
 }
-

@@ -9,4 +9,3 @@ export const productionActionCommands=Object.freeze({
  'prod-center':'production:center','prod-schedule':'production:schedule','prod-unschedule':'production:unschedule','prod-mrp-propose':'production:propose','prod-mrp-cancel':'production:cancelProposal','prod-mrp-purchase':'production:purchaseDraft'
 });
 export const productionActionAllowed=(action,role)=>Object.hasOwn(productionActionCommands,action)&&typeof role==='string'&&productionRoleAllowed(productionActionCommands[action],role);
-

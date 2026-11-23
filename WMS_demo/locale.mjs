@@ -1,4 +1,4 @@
-import {catalogue} from './locale-catalog.mjs?demo=5d9e5d1ce6c83eb1';
+import {catalogue} from './locale-catalog.mjs?demo=45f52980507d3a1b';
 export const interfaceLanguages=[['en','English'],['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['fr','Français']];
 const key='chmltech:WMS_demo:harbor-interface-language',codes=new Set(interfaceLanguages.map(x=>x[0]));let current='en';
 try{const saved=globalThis.localStorage?.getItem(key);if(codes.has(saved))current=saved;}catch{}
@@ -66,4 +66,3 @@ export function startLocalization(getState){
  globalThis.addEventListener?.('storage',event=>{if(event.key===key&&codes.has(event.newValue)){current=event.newValue;apply();}});
  apply();return {apply,disconnect:()=>observer.disconnect()};
 }
-

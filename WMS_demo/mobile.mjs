@@ -1,12 +1,12 @@
-import {commandRoleAllowed} from './command-policy.mjs?demo=5d9e5d1ce6c83eb1';
-import {dateInputBounds} from './date-input.mjs?demo=5d9e5d1ce6c83eb1';
-import {stockWorkHTML,updateUnitPreview} from './mobile-stock-ui.mjs?demo=5d9e5d1ce6c83eb1';
-import {mountAccount} from './account.mjs?demo=5d9e5d1ce6c83eb1';
-import {scannerMarkup,mountScanner} from './camera-scanner.mjs?demo=5d9e5d1ce6c83eb1';
-import {executionCandidates,executionWorkHTML,groupCreationHTML} from './mobile-execution-ui.mjs?demo=5d9e5d1ce6c83eb1';
-import {pickLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {interfaceLanguages,interfaceLanguage,startLocalization,translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {api} from './shared.mjs?demo=5d9e5d1ce6c83eb1';
+import {commandRoleAllowed} from './command-policy.mjs?demo=45f52980507d3a1b';
+import {dateInputBounds} from './date-input.mjs?demo=45f52980507d3a1b';
+import {stockWorkHTML,updateUnitPreview} from './mobile-stock-ui.mjs?demo=45f52980507d3a1b';
+import {mountAccount} from './account.mjs?demo=45f52980507d3a1b';
+import {scannerMarkup,mountScanner} from './camera-scanner.mjs?demo=45f52980507d3a1b';
+import {executionCandidates,executionWorkHTML,groupCreationHTML} from './mobile-execution-ui.mjs?demo=45f52980507d3a1b';
+import {pickLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {interfaceLanguages,interfaceLanguage,startLocalization,translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {api} from './shared.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const app=document.querySelector('#app'),notice=document.querySelector('#notice');let state,user,mode=({group:'Group',pack:'Pack',ship:'Ship',move:'Move',lookup:'Lookup'}[location.hash.slice(1)]||'Receive'),warehouse='wh-main',record='',busy=false,cameraReader,lookupCode='';
 const scope=id=>state.business?.locationMeta[id]||{warehouseId:'wh-main',ownerId:'owner-self'};
@@ -14,7 +14,7 @@ const warehouses=()=>state.business?.warehouses||[{id:'wh-main',name:'Vancouver 
 const select=(name,label,rows,value='')=>`<label>${e(label)}<select name="${name}">${rows.map(([id,title])=>`<option value="${e(id)}" ${id===value?'selected':''}>${e(title)}</option>`).join('')}</select></label>`;
 const input=(name,label,value='',type='text',extra='')=>`<label>${e(label)}<input name="${name}" type="${type}" ${dateInputBounds(type)} value="${e(value)}" ${extra}></label>`;
 function message(text,error=false){notice.textContent=text;notice.className=error?'error':'success';}
-async function refresh(){stopCamera();try{const status=await api('status');user=status.user;account.observe(status);if(!user){signedOut();return;}state=(await api('workspace')).state;if(!state)throw Error('Open Harbor on the host computer and load its workspace first.');draw();}catch(err){message(err.message,true);}}
+async function refresh(){stopCamera();try{const status=await api('status');user=status.user;account.observe(status);if(!user){signedOut();return;}state=(await api('workspace')).state;if(!state)throw Error('Open Chmltech WMS on the host computer and load its workspace first.');draw();}catch(err){message(err.message,true);}}
 function candidates(){
  if(['Group','Pack','Ship'].includes(mode))return executionCandidates(state,mode,warehouse);
  if(mode==='Receive')return (state.operations?.purchases||[]).filter(p=>p.status==='Open'&&p.kind==='Warehouse'&&(p.scope?.warehouseId||'wh-main')===warehouse).map(p=>[p.id,p.number+' · '+p.supplier]);
@@ -28,9 +28,9 @@ function draw(){
  }
  const choices=candidates();if(!choices.some(([id])=>id===record))record=choices[0]?.[0]||'';
  if(['Group','Pack','Ship'].includes(mode)){
-  app.innerHTML=`<h1>Warehouse scanning</h1><p><a href="./scan.html">Scan to open documents</a></p>${select('warehouse','Warehouse',warehouses().map(w=>[w.id,w.name]),warehouse)}<nav class="modes">${['Lookup','Move','Receive','Pick','Group','Pack','Ship','Count'].map(m=>`<button type="button" data-mode="${m}" aria-pressed="${mode===m}">${m==='Group'?'Grouped picking':m}</button>`).join('')}</nav>${mode==='Group'?groupCreationHTML(state,warehouse):''}${choices.length?select('record',mode==='Group'?'Pick group':'Shipment',choices,record):'<p>No matching work in this warehouse.</p>'}${record?executionWorkHTML(state,mode,record):''}<p>Changes save to the shared warehouse. No carrier booking or postage purchase.</p>`;enhanceUnits();return;
+  app.innerHTML=`<h1>Warehouse scanning</h1><p><a href="./scan.html">Scan to open documents</a></p>${select('warehouse','Warehouse',warehouses().map(w=>[w.id,w.name]),warehouse)}<nav class="modes">${['Lookup','Move','Receive','Pick','Group','Pack','Ship','Count'].map(m=>`<button type="button" data-mode="${m}" aria-pressed="${mode===m}">${m==='Group'?'Grouped picking':m}</button>`).join('')}</nav>${mode==='Group'?groupCreationHTML(state,warehouse):''}${choices.length?select('record',mode==='Group'?'Pick group':'Shipment',choices,record):'<p>No matching work in this warehouse.</p>'}${record?executionWorkHTML(state,mode,record):''}<p>Changes are saved in this browser only. No carrier booking or postage purchase.</p>`;enhanceUnits();return;
  }
- app.innerHTML=`<h1>Warehouse scanning</h1><p><a href="./scan.html">Scan to open documents</a></p><p class="muted">${e(user.name)} · ${e(user.role)}. Changes save to the shared warehouse.</p>${select('warehouse','Warehouse',warehouses().map(w=>[w.id,w.name]),warehouse)}<nav class="modes">${['Lookup','Move','Receive','Pick','Group','Pack','Ship','Count'].map(m=>`<button type="button" data-mode="${m}" aria-pressed="${mode===m}">${m==='Group'?'Grouped picking':m}</button>`).join('')}</nav>${choices.length?select('record',mode==='Receive'?'Purchase order':mode==='Pick'?'Committed pick':'Stock row',choices,record):`<article><p>No ${mode==='Receive'?'open warehouse purchase orders':mode==='Pick'?'committed picks':'countable stock'} in this warehouse.</p><p class="muted">Prepare the work in Harbor on the host computer, then refresh.</p></article>`}<div id="work"></div><p class="muted">Use a keyboard scanner, type a SKU, or choose Camera. Each scan must be saved once.</p><div class="actions"></div>`;
+ app.innerHTML=`<h1>Warehouse scanning</h1><p><a href="./scan.html">Scan to open documents</a></p><p class="muted">${e(user.name)} · ${e(user.role)}.</p><p class="muted">Changes are saved in this browser only.</p>${select('warehouse','Warehouse',warehouses().map(w=>[w.id,w.name]),warehouse)}<nav class="modes">${['Lookup','Move','Receive','Pick','Group','Pack','Ship','Count'].map(m=>`<button type="button" data-mode="${m}" aria-pressed="${mode===m}">${m==='Group'?'Grouped picking':m}</button>`).join('')}</nav>${choices.length?select('record',mode==='Receive'?'Purchase order':mode==='Pick'?'Committed pick':'Stock row',choices,record):`<article><p>No ${mode==='Receive'?'open warehouse purchase orders':mode==='Pick'?'committed picks':'countable stock'} in this warehouse.</p><p class="muted">Prepare the work in Chmltech WMS on the host computer, then refresh.</p></article>`}<div id="work"></div><p class="muted">Use a keyboard scanner, type a SKU, or choose Camera. Each scan must be saved once.</p><div class="actions"></div>`;
  if(!record)return;
  const po=state.operations?.purchases.find(p=>p.id===record),pick=state.picks.find(p=>p.id===record),stock=state.stock.find(r=>r.id===record);let detail='',extra='';
  if(mode==='Receive'){
@@ -67,8 +67,7 @@ document.querySelector('#stop-camera').onclick=stopCamera;document.querySelector
 
 const mobileLanguage=document.createElement('label');mobileLanguage.className='language-switch';mobileLanguage.innerHTML='<span>Language</span><select id="interface-language" aria-label="Interface language">'+interfaceLanguages.map(([code,label])=>'<option value="'+code+'"'+(code===interfaceLanguage()?' selected':'')+'>'+label+'</option>').join('')+'</select>';document.querySelector('header').append(mobileLanguage);startLocalization(()=>state);
 
-function signedOut(){stopCamera();state=undefined;app.innerHTML='<h1>Sign in to Harbor</h1><p>Use Sign in at the top right to open the shared workspace.</p><button type="button" data-account-action="signin">Sign in</button>';}
+function signedOut(){stopCamera();state=undefined;app.innerHTML='<h1>Sign in to Chmltech WMS</h1><p>Use Sign in at the top right to open the shared workspace.</p><button type="button" data-account-action="signin">Sign in</button>';}
 const accountHost=document.createElement('div');accountHost.dataset.accountHost='';document.querySelector('header').append(accountHost);
 const account=mountAccount({onChange:(status,expired)=>{user=status.user;if(!user){signedOut();message(expired?'Your session expired. Sign in again to continue.':'');}},afterSignIn:refresh,beforeSignOut:stopCamera});
 refresh();
-

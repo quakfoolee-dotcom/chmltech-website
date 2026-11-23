@@ -1,5 +1,5 @@
-import {interfaceLanguage,translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {catalogue} from './locale-catalog.mjs?demo=5d9e5d1ce6c83eb1';
+import {interfaceLanguage,translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {catalogue} from './locale-catalog.mjs?demo=45f52980507d3a1b';
 const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Only recognized demo copy and standard stage names have reviewed translations.
 // Custom work instructions and entered notes remain exactly as saved.
@@ -18,4 +18,3 @@ export const productionCopyHTML=value=>{const key=productionCopyKey(value);retur
 export const productionCopyValueAttribute=value=>{const key=productionCopyKey(value);return key?'data-production-copy-value="'+escape(key)+'"':'';};
 export function refreshProductionCopy(doc=globalThis.document){if(!doc)return;for(const el of doc.querySelectorAll('[data-production-copy]')){const key=el.dataset.productionCopy;if(!originals.some(x=>x[0]===key))continue;const next=translate(key);if(el.textContent!==next)el.textContent=next;}for(const el of doc.querySelectorAll('input[readonly][data-production-copy-value]')){const key=el.dataset.productionCopyValue;if(originals.some(x=>x[0]===key))el.value=translate(key);}}
 if(globalThis.document)document.addEventListener('harbor-language-changed',()=>refreshProductionCopy());
-

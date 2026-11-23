@@ -1,8 +1,8 @@
-import {business,orderScope,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines,purchaseTotals,suppliers,purchaseFields} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {forecastReport,calendarDay,shiftDay} from './forecast.mjs?demo=5d9e5d1ce6c83eb1';
-import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,orderScope,locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {purchaseLines,purchaseTotals,suppliers,purchaseFields} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {forecastReport,calendarDay,shiftDay} from './forecast.mjs?demo=45f52980507d3a1b';
+import {localDay} from './dashboard.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);},get=(a,id)=>{const r=a.find(x=>x.id===id);must(r,'Purchase order not found.');return r;};
 const txt=(v,max=240,required=false)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid text within the field limit.');return t;};
 const money=v=>{v=Number(v);must(Number.isFinite(v)&&v>=0&&v<=10000000,'Enter a valid purchasing amount.');return Math.round(v*100)/100;};
@@ -62,4 +62,3 @@ export function validateProcurement(s){
  for(const p of s.operations?.purchases||[])if(['Draft','Pending approval','Approved','Rejected'].includes(p.status))must(d.orders[p.id],'Approval status needs a controlled purchase.');
  for(const [id,m]of Object.entries(d.orders)){const p=get(s.operations?.purchases||[],id);must(Number.isSafeInteger(m.revision)&&m.revision>0&&txt(m.creatorId,100,true)&&Array.isArray(m.fields)&&m.fields.length<=20&&Array.isArray(m.history)&&m.history.length<=1000,'Invalid purchase review history.');for(const f of m.fields){txt(f.name,60,true);txt(f.value,500);}must(new Set(m.fields.map(f=>f.name.toLowerCase())).size===m.fields.length,'Duplicate purchase fields.');for(const h of m.history){must(Number.isFinite(Date.parse(h.time))&&Number.isSafeInteger(h.revision),'Invalid purchase history.');txt(h.actor,100,true);txt(h.actorId,100,true);txt(h.action,100,true);txt(h.reason,500);}if(m.confirmedDate)calendarDay(m.confirmedDate);txt(m.confirmedReference,240);if(['Draft','Pending approval','Approved','Rejected'].includes(p.status))must(purchaseLines(p).every(l=>!l.received),'Unissued purchases cannot have receipts.');if(['Open','Closed'].includes(p.status))must(m.issuedAt,'Controlled purchases must be approved and issued before receiving.');if(['Draft','Pending approval','Rejected'].includes(p.status))must(!m.approval&&!m.issuedAt,'Unissued draft cannot retain approval or issue evidence.');if(p.status==='Approved'||m.issuedAt){must(m.approval&&m.approval.content&&Number.isSafeInteger(m.approval.policyRevision)&&Number.isFinite(Date.parse(m.approval.time)),'Approved / issued purchase needs approval evidence.');if(m.issuedAt)must(m.approval.content===fingerprint(s,p,m,m.approval.policyRevision),'Issued purchase contents differ from their approval.');if(m.issuedAt)must(['Open','Closed','Cancelled'].includes(p.status)&&Number.isFinite(Date.parse(m.issuedAt)),'Invalid issued purchase status.');}if(m.forecast){must(s.items.some(i=>i.id===m.forecast.itemId)&&m.forecast.qty>0&&Number.isFinite(m.forecast.daily),'Invalid forecast link.');} }
 }
-

@@ -1,6 +1,6 @@
-// Original Harbor unit/packaging boundary. The inventory and costing ledgers
+// Original Chmltech WMS unit/packaging boundary. The inventory and costing ledgers
 // continue to use their original, immutable whole base units.
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id)=>{const row=rows.find(r=>r.id===id);must(row,'Product not found.');return row;};
 const text=(value,max=100,required=true)=>{const v=String(value??'').trim();must(validUnicode(v)&&charLength(v)<=max&&(!required||v),'Enter valid unit text.');return v;};
@@ -110,4 +110,5 @@ export function validateUnits(s){
  for(const order of s.orders)for(const line of order.unitLines||[]){const base=order.lines.find(l=>l.itemId===line.itemId);must(base&&line.baseQty===line.quantity*line.factor&&base.qty===line.baseQty,'Sales packaging snapshot no longer matches its original order.');wholeUnits(line.quantity);wholeUnits(line.factor);}
  return true;
 }
+
 

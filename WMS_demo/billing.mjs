@@ -1,11 +1,11 @@
-import {deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
 // Local commercial subledger. Amounts are integer cents; unit prices have four decimals.
 // This module never moves stock and never sends money or connects to an accounting service.
-import {business} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {business} from './business.mjs?demo=45f52980507d3a1b';
+import {purchaseLines} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(rows,id,label='Record')=>{const r=rows.find(r=>r.id===id);must(r,`${label} not found.`);return r;};
 const txt=(v,label,max=240,required=false)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),`${label} must contain valid text${required?' and is required':''} (up to ${max} characters).`);return t;};
@@ -17,7 +17,7 @@ const mul=(a,b,d)=>rounded(BigInt(a)*BigInt(b),d);
 const day=(v,required=true)=>{const t=txt(v,'Date',10,required);must(!t||(/^\d{4}-\d{2}-\d{2}$/.test(t)&&Number.isFinite(Date.parse(t))&&new Date(t+'T00:00:00Z').toISOString().slice(0,10)===t),'Use a valid calendar date.');return t;};
 const currencies=['CAD','USD','CNY','TWD','HKD','SGD','AUD','NZD','EUR','GBP'];
 const currency=v=>{must(currencies.includes(v),'Billing supports CAD, USD, CNY, TWD, HKD, SGD, AUD, NZD, EUR and GBP.');return v;};
-const fresh=()=>({version:1,sequence:0,profile:{name:'Harbor warehouse',address:'',contact:'',taxId:'',paymentInstructions:''},documents:[],payments:[]});
+const fresh=()=>({version:1,sequence:0,profile:{name:'Chmltech WMS warehouse',address:'',contact:'',taxId:'',paymentInstructions:''},documents:[],payments:[]});
 export const billing=s=>s.billing||fresh();
 export const money=(cents,code)=>`${code} ${(cents/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const active=d=>d.status!=='Voided';
@@ -132,4 +132,3 @@ export function validateBilling(s){
  for(const p of b.payments){const d=get(b.documents,p.documentId,'Payment document');must(d.kind!=='Credit'&&p.currency===d.currency&&p.date>=d.date,'Invalid payment link.');must(['Payment','Refund'].includes(p.kind)&&['Recorded','Reversed'].includes(p.status),'Invalid payment state.');integer(p.amount,'payment amount',1e12,1);txt(p.method,'Method',60,true);txt(p.reference,'Reference',240,true);txt(p.note,'Note',1000);if(p.status==='Reversed'){txt(p.reversalReason,'Reversal reason',240,true);txt(p.reversedBy,'Reversed by',100,true);must(Number.isFinite(Date.parse(p.reversedAt)),'Invalid reversal timestamp.');}if(p.status==='Recorded')must(!b.payments.some(x=>x.id!==p.id&&x.documentId===p.documentId&&x.kind===p.kind&&x.status==='Recorded'&&x.reference.toLocaleLowerCase()===p.reference.toLocaleLowerCase()),'Duplicate recorded payment reference.');}
 }
 export function billingCSV(s){return csvText([['Number','Type','Party','Currency','Date','Due date','Status','Net','Tax','Total','Credits','Paid','Refunded','Balance','Source','Reference'],...billing(s).documents.map(d=>{const x=billingBalance(s,d);return [d.number,d.kind,d.party.name,d.currency,d.date,d.due,billingStatus(s,d),d.net/100,d.tax/100,d.total/100,...(d.kind==='Credit'?[0,0,0,0]:[x.credits/100,x.paid/100,x.refunded/100,x.balance/100]),d.sourceRef,d.reference];})]);}
-

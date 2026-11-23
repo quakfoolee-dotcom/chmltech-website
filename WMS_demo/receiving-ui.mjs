@@ -1,7 +1,7 @@
-import {receivingControl,receivingSuggestions,receivingBinCapacity} from './receiving-control.mjs?demo=5d9e5d1ce6c83eb1';
-import {locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {receivingControl,receivingSuggestions,receivingBinCapacity} from './receiving-control.mjs?demo=45f52980507d3a1b';
+import {locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rec=v=>'<span data-l10n-skip>'+e(v)+'</span>';
 const btn=(text,action,id='',extra='')=>'<button type="button" class="btn" data-action="rcv-'+action+'" data-id="'+e(id)+'" '+extra+'>'+e(text)+'</button>';
@@ -41,7 +41,7 @@ async function readPhotos(){
 export async function receivingUIAction(name,id,el,ctx){
  if(!name.startsWith('rcv-'))return false;const act=name.slice(4),{s,run,select,showModal,download}=ctx,d=receivingControl(s),get=(rows,key)=>{const r=rows.find(r=>r.id===key);if(!r)throw Error('Receiving record not found.');return r;},options=rows=>rows.map(r=>[r.id,r.code||r.sku+' / '+r.name]),review='<label class="billing-confirm"><input type="checkbox" name="reviewed" required> Review the quantities, scope and preservation policy.</label>',submit=(title,body,command,payload={})=>showModal(title,body,'Save',data=>run('receiving:'+command,{...payload,...data,reviewed:data.reviewed==='on'}));
  if(act==='refresh'){await ctx.refreshShared?.();ctx.refreshView();return true;}
- if(act==='export'){download('harbor-receiving.csv',csvText([['Kind','ID','Product','Lot','Quantity','Accepted','Rejected','Moved','Status'],...d.inspections.map(q=>['Inspection',q.id,get(s.items,q.itemId).sku,q.lot,q.qty,q.accepted,q.rejected,q.moved,q.status]),...d.tasks.map(t=>[t.kind,t.id,get(s.items,t.itemId).sku,t.lot,t.qty,'','','',t.status])]),'text/csv;charset=utf-8');return true;}
+ if(act==='export'){download('chmltech-wms-receiving.csv',csvText([['Kind','ID','Product','Lot','Quantity','Accepted','Rejected','Moved','Status'],...d.inspections.map(q=>['Inspection',q.id,get(s.items,q.itemId).sku,q.lot,q.qty,q.accepted,q.rejected,q.moved,q.status]),...d.tasks.map(t=>[t.kind,t.id,get(s.items,t.itemId).sku,t.lot,t.qty,'','','',t.status])]),'text/csv;charset=utf-8');return true;}
  if(act==='loadDemo')submit('Create receiving demo','<p>Create separate English and Chinese demo products with 100 units each at CAD 12.50 per unit. This adds sample stock; existing products and costs are preserved.</p>'+review,'loadDemo');
  else if(act==='bin')submit('Configure bin rules',select('Location','locationId',options(s.locations.filter(l=>l.type==='Storage')))+select('Product','itemId',options(s.items))+select('Bin role','role',[['Reserve','Reserve'],['Pick face','Pick face']])+input('Bin capacity in base units','capacity',100,'number','required min="1" step="1"')+input('Minimum picking quantity','minimum',5,'number','required min="0" step="1"')+input('Maximum picking quantity','maximum',20,'number','required min="1" step="1"'),'bin');
  else if(act==='createInspection'){
@@ -60,4 +60,3 @@ export async function receivingUIAction(name,id,el,ctx){
  }else throw Error('Unknown receiving action.');
  return true;
 }
-

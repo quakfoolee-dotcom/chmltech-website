@@ -1,5 +1,5 @@
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const text=(v,max=240,required=false)=>{const out=String(v??'').trim();must(validUnicode(out)&&charLength(out)<=max&&(!required||out),'Enter valid CRM text within the allowed length.');return out;};
 const day=v=>{const out=String(v??'').trim();must(!out||(/^\d{4}-\d{2}-\d{2}$/.test(out)&&Number(out.slice(0,4))>=1&&Number.isFinite(Date.parse(out))&&new Date(out+'T12:00:00Z').toISOString().slice(0,10)===out),'Use a valid CRM date.');return out;};
@@ -92,4 +92,3 @@ export function crmTimeline(s,profileId){
 export function crmTotals(s){
  const d=crm(s),totals={};for(const o of d.opportunities)if(!['Won','Lost'].includes(o.stage)){const t=totals[o.currency]||(totals[o.currency]={value:0,weighted:0});t.value+=o.value;t.weighted+=Math.round(o.value*o.probability/100);}return totals;
 }
-

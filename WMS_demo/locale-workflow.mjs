@@ -17,7 +17,7 @@ const rows=[
 ['Choose a record to see its next step.','请选择记录以查看下一步。','請選擇記錄以檢視下一步。','Choisissez un dossier pour voir la prochaine étape.'],
 ['This workspace is read-only.','此工作区为只读。','此工作區為唯讀。','Cet espace est en lecture seule.'],
 ['Permission required.','需要相应权限。','需要相應權限。','Autorisation requise.'],
-['Available in local Harbor.','请在本地 Harbor 中操作。','請在本機 Harbor 中操作。','Disponible dans Harbor local.'],
+['Available in local Chmltech WMS.','请在本地 Chmltech WMS 中操作。','請在本機 Chmltech WMS 中操作。','Disponible dans Chmltech WMS local.'],
 ['This action is unavailable for the current record.','当前记录不支持此操作。','目前記錄不支援此操作。','Cette action est indisponible pour ce dossier.'],
 ['Unavailable controls','不可用操作及原因','無法使用的操作及原因','Commandes indisponibles'],
 ['Saving changes…','正在保存更改…','正在儲存變更…','Enregistrement des modifications…'],
@@ -50,4 +50,3 @@ const rows=[
 ['Accounting','会计','會計','Comptabilité']
 ];
 export const workflowCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

@@ -1,5 +1,5 @@
-import {productionActionCommands,productionActionAllowed} from './production-policy.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {productionActionCommands,productionActionAllowed} from './production-policy.mjs?demo=45f52980507d3a1b';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
 // Only mapped production mutations are restricted; previews, exports and filters stay readable.
 export function applyProductionRoleControls(root,role){
  for(const el of root.querySelectorAll('[data-action]')){
@@ -9,4 +9,3 @@ export function applyProductionRoleControls(root,role){
   }else if(el.dataset.productionRoleBlocked){el.disabled=false;delete el.dataset.productionRoleBlocked;el.removeAttribute('title');}
  }
 }
-

@@ -1,10 +1,10 @@
-import {dateInputBounds} from './date-input.mjs?demo=5d9e5d1ce6c83eb1';
-import {manufacturingPlanningView,manufacturingPlanningAction,manufacturingPlanningSections} from './production-planning-ui.mjs?demo=5d9e5d1ce6c83eb1';
-import {productionStatus,workAttention,orderAttention,stageAttention,laborAttention} from './production-signals.mjs?demo=5d9e5d1ce6c83eb1';
-import {productionCopy,productionCopyHTML,productionCopyValueAttribute} from './production-locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {production,bomVersion,productionWork,productionWIP,productionEstimate,productionShortages} from './production.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {formatMoney} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {dateInputBounds} from './date-input.mjs?demo=45f52980507d3a1b';
+import {manufacturingPlanningView,manufacturingPlanningAction,manufacturingPlanningSections} from './production-planning-ui.mjs?demo=45f52980507d3a1b';
+import {productionStatus,workAttention,orderAttention,stageAttention,laborAttention} from './production-signals.mjs?demo=45f52980507d3a1b';
+import {productionCopy,productionCopyHTML,productionCopyValueAttribute} from './production-locale.mjs?demo=45f52980507d3a1b';
+import {production,bomVersion,productionWork,productionWIP,productionEstimate,productionShortages} from './production.mjs?demo=45f52980507d3a1b';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {formatMoney} from './currency-display.mjs?demo=45f52980507d3a1b';import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),record=v=>`<span data-l10n-skip>${e(v)}</span>`,button=(label,action,id='')=>`<button type="button" class="btn" data-action="prod-${action}" data-id="${e(id)}">${e(label)}</button>`,link=(label,section,id)=>`<a class="production-record-link" href="#business/${section}/${e(id)}" data-l10n-skip>${e(label)}</a>`,table=(heads,rows)=>`<div class="table-scroll"><table><thead><tr>${heads.map(h=>'<th>'+e(h)+'</th>').join('')}</tr></thead><tbody>${rows.map(row=>'<tr>'+row.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="'+heads.length+'">No production records yet.</td></tr>'}</tbody></table></div>`;
 const receiptButton=w=>button('Receive finished goods','complete',w.id).replace('class="btn"','class="btn production-receive-button"');
 const openRecord=(section,id)=>`<a class="btn production-open-link" href="#business/${e(section)}/${e(id)}">Open record</a>`;
@@ -48,7 +48,6 @@ export async function productionUIAction(name,id,el,ctx){
  if(act==='stage'){const stage=w.stages.find(x=>x.status==='Active');showModal('Complete stage','<h3>'+productionCopyHTML(stage.name)+'</h3><p>'+productionCopyHTML(stage.instructions)+'</p>'+area('Stage result','result')+'<label class="production-choice"><input type="checkbox" name="reviewed" required><span>I reviewed the stage instructions and result.</span></label>','Complete stage',data=>run('production:stage',{...data,id,stage:stage.number,reviewed:data.reviewed==='on'}));return true;}
  if(act==='complete'){showModal('Receive finished goods',input('Completed quantity','qty',w.qty-w.completed,'number',`required min="1" max="${w.qty-w.completed}" step="1"`)+select('Receipt location','locationId',s.locations.filter(l=>['Storage','Receiving','Hold'].includes(l.type)&&(!s.business.locationMeta[l.id]||s.business.locationMeta[l.id].warehouseId===order.warehouseId&&!s.business.locationMeta[l.id].transit&&!s.business.locationMeta[l.id].production&&s.business.locationMeta[l.id].ownerId==='owner-self')).map(l=>[l.id,l.code+' · '+l.name]))+input('Finished lot','lot','','text','required maxlength="100"')+'<p>Partial receipts allocate frozen material, approved labor and overhead costs. The remaining cost stays in work in progress.</p>','Receive finished goods',data=>run('production:complete',{id,...data},'business/production-orders/'+id));return true;}
  if(act==='cancel'){showModal('Cancel manufacture order',area('Reason','reason'),'Cancel manufacture order',data=>run('production:cancel',{id,...data}));return true;}
- if(act==='export'){download('Harbor-Production-Costs.csv',csvText([['MO','WO','Product','Planned','Completed','Material cents','Approved labor cents','Overhead cents','WIP cents'].map(k=>translate(k)),...d.orders.flatMap(o=>o.workOrders.map(w=>[o.number,w.number,s.items.find(i=>i.id===w.outputId)?.sku,w.qty,w.completed,w.materialCents,d.labor.filter(l=>l.workId===w.id&&l.status==='Approved').reduce((n,l)=>n+l.amount,0),w.overheadCents,productionWIP(s,w)]))]),'text/csv;charset=utf-8');return true;}
+ if(act==='export'){download('Chmltech-WMS-Production-Costs.csv',csvText([['MO','WO','Product','Planned','Completed','Material cents','Approved labor cents','Overhead cents','WIP cents'].map(k=>translate(k)),...d.orders.flatMap(o=>o.workOrders.map(w=>[o.number,w.number,s.items.find(i=>i.id===w.outputId)?.sku,w.qty,w.completed,w.materialCents,d.labor.filter(l=>l.workId===w.id&&l.status==='Approved').reduce((n,l)=>n+l.amount,0),w.overheadCents,productionWIP(s,w)]))]),'text/csv;charset=utf-8');return true;}
  throw Error('Unknown production screen action.');
 }
-

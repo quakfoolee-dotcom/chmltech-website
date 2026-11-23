@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.72** (see `CHANGELOG.md`).
+Version: **V5.74** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -17,6 +17,8 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `courses.html` | Free online courses and paid one-hour sessions, with the "Find your course" quiz and level/topic filters (data: `content/courses/finder.json`; run `content/gen/course_finder.py .` after changing it or adding a course; script and styles: `assets/js/course-finder.js`, `assets/css/course-finder.css`) |
 | `book.html` | Book Online: free strategy call or paid session request |
 | `funding.html` | Funding finder: Funding Match wizard (`#match`: 14 questions, ranked matches, funding stack, near misses, PDF report emailed through the `chmltech-report` worker; script `assets/js/funding-match.js`, styles `assets/css/funding-match.css`) above a filterable directory of federal, provincial and territorial business funding programs (data: `content/grants.json`; script: `assets/js/grants.js`). Eligibility rules: `content/funding/` (`phase1_rules_v1.json`, `redteam_corrections_v2.json`, built into `rules_v1.json` by `enrich_v1.py`). After changing the data or rules run `python3 content/funding/enrich_v1.py && python3 content/funding/funding_match_page.py`, then `seo_pass.py`. Changelog: `content/funding/CHANGELOG_Funding_Match.md` |
+| `wms-demo.html` | Chmltech WMS demo showcase (V5.73, renamed from Harbor WMS in V5.74): the indexable page for the browser demo, with modules, a deep-linked 10-minute workflow, screenshots (`assets/media/wms-demo/`), data storage notes and FAQ. Source: `content/gen/wms_demo_page.py`. Links to it from Solutions, Distribution & Warehousing and warehouse series Part 7 come from `content/gen/wms_demo_links.py` |
+| `WMS_demo/` | The Chmltech WMS browser demo (noindex app). Built in the harbor-wms repository (`node scripts/build-browser-demo.mjs`, patches in `scripts/browser-demo-patches.mjs`); copy `browser-demo-public/` here, keep `source.json`, then run `seo_pass.py` to add Clarity. `wms_demo/` is a redirect for the lowercase address. Tests: `node --test scripts/wms-demo.test.mjs` |
 | `llm-leaderboard.html` | LLM leaderboard (menu: AI Models): searchable database of current large language models with benchmark leaderboards, best-model-by-agent-type cards and a score-versus-cost Pareto chart. Data: `content/llm/llm.json`, built by `content/llm/build_dataset.py` from the research files in `content/llm/raw/` (method: `content/llm/SPEC.md`); page: `content/gen/llm_page.py`; script and styles: `assets/js/llm.js`, `assets/css/llm.css` |
 | `contact.html` | Contact form, details and FAQs |
 | `about.html` | About Chmltech and its CEO, with portrait, biography, career timeline and qualifications (script: `content/gen/about_page.py`) |
@@ -139,5 +141,5 @@ Search the code for `TODO`:
 
 ## WMS browser demo
 
-The full browser-only Harbor demo lives in `WMS_demo/` and is served at `https://www.chmltech.com/WMS_demo/` after this change is deployed. It uses fictional English sample records and browser-local storage; no backend or login is required. See [WMS_demo/README.md](WMS_demo/README.md) for developer handoff, storage/reset behavior and the canonical build source. Run `node --test scripts/wms-demo.test.mjs` to verify the packaged workflows and asset graph. The dedicated workflow runs these checks on pull requests and main.
+The full browser-only Chmltech WMS demo lives in `WMS_demo/` and is served at `https://www.chmltech.com/WMS_demo/` after this change is deployed. It uses fictional English sample records and browser-local storage; no backend or login is required. See [WMS_demo/README.md](WMS_demo/README.md) for developer handoff, storage/reset behavior and the canonical build source. Run `node --test scripts/wms-demo.test.mjs` to verify the packaged workflows and asset graph. The dedicated workflow runs these checks on pull requests and main.
 

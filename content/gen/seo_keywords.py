@@ -10,6 +10,10 @@ characters so they show in full; descriptions under ~155.
 """
 
 KEYWORDS = {
+    "wms-demo.html": dict(  # V5.73 Chmltech WMS demo showcase (content/gen/wms_demo_page.py)
+        title="Free WMS Demo: Try a Warehouse Management System | Chmltech",
+        h1="Try a warehouse management system (WMS) demo in your browser",
+        desc="Try a free WMS demo in your browser: receive, pick, pack and ship sample orders. No sign-up, and the sample data stays in your browser."),
     "index.html": dict(
         title="AI & Operations Consulting in Vancouver, BC | Chmltech",
         h1="AI and operations consulting for Canadian small businesses",

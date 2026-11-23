@@ -1,13 +1,26 @@
-import {dispatch,validateState} from './engine.mjs?demo=5d9e5d1ce6c83eb1';
-import {operationalCommands} from './operational-policy.mjs?demo=5d9e5d1ce6c83eb1';
-import {productionCommands} from './production.mjs?demo=5d9e5d1ce6c83eb1';
+import {dispatch,validateState} from './engine.mjs?demo=45f52980507d3a1b';
+import {operationalCommands} from './operational-policy.mjs?demo=45f52980507d3a1b';
+import {productionCommands} from './production.mjs?demo=45f52980507d3a1b';
 export const STORAGE_KEY='chmltech:WMS_demo:warehouse:v1';
 export const STORAGE_PREFIX='chmltech:WMS_demo:';
 const allowed=new Set([...operationalCommands,...productionCommands,'crm:saveProfile','crm:linkCustomer','crm:saveOpportunity','crm:stage','crm:linkQuote','crm:saveActivity','crm:completeActivity']);
 const failure=(message,status=422)=>Object.assign(Error(message),{status});
+// The sample warehouse is built once; when a visitor starts or resets the demo, every
+// date in it moves forward by the whole days (24-hour periods) since the build, so due dates, ages and
+// history keep the same distance from today (nothing turns overdue as the build ages).
+const DATE=/^(\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)?$/;
+export function shiftSeedDates(seed,now){
+ const built=Date.parse(seed?.updatedAt);if(!Number.isFinite(built))return seed;
+ // Whole 24-hour periods since the build, so shifted timestamps never pass the current time.
+ const days=Math.floor((now-built)/86400000);
+ if(days<=0)return seed;const ms=days*86400000;
+ const move=v=>{if(typeof v==='string'){const m=DATE.exec(v);if(!m)return v;const t=new Date(Date.parse(m[2]?v:m[1]+'T00:00:00Z')+ms).toISOString();return m[2]?t:t.slice(0,10);}
+  if(Array.isArray(v))return v.map(move);if(v&&typeof v==='object'){const o={};for(const k of Object.keys(v))o[k]=move(v[k]);return o;}return v;};
+ return move(seed);
+}
 export function createBrowserWorkspace({storage,seed,clock=Date.now,locks=globalThis.navigator?.locks}={}){
  validateState(seed);let memory=null,mode=storage?'saved':'memory';
- const fresh=()=>structuredClone(seed);
+ const fresh=()=>{const state=shiftSeedDates(structuredClone(seed),clock());validateState(state);return state;};
  function read(){
   if(mode==='memory')return memory;
   let raw;try{raw=storage.getItem(STORAGE_KEY);}catch{mode='memory';return memory;}
