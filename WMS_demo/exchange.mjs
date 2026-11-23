@@ -1,5 +1,5 @@
-import {charLength,validUnicode} from './unicode.mjs?demo=45f52980507d3a1b';
-import {ops} from './operations.mjs?demo=45f52980507d3a1b';
+import {charLength,validUnicode} from './unicode.mjs?demo=9c44c6dabb8d4728';
+import {ops} from './operations.mjs?demo=9c44c6dabb8d4728';
 export const catalogColumns=['sku','name','description','supplier','category','uom','reorderPoint','tracking'];
 // Prefix potentially active spreadsheet cells with an apostrophe. Escape an
 // original apostrophe too, making the transformation reversible on import.

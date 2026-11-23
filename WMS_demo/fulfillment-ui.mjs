@@ -1,6 +1,6 @@
-import {availableStock,orderScope} from './business.mjs?demo=45f52980507d3a1b';
-import {fulfillmentRows,openPicks} from './fulfillment.mjs?demo=45f52980507d3a1b';
-import {transferCosting,transferFreightPreview} from './transfer-costing.mjs?demo=45f52980507d3a1b';
+import {availableStock,orderScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {fulfillmentRows,openPicks} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
+import {transferCosting,transferFreightPreview} from './transfer-costing.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=(s,n)=>`${s.business?.homeCurrency||'CAD'} ${(n/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const button=(text,act,id='')=>`<button class="btn" data-action="delivery-${act}" data-id="${e(id)}">${e(text)}</button>`;

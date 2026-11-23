@@ -1,8 +1,8 @@
-import {business,profile,bestVendorPrice} from './business.mjs?demo=45f52980507d3a1b';
-import {suppliers,purchaseLines,purchaseTotals} from './purchasing.mjs?demo=45f52980507d3a1b';
-import {procurement,purchaseStatus} from './procurement.mjs?demo=45f52980507d3a1b';
-import {forecastReport,forecastCSV,shiftDay} from './forecast.mjs?demo=45f52980507d3a1b';
-import {localDay} from './dashboard.mjs?demo=45f52980507d3a1b';
+import {business,profile,bestVendorPrice} from './business.mjs?demo=9c44c6dabb8d4728';
+import {suppliers,purchaseLines,purchaseTotals} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {procurement,purchaseStatus} from './procurement.mjs?demo=9c44c6dabb8d4728';
+import {forecastReport,forecastCSV,shiftDay} from './forecast.mjs?demo=9c44c6dabb8d4728';
+import {localDay} from './dashboard.mjs?demo=9c44c6dabb8d4728';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=n=>Number(n).toLocaleString('en',{maximumFractionDigits:2}),money=(n,c)=>`${c} ${Number(n).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const button=(t,a,id='',extra='')=>`<button type="button" class="btn" data-action="plan-${a}" data-id="${e(id)}" ${extra}>${e(t)}</button>`,row=c=>'<tr>'+c.map(x=>'<td>'+x+'</td>').join('')+'</tr>',table=(h,r)=>`<div class="table-scroll"><table><thead>${row(h.map(e))}</thead><tbody>${r.join('')||'<tr><td colspan="'+h.length+'">No matching records.</td></tr>'}</tbody></table></div>`,area=(label,name,v='')=>`<label class="field">${e(label)}<textarea name="${name}" rows="3">${e(v)}</textarea></label>`;

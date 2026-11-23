@@ -1,9 +1,9 @@
-import {returnShipment} from './fulfillment.mjs?demo=45f52980507d3a1b';
-import {business,setupBusiness,inventoryValue,locationScope} from './business.mjs?demo=45f52980507d3a1b';
-import {billing} from './billing.mjs?demo=45f52980507d3a1b';
-import {isFIFO,fifoOpenShipmentSlices} from './fifo.mjs?demo=45f52980507d3a1b';
-import {rangeTransferFees,validateTransferFees} from './fifo-fees.mjs?demo=45f52980507d3a1b';
-import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {returnShipment} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
+import {business,setupBusiness,inventoryValue,locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {billing} from './billing.mjs?demo=9c44c6dabb8d4728';
+import {isFIFO,fifoOpenShipmentSlices} from './fifo.mjs?demo=9c44c6dabb8d4728';
+import {rangeTransferFees,validateTransferFees} from './fifo-fees.mjs?demo=9c44c6dabb8d4728';
+import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const cents=v=>Math.round((v+Number.EPSILON)*100);
 const own=(s,id)=>s.stock.filter(x=>x.itemId===id&&locationScope(s,x.locationId).ownerId==='owner-self').reduce((n,x)=>n+x.qty,0);

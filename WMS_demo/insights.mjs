@@ -1,11 +1,11 @@
-import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
-import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
-import {isFIFO,allocatedFIFORowValue} from './fifo.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=9c44c6dabb8d4728';
+import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=9c44c6dabb8d4728';
+import {isFIFO,allocatedFIFORowValue} from './fifo.mjs?demo=9c44c6dabb8d4728';
 // Count approval, retained stock evidence and read-only warehouse reports.
-import {business,locationScope,orderScope} from './business.mjs?demo=45f52980507d3a1b';
-import {purchaseLines} from './purchasing.mjs?demo=45f52980507d3a1b';
-import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
-import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {business,locationScope,orderScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {purchaseLines} from './purchasing.mjs?demo=9c44c6dabb8d4728';
+import {csvText} from './exchange.mjs?demo=9c44c6dabb8d4728';
+import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
 
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id)=>{const value=rows.find(r=>r.id===id);must(value,'Record not found.');return value;};

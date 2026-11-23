@@ -1,8 +1,8 @@
-import {executionGroup,executionPack} from './execution-view.mjs?demo=45f52980507d3a1b';
-export {executionGroup,executionPack,groupView,packView} from './execution-view.mjs?demo=45f52980507d3a1b';
-import {scanItem,orderScope,locationScope} from './business.mjs?demo=45f52980507d3a1b';
-import {pickMeta,shippingMeta} from './operations.mjs?demo=45f52980507d3a1b';
-import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {executionGroup,executionPack} from './execution-view.mjs?demo=9c44c6dabb8d4728';
+export {executionGroup,executionPack,groupView,packView} from './execution-view.mjs?demo=9c44c6dabb8d4728';
+import {scanItem,orderScope,locationScope} from './business.mjs?demo=9c44c6dabb8d4728';
+import {pickMeta,shippingMeta} from './operations.mjs?demo=9c44c6dabb8d4728';
+import {validUnicode,charLength} from './unicode.mjs?demo=9c44c6dabb8d4728';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const find=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Record not found.');return r;};
 const text=(v,max=100)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max,'Invalid scan text.');return t;};

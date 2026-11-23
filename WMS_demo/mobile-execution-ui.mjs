@@ -1,4 +1,4 @@
-import {groupView,packView,executionGroup,executionPack} from './execution-view.mjs?demo=45f52980507d3a1b';
+import {groupView,packView,executionGroup,executionPack} from './execution-view.mjs?demo=9c44c6dabb8d4728';
 const orderScope=(s,o)=>o.scope||{warehouseId:'wh-main',ownerId:'owner-self'};
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const input=(name,label,value='',type='text',extra='')=>`<label>${label}<input name="${name}" value="${e(value)}" type="${type}" ${extra}></label>`;
