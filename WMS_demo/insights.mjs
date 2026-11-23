@@ -1,11 +1,11 @@
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,allocatedFIFORowValue} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {isFIFO,allocatedFIFORowValue} from './fifo.mjs?demo=45f52980507d3a1b';
 // Count approval, retained stock evidence and read-only warehouse reports.
-import {business,locationScope,orderScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope,orderScope} from './business.mjs?demo=45f52980507d3a1b';
+import {purchaseLines} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id)=>{const value=rows.find(r=>r.id===id);must(value,'Record not found.');return value;};
@@ -205,4 +205,3 @@ export function warehouseReport(s,type='valuation',filters={},now=new Date().toI
 }
 export const reportCSV=report=>csvText([[report.title],['Generated (UTC)',report.generatedAt],['Note',report.note],['Filters',report.filterSummary],report.headers,...report.rows]);
 export function countCSV(s,c){return csvText([['Cycle count',c.number,c.name],['Status',c.status],['Round',c.round],['SKU','Product','Location','Lot','Expected','Counted','Variance','Serials','Note','Operator'],...c.lines.map(l=>{const visible=!c.blind||c.status!=='Counting';return [find(s.items,l.itemId).sku,find(s.items,l.itemId).name,find(s.locations,l.locationId).code,l.lot,visible?l.expected:'Hidden',l.counted??'',visible&&l.counted!==null?l.counted-l.expected:'',l.countedSerials.join('\n'),l.note,l.enteredBy];})]);}
-

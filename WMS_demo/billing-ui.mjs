@@ -1,11 +1,11 @@
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {interfaceLanguage} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {billing,billingBalance,billingStatus,billingCandidates,billingSource,creditableLines,billingCSV,money,unbilledSource} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
-import {billingDocuments} from './billing-documents.mjs?demo=5d9e5d1ce6c83eb1';
-import {business} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
-import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {interfaceLanguage} from './locale.mjs?demo=45f52980507d3a1b';
+import {billing,billingBalance,billingStatus,billingCandidates,billingSource,creditableLines,billingCSV,money,unbilledSource} from './billing.mjs?demo=45f52980507d3a1b';
+import {billingDocuments} from './billing-documents.mjs?demo=45f52980507d3a1b';
+import {business} from './business.mjs?demo=45f52980507d3a1b';
+import {documentHTML,languages} from './documents.mjs?demo=45f52980507d3a1b';
+import {createDocumentPDF} from './pdf.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,id='')=>`<button type="button" class="btn" data-action="bill-${action}" data-id="${e(id)}">${e(label)}</button>`;
 const row=c=>`<tr>${c.map(v=>`<td>${v}</td>`).join('')}</tr>`;
@@ -38,7 +38,7 @@ export function billingView(s,section,deep=(globalThis.location?.hash||'').split
   body+=table(['Currency','Customer balances due','Supplier balances due','Refund balances'],Object.entries(summary).map(([c,v])=>row([e(c),e(money(v.receivable,c)),e(money(v.payable,c)),e(money(v.refund,c))])));
   body+=`<h2>Outstanding documents</h2>`+table(['Document','Party','Due','Balance / refund',''],b.documents.filter(d=>d.kind!=='Credit'&&d.status==='Issued'&&billingBalance(s,d).balance!==0).map(d=>{const x=billingBalance(s,d);return row([e(d.number),e(d.party.name),e(d.due||'No due date'),e(money(x.balance,d.currency)),button(x.refundDue?'Record refund':'Record payment','payment',d.id)+button('Open document','navigate',d.id)]);}));
   body+=`<h2>Payments and refunds</h2>`+paymentTable(s,b.payments);
-  body+=note('Balances stay separate by currency. Recording or reversing a payment updates Harbor only. No bank transfer occurs. To send accounting entries to a test company, use QuickBooks sandbox.');
+  body+=note('Balances stay separate by currency. Recording or reversing a payment updates this demo only. No bank transfer occurs, and QuickBooks is disconnected in the browser demo.');
  }
  return {actions,body,intro};
 }
@@ -92,16 +92,15 @@ export async function billingAction(name,id,el,ctx){
    const d=doc(),lines=creditableLines(s,d),returns=business(s).returns.filter(r=>r.sourceId===d.orderId&&r.kind===(d.kind==='Invoice'?'Customer':'Supplier')&&['Received','Restocked','Scrapped','Completed','Sent'].includes(r.status));
    showModal('Credit '+d.number,f('Credit date','date',today,'date','required')+f('Reference','reference')+opt(d.kind==='Bill'&&s.costing?.purchases.includes(d.sourceId)?'Physical supplier return (required)':'Physical return (optional)','returnId',[['','Financial credit only (legacy bills / sales)'],...returns.map(r=>[r.id,`${r.number} · ${r.receiptId||'shipment'} · ${r.qty} units`])])+lines.map((l,i)=>f(`${l.sourceLineId} · ${l.sku} · ${l.name} (up to ${l.remaining})`,'qty'+i,0,'number',`required min="0" max="${l.remaining}" step="1"`)).join('')+area('Credit reason','note')+note('Credits use the original prices, discounts and taxes. Issuing applies the credit to this document only. Stock is unchanged; use Returns for physical goods.'),'Create credit draft',p=>save('credit',{...p,parentId:id,lines:lines.map((l,i)=>({sourceLineId:l.sourceLineId,qty:p['qty'+i]})).filter(l=>Number(l.qty)>0)}));break;
   }
-  case 'payment':{const d=doc(),x=billingBalance(s,d),kind=x.refundDue?'Refund':'Payment',direction=paymentDirection(d,{kind});showModal(direction+' · '+d.number,note(`${d.party.name} · ${money(x.refundDue||x.due,d.currency)} ${kind==='Refund'?'refundable':'outstanding'}. Record a transaction already made outside Harbor.`)+f(`Amount (${d.currency})`,'amount',((x.refundDue||x.due)/100).toFixed(2),'number','required min="0.01" step="0.01"')+f('Payment date','date',today,'date','required')+select('Method','method',['Bank transfer','Cash','Cheque','Card','Other'].map(x=>[x,x]))+f('Transaction reference','reference','','text','required')+area('Note','note'),'Record entry',p=>save('payment',{id,kind,...p}));break;}
+  case 'payment':{const d=doc(),x=billingBalance(s,d),kind=x.refundDue?'Refund':'Payment',direction=paymentDirection(d,{kind});showModal(direction+' · '+d.number,note(`${d.party.name} · ${money(x.refundDue||x.due,d.currency)} ${kind==='Refund'?'refundable':'outstanding'}. Record a transaction already made outside Chmltech WMS.`)+f(`Amount (${d.currency})`,'amount',((x.refundDue||x.due)/100).toFixed(2),'number','required min="0.01" step="0.01"')+f('Payment date','date',today,'date','required')+select('Method','method',['Bank transfer','Cash','Cheque','Card','Other'].map(x=>[x,x]))+f('Transaction reference','reference','','text','required')+area('Note','note'),'Record entry',p=>save('payment',{id,kind,...p}));break;}
   case 'reverse':case 'void':showModal(act==='reverse'?'Reverse this payment entry':'Void this document',area('Reason','reason')+note('The original record stays in the history. This does not move stock or transfer money.'),'Confirm',p=>save(act==='reverse'?'reversePayment':'void',{id,...p}));break;
-  case 'export':download('Harbor-billing.csv',billingCSV(s),'text/csv;charset=utf-8');break;
-  case 'paymentExport':download('Harbor-payments.csv',csvText([['Record','Document','Party','Direction','Currency','Amount','Date','Method','Reference','Status','Note','Reversal reason'],...b.payments.map(p=>{const d=b.documents.find(d=>d.id===p.documentId);return [p.number,d.number,d.party.name,paymentDirection(d,p),p.currency,p.amount/100,p.date,p.method,p.reference,p.status,p.note,p.reversalReason||''];})]),'text/csv;charset=utf-8');break;
+  case 'export':download('Chmltech-WMS-billing.csv',billingCSV(s),'text/csv;charset=utf-8');break;
+  case 'paymentExport':download('Chmltech-WMS-payments.csv',csvText([['Record','Document','Party','Direction','Currency','Amount','Date','Method','Reference','Status','Note','Reversal reason'],...b.payments.map(p=>{const d=b.documents.find(d=>d.id===p.documentId);return [p.number,d.number,d.party.name,paymentDirection(d,p),p.currency,p.amount/100,p.date,p.method,p.reference,p.status,p.note,p.reversalReason||''];})]),'text/csv;charset=utf-8');break;
   case 'preview':locale=interfaceLanguage();previewId=id;preview();break;
   case 'language':locale=document.querySelector('[name="billingLanguage"]').value;preview();break;
   case 'pdf':{locale=document.querySelector('[name="billingLanguage"]').value;const variant=locale==='zh-Hant'?'TC':'SC';el.disabled=true;try{if(!fonts.has(variant)){const r=await fetch(`./fonts/NotoSans${variant}-Regular.ttf`);if(!r.ok)throw Error('Chinese font could not load.');fonts.set(variant,new Uint8Array(await r.arrayBuffer()));}const bytes=await createDocumentPDF(billingDocuments(s,previewId,locale),{PDFLib:globalThis.PDFLib,fontkit:globalThis.fontkit,fontBytes:fonts.get(variant)});download(`${b.documents.find(d=>d.id===previewId).number}-${locale}.pdf`,bytes,'application/pdf');}finally{el.disabled=false;}break;}
-  case 'print':locale=document.querySelector('[name="billingLanguage"]').value;preview();for(const article of document.querySelectorAll('.business-document')){const loaded=await document.fonts.load(`400 14px ${locale==='zh-Hant'?'HarborTC':'HarborSC'}`,article.textContent);if(!loaded.length)throw Error('Chinese print font could not load.');}await document.fonts.ready;window.print();break;
+  case 'print':locale=document.querySelector('[name="billingLanguage"]').value;preview();for(const article of document.querySelectorAll('.business-document')){const loaded=await document.fonts.load(`400 14px ${locale==='zh-Hant'?'HarborTC':'HarborSC'}`,article.textContent);if(!loaded.length&&/[\u3400-\u9fff\uf900-\ufaff]/.test(article.textContent))throw Error('Chinese print font could not load. Refresh this page and try again.');}await document.fonts.ready;window.print();break;
   default:throw Error('Unknown billing action.');
  }
  return true;
 }
-

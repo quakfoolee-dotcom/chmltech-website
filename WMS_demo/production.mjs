@@ -1,9 +1,9 @@
-import {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {planningCommand,validatePlanning} from './production-planning.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {setupBusiness,business,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,fifoValue,consumeFIFOProduction,receiveFIFOProduction} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {planningCommand,validatePlanning} from './production-planning.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {setupBusiness,business,locationScope,inventoryValue} from './business.mjs?demo=45f52980507d3a1b';
+import {isFIFO,fifoValue,consumeFIFOProduction,receiveFIFOProduction} from './fifo.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const text=(v,max=240,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid production text within the allowed length.');return t;};
 const whole=(v,min=1,max=1000000)=>{const n=Number(v);must(v!==''&&Number.isSafeInteger(n)&&n>=min&&n<=max,'Enter a valid whole production quantity or number.');return n;};
@@ -89,4 +89,3 @@ export function validateProduction(s){
  }
  for(const l of d.labor){const {work:w}=productionWork(s,l.workId);whole(l.minutes,1,100000);whole(l.rateCents,1,1e12);whole(l.stage,1,w.stages.length);must(l.amount===Math.round(l.minutes*l.rateCents/60)&&l.amount>0&&['Submitted','Approved','Rejected'].includes(l.status)&&l.operator&&Number.isFinite(Date.parse(l.submittedAt)),'Invalid production labor entry.');if(l.status!=='Submitted')must(['Admin','Accounting'].includes(l.approvedRole)&&l.approvedBy&&l.approvalReason&&Number.isFinite(Date.parse(l.approvedAt)),'Labor approval evidence is missing.');if(l.status==='Approved'){const j=journalFor(l.journalId,'production:approve',l.id);must(amount(j,'Work in progress')===l.amount&&amount(j,'Applied labor')===-l.amount,'Approved labor journal changed.');}else must(!l.journalId,'Unapproved labor cannot post a cost.');}
 }
-

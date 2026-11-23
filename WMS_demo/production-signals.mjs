@@ -1,5 +1,5 @@
-import {production,productionShortages} from './production.mjs?demo=5d9e5d1ce6c83eb1';
-import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
+import {production,productionShortages} from './production.mjs?demo=45f52980507d3a1b';
+import {localDay} from './dashboard.mjs?demo=45f52980507d3a1b';
 // Read-only projections. No alert is persisted as a workflow state or cost.
 const presentations=new Map([
  ['Planned',['neutral','○']],['Pending',['neutral','○']],['Cancelled',['neutral','—']],
@@ -49,4 +49,3 @@ export function laborAttention(s,l){
  if(l.status==='Rejected'){const w=production(s).orders.flatMap(o=>o.workOrders).find(w=>w.id===l.workId);if(w&&!terminal(w)&&w.stages[l.stage-1]?.status==='Active'&&production(s).labor.filter(entry=>entry.workId===w.id&&entry.stage===l.stage).at(-1)?.id===l.id)return [signal('labor-rejected','Rejected labor needs review','red')];}
  return none();
 }
-

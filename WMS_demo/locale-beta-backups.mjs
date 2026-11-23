@@ -56,4 +56,3 @@ const rows=[
 ['Workspace revision conflict. Refresh before reviewing the restore again.','工作区版本冲突。请先刷新，再重新核查恢复操作。','工作區版本衝突。請先重新整理，再重新檢視復原操作。','Conflit de version de l’espace. Actualisez avant de vérifier à nouveau la restauration.']
 ];
 export const betaBackupCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

@@ -1,9 +1,9 @@
-import {pickLines,deliveryLines,outstandingLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickLines,deliveryLines,outstandingLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
 // Read-only dashboard projections. Invoice amounts remain integer cents.
-import {business,locationScope,orderScope,reorderSuggestions} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {billing} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope,orderScope,reorderSuggestions} from './business.mjs?demo=45f52980507d3a1b';
+import {billing} from './billing.mjs?demo=45f52980507d3a1b';
+import {purchaseLines} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const byId=(a,id)=>a.find(x=>x.id===id);
 export const dashboardData=s=>s.dashboard||{version:1,orders:{},customerGroups:{}};
@@ -113,4 +113,3 @@ export function dashboardCommand(s,command,p,ctx){
  throw Error('Unknown dashboard action.');
 }
 export function validateDashboard(s){if(!s.dashboard)return;const d=s.dashboard;must(d.version===1&&d.orders&&d.customerGroups,'Invalid dashboard metadata.');for(const [id,m]of Object.entries(d.orders)){must(byId(s.orders,id),'Dashboard order not found.');if(m.promisedDate)date(m.promisedDate);text(m.salesperson,100);}for(const [id,g]of Object.entries(d.customerGroups)){must(business(s).customers.some(c=>c.id===id)||billing(s).documents.some(x=>x.kind==='Invoice'&&x.partyKey===id),'Dashboard customer not found.');text(g,100);}const records=d.closedShort||[];must(Array.isArray(records)&&new Set(records.map(r=>r.id)).size===records.length,'Invalid close-short history.');for(const r of records){must(byId(s.orders,r.sourceOrderId)&&byId(s.orders,r.orderId)?.status==='Cancelled'&&byId(s.items,r.itemId)&&Number.isSafeInteger(r.qty)&&r.qty>0&&(r.value===null||Number.isSafeInteger(r.value)&&r.value>=0)&&Number.isFinite(Date.parse(r.time)),'Invalid closed-short source.');must(text(r.reason,240),'Close-short reason is required.');}}
-

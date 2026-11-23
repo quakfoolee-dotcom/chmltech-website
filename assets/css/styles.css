@@ -464,3 +464,14 @@ p{margin:0}
 .aios-v3 .aios-gov.is-on .aios-gov-ring,.aios-v3 .aios-gov:focus-visible .aios-gov-ring{stroke-width:3.5;opacity:1;stroke-dasharray:none}
 .aios-v3 .aios-cap{margin:6px 4px 2px;min-height:2.9em;color:#C9D5E6;font-size:14.5px;line-height:1.45;text-align:center}
 @media (prefers-reduced-motion:reduce){.aios-v3 .aios-chip,.aios-v3 .aios-path{transition:none}}
+
+/* V5.73 WMS demo links (content/gen/wms_demo_links.py): Solutions, Distribution & Warehousing, Part 7 */
+.wms-demo-strip .feature-split{align-items:center}
+.wms-demo-shot{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 26px 54px -30px rgba(7,28,61,.55)}
+.wms-demo-shot img{display:block;width:100%;height:auto}
+.wms-cta{display:flex;gap:22px;align-items:center;justify-content:space-between;margin:34px 0;padding:22px 24px;border:1px solid var(--line);border-left:4px solid var(--green);border-radius:10px;background:#F4F8EE}
+.wms-cta p{margin:0 0 6px}
+.wms-cta .wms-cta-eyebrow{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.wms-cta .wms-cta-title{font-family:var(--font-head);font-size:20px;font-weight:600;color:var(--navy)}
+.wms-cta .btn{flex:none;text-decoration:none}
+@media (max-width:700px){.wms-cta{flex-direction:column;align-items:flex-start}}

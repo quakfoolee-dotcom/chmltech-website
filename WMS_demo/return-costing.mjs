@@ -1,13 +1,13 @@
-import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
-import {fifoSupplierCreditBookValue,validateFIFOSupplierReturn} from './fifo-supplier.mjs?demo=5d9e5d1ce6c83eb1';
+import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {isFIFO} from './fifo.mjs?demo=45f52980507d3a1b';
+import {fifoSupplierCreditBookValue,validateFIFOSupplierReturn} from './fifo-supplier.mjs?demo=45f52980507d3a1b';
 // Reviewed return accounting. Inventory uses its saved FIFO ranges or average;
 // supplier credits retain their original bill's net price and frozen FX rate.
-import {business,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {billing,receiptLine} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {csvText} from './exchange.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope,inventoryValue} from './business.mjs?demo=45f52980507d3a1b';
+import {billing,receiptLine} from './billing.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {csvText} from './exchange.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Return accounting record not found.');return r;};
 const cents=v=>Math.round((v+Number.EPSILON)*100);
@@ -131,4 +131,3 @@ export function validateReturns(s){
  for(const r of business(s).returns.filter(x=>x.costPosting)){const linked=credits.filter(x=>x.returnId===r.id);must(linked.reduce((n,x)=>n+x.qty,0)<=r.qty&&linked.reduce((n,x)=>n+x.bookValue,0)<=r.costPosting.value,'Return credited more than once.');let used=0,bookUsed=0;for(const x of linked){const expected=r.fifoSupplier?fifoSupplierCreditBookValue(s,r,used,x.qty):used+x.qty===r.qty?r.costPosting.value-bookUsed:Math.round(r.costPosting.value*x.qty/r.qty);used+=x.qty;must(x.bookValue===expected,'Partial return credit book value changed.');bookUsed+=x.bookValue;}}
  for(const x of c.discrepancies||[]){get(c.pools,x.poolId);reason(x.reason);must(Number.isSafeInteger(x.qty)&&x.qty>0&&Number.isFinite(Date.parse(x.time)),'Invalid receipt review history.');}
 }
-

@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from aios import aios_svg, AIOS_CSS, COMPONENTS, PHASES, BENEFITS, FAQ as AIOS_FAQ
 from courses_build import render_course, finalize_course_file, course_stats
 import service_pages, industry_pages, journal_pages, privacy_page, new_articles, projects_page, grants_page
+import wms_demo_links  # V5.73 links to the Chmltech WMS demo showcase
 
 OUT, DATA = sys.argv[1], sys.argv[2]
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -439,6 +440,7 @@ sol = sol.replace('<section class="section sand" id="all-solutions"', f'''<secti
   {aios_svg(compact=True)}
 </div></section>
 <section class="section sand" id="all-solutions"''', 1)
+sol = wms_demo_links.add_to_solutions(sol)  # V5.73: WMS demo section before All solutions
 page("solutions.html", "Solutions", "AI readiness and strategy, digital transformation advisory, business process improvement, Lean Six Sigma, ISO 9001, process mapping, leadership operating systems and more from Chmltech Ltd.", sol)
 
 # ---------------------------------------------------------------- TRAINING: free practice exam library

@@ -1,9 +1,9 @@
-import {interfaceLanguage,translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {business,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,rangeCost,previewFIFOWithdrawal,fifoValue} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
-import {documentHTML,languages} from './documents.mjs?demo=5d9e5d1ce6c83eb1';
-import {createDocumentPDF} from './pdf.mjs?demo=5d9e5d1ce6c83eb1';
-import {formatMoney} from './currency-display.mjs?demo=5d9e5d1ce6c83eb1';
+import {interfaceLanguage,translate} from './locale.mjs?demo=45f52980507d3a1b';
+import {business,locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {isFIFO,rangeCost,previewFIFOWithdrawal,fifoValue} from './fifo.mjs?demo=45f52980507d3a1b';
+import {documentHTML,languages} from './documents.mjs?demo=45f52980507d3a1b';
+import {createDocumentPDF} from './pdf.mjs?demo=45f52980507d3a1b';
+import {formatMoney} from './currency-display.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,id='')=>`<button class="btn" data-action="biz-${action}" data-id="${e(id)}">${e(label)}</button>`;
 const origin=(s,id)=>s.costLayers.origins.find(o=>o.id===id);
@@ -30,7 +30,6 @@ export async function fifoWorkflowAction(act,id,el,{s,select,showModal,download}
  if(act==='fifoTransferDocument'||act==='fifoSupplierDocument'){selection={kind:act==='fifoTransferDocument'?'transfer':'supplier',id};locale=interfaceLanguage();}
  if(act==='fifoDocumentLanguage'||act==='fifoDocumentPDF')locale=document.querySelector('[name="fifoDocumentLanguage"]').value;
  const docs=fifoWorkflowDocuments(s,selection.kind,selection.id,locale);
- if(act==='fifoDocumentPDF'){const variant=locale==='zh-Hant'?'TC':'SC';el.disabled=true;try{if(!fonts.has(variant)){const r=await fetch('./fonts/NotoSans'+variant+'-Regular.ttf');if(!r.ok)throw Error('Chinese PDF font unavailable.');fonts.set(variant,new Uint8Array(await r.arrayBuffer()));}const bytes=await createDocumentPDF(docs,{PDFLib:globalThis.PDFLib,fontkit:globalThis.fontkit,fontBytes:fonts.get(variant)});download('harbor-fifo-'+selection.kind+'-'+locale+'.pdf',bytes,'application/pdf');}finally{el.disabled=false;}}
+ if(act==='fifoDocumentPDF'){const variant=locale==='zh-Hant'?'TC':'SC';el.disabled=true;try{if(!fonts.has(variant)){const r=await fetch('./fonts/NotoSans'+variant+'-Regular.ttf');if(!r.ok)throw Error('Chinese PDF font unavailable.');fonts.set(variant,new Uint8Array(await r.arrayBuffer()));}const bytes=await createDocumentPDF(docs,{PDFLib:globalThis.PDFLib,fontkit:globalThis.fontkit,fontBytes:fonts.get(variant)});download('chmltech-wms-fifo-'+selection.kind+'-'+locale+'.pdf',bytes,'application/pdf');}finally{el.disabled=false;}}
  else showModal('FIFO cost document',select('Document language','fifoDocumentLanguage',languages,locale)+button('Apply language','fifoDocumentLanguage')+button('Download PDF','fifoDocumentPDF')+documentHTML(docs));return true;
 }
-

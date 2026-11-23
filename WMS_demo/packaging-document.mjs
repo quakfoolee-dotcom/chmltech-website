@@ -6,4 +6,3 @@ export function packagedDocumentLine(line,locale='en'){
  const note=`${caption[locale]||caption.en}: ${line.qty} ${line.uom} (${u.factor} / ${u.name})`;
  return line.qty%u.factor===0?{price:base.price*u.factor,quantity:`${line.qty/u.factor} ${u.name}`,note}:{...base,note};
 }
-

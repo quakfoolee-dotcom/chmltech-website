@@ -1,8 +1,8 @@
-import {business,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {resolveProductBarcode} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {receivingRoleAllowed} from './receiving-policy.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope,inventoryValue} from './business.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {resolveProductBarcode} from './packaging.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
+import {receivingRoleAllowed} from './receiving-policy.mjs?demo=45f52980507d3a1b';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Receiving record not found.');return r;};
 const text=(v,max=500,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),'Enter valid receiving text within the allowed length.');return t;};
@@ -86,4 +86,3 @@ export function validateReceiving(s,ctx={}){
  if(!transitional)for(const q of d.inspections.filter(active)){const tasks=d.tasks.filter(t=>t.inspectionId===q.id);must(tasks.filter(t=>t.status==='Completed').reduce((n,t)=>n+t.qty,0)===q.moved&&tasks.filter(open).reduce((n,t)=>n+t.qty,0)+q.moved<=q.accepted,'Inspection task quantities exceed the approved release.');}
  return true;
 }
-

@@ -12,4 +12,3 @@ export function createSearchHandler(update){
   let composing=false;
   return {start(){composing=true;},end(target){composing=false;update(target);},input(event){if(!composing&&!event.isComposing)update(event.target);}};
 }
-

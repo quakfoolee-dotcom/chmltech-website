@@ -10,11 +10,10 @@ export function versionCompatibility(info){
 }
 export const requiresVersionUpdate=info=>versionCompatibility(info)!=='ready';
 export function versionUpdateMessage(info){
- return versionCompatibility(info)==='restart'?'Restart Harbor with Start Harbor.cmd, then refresh this page.':'Refresh this page to load the running Harbor version.';
+ return versionCompatibility(info)==='restart'?'Restart Chmltech WMS with Start Chmltech WMS.cmd, then refresh this page.':'Refresh this page to load the running Chmltech WMS version.';
 }
 export function versionNoticeHTML(info){
  if(!requiresVersionUpdate(info))return '';
- return `<div class="alert" role="status" data-version-notice><strong>Harbor versions do not match.</strong><p><span>Interface version</span>: <span data-l10n-skip>${APP_VERSION}</span> · <span>Server version</span>: <span data-l10n-skip>${escape(info.version)}</span></p><p>${versionUpdateMessage(info)}</p><p>Your saved warehouse records are preserved. No migration is needed.</p></div>`;
+ return `<div class="alert" role="status" data-version-notice><strong>Chmltech WMS versions do not match.</strong><p><span>Interface version</span>: <span data-l10n-skip>${APP_VERSION}</span> · <span>Server version</span>: <span data-l10n-skip>${escape(info.version)}</span></p><p>${versionUpdateMessage(info)}</p><p>Your saved warehouse records are preserved. No migration is needed.</p></div>`;
 }
-
 

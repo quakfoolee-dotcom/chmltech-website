@@ -1,4 +1,4 @@
-import {ops,pickMeta,shippingMeta,customFields,lotExpiry} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
+import {ops,pickMeta,shippingMeta,customFields,lotExpiry} from './operations.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const area=(label,name,value='',extra='')=>`<label class="field">${e(label)}<textarea name="${e(name)}" rows="4" ${extra}>${e(value)}</textarea></label>`;
 const button=(label,action,id='',extra='')=>`<button type="button" class="btn" data-action="${action}" data-id="${e(id)}" ${extra}>${e(label)}</button>`;
@@ -36,4 +36,3 @@ export async function operationAction(name,id,el,ctx){
   }
   return true;
 }
-

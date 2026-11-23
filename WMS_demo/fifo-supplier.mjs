@@ -1,8 +1,8 @@
 // Commercial credit matching keeps the selected receipt; the accounting
 // withdrawal consumes the warehouse's oldest FIFO ranges. Settlement retains
 // the dispatch-time book cents even when the credit uses a different price.
-import {isFIFO,rangeCost,layerWarehouse} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
-import {locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {isFIFO,rangeCost,layerWarehouse} from './fifo.mjs?demo=45f52980507d3a1b';
+import {locationScope} from './business.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const originFor=(s,id)=>s.costLayers.origins.find(o=>o.id===id);
 const atMovement=(origin,m)=>origin.baseCost+origin.adjustments.filter(a=>a.ordinal<m.ordinal).reduce((n,a)=>n+a.amount,0);
@@ -43,4 +43,3 @@ export function validateFIFOSupplierReturn(s,r){
  for(const x of m.slices){const o=originFor(s,x.originId),l=s.costLayers.layers.find(l=>l.id===x.layerId);must(o?.itemId===r.itemId&&l&&layerWarehouse(s,l)===snapshot.warehouseId&&!l.transitId,'FIFO supplier return changed its source layer.');must(x.value===rangeCost(o,x.start,x.qty,atMovement(o,m),m.ordinal),'FIFO supplier-return dispatch cost changed.');}
  must(!r.stockId||locationScope(s,s.stock.find(x=>x.id===r.stockId)?.locationId).warehouseId===snapshot.warehouseId,'FIFO supplier-return physical stock changed its warehouse.');
 }
-

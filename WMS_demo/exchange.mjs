@@ -1,5 +1,5 @@
-import {charLength,validUnicode} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {ops} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
+import {charLength,validUnicode} from './unicode.mjs?demo=45f52980507d3a1b';
+import {ops} from './operations.mjs?demo=45f52980507d3a1b';
 export const catalogColumns=['sku','name','description','supplier','category','uom','reorderPoint','tracking'];
 // Prefix potentially active spreadsheet cells with an apostrophe. Escape an
 // original apostrophe too, making the transformation reversible on import.
@@ -24,7 +24,7 @@ export function parseCSV(text){
 export const exportCatalog=s=>csvText([catalogColumns,...s.items.map(i=>[i.sku,i.name,i.description||'',i.supplier||'',i.category,i.uom,i.reorderPoint,ops(s).tracking[i.id]||'Lot'])]);
 export function catalogRows(text){
   const [heads,...rows]=parseCSV(text);
-  if(!heads||heads.length!==catalogColumns.length||catalogColumns.some(k=>!heads.includes(k)))throw Error('Use the Harbor catalog CSV columns: '+catalogColumns.join(', '));
+  if(!heads||heads.length!==catalogColumns.length||catalogColumns.some(k=>!heads.includes(k)))throw Error('Use the Chmltech WMS catalog CSV columns: '+catalogColumns.join(', '));
   if(!rows.length||rows.length>500)throw Error('Import between 1 and 500 catalog rows at a time.');
   const seen=new Set();
   return rows.map((r,index)=>{
@@ -42,4 +42,3 @@ export function catalogRows(text){
     out.reorderPoint=Number(out.reorderPoint);return out;
   });
 }
-

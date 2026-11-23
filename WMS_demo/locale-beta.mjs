@@ -23,4 +23,3 @@ const rows=[
 ['Review an invited account, role and reason.','请核查已邀请账户、角色及原因。','請核查已邀請帳戶、角色及原因。','Vérifiez le compte invité, le rôle et le motif.']
 ];
 export const betaCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

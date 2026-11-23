@@ -1,5 +1,5 @@
-import {resolveProductBarcode,scannedQuantity,wholeUnits} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
+import {resolveProductBarcode,scannedQuantity,wholeUnits} from './packaging.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const scope=(s,id)=>s.business?.locationMeta[id]||{warehouseId:'wh-main',ownerId:'owner-self'};
 const loc=(s,code)=>{const rows=s.locations.filter(l=>l.code.toUpperCase()===String(code||'').trim().toUpperCase());must(rows.length===1,'Scan a known location barcode.');return rows[0];};
@@ -41,4 +41,3 @@ export function validateMobileStock(s){
  for(const r of m.moves){must(/^[a-zA-Z0-9-]{16,80}$/.test(r.requestId)&&!ids.has(r.requestId),'Duplicate mobile move request.');ids.add(r.requestId);must(s.items.some(i=>i.id===r.itemId)&&s.locations.some(l=>l.id===r.sourceId)&&s.locations.some(l=>l.id===r.destinationId)&&r.sourceId!==r.destinationId,'Mobile move references are missing.');wholeUnits(r.baseQty);must(r.baseQty===r.quantity*r.factor,'Mobile move unit snapshot changed.');}
  return true;
 }
-

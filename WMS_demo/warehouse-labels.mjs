@@ -1,8 +1,8 @@
-import {api} from './shared.mjs?demo=5d9e5d1ce6c83eb1';
-import {warehouseLabelRows} from './warehouse-label-model.mjs?demo=5d9e5d1ce6c83eb1';
-import {barcodeSVG} from './barcode.mjs?demo=5d9e5d1ce6c83eb1';
-import {qrSVG} from './scan-codes.mjs?demo=5d9e5d1ce6c83eb1';
-import {interfaceLanguage,startLocalization} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {api} from './shared.mjs?demo=45f52980507d3a1b';
+import {warehouseLabelRows} from './warehouse-label-model.mjs?demo=45f52980507d3a1b';
+import {barcodeSVG} from './barcode.mjs?demo=45f52980507d3a1b';
+import {qrSVG} from './scan-codes.mjs?demo=45f52980507d3a1b';
+import {interfaceLanguage,startLocalization} from './locale.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;
 try{
@@ -17,4 +17,3 @@ try{
  warehouse.onchange=draw;draw();
 }catch(err){document.querySelector('#labels').textContent=err.message;}
 document.querySelector('#print').onclick=()=>window.print();document.querySelector('#interface-language').value=interfaceLanguage();startLocalization(()=>state);
-

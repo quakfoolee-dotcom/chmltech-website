@@ -1,4 +1,4 @@
-import {productUnits} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
+import {productUnits} from './packaging.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function packagingPanel(s){
  const rows=s.items.flatMap(item=>productUnits(s,item.id,{inactive:true}).map(u=>`<tr><td data-l10n-skip>${e(item.sku)}<br>${e(item.name)}</td><td data-l10n-skip>${e(u.code)} · ${e(u.name)}</td><td data-l10n-skip>1 ${e(u.code)} = ${u.factor} ${e(item.uom)}</td><td data-l10n-skip>${e(u.barcode)}</td><td><span>${u.active?'Active':'Archived'}</span></td><td><a class="btn" href="./warehouse-labels.html?item=${encodeURIComponent(item.id)}" target="_blank">Print unit labels</a>${u.active?` <button class="btn" data-action="biz-unitEdit" data-id="${e(u.id)}" data-item="${e(item.id)}" aria-label="Edit UoM for ${e(item.sku)} ${e(u.code)}">Edit UoM</button>`:''}${u.id==='base'?'':` <button class="btn" data-action="biz-unitStatus" data-id="${e(u.id)}" data-item="${e(item.id)}" data-active="${!u.active}">${u.active?'Archive unit':'Activate unit'}</button>`}</td></tr>`));
@@ -19,4 +19,5 @@ export async function packagingAction(act,id,el,ctx){
  return true;
 }
 export function unitLineOptions(s,itemId,buying=false){const units=productUnits(s,itemId,{legacy:buying}),p=s.business?.profiles[itemId],defaultId=buying&&p?.packSize>1?units.find(u=>u.factor===p.packSize&&u.name===p.packName)?.id||'base':'base';return units.map(u=>`<option value="${e(u.id)}"${u.id===defaultId?' selected':''} data-l10n-skip>${e(u.code)} · ${e(u.name)} (× ${u.factor})</option>`).join('');}
+
 

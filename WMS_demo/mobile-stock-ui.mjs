@@ -1,6 +1,6 @@
-import {stockLookup} from './mobile-stock.mjs?demo=5d9e5d1ce6c83eb1';
-import {productUnits,resolveProductBarcode,scannedQuantity} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
+import {stockLookup} from './mobile-stock.mjs?demo=45f52980507d3a1b';
+import {productUnits,resolveProductBarcode,scannedQuantity} from './packaging.mjs?demo=45f52980507d3a1b';
+import {translate} from './locale.mjs?demo=45f52980507d3a1b';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const field=(key,label,value='',extra='')=>`<label>${label}<input name="${key}" value="${e(value)}" ${extra}></label>`;
 const scan=(key,label,value='')=>field(key,label,value,'required autocomplete="off"')+`<button type="button" data-scan-target="${key}">Camera</button>`;
@@ -27,4 +27,3 @@ export function updateUnitPreview(form,s,{productChanged=false}={}){
   preview.dataset.l10nSkip='';preview.textContent=`${capture.quantity} ${capture.name} × ${capture.factor} = ${capture.baseQty} ${match.item.uom}`;
  }catch(err){delete preview.dataset.l10nSkip;preview.textContent=code.value?translate(err.message):translate('Scan a product to see its packaging units.');}
 }
-

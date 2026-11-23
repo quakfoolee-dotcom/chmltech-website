@@ -4,6 +4,7 @@ import assetver
 clean = lambda x, w: re.sub(rf"^\s*{w}:\s*", "", x)
 from service_pages import fig, esc
 from industry_art import industry_art
+import wms_demo_links
 
 SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "industries")
 ORDER = ["energy-and-chemicals", "natural-resources", "manufacturing", "health-care", "professional-services",
@@ -47,6 +48,7 @@ def build(ns):
   <div class="stack"><p class="eyebrow">Outcomes</p><h2 class="h-lg">What you can expect.</h2></div>
   <ul class="list-check" style="font-size:17px">{"".join(f"<li>{esc(x)}</li>" for x in P["outcomes"])}</ul>
 </div></section>'''
+        if P.get("wms_demo"): b = wms_demo_links.add_to_industry(b)  # V5.73: try-the-WMS-demo section
         W = P["why"]
         badge = lambda i, t: "ROI" if t.lower().startswith("results agreed") else f"0{i + 1}"
         b += f'''

@@ -1,11 +1,11 @@
-import {documentScanHTML} from './scan-codes.mjs?demo=5d9e5d1ce6c83eb1';
-import {translate,translatedWords} from './locale.mjs?demo=5d9e5d1ce6c83eb1';
-import {invoiceHTML} from './invoice-layout.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseFormLayout} from './commercial-layout.mjs?demo=5d9e5d1ce6c83eb1';
-import {forecastDocuments} from './forecast.mjs?demo=5d9e5d1ce6c83eb1';
-import {procurement,purchaseStatus} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
-import {ops,shippingMeta,shipmentLines} from './operations.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentScanHTML} from './scan-codes.mjs?demo=45f52980507d3a1b';
+import {translate,translatedWords} from './locale.mjs?demo=45f52980507d3a1b';
+import {invoiceHTML} from './invoice-layout.mjs?demo=45f52980507d3a1b';
+import {purchaseFormLayout} from './commercial-layout.mjs?demo=45f52980507d3a1b';
+import {forecastDocuments} from './forecast.mjs?demo=45f52980507d3a1b';
+import {procurement,purchaseStatus} from './procurement.mjs?demo=45f52980507d3a1b';
+import {ops,shippingMeta,shipmentLines} from './operations.mjs?demo=45f52980507d3a1b';
+import {purchaseLines,purchaseTotals} from './purchasing.mjs?demo=45f52980507d3a1b';
 export const languages=[['en','English'],['zh-Hans','简体中文 · Simplified Chinese'],['zh-Hant','繁體中文 · Traditional Chinese'],['fr','Français · French']];
 const words={
  en:{purchase:'Purchase order',packing:'Packing slip',label:'Warehouse label',supplier:'Supplier',recipient:'Ship to',description:'Description',qty:'Quantity',cost:'Unit cost',total:'Order total',due:'Due date',status:'Status',delivery:'Delivery',reference:'Reference',carrier:'Carrier / service',carton:'Carton',dimensions:'Dimensions',weight:'Weight',received:'Received',note:'Local warehouse document. Currency is shown where specified. Not a tax invoice.',postage:'Local warehouse label. NOT POSTAGE.',page:'Page',continued:'continued',Warehouse:'To warehouse','Drop ship':'Direct to customer',Open:'Open',Closed:'Closed',Cancelled:'Cancelled',Entered:'Entered',Packed:'Packed',Shipped:'Shipped'},
@@ -48,4 +48,3 @@ export function buildDocuments(s,kind,id,locale='en'){
  throw Error('Unknown document type.');
 }
 export const documentHTML=docs=>docs.map(d=>d.invoice||d.form?invoiceHTML(d):`<article class="business-document ${d.size==='label'?'document-label':''}" lang="${d.locale}"><header><strong>HARBOR</strong><span>${e(d.title)}</span></header><h2>${e(d.ref)}</h2>${d.scanCode?documentScanHTML(d.scanCode,d.locale):''}${d.blocks.map(b=>b.kind==='item'?`<h3>${e(b.text)}</h3>`:`<div class="document-field"><b>${e(b.label)}</b><div>${e(b.text)}</div></div>`).join('')}<footer>${e(d.footer)}</footer></article>`).join('');
-

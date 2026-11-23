@@ -1,11 +1,11 @@
-import {pickLines,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,fifoValue,nextFIFOCost} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickLines,deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {isFIFO,fifoValue,nextFIFOCost} from './fifo.mjs?demo=45f52980507d3a1b';
 // Local warehouse extensions. Optional metadata keeps v1 backups readable.
-import {charLength,cutText,validUnicode} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines,validatePurchasing,purchasingCommand} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {loadChineseDemo} from './chinese-demo.mjs?demo=5d9e5d1ce6c83eb1';
-import {locationScope,orderScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {charLength,cutText,validUnicode} from './unicode.mjs?demo=45f52980507d3a1b';
+import {purchaseLines,validatePurchasing,purchasingCommand} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {loadChineseDemo} from './chinese-demo.mjs?demo=45f52980507d3a1b';
+import {locationScope,orderScope} from './business.mjs?demo=45f52980507d3a1b';
 const must=(ok,message)=>{if(!ok)throw Error(message);};
 const find=(rows,id)=>{const row=rows.find(r=>r.id===id);must(row,'Record not found.');return row;};
 const text=(v,max=240)=>cutText(String(v??'').trim(),max);
@@ -221,4 +221,3 @@ export function extendedCommand(s,command,payload,ctx){
     default:return null;
   }
 }
-

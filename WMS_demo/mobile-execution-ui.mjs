@@ -1,4 +1,4 @@
-import {groupView,packView,executionGroup,executionPack} from './execution-view.mjs?demo=5d9e5d1ce6c83eb1';
+import {groupView,packView,executionGroup,executionPack} from './execution-view.mjs?demo=45f52980507d3a1b';
 const orderScope=(s,o)=>o.scope||{warehouseId:'wh-main',ownerId:'owner-self'};
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const input=(name,label,value='',type='text',extra='')=>`<label>${label}<input name="${name}" value="${e(value)}" type="${type}" ${extra}></label>`;
@@ -37,4 +37,3 @@ export function executionWorkHTML(s,mode,id){
  body+='<p><a href="./execution-labels.html?shipment='+encodeURIComponent(id)+'" target="_blank">Print carton barcodes</a></p></article>';
  return body+form('warehouse:addCarton',input('name','Carton name','','text','maxlength="60"'),'Add scan carton')+(c.cartons.length?form('warehouse:scanPack',scanField('cartonCode','Carton barcode')+scanField('code','Barcode or SKU')+scanField('lot','Lot / batch')+input('qty','Quantity',1,'number','required min="1" step="1"')+serials,'Save carton scan')+form('warehouse:sealPack',input('carrier','Carrier / local delivery','','text','required maxlength="240"')+input('tracking','Tracking reference')+input('service','Carrier service')+checks,'Seal scanned packing'):'');
 }
-

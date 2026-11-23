@@ -1,12 +1,12 @@
-import {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=5d9e5d1ce6c83eb1';
-export {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=5d9e5d1ce6c83eb1';
-import {production,productionWork} from './production.mjs?demo=5d9e5d1ce6c83eb1';
-import {business,locationScope,profile,replenishmentRule} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines,suppliers} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {procurement} from './procurement.mjs?demo=5d9e5d1ce6c83eb1';
-import {localDay} from './dashboard.mjs?demo=5d9e5d1ce6c83eb1';
-import {shiftDay,calendarDay} from './forecast.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=45f52980507d3a1b';
+export {planningCommands,productionRoleAllowed} from './production-policy.mjs?demo=45f52980507d3a1b';
+import {production,productionWork} from './production.mjs?demo=45f52980507d3a1b';
+import {business,locationScope,profile,replenishmentRule} from './business.mjs?demo=45f52980507d3a1b';
+import {purchaseLines,suppliers} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {procurement} from './procurement.mjs?demo=45f52980507d3a1b';
+import {localDay} from './dashboard.mjs?demo=45f52980507d3a1b';
+import {shiftDay,calendarDay} from './forecast.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);},get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Planning record not found.');return r;};
 const text=(v,max=240)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max,'Enter valid planning text within the field limit.');return t;};
 const whole=(v,min=1,max=1000000)=>{const n=Number(v);must(v!==''&&Number.isSafeInteger(n)&&n>=min&&n<=max,'Enter a valid whole planning number.');return n;};
@@ -47,4 +47,3 @@ export function planningCommand(s,command,p,ctx){
  audit(productionPlanning(s),ctx,command,id);return {type:'Manufacturing planning saved',message:'Manufacturing planning saved',reference:id,resultId:id};
 }
 export function validatePlanning(s){const d=production(s).planning;if(!d)return;must(d.version===1&&Number.isSafeInteger(d.sequence)&&d.sequence>=0&&Array.isArray(d.centers)&&d.centers.length<=1000&&Array.isArray(d.bookings)&&d.bookings.length<=10000&&Array.isArray(d.proposals)&&d.proposals.length<=10000&&Array.isArray(d.history)&&d.history.length<=5000,'Invalid manufacturing planning ledger.');const ids=[...d.centers,...d.bookings,...d.proposals].map(x=>x.id);must(new Set(ids).size===ids.length&&ids.every(id=>/^plan-(center|booking|proposal)-[1-9]\d*$/.test(id)&&Number(id.split('-').at(-1))<=d.sequence),'Invalid planning identifiers.');for(const c of d.centers){get(business(s).warehouses,c.warehouseId);must(c.code&&c.name&&text(c.code,30)===c.code&&text(c.name,100)===c.name,'Invalid work center.');whole(c.dailyMinutes,1,1440);must(c.weekdays.length>0&&new Set(c.weekdays).size===c.weekdays.length&&c.weekdays.every(x=>Number.isInteger(x)&&x>=0&&x<=6),'Invalid working days.');}must(new Set(d.centers.map(c=>c.code)).size===d.centers.length,'Duplicate work center.');must(new Set(d.bookings.map(b=>b.workId)).size===d.bookings.length,'Duplicate work schedule.');for(const b of d.bookings){const {order}=productionWork(s,b.workId),c=get(d.centers,b.centerId);must(c.warehouseId===order.warehouseId&&workingDays(c,b.start,b.end).length>0,'Invalid work schedule.');text(b.note,500);must(Number.isFinite(Date.parse(b.updatedAt))&&b.updatedBy,'Missing schedule review.');}for(const p of d.proposals){get(s.items,p.itemId);get(business(s).warehouses,p.warehouseId);get(suppliers(s),p.supplierId);whole(p.qty);whole(p.packSize);calendarDay(p.asOf);calendarDay(p.arrival);if(p.needed)calendarDay(p.needed);must(p.qty%p.packSize===0&&['Draft','Converted','Cancelled'].includes(p.status)&&Array.isArray(p.demands)&&p.demands.length>0,'Invalid material proposal.');for(const r of p.demands){const {order,work}=productionWork(s,r.workId);must(order.id===r.orderId&&work.components.some(c=>c.itemId===p.itemId&&!c.bomId),'Invalid material demand link.');whole(r.qty);if(r.needed)calendarDay(r.needed);}if(p.status==='Converted'){const po=get(s.operations.purchases,p.purchaseId);must(po.reference===p.id&&purchaseLines(po).some(l=>l.itemId===p.itemId&&l.qty===p.qty),'Material purchase link changed.');}else must(!p.purchaseId,'Unconverted proposal cannot link a purchase.');text(p.note,500);must(p.createdBy&&Number.isFinite(Date.parse(p.createdAt)),'Missing proposal review.');}for(const h of d.history)must(h.id&&h.actor&&h.actorId&&Number.isFinite(Date.parse(h.time))&&planningCommands.includes(h.action),'Invalid planning audit.');}
-

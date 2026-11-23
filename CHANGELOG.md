@@ -1,5 +1,58 @@
 # Changelog
 
+## V5.74 — 2026-11-23
+- **The WMS demo is renamed from Harbor WMS to Chmltech WMS** everywhere visitors see it:
+  - the demo's logo, page titles, demo bar, help text, messages and translations;
+  - the layout choice, now "Classic workspace" / "Modern workspace";
+  - download filenames (`chmltech-wms-…`, `Chmltech-WMS-…`);
+  - the sample company, now "Cedar Outdoor";
+  - the showcase page `/wms-demo`, its screenshots (now `assets/media/wms-demo/chmltech-wms-*`, retaken with the new branding) and social image;
+  - the Solutions, Distribution & Warehousing and Part 7 links. Part 7's note now reads "Chmltech's own WMS is not one of them".
+- **Unchanged on purpose:**
+  - internal identifiers keep "harbor" (storage keys, the layout value, the language event and the HarborSC/HarborTC font names), so visitors' saved demos and layout choices keep working;
+  - the source repository is still `harbor-wms`;
+  - the demo address stays `/WMS_demo/`.
+- **How:** the rename is a final pass in harbor-wms `scripts/browser-demo-patches.mjs` (`renameProduct`), with a regression test. `content/gen/wms_demo_links.py` now replaces earlier versions of its link blocks, so wording changes reach the rendered pages.
+
+## V5.73 — 2026-11-23
+- **New: Harbor WMS demo showcase page** (`/wms-demo`, source `content/gen/wms_demo_page.py`). The indexable entry point for the browser demo:
+  - what visitors can try, in eight modules;
+  - a 10-minute workflow from receiving to shipping, with links that open the demo at each screen;
+  - three screenshots (`assets/media/wms-demo/`);
+  - how the demo stores data in the browser;
+  - links to warehouse series Part 7, the Digital Assessment and the ERP selection course;
+  - FAQ, and SoftwareApplication structured data.
+
+  Title, H1 and description are registered in `seo_keywords.py`.
+- **Links to the showcase page** from one shared source, `content/gen/wms_demo_links.py`, applied to the rendered pages and wired into the generators so rebuilds keep them:
+  - Solutions: a section before "All solutions" (`build_v3.py`);
+  - Distribution & Warehousing: a section after the interactive demo (`industry_pages.py`, `"wms_demo": true` in the industry JSON);
+  - warehouse series Part 7: a "Try it yourself" box before Key points (`wh7_articles.py`, regenerated with `add_article.py`).
+
+  Styles: the "V5.73 WMS demo links" block in `styles.css`.
+- **WMS demo (`WMS_demo/`), rebuilt from harbor-wms** with `scripts/browser-demo-patches.mjs`:
+  - **First load:** Harbor's Chinese fonts load only for Chinese text and the Chinese interfaces; the language menu labels use device fonts. A cold English first load fell from about 16.8 MB to 3.1 MB, with no font requests. Chinese interfaces, document previews and PDF export are unchanged.
+  - **Users & backups → Demo data & storage:** explains browser-only saving, Reset, JSON and CSV exports, and that there are no real accounts or server backups. Its buttons (Reset demo, Download demo data, Export catalog, Activity log) all work.
+  - **Data & settings:** the browser-storage wording replaces the shared-database text; Restore a backup is removed, and an attempted restore explains why inside the dialog.
+  - **Unsupported actions** no longer appear to succeed: creating an account is refused with a message, the Load Chinese examples button is removed, and the server wording on the phone, Purchasing and Classic inventory screens now says data is saved in this browser.
+  - **Sample data:** the two manufacturing families are named Travel and Classic gift sets (codes GS-TR-*, GS-CL-*), with plain run references, a fictional supplier name, plain location names and no test codes. Every date in the sample shifts forward by the days since the build each time a visitor starts or resets the demo, so manufacture orders stay due one and two weeks ahead instead of showing as overdue.
+  - **Translations:** all new text is translated into Simplified and Traditional Chinese and French.
+  - **Search:** every demo page is noindex.
+  - **Analytics:** Microsoft Clarity with the `?notrack=on` opt-out. Custom events record demo open, each module opened, every completed action, milestones (PO received, order issued, pick finished, order shipped, units edited), Reset and blocked actions.
+- **Red team QC (independent review), all findings addressed:**
+  - **Privacy wording:** the showcase and the in-app note no longer say "nothing is sent to a server". They say records stay in the browser and that the site's Microsoft Clarity analytics records screens with record details masked; the showcase links to the Privacy page. The demo's interactive pages carry `data-clarity-mask="True"`.
+  - **Inventory reconciliation:** shows an honest note instead of an error on opening, and no longer sends false "blocked" events.
+  - **Removed server wording:** the phone-address setup in Barcode station. "Export backup" is now "Download demo data" (`harbor-wms-demo-…json`), and the QuickBooks notes say QuickBooks is disconnected in the demo.
+  - **Fixes:** the dashboard's Mobile scanner link is now relative. English documents print, because the Chinese print-font check runs only on Chinese text.
+  - **Translations:** the demo bar, reset dialog, help walkthrough and phone note are translated.
+  - **Returning visitors:** visitors with an older saved demo get a notice to reset.
+  - **Activity log:** shows local times and up to 500 entries.
+  - **Date shift:** counts whole 24-hour periods, so sample timestamps never land in the future.
+- **`seo_pass.py`:** pages in `WMS_demo/` get only the Clarity loader, never canonical URLs, structured data or sitemap entries. Before this change, a run would have added five demo pages to the sitemap. Rerun `seo_pass.py` after copying a new demo build so Clarity is added again.
+- **Wording:** the showcase FAQ no longer says Chmltech does not sell a WMS; it invites a call about using Harbor. Part 7's note now says its four costed options are generic categories, and that Chmltech's own Harbor WMS is not one of them.
+- **`/wms_demo/`** (any letter case) forwards to `/WMS_demo/` from `404.html`, keeping the path, query and `#module`. There is no second folder, so the repo has no two names that differ only by case, which would collide on Windows and macOS.
+- **Tests:** `scripts/wms-demo.test.mjs` adds checks for analytics, noindex and sitemap exclusion, the font rule, the redirect, and the showcase links in pages and generators.
+
 ## V5.72 — 2026-11-22
 - **Book page:** removed the "Paid expert sessions" section (Corporate Strategy CA$450, Operational Consulting CA$350, Project Management CA$250, one hour online) and the three paid-session options from the form's topic list. The page's meta and social descriptions, the SEO keyword source and llms.txt now say "Book a free strategy call" only. `build_v3.py` no longer adds the section or the options to the Book page. The Contact page form is unchanged.
 

@@ -9,4 +9,3 @@ export function rangeTransferFees(origin,start,qty,beforeOrdinal=Infinity){
 export function validateTransferFees(origin){
  const ids=new Set();for(const f of origin.transferFees||[]){if(!f||typeof f.id!=='string'||ids.has(f.id)||!Number.isSafeInteger(f.ordinal)||f.ordinal<=0||!Number.isFinite(Date.parse(f.time))||!Number.isSafeInteger(f.start)||f.start<0||!Number.isSafeInteger(f.qty)||f.qty<=0||f.start+f.qty>origin.qty||!Number.isSafeInteger(f.amount)||f.amount<0||!f.billId||!f.allocationId||!f.transferId)throw Error('Invalid FIFO transfer fee overlay.');ids.add(f.id);}
 }
-

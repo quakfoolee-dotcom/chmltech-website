@@ -1,5 +1,5 @@
 // First-class deliveries retain the original sales order and its prices.
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const pickLines=(s,p)=>p.lines||s.orders.find(o=>o.id===p.orderId).lines;
 export const deliveryLines=(s,sh)=>sh.lines||s.operations?.shipping[sh.id]?.orderLines||pickLines(s,s.picks.find(p=>p.id===sh.pickId));
@@ -44,4 +44,3 @@ export function releaseDelivery(s,o,p,ctx){
  let pk=existing[0];if(!pk){const id=ctx.uid(s,'pick');pk={id,number:`PK-${s.counters.pick}`,orderId:o.id,status:'Entered',allocations:[],shipmentId:null};s.picks.push(pk);o.pickId=id;}
  pk.lines=lines;pk.releaseReason=reason;pk.releasedAt=ctx.time;pk.scanCounts={};o.status=fulfillmentStatus(s,o);return pk;
 }
-

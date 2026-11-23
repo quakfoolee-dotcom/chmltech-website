@@ -1,12 +1,12 @@
-import {pickLines,deliveryLines,returnShipment,outstandingLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,fifoValue} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
-import {resolveProductBarcode,selectedUnit,unitQuantity} from './packaging.mjs?demo=5d9e5d1ce6c83eb1';
-import {explainPrice,salesToday} from './pricing.mjs?demo=5d9e5d1ce6c83eb1';
+import {pickLines,deliveryLines,returnShipment,outstandingLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {isFIFO,fifoValue} from './fifo.mjs?demo=45f52980507d3a1b';
+import {resolveProductBarcode,selectedUnit,unitQuantity} from './packaging.mjs?demo=45f52980507d3a1b';
+import {explainPrice,salesToday} from './pricing.mjs?demo=45f52980507d3a1b';
 // Original local business workflows. All writes run inside the stock engine transaction.
-import {disposeCustomerReturn,recordCustomerReturn,validateCustomerReturns} from './customer-returns.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines,suppliers} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {disposeCustomerReturn,recordCustomerReturn,validateCustomerReturns} from './customer-returns.mjs?demo=45f52980507d3a1b';
+import {purchaseLines,suppliers} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(ok,msg)=>{if(!ok)throw Error(msg);};
 const get=(a,id,label='Record')=>{const r=a.find(x=>x.id===id);must(r,`${label} not found.`);return r;};
 const text=(v,label='Text',max=240,required=true)=>{const t=String(v??'').trim();must(validUnicode(t)&&charLength(t)<=max&&(!required||t),`${label} is required and must be valid text up to ${max} characters.`);return t;};
@@ -200,5 +200,4 @@ export function businessCommand(s,command,p,ctx){
 }
 export const safeCSV=rows=>'\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/^[=+@-]/,"'$&").replaceAll('"','""')+'"').join(',')).join('\r\n');
 export function journalCSV(s){const rows=[['JournalNo','JournalDate','AccountName','Debits','Credits','Description','Currency']];for(const j of business(s).journals.filter(j=>j.status==='Reviewed'))for(const l of j.lines)rows.push([j.id,j.time.slice(0,10),l.account,l.debit/100,l.credit/100,j.reference,j.currency]);return safeCSV(rows);}
-export function shipmentExchange(s){return {format:'Harbor shipment exchange v1',generatedAt:new Date().toISOString(),shipments:s.shipments.filter(sh=>sh.status==='Shipped').map(sh=>({reference:get(s.orders,sh.orderId).reference,shipment:sh.number,shippedAt:sh.shippedAt,carrier:sh.carrier,tracking:sh.tracking,lines:get(s.orders,sh.orderId).lines.map(l=>({sku:get(s.items,l.itemId).sku,qty:l.qty}))}))};}
-
+export function shipmentExchange(s){return {format:'Chmltech WMS shipment exchange v1',generatedAt:new Date().toISOString(),shipments:s.shipments.filter(sh=>sh.status==='Shipped').map(sh=>({reference:get(s.orders,sh.orderId).reference,shipment:sh.number,shippedAt:sh.shippedAt,carrier:sh.carrier,tracking:sh.tracking,lines:get(s.orders,sh.orderId).lines.map(l=>({sku:get(s.items,l.itemId).sku,qty:l.qty}))}))};}

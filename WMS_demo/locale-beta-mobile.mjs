@@ -20,4 +20,3 @@ const rows=[
  ['Wait for the current save to finish.','请等待当前保存完成。','請等待目前儲存完成。','Attendez la fin de l’enregistrement.']
 ];
 export const betaMobileCatalogue=Object.fromEntries(rows.map(([key,sc,tc,fr])=>[key,{'zh-Hans':sc,'zh-Hant':tc,fr}]));
-

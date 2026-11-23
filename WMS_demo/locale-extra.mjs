@@ -2,7 +2,7 @@ export const extraRows=`
 Full database backups|完整数据库备份|完整資料庫備份|Sauvegardes complètes de la base
 Create full backup|创建完整备份|建立完整備份|Créer une sauvegarde complète
 Workspace JSON exports do not include accounts or QuickBooks credentials.|工作区 JSON 导出不包含账户或 QuickBooks 凭证。|工作區 JSON 匯出不包含帳戶或 QuickBooks 憑證。|Les exports JSON de l’espace ne contiennent ni comptes ni identifiants QuickBooks.
-Verified full backups run at startup and hourly while Harbor is running. The latest 24 are retained.|Harbor 启动时及运行期间每小时执行已验证的完整备份，保留最近 24 份。|Harbor 啟動時及執行期間每小時執行已驗證的完整備份，保留最近 24 份。|Les sauvegardes complètes vérifiées sont créées au démarrage puis chaque heure pendant le fonctionnement de Harbor. Les 24 dernières sont conservées.
+Verified full backups run at startup and hourly while Chmltech WMS is running. The latest 24 are retained.|Chmltech WMS 启动时及运行期间每小时执行已验证的完整备份，保留最近 24 份。|Chmltech WMS 啟動時及執行期間每小時執行已驗證的完整備份，保留最近 24 份。|Les sauvegardes complètes vérifiées sont créées au démarrage puis chaque heure pendant le fonctionnement de Chmltech WMS. Les 24 dernières sont conservées.
 Full backup folders include the application, all database tables and the phone address. External phone certificates and Windows account encryption keys are not included.|完整备份文件夹包含应用程序、所有数据库表及手机访问地址。不包含外部手机证书及 Windows 账户加密密钥。|完整備份資料夾包含應用程式、所有資料庫表及手機存取位址。不包含外部手機憑證及 Windows 帳戶加密金鑰。|Les dossiers complets contiennent l’application, toutes les tables et l’adresse mobile. Les certificats externes et les clés du compte Windows sont exclus.
 Full backup folders are saved under data/full-backups. Copy the entire folder to your private backup location.|完整备份保存在 data/full-backups。请将整个文件夹复制到您的私人备份位置。|完整備份儲存於 data/full-backups。請將整個資料夾複製到您的私人備份位置。|Les sauvegardes complètes se trouvent dans data/full-backups. Copiez le dossier entier vers votre emplacement privé de sauvegarde.
 Manifest|备份清单|備份清單|Manifeste
@@ -30,7 +30,7 @@ Net invoiced units, reduced by issued customer credits. Different units are coun
 Net revenue after discounts and credits, excluding tax, divided by invoiced order count. Margin uses stored shipment costs.|扣除折扣及贷项后的未税净收入除以已开票订单数。毛利使用已保存的发货成本。|扣除折扣及貸項後的未稅淨收入除以已開票訂單數。毛利使用已保存的出貨成本。|Chiffre d’affaires net après remises et crédits, hors taxes, divisé par les commandes facturées. La marge utilise les coûts d’expédition conservés.
 Issued home-currency invoice net amounts minus issued customer credit net amounts; tax and supplier bills excluded.|已开本币发票未税金额减已开客户贷项未税金额；不含税及供应商账单。|已開本幣發票未稅金額減已開客戶貸項未稅金額；不含稅及供應商帳單。|Factures émises nettes en devise locale moins les crédits clients émis; taxes et factures fournisseurs exclues.
 Filters · category, customer, group, salesperson & margin|筛选 · 类别、客户、组、销售员与毛利|篩選 · 類別、客戶、群組、業務員與毛利|Filtres · catégorie, client, groupe, vendeur et marge
-Sign in to Harbor|登录 Harbor|登入 Harbor|Se connecter à Harbor
+Sign in to Chmltech WMS|登录 Chmltech WMS|登入 Chmltech WMS|Se connecter à Chmltech WMS
 Use a keyboard scanner, type a SKU, or choose Camera. Each scan must be saved once.|使用键盘扫码器、输入 SKU 或选择相机。每次扫码仅保存一次。|使用鍵盤掃碼器、輸入 SKU 或選擇相機。每次掃碼僅儲存一次。|Utilisez un lecteur clavier, saisissez un SKU ou choisissez Caméra. Chaque lecture doit être enregistrée une seule fois.
 Review and issue|审核并开立|審核並開立|Vérifier et émettre
 Open record|打开记录|開啟記錄|Ouvrir
@@ -542,7 +542,7 @@ Start camera|启动相机|啟動相機|Démarrer la caméra
 Stop camera|停止相机|停止相機|Arrêter la caméra
 Take photo / choose image|拍照 / 选择图片|拍照 / 選擇圖片|Prendre une photo / choisir une image
 Open on phone|手机打开|手機開啟|Ouvrir sur téléphone
-Scan in Harbor|在 Harbor 中扫码|在 Harbor 中掃碼|Scanner dans Harbor
+Scan in Chmltech WMS|在 Chmltech WMS 中扫码|在 Chmltech WMS 中掃碼|Scanner dans Chmltech WMS
 Document found.|已找到单据。|已找到單據。|Document trouvé.
 Ready to scan. No records are changed.|可以扫码。不会更改单据。|可以掃碼。不會變更單據。|Prêt à scanner. Aucun dossier n’est modifié.
 Keep the whole barcode or QR inside the camera view.|请将完整条码或二维码放在取景框内。|請將完整條碼或 QR 碼放在取景框內。|Gardez le code-barres ou le QR entier dans le champ de la caméra.
@@ -557,10 +557,10 @@ Set phone address for QR codes|设置二维码手机地址|設定 QR 碼手機�
 Phone HTTPS address|手机 HTTPS 地址|手機 HTTPS 位址|Adresse HTTPS du téléphone
 Save address|保存地址|儲存位址|Enregistrer l’adresse
 Phone address is saved for printing. The phone gateway must still be running.|已保存打印用手机地址，手机网关仍需保持运行。|已儲存列印用手機位址，手機閘道仍需保持執行。|L’adresse du téléphone est enregistrée pour l’impression. La passerelle doit rester ouverte.
-Phone address is not configured. QR codes can still be read inside the Harbor scanner.|尚未设置手机地址。仍可在 Harbor 扫码器中读取二维码。|尚未設定手機位址。仍可在 Harbor 掃碼器中讀取 QR 碼。|L’adresse du téléphone n’est pas configurée. Les QR restent lisibles dans le lecteur Harbor.
-Live camera needs a trusted HTTPS address and a Harbor login. Photo decoding works without BarcodeDetector.|实时相机需要可信 HTTPS 地址和 Harbor 登录。照片解码无需 BarcodeDetector。|即時相機需要可信 HTTPS 位址和 Harbor 登入。照片解碼無需 BarcodeDetector。|La caméra en direct nécessite une adresse HTTPS de confiance et une connexion Harbor. Le décodage photo fonctionne sans BarcodeDetector.
+Phone address is not configured. QR codes can still be read inside the Chmltech WMS scanner.|尚未设置手机地址。仍可在 Chmltech WMS 扫码器中读取二维码。|尚未設定手機位址。仍可在 Chmltech WMS 掃碼器中讀取 QR 碼。|L’adresse du téléphone n’est pas configurée. Les QR restent lisibles dans le lecteur Chmltech WMS.
+Live camera needs a trusted HTTPS address and a Chmltech WMS login. Photo decoding works without BarcodeDetector.|实时相机需要可信 HTTPS 地址和 Chmltech WMS 登录。照片解码无需 BarcodeDetector。|即時相機需要可信 HTTPS 位址和 Chmltech WMS 登入。照片解碼無需 BarcodeDetector。|La caméra en direct nécessite une adresse HTTPS de confiance et une connexion Chmltech WMS. Le décodage photo fonctionne sans BarcodeDetector.
 Live camera needs trusted HTTPS on phones. Use Take photo / choose image, or follow Phone setup.|手机实时相机需要可信 HTTPS。请使用拍照 / 选择图片，或按照手机设置步骤操作。|手機即時相機需要可信 HTTPS。請使用拍照 / 選擇圖片，或按照手機設定步驟操作。|La caméra en direct nécessite HTTPS de confiance. Utilisez une photo ou suivez la configuration du téléphone.
-Use the trusted HTTPS address shown by Start Harbor Mobile. Saving an address does not start remote access.|请输入 Start Harbor Mobile 显示的可信 HTTPS 地址。保存地址不会启用远程访问。|請輸入 Start Harbor Mobile 顯示的可信 HTTPS 位址。儲存位址不會啟用遠端存取。|Utilisez l’adresse HTTPS de confiance affichée par Start Harbor Mobile. L’enregistrement n’active pas l’accès distant.
+Use the trusted HTTPS address shown by Start Chmltech WMS Mobile. Saving an address does not start remote access.|请输入 Start Chmltech WMS Mobile 显示的可信 HTTPS 地址。保存地址不会启用远程访问。|請輸入 Start Chmltech WMS Mobile 顯示的可信 HTTPS 位址。儲存位址不會啟用遠端存取。|Utilisez l’adresse HTTPS de confiance affichée par Start Chmltech WMS Mobile. L’enregistrement n’active pas l’accès distant.
 Open invoices, purchase orders and shipments without changing warehouse records.|打开销售发票、采购订单与发货单，不更改仓库记录。|開啟銷售發票、採購訂單與出貨單，不變更倉庫記錄。|Ouvrez factures, commandes fournisseurs et expéditions sans modifier les dossiers.
 Scan to open documents|扫码打开单据|掃碼開啟單據|Scanner pour ouvrir des documents
 Camera permission was denied. Allow camera access in your browser settings, or use a photo.|相机权限被拒绝。请在浏览器设置中允许相机，或使用照片。|相機權限遭拒。請在瀏覽器設定中允許相機，或使用照片。|Accès caméra refusé. Autorisez la caméra dans le navigateur ou utilisez une photo.
@@ -570,9 +570,9 @@ Choose an image smaller than 20 MB.|请选择小于 20 MB 的图片。|請選擇
 This image could not be opened. Try a JPEG or PNG photo.|无法打开此图片。请使用 JPEG 或 PNG 照片。|無法開啟此圖片。請使用 JPEG 或 PNG 照片。|Cette image ne s’ouvre pas. Essayez une photo JPEG ou PNG.
 No readable barcode found. Move closer, improve lighting or choose a sharper photo.|未找到可读条码。请靠近一些、改善光线或选择更清晰的照片。|未找到可讀條碼。請靠近一些、改善光線或選擇更清晰的照片。|Aucun code lisible. Rapprochez-vous, améliorez l’éclairage ou choisissez une photo plus nette.
 Scan an invoice, purchase order or shipment document number.|请扫描发票、采购订单或发货单编号。|請掃描發票、採購訂單或出貨單編號。|Scannez un numéro de facture, de commande fournisseur ou d’expédition.
-Document not found. Refresh Harbor and check the printed number.|未找到单据。请刷新 Harbor 并核对打印编号。|未找到單據。請重新整理 Harbor 並核對列印編號。|Document introuvable. Actualisez Harbor et vérifiez le numéro imprimé.
+Document not found. Refresh Chmltech WMS and check the printed number.|未找到单据。请刷新 Chmltech WMS 并核对打印编号。|未找到單據。請重新整理 Chmltech WMS 並核對列印編號。|Document introuvable. Actualisez Chmltech WMS et vérifiez le numéro imprimé.
 Document number is ambiguous. Choose the record manually.|单据编号不唯一。请手动选择记录。|單據編號不唯一。請手動選擇記錄。|Numéro de document ambigu. Sélectionnez le dossier manuellement.
-This QR link belongs to another site. Enter the Harbor document number instead.|此二维码链接属于其他网站。请直接输入 Harbor 单据编号。|此 QR 碼連結屬於其他網站。請直接輸入 Harbor 單據編號。|Ce QR pointe vers un autre site. Saisissez le numéro du document Harbor.
+This QR link belongs to another site. Enter the Chmltech WMS document number instead.|此二维码链接属于其他网站。请直接输入 Chmltech WMS 单据编号。|此 QR 碼連結屬於其他網站。請直接輸入 Chmltech WMS 單據編號。|Ce QR pointe vers un autre site. Saisissez le numéro du document Chmltech WMS.
 Use a trusted HTTPS phone address on your private network.|请使用私有网络中可信的 HTTPS 手机地址。|請使用私有網路中可信的 HTTPS 手機位址。|Utilisez une adresse HTTPS de confiance sur votre réseau privé.
 Scanned text is too long.|扫码文本过长。|掃碼文字過長。|Le texte scanné est trop long.
 Invalid document link.|单据链接无效。|單據連結無效。|Lien de document incorrect.
@@ -649,4 +649,5 @@ Sign in to the shared workspace.|请登录共享工作区。|請登入共用工�
 Administrator|管理员|管理員|Administrateur
 Viewer|只读用户|唯讀使用者|Lecteur
 `;
+
 

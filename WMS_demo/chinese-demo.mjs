@@ -43,4 +43,3 @@ export function loadChineseDemo(s,ctx){
  Object.assign(s,next);
  return {type:'Chinese examples loaded',reference:order.number,message:'Added two demo suppliers, two demo products, six purchases and a sample partial receipt. Existing records retained.',resultId:firstOrder};
 }
-

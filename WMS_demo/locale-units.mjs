@@ -12,11 +12,11 @@ The base stock unit and historical records were preserved.|库存基本单位和
 Activate this unit before editing it.|请先启用此单位再编辑。|請先啟用此單位再編輯。|Activez cette unité avant de la modifier.
 A preferred purchase unit name must be at most 30 characters.|首选采购单位名称最多为 30 个字符。|首選採購單位名稱最多為 30 個字元。|Le nom de l’unité d’achat préférée est limité à 30 caractères.
 A replacement unit was created. Existing orders keep their original conversion. Print new unit labels.|已建立替代单位。现有订单保留原换算。请打印新单位标签。|已建立替代單位。現有訂單保留原換算。請列印新單位標籤。|Une unité de remplacement a été créée. Les commandes existantes conservent leur conversion d’origine. Imprimez les nouvelles étiquettes.
-Harbor versions do not match.|Harbor 版本不一致。|Harbor 版本不一致。|Les versions de Harbor ne correspondent pas.
+Chmltech WMS versions do not match.|Chmltech WMS 版本不一致。|Chmltech WMS 版本不一致。|Les versions de Chmltech WMS ne correspondent pas.
 Interface version|界面版本|介面版本|Version de l’interface
 Server version|服务器版本|伺服器版本|Version du serveur
-Restart Harbor with Start Harbor.cmd, then refresh this page.|请使用 Start Harbor.cmd 重新启动 Harbor，然后刷新此页面。|請使用 Start Harbor.cmd 重新啟動 Harbor，然後重新整理此頁面。|Redémarrez Harbor avec Start Harbor.cmd, puis actualisez cette page.
-Refresh this page to load the running Harbor version.|刷新此页面以加载正在运行的 Harbor 版本。|重新整理此頁面以載入正在執行的 Harbor 版本。|Actualisez cette page pour charger la version de Harbor en cours d’exécution.
+Restart Chmltech WMS with Start Chmltech WMS.cmd, then refresh this page.|请使用 Start Chmltech WMS.cmd 重新启动 Chmltech WMS，然后刷新此页面。|請使用 Start Chmltech WMS.cmd 重新啟動 Chmltech WMS，然後重新整理此頁面。|Redémarrez Chmltech WMS avec Start Chmltech WMS.cmd, puis actualisez cette page.
+Refresh this page to load the running Chmltech WMS version.|刷新此页面以加载正在运行的 Chmltech WMS 版本。|重新整理此頁面以載入正在執行的 Chmltech WMS 版本。|Actualisez cette page pour charger la version de Chmltech WMS en cours d’exécution.
 Your saved warehouse records are preserved. No migration is needed.|已保存的仓库记录会保留，无需迁移。|已儲存的倉庫記錄會保留，無須遷移。|Les données enregistrées de votre entrepôt sont conservées. Aucune migration n’est nécessaire.
 Units & packaging|单位与包装|單位與包裝|Unités et conditionnement
 Lookup|查询|查詢|Recherche
@@ -81,4 +81,5 @@ Packaging status saved|包装状态已保存|包裝狀態已儲存|Statut du con
 Partner exchange quantities use base units; use the SKU.|伙伴交换数量使用基本单位；请使用 SKU。|夥伴交換數量使用基本單位；請使用 SKU。|Les échanges partenaires utilisent des unités de base; utilisez le SKU.
 Selected packaging price causes rounding drift. Use another unit or price.|所选包装价格会造成舍入差额，请使用其他单位或价格。|所選包裝價格會造成四捨五入差額，請使用其他單位或價格。|Le prix du conditionnement entraîne un écart d’arrondi. Utilisez une autre unité ou un autre prix.
 `;
+
 

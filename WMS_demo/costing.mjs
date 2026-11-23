@@ -1,10 +1,10 @@
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,fifoCommand,applyFIFOAmount} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {isFIFO,fifoCommand,applyFIFOAmount} from './fifo.mjs?demo=45f52980507d3a1b';
 // Prospective receipt accounting and moving-average landed costs, in home-currency cents.
-import {business,setupBusiness,locationScope,inventoryValue} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {purchaseLines,suppliers} from './purchasing.mjs?demo=5d9e5d1ce6c83eb1';
-import {beforeReturns,afterReturns,returnCostCommand,validateReturns} from './return-costing.mjs?demo=5d9e5d1ce6c83eb1';
-import {billing,billingCommand,billingSource,receiptLine} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,setupBusiness,locationScope,inventoryValue} from './business.mjs?demo=45f52980507d3a1b';
+import {purchaseLines,suppliers} from './purchasing.mjs?demo=45f52980507d3a1b';
+import {beforeReturns,afterReturns,returnCostCommand,validateReturns} from './return-costing.mjs?demo=45f52980507d3a1b';
+import {billing,billingCommand,billingSource,receiptLine} from './billing.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const get=(rows,id)=>{const r=rows.find(x=>x.id===id);must(r,'Costing record not found.');return r;};
 const cents=v=>Math.round((v+Number.EPSILON)*100);
@@ -97,4 +97,3 @@ export function validateCosting(s){
  validateReturns(s);
  for(const d of docs.filter(x=>x.costing))must(d.kind==='Credit'&&d.costing.returnId||[...c.matches,...c.allocations,...(s.transferCosting?.allocations||[])].some(r=>r.billId===d.id),'Bill has an unrecognized cost posting.');
 }
-

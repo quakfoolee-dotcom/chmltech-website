@@ -1,6 +1,6 @@
-import {documentScanHTML,drawDocumentCodes} from './scan-codes.mjs?demo=5d9e5d1ce6c83eb1';
-import {barcodeSVG} from './barcode.mjs?demo=5d9e5d1ce6c83eb1';
-import {packagedDocumentLine} from './packaging-document.mjs?demo=5d9e5d1ce6c83eb1';
+import {documentScanHTML,drawDocumentCodes} from './scan-codes.mjs?demo=45f52980507d3a1b';
+import {barcodeSVG} from './barcode.mjs?demo=45f52980507d3a1b';
+import {packagedDocumentLine} from './packaging-document.mjs?demo=45f52980507d3a1b';
 const labels={
  en:['Invoice','Invoice #','Order #','Customer PO / reference','Date','Bill to','Ship to','Customer','Contact','Notes','Sales rep','Payment terms','FOB point','Carrier','Ship service','Date scheduled','Type','Item','Description','Unit price','Qty ordered','Discount','Total price','Date','Payment','Amount','Reference','Subtotal','Tax','Total','Paid','Balance due','Credits','Refunds','Refund due','Due date','Sale','No payments recorded'],
  'zh-Hans':['销售发票','发票号','订单号','客户采购单 / 参考编号','日期','账单地址','收货地址','客户','联系人','备注','销售代表','付款条件','FOB 交货点','承运商','运输服务','计划日期','类型','货号','产品说明','单价','订购数量','折扣','金额','日期','付款方式','金额','参考编号','小计','税额','总额','已付','应付余额','贷项','退款','应退金额','到期日','销售','暂无付款记录'],
@@ -65,4 +65,3 @@ export function drawInvoicePDF(pdf,d,{font,rgb,wrap}){
  if(v.extra?.length){const height=20+v.extra.reduce((sum,row)=>sum+Math.max(lines(row[0],145).length,lines(row[1],C-165).length)*11+10,0);ensure(Math.min(height,H-134));text(v.extraTitle,M,y,10);y+=20;table([],v.extra,[155,C-155]);}
  pages.forEach((p,i)=>{page=p;let top=H-48;for(const line of lines(d.footer,C,7)){text(line,M,top,7);top+=10;}text(`${d.pageWord} ${i+1} / ${pages.length}`,M,H-20,7);});
 }
-

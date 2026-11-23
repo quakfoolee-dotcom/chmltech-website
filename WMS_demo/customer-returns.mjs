@@ -1,7 +1,7 @@
-import {businessDay} from './company-date.mjs?demo=5d9e5d1ce6c83eb1';
-import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
+import {businessDay} from './company-date.mjs?demo=45f52980507d3a1b';
+import {returnShipment,deliveryLines} from './fulfillment.mjs?demo=45f52980507d3a1b';
 // A received customer return can be inspected in several batches.
-import {business,locationScope,sameScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
+import {business,locationScope,sameScope} from './business.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 export const dispositionTotals=r=>({restocked:(r.dispositions||[]).filter(x=>x.disposition==='Restock').reduce((n,x)=>n+x.qty,0),scrapped:(r.dispositions||[]).filter(x=>x.disposition==='Scrap').reduce((n,x)=>n+x.qty,0),pending:r.status==='Received'?r.qty-(r.dispositions||[]).reduce((n,x)=>n+x.qty,0):0});
 export function disposeCustomerReturn(s,p,ctx,run){
@@ -40,4 +40,3 @@ export function validateCustomerReturns(s){
  }
  for(const d of s.billing?.documents||[])if(d.returnAccounting){const r=b.returns.find(x=>x.id===d.returnAccounting.returnId);must(d.kind==='Credit'&&d.returnId===r?.id&&r.kind==='Customer'&&r.sourceId===d.orderId&&d.date>=businessDay({organization:{timezone:d.dateTimezone}},r.receivedAt)&&JSON.stringify(d.returnAccounting)===JSON.stringify({returnId:r.id,journalId:r.receiptPosting.journalId,receivedValue:r.receiptPosting.value,unitCost:r.receiptPosting.unitCost}),'Invalid customer credit cost linkage.');}
 }
-

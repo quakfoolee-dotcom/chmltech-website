@@ -1,9 +1,9 @@
-import {returnShipment} from './fulfillment.mjs?demo=5d9e5d1ce6c83eb1';
-import {business,setupBusiness,inventoryValue,locationScope} from './business.mjs?demo=5d9e5d1ce6c83eb1';
-import {billing} from './billing.mjs?demo=5d9e5d1ce6c83eb1';
-import {isFIFO,fifoOpenShipmentSlices} from './fifo.mjs?demo=5d9e5d1ce6c83eb1';
-import {rangeTransferFees,validateTransferFees} from './fifo-fees.mjs?demo=5d9e5d1ce6c83eb1';
-import {validUnicode,charLength} from './unicode.mjs?demo=5d9e5d1ce6c83eb1';
+import {returnShipment} from './fulfillment.mjs?demo=45f52980507d3a1b';
+import {business,setupBusiness,inventoryValue,locationScope} from './business.mjs?demo=45f52980507d3a1b';
+import {billing} from './billing.mjs?demo=45f52980507d3a1b';
+import {isFIFO,fifoOpenShipmentSlices} from './fifo.mjs?demo=45f52980507d3a1b';
+import {rangeTransferFees,validateTransferFees} from './fifo-fees.mjs?demo=45f52980507d3a1b';
+import {validUnicode,charLength} from './unicode.mjs?demo=45f52980507d3a1b';
 const must=(v,m)=>{if(!v)throw Error(m);};
 const cents=v=>Math.round((v+Number.EPSILON)*100);
 const own=(s,id)=>s.stock.filter(x=>x.itemId===id&&locationScope(s,x.locationId).ownerId==='owner-self').reduce((n,x)=>n+x.qty,0);
@@ -71,4 +71,3 @@ export function validateTransferCosting(s){
   const j=get(business(s).journals,a.journalId),expected={'Inventory asset':a.inventoryActual,'Inventory rounding':a.rounding,'Cost of goods sold':a.rows.reduce((n,r)=>n+r.cogs,0),'Inventory adjustments':a.rows.reduce((n,r)=>n+r.adjustments,0),'Landed cost clearing':-a.amount};must(Number.isSafeInteger(a.inventoryActual)&&Number.isSafeInteger(a.rounding)&&a.inventoryActual+a.rounding===a.rows.reduce((n,r)=>n+r.inventory,0),'Transfer freight retained value changed.');must(j.sourceCommand==='transferCost:allocate'&&j.sourceId===d.id&&j.dependencies.includes('document:'+d.id)&&j.lines.reduce((n,l)=>n+l.debit-l.credit,0)===0&&j.lines.length===Object.values(expected).filter(Boolean).length&&j.lines.every(l=>l.debit-l.credit===expected[l.account]),'Transfer freight journal link changed.');for(const r of a.rows.filter(r=>r.method==='FIFO')){const o=get(s.costLayers.origins,r.originId),pool=s.costing?.pools.find(x=>x.id===o.poolId);if(pool?.journalId)must(j.dependencies.includes('journal:'+pool.journalId),'Transfer fee receipt journal dependency changed.');}
  }for(const o of s.costLayers?.origins||[])for(const f of o.transferFees||[])must(feeIds.has(f.id),'Unrecognized FIFO transfer fee.');
 }
-

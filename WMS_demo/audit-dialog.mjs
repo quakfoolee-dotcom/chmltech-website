@@ -9,16 +9,15 @@ export function createAuditDialog({read,showLoading,showRows,showError,isCurrent
   return entry.promise;
  };
 }
-const readers=new WeakMap(),title='Server audit — latest 500 writes';
+const readers=new WeakMap(),title='Demo activity — latest 500 changes';
 const escape=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 export function openServerAudit({showModal,read,renderRows}){
  const dialog=document.querySelector('#modal');let open=readers.get(dialog);
  if(!open){open=createAuditDialog({read,
-  showLoading(){showModal(title,'<section data-audit-view aria-busy="true"><p role="status">Loading server audit…</p></section>');return dialog.querySelector('[data-audit-view]');},
+  showLoading(){showModal(title,'<section data-audit-view aria-busy="true"><p role="status">Loading activity…</p></section>');return dialog.querySelector('[data-audit-view]');},
   showRows(result){showModal(title,renderRows(result.rows));},
-  showError(error){showModal(title,'<section data-audit-view><p role="alert">Server audit could not be loaded.</p><p>'+escape(error.message)+'</p><button type="button" class="btn" data-action="biz-audit">Retry audit</button></section>');},
+  showError(error){showModal(title,'<section data-audit-view><p role="alert">Activity could not be loaded.</p><p>'+escape(error.message)+'</p><button type="button" class="btn" data-action="biz-audit">Retry</button></section>');},
   isCurrent:view=>dialog.open&&view?.isConnected&&dialog.contains(view)
  });readers.set(dialog,open);}
  return open();
 }
-
