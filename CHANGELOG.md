@@ -1,5 +1,10 @@
 # Changelog
 
+## V5.76 — 2026-11-23
+- **Microsoft Clarity now runs only on chmltech.com.** The loader returns straight away on any other host (localhost previews, test servers, the github.io address), so local testing no longer inflates the analytics. Clarity had recorded, for example, 180 sessions on `localhost:8765/digital-assessment.html`. The owner opt-out (`?notrack=on`) is unchanged.
+- **`seo_pass.py`:** the loader gained the host check, and the pass now replaces older copies of the loader on every page (`refresh_clarity`, 395 pages updated), so future loader changes reach all pages.
+- **Tests:** `scripts/wms-demo.test.mjs` checks that every page carries the host-checked loader.
+
 ## V5.75.1 — 2026-11-23
 - **WMS demo reset box:** the new design now also applies in the Classic layout, where a more specific dialog rule had kept square corners and the old text colour (harbor-wms PR #9).
 

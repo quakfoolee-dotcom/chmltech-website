@@ -69,3 +69,11 @@ test('showcase page is indexable and linked from Solutions, Distribution & Wareh
  assert.ok(fs.readFileSync('content/articles/wh7_articles.py','utf8').includes('{WMS_DEMO}<h2>Key points</h2>'));
  assert.ok(JSON.parse(fs.readFileSync('content/articles/do-we-need-a-wms-yet-when-spreadsheets-stop-scaling.json','utf8')).body.includes('data-wms-demo="1"'));
 });
+
+// V5.76: Clarity runs only on chmltech.com, so local previews and test servers send nothing.
+test('every Clarity loader is the host-checked version',()=>{
+ const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?(['.git','node_modules','content','assets'].includes(e.name)?[]:walk(d+'/'+e.name)):e.name.endsWith('.html')?[d+'/'+e.name]:[]);
+ const pages=walk('.').filter(f=>fs.readFileSync(f,'utf8').includes('"clarity","script"'));
+ assert.ok(pages.length>300,'Clarity pages found: '+pages.length);
+ for(const f of pages)assert.ok(fs.readFileSync(f,'utf8').includes('if(!/(^|\\.)chmltech\\.com$/.test(l.location.hostname))return;'),f);
+});

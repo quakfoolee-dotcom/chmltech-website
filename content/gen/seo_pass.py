@@ -26,7 +26,8 @@ are redirect stubs and are left alone):
      in the exam file is touched.
   7c. WMS_demo/*.html (the Chmltech WMS browser demo, V5.73): Clarity only, no SEO changes,
      no sitemap entries. The showcase page wms-demo.html is the indexable entry point.
-  9. Microsoft Clarity analytics on every indexable page (CLARITY_ID below).
+  9. Microsoft Clarity analytics on every indexable page (CLARITY_ID below). The loader runs only
+     on chmltech.com (V5.76), and older copies of it on any page are replaced with the current one.
   8. Rebuilds sitemap.xml from the files (indexable pages only, clean URLs, lastmod) and
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
@@ -49,6 +50,9 @@ PERSON_ID = f"{SITE}/about#quak-foo-lee"
 HOME_TITLE = "AI & Operations Consulting for Canadian SMEs | Chmltech Ltd."
 CLARITY_ID = "zcd5uqw2cz"  # Microsoft Clarity project (analytics); set to "" to remove from every page
 CLARITY = ('<script>(function(c,l,a,r,i,t,y){'
+           # Live site only (V5.76): local previews, test servers and copies on other hosts
+           # send nothing, so they cannot inflate the chmltech.com numbers.
+           'if(!/(^|\\.)chmltech\\.com$/.test(l.location.hostname))return;'
            # Owner opt-out: visit any page with ?notrack=on once per browser to stop analytics there
            # (?notrack=off turns it back on). Stored in this browser only.
            'try{var q=new URLSearchParams(l.location.search).get("notrack");'
@@ -456,6 +460,16 @@ def write_llms(entries):
         out.append("")
     wr("llms.txt", "\n".join(out))
 
+CLARITY_OLD = re.compile(r'<script>\(function\(c,l,a,r,i,t,y\)\{.*?\)\(window,document,"clarity","script","[^"]*"\);</script>')
+
+def refresh_clarity(rel):
+    """Replace an older copy of the Clarity loader with the current CLARITY (V5.76)."""
+    if not CLARITY: return
+    p = os.path.join(ROOT, rel); raw = open(p, encoding="utf-8", newline="").read()
+    new = CLARITY_OLD.sub(lambda m: CLARITY, raw)
+    if new != raw:
+        open(p, "w", encoding="utf-8", newline="").write(new); bump("Clarity loader updated")
+
 def main():
     import article_toc
     print(f"contents lists: {article_toc.run(ROOT)} articles")
@@ -463,6 +477,7 @@ def main():
     print(f"book boxes: {book_box.run(ROOT)} reviews")
     sm, ll = [], []
     for rel in pages():
+        refresh_clarity(rel)
         process(rel, sm, ll)
     write_sitemap(sm); write_llms(ll)
     print(f"asset versions: {assetver.stamp_all(ROOT)} pages updated")
