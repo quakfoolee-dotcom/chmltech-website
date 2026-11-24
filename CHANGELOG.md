@@ -1,5 +1,9 @@
 # Changelog
 
+## V5.79 — 2026-11-24
+- **AI Tools Landscape, list view:** the last column header ("Free · Open · Canada / Compare") was cut off because the table was wider than its frame. Units now wrap under the price, the tool column gives up width, flag chips wrap, and the header sits on two lines. The table now fits without sideways scrolling from 600 px wide up; between 901 and 980 px, beside the filter panel, the Category column is hidden (it stays in the filters and the tool panel). On phones the column shows only the checkbox; each checkbox carries the tool's name for screen readers.
+- **AI Tools Landscape, bubble chart:** dots are coloured by layer, in the same five colours as the landscape map's layer headers, with a legend and a colour dot on each layer button. Highlighting a layer keeps its colour and turns the other layers grey.
+
 ## V5.78 — 2026-11-24
 - **New page: AI Tools Landscape (`/ai-tools`).** 988 current AI tools in 50 categories and 5 layers (foundation models and assistants, builder stack, agents and automation, business functions, creative and media), checked against each vendor's own site in November 2026 and reviewed by an independent red team.
   - **What it costs:** a price ladder of every tool's cheapest paid plan by category, the cost-per-output spread within categories, and a monthly cost calculator.

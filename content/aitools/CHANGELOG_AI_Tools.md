@@ -5,6 +5,10 @@ Page: `content/gen/ai_tools_page.py` → `ai-tools.html`. Scripts: `assets/js/ai
 `assets/js/ai-tools-decide.js` (from V5). Styles: `assets/css/ai-tools.css` (plus the shared `styles.css`, `grants.css`, `llm.css`).
 Each draft was reviewed as a self-contained preview, `ai-tools_Draft_V<n>.html`.
 
+## V5.2 – live-site fixes (site V5.79)
+- List view: the "Free · Open · Canada / Compare" header no longer gets cut off. Units wrap under the price, flag chips wrap, the tool column narrows, Category is hidden at 901–980 px, and phones show the checkbox only (each has a screen-reader name).
+- Bubble chart: coloured by layer with the map's layer colours (L1 #0B2A5A, L2 #0B6FA4, L3 #B04A12, L4 #2F6B3A, L5 #6A3D8F); highlighting a layer greys the others (#8C95A1).
+
 ## V5.1 – red-team fixes to V5 (28 findings)
 
 **Data (`build_data.py`, new `public_text_overrides.json`)**

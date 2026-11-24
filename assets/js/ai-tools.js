@@ -175,7 +175,7 @@
         '<td class="at-hide-m">' + esc(t.c) + "</td>" +
         '<td class="num">' + from + (t.promo ? '<span class="at-sub">promotion</span>' : "") + "</td>" +
         '<td class="num">' + (t.cmp ? money(t.cpu) + '<span class="at-sub">' + esc(t.unit) + "</span>" : '<span class="at-sub">Not comparable</span>') + "</td>" +
-        '<td><span class="at-flags at-hide-m">' + flags(t) + '</span><label class="at-cmpbox"><input type="checkbox" data-pick="' + esc(t.id) + '"' + (on ? " checked" : "") + "> Compare</label></td></tr>";
+        '<td><span class="at-flags at-hide-m">' + flags(t) + '</span><label class="at-cmpbox"><input type="checkbox" data-pick="' + esc(t.id) + '"' + (on ? " checked" : "") + '> <span class="at-cmpl">Compare</span><span class="at-sr"> ' + esc(t.n) + "</span></label></td></tr>";
     }).join("") + (rows.length > shown.length ? '<tr><td colspan="5" class="at-more"><button type="button" class="btn btn-ghost" data-more>Show ' + Math.min(LIST_STEP, rows.length - shown.length) + " more (" + (rows.length - shown.length) + " left)</button></td></tr>" : "");
     root.querySelectorAll(".at-table .ll-th").forEach(function (b) { b.closest("th").setAttribute("aria-sort", b.dataset.sort === k ? (d > 0 ? "ascending" : "descending") : "none"); });
     $("at-cpu-note").hidden = k !== "cpu";

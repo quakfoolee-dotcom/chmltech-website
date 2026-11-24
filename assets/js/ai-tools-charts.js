@@ -65,9 +65,10 @@
   var dot = function (c, hollow) { return '<svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="' + (hollow ? 4.5 : 5) + '" fill="' + (hollow ? "#fff" : c) + '" stroke="' + c + '" stroke-width="' + (hollow ? 2 : 0) + '"/></svg>'; };
   var sq = function (c) { return '<svg width="12" height="12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" rx="2" fill="' + c + '"/></svg>'; };
 
-  /* ---------- 1. category bubble map: one highlighted layer in brand blue, the rest light grey (colour-blind safe) ---------- */
+  /* ---------- 1. category bubble map: coloured by layer (map colours); highlighting one layer greys the rest ---------- */
   var bubbleHi = "";  // "" = all layers in one neutral colour; otherwise the highlighted layer id
-  var HI = "#0B6FA4", LO = "#868E9A", NEUTRAL = "#5A7A96";  // grey dots keep 3:1 against white (they are focusable)
+  // one colour per layer, the same as the landscape map's layer headers; each keeps 3:1 or better against white
+  var LCOL = { L1: "#0B2A5A", L2: "#0B6FA4", L3: "#B04A12", L4: "#2F6B3A", L5: "#6A3D8F" }, LO = "#8C95A1";  // grey context dots still 3:1 (they are focusable)
   function bubbleRows() {
     var rows = [], none = [];
     D.categories.forEach(function (c) {
@@ -95,7 +96,7 @@
     var Y = function (p) { return m.t + (1 - p / 100) * ih; };
     var BR = bubbleRows(), rows = BR.rows, R0 = 7;
     var isHi = function (r) { return bubbleHi && r.l === bubbleHi; };
-    var colour = function (r) { return !bubbleHi ? NEUTRAL : isHi(r) ? HI : LO; };
+    var colour = function (r) { return !bubbleHi || isHi(r) ? (LCOL[r.l] || INK) : LO; };
     var s = '<svg xmlns="' + NS + '" viewBox="0 0 ' + W + " " + H + '" width="' + W + '" height="' + H + '" role="group" aria-label="Scatter chart of AI tool categories: typical entry price against share with a free plan' + (bubbleHi ? ", " + esc(layerName[bubbleHi]) + " highlighted" : "") + '">';
     s += '<rect width="' + W + '" height="' + H + '" fill="#fff"/>';
     [5, 10, 20, 50, 100, 200, 500].forEach(function (v) {
@@ -144,11 +145,11 @@
     });
     s += "</svg>";
     fig.innerHTML = s + (narrow ? '<p class="ll-chartnote at-bub-ptr">This chart needs a wider screen. The <a href="#at-ch-ladder">price ladder</a> shows the same prices by category; the table below has every point.</p>' : "");
-    var lgItems = bubbleHi ? [dot(HI) + esc(layerName[bubbleHi]), dot(LO) + "Other layers"] : [dot(NEUTRAL) + "Category"];
+    var lgItems = bubbleHi ? [dot(LCOL[bubbleHi]) + esc(layerName[bubbleHi]), dot(LO) + "Other layers"] : D.layers.map(function (l) { return dot(LCOL[l.id]) + esc(l.name); });
     lgItems.push(dot("#5A6475", true) + "Hollow: fewer than 4 published prices");
     card.querySelector(".at-figfoot").innerHTML = '<div class="at-seg" role="group" aria-label="Highlight a layer"><span class="at-seg-h">Highlight a layer:</span>' +
       '<button type="button" data-hl="" aria-pressed="' + !bubbleHi + '">All layers</button>' +
-      D.layers.map(function (l) { return '<button type="button" data-hl="' + l.id + '" aria-pressed="' + (bubbleHi === l.id) + '">' + esc(l.name) + "</button>"; }).join("") + "</div>" +
+      D.layers.map(function (l) { return '<button type="button" data-hl="' + l.id + '" aria-pressed="' + (bubbleHi === l.id) + '">' + dot(LCOL[l.id]) + esc(l.name) + "</button>"; }).join("") + "</div>" +
       legend(lgItems) +
       '<p class="ll-chartnote">Each dot is one category; it carries no size, and the number of tools is in the tooltip and the table. Labels show the highlighted layer and the categories farthest from the crowd.' +
       (BR.none.length ? " Not shown (no published entry prices, mostly contact-sales or free): " + esc(BR.none.join(", ")) + "." : "") + "</p>" +
