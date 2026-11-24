@@ -1,0 +1,48 @@
+name: AI tools logos
+# Fetches each AI tool's official icon (from the tool's own website only) for ai-tools.html,
+# rebuilds the page and opens a pull request for review. Run by hand after the data changes.
+# Script: scripts/fetch_ai_logos.py
+# Needs the repository setting Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+# Pull requests opened by this workflow do not trigger other workflows, so it runs the site checks itself.
+on:
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: 'Re-download logos that already exist'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  logos:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0   # seo_pass.py dates sitemap entries from git history
+      - name: Install Pillow (virtual environment; the runner's system Python is externally managed)
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install pillow==11.0.0
+      - name: Fetch logos
+        run: .venv/bin/python scripts/fetch_ai_logos.py ${{ inputs.refresh && '--refresh' || '' }}
+      - name: Rebuild page
+        run: |
+          python3 content/gen/ai_tools_page.py
+          python3 content/gen/seo_pass.py .
+      - name: Site checks
+        run: node --test scripts/site-seo.test.mjs
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BR="ai-logos-$(date +%Y%m%d-%H%M)"
+          git checkout -b "$BR"
+          git add assets/img/ai-tools/logos ai-tools.html sitemap.xml llms.txt
+          git diff --cached --quiet && { echo "No changes"; exit 0; }
+          git commit -m "AI tools landscape: fetch tool logos"
+          git push origin "$BR"
+          gh pr create --title "AI tools landscape: tool logos" --body "Logos fetched from each tool's own website by scripts/fetch_ai_logos.py. Check a few in the preview, then merge." --base main --head "$BR"
