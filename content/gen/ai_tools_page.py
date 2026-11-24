@@ -368,7 +368,7 @@ def build():
         <th scope="col" class="at-hide-m"><button type="button" class="ll-th" data-sort="c">Category</button></th>
         <th scope="col" class="num"><button type="button" class="ll-th" data-sort="ep">From (USD/mo)</button></th>
         <th scope="col" class="num"><button type="button" class="ll-th" data-sort="cpu">Cost per output</button></th>
-        <th scope="col"><span class="at-hide-m">Free · Open · Canada · </span>Compare</th>
+        <th scope="col" class="at-th-last"><span class="at-hide-m">Free · Open · Canada</span>Compare</th>
       </tr></thead><tbody id="at-tbody"></tbody></table></div>
       <p class="ll-chartnote" id="at-cpu-note" hidden>Sorting by cost per output groups tools by their unit (per seat, per image, per 1M tokens…), because costs on different units can't be ranked against each other.</p>
       <p class="ll-chartnote">Prices are list prices in US dollars as published in {esc(D["checked"])}; "From" is the cheapest paid plan (some are billed annually; see each tool). Cost per output compares like with like only within a category.</p></div>
