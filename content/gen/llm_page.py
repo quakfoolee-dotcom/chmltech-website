@@ -76,7 +76,9 @@ def meta(head, title, desc):
     head = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + esc(full), head, count=1)
     head = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + esc(desc), head, count=1)
     head = re.sub(r'(<link rel="canonical" href=")[^"]*', lambda m: m.group(1) + f"{SITE}/{FNAME}", head, count=1)
-    head = head.replace(f'<a href="{FNAME}">', f'<a href="{FNAME}" aria-current="page">', 1)
+    import nav_ai_dropdown  # V5.78: AI Models sits in the "AI" dropdown; mark it as the current page
+    n = len(json.load(open(os.path.join(ROOT, "assets", "data", "ai-tools.json"), encoding="utf-8"))["tools"])
+    head = nav_ai_dropdown.OLD_DD.sub(lambda m: nav_ai_dropdown.markup("", "models", n), head, count=1)
     return head
 
 
@@ -227,7 +229,7 @@ def build():
   <h1 class="h-xl" style="font-size:clamp(34px,4.4vw,56px)">Which AI model fits the job, and what does it cost?</h1>
   <p class="lead">A searchable database of current large language models from {n_dev} developers. Compare them on independent benchmarks, find the strongest model for each kind of AI agent, and see which models give the most capability for the money. Every score and price links to the page it came from.</p>
   <div class="stat-row"><div><strong>{n}</strong><span>models</span></div><div><strong>{len(B)}</strong><span>benchmarks</span></div><div><strong>{n_open}</strong><span>open-weight models</span></div><div><strong class="ll-stat-sm">{asof}</strong><span>data as of</span></div></div>
-  <div class="btn-row"><a class="btn" href="#explorer">Search the models</a><a class="btn btn-ghost-dark" href="#agents">Best by agent type</a></div>
+  <div class="btn-row"><a class="btn" href="#explorer">Search the models</a><a class="btn btn-ghost-dark" href="#agents">Best by agent type</a><a class="btn btn-ghost-dark" href="ai-tools">AI tools landscape</a></div>
 </div></div></section>
 
 {update_banner(D, M)}

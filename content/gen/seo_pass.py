@@ -420,7 +420,7 @@ def sitemap_priority(rel):
     if rel == "index.html": return "1.0"
     if "/" not in rel and rel in ("solutions.html", "insights.html", "training.html", "courses.html",
                                    "about.html", "contact.html", "book.html", "industries.html",
-                                   "llm-leaderboard.html", "funding.html", "projects.html"): return "0.9"
+                                   "llm-leaderboard.html", "ai-tools.html", "funding.html", "projects.html"): return "0.9"
     if rel.startswith("post/"): return "0.7"
     return "0.6"
 

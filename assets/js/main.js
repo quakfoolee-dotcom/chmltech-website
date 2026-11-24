@@ -22,6 +22,26 @@
     });
   }
 
+  /* "AI" menu dropdown: AI Models and AI Tools Landscape (V5.78) */
+  document.querySelectorAll("[data-nav-dd]").forEach(function (dd) {
+    var btn = dd.querySelector(".nav-dd-btn");
+    function set(o) { dd.classList.toggle("open", o); btn.setAttribute("aria-expanded", o ? "true" : "false"); }
+    var hoverAt = 0;
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      // a click that lands just after the hover opened the menu keeps it open instead of closing it again
+      if (dd.classList.contains("open") && Date.now() - hoverAt < 700) return;
+      set(!dd.classList.contains("open"));
+    });
+    document.addEventListener("click", function (e) { if (!dd.contains(e.target)) set(false); });
+    dd.addEventListener("keydown", function (e) { if (e.key === "Escape") { set(false); btn.focus(); } });
+    dd.addEventListener("focusout", function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
+    if (window.matchMedia && matchMedia("(hover:hover) and (min-width:981px)").matches) {
+      dd.addEventListener("mouseenter", function () { if (!dd.classList.contains("open")) hoverAt = Date.now(); set(true); });
+      dd.addEventListener("mouseleave", function () { set(false); });
+    }
+  });
+
   /* Footer year */
   var y = document.querySelectorAll('[data-year]');
   for (var i = 0; i < y.length; i++) y[i].textContent = new Date().getFullYear();

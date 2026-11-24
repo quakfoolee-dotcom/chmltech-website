@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.77.1** (see `CHANGELOG.md`).
+Version: **V5.78** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -20,6 +20,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `wms-demo.html` | Chmltech WMS demo showcase (V5.73, renamed from Harbor WMS in V5.74): the indexable page for the browser demo, with modules, a deep-linked 10-minute workflow, screenshots (`assets/media/wms-demo/`), data storage notes and FAQ. Source: `content/gen/wms_demo_page.py`. Links to it from Solutions, Distribution & Warehousing and warehouse series Part 7 come from `content/gen/wms_demo_links.py` |
 | `WMS_demo/` | The Chmltech WMS browser demo (noindex app). Built in the harbor-wms repository (`node scripts/build-browser-demo.mjs`, patches in `scripts/browser-demo-patches.mjs`); copy `browser-demo-public/` here, keep `source.json`, then run `seo_pass.py` to add Clarity. `wms_demo/` is a redirect for the lowercase address. Tests: `node --test scripts/wms-demo.test.mjs` |
 | `llm-leaderboard.html` | LLM leaderboard (menu: AI Models): searchable database of current large language models with benchmark leaderboards, best-model-by-agent-type cards and a score-versus-cost Pareto chart. Data: `content/llm/llm.json`, built by `content/llm/build_dataset.py` from the research files in `content/llm/raw/` (method: `content/llm/SPEC.md`); page: `content/gen/llm_page.py`; script and styles: `assets/js/llm.js`, `assets/css/llm.css` |
+| `ai-tools.html` | AI Tools Landscape (menu: AI ▸ AI Tools Landscape): 988 current AI tools in 50 categories and 5 layers, checked November 2026. Sections: what it costs (price ladder, cost-per-output spread, cost calculator), compare categories (scorecard, open source vs paid, price/free bubble chart), Canada check (Canadian hosting, French interface, Canadian companies), a collapsible landscape map with filters, list view, tool drawer and 3-way compare, vendor changes by category with the recently retired tools, and method/FAQ with the list-change flow. Every chart has a PNG download and a data table. Data: `assets/data/ai-tools.json`, built by `content/aitools/build_data.py` from `content/aitools/source/ai_tools_V9.json` (research and red-team method: `content/aitools/SCHEMA.md`; public wording fixes: `content/aitools/public_text_overrides.json`; the build fails if internal research wording reaches the public file). Page: `content/gen/ai_tools_page.py`; scripts `assets/js/ai-tools.js`, `ai-tools-charts.js`, `ai-tools-decide.js`; styles `assets/css/ai-tools.css`. Page changelog: `content/aitools/CHANGELOG_AI_Tools.md`. After changing the data run `python3 -I content/aitools/build_data.py && (cd content/gen && python3 ai_tools_page.py)`, then `seo_pass.py`. Logos: run the **AI tools logos** workflow (Actions tab; `scripts/fetch_ai_logos.py`), which fetches each tool's icon from its own website into `assets/img/ai-tools/logos/` and opens a pull request; it needs Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests". Tools on shared hosts (github.com, huggingface.co…) keep a monogram |
 | `contact.html` | Contact form, details and FAQs |
 | `about.html` | About Chmltech and its CEO, with portrait, biography, career timeline and qualifications (script: `content/gen/about_page.py`) |
 | `404.html` | Not-found page |
@@ -46,7 +47,7 @@ Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and ru
 | `assets/media/pfd-pid/` | The example PFD and P&ID drawings (SVG) used in the "How to read a PFD and a P&ID" article |
 | `assets/downloads/` | Files offered for download from articles (for example the inventory template workbook) |
 
-Shared files: `assets/css/styles.css` (all styling, with brand colours as CSS variables at the top), `assets/js/main.js` (mobile menu, forms, insights filter) and `assets/img/` (logo, mark and icons).
+Shared files: `assets/css/styles.css` (all styling, with brand colours as CSS variables at the top), `assets/js/main.js` (mobile menu, the "AI" menu dropdown, forms, insights filter) and `assets/img/` (logo, mark and icons).
 
 ## Preview locally
 
@@ -74,6 +75,7 @@ The email address is never written into the page source, so address-harvesting b
 - `assets/js/main.js` rebuilds the real address and `mailto:` link in the visitor's browser.
 - Without JavaScript, the link shows the spelled-out form and opens the contact form.
 - After each build, run `node gen/journal_pdfs.js <site_dir> <journal_json_dir>` (journal PDFs), `python3 gen/dedupe_images.py <site_dir>` (removes repeated pictures in articles), then `python3 gen/protect_email.py <site_dir>`. It is safe to run twice. It reports any page that still contains the plain address.
+- **Main menu "AI" dropdown** (AI Models, AI Tools Landscape): `python3 content/gen/nav_ai_dropdown.py .` writes it into every page header and adds "AI tools landscape" to the footer; new pages copy their header from existing pages, so they inherit it.
 - **Last step after any build or new article:** run `python3 content/gen/seo_pass.py .` from the site root. It sets clean canonical URLs, social-sharing tags and structured data on every page, and rebuilds `sitemap.xml` and `llms.txt`. It is safe to run any number of times. It also stamps every stylesheet and script link with a content hash (`?v=…`, `content/gen/assetver.py`) so browsers fetch changed files at once; never add `?v=` by hand.
 
 ## Journal PDF downloads (leads)

@@ -183,6 +183,7 @@ page = f'''<!doctype html>
   <div id="ai-body"></div>
   <div class="ai-more-row"><button type="button" class="ai-more" id="ai-more">Show more</button></div>
   <p class="muted" style="font-size:13.5px;margin-top:14px">Prices checked November 2026, in US dollars unless marked. They change often; check the vendor's site. Set rules on what company data staff may put into AI tools.</p>
+  <p class="muted" style="font-size:14.5px;margin-top:8px">Need more options? The <a href="ai-tools">AI Tools Landscape</a> compares every category of AI tool on price, cost per output, open source and Canadian hosting.</p>
 </div></section>
 
 <section class="section" id="method"><div class="container">

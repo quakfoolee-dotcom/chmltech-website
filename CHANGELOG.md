@@ -1,5 +1,16 @@
 # Changelog
 
+## V5.78 — 2026-11-24
+- **New page: AI Tools Landscape (`/ai-tools`).** 988 current AI tools in 50 categories and 5 layers (foundation models and assistants, builder stack, agents and automation, business functions, creative and media), checked against each vendor's own site in November 2026 and reviewed by an independent red team.
+  - **What it costs:** a price ladder of every tool's cheapest paid plan by category, the cost-per-output spread within categories, and a monthly cost calculator.
+  - **Compare categories:** a sortable scorecard (free plan, open source, self-hostable, price hidden behind sales, typical price, Canadian companies, Canada hosting, vendor changes), open source versus paid by layer, and a price/free-plan bubble chart that highlights one layer at a time.
+  - **Canada check:** tools with documented Canadian hosting (with a mark where it applies only to some plans), self-hosting, a French interface or a Canadian company; unchecked is shown as unchecked, never as "no". Ends with a Digital Assessment call to action.
+  - **Landscape map** (collapsed by default; opens on search or filter) with filters, list view, tool drawer and 3-way compare; **vendor changes** by category with the recently retired tools; **method and FAQ** with the list-change flow.
+  - Every chart has a PNG download (title, caption, legend) and a data table. Data: `assets/data/ai-tools.json` from `content/aitools/` (see README).
+- **Main menu: "AI" dropdown** with AI Models and AI Tools Landscape on every page (desktop: hover or click; phones: expands inside the menu). Markup from `content/gen/nav_ai_dropdown.py`; styles moved into `styles.css`, behaviour into `main.js`. The footer's Explore column links the landscape, and the AI Models hero and the Digital Assessment's AI tools section link to it. `llm_page.py` and `ai_tools_page.py` mark the current page inside the dropdown.
+- **Logo workflow** `.github/workflows/ai-logos.yml` (run by hand): fetches each tool's icon from its own website only (redirects off the site, private addresses, non-images and files over 2 MB are refused) and opens a pull request. Until it runs, tiles show monograms.
+- `seo_pass.py`: `ai-tools.html` gets sitemap priority 0.9, like AI Models.
+
 ## V5.77.1 — 2026-11-23
 - **IndexNow script** retries up to three times and logs the response body. The first automatic run got HTTP 403, most likely because it checked the key just after the key file went live. The full-sitemap run afterwards was accepted: HTTP 200 for 392 pages.
 

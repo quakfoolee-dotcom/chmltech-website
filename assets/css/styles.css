@@ -57,6 +57,32 @@ p{margin:0}
   .nav a[aria-current="page"]{border-bottom-color:var(--line)}
   .nav .btn{margin-top:14px;text-align:center}
 }
+/* ---------- "AI" dropdown in the main menu (V5.78; markup: content/gen/nav_ai_dropdown.py) ---------- */
+.nav-dd{position:relative;display:flex;align-items:center}
+.nav-dd-btn{font:inherit;font-size:15px;font-weight:500;color:#24324A;background:none;border:0;border-bottom:2px solid transparent;padding:10px 0;display:inline-flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}
+.nav-dd-btn:hover{color:var(--blue)}
+.nav-dd-btn[aria-current="page"]{color:var(--blue);border-bottom-color:var(--blue)}
+.nav-dd-btn svg{transition:transform .15s}
+.nav-dd-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);min-width:290px;background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 36px rgba(11,42,90,.14);padding:8px;z-index:60}
+.nav-dd-menu::before{content:"";position:absolute;top:-8px;left:0;right:0;height:8px}
+.nav-dd.open .nav-dd-menu{display:block}
+.nav .nav-dd-menu a{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:8px;border-bottom:0;white-space:normal}
+.nav .nav-dd-menu a strong{font-weight:600;color:var(--ink)}
+.nav .nav-dd-menu a span{font-size:13px;color:var(--muted);font-weight:400}
+.nav .nav-dd-menu a:hover,.nav .nav-dd-menu a:focus-visible{background:var(--paper)}
+.nav .nav-dd-menu a[aria-current="page"]{background:#EAF3F9;border-bottom:0}
+.nav .nav-dd-menu a[aria-current="page"] strong{color:var(--blue)}
+@media (min-width:981px) and (max-width:1120px){.nav-dd-btn{font-size:14px}}
+@media (max-width:980px){
+  .nav-dd{flex-direction:column;align-items:stretch}
+  .nav-dd-btn{justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);width:100%}
+  .nav-dd-btn[aria-current="page"]{border-bottom-color:var(--line)}
+  .nav-dd-menu{position:static;transform:none;box-shadow:none;border:0;border-radius:0;padding:4px 0 8px 14px;min-width:0}
+  .nav-dd-menu::before{display:none}
+  .nav .nav-dd-menu a{padding:10px 8px;border-bottom:1px solid var(--line);border-radius:0}
+}
+
 
 /* ---------- Buttons ---------- */
 .btn{display:inline-block;background:var(--blue);color:var(--white)!important;text-decoration:none;padding:15px 26px;border-radius:6px;font-weight:600;font-size:16px;border:1px solid var(--blue);cursor:pointer;font-family:inherit;line-height:1.2}
