@@ -1,7 +1,7 @@
 # Chmltech Ltd. website
 
 A static website for Chmltech Ltd. (AI, Digital Transformation & Operational Excellence for Canadian SMEs).
-Version: **V5.79** (see `CHANGELOG.md`).
+Version: **V5.80** (see `CHANGELOG.md`).
 
 Plain HTML, CSS and JavaScript. It has no build step and no dependencies, and runs on any static host.
 
@@ -93,6 +93,7 @@ The email address is never written into the page source, so address-harvesting b
 ## Search (SEO)
 
 - `content/gen/seo_pass.py` owns the canonical URLs (clean form, without `.html`), Open Graph and Twitter tags, JSON-LD structured data, `sitemap.xml` (with `lastmod`) and `llms.txt`. Edit it rather than the pages for site-wide SEO changes.
+- Sitemap `lastmod` (V5.80): articles use their own `dateModified`; every other page gets its date from `content/gen/lastmod.py`, which fingerprints the page's own content (not the head, menu, footer, analytics or link forms) and keeps the dates in `content/gen/lastmod.json`. Commit that file with each release. A sitewide template change therefore leaves the dates alone; a real content change gets the day `seo_pass.py` runs. To rebuild the dates from git history: `python3 content/gen/lastmod.py seed .`
 - **Search keywords:** `content/gen/seo_keywords.py` sets the title, main heading (H1) and meta description of the ~30 main pages (home, solutions, industries, About, Training, Courses, Insights and others). The old heading stays as the line just under the new H1 (style `.hero-slogan`). Edit the table there, never the pages, then run `seo_pass.py`.
 - The raw exam apps in `exams/` carry `noindex, indexifembedded`, so search engines rank the exam pages that embed them, not the bare apps.
 - **Analytics:** Microsoft Clarity (project `zcd5uqw2cz`, dashboard at clarity.microsoft.com) is added to every indexable page by `seo_pass.py` (`CLARITY_ID`). The privacy page names it. **Owner opt-out:** open any page with `?notrack=on` once per browser/device and Clarity no longer loads there (`?notrack=off` undoes it; stored in that browser's localStorage).
