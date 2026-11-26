@@ -29,11 +29,14 @@ are redirect stubs and are left alone):
   9. Microsoft Clarity analytics on every indexable page (CLARITY_ID below). The loader runs only
      on chmltech.com (V5.76), and older copies of it on any page are replaced with the current one.
   8. Rebuilds sitemap.xml from the files (indexable pages only, clean URLs, lastmod) and
+     (V5.80: lastmod for pages other than articles comes from content/gen/lastmod.py, so it
+     moves only when the page's own content changes, not on sitewide edits)
      writes llms.txt (a plain-text guide to the site for AI search tools).
 """
 import html, json, os, posixpath, re, subprocess, sys, datetime
 from urllib.parse import quote, unquote
 import assetver
+import lastmod as lastmod_store
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from seo_keywords import KEYWORDS
 from seo_titles import POST_TITLES
@@ -73,6 +76,7 @@ manufacturing natural-resources professional-services public-sector""".split()
 SECTION = {"post": ("Insights", "insights"), "challenge-page": ("Courses", "courses")}
 
 stats = {}
+LASTMOD = {}  # V5.80 content fingerprints and dates (content/gen/lastmod.json)
 def bump(k): stats[k] = stats.get(k, 0) + 1
 
 def rd(p): return open(os.path.join(ROOT, p), encoding="utf-8").read()
@@ -286,7 +290,7 @@ def process(rel, sitemap, llms):
         if add:
             s = s[:head_end] + add + s[head_end:]; bump("library exams: canonical/description/analytics")
         if s != orig: open(os.path.join(ROOT, rel), "w", encoding="utf-8", newline="").write(s)
-        sitemap.append((url, git_date(rel), "0.5"))
+        sitemap.append((url, lastmod_store.date_for(LASTMOD, rel, s), "0.5"))
         llms.append((rel, title, desc, url))
         return
     # 7. embedded exam apps
@@ -411,7 +415,9 @@ def process(rel, sitemap, llms):
         i = s.find("</head>"); s = s[:i] + CLARITY + "\n" + s[i:]
     if s != orig: wr(rel, s); bump("pages changed")
 
-    lastmod = mod if (is_post and mod) else git_date(rel)
+    # V5.80: pages other than articles get a date that moves only when their own content
+    # changes (content/gen/lastmod.py), not on every sitewide edit
+    lastmod = mod if (is_post and mod) else lastmod_store.date_for(LASTMOD, rel, s)
     pri = sitemap_priority(rel)
     sitemap.append((url, lastmod, pri))
     llms.append((rel, title.replace(BRAND, ""), desc, url))
@@ -505,11 +511,14 @@ def main():
     import book_box
     print(f"book boxes: {book_box.run(ROOT)} reviews")
     sm, ll = [], []
+    LASTMOD.update(lastmod_store.load(ROOT))
     for rel in pages():
         refresh_clarity(rel)
         clean_links(rel)
         process(rel, sm, ll)
     write_sitemap(sm); write_llms(ll)
+    lastmod_store.save(ROOT, {k: v for k, v in LASTMOD.items()
+                              if os.path.exists(os.path.join(ROOT, k))})
     print(f"asset versions: {assetver.stamp_all(ROOT)} pages updated")
     print(f"sitemap.xml: {len(sm)} URLs; llms.txt written")
     for k, v in sorted(stats.items()): print(f"  {k}: {v}")
