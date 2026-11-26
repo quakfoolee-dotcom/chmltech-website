@@ -510,6 +510,8 @@ def main():
     print(f"contents lists: {article_toc.run(ROOT)} articles")
     import book_box
     print(f"book boxes: {book_box.run(ROOT)} reviews")
+    import exam_hubs
+    print(f"exam hubs and links (V5.81): {exam_hubs.run(ROOT)}")
     sm, ll = [], []
     LASTMOD.update(lastmod_store.load(ROOT))
     for rel in pages():
