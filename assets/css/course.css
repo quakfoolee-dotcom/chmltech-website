@@ -25,6 +25,21 @@
 .course-outline a.ol-lab.is-done::before{background-color:var(--blue);border-color:var(--blue)}
 .course-outline a.ol-exam{font-weight:600}
 .course-outline .ol-tag{margin-left:auto;font-size:11px;font-weight:600;color:var(--blue);background:#E3F2FA;border-radius:999px;padding:2px 8px;white-space:nowrap}
+/* Exam gate (V5.83): exam locked until every lesson is complete */
+.course-outline a.ol-exam.is-locked{color:var(--muted)}
+.course-outline a.ol-exam.is-locked::before{border:0;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A8494' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center/16px no-repeat}
+.course-outline a.ol-exam.is-locked .ol-tag{color:var(--muted);background:var(--sand)}
+.course-outline a.ol-exam.is-locked.is-current{background:var(--sand)}
+.exam-locked{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px 26px;max-width:760px}
+.exam-locked-head{display:flex;gap:16px;align-items:flex-start}
+.exam-locked-head h3{font-size:20px;margin-bottom:6px}
+.exam-locked-head p{color:var(--muted)}
+.exam-lock-ico{flex:0 0 44px;height:44px;border-radius:12px;background:#E3F2FA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B6FA4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center/24px no-repeat}
+.exam-locked .exam-bar{margin:18px 0 6px}
+.exam-locked h4{font-size:15px;margin:16px 0 8px}
+.exam-locked-list{margin:0 0 20px;padding-left:20px;columns:2;column-gap:28px}
+.exam-locked-list li{break-inside:avoid;margin-bottom:6px;font-size:14.5px}
+@media (max-width:640px){.exam-locked-list{columns:1}}
 
 /* Views */
 .course-view{min-width:0}

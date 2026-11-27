@@ -1,4 +1,4 @@
-/* Chmltech free course player (V4; one-question exam V4.88). Lessons are static HTML; labs, exam and progress are driven here. */
+/* Chmltech free course player (V4; one-question exam V4.88; exam unlocks after all lessons V5.83). Lessons are static HTML; labs, exam and progress are driven here. */
 (function () {
   'use strict';
   var root = document.querySelector('[data-course]');
@@ -25,6 +25,36 @@
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
+  /* ---------- exam gate (V5.83) ----------
+     The final exam opens only once every lesson is marked complete. Labs are optional. Learners who already
+     passed keep access to the exam and certificate. Progress lives in this browser, so this guides learners;
+     it is not a secure lock. */
+  function missingLessons() { var m = []; for (var i = 1; i <= TOTAL; i++) if (state.done.indexOf(i) === -1) m.push(i); return m; }
+  function examUnlocked() { return !!state.exam.passed || missingLessons().length === 0; }
+  function lessonTitle(n) {
+    var a = document.querySelector('.course-outline [data-goto="step-' + n + '"]');
+    return a ? a.textContent.replace(/^\s*\d+\.\s*/, '') : 'Lesson ' + n;
+  }
+  function refreshGate() {
+    var open = examUnlocked(), n = TOTAL - missingLessons().length;
+    var note = 'Finish all ' + TOTAL + ' lessons to unlock the final exam (' + n + ' of ' + TOTAL + ' done).';
+    Array.prototype.forEach.call(document.querySelectorAll('.course-outline [data-goto="exam"]'), function (a) {
+      var tag = a.querySelector('.ol-tag');
+      if (tag && !tag.hasAttribute('data-tag')) tag.setAttribute('data-tag', tag.textContent);
+      a.classList.toggle('is-locked', !open);
+      if (open) { a.removeAttribute('aria-disabled'); a.removeAttribute('title'); if (tag) tag.textContent = tag.getAttribute('data-tag'); }
+      else { a.setAttribute('aria-disabled', 'true'); a.setAttribute('title', note); if (tag) tag.textContent = n + '/' + TOTAL; }
+      var sr = a.querySelector('.visually-hidden.ol-lock-sr');
+      if (!sr) { sr = el('span', { class: 'visually-hidden ol-lock-sr' }); a.appendChild(sr); }
+      sr.textContent = open ? '' : ' (locked: ' + note + ')';
+    });
+    // Other links to the exam (overview button): relabel while locked; lesson "Complete and go to the exam" links are left alone.
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#exam"]:not([data-goto]):not([data-complete]):not([data-continue])'), function (a) {
+      if (!a.hasAttribute('data-label')) a.setAttribute('data-label', a.textContent);
+      a.textContent = open ? a.getAttribute('data-label') : 'Final exam: unlocks after all ' + TOTAL + ' lessons';
+    });
+  }
+
   function refreshProgress() {
     var n = state.done.length, pct = Math.round(100 * n / TOTAL);
     Array.prototype.forEach.call(document.querySelectorAll('[data-progress-bar]'), function (b) { b.style.width = pct + '%'; });
@@ -36,6 +66,7 @@
       else if (g === 'exam') done = !!state.exam.passed;
       a.classList.toggle('is-done', done);
     });
+    refreshGate();
     var cont = document.querySelector('[data-continue]');
     if (cont) {
       var next = 1; while (state.done.indexOf(next) !== -1 && next <= TOTAL) next++;
@@ -393,7 +424,19 @@
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function initExam(view) {
     var host = view.querySelector('[data-exam-host]'); if (!host) return;
+    if (!examUnlocked()) { examBuilt = false; renderLocked(host); return; }
     if (examBuilt) return; examBuilt = true; buildExam(host);
+  }
+  // Shown in place of the exam (also for direct links, bookmarks and #certificate) until every lesson is complete.
+  function renderLocked(host) {
+    var miss = missingLessons(), n = TOTAL - miss.length, pct = Math.round(100 * n / TOTAL), first = miss[0];
+    var list = miss.map(function (k) { return '<li><a href="#step-' + k + '">' + k + '. ' + esc(lessonTitle(k)) + '</a></li>'; }).join('');
+    host.innerHTML = '<div class="exam-locked" role="status"><div class="exam-locked-head"><span class="exam-lock-ico" aria-hidden="true"></span>' +
+      '<div><h3>The final exam unlocks after you finish every lesson</h3><p>' + n + ' of ' + TOTAL + ' lessons complete. ' +
+      (miss.length === 1 ? 'One lesson to go.' : miss.length + ' lessons to go.') + ' Mark each lesson complete with its <em>Complete and continue</em> button. Labs are optional.</p></div></div>' +
+      '<div class="exam-bar" aria-hidden="true"><span style="width:' + pct + '%"></span></div>' +
+      '<h4>Lessons still to complete</h4><ul class="exam-locked-list">' + list + '</ul>' +
+      '<div class="btn-row"><a class="btn" href="#step-' + first + '">Continue: lesson ' + first + '</a><a class="btn btn-ghost" href="#overview">Course overview</a></div></div>';
   }
   // One question at a time (V4.88). Next is enabled once an answer is picked; Back lets learners change answers.
   // Right/wrong and explanations are shown only after Submit, as a full review. An unfinished attempt is saved.
