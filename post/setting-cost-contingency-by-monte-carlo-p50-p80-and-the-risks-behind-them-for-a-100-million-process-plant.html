@@ -1,0 +1,3400 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Setting Cost Contingency by Monte Carlo</title>
+<meta name="description" content="Monte Carlo contingency for a C$100M Class 3 process plant estimate: P50 C$110.7M, P80 C$116.4M, the risks behind them, and why flat 10% or 15% falls short.">
+<link rel="canonical" href="https://www.chmltech.com/post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Setting Cost Contingency by Monte Carlo">
+<meta property="og:description" content="Monte Carlo contingency for a C$100M Class 3 process plant estimate: P50 C$110.7M, P80 C$116.4M, the risks behind them, and why flat 10% or 15% falls short.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=29c448bc">
+<meta property="og:url" content="https://www.chmltech.com/post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Setting Cost Contingency by Monte Carlo","item":"https://www.chmltech.com/post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=be09a9d8">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/27">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="20">
+<script>(function(c,l,a,r,i,t,y){if(!/(^|\.)chmltech\.com$/.test(l.location.hostname))return;try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <div class="nav-dd" data-nav-dd><button type="button" class="nav-dd-btn" aria-expanded="false" aria-controls="nav-dd-ai">AI<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-dd-menu" id="nav-dd-ai"><a href="../llm-leaderboard"><strong>AI Models</strong><span>LLM leaderboard: scores and cost</span></a><a href="../ai-tools"><strong>AI Tools Landscape</strong><span>988 tools mapped, with cost per output</span></a></div></div>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a> / <a href="../insights#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 20</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Clean Energy Technology Innovation · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 27, 2026</span><span>17 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Most capital estimates for small and mid-sized process plants still carry a flat contingency of 10% or 15%, chosen by habit. This paper sets the contingency for the C$100 million, 50,000-tonne-a-year plant of the Chmltech FEED series by Monte Carlo simulation of its Class 3 estimate. Twelve cost accounts carry skewed estimating ranges around a most likely base, correlated through common drivers for materials, labour and engineering. Eight risk events, such as poor soil, a late reactor, a scale-up problem and a labour shortage, add cost and delay, with each week of delay priced at the time-dependent indirect burn rate. Escalation and exchange rate are carried in a separate reserve. Over 50,000 iterations the P50 cost at base-date prices is C$110.7 million and the P80 C$116.4 million, contingencies of 11% and 16% of the base. A flat 10% has about a 54% chance of being overrun and a flat 15% a 26% chance. About two-thirds of the P80 contingency is cost the estimate already expects: C$5.2 million from the upward skew of the ranges and C$5.9 million from the expected cost of the risk events. Field labour and major equipment are the largest estimating uncertainties; eliminating the scale-up or soil risk would cut the P80 most. Treating line items as independent understates the P80 contingency by 8%, and by 14% with ranges twice as wide. Even so, the model's spread is narrower than AACE's indicative ranges. The Python model and a live Excel template accompany the paper.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> cost contingency; Monte Carlo simulation; P50 and P80; Class 3 estimate; risk register; estimate ranging; correlation; AACE</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the model and template</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/contingency_appendix.py" download><strong>Appendix script</strong> <code>contingency_appendix.py</code></a><span>P50, P80 and P90, chance of overrunning a flat 10% or 15%, escalation reserve (Python 3, NumPy, SciPy)</span></li><li><a href="../assets/journal/code/chmltech-cost-contingency-model.zip" download><strong>Full model</strong> <code>chmltech-cost-contingency-model.zip</code></a><span>Correlated cost accounts, risk register, escalation reserve, drivers, correlation, range-width and estimate-class cases, results, README</span></li><li><a href="../assets/journal/code/chmltech-cost-contingency-template.xlsx" download><strong>Excel template</strong> <code>chmltech-cost-contingency-template.xlsx</code></a><span>Live simulation of the estimate, risk register and escalation reserve with 5,000 iterations, S-curve percentiles, the paper results (about 7.5 MB)</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>Every capital estimate is a forecast of a cost that will not be known until the plant is built. Contingency is the amount added to the base estimate for the cost the estimator expects but cannot yet place in a line item: growth in quantities, productivity worse than assumed, prices that move, and events that may or may not happen [<a href="#ref-1" class="j-cite">1</a>]. It is not a reserve for changes in scope, and it is expected to be spent.</p><p>On large projects, contingency is usually set by risk analysis. On the small and mid-sized process plants where Chmltech works, it is still often a flat percentage, 10% or 15% of the base [<a href="#ref-2" class="j-cite">2</a>]. A flat percentage says nothing about how likely the budget is to be enough, and the evidence on process plant cost growth is not reassuring: pioneer plants and projects with poor definition overrun their estimates far more often than their contingency allows [<a href="#ref-3" class="j-cite">3</a>, <a href="#ref-4" class="j-cite">4</a>].</p><p>The earlier Chmltech paper on capital and operating cost estimation set out the estimate classes and described Monte Carlo analysis in general terms [<a href="#ref-5" class="j-cite">5</a>]. This paper applies it to one estimate: the C$100 million, 50,000-tonne-a-year plant of the FEED series [<a href="#ref-6" class="j-cite">6</a>, <a href="#ref-7" class="j-cite">7</a>], at the end of FEED. It asks how much contingency the estimate needs for a 50% and an 80% chance of not being overrun, where that contingency comes from, which risks drive it, and how much the answer depends on modelling choices that are often skipped, such as correlation between line items.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> The Estimate and Its Uncertainty</h2><p>The base estimate is the fixed capital of the plant at the end of FEED, a Class 3 estimate in the AACE classification [<a href="#ref-8" class="j-cite">8</a>]. It totals C$100.0 million before contingency, at base-date prices, and every account is set at its most likely value, so that the base carries no hidden allowance or deliberate optimism. Table 1 lists its 12 accounts with the range assigned to each. Escalation to the middle of spending, about 18 months away, and the exchange rate on imported equipment are treated separately, as AACE terminology expects: contingency covers the uncertainty in the defined scope at base-date prices, and escalation is a reserve of its own [<a href="#ref-1" class="j-cite">1</a>].</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Cost accounts of the base estimate and their ranges at Class 3.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Account</th><th>Base (C$M)</th><th>Range as a multiple of base (low, most likely, high)</th><th>Correlation group</th></tr></thead><tbody><tr><td>Major equipment</td><td>24.0</td><td>0.92, 1.00, 1.15</td><td>Materials</td></tr><tr><td>Piping (bulk materials)</td><td>9.0</td><td>0.88, 1.00, 1.27</td><td>Materials</td></tr><tr><td>Instruments and controls</td><td>5.0</td><td>0.90, 1.00, 1.25</td><td>Materials</td></tr><tr><td>Electrical</td><td>5.0</td><td>0.90, 1.00, 1.25</td><td>Materials</td></tr><tr><td>Civil, structural and buildings</td><td>8.0</td><td>0.90, 1.00, 1.35</td><td>Site</td></tr><tr><td>Insulation, painting, fireproofing</td><td>2.0</td><td>0.90, 1.00, 1.30</td><td>Materials</td></tr><tr><td>Direct field labour</td><td>17.0</td><td>0.86, 1.00, 1.33</td><td>Labour</td></tr><tr><td>Construction indirects</td><td>8.0</td><td>0.90, 1.00, 1.30</td><td>Labour</td></tr><tr><td>Engineering, procurement and construction management</td><td>13.0</td><td>0.95, 1.00, 1.20</td><td>Engineering</td></tr><tr><td>Owner's costs</td><td>4.0</td><td>0.95, 1.00, 1.25</td><td>Engineering</td></tr><tr><td>Start-up and commissioning</td><td>3.0</td><td>0.90, 1.00, 1.40</td><td>Labour</td></tr><tr><td>Freight and duties</td><td>2.0</td><td>0.90, 1.00, 1.20</td><td>Materials</td></tr><tr><td>Total</td><td>100.0</td><td></td><td></td></tr></tbody></table></div></figure><p>The ranges are skewed upward, as experience says they should be. Quantities of piping, cable and concrete grow as design develops; field labour productivity is more often worse than estimated than better; and most of the equipment has firm or budget quotes, so its range is the narrowest. Accounts in the same group move together: a busy market raises all material prices, poor productivity hits labour and the indirects that depend on time. The correlations are set on the normal scores used to draw the samples: 0.5 within the materials and engineering groups, 0.7 within labour, 0.3 between groups, which give rank correlations of about 0.48, 0.68 and 0.29. The site group has a single account.</p><p>For the escalation reserve, the escalation rate varies from 2% to 6% a year around the 3% most likely, which is also what the base assumes, applied over 1.5 years to the direct and contractor accounts; 40% of the major equipment is bought in US dollars, with an exchange rate range of ±12%.</p><p>The second kind of uncertainty is the risk event: something that may or may not happen and is not in the base at all. Table 2 lists the risk register. Each event has a probability, a cost if it happens and, for some, a delay. A delay costs C$0.2 million a week in time-dependent costs: construction indirects, construction management and the owner's team. Each event is defined to lie outside what the ranges cover, so the two do not count the same cost twice: the labour shortage is a shortage severe enough to need premium crews or a camp, beyond the productivity range of the labour accounts; the HAZOP or code change adds equipment, beyond the quantity growth in the piping and electrical ranges; and the vendor failure forces a new purchase order, beyond the price range of the equipment account.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Risk register.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Risk event</th><th>Probability</th><th>Cost if it happens (C$M: low, most likely, high)</th><th>Delay if it happens (weeks: low, most likely, high)</th></tr></thead><tbody><tr><td>Poor soil: piling needed</td><td>25%</td><td>1.5, 2.5, 5.0</td><td>2, 4, 8</td></tr><tr><td>Reactor delivered late</td><td>30%</td><td>none</td><td>4, 8, 16</td></tr><tr><td>Scale-up issue forces a process change</td><td>20%</td><td>2.0, 4.0, 8.0</td><td>4, 8, 12</td></tr><tr><td>HAZOP or code change adds equipment</td><td>40%</td><td>0.5, 1.5, 3.0</td><td>none</td></tr><tr><td>Permit delayed</td><td>15%</td><td>none</td><td>4, 10, 20</td></tr><tr><td>Labour shortage: premium crews needed</td><td>30%</td><td>1.0, 2.5, 5.0</td><td>none</td></tr><tr><td>Key vendor fails: re-procurement</td><td>10%</td><td>0.5, 1.5, 3.0</td><td>6, 10, 16</td></tr><tr><td>Commissioning problems</td><td>25%</td><td>0.5, 1.5, 4.0</td><td>2, 6, 12</td></tr></tbody></table></div></figure><p>The register is typical of a small chemical plant with some new process technology. The scale-up issue reflects what the earlier post on scale-up warned about: a pilot that did not reproduce one feature of the full-scale plant [<a href="#ref-9" class="j-cite">9</a>]. The events are drawn independently, which is not conservative: in a hot market the labour shortage, the vendor failure and high escalation tend to come together. Section 6 tests what happens when they do.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Method</h2><p>The simulation combines two of AACE's recommended treatments: estimate ranging of the line items for the inherent uncertainty of a well-defined estimate, and an expected-value treatment of discrete risk events, run together in one Monte Carlo model so that their sum has a distribution [<a href="#ref-10" class="j-cite">10</a>–<a href="#ref-12" class="j-cite">12</a>]. AACE warns that estimate ranging on its own tends to understate contingency when systemic risks, such as new technology or weak definition, are significant, and refers them to parametric models [<a href="#ref-10" class="j-cite">10</a>, <a href="#ref-13" class="j-cite">13</a>, <a href="#ref-14" class="j-cite">14</a>]. This paper does not model systemic risk parametrically; Sections 6 and 7 show what that omission is likely to cost.</p><p><strong>Total cost.</strong> In each iteration the final cost at base-date prices is Eq. (1), where Bj is the base of account j and Xj its sampled multiple; Ik is 1 if risk event k happens and 0 if not, ck its cost, dk its delay in weeks and b the burn rate of C$0.2 million a week:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[C = \sum_{j} B_j X_j + \sum_{k} I_k \left( c_k + b\,d_k \right)\]</span><span class="j-eq-n">(1)</span></div><p><strong>Escalation reserve.</strong> The escalation and exchange-rate effect beyond what the base carries is Eq. (2), applied to the first nine accounts, the direct and contractor costs, where e is the sampled escalation rate, e0 the 3% carried in the base, t the 1.5 years to the middle of spending, B1 the major equipment base, sUS its share bought in US dollars and xFX the change in exchange rate. One mid-spend factor is a simplification: engineering is spent earlier and firmly quoted equipment later, which would narrow the reserve slightly:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[E = \left( E_f - 1 \right) \sum_{j \le 9} B_j X_j + E_f\,B_1\,s_{US}\,x_{FX}, \qquad E_f = \left( \frac{1 + e}{1 + e_0} \right)^{t}\]</span><span class="j-eq-n">(2)</span></div><p><strong>Correlation.</strong> The account multiples are drawn together through a Gaussian copula: a vector of correlated standard normal numbers is drawn with the correlation matrix Σ of Section 2, and each is turned into a multiple through the inverse of that account's triangular distribution, Eq. (3). The matrix is positive definite. In the Excel template the same correlations are built from common factors, z = √ρ_b Z₀ + √(ρ_g − ρ_b) Z_g + √(1 − ρ_g) ε, which requires each within-group correlation to be at least the between-group value. The approach is close in effect to the rank-correlation method of Iman and Conover [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>]:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[X_j = F_j^{-1}\!\left( \Phi(z_j) \right), \qquad \mathbf{z} \sim N(\mathbf{0}, \boldsymbol{\Sigma})\]</span><span class="j-eq-n">(3)</span></div><p><strong>Risk events.</strong> Each event happens with its probability, independently of the others and of the line items, and its cost and delay are drawn from their triangular ranges. The delays are added, not overlapped, which is conservative for events on different paths of the schedule and right for events on the same one; the independence of the events is not conservative, as Section 2 notes.</p><p><strong>Contingency.</strong> The contingency for a confidence level p is the difference between the p-th percentile of the final cost and the base, Eq. (4):</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[K_p = C_p - \sum_j B_j\]</span><span class="j-eq-n">(4)</span></div><p>The simulation runs 50,000 iterations; with five other random seeds the P80 stays within C$0.1 million. The same iterations are rerun with each account fixed at its mean or each risk removed or replaced by its expected value, to show how much of the P80 each one carries, and with the correlation removed, the ranges widened, the market-driven items correlated, and the ranges and risks scaled to earlier estimate classes.</p><p><strong>Verification.</strong> With every range collapsed to its most likely value and the risks switched off, the model returns exactly the C$100.0 million base. The mean cost of the risk events in the simulation, C$5.88 million, matches the expected value calculated by hand from Table 2, C$5.87 million.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Results: How Much Contingency</h2><p>The estimate needs a contingency of C$10.7 million for an even chance of being enough, and C$16.4 million for an 80% chance, at base-date prices. Figure 1 shows the distribution of the final cost as an S-curve.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 551.624902 308.039117" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">S-curve of final cost with P50, P80 and P90</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 308.039117 
+L 551.624902 308.039117 
+L 551.624902 0 
+L 0 0 
+L 0 308.039117 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 57.294512 265.869937 
+L 537.174512 265.869937 
+L 537.174512 10.845937 
+L 57.294512 10.845937 
+L 57.294512 265.869937 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 57.294512 265.869937 
+L 57.294512 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m19ed76353a" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m19ed76353a" x="57.294512" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="57.294512" y="283.041812" transform="rotate(-0 57.294512 283.041812)">95</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 125.848797 265.869937 
+L 125.848797 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m19ed76353a" x="125.848797" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="125.848797" y="283.041812" transform="rotate(-0 125.848797 283.041812)">100</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 194.403083 265.869937 
+L 194.403083 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m19ed76353a" x="194.403083" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="194.403083" y="283.041812" transform="rotate(-0 194.403083 283.041812)">105</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 262.957369 265.869937 
+L 262.957369 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m19ed76353a" x="262.957369" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="262.957369" y="283.041812" transform="rotate(-0 262.957369 283.041812)">110</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 331.511655 265.869937 
+L 331.511655 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m19ed76353a" x="331.511655" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="331.511655" y="283.041812" transform="rotate(-0 331.511655 283.041812)">115</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 400.06594 265.869937 
+L 400.06594 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m19ed76353a" x="400.06594" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="400.06594" y="283.041812" transform="rotate(-0 400.06594 283.041812)">120</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 468.620226 265.869937 
+L 468.620226 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m19ed76353a" x="468.620226" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="468.620226" y="283.041812" transform="rotate(-0 468.620226 283.041812)">125</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 537.174512 265.869937 
+L 537.174512 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m19ed76353a" x="537.174512" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="537.174512" y="283.041812" transform="rotate(-0 537.174512 283.041812)">130</text>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="297.234512" y="299.746402" transform="rotate(-0 297.234512 299.746402)">Final fixed capital cost at base-date prices (C$ million)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_17">
+<path d="M 57.294512 265.869937 
+L 537.174512 265.869937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<defs>
+<path id="m492349ec74" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m492349ec74" x="57.294512" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="270.955875" transform="rotate(-0 50.294512 270.955875)">0%</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_19">
+<path d="M 57.294512 214.865137 
+L 537.174512 214.865137 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m492349ec74" x="57.294512" y="214.865137" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="219.951075" transform="rotate(-0 50.294512 219.951075)">20%</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_21">
+<path d="M 57.294512 163.860337 
+L 537.174512 163.860337 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m492349ec74" x="57.294512" y="163.860337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="168.946275" transform="rotate(-0 50.294512 168.946275)">40%</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_23">
+<path d="M 57.294512 112.855537 
+L 537.174512 112.855537 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m492349ec74" x="57.294512" y="112.855537" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="117.941475" transform="rotate(-0 50.294512 117.941475)">60%</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_25">
+<path d="M 57.294512 61.850737 
+L 537.174512 61.850737 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m492349ec74" x="57.294512" y="61.850737" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="66.936675" transform="rotate(-0 50.294512 66.936675)">80%</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_27">
+<path d="M 57.294512 10.845937 
+L 537.174512 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m492349ec74" x="57.294512" y="10.845937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="15.931875" transform="rotate(-0 50.294512 15.931875)">100%</text>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="138.357937" transform="rotate(-90 15.931875 138.357937)">Probability of not exceeding</text>
+</g>
+</g>
+<g id="line2d_29">
+<path d="M 84.473146 264.594817 
+L 98.588583 263.319698 
+L 107.639346 262.044578 
+L 114.917936 260.769457 
+L 120.767766 259.494337 
+L 125.717921 258.219218 
+L 137.779434 254.393857 
+L 144.278485 251.843617 
+L 147.495813 250.568497 
+L 155.272502 246.743137 
+L 158.06281 245.468017 
+L 162.50744 242.917777 
+L 164.801746 241.642657 
+L 166.77542 240.367537 
+L 169.169225 239.092417 
+L 175.14434 235.267057 
+L 182.653612 230.166577 
+L 186.083724 227.616337 
+L 189.322554 225.066097 
+L 190.965747 223.790977 
+L 193.932229 221.240737 
+L 195.445439 219.965617 
+L 198.685372 217.415377 
+L 204.057927 212.314897 
+L 206.916864 209.764657 
+L 212.040925 204.664177 
+L 214.926818 202.113937 
+L 219.907848 197.013457 
+L 222.563973 194.463217 
+L 223.810333 193.188097 
+L 226.056506 190.637857 
+L 227.198135 189.362737 
+L 229.794127 186.812497 
+L 233.313146 182.987137 
+L 237.735556 177.886657 
+L 242.251261 172.786177 
+L 256.593921 156.209617 
+L 258.742657 153.659377 
+L 262.18655 149.834017 
+L 267.838007 143.458417 
+L 270.18376 140.908177 
+L 274.644604 135.807697 
+L 275.606262 134.532577 
+L 282.963362 126.881857 
+L 285.388261 124.331617 
+L 291.885656 116.680897 
+L 296.713164 111.580417 
+L 306.566521 101.379457 
+L 309.165484 98.829217 
+L 310.317937 97.554097 
+L 312.937598 95.003857 
+L 315.34753 92.453617 
+L 322.288578 86.078017 
+L 324.731473 83.527777 
+L 327.660738 80.977537 
+L 335.156344 74.601937 
+L 336.823023 73.326817 
+L 339.776863 70.776577 
+L 347.902839 64.400977 
+L 360.217633 55.475137 
+L 367.879823 50.374657 
+L 370.133852 49.099537 
+L 372.132122 47.824417 
+L 376.569644 45.274177 
+L 381.423955 42.723937 
+L 386.132177 40.173697 
+L 393.880095 36.348337 
+L 396.601535 35.073217 
+L 402.948578 32.522977 
+L 416.894913 27.422497 
+L 429.875538 23.597137 
+L 434.914547 22.322017 
+L 446.470671 19.771777 
+L 453.183317 18.496657 
+L 470.609081 15.946417 
+L 482.428034 14.671297 
+L 499.42204 13.396177 
+L 525.816703 12.121057 
+L 525.816703 12.121057 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<path d="M 272.467002 265.869937 
+L 272.467002 138.357937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.2"/>
+</g>
+<g id="line2d_31">
+<path d="M 57.294512 138.357937 
+L 272.467002 138.357937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.2"/>
+</g>
+<g id="line2d_32">
+<path d="M 351.228491 265.869937 
+L 351.228491 61.850737 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_33">
+<path d="M 57.294512 61.850737 
+L 351.228491 61.850737 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_34">
+<path d="M 393.880095 265.869937 
+L 393.880095 36.348337 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_35">
+<path d="M 57.294512 36.348337 
+L 393.880095 36.348337 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2"/>
+</g>
+<g id="line2d_36">
+<path d="M 125.848797 265.869937 
+L 125.848797 10.845937 
+" clip-path="url(#p9fecaa5dfc)" style="fill: none; stroke: #4a5568; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 57.294512 265.869937 
+L 57.294512 10.845937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 57.294512 265.869937 
+L 537.174512 265.869937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(277.951345 244.779329)">P50 C$110.7M</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4d7f12" transform="translate(277.951345 255.668977)">(+10.7%)</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(284.735398 219.276929)">P80 C$116.4M</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(307.044148 230.166577)">(+16.4%)</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(399.364438 186.123809)">P90 C$119.5M</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(399.364438 197.013457)">(+19.5%)</text>
+</g>
+<g id="PathCollection_1">
+<defs>
+<path id="m28720f0edb" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #8a94a6"/>
+</defs>
+<g clip-path="url(#p9fecaa5dfc)">
+<use xlink:href="#m28720f0edb" x="262.957369" y="148.955863" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="patch_5">
+<path d="M 241.843164 153.672066 
+Q 251.424714 151.53187 261.006264 149.391674 
+" style="fill: none; stroke: #4a5568; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_20">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(139.559655 163.413641)">Base + 10%:</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(139.559655 174.061297)">54% chance of overrun</text>
+</g>
+<g id="PathCollection_2">
+<g clip-path="url(#p9fecaa5dfc)">
+<use xlink:href="#m28720f0edb" x="331.511655" y="77.621337" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="patch_6">
+<path d="M 241.668001 88.001129 
+Q 285.595922 82.92606 329.523842 77.850992 
+" style="fill: none; stroke: #4a5568; stroke-width: 0.8; stroke-linecap: round"/>
+</g>
+<g id="text_21">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(139.559655 92.006921)">Base + 15%:</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(139.559655 102.654577)">26% chance of overrun</text>
+</g>
+<g id="text_22">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(129.962055 20.600201)">Base estimate</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(129.962055 31.247857)">C$100M</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p9fecaa5dfc">
+<rect x="57.294512" y="10.845937" width="479.88" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Distribution of the final fixed capital cost at base-date prices over 50,000 iterations, with the P50, P80 and P90 values and the chance of overrun for flat contingencies of 10% and 15%.</figcaption></figure><p>The base estimate alone has only a 3% chance of being enough. A flat 10% contingency, a budget of C$110 million, has about a 54% chance of being overrun, so it sits just below the P50; a flat 15% has a 26% chance, so it sits at about P74. The P90 is C$119.5 million, 19.5% above the base, and the P95 C$122.2 million. The distribution is skewed to the right: the P80 is C$5.7 million above the P50, while the P20 is C$5.2 million below it.</p><p>The escalation reserve comes on top. With escalation of 2% to 6% a year against the 3% carried in the base, and the exchange rate on imported equipment, it has a P50 of C$0.8 million and a P80 of C$2.1 million. Simulated together with the contingency, the total P80 is C$117.5 million; the two P80s do not simply add, because escalation and the cost uncertainties are unlikely to be at their worst together.</p><p>Figure 2 shows where the contingency comes from. The mean final cost is C$111.1 million. Of the C$11.1 million between the base and the mean, C$5.2 million comes from the upward skew of the line-item ranges: with the base at the most likely value of every account, each account still has a longer tail upward than downward, so its mean sits above its most likely value. The other C$5.9 million is the expected cost of the risk events, of which C$2.0 million is the cost of ten weeks of expected delay. The margin from the mean to the P80 adds C$5.4 million. In other words, about two-thirds of a P80 contingency is not a safety margin at all; it is cost the estimate already expects but has not placed in a line item.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 532.624824 284.235297" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Build-up of the P80 budget from the base estimate</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 284.235297 
+L 532.624824 284.235297 
+L 532.624824 0 
+L 0 0 
+L 0 284.235297 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 46.984824 249.696 
+L 526.864824 249.696 
+L 526.864824 5.76 
+L 46.984824 5.76 
+L 46.984824 249.696 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 92.168331 249.696 
+L 92.168331 5.76 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m99d3bfbd79" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m99d3bfbd79" x="92.168331" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="92.168331" y="265.41475" transform="rotate(-0 92.168331 265.41475)">Base estimate</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 170.070928 249.696 
+L 170.070928 5.76 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m99d3bfbd79" x="170.070928" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(145.554366 265.41475)">Skew in the</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(135.552412 276.304398)">line-item ranges</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 247.973526 249.696 
+L 247.973526 5.76 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m99d3bfbd79" x="247.973526" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(212.042432 265.41475)">Expected cost of</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(224.946182 276.304398)">risk events</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 325.876123 249.696 
+L 325.876123 5.76 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m99d3bfbd79" x="325.876123" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="325.876123" y="265.41475" transform="rotate(-0 325.876123 265.41475)">Mean</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 403.77872 249.696 
+L 403.77872 5.76 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m99d3bfbd79" x="403.77872" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="403.77872" y="265.41475" transform="rotate(-0 403.77872 265.41475)">Margin to P80</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 481.681318 249.696 
+L 481.681318 5.76 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m99d3bfbd79" x="481.681318" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="481.681318" y="265.41475" transform="rotate(-0 481.681318 265.41475)">P80 budget</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 46.984824 249.696 
+L 526.864824 249.696 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="m79871e4581" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="254.781938" transform="rotate(-0 39.984824 254.781938)">90</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 46.984824 211.581 
+L 526.864824 211.581 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="211.581" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="216.666938" transform="rotate(-0 39.984824 216.666938)">95</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 46.984824 173.466 
+L 526.864824 173.466 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="173.466" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="178.551938" transform="rotate(-0 39.984824 178.551938)">100</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 46.984824 135.351 
+L 526.864824 135.351 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="135.351" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="140.436937" transform="rotate(-0 39.984824 140.436937)">105</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 46.984824 97.236 
+L 526.864824 97.236 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="97.236" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="102.321937" transform="rotate(-0 39.984824 102.321937)">110</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 46.984824 59.121 
+L 526.864824 59.121 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="59.121" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="64.206938" transform="rotate(-0 39.984824 64.206938)">115</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_25">
+<path d="M 46.984824 21.006 
+L 526.864824 21.006 
+" clip-path="url(#p562e02c9ea)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m79871e4581" x="46.984824" y="21.006" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.984824" y="26.091938" transform="rotate(-0 39.984824 26.091938)">120</text>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="127.728" transform="rotate(-90 15.931875 127.728)">C$ million (axis starts at 90)</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 68.797551 249.696 
+L 115.53911 249.696 
+L 115.53911 173.466 
+L 68.797551 173.466 
+z
+" clip-path="url(#p562e02c9ea)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_4">
+<path d="M 146.700149 173.466 
+L 193.441707 173.466 
+L 193.441707 133.949362 
+L 146.700149 133.949362 
+z
+" clip-path="url(#p562e02c9ea)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_5">
+<path d="M 224.602746 133.949362 
+L 271.344305 133.949362 
+L 271.344305 89.159772 
+L 224.602746 89.159772 
+z
+" clip-path="url(#p562e02c9ea)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_6">
+<path d="M 302.505344 249.696 
+L 349.246902 249.696 
+L 349.246902 89.159772 
+L 302.505344 89.159772 
+z
+" clip-path="url(#p562e02c9ea)" style="fill: #0b2a5a"/>
+</g>
+<g id="patch_7">
+<path d="M 380.407941 89.159772 
+L 427.1495 89.159772 
+L 427.1495 48.158779 
+L 380.407941 48.158779 
+z
+" clip-path="url(#p562e02c9ea)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_8">
+<path d="M 458.310539 249.696 
+L 505.052097 249.696 
+L 505.052097 48.158779 
+L 458.310539 48.158779 
+z
+" clip-path="url(#p562e02c9ea)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_9">
+<path d="M 46.984824 249.696 
+L 46.984824 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_10">
+<path d="M 46.984824 249.696 
+L 526.864824 249.696 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="92.168331" y="170.4168" transform="rotate(-0 92.168331 170.4168)">C$100.0M</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="170.070928" y="130.900162" transform="rotate(-0 170.070928 130.900162)">+5.2</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="247.973526" y="86.110572" transform="rotate(-0 247.973526 86.110572)">+5.9</text>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="325.876123" y="86.110572" transform="rotate(-0 325.876123 86.110572)">C$111.1M</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="403.77872" y="45.109579" transform="rotate(-0 403.77872 45.109579)">+5.4</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="481.681318" y="45.109579" transform="rotate(-0 481.681318 45.109579)">C$116.4M</text>
+</g>
+<g id="text_21">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(145.226352 220.232836)">Held separately: escalation and</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(130.984617 230.6385)">exchange-rate reserve, C$2.1M at P80</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p562e02c9ea">
+<rect x="46.984824" y="5.76" width="479.88" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Build-up of the P80 budget from the base estimate at base-date prices: skew of the line-item ranges, expected cost of the risk events, and the margin from the mean to the P80; the escalation reserve is held separately.</figcaption></figure><p>Run separately, the line-item uncertainty alone gives a P80 of C$109.3 million and the risk events alone also C$109.3 million. Neither half is negligible, and their P80 contingencies do not simply add: together they need C$16.4 million, not the C$18.7 million of the sum, because the two are unlikely to be at their worst together.</p></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> What Drives the Contingency</h2><p>Figure 3 shows how much of the P80 each item carries, measured in the way that suits it. For an estimating account the question is what its spread costs, so the account is fixed at its mean and the fall in the P80 recorded. For a risk event there are two questions: what the event is worth if it can be eliminated, by a survey or a design decision, and how much of the P80 is due to its all-or-nothing nature, which shows when it is replaced by its expected value.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 633.843964 301.74561" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Fall in P80 by estimating account and by risk event</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 301.74561 
+L 633.843964 301.74561 
+L 633.843964 0 
+L 0 0 
+L 0 301.74561 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 137.192594 240.26856 
+L 269.014105 240.26856 
+L 269.014105 20.6725 
+L 137.192594 20.6725 
+L 137.192594 240.26856 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 137.192594 240.26856 
+L 137.192594 20.6725 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mf82db8c4a5" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mf82db8c4a5" x="137.192594" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="137.192594" y="257.440435" transform="rotate(-0 137.192594 257.440435)">0.00</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 171.882465 240.26856 
+L 171.882465 20.6725 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mf82db8c4a5" x="171.882465" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="171.882465" y="257.440435" transform="rotate(-0 171.882465 257.440435)">0.25</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 206.572337 240.26856 
+L 206.572337 20.6725 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mf82db8c4a5" x="206.572337" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="206.572337" y="257.440435" transform="rotate(-0 206.572337 257.440435)">0.50</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 241.262208 240.26856 
+L 241.262208 20.6725 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mf82db8c4a5" x="241.262208" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="241.262208" y="257.440435" transform="rotate(-0 241.262208 257.440435)">0.75</text>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(151.772537 272.49815)">Fall in P80 if the account</text>
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(142.975287 283.145806)">were fixed at its mean (C$M)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_9">
+<path d="M 137.192594 222.40668 
+L 269.014105 222.40668 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<defs>
+<path id="m3f261499f7" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="222.40668" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="226.572305" transform="rotate(-0 130.192594 226.572305)">Start-up and commissioning</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_11">
+<path d="M 137.192594 196.139208 
+L 269.014105 196.139208 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="196.139208" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="200.304833" transform="rotate(-0 130.192594 200.304833)">Electrical</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_13">
+<path d="M 137.192594 169.871737 
+L 269.014105 169.871737 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="169.871737" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="174.037362" transform="rotate(-0 130.192594 174.037362)">Civil, structural and buildings</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_15">
+<path d="M 137.192594 143.604266 
+L 269.014105 143.604266 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="143.604266" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="147.769891" transform="rotate(-0 130.192594 147.769891)">Engineering, procurement, CM</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_17">
+<path d="M 137.192594 117.336794 
+L 269.014105 117.336794 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="117.336794" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="121.502419" transform="rotate(-0 130.192594 121.502419)">Construction indirects</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_19">
+<path d="M 137.192594 91.069323 
+L 269.014105 91.069323 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="91.069323" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="95.234948" transform="rotate(-0 130.192594 95.234948)">Piping (bulk materials)</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_21">
+<path d="M 137.192594 64.801852 
+L 269.014105 64.801852 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="64.801852" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="68.967477" transform="rotate(-0 130.192594 68.967477)">Major equipment</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_23">
+<path d="M 137.192594 38.534381 
+L 269.014105 38.534381 
+" clip-path="url(#p2364f15386)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m3f261499f7" x="137.192594" y="38.534381" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="130.192594" y="42.700006" transform="rotate(-0 130.192594 42.700006)">Direct field labour</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 137.192594 230.286921 
+L 157.481787 230.286921 
+L 157.481787 214.526438 
+L 137.192594 214.526438 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_4">
+<path d="M 137.192594 204.01945 
+L 159.213632 204.01945 
+L 159.213632 188.258967 
+L 137.192594 188.258967 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_5">
+<path d="M 137.192594 177.751979 
+L 169.580717 177.751979 
+L 169.580717 161.991496 
+L 137.192594 161.991496 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_6">
+<path d="M 137.192594 151.484507 
+L 171.717571 151.484507 
+L 171.717571 135.724024 
+L 137.192594 135.724024 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_7">
+<path d="M 137.192594 125.217036 
+L 176.343878 125.217036 
+L 176.343878 109.456553 
+L 137.192594 109.456553 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_8">
+<path d="M 137.192594 98.949565 
+L 176.456617 98.949565 
+L 176.456617 83.189082 
+L 137.192594 83.189082 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_9">
+<path d="M 137.192594 72.682093 
+L 201.426673 72.682093 
+L 201.426673 56.92161 
+L 137.192594 56.92161 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_10">
+<path d="M 137.192594 46.414622 
+L 234.827762 46.414622 
+L 234.827762 30.654139 
+L 137.192594 30.654139 
+z
+" clip-path="url(#p2364f15386)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_11">
+<path d="M 137.192594 240.26856 
+L 137.192594 20.6725 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_12">
+<path d="M 137.192594 240.26856 
+L 269.014105 240.26856 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_14">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="160.256977" y="225.462344" transform="rotate(-0 160.256977 225.462344)">0.15</text>
+</g>
+<g id="text_15">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="161.988821" y="199.194873" transform="rotate(-0 161.988821 199.194873)">0.16</text>
+</g>
+<g id="text_16">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="172.355907" y="172.927401" transform="rotate(-0 172.355907 172.927401)">0.23</text>
+</g>
+<g id="text_17">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="174.492761" y="146.65993" transform="rotate(-0 174.492761 146.65993)">0.25</text>
+</g>
+<g id="text_18">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="179.119067" y="120.392459" transform="rotate(-0 179.119067 120.392459)">0.28</text>
+</g>
+<g id="text_19">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="179.231807" y="94.124987" transform="rotate(-0 179.231807 94.124987)">0.28</text>
+</g>
+<g id="text_20">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="204.201862" y="67.857516" transform="rotate(-0 204.201862 67.857516)">0.46</text>
+</g>
+<g id="text_21">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="237.602952" y="41.590045" transform="rotate(-0 237.602952 41.590045)">0.70</text>
+</g>
+<g id="text_22">
+<text style="font-weight: 600; font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="137.192594" y="14.6725" transform="rotate(-0 137.192594 14.6725)">Estimating uncertainty</text>
+</g>
+</g>
+<g id="axes_2">
+<g id="patch_13">
+<path d="M 450.782855 240.26856 
+L 602.377594 240.26856 
+L 602.377594 20.6725 
+L 450.782855 20.6725 
+L 450.782855 240.26856 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_3">
+<g id="xtick_5">
+<g id="line2d_25">
+<path d="M 450.782855 240.26856 
+L 450.782855 20.6725 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#mf82db8c4a5" x="450.782855" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="450.782855" y="257.440435" transform="rotate(-0 450.782855 257.440435)">0</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_27">
+<path d="M 522.970826 240.26856 
+L 522.970826 20.6725 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#mf82db8c4a5" x="522.970826" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="522.970826" y="257.440435" transform="rotate(-0 522.970826 257.440435)">1</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_29">
+<path d="M 595.158797 240.26856 
+L 595.158797 20.6725 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#mf82db8c4a5" x="595.158797" y="240.26856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_25">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="595.158797" y="257.440435" transform="rotate(-0 595.158797 257.440435)">2</text>
+</g>
+</g>
+<g id="text_26">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="526.580225" y="272.49815" transform="rotate(-0 526.580225 272.49815)">Fall in P80 (C$M)</text>
+</g>
+</g>
+<g id="matplotlib.axis_4">
+<g id="ytick_9">
+<g id="line2d_31">
+<path d="M 450.782855 221.212704 
+L 602.377594 221.212704 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="221.212704" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_27">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="225.281454" transform="rotate(-0 443.782855 225.281454)">Permit delayed</text>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_33">
+<path d="M 450.782855 195.286369 
+L 602.377594 195.286369 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="195.286369" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_28">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="199.355119" transform="rotate(-0 443.782855 199.355119)">Key vendor fails: re-procurement</text>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_35">
+<path d="M 450.782855 169.360033 
+L 602.377594 169.360033 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="169.360033" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_29">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="173.428783" transform="rotate(-0 443.782855 173.428783)">Reactor delivered late</text>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_37">
+<path d="M 450.782855 143.433698 
+L 602.377594 143.433698 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="143.433698" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_30">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="147.502448" transform="rotate(-0 443.782855 147.502448)">HAZOP or code change adds equipment</text>
+</g>
+</g>
+<g id="ytick_13">
+<g id="line2d_39">
+<path d="M 450.782855 117.507362 
+L 602.377594 117.507362 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_40">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="117.507362" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_31">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="121.576112" transform="rotate(-0 443.782855 121.576112)">Labour shortage: premium crews needed</text>
+</g>
+</g>
+<g id="ytick_14">
+<g id="line2d_41">
+<path d="M 450.782855 91.581027 
+L 602.377594 91.581027 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_42">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="91.581027" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_32">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="95.649777" transform="rotate(-0 443.782855 95.649777)">Commissioning problems</text>
+</g>
+</g>
+<g id="ytick_15">
+<g id="line2d_43">
+<path d="M 450.782855 65.654692 
+L 602.377594 65.654692 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_44">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="65.654692" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_33">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="69.723442" transform="rotate(-0 443.782855 69.723442)">Poor soil: piling needed</text>
+</g>
+</g>
+<g id="ytick_16">
+<g id="line2d_45">
+<path d="M 450.782855 39.728356 
+L 602.377594 39.728356 
+" clip-path="url(#pf2a706073b)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_46">
+<g>
+<use xlink:href="#m3f261499f7" x="450.782855" y="39.728356" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_34">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="443.782855" y="43.797106" transform="rotate(-0 443.782855 43.797106)">Scale-up issue forces a process change</text>
+</g>
+</g>
+</g>
+<g id="patch_14">
+<path d="M 450.782855 220.95344 
+L 477.941686 220.95344 
+L 477.941686 212.138486 
+L 450.782855 212.138486 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_15">
+<path d="M 450.782855 195.027105 
+L 486.358299 195.027105 
+L 486.358299 186.212151 
+L 450.782855 186.212151 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_16">
+<path d="M 450.782855 169.10077 
+L 498.059153 169.10077 
+L 498.059153 160.285816 
+L 450.782855 160.285816 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_17">
+<path d="M 450.782855 143.174434 
+L 505.360204 143.174434 
+L 505.360204 134.35948 
+L 450.782855 134.35948 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_18">
+<path d="M 450.782855 117.248099 
+L 520.376642 117.248099 
+L 520.376642 108.433145 
+L 450.782855 108.433145 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_19">
+<path d="M 450.782855 91.321764 
+L 521.79374 91.321764 
+L 521.79374 82.50681 
+L 450.782855 82.50681 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_20">
+<path d="M 450.782855 65.395428 
+L 536.178107 65.395428 
+L 536.178107 56.580474 
+L 450.782855 56.580474 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_21">
+<path d="M 450.782855 39.469093 
+L 572.001357 39.469093 
+L 572.001357 30.654139 
+L 450.782855 30.654139 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_22">
+<path d="M 450.782855 230.286921 
+L 453.397776 230.286921 
+L 453.397776 221.471967 
+L 450.782855 221.471967 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_23">
+<path d="M 450.782855 204.360586 
+L 458.92687 204.360586 
+L 458.92687 195.545632 
+L 450.782855 195.545632 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_24">
+<path d="M 450.782855 178.434251 
+L 457.63389 178.434251 
+L 457.63389 169.619297 
+L 450.782855 169.619297 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_25">
+<path d="M 450.782855 152.507915 
+L 457.23489 152.507915 
+L 457.23489 143.692961 
+L 450.782855 143.692961 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_26">
+<path d="M 450.782855 126.58158 
+L 459.016867 126.58158 
+L 459.016867 117.766626 
+L 450.782855 117.766626 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_27">
+<path d="M 450.782855 100.655245 
+L 461.637098 100.655245 
+L 461.637098 91.840291 
+L 450.782855 91.840291 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_28">
+<path d="M 450.782855 74.728909 
+L 465.193269 74.728909 
+L 465.193269 65.913955 
+L 450.782855 65.913955 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_29">
+<path d="M 450.782855 48.802574 
+L 481.525767 48.802574 
+L 481.525767 39.98762 
+L 450.782855 39.98762 
+z
+" clip-path="url(#pf2a706073b)" style="fill: #f2b880"/>
+</g>
+<g id="patch_30">
+<path d="M 450.782855 240.26856 
+L 450.782855 20.6725 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_31">
+<path d="M 450.782855 240.26856 
+L 602.377594 240.26856 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_35">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="479.385445" y="219.45612" transform="rotate(-0 479.385445 219.45612)">0.38</text>
+</g>
+<g id="text_36">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="487.802058" y="193.529784" transform="rotate(-0 487.802058 193.529784)">0.49</text>
+</g>
+<g id="text_37">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="499.502913" y="167.603449" transform="rotate(-0 499.502913 167.603449)">0.65</text>
+</g>
+<g id="text_38">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="506.803963" y="141.677114" transform="rotate(-0 506.803963 141.677114)">0.76</text>
+</g>
+<g id="text_39">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="521.820402" y="115.750778" transform="rotate(-0 521.820402 115.750778)">0.96</text>
+</g>
+<g id="text_40">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="523.2375" y="89.824443" transform="rotate(-0 523.2375 89.824443)">0.98</text>
+</g>
+<g id="text_41">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="537.621866" y="63.898108" transform="rotate(-0 537.621866 63.898108)">1.18</text>
+</g>
+<g id="text_42">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="573.445117" y="37.971772" transform="rotate(-0 573.445117 37.971772)">1.68</text>
+</g>
+<g id="text_43">
+<text style="font-weight: 600; font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="450.782855" y="14.6725" transform="rotate(-0 450.782855 14.6725)">Risk events</text>
+</g>
+<g id="legend_1">
+<g id="patch_32">
+<path d="M 367.718589 290.72768 
+L 384.118589 290.72768 
+L 384.118589 284.98768 
+L 367.718589 284.98768 
+z
+" style="fill: #e07a3a"/>
+</g>
+<g id="text_44">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="390.678589" y="290.72768" transform="rotate(-0 390.678589 290.72768)">Risk eliminated</text>
+</g>
+<g id="patch_33">
+<path d="M 465.252464 290.72768 
+L 481.652464 290.72768 
+L 481.652464 284.98768 
+L 465.252464 284.98768 
+z
+" style="fill: #f2b880"/>
+</g>
+<g id="text_45">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="488.212464" y="290.72768" transform="rotate(-0 488.212464 290.72768)">Risk replaced by its expected value</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p2364f15386">
+<rect x="137.192594" y="20.6725" width="131.821512" height="219.59606"/>
+</clipPath>
+<clipPath id="pf2a706073b">
+<rect x="450.782855" y="20.6725" width="151.594738" height="219.59606"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Fall in the P80 cost: left, if each estimating account were fixed at its mean (eight largest); right, if each risk event were eliminated, or replaced by its expected value.</figcaption></figure><p>Among the estimating accounts, direct field labour carries the most, C$0.7 million of the P80, followed by major equipment at C$0.5 million and piping and construction indirects at about C$0.3 million each. Labour is the largest account with one of the widest ranges; equipment is large but already mostly quoted. A better productivity basis, from the contractor's own records on similar work, would narrow the largest of them.</p><p>Among the risk events, eliminating the scale-up problem would cut the P80 by C$1.7 million and eliminating the poor-soil risk by C$1.2 million; commissioning problems and the labour shortage are each worth about C$1.0 million. Each has a clear way to reduce it before the budget is fixed: a further pilot campaign or an independent technology review for the scale-up risk, a geotechnical survey for the soil, a commissioning plan with vendor support for start-up [<a href="#ref-17" class="j-cite">17</a>], and a labour plan with early contractor engagement for the labour market. Replacing each event by its expected value instead removes much less, C$0.4 million for the scale-up risk and C$0.2 million or less for the others: most of an event's weight in the P80 is its expected cost, which stays whether or not it is managed as a separate allowance.</p><p>These effects do not add up to the contingency. Fixing or removing one item leaves the others, and the effects of correlated items overlap. The figure ranks where to look, not how to divide the budget.</p><p><strong>Expected value is not enough for risks.</strong> A common short-cut adds the expected values of the risk events, probability times impact, to the estimate. For this register that is C$5.9 million, which matches the mean in the simulation. But the risk events alone give a P80 C$9.3 million above the base, because a 20% chance of a C$5 million problem is either nothing or C$5 million, never C$1 million [<a href="#ref-11" class="j-cite">11</a>]. An expected-value allowance is the right P50 contribution and too little for a P80 budget.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Correlation and Range Width</h2><p>A line-item model treats the estimate as many small uncertainties. If they are independent, they cancel: a high piping account is offset by a low electrical account, and the total ends up narrower than any of its parts. In a real project they are not independent. A hot construction market raises every material price at once; a contractor with poor productivity is poor on every discipline; slow engineering delays every package. Figure 4 shows what ignoring this does.</p><figure class="j-fig" id="figure-4"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-4-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 528.214824 251.411641" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-4-t">P80 contingency with independent and correlated line items</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 251.411641 
+L 528.214824 251.411641 
+L 528.214824 0 
+L 0 0 
+L 0 251.411641 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 42.574824 227.52 
+L 522.454824 227.52 
+L 522.454824 5.76 
+L 42.574824 5.76 
+L 42.574824 227.52 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 120.939067 227.52 
+L 120.939067 5.76 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m0089cff9c7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m0089cff9c7" x="120.939067" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="120.939067" y="243.4325" transform="rotate(-0 120.939067 243.4325)">Class 3 ranges</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 282.514824 227.52 
+L 282.514824 5.76 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m0089cff9c7" x="282.514824" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="282.514824" y="243.4325" transform="rotate(-0 282.514824 243.4325)">Ranges 1.5 times wider</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 444.090582 227.52 
+L 444.090582 5.76 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m0089cff9c7" x="444.090582" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 9.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="444.090582" y="243.4325" transform="rotate(-0 444.090582 243.4325)">Ranges 2 times wider</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_7">
+<path d="M 42.574824 227.52 
+L 522.454824 227.52 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<defs>
+<path id="mcd1d4cf35c" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="232.605937" transform="rotate(-0 35.574824 232.605937)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_9">
+<path d="M 42.574824 194.908235 
+L 522.454824 194.908235 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="194.908235" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="199.994173" transform="rotate(-0 35.574824 199.994173)">5</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_11">
+<path d="M 42.574824 162.296471 
+L 522.454824 162.296471 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="162.296471" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="167.382408" transform="rotate(-0 35.574824 167.382408)">10</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_13">
+<path d="M 42.574824 129.684706 
+L 522.454824 129.684706 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="129.684706" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="134.770643" transform="rotate(-0 35.574824 134.770643)">15</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_15">
+<path d="M 42.574824 97.072941 
+L 522.454824 97.072941 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="97.072941" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="102.158879" transform="rotate(-0 35.574824 102.158879)">20</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_17">
+<path d="M 42.574824 64.461176 
+L 522.454824 64.461176 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="64.461176" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="69.547114" transform="rotate(-0 35.574824 69.547114)">25</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_19">
+<path d="M 42.574824 31.849412 
+L 522.454824 31.849412 
+" clip-path="url(#pdb2da09505)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#mcd1d4cf35c" x="42.574824" y="31.849412" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="35.574824" y="36.935349" transform="rotate(-0 35.574824 36.935349)">30</text>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="116.64" transform="rotate(-90 15.931875 116.64)">P80 contingency (C$ million)</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 64.387551 227.52 
+L 119.323309 227.52 
+L 119.323309 128.686897 
+L 64.387551 128.686897 
+z
+" clip-path="url(#pdb2da09505)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_4">
+<path d="M 225.963309 227.52 
+L 280.899067 227.52 
+L 280.899067 107.510522 
+L 225.963309 107.510522 
+z
+" clip-path="url(#pdb2da09505)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_5">
+<path d="M 387.539067 227.52 
+L 442.474824 227.52 
+L 442.474824 84.997578 
+L 387.539067 84.997578 
+z
+" clip-path="url(#pdb2da09505)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_6">
+<path d="M 122.554824 227.52 
+L 177.490582 227.52 
+L 177.490582 120.305266 
+L 122.554824 120.305266 
+z
+" clip-path="url(#pdb2da09505)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_7">
+<path d="M 284.130582 227.52 
+L 339.066339 227.52 
+L 339.066339 91.888836 
+L 284.130582 91.888836 
+z
+" clip-path="url(#pdb2da09505)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_8">
+<path d="M 445.706339 227.52 
+L 500.642097 227.52 
+L 500.642097 62.476851 
+L 445.706339 62.476851 
+z
+" clip-path="url(#pdb2da09505)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_9">
+<path d="M 42.574824 227.52 
+L 42.574824 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_10">
+<path d="M 42.574824 227.52 
+L 522.454824 227.52 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_12">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="91.85543" y="126.730191" transform="rotate(-0 91.85543 126.730191)">15.2</text>
+</g>
+<g id="text_13">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="150.022703" y="118.34856" transform="rotate(-0 150.022703 118.34856)">16.4</text>
+</g>
+<g id="text_14">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="253.431188" y="105.553816" transform="rotate(-0 253.431188 105.553816)">18.4</text>
+</g>
+<g id="text_15">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="311.598461" y="89.93213" transform="rotate(-0 311.598461 89.93213)">20.8</text>
+</g>
+<g id="text_16">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="415.006945" y="83.040872" transform="rotate(-0 415.006945 83.040872)">21.9</text>
+</g>
+<g id="text_17">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle" x="473.174218" y="60.520145" transform="rotate(-0 473.174218 60.520145)">25.3</text>
+</g>
+<g id="legend_1">
+<g id="patch_11">
+<path d="M 50.494824 22.205 
+L 68.094824 22.205 
+L 68.094824 16.045 
+L 50.494824 16.045 
+z
+" style="fill: #8a94a6"/>
+</g>
+<g id="text_18">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="75.134824" y="22.205" transform="rotate(-0 75.134824 22.205)">Line items independent</text>
+</g>
+<g id="patch_12">
+<path d="M 50.494824 37.252656 
+L 68.094824 37.252656 
+L 68.094824 31.092656 
+L 50.494824 31.092656 
+z
+" style="fill: #0b6fa4"/>
+</g>
+<g id="text_19">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="75.134824" y="37.252656" transform="rotate(-0 75.134824 37.252656)">Line items correlated through common drivers</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pdb2da09505">
+<rect x="42.574824" y="5.76" width="479.88" height="221.76"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 4.</strong> P80 contingency with the line items independent and correlated through common drivers, for the Class 3 ranges and for ranges 1.5 and 2 times wider.</figcaption></figure><p>With the Class 3 ranges, treating the accounts as independent gives a P80 contingency of C$15.2 million instead of C$16.4 million, 8% too low. The understatement grows with the ranges: with ranges twice as wide it is C$3.5 million, or 14%. The P50 hardly changes, because correlation widens the distribution without moving its middle; it is the high percentiles a budget is set at that suffer.</p><p>The market can also tie the line items to the risk events and to escalation. Correlating escalation with the material and labour accounts, and the labour shortage with the labour accounts and escalation, at 0.5 each, leaves the P80 contingency almost unchanged at C$16.3 million and raises the total P80 including the escalation reserve from C$117.5 million to C$117.7 million. In this register the market-driven items are small next to the site and technology risks; in a register dominated by market risks the effect would be larger.</p><p>Correlation is one reason line-item models have a poor record; narrow ranges are the other. Research on completed projects finds that the ranges estimators assign to line items are too narrow, and that actual outcomes spread wider than the models predict, especially on projects with new technology or poor definition [<a href="#ref-4" class="j-cite">4</a>, <a href="#ref-14" class="j-cite">14</a>]; AACE now says the same of estimate ranging when systemic risks are significant [<a href="#ref-10" class="j-cite">10</a>]. Optimism in the base estimate itself adds to the problem [<a href="#ref-18" class="j-cite">18</a>]. This model is no exception. Its P10 to P90 range around the P50, including the escalation reserve, is −7% to +8%, narrower than even the narrow end of the AACE Class 3 range of −10% to −20% and +10% to +30% (Table 3). Two defences help: correlate the line items through their common drivers, as here, and model the big uncertainties as explicit risk events rather than hiding them in wider line-item ranges, so that each can be discussed and reduced. For a plant with significant new technology, a parametric model of systemic risk should be added [<a href="#ref-13" class="j-cite">13</a>].</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Estimate Class and First-of-a-Kind Technology</h2><p>The same plant estimated earlier, with less definition, needs far more contingency. To show how much, the line-item ranges are widened two and three times and the risk probabilities raised by 30% and 60%, standing for a Class 4 estimate at the feasibility stage and a Class 5 estimate at concept. These scaling factors are the author's assumption, chosen to resemble the loss of definition between project stages [<a href="#ref-7" class="j-cite">7</a>], not values from a standard. AACE does not recommend estimate ranging at Class 4 or 5 or for new technology, so these cases illustrate the trend rather than give usable Class 4 and 5 contingencies [<a href="#ref-10" class="j-cite">10</a>]. Table 3 and Figure 5 give the results.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Final cost and contingency of the same plant at three estimate classes (C$ million at base-date prices, base C$100 million), and the spread around the P50, including the escalation reserve, against the AACE indicative ranges.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Estimate class</th><th>P50</th><th>P80</th><th>P90</th><th>P80 contingency</th><th>Model P10 / P50 and P90 / P50</th><th>AACE indicative range (low, high)</th></tr></thead><tbody><tr><td>Class 5 (concept)</td><td>124.1</td><td>138.0</td><td>145.4</td><td>38%</td><td>−15% / +17%</td><td>−20% to −50%, +30% to +100%</td></tr><tr><td>Class 4 (feasibility)</td><td>117.5</td><td>127.1</td><td>132.2</td><td>27%</td><td>−11% / +13%</td><td>−15% to −30%, +20% to +50%</td></tr><tr><td>Class 3 (end of FEED)</td><td>110.7</td><td>116.4</td><td>119.5</td><td>16%</td><td>−7% / +8%</td><td>−10% to −20%, +10% to +30%</td></tr></tbody></table></div></figure><figure class="j-fig" id="figure-5"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-5-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 540.891934 291.86518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-5-t">Cost distributions at estimate classes 3, 4 and 5</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 291.86518 
+L 540.891934 291.86518 
+L 540.891934 0 
+L 0 0 
+L 0 291.86518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 46.556621 249.696 
+L 526.436621 249.696 
+L 526.436621 5.76 
+L 46.556621 5.76 
+L 46.556621 249.696 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 46.556621 249.696 
+L 46.556621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mef2f524ad9" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mef2f524ad9" x="46.556621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="46.556621" y="266.867875" transform="rotate(-0 46.556621 266.867875)">90</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 99.876621 249.696 
+L 99.876621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mef2f524ad9" x="99.876621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="99.876621" y="266.867875" transform="rotate(-0 99.876621 266.867875)">100</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 153.196621 249.696 
+L 153.196621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mef2f524ad9" x="153.196621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="153.196621" y="266.867875" transform="rotate(-0 153.196621 266.867875)">110</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 206.516621 249.696 
+L 206.516621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mef2f524ad9" x="206.516621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="206.516621" y="266.867875" transform="rotate(-0 206.516621 266.867875)">120</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 259.836621 249.696 
+L 259.836621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mef2f524ad9" x="259.836621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="259.836621" y="266.867875" transform="rotate(-0 259.836621 266.867875)">130</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 313.156621 249.696 
+L 313.156621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#mef2f524ad9" x="313.156621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="313.156621" y="266.867875" transform="rotate(-0 313.156621 266.867875)">140</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 366.476621 249.696 
+L 366.476621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#mef2f524ad9" x="366.476621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="366.476621" y="266.867875" transform="rotate(-0 366.476621 266.867875)">150</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 419.796621 249.696 
+L 419.796621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#mef2f524ad9" x="419.796621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="419.796621" y="266.867875" transform="rotate(-0 419.796621 266.867875)">160</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 473.116621 249.696 
+L 473.116621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#mef2f524ad9" x="473.116621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="473.116621" y="266.867875" transform="rotate(-0 473.116621 266.867875)">170</text>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_19">
+<path d="M 526.436621 249.696 
+L 526.436621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#mef2f524ad9" x="526.436621" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="526.436621" y="266.867875" transform="rotate(-0 526.436621 266.867875)">180</text>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="286.496621" y="283.572465" transform="rotate(-0 286.496621 283.572465)">Final fixed capital cost (C$ million); dashed lines: P80</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_21">
+<path d="M 46.556621 238.608 
+L 526.436621 238.608 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<defs>
+<path id="m74897e7bf8" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="243.693938" transform="rotate(-0 39.556621 243.693938)">0%</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_23">
+<path d="M 46.556621 202.759309 
+L 526.436621 202.759309 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="202.759309" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="207.845247" transform="rotate(-0 39.556621 207.845247)">1%</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_25">
+<path d="M 46.556621 166.910619 
+L 526.436621 166.910619 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="166.910619" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="171.996556" transform="rotate(-0 39.556621 171.996556)">2%</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_27">
+<path d="M 46.556621 131.061928 
+L 526.436621 131.061928 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="131.061928" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="136.147866" transform="rotate(-0 39.556621 136.147866)">3%</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_29">
+<path d="M 46.556621 95.213238 
+L 526.436621 95.213238 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="95.213238" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="100.299175" transform="rotate(-0 39.556621 100.299175)">4%</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_31">
+<path d="M 46.556621 59.364547 
+L 526.436621 59.364547 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="59.364547" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="64.450485" transform="rotate(-0 39.556621 64.450485)">5%</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_33">
+<path d="M 46.556621 23.515856 
+L 526.436621 23.515856 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m74897e7bf8" x="46.556621" y="23.515856" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="39.556621" y="28.601794" transform="rotate(-0 39.556621 28.601794)">6%</text>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="127.728" transform="rotate(-90 15.931875 127.728)">Share of iterations per C$1M</text>
+</g>
+</g>
+<g id="FillBetweenPolyCollection_1">
+<path d="M -4.097379 238.608 
+L -4.097379 238.464602 
+L 1.234621 238.392904 
+L 6.566621 238.392904 
+L 11.898621 238.034409 
+L 17.230621 238.106108 
+L 22.562621 237.604217 
+L 27.894621 237.174024 
+L 33.226621 236.528734 
+L 38.558621 235.453252 
+L 43.890621 234.664565 
+L 49.222621 233.875878 
+L 54.554621 232.226805 
+L 59.886621 231.36642 
+L 65.218621 229.860745 
+L 70.550621 225.558816 
+L 75.882621 223.981442 
+L 81.214621 223.192755 
+L 86.546621 220.181405 
+L 91.878621 217.45685 
+L 97.210621 213.656812 
+L 102.542621 208.852992 
+L 107.874621 208.279401 
+L 113.206621 199.388748 
+L 118.538621 198.528362 
+L 123.870621 196.520796 
+L 129.202621 193.079252 
+L 134.534621 185.407479 
+L 139.866621 182.467828 
+L 145.198621 178.309296 
+L 150.530621 176.158332 
+L 155.862621 175.369645 
+L 161.194621 168.41486 
+L 166.526621 163.180846 
+L 171.858621 159.595906 
+L 177.190621 158.807219 
+L 182.522621 157.373242 
+L 187.854621 150.992048 
+L 193.186621 146.04483 
+L 198.518621 145.112745 
+L 203.850621 148.625987 
+L 209.182621 148.410891 
+L 214.514621 143.176877 
+L 219.846621 145.973131 
+L 225.178621 153.86 
+L 230.510621 152.354325 
+L 235.842621 146.61842 
+L 241.174621 149.05618 
+L 246.506621 154.50529 
+L 251.838621 154.433591 
+L 257.170621 157.660038 
+L 262.502621 159.165713 
+L 267.834621 162.535557 
+L 273.166621 164.543124 
+L 278.498621 168.558258 
+L 283.830621 169.920535 
+L 289.162621 169.418643 
+L 294.494621 171.856403 
+L 299.826621 174.652657 
+L 305.158621 177.520609 
+L 310.490621 183.041418 
+L 315.822621 186.124467 
+L 321.154621 192.218867 
+L 326.486621 194.011337 
+L 331.818621 197.022687 
+L 337.150621 197.524579 
+L 342.482621 199.532146 
+L 347.814621 202.830291 
+L 353.146621 206.630328 
+L 358.478621 209.856775 
+L 363.810621 210.000173 
+L 369.142621 215.520982 
+L 374.474621 216.309668 
+L 379.806621 220.253103 
+L 385.138621 221.615381 
+L 390.470621 222.404068 
+L 395.802621 221.615381 
+L 401.134621 224.483333 
+L 406.466621 226.347503 
+L 411.798621 228.570166 
+L 417.130621 230.219239 
+L 422.462621 231.223022 
+L 427.794621 231.653215 
+L 433.126621 232.441902 
+L 438.458621 233.302288 
+L 443.790621 233.445685 
+L 449.122621 233.732481 
+L 454.454621 236.241939 
+L 459.786621 236.17024 
+L 465.118621 236.17024 
+L 470.450621 236.457036 
+L 475.782621 237.532518 
+L 481.114621 237.891012 
+L 486.446621 237.819313 
+L 491.778621 237.819313 
+L 497.110621 238.034409 
+L 502.442621 238.106108 
+L 507.774621 238.177807 
+L 513.106621 238.249506 
+L 518.438621 238.464602 
+L 523.770621 238.464602 
+L 529.102621 238.321205 
+L 534.434621 238.464602 
+L 539.766621 238.536301 
+L 545.098621 238.608 
+L 550.430621 238.608 
+L 555.762621 238.608 
+L 561.094621 238.608 
+L 566.426621 238.608 
+L 571.758621 238.608 
+L 577.090621 238.608 
+L 582.422621 238.608 
+L 587.754621 238.608 
+L 593.086621 238.608 
+L 598.418621 238.608 
+L 603.750621 238.608 
+L 609.082621 238.608 
+L 614.414621 238.608 
+L 619.746621 238.608 
+L 625.078621 238.608 
+L 630.410621 238.608 
+L 630.410621 238.608 
+L 630.410621 238.608 
+L 625.078621 238.608 
+L 619.746621 238.608 
+L 614.414621 238.608 
+L 609.082621 238.608 
+L 603.750621 238.608 
+L 598.418621 238.608 
+L 593.086621 238.608 
+L 587.754621 238.608 
+L 582.422621 238.608 
+L 577.090621 238.608 
+L 571.758621 238.608 
+L 566.426621 238.608 
+L 561.094621 238.608 
+L 555.762621 238.608 
+L 550.430621 238.608 
+L 545.098621 238.608 
+L 539.766621 238.608 
+L 534.434621 238.608 
+L 529.102621 238.608 
+L 523.770621 238.608 
+L 518.438621 238.608 
+L 513.106621 238.608 
+L 507.774621 238.608 
+L 502.442621 238.608 
+L 497.110621 238.608 
+L 491.778621 238.608 
+L 486.446621 238.608 
+L 481.114621 238.608 
+L 475.782621 238.608 
+L 470.450621 238.608 
+L 465.118621 238.608 
+L 459.786621 238.608 
+L 454.454621 238.608 
+L 449.122621 238.608 
+L 443.790621 238.608 
+L 438.458621 238.608 
+L 433.126621 238.608 
+L 427.794621 238.608 
+L 422.462621 238.608 
+L 417.130621 238.608 
+L 411.798621 238.608 
+L 406.466621 238.608 
+L 401.134621 238.608 
+L 395.802621 238.608 
+L 390.470621 238.608 
+L 385.138621 238.608 
+L 379.806621 238.608 
+L 374.474621 238.608 
+L 369.142621 238.608 
+L 363.810621 238.608 
+L 358.478621 238.608 
+L 353.146621 238.608 
+L 347.814621 238.608 
+L 342.482621 238.608 
+L 337.150621 238.608 
+L 331.818621 238.608 
+L 326.486621 238.608 
+L 321.154621 238.608 
+L 315.822621 238.608 
+L 310.490621 238.608 
+L 305.158621 238.608 
+L 299.826621 238.608 
+L 294.494621 238.608 
+L 289.162621 238.608 
+L 283.830621 238.608 
+L 278.498621 238.608 
+L 273.166621 238.608 
+L 267.834621 238.608 
+L 262.502621 238.608 
+L 257.170621 238.608 
+L 251.838621 238.608 
+L 246.506621 238.608 
+L 241.174621 238.608 
+L 235.842621 238.608 
+L 230.510621 238.608 
+L 225.178621 238.608 
+L 219.846621 238.608 
+L 214.514621 238.608 
+L 209.182621 238.608 
+L 203.850621 238.608 
+L 198.518621 238.608 
+L 193.186621 238.608 
+L 187.854621 238.608 
+L 182.522621 238.608 
+L 177.190621 238.608 
+L 171.858621 238.608 
+L 166.526621 238.608 
+L 161.194621 238.608 
+L 155.862621 238.608 
+L 150.530621 238.608 
+L 145.198621 238.608 
+L 139.866621 238.608 
+L 134.534621 238.608 
+L 129.202621 238.608 
+L 123.870621 238.608 
+L 118.538621 238.608 
+L 113.206621 238.608 
+L 107.874621 238.608 
+L 102.542621 238.608 
+L 97.210621 238.608 
+L 91.878621 238.608 
+L 86.546621 238.608 
+L 81.214621 238.608 
+L 75.882621 238.608 
+L 70.550621 238.608 
+L 65.218621 238.608 
+L 59.886621 238.608 
+L 54.554621 238.608 
+L 49.222621 238.608 
+L 43.890621 238.608 
+L 38.558621 238.608 
+L 33.226621 238.608 
+L 27.894621 238.608 
+L 22.562621 238.608 
+L 17.230621 238.608 
+L 11.898621 238.608 
+L 6.566621 238.608 
+L 1.234621 238.608 
+L -4.097379 238.608 
+z
+" clip-path="url(#p75cb55b71c)" style="fill: #8a94a6; fill-opacity: 0.12; stroke: #8a94a6; stroke-opacity: 0.12"/>
+</g>
+<g id="FillBetweenPolyCollection_2">
+<path d="M -4.097379 238.608 
+L -4.097379 238.608 
+L 1.234621 238.608 
+L 6.566621 238.608 
+L 11.898621 238.608 
+L 17.230621 238.608 
+L 22.562621 238.608 
+L 27.894621 238.464605 
+L 33.226621 238.32121 
+L 38.558621 238.106118 
+L 43.890621 237.747631 
+L 49.222621 236.528776 
+L 54.554621 235.8835 
+L 59.886621 234.592947 
+L 65.218621 232.442025 
+L 70.550621 229.143946 
+L 75.882621 226.993024 
+L 81.214621 221.185536 
+L 86.546621 218.532733 
+L 91.878621 212.366758 
+L 97.210621 209.140376 
+L 102.542621 199.604625 
+L 107.874621 193.582045 
+L 113.206621 189.06511 
+L 118.538621 177.808621 
+L 123.870621 169.204935 
+L 129.202621 164.759697 
+L 134.534621 153.646603 
+L 139.866621 144.182549 
+L 145.198621 140.024101 
+L 150.530621 128.122336 
+L 155.862621 125.756322 
+L 161.194621 116.650755 
+L 166.526621 115.073412 
+L 171.858621 108.548951 
+L 177.190621 110.843267 
+L 182.522621 107.903674 
+L 187.854621 108.83574 
+L 193.186621 106.182937 
+L 198.518621 112.564004 
+L 203.850621 114.356438 
+L 209.182621 117.224334 
+L 214.514621 120.594111 
+L 219.846621 126.544993 
+L 225.178621 134.503403 
+L 230.510621 138.446758 
+L 235.842621 147.910813 
+L 241.174621 144.039154 
+L 246.506621 155.65413 
+L 251.838621 162.465381 
+L 257.170621 165.189882 
+L 262.502621 174.080357 
+L 267.834621 179.457661 
+L 273.166621 185.336846 
+L 278.498621 192.578281 
+L 283.830621 196.019756 
+L 289.162621 203.046099 
+L 294.494621 209.355468 
+L 299.826621 209.283771 
+L 305.158621 215.808233 
+L 310.490621 216.955391 
+L 315.822621 221.687418 
+L 321.154621 223.049668 
+L 326.486621 226.419445 
+L 331.818621 230.506196 
+L 337.150621 229.143946 
+L 342.482621 232.083538 
+L 347.814621 233.732578 
+L 353.146621 233.94767 
+L 358.478621 235.740105 
+L 363.810621 236.241986 
+L 369.142621 236.672171 
+L 374.474621 237.604237 
+L 379.806621 237.102355 
+L 385.138621 237.819329 
+L 390.470621 238.249513 
+L 395.802621 238.177816 
+L 401.134621 238.034421 
+L 406.466621 238.32121 
+L 411.798621 238.464605 
+L 417.130621 238.608 
+L 422.462621 238.608 
+L 427.794621 238.536303 
+L 433.126621 238.608 
+L 438.458621 238.536303 
+L 443.790621 238.608 
+L 449.122621 238.608 
+L 454.454621 238.608 
+L 459.786621 238.608 
+L 465.118621 238.608 
+L 470.450621 238.608 
+L 475.782621 238.608 
+L 481.114621 238.608 
+L 486.446621 238.608 
+L 491.778621 238.608 
+L 497.110621 238.608 
+L 502.442621 238.608 
+L 507.774621 238.608 
+L 513.106621 238.608 
+L 518.438621 238.608 
+L 523.770621 238.608 
+L 529.102621 238.608 
+L 534.434621 238.608 
+L 539.766621 238.608 
+L 545.098621 238.608 
+L 550.430621 238.608 
+L 555.762621 238.608 
+L 561.094621 238.608 
+L 566.426621 238.608 
+L 571.758621 238.608 
+L 577.090621 238.608 
+L 582.422621 238.608 
+L 587.754621 238.608 
+L 593.086621 238.608 
+L 598.418621 238.608 
+L 603.750621 238.608 
+L 609.082621 238.608 
+L 614.414621 238.608 
+L 619.746621 238.608 
+L 625.078621 238.608 
+L 630.410621 238.608 
+L 630.410621 238.608 
+L 630.410621 238.608 
+L 625.078621 238.608 
+L 619.746621 238.608 
+L 614.414621 238.608 
+L 609.082621 238.608 
+L 603.750621 238.608 
+L 598.418621 238.608 
+L 593.086621 238.608 
+L 587.754621 238.608 
+L 582.422621 238.608 
+L 577.090621 238.608 
+L 571.758621 238.608 
+L 566.426621 238.608 
+L 561.094621 238.608 
+L 555.762621 238.608 
+L 550.430621 238.608 
+L 545.098621 238.608 
+L 539.766621 238.608 
+L 534.434621 238.608 
+L 529.102621 238.608 
+L 523.770621 238.608 
+L 518.438621 238.608 
+L 513.106621 238.608 
+L 507.774621 238.608 
+L 502.442621 238.608 
+L 497.110621 238.608 
+L 491.778621 238.608 
+L 486.446621 238.608 
+L 481.114621 238.608 
+L 475.782621 238.608 
+L 470.450621 238.608 
+L 465.118621 238.608 
+L 459.786621 238.608 
+L 454.454621 238.608 
+L 449.122621 238.608 
+L 443.790621 238.608 
+L 438.458621 238.608 
+L 433.126621 238.608 
+L 427.794621 238.608 
+L 422.462621 238.608 
+L 417.130621 238.608 
+L 411.798621 238.608 
+L 406.466621 238.608 
+L 401.134621 238.608 
+L 395.802621 238.608 
+L 390.470621 238.608 
+L 385.138621 238.608 
+L 379.806621 238.608 
+L 374.474621 238.608 
+L 369.142621 238.608 
+L 363.810621 238.608 
+L 358.478621 238.608 
+L 353.146621 238.608 
+L 347.814621 238.608 
+L 342.482621 238.608 
+L 337.150621 238.608 
+L 331.818621 238.608 
+L 326.486621 238.608 
+L 321.154621 238.608 
+L 315.822621 238.608 
+L 310.490621 238.608 
+L 305.158621 238.608 
+L 299.826621 238.608 
+L 294.494621 238.608 
+L 289.162621 238.608 
+L 283.830621 238.608 
+L 278.498621 238.608 
+L 273.166621 238.608 
+L 267.834621 238.608 
+L 262.502621 238.608 
+L 257.170621 238.608 
+L 251.838621 238.608 
+L 246.506621 238.608 
+L 241.174621 238.608 
+L 235.842621 238.608 
+L 230.510621 238.608 
+L 225.178621 238.608 
+L 219.846621 238.608 
+L 214.514621 238.608 
+L 209.182621 238.608 
+L 203.850621 238.608 
+L 198.518621 238.608 
+L 193.186621 238.608 
+L 187.854621 238.608 
+L 182.522621 238.608 
+L 177.190621 238.608 
+L 171.858621 238.608 
+L 166.526621 238.608 
+L 161.194621 238.608 
+L 155.862621 238.608 
+L 150.530621 238.608 
+L 145.198621 238.608 
+L 139.866621 238.608 
+L 134.534621 238.608 
+L 129.202621 238.608 
+L 123.870621 238.608 
+L 118.538621 238.608 
+L 113.206621 238.608 
+L 107.874621 238.608 
+L 102.542621 238.608 
+L 97.210621 238.608 
+L 91.878621 238.608 
+L 86.546621 238.608 
+L 81.214621 238.608 
+L 75.882621 238.608 
+L 70.550621 238.608 
+L 65.218621 238.608 
+L 59.886621 238.608 
+L 54.554621 238.608 
+L 49.222621 238.608 
+L 43.890621 238.608 
+L 38.558621 238.608 
+L 33.226621 238.608 
+L 27.894621 238.608 
+L 22.562621 238.608 
+L 17.230621 238.608 
+L 11.898621 238.608 
+L 6.566621 238.608 
+L 1.234621 238.608 
+L -4.097379 238.608 
+z
+" clip-path="url(#p75cb55b71c)" style="fill: #0b6fa4; fill-opacity: 0.12; stroke: #0b6fa4; stroke-opacity: 0.12"/>
+</g>
+<g id="FillBetweenPolyCollection_3">
+<path d="M -4.097379 238.608 
+L -4.097379 238.608 
+L 1.234621 238.608 
+L 6.566621 238.608 
+L 11.898621 238.608 
+L 17.230621 238.608 
+L 22.562621 238.608 
+L 27.894621 238.608 
+L 33.226621 238.608 
+L 38.558621 238.608 
+L 43.890621 238.608 
+L 49.222621 238.608 
+L 54.554621 238.608 
+L 59.886621 238.32121 
+L 65.218621 238.034421 
+L 70.550621 237.389145 
+L 75.882621 233.589183 
+L 81.214621 227.638301 
+L 86.546621 220.970444 
+L 91.878621 209.427166 
+L 97.210621 195.589571 
+L 102.542621 176.518068 
+L 107.874621 154.076788 
+L 113.206621 133.427942 
+L 118.538621 115.431899 
+L 123.870621 88.975565 
+L 129.202621 66.175798 
+L 134.534621 50.187282 
+L 139.866621 31.689358 
+L 145.198621 16.848 
+L 150.530621 16.848 
+L 155.862621 20.791356 
+L 161.194621 27.746002 
+L 166.526621 33.696885 
+L 171.858621 47.606177 
+L 177.190621 60.224916 
+L 182.522621 83.311472 
+L 187.854621 94.926448 
+L 193.186621 115.14511 
+L 198.518621 133.786429 
+L 203.850621 148.197602 
+L 209.182621 166.480435 
+L 214.514621 178.597292 
+L 219.846621 192.721676 
+L 225.178621 200.608388 
+L 230.510621 210.430929 
+L 235.842621 216.310114 
+L 241.174621 223.766642 
+L 246.506621 227.136419 
+L 251.838621 229.717525 
+L 257.170621 233.589183 
+L 262.502621 233.732578 
+L 267.834621 235.094828 
+L 273.166621 236.600473 
+L 278.498621 237.747631 
+L 283.830621 237.675934 
+L 289.162621 238.32121 
+L 294.494621 238.177816 
+L 299.826621 238.106118 
+L 305.158621 238.464605 
+L 310.490621 238.536303 
+L 315.822621 238.608 
+L 321.154621 238.608 
+L 326.486621 238.608 
+L 331.818621 238.536303 
+L 337.150621 238.608 
+L 342.482621 238.608 
+L 347.814621 238.608 
+L 353.146621 238.608 
+L 358.478621 238.608 
+L 363.810621 238.608 
+L 369.142621 238.608 
+L 374.474621 238.608 
+L 379.806621 238.608 
+L 385.138621 238.608 
+L 390.470621 238.608 
+L 395.802621 238.608 
+L 401.134621 238.608 
+L 406.466621 238.608 
+L 411.798621 238.608 
+L 417.130621 238.608 
+L 422.462621 238.608 
+L 427.794621 238.608 
+L 433.126621 238.608 
+L 438.458621 238.608 
+L 443.790621 238.608 
+L 449.122621 238.608 
+L 454.454621 238.608 
+L 459.786621 238.608 
+L 465.118621 238.608 
+L 470.450621 238.608 
+L 475.782621 238.608 
+L 481.114621 238.608 
+L 486.446621 238.608 
+L 491.778621 238.608 
+L 497.110621 238.608 
+L 502.442621 238.608 
+L 507.774621 238.608 
+L 513.106621 238.608 
+L 518.438621 238.608 
+L 523.770621 238.608 
+L 529.102621 238.608 
+L 534.434621 238.608 
+L 539.766621 238.608 
+L 545.098621 238.608 
+L 550.430621 238.608 
+L 555.762621 238.608 
+L 561.094621 238.608 
+L 566.426621 238.608 
+L 571.758621 238.608 
+L 577.090621 238.608 
+L 582.422621 238.608 
+L 587.754621 238.608 
+L 593.086621 238.608 
+L 598.418621 238.608 
+L 603.750621 238.608 
+L 609.082621 238.608 
+L 614.414621 238.608 
+L 619.746621 238.608 
+L 625.078621 238.608 
+L 630.410621 238.608 
+L 630.410621 238.608 
+L 630.410621 238.608 
+L 625.078621 238.608 
+L 619.746621 238.608 
+L 614.414621 238.608 
+L 609.082621 238.608 
+L 603.750621 238.608 
+L 598.418621 238.608 
+L 593.086621 238.608 
+L 587.754621 238.608 
+L 582.422621 238.608 
+L 577.090621 238.608 
+L 571.758621 238.608 
+L 566.426621 238.608 
+L 561.094621 238.608 
+L 555.762621 238.608 
+L 550.430621 238.608 
+L 545.098621 238.608 
+L 539.766621 238.608 
+L 534.434621 238.608 
+L 529.102621 238.608 
+L 523.770621 238.608 
+L 518.438621 238.608 
+L 513.106621 238.608 
+L 507.774621 238.608 
+L 502.442621 238.608 
+L 497.110621 238.608 
+L 491.778621 238.608 
+L 486.446621 238.608 
+L 481.114621 238.608 
+L 475.782621 238.608 
+L 470.450621 238.608 
+L 465.118621 238.608 
+L 459.786621 238.608 
+L 454.454621 238.608 
+L 449.122621 238.608 
+L 443.790621 238.608 
+L 438.458621 238.608 
+L 433.126621 238.608 
+L 427.794621 238.608 
+L 422.462621 238.608 
+L 417.130621 238.608 
+L 411.798621 238.608 
+L 406.466621 238.608 
+L 401.134621 238.608 
+L 395.802621 238.608 
+L 390.470621 238.608 
+L 385.138621 238.608 
+L 379.806621 238.608 
+L 374.474621 238.608 
+L 369.142621 238.608 
+L 363.810621 238.608 
+L 358.478621 238.608 
+L 353.146621 238.608 
+L 347.814621 238.608 
+L 342.482621 238.608 
+L 337.150621 238.608 
+L 331.818621 238.608 
+L 326.486621 238.608 
+L 321.154621 238.608 
+L 315.822621 238.608 
+L 310.490621 238.608 
+L 305.158621 238.608 
+L 299.826621 238.608 
+L 294.494621 238.608 
+L 289.162621 238.608 
+L 283.830621 238.608 
+L 278.498621 238.608 
+L 273.166621 238.608 
+L 267.834621 238.608 
+L 262.502621 238.608 
+L 257.170621 238.608 
+L 251.838621 238.608 
+L 246.506621 238.608 
+L 241.174621 238.608 
+L 235.842621 238.608 
+L 230.510621 238.608 
+L 225.178621 238.608 
+L 219.846621 238.608 
+L 214.514621 238.608 
+L 209.182621 238.608 
+L 203.850621 238.608 
+L 198.518621 238.608 
+L 193.186621 238.608 
+L 187.854621 238.608 
+L 182.522621 238.608 
+L 177.190621 238.608 
+L 171.858621 238.608 
+L 166.526621 238.608 
+L 161.194621 238.608 
+L 155.862621 238.608 
+L 150.530621 238.608 
+L 145.198621 238.608 
+L 139.866621 238.608 
+L 134.534621 238.608 
+L 129.202621 238.608 
+L 123.870621 238.608 
+L 118.538621 238.608 
+L 113.206621 238.608 
+L 107.874621 238.608 
+L 102.542621 238.608 
+L 97.210621 238.608 
+L 91.878621 238.608 
+L 86.546621 238.608 
+L 81.214621 238.608 
+L 75.882621 238.608 
+L 70.550621 238.608 
+L 65.218621 238.608 
+L 59.886621 238.608 
+L 54.554621 238.608 
+L 49.222621 238.608 
+L 43.890621 238.608 
+L 38.558621 238.608 
+L 33.226621 238.608 
+L 27.894621 238.608 
+L 22.562621 238.608 
+L 17.230621 238.608 
+L 11.898621 238.608 
+L 6.566621 238.608 
+L 1.234621 238.608 
+L -4.097379 238.608 
+z
+" clip-path="url(#p75cb55b71c)" style="fill: #4d7f12; fill-opacity: 0.12; stroke: #4d7f12; stroke-opacity: 0.12"/>
+</g>
+<g id="line2d_35">
+<path d="M -1 238.422952 
+L 1.234621 238.392904 
+L 6.566621 238.392904 
+L 11.898621 238.034409 
+L 17.230621 238.106108 
+L 22.562621 237.604217 
+L 27.894621 237.174024 
+L 33.226621 236.528734 
+L 38.558621 235.453252 
+L 43.890621 234.664565 
+L 49.222621 233.875878 
+L 54.554621 232.226805 
+L 59.886621 231.36642 
+L 65.218621 229.860745 
+L 70.550621 225.558816 
+L 75.882621 223.981442 
+L 81.214621 223.192755 
+L 86.546621 220.181405 
+L 91.878621 217.45685 
+L 97.210621 213.656812 
+L 102.542621 208.852992 
+L 107.874621 208.279401 
+L 113.206621 199.388748 
+L 118.538621 198.528362 
+L 123.870621 196.520796 
+L 129.202621 193.079252 
+L 134.534621 185.407479 
+L 139.866621 182.467828 
+L 145.198621 178.309296 
+L 150.530621 176.158332 
+L 155.862621 175.369645 
+L 161.194621 168.41486 
+L 166.526621 163.180846 
+L 171.858621 159.595906 
+L 177.190621 158.807219 
+L 182.522621 157.373242 
+L 187.854621 150.992048 
+L 193.186621 146.04483 
+L 198.518621 145.112745 
+L 203.850621 148.625987 
+L 209.182621 148.410891 
+L 214.514621 143.176877 
+L 219.846621 145.973131 
+L 225.178621 153.86 
+L 230.510621 152.354325 
+L 235.842621 146.61842 
+L 241.174621 149.05618 
+L 246.506621 154.50529 
+L 251.838621 154.433591 
+L 257.170621 157.660038 
+L 262.502621 159.165713 
+L 267.834621 162.535557 
+L 273.166621 164.543124 
+L 278.498621 168.558258 
+L 283.830621 169.920535 
+L 289.162621 169.418643 
+L 294.494621 171.856403 
+L 299.826621 174.652657 
+L 305.158621 177.520609 
+L 310.490621 183.041418 
+L 315.822621 186.124467 
+L 321.154621 192.218867 
+L 326.486621 194.011337 
+L 331.818621 197.022687 
+L 337.150621 197.524579 
+L 342.482621 199.532146 
+L 347.814621 202.830291 
+L 353.146621 206.630328 
+L 358.478621 209.856775 
+L 363.810621 210.000173 
+L 369.142621 215.520982 
+L 374.474621 216.309668 
+L 379.806621 220.253103 
+L 385.138621 221.615381 
+L 390.470621 222.404068 
+L 395.802621 221.615381 
+L 401.134621 224.483333 
+L 406.466621 226.347503 
+L 411.798621 228.570166 
+L 417.130621 230.219239 
+L 422.462621 231.223022 
+L 427.794621 231.653215 
+L 433.126621 232.441902 
+L 438.458621 233.302288 
+L 443.790621 233.445685 
+L 449.122621 233.732481 
+L 454.454621 236.241939 
+L 459.786621 236.17024 
+L 465.118621 236.17024 
+L 470.450621 236.457036 
+L 475.782621 237.532518 
+L 481.114621 237.891012 
+L 486.446621 237.819313 
+L 491.778621 237.819313 
+L 497.110621 238.034409 
+L 502.442621 238.106108 
+L 507.774621 238.177807 
+L 513.106621 238.249506 
+L 518.438621 238.464602 
+L 523.770621 238.464602 
+L 529.102621 238.321205 
+L 534.434621 238.464602 
+L 539.766621 238.536301 
+L 541.891934 238.56488 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<path d="M 302.485984 249.696 
+L 302.485984 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #8a94a6"/>
+</g>
+<g id="line2d_37">
+<path d="M -1 238.608 
+L 1.234621 238.608 
+L 6.566621 238.608 
+L 11.898621 238.608 
+L 17.230621 238.608 
+L 22.562621 238.608 
+L 27.894621 238.464605 
+L 33.226621 238.32121 
+L 38.558621 238.106118 
+L 43.890621 237.747631 
+L 49.222621 236.528776 
+L 54.554621 235.8835 
+L 59.886621 234.592947 
+L 65.218621 232.442025 
+L 70.550621 229.143946 
+L 75.882621 226.993024 
+L 81.214621 221.185536 
+L 86.546621 218.532733 
+L 91.878621 212.366758 
+L 97.210621 209.140376 
+L 102.542621 199.604625 
+L 107.874621 193.582045 
+L 113.206621 189.06511 
+L 118.538621 177.808621 
+L 123.870621 169.204935 
+L 129.202621 164.759697 
+L 134.534621 153.646603 
+L 139.866621 144.182549 
+L 145.198621 140.024101 
+L 150.530621 128.122336 
+L 155.862621 125.756322 
+L 161.194621 116.650755 
+L 166.526621 115.073412 
+L 171.858621 108.548951 
+L 177.190621 110.843267 
+L 182.522621 107.903674 
+L 187.854621 108.83574 
+L 193.186621 106.182937 
+L 198.518621 112.564004 
+L 203.850621 114.356438 
+L 209.182621 117.224334 
+L 214.514621 120.594111 
+L 219.846621 126.544993 
+L 225.178621 134.503403 
+L 230.510621 138.446758 
+L 235.842621 147.910813 
+L 241.174621 144.039154 
+L 246.506621 155.65413 
+L 251.838621 162.465381 
+L 257.170621 165.189882 
+L 262.502621 174.080357 
+L 267.834621 179.457661 
+L 273.166621 185.336846 
+L 278.498621 192.578281 
+L 283.830621 196.019756 
+L 289.162621 203.046099 
+L 294.494621 209.355468 
+L 299.826621 209.283771 
+L 305.158621 215.808233 
+L 310.490621 216.955391 
+L 315.822621 221.687418 
+L 321.154621 223.049668 
+L 326.486621 226.419445 
+L 331.818621 230.506196 
+L 337.150621 229.143946 
+L 342.482621 232.083538 
+L 347.814621 233.732578 
+L 353.146621 233.94767 
+L 358.478621 235.740105 
+L 363.810621 236.241986 
+L 369.142621 236.672171 
+L 374.474621 237.604237 
+L 379.806621 237.102355 
+L 385.138621 237.819329 
+L 390.470621 238.249513 
+L 395.802621 238.177816 
+L 401.134621 238.034421 
+L 406.466621 238.32121 
+L 411.798621 238.464605 
+L 417.130621 238.608 
+L 422.462621 238.608 
+L 427.794621 238.536303 
+L 433.126621 238.608 
+L 438.458621 238.536303 
+L 443.790621 238.608 
+L 449.122621 238.608 
+L 454.454621 238.608 
+L 459.786621 238.608 
+L 465.118621 238.608 
+L 470.450621 238.608 
+L 475.782621 238.608 
+L 481.114621 238.608 
+L 486.446621 238.608 
+L 491.778621 238.608 
+L 497.110621 238.608 
+L 502.442621 238.608 
+L 507.774621 238.608 
+L 513.106621 238.608 
+L 518.438621 238.608 
+L 523.770621 238.608 
+L 529.102621 238.608 
+L 534.434621 238.608 
+L 539.766621 238.608 
+L 541.891934 238.608 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #0b6fa4; stroke-width: 2; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<path d="M 244.406717 249.696 
+L 244.406717 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #0b6fa4"/>
+</g>
+<g id="line2d_39">
+<path d="M -1 238.608 
+L 1.234621 238.608 
+L 6.566621 238.608 
+L 11.898621 238.608 
+L 17.230621 238.608 
+L 22.562621 238.608 
+L 27.894621 238.608 
+L 33.226621 238.608 
+L 38.558621 238.608 
+L 43.890621 238.608 
+L 49.222621 238.608 
+L 54.554621 238.608 
+L 59.886621 238.32121 
+L 65.218621 238.034421 
+L 70.550621 237.389145 
+L 75.882621 233.589183 
+L 81.214621 227.638301 
+L 86.546621 220.970444 
+L 91.878621 209.427166 
+L 97.210621 195.589571 
+L 102.542621 176.518068 
+L 107.874621 154.076788 
+L 113.206621 133.427942 
+L 118.538621 115.431899 
+L 123.870621 88.975565 
+L 129.202621 66.175798 
+L 134.534621 50.187282 
+L 139.866621 31.689358 
+L 145.198621 16.848 
+L 150.530621 16.848 
+L 155.862621 20.791356 
+L 161.194621 27.746002 
+L 166.526621 33.696885 
+L 171.858621 47.606177 
+L 177.190621 60.224916 
+L 182.522621 83.311472 
+L 187.854621 94.926448 
+L 193.186621 115.14511 
+L 198.518621 133.786429 
+L 203.850621 148.197602 
+L 209.182621 166.480435 
+L 214.514621 178.597292 
+L 219.846621 192.721676 
+L 225.178621 200.608388 
+L 230.510621 210.430929 
+L 235.842621 216.310114 
+L 241.174621 223.766642 
+L 246.506621 227.136419 
+L 251.838621 229.717525 
+L 257.170621 233.589183 
+L 262.502621 233.732578 
+L 267.834621 235.094828 
+L 273.166621 236.600473 
+L 278.498621 237.747631 
+L 283.830621 237.675934 
+L 289.162621 238.32121 
+L 294.494621 238.177816 
+L 299.826621 238.106118 
+L 305.158621 238.464605 
+L 310.490621 238.536303 
+L 315.822621 238.608 
+L 321.154621 238.608 
+L 326.486621 238.608 
+L 331.818621 238.536303 
+L 337.150621 238.608 
+L 342.482621 238.608 
+L 347.814621 238.608 
+L 353.146621 238.608 
+L 358.478621 238.608 
+L 363.810621 238.608 
+L 369.142621 238.608 
+L 374.474621 238.608 
+L 379.806621 238.608 
+L 385.138621 238.608 
+L 390.470621 238.608 
+L 395.802621 238.608 
+L 401.134621 238.608 
+L 406.466621 238.608 
+L 411.798621 238.608 
+L 417.130621 238.608 
+L 422.462621 238.608 
+L 427.794621 238.608 
+L 433.126621 238.608 
+L 438.458621 238.608 
+L 443.790621 238.608 
+L 449.122621 238.608 
+L 454.454621 238.608 
+L 459.786621 238.608 
+L 465.118621 238.608 
+L 470.450621 238.608 
+L 475.782621 238.608 
+L 481.114621 238.608 
+L 486.446621 238.608 
+L 491.778621 238.608 
+L 497.110621 238.608 
+L 502.442621 238.608 
+L 507.774621 238.608 
+L 513.106621 238.608 
+L 518.438621 238.608 
+L 523.770621 238.608 
+L 529.102621 238.608 
+L 534.434621 238.608 
+L 539.766621 238.608 
+L 541.891934 238.608 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #4d7f12; stroke-width: 2; stroke-linecap: square"/>
+</g>
+<g id="line2d_40">
+<path d="M 187.52428 249.696 
+L 187.52428 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #4d7f12"/>
+</g>
+<g id="line2d_41">
+<path d="M 99.876621 249.696 
+L 99.876621 5.76 
+" clip-path="url(#p75cb55b71c)" style="fill: none; stroke: #4a5568; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 46.556621 249.696 
+L 46.556621 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 46.556621 249.696 
+L 526.436621 249.696 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(103.075821 21.07669)">Base</text>
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(103.075821 31.482354)">C$100M</text>
+</g>
+<g id="legend_1">
+<g id="line2d_42">
+<path d="M 346.153496 19.125 
+L 354.953496 19.125 
+L 363.753496 19.125 
+" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+</g>
+<g id="text_21">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="370.793496" y="22.205" transform="rotate(-0 370.793496 22.205)">Class 5: P50 C$124M, P80 C$138M</text>
+</g>
+<g id="line2d_43">
+<path d="M 346.153496 34.172656 
+L 354.953496 34.172656 
+L 363.753496 34.172656 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2; stroke-linecap: square"/>
+</g>
+<g id="text_22">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="370.793496" y="37.252656" transform="rotate(-0 370.793496 37.252656)">Class 4: P50 C$117M, P80 C$127M</text>
+</g>
+<g id="line2d_44">
+<path d="M 346.153496 49.220313 
+L 354.953496 49.220313 
+L 363.753496 49.220313 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2; stroke-linecap: square"/>
+</g>
+<g id="text_23">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="370.793496" y="52.300313" transform="rotate(-0 370.793496 52.300313)">Class 3: P50 C$111M, P80 C$116M</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p75cb55b71c">
+<rect x="46.556621" y="5.76" width="479.88" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 5.</strong> Distribution of the final cost of the same plant at Class 5, Class 4 and Class 3, with the P80 of each marked (the lower tail below C$90 million, 0.4% of Class 5 iterations, is not shown).</figcaption></figure><p>The contingency grows from 16% at Class 3 to 27% at Class 4 and 38% at Class 5, but the model's spread at every class is narrower than the narrowest AACE range for that class. That supports the point of Section 6 rather than the model: line-item ranging understates the spread, and more so as definition falls. The point for an owner is the decision each stage supports. A Class 5 estimate with a P50 of C$124 million and a P80 of C$138 million can screen the project, not fund it; at Class 3, where the P50 to P80 gap has shrunk from C$14 million to C$6 million, it can [<a href="#ref-8" class="j-cite">8</a>].</p><p><strong>First-of-a-kind technology.</strong> For a plant built on a process not yet run at full scale, the scale-up risk is not a 20% event. Raising its probability to 50% and its cost and delay by half moves the P50 from C$110.7 million to C$114.3 million and the P80 from C$116.4 million to C$121.1 million, a P80 contingency of 21%. This matches the long-standing finding that cost growth in pioneer plants increases with the share of the plant that uses new technology [<a href="#ref-3" class="j-cite">3</a>], and it is probably still an understatement, for the parametric reasons above. For such a plant, the cheapest contingency reduction is usually a better pilot programme, not a better estimate.</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Decision Guide</h2><p>The choice of confidence level is the owner's, not the estimator's. Table 4 sets out how the result should be used.</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> Using the contingency analysis.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Decision</th><th>Use</th><th>Why</th></tr></thead><tbody><tr><td>Project budget and contingency held by the project manager</td><td>P50 to P80 of the combined model, about C$111 to C$116 million here at base-date prices</td><td>Covers the expected growth and most of the risk events</td></tr><tr><td>Escalation</td><td>A separate escalation reserve, about C$2 million at P80 here</td><td>Escalation is a price effect, not a scope uncertainty, and is managed against indices</td></tr><tr><td>Funding approval by a board or lender</td><td>P80 or P90 of the total, with the S-curve shown</td><td>The question is the chance of needing more money</td></tr><tr><td>Low-probability, high-impact risks such as poor soil and a scale-up problem</td><td>Either keep them in the contingency, or move them to a management reserve held above the project; here that lowers the project P80 to about C$113.5 million</td><td>They are better managed as decisions than spent as contingency</td></tr><tr><td>Choosing between projects</td><td>P50, with the P80 to P50 gap as a measure of risk</td><td>Comparable across projects</td></tr><tr><td>A flat percentage required by policy</td><td>Report its confidence level from the S-curve</td><td>Here 10% is about P46 and 15% about P74</td></tr><tr><td>First-of-a-kind technology</td><td>Model the scale-up risk explicitly, add a parametric check, and fund pilot work first</td><td>It is the largest single risk and the hardest to range</td></tr></tbody></table></div></figure><p>Five steps produce a contingency an owner can defend.</p><ol><li><strong>Range only what matters.</strong> Put ranges on the dozen accounts that make up the estimate, skewed as experience says, not on hundreds of line items.</li><li><strong>Correlate through drivers.</strong> Group accounts by the market, productivity and engineering drivers they share.</li><li><strong>Write a risk register with numbers.</strong> Probabilities, cost and delay ranges, and a burn rate for delay.</li><li><strong>Simulate and read the S-curve.</strong> Report the P50, P80 and P90 and the chance of overrunning any proposed budget [<a href="#ref-19" class="j-cite">19</a>].</li><li><strong>Act on the drivers, then rerun.</strong> A survey, a pilot or a labour plan that removes a top risk reduces the contingency more than any argument about percentages.</li></ol><h3>8.1 Pitfalls</h3><ul><li><strong>A flat percentage.</strong> It hides a confidence level that can easily fall below 50% for a 10% allowance, as it does here.</li><li><strong>Independent line items.</strong> They understate the high percentiles, more so as ranges widen.</li><li><strong>Expected values for risks.</strong> They give the right mean but too little for a P80 budget.</li><li><strong>Symmetric ranges, or a base set below the most likely values.</strong> Most estimating errors are skewed upward; a symmetric range or an optimistic base puts the P50 too low.</li><li><strong>Escalation and scope changes inside contingency.</strong> Contingency covers the defined scope at base-date prices; escalation needs its own reserve, and a change in what is built needs its own approval and money.</li></ul></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Conclusions</h2><p>Contingency should be set from a probability distribution of the final cost, not from habit. For the Class 3 estimate of a C$100 million, 50,000-tonne-a-year chemical plant:</p><ul><li>At base-date prices the P50 is C$110.7 million and the P80 C$116.4 million: contingencies of 11% and 16% of the base, plus an escalation reserve of about C$2 million at P80. A flat 10% has about a 54% chance of being overrun; a flat 15% a 26% chance.</li><li>About two-thirds of the P80 contingency is cost the estimate already expects: C$5.2 million from the upward skew of the line-item ranges and C$5.9 million from the expected cost of the risk events.</li><li>Field labour productivity and major equipment are the largest estimating uncertainties. Eliminating the scale-up risk would cut the P80 by C$1.7 million and the soil risk by C$1.2 million, both through actions available before the budget is fixed.</li><li>Treating line items as independent understates the P80 contingency by 8% here and by 14% with ranges twice as wide; an expected-value allowance for risks gives the right mean but too little for a P80.</li><li>The same plant needs P80 contingencies of 27% at Class 4 and 38% at Class 5, and 21% at Class 3 if its process is first of a kind; even so, the model's spread is narrower than AACE's indicative ranges at every class.</li></ul><p>The case has limits. The ranges and the risk register are illustrative, not drawn from this plant's own history, and line-item models tend to understate the spread of real outcomes; systemic risks are not modelled parametrically. The schedule is represented only by the delays of the risk events, priced at a fixed burn rate, not by an integrated cost and schedule risk analysis [<a href="#ref-20" class="j-cite">20</a>]. Escalation uses a single mid-spend factor, risk-event costs are not escalated, the exchange-rate effect is applied to the base cost of imported equipment, and the exchange rate range of ±12% is a judgement that decides how little the exchange rate matters here. The plant's lost revenue during a delay is outside the capital cost. The method transfers to any estimate: the Python model and an Excel template that runs the simulation live can be downloaded from this paper's page.</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Appendix: Setting Contingency for Your Own Estimate</h2><p>Table 5 sets out the method in steps, with what this paper did and where the downloadable model does it. The script below reproduces the P50, P80 and P90 of Section 4 at base-date prices, the chance of overrunning flat contingencies of 10% and 15% to within sampling error, and the escalation reserve. The full model adds the drivers, the correlation, range-width and market cases and the estimate classes; the Excel template runs the same simulation live with 5,000 iterations.</p><figure class="j-table" id="table-5"><figcaption><strong>Table 5.</strong> Steps of the method, with this paper's choices and the model function that does each.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Step</th><th>What to do</th><th>In this paper</th><th>In the model</th></tr></thead><tbody><tr><td>1. Structure the estimate</td><td>A dozen accounts at their most likely values, at base-date prices</td><td>Table 1</td><td>ACCOUNTS</td></tr><tr><td>2. Range and correlate</td><td>Skewed triangular ranges; correlation by driver group</td><td>Table 1, Eq. (3)</td><td>ACCOUNTS, RHO, corr_matrix()</td></tr><tr><td>3. Write the risk register</td><td>Probability, cost and delay ranges, burn rate; events outside the ranges</td><td>Table 2</td><td>RISKS, BURN</td></tr><tr><td>4. Simulate</td><td>50,000 iterations of Eq. (1)</td><td>Figures 1 and 2</td><td>simulate()</td></tr><tr><td>5. Set the escalation reserve</td><td>Escalation and exchange-rate ranges against what the base carries</td><td>Eq. (2)</td><td>ESC, FX</td></tr><tr><td>6. Find the drivers and test the model</td><td>Fix accounts at mean; remove risks or set them at expected value; remove correlation; widen ranges; correlate market items; earlier classes</td><td>Figures 3 to 5, Table 3</td><td>swing_accounts(), main block</td></tr></tbody></table></div></figure><figure class="j-code"><figcaption>P50, P80 and P90 of the final cost at base-date prices, the chance of overrunning flat contingencies of 10% and 15%, and the escalation reserve (Python 3 with NumPy and SciPy).</figcaption><pre><code>"""Cost contingency by Monte Carlo - Chmltech Online Journal (appendix script).
+P50, P80 and P90 of the final fixed capital of a C$100M Class 3 estimate at base-date prices: 12 accounts with
+triangular ranges correlated through a Gaussian copula, and an 8-event risk register with delays. Escalation and
+exchange rate are reported separately, as an escalation reserve. Python 3 with NumPy and SciPy."""
+import numpy as np
+from scipy import stats
+
+ACC = &#91;(24.0, 0.92, 1.00, 1.15, "m"), (9.0, 0.88, 1.00, 1.27, "m"), (5.0, 0.90, 1.00, 1.25, "m"), (5.0, 0.90, 1.00, 1.25, "m"),
+       (8.0, 0.90, 1.00, 1.35, "s"), (2.0, 0.90, 1.00, 1.30, "m"), (17.0, 0.86, 1.00, 1.33, "l"), (8.0, 0.90, 1.00, 1.30, "l"),
+       (13.0, 0.95, 1.00, 1.20, "e"), (4.0, 0.95, 1.00, 1.25, "e"), (3.0, 0.90, 1.00, 1.40, "l"), (2.0, 0.90, 1.00, 1.20, "m")&#93;
+RHO = {"m": 0.5, "l": 0.7, "e": 0.5, "s": 1.0}                     # within a group; 0.3 between groups
+RISKS = &#91;(0.25, (1.5, 2.5, 5.0), (2, 4, 8)), (0.30, None, (4, 8, 16)), (0.20, (2.0, 4.0, 8.0), (4, 8, 12)),
+         (0.40, (0.5, 1.5, 3.0), None), (0.15, None, (4, 10, 20)), (0.30, (1.0, 2.5, 5.0), None),
+         (0.10, (0.5, 1.5, 3.0), (6, 10, 16)), (0.25, (0.5, 1.5, 4.0), (2, 6, 12))&#93;
+BURN, N = 0.20, 50_000                                             # C$M per week of delay; iterations
+tri = lambda u, a, m, b: stats.triang.ppf(u, (m - a) / (b - a), a, b - a)
+
+rng = np.random.default_rng(7)
+g = &#91;a&#91;4&#93; for a in ACC&#93;
+C = np.array(&#91;&#91;1.0 if i == j else (RHO&#91;g&#91;i&#93;&#93; if g&#91;i&#93; == g&#91;j&#93; else 0.3) for j in range(12)&#93; for i in range(12)&#93;)
+u = stats.norm.cdf(rng.multivariate_normal(np.zeros(12), C, size=N))          # Eq. (3)
+acc = np.column_stack(&#91;b * tri(u&#91;:, j&#93;, lo, ml, hi) for j, (b, lo, ml, hi, _) in enumerate(ACC)&#93;)
+core = acc.sum(1)
+for p, c, d in RISKS:                                                          # risk events and delays, Eq. (1)
+    hit = rng.random(N) &lt; p
+    core += hit * ((tri(rng.random(N), *c) if c else 0) + BURN * (tri(rng.random(N), *d) if d else 0))
+ef = ((1 + tri(rng.random(N), 0.02, 0.03, 0.06)) / 1.03) ** 1.5                # Eq. (2): escalation beyond the 3% in the base
+esc = acc&#91;:, :9&#93;.sum(1) * (ef - 1) + 24.0 * 0.40 * tri(rng.random(N), -0.12, 0.0, 0.12) * ef
+for q in (50, 80, 90):
+    v = np.percentile(core, q); print(f"P{q}: C${v:6.1f}M   contingency C${v - 100:5.1f}M ({v - 100:.0f}% of base)")   # Eq. (4)
+for flat in (10, 15):
+    print(f"Base + {flat}%: chance of overrun {np.mean(core &gt; 100 * (1 + flat / 100)):.0%}")
+print(f"Escalation and exchange-rate reserve: P50 C${np.percentile(esc, 50):.1f}M, P80 C${np.percentile(esc, 80):.1f}M")</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">AACE International. (2008). <em>Contingency estimating — General principles</em> (Recommended Practice 40R-08). AACE International.</li><li id="ref-2">Burroughs, S. E., &amp; Juntima, G. (2004). Exploring techniques for contingency setting. <em>AACE International Transactions</em>, EST.03.</li><li id="ref-3">Merrow, E. W., Phillips, K. E., &amp; Myers, C. W. (1981). <em>Understanding cost growth and performance shortfalls in pioneer process plants</em> (R-2569-DOE). RAND Corporation. <a href="https://www.rand.org/pubs/reports/R2569.html" rel="noopener" target="_blank">www.rand.org/pubs/reports/R2569.html</a></li><li id="ref-4">Merrow, E. W. (2011). <em>Industrial megaprojects: Concepts, strategies, and practices for success</em>. Wiley.</li><li id="ref-5">Lee, Q. F. (2026). Engineering CAPEX and OPEX estimation for process plants: Methods, accuracy and trade-offs. <em>Chmltech Online Journal, 104</em>(4). <a href="https://www.chmltech.com/post/engineering-capex-and-opex-estimation-for-process-plants" rel="noopener" target="_blank">www.chmltech.com/post/engineering-capex-and-opex-estimation-for-process-plants.h</a></li><li id="ref-6">Lee, Q. F. (2026). What a FEED package contains, and what each document decides. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/what-a-feed-package-contains-and-what-each-document-decides" rel="noopener" target="_blank">www.chmltech.com/post/what-a-feed-package-contains-and-what-each-document-decide</a></li><li id="ref-7">Lee, Q. F. (2026). From concept to construction: The five stages of a process plant project. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/from-concept-to-construction-five-stages-of-a-process-plant-project" rel="noopener" target="_blank">www.chmltech.com/post/from-concept-to-construction-five-stages-of-a-process-plan</a></li><li id="ref-8">AACE International. (2020). <em>Cost estimate classification system — As applied in engineering, procurement, and construction for the process industries</em> (Recommended Practice 18R-97, rev.). AACE International.</li><li id="ref-9">Lee, Q. F. (2026). Lab to pilot to commercial: What changes when you scale up. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/scale-up-what-changes-from-lab-to-pilot-to-commercial" rel="noopener" target="_blank">www.chmltech.com/post/scale-up-what-changes-from-lab-to-pilot-to-commercial.html</a></li><li id="ref-10">AACE International. (2022). <em>Cost risk analysis and contingency determination using estimate ranging for inherent risks with Monte Carlo simulation</em> (Recommended Practice 118R-21). AACE International.</li><li id="ref-11">AACE International. (2021). <em>Risk analysis and contingency determination using expected value</em> (Recommended Practice 44R-08, rev.). AACE International.</li><li id="ref-12">AACE International. (2023). <em>Integrated cost and schedule risk analysis and contingency determination using estimate ranging and expected value with Monte Carlo simulation</em> (Recommended Practice 123R-22). AACE International.</li><li id="ref-13">AACE International. (2011). <em>Risk analysis and contingency determination using parametric estimating</em> (Recommended Practice 42R-08). AACE International.</li><li id="ref-14">Hollmann, J. K. (2016). <em>Project risk quantification: A practitioner's guide to realistic cost and schedule risk management</em>. Probabilistic Publishing.</li><li id="ref-15">Iman, R. L., &amp; Conover, W. J. (1982). A distribution-free approach to inducing rank correlation among input variables. <em>Communications in Statistics — Simulation and Computation, 11</em>(3), 311–334. <a href="https://doi.org/10.1080/03610918208812265" rel="noopener" target="_blank">10.1080/03610918208812265</a></li><li id="ref-16">Vose, D. (2008). <em>Risk analysis: A quantitative guide</em> (3rd ed.). Wiley.</li><li id="ref-17">Lee, Q. F. (2026). From mechanical completion to handover: The commissioning sequence. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/from-mechanical-completion-to-handover-the-commissioning-sequence" rel="noopener" target="_blank">www.chmltech.com/post/from-mechanical-completion-to-handover-the-commissioning-s</a></li><li id="ref-18">Flyvbjerg, B. (2014). What you should know about megaprojects and why: An overview. <em>Project Management Journal, 45</em>(2), 6–19. <a href="https://doi.org/10.1002/pmj.21409" rel="noopener" target="_blank">10.1002/pmj.21409</a></li><li id="ref-19">US Government Accountability Office. (2020). <em>Cost estimating and assessment guide: Best practices for developing and managing program costs</em> (GAO-20-195G). <a href="https://www.gao.gov/products/gao-20-195g" rel="noopener" target="_blank">www.gao.gov/products/gao-20-195g</a></li><li id="ref-20">AACE International. (2019). <em>Integrated cost and schedule risk analysis using risk drivers and Monte Carlo simulation of a CPM model</em> (Recommended Practice 57R-09, rev.). AACE International.</li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant. <em>Chmltech Online Journal</em>, <em>106</em>(20). https://www.chmltech.com/post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. The Estimate and Its Uncertainty</a></li><li><a href="#sec-3">3. Method</a></li><li><a href="#sec-4">4. Results: How Much Contingency</a></li><li><a href="#sec-5">5. What Drives the Contingency</a></li><li><a href="#sec-6">6. Correlation and Range Width</a></li><li><a href="#sec-7">7. Estimate Class and First-of-a-Kind Technology</a></li><li><a href="#sec-8">8. Decision Guide</a></li><li><a href="#sec-9">9. Conclusions</a></li><li><a href="#sec-10">10. Appendix: Setting Contingency for Your Own Estimate</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 20</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px;justify-content:center;text-align:center">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue20.pdf" data-fname="Chmltech-Journal-Vol106-Issue20.pdf" data-title="Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant" data-ref="Vol. 106, Issue 20">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 20</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant", "name": "Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant", "abstract": "Most capital estimates for small and mid-sized process plants still carry a flat contingency of 10% or 15%, chosen by habit. This paper sets the contingency for the C$100 million, 50,000-tonne-a-year plant of the Chmltech FEED series by Monte Carlo simulation of its Class 3 estimate. Twelve cost accounts carry skewed estimating ranges around a most likely base, correlated through common drivers for materials, labour and engineering. Eight risk events, such as poor soil, a late reactor, a scale-up problem and a labour shortage, add cost and delay, with each week of delay priced at the time-dependent indirect burn rate. Escalation and exchange rate are carried in a separate reserve. Over 50,000 iterations the P50 cost at base-date prices is C$110.7 million and the P80 C$116.4 million, contingencies of 11% and 16% of the base. A flat 10% has about a 54% chance of being overrun and a flat 15% a 26% chance. About two-thirds of the P80 contingency is cost the estimate already expects: C$5.2 million from the upward skew of the ranges and C$5.9 million from the expected cost of the risk events. Field labour and major equipment are the largest estimating uncertainties; eliminating the scale-up or soil risk would cut the P80 most. Treating line items as independent understates the P80 contingency by 8%, and by 14% with ranges twice as wide. Even so, the model's spread is narrower than AACE's indicative ranges. The Python model and a live Excel template accompany the paper.", "keywords": "cost contingency, Monte Carlo simulation, P50 and P80, Class 3 estimate, risk register, estimate ranging, correlation, AACE", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "20", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant", "citation": ["AACE International. (2008). Contingency estimating — General principles (Recommended Practice 40R-08). AACE International.", "Burroughs, S. E., &amp; Juntima, G. (2004). Exploring techniques for contingency setting. AACE International Transactions, EST.03.", "Merrow, E. W., Phillips, K. E., &amp; Myers, C. W. (1981). Understanding cost growth and performance shortfalls in pioneer process plants (R-2569-DOE). RAND Corporation.", "Merrow, E. W. (2011). Industrial megaprojects: Concepts, strategies, and practices for success. Wiley.", "Lee, Q. F. (2026). Engineering CAPEX and OPEX estimation for process plants: Methods, accuracy and trade-offs. Chmltech Online Journal, 104(4).", "Lee, Q. F. (2026). What a FEED package contains, and what each document decides. Chmltech Insights.", "Lee, Q. F. (2026). From concept to construction: The five stages of a process plant project. Chmltech Insights.", "AACE International. (2020). Cost estimate classification system — As applied in engineering, procurement, and construction for the process industries (Recommended Practice 18R-97, rev.). AACE International.", "Lee, Q. F. (2026). Lab to pilot to commercial: What changes when you scale up. Chmltech Insights.", "AACE International. (2022). Cost risk analysis and contingency determination using estimate ranging for inherent risks with Monte Carlo simulation (Recommended Practice 118R-21). AACE International.", "AACE International. (2021). Risk analysis and contingency determination using expected value (Recommended Practice 44R-08, rev.). AACE International.", "AACE International. (2023). Integrated cost and schedule risk analysis and contingency determination using estimate ranging and expected value with Monte Carlo simulation (Recommended Practice 123R-22). AACE International.", "AACE International. (2011). Risk analysis and contingency determination using parametric estimating (Recommended Practice 42R-08). AACE International.", "Hollmann, J. K. (2016). Project risk quantification: A practitioner's guide to realistic cost and schedule risk management. Probabilistic Publishing.", "Iman, R. L., &amp; Conover, W. J. (1982). A distribution-free approach to inducing rank correlation among input variables. Communications in Statistics — Simulation and Computation, 11(3), 311–334.", "Vose, D. (2008). Risk analysis: A quantitative guide (3rd ed.). Wiley.", "Lee, Q. F. (2026). From mechanical completion to handover: The commissioning sequence. Chmltech Insights.", "Flyvbjerg, B. (2014). What you should know about megaprojects and why: An overview. Project Management Journal, 45(2), 6–19.", "US Government Accountability Office. (2020). Cost estimating and assessment guide: Best practices for developing and managing program costs (GAO-20-195G).", "AACE International. (2019). Integrated cost and schedule risk analysis using risk drivers and Monte Carlo simulation of a CPM model (Recommended Practice 57R-09, rev.). AACE International."], "image": "https://www.chmltech.com/assets/media/covers/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant.jpg"}</script>
+<!--exam-hub:post--><section class="section"><div class="container stack"><p class="eyebrow">Test what you have read</p><h2 class="h-md">Free Process / ChemEng practice exams</h2><p class="muted">Interactive exams with an explanation for every answer. No sign-up.</p><div class="index"><a href="../exams/process-chemeng/Data_Analytics_in_Chemical_Engineering_CBE_150Q_Exam">Data Analytics in Chemical Engineering Exam<span aria-hidden="true">→</span></a><a href="../exams/process-chemeng/Material_of_Construction_Selection_150Q_Exam_V2">Material of Construction Selection Exam<span aria-hidden="true">→</span></a><a href="../exams/process-chemeng/Process_Analysis_Case_Study_Exam_Part_I_150Q">Process Analysis Case Study Part I<span aria-hidden="true">→</span></a><a href="../chemical-engineering-practice-exams"><strong>All 48 Process / ChemEng practice exams</strong><span aria-hidden="true">→</span></a></div></div></section>
+<!--/exam-hub:post-->
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../ai-tools">AI tools landscape</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a href="mailto:info@chmltech.com">info@chmltech.com</a>
+      <a href="../book">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=60d2bb4b" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>

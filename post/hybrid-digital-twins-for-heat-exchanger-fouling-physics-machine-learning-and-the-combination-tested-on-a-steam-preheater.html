@@ -1,0 +1,3936 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Hybrid Digital Twins for Exchanger Fouling</title>
+<meta name="description" content="Physics, machine learning or a hybrid? Four fouling monitors tested on a steam preheater: the hybrid forecasts cleaning within 20% in 14 of 20 runs after a…">
+<link rel="canonical" href="https://www.chmltech.com/post/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Hybrid Digital Twins for Exchanger Fouling">
+<meta property="og:description" content="Physics, machine learning or a hybrid? Four fouling monitors tested on a steam preheater: the hybrid forecasts cleaning within 20% in 14 of 20 runs after a…">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=29c448bc">
+<meta property="og:url" content="https://www.chmltech.com/post/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Hybrid Digital Twins for Exchanger Fouling","item":"https://www.chmltech.com/post/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=be09a9d8">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/27">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="23">
+<script>(function(c,l,a,r,i,t,y){if(!/(^|\.)chmltech\.com$/.test(l.location.hostname))return;try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <div class="nav-dd" data-nav-dd><button type="button" class="nav-dd-btn" aria-expanded="false" aria-controls="nav-dd-ai">AI<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-dd-menu" id="nav-dd-ai"><a href="../llm-leaderboard"><strong>AI Models</strong><span>LLM leaderboard: scores and cost</span></a><a href="../ai-tools"><strong>AI Tools Landscape</strong><span>988 tools mapped, with cost per output</span></a></div></div>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a> / <a href="../insights#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 23</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Clean Energy Technology Innovation · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 27, 2026</span><span>15 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>A digital twin of a fouling heat exchanger can be built from first principles, from data alone, or from both. This paper compares the three on the steam-heated feed preheater E-101, using synthetic histories with known truth. Each history holds three two-year runs of 4-hourly records with seasonal feed temperature, turndown campaigns, instrument noise and drift, a true tube-side coefficient that falls below the published correlation as a power law in Reynolds number, and Kern–Seaton fouling that differs from run to run. Four monitors are trained on the first two runs and tested on the third: physics only; physics with a constant correction learned from the days after each cleaning; a hybrid whose correction is a power law in Reynolds number; and gradient-boosted machine learning on flow, inlet temperature and time since cleaning. Over 20 histories the physics-only fouling estimate is biased by 1.8 × 10⁻⁴ m²K/W, about the TEMA design value; the hybrid's median RMS error is 0.25 × 10⁻⁴. One month into a run the hybrid forecasts when the exchanger can no longer heat the design case to within 20% in 14 of 20 histories, against 9 for the constant correction and none for machine learning. At turndown in the test run, which adds turndown in the coldest weeks, unseen in training, the hybrid predicts shell pressure to a median 0.07 bar, against 0.24 bar for machine learning and 0.47 bar for physics alone. The advantage is partly built into the test.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> digital twin; hybrid modelling; heat exchanger fouling; physics-informed machine learning; Kern-Seaton; condition monitoring; gradient boosting; steam preheater</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/twin_appendix.py" download><strong>Appendix script</strong> <code>twin_appendix.py</code></a><span>Hybrid fouling monitor: learned correction, fouling estimate and cleaning forecast (Python 3, NumPy, SciPy)</span></li><li><a href="../assets/journal/code/chmltech-hybrid-twin-model.zip" download><strong>Full model</strong> <code>chmltech-hybrid-twin-model.zip</code></a><span>Synthetic plant histories, the four monitors, summary over 20 histories, results JSON, README</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>The companion paper sized E-101 for fouling it could only estimate: an asymptotic resistance judged at 1 to 8 × 10⁻⁴ m²K/W, and a tube-side coefficient carrying the ±15% scatter of its correlation, the two inputs that decided most of the outcome [<a href="#ref-1" class="j-cite">1</a>]. Once the plant runs, both can be measured. The monitor that measures them, and forecasts when the exchanger will need cleaning, is a simple example of what is now called a digital twin: a model kept in step with the plant by its own data [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>].</p><p>There are three ways to build it. A physics model computes the overall coefficient from the measured duty and temperatures, compares it with the clean coefficient from correlations, and calls the difference fouling. It needs no training data, but it inherits every error in the correlations. A machine-learning model learns the plant's behaviour from its history; it needs no correlations, but it knows only the conditions it has seen [<a href="#ref-4" class="j-cite">4</a>, <a href="#ref-5" class="j-cite">5</a>]. A hybrid model keeps the physics structure and learns only what the physics gets wrong, an idea with a long history in process engineering [<a href="#ref-6" class="j-cite">6</a>–<a href="#ref-8" class="j-cite">8</a>] and now often called physics-informed machine learning [<a href="#ref-9" class="j-cite">9</a>, <a href="#ref-10" class="j-cite">10</a>].</p><p>The arguments for the hybrid are well rehearsed, and probabilistic treatments of fouling have long fed exchanger maintenance [<a href="#ref-11" class="j-cite">11</a>]; quantitative comparisons of monitors on a plant where the truth is known are rarer. This paper builds synthetic histories of E-101 in which the true fouling and the true coefficients are known, gives the same data to four monitors, and measures three things an operator cares about: how well each estimates the fouling, how early and how accurately each forecasts the cleaning, and how each behaves in operating conditions it was not trained on.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> The Plant and Its Data</h2><p>The test bed is E-101 as built at 6 m², an area the companion paper showed to foul out within months, so that every run reaches the point where the steam runs out and the forecast has something to predict [<a href="#ref-1" class="j-cite">1</a>]. The feed is heated from tank temperature to 80 °C with steam at up to 2.7 barg in the shell; the steam valve holds the outlet temperature until the steam runs out, after which the outlet falls below 80 °C. Table 1 lists what the synthetic plant contains and what the monitors can see.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> The synthetic plant.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Element</th><th>In the plant (true, hidden)</th><th>Seen by the monitors</th></tr></thead><tbody><tr><td>Records</td><td>4-hourly, three runs of 24 months each, 4,000 records a run</td><td>Same</td></tr><tr><td>Feed flow</td><td>8,690 kg/h ± 5% at normal rate; 50% during four random turndown campaigns a run; in the test run, also turndown for the first 50 days of each year, a regime absent from the training runs</td><td>Measured with ±2% noise and a slow drift of ±1.5%</td></tr><tr><td>Feed inlet temperature</td><td>Seasonal, 8.5 to 36.5 °C with daily scatter</td><td>Measured with ±0.3 K noise</td></tr><tr><td>Outlet temperature</td><td>80 °C, or lower when the steam runs out</td><td>Measured with ±0.3 K noise</td></tr><tr><td>Shell pressure</td><td>Set by the steam valve; at most 2.7 barg</td><td>Measured with ±0.015 bar noise</td></tr><tr><td>Tube-side coefficient</td><td>0.88 (Re/17,800)<sup>0.15</sup> times the Gnielinski correlation: 12% low at normal rate, 20% low at turndown</td><td>Not seen; the correlation is known</td></tr><tr><td>Condensing coefficient</td><td>7,000 W/m²K</td><td>Assumed 8,000 W/m²K</td></tr><tr><td>Shell-side fouling</td><td>1 × 10⁻⁴ m²K/W, constant</td><td>Assumed, correctly</td></tr><tr><td>Fouling</td><td>Kern–Seaton, a new level (1.5 to 6 × 10⁻⁴ m²K/W) and time constant (1,000 to 6,000 h) drawn for every run</td><td>Not seen</td></tr></tbody></table></div></figure><p>The tube-side deviation is the key to the comparison. It stands for what real plants show: a correlation that fits the average of laboratory data is rarely exact for a given exchanger, and its error usually depends on flow [<a href="#ref-12" class="j-cite">12</a>]. In the plant here the error is 12% at normal rate and grows to about 20% at turndown, and the assumed condensing coefficient is also optimistic. None of the monitors is told this; each has to cope with it from the data.</p><p>Twenty such histories are generated, each with its own noise and its own fouling in each run. In every history the first two runs are the training data and the third is the test. The task each monitor faces is the one an operator faces at the start of a new run: estimate the fouling as it builds, forecast when the exchanger will no longer heat the design case, the P95 feed at the P5 inlet temperature of the companion paper and of the pump study before it [<a href="#ref-13" class="j-cite">13</a>], and predict the shell pressure at operating conditions not yet seen.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Four Monitors</h2><p><strong>Physics only (P).</strong> From each record the monitor computes the duty from the measured flow and temperatures, the steam temperature from the measured shell pressure, and the overall coefficient, based on the outside tube area A, from the log-mean temperature difference, Eq. (1). It computes the clean coefficient U₀ from the Gnielinski correlation [<a href="#ref-14" class="j-cite">14</a>] and the assumed condensing coefficient, and takes the fouling resistance as the difference of the reciprocals on the inside area, Eq. (2). Records with the shell at or below 0.05 barg are dropped, since stalled condensate breaks the assumption of uniform condensing:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[U_m = \frac{\dot m\,c_p\,(T_{out} - T_{in})}{A\,\Delta T_{lm}}\]</span><span class="j-eq-n">(1)</span></div><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[R_f = \left( \frac{1}{U_m} - \frac{1}{U_0} \right) \frac{D_i}{D_o}\]</span><span class="j-eq-n">(2)</span></div><p><strong>Physics with a constant correction (O).</strong> The same, but the correlation is first corrected by one factor learned from data. In the first 120 operating hours after each cleaning, when fouling has reached only 2% to 11% of its asymptote, the measured coefficient is taken as clean, and the ratio of the tube-side coefficient it implies to the correlation's is averaged over the two training runs. A longer window would let more of the early fouling into the calibration; a 300-hour window, tried first, biased the learned correction low and weakened the hybrid's early forecasts.</p><p><strong>Hybrid (H).</strong> The same clean-period data, but the correction is learned as a function of the tube-side Reynolds number, Eq. (3), by regression of the logarithm of the ratio on the logarithm of Reynolds number. The physics fixes the structure, the energy balance, the resistances in series and the dependence on flow and temperature through the correlation; the data supply only the part the correlation gets wrong. The learned factor also absorbs the error in the assumed condensing coefficient:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[h_i = f(Re)\,h_{i,\mathrm{Gnielinski}}, \qquad f(Re) = a\,Re^{\,b}\]</span><span class="j-eq-n">(3)</span></div><p><strong>Machine learning only (M).</strong> A gradient-boosted regression [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>] maps three inputs available on any plant historian, feed flow, inlet temperature and time since cleaning, to the shell pressure. It is trained on the two training runs and retrained as the test run's data arrive.</p><p><strong>Forecasting.</strong> For P, O and H, the fouling estimates are reduced to daily medians and the Kern–Seaton curve, Eq. (4), is fitted to them by robust least squares [<a href="#ref-17" class="j-cite">17</a>, <a href="#ref-18" class="j-cite">18</a>]. The fitted curve is then carried forward with each monitor's own clean coefficient at the design case, and the forecast is the time at which the design case would need more than 2.7 barg in the shell. For M, the forecast is the time at which the model's predicted shell pressure at the design case first exceeds 2.69 barg. Forecasts are made after 0.5, 1, 1.5, 2 and 3 months of the test run, counting only forecasts made before the true limit is reached:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[R_f(t) = R_\infty \left( 1 - e^{-t/\tau} \right)\]</span><span class="j-eq-n">(4)</span></div></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Results: Estimating Fouling</h2><p>Figure 1 shows what each monitor learned about the clean exchanger. The plant's tube-side coefficient runs from 77% of the correlation at turndown to 91% at the top of the normal range. Physics only assumes 100% everywhere. The constant correction, learned from the clean days, settles at 85%, between the plant's values at the two ends but wrong at both. The hybrid's learned curve follows the plant's slope, with a median exponent of 0.157 against the plant's 0.15, and sits one to two points below it: it absorbs the optimistic condensing coefficient, which the plant's own data cannot separate from the tube side, and the little fouling already present in the calibration window.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 540.277402 269.68918" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Learned tube-side correction against Reynolds number</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M -0 269.68918 
+L 540.277402 269.68918 
+L 540.277402 0 
+L -0 0 
+L -0 269.68918 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 51.913262 227.52 
+L 531.793262 227.52 
+L 531.793262 5.76 
+L 51.913262 5.76 
+L 51.913262 227.52 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 96.902012 227.52 
+L 96.902012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m30f5e67551" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m30f5e67551" x="96.902012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="96.902012" y="244.691875" transform="rotate(-0 96.902012 244.691875)">8,000</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 156.887012 227.52 
+L 156.887012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m30f5e67551" x="156.887012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="156.887012" y="244.691875" transform="rotate(-0 156.887012 244.691875)">10,000</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 216.872012 227.52 
+L 216.872012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m30f5e67551" x="216.872012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="216.872012" y="244.691875" transform="rotate(-0 216.872012 244.691875)">12,000</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 276.857012 227.52 
+L 276.857012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m30f5e67551" x="276.857012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="276.857012" y="244.691875" transform="rotate(-0 276.857012 244.691875)">14,000</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 336.842012 227.52 
+L 336.842012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m30f5e67551" x="336.842012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="336.842012" y="244.691875" transform="rotate(-0 336.842012 244.691875)">16,000</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 396.827012 227.52 
+L 396.827012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m30f5e67551" x="396.827012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="396.827012" y="244.691875" transform="rotate(-0 396.827012 244.691875)">18,000</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 456.812012 227.52 
+L 456.812012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m30f5e67551" x="456.812012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="456.812012" y="244.691875" transform="rotate(-0 456.812012 244.691875)">20,000</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 516.797012 227.52 
+L 516.797012 5.76 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m30f5e67551" x="516.797012" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="516.797012" y="244.691875" transform="rotate(-0 516.797012 244.691875)">22,000</text>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="291.853262" y="261.396465" transform="rotate(-0 291.853262 261.396465)">Tube-side Reynolds number</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_17">
+<path d="M 51.913262 227.52 
+L 531.793262 227.52 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<defs>
+<path id="m61a4f47ed2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="227.52" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="232.605937" transform="rotate(-0 44.913262 232.605937)">0.70</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_19">
+<path d="M 51.913262 198.341053 
+L 531.793262 198.341053 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="198.341053" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="203.42699" transform="rotate(-0 44.913262 203.42699)">0.75</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_21">
+<path d="M 51.913262 169.162105 
+L 531.793262 169.162105 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="169.162105" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="174.248043" transform="rotate(-0 44.913262 174.248043)">0.80</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_23">
+<path d="M 51.913262 139.983158 
+L 531.793262 139.983158 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="139.983158" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="145.069095" transform="rotate(-0 44.913262 145.069095)">0.85</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_25">
+<path d="M 51.913262 110.804211 
+L 531.793262 110.804211 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="110.804211" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="115.890148" transform="rotate(-0 44.913262 115.890148)">0.90</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_27">
+<path d="M 51.913262 81.625263 
+L 531.793262 81.625263 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="81.625263" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="86.711201" transform="rotate(-0 44.913262 86.711201)">0.95</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_29">
+<path d="M 51.913262 52.446316 
+L 531.793262 52.446316 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="52.446316" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="57.532253" transform="rotate(-0 44.913262 57.532253)">1.00</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_31">
+<path d="M 51.913262 23.267368 
+L 531.793262 23.267368 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m61a4f47ed2" x="51.913262" y="23.267368" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="44.913262" y="28.353306" transform="rotate(-0 44.913262 28.353306)">1.05</text>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="116.64" transform="rotate(-90 15.931875 116.64)">Tube-side coefficient / correlation</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 66.909512 227.52 
+L 201.875762 227.52 
+L 201.875762 5.76 
+L 66.909512 5.76 
+z
+" clip-path="url(#p0722f186c8)" style="fill: #dce4ee; opacity: 0.6"/>
+</g>
+<g id="patch_4">
+<path d="M 285.854762 227.52 
+L 516.797012 227.52 
+L 516.797012 5.76 
+L 285.854762 5.76 
+z
+" clip-path="url(#p0722f186c8)" style="fill: #dce4ee; opacity: 0.35"/>
+</g>
+<g id="line2d_33">
+<path d="M 66.909512 189.563784 
+L 80.473959 185.351268 
+L 94.038406 181.350724 
+L 109.863595 176.922274 
+L 125.688783 172.72342 
+L 143.774713 168.174713 
+L 161.860642 163.863614 
+L 182.207313 159.266107 
+L 202.553984 154.906898 
+L 225.161396 150.31213 
+L 247.768808 145.951216 
+L 272.636961 141.395249 
+L 297.505115 137.065357 
+L 324.634009 132.572657 
+L 354.023645 127.948978 
+L 383.413281 123.552115 
+L 415.063657 119.0445 
+L 448.974776 114.449925 
+L 485.146635 109.78935 
+L 516.797012 105.894886 
+L 516.797012 105.894886 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<path d="M 66.909512 197.840797 
+L 80.473959 193.83118 
+L 96.299147 189.408089 
+L 112.124336 185.228224 
+L 127.949524 181.264303 
+L 146.035454 176.969398 
+L 164.121384 172.898282 
+L 184.468054 168.556215 
+L 204.814725 164.438846 
+L 227.422137 160.098705 
+L 250.029549 155.979278 
+L 274.897703 151.675493 
+L 302.026597 147.223208 
+L 329.155492 142.997086 
+L 358.545127 138.646792 
+L 390.195504 134.199009 
+L 421.845881 129.97137 
+L 455.756999 125.660719 
+L 491.928858 121.286808 
+L 516.797012 118.401677 
+L 516.797012 118.401677 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke-dasharray: 8,4; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 2"/>
+</g>
+<g id="line2d_35">
+<path d="M 66.909512 141.037149 
+L 516.797012 141.037149 
+L 516.797012 141.037149 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #8a94a6; stroke-width: 1.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<path d="M 51.913262 52.446316 
+L 531.793262 52.446316 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #e07a3a; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="line2d_37">
+<path d="M 282.855512 37.856842 
+L 411.823262 37.856842 
+" clip-path="url(#p0722f186c8)" style="fill: none; stroke: #0b6fa4; stroke-width: 3"/>
+</g>
+<g id="patch_5">
+<path d="M 51.913262 227.52 
+L 51.913262 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_6">
+<path d="M 51.913262 227.52 
+L 531.793262 227.52 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="134.392637" y="20.349474" transform="rotate(-0 134.392637 20.349474)">turndown</text>
+</g>
+<g id="text_20">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="401.325887" y="20.349474" transform="rotate(-0 401.325887 20.349474)">normal rate</text>
+</g>
+<g id="text_21">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b6fa4" x="347.339387" y="31.842102" transform="rotate(-0 347.339387 31.842102)">clean-day calibration data (first 120 h)</text>
+</g>
+<g id="legend_1">
+<g id="line2d_38">
+<path d="M 297.424074 171.902813 
+L 305.824074 171.902813 
+L 314.224074 171.902813 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+</g>
+<g id="text_22">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="320.944074" y="174.842813" transform="rotate(-0 320.944074 174.842813)">Plant (true, unknown to the monitors)</text>
+</g>
+<g id="line2d_39">
+<path d="M 297.424074 186.266484 
+L 305.824074 186.266484 
+L 314.224074 186.266484 
+" style="fill: none; stroke-dasharray: 8,4; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 2"/>
+</g>
+<g id="text_23">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="320.944074" y="189.206484" transform="rotate(-0 320.944074 189.206484)">Hybrid: learned from the clean days of runs 1 and 2</text>
+</g>
+<g id="line2d_40">
+<path d="M 297.424074 200.630156 
+L 305.824074 200.630156 
+L 314.224074 200.630156 
+" style="fill: none; stroke: #8a94a6; stroke-width: 1.8; stroke-linecap: square"/>
+</g>
+<g id="text_24">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="320.944074" y="203.570156" transform="rotate(-0 320.944074 203.570156)">Constant correction from the same data</text>
+</g>
+<g id="line2d_41">
+<path d="M 297.424074 214.993828 
+L 305.824074 214.993828 
+L 314.224074 214.993828 
+" style="fill: none; stroke: #e07a3a; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="text_25">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="320.944074" y="217.933828" transform="rotate(-0 320.944074 217.933828)">Physics only: correlation as published</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p0722f186c8">
+<rect x="51.913262" y="5.76" width="479.88" height="221.76"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Ratio of the tube-side coefficient to the Gnielinski correlation against Reynolds number: the plant, the hybrid's learned correction, the constant correction and the uncorrected correlation, with the operating ranges and the range of the calibration data (the illustrative history, with fixed fouling parameters).</figcaption></figure><p>Those differences become fouling errors, as Figure 2 shows for one test run. Physics only starts the run with an apparent fouling of about 1 × 10⁻⁴ m²K/W on clean tubes and stays about that much too high, the deficit of the correlation read as dirt; at every turndown campaign it jumps to 5 or 6 × 10⁻⁴, because the correlation's error is largest at low flow. The constant correction removes the offset at normal rate but still jumps at turndown. The hybrid follows the true curve through the whole run, with small dips at turndown, where its learned curve is extrapolated.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 528.397754 291.86518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Fouling resistance estimated by three monitors over the test run</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 291.86518 
+L 528.397754 291.86518 
+L 528.397754 0 
+L 0 0 
+L 0 291.86518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 36.246934 249.696 
+L 516.126934 249.696 
+L 516.126934 5.76 
+L 36.246934 5.76 
+L 36.246934 249.696 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 36.246934 249.696 
+L 36.246934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m0e26fa3806" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m0e26fa3806" x="36.246934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="36.246934" y="266.867875" transform="rotate(-0 36.246934 266.867875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 96.231934 249.696 
+L 96.231934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m0e26fa3806" x="96.231934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="96.231934" y="266.867875" transform="rotate(-0 96.231934 266.867875)">3</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 156.216934 249.696 
+L 156.216934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m0e26fa3806" x="156.216934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="156.216934" y="266.867875" transform="rotate(-0 156.216934 266.867875)">6</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 216.201934 249.696 
+L 216.201934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m0e26fa3806" x="216.201934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="216.201934" y="266.867875" transform="rotate(-0 216.201934 266.867875)">9</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 276.186934 249.696 
+L 276.186934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m0e26fa3806" x="276.186934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="276.186934" y="266.867875" transform="rotate(-0 276.186934 266.867875)">12</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 336.171934 249.696 
+L 336.171934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m0e26fa3806" x="336.171934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="336.171934" y="266.867875" transform="rotate(-0 336.171934 266.867875)">15</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 396.156934 249.696 
+L 396.156934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m0e26fa3806" x="396.156934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="396.156934" y="266.867875" transform="rotate(-0 396.156934 266.867875)">18</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 456.141934 249.696 
+L 456.141934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m0e26fa3806" x="456.141934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="456.141934" y="266.867875" transform="rotate(-0 456.141934 266.867875)">21</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 516.126934 249.696 
+L 516.126934 5.76 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m0e26fa3806" x="516.126934" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="516.126934" y="266.867875" transform="rotate(-0 516.126934 266.867875)">24</text>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="276.186934" y="283.572465" transform="rotate(-0 276.186934 283.572465)">Months since cleaning, test run (daily medians of 4-hourly records)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_19">
+<path d="M 36.246934 224.018526 
+L 516.126934 224.018526 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<defs>
+<path id="md78a939fae" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#md78a939fae" x="36.246934" y="224.018526" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="229.104464" transform="rotate(-0 29.246934 229.104464)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_21">
+<path d="M 36.246934 172.663579 
+L 516.126934 172.663579 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#md78a939fae" x="36.246934" y="172.663579" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="177.749516" transform="rotate(-0 29.246934 177.749516)">2</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_23">
+<path d="M 36.246934 121.308632 
+L 516.126934 121.308632 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#md78a939fae" x="36.246934" y="121.308632" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="126.394569" transform="rotate(-0 29.246934 126.394569)">4</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_25">
+<path d="M 36.246934 69.953684 
+L 516.126934 69.953684 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#md78a939fae" x="36.246934" y="69.953684" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="75.039622" transform="rotate(-0 29.246934 75.039622)">6</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_27">
+<path d="M 36.246934 18.598737 
+L 516.126934 18.598737 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#md78a939fae" x="36.246934" y="18.598737" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="23.684674" transform="rotate(-0 29.246934 23.684674)">8</text>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="127.728" transform="rotate(-90 15.931875 127.728)">Fouling resistance (10⁻⁴ m²K/W)</text>
+</g>
+</g>
+<g id="line2d_29">
+<path d="M 36.546859 198.34435 
+L 37.266679 196.391339 
+L 37.986499 190.301292 
+L 38.706319 193.219319 
+L 39.426139 193.920913 
+L 40.145959 191.30307 
+L 40.865779 191.713992 
+L 41.585599 192.738701 
+L 42.305419 189.75419 
+L 43.025239 191.618088 
+L 43.745059 187.558582 
+L 44.464879 189.03651 
+L 45.904519 188.433088 
+L 46.624339 186.604905 
+L 47.344159 189.937145 
+L 48.063979 185.054151 
+L 48.783799 185.469966 
+L 49.503619 181.30915 
+L 50.223439 183.954731 
+L 51.663079 177.973717 
+L 52.382899 179.231183 
+L 53.102719 180.127944 
+L 53.822539 178.376715 
+L 54.542359 178.550369 
+L 55.262179 183.857286 
+L 55.981999 180.716725 
+L 56.701819 179.661491 
+L 57.421639 181.133322 
+L 58.141459 177.998167 
+L 58.861279 171.239191 
+L 59.581099 174.390381 
+L 60.300919 174.919226 
+L 61.020739 174.088049 
+L 61.740559 174.542647 
+L 62.460379 175.299276 
+L 63.900019 172.659982 
+L 64.619839 171.257567 
+L 65.339659 170.487664 
+L 66.059479 174.114547 
+L 67.499119 166.585461 
+L 68.218939 170.351263 
+L 68.938759 169.240592 
+L 69.658579 169.658722 
+L 70.378399 169.317164 
+L 71.098219 169.763218 
+L 71.818039 168.139507 
+L 72.537859 167.352102 
+L 73.257679 165.63501 
+L 73.977499 165.245723 
+L 74.697319 167.221422 
+L 75.417139 163.931633 
+L 76.136959 165.706829 
+L 76.856779 165.419237 
+L 77.576599 164.289072 
+L 78.296419 163.924669 
+L 79.736059 162.70407 
+L 80.455879 161.558975 
+L 81.175699 165.057105 
+L 81.895519 162.802467 
+L 82.615339 161.830898 
+L 83.335159 165.351578 
+L 84.054979 161.821857 
+L 84.774799 159.133041 
+L 85.494619 161.001003 
+L 86.214439 157.481587 
+L 86.934259 157.655691 
+L 89.093719 160.395183 
+L 89.813539 156.116519 
+L 90.533359 159.435194 
+L 91.253179 151.961695 
+L 91.972999 157.415736 
+L 92.692819 160.294062 
+L 93.412639 155.956051 
+L 94.132459 156.721132 
+L 95.572099 151.00735 
+L 96.291919 160.321944 
+L 97.011739 153.457993 
+L 97.731559 83.95848 
+L 98.451379 82.065142 
+L 99.891019 77.498003 
+L 100.610839 83.403107 
+L 101.330659 76.649727 
+L 102.770299 83.72405 
+L 103.490119 80.198426 
+L 104.209939 74.524244 
+L 104.929759 77.083284 
+L 105.649579 84.169591 
+L 106.369399 71.285202 
+L 107.089219 74.199383 
+L 107.809039 82.192136 
+L 108.528859 81.748069 
+L 109.248679 69.989145 
+L 109.968499 68.048634 
+L 110.688319 71.264702 
+L 111.408139 76.365391 
+L 112.127959 77.536266 
+L 112.847779 80.211482 
+L 113.567599 74.356296 
+L 114.287419 82.747488 
+L 115.007239 75.132687 
+L 115.727059 79.71366 
+L 116.446879 77.248529 
+L 117.166699 77.274982 
+L 118.606339 83.379929 
+L 120.045979 70.758845 
+L 120.765799 80.410372 
+L 121.485619 69.526969 
+L 122.205439 80.454103 
+L 122.925259 76.210352 
+L 123.645079 74.161072 
+L 124.364899 77.81706 
+L 125.084719 65.303538 
+L 125.804539 75.775145 
+L 126.524359 88.278335 
+L 127.244179 74.28595 
+L 127.963999 77.333205 
+L 128.683819 72.952243 
+L 129.403639 67.694857 
+L 130.123459 87.753465 
+L 130.843279 78.95413 
+L 131.563099 78.055354 
+L 132.282919 81.958468 
+L 133.002739 73.135107 
+L 133.722559 143.807854 
+L 134.442379 144.446104 
+L 135.162199 146.256667 
+L 135.882019 148.982105 
+L 136.601839 148.260628 
+L 137.321659 141.552495 
+L 138.041479 144.416853 
+L 138.761299 140.114165 
+L 139.481119 144.540753 
+L 140.200939 142.54829 
+L 140.920759 144.11161 
+L 141.640579 141.878695 
+L 142.360399 143.635889 
+L 143.080219 148.009424 
+L 143.800039 144.259778 
+L 144.519859 148.233781 
+L 145.239679 144.537977 
+L 145.959499 145.124156 
+L 146.679319 144.309406 
+L 147.399139 142.15568 
+L 148.118959 147.071436 
+L 148.838779 145.166393 
+L 149.558599 146.393193 
+L 150.278419 150.201099 
+L 150.998239 144.385216 
+L 151.718059 147.02926 
+L 152.437879 145.970619 
+L 153.157699 144.303396 
+L 153.877519 144.318514 
+L 154.597339 143.226895 
+L 155.317159 147.069137 
+L 156.036979 148.076529 
+L 156.756799 147.198257 
+L 157.476619 148.486232 
+L 158.196439 147.761622 
+L 158.916259 82.211063 
+L 159.636079 86.076394 
+L 160.355899 78.269621 
+L 161.075719 82.052073 
+L 161.795539 82.231054 
+L 162.515359 79.094775 
+L 163.235179 82.018512 
+L 163.954999 80.157052 
+L 164.674819 79.73866 
+L 165.394639 82.892038 
+L 166.114459 82.739571 
+L 166.834279 83.396717 
+L 167.554099 80.149958 
+L 168.273919 80.622468 
+L 168.993739 81.27913 
+L 169.713559 75.727503 
+L 170.433379 77.658554 
+L 171.153199 84.753688 
+L 171.873019 80.818165 
+L 172.592839 79.900791 
+L 173.312659 78.141789 
+L 174.032479 83.964299 
+L 174.752299 72.205781 
+L 175.472119 76.819599 
+L 176.191939 72.532357 
+L 176.911759 81.87674 
+L 177.631579 83.681311 
+L 178.351399 144.1573 
+L 179.071219 140.920205 
+L 179.791039 144.158195 
+L 180.510859 143.679155 
+L 181.230679 150.665968 
+L 181.950499 144.612889 
+L 182.670319 146.323037 
+L 183.390139 142.082627 
+L 184.829779 146.741729 
+L 185.549599 145.955216 
+L 186.269419 145.725832 
+L 186.989239 148.133201 
+L 187.709059 142.229271 
+L 188.428879 146.865582 
+L 189.148699 143.24908 
+L 189.868519 145.131657 
+L 190.588339 146.124952 
+L 191.308159 148.036048 
+L 192.027979 144.335266 
+L 192.747799 149.051852 
+L 193.467619 148.348804 
+L 194.187439 146.397457 
+L 194.907259 146.450346 
+L 195.627079 145.870245 
+L 196.346899 145.645768 
+L 197.066719 141.502829 
+L 197.786539 143.620717 
+L 198.506359 141.274317 
+L 199.226179 146.784156 
+L 199.945999 143.121005 
+L 200.665819 142.91212 
+L 201.385639 144.102088 
+L 202.105459 145.822293 
+L 202.825279 144.761379 
+L 203.545099 146.505654 
+L 204.264919 144.974717 
+L 204.984739 146.233013 
+L 205.704559 145.071376 
+L 206.424379 139.532895 
+L 207.144199 143.976772 
+L 207.864019 138.609774 
+L 208.583839 145.148307 
+L 209.303659 148.275839 
+L 210.023479 145.566412 
+L 210.743299 145.58439 
+L 211.463119 143.738868 
+L 212.182939 150.532912 
+L 212.902759 144.102154 
+L 214.342399 143.369454 
+L 215.062219 142.618295 
+L 215.782039 144.310269 
+L 216.501859 144.9656 
+L 217.221679 139.411043 
+L 217.941499 141.152777 
+L 218.661319 146.816529 
+L 219.381139 145.954022 
+L 220.100959 149.661754 
+L 220.820779 144.046682 
+L 221.540599 143.217038 
+L 222.260419 148.256938 
+L 222.980239 146.453861 
+L 223.700059 145.655616 
+L 224.419879 142.635438 
+L 225.139699 140.656098 
+L 225.859519 145.314971 
+L 226.579339 145.583932 
+L 227.299159 144.917417 
+L 228.018979 141.74868 
+L 228.738799 142.999942 
+L 229.458619 141.868007 
+L 230.178439 145.078177 
+L 230.898259 141.476215 
+L 231.618079 139.283505 
+L 232.337899 146.850623 
+L 233.057719 144.047934 
+L 233.777539 144.827783 
+L 234.497359 147.070887 
+L 235.217179 138.844064 
+L 235.936999 148.46845 
+L 236.656819 141.806784 
+L 237.376639 146.803557 
+L 238.096459 148.472439 
+L 238.816279 144.760575 
+L 239.536099 144.339524 
+L 240.255919 144.308005 
+L 240.975739 146.418281 
+L 241.695559 144.046348 
+L 242.415379 143.586225 
+L 243.135199 145.762016 
+L 243.855019 142.785512 
+L 244.574839 144.975394 
+L 245.294659 140.454243 
+L 246.014479 142.282137 
+L 246.734299 138.581178 
+L 247.454119 148.017342 
+L 248.173939 143.083224 
+L 248.893759 146.027906 
+L 249.613579 145.393219 
+L 250.333399 141.913665 
+L 251.053219 142.270934 
+L 251.773039 140.917899 
+L 252.492859 141.547109 
+L 253.212679 144.674171 
+L 253.932499 139.802659 
+L 254.652319 147.759086 
+L 255.372139 142.530044 
+L 256.091959 142.441692 
+L 256.811779 140.4485 
+L 257.531599 143.059453 
+L 258.251419 144.601235 
+L 258.971239 137.546456 
+L 260.410879 147.2234 
+L 261.130699 145.396062 
+L 261.850519 139.050806 
+L 262.570339 144.837408 
+L 264.009979 140.782623 
+L 264.729799 141.166533 
+L 265.449619 141.01193 
+L 266.169439 143.535087 
+L 266.889259 83.838707 
+L 267.609079 79.436308 
+L 268.328899 79.640251 
+L 269.048719 87.797851 
+L 269.768539 87.32695 
+L 270.488359 82.085131 
+L 271.208179 78.315034 
+L 271.927999 87.981812 
+L 272.647819 74.705928 
+L 273.367639 86.353716 
+L 274.087459 84.100762 
+L 274.807279 77.58597 
+L 275.527099 78.74804 
+L 276.246919 90.738002 
+L 276.966739 141.847609 
+L 278.406379 139.289463 
+L 279.126199 141.041238 
+L 279.846019 142.295746 
+L 280.565839 141.54728 
+L 281.285659 144.503567 
+L 282.005479 140.084266 
+L 282.725299 134.876979 
+L 283.445119 141.429351 
+L 284.164939 136.198343 
+L 284.884759 143.71836 
+L 285.604579 135.403156 
+L 286.324399 136.883586 
+L 287.044219 135.541008 
+L 287.764039 137.780761 
+L 288.483859 142.921639 
+L 289.203679 137.784642 
+L 289.923499 137.101832 
+L 290.643319 135.710297 
+L 291.363139 140.346162 
+L 292.082959 139.029768 
+L 292.802779 138.807549 
+L 293.522599 140.192531 
+L 294.242419 134.656542 
+L 294.962239 136.790721 
+L 295.682059 140.72108 
+L 296.401879 136.069267 
+L 297.121699 138.207703 
+L 297.841519 142.241241 
+L 298.561339 140.160551 
+L 299.281159 137.107708 
+L 300.000979 136.284532 
+L 300.720799 138.07776 
+L 301.440619 137.417267 
+L 302.160439 137.52882 
+L 302.880259 139.737901 
+L 303.600079 134.889124 
+L 304.319899 138.992757 
+L 305.039719 139.552282 
+L 305.759539 138.194677 
+L 307.199179 140.158482 
+L 307.918999 142.922341 
+L 308.638819 134.792225 
+L 309.358639 132.853934 
+L 310.078459 134.662406 
+L 310.798279 137.332608 
+L 311.518099 135.430147 
+L 312.237919 136.574545 
+L 312.957739 139.669596 
+L 313.677559 134.282862 
+L 314.397379 133.497055 
+L 315.117199 135.405892 
+L 315.837019 133.143009 
+L 316.556839 137.647451 
+L 317.276659 135.224049 
+L 317.996479 135.60389 
+L 318.716299 138.798078 
+L 319.436119 138.557798 
+L 320.155939 135.612735 
+L 321.595579 137.402923 
+L 322.315399 136.703407 
+L 323.035219 137.212688 
+L 323.755039 131.079761 
+L 324.474859 132.740402 
+L 325.194679 136.878563 
+L 325.914499 133.353861 
+L 326.634319 132.43441 
+L 327.354139 131.772497 
+L 328.073959 133.423281 
+L 328.793779 133.064834 
+L 329.513599 133.202489 
+L 330.233419 134.004161 
+L 330.953239 132.953988 
+L 331.673059 137.501476 
+L 333.112699 135.356114 
+L 333.832519 130.224963 
+L 334.552339 134.156549 
+L 335.272159 134.920344 
+L 335.991979 131.079266 
+L 336.711799 131.379004 
+L 337.431619 134.997886 
+L 338.151439 135.155296 
+L 338.871259 132.2006 
+L 339.591079 137.14894 
+L 340.310899 134.125434 
+L 341.030719 128.567336 
+L 341.750539 135.827487 
+L 342.470359 131.448155 
+L 343.190179 134.448948 
+L 343.909999 132.629693 
+L 344.629819 134.892853 
+L 345.349639 136.542242 
+L 346.069459 137.627317 
+L 346.789279 132.041617 
+L 347.509099 132.403953 
+L 348.228919 129.947298 
+L 348.948739 136.162321 
+L 349.668559 135.686135 
+L 350.388379 132.54285 
+L 351.108199 133.205054 
+L 351.828019 135.444502 
+L 352.547839 131.23747 
+L 353.267659 134.018882 
+L 353.987479 134.340357 
+L 354.707299 134.026127 
+L 355.427119 134.540785 
+L 356.146939 133.249227 
+L 356.866759 131.162055 
+L 357.586579 134.586785 
+L 358.306399 130.089473 
+L 359.026219 129.598159 
+L 359.746039 130.590718 
+L 360.465859 57.314537 
+L 361.905499 61.649031 
+L 362.625319 57.47193 
+L 363.345139 59.595865 
+L 364.064959 55.340658 
+L 364.784779 58.897963 
+L 365.504599 59.976343 
+L 366.224419 68.160444 
+L 366.944239 63.809023 
+L 367.664059 62.240011 
+L 368.383879 64.74686 
+L 369.103699 57.992625 
+L 369.823519 61.667394 
+L 370.543339 72.79676 
+L 372.702799 48.784281 
+L 373.422619 56.517483 
+L 374.142439 66.575086 
+L 374.862259 57.209858 
+L 375.582079 62.190009 
+L 376.301899 60.885259 
+L 377.021719 64.652893 
+L 377.741539 58.31103 
+L 378.461359 65.358785 
+L 379.181179 66.659807 
+L 379.900999 66.610446 
+L 380.620819 73.743977 
+L 381.340639 60.768708 
+L 382.060459 60.897675 
+L 382.780279 58.87639 
+L 383.500099 60.745325 
+L 384.219919 55.363948 
+L 384.939739 65.52471 
+L 385.659559 66.000566 
+L 386.379379 71.162916 
+L 387.099199 60.949404 
+L 387.819019 67.954144 
+L 388.538839 59.693956 
+L 389.258659 65.221912 
+L 389.978479 68.549987 
+L 390.698299 65.561774 
+L 391.418119 69.948044 
+L 392.137939 65.552052 
+L 392.857759 62.277396 
+L 393.577579 62.195667 
+L 394.297399 64.115928 
+L 395.017219 70.611111 
+L 395.737039 67.680922 
+L 396.456859 71.246943 
+L 397.176679 63.869563 
+L 397.896499 63.772669 
+L 398.616319 66.291646 
+L 399.336139 78.14161 
+L 400.055959 67.787164 
+L 400.775779 71.705289 
+L 401.495599 70.16401 
+L 402.215419 67.149834 
+L 402.935239 76.880499 
+L 403.655059 74.143844 
+L 404.374879 73.814412 
+L 405.094699 73.653566 
+L 405.814519 65.029099 
+L 406.534339 68.623468 
+L 407.254159 63.625809 
+L 407.973979 135.393655 
+L 408.693799 136.203951 
+L 409.413619 138.424094 
+L 410.133439 142.750695 
+L 410.853259 140.320607 
+L 411.573079 133.126237 
+L 412.292899 140.381117 
+L 413.012719 142.049286 
+L 413.732539 138.85714 
+L 414.452359 138.729492 
+L 415.172179 139.504208 
+L 415.891999 142.419557 
+L 416.611819 142.121385 
+L 417.331639 136.708224 
+L 418.051459 137.583611 
+L 418.771279 144.313648 
+L 419.491099 139.899203 
+L 420.210919 142.57761 
+L 420.930739 140.218329 
+L 421.650559 141.022605 
+L 422.370379 137.137416 
+L 423.090199 141.65092 
+L 423.810019 142.453474 
+L 424.529839 142.723294 
+L 425.249659 139.994414 
+L 425.969479 141.384994 
+L 426.689299 141.66445 
+L 427.409119 141.716474 
+L 428.128939 137.652673 
+L 428.848759 140.853133 
+L 429.568579 141.23428 
+L 430.288399 140.623766 
+L 431.008219 139.558024 
+L 431.728039 140.954961 
+L 432.447859 144.625098 
+L 433.167679 143.801818 
+L 433.887499 140.359863 
+L 434.607319 144.037985 
+L 435.327139 139.563501 
+L 436.766779 141.924865 
+L 437.486599 138.446416 
+L 438.206419 141.076682 
+L 438.926239 142.517844 
+L 440.365879 141.722475 
+L 441.085699 150.817319 
+L 441.805519 142.24501 
+L 442.525339 142.656744 
+L 443.245159 141.379405 
+L 443.964979 144.05686 
+L 444.684799 143.544312 
+L 445.404619 144.585439 
+L 446.124439 143.43153 
+L 446.844259 143.974437 
+L 447.564079 146.663066 
+L 448.283899 146.224773 
+L 449.003719 146.828375 
+L 449.723539 144.303555 
+L 450.443359 146.828471 
+L 451.163179 143.630398 
+L 451.882999 146.86592 
+L 452.602819 139.004658 
+L 453.322639 144.933206 
+L 454.042459 144.688723 
+L 454.762279 144.020744 
+L 455.482099 144.670173 
+L 456.201919 142.583407 
+L 456.921739 146.686972 
+L 457.641559 144.244027 
+L 458.361379 143.450578 
+L 459.081199 143.510939 
+L 459.801019 141.816599 
+L 460.520839 148.901587 
+L 461.240659 145.396848 
+L 461.960479 142.542296 
+L 462.680299 142.946736 
+L 463.400119 144.698014 
+L 464.119939 148.801889 
+L 464.839759 144.142578 
+L 465.559579 147.678424 
+L 466.279399 143.137598 
+L 466.999219 145.185867 
+L 467.719039 144.447366 
+L 468.438859 149.849993 
+L 469.158679 146.874083 
+L 469.878499 146.631462 
+L 470.598319 144.634202 
+L 472.037959 146.845267 
+L 472.757779 147.077076 
+L 474.197419 143.473163 
+L 474.917239 147.947271 
+L 475.637059 144.338363 
+L 476.356879 143.863833 
+L 477.076699 148.408922 
+L 478.516339 143.386904 
+L 479.236159 147.78036 
+L 479.955979 150.829568 
+L 480.675799 152.373062 
+L 481.395619 145.447804 
+L 482.115439 144.485357 
+L 482.835259 147.574585 
+L 483.555079 147.000824 
+L 484.274899 145.039456 
+L 484.994719 144.976401 
+L 485.714539 143.719942 
+L 486.434359 148.283836 
+L 487.154179 145.376857 
+L 487.873999 147.428852 
+L 488.593819 144.317178 
+L 489.313639 149.508206 
+L 490.033459 138.768426 
+L 490.753279 145.814103 
+L 491.473099 148.701706 
+L 492.192919 146.870325 
+L 492.912739 146.955804 
+L 493.632559 150.122901 
+L 494.352379 149.758797 
+L 495.072199 147.877472 
+L 495.792019 149.875563 
+L 496.511839 149.92949 
+L 497.231659 147.920671 
+L 497.951479 148.132124 
+L 498.671299 145.766165 
+L 499.391119 149.345052 
+L 500.110939 146.528657 
+L 501.550579 147.558091 
+L 502.270399 145.839968 
+L 502.990219 146.242791 
+L 503.710039 147.911185 
+L 504.429859 147.448629 
+L 505.149679 148.653039 
+L 505.869499 144.670762 
+L 506.589319 142.566495 
+L 507.309139 143.098853 
+L 508.028959 147.738537 
+L 508.748779 144.538596 
+L 509.468599 149.877682 
+L 510.188419 146.536975 
+L 510.908239 146.445226 
+L 511.628059 148.472672 
+L 512.347879 139.586654 
+L 513.067699 141.785047 
+L 513.787519 142.676728 
+L 514.507339 145.945405 
+L 515.227159 147.298592 
+L 515.827009 147.273089 
+L 515.827009 147.273089 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #e07a3a; stroke-opacity: 0.9; stroke-width: 1.1; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<path d="M 36.546859 230.441434 
+L 37.266679 228.808263 
+L 37.986499 222.888465 
+L 38.706319 225.787897 
+L 39.426139 225.563079 
+L 40.145959 224.084291 
+L 40.865779 222.994608 
+L 41.585599 224.474885 
+L 42.305419 222.09844 
+L 43.025239 222.578134 
+L 43.745059 220.750636 
+L 44.464879 221.277939 
+L 45.184699 219.811983 
+L 45.904519 219.980248 
+L 46.624339 217.992484 
+L 47.344159 221.06427 
+L 48.063979 216.067617 
+L 48.783799 216.711898 
+L 49.503619 213.140415 
+L 50.223439 215.392508 
+L 50.943259 215.106901 
+L 51.663079 212.010347 
+L 52.382899 212.206946 
+L 53.102719 212.941325 
+L 53.822539 210.907452 
+L 54.542359 211.528243 
+L 55.262179 214.23207 
+L 55.981999 213.598432 
+L 56.701819 212.621049 
+L 57.421639 211.987314 
+L 58.141459 210.822853 
+L 58.861279 205.588712 
+L 59.581099 208.100642 
+L 60.300919 209.283873 
+L 61.020739 207.924999 
+L 61.740559 207.129389 
+L 62.460379 207.096975 
+L 63.180199 206.447765 
+L 63.900019 206.10661 
+L 64.619839 205.446693 
+L 65.339659 204.386861 
+L 66.059479 206.193426 
+L 66.779299 203.135309 
+L 67.499119 202.148322 
+L 68.218939 203.415874 
+L 68.938759 202.768225 
+L 70.378399 201.945077 
+L 71.098219 203.279885 
+L 71.818039 200.425013 
+L 72.537859 200.632946 
+L 73.257679 199.794605 
+L 73.977499 198.030214 
+L 74.697319 199.563492 
+L 75.417139 197.990131 
+L 76.136959 198.945786 
+L 76.856779 199.052693 
+L 77.576599 197.992393 
+L 78.296419 197.252875 
+L 79.016239 195.921312 
+L 79.736059 196.959121 
+L 80.455879 195.774359 
+L 81.175699 197.856761 
+L 82.615339 195.592971 
+L 83.335159 197.407251 
+L 84.054979 194.548667 
+L 84.774799 192.629049 
+L 85.494619 194.150736 
+L 86.214439 192.154303 
+L 86.934259 192.567025 
+L 87.654079 193.347011 
+L 88.373899 193.093736 
+L 89.093719 194.147424 
+L 89.813539 191.260102 
+L 90.533359 193.060954 
+L 91.253179 188.842297 
+L 91.972999 190.253182 
+L 92.692819 192.340737 
+L 93.412639 189.800106 
+L 94.132459 190.057784 
+L 94.852279 188.913912 
+L 95.572099 186.428486 
+L 96.291919 192.295976 
+L 97.011739 188.297677 
+L 97.731559 150.52003 
+L 98.451379 147.003559 
+L 99.171199 144.079475 
+L 99.891019 143.165639 
+L 100.610839 148.687652 
+L 101.330659 142.388243 
+L 102.050479 144.313167 
+L 102.770299 148.89772 
+L 104.209939 140.5194 
+L 104.929759 141.765061 
+L 105.649579 146.881344 
+L 106.369399 140.016052 
+L 107.089219 139.764685 
+L 107.809039 145.704667 
+L 108.528859 146.923549 
+L 109.248679 136.00843 
+L 109.968499 135.405388 
+L 110.688319 136.095685 
+L 111.408139 140.572034 
+L 112.127959 141.601897 
+L 112.847779 144.602283 
+L 113.567599 139.94622 
+L 114.287419 144.579022 
+L 115.007239 139.476169 
+L 115.727059 143.327426 
+L 116.446879 143.037752 
+L 117.166699 140.778857 
+L 117.886519 144.590297 
+L 118.606339 146.76695 
+L 119.326159 144.106434 
+L 120.045979 135.818147 
+L 120.765799 143.413743 
+L 121.485619 134.933319 
+L 122.205439 143.534172 
+L 123.645079 139.011663 
+L 124.364899 141.640358 
+L 125.084719 135.067038 
+L 125.804539 139.145482 
+L 126.524359 148.582914 
+L 127.244179 140.034237 
+L 127.963999 140.25285 
+L 128.683819 139.298208 
+L 129.403639 132.367982 
+L 130.123459 150.730388 
+L 130.843279 142.442168 
+L 131.563099 140.360631 
+L 132.282919 145.062164 
+L 133.002739 138.849655 
+L 133.722559 178.051805 
+L 134.442379 179.153647 
+L 135.162199 179.509217 
+L 135.882019 180.977277 
+L 136.601839 181.685261 
+L 137.321659 175.772779 
+L 138.041479 178.827271 
+L 138.761299 174.003391 
+L 139.481119 179.105712 
+L 140.200939 176.539982 
+L 140.920759 176.986151 
+L 141.640579 174.678946 
+L 142.360399 177.50567 
+L 143.080219 181.825789 
+L 143.800039 178.289548 
+L 144.519859 181.308861 
+L 145.239679 178.041018 
+L 145.959499 178.039802 
+L 146.679319 179.01856 
+L 147.399139 174.797302 
+L 148.118959 179.855654 
+L 148.838779 177.363622 
+L 149.558599 179.161875 
+L 150.278419 182.511853 
+L 150.998239 177.648714 
+L 151.718059 178.503827 
+L 152.437879 179.00214 
+L 153.157699 176.426091 
+L 153.877519 178.217628 
+L 154.597339 176.703431 
+L 155.317159 179.722791 
+L 156.036979 180.404999 
+L 156.756799 178.144766 
+L 157.476619 179.732055 
+L 158.196439 179.957059 
+L 158.916259 143.344284 
+L 159.636079 143.946591 
+L 160.355899 139.015886 
+L 161.075719 142.163117 
+L 161.795539 142.033504 
+L 162.515359 140.765911 
+L 163.235179 142.67651 
+L 163.954999 140.569873 
+L 164.674819 140.778379 
+L 165.394639 143.100378 
+L 166.114459 144.006217 
+L 166.834279 143.726743 
+L 167.554099 139.534052 
+L 168.273919 141.57495 
+L 168.993739 142.863693 
+L 169.713559 138.717536 
+L 170.433379 140.406147 
+L 171.153199 142.917573 
+L 171.873019 140.878639 
+L 172.592839 140.587109 
+L 173.312659 139.33714 
+L 174.032479 143.752202 
+L 174.752299 134.525191 
+L 175.472119 140.826734 
+L 176.191939 132.244741 
+L 176.911759 142.998714 
+L 177.631579 142.351524 
+L 178.351399 175.475925 
+L 179.071219 173.789341 
+L 179.791039 175.981445 
+L 180.510859 175.434839 
+L 181.230679 180.038454 
+L 181.950499 175.985092 
+L 182.670319 176.434839 
+L 183.390139 174.276494 
+L 184.109959 176.739412 
+L 184.829779 176.998219 
+L 185.549599 175.47524 
+L 186.989239 178.503053 
+L 187.709059 173.780474 
+L 188.428879 177.228476 
+L 189.148699 174.021437 
+L 189.868519 177.148102 
+L 190.588339 177.847446 
+L 191.308159 177.915541 
+L 192.027979 175.573873 
+L 192.747799 178.640139 
+L 193.467619 177.896025 
+L 194.187439 176.870143 
+L 194.907259 176.459737 
+L 195.627079 177.18069 
+L 196.346899 175.513196 
+L 197.066719 171.141894 
+L 197.786539 176.254332 
+L 198.506359 171.606582 
+L 199.226179 176.79887 
+L 199.945999 174.745097 
+L 200.665819 173.871609 
+L 201.385639 176.848686 
+L 202.105459 177.952496 
+L 202.825279 175.557631 
+L 203.545099 175.720785 
+L 204.264919 174.775888 
+L 204.984739 175.940271 
+L 205.704559 175.96304 
+L 206.424379 170.209333 
+L 207.144199 173.799106 
+L 207.864019 170.24271 
+L 208.583839 175.713411 
+L 209.303659 178.546138 
+L 210.023479 176.082574 
+L 210.743299 176.972945 
+L 211.463119 174.224376 
+L 212.182939 179.924462 
+L 212.902759 174.618937 
+L 213.622579 174.519261 
+L 214.342399 173.959982 
+L 215.062219 173.098144 
+L 216.501859 175.395679 
+L 217.221679 169.292031 
+L 217.941499 172.29681 
+L 218.661319 176.765126 
+L 219.381139 175.218361 
+L 220.100959 178.668517 
+L 220.820779 173.641408 
+L 221.540599 172.073624 
+L 222.260419 177.135681 
+L 222.980239 176.410238 
+L 223.700059 177.30753 
+L 224.419879 173.477265 
+L 225.139699 172.266831 
+L 225.859519 176.389113 
+L 226.579339 176.418892 
+L 227.299159 175.612837 
+L 228.018979 172.833683 
+L 228.738799 173.125868 
+L 229.458619 172.005733 
+L 230.178439 174.523066 
+L 230.898259 171.787136 
+L 231.618079 173.054874 
+L 232.337899 177.655525 
+L 233.057719 175.256149 
+L 233.777539 176.196031 
+L 234.497359 177.582464 
+L 235.217179 169.295496 
+L 235.936999 178.454488 
+L 236.656819 172.551804 
+L 237.376639 176.684472 
+L 238.096459 179.130932 
+L 238.816279 173.903244 
+L 239.536099 175.013981 
+L 240.255919 174.252452 
+L 240.975739 176.604131 
+L 241.695559 174.255973 
+L 242.415379 173.812175 
+L 243.135199 175.622399 
+L 243.855019 173.636086 
+L 244.574839 175.534496 
+L 245.294659 171.156883 
+L 246.014479 172.751227 
+L 246.734299 169.914799 
+L 247.454119 177.102771 
+L 248.173939 174.679904 
+L 248.893759 176.214039 
+L 249.613579 175.560181 
+L 250.333399 173.609407 
+L 251.053219 173.899265 
+L 251.773039 171.491714 
+L 252.492859 173.542511 
+L 253.212679 174.711489 
+L 253.932499 171.985528 
+L 254.652319 177.168491 
+L 255.372139 172.985718 
+L 256.811779 171.671474 
+L 257.531599 173.279124 
+L 258.251419 175.434062 
+L 258.971239 169.333081 
+L 259.691059 171.794371 
+L 260.410879 178.759774 
+L 261.130699 176.789972 
+L 261.850519 170.542235 
+L 262.570339 175.574425 
+L 263.290159 173.987516 
+L 264.009979 170.917547 
+L 264.729799 170.883685 
+L 265.449619 172.672164 
+L 266.169439 173.846388 
+L 266.889259 142.344501 
+L 267.609079 138.080176 
+L 268.328899 138.757545 
+L 269.048719 143.928281 
+L 269.768539 144.93848 
+L 270.488359 138.595668 
+L 271.208179 139.901362 
+L 271.927999 144.353188 
+L 272.647819 136.096157 
+L 273.367639 143.728857 
+L 274.087459 140.082312 
+L 274.807279 137.68817 
+L 275.527099 140.914334 
+L 276.246919 146.73995 
+L 276.966739 172.125711 
+L 277.686559 172.663898 
+L 278.406379 171.989748 
+L 279.126199 172.902433 
+L 279.846019 172.072347 
+L 280.565839 172.861706 
+L 281.285659 176.248601 
+L 282.725299 166.789757 
+L 283.445119 172.817773 
+L 284.164939 169.097026 
+L 284.884759 174.677703 
+L 285.604579 168.523175 
+L 286.324399 170.005572 
+L 287.044219 168.41884 
+L 287.764039 170.47063 
+L 288.483859 174.194019 
+L 289.203679 169.209766 
+L 289.923499 170.427782 
+L 290.643319 167.710215 
+L 291.363139 171.817002 
+L 292.082959 170.414992 
+L 292.802779 171.207536 
+L 293.522599 171.118518 
+L 294.242419 166.562738 
+L 294.962239 169.399922 
+L 295.682059 173.34338 
+L 296.401879 169.188436 
+L 297.121699 169.226483 
+L 297.841519 172.501488 
+L 299.281159 170.333966 
+L 300.000979 170.784001 
+L 300.720799 170.327867 
+L 301.440619 170.435514 
+L 302.160439 169.387108 
+L 302.880259 172.382567 
+L 303.600079 168.138656 
+L 304.319899 169.625644 
+L 305.039719 171.612106 
+L 305.759539 170.787126 
+L 306.479359 172.563084 
+L 307.199179 171.518647 
+L 307.918999 173.502243 
+L 308.638819 167.589664 
+L 309.358639 166.80179 
+L 310.078459 168.524547 
+L 310.798279 169.441844 
+L 311.518099 169.387134 
+L 312.237919 170.192473 
+L 312.957739 172.237733 
+L 313.677559 168.507897 
+L 314.397379 167.507771 
+L 315.117199 169.355192 
+L 315.837019 168.024098 
+L 316.556839 169.392258 
+L 317.276659 169.576321 
+L 317.996479 168.196822 
+L 318.716299 171.695662 
+L 319.436119 170.718265 
+L 320.155939 170.832569 
+L 320.875759 168.887787 
+L 321.595579 170.934986 
+L 322.315399 168.851021 
+L 323.035219 169.93736 
+L 323.755039 167.301288 
+L 324.474859 166.85703 
+L 325.194679 169.642481 
+L 325.914499 167.300261 
+L 326.634319 165.693313 
+L 327.354139 166.575243 
+L 328.073959 166.195277 
+L 328.793779 167.721103 
+L 329.513599 167.461626 
+L 330.233419 167.783524 
+L 330.953239 167.90647 
+L 331.673059 170.417661 
+L 332.392879 169.297458 
+L 333.112699 169.896906 
+L 333.832519 165.565413 
+L 334.552339 166.403115 
+L 335.272159 168.842562 
+L 335.991979 166.417654 
+L 337.431619 168.51106 
+L 338.151439 168.758831 
+L 338.871259 167.191943 
+L 339.591079 170.452518 
+L 340.310899 168.704156 
+L 341.030719 164.255463 
+L 341.750539 168.357444 
+L 342.470359 165.266576 
+L 343.190179 168.650659 
+L 343.909999 167.248926 
+L 344.629819 169.102527 
+L 345.349639 169.856961 
+L 346.069459 169.678261 
+L 346.789279 166.573356 
+L 347.509099 167.438294 
+L 348.228919 164.630771 
+L 348.948739 169.104736 
+L 349.668559 169.681473 
+L 350.388379 167.379162 
+L 351.108199 167.3041 
+L 351.828019 168.248416 
+L 352.547839 166.534278 
+L 353.267659 167.381518 
+L 353.987479 166.889831 
+L 354.707299 167.939975 
+L 355.427119 167.705417 
+L 356.146939 167.174942 
+L 356.866759 165.390502 
+L 357.586579 167.974955 
+L 358.306399 164.204039 
+L 359.026219 164.451324 
+L 359.746039 166.560615 
+L 360.465859 123.1656 
+L 361.905499 126.715338 
+L 362.625319 123.486673 
+L 363.345139 126.031874 
+L 364.064959 121.23284 
+L 365.504599 124.914452 
+L 366.224419 130.835662 
+L 366.944239 128.035656 
+L 367.664059 127.106952 
+L 368.383879 127.420141 
+L 369.103699 122.127778 
+L 369.823519 124.732584 
+L 370.543339 132.871637 
+L 371.263159 127.916353 
+L 371.982979 121.251808 
+L 372.702799 117.066524 
+L 373.422619 121.91104 
+L 374.142439 130.672581 
+L 374.862259 124.63837 
+L 375.582079 126.273999 
+L 376.301899 125.037029 
+L 377.021719 128.973303 
+L 377.741539 123.739399 
+L 378.461359 128.052881 
+L 379.181179 130.270709 
+L 379.900999 130.447778 
+L 380.620819 135.087625 
+L 381.340639 124.096036 
+L 382.060459 125.968438 
+L 382.780279 124.820336 
+L 383.500099 123.041664 
+L 384.219919 122.72828 
+L 384.939739 131.344078 
+L 385.659559 128.36527 
+L 386.379379 132.403821 
+L 387.099199 125.133428 
+L 387.819019 130.35828 
+L 388.538839 125.445662 
+L 389.258659 130.300597 
+L 389.978479 132.980478 
+L 390.698299 127.359273 
+L 391.418119 132.838478 
+L 392.137939 130.304745 
+L 392.857759 126.534153 
+L 393.577579 126.93168 
+L 394.297399 126.506284 
+L 395.017219 131.694969 
+L 395.737039 131.558653 
+L 396.456859 134.284722 
+L 397.176679 126.590313 
+L 397.896499 126.9271 
+L 398.616319 128.639421 
+L 399.336139 137.679916 
+L 400.055959 131.159126 
+L 400.775779 134.222188 
+L 401.495599 135.025247 
+L 402.215419 131.095515 
+L 402.935239 134.727769 
+L 403.655059 133.815182 
+L 404.374879 133.991918 
+L 405.094699 134.006267 
+L 405.814519 129.791701 
+L 406.534339 130.956057 
+L 407.254159 128.392165 
+L 407.973979 169.808996 
+L 408.693799 168.899583 
+L 409.413619 170.281004 
+L 410.133439 174.164671 
+L 410.853259 171.820133 
+L 411.573079 165.923228 
+L 412.292899 171.278185 
+L 413.012719 173.376895 
+L 414.452359 170.650036 
+L 415.172179 171.621985 
+L 415.891999 173.963647 
+L 416.611819 173.898471 
+L 417.331639 170.323519 
+L 418.051459 170.048999 
+L 418.771279 174.847035 
+L 419.491099 171.311135 
+L 420.210919 173.640742 
+L 420.930739 172.484352 
+L 421.650559 173.086956 
+L 422.370379 169.316236 
+L 423.090199 173.712139 
+L 423.810019 173.498233 
+L 424.529839 174.536134 
+L 425.249659 172.059921 
+L 425.969479 172.482623 
+L 426.689299 173.282395 
+L 427.409119 172.613983 
+L 428.128939 168.370424 
+L 428.848759 173.758086 
+L 429.568579 170.858413 
+L 430.288399 173.057417 
+L 431.008219 172.276363 
+L 431.728039 172.31555 
+L 432.447859 175.088344 
+L 433.167679 174.693836 
+L 433.887499 173.026664 
+L 434.607319 175.564088 
+L 435.327139 171.283839 
+L 436.046959 171.279807 
+L 436.766779 173.147811 
+L 437.486599 168.8737 
+L 438.206419 172.542332 
+L 438.926239 174.069288 
+L 439.646059 174.360556 
+L 440.365879 174.062974 
+L 441.085699 180.745746 
+L 441.805519 173.346102 
+L 442.525339 174.222631 
+L 443.245159 172.333496 
+L 443.964979 176.065566 
+L 444.684799 173.190357 
+L 445.404619 175.121567 
+L 446.124439 174.510307 
+L 446.844259 173.730324 
+L 447.564079 176.477529 
+L 449.003719 176.163248 
+L 449.723539 176.97676 
+L 451.163179 174.338406 
+L 451.882999 177.336389 
+L 452.602819 170.618712 
+L 453.322639 174.00125 
+L 454.042459 175.937799 
+L 454.762279 174.274499 
+L 455.482099 174.857077 
+L 456.201919 174.42604 
+L 456.921739 176.355451 
+L 457.641559 173.68456 
+L 458.361379 172.933009 
+L 459.081199 174.99475 
+L 459.801019 171.569941 
+L 460.520839 178.603141 
+L 461.240659 175.327639 
+L 461.960479 172.760101 
+L 462.680299 174.624903 
+L 463.400119 173.219406 
+L 464.119939 178.612305 
+L 464.839759 174.696745 
+L 465.559579 178.627045 
+L 466.279399 173.999817 
+L 466.999219 175.819597 
+L 467.719039 174.853333 
+L 468.438859 179.23894 
+L 469.158679 176.344242 
+L 469.878499 176.178118 
+L 470.598319 173.996622 
+L 472.037959 175.799283 
+L 472.757779 174.616215 
+L 473.477599 175.749608 
+L 474.197419 173.299429 
+L 474.917239 177.407121 
+L 475.637059 174.644646 
+L 476.356879 173.856153 
+L 477.076699 176.57967 
+L 477.796519 175.838304 
+L 478.516339 174.202508 
+L 479.236159 176.749788 
+L 479.955979 180.069766 
+L 480.675799 180.445054 
+L 481.395619 174.382611 
+L 482.115439 173.888174 
+L 482.835259 177.763323 
+L 483.555079 176.622286 
+L 484.274899 175.086183 
+L 484.994719 174.91573 
+L 485.714539 171.747774 
+L 486.434359 178.366457 
+L 487.154179 175.312338 
+L 487.873999 175.866548 
+L 488.593819 175.413214 
+L 489.313639 178.890578 
+L 490.033459 170.451012 
+L 490.753279 175.828549 
+L 491.473099 176.209841 
+L 492.192919 175.706868 
+L 492.912739 177.198976 
+L 493.632559 178.191769 
+L 494.352379 177.806684 
+L 495.072199 177.174306 
+L 495.792019 178.430521 
+L 496.511839 179.029538 
+L 497.231659 176.971412 
+L 497.951479 176.905717 
+L 498.671299 175.78177 
+L 499.391119 177.528558 
+L 500.110939 176.503132 
+L 500.830759 175.229396 
+L 501.550579 177.841012 
+L 502.270399 176.234165 
+L 502.990219 175.844014 
+L 503.710039 176.026521 
+L 504.429859 176.075614 
+L 505.149679 177.273733 
+L 506.589319 172.293687 
+L 507.309139 173.040608 
+L 508.028959 179.961902 
+L 508.748779 174.965726 
+L 509.468599 179.484378 
+L 510.188419 176.747268 
+L 510.908239 175.907759 
+L 511.628059 177.360036 
+L 512.347879 171.025562 
+L 513.067699 171.90514 
+L 513.787519 172.204054 
+L 514.507339 176.666796 
+L 515.227159 177.234044 
+L 515.827009 175.841647 
+L 515.827009 175.841647 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #8a94a6; stroke-opacity: 0.9; stroke-width: 1.1; stroke-linecap: square"/>
+</g>
+<g id="line2d_31">
+<path d="M 36.546859 227.130185 
+L 37.266679 225.687232 
+L 37.986499 221.272389 
+L 38.706319 223.955458 
+L 39.426139 222.736657 
+L 40.145959 222.273439 
+L 40.865779 219.863222 
+L 41.585599 221.703171 
+L 42.305419 219.700311 
+L 43.025239 220.356634 
+L 43.745059 218.872297 
+L 44.464879 219.016205 
+L 45.184699 216.68786 
+L 45.904519 217.332943 
+L 46.624339 214.279187 
+L 47.344159 217.77209 
+L 48.063979 213.352352 
+L 48.783799 213.755969 
+L 49.503619 210.73732 
+L 50.223439 213.403812 
+L 50.943259 213.074586 
+L 51.663079 213.960473 
+L 52.382899 211.536284 
+L 53.102719 212.446699 
+L 53.822539 210.648162 
+L 54.542359 210.637519 
+L 55.262179 210.916138 
+L 55.981999 211.86089 
+L 57.421639 209.021318 
+L 58.141459 209.479367 
+L 58.861279 206.626048 
+L 59.581099 207.821414 
+L 60.300919 209.249081 
+L 61.020739 207.947978 
+L 61.740559 206.040974 
+L 62.460379 206.218293 
+L 63.180199 205.553279 
+L 63.900019 205.230716 
+L 64.619839 204.368432 
+L 65.339659 204.172257 
+L 66.059479 204.564561 
+L 66.779299 203.480814 
+L 67.499119 204.137511 
+L 68.218939 202.592427 
+L 68.938759 202.822694 
+L 69.658579 201.884277 
+L 70.378399 201.405399 
+L 71.098219 202.044536 
+L 71.818039 199.115956 
+L 72.537859 200.176993 
+L 73.257679 199.776613 
+L 73.977499 197.981647 
+L 74.697319 198.956622 
+L 75.417139 198.381889 
+L 76.136959 198.12559 
+L 76.856779 199.880256 
+L 77.576599 198.088005 
+L 78.296419 197.574776 
+L 79.016239 196.38879 
+L 79.736059 197.967897 
+L 80.455879 197.313703 
+L 81.175699 196.953137 
+L 81.895519 196.959583 
+L 82.615339 195.915436 
+L 83.335159 196.178082 
+L 84.054979 195.227089 
+L 84.774799 192.758713 
+L 85.494619 194.54288 
+L 86.214439 194.507578 
+L 86.934259 194.358828 
+L 87.654079 194.949086 
+L 88.373899 192.577607 
+L 89.093719 194.130511 
+L 89.813539 192.90546 
+L 90.533359 193.132131 
+L 91.253179 192.064015 
+L 91.972999 189.878274 
+L 92.692819 192.218111 
+L 93.412639 191.254814 
+L 94.132459 190.875005 
+L 94.852279 189.783675 
+L 95.572099 189.004099 
+L 96.291919 191.756758 
+L 97.011739 189.970987 
+L 97.731559 194.23723 
+L 98.451379 190.885125 
+L 99.171199 191.161142 
+L 99.891019 192.182219 
+L 100.610839 195.538871 
+L 101.330659 193.428481 
+L 102.050479 190.768392 
+L 102.770299 196.178118 
+L 103.490119 191.41568 
+L 104.209939 190.886907 
+L 104.929759 187.359608 
+L 105.649579 189.8014 
+L 106.369399 194.719228 
+L 107.089219 188.077873 
+L 107.809039 191.627772 
+L 108.528859 192.604846 
+L 109.248679 190.282659 
+L 110.688319 184.142698 
+L 111.408139 188.624489 
+L 112.127959 185.658149 
+L 112.847779 188.836573 
+L 113.567599 186.618586 
+L 114.287419 185.451331 
+L 115.007239 192.086221 
+L 115.727059 187.749923 
+L 116.446879 189.28441 
+L 117.166699 190.228362 
+L 117.886519 190.154408 
+L 118.606339 191.101489 
+L 119.326159 187.643941 
+L 120.045979 185.123642 
+L 120.765799 188.523791 
+L 121.485619 188.471123 
+L 122.205439 190.009662 
+L 122.925259 185.074999 
+L 123.645079 184.725695 
+L 124.364899 189.9851 
+L 125.084719 186.582924 
+L 125.804539 182.4176 
+L 126.524359 186.747045 
+L 127.244179 182.941339 
+L 127.963999 186.701841 
+L 128.683819 188.025745 
+L 129.403639 180.550383 
+L 130.123459 187.427419 
+L 130.843279 186.302599 
+L 131.563099 183.120614 
+L 132.282919 187.808144 
+L 133.002739 188.461315 
+L 133.722559 178.499512 
+L 135.162199 180.741831 
+L 135.882019 179.486986 
+L 136.601839 180.892906 
+L 137.321659 177.424439 
+L 138.041479 178.918243 
+L 138.761299 174.635137 
+L 139.481119 179.327906 
+L 140.200939 176.497454 
+L 140.920759 177.242705 
+L 141.640579 173.395114 
+L 142.360399 177.151853 
+L 143.080219 179.681168 
+L 143.800039 178.010079 
+L 144.519859 180.457485 
+L 145.239679 177.384289 
+L 145.959499 176.812582 
+L 146.679319 178.48108 
+L 147.399139 174.661615 
+L 148.118959 177.385765 
+L 148.838779 176.602354 
+L 149.558599 178.214421 
+L 150.278419 179.334445 
+L 150.998239 175.541347 
+L 151.718059 175.78641 
+L 152.437879 175.836633 
+L 153.157699 173.89594 
+L 153.877519 177.447058 
+L 154.597339 175.726458 
+L 155.317159 177.703943 
+L 156.036979 177.613651 
+L 156.756799 174.879224 
+L 157.476619 176.544132 
+L 158.196439 176.199558 
+L 158.916259 180.909608 
+L 159.636079 176.354573 
+L 160.355899 175.807431 
+L 161.075719 175.989858 
+L 161.795539 175.737533 
+L 163.235179 178.831241 
+L 163.954999 176.772886 
+L 164.674819 177.548589 
+L 165.394639 181.347538 
+L 166.114459 180.652926 
+L 166.834279 179.474133 
+L 167.554099 176.087049 
+L 168.273919 176.060304 
+L 168.993739 177.831632 
+L 169.713559 178.689276 
+L 170.433379 176.346126 
+L 171.153199 177.536707 
+L 171.873019 174.806313 
+L 172.592839 183.213182 
+L 173.312659 175.849539 
+L 174.032479 179.580372 
+L 174.752299 172.534339 
+L 175.472119 179.016001 
+L 176.191939 168.347491 
+L 176.911759 180.503975 
+L 177.631579 173.798057 
+L 178.351399 171.392435 
+L 179.071219 171.158247 
+L 179.791039 172.212184 
+L 180.510859 172.147008 
+L 181.230679 175.318375 
+L 181.950499 172.08059 
+L 183.390139 170.188752 
+L 184.109959 173.616345 
+L 184.829779 170.975182 
+L 185.549599 170.685779 
+L 186.269419 172.600668 
+L 186.989239 173.311603 
+L 187.709059 170.023949 
+L 188.428879 172.19539 
+L 189.148699 169.959254 
+L 189.868519 172.167827 
+L 190.588339 173.399255 
+L 191.308159 173.043109 
+L 192.027979 170.969608 
+L 192.747799 172.885094 
+L 193.467619 172.002871 
+L 194.187439 171.782088 
+L 194.907259 170.562287 
+L 195.627079 172.843961 
+L 196.346899 169.942008 
+L 197.066719 166.099235 
+L 197.786539 171.492321 
+L 198.506359 167.156242 
+L 199.226179 171.253286 
+L 199.945999 168.833749 
+L 200.665819 170.310971 
+L 201.385639 172.818694 
+L 202.105459 173.13932 
+L 202.825279 170.49113 
+L 203.545099 170.268754 
+L 204.264919 168.476968 
+L 204.984739 170.408562 
+L 205.704559 170.392281 
+L 206.424379 164.916656 
+L 207.144199 167.825505 
+L 207.864019 165.745013 
+L 208.583839 170.245168 
+L 209.303659 171.849329 
+L 210.023479 170.970096 
+L 210.743299 171.418804 
+L 211.463119 168.770702 
+L 212.182939 173.22701 
+L 212.902759 170.500854 
+L 213.622579 170.165847 
+L 215.062219 167.008439 
+L 215.782039 167.6826 
+L 216.501859 169.540649 
+L 217.221679 163.139539 
+L 217.941499 167.041406 
+L 218.661319 169.17645 
+L 219.381139 168.612022 
+L 220.100959 171.609115 
+L 220.820779 167.229193 
+L 221.540599 165.25241 
+L 222.260419 170.653663 
+L 222.980239 170.28498 
+L 223.700059 170.684282 
+L 224.419879 168.090105 
+L 225.139699 167.089863 
+L 225.859519 171.268428 
+L 226.579339 171.023248 
+L 227.299159 169.228358 
+L 228.018979 168.606267 
+L 228.738799 167.456964 
+L 229.458619 166.786001 
+L 230.178439 167.725037 
+L 230.898259 167.143938 
+L 231.618079 169.947941 
+L 232.337899 172.194046 
+L 233.057719 169.757815 
+L 233.777539 170.492968 
+L 234.497359 172.267846 
+L 235.217179 163.048651 
+L 235.936999 172.237571 
+L 236.656819 168.103058 
+L 237.376639 170.53325 
+L 238.096459 173.605543 
+L 238.816279 167.146152 
+L 239.536099 168.612611 
+L 240.255919 168.331493 
+L 240.975739 171.993876 
+L 241.695559 169.200837 
+L 242.415379 167.998958 
+L 243.135199 169.193228 
+L 243.855019 167.735136 
+L 244.574839 169.138589 
+L 245.294659 166.599162 
+L 246.014479 167.236191 
+L 246.734299 165.811471 
+L 247.454119 171.078069 
+L 248.173939 169.899185 
+L 248.893759 170.39709 
+L 250.333399 169.043142 
+L 251.053219 168.870718 
+L 251.773039 166.381747 
+L 252.492859 169.070569 
+L 253.212679 169.585764 
+L 253.932499 167.169515 
+L 254.652319 170.859791 
+L 255.372139 167.345149 
+L 256.091959 166.110014 
+L 257.531599 167.692806 
+L 258.251419 170.033707 
+L 258.971239 164.739067 
+L 259.691059 165.379938 
+L 260.410879 174.322564 
+L 261.130699 172.282435 
+L 261.850519 167.845581 
+L 262.570339 170.694393 
+L 263.290159 170.044523 
+L 264.009979 168.826578 
+L 264.729799 164.941286 
+L 265.449619 169.17671 
+L 266.169439 168.767052 
+L 266.889259 175.633727 
+L 267.609079 170.565772 
+L 268.328899 170.283965 
+L 269.048719 172.192379 
+L 269.768539 172.511322 
+L 270.488359 167.961508 
+L 271.208179 171.148057 
+L 271.927999 171.761266 
+L 272.647819 169.979493 
+L 273.367639 175.300865 
+L 274.087459 169.470705 
+L 274.807279 172.98649 
+L 275.527099 172.751032 
+L 276.246919 173.856107 
+L 276.966739 167.159773 
+L 277.686559 168.902482 
+L 278.406379 168.920363 
+L 279.126199 169.757202 
+L 279.846019 167.077961 
+L 280.565839 168.637831 
+L 281.285659 172.665966 
+L 282.005479 167.941214 
+L 282.725299 164.510468 
+L 283.445119 169.107105 
+L 284.164939 165.509597 
+L 284.884759 170.501125 
+L 285.604579 166.236808 
+L 286.324399 167.71059 
+L 287.044219 166.124491 
+L 288.483859 170.64251 
+L 289.203679 166.057996 
+L 289.923499 167.36372 
+L 290.643319 165.415644 
+L 291.363139 168.33813 
+L 292.082959 167.985478 
+L 292.802779 168.773356 
+L 293.522599 167.326392 
+L 294.242419 164.214979 
+L 295.682059 170.740921 
+L 296.401879 166.844479 
+L 297.121699 165.474069 
+L 297.841519 168.471592 
+L 298.561339 168.992965 
+L 300.000979 166.683229 
+L 300.720799 168.342288 
+L 301.440619 168.968373 
+L 302.160439 166.39455 
+L 302.880259 170.673789 
+L 303.600079 167.400171 
+L 304.319899 166.721676 
+L 305.039719 169.757867 
+L 305.759539 168.816128 
+L 306.479359 171.850415 
+L 307.199179 169.432174 
+L 307.918999 169.68642 
+L 308.638819 166.230558 
+L 309.358639 165.615855 
+L 310.078459 168.062049 
+L 310.798279 167.528487 
+L 311.518099 168.920411 
+L 312.237919 169.343932 
+L 312.957739 170.739919 
+L 313.677559 168.336332 
+L 314.397379 167.59092 
+L 315.117199 168.906418 
+L 315.837019 168.861807 
+L 316.556839 167.585784 
+L 317.276659 169.952295 
+L 317.996479 169.171202 
+L 318.716299 170.644689 
+L 319.436119 168.383434 
+L 320.155939 171.224037 
+L 320.875759 167.749027 
+L 321.595579 170.324259 
+L 322.315399 168.037218 
+L 323.035219 168.815389 
+L 323.755039 168.72315 
+L 324.474859 168.149906 
+L 325.194679 168.634029 
+L 325.914499 167.920873 
+L 326.634319 166.307084 
+L 327.354139 168.269097 
+L 328.073959 166.907513 
+L 328.793779 168.748169 
+L 330.233419 167.352215 
+L 330.953239 168.091872 
+L 331.673059 170.553285 
+L 332.392879 168.620486 
+L 333.112699 170.737631 
+L 333.832519 167.633309 
+L 334.552339 166.74519 
+L 335.272159 169.290498 
+L 335.991979 167.697711 
+L 336.711799 169.399463 
+L 337.431619 167.439263 
+L 338.151439 167.572756 
+L 338.871259 170.536589 
+L 339.591079 169.918522 
+L 340.310899 169.556372 
+L 341.030719 165.733282 
+L 341.750539 167.651639 
+L 342.470359 165.743345 
+L 343.190179 169.288242 
+L 343.909999 168.411901 
+L 344.629819 170.386981 
+L 345.349639 170.377527 
+L 346.069459 170.627331 
+L 346.789279 168.042612 
+L 347.509099 168.920595 
+L 348.228919 167.043932 
+L 348.948739 168.969299 
+L 349.668559 170.075272 
+L 350.388379 169.897655 
+L 351.108199 168.976003 
+L 351.828019 169.556899 
+L 353.267659 167.97748 
+L 353.987479 167.067206 
+L 354.707299 168.779142 
+L 356.146939 168.4182 
+L 356.866759 166.863343 
+L 357.586579 169.171814 
+L 358.306399 166.850139 
+L 359.026219 166.367542 
+L 359.746039 169.033402 
+L 360.465859 169.071419 
+L 361.185679 173.208174 
+L 361.905499 173.798897 
+L 362.625319 172.266651 
+L 363.345139 174.788183 
+L 364.064959 173.031383 
+L 364.784779 174.13688 
+L 365.504599 171.258805 
+L 366.224419 172.679234 
+L 366.944239 176.969595 
+L 367.664059 174.087452 
+L 368.383879 172.589372 
+L 369.103699 169.728884 
+L 369.823519 174.139008 
+L 370.543339 174.439454 
+L 371.263159 170.3493 
+L 371.982979 174.215686 
+L 372.702799 168.717826 
+L 373.422619 170.959123 
+L 374.142439 175.305443 
+L 375.582079 167.162422 
+L 376.301899 170.199394 
+L 377.021719 173.903037 
+L 377.741539 172.350636 
+L 378.461359 172.877111 
+L 379.181179 172.756815 
+L 379.900999 176.699892 
+L 380.620819 175.622084 
+L 381.340639 168.022204 
+L 382.060459 171.226063 
+L 382.780279 171.464226 
+L 383.500099 165.143765 
+L 384.219919 173.569927 
+L 384.939739 176.34235 
+L 385.659559 171.600694 
+L 386.379379 173.108343 
+L 387.099199 170.214531 
+L 387.819019 175.442638 
+L 388.538839 173.799642 
+L 389.258659 175.091129 
+L 389.978479 178.370774 
+L 390.698299 173.194675 
+L 391.418119 177.369618 
+L 392.137939 175.355376 
+L 392.857759 174.146199 
+L 393.577579 170.97516 
+L 394.297399 172.960032 
+L 395.017219 172.788198 
+L 395.737039 172.980204 
+L 396.456859 175.183636 
+L 397.176679 174.227464 
+L 397.896499 170.190565 
+L 398.616319 173.570817 
+L 399.336139 175.400049 
+L 400.055959 174.657463 
+L 400.775779 175.11649 
+L 401.495599 179.716156 
+L 402.215419 171.071813 
+L 402.935239 171.21332 
+L 403.655059 170.429778 
+L 404.374879 172.895528 
+L 405.094699 172.78472 
+L 405.814519 173.390266 
+L 406.534339 169.782529 
+L 407.254159 174.628446 
+L 407.973979 174.690192 
+L 408.693799 167.140623 
+L 409.413619 168.786579 
+L 410.133439 171.306603 
+L 410.853259 168.682897 
+L 411.573079 164.665962 
+L 412.292899 168.441654 
+L 413.012719 170.461882 
+L 413.732539 170.654773 
+L 414.452359 169.061543 
+L 415.172179 170.594279 
+L 415.891999 170.599256 
+L 416.611819 170.720588 
+L 417.331639 168.05086 
+L 418.051459 168.554349 
+L 418.771279 170.732552 
+L 419.491099 168.790217 
+L 420.210919 170.438772 
+L 420.930739 169.821226 
+L 421.650559 170.824557 
+L 422.370379 167.234 
+L 423.090199 171.102335 
+L 423.810019 170.481906 
+L 424.529839 171.060835 
+L 425.249659 168.388237 
+L 425.969479 168.545953 
+L 426.689299 169.745729 
+L 427.409119 169.161945 
+L 428.128939 165.48193 
+L 428.848759 171.592102 
+L 429.568579 167.364736 
+L 430.288399 169.600515 
+L 431.008219 168.829447 
+L 432.447859 170.578603 
+L 433.167679 171.02836 
+L 433.887499 169.909844 
+L 434.607319 171.958655 
+L 435.327139 167.47601 
+L 436.046959 167.51763 
+L 436.766779 169.926324 
+L 437.486599 165.095145 
+L 438.206419 168.291832 
+L 438.926239 169.129967 
+L 439.646059 171.259892 
+L 440.365879 170.927863 
+L 441.085699 175.214633 
+L 441.805519 169.257474 
+L 442.525339 170.439802 
+L 443.245159 168.415036 
+L 443.964979 172.756174 
+L 444.684799 168.28284 
+L 445.404619 170.274422 
+L 446.124439 170.226134 
+L 446.844259 168.174817 
+L 447.564079 171.378348 
+L 448.283899 169.497882 
+L 449.003719 169.821629 
+L 449.723539 171.197801 
+L 450.443359 169.120297 
+L 451.163179 168.136539 
+L 451.882999 172.480203 
+L 452.602819 166.437709 
+L 453.322639 167.444854 
+L 454.042459 171.520054 
+L 454.762279 169.091942 
+L 455.482099 169.582586 
+L 456.201919 171.357187 
+L 456.921739 170.241856 
+L 457.641559 168.665977 
+L 458.361379 167.95559 
+L 459.081199 169.164711 
+L 459.801019 165.570589 
+L 460.520839 172.634736 
+L 461.240659 169.584284 
+L 461.960479 167.158486 
+L 462.680299 169.618994 
+L 463.400119 167.195104 
+L 464.119939 172.27192 
+L 464.839759 168.454548 
+L 465.559579 173.568211 
+L 466.279399 168.858405 
+L 466.999219 170.412598 
+L 467.719039 168.6919 
+L 468.438859 172.965549 
+L 469.158679 170.239444 
+L 469.878499 169.198742 
+L 470.598319 167.491624 
+L 471.318139 168.099115 
+L 472.037959 169.009952 
+L 472.757779 166.650802 
+L 473.477599 169.251061 
+L 474.197419 167.428833 
+L 474.917239 170.899295 
+L 475.637059 168.809032 
+L 476.356879 167.945313 
+L 477.076699 170.050698 
+L 477.796519 169.072713 
+L 478.516339 168.793963 
+L 479.236159 169.784379 
+L 479.955979 173.116669 
+L 480.675799 172.714581 
+L 481.395619 166.866578 
+L 482.115439 167.162651 
+L 482.835259 171.549724 
+L 483.555079 170.461389 
+L 484.274899 168.73995 
+L 484.994719 169.365317 
+L 485.714539 164.243523 
+L 486.434359 172.120396 
+L 487.154179 169.172716 
+L 487.873999 169.411764 
+L 488.593819 169.381777 
+L 489.313639 171.942806 
+L 490.033459 165.986429 
+L 490.753279 170.268956 
+L 491.473099 168.437849 
+L 492.192919 169.44111 
+L 492.912739 170.647999 
+L 493.632559 171.316 
+L 494.352379 169.951606 
+L 495.792019 171.098554 
+L 496.511839 172.110145 
+L 497.231659 170.023412 
+L 498.671299 169.540191 
+L 499.391119 170.940712 
+L 500.110939 170.392084 
+L 500.830759 167.686576 
+L 501.550579 172.349375 
+L 502.270399 170.316109 
+L 502.990219 169.551366 
+L 503.710039 168.344164 
+L 504.429859 169.084466 
+L 505.149679 170.357521 
+L 505.869499 168.644443 
+L 506.589319 167.420606 
+L 507.309139 166.853932 
+L 508.028959 173.966833 
+L 508.748779 169.334757 
+L 509.468599 173.299705 
+L 510.188419 171.055765 
+L 510.908239 169.759104 
+L 511.628059 171.296785 
+L 512.347879 165.511568 
+L 513.067699 166.134598 
+L 513.787519 166.080046 
+L 514.507339 170.147002 
+L 515.227159 172.009353 
+L 515.827009 168.681398 
+L 515.827009 168.681398 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #0b6fa4; stroke-opacity: 0.9; stroke-width: 1.4; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<path d="M 36.546859 223.736807 
+L 40.865779 219.832038 
+L 45.184699 216.198529 
+L 50.223439 212.277212 
+L 55.262179 208.671831 
+L 60.300919 205.356931 
+L 65.339659 202.309108 
+L 70.378399 199.506845 
+L 76.136959 196.579638 
+L 81.895519 193.920375 
+L 87.654079 191.504531 
+L 94.132459 189.050004 
+L 100.610839 186.846754 
+L 107.089219 184.869055 
+L 114.287419 182.908146 
+L 121.485619 181.168975 
+L 129.403639 179.482156 
+L 138.041479 177.878969 
+L 147.399139 176.383878 
+L 157.476619 175.014364 
+L 168.273919 173.781151 
+L 179.791039 172.688783 
+L 192.747799 171.686241 
+L 207.144199 170.799006 
+L 223.700059 170.010102 
+L 242.415379 169.344876 
+L 264.729799 168.780497 
+L 292.082959 168.321881 
+L 327.354139 167.968988 
+L 375.582079 167.725404 
+L 453.322639 167.582076 
+L 515.827009 167.54713 
+L 515.827009 167.54713 
+" clip-path="url(#p6a5a1f986f)" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+</g>
+<g id="patch_3">
+<path d="M 36.246934 249.696 
+L 36.246934 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 36.246934 249.696 
+L 516.126934 249.696 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="legend_1">
+<g id="line2d_33">
+<path d="M 43.806934 18.5175 
+L 52.206934 18.5175 
+L 60.606934 18.5175 
+" style="fill: none; stroke: #e07a3a; stroke-opacity: 0.9; stroke-width: 1.1; stroke-linecap: square"/>
+</g>
+<g id="text_17">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="67.326934" y="21.4575" transform="rotate(-0 67.326934 21.4575)">Physics only (RMSE 2.14)</text>
+</g>
+<g id="line2d_34">
+<path d="M 43.806934 32.881172 
+L 52.206934 32.881172 
+L 60.606934 32.881172 
+" style="fill: none; stroke: #8a94a6; stroke-opacity: 0.9; stroke-width: 1.1; stroke-linecap: square"/>
+</g>
+<g id="text_18">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="67.326934" y="35.821172" transform="rotate(-0 67.326934 35.821172)">Physics, constant correction (RMSE 0.74)</text>
+</g>
+<g id="line2d_35">
+<path d="M 248.344309 18.5175 
+L 256.744309 18.5175 
+L 265.144309 18.5175 
+" style="fill: none; stroke: #0b6fa4; stroke-opacity: 0.9; stroke-width: 1.4; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="271.864309" y="21.4575" transform="rotate(-0 271.864309 21.4575)">Hybrid (RMSE 0.13)</text>
+</g>
+<g id="line2d_36">
+<path d="M 248.344309 32.881172 
+L 256.744309 32.881172 
+L 265.144309 32.881172 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="271.864309" y="35.821172" transform="rotate(-0 271.864309 35.821172)">True fouling resistance</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p6a5a1f986f">
+<rect x="36.246934" y="5.76" width="479.88" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Fouling resistance estimated by three monitors over the test run of the illustrative history, against the true value; daily medians of 4-hourly records.</figcaption></figure><p>Table 2 gives the errors over all 20 histories. The physics-only bias, 1.8 × 10⁻⁴ m²K/W, is about the TEMA design allowance for this service, 0.001 h·ft²·°F/Btu or 1.8 × 10⁻⁴ m²K/W: a monitor of this kind would report an exchanger as carrying more than half its fouling allowance on the day it came back from cleaning, and several times the allowance at turndown. The constant correction cuts the error by two-thirds, the hybrid by nine-tenths, and the absolute gap between them doubles at turndown.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Error of the fouling estimate on the test run (medians of 20 histories, 10⁻⁴ m²K/W).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Monitor</th><th>Bias, daily medians</th><th>RMS error, daily medians</th><th>RMS error, turndown records (4-hourly)</th></tr></thead><tbody><tr><td>Physics only</td><td>+1.80</td><td>2.19</td><td>3.95</td></tr><tr><td>Physics, constant correction</td><td>+0.24</td><td>0.74</td><td>1.46</td></tr><tr><td>Hybrid</td><td>−0.10</td><td>0.25</td><td>0.50</td></tr></tbody></table></div></figure></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Results: Forecasting the Cleaning</h2><p>The question an operator asks of the twin is when the exchanger will stop heating the design case, so that a cleaning can be planned rather than forced. Figure 3 shows how the forecast error falls as the test run's data accumulate.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 608.048672 302.837715" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Forecast error against months of data on the test run for physics only, constant correction, hybrid and machine learning: median error and share of forecasts within 20% of the truth</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 302.837715 
+L 608.048672 302.837715 
+L 608.048672 0 
+L 0 0 
+L 0 302.837715 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 57.294512 215.988535 
+L 298.358672 215.988535 
+L 298.358672 7.237715 
+L 57.294512 7.237715 
+L 57.294512 215.988535 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 68.251974 215.988535 
+L 68.251974 7.237715 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m29e128622f" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m29e128622f" x="68.251974" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="68.251974" y="233.16041" transform="rotate(-0 68.251974 233.16041)">0.5</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 112.081821 215.988535 
+L 112.081821 7.237715 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m29e128622f" x="112.081821" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="112.081821" y="233.16041" transform="rotate(-0 112.081821 233.16041)">1.0</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 155.911668 215.988535 
+L 155.911668 7.237715 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m29e128622f" x="155.911668" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="155.911668" y="233.16041" transform="rotate(-0 155.911668 233.16041)">1.5</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 199.741515 215.988535 
+L 199.741515 7.237715 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m29e128622f" x="199.741515" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="199.741515" y="233.16041" transform="rotate(-0 199.741515 233.16041)">2.0</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 287.40121 215.988535 
+L 287.40121 7.237715 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m29e128622f" x="287.40121" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="287.40121" y="233.16041" transform="rotate(-0 287.40121 233.16041)">3.0</text>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="177.826592" y="249.865" transform="rotate(-0 177.826592 249.865)">Months of data on the test run</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_11">
+<path d="M 57.294512 215.988535 
+L 298.358672 215.988535 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<defs>
+<path id="m2a4c9202ec" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m2a4c9202ec" x="57.294512" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="221.074473" transform="rotate(-0 50.294512 221.074473)">0%</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_13">
+<path d="M 57.294512 176.226474 
+L 298.358672 176.226474 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m2a4c9202ec" x="57.294512" y="176.226474" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="181.312412" transform="rotate(-0 50.294512 181.312412)">20%</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_15">
+<path d="M 57.294512 136.464413 
+L 298.358672 136.464413 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m2a4c9202ec" x="57.294512" y="136.464413" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="141.550351" transform="rotate(-0 50.294512 141.550351)">40%</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_17">
+<path d="M 57.294512 96.702352 
+L 298.358672 96.702352 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m2a4c9202ec" x="57.294512" y="96.702352" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="101.78829" transform="rotate(-0 50.294512 101.78829)">60%</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_19">
+<path d="M 57.294512 56.940291 
+L 298.358672 56.940291 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m2a4c9202ec" x="57.294512" y="56.940291" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="62.026229" transform="rotate(-0 50.294512 62.026229)">80%</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_21">
+<path d="M 57.294512 17.17823 
+L 298.358672 17.17823 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m2a4c9202ec" x="57.294512" y="17.17823" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="22.264168" transform="rotate(-0 50.294512 22.264168)">100%</text>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="111.613125" transform="rotate(-90 15.931875 111.613125)">Median error of forecast (capped at 100%)</text>
+</g>
+</g>
+<g id="line2d_23">
+<path d="M 68.251974 63.26447 
+L 112.081821 89.480263 
+L 155.911668 112.607177 
+L 199.741515 127.689338 
+L 287.40121 17.17823 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #e07a3a; stroke-width: 2; stroke-linecap: square"/>
+<defs>
+<path id="m3c924effea" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p651a4b5518)">
+<use xlink:href="#m3c924effea" x="68.251974" y="63.26447" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="112.081821" y="89.480263" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="155.911668" y="112.607177" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="199.741515" y="127.689338" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="287.40121" y="17.17823" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_24">
+<path d="M 68.251974 43.463246 
+L 112.081821 161.483366 
+L 155.911668 193.481708 
+L 199.741515 201.485897 
+L 287.40121 189.494854 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+<defs>
+<path id="ma0682e26d4" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #8a94a6"/>
+</defs>
+<g clip-path="url(#p651a4b5518)">
+<use xlink:href="#ma0682e26d4" x="68.251974" y="43.463246" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="112.081821" y="161.483366" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="155.911668" y="193.481708" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="199.741515" y="201.485897" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="287.40121" y="189.494854" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="line2d_25">
+<path d="M 68.251974 157.479797 
+L 112.081821 185.489227 
+L 155.911668 199.140204 
+L 199.741515 198.025376 
+L 287.40121 197.840723 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #0b6fa4; stroke-width: 2; stroke-linecap: square"/>
+<defs>
+<path id="m9a1561cdba" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#p651a4b5518)">
+<use xlink:href="#m9a1561cdba" x="68.251974" y="157.479797" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="112.081821" y="185.489227" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="155.911668" y="199.140204" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="199.741515" y="198.025376" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="287.40121" y="197.840723" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="line2d_26">
+<path d="M 68.251974 17.17823 
+L 112.081821 17.17823 
+L 155.911668 17.17823 
+L 199.741515 17.17823 
+L 287.40121 17.17823 
+" clip-path="url(#p651a4b5518)" style="fill: none; stroke: #4d7f12; stroke-width: 2; stroke-linecap: square"/>
+<defs>
+<path id="me634133659" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #4d7f12"/>
+</defs>
+<g clip-path="url(#p651a4b5518)">
+<use xlink:href="#me634133659" x="68.251974" y="17.17823" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="112.081821" y="17.17823" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="155.911668" y="17.17823" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="199.741515" y="17.17823" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="287.40121" y="17.17823" style="fill: #4d7f12; stroke: #4d7f12"/>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 57.294512 215.988535 
+L 57.294512 7.237715 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 57.294512 215.988535 
+L 298.358672 215.988535 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_14">
+<text style="font-size: 7.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(63.868989 198.705085)">Errors above 100% and 'never'</text>
+<text style="font-size: 7.8px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(63.868989 208.142781)">answers count as 100%</text>
+</g>
+</g>
+<g id="axes_2">
+<g id="patch_5">
+<path d="M 361.224512 215.988535 
+L 602.288672 215.988535 
+L 602.288672 7.237715 
+L 361.224512 7.237715 
+L 361.224512 215.988535 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_3">
+<g id="xtick_6">
+<g id="line2d_27">
+<path d="M 372.181974 215.988535 
+L 372.181974 7.237715 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m29e128622f" x="372.181974" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="372.181974" y="233.16041" transform="rotate(-0 372.181974 233.16041)">0.5</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_29">
+<path d="M 416.011821 215.988535 
+L 416.011821 7.237715 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m29e128622f" x="416.011821" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="416.011821" y="233.16041" transform="rotate(-0 416.011821 233.16041)">1.0</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_31">
+<path d="M 459.841668 215.988535 
+L 459.841668 7.237715 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m29e128622f" x="459.841668" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="459.841668" y="233.16041" transform="rotate(-0 459.841668 233.16041)">1.5</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_33">
+<path d="M 503.671515 215.988535 
+L 503.671515 7.237715 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m29e128622f" x="503.671515" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="503.671515" y="233.16041" transform="rotate(-0 503.671515 233.16041)">2.0</text>
+</g>
+</g>
+<g id="xtick_10">
+<g id="line2d_35">
+<path d="M 591.33121 215.988535 
+L 591.33121 7.237715 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<g>
+<use xlink:href="#m29e128622f" x="591.33121" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="591.33121" y="233.16041" transform="rotate(-0 591.33121 233.16041)">3.0</text>
+</g>
+</g>
+<g id="text_20">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="481.756592" y="249.865" transform="rotate(-0 481.756592 249.865)">Months of data on the test run</text>
+</g>
+</g>
+<g id="matplotlib.axis_4">
+<g id="ytick_7">
+<g id="line2d_37">
+<path d="M 361.224512 215.988535 
+L 602.288672 215.988535 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<g>
+<use xlink:href="#m2a4c9202ec" x="361.224512" y="215.988535" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_21">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="354.224512" y="221.074473" transform="rotate(-0 354.224512 221.074473)">0%</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_39">
+<path d="M 361.224512 176.226474 
+L 602.288672 176.226474 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_40">
+<g>
+<use xlink:href="#m2a4c9202ec" x="361.224512" y="176.226474" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_22">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="354.224512" y="181.312412" transform="rotate(-0 354.224512 181.312412)">20%</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_41">
+<path d="M 361.224512 136.464413 
+L 602.288672 136.464413 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_42">
+<g>
+<use xlink:href="#m2a4c9202ec" x="361.224512" y="136.464413" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="354.224512" y="141.550351" transform="rotate(-0 354.224512 141.550351)">40%</text>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_43">
+<path d="M 361.224512 96.702352 
+L 602.288672 96.702352 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_44">
+<g>
+<use xlink:href="#m2a4c9202ec" x="361.224512" y="96.702352" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="354.224512" y="101.78829" transform="rotate(-0 354.224512 101.78829)">60%</text>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_45">
+<path d="M 361.224512 56.940291 
+L 602.288672 56.940291 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_46">
+<g>
+<use xlink:href="#m2a4c9202ec" x="361.224512" y="56.940291" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_25">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="354.224512" y="62.026229" transform="rotate(-0 354.224512 62.026229)">80%</text>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_47">
+<path d="M 361.224512 17.17823 
+L 602.288672 17.17823 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_48">
+<g>
+<use xlink:href="#m2a4c9202ec" x="361.224512" y="17.17823" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_26">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="354.224512" y="22.264168" transform="rotate(-0 354.224512 22.264168)">100%</text>
+</g>
+</g>
+<g id="text_27">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="319.861875" y="111.613125" transform="rotate(-90 319.861875 111.613125)">Forecasts within 20% of the truth</text>
+</g>
+</g>
+<g id="line2d_49">
+<path d="M 372.181974 215.988535 
+L 416.011821 215.988535 
+L 459.841668 215.988535 
+L 503.671515 215.988535 
+L 591.33121 215.988535 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #e07a3a; stroke-width: 2; stroke-linecap: square"/>
+<g clip-path="url(#p4bb2f09c9a)">
+<use xlink:href="#m3c924effea" x="372.181974" y="215.988535" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="416.011821" y="215.988535" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="459.841668" y="215.988535" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="503.671515" y="215.988535" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m3c924effea" x="591.33121" y="215.988535" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_50">
+<path d="M 372.181974 215.988535 
+L 416.011821 126.523898 
+L 459.841668 59.033031 
+L 503.671515 54.455162 
+L 591.33121 66.880806 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+<g clip-path="url(#p4bb2f09c9a)">
+<use xlink:href="#ma0682e26d4" x="372.181974" y="215.988535" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="416.011821" y="126.523898" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="459.841668" y="59.033031" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="503.671515" y="54.455162" style="fill: #8a94a6; stroke: #8a94a6"/>
+<use xlink:href="#ma0682e26d4" x="591.33121" y="66.880806" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="line2d_51">
+<path d="M 372.181974 126.523898 
+L 416.011821 76.821322 
+L 459.841668 59.033031 
+L 503.671515 42.029518 
+L 591.33121 50.313281 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #0b6fa4; stroke-width: 2; stroke-linecap: square"/>
+<g clip-path="url(#p4bb2f09c9a)">
+<use xlink:href="#m9a1561cdba" x="372.181974" y="126.523898" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="416.011821" y="76.821322" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="459.841668" y="59.033031" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="503.671515" y="42.029518" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m9a1561cdba" x="591.33121" y="50.313281" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="line2d_52">
+<path d="M 372.181974 215.988535 
+L 416.011821 215.988535 
+L 459.841668 215.988535 
+L 503.671515 215.988535 
+L 591.33121 215.988535 
+" clip-path="url(#p4bb2f09c9a)" style="fill: none; stroke: #4d7f12; stroke-width: 2; stroke-linecap: square"/>
+<g clip-path="url(#p4bb2f09c9a)">
+<use xlink:href="#me634133659" x="372.181974" y="215.988535" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="416.011821" y="215.988535" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="459.841668" y="215.988535" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="503.671515" y="215.988535" style="fill: #4d7f12; stroke: #4d7f12"/>
+<use xlink:href="#me634133659" x="591.33121" y="215.988535" style="fill: #4d7f12; stroke: #4d7f12"/>
+</g>
+</g>
+<g id="patch_6">
+<path d="M 361.224512 215.988535 
+L 361.224512 7.237715 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_7">
+<path d="M 361.224512 215.988535 
+L 602.288672 215.988535 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+</g>
+<g id="legend_1">
+<g id="line2d_53">
+<path d="M 98.344484 288.949785 
+L 106.544484 288.949785 
+L 114.744484 288.949785 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m3c924effea" x="106.544484" y="288.949785" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="text_28">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="121.304484" y="291.819785" transform="rotate(-0 121.304484 291.819785)">Physics only</text>
+</g>
+<g id="line2d_54">
+<path d="M 186.307422 288.949785 
+L 194.507422 288.949785 
+L 202.707422 288.949785 
+" style="fill: none; stroke: #8a94a6; stroke-width: 2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#ma0682e26d4" x="194.507422" y="288.949785" style="fill: #8a94a6; stroke: #8a94a6"/>
+</g>
+</g>
+<g id="text_29">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="209.267422" y="291.819785" transform="rotate(-0 209.267422 291.819785)">Physics, constant correction</text>
+</g>
+<g id="line2d_55">
+<path d="M 335.834422 288.949785 
+L 344.034422 288.949785 
+L 352.234422 288.949785 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m9a1561cdba" x="344.034422" y="288.949785" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="text_30">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="358.794422" y="291.819785" transform="rotate(-0 358.794422 291.819785)">Hybrid</text>
+</g>
+<g id="line2d_56">
+<path d="M 401.219172 288.949785 
+L 409.419172 288.949785 
+L 417.619172 288.949785 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#me634133659" x="409.419172" y="288.949785" style="fill: #4d7f12; stroke: #4d7f12"/>
+</g>
+</g>
+<g id="text_31">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="424.179172" y="291.819785" transform="rotate(-0 424.179172 291.819785)">Machine learning only</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p651a4b5518">
+<rect x="57.294512" y="7.237715" width="241.06416" height="208.75082"/>
+</clipPath>
+<clipPath id="p4bb2f09c9a">
+<rect x="361.224512" y="7.237715" width="241.06416" height="208.75082"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Forecast of the time at which the exchanger can no longer heat the design case, against months of data on the test run (20 histories; forecasts are counted only before the true limit, so 20, 20, 19, 16 and 12 histories contribute): median error, left, and share of forecasts within 20% of the truth, right. Errors are capped at 100%, which also scores a forecast that the limit is never reached; at 3 months physics only forecasts no limit in 10 of 12 histories.</figcaption></figure><p>Two weeks of data are too few for any monitor except the hybrid, which is already within 20% in 9 of 20 histories; the start of a Kern–Seaton curve says little about where it will level off unless the estimate is unbiased from the first day. After one month the hybrid's median error is 15%, with 14 of 20 forecasts within 20%; after six weeks 8%, and after two months 9%, with 14 of 16 within 20%. The constant correction is slower to become useful, with 9 of 20 within 20% at one month, but from six weeks it matches the hybrid, and at two months its median error is slightly lower, 7% against 9%; at three months the hybrid has 10 of 12 within 20% and the constant correction 9. The hybrid failed to forecast a limit once, at two weeks, in one slow-fouling history. Physics only never forecasts within 20%. Its fouling estimate carries the offset from the first day, and a curve forced through zero at the start of the run cannot fit it, so it predicts the limit far too early, by a median of 44% at two months, and at three months its fitted curve levels off below the limit in most histories. That failure is partly the fit rather than the physics: a curve with a free intercept, or fouling measured from the start-of-run value, would recover much of it, and the constant correction is in effect that remedy.</p><p>The machine-learning monitor never forecasts within 20%, and the reason is instructive. Its target, shell pressure, saturates at 2.7 barg once the steam runs out, so the data say little about how far past the limit the exchanger is, and the design case, at the top of the flow range and the bottom of the temperature range, lies at the edge of its training data. With only two training runs, both starting in winter, time since cleaning is also confounded with season: the model learned that cold feed and high shell pressure arrive about 8,000 hours after cleaning, when the training runs met their second winter, and forecast the limit there in most histories. Across the 20 histories its forecasts clustered at 7,200 to 7,900 hours, whatever the run's true limit, which ranged from 950 to 5,400 hours. This is a failure of feature and target design with too little history, the normal situation for a new exchanger, more than an inherent limit of machine learning; but it is exactly the failure a model with no physics has no way to notice.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Results: Outside the Training Data</h2><p>The test run contains one regime the training runs did not: turndown during the first 50 calendar days of each year, when the feed is also coldest. Turndown itself appears in the training runs' random campaigns; turndown in the coldest weeks does not. For this test the machine-learning model is retrained on the two training runs plus every test-run record outside the scored turndown records, so it sees the test run's fouling; the physics monitors use their Kern–Seaton fit to the test run. Figure 4 gives each monitor's error in predicting the shell pressure over all turndown records of the test run, a quantity that decides whether the shell stalls; between 44% and 70% of them, depending on the history, fall in the winter windows, and the rest in random campaigns like those in training, so the test mixes the new regime with a familiar one.</p><figure class="j-fig" id="figure-4"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-4-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 639.4675 258.60118" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-4-t">Shell pressure error at turndown in the test run</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 258.60118 
+L 639.4675 258.60118 
+L 639.4675 0 
+L 0 0 
+L 0 258.60118 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 153.8275 216.432 
+L 633.7075 216.432 
+L 633.7075 5.76 
+L 153.8275 5.76 
+L 153.8275 216.432 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 153.8275 216.432 
+L 153.8275 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m1b7c569c02" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m1b7c569c02" x="153.8275" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="153.8275" y="233.603875" transform="rotate(-0 153.8275 233.603875)">0.0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 210.283971 216.432 
+L 210.283971 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m1b7c569c02" x="210.283971" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="210.283971" y="233.603875" transform="rotate(-0 210.283971 233.603875)">0.1</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 266.740441 216.432 
+L 266.740441 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m1b7c569c02" x="266.740441" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="266.740441" y="233.603875" transform="rotate(-0 266.740441 233.603875)">0.2</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 323.196912 216.432 
+L 323.196912 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m1b7c569c02" x="323.196912" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="323.196912" y="233.603875" transform="rotate(-0 323.196912 233.603875)">0.3</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 379.653382 216.432 
+L 379.653382 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m1b7c569c02" x="379.653382" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="379.653382" y="233.603875" transform="rotate(-0 379.653382 233.603875)">0.4</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 436.109853 216.432 
+L 436.109853 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m1b7c569c02" x="436.109853" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="436.109853" y="233.603875" transform="rotate(-0 436.109853 233.603875)">0.5</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 492.566324 216.432 
+L 492.566324 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m1b7c569c02" x="492.566324" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="492.566324" y="233.603875" transform="rotate(-0 492.566324 233.603875)">0.6</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 549.022794 216.432 
+L 549.022794 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m1b7c569c02" x="549.022794" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="549.022794" y="233.603875" transform="rotate(-0 549.022794 233.603875)">0.7</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 605.479265 216.432 
+L 605.479265 5.76 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m1b7c569c02" x="605.479265" y="216.432" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="605.479265" y="233.603875" transform="rotate(-0 605.479265 233.603875)">0.8</text>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="393.7675" y="250.308465" transform="rotate(-0 393.7675 250.308465)">Mean absolute error of shell pressure at turndown, test run (bar)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_19">
+<path d="M 153.8275 192.019944 
+L 633.7075 192.019944 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<defs>
+<path id="mb443558d7a" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mb443558d7a" x="153.8275" y="192.019944" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="146.8275" y="197.105881" transform="rotate(-0 146.8275 197.105881)">Physics only</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_21">
+<path d="M 153.8275 138.070648 
+L 633.7075 138.070648 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#mb443558d7a" x="153.8275" y="138.070648" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="146.8275" y="143.156585" transform="rotate(-0 146.8275 143.156585)">Physics, constant correction</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_23">
+<path d="M 153.8275 84.121352 
+L 633.7075 84.121352 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#mb443558d7a" x="153.8275" y="84.121352" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="146.8275" y="89.20729" transform="rotate(-0 146.8275 89.20729)">Machine learning only</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_25">
+<path d="M 153.8275 30.172056 
+L 633.7075 30.172056 
+" clip-path="url(#p355abfd7c1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#mb443558d7a" x="153.8275" y="30.172056" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="146.8275" y="35.257994" transform="rotate(-0 146.8275 35.257994)">Hybrid</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 153.8275 206.856 
+L 421.500096 206.856 
+L 421.500096 177.183887 
+L 153.8275 177.183887 
+z
+" clip-path="url(#p355abfd7c1)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_4">
+<path d="M 153.8275 152.906704 
+L 310.419497 152.906704 
+L 310.419497 123.234592 
+L 153.8275 123.234592 
+z
+" clip-path="url(#p355abfd7c1)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_5">
+<path d="M 153.8275 98.957408 
+L 289.191542 98.957408 
+L 289.191542 69.285296 
+L 153.8275 69.285296 
+z
+" clip-path="url(#p355abfd7c1)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_6">
+<path d="M 153.8275 45.008113 
+L 190.611694 45.008113 
+L 190.611694 15.336 
+L 153.8275 15.336 
+z
+" clip-path="url(#p355abfd7c1)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_7">
+<path d="M 153.8275 216.432 
+L 153.8275 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_8">
+<path d="M 153.8275 216.432 
+L 633.7075 216.432 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="PathCollection_1">
+<defs>
+<path id="m4b619d21c2" d="M 0 8.660254 
+L 0 -8.660254 
+" style="stroke: #0b2a5a; stroke-width: 2.2"/>
+</defs>
+<g clip-path="url(#p355abfd7c1)">
+<use xlink:href="#m4b619d21c2" x="465.039264" y="192.019944" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 2.2"/>
+<use xlink:href="#m4b619d21c2" x="337.18002" y="138.070648" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 2.2"/>
+<use xlink:href="#m4b619d21c2" x="488.012804" y="84.121352" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 2.2"/>
+<use xlink:href="#m4b619d21c2" x="254.192447" y="30.172056" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 2.2"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="473.507734" y="195.148362" transform="rotate(-0 473.507734 195.148362)">0.47 (P90 0.55)</text>
+</g>
+<g id="text_16">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="345.648491" y="141.199066" transform="rotate(-0 345.648491 141.199066)">0.28 (P90 0.32)</text>
+</g>
+<g id="text_17">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="496.481274" y="87.24977" transform="rotate(-0 496.481274 87.24977)">0.24 (P90 0.59)</text>
+</g>
+<g id="text_18">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="262.660917" y="33.300474" transform="rotate(-0 262.660917 33.300474)">0.07 (P90 0.18)</text>
+</g>
+<g id="legend_1">
+<g id="patch_9">
+<path d="M 468.780062 21.4575 
+L 485.580062 21.4575 
+L 485.580062 15.5775 
+L 468.780062 15.5775 
+z
+" style="fill: #ffffff; stroke: #555555; stroke-linejoin: miter"/>
+</g>
+<g id="text_19">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="492.300062" y="21.4575" transform="rotate(-0 492.300062 21.4575)">Bar length: median of 20 histories</text>
+</g>
+<g id="PathCollection_2">
+<g>
+<use xlink:href="#m4b619d21c2" x="477.180062" y="33.616172" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 2.2"/>
+</g>
+</g>
+<g id="text_20">
+<text style="font-size: 8.4px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="492.300062" y="35.821172" transform="rotate(-0 492.300062 35.821172)">P90 of 20 histories</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p355abfd7c1">
+<rect x="153.8275" y="5.76" width="479.88" height="210.672"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 4.</strong> Mean absolute error of the shell pressure predicted at turndown records of the test run: median and P90 over 20 histories.</figcaption></figure><p>The hybrid's median error is 0.07 bar. Machine learning's median is 0.24 bar, but its P90 is 0.59 bar: in some histories it does tolerably by interpolating nearby training data, in others it is badly wrong, with nothing to warn the user which. Physics only is consistently wrong by about 0.47 bar, the effect of its biased coefficient at low flow, and the constant correction by 0.28 bar.</p><p>The difference is in what each monitor carries into the new regime. The machine-learning model carries only correlations between its inputs and outputs, which may not hold where it has little data. The physics models carry the energy balance and the way heat transfer changes with flow, which hold everywhere; the hybrid adds the plant's own correction to that change. In the scored records the true shell pressure ranged from about 0 to 2.7 barg across the 20 histories (0.2 to 1.9 barg in the illustrative history), so some records sat at or near stall and some at the steam limit; an error of 0.2 bar near atmospheric pressure is the difference between a shell that drains its condensate and one that stalls, and the companion paper showed how much of the year a well-sized E-101 spends near that line [<a href="#ref-1" class="j-cite">1</a>].</p><h3>6.1 How fair is the comparison?</h3><p>Three features of the test favour the hybrid and should be read with the results. First, the plant's deviation from the correlation is itself a power law in Reynolds number, the form the hybrid fits. The hybrid recovered the exponent closely, 0.157 in the median history against 0.15, and could therefore extrapolate from the clean-day Reynolds numbers of about 14,000 to 18,500 down to turndown at 7,000 to 11,500; in a few histories the calibration window overlapped a turndown campaign, giving it some low-flow clean data. A plant whose deviation changes shape at low flow, for example near transition, would not be followed so closely, and the remedy is to calibrate on clean data at low flow as well, which a planned turndown after a cleaning can provide.</p><p>Second, the machine-learning monitor was given three raw inputs and a censored target. A model given outlet temperature, physics-derived features such as the measured overall coefficient, or many more runs would do better; the comparison shows what happens when a data-only model is used early in a plant's life, not the best that machine learning can do. Third, the 6 m² area was chosen so that every test run reaches its limit, between 950 and 5,400 hours after cleaning, which keeps the forecasting horizon short; for a well-sized exchanger whose limit is years away, every forecast would be harder and the gap between the monitors in absolute hours larger.</p><p>One feature works the other way. The plant's run lengths are counted in operating hours, 8,000 a year, while the seasons and the 50-day winter windows run on calendar days; a run of "24 months" is about 22 calendar months. This shifts the seasons against the fouling slightly from run to run, which is realistic and makes the forecasting task a little harder for every monitor.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Building a Hybrid Twin</h2><p>A fouling twin of this kind needs little: four instruments the exchanger already has, a correlation, and a few days of clean operation after each cleaning. Table 3 sets out the choices.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Building a fouling twin for a heat exchanger.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Decision</th><th>Recommendation</th><th>Why</th></tr></thead><tbody><tr><td>Instruments</td><td>Feed flow, inlet and outlet temperature, shell pressure or steam temperature; 4-hourly records were enough here, hourly gives more margin</td><td>Enough for the duty and the driving force; the twin is only as good as the flow meter</td></tr><tr><td>Model structure</td><td>Energy balance and resistances in series, with the tube-side correlation</td><td>Holds at any load, including ones not yet seen</td></tr><tr><td>What to learn from data</td><td>A correction to the clean coefficient as a function of Reynolds number, from the first few days after each cleaning, at more than one load if possible</td><td>The correlation's error is the largest source of bias, and it may depend on flow</td></tr><tr><td>What not to learn from data</td><td>The fouling curve of a new run</td><td>It differs run to run; fit it to the run's own estimates instead</td></tr><tr><td>Fouling model for forecasting</td><td>Kern–Seaton fitted to daily medians by robust least squares; a linear fit beside it is suggested</td><td>Captures levelling off; a linear fit is the warning case</td></tr><tr><td>When to trust a forecast</td><td>After about a month of a run for the hybrid; reporting the range from a few fits is suggested</td><td>Earlier forecasts are dominated by noise in the early curve</td></tr><tr><td>Data to exclude</td><td>Stalled-shell records, start-ups and transients; steam-limited records can stay if the outlet temperature is measured</td><td>They break the steady, uniform-condensing assumptions</td></tr><tr><td>Recalibration</td><td>Refit the correction after every cleaning, from a short window; watch for drift in the flow meter</td><td>The clean days are free calibration data; drift and early fouling both look like a lower clean coefficient</td></tr><tr><td>Role of pure machine learning</td><td>Detecting anomalies and instrument faults, filling gaps; physics-derived features if used for forecasting</td><td>Good at interpolation; poor at forecasting a new run from little history</td></tr></tbody></table></div></figure><p>Three cautions apply. The clean-period calibration assumes the tubes really are clean after each cleaning and that the window is short enough for fouling not to have begun; a cleaning that leaves a residue will be learned as a lower clean coefficient and the fouling of the next run underestimated. The correction absorbs every error that varies with flow, so a slowly drifting flow meter will be learned too; a second, independent check such as a periodic duty test is worth having. And the forecast is only as good as the fouling model: if fouling does not level off, a Kern–Seaton fit will forecast too late, so the twin should report a linear fit beside it, and the gap between them, as the companion paper's linear-fouling case argues [<a href="#ref-1" class="j-cite">1</a>].</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Conclusions</h2><p>Four monitors of the same steam preheater, given the same synthetic plant data, were compared where the truth was known:</p><ul><li>A physics-only monitor that trusts the published correlation reads the correlation's error as fouling. Here its bias, 1.8 × 10⁻⁴ m²K/W, was about the TEMA design allowance, and at turndown its error nearly doubled.</li><li>A hybrid that learns only the correlation's error, as a function of flow, from the first days after each cleaning, estimated fouling with a median RMS error of 0.25 × 10⁻⁴ m²K/W and forecast the cleaning to within 20% in 14 of 20 runs after one month. A constant correction matched it from about six weeks but was slower to become useful and two to four times as wrong at turndown.</li><li>A machine-learning model of the raw operating data could not forecast the cleaning of a new run, because with two training runs its time since cleaning was confounded with season and the design case lay at the edge of its data; at turndown in the test run, including turndown in the coldest weeks it had not seen, its errors were erratic, a median of 0.24 bar but a P90 of 0.59 bar, against 0.07 and 0.18 bar for the hybrid.</li><li>The parts of a twin that physics knows, the energy balance and how heat transfer changes with flow, should be built in; the parts it does not know, the plant's own deviation from the correlation, should be learned; and quantities that change from run to run, such as the fouling itself, should be fitted to each run as it happens.</li></ul><p>The study has limits. The plant is synthetic, and the hybrid's advantage at turndown is partly built in: the plant's deviation from the correlation follows a power law that the hybrid's regression can represent exactly, real plants will be less tidy, and the noise and drift are idealised. Only one hybrid structure and one machine-learning model were tried; a machine-learning model given physics-derived features or more history would do better than the one here. The design case flow, 9,569 kg/h, sits at the very top of the plant's flow range; the illustrative history of Figures 1 and 2 uses fixed fouling parameters rather than randomly drawn ones. Stall, start-ups and cleaning residues are excluded or idealised. The Python model, which generates the plant histories and runs all four monitors, can be downloaded from this paper's page.</p></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Appendix: A Hybrid Fouling Twin in About 50 Lines of Code</h2><p>Table 4 maps the method to the downloadable model. The script below is the hybrid monitor on its own: it learns the Reynolds-number correction from clean records, estimates the fouling of a new run, fits Kern–Seaton to two months of daily medians and forecasts when the design case runs out of steam. A small synthetic plant stands in for historian data; replace it with the four instrument tags of a real exchanger. On its own synthetic data it learns a correction of 0.86 at Reynolds number 18,000 and forecasts the limit at 1,650 hours after cleaning, the true value, although the fitted asymptote and time constant are off by a fifth and almost a third, a reminder that the forecast is better determined than the curve's parameters.</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> Steps of the method and where the model does them.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Step</th><th>What to do</th><th>In this paper</th><th>In the downloadable model (printed script)</th></tr></thead><tbody><tr><td>1. Data</td><td>Flow, inlet and outlet temperature, shell pressure; drop stalled and transient records</td><td>4-hourly, three runs per history; shell &gt; 0.05 barg</td><td>plant(), u_measured() (plant(), u_measured())</td></tr><tr><td>2. Learn the correction</td><td>Regress the clean-period coefficient on Reynolds number</td><td>First 120 h after each cleaning, runs 1 and 2</td><td>calibrate_clean(), calibrate_offset() (calibrate())</td></tr><tr><td>3. Estimate fouling</td><td>Eq. (2) with the corrected clean coefficient; daily medians</td><td>Every test-run record</td><td>estimate_rf(), daily() (fouling())</td></tr><tr><td>4. Forecast</td><td>Fit Eq. (4); carry forward to the design case</td><td>After 0.5 to 3 months</td><td>ks_fit(), time_to_limit() (forecast())</td></tr><tr><td>5. Compare</td><td>Physics only, constant correction, hybrid, machine learning; 20 histories</td><td>Table 2, Figures 1 to 4</td><td>evaluate(), twin_summary.py</td></tr></tbody></table></div></figure><figure class="j-code"><figcaption>The hybrid monitor on its own: learn the Reynolds-number correction from clean records, estimate fouling, fit Kern–Seaton to two months of daily medians and forecast the limit (Python 3 with NumPy and SciPy).</figcaption><pre><code>"""Hybrid fouling twin for a steam-heated exchanger - Chmltech Online Journal (appendix script).
+Learns a Reynolds-number correction to the Gnielinski coefficient from clean-period records (Eq. 3), estimates the
+fouling resistance of each record (Eqs. 1-2), fits Kern-Seaton (Eq. 4) and forecasts when the design case runs out
+of steam. A small synthetic plant stands in for historian data. Python 3 with NumPy and SciPy."""
+import math
+import numpy as np
+from scipy.optimize import least_squares
+
+CP, KF, OD, ID, TPP, A, HO, RWO = 2000.0, 0.13, 0.01905, 0.01575, 12, 6.0, 8000.0, 1e-4
+RW = OD * math.log(OD / ID) / (2 * 45.0)
+rho = lambda T: 900 - 0.95 * (T - 20); mu = lambda T: 1.6e-3 * np.exp(-0.018 * (T - 20))
+tsat = lambda p: 1810.94 / (8.14019 - np.log10((p + 1.01325) * 750.062)) - 244.485
+
+
+def gnielinski(m, T):                                   # tube-side coefficient (W/m2K) and Reynolds number
+    v = m / 3600 / rho(T) / (TPP * math.pi * ID ** 2 / 4); Re = rho(T) * v * ID / mu(T); Pr = CP * mu(T) / KF
+    f = (0.79 * np.log(Re) - 1.64) ** -2
+    return (f / 8) * (Re - 1000) * Pr / (1 + 12.7 * np.sqrt(f / 8) * (Pr ** (2 / 3) - 1)) * KF / ID, Re
+
+
+def u_from_hi(hi, rf=0.0):                              # resistances in series on the outside area (used in Eq. 2)
+    return 1 / (OD / (hi * ID) + RW + 1 / HO + rf * OD / ID + RWO)
+
+
+def u_measured(m, Tin, Tout, p):                        # Eq. (1): duty over LMTD, from four instruments
+    Ts = tsat(p); lm = (Tout - Tin) / np.log((Ts - Tin) / (Ts - Tout))
+    return m / 3600 * CP * (Tout - Tin) / (A * lm)
+
+
+def calibrate(m, Tin, Tout, p):                         # Eq. (3): f(Re) = a Re^b from clean records
+    hi_c, Re = gnielinski(m, (Tin + 80) / 2)
+    hi_m = OD / ID / (1 / u_measured(m, Tin, Tout, p) - RW - 1 / HO - RWO)
+    b, ln_a = np.polyfit(np.log(Re), np.log(hi_m / hi_c), 1)
+    return lambda R: np.exp(ln_a) * R ** b
+
+
+def fouling(m, Tin, Tout, p, f):                        # Eq. (2), with the learned correction
+    hi_c, Re = gnielinski(m, (Tin + 80) / 2)
+    return (1 / u_measured(m, Tin, Tout, p) - 1 / u_from_hi(f(Re) * hi_c)) * ID / OD
+
+
+def forecast(t, rf, f, m_d=9569.0, T_d=6.8, p_max=2.7):  # Eq. (4) fit, then hours until the design case runs out of steam
+    x = least_squares(lambda x: x&#91;0&#93; * 1e-4 * (1 - np.exp(-t / x&#91;1&#93;)) - rf, &#91;3, 3000&#93;, bounds=(&#91;0.1, 200&#93;, &#91;20, 3e4&#93;), loss="soft_l1", f_scale=3e-5).x
+    hi_c, Re = gnielinski(m_d, (T_d + 80) / 2); T_s = tsat(p_max)
+    for h in np.arange(0, 3e4, 50):
+        U = u_from_hi(f(Re) * hi_c, x&#91;0&#93; * 1e-4 * (1 - math.exp(-h / x&#91;1&#93;)))
+        if 80 &gt; T_s - (T_s - T_d) * math.exp(-U * A / (m_d / 3600 * CP)): return h, x
+    return float("inf"), x
+
+
+# ---- synthetic plant: true coefficient 12% below the correlation at normal rate, more at low flow ----
+rng = np.random.default_rng(3)
+def plant(n, t, rinf, tau):
+    m = 8690 * np.where(rng.random(n) &lt; 0.15, 0.5, 1.0) * (1 + 0.05 * rng.standard_normal(n)); Tin = rng.uniform(8, 36, n)
+    hi_c, Re = gnielinski(m, (Tin + 80) / 2); hi = 0.88 * (Re / 17800) ** 0.15 * hi_c
+    U = 1 / (OD / (hi * ID) + RW + 1 / 7000 + rinf * (1 - np.exp(-t / tau)) * OD / ID + RWO)
+    E = np.exp(-U * A / (m / 3600 * CP)); Ts = (80 - Tin * E) / (1 - E)
+    p = 10 ** (8.14019 - 1810.94 / (Ts + 244.485)) / 750.062 - 1.01325
+    return m * (1 + 0.02 * rng.standard_normal(n)), Tin + 0.3 * rng.standard_normal(n), 80 + 0.3 * rng.standard_normal(n), p + 0.015 * rng.standard_normal(n)
+
+f = calibrate(*plant(150, np.zeros(150), 0, 1))         # clean weeks after a cleaning
+t = np.arange(0, 1340, 4.0)                             # first two months of a new run
+rf = fouling(*plant(len(t), t, 3.5e-4, 2500), f)
+day = (t // 24).astype(int); td = np.array(&#91;t&#91;day == d&#93;.mean() for d in np.unique(day)&#93;); rd = np.array(&#91;np.median(rf&#91;day == d&#93;) for d in np.unique(day)&#93;)
+h, x = forecast(td, rd, f)
+print(f"Learned correction at Re 18,000: {f(18000):.3f};  fitted Rinf {x&#91;0&#93;:.2f}e-4 m2K/W, tau {x&#91;1&#93;:.0f} h (true 3.50e-4, 2,500 h)")
+print(f"Forecast after two months: design case runs out of steam at {h:.0f} h after cleaning (true: 1,650 h)")</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Lee, Q. F. (2026). Sizing the feed preheater under fouling uncertainty: Area margin, cleaning and condensate stall. <em>Chmltech Online Journal, 106</em>(21). <a href="https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall" rel="noopener" target="_blank">www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-m</a></li><li id="ref-2">Rasheed, A., San, O., &amp; Kvamsdal, T. (2020). Digital twin: Values, challenges and enablers from a modeling perspective. <em>IEEE Access, 8</em>, 21980–22012. <a href="https://doi.org/10.1109/ACCESS.2020.2970143" rel="noopener" target="_blank">10.1109/ACCESS.2020.2970143</a></li><li id="ref-3">Lee, Q. F. (2026). Digital twins in chemical process plants: Architecture, modeling approaches and applications. <em>Chmltech Online Journal</em>. <a href="https://www.chmltech.com/post/digital-twins-in-chemical-process-plants-architecture-modeling-and-applications" rel="noopener" target="_blank">www.chmltech.com/post/digital-twins-in-chemical-process-plants-architecture-mode</a></li><li id="ref-4">Sundar, S., Rajagopal, M. C., Zhao, H., Kuntumalla, G., et al. (2020). Fouling modeling and prediction approach for heat exchangers using deep learning. <em>International Journal of Heat and Mass Transfer, 159</em>, 120112. <a href="https://doi.org/10.1016/j.ijheatmasstransfer.2020.120112" rel="noopener" target="_blank">10.1016/j.ijheatmasstransfer.2020.120112</a></li><li id="ref-5">Ujević Andrijić, Ž., &amp; Rimac, N. (2025). Data-driven fouling detection in refinery preheat train heat exchangers using neural networks and gradient boosting. <em>Sensors, 25</em>(16), 4936. <a href="https://doi.org/10.3390/s25164936" rel="noopener" target="_blank">10.3390/s25164936</a></li><li id="ref-6">Psichogios, D. C., &amp; Ungar, L. H. (1992). A hybrid neural network–first principles approach to process modeling. <em>AIChE Journal, 38</em>(10), 1499–1511. <a href="https://doi.org/10.1002/aic.690381003" rel="noopener" target="_blank">10.1002/aic.690381003</a></li><li id="ref-7">Thompson, M. L., &amp; Kramer, M. A. (1994). Modeling chemical processes using prior knowledge and neural networks. <em>AIChE Journal, 40</em>(8), 1328–1340. <a href="https://doi.org/10.1002/aic.690400806" rel="noopener" target="_blank">10.1002/aic.690400806</a></li><li id="ref-8">von Stosch, M., Oliveira, R., Peres, J., &amp; Feyo de Azevedo, S. (2014). Hybrid semi-parametric modeling in process systems engineering: Past, present and future. <em>Computers &amp; Chemical Engineering, 60</em>, 86–101. <a href="https://doi.org/10.1016/j.compchemeng.2013.08.008" rel="noopener" target="_blank">10.1016/j.compchemeng.2013.08.008</a></li><li id="ref-9">Karniadakis, G. E., Kevrekidis, I. G., Lu, L., Perdikaris, P., Wang, S., &amp; Yang, L. (2021). Physics-informed machine learning. <em>Nature Reviews Physics, 3</em>, 422–440. <a href="https://doi.org/10.1038/s42254-021-00314-5" rel="noopener" target="_blank">10.1038/s42254-021-00314-5</a></li><li id="ref-10">Bradley, W., et al. (2022). Perspectives on the integration between first-principles and data-driven modeling. <em>Computers &amp; Chemical Engineering, 166</em>, 107898. <a href="https://doi.org/10.1016/j.compchemeng.2022.107898" rel="noopener" target="_blank">10.1016/j.compchemeng.2022.107898</a></li><li id="ref-11">Zubair, S. M., Sheikh, A. K., Younas, M., &amp; Budair, M. O. (2000). A risk based heat exchanger analysis subject to fouling: Part I: Performance evaluation. <em>Energy, 25</em>(5), 427–443.</li><li id="ref-12">Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). <em>Fundamentals of heat and mass transfer</em> (7th ed.). Wiley.</li><li id="ref-13">Lee, Q. F. (2026). Sizing pumps and control valves under uncertainty: Monte Carlo design points for chemical plants. <em>Chmltech Online Journal, 106</em>(8). <a href="https://www.chmltech.com/post/sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants" rel="noopener" target="_blank">www.chmltech.com/post/sizing-pumps-and-control-valves-under-uncertainty-monte-ca</a></li><li id="ref-14">Gnielinski, V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. <em>International Chemical Engineering, 16</em>(2), 359–368.</li><li id="ref-15">Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. <em>Annals of Statistics, 29</em>(5), 1189–1232. <a href="https://doi.org/10.1214/aos/1013203451" rel="noopener" target="_blank">10.1214/aos/1013203451</a></li><li id="ref-16">Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., et al. (2011). Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research, 12</em>, 2825–2830.</li><li id="ref-17">Kern, D. Q., &amp; Seaton, R. E. (1959). A theoretical analysis of thermal surface fouling. <em>British Chemical Engineering, 4</em>(5), 258–262.</li><li id="ref-18">Müller-Steinhagen, H. (2011). Heat transfer fouling: 50 years after the Kern and Seaton model. <em>Heat Transfer Engineering, 32</em>(1), 1–13. <a href="https://doi.org/10.1080/01457632.2010.505127" rel="noopener" target="_blank">10.1080/01457632.2010.505127</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater. <em>Chmltech Online Journal</em>, <em>106</em>(23). https://www.chmltech.com/post/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. The Plant and Its Data</a></li><li><a href="#sec-3">3. Four Monitors</a></li><li><a href="#sec-4">4. Results: Estimating Fouling</a></li><li><a href="#sec-5">5. Results: Forecasting the Cleaning</a></li><li><a href="#sec-6">6. Results: Outside the Training Data</a></li><li><a href="#sec-7">7. Building a Hybrid Twin</a></li><li><a href="#sec-8">8. Conclusions</a></li><li><a href="#sec-9">9. Appendix: A Hybrid Fouling Twin in About 50 Lines of Code</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 23</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px;justify-content:center;text-align:center">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue23.pdf" data-fname="Chmltech-Journal-Vol106-Issue23.pdf" data-title="Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater" data-ref="Vol. 106, Issue 23">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 23</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater", "name": "Hybrid Digital Twins for Heat Exchanger Fouling: Physics, Machine Learning and the Combination Tested on a Steam Preheater", "abstract": "A digital twin of a fouling heat exchanger can be built from first principles, from data alone, or from both. This paper compares the three on the steam-heated feed preheater E-101, using synthetic histories with known truth. Each history holds three two-year runs of 4-hourly records with seasonal feed temperature, turndown campaigns, instrument noise and drift, a true tube-side coefficient that falls below the published correlation as a power law in Reynolds number, and Kern–Seaton fouling that differs from run to run. Four monitors are trained on the first two runs and tested on the third: physics only; physics with a constant correction learned from the days after each cleaning; a hybrid whose correction is a power law in Reynolds number; and gradient-boosted machine learning on flow, inlet temperature and time since cleaning. Over 20 histories the physics-only fouling estimate is biased by 1.8 × 10⁻⁴ m²K/W, about the TEMA design value; the hybrid's median RMS error is 0.25 × 10⁻⁴. One month into a run the hybrid forecasts when the exchanger can no longer heat the design case to within 20% in 14 of 20 histories, against 9 for the constant correction and none for machine learning. At turndown in the test run, which adds turndown in the coldest weeks, unseen in training, the hybrid predicts shell pressure to a median 0.07 bar, against 0.24 bar for machine learning and 0.47 bar for physics alone. The advantage is partly built into the test.", "keywords": "digital twin, hybrid modelling, heat exchanger fouling, physics-informed machine learning, Kern-Seaton, condition monitoring, gradient boosting, steam preheater", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "23", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater", "citation": ["Lee, Q. F. (2026). Sizing the feed preheater under fouling uncertainty: Area margin, cleaning and condensate stall. Chmltech Online Journal, 106(21).", "Rasheed, A., San, O., &amp; Kvamsdal, T. (2020). Digital twin: Values, challenges and enablers from a modeling perspective. IEEE Access, 8, 21980–22012.", "Lee, Q. F. (2026). Digital twins in chemical process plants: Architecture, modeling approaches and applications. Chmltech Online Journal.", "Sundar, S., Rajagopal, M. C., Zhao, H., Kuntumalla, G., et al. (2020). Fouling modeling and prediction approach for heat exchangers using deep learning. International Journal of Heat and Mass Transfer, 159, 120112.", "Ujević Andrijić, Ž., &amp; Rimac, N. (2025). Data-driven fouling detection in refinery preheat train heat exchangers using neural networks and gradient boosting. Sensors, 25(16), 4936.", "Psichogios, D. C., &amp; Ungar, L. H. (1992). A hybrid neural network–first principles approach to process modeling. AIChE Journal, 38(10), 1499–1511.", "Thompson, M. L., &amp; Kramer, M. A. (1994). Modeling chemical processes using prior knowledge and neural networks. AIChE Journal, 40(8), 1328–1340.", "von Stosch, M., Oliveira, R., Peres, J., &amp; Feyo de Azevedo, S. (2014). Hybrid semi-parametric modeling in process systems engineering: Past, present and future. Computers &amp; Chemical Engineering, 60, 86–101.", "Karniadakis, G. E., Kevrekidis, I. G., Lu, L., Perdikaris, P., Wang, S., &amp; Yang, L. (2021). Physics-informed machine learning. Nature Reviews Physics, 3, 422–440.", "Bradley, W., et al. (2022). Perspectives on the integration between first-principles and data-driven modeling. Computers &amp; Chemical Engineering, 166, 107898.", "Zubair, S. M., Sheikh, A. K., Younas, M., &amp; Budair, M. O. (2000). A risk based heat exchanger analysis subject to fouling: Part I: Performance evaluation. Energy, 25(5), 427–443.", "Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). Fundamentals of heat and mass transfer (7th ed.). Wiley.", "Lee, Q. F. (2026). Sizing pumps and control valves under uncertainty: Monte Carlo design points for chemical plants. Chmltech Online Journal, 106(8).", "Gnielinski, V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. International Chemical Engineering, 16(2), 359–368.", "Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. Annals of Statistics, 29(5), 1189–1232.", "Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., et al. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825–2830.", "Kern, D. Q., &amp; Seaton, R. E. (1959). A theoretical analysis of thermal surface fouling. British Chemical Engineering, 4(5), 258–262.", "Müller-Steinhagen, H. (2011). Heat transfer fouling: 50 years after the Kern and Seaton model. Heat Transfer Engineering, 32(1), 1–13."], "image": "https://www.chmltech.com/assets/media/covers/hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater.jpg"}</script>
+<!--exam-hub:post--><section class="section"><div class="container stack"><p class="eyebrow">Test what you have read</p><h2 class="h-md">Free Process / ChemEng practice exams</h2><p class="muted">Interactive exams with an explanation for every answer. No sign-up.</p><div class="index"><a href="../exams/process-chemeng/AI_in_Chemical_Engineering_Application_CBE_150Q_Exam">AI in Chemical Engineering Application Exam<span aria-hidden="true">→</span></a><a href="../exams/process-chemeng/Data_Analytics_in_Chemical_Engineering_CBE_150Q_Exam">Data Analytics in Chemical Engineering Exam<span aria-hidden="true">→</span></a><a href="../exams/process-chemeng/Process_Analysis_Heat_Integration_150Q_Exam">Process Analysis Heat Integration Exam<span aria-hidden="true">→</span></a><a href="../chemical-engineering-practice-exams"><strong>All 48 Process / ChemEng practice exams</strong><span aria-hidden="true">→</span></a></div></div></section>
+<!--/exam-hub:post-->
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../ai-tools">AI tools landscape</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a href="mailto:info@chmltech.com">info@chmltech.com</a>
+      <a href="../book">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=60d2bb4b" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>
