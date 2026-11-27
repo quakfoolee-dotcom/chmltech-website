@@ -40,6 +40,12 @@ JOURNAL_CAT = "chmltech-online-journal"
 # Each paper is listed under the journal and under its subject category (V4.18).
 # Process plant papers are also listed under Process Engineering (V4.40).
 TOPIC = {
+    # Volume 106, Issues 19-23: process and operations papers under uncertainty (V5.85, Nov 27 2026)
+    "stocking-critical-spare-parts-under-uncertainty-when-abc-analysis-and-safety-stock-formulas-fail": ["inventory-management", "operational-efficiency"],
+    "setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant": ["process-engineering", "operational-efficiency"],
+    "sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall": ["process-engineering"],
+    "can-an-ai-agent-do-process-engineering-calculations-a-benchmark-of-three-models-with-and-without-code": ["artificial-intelligence", "process-engineering"],
+    "hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater": ["process-engineering", "artificial-intelligence"],
     # Volume 106, Issues 16-18: industrial LLMs for smart factory assessment and optimization (drafts, Nov 27 2026)
     "can-an-llm-assess-a-factory-validating-ai-scored-smart-factory-maturity-against-human-assessors": ["artificial-intelligence", "digital-technology"],
     "the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis": ["artificial-intelligence", "operational-efficiency"],

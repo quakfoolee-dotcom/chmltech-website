@@ -110,4 +110,9 @@ POST_TITLES = {
     "forecasting-lumpy-demand-does-croston-beat-a-moving-average": "Forecasting Lumpy Demand: Croston vs Moving Average",
     "sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants": "Monte Carlo Sizing of Pumps and Control Valves",
     "choosing-the-pump-arrangement-under-uncertainty-monte-carlo-comparison-of-single-parallel-and-variable-speed-options": "Single, Parallel or Variable-Speed Pumps?",
+    "stocking-critical-spare-parts-under-uncertainty-when-abc-analysis-and-safety-stock-formulas-fail": "Stocking Critical Spare Parts Under Uncertainty",
+    "setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant": "Setting Cost Contingency by Monte Carlo",
+    "sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall": "Sizing a Feed Preheater for Fouling",
+    "can-an-ai-agent-do-process-engineering-calculations-a-benchmark-of-three-models-with-and-without-code": "Can an AI Agent Do Process Calculations?",
+    "hybrid-digital-twins-for-heat-exchanger-fouling-physics-machine-learning-and-the-combination-tested-on-a-steam-preheater": "Hybrid Digital Twins for Exchanger Fouling",
 }

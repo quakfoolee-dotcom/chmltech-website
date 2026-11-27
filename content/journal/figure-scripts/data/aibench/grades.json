@@ -1,0 +1,1970 @@
+{
+ "haiku_code": {
+  "rows": [
+   {
+    "task": 1,
+    "key": "head_m",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 65.6369056629471,
+    "got": 65.61,
+    "err": 0.00040991668749993423,
+    "ok": true
+   },
+   {
+    "task": 2,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "shaft_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.4402360887096775,
+    "got": 3.441,
+    "err": 0.00022205199603289493,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "electrical_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.7393870529453013,
+    "got": 3.741,
+    "err": 0.000431339958089764,
+    "ok": true
+   },
+   {
+    "task": 4,
+    "key": "dp_kPa",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 63.54337543514716,
+    "got": 63.54,
+    "err": 5.3120173803292355e-05,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Kv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 9.13892772703669,
+    "got": 9.139,
+    "err": 7.908254170367732e-06,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Cv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 10.564600452454412,
+    "got": 10.56,
+    "err": 0.00043545919934367754,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "dp_choked_bar",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 4.993912597998814,
+    "got": 4.994,
+    "err": 1.7501708223901952e-05,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "choked_at_5.2",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "duty_kW",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 208.33333333333334,
+    "got": 208.33,
+    "err": 1.5999999999985447e-05,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "lmtd_K",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 90.40573413352385,
+    "got": 90.41,
+    "err": 4.718579542582665e-05,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "area_m2",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 4.608852200141144,
+    "got": 4.609,
+    "err": 3.2068691387236605e-05,
+    "ok": true
+   },
+   {
+    "task": 8,
+    "key": "T_out_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 101.64589211965378,
+    "got": 101.65,
+    "err": 4.041363856977035e-05,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "steam_kgh",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 351.56605785157143,
+    "got": 351.6,
+    "err": 9.654557847823773e-05,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "Tsat_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 143.73179074197355,
+    "got": 143.7,
+    "err": 0.00022118100532565323,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "recycle_kmolh",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 64.47368421052633,
+    "got": 64.47,
+    "err": 5.714285714308358e-05,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "overall_conversion",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 0.986842105263158,
+    "got": 0.9868,
+    "err": 4.26666666667271e-05,
+    "ok": true
+   },
+   {
+    "task": 11,
+    "key": "volume_m3",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 8.000000000000002,
+    "got": 8.0,
+    "err": 2.2204460492503126e-16,
+    "ok": true
+   },
+   {
+    "task": 12,
+    "key": "dT_K",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 85.44973544973546,
+    "got": 85.45,
+    "err": 3.09597523215309e-06,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "Q_BTUh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 3146687.0732398857,
+    "got": 3146687.0,
+    "err": 2.3275236473021047e-08,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "W_lbh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 22476.336237427757,
+    "got": 22476.0,
+    "err": 1.495961905022622e-05,
+    "ok": true
+   },
+   {
+    "task": 14,
+    "key": "area_mm2",
+    "cat": "Relief",
+    "diff": "hard",
+    "ref": 218.58864499160228,
+    "got": 218.6,
+    "err": 5.194692706087621e-05,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "V_over_F",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.4608572989300388,
+    "got": 0.4609,
+    "err": 9.265573109142434e-05,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "x1",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.13939592560712238,
+    "got": 0.1394,
+    "err": 2.92289237283414e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 1.4571142849010443,
+    "got": 1.457,
+    "err": 7.84323523751746e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "Re",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 55463.31400318781,
+    "got": 55463.0,
+    "err": 5.661457369613228e-06,
+    "ok": true
+   },
+   {
+    "task": 17,
+    "key": "time_h",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 0.84989898673332,
+    "got": 0.85,
+    "err": 0.00011885326168966283,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "head_ft",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 92.93103448275863,
+    "got": 92.93,
+    "err": 1.11317254175034e-05,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "Cv",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 13.46291201783626,
+    "got": 13.46,
+    "err": 0.0002162992547526843,
+    "ok": true
+   },
+   {
+    "task": 19,
+    "key": "cost_USD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 2121250.5710975914,
+    "got": 2121251.0,
+    "err": 2.0219318472680527e-07,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "npv_CAD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 152604.88393648685,
+    "got": 152605.0,
+    "err": 7.605491394434784e-07,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "payback_y",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 4.166666666666667,
+    "got": 4.167,
+    "err": 7.99999999998846e-05,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 20,
+  "keys_correct": 32,
+  "n_tasks": 20,
+  "n_keys": 32
+ },
+ "haiku_reasoning": {
+  "rows": [
+   {
+    "task": 1,
+    "key": "head_m",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 65.6369056629471,
+    "got": 65.6,
+    "err": 0.0005622700000000122,
+    "ok": true
+   },
+   {
+    "task": 2,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "shaft_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.4402360887096775,
+    "got": 3.44,
+    "err": 6.862572904583881e-05,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "electrical_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.7393870529453013,
+    "got": 3.74,
+    "err": 0.0001639164510173289,
+    "ok": true
+   },
+   {
+    "task": 4,
+    "key": "dp_kPa",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 63.54337543514716,
+    "got": 63.5,
+    "err": 0.0006826114421861538,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Kv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 9.13892772703669,
+    "got": 9.14,
+    "err": 0.0001173302815536036,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Cv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 10.564600452454412,
+    "got": 10.6,
+    "err": 0.003350770121870849,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "dp_choked_bar",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 4.993912597998814,
+    "got": 4.99,
+    "err": 0.0007834734633484759,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "choked_at_5.2",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "duty_kW",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 208.33333333333334,
+    "got": 208.3,
+    "err": 0.0001599999999999909,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "lmtd_K",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 90.40573413352385,
+    "got": 90.4,
+    "err": 6.342665737746019e-05,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "area_m2",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 4.608852200141144,
+    "got": 4.61,
+    "err": 0.00024904245330776626,
+    "ok": true
+   },
+   {
+    "task": 8,
+    "key": "T_out_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 101.64589211965378,
+    "got": 101.6,
+    "err": 0.0004514901556450831,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "steam_kgh",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 351.56605785157143,
+    "got": 351.6,
+    "err": 9.654557847823773e-05,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "Tsat_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 143.73179074197355,
+    "got": 143.7,
+    "err": 0.00022118100532565323,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "recycle_kmolh",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 64.47368421052633,
+    "got": 64.5,
+    "err": 0.00040816326530591354,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "overall_conversion",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 0.986842105263158,
+    "got": 0.987,
+    "err": 0.00015999999999991723,
+    "ok": true
+   },
+   {
+    "task": 11,
+    "key": "volume_m3",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 8.000000000000002,
+    "got": 8.0,
+    "err": 2.2204460492503126e-16,
+    "ok": true
+   },
+   {
+    "task": 12,
+    "key": "dT_K",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 85.44973544973546,
+    "got": 85.4,
+    "err": 0.0005820433436532625,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "Q_BTUh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 3146687.0732398857,
+    "got": 3146700.0,
+    "err": 4.10805390348336e-06,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "W_lbh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 22476.336237427757,
+    "got": 22480.0,
+    "err": 0.0001630053285171256,
+    "ok": true
+   },
+   {
+    "task": 14,
+    "key": "area_mm2",
+    "cat": "Relief",
+    "diff": "hard",
+    "ref": 218.58864499160228,
+    "got": 216.7,
+    "err": 0.008640178869651939,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "V_over_F",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.4608572989300388,
+    "got": 0.461,
+    "err": 0.00030964263838835135,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "x1",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.13939592560712238,
+    "got": 0.139,
+    "err": 0.0028402954060383376,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 1.4571142849010443,
+    "got": 1.457,
+    "err": 7.84323523751746e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "Re",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 55463.31400318781,
+    "got": 55480.0,
+    "err": 0.00030084745407089154,
+    "ok": true
+   },
+   {
+    "task": 17,
+    "key": "time_h",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 0.84989898673332,
+    "got": 0.85,
+    "err": 0.00011885326168966283,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "head_ft",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 92.93103448275863,
+    "got": 92.9,
+    "err": 0.000333951762523267,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "Cv",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 13.46291201783626,
+    "got": 13.46,
+    "err": 0.0002162992547526843,
+    "ok": true
+   },
+   {
+    "task": 19,
+    "key": "cost_USD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 2121250.5710975914,
+    "got": 2121000.0,
+    "err": 0.00011812423341471351,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "npv_CAD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 152604.88393648685,
+    "got": 152600.0,
+    "err": 3.2003801981068284e-05,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "payback_y",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 4.166666666666667,
+    "got": 4.17,
+    "err": 0.0007999999999999118,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 20,
+  "keys_correct": 32,
+  "n_tasks": 20,
+  "n_keys": 32
+ },
+ "opus_code": {
+  "rows": [
+   {
+    "task": 1,
+    "key": "head_m",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 65.6369056629471,
+    "got": 65.63691,
+    "err": 6.607643757916985e-08,
+    "ok": true
+   },
+   {
+    "task": 2,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.10588,
+    "err": 2.0964712455440985e-07,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "shaft_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.4402360887096775,
+    "got": 3.44024,
+    "err": 1.1369249731347383e-06,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "electrical_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.7393870529453013,
+    "got": 3.73939,
+    "err": 7.881117031257134e-07,
+    "ok": true
+   },
+   {
+    "task": 4,
+    "key": "dp_kPa",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 63.54337543514716,
+    "got": 63.54338,
+    "err": 7.183837505960553e-08,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Kv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 9.13892772703669,
+    "got": 9.13893,
+    "err": 2.487122536461823e-07,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Cv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 10.564600452454412,
+    "got": 10.5646,
+    "err": 4.282740400366791e-08,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "dp_choked_bar",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 4.993912597998814,
+    "got": 4.99391,
+    "err": 5.202331365076753e-07,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "choked_at_5.2",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "duty_kW",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 208.33333333333334,
+    "got": 208.33333,
+    "err": 1.6000000096028087e-08,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "lmtd_K",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 90.40573413352385,
+    "got": 90.40573,
+    "err": 4.572192112150429e-08,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "area_m2",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 4.608852200141144,
+    "got": 4.60885,
+    "err": 4.773729007561254e-07,
+    "ok": true
+   },
+   {
+    "task": 8,
+    "key": "T_out_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 101.64589211965378,
+    "got": 101.64589,
+    "err": 2.0853314793388063e-08,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "steam_kgh",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 351.56605785157143,
+    "got": 351.56606,
+    "err": 6.111023848749236e-09,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "Tsat_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 143.73179074197355,
+    "got": 143.73179,
+    "err": 5.162209149586992e-09,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "recycle_kmolh",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 64.47368421052633,
+    "got": 64.47368,
+    "err": 6.53061226321184e-08,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "overall_conversion",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 0.986842105263158,
+    "got": 0.98684,
+    "err": 2.13333333335323e-06,
+    "ok": true
+   },
+   {
+    "task": 11,
+    "key": "volume_m3",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 8.000000000000002,
+    "got": 8.0,
+    "err": 2.2204460492503126e-16,
+    "ok": true
+   },
+   {
+    "task": 12,
+    "key": "dT_K",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 85.44973544973546,
+    "got": 85.44974,
+    "err": 5.325077398079298e-08,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "Q_BTUh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 3146687.0732398857,
+    "got": 3146687.07324,
+    "err": 3.6256231628691974e-14,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "W_lbh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 22476.336237427757,
+    "got": 22476.33624,
+    "err": 1.1444230956143547e-10,
+    "ok": true
+   },
+   {
+    "task": 14,
+    "key": "area_mm2",
+    "cat": "Relief",
+    "diff": "hard",
+    "ref": 218.58864499160228,
+    "got": 218.58864,
+    "err": 2.283559734736449e-08,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "V_over_F",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.4608572989300388,
+    "got": 0.46086,
+    "err": 5.860968172725815e-06,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "x1",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.13939592560712238,
+    "got": 0.1394,
+    "err": 2.92289237283414e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 1.4571142849010443,
+    "got": 1.45711,
+    "err": 2.940676025777758e-06,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "Re",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 55463.31400318781,
+    "got": 55463.314,
+    "err": 5.7475974720178965e-11,
+    "ok": true
+   },
+   {
+    "task": 17,
+    "key": "time_h",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 0.84989898673332,
+    "got": 0.8499,
+    "err": 1.1922201294769937e-06,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "head_ft",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 92.93103448275863,
+    "got": 92.93103,
+    "err": 4.8237476871674006e-08,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "Cv",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 13.46291201783626,
+    "got": 13.46291,
+    "err": 1.49881114598273e-07,
+    "ok": true
+   },
+   {
+    "task": 19,
+    "key": "cost_USD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 2121250.5710975914,
+    "got": 2121250.5711,
+    "err": 1.1353680752149225e-12,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "npv_CAD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 152604.88393648685,
+    "got": 152604.88394,
+    "err": 2.302123226753957e-11,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "payback_y",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 4.166666666666667,
+    "got": 4.16667,
+    "err": 7.999999998986595e-07,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 20,
+  "keys_correct": 32,
+  "n_tasks": 20,
+  "n_keys": 32
+ },
+ "opus_reasoning": {
+  "rows": [
+   {
+    "task": 1,
+    "key": "head_m",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 65.6369056629471,
+    "got": 65.64,
+    "err": 4.714325000008312e-05,
+    "ok": true
+   },
+   {
+    "task": 2,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.11,
+    "err": 0.0003401207655552686,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "shaft_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.4402360887096775,
+    "got": 3.44,
+    "err": 6.862572904583881e-05,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "electrical_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.7393870529453013,
+    "got": 3.739,
+    "err": 0.00010350705605522491,
+    "ok": true
+   },
+   {
+    "task": 4,
+    "key": "dp_kPa",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 63.54337543514716,
+    "got": 63.5,
+    "err": 0.0006826114421861538,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Kv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 9.13892772703669,
+    "got": 9.139,
+    "err": 7.908254170367732e-06,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Cv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 10.564600452454412,
+    "got": 10.57,
+    "err": 0.000511098130959954,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "dp_choked_bar",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 4.993912597998814,
+    "got": 4.994,
+    "err": 1.7501708223901952e-05,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "choked_at_5.2",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "duty_kW",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 208.33333333333334,
+    "got": 208.33,
+    "err": 1.5999999999985447e-05,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "lmtd_K",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 90.40573413352385,
+    "got": 90.41,
+    "err": 4.718579542582665e-05,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "area_m2",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 4.608852200141144,
+    "got": 4.609,
+    "err": 3.2068691387236605e-05,
+    "ok": true
+   },
+   {
+    "task": 8,
+    "key": "T_out_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 101.64589211965378,
+    "got": 101.6,
+    "err": 0.0004514901556450831,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "steam_kgh",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 351.56605785157143,
+    "got": 351.6,
+    "err": 9.654557847823773e-05,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "Tsat_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 143.73179074197355,
+    "got": 143.6,
+    "err": 0.0009169213108194721,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "recycle_kmolh",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 64.47368421052633,
+    "got": 64.47,
+    "err": 5.714285714308358e-05,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "overall_conversion",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 0.986842105263158,
+    "got": 0.9868,
+    "err": 4.26666666667271e-05,
+    "ok": true
+   },
+   {
+    "task": 11,
+    "key": "volume_m3",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 8.000000000000002,
+    "got": 8.0,
+    "err": 2.2204460492503126e-16,
+    "ok": true
+   },
+   {
+    "task": 12,
+    "key": "dT_K",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 85.44973544973546,
+    "got": 85.45,
+    "err": 3.09597523215309e-06,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "Q_BTUh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 3146687.0732398857,
+    "got": 3146700.0,
+    "err": 4.10805390348336e-06,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "W_lbh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 22476.336237427757,
+    "got": 22476.0,
+    "err": 1.495961905022622e-05,
+    "ok": true
+   },
+   {
+    "task": 14,
+    "key": "area_mm2",
+    "cat": "Relief",
+    "diff": "hard",
+    "ref": 218.58864499160228,
+    "got": 218.6,
+    "err": 5.194692706087621e-05,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "V_over_F",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.4608572989300388,
+    "got": 0.4609,
+    "err": 9.265573109142434e-05,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "x1",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.13939592560712238,
+    "got": 0.1394,
+    "err": 2.92289237283414e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 1.4571142849010443,
+    "got": 1.457,
+    "err": 7.84323523751746e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "Re",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 55463.31400318781,
+    "got": 55460.0,
+    "err": 5.9751265270878774e-05,
+    "ok": true
+   },
+   {
+    "task": 17,
+    "key": "time_h",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 0.84989898673332,
+    "got": 0.85,
+    "err": 0.00011885326168966283,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "head_ft",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 92.93103448275863,
+    "got": 92.9,
+    "err": 0.000333951762523267,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "Cv",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 13.46291201783626,
+    "got": 13.46,
+    "err": 0.0002162992547526843,
+    "ok": true
+   },
+   {
+    "task": 19,
+    "key": "cost_USD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 2121250.5710975914,
+    "got": 2121000.0,
+    "err": 0.00011812423341471351,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "npv_CAD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 152604.88393648685,
+    "got": 152600.0,
+    "err": 3.2003801981068284e-05,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "payback_y",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 4.166666666666667,
+    "got": 4.167,
+    "err": 7.99999999998846e-05,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 20,
+  "keys_correct": 32,
+  "n_tasks": 20,
+  "n_keys": 32
+ },
+ "sonnet_code": {
+  "rows": [
+   {
+    "task": 1,
+    "key": "head_m",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 65.6369056629471,
+    "got": 65.6369056629471,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 2,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.105882537963465,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "shaft_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.4402360887096775,
+    "got": 3.4402360887096775,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "electrical_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.7393870529453013,
+    "got": 3.7393870529453013,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 4,
+    "key": "dp_kPa",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 63.54337543514716,
+    "got": 63.5433754351479,
+    "err": 1.1629291647320448e-14,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Kv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 9.13892772703669,
+    "got": 9.13892772703669,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Cv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 10.564600452454412,
+    "got": 10.565514345227117,
+    "err": 8.650519031148525e-05,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "dp_choked_bar",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 4.993912597998814,
+    "got": 4.993912597998815,
+    "err": 1.778522155265674e-16,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "choked_at_5.2",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "duty_kW",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 208.33333333333334,
+    "got": 208.33333333333334,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "lmtd_K",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 90.40573413352385,
+    "got": 90.40573413352385,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "area_m2",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 4.608852200141144,
+    "got": 4.608852200141143,
+    "err": 1.9271141297890288e-16,
+    "ok": true
+   },
+   {
+    "task": 8,
+    "key": "T_out_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 101.64589211965378,
+    "got": 101.64589211965378,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "steam_kgh",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 351.56605785157143,
+    "got": 351.56605785157143,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "Tsat_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 143.73179074197355,
+    "got": 143.73179074197355,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "recycle_kmolh",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 64.47368421052633,
+    "got": 64.47368421052632,
+    "err": 2.204132568072147e-16,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "overall_conversion",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 0.986842105263158,
+    "got": 0.9868421052631579,
+    "err": 1.1250259982868251e-16,
+    "ok": true
+   },
+   {
+    "task": 11,
+    "key": "volume_m3",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 8.000000000000002,
+    "got": 8.0,
+    "err": 2.2204460492503126e-16,
+    "ok": true
+   },
+   {
+    "task": 12,
+    "key": "dT_K",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 85.44973544973546,
+    "got": 85.44973544973546,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "Q_BTUh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 3146687.0732398857,
+    "got": 3146687.0732398857,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "W_lbh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 22476.336237427757,
+    "got": 22476.336237427757,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 14,
+    "key": "area_mm2",
+    "cat": "Relief",
+    "diff": "hard",
+    "ref": 218.58864499160228,
+    "got": 218.58864499160228,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "V_over_F",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.4608572989300388,
+    "got": 0.46085729893003885,
+    "err": 1.2045193026157278e-16,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "x1",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.13939592560712238,
+    "got": 0.13939592560712238,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 1.4571142849010443,
+    "got": 1.4571142849010443,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "Re",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 55463.31400318781,
+    "got": 55463.31400318781,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 17,
+    "key": "time_h",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 0.84989898673332,
+    "got": 0.84989898673332,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "head_ft",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 92.93103448275863,
+    "got": 92.93103448275863,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "Cv",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 13.46291201783626,
+    "got": 13.46291201783626,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 19,
+    "key": "cost_USD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 2121250.5710975914,
+    "got": 2121250.571097592,
+    "err": 2.1952205630605617e-16,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "npv_CAD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 152604.88393648685,
+    "got": 152604.88393648685,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "payback_y",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 4.166666666666667,
+    "got": 4.166666666666667,
+    "err": 0.0,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 20,
+  "keys_correct": 32,
+  "n_tasks": 20,
+  "n_keys": 32
+ },
+ "sonnet_reasoning": {
+  "rows": [
+   {
+    "task": 1,
+    "key": "head_m",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 65.6369056629471,
+    "got": 65.64,
+    "err": 4.714325000008312e-05,
+    "ok": true
+   },
+   {
+    "task": 2,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.11,
+    "err": 0.0003401207655552686,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "shaft_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.4402360887096775,
+    "got": 3.44,
+    "err": 6.862572904583881e-05,
+    "ok": true
+   },
+   {
+    "task": 3,
+    "key": "electrical_kW",
+    "cat": "Pumps",
+    "diff": "easy",
+    "ref": 3.7393870529453013,
+    "got": 3.74,
+    "err": 0.0001639164510173289,
+    "ok": true
+   },
+   {
+    "task": 4,
+    "key": "dp_kPa",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 63.54337543514716,
+    "got": 63.5,
+    "err": 0.0006826114421861538,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Kv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 9.13892772703669,
+    "got": 9.139,
+    "err": 7.908254170367732e-06,
+    "ok": true
+   },
+   {
+    "task": 5,
+    "key": "Cv",
+    "cat": "Valves",
+    "diff": "easy",
+    "ref": 10.564600452454412,
+    "got": 10.57,
+    "err": 0.000511098130959954,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "dp_choked_bar",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 4.993912597998814,
+    "got": 4.994,
+    "err": 1.7501708223901952e-05,
+    "ok": true
+   },
+   {
+    "task": 6,
+    "key": "choked_at_5.2",
+    "cat": "Valves",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "duty_kW",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 208.33333333333334,
+    "got": 208.3,
+    "err": 0.0001599999999999909,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "lmtd_K",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 90.40573413352385,
+    "got": 90.4,
+    "err": 6.342665737746019e-05,
+    "ok": true
+   },
+   {
+    "task": 7,
+    "key": "area_m2",
+    "cat": "Heat transfer",
+    "diff": "easy",
+    "ref": 4.608852200141144,
+    "got": 4.61,
+    "err": 0.00024904245330776626,
+    "ok": true
+   },
+   {
+    "task": 8,
+    "key": "T_out_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 101.64589211965378,
+    "got": 101.7,
+    "err": 0.0005323174327844841,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "steam_kgh",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 351.56605785157143,
+    "got": 351.5,
+    "err": 0.000187895987386013,
+    "ok": true
+   },
+   {
+    "task": 9,
+    "key": "Tsat_C",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 143.73179074197355,
+    "got": 143.7,
+    "err": 0.00022118100532565323,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "recycle_kmolh",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 64.47368421052633,
+    "got": 64.47,
+    "err": 5.714285714308358e-05,
+    "ok": true
+   },
+   {
+    "task": 10,
+    "key": "overall_conversion",
+    "cat": "Balances",
+    "diff": "medium",
+    "ref": 0.986842105263158,
+    "got": 0.9868,
+    "err": 4.26666666667271e-05,
+    "ok": true
+   },
+   {
+    "task": 11,
+    "key": "volume_m3",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 8.000000000000002,
+    "got": 8.0,
+    "err": 2.2204460492503126e-16,
+    "ok": true
+   },
+   {
+    "task": 12,
+    "key": "dT_K",
+    "cat": "Reactors",
+    "diff": "easy",
+    "ref": 85.44973544973546,
+    "got": 85.4,
+    "err": 0.0005820433436532625,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "Q_BTUh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 3146687.0732398857,
+    "got": 3146000.0,
+    "err": 0.0002183481305557064,
+    "ok": true
+   },
+   {
+    "task": 13,
+    "key": "W_lbh",
+    "cat": "Relief",
+    "diff": "medium",
+    "ref": 22476.336237427757,
+    "got": 22470.0,
+    "err": 0.0002819070404012539,
+    "ok": true
+   },
+   {
+    "task": 14,
+    "key": "area_mm2",
+    "cat": "Relief",
+    "diff": "hard",
+    "ref": 218.58864499160228,
+    "got": 218.6,
+    "err": 5.194692706087621e-05,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "V_over_F",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.4608572989300388,
+    "got": 0.4608,
+    "err": 0.0001243311762053822,
+    "ok": true
+   },
+   {
+    "task": 15,
+    "key": "x1",
+    "cat": "Separation",
+    "diff": "medium",
+    "ref": 0.13939592560712238,
+    "got": 0.1394,
+    "err": 2.92289237283414e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 1.4571142849010443,
+    "got": 1.457,
+    "err": 7.84323523751746e-05,
+    "ok": true
+   },
+   {
+    "task": 16,
+    "key": "Re",
+    "cat": "Lines",
+    "diff": "easy",
+    "ref": 55463.31400318781,
+    "got": 55470.0,
+    "err": 0.00012054809440000639,
+    "ok": true
+   },
+   {
+    "task": 17,
+    "key": "time_h",
+    "cat": "Heat transfer",
+    "diff": "medium",
+    "ref": 0.84989898673332,
+    "got": 0.85,
+    "err": 0.00011885326168966283,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "head_ft",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 92.93103448275863,
+    "got": 92.9,
+    "err": 0.000333951762523267,
+    "ok": true
+   },
+   {
+    "task": 18,
+    "key": "Cv",
+    "cat": "Units",
+    "diff": "easy",
+    "ref": 13.46291201783626,
+    "got": 13.46,
+    "err": 0.0002162992547526843,
+    "ok": true
+   },
+   {
+    "task": 19,
+    "key": "cost_USD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 2121250.5710975914,
+    "got": 2121000.0,
+    "err": 0.00011812423341471351,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "npv_CAD",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 152604.88393648685,
+    "got": 152600.0,
+    "err": 3.2003801981068284e-05,
+    "ok": true
+   },
+   {
+    "task": 20,
+    "key": "payback_y",
+    "cat": "Cost",
+    "diff": "easy",
+    "ref": 4.166666666666667,
+    "got": 4.167,
+    "err": 7.99999999998846e-05,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 20,
+  "keys_correct": 32,
+  "n_tasks": 20,
+  "n_keys": 32
+ }
+}

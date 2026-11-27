@@ -1,0 +1,528 @@
+{
+ "slug": "can-an-ai-agent-do-process-engineering-calculations-a-benchmark-of-three-models-with-and-without-code",
+ "volume": 106,
+ "issue": 22,
+ "published": "2026-11-27",
+ "revised": "2026-11-27",
+ "title": "Can an AI Agent Do Process Engineering Calculations? A Benchmark of Three Models, With and Without Code",
+ "short_title": "Can an AI Agent Do Process Engineering Calculations?",
+ "meta": "Three AI models worked 35 process engineering tasks by hand and with Python: 298 of 300 answers within tolerance. The risk lies in inputs, framing and judgement.",
+ "author": {
+  "name": "Quak Foo Lee",
+  "role": "Chief Technology Officer",
+  "org": "Chmltech Ltd.",
+  "division": "Division of Artificial Intelligence and Machine Learning",
+  "location": "Vancouver, BC, Canada"
+ },
+ "abstract": "Engineers are beginning to hand calculations to AI agents, and professional regulators expect them to understand and verify what such tools produce. This paper tests three large language models of different size, from one model family, as agents on 35 process engineering tasks drawn from the Chmltech FEED series. Twenty tasks are fully specified apart from one steam-table lookup; eleven are harder, needing recalled property data, a standard size, an iteration or mixed units, or asking whether a duty is feasible, test data consistent or a colleague's calculation right; four are open design reviews scored against a rubric written before any answer was seen. Each model worked every numeric task twice, by reasoning alone and with Python, and every answer was checked against a reference computed in code. Of 300 graded answers, 298 fell within tolerance; the median numeric relative error was about 0.02% by reasoning alone and far smaller with code. The two misses were a calculation that dropped two terms and a steam saturation temperature 1.2 K high. On the design reviews the models scored 16 to 20 out of 20 depending on the grader; the smallest missed condensate stall at low load. On these short, well-posed tasks, arithmetic was rarely the weak point. The remaining risks lie in the framing of a task, in data the agent supplies from memory, and in judgement that varies between models and runs; the paper sets out how to check an agent's work accordingly.",
+ "keywords": [
+  "AI agents",
+  "large language models",
+  "process engineering calculations",
+  "benchmark",
+  "program-aided reasoning",
+  "engineering judgement",
+  "verification",
+  "professional practice"
+ ],
+ "sections": [
+  {
+   "num": "1",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "p": "A process engineer spends much of a design project on calculations that are individually simple: the head of a pump, the area of a heater, the size of a valve or a relief device. The earlier papers of this series built Monte Carlo models around such calculations [1–3], and the companion Insights posts worked them by hand [4]. AI agents, language models that can read a task, write and run code and report a result, now offer to do this work. The question an engineer and a regulator both ask is whether the answers can be trusted."
+    },
+    {
+     "p": "The published evidence is mixed. ChemBench, a set of more than 2,700 chemistry questions, found that the best models outperformed the best human chemists in the study on average, yet struggled with some basic tasks and gave overconfident answers [5]. QCBench, focused on quantitative chemistry, found accuracy falling as task difficulty rose [6]. Earlier chemistry benchmarks reached similar mixed conclusions [7]. Studies of program-aided reasoning show that letting a model write and run code removes most arithmetic errors [8, 9], and agent frameworks for process engineering calculations have begun to appear [10]. Few studies test the bread-and-butter calculations of process engineering, and fewer separate the arithmetic from the engineering judgement around it."
+    },
+    {
+     "p": "The regulators have moved faster than the evidence. Engineers and Geoscientists BC issued a practice advisory in 2024 that leaves responsibility for AI-assisted work with the registrant who signs it, and expects the registrant to understand and verify the output [11]; APEGA and other regulators have followed [12]."
+    },
+    {
+     "p": "This paper asks three questions with a small, transparent benchmark. Can current models get the numbers right on typical process calculations? Does giving them code help? And do they bring the judgement a senior engineer would expect, or only the arithmetic? It then sets out what the answers mean for how an engineer should use and check such an agent."
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "title": "The Tasks",
+   "blocks": [
+    {
+     "p": "The tasks come in three sets, summarised in Table 1; the full text is in the downloadable task files. They use the equipment and numbers of the Chmltech FEED series, the 50,000-tonne-a-year plant with its feed pump P-101, feed preheater E-101 and reactor, so that they look like the calculations of a real project rather than textbook exercises."
+    },
+    {
+     "p": "<strong>Set 1, fully specified (20 tasks, 32 answers).</strong> Every number needed is given, including property values, apart from the steam-table lookup of task 9, and the method is named where more than one exists, such as Colebrook–White for the friction factor, the IEC 60534 choked-flow limit [13] or the API 520 and 521 relief equations [14, 15]. These test whether the agent can carry out a calculation correctly once it is well posed."
+    },
+    {
+     "p": "<strong>Set 2, harder (11 tasks, 18 answers).</strong> Each task adds one of the difficulties that cause errors in practice: a property that must be supplied from knowledge (vapour pressure of toluene, water density and viscosity, steam saturation temperature and latent heat, real-gas density of methane); a duty that cannot be met (heating to 150 °C with steam at 143.7 °C); test data that imply an efficiency above 100%; a standard Schedule 40 pipe size to choose without a pipe table; mixed US and SI units; an iteration where the coefficient depends on the flow being found; a valve that cannot be sized because the pressure drop is not given; and a colleague's NPSH calculation that uses gauge pressure where absolute is needed. Where the difficulty is a judgement, the answer key asks for it directly, for example whether the duty is feasible or the calculation correct, so these tasks test whether an agent gets the judgement right when asked, not whether it raises the problem unprompted."
+    },
+    {
+     "p": "<strong>Set 3, open design reviews (4 tasks).</strong> These ask for a recommendation, not a number: the area of the preheater E-101 and what else its design should address; whether pump P-101 has enough NPSH; whether a relief valve on a jacketed batch reactor may be sized for the blocked-outlet case alone; and which control valve to buy. Each answer was scored on five rubric items that a senior engineer would look for, such as the NPSH margin guidance of ANSI/HI 9.6.1 [16], written down before any answer was read."
+    },
+    {
+     "table": {
+      "n": 1,
+      "caption": "The 35 tasks.",
+      "head": [
+       "Set",
+       "Tasks",
+       "Topics",
+       "What is tested"
+      ],
+      "rows": [
+       [
+        "1",
+        "1–3",
+        "Pump head, NPSHa, shaft and electrical power",
+        "Arithmetic, unit handling"
+       ],
+       [
+        "1",
+        "4, 16",
+        "Darcy–Weisbach with Colebrook–White; velocity and Reynolds number in US units",
+        "Iteration, conversion"
+       ],
+       [
+        "1",
+        "5, 6",
+        "Liquid Kv and Cv; IEC 60534 choked-flow limit",
+        "Standard methods"
+       ],
+       [
+        "1",
+        "7–9, 17",
+        "LMTD and area; outlet temperature from UA; steam rate from steam tables; batch heating time",
+        "Heat transfer, property lookup"
+       ],
+       [
+        "1",
+        "10–12",
+        "Recycle balance; CSTR volume; adiabatic temperature rise",
+        "Balances, reactors"
+       ],
+       [
+        "1",
+        "13, 14",
+        "API 521 fire heat input and relief rate; API 520 vapour orifice area",
+        "Relief standards"
+       ],
+       [
+        "1",
+        "15",
+        "Rachford–Rice flash",
+        "Root finding"
+       ],
+       [
+        "1",
+        "18–20",
+        "Head in feet and Cv in US units; six-tenths cost scaling; NPV and payback",
+        "Conversion, economics"
+       ],
+       [
+        "2",
+        "21–23, 30",
+        "Toluene vapour pressure; water density and viscosity; steam at 10 barg; methane density at 50 barg",
+        "Property data from knowledge"
+       ],
+       [
+        "2",
+        "24, 25, 29",
+        "Impossible duty; inconsistent pump test; under-specified valve",
+        "Recognising a bad task"
+       ],
+       [
+        "2",
+        "26–28",
+        "Standard pipe size; flow-dependent iteration; mixed units",
+        "Standards, iteration, units"
+       ],
+       [
+        "2",
+        "31",
+        "Checking a colleague's NPSH calculation",
+        "Review"
+       ],
+       [
+        "3",
+        "41–44",
+        "Preheater design; NPSH acceptance; relief basis; control valve selection",
+        "Engineering judgement"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "title": "Method",
+   "blocks": [
+    {
+     "p": "<strong>Models and conditions.</strong> Three models of one family were tested: Claude Haiku 5.5, Claude Sonnet 5.5 and Claude Opus 5.5, the small, medium and large models available from Anthropic in November 2026, each run on 27 November 2026 as a sub-agent with access to a file system and a shell, at the default settings of the agent environment; the package records the instructions for each condition and the model identifiers, although the verbatim wording of the condition instructions was not archived. Each model answered sets 1 and 2 twice, in separate sessions. In the reasoning-only condition it was told not to run any code or calculator and to work by hand in its own reasoning. In the code condition it was told to write and run Python, as an engineer would use a calculation script; the environment held NumPy and SciPy and also the iapws and CoolProp property libraries, which the code runs could have used. Neither condition allowed web search, and in both the model had to supply any data a task did not give. Set 3 was answered once by each model, with Python allowed. Each agent saw only the task file and wrote its answers to a file; it had no access to the references. Compliance with the reasoning-only instruction was not verified from tool logs; one agent's report and the counts of tool calls are consistent with it, but it remains an instruction, not a control."
+    },
+    {
+     "p": "<strong>References and grading.</strong> Every reference answer was computed in Python, with water and steam properties from the IAPWS formulations [17–19], the methane density from the Setzmann–Wagner equation of state [20] and the toluene vapour pressure from the NIST Antoine constants [21]. A numeric answer counts as correct when its error is within a tolerance set for each task before the first grading. After it, the temperature bands were changed from relative to absolute, the conversion band was set to ±0.001, and the methane and task 9 references were recomputed; none of these changes altered any outcome (package changelog). The bands are: 1% relative for most direct calculations and for the latent heat of steam; 0.5% for the density of water; 1.5% to 2% for iterative, chained or table-dependent calculations; 5% for properties recalled with typical uncertainty, such as vapour pressure, viscosity and real-gas density; ±0.5 K for outlet and saturation temperatures, since a relative band on a Celsius value depends on an arbitrary zero; and ±0.001 on the overall conversion of the recycle task. Yes/no and categorical answers must match exactly. A task is correct when all its answers are. Of the 300 graded answers, 252 are numeric values and 48 are yes/no or categorical answers, such as feasible, consistent or a nominal pipe size."
+    },
+    {
+     "p": "<strong>Rubric.</strong> The five rubric items for each design task are listed in the appendix. Each scores one point if the answer contains it, zero if not. The author scored the answers, unblinded, against the rubric fixed before they were read; an independent strict re-reading by a second reviewer, a separate AI agent, and a consistency check that applied the same strict standard to every model disagreed on four items (Section 5)."
+    },
+    {
+     "p": "<strong>What this design can and cannot show.</strong> It is a small benchmark: 35 tasks, three models, one run per condition. With 2 misses in 300 answers, the 95% confidence interval (Clopper–Pearson) on the per-answer error rate is about 0.1% to 2.4%, and each condition, with 1 miss in 150, about 0.02% to 3.7%; the comparison of code and no code cannot detect differences of that size. Three models from one family cannot represent the field. The tasks and the reference code were drafted by the author with the assistance of an AI model of the same family, Claude Opus 5.5, and resemble textbook problems, so some may be close to material the models were trained on. The results are a snapshot of capability on routine, well-bounded calculations, not a certification."
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "title": "Results: The Numbers",
+   "blocks": [
+    {
+     "p": "Figure 1 gives the share of answers within tolerance. On set 1 all six runs, three models in two conditions, answered all 32 answers correctly. On set 2 four runs scored 18 out of 18 and two scored 17. Of the 300 graded answers in the two sets, 298 were within tolerance."
+    },
+    {
+     "fig": {
+      "n": 1,
+      "id": "fig1-answers-correct",
+      "caption": "Share of answers within tolerance for each model and condition, sets 1 and 2.",
+      "alt": "Bar chart of answers within tolerance for the small, medium and large models: all six runs 32 of 32 on set 1 by reasoning only and with Python; on set 2 four runs 18 of 18, the small model by reasoning only and the large model with Python 17 of 18.",
+      "source": ""
+     }
+    },
+    {
+     "p": "The numeric answers were not just inside their tolerance; most were far inside it. Figure 2 plots the error of every numeric value as a fraction of its tolerance. The median relative error of the 126 numeric values in each condition was 0.016% by reasoning alone and 0.0002% with code, figures that largely reflect how many digits each answer was rounded to. The largest error on set 1 was 0.9%, by the small model working by hand on the API 520 orifice area, inside that task's 2% tolerance. Reasoning-only arithmetic, long the weak point of language models [8], was rarely a source of error on calculations of this length: one slip in 150 reasoning-only answers."
+    },
+    {
+     "fig": {
+      "n": 2,
+      "id": "fig2-error-of-every-answer",
+      "caption": "Error of every numeric answer in sets 1 and 2 as a fraction of that answer's tolerance, by model and condition; yes/no and categorical answers are omitted, and values below 0.0001, including exact answers, are plotted at 0.0001.",
+      "alt": "Dot plot, log scale from 0.0001 to 10, of each numeric answer's error divided by its tolerance for each model and condition: almost all answers lie far below the tolerance line at 1, with two set 2 answers outside tolerance, one by the small model reasoning only and one by the large model with Python.",
+      "source": ""
+     }
+    },
+    {
+     "p": "The two misses are instructive because they are of different kinds. The small model, working by hand, correctly found that the colleague's NPSH calculation used gauge instead of absolute pressure, then gave 11.2 m instead of 12.1 m: the pressure-head term alone, as if the static head and suction friction had been dropped. The same model had worked the identical calculation correctly in task 2 of set 1, a reminder that a model can get a calculation right in one run and wrong in the next. The large model, working with code available, gave the saturation temperature of steam at 10 barg as 185.3 °C instead of 184.1 °C, 1.2 K high, the value at about 11.3 bar(a); it apparently took the value from memory or an approximate correlation rather than from a steam-table library. Code removes arithmetic errors; it does nothing for wrong inputs."
+    },
+    {
+     "p": "When asked directly, every run got the judgements right. All six said the 150 °C duty could not be met with steam at 143.7 °C, that the pump test data implied an impossible efficiency of 213%, that the valve could not be sized without a pressure drop, and that the colleague's NPSH calculation was wrong. All chose the 3-inch pipe rather than the 2½-inch, which would have run at 2.25 m/s against the 2.0 m/s limit, and all handled the psig, feet and mmHg of the unit-mix task. The benchmark did not test whether an agent raises such problems when nobody asks. The recalled properties were close: the toluene vapour pressure was within 0.4% of the NIST value in every run and the water properties within 0.3%. The methane density ranged from 36.0 to 36.8 kg/m³ against a reference of 36.0 kg/m³ from the Setzmann–Wagner equation; the highest value matches the Peng–Robinson equation, so the spread reflects the equation of state each run chose."
+    },
+    {
+     "p": "Code made no measurable difference to accuracy here: of the two errors, one occurred with code and one without, and the benchmark has no power to detect a difference of that size. Where code clearly helps is in what it leaves behind: a script that a reviewer can read and rerun, rather than a chain of reasoning that has to be taken on trust."
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "title": "Results: The Judgement",
+   "blocks": [
+    {
+     "p": "The design reviews of set 3 scored 18, 20 and 19 out of 20 for the small, medium and large models on the author's reading (Figure 3); a strict reading applied consistently to all three gave 16, 19 and 18. All three gave sound, specific advice on the NPSH check and the relief basis: they used the summer vapour pressure and the low-low level and asked for NPSHr at run-out flow; they rejected the blocked-outlet basis, named the runaway reaction as the probable governing case, called for calorimetry and two-phase sizing, and insisted that the manual valve in the relief path be car-sealed open or removed. On the control valve all three computed a Cv of about 10.6, asked for the maximum and minimum flows and checked for cavitation; only the large model computed the Cv at minimum flow. The four items where the readings differ are whether the small model allowed for a dirty strainer, which it advised keeping clean and alarmed rather than allowing for; whether the small and medium models checked the valve at maximum and minimum flow, which the small model computed only at maximum and the medium model stated only at normal flow; and whether the large model's pump head counts as within 5% of the reference, since it reported 10.6 m against 11.7 m after a strainer allowance, although its figure before the allowance was 11.3 m. With differences between graders of the same size as the differences between models, the scores should not be read as a ranking."
+    },
+    {
+     "fig": {
+      "n": 3,
+      "id": "fig3-design-review-rubric",
+      "caption": "Rubric scores of the three models on the four design reviews on the author's reading; a tick marks an item the answer contained. A strict reading applied consistently scores four of the ticks as misses: the small model's dirty-strainer allowance (Task 42), the large model's NPSHa as reported (Task 42), and the small and medium models' valve opening at maximum and minimum flow (Task 44).",
+      "alt": "Grid of ticks and crosses for five rubric items on each of the four design reviews: all three models score every item on the NPSH, relief basis and control valve tasks; on the preheater the small model misses stall at low load and missing data, and the large model misses the clean area at the normal case.",
+      "source": ""
+     }
+    },
+    {
+     "p": "The clearest difference was on the preheater, the most open of the four. The medium and large models both saw that a heater sized for winter and for fouling would run its shell below atmospheric pressure at 50% rate with clean tubes, so that condensate could not drain through the trap to the atmospheric return, and both proposed a pump-trap or condensate-side control, the same conclusion as the preheater paper of this series [3]. The small model sized the heater sensibly for winter and fouling, but discussed the low-load case only as a question of control valve rangeability and missed the stall entirely; it also did not flag the missing fouling and velocity data. The large model missed one rubric item for a better reason: it did not report the clean area at the normal case because it went straight to a winter design case with a 1 bar drop across the steam valve, a defensible design choice that the rubric did not anticipate."
+    },
+    {
+     "p": "The preheater result is the important one. The small model's answer was confident, well organised and numerically right, and a reader without the experience to look for stall would have accepted it. The failure was not in anything it said but in a consequence it did not see. Fluent answers also carried small errors the rubric did not score: the large model quoted a clean-tube shell pressure that belonged to the fouled case, and the small model gave a line velocity that applies to Schedule 80 pipe, not the Schedule 40 it named. None would change a decision, but each would mislead a reader who trusted the text."
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "title": "Where the Risk Actually Is",
+   "blocks": [
+    {
+     "p": "If the numbers are right 99% of the time on bounded tasks, the risk has moved. Four places stand out, and the benchmark touches only the first two."
+    },
+    {
+     "p": "<strong>Inputs the agent supplies itself.</strong> Most set 2 properties were recalled well, but the one error with code was a recalled property, and code cannot catch it. In a real project the agent will be asked for many more properties than four, for mixtures rather than pure components, and at conditions where recall is weaker. A property used in a calculation should come from a cited source or a property package, not from the agent's memory, and the agent should say which."
+    },
+    {
+     "p": "<strong>Consequences nobody asked about.</strong> The small model's preheater answer shows the pattern: every statement correct, the important consequence missing. Senior engineers catch such omissions because they have seen the consequence before. An agent's answer can be checked for what it says; checking it for what it leaves out needs either that experience or a checklist built from it, such as the HAZOP guidewords applied to the design [22]."
+    },
+    {
+     "p": "<strong>The framing of the task.</strong> In this benchmark every task was framed by an engineer who knew what mattered. The design basis, the operating cases, the margin philosophy and the standards to apply were given. In practice those are the decisions that most affect the result, as the Monte Carlo papers of this series showed: the pump design point was set by the combination of worst cases, not by any one calculation [1], and the contingency of an estimate by what was counted in its base [2]. An agent that receives a badly framed task will solve it accurately and still give the wrong answer."
+    },
+    {
+     "p": "<strong>Scale and drift.</strong> A design package holds hundreds of calculations that depend on one another. An agent working through them can carry an early wrong assumption into every later step, and no single answer will look wrong. The benchmark's tasks were independent; a project's are not."
+    },
+    {
+     "p": "None of this is new to engineering. The same risks apply to a junior engineer, a spreadsheet inherited from another project or a vendor's sizing program. What is new is the speed and fluency with which an agent produces work that looks finished, and the temptation to check it less than the work of a junior engineer would be checked. The regulators' answer is that the professional who relies on the output must understand it well enough to verify it [11, 23]."
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "title": "Using an Agent for Engineering Calculations",
+   "blocks": [
+    {
+     "p": "Table 2 turns the results into practice: what an agent can be given, and how its work should be checked."
+    },
+    {
+     "table": {
+      "n": 2,
+      "caption": "Using an AI agent for process engineering calculations.",
+      "head": [
+       "Work",
+       "Use an agent?",
+       "How to check it"
+      ],
+      "rows": [
+       [
+        "Well-posed calculations with given data (sizing chains, conversions, balances)",
+        "Yes; ask for a script, not just a number",
+        "Rerun the script; spot-check one case by hand or against a second tool"
+       ],
+       [
+        "Calculations needing property data",
+        "Yes, with the properties from a named package or source",
+        "Check every property against its source; never accept unsourced values"
+       ],
+       [
+        "Iterative and multi-case calculations, sensitivity and Monte Carlo runs",
+        "Yes; this is where code earns its keep",
+        "Review the code and its convergence checks; test against a known case"
+       ],
+       [
+        "Checking someone else's calculation",
+        "Yes, as a second reviewer",
+        "Treat its findings as leads, confirmed by the engineer"
+       ],
+       [
+        "Choosing the design basis, cases and margins",
+        "Only as a sounding board",
+        "The engineer decides and records the basis before any calculation"
+       ],
+       [
+        "Design reviews and safety-related judgement (relief basis, stall, NPSH acceptance)",
+        "As a prompt list, not as the reviewer",
+        "Compare its answer with a checklist or a senior engineer's review; look for what it left out"
+       ],
+       [
+        "Sealed or signed deliverables",
+        "Only as a tool within the engineer's own work",
+        "The registrant understands, verifies and takes responsibility for the result"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "Five habits make the difference:"
+    },
+    {
+     "list": [
+      "<strong>Ask for code, not answers.</strong> The numbers were as good without code, but a script can be read, rerun and archived with the calculation; a chain of reasoning cannot.",
+      "<strong>Separate inputs from arithmetic.</strong> Make the agent list every input it supplied itself, with its source, and check those first: that is where the one code-assisted error came from.",
+      "<strong>Frame the task yourself.</strong> Give the design basis, the cases and the standards. An agent asked a narrow question answers it precisely; the breadth has to come from the question.",
+      "<strong>Ask what else matters, then check against a list.</strong> Asking the agent for the risks and consequences of its answer found the stall in two of three models; a checklist or a second model's review closes the gap.",
+      "<strong>Record that an agent was used.</strong> The practice advisories expect AI-related risks to be documented and suggest considering whether to tell clients about AI use; record the tool and its version, and keep the test cases used to check it [11, 12]."
+     ],
+     "ordered": true
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "title": "Conclusions",
+   "blocks": [
+    {
+     "p": "Three current language models, working as agents, were given 35 process engineering tasks of the kind a FEED project is built from:"
+    },
+    {
+     "list": [
+      "On well-posed calculations they were essentially always right: 192 of 192 answers within tolerance, with a median numeric error of about 0.01% even without code.",
+      "On the harder tasks, when asked directly, they identified every impossible duty, inconsistent data set, missing input and wrong calculation, chose the right standard pipe size and handled mixed units. Two of 108 answers fell outside tolerance: a calculation that dropped two terms, by the small model working by hand, and a steam saturation temperature 1.2 K high, by the large model with code available.",
+      "On open design reviews they scored 16 to 20 out of 20, with differences between graders as large as those between models. The smallest model gave a confident, correct-looking preheater design that missed condensate stall at low load.",
+      "Code made no measurable difference to accuracy on tasks this short, but it made the work checkable."
+     ],
+     "ordered": false
+    },
+    {
+     "p": "On short, well-posed tasks the arithmetic is not where the risk lies. It lies in inputs the agent supplies from memory, in consequences nobody asked about, in the framing of the task, and in errors carried through long chains of dependent calculations. Those are the places an engineer's checking should go."
+    },
+    {
+     "p": "The study has limits. It is small: 35 tasks, one run per condition, three models of one family, and the 95% interval on the error rate spans roughly 0.1% to 2.4%. The tasks were drafted with AI assistance, resemble textbook problems and may be close to training material; the harder tasks asked for their judgements directly; compliance with the reasoning-only instruction was not verified from logs; and the rubric was applied by the author, unblinded, with one independent re-reading. It tests independent tasks, not a design package. A repeat with several runs, other model families, tasks written without AI help and blind grading by several engineers would show how far the results generalise. The task files, reference solutions and grading scripts can be downloaded from this paper's page so that others can do so."
+    }
+   ]
+  },
+  {
+   "num": "9",
+   "title": "Appendix: Rubric and Reproduction",
+   "blocks": [
+    {
+     "p": "Table 3 lists the rubric for the design reviews of set 3, fixed before any answer was read. Each item scores one point. The downloadable package holds the three task files, the reference solutions (bench_set1_V1.py and bench_set2_V1.py, which compute every answer in code), the grading script below, the agents' answer files and the rubric scores, so that the study can be repeated with other models or more runs."
+    },
+    {
+     "table": {
+      "n": 3,
+      "caption": "Rubric for the design reviews (one point per item).",
+      "head": [
+       "Task",
+       "Item 1",
+       "Item 2",
+       "Item 3",
+       "Item 4",
+       "Item 5"
+      ],
+      "rows": [
+       [
+        "41 Preheater",
+        "Clean area at the normal case within ±15% of 3.9 m²",
+        "Designs for a cold-feed or maximum-flow case, not the average",
+        "Explicit fouling allowance",
+        "Identifies stall or a sub-atmospheric shell at low load and proposes a remedy",
+        "Flags missing data or design levers: fouling data, tube velocity, steam valve drop"
+       ],
+       [
+        "42 NPSH",
+        "Uses the 40 °C vapour pressure",
+        "Uses the low-low level",
+        "Allows for a dirty strainer or higher flow",
+        "NPSHa at 40 °C and low-low level 11.7 m ±5%",
+        "States a margin rule and/or checks NPSHr at run-out flow"
+       ],
+       [
+        "43 Relief basis",
+        "Rejects blocked outlet as the sole basis",
+        "Names runaway or loss of cooling, with reaction data",
+        "Names fire exposure",
+        "Flags two-phase venting",
+        "Names a further case or car-sealed-open control of the manual valve"
+       ],
+       [
+        "44 Control valve",
+        "Cv about 10.6 (±3%)",
+        "Asks for or uses maximum and minimum flows",
+        "Checks opening at maximum and minimum",
+        "Checks choked flow, cavitation or flashing",
+        "Picks a body size and states a characteristic or installed behaviour"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "The grading script reads every answer file, compares each answer with its reference and tolerance (a negative tolerance is an absolute band), and reports the answers and tasks correct; run it once for each set with that set's reference and answer folder, for example python grade_V1.py reference_set1.json answers_set1."
+    },
+    {
+     "code": "\"\"\"Grades benchmark answers (Chmltech Online Journal, AI-agent paper). Usage: python grade_V1.py reference_set1.json answers_set1\nA negative tolerance is an absolute band; zero means an exact match.\"\"\"\nimport json, glob, os, sys\nREF = json.load(open(sys.argv[1])); folder = sys.argv[2]\nfor f in sorted(glob.glob(os.path.join(folder, \"*.json\"))):\n    A = json.load(open(f)); ok_keys = n_keys = ok_tasks = 0\n    for tid, r in REF.items():\n        task_ok = True\n        for k, a in r[\"answers\"].items():\n            v = A.get(tid, {}).get(k); ref, tol = a[\"value\"], a[\"tol\"]\n            try:\n                v = float(v)\n                ok = abs(v - ref) < 1e-9 if tol == 0 else (abs(v - ref) <= -tol if tol < 0 else abs(v - ref) / abs(ref) <= tol)\n            except (TypeError, ValueError):\n                ok = False\n            ok_keys += ok; n_keys += 1; task_ok &= ok\n        ok_tasks += task_ok\n    print(f\"{os.path.basename(f)[:-5]:20s} tasks {ok_tasks}/{len(REF)}  answers {ok_keys}/{n_keys}\")",
+     "caption": "Grading script: compares every answer file with the reference answers and tolerances of one set (Python 3, standard library only)."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "text": "Lee, Q. F. (2026). Sizing pumps and control valves under uncertainty: Monte Carlo design points for chemical plants. <em>Chmltech Online Journal, 106</em>(8).",
+   "url": "https://www.chmltech.com/post/sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants.html"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Setting cost contingency by Monte Carlo: P50, P80 and the risks behind them for a C$100 million process plant. <em>Chmltech Online Journal, 106</em>(20).",
+   "url": "https://www.chmltech.com/post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant.html"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Sizing the feed preheater under fouling uncertainty: Area margin, cleaning and condensate stall. <em>Chmltech Online Journal, 106</em>(21).",
+   "url": "https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall.html"
+  },
+  {
+   "text": "Lee, Q. F. (2026). Sizing a heat exchanger: Duty, LMTD and area, worked step by step. <em>Chmltech Insights</em>.",
+   "url": "https://www.chmltech.com/post/sizing-a-heat-exchanger-duty-lmtd-and-area.html"
+  },
+  {
+   "text": "Mirza, A., Alampara, N., Kunchapu, S., Ríos-García, M., Emoekabu, B., Krishnan, A., Gupta, T., Schilling-Wilhelmi, M., Okereke, M., Aneesh, A., Elahi, A. M., Asgari, M., Eberhardt, J., … Jablonka, K. M. (2025). A framework for evaluating the chemical knowledge and reasoning abilities of large language models against the expertise of chemists. <em>Nature Chemistry, 17</em>.",
+   "url": "https://doi.org/10.1038/s41557-025-01815-x"
+  },
+  {
+   "text": "Xie, J., Wang, W., Gao, B., Yang, Z., Wan, H., Zhang, S., Fu, T., &amp; Li, Y. (2025). QCBench: Evaluating large language models on domain-specific quantitative chemistry. arXiv:2508.01670.",
+   "url": "https://arxiv.org/abs/2508.01670"
+  },
+  {
+   "text": "Guo, T., Guo, K., Nan, B., Liang, Z., Guo, Z., Chawla, N. V., Wiest, O., &amp; Zhang, X. (2023). What can large language models do in chemistry? A comprehensive benchmark on eight tasks. In <em>Advances in Neural Information Processing Systems 36</em> (Datasets and Benchmarks Track).",
+   "url": "https://arxiv.org/abs/2305.18365"
+  },
+  {
+   "text": "Gao, L., Madaan, A., Zhou, S., Alon, U., Liu, P., Yang, Y., Callan, J., &amp; Neubig, G. (2023). PAL: Program-aided language models. In <em>Proceedings of the 40th International Conference on Machine Learning</em> (PMLR 202, pp. 10764–10799).",
+   "url": "https://arxiv.org/abs/2211.10435"
+  },
+  {
+   "text": "Chen, W., Ma, X., Wang, X., &amp; Cohen, W. W. (2023). Program of thoughts prompting: Disentangling computation from reasoning for numerical reasoning tasks. <em>Transactions on Machine Learning Research</em>.",
+   "url": "https://arxiv.org/abs/2211.12588"
+  },
+  {
+   "text": "Sakhinana, S. S., Sannidhi, G., &amp; Runkana, V. (2024). Retrieval-augmented instruction tuning for automated process engineering calculations: A tool-chaining problem-solving framework with attributable reflection. arXiv:2408.15866.",
+   "url": "https://arxiv.org/abs/2408.15866"
+  },
+  {
+   "text": "Engineers and Geoscientists BC. (2024, November 22). <em>Practice advisory: Use of artificial intelligence (AI) in professional practice</em> (Version 1.0).",
+   "url": "https://www.peo.on.ca/sites/default/files/2025-11/EGBC_Use_of_Artificial_Intelligence_in_Professional_Work.pdf"
+  },
+  {
+   "text": "APEGA. (2025). <em>Guidance for registrants regarding the use of artificial intelligence tools</em> (Practice notice, first published July 2025; posted March 23, 2026). Association of Professional Engineers and Geoscientists of Alberta.",
+   "url": "https://www.apega.ca/news/2026/03/23/guidance-for-registrants-regarding-the-use-of-artificial-intelligence-tools"
+  },
+  {
+   "text": "International Electrotechnical Commission. (2011). <em>Industrial-process control valves—Part 2-1: Flow capacity—Sizing equations for fluid flow under installed conditions</em> (IEC 60534-2-1:2011). IEC.",
+   "url": ""
+  },
+  {
+   "text": "American Petroleum Institute. (2020). <em>Sizing, selection, and installation of pressure-relieving devices, Part I—Sizing and selection</em> (API Standard 520, 10th ed.). API.",
+   "url": ""
+  },
+  {
+   "text": "American Petroleum Institute. (2020). <em>Pressure-relieving and depressuring systems</em> (API Standard 521, 7th ed.). API.",
+   "url": ""
+  },
+  {
+   "text": "Hydraulic Institute. (2017). <em>Rotodynamic pumps guideline for NPSH margin</em> (ANSI/HI 9.6.1-2017). Hydraulic Institute.",
+   "url": ""
+  },
+  {
+   "text": "Wagner, W., Cooper, J. R., Dittmann, A., Kijima, J., Kretzschmar, H.-J., Kruse, A., et al. (2000). The IAPWS industrial formulation 1997 for the thermodynamic properties of water and steam. <em>Journal of Engineering for Gas Turbines and Power, 122</em>(1), 150–184.",
+   "url": "https://doi.org/10.1115/1.483186"
+  },
+  {
+   "text": "Wagner, W., &amp; Pruß, A. (2002). The IAPWS formulation 1995 for the thermodynamic properties of ordinary water substance for general and scientific use. <em>Journal of Physical and Chemical Reference Data, 31</em>(2), 387–535.",
+   "url": "https://doi.org/10.1063/1.1461829"
+  },
+  {
+   "text": "Huber, M. L., Perkins, R. A., Laesecke, A., Friend, D. G., Sengers, J. V., Assael, M. J., Metaxa, I. N., Vogel, E., Mareš, R., &amp; Miyagawa, K. (2009). New international formulation for the viscosity of H₂O. <em>Journal of Physical and Chemical Reference Data, 38</em>(2), 101–125.",
+   "url": "https://doi.org/10.1063/1.3088050"
+  },
+  {
+   "text": "Setzmann, U., &amp; Wagner, W. (1991). A new equation of state and tables of thermodynamic properties for methane covering the range from the melting line to 625 K at pressures up to 1000 MPa. <em>Journal of Physical and Chemical Reference Data, 20</em>(6), 1061–1155.",
+   "url": "https://doi.org/10.1063/1.555898"
+  },
+  {
+   "text": "National Institute of Standards and Technology. (2025). Toluene: Antoine equation parameters. In <em>NIST Chemistry WebBook, SRD 69</em>.",
+   "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C108883&Mask=4"
+  },
+  {
+   "text": "Lee, Q. F. (2026). A worked HAZOP: The feed heater, node by node. <em>Chmltech Insights</em>.",
+   "url": "https://www.chmltech.com/post/a-worked-hazop-the-feed-heater-node-by-node.html"
+  },
+  {
+   "text": "National Institute of Standards and Technology. (2023). <em>Artificial intelligence risk management framework (AI RMF 1.0)</em> (NIST AI 100-1).",
+   "url": "https://doi.org/10.6028/NIST.AI.100-1"
+  }
+ ],
+ "corrections": [],
+ "downloads": [
+  {
+   "file": "ai_benchmark_grade.py",
+   "label": "Grading script",
+   "note": "grade_V1.py: grades every answer file of a set against its references and tolerances (Python 3, standard library)"
+  },
+  {
+   "file": "chmltech-ai-agent-calc-benchmark.zip",
+   "label": "Benchmark package",
+   "note": "Task files, reference scripts bench_set1_V1.py and bench_set2_V1.py, references, answers, rubric and scores, prompts, README"
+  }
+ ]
+}

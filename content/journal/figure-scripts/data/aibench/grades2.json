@@ -1,0 +1,1130 @@
+{
+ "haiku_code": {
+  "rows": [
+   {
+    "task": 21,
+    "key": "pv_kPa",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 38.82733370455004,
+    "got": 38.83,
+    "err": 6.867057805834386e-05,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 983.1958242274034,
+    "got": 983.2,
+    "err": 4.247142322805439e-06,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "mu_mPas",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 0.46603507809439076,
+    "got": 0.4665,
+    "err": 0.000997611397644827,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "Tsat_C",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 184.1230687511008,
+    "got": 184.1,
+    "err": 0.00012528984693373137,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "hfg_kJkg",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 1999.2765237315668,
+    "got": 1998.0,
+    "err": 0.0006384928329895363,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "feasible",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "area_m2",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "efficiency",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 2.132946375,
+    "got": 2.13,
+    "err": 0.0013813638423047822,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "consistent",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "nps_in",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 3.0,
+    "got": 3.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 1.4559225547601142,
+    "got": 1.46,
+    "err": 0.002800592123911122,
+    "ok": true
+   },
+   {
+    "task": 27,
+    "key": "m_max_kgh",
+    "cat": "Heat transfer",
+    "diff": "hard",
+    "ref": 20024.044454987958,
+    "got": 20024.0,
+    "err": 2.2200803667565362e-06,
+    "ok": true
+   },
+   {
+    "task": 28,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 13.202879270880654,
+    "got": 13.19,
+    "err": 0.00097548955924033,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "missing_data",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "Cv",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 30,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "hard",
+    "ref": 36.04244231460162,
+    "got": 36.1,
+    "err": 0.001596941874692578,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "correct",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "npsha_m",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 11,
+  "keys_correct": 18,
+  "n_tasks": 11,
+  "n_keys": 18
+ },
+ "haiku_reasoning": {
+  "rows": [
+   {
+    "task": 21,
+    "key": "pv_kPa",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 38.82733370455004,
+    "got": 38.7,
+    "err": 0.0032794861866890946,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 983.1958242274034,
+    "got": 983.2,
+    "err": 4.247142322805439e-06,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "mu_mPas",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 0.46603507809439076,
+    "got": 0.467,
+    "err": 0.0020704920100753153,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "Tsat_C",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 184.1230687511008,
+    "got": 184.1,
+    "err": 0.00012528984693373137,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "hfg_kJkg",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 1999.2765237315668,
+    "got": 1999.0,
+    "err": 0.00013831189847151307,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "feasible",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "area_m2",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "efficiency",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 2.132946375,
+    "got": 2.13,
+    "err": 0.0013813638423047822,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "consistent",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "nps_in",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 3.0,
+    "got": 3.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 1.4559225547601142,
+    "got": 1.46,
+    "err": 0.002800592123911122,
+    "ok": true
+   },
+   {
+    "task": 27,
+    "key": "m_max_kgh",
+    "cat": "Heat transfer",
+    "diff": "hard",
+    "ref": 20024.044454987958,
+    "got": 20020.0,
+    "err": 0.00020197992453767808,
+    "ok": true
+   },
+   {
+    "task": 28,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 13.202879270880654,
+    "got": 13.19,
+    "err": 0.00097548955924033,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "missing_data",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "Cv",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 30,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "hard",
+    "ref": 36.04244231460162,
+    "got": 36.2,
+    "err": 0.004371448638888442,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "correct",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "npsha_m",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 11.2,
+    "err": 0.07482994611278126,
+    "ok": false
+   }
+  ],
+  "tasks_correct": 10,
+  "keys_correct": 17,
+  "n_tasks": 11,
+  "n_keys": 18
+ },
+ "opus_code": {
+  "rows": [
+   {
+    "task": 21,
+    "key": "pv_kPa",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 38.82733370455004,
+    "got": 38.9,
+    "err": 0.0018715242206147273,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 983.1958242274034,
+    "got": 983.2,
+    "err": 4.247142322805439e-06,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "mu_mPas",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 0.46603507809439076,
+    "got": 0.467,
+    "err": 0.0020704920100753153,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "Tsat_C",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 184.1230687511008,
+    "got": 185.3,
+    "err": 0.006392090121473094,
+    "ok": false
+   },
+   {
+    "task": 23,
+    "key": "hfg_kJkg",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 1999.2765237315668,
+    "got": 1996.0,
+    "err": 0.0016388547020255828,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "feasible",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "area_m2",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "efficiency",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 2.132946375,
+    "got": 2.13,
+    "err": 0.0013813638423047822,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "consistent",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "nps_in",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 3.0,
+    "got": 3.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 1.4559225547601142,
+    "got": 1.46,
+    "err": 0.002800592123911122,
+    "ok": true
+   },
+   {
+    "task": 27,
+    "key": "m_max_kgh",
+    "cat": "Heat transfer",
+    "diff": "hard",
+    "ref": 20024.044454987958,
+    "got": 20024.0,
+    "err": 2.2200803667565362e-06,
+    "ok": true
+   },
+   {
+    "task": 28,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 13.202879270880654,
+    "got": 13.19,
+    "err": 0.00097548955924033,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "missing_data",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "Cv",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 30,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "hard",
+    "ref": 36.04244231460162,
+    "got": 36.3,
+    "err": 0.0071459554030841085,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "correct",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "npsha_m",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 10,
+  "keys_correct": 17,
+  "n_tasks": 11,
+  "n_keys": 18
+ },
+ "opus_reasoning": {
+  "rows": [
+   {
+    "task": 21,
+    "key": "pv_kPa",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 38.82733370455004,
+    "got": 38.8,
+    "err": 0.0007039809830372752,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 983.1958242274034,
+    "got": 983.2,
+    "err": 4.247142322805439e-06,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "mu_mPas",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 0.46603507809439076,
+    "got": 0.467,
+    "err": 0.0020704920100753153,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "Tsat_C",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 184.1230687511008,
+    "got": 184.1,
+    "err": 0.00012528984693373137,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "hfg_kJkg",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 1999.2765237315668,
+    "got": 1999.0,
+    "err": 0.00013831189847151307,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "feasible",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "area_m2",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "efficiency",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 2.132946375,
+    "got": 2.134,
+    "err": 0.0004939763194937083,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "consistent",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "nps_in",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 3.0,
+    "got": 3.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 1.4559225547601142,
+    "got": 1.456,
+    "err": 5.319324137985623e-05,
+    "ok": true
+   },
+   {
+    "task": 27,
+    "key": "m_max_kgh",
+    "cat": "Heat transfer",
+    "diff": "hard",
+    "ref": 20024.044454987958,
+    "got": 20020.0,
+    "err": 0.00020197992453767808,
+    "ok": true
+   },
+   {
+    "task": 28,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 13.202879270880654,
+    "got": 13.19,
+    "err": 0.00097548955924033,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "missing_data",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "Cv",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 30,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "hard",
+    "ref": 36.04244231460162,
+    "got": 36.0,
+    "err": 0.0011775648895032853,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "correct",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "npsha_m",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 11,
+  "keys_correct": 18,
+  "n_tasks": 11,
+  "n_keys": 18
+ },
+ "sonnet_code": {
+  "rows": [
+   {
+    "task": 21,
+    "key": "pv_kPa",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 38.82733370455004,
+    "got": 38.8,
+    "err": 0.0007039809830372752,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 983.1958242274034,
+    "got": 983.2,
+    "err": 4.247142322805439e-06,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "mu_mPas",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 0.46603507809439076,
+    "got": 0.466,
+    "err": 7.526921478566137e-05,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "Tsat_C",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 184.1230687511008,
+    "got": 184.1,
+    "err": 0.00012528984693373137,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "hfg_kJkg",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 1999.2765237315668,
+    "got": 1998.0,
+    "err": 0.0006384928329895363,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "feasible",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "area_m2",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "efficiency",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 2.132946375,
+    "got": 2.13,
+    "err": 0.0013813638423047822,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "consistent",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "nps_in",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 3.0,
+    "got": 3.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 1.4559225547601142,
+    "got": 1.46,
+    "err": 0.002800592123911122,
+    "ok": true
+   },
+   {
+    "task": 27,
+    "key": "m_max_kgh",
+    "cat": "Heat transfer",
+    "diff": "hard",
+    "ref": 20024.044454987958,
+    "got": 20024.0,
+    "err": 2.2200803667565362e-06,
+    "ok": true
+   },
+   {
+    "task": 28,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 13.202879270880654,
+    "got": 13.19,
+    "err": 0.00097548955924033,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "missing_data",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "Cv",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 30,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "hard",
+    "ref": 36.04244231460162,
+    "got": 36.8,
+    "err": 0.021018489224063228,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "correct",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "npsha_m",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 11,
+  "keys_correct": 18,
+  "n_tasks": 11,
+  "n_keys": 18
+ },
+ "sonnet_reasoning": {
+  "rows": [
+   {
+    "task": 21,
+    "key": "pv_kPa",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 38.82733370455004,
+    "got": 38.8,
+    "err": 0.0007039809830372752,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 983.1958242274034,
+    "got": 983.2,
+    "err": 4.247142322805439e-06,
+    "ok": true
+   },
+   {
+    "task": 22,
+    "key": "mu_mPas",
+    "cat": "Properties",
+    "diff": "easy",
+    "ref": 0.46603507809439076,
+    "got": 0.466,
+    "err": 7.526921478566137e-05,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "Tsat_C",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 184.1230687511008,
+    "got": 184.1,
+    "err": 0.00012528984693373137,
+    "ok": true
+   },
+   {
+    "task": 23,
+    "key": "hfg_kJkg",
+    "cat": "Properties",
+    "diff": "medium",
+    "ref": 1999.2765237315668,
+    "got": 1998.5,
+    "err": 0.0003884023657305247,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "feasible",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 24,
+    "key": "area_m2",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "efficiency",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 2.132946375,
+    "got": 2.13,
+    "err": 0.0013813638423047822,
+    "ok": true
+   },
+   {
+    "task": 25,
+    "key": "consistent",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "nps_in",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 3.0,
+    "got": 3.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 26,
+    "key": "velocity_ms",
+    "cat": "Lines",
+    "diff": "medium",
+    "ref": 1.4559225547601142,
+    "got": 1.46,
+    "err": 0.002800592123911122,
+    "ok": true
+   },
+   {
+    "task": 27,
+    "key": "m_max_kgh",
+    "cat": "Heat transfer",
+    "diff": "hard",
+    "ref": 20024.044454987958,
+    "got": 20010.0,
+    "err": 0.000701379534964982,
+    "ok": true
+   },
+   {
+    "task": 28,
+    "key": "npsha_m",
+    "cat": "Pumps",
+    "diff": "medium",
+    "ref": 13.202879270880654,
+    "got": 13.19,
+    "err": 0.00097548955924033,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "missing_data",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 1.0,
+    "got": 1.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 29,
+    "key": "Cv",
+    "cat": "Judgement",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 30,
+    "key": "rho_kgm3",
+    "cat": "Properties",
+    "diff": "hard",
+    "ref": 36.04244231460162,
+    "got": 36.0,
+    "err": 0.0011775648895032853,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "correct",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 0.0,
+    "got": 0.0,
+    "err": 0.0,
+    "ok": true
+   },
+   {
+    "task": 31,
+    "key": "npsha_m",
+    "cat": "Checking",
+    "diff": "medium",
+    "ref": 12.105882537963465,
+    "got": 12.1,
+    "err": 0.0004859239254154448,
+    "ok": true
+   }
+  ],
+  "tasks_correct": 11,
+  "keys_correct": 18,
+  "n_tasks": 11,
+  "n_keys": 18
+ }
+}

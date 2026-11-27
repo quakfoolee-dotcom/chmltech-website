@@ -1,0 +1,2891 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Sizing a Feed Preheater for Fouling</title>
+<meta name="description" content="A Monte Carlo sizing of a steam feed preheater under fouling: TEMA plus 20% still needs cleaning; 8 to 9 m² stops it but the clean shell stalls at low load.">
+<link rel="canonical" href="https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="Sizing a Feed Preheater for Fouling">
+<meta property="og:description" content="A Monte Carlo sizing of a steam feed preheater under fouling: TEMA plus 20% still needs cleaning; 8 to 9 m² stops it but the clean shell stalls at low load.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=29c448bc">
+<meta property="og:url" content="https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"Sizing a Feed Preheater for Fouling","item":"https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=be09a9d8">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/27">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="21">
+<script>(function(c,l,a,r,i,t,y){if(!/(^|\.)chmltech\.com$/.test(l.location.hostname))return;try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <div class="nav-dd" data-nav-dd><button type="button" class="nav-dd-btn" aria-expanded="false" aria-controls="nav-dd-ai">AI<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-dd-menu" id="nav-dd-ai"><a href="../llm-leaderboard"><strong>AI Models</strong><span>LLM leaderboard: scores and cost</span></a><a href="../ai-tools"><strong>AI Tools Landscape</strong><span>988 tools mapped, with cost per output</span></a></div></div>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a> / <a href="../insights#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 21</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Clean Energy Technology Innovation · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 27, 2026</span><span>21 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>A steam-heated feed preheater is usually sized for one design case with a TEMA fouling factor and a margin of 10% to 20%. This paper sizes the preheater E-101 of the Chmltech 50,000-tonne-a-year plant under uncertainty instead. A Monte Carlo model follows 500 fouling scenarios, with Kern–Seaton fouling of uncertain level and speed, through a 24-month run over 300 operating cases that follow the seasons. For each area it finds the rate cuts when the steam cannot reach the temperature needed, the unplanned cleanings that follow, and the hours the shell would need to run below atmospheric pressure, when condensate stops draining through the trap. With an asymptotic fouling resistance judged at 1 to 8 × 10⁻⁴ m²K/W, against TEMA's 1.76 × 10⁻⁴, the TEMA area of 5.4 m² needs about two unplanned cleanings a year, at an expected cost near C$300,000 a year; TEMA plus 20% needs one every two years. At 8 to 9 m² rate cuts become rare, and the extra area costs about C$3,000, because a small exchanger's cost is mostly fixed. The price is stall: with a free-draining atmospheric return, the 8 m² shell runs below atmospheric pressure for a quarter of the hours at normal rate and two-thirds at turndown. The fouling level and the tube-side coefficient decide most of the outcome. The paper recommends sizing for fouling and designing the condensate system for sub-atmospheric operation.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> heat exchanger design; fouling; Monte Carlo simulation; condensate stall; steam heater; TEMA fouling factor; Kern–Seaton model; life-cycle cost</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the model and template</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/preheater_appendix.py" download><strong>Appendix script</strong> <code>preheater_appendix.py</code></a><span>Clean and TEMA design areas and the shell pressure needed clean and fouled (Python 3, NumPy)</span></li><li><a href="../assets/journal/code/chmltech-preheater-fouling-model.zip" download><strong>Full model</strong> <code>chmltech-preheater-fouling-model.zip</code></a><span>Fouling run simulation, rate cuts, cleanings, stall, costs, sensitivity runs and the Issue 8 model it builds on, README</span></li><li><a href="../assets/journal/code/chmltech-preheater-fouling-template.xlsx" download><strong>Excel template</strong> <code>chmltech-preheater-fouling-template.xlsx</code></a><span>Live calculator: design areas, Kern-Seaton fouling curve and shell pressure by area and load with rate-cut and stall flags; stored Monte Carlo results</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>The feed preheater E-101 heats the reactor feed of the Chmltech plant from tank temperature to 80 °C with low-pressure steam. The earlier Insights post sized it in the usual way: the duty at the design flow, the log-mean temperature difference against steam at 3.0 barg, an assumed overall coefficient, and 20% on top for fouling [<a href="#ref-1" class="j-cite">1</a>]. The HAZOP of the same heater then asked what happens on loss of steam, high steam pressure and a blocked condensate line [<a href="#ref-2" class="j-cite">2</a>]. Neither asked how the heater behaves over a run as its tubes foul, or at the low loads it will spend part of its life at.</p><p>Those two questions pull the area in opposite directions. Fouling builds up on the tube side over months; when the steam can no longer reach the temperature needed, the plant must cut rate or take the exchanger out for cleaning. More area delays that day. But a steam heater controlled by a valve on the steam line runs its shell at whatever pressure the load needs, and a large, clean exchanger at low load needs very little. When the shell pressure falls to the condensate back pressure, condensate stops draining through the trap, floods the bottom of the shell and the control becomes erratic, a condition called stall [<a href="#ref-3" class="j-cite">3</a>]. More area brings that day closer.</p><p>Fouling factors were never meant to carry this much. The TEMA values are a fixed resistance for one design point, the subject of decades of criticism because they hide a time-dependent process in a single number [<a href="#ref-4" class="j-cite">4</a>, <a href="#ref-5" class="j-cite">5</a>]. Probabilistic treatments of fouling in design and maintenance go back to the work of Zubair and colleagues [<a href="#ref-6" class="j-cite">6</a>–<a href="#ref-8" class="j-cite">8</a>], but they rarely reach the small exchangers of a small plant, and they seldom count stall as a cost of oversizing.</p><p>This paper follows the earlier Monte Carlo papers of the series, which sized the feed pump and control valve [<a href="#ref-9" class="j-cite">9</a>] and chose the pump arrangement [<a href="#ref-10" class="j-cite">10</a>] under uncertainty. It asks four questions about E-101: how much area the uncertain fouling calls for, what an undersized exchanger costs in rate cuts and cleaning, how often a larger one would stall, and which uncertainties drive the answer. It then sets out how the condensate system can be designed so that the margin the fouling needs does no harm.</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> The Preheater and Its Uncertainties</h2><p>E-101 is a shell-and-tube exchanger with the feed on the tube side and low-pressure steam condensing on the shell side. A control valve on the steam line holds the feed outlet at 80 °C; condensate leaves through a trap to an atmospheric return. Table 1 gives the fixed design data. The tubes are 3/4-inch, 16 BWG carbon steel, 12 to a pass, which gives about 1.2 m/s at the median feed rate; the area is set by the tube length, with two passes up to 6.1 m tubes and four passes above that, so that the tube-side velocity, and with it the clean coefficient, is the same for every area studied.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> Design data of E-101.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Item</th><th>Value</th><th>Source</th></tr></thead><tbody><tr><td>Feed</td><td>Organic blend, cp 2.0 kJ/kg·K, k 0.13 W/m·K, viscosity 1.6 mPa·s at 20 °C</td><td>Issue 8 fluid model</td></tr><tr><td>Feed rate</td><td>Median 8,690 kg/h, P95 9,570 kg/h, half that at turndown</td><td>Issue 8 operating cases</td></tr><tr><td>Feed inlet temperature</td><td>5 to 40 °C, outdoor tank (P5 6.8 °C)</td><td>Issue 8</td></tr><tr><td>Outlet temperature</td><td>80 °C</td><td>Design basis</td></tr><tr><td>Duty</td><td>Median 277 kW, P95 362 kW</td><td>Issue 8 cases</td></tr><tr><td>Steam</td><td>3.0 barg header, 0.3 bar across the control valve at full opening</td><td>Design basis</td></tr><tr><td>Condensate</td><td>Trap to an atmospheric return</td><td>Design basis</td></tr><tr><td>Tubes</td><td>19.05 mm OD, 15.75 mm ID, carbon steel, 12 per pass</td><td>Common practice</td></tr><tr><td>Run between turnarounds</td><td>24 months, 8,000 operating hours a year</td><td>Plant plan</td></tr></tbody></table></div></figure><p>The feed cases come from the earlier pump and control valve paper, Issue 8 of this volume [<a href="#ref-9" class="j-cite">9</a>]. Its 300 sampled cases carry the uncertainty in production rate, recycle ratio and tank temperature, and they set the flow and inlet temperature the heater sees. The feed flow there, 8,690 kg/h at the median, is larger than the 6,250 kg/h used in the Insights post because it includes the recycle and the reactor yield; the median duty is 277 kW instead of 208 kW.</p><p>The uncertainties of the exchanger itself are in Table 2. The most important is fouling. The feed is a light organic blend with traces of polymerising and particulate matter, and its fouling is expected to follow the asymptotic shape described by Kern and Seaton, rising quickly at first and levelling off as removal balances deposition [<a href="#ref-11" class="j-cite">11</a>, <a href="#ref-12" class="j-cite">12</a>]. Neither the level nor the speed is known before the plant runs. The asymptotic resistance ranges from 1 to 8 × 10⁻⁴ m²K/W with a most likely 3 × 10⁻⁴, against the TEMA value of 0.001 h·ft²·°F/Btu (1.76 × 10⁻⁴ m²K/W) typical of organic process liquids [<a href="#ref-13" class="j-cite">13</a>]; the time constant ranges from 1,000 to 8,000 operating hours. The clean tube-side coefficient carries the scatter of the Gnielinski correlation [<a href="#ref-14" class="j-cite">14</a>], and the condensing coefficient the usual spread for steam with some non-condensable gas.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Uncertain inputs (triangular unless stated).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Input</th><th>Low</th><th>Most likely</th><th>High</th><th>Basis</th></tr></thead><tbody><tr><td>Asymptotic fouling resistance, tube side (10⁻⁴ m²K/W)</td><td>1.0</td><td>3.0</td><td>8.0</td><td>Organic feed with polymer traces; TEMA value 1.76</td></tr><tr><td>Fouling time constant (operating hours)</td><td>1,000</td><td>3,000</td><td>8,000</td><td>Asymptotic fouling of organics</td></tr><tr><td>Tube-side coefficient factor</td><td>Lognormal, mean 1.0, σ 0.15</td><td></td><td></td><td>Correlation scatter</td></tr><tr><td>Condensing coefficient (W/m²K)</td><td>5,000</td><td>8,000</td><td>12,000</td><td>Steam with some non-condensables</td></tr><tr><td>Steam header pressure (barg)</td><td>2.6</td><td>3.0</td><td>3.2</td><td>Utility variation</td></tr><tr><td>Product margin (C$/t)</td><td>150</td><td>300</td><td>500</td><td>Plant economics, as Issue 9 [<a href="#ref-10" class="j-cite">10</a>]</td></tr><tr><td>Share of hours at 50% turndown</td><td>Uniform 0</td><td></td><td>0.25</td><td>Operating plan, as Issue 9</td></tr></tbody></table></div></figure><p>A steam-side fouling resistance of 1 × 10⁻⁴ m²K/W is held fixed. Each scenario draws one value of every input and keeps it for the whole run; the 300 feed cases are then run through it month by month.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> Method</h2><p><strong>Heat transfer.</strong> The overall coefficient on the outside tube area is Eq. (1), where hi is the tube-side coefficient on the inside area, Do and Di the tube diameters, Rw the wall resistance, ho the condensing coefficient and Rfi and Rfo the fouling resistances inside and outside. The tube-side coefficient comes from the Gnielinski correlation [<a href="#ref-14" class="j-cite">14</a>]; the lowest Reynolds number, at turndown with the coldest feed, is about 6,500, so no case is laminar:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[\frac{1}{U} = \frac{D_o}{h_i D_i} + R_w + \frac{1}{h_o} + R_{fi}\frac{D_o}{D_i} + R_{fo}\]</span><span class="j-eq-n">(1)</span></div><p><strong>Steam temperature needed.</strong> With the shell at a uniform condensing temperature, the steam temperature that just heats the feed to its set point is Eq. (2), where NTU = UA/(ṁ cp) [<a href="#ref-15" class="j-cite">15</a>]; the control valve sets the shell pressure to the saturation pressure at that temperature:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[T_{s,req} = \frac{T_{out} - T_{in}\,e^{-NTU}}{1 - e^{-NTU}}, \qquad NTU = \frac{U A}{\dot m\,c_p}\]</span><span class="j-eq-n">(2)</span></div><p><strong>Fouling.</strong> The tube-side fouling resistance grows over the run as Eq. (3), with t the operating time since the last cleaning, R∞ the asymptotic resistance and τ the time constant [<a href="#ref-11" class="j-cite">11</a>]. Section 6 replaces it with linear growth at the same initial rate to test the shape:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[R_{fi}(t) = R_\infty \left( 1 - e^{-t/\tau} \right)\]</span><span class="j-eq-n">(3)</span></div><p><strong>Rate cut.</strong> The highest steam temperature available is the saturation temperature at the header pressure less the 0.3 bar the control valve needs. When Eq. (2) asks for more, the plant must cut its feed rate to what the exchanger can heat to 80 °C at full steam, Eq. (4), found by iteration because U falls with the flow:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[\dot m_{max} = \frac{U(\dot m_{max})\,A}{c_p \ln\!\left[ (T_{s,max} - T_{in}) / (T_{s,max} - T_{out}) \right]}\]</span><span class="j-eq-n">(4)</span></div><p>The production lost is the fraction 1 − ṁmax/ṁ for that case.</p><p><strong>Stall.</strong> When Eq. (2) asks for a steam temperature below the saturation temperature at the condensate back pressure, the trap has no pressure difference to discharge into the return, and condensate backs up [<a href="#ref-3" class="j-cite">3</a>]. In the base case the return is atmospheric and free-draining, so the threshold is 0 barg, 100 °C. This ignores the back pressure of the return line and the trap's own differential, which raise the shell pressure at which stall begins, and any static head under the trap, which lowers it; Section 6 tests back pressures of 0.1 and 0.3 bar. The model counts the share of operating hours in stall, separately at normal rate and at turndown. It does not model what follows, the flooding of the shell and its effect on control; Section 7 deals with that.</p><p><strong>The run.</strong> Each scenario is followed in half-month steps through a 24-month run between turnarounds, at normal rate and at 50% turndown. The 300 feed cases are sorted by tank temperature into 24 groups, and each step uses the group that matches its season, so the run passes through a cold and a warm season each year; the month of the turnaround varies between scenarios. A rate cut is counted when the expected lost production in a step exceeds 0.1%. When it exceeds 1%, the operators take the exchanger out for an unplanned cleaning: the plant loses half a step at the reduced rate, then 36 hours of production to remove the channel and floating-head covers, hydroblast the straight tubes and restart, at a direct cost of C$25,000, and the fouling starts again from zero. Lost production is valued at the scenario's product margin on 6.25 t/h, on half that rate during turndown. The half-month step limits the model to 24 cleanings a year, far above any area of interest.</p><p><strong>Cost.</strong> A fouling tube-side fluid needs straight tubes that can be cleaned mechanically, so the exchanger is costed as a carbon steel floating-head unit with the Towler and Sinnott correlation, whose January 2010 US Gulf Coast basis is escalated to 2025 with a CEPCI of about 810 and converted at 1.38 C$/US$ (a factor of 2.10, as in Issue 8), then multiplied by a Hand installation factor of 3.5 [<a href="#ref-16" class="j-cite">16</a>, <a href="#ref-17" class="j-cite">17</a>], as in the earlier papers. The correlation's lower limit is 10 m²; below it the cost is scaled linearly, which keeps the fixed part of the cost. It is annualised at 8% over 20 years. The total annual cost of an area is that capital charge plus the rate-cut losses and the unplanned cleanings, averaged over the scenarios.</p><p><strong>Design points.</strong> For comparison, the conventional design is worked at a single design case: the P95 feed rate, the P5 inlet temperature and 2.7 barg in the shell. The clean area at that case is 4.16 m² with U of 1,006 W/m²K; with the TEMA fouling resistances of 1.76 × 10⁻⁴ on the tube side and 0.88 × 10⁻⁴ on the shell side it is 5.42 m² with U of 772 W/m²K, and 6.50 m² with 20% added. The Insights post, with an assumed U of 500 W/m²K and the lower flow, found 4.61 m² [<a href="#ref-1" class="j-cite">1</a>].</p><p><strong>Verification.</strong> At the median feed case the Gnielinski coefficient, 1,443 W/m²K, is 5% above the Dittus–Boelter value of 1,375 W/m²K [<a href="#ref-18" class="j-cite">18</a>], within the scatter of the two correlations. The appendix script reproduces the design areas to within 0.01 m² from the equations alone, and the pattern of Figure 3: the clean 8 m² shell below atmospheric at both loads, the fouled one well within the steam available. With 500 scenarios the chance of a rate cut at 8 m² carries a standard error of about 1 percentage point.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Results: Fouling Sets the Area</h2><p>Figure 1 shows the fouling the model expects. In the median scenario the tube-side resistance passes the TEMA value of 1.76 × 10⁻⁴ m²K/W within four months and levels off near 3.7 × 10⁻⁴ by the end of a two-year run; in one scenario in ten it reaches 6 × 10⁻⁴. The TEMA value is a fair estimate of the fouling a few months into the run, not of what the exchanger will carry for most of it.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 528.397754 280.77718" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Tube-side fouling resistance over a 24-month run: the median of 500 scenarios passes the TEMA value of 1.76 × 10⁻⁴ m²K/W within four months and levels off near 3.7 × 10⁻⁴; the P90 reaches about 6 × 10⁻⁴.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 280.77718 
+L 528.397754 280.77718 
+L 528.397754 0 
+L 0 0 
+L 0 280.77718 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 36.246934 238.608 
+L 516.126934 238.608 
+L 516.126934 5.76 
+L 36.246934 5.76 
+L 36.246934 238.608 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 36.246934 238.608 
+L 36.246934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m071a57d3d4" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m071a57d3d4" x="36.246934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="36.246934" y="255.779875" transform="rotate(-0 36.246934 255.779875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 96.231934 238.608 
+L 96.231934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m071a57d3d4" x="96.231934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="96.231934" y="255.779875" transform="rotate(-0 96.231934 255.779875)">3</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 156.216934 238.608 
+L 156.216934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m071a57d3d4" x="156.216934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="156.216934" y="255.779875" transform="rotate(-0 156.216934 255.779875)">6</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 216.201934 238.608 
+L 216.201934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m071a57d3d4" x="216.201934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="216.201934" y="255.779875" transform="rotate(-0 216.201934 255.779875)">9</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 276.186934 238.608 
+L 276.186934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m071a57d3d4" x="276.186934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="276.186934" y="255.779875" transform="rotate(-0 276.186934 255.779875)">12</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 336.171934 238.608 
+L 336.171934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m071a57d3d4" x="336.171934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="336.171934" y="255.779875" transform="rotate(-0 336.171934 255.779875)">15</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 396.156934 238.608 
+L 396.156934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m071a57d3d4" x="396.156934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="396.156934" y="255.779875" transform="rotate(-0 396.156934 255.779875)">18</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 456.141934 238.608 
+L 456.141934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m071a57d3d4" x="456.141934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="456.141934" y="255.779875" transform="rotate(-0 456.141934 255.779875)">21</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 516.126934 238.608 
+L 516.126934 5.76 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m071a57d3d4" x="516.126934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="516.126934" y="255.779875" transform="rotate(-0 516.126934 255.779875)">24</text>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="276.186934" y="272.484465" transform="rotate(-0 276.186934 272.484465)">Months of operation since the last cleaning</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_19">
+<path d="M 36.246934 238.608 
+L 516.126934 238.608 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<defs>
+<path id="m537e4e07bd" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="238.608" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="243.693938" transform="rotate(-0 29.246934 243.693938)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_21">
+<path d="M 36.246934 207.5616 
+L 516.126934 207.5616 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="207.5616" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="212.647537" transform="rotate(-0 29.246934 212.647537)">1</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_23">
+<path d="M 36.246934 176.5152 
+L 516.126934 176.5152 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="176.5152" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="181.601137" transform="rotate(-0 29.246934 181.601137)">2</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_25">
+<path d="M 36.246934 145.4688 
+L 516.126934 145.4688 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="145.4688" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="150.554737" transform="rotate(-0 29.246934 150.554737)">3</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_27">
+<path d="M 36.246934 114.4224 
+L 516.126934 114.4224 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="114.4224" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="119.508337" transform="rotate(-0 29.246934 119.508337)">4</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_29">
+<path d="M 36.246934 83.376 
+L 516.126934 83.376 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="83.376" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="88.461938" transform="rotate(-0 29.246934 88.461938)">5</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_31">
+<path d="M 36.246934 52.3296 
+L 516.126934 52.3296 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="52.3296" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="57.415537" transform="rotate(-0 29.246934 57.415537)">6</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_33">
+<path d="M 36.246934 21.2832 
+L 516.126934 21.2832 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m537e4e07bd" x="36.246934" y="21.2832" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="29.246934" y="26.369137" transform="rotate(-0 29.246934 26.369137)">7</text>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="122.184" transform="rotate(-90 15.931875 122.184)">Tube-side fouling resistance (10⁻⁴ m²K/W)</text>
+</g>
+</g>
+<g id="FillBetweenPolyCollection_1">
+<defs>
+<path id="mc5dfbeffb1" d="M 36.246934 -42.16918 
+L 36.246934 -42.16918 
+L 46.244434 -47.173593 
+L 56.241934 -51.658721 
+L 66.239434 -56.010741 
+L 76.236934 -60.092174 
+L 86.234434 -64.006016 
+L 96.231934 -67.683319 
+L 106.229434 -70.986607 
+L 116.226934 -74.309285 
+L 126.224434 -77.462934 
+L 136.221934 -80.122598 
+L 146.219434 -82.621785 
+L 156.216934 -84.482337 
+L 166.214434 -86.251094 
+L 176.211934 -87.92824 
+L 186.209434 -89.487677 
+L 196.206934 -91.008212 
+L 206.204434 -92.734703 
+L 216.201934 -94.376582 
+L 226.199434 -95.97815 
+L 236.196934 -96.96356 
+L 246.194434 -97.691611 
+L 256.191934 -97.99765 
+L 266.189434 -99.131472 
+L 276.186934 -99.92543 
+L 286.184434 -100.249356 
+L 296.181934 -101.145877 
+L 306.179434 -101.686684 
+L 316.176934 -102.270318 
+L 326.174434 -102.595165 
+L 336.171934 -103.257801 
+L 346.169434 -103.638923 
+L 356.166934 -103.664911 
+L 366.164434 -103.687434 
+L 376.161934 -103.707011 
+L 386.159434 -103.905283 
+L 396.156934 -104.409325 
+L 406.154434 -104.90349 
+L 416.151934 -105.369733 
+L 426.149434 -105.809632 
+L 436.146934 -106.224677 
+L 446.144434 -106.439326 
+L 456.141934 -106.740421 
+L 466.139434 -107.069166 
+L 476.136934 -107.162785 
+L 486.134434 -107.345509 
+L 496.131934 -107.396389 
+L 506.129434 -107.539659 
+L 516.126934 -107.548923 
+L 516.126934 -228.286895 
+L 516.126934 -228.286895 
+L 506.129434 -228.079003 
+L 496.131934 -227.968711 
+L 486.134434 -227.843213 
+L 476.136934 -227.702787 
+L 466.139434 -227.545655 
+L 456.141934 -227.310341 
+L 446.144434 -226.963858 
+L 436.146934 -226.738884 
+L 426.149434 -226.622867 
+L 416.151934 -226.205883 
+L 406.154434 -225.42892 
+L 396.156934 -224.723428 
+L 386.159434 -223.89186 
+L 376.161934 -222.658521 
+L 366.164434 -221.349079 
+L 356.166934 -219.84728 
+L 346.169434 -218.339945 
+L 336.171934 -217.306926 
+L 326.174434 -215.69959 
+L 316.176934 -213.889413 
+L 306.179434 -213.489193 
+L 296.181934 -212.778961 
+L 286.184434 -210.951162 
+L 276.186934 -209.370576 
+L 266.189434 -207.296378 
+L 256.191934 -205.963616 
+L 246.194434 -203.098397 
+L 236.196934 -201.683246 
+L 226.199434 -200.511003 
+L 216.201934 -198.113126 
+L 206.204434 -195.618358 
+L 196.206934 -193.236496 
+L 186.209434 -190.134668 
+L 176.211934 -185.674882 
+L 166.214434 -179.936788 
+L 156.216934 -174.918743 
+L 146.219434 -169.562837 
+L 136.221934 -162.714897 
+L 126.224434 -155.314801 
+L 116.226934 -149.130083 
+L 106.229434 -140.944577 
+L 96.231934 -131.030785 
+L 86.234434 -121.267635 
+L 76.236934 -108.514742 
+L 66.239434 -94.320936 
+L 56.241934 -79.412426 
+L 46.244434 -61.870398 
+L 36.246934 -42.16918 
+z
+"/>
+</defs>
+<g clip-path="url(#p8c3b34036e)">
+<use xlink:href="#mc5dfbeffb1" x="0" y="280.77718" style="fill: #0b6fa4; fill-opacity: 0.15"/>
+</g>
+</g>
+<g id="line2d_35">
+<path d="M 36.246934 238.608 
+L 46.244434 228.758845 
+L 56.241934 219.788291 
+L 66.239434 211.531293 
+L 76.236934 203.958436 
+L 86.234434 196.883844 
+L 96.231934 190.523657 
+L 106.229434 185.291066 
+L 116.226934 180.217276 
+L 126.224434 175.345782 
+L 136.221934 170.692563 
+L 146.219434 166.150349 
+L 156.216934 162.437314 
+L 166.214434 159.690143 
+L 176.211934 156.663184 
+L 186.209434 153.837639 
+L 196.206934 151.243831 
+L 206.204434 149.041768 
+L 216.201934 146.823834 
+L 226.199434 145.504043 
+L 236.196934 143.56516 
+L 246.194434 142.151578 
+L 256.191934 140.76777 
+L 266.189434 139.074649 
+L 276.186934 137.416289 
+L 286.184434 136.048584 
+L 296.181934 134.947188 
+L 306.179434 133.714445 
+L 316.176934 133.110864 
+L 326.174434 131.998742 
+L 336.171934 131.149129 
+L 346.169434 130.472693 
+L 356.166934 129.808821 
+L 366.164434 129.005722 
+L 376.161934 128.810411 
+L 386.159434 128.445613 
+L 396.156934 128.051232 
+L 406.154434 127.402041 
+L 416.151934 126.957578 
+L 426.149434 126.670178 
+L 436.146934 126.225407 
+L 446.144434 125.805009 
+L 456.141934 125.413375 
+L 466.139434 124.959477 
+L 476.136934 124.530392 
+L 486.134434 124.150755 
+L 496.131934 123.682582 
+L 506.129434 123.161627 
+L 516.126934 122.73531 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<path d="M 36.246934 183.966336 
+L 516.126934 183.966336 
+" clip-path="url(#p8c3b34036e)" style="fill: none; stroke-dasharray: 5.2,3.9; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.3"/>
+</g>
+<g id="patch_3">
+<path d="M 36.246934 238.608 
+L 36.246934 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 36.246934 238.608 
+L 516.126934 238.608 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #e07a3a" x="508.128934" y="196.216904" transform="rotate(-0 508.128934 196.216904)">TEMA design value for the tube side, 1.76</text>
+</g>
+<g id="legend_1">
+<g id="patch_5">
+<path d="M 44.346934 22.57875 
+L 62.346934 22.57875 
+L 62.346934 16.27875 
+L 44.346934 16.27875 
+z
+" style="fill: #0b6fa4; fill-opacity: 0.15"/>
+</g>
+<g id="text_21">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="69.546934" y="22.57875" transform="rotate(-0 69.546934 22.57875)">P10 to P90 of 500 scenarios</text>
+</g>
+<g id="line2d_37">
+<path d="M 44.346934 34.818398 
+L 53.346934 34.818398 
+L 62.346934 34.818398 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_22">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="69.546934" y="37.968398" transform="rotate(-0 69.546934 37.968398)">Median</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p8c3b34036e">
+<rect x="36.246934" y="5.76" width="479.88" height="232.848"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Tube-side fouling resistance over a 24-month run: median and P10 to P90 band of the 500 scenarios, with the TEMA design value.</figcaption></figure><p>Table 3 and Figure 2 give the consequences for each area. An exchanger of 4 m², just under the clean design area, would be out for cleaning about once a month. At the TEMA area of 5.42 m² there is a 90% chance of a rate cut within the run and 2.1 unplanned cleanings a year on average, at an expected cost of C$298,000 a year once the lost production is counted; the P95 is C$1.1 million. Adding 20%, the margin many designers apply, brings the expected cost to C$77,000 a year, still three times the capital charge of the exchanger, with one cleaning every two years and an even chance of a rate cut in each run. The cost falls steeply until about 8 m², where a rate cut happens in one run in sixteen and the expected cost is within C$3,500 of its floor. At 9 m² one scenario in 500 needs a rate cut and none needs a cleaning.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Results by heat-transfer area over a 24-month run (means of 500 scenarios unless stated).</figcaption><div class="j-table-scroll"><table><thead><tr><th>Area (m²)</th><th>Tubes, passes, length (m)</th><th>Installed cost (C$k)</th><th>Unplanned cleanings a year</th><th>Chance of a rate cut in the run</th><th>Total annual cost, mean (C$k)</th><th>Total annual cost, P95 (C$k)</th><th>Stall share, normal-rate hours</th><th>Stall share, turndown hours</th></tr></thead><tbody><tr><td>4</td><td>24, 2, 2.8</td><td>238</td><td>10.9</td><td>100%</td><td>2,151</td><td>4,251</td><td>0%</td><td>0.2%</td></tr><tr><td>5</td><td>24, 2, 3.5</td><td>239</td><td>3.8</td><td>98%</td><td>561</td><td>1,781</td><td>0.1%</td><td>7%</td></tr><tr><td>5.42 (TEMA)</td><td>24, 2, 3.8</td><td>239</td><td>2.1</td><td>90%</td><td>298</td><td>1,074</td><td>0.6%</td><td>14%</td></tr><tr><td>6</td><td>24, 2, 4.2</td><td>240</td><td>0.93</td><td>73%</td><td>135</td><td>390</td><td>2.3%</td><td>27%</td></tr><tr><td>6.5 (TEMA + 20%)</td><td>24, 2, 4.5</td><td>240</td><td>0.46</td><td>52%</td><td>77</td><td>192</td><td>5.5%</td><td>38%</td></tr><tr><td>7</td><td>24, 2, 4.9</td><td>241</td><td>0.23</td><td>33%</td><td>50</td><td>149</td><td>11%</td><td>48%</td></tr><tr><td>8</td><td>24, 2, 5.6</td><td>241</td><td>0.03</td><td>6.4%</td><td>28.1</td><td>62.5</td><td>25%</td><td>67%</td></tr><tr><td>9</td><td>48, 4, 3.1</td><td>242</td><td>0</td><td>0.2%</td><td>24.7</td><td>24.7</td><td>42%</td><td>83%</td></tr><tr><td>10</td><td>48, 4, 3.5</td><td>243</td><td>0</td><td>0%</td><td>24.8</td><td>24.8</td><td>59%</td><td>94%</td></tr><tr><td>12</td><td>48, 4, 4.2</td><td>245</td><td>0</td><td>0%</td><td>25.0</td><td>25.0</td><td>85%</td><td>99.7%</td></tr></tbody></table></div></figure><p>The reason the answer is so lopsided is the shape of the cost. Under the cost correlation, extra area is almost free on an exchanger this small: going from 5.4 to 9 m² adds about C$3,000 to an installed cost of C$240,000, because the shell, heads, nozzles and installation cost the same and only the tubes grow longer. Even with the cost of area ten times what the correlation gives, 9 m² remains the cheapest area. A cleaning, on the other hand, costs C$25,000 plus 36 hours of a plant earning about C$1,900 an hour, some C$90,000 at the most likely margin, more than a third of the price of the exchanger. With the cost of area this low, the area is set not by an optimum but by the point where cleaning stops: for this feed's assumed fouling range, 8 to 9 m², 1.5 to 1.7 times the TEMA area. A feed judged to foul less would need less; the method, not the ratio, is what transfers.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 542.009199 302.95318" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Expected annual cost against heat-transfer area from 4 to 12 m², split into capital charge, cleanings and lost production, with the P95 total: steep fall from C$2.2 million at 4 m² to about C$25,000 from 9 m², with the clean, TEMA and TEMA plus 20% areas marked.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 302.95318 
+L 542.009199 302.95318 
+L 542.009199 0 
+L 0 0 
+L 0 302.95318 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 56.369199 260.784 
+L 536.249199 260.784 
+L 536.249199 5.76 
+L 56.369199 5.76 
+L 56.369199 260.784 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 74.142533 260.784 
+L 74.142533 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m1199a09f30" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m1199a09f30" x="74.142533" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="74.142533" y="277.955875" transform="rotate(-0 74.142533 277.955875)">4</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 163.009199 260.784 
+L 163.009199 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m1199a09f30" x="163.009199" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="163.009199" y="277.955875" transform="rotate(-0 163.009199 277.955875)">6</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 251.875866 260.784 
+L 251.875866 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m1199a09f30" x="251.875866" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="251.875866" y="277.955875" transform="rotate(-0 251.875866 277.955875)">8</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 340.742533 260.784 
+L 340.742533 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m1199a09f30" x="340.742533" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="340.742533" y="277.955875" transform="rotate(-0 340.742533 277.955875)">10</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 429.609199 260.784 
+L 429.609199 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m1199a09f30" x="429.609199" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="429.609199" y="277.955875" transform="rotate(-0 429.609199 277.955875)">12</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 518.475866 260.784 
+L 518.475866 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m1199a09f30" x="518.475866" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="518.475866" y="277.955875" transform="rotate(-0 518.475866 277.955875)">14</text>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="296.309199" y="294.660465" transform="rotate(-0 296.309199 294.660465)">Heat-transfer area (m², outside of tubes)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 56.369199 229.780582 
+L 536.249199 229.780582 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="mb5cad1c8e5" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mb5cad1c8e5" x="56.369199" y="229.780582" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="49.369199" y="234.86652" transform="rotate(-0 49.369199 234.86652)">1</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 56.369199 170.486878 
+L 536.249199 170.486878 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#mb5cad1c8e5" x="56.369199" y="170.486878" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="49.369199" y="175.572816" transform="rotate(-0 49.369199 175.572816)">10</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 56.369199 111.193174 
+L 536.249199 111.193174 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#mb5cad1c8e5" x="56.369199" y="111.193174" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="49.369199" y="116.279112" transform="rotate(-0 49.369199 116.279112)">100</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 56.369199 51.89947 
+L 536.249199 51.89947 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#mb5cad1c8e5" x="56.369199" y="51.89947" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="49.369199" y="56.985408" transform="rotate(-0 49.369199 56.985408)">1,000</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<defs>
+<path id="m7bed7d70a7" d="M 0 0 
+L -2 0 
+" style="stroke: #4a5568; stroke-width: 0.6"/>
+</defs>
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_22">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="253.37592" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_23">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="247.629766" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_24">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="242.934817" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_25">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="238.965293" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_10">
+<g id="line2d_26">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="235.526736" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_27">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="232.493713" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_28">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="211.931399" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_13">
+<g id="line2d_29">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="201.490296" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_14">
+<g id="line2d_30">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="194.082215" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_15">
+<g id="line2d_31">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="188.336062" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_16">
+<g id="line2d_32">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="183.641112" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_17">
+<g id="line2d_33">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="179.671589" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_18">
+<g id="line2d_34">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="176.233032" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_19">
+<g id="line2d_35">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="173.200009" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_20">
+<g id="line2d_36">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="152.637695" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_21">
+<g id="line2d_37">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="142.196592" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_22">
+<g id="line2d_38">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="134.788511" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_23">
+<g id="line2d_39">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="129.042358" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_24">
+<g id="line2d_40">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="124.347408" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_25">
+<g id="line2d_41">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="120.377885" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_26">
+<g id="line2d_42">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="116.939328" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_27">
+<g id="line2d_43">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="113.906305" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_28">
+<g id="line2d_44">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="93.343991" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_29">
+<g id="line2d_45">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="82.902888" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_30">
+<g id="line2d_46">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="75.494807" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_31">
+<g id="line2d_47">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="69.748654" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_32">
+<g id="line2d_48">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="65.053704" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_33">
+<g id="line2d_49">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="61.084181" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_34">
+<g id="line2d_50">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="57.645624" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_35">
+<g id="line2d_51">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="54.612601" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_36">
+<g id="line2d_52">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="34.050287" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_37">
+<g id="line2d_53">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="23.609183" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_38">
+<g id="line2d_54">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="16.201103" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_39">
+<g id="line2d_55">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="10.454949" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="ytick_40">
+<g id="line2d_56">
+<g>
+<use xlink:href="#m7bed7d70a7" x="56.369199" y="5.76" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.6"/>
+</g>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="133.272" transform="rotate(-90 15.931875 133.272)">C$ thousand a year (log scale)</text>
+</g>
+</g>
+<g id="line2d_57">
+<path d="M 74.142533 32.172675 
+L 118.575866 66.771452 
+L 137.237866 83.058928 
+L 163.009199 103.387102 
+L 185.225866 117.996531 
+L 207.442533 128.848311 
+L 251.875866 143.839555 
+L 296.309199 147.227548 
+L 340.742533 147.143415 
+L 385.175866 147.039075 
+L 429.609199 146.93325 
+L 518.475866 146.71772 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+<defs>
+<path id="m858f72e829" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #0b2a5a"/>
+</defs>
+<g clip-path="url(#p9a7b2e7df1)">
+<use xlink:href="#m858f72e829" x="74.142533" y="32.172675" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="118.575866" y="66.771452" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="137.237866" y="83.058928" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="163.009199" y="103.387102" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="185.225866" y="117.996531" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="207.442533" y="128.848311" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="251.875866" y="143.839555" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="296.309199" y="147.227548" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="340.742533" y="147.143415" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="385.175866" y="147.039075" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="429.609199" y="146.93325" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+<use xlink:href="#m858f72e829" x="518.475866" y="146.71772" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="line2d_58">
+<path d="M 74.142533 14.631265 
+L 118.575866 37.034298 
+L 137.237866 50.067693 
+L 163.009199 76.163053 
+L 185.225866 94.337193 
+L 207.442533 100.945749 
+L 251.875866 123.311982 
+L 296.309199 147.229846 
+L 340.742533 147.143415 
+L 385.175866 147.039075 
+L 429.609199 146.93325 
+L 518.475866 146.71772 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke-dasharray: 5.2,3.9; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.3"/>
+</g>
+<g id="line2d_59">
+<path d="M 74.142533 50.261628 
+L 118.575866 77.337322 
+L 137.237866 92.461082 
+L 163.009199 113.532467 
+L 185.225866 131.779337 
+L 207.442533 149.98486 
+L 251.875866 200.71243 
+L 251.953194 303.95318 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #e07a3a; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="line2d_60">
+<path d="M 74.142533 50.366256 
+L 118.575866 98.366397 
+L 137.237866 121.569462 
+L 163.009199 153.067284 
+L 185.225866 178.389128 
+L 207.442533 196.088757 
+L 251.875866 249.611705 
+L 269.406687 303.95318 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #8a94a6; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="line2d_61">
+<path d="M 74.142533 147.666405 
+L 118.575866 147.578499 
+L 137.237866 147.541668 
+L 163.009199 147.490892 
+L 185.225866 147.4472 
+L 207.442533 147.403582 
+L 251.875866 147.316567 
+L 296.309199 147.229846 
+L 340.742533 147.143415 
+L 385.175866 147.039075 
+L 429.609199 146.93325 
+L 518.475866 146.71772 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke: #4d7f12; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="line2d_62">
+<path d="M 81.195059 260.784 
+L 81.195059 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke-dasharray: 1.8,1.8; stroke-dashoffset: 0; stroke: #4a5568; stroke-width: 0.9"/>
+</g>
+<g id="line2d_63">
+<path d="M 137.121933 260.784 
+L 137.121933 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke-dasharray: 1.8,1.8; stroke-dashoffset: 0; stroke: #4a5568; stroke-width: 0.9"/>
+</g>
+<g id="line2d_64">
+<path d="M 185.26448 260.784 
+L 185.26448 5.76 
+" clip-path="url(#p9a7b2e7df1)" style="fill: none; stroke-dasharray: 1.8,1.8; stroke-dashoffset: 0; stroke: #4a5568; stroke-width: 0.9"/>
+</g>
+<g id="patch_3">
+<path d="M 56.369199 260.784 
+L 56.369199 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 56.369199 260.784 
+L 536.249199 260.784 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_13">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(84.749726 241.47631)">Clean,</text>
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(84.749726 251.39799)">design case</text>
+</g>
+<g id="text_14">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(140.6766 241.47631)">TEMA</text>
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(140.6766 251.39799)">fouling</text>
+</g>
+<g id="text_15">
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(188.819147 241.47631)">TEMA</text>
+<text style="font-size: 8.2px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(188.819147 251.39799)">+ 20%</text>
+</g>
+<g id="legend_1">
+<g id="line2d_65">
+<path d="M 338.587605 73.37621 
+L 347.187605 73.37621 
+L 355.787605 73.37621 
+" style="fill: none; stroke: #0b2a5a; stroke-width: 2.4; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m858f72e829" x="347.187605" y="73.37621" style="fill: #0b2a5a; stroke: #0b2a5a"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="362.667605" y="76.38621" transform="rotate(-0 362.667605 76.38621)">Mean total annual cost</text>
+</g>
+<g id="line2d_66">
+<path d="M 338.587605 88.081874 
+L 347.187605 88.081874 
+L 355.787605 88.081874 
+" style="fill: none; stroke-dasharray: 5.2,3.9; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.3"/>
+</g>
+<g id="text_17">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="362.667605" y="91.091874" transform="rotate(-0 362.667605 91.091874)">P95 total annual cost</text>
+</g>
+<g id="line2d_67">
+<path d="M 338.587605 102.787538 
+L 347.187605 102.787538 
+L 355.787605 102.787538 
+" style="fill: none; stroke: #e07a3a; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="text_18">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="362.667605" y="105.797538" transform="rotate(-0 362.667605 105.797538)">Unplanned cleaning, incl. lost production</text>
+</g>
+<g id="line2d_68">
+<path d="M 338.587605 117.493202 
+L 347.187605 117.493202 
+L 355.787605 117.493202 
+" style="fill: none; stroke: #8a94a6; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="362.667605" y="120.503202" transform="rotate(-0 362.667605 120.503202)">Rate cuts before cleaning</text>
+</g>
+<g id="line2d_69">
+<path d="M 338.587605 132.198866 
+L 347.187605 132.198866 
+L 355.787605 132.198866 
+" style="fill: none; stroke: #4d7f12; stroke-width: 1.6; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="362.667605" y="135.208866" transform="rotate(-0 362.667605 135.208866)">Annualised installed cost</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p9a7b2e7df1">
+<rect x="56.369199" y="5.76" width="479.88" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Expected annual cost against heat-transfer area, with its parts and the P95 total, and the clean, TEMA and TEMA plus 20% design areas.</figcaption></figure></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> The Other Side of the Margin: Condensate Stall</h2><p>Area that the fouled exchanger needs is area the clean exchanger does not. The control valve answers by throttling the steam, and the shell pressure falls. Figure 3 follows the shell pressure the median scenario needs over a run. A 6 m² exchanger starts at 0.2 barg and climbs to 1.3 barg as it fouls, always above atmospheric at normal rate. An 8 m² exchanger starts at −0.17 barg, crosses atmospheric pressure after three months and ends at 0.35 barg. A 10 m² exchanger stays below atmospheric for the whole run. At turndown, half the flow needs much less steam: even the 6 m² exchanger starts below atmospheric, and the 8 and 10 m² exchangers never leave it.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 544.180566 308.039117" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Shell-side steam pressure needed over a 24-month run for 6, 8 and 10 m², at normal rate and at turndown: 6 m² climbs from 0.2 to 1.3 barg, 8 m² starts below atmospheric and crosses it after three months, 10 m² stays below atmospheric; at turndown 8 and 10 m² never leave it.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 308.039117 
+L 544.180566 308.039117 
+L 544.180566 0 
+L 0 0 
+L 0 308.039117 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 52.029746 265.869937 
+L 531.909746 265.869937 
+L 531.909746 10.845937 
+L 52.029746 10.845937 
+L 52.029746 265.869937 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 52.029746 265.869937 
+L 52.029746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m2eee43ecd1" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m2eee43ecd1" x="52.029746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="52.029746" y="283.041812" transform="rotate(-0 52.029746 283.041812)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 112.014746 265.869937 
+L 112.014746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m2eee43ecd1" x="112.014746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="112.014746" y="283.041812" transform="rotate(-0 112.014746 283.041812)">3</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 171.999746 265.869937 
+L 171.999746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m2eee43ecd1" x="171.999746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="171.999746" y="283.041812" transform="rotate(-0 171.999746 283.041812)">6</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 231.984746 265.869937 
+L 231.984746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m2eee43ecd1" x="231.984746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="231.984746" y="283.041812" transform="rotate(-0 231.984746 283.041812)">9</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 291.969746 265.869937 
+L 291.969746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m2eee43ecd1" x="291.969746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="291.969746" y="283.041812" transform="rotate(-0 291.969746 283.041812)">12</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 351.954746 265.869937 
+L 351.954746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m2eee43ecd1" x="351.954746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="351.954746" y="283.041812" transform="rotate(-0 351.954746 283.041812)">15</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 411.939746 265.869937 
+L 411.939746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m2eee43ecd1" x="411.939746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="411.939746" y="283.041812" transform="rotate(-0 411.939746 283.041812)">18</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 471.924746 265.869937 
+L 471.924746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m2eee43ecd1" x="471.924746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="471.924746" y="283.041812" transform="rotate(-0 471.924746 283.041812)">21</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 531.909746 265.869937 
+L 531.909746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m2eee43ecd1" x="531.909746" y="265.869937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="531.909746" y="283.041812" transform="rotate(-0 531.909746 283.041812)">24</text>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="291.969746" y="299.746402" transform="rotate(-0 291.969746 299.746402)">Months of operation since the last cleaning (median fouling scenario, median feed case)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_19">
+<path d="M 52.029746 258.785937 
+L 531.909746 258.785937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<defs>
+<path id="m4c3635277d" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="258.785937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="263.871875" transform="rotate(-0 45.029746 263.871875)">−0.5</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_21">
+<path d="M 52.029746 223.365937 
+L 531.909746 223.365937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="223.365937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="228.451875" transform="rotate(-0 45.029746 228.451875)">0.0</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_23">
+<path d="M 52.029746 187.945937 
+L 531.909746 187.945937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="187.945937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="193.031875" transform="rotate(-0 45.029746 193.031875)">0.5</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_25">
+<path d="M 52.029746 152.525937 
+L 531.909746 152.525937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="152.525937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="157.611875" transform="rotate(-0 45.029746 157.611875)">1.0</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_27">
+<path d="M 52.029746 117.105937 
+L 531.909746 117.105937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="117.105937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="122.191875" transform="rotate(-0 45.029746 122.191875)">1.5</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_29">
+<path d="M 52.029746 81.685937 
+L 531.909746 81.685937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="81.685937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="86.771875" transform="rotate(-0 45.029746 86.771875)">2.0</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_31">
+<path d="M 52.029746 46.265937 
+L 531.909746 46.265937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="46.265937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="51.351875" transform="rotate(-0 45.029746 51.351875)">2.5</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_33">
+<path d="M 52.029746 10.845937 
+L 531.909746 10.845937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m4c3635277d" x="52.029746" y="10.845937" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="45.029746" y="15.931875" transform="rotate(-0 45.029746 15.931875)">3.0</text>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="138.357937" transform="rotate(-90 15.931875 138.357937)">Shell-side steam pressure needed (barg)</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 52.029746 265.869937 
+L 531.909746 265.869937 
+L 531.909746 223.365937 
+L 52.029746 223.365937 
+z
+" clip-path="url(#p9124a32358)" style="fill: #8a94a6; opacity: 0.13"/>
+</g>
+<g id="line2d_35">
+<path d="M 52.029746 208.832527 
+L 62.027246 204.359387 
+L 72.024746 200.03458 
+L 82.022246 195.871169 
+L 92.019746 191.878519 
+L 102.017246 188.062813 
+L 112.014746 184.427513 
+L 122.012246 180.973784 
+L 132.009746 177.700871 
+L 142.007246 174.606435 
+L 152.004746 171.686852 
+L 162.002246 168.937476 
+L 171.999746 166.352868 
+L 181.997246 163.926991 
+L 191.994746 161.653381 
+L 201.992246 159.525291 
+L 211.989746 157.535808 
+L 221.987246 155.67796 
+L 231.984746 153.94479 
+L 241.982246 152.32943 
+L 251.979746 150.825153 
+L 261.977246 149.425411 
+L 271.974746 148.123874 
+L 281.972246 146.914445 
+L 291.969746 145.791286 
+L 301.967246 144.748821 
+L 311.964746 143.781746 
+L 321.962246 142.885029 
+L 331.959746 142.053911 
+L 341.957246 141.283897 
+L 351.954746 140.570755 
+L 361.952246 139.910507 
+L 371.949746 139.299418 
+L 381.947246 138.73399 
+L 391.944746 138.210946 
+L 401.942246 137.727227 
+L 411.939746 137.279975 
+L 421.937246 136.866526 
+L 431.934746 136.484397 
+L 441.932246 136.131276 
+L 451.929746 135.805014 
+L 461.927246 135.503612 
+L 471.924746 135.225213 
+L 481.922246 134.968094 
+L 491.919746 134.730656 
+L 501.917246 134.511416 
+L 511.914746 134.308998 
+L 521.912246 134.122129 
+L 531.909746 133.949629 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<path d="M 52.029746 227.486434 
+L 62.027246 225.769721 
+L 72.024746 224.144404 
+L 82.022246 222.609176 
+L 92.019746 221.162063 
+L 102.017246 219.800569 
+L 112.014746 218.521804 
+L 122.012246 217.322593 
+L 132.009746 216.199561 
+L 142.007246 215.149208 
+L 152.004746 214.167972 
+L 162.002246 213.252277 
+L 171.999746 212.398571 
+L 181.997246 211.603363 
+L 191.994746 210.863245 
+L 201.992246 210.17491 
+L 211.989746 209.535172 
+L 221.987246 208.94097 
+L 231.984746 208.389378 
+L 241.982246 207.87761 
+L 251.979746 207.403019 
+L 261.977246 206.963099 
+L 271.974746 206.555484 
+L 281.972246 206.177942 
+L 291.969746 205.828375 
+L 301.967246 205.504812 
+L 311.964746 205.205406 
+L 321.962246 204.928428 
+L 331.959746 204.672261 
+L 341.957246 204.435395 
+L 351.954746 204.216421 
+L 361.952246 204.014026 
+L 371.949746 203.826989 
+L 381.947246 203.654173 
+L 391.944746 203.494519 
+L 401.942246 203.347046 
+L 411.939746 203.210843 
+L 421.937246 203.085061 
+L 431.934746 202.968918 
+L 441.932246 202.861684 
+L 451.929746 202.762685 
+L 461.927246 202.671297 
+L 471.924746 202.586942 
+L 481.922246 202.509083 
+L 491.919746 202.437225 
+L 501.917246 202.370909 
+L 511.914746 202.309712 
+L 521.912246 202.253242 
+L 531.909746 202.201135 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke-dasharray: 6.4,4; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.6"/>
+</g>
+<g id="line2d_37">
+<path d="M 52.029746 235.169961 
+L 62.027246 232.91087 
+L 72.024746 230.738323 
+L 82.022246 228.657498 
+L 92.019746 226.671629 
+L 102.017246 224.782356 
+L 112.014746 222.990021 
+L 122.012246 221.293915 
+L 132.009746 219.692487 
+L 142.007246 218.183523 
+L 152.004746 216.764292 
+L 162.002246 215.431677 
+L 171.999746 214.182283 
+L 181.997246 213.012519 
+L 191.994746 211.918681 
+L 201.992246 210.897008 
+L 211.989746 209.943732 
+L 221.987246 209.055122 
+L 231.984746 208.227513 
+L 241.982246 207.457331 
+L 251.979746 206.741116 
+L 261.977246 206.075533 
+L 271.974746 205.457381 
+L 281.972246 204.883605 
+L 291.969746 204.351295 
+L 301.967246 203.857688 
+L 311.964746 203.400171 
+L 321.962246 202.976275 
+L 331.959746 202.583675 
+L 341.957246 202.220183 
+L 351.954746 201.883747 
+L 361.952246 201.572441 
+L 371.949746 201.284465 
+L 381.947246 201.018135 
+L 391.944746 200.77188 
+L 401.942246 200.544233 
+L 411.939746 200.333828 
+L 421.937246 200.139393 
+L 431.934746 199.959745 
+L 441.932246 199.793783 
+L 451.929746 199.640487 
+L 461.927246 199.498907 
+L 471.924746 199.368163 
+L 481.922246 199.247439 
+L 491.919746 199.135978 
+L 501.917246 199.033077 
+L 511.914746 198.938089 
+L 521.912246 198.850411 
+L 531.909746 198.769485 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<path d="M 52.029746 244.719048 
+L 62.027246 243.832418 
+L 72.024746 242.994243 
+L 82.022246 242.203735 
+L 92.019746 241.459732 
+L 102.017246 240.760794 
+L 112.014746 240.105279 
+L 122.012246 239.491401 
+L 132.009746 238.917283 
+L 142.007246 238.380999 
+L 152.004746 237.880603 
+L 162.002246 237.414154 
+L 171.999746 236.979741 
+L 181.997246 236.575495 
+L 191.994746 236.199602 
+L 201.992246 235.85031 
+L 211.989746 235.525939 
+L 221.987246 235.224881 
+L 231.984746 234.945607 
+L 241.982246 234.686663 
+L 251.979746 234.446673 
+L 261.977246 234.22434 
+L 271.974746 234.01844 
+L 281.972246 233.827821 
+L 291.969746 233.651405 
+L 301.967246 233.48818 
+L 311.964746 233.337198 
+L 321.962246 233.197574 
+L 331.959746 233.068483 
+L 341.957246 232.949154 
+L 351.954746 232.83887 
+L 361.952246 232.736961 
+L 371.949746 232.642808 
+L 381.947246 232.555832 
+L 391.944746 232.475497 
+L 401.942246 232.401305 
+L 411.939746 232.332794 
+L 421.937246 232.269536 
+L 431.934746 232.211133 
+L 441.932246 232.157218 
+L 451.929746 232.10745 
+L 461.927246 232.061513 
+L 471.924746 232.019115 
+L 481.922246 231.979986 
+L 491.919746 231.943877 
+L 501.917246 231.910555 
+L 511.914746 231.879808 
+L 521.912246 231.851438 
+L 531.909746 231.825261 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke-dasharray: 6.4,4; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.6"/>
+</g>
+<g id="line2d_39">
+<path d="M 52.029746 246.385068 
+L 62.027246 245.02736 
+L 72.024746 243.723069 
+L 82.022246 242.475538 
+L 92.019746 241.286746 
+L 102.017246 240.157593 
+L 112.014746 239.088121 
+L 122.012246 238.077705 
+L 132.009746 237.125199 
+L 142.007246 236.229056 
+L 152.004746 235.387435 
+L 162.002246 234.598275 
+L 171.999746 233.859366 
+L 181.997246 233.168407 
+L 191.994746 232.523046 
+L 201.992246 231.920915 
+L 211.989746 231.359665 
+L 221.987246 230.836982 
+L 231.984746 230.350609 
+L 241.982246 229.898356 
+L 251.979746 229.478113 
+L 261.977246 229.087853 
+L 271.974746 228.725642 
+L 281.972246 228.389638 
+L 291.969746 228.078091 
+L 301.967246 227.789348 
+L 311.964746 227.521844 
+L 321.962246 227.274109 
+L 331.959746 227.044758 
+L 341.957246 226.832493 
+L 351.954746 226.636096 
+L 361.952246 226.454429 
+L 371.949746 226.286427 
+L 381.947246 226.131096 
+L 391.944746 225.98751 
+L 401.942246 225.854805 
+L 411.939746 225.732179 
+L 421.937246 225.618883 
+L 431.934746 225.514222 
+L 441.932246 225.417552 
+L 451.929746 225.328274 
+L 461.927246 225.245831 
+L 471.924746 225.169708 
+L 481.922246 225.099428 
+L 491.919746 225.034547 
+L 501.917246 224.974657 
+L 511.914746 224.919376 
+L 521.912246 224.868355 
+L 531.909746 224.821267 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_40">
+<path d="M 52.029746 252.120206 
+L 62.027246 251.589683 
+L 72.024746 251.08745 
+L 82.022246 250.613273 
+L 92.019746 250.166633 
+L 102.017246 249.746793 
+L 112.014746 249.352863 
+L 122.012246 248.983837 
+L 132.009746 248.638637 
+L 142.007246 248.316138 
+L 152.004746 248.015195 
+L 162.002246 247.734658 
+L 171.999746 247.473388 
+L 181.997246 247.230267 
+L 191.994746 247.004207 
+L 201.992246 246.794157 
+L 211.989746 246.599106 
+L 221.987246 246.418089 
+L 231.984746 246.250182 
+L 241.982246 246.094511 
+L 251.979746 245.950247 
+L 261.977246 245.816608 
+L 271.974746 245.692855 
+L 281.972246 245.578297 
+L 291.969746 245.472283 
+L 301.967246 245.374202 
+L 311.964746 245.283484 
+L 321.962246 245.199597 
+L 331.959746 245.122043 
+L 341.957246 245.050358 
+L 351.954746 244.984109 
+L 361.952246 244.922896 
+L 371.949746 244.866344 
+L 381.947246 244.814105 
+L 391.944746 244.765857 
+L 401.942246 244.7213 
+L 411.939746 244.680156 
+L 421.937246 244.642168 
+L 431.934746 244.607098 
+L 441.932246 244.574723 
+L 451.929746 244.544839 
+L 461.927246 244.517256 
+L 471.924746 244.491799 
+L 481.922246 244.468305 
+L 491.919746 244.446625 
+L 501.917246 244.426619 
+L 511.914746 244.408159 
+L 521.912246 244.391126 
+L 531.909746 244.37541 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke-dasharray: 6.4,4; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.6"/>
+</g>
+<g id="line2d_41">
+<path d="M 52.029746 32.097937 
+L 531.909746 32.097937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.2; stroke-linecap: square"/>
+</g>
+<g id="line2d_42">
+<path d="M 52.029746 223.365937 
+L 531.909746 223.365937 
+" clip-path="url(#p9124a32358)" style="fill: none; stroke: #4a5568; stroke-linecap: square"/>
+</g>
+<g id="patch_4">
+<path d="M 52.029746 265.869937 
+L 52.029746 10.845937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_5">
+<path d="M 52.029746 265.869937 
+L 531.909746 265.869937 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_20">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="58.028246" y="26.481523" transform="rotate(-0 58.028246 26.481523)">Highest shell pressure available: 2.7 barg (header less valve drop)</text>
+</g>
+<g id="text_21">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="525.911246" y="258.836723" transform="rotate(-0 525.911246 258.836723)">Below atmospheric: no pressure to push condensate through the trap into an atmospheric return (stall)</text>
+</g>
+<g id="legend_1">
+<g id="line2d_43">
+<path d="M 286.745246 49.409587 
+L 295.345246 49.409587 
+L 303.945246 49.409587 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_22">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="310.825246" y="52.419587" transform="rotate(-0 310.825246 52.419587)">6 m², normal rate</text>
+</g>
+<g id="line2d_44">
+<path d="M 286.745246 64.115252 
+L 295.345246 64.115252 
+L 303.945246 64.115252 
+" style="fill: none; stroke-dasharray: 6.4,4; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.6"/>
+</g>
+<g id="text_23">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="310.825246" y="67.125252" transform="rotate(-0 310.825246 67.125252)">6 m², 50% turndown</text>
+</g>
+<g id="line2d_45">
+<path d="M 286.745246 78.820916 
+L 295.345246 78.820916 
+L 303.945246 78.820916 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_24">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="310.825246" y="81.830916" transform="rotate(-0 310.825246 81.830916)">8 m², normal rate</text>
+</g>
+<g id="line2d_46">
+<path d="M 412.262246 49.409587 
+L 420.862246 49.409587 
+L 429.462246 49.409587 
+" style="fill: none; stroke-dasharray: 6.4,4; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.6"/>
+</g>
+<g id="text_25">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="436.342246" y="52.419587" transform="rotate(-0 436.342246 52.419587)">8 m², 50% turndown</text>
+</g>
+<g id="line2d_47">
+<path d="M 412.262246 64.115252 
+L 420.862246 64.115252 
+L 429.462246 64.115252 
+" style="fill: none; stroke: #4d7f12; stroke-width: 2.2; stroke-linecap: square"/>
+</g>
+<g id="text_26">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="436.342246" y="67.125252" transform="rotate(-0 436.342246 67.125252)">10 m², normal rate</text>
+</g>
+<g id="line2d_48">
+<path d="M 412.262246 78.820916 
+L 420.862246 78.820916 
+L 429.462246 78.820916 
+" style="fill: none; stroke-dasharray: 6.4,4; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.6"/>
+</g>
+<g id="text_27">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="436.342246" y="81.830916" transform="rotate(-0 436.342246 81.830916)">10 m², 50% turndown</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p9124a32358">
+<rect x="52.029746" y="10.845937" width="479.88" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Shell-side steam pressure needed over a 24-month run for 6, 8 and 10 m², at normal rate and at 50% turndown, against the highest pressure available and atmospheric pressure (the scenario with the median asymptotic fouling resistance: R∞ 3.8 × 10⁻⁴ m²K/W, τ 4,100 h, tube-side factor 1.08; median feed case, 8,690 kg/h at 22.5 °C).</figcaption></figure><p>Below atmospheric pressure the trap has no pressure difference to push condensate into an atmospheric return, so condensate backs up into the shell [<a href="#ref-3" class="j-cite">3</a>]. The flooded tubes stop condensing, the effective area falls, and the outlet temperature drops until the control valve opens far enough to raise the shell pressure and blow the condensate out; then the cycle repeats. The symptoms are familiar to anyone who has run a steam heater at low load: a hunting outlet temperature, water hammer in the shell and the condensate line, carbonic acid corrosion where condensate stands, and thermal cycling of the tubesheet and the lower tubes [<a href="#ref-19" class="j-cite">19</a>, <a href="#ref-20" class="j-cite">20</a>].</p><p>Figure 4 sets the two failures against each other across the range of areas. The chance of a rate cut within a run falls from certainty at 4 m² to 6% at 8 m² and nil from 10 m². The share of hours in stall rises the other way: at normal rate from nothing below 5 m² to 25% at 8 m² and 59% at 10 m², and at turndown from 14% at the TEMA area to 67% at 8 m² and nearly all the time from 10 m². No area avoids both. Even the TEMA area, which fouls out within months, stalls for one turndown hour in seven, because every run starts with clean tubes. With any back pressure on the return the stall shares are larger (Section 6).</p><figure class="j-fig" id="figure-4"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-4-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 542.934512 343.639168" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-4-t">Chance of a rate cut within a run falling from 100% at 4 m² to 6% at 8 m² and nil from 10 m² (much higher with linear fouling), while the share of hours in stall rises to 25% at normal rate and 67% at turndown at 8 m².</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 343.639168 
+L 542.934512 343.639168 
+L 542.934512 0 
+L 0 0 
+L 0 343.639168 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 57.294512 260.784 
+L 537.174512 260.784 
+L 537.174512 5.76 
+L 57.294512 5.76 
+L 57.294512 260.784 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 75.067845 260.784 
+L 75.067845 5.76 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="mad12bc9fb8" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#mad12bc9fb8" x="75.067845" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="75.067845" y="277.955875" transform="rotate(-0 75.067845 277.955875)">4</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 163.934512 260.784 
+L 163.934512 5.76 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#mad12bc9fb8" x="163.934512" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="163.934512" y="277.955875" transform="rotate(-0 163.934512 277.955875)">6</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 252.801178 260.784 
+L 252.801178 5.76 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#mad12bc9fb8" x="252.801178" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="252.801178" y="277.955875" transform="rotate(-0 252.801178 277.955875)">8</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 341.667845 260.784 
+L 341.667845 5.76 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#mad12bc9fb8" x="341.667845" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="341.667845" y="277.955875" transform="rotate(-0 341.667845 277.955875)">10</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 430.534512 260.784 
+L 430.534512 5.76 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#mad12bc9fb8" x="430.534512" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="430.534512" y="277.955875" transform="rotate(-0 430.534512 277.955875)">12</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 519.401178 260.784 
+L 519.401178 5.76 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#mad12bc9fb8" x="519.401178" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="519.401178" y="277.955875" transform="rotate(-0 519.401178 277.955875)">14</text>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="297.234512" y="294.660465" transform="rotate(-0 297.234512 294.660465)">Heat-transfer area (m²)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_13">
+<path d="M 57.294512 260.784 
+L 537.174512 260.784 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<defs>
+<path id="m1b9ad863a8" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m1b9ad863a8" x="57.294512" y="260.784" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="265.869938" transform="rotate(-0 50.294512 265.869938)">0%</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_15">
+<path d="M 57.294512 214.416 
+L 537.174512 214.416 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m1b9ad863a8" x="57.294512" y="214.416" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="219.501938" transform="rotate(-0 50.294512 219.501938)">20%</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<path d="M 57.294512 168.048 
+L 537.174512 168.048 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m1b9ad863a8" x="57.294512" y="168.048" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="173.133938" transform="rotate(-0 50.294512 173.133938)">40%</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_19">
+<path d="M 57.294512 121.68 
+L 537.174512 121.68 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#m1b9ad863a8" x="57.294512" y="121.68" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="126.765938" transform="rotate(-0 50.294512 126.765938)">60%</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_21">
+<path d="M 57.294512 75.312 
+L 537.174512 75.312 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#m1b9ad863a8" x="57.294512" y="75.312" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="80.397938" transform="rotate(-0 50.294512 80.397938)">80%</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_23">
+<path d="M 57.294512 28.944 
+L 537.174512 28.944 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#m1b9ad863a8" x="57.294512" y="28.944" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="50.294512" y="34.029938" transform="rotate(-0 50.294512 34.029938)">100%</text>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="133.272" transform="rotate(-90 15.931875 133.272)">Probability or share of hours</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 252.801178 260.784 
+L 297.234512 260.784 
+L 297.234512 5.76 
+L 252.801178 5.76 
+z
+" clip-path="url(#p09d5406f1d)" style="fill: #8dc63f; opacity: 0.15"/>
+</g>
+<g id="line2d_25">
+<path d="M 75.067845 28.944 
+L 119.501178 34.50816 
+L 138.163178 51.20064 
+L 163.934512 91.07712 
+L 186.151178 140.69088 
+L 208.367845 185.20416 
+L 252.801178 245.94624 
+L 297.234512 260.32032 
+L 341.667845 260.784 
+L 386.101178 260.784 
+L 430.534512 260.784 
+L 519.401178 260.784 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #e07a3a; stroke-width: 2.4; stroke-linecap: square"/>
+<defs>
+<path id="m6817027e63" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p09d5406f1d)">
+<use xlink:href="#m6817027e63" x="75.067845" y="28.944" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="119.501178" y="34.50816" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="138.163178" y="51.20064" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="163.934512" y="91.07712" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="186.151178" y="140.69088" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="208.367845" y="185.20416" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="252.801178" y="245.94624" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="297.234512" y="260.32032" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="341.667845" y="260.784" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="386.101178" y="260.784" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="430.534512" y="260.784" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6817027e63" x="519.401178" y="260.784" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_26">
+<path d="M 163.934512 29.87136 
+L 208.367845 38.2176 
+L 252.801178 54.91008 
+L 297.234512 80.87616 
+L 341.667845 104.98752 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke-dasharray: 5.2,3.9; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.3"/>
+<defs>
+<path id="m6130394dcf" d="M 0 1.5 
+C 0.397805 1.5 0.77937 1.341951 1.06066 1.06066 
+C 1.341951 0.77937 1.5 0.397805 1.5 0 
+C 1.5 -0.397805 1.341951 -0.77937 1.06066 -1.06066 
+C 0.77937 -1.341951 0.397805 -1.5 0 -1.5 
+C -0.397805 -1.5 -0.77937 -1.341951 -1.06066 -1.06066 
+C -1.341951 -0.77937 -1.5 -0.397805 -1.5 0 
+C -1.5 0.397805 -1.341951 0.77937 -1.06066 1.06066 
+C -0.77937 1.341951 -0.397805 1.5 0 1.5 
+z
+" style="stroke: #e07a3a"/>
+</defs>
+<g clip-path="url(#p09d5406f1d)">
+<use xlink:href="#m6130394dcf" x="163.934512" y="29.87136" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6130394dcf" x="208.367845" y="38.2176" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6130394dcf" x="252.801178" y="54.91008" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6130394dcf" x="297.234512" y="80.87616" style="fill: #e07a3a; stroke: #e07a3a"/>
+<use xlink:href="#m6130394dcf" x="341.667845" y="104.98752" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="line2d_27">
+<path d="M 75.067845 260.784 
+L 119.501178 260.491785 
+L 138.163178 259.4155 
+L 163.934512 255.563575 
+L 186.151178 248.076456 
+L 208.367845 236.278252 
+L 252.801178 202.635135 
+L 297.234512 162.723297 
+L 341.667845 123.281083 
+L 386.101178 90.160658 
+L 430.534512 63.767619 
+L 519.401178 36.244793 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<defs>
+<path id="m6e751cd8db" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#p09d5406f1d)">
+<use xlink:href="#m6e751cd8db" x="75.067845" y="260.784" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="119.501178" y="260.491785" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="138.163178" y="259.4155" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="163.934512" y="255.563575" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="186.151178" y="248.076456" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="208.367845" y="236.278252" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="252.801178" y="202.635135" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="297.234512" y="162.723297" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="341.667845" y="123.281083" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="386.101178" y="90.160658" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="430.534512" y="63.767619" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m6e751cd8db" x="519.401178" y="36.244793" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="line2d_28">
+<path d="M 75.067845 260.335213 
+L 119.501178 244.748152 
+L 138.163178 227.933993 
+L 163.934512 198.901359 
+L 186.151178 173.197585 
+L 208.367845 149.826701 
+L 252.801178 105.481666 
+L 297.234512 67.473901 
+L 341.667845 42.576985 
+L 386.101178 32.588792 
+L 430.534512 29.73612 
+L 519.401178 28.944 
+" clip-path="url(#p09d5406f1d)" style="fill: none; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.4"/>
+<defs>
+<path id="m36fee202ae" d="M 0 1.5 
+C 0.397805 1.5 0.77937 1.341951 1.06066 1.06066 
+C 1.341951 0.77937 1.5 0.397805 1.5 0 
+C 1.5 -0.397805 1.341951 -0.77937 1.06066 -1.06066 
+C 0.77937 -1.341951 0.397805 -1.5 0 -1.5 
+C -0.397805 -1.5 -0.77937 -1.341951 -1.06066 -1.06066 
+C -1.341951 -0.77937 -1.5 -0.397805 -1.5 0 
+C -1.5 0.397805 -1.341951 0.77937 -1.06066 1.06066 
+C -0.77937 1.341951 -0.397805 1.5 0 1.5 
+z
+" style="stroke: #0b6fa4"/>
+</defs>
+<g clip-path="url(#p09d5406f1d)">
+<use xlink:href="#m36fee202ae" x="75.067845" y="260.335213" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="119.501178" y="244.748152" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="138.163178" y="227.933993" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="163.934512" y="198.901359" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="186.151178" y="173.197585" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="208.367845" y="149.826701" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="252.801178" y="105.481666" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="297.234512" y="67.473901" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="341.667845" y="42.576985" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="386.101178" y="32.588792" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="430.534512" y="29.73612" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+<use xlink:href="#m36fee202ae" x="519.401178" y="28.944" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="patch_4">
+<path d="M 57.294512 260.784 
+L 57.294512 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_5">
+<path d="M 57.294512 260.784 
+L 537.174512 260.784 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_15">
+<text style="font-size: 8.8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="275.017845" y="19.866144" transform="rotate(-0 275.017845 19.866144)">8 to 9 m²</text>
+</g>
+<g id="legend_1">
+<g id="line2d_29">
+<path d="M 107.802715 314.64909 
+L 116.402715 314.64909 
+L 125.002715 314.64909 
+" style="fill: none; stroke: #e07a3a; stroke-width: 2.4; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m6817027e63" x="116.402715" y="314.64909" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="131.882715" y="317.65909" transform="rotate(-0 131.882715 317.65909)">Chance of a rate cut within a 24-month run</text>
+</g>
+<g id="line2d_30">
+<path d="M 107.802715 329.354754 
+L 116.402715 329.354754 
+L 125.002715 329.354754 
+" style="fill: none; stroke-dasharray: 5.2,3.9; stroke-dashoffset: 0; stroke: #e07a3a; stroke-width: 1.3"/>
+<g>
+<use xlink:href="#m6130394dcf" x="116.402715" y="329.354754" style="fill: #e07a3a; stroke: #e07a3a"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="131.882715" y="332.364754" transform="rotate(-0 131.882715 332.364754)">Same, if fouling keeps growing (linear)</text>
+</g>
+<g id="line2d_31">
+<path d="M 324.134371 314.64909 
+L 332.734371 314.64909 
+L 341.334371 314.64909 
+" style="fill: none; stroke: #0b6fa4; stroke-width: 2.2; stroke-linecap: square"/>
+<g>
+<use xlink:href="#m6e751cd8db" x="332.734371" y="314.64909" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="348.214371" y="317.65909" transform="rotate(-0 348.214371 317.65909)">Share of normal-rate hours in stall</text>
+</g>
+<g id="line2d_32">
+<path d="M 324.134371 329.354754 
+L 332.734371 329.354754 
+L 341.334371 329.354754 
+" style="fill: none; stroke-dasharray: 5.6,3.5; stroke-dashoffset: 0; stroke: #0b6fa4; stroke-width: 1.4"/>
+<g>
+<use xlink:href="#m36fee202ae" x="332.734371" y="329.354754" style="fill: #0b6fa4; stroke: #0b6fa4"/>
+</g>
+</g>
+<g id="text_19">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="348.214371" y="332.364754" transform="rotate(-0 348.214371 332.364754)">Share of turndown hours in stall</text>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p09d5406f1d">
+<rect x="57.294512" y="5.76" width="479.88" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 4.</strong> Chance of a rate cut within a 24-month run, with asymptotic and linear fouling, and share of operating hours in stall at normal rate and at turndown, against heat-transfer area.</figcaption></figure><p>This is the result a single design case cannot show. Sizing for the fouled design case makes the clean exchanger too big for its load; sizing to keep the clean exchanger out of stall makes the fouled one too small. The conventional margin of 10% to 20% sits in the worst place: too small to stop cleaning, large enough to stall at low load. The two cannot be traded against each other by area alone; one of them has to be removed by design.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> What Drives the Result</h2><p>Figure 5 ranks the inputs by their rank correlation with the total annual cost at 7 m², an area where both cleaning and stall are live. The asymptotic fouling resistance dominates, at +0.64. The factor on the tube-side coefficient comes next, at −0.42: the ordinary scatter of a heat-transfer correlation, about ±15%, carries two-thirds of the weight of the whole fouling range. The steam header pressure and the fouling time constant follow at −0.13 and −0.11; the product margin and the condensing coefficient matter little; and the share of hours at turndown not at all for cost, though it decides how much of the year the exchanger stalls.</p><figure class="j-fig" id="figure-5"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-5-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 645.273672 264.14518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-5-t">Bar chart of rank correlation with total annual cost at 7 m²: asymptotic fouling resistance +0.64, tube-side coefficient factor −0.42, steam header pressure −0.13, fouling time constant −0.11, the other inputs near zero.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 264.14518 
+L 645.273672 264.14518 
+L 645.273672 0 
+L 0 0 
+L 0 264.14518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 159.633672 221.976 
+L 639.513672 221.976 
+L 639.513672 5.76 
+L 159.633672 5.76 
+L 159.633672 221.976 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 159.633672 221.976 
+L 159.633672 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m5ea054ce76" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m5ea054ce76" x="159.633672" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="159.633672" y="239.147875" transform="rotate(-0 159.633672 239.147875)">−0.6</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 225.824017 221.976 
+L 225.824017 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m5ea054ce76" x="225.824017" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="225.824017" y="239.147875" transform="rotate(-0 225.824017 239.147875)">−0.4</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 292.014362 221.976 
+L 292.014362 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m5ea054ce76" x="292.014362" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="292.014362" y="239.147875" transform="rotate(-0 292.014362 239.147875)">−0.2</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 358.204706 221.976 
+L 358.204706 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m5ea054ce76" x="358.204706" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="358.204706" y="239.147875" transform="rotate(-0 358.204706 239.147875)">0.0</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 424.395051 221.976 
+L 424.395051 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m5ea054ce76" x="424.395051" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="424.395051" y="239.147875" transform="rotate(-0 424.395051 239.147875)">0.2</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 490.585396 221.976 
+L 490.585396 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m5ea054ce76" x="490.585396" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="490.585396" y="239.147875" transform="rotate(-0 490.585396 239.147875)">0.4</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 556.775741 221.976 
+L 556.775741 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m5ea054ce76" x="556.775741" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="556.775741" y="239.147875" transform="rotate(-0 556.775741 239.147875)">0.6</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 622.966086 221.976 
+L 622.966086 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m5ea054ce76" x="622.966086" y="221.976" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="622.966086" y="239.147875" transform="rotate(-0 622.966086 239.147875)">0.8</text>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="399.573672" y="255.852465" transform="rotate(-0 399.573672 255.852465)">Rank correlation with total annual cost at 7 m² (positive: raises cost)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_17">
+<path d="M 159.633672 203.213455 
+L 639.513672 203.213455 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<defs>
+<path id="ma3b753f133" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="203.213455" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="208.299392" transform="rotate(-0 152.633672 208.299392)">Share of hours at turndown</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_19">
+<path d="M 159.633672 173.431636 
+L 639.513672 173.431636 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_20">
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="173.431636" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="178.517574" transform="rotate(-0 152.633672 178.517574)">Condensing coefficient</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_21">
+<path d="M 159.633672 143.649818 
+L 639.513672 143.649818 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_22">
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="143.649818" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="148.735756" transform="rotate(-0 152.633672 148.735756)">Product margin</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_23">
+<path d="M 159.633672 113.868 
+L 639.513672 113.868 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_24">
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="113.868" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="118.953938" transform="rotate(-0 152.633672 118.953938)">Fouling time constant</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_25">
+<path d="M 159.633672 84.086182 
+L 639.513672 84.086182 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_26">
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="84.086182" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="89.172119" transform="rotate(-0 152.633672 89.172119)">Steam header pressure</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_27">
+<path d="M 159.633672 54.304364 
+L 639.513672 54.304364 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="54.304364" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="59.390301" transform="rotate(-0 152.633672 59.390301)">Tube-side coefficient factor</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_29">
+<path d="M 159.633672 24.522545 
+L 639.513672 24.522545 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#ma3b753f133" x="159.633672" y="24.522545" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="152.633672" y="29.608483" transform="rotate(-0 152.633672 29.608483)">Asymptotic fouling resistance</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 358.204706 212.148 
+L 350.763721 212.148 
+L 350.763721 194.278909 
+L 358.204706 194.278909 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_4">
+<path d="M 358.204706 182.366182 
+L 331.338506 182.366182 
+L 331.338506 164.497091 
+L 358.204706 164.497091 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_5">
+<path d="M 358.204706 152.584364 
+L 390.314368 152.584364 
+L 390.314368 134.715273 
+L 358.204706 134.715273 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_6">
+<path d="M 358.204706 122.802545 
+L 323.294857 122.802545 
+L 323.294857 104.933455 
+L 358.204706 104.933455 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_7">
+<path d="M 358.204706 93.020727 
+L 315.69572 93.020727 
+L 315.69572 75.151636 
+L 358.204706 75.151636 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_8">
+<path d="M 358.204706 63.238909 
+L 218.882063 63.238909 
+L 218.882063 45.369818 
+L 358.204706 45.369818 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_9">
+<path d="M 358.204706 33.457091 
+L 569.846019 33.457091 
+L 569.846019 15.588 
+L 358.204706 15.588 
+z
+" clip-path="url(#pff4386be2c)" style="fill: #e07a3a"/>
+</g>
+<g id="line2d_31">
+<path d="M 358.204706 221.976 
+L 358.204706 5.76 
+" clip-path="url(#pff4386be2c)" style="fill: none; stroke: #4a5568; stroke-width: 0.9; stroke-linecap: square"/>
+</g>
+<g id="patch_10">
+<path d="M 159.633672 221.976 
+L 159.633672 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_11">
+<path d="M 159.633672 221.976 
+L 639.513672 221.976 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_17">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end" x="345.799445" y="206.341873" transform="rotate(-0 345.799445 206.341873)">-0.02</text>
+</g>
+<g id="text_18">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end" x="326.37423" y="176.560054" transform="rotate(-0 326.37423 176.560054)">-0.08</text>
+</g>
+<g id="text_19">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="395.278644" y="146.778236" transform="rotate(-0 395.278644 146.778236)">+0.10</text>
+</g>
+<g id="text_20">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end" x="318.330581" y="116.996418" transform="rotate(-0 318.330581 116.996418)">-0.11</text>
+</g>
+<g id="text_21">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end" x="310.731444" y="87.2146" transform="rotate(-0 310.731444 87.2146)">-0.13</text>
+</g>
+<g id="text_22">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end" x="213.917787" y="57.432782" transform="rotate(-0 213.917787 57.432782)">-0.42</text>
+</g>
+<g id="text_23">
+<text style="font-size: 8.6px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="574.810294" y="27.650963" transform="rotate(-0 574.810294 27.650963)">+0.64</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pff4386be2c">
+<rect x="159.633672" y="5.76" width="479.88" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 5.</strong> Rank correlation of each uncertain input with the total annual cost at 7 m².</figcaption></figure><p>The ranking says where better information pays. The fouling level of this feed is the first unknown, and it can be measured before the design is frozen: a fouling probe or a heated test section on the pilot plant, or the record of a similar heater on the same feed, would narrow it far more than a better correlation would narrow the clean coefficient [<a href="#ref-12" class="j-cite">12</a>, <a href="#ref-21" class="j-cite">21</a>]. Tube-side velocity is the lever the designer controls; the 1.2 m/s used here is at the low end of what is recommended for fouling organic service, and a higher velocity both raises the coefficient and lowers the asymptotic fouling, at the cost of pressure drop on the feed pump [<a href="#ref-22" class="j-cite">22</a>].</p><p><strong>The shape of fouling.</strong> The model assumes fouling levels off. If instead the resistance keeps growing at its initial Kern–Seaton rate, the picture changes (Figure 4, dashed). This is a severe bound: by the end of a two-year run the median scenario reaches about 1.5 to 1.6 × 10⁻³ m²K/W, several times its asymptote. At 8 m² the chance of a rate cut in a run rises from 6% to 89%, with 0.7 unplanned cleanings a year and an expected cost of C$106,000 a year; even 10 m² needs a cleaning every two and a half years. Within the range studied, up to 10 m², linear fouling never stops cleaning; extra area only lengthens the interval. That case calls for a planned cleaning interval, with the area chosen to reach the next turnaround, and for the means to clean without a shutdown, such as a spare bundle or a second exchanger.</p><p><strong>Back pressure on the condensate.</strong> Stall begins when the shell pressure falls to the back pressure the trap discharges against, not to atmospheric. With a net back pressure of 0.1 bar, from a modest lift or a long return line, the stall share at 8 m² rises from 25% to 36% at normal rate and from 67% to 77% at turndown; with 0.3 bar, to 53% and 90%. Even the TEMA area then stalls for 43% of the turndown hours. The more back pressure, the stronger the case for a pump-trap.</p><p><strong>The length of the run.</strong> With turnarounds every 12 months instead of 24, the exchanger is cleaned before the fouling reaches its asymptote. At 7 m² the expected cost falls from C$50,000 to C$41,000 a year and the unplanned cleanings from 0.23 to 0.14 a year; at 8 m² the cost is C$26,000. (The chance of a rate cut per run, 16% instead of 33% at 7 m², is not directly comparable, because the shorter run has half the exposure.) A shorter run lowers the cost of a given area but hardly moves the area at which cleaning stops, 9 m² in both cases; it also raises the share of hours in stall, since the tubes are cleaner on average: at 8 m² from 25% to 33% at normal rate and from 67% to 73% at turndown.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Designing Out Stall</h2><p>Since area cannot remove both failures, the sensible design takes the area the fouling needs and removes stall by the arrangement of the steam and condensate side. Four arrangements are common; each has its own price [<a href="#ref-20" class="j-cite">20</a>].</p><ul><li><strong>A pump-trap with a vacuum breaker.</strong> Condensate drains by gravity from the shell into a pressure-powered pump that uses motive steam to push it into the return, whatever the shell pressure. A vacuum breaker on the shell lets the pressure fall to atmospheric rather than below it, so the condensate can always drain to the pump; the air it admits must be vented from the shell, or it blankets the tubes and adds oxygen corrosion. The exchanger and its control stay as they are; the cost is a packaged unit, the motive steam and enough height below the shell for the pump to fill. For E-101 this is the first choice: it keeps steam-side control, which responds fast, and it works at every area and load in Table 3.</li><li><strong>A vacuum breaker and a gravity drain.</strong> Where the condensate can fall freely to a vented receiver below the exchanger, a vacuum breaker and a trap with enough static head clear the condensate at any shell pressure down to atmospheric. It is cheap, but it cannot lift condensate into an overhead or pressurised return, and the air must be vented in the same way.</li><li><strong>Control on the condensate side.</strong> The control valve moves from the steam inlet to the condensate outlet. The shell runs at full steam pressure and the condensate level in it rises and falls to cover more or fewer tubes, so the exposed area follows the load. Stall cannot occur, but control is slower, the condensate leaves subcooled, and the shell must be designed to run partly flooded. Like bypass control below, it exposes the tubes above the condensate level to full steam temperature.</li><li><strong>Bypass control on the feed side.</strong> The steam is held at constant pressure and a three-way valve, or a bypass with a control valve, mixes heated and unheated feed to hold 80 °C. The exchanger never stalls. Two drawbacks matter for this feed: the tube wall runs hotter, and chemical reaction fouling of organics rises with surface temperature [<a href="#ref-12" class="j-cite">12</a>]; and the bypassed flow lowers the tube velocity, which raises fouling. The exchanger may foul faster than this model assumes, and the fouling inputs should be revisited if this arrangement, or condensate-side control, is chosen.</li></ul><p>Two other options manage the problem rather than solve it. Two half-size exchangers in parallel, one taken out of service at turndown, bring the turndown stall down to the normal-rate share (about 25% instead of 67% at 8 m² in total) and allow cleaning on line, at the cost of a second shell, which on an exchanger this small roughly doubles the installed cost. A smaller exchanger with a spare bundle kept for a quick change accepts the cleanings of Table 3 and shortens each one, but it does not remove the stall at turndown.</p><p>Whichever is chosen, the HAZOP of the heater needs revisiting: a vacuum breaker, a pump-trap and a condensate-side valve each add deviations that the earlier study did not consider [<a href="#ref-2" class="j-cite">2</a>].</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Decision Guide</h2><p>Table 4 turns the results into rules for a steam-heated process preheater of this kind.</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> Sizing rules for a steam-heated preheater in fouling service.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Situation</th><th>Do this</th><th>Why</th></tr></thead><tbody><tr><td>Small exchanger, fouling service, area cheap next to a cleaning</td><td>Size for the area at which cleaning stops over the fouling range you expect, not for a TEMA factor plus a percentage: here 8 to 9 m² for this feed's assumed range</td><td>An unplanned cleaning costs more than a third of the exchanger; area costs almost nothing</td></tr><tr><td>Steam control on the inlet, wide load range</td><td>Add a pump-trap and vacuum breaker</td><td>The margin the fouling needs puts the clean shell below atmospheric at low load</td></tr><tr><td>Any back pressure on the condensate return</td><td>Expect stall in most hours at low load; design for it from the start</td><td>Stall begins at the return pressure, not at atmospheric</td></tr><tr><td>Fouling believed to level off, but its level unknown</td><td>Measure it before freezing the design: fouling probe, pilot test section, records of a similar heater</td><td>The asymptotic level is the largest single driver of cost</td></tr><tr><td>Fouling that may keep growing</td><td>Plan a cleaning interval, size for the run to the next turnaround, provide a spare bundle or second exchanger</td><td>No area studied stops cleaning</td></tr><tr><td>Feed that fouls faster on hot surfaces</td><td>Avoid bypass or condensate-side control at full steam pressure; keep tube velocity up</td><td>Higher wall temperature and lower velocity raise fouling</td></tr><tr><td>Fouling fluid on the tube side</td><td>Straight tubes: floating head or fixed tubesheet with removable channel covers</td><td>U-bends cannot be cleaned mechanically</td></tr><tr><td>A large exchanger, where area is expensive</td><td>Optimise the area against the cost of cleaning and lost production, as here, but expect a smaller margin</td><td>The flat cost curve of Figure 2 is a feature of small exchangers</td></tr></tbody></table></div></figure><p>Five steps size a preheater in fouling service:</p><ol><li><strong>Take the operating cases, not one design case.</strong> Flow and inlet temperature come from the plant's own range, including turndown.</li><li><strong>Describe fouling as a curve with uncertain level and speed.</strong> A single fouling factor hides both.</li><li><strong>Follow the run.</strong> Find, month by month, when the steam runs out and when the shell drops below the condensate back pressure.</li><li><strong>Price the area, the cleanings and the lost production together.</strong> On a small exchanger the cleaning side dominates.</li><li><strong>Design the condensate system for the area chosen.</strong> Stall is a design choice, not a property of the exchanger.</li></ol><h3>8.1 Pitfalls</h3><ul><li><strong>A TEMA fouling factor as the design margin.</strong> It is a resistance for one point in time; this feed passes it within months.</li><li><strong>A percentage margin on top.</strong> It is too little to stop cleaning and enough to stall at low load.</li><li><strong>Checking only the design case.</strong> Stall happens at the opposite corner: clean tubes, low flow, warm feed.</li><li><strong>A trap sized for full load only.</strong> At low load the pressure across it falls to nothing; trap selection must follow the stall analysis [<a href="#ref-3" class="j-cite">3</a>].</li><li><strong>Assuming the fouling levels off without evidence.</strong> If it does not, the area needed has no ceiling.</li></ul></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Conclusions</h2><p>The feed preheater of a small chemical plant was sized under uncertainty in its fouling, its heat-transfer coefficients, its steam supply and its operating range, following each fouling scenario through a two-year run:</p><ul><li>With an asymptotic fouling resistance judged at 1 to 8 × 10⁻⁴ m²K/W, the conventional area, TEMA fouling with 20% added, would leave the plant with an unplanned cleaning about every two years and an even chance of a rate cut in each run; the TEMA area alone, 2.1 cleanings a year and an expected cost of C$298,000 a year.</li><li>At 8 to 9 m², 1.5 to 1.7 times the TEMA area, rate cuts become rare and the expected annual cost falls to its floor of about C$25,000, almost all of it the capital charge. Under the cost correlation the extra area costs about C$3,000, because a small exchanger's cost is mostly fixed; 9 m² stays cheapest even if area costs ten times more.</li><li>With a free-draining atmospheric return, the same margin puts the shell below atmospheric pressure for 25% of the hours at normal rate and 67% at turndown at 8 m², and more with any back pressure. No area avoids both the rate cut and the stall; the condensate system must be designed for sub-atmospheric operation, with a pump-trap and vacuum breaker as the first choice for this heater.</li><li>The asymptotic fouling resistance and the tube-side coefficient decide most of the outcome. If fouling keeps growing at its initial rate, no area studied avoids cleaning, and the design should be built around a planned cleaning interval.</li></ul><p>The case has limits. The fouling ranges are judgement for an organic feed with polymer traces, not measurements on this feed, and the headline ratio of area to TEMA area follows from that judgement; fouling is applied uniformly to every tube, without the dependence on wall temperature and velocity that real fouling shows. The model counts the hours in stall but not their consequences for control or corrosion, and its stall threshold ignores static head under the trap. The 300 operating cases follow the seasons only through tank temperature; production rate and recycle are sampled within each step. The steam-side fouling is held at 1.0 × 10⁻⁴ m²K/W in the simulation, against TEMA's 0.88 × 10⁻⁴ at the design point, a difference of under 1% in U. The shell-side pressure drop, the feed pump head and the cost of the condensate equipment are not included; the installed-cost correlation is extrapolated below its 10 m² lower limit, although the conclusion holds for any cost of area within a factor of ten. At 12 tubes a pass (24 tubes) the 8 m² option is a long, thin shell, 5.6 m tubes in a shell of about 0.2 m; a hairpin exchanger or two shells in series would be the practical form. The Python model and an Excel template that applies the method to another exchanger can be downloaded from this paper's page.</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Appendix: Sizing Your Own Preheater for Fouling</h2><p>Table 5 sets out the method in steps, with what this paper did and where the downloadable model does it. The script below applies Eqs. (1) and (2) with the fouling at its asymptote, the limit of Eq. (3): it finds the clean and TEMA design areas at the design case, and, for a chosen area, the shell pressure needed clean and fully fouled at the median feed case over 2,000 sampled fouling levels. For 8 m² it shows that the fully fouled exchanger never runs out of steam at the median case, while the clean one is below atmospheric at both loads, the pattern of Figure 3. Its numbers differ from Figure 3, which follows one scenario with its own coefficients through the run; the full model adds the 300 feed cases, the run in half-month steps through the seasons, the cleanings and the costs.</p><figure class="j-table" id="table-5"><figcaption><strong>Table 5.</strong> Steps of the method, with this paper's choices and the model function that does each.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Step</th><th>What to do</th><th>In this paper</th><th>In the model</th></tr></thead><tbody><tr><td>1. Operating cases</td><td>Flow and inlet temperature over the plant's range, with turndown and the seasons</td><td>300 Issue 8 cases in 24 seasonal groups; 50% turndown</td><td>cases(), season_buckets()</td></tr><tr><td>2. Heat transfer</td><td>Clean coefficients from correlations, with their scatter</td><td>Eq. (1); Gnielinski, with Sieder–Tate in the code for laminar flow [<a href="#ref-23" class="j-cite">23</a>]</td><td>h_tube(), U_of()</td></tr><tr><td>3. Fouling</td><td>Asymptotic curve with uncertain level and speed</td><td>Eq. (3); Table 2</td><td>scenarios(), SCEN</td></tr><tr><td>4. Follow the run</td><td>Steam needed, rate cut, stall, step by step; clean on demand</td><td>Eqs. (2) and (4); 24 months in half-month steps</td><td>operate(), run()</td></tr><tr><td>5. Cost</td><td>Annualised installed cost, cleanings, lost production</td><td>Towler and Sinnott floating head with Hand factor</td><td>installed_cost()</td></tr><tr><td>6. Drivers and cases</td><td>Rank correlation; linear fouling; shorter run; condensate back pressure; area cost</td><td>Figures 4 and 5</td><td>main block, hx_extras.py</td></tr></tbody></table></div></figure><figure class="j-code"><figcaption>Clean and TEMA design areas of E-101 at the design case, and the shell pressure needed clean and fully fouled at a chosen area over 2,000 sampled fouling levels (Python 3 with NumPy).</figcaption><pre><code>"""Feed preheater E-101 under fouling - Chmltech Online Journal (appendix script).
+Design areas of a steam-heated feed preheater (clean and TEMA fouling), and for a chosen area the shell-side steam
+pressure it needs clean and fully fouled, at normal rate and at 50% turndown, over sampled fouling scenarios.
+Python 3 with NumPy."""
+import math
+import numpy as np
+
+CP, KF, T_OUT = 2000.0, 0.13, 80.0                      # J/kg.K, W/m.K, C
+OD, ID, TPP = 0.01905, 0.01575, 12                      # 3/4 in 16 BWG tubes, 12 tubes per pass
+R_WALL = OD * math.log(OD / ID) / (2 * 45.0)            # carbon steel wall, m2K/W on the outside area
+rho = lambda T: 900.0 - 0.95 * (T - 20.0)               # feed density, kg/m3
+mu = lambda T: 1.6e-3 * math.exp(-0.018 * (T - 20.0))   # feed viscosity, Pa.s
+tsat = lambda p: 1810.94 / (8.14019 - math.log10((p + 1.01325) * 750.062)) - 244.485   # C, p in barg
+psat = lambda T: 10 ** (8.14019 - 1810.94 / (T + 244.485)) / 750.062 - 1.01325         # barg
+
+
+def U(m, T, A, rf_i, h_o=8000.0, rf_o=1e-4, f_hi=1.0):  # Eq. (1): overall coefficient on the outside area
+    p = 2 if A / (2 * TPP * math.pi * OD) &lt;= 6.1 else 4; L = A / (p * TPP * math.pi * OD)
+    v = m / 3600 / rho(T) / (TPP * math.pi * ID ** 2 / 4); Re = rho(T) * v * ID / mu(T); Pr = CP * mu(T) / KF
+    f = (0.79 * math.log(max(Re, 2300)) - 1.64) ** -2
+    nu = max((f / 8) * (Re - 1000) * Pr / (1 + 12.7 * math.sqrt(f / 8) * (Pr ** (2 / 3) - 1)), 1.86 * (Re * Pr * ID / L) ** (1 / 3)) \
+        if Re &gt;= 2300 else max(3.66, 1.86 * (Re * Pr * ID / L) ** (1 / 3))
+    hi = f_hi * nu * KF / ID
+    return 1 / (OD / (hi * ID) + R_WALL + 1 / h_o + rf_i * OD / ID + rf_o)
+
+
+def ts_req(m, Tin, A, rf_i, **kw):                      # Eq. (2): steam temperature that heats the feed to 80 C
+    E = math.exp(-U(m, (Tin + T_OUT) / 2, A, rf_i, **kw) * A / (m / 3600 * CP))
+    return (T_OUT - Tin * E) / (1 - E)
+
+
+def design_area(m, Tin, ts, rf_i, rf_o):                # area that just meets the duty at steam temperature ts
+    A = 5.0
+    for _ in range(40):
+        A = (m / 3600 * CP) / U(m, (Tin + T_OUT) / 2, A, rf_i, rf_o=rf_o) * math.log((ts - Tin) / (ts - T_OUT))
+    return A
+
+
+mD, TD, TS = 9569.0, 6.8, tsat(3.0 - 0.3)                # design case: P95 feed, P5 inlet temperature, 2.7 barg in the shell
+print(f"Clean area {design_area(mD, TD, TS, 0, 0):.2f} m2;  TEMA fouling {design_area(mD, TD, TS, 1.76e-4, 0.88e-4):.2f} m2")
+
+A, m50, T50 = 8.0, 8690.0, 22.5                          # chosen area; median feed rate and temperature
+rng = np.random.default_rng(1)
+rinf = rng.triangular(1e-4, 3e-4, 8e-4, 2000)            # asymptotic fouling resistance, Eq. (3)
+fhi = rng.lognormal(-0.15 ** 2 / 2, 0.15, 2000)          # spread of the tube-side correlation
+for lab, m in (("normal rate", m50), ("50% turndown", m50 / 2)):
+    clean = psat(ts_req(m, T50, A, 0.0))
+    foul = np.array(&#91;psat(ts_req(m, T50, A, r, f_hi=f)) for r, f in zip(rinf, fhi)&#93;)
+    print(f"{A:.0f} m2, {lab}: clean {clean:+.2f} barg; fully fouled P10 {np.percentile(foul, 10):+.2f}, P50 {np.percentile(foul, 50):+.2f}, "
+          f"P90 {np.percentile(foul, 90):+.2f} barg; above 2.7 barg {np.mean(foul &gt; 2.7):.1%}, below 0 barg {np.mean(foul &lt; 0):.0%}")</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Lee, Q. F. (2026). Sizing a heat exchanger: Duty, LMTD and area, worked step by step. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/sizing-a-heat-exchanger-duty-lmtd-and-area" rel="noopener" target="_blank">www.chmltech.com/post/sizing-a-heat-exchanger-duty-lmtd-and-area.html</a></li><li id="ref-2">Lee, Q. F. (2026). A worked HAZOP: The feed heater, node by node. <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/a-worked-hazop-the-feed-heater-node-by-node" rel="noopener" target="_blank">www.chmltech.com/post/a-worked-hazop-the-feed-heater-node-by-node.html</a></li><li id="ref-3">Spirax Sarco. (n.d.-a). Heat exchangers and stall. <em>Learn about steam</em>. <a href="https://www.spiraxsarco.com/learn-about-steam/condensate-removal/heat-exchangers-and-stall" rel="noopener" target="_blank">www.spiraxsarco.com/learn-about-steam/condensate-removal/heat-exchangers-and-sta</a></li><li id="ref-4">Kern, D. Q. (1966). Heat exchanger design for fouling services. In <em>Proceedings of the Third International Heat Transfer Conference</em> (pp. 170–178), Chicago. <a href="https://doi.org/10.1615/IHTC3.830" rel="noopener" target="_blank">10.1615/IHTC3.830</a></li><li id="ref-5">Müller-Steinhagen, H. (2011). Heat transfer fouling: 50 years after the Kern and Seaton model. <em>Heat Transfer Engineering, 32</em>(1), 1–13. <a href="https://doi.org/10.1080/01457632.2010.505127" rel="noopener" target="_blank">10.1080/01457632.2010.505127</a></li><li id="ref-6">Zubair, S. M., Sheikh, A. K., &amp; Shaik, M. N. (1992). A probabilistic approach to the maintenance of heat-transfer equipment subject to fouling. <em>Energy, 17</em>(8), 769–776. <a href="https://doi.org/10.1016/0360-5442(92)90120-O" rel="noopener" target="_blank">10.1016/0360-5442(92)90120-O</a></li><li id="ref-7">Badar, M. A., Zubair, S. M., &amp; Sheikh, A. K. (1993). Uncertainty analysis of heat-exchanger thermal designs using the Monte Carlo simulation technique. <em>Energy, 18</em>(8), 859–866. <a href="https://doi.org/10.1016/0360-5442(93)90063-J" rel="noopener" target="_blank">10.1016/0360-5442(93)90063-J</a></li><li id="ref-8">Zubair, S. M., Sheikh, A. K., Younas, M., &amp; Budair, M. O. (2000). A risk based heat exchanger analysis subject to fouling: Part I: Performance evaluation. <em>Energy, 25</em>(5), 427–443.</li><li id="ref-9">Lee, Q. F. (2026). Sizing pumps and control valves under uncertainty: Monte Carlo design points for chemical plants. <em>Chmltech Online Journal, 106</em>(8). <a href="https://www.chmltech.com/post/sizing-pumps-and-control-valves-under-uncertainty-monte-carlo-design-points-for-chemical-plants" rel="noopener" target="_blank">www.chmltech.com/post/sizing-pumps-and-control-valves-under-uncertainty-monte-ca</a></li><li id="ref-10">Lee, Q. F. (2026). Choosing the pump arrangement under uncertainty: Monte Carlo comparison of single, parallel and variable-speed options. <em>Chmltech Online Journal, 106</em>(9). <a href="https://www.chmltech.com/post/choosing-the-pump-arrangement-under-uncertainty-monte-carlo-comparison-of-single-parallel-and-variable-speed-options" rel="noopener" target="_blank">www.chmltech.com/post/choosing-the-pump-arrangement-under-uncertainty-monte-carl</a></li><li id="ref-11">Kern, D. Q., &amp; Seaton, R. E. (1959). A theoretical analysis of thermal surface fouling. <em>British Chemical Engineering, 4</em>(5), 258–262.</li><li id="ref-12">Bott, T. R. (1995). <em>Fouling of heat exchangers</em>. Elsevier.</li><li id="ref-13">Tubular Exchanger Manufacturers Association. (2019). <em>Standards of the Tubular Exchanger Manufacturers Association</em> (10th ed.). TEMA.</li><li id="ref-14">Gnielinski, V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. <em>International Chemical Engineering, 16</em>(2), 359–368.</li><li id="ref-15">Shah, R. K., &amp; Sekulić, D. P. (2003). <em>Fundamentals of heat exchanger design</em>. Wiley.</li><li id="ref-16">Towler, G., &amp; Sinnott, R. (2013). <em>Chemical engineering design: Principles, practice and economics of plant and process design</em> (2nd ed.). Butterworth-Heinemann.</li><li id="ref-17">Hand, W. E. (1958). From flow sheet to cost estimate. <em>Petroleum Refiner, 37</em>(9), 331–334.</li><li id="ref-18">Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). <em>Fundamentals of heat and mass transfer</em> (7th ed.). Wiley.</li><li id="ref-19">Spirax Sarco. (n.d.-b). Oversized heat exchangers. <em>Learn about steam</em>. <a href="https://www.spiraxsarco.com/learn-about-steam/condensate-removal/oversized-heat-exchangers" rel="noopener" target="_blank">www.spiraxsarco.com/learn-about-steam/condensate-removal/oversized-heat-exchange</a></li><li id="ref-20">Spirax Sarco. (n.d.-c). Practical methods of preventing stall. <em>Learn about steam</em>. <a href="https://www.spiraxsarco.com/learn-about-steam/condensate-removal/practical-methods-of-preventing-stall" rel="noopener" target="_blank">www.spiraxsarco.com/learn-about-steam/condensate-removal/practical-methods-of-pr</a></li><li id="ref-21">Nesta, J. M., &amp; Bennett, C. A. (2005). Fouling mitigation by design. In <em>Heat Exchanger Fouling and Cleaning – Challenges and Opportunities</em> (ECI Symposium Series, Vol. RP2), Kloster Irsee, Germany. Engineering Conferences International.</li><li id="ref-22">Müller-Steinhagen, H., Malayeri, M. R., &amp; Watkinson, A. P. (2011). Heat exchanger fouling: Mitigation and cleaning strategies. <em>Heat Transfer Engineering, 32</em>(3–4), 189–196. <a href="https://doi.org/10.1080/01457632.2010.503108" rel="noopener" target="_blank">10.1080/01457632.2010.503108</a></li><li id="ref-23">Sieder, E. N., &amp; Tate, G. E. (1936). Heat transfer and pressure drop of liquids in tubes. <em>Industrial &amp; Engineering Chemistry, 28</em>(12), 1429–1435. <a href="https://doi.org/10.1021/ie50324a027" rel="noopener" target="_blank">10.1021/ie50324a027</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall. <em>Chmltech Online Journal</em>, <em>106</em>(21). https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. The Preheater and Its Uncertainties</a></li><li><a href="#sec-3">3. Method</a></li><li><a href="#sec-4">4. Results: Fouling Sets the Area</a></li><li><a href="#sec-5">5. The Other Side of the Margin: Condensate Stall</a></li><li><a href="#sec-6">6. What Drives the Result</a></li><li><a href="#sec-7">7. Designing Out Stall</a></li><li><a href="#sec-8">8. Decision Guide</a></li><li><a href="#sec-9">9. Conclusions</a></li><li><a href="#sec-10">10. Appendix: Sizing Your Own Preheater for Fouling</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 21</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px;justify-content:center;text-align:center">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal process-engineering operational-efficiency" data-search="setting cost contingency by monte carlo: p50, p80 and the risks behind them for a c$100 million process plant monte carlo contingency for a c$100m class 3 process plant estimate: p50 c$110.7m, p80 c$116.4m, the risks behind them, and why flat 10% or 15% falls short. cost contingency monte carlo simulation p50 and p80 class 3 estimate risk register estimate ranging correlation aace"><div class="thumb"><img src="../assets/media/covers/thumbs/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Process Engineering</p><h3><a href="../post/setting-cost-contingency-by-monte-carlo-p50-p80-and-the-risks-behind-them-for-a-100-million-process-plant">Setting Cost Contingency by Monte Carlo: P50, P80 and the Risks Behind Them for a C$100 Million Process Plant</a></h3><p class="muted">Monte Carlo contingency for a C$100M Class 3 process plant estimate: P50 C$110.7M, P80 C$116.4M, the risks behind them, and why flat 10% or 15% falls short.</p><p class="meta">Vol. 106, Issue 20 · Nov 27, 2026 · 17 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue21.pdf" data-fname="Chmltech-Journal-Vol106-Issue21.pdf" data-title="Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall" data-ref="Vol. 106, Issue 21">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 21</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall", "name": "Sizing the Feed Preheater Under Fouling Uncertainty: Area Margin, Cleaning and Condensate Stall", "abstract": "A steam-heated feed preheater is usually sized for one design case with a TEMA fouling factor and a margin of 10% to 20%. This paper sizes the preheater E-101 of the Chmltech 50,000-tonne-a-year plant under uncertainty instead. A Monte Carlo model follows 500 fouling scenarios, with Kern–Seaton fouling of uncertain level and speed, through a 24-month run over 300 operating cases that follow the seasons. For each area it finds the rate cuts when the steam cannot reach the temperature needed, the unplanned cleanings that follow, and the hours the shell would need to run below atmospheric pressure, when condensate stops draining through the trap. With an asymptotic fouling resistance judged at 1 to 8 × 10⁻⁴ m²K/W, against TEMA's 1.76 × 10⁻⁴, the TEMA area of 5.4 m² needs about two unplanned cleanings a year, at an expected cost near C$300,000 a year; TEMA plus 20% needs one every two years. At 8 to 9 m² rate cuts become rare, and the extra area costs about C$3,000, because a small exchanger's cost is mostly fixed. The price is stall: with a free-draining atmospheric return, the 8 m² shell runs below atmospheric pressure for a quarter of the hours at normal rate and two-thirds at turndown. The fouling level and the tube-side coefficient decide most of the outcome. The paper recommends sizing for fouling and designing the condensate system for sub-atmospheric operation.", "keywords": "heat exchanger design, fouling, Monte Carlo simulation, condensate stall, steam heater, TEMA fouling factor, Kern–Seaton model, life-cycle cost", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "21", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall", "citation": ["Lee, Q. F. (2026). Sizing a heat exchanger: Duty, LMTD and area, worked step by step. Chmltech Insights.", "Lee, Q. F. (2026). A worked HAZOP: The feed heater, node by node. Chmltech Insights.", "Spirax Sarco. (n.d.-a). Heat exchangers and stall. Learn about steam.", "Kern, D. Q. (1966). Heat exchanger design for fouling services. In Proceedings of the Third International Heat Transfer Conference (pp. 170–178), Chicago.", "Müller-Steinhagen, H. (2011). Heat transfer fouling: 50 years after the Kern and Seaton model. Heat Transfer Engineering, 32(1), 1–13.", "Zubair, S. M., Sheikh, A. K., &amp; Shaik, M. N. (1992). A probabilistic approach to the maintenance of heat-transfer equipment subject to fouling. Energy, 17(8), 769–776.", "Badar, M. A., Zubair, S. M., &amp; Sheikh, A. K. (1993). Uncertainty analysis of heat-exchanger thermal designs using the Monte Carlo simulation technique. Energy, 18(8), 859–866.", "Zubair, S. M., Sheikh, A. K., Younas, M., &amp; Budair, M. O. (2000). A risk based heat exchanger analysis subject to fouling: Part I: Performance evaluation. Energy, 25(5), 427–443.", "Lee, Q. F. (2026). Sizing pumps and control valves under uncertainty: Monte Carlo design points for chemical plants. Chmltech Online Journal, 106(8).", "Lee, Q. F. (2026). Choosing the pump arrangement under uncertainty: Monte Carlo comparison of single, parallel and variable-speed options. Chmltech Online Journal, 106(9).", "Kern, D. Q., &amp; Seaton, R. E. (1959). A theoretical analysis of thermal surface fouling. British Chemical Engineering, 4(5), 258–262.", "Bott, T. R. (1995). Fouling of heat exchangers. Elsevier.", "Tubular Exchanger Manufacturers Association. (2019). Standards of the Tubular Exchanger Manufacturers Association (10th ed.). TEMA.", "Gnielinski, V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. International Chemical Engineering, 16(2), 359–368.", "Shah, R. K., &amp; Sekulić, D. P. (2003). Fundamentals of heat exchanger design. Wiley.", "Towler, G., &amp; Sinnott, R. (2013). Chemical engineering design: Principles, practice and economics of plant and process design (2nd ed.). Butterworth-Heinemann.", "Hand, W. E. (1958). From flow sheet to cost estimate. Petroleum Refiner, 37(9), 331–334.", "Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). Fundamentals of heat and mass transfer (7th ed.). Wiley.", "Spirax Sarco. (n.d.-b). Oversized heat exchangers. Learn about steam.", "Spirax Sarco. (n.d.-c). Practical methods of preventing stall. Learn about steam.", "Nesta, J. M., &amp; Bennett, C. A. (2005). Fouling mitigation by design. In Heat Exchanger Fouling and Cleaning – Challenges and Opportunities (ECI Symposium Series, Vol. RP2), Kloster Irsee, Germany. Engineering Conferences International.", "Müller-Steinhagen, H., Malayeri, M. R., &amp; Watkinson, A. P. (2011). Heat exchanger fouling: Mitigation and cleaning strategies. Heat Transfer Engineering, 32(3–4), 189–196.", "Sieder, E. N., &amp; Tate, G. E. (1936). Heat transfer and pressure drop of liquids in tubes. Industrial &amp; Engineering Chemistry, 28(12), 1429–1435."], "image": "https://www.chmltech.com/assets/media/covers/sizing-the-feed-preheater-under-fouling-uncertainty-area-margin-cleaning-and-condensate-stall.jpg"}</script>
+<!--exam-hub:post--><section class="section"><div class="container stack"><p class="eyebrow">Test what you have read</p><h2 class="h-md">Free Process / ChemEng practice exams</h2><p class="muted">Interactive exams with an explanation for every answer. No sign-up.</p><div class="index"><a href="../exams/process-chemeng/Process_Analysis_Cross_Flow_Membrane_Filtration_150Q_Exam">Process Analysis Cross-Flow Membrane Filtration Exam<span aria-hidden="true">→</span></a><a href="../exams/process-chemeng/Process_Analysis_Tangential_Flow_Filtration_150Q_Exam">Process Analysis Tangential Flow Filtration Exam<span aria-hidden="true">→</span></a><a href="../exams/process-chemeng/Chemical_Process_Optimization_CBE_150Q_Exam">Chemical Process Optimization Exam<span aria-hidden="true">→</span></a><a href="../chemical-engineering-practice-exams"><strong>All 48 Process / ChemEng practice exams</strong><span aria-hidden="true">→</span></a></div></div></section>
+<!--/exam-hub:post-->
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../ai-tools">AI tools landscape</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a href="mailto:info@chmltech.com">info@chmltech.com</a>
+      <a href="../book">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=60d2bb4b" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>
