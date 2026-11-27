@@ -26,7 +26,7 @@ s = re.sub(r"<!-- insights-finder:start -->.*?<!-- insights-finder:end -->\n?", 
 # ---- article cards on the page ----------------------------------------------
 cards = {}
 for cats, body in re.findall(r'<article class="article" data-cats="([^"]*)".*?<div class="body">(.*?)</div></article>', s, flags=re.S):
-    slug = re.search(r'href="post/([^"]+)\.html"', body).group(1)
+    slug = re.search(r'href="post/([^"]+?)(?:\.html)?"', body).group(1)   # clean or .html links (seo_pass strips .html)
     ser = re.search(r'class="series"[^>]*>(.*?)</p>', body)
     meta = re.search(r'class="meta">(.*?)</p>', body).group(1)
     cards[slug] = dict(

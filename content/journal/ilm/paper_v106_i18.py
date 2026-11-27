@@ -1,0 +1,221 @@
+"""Chmltech Online Journal, Vol. 106, Issue 18: From Plain English to Optimal Schedule (draft V1, Nov 27 2026).
+
+Model: content/journal/ilm/models/sched/ (llm_sched.py: 20 weekly snapshots of the Vol. 106, Issue 4 plant, reference CP-SAT model,
+five dispatching rules, eight faulty models, four gates; summarize.py -> summary.json; gates_appendix.py: compact gates).
+"""
+
+SLUG = "from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models"
+META = dict(
+    volume=106, issue=18,
+    title='From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models',
+    short_title='Verifying LLM-Written Scheduling Models',
+    meta='Eight common error types in LLM-written scheduling models, injected and tested on a high-mix plant: what they cost, and four checks that catch the harmful ones.',
+    keywords=['production scheduling', 'large language models', 'optimization modeling', 'constraint programming',
+              'job shop', 'verification', 'dispatching rules', 'high-mix manufacturing'],
+)
+ABSTRACT = "Large language models can turn a planner's description into an optimization model and solver code, but a model that solves is not necessarily right. This paper takes the windows-and-doors plant of an earlier paper, runs it for 12 weeks under a modified-due-date rule, and builds 30 Monday scheduling snapshots of 10 to 50 open orders. Each is solved with a reference constraint-programming model that minimizes total tardiness, with five dispatching rules, and with eight models into which one common error was injected by hand (no language model was run): a missing constraint, the wrong objective, a unit error, ignored data or a mis-sized big-M. In 22 of the 30 weeks every order could ship on time; over all weeks the reference model left 2% less tardiness than the best rule. Seven of the eight faulty models still returned a solution in every snapshot, and once their schedules were made feasible they carried 1.1 to 4.2 times the reference tardiness. Four checks that read only the plant's data and the solver's output are proposed: the solver status, a feasibility check, a recomputation of the objective, and a test against the best dispatching rule. Every faulty schedule that ended worse than the best rule was flagged by one of the first three. With the solver warm-started from the rule, the checks missed some faults, mostly in easy weeks where the solver kept the rule's schedule; without the warm start they caught every fault, but also flagged the correct model in 3 weeks."
+
+REFS = {
+    'fcs': ('Lee, Q. F. (2026). Why the ERP schedule fails on the shop floor: Finite-capacity scheduling rules for high-mix manufacturers. <em>Chmltech Online Journal</em>, 106(4).',
+        'https://www.chmltech.com/post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers.html'),
+    'pinedo': ('Pinedo, M. L. (2016). <em>Scheduling: Theory, algorithms, and systems</em> (5th ed.). Springer.',
+        'https://doi.org/10.1007/978-3-319-26580-3'),
+    'nl4opt': ('Ramamonjison, R., Yu, T., Li, R., Li, H., Carenini, G., Ghaddar, B., He, S., Mostajabdaveh, M., Banitalebi-Dehkordi, A., Zhou, Z., &amp; Zhang, Y. (2022). NL4Opt competition: Formulating optimization problems based on their natural language descriptions. <em>Proceedings of the NeurIPS 2022 Competitions Track</em>, PMLR 220, 189–203.',
+        'https://proceedings.mlr.press/v220/ramamonjison23a.html'),
+    'optimus': ('AhmadiTeshnizi, A., Gao, W., &amp; Udell, M. (2024). OptiMUS: Scalable optimization modeling with (MI)LP solvers and large language models. <em>Proceedings of the 41st International Conference on Machine Learning</em>, PMLR 235, 577–596.',
+        'https://proceedings.mlr.press/v235/ahmaditeshnizi24a.html'),
+    'coe': ('Xiao, Z., Zhang, D., Wu, Y., Xu, L., Wang, Y. J., Han, X., Fu, X., Zhong, T., Zeng, J., Song, M., &amp; Chen, G. (2024). Chain-of-Experts: When LLMs meet complex operations research problems. <em>International Conference on Learning Representations</em>.',
+        'https://proceedings.iclr.cc/paper_files/paper/2024/hash/d45ee77826332c100a1e15f7765b99ff-Abstract-Conference.html'),
+    'orlm': ('Huang, C., Tang, Z., Hu, S., Jiang, R., Zheng, X., Ge, D., Wang, B., &amp; Wang, Z. (2025). ORLM: A customizable framework in training large models for automated optimization modeling. <em>Operations Research</em>, 73(6), 2986–3009.',
+        'https://doi.org/10.1287/opre.2024.1233'),
+    'kubeck': ('Ku, W.-Y., &amp; Beck, J. C. (2016). Mixed integer programming models for job shop scheduling: A computational analysis. <em>Computers &amp; Operations Research</em>, 73, 165–173.',
+        'https://doi.org/10.1016/j.cor.2016.04.006'),
+    'naderi': ('Naderi, B., Ruiz, R., &amp; Roshanaei, V. (2023). Mixed-integer programming vs. constraint programming for shop scheduling problems: New results and outlook. <em>INFORMS Journal on Computing</em>, 35(4), 817–843.',
+        'https://doi.org/10.1287/ijoc.2023.1287'),
+    'ortools': ('Perron, L., &amp; Didier, F. (2026). <em>OR-Tools CP-SAT</em> (Version 9.15) [Computer software]. Google.',
+        'https://developers.google.com/optimization/cp/cp_solver'),
+    'bakerkanet': ('Baker, K. R., &amp; Kanet, J. J. (1983). Job shop scheduling with modified due dates. <em>Journal of Operations Management</em>, 4(1), 11–22.',
+        'https://doi.org/10.1016/0272-6963(83)90022-0'),
+    'camm': ('Camm, J. D., Raturi, A. S., &amp; Tsubakitani, S. (1990). Cutting big M down to size. <em>Interfaces</em>, 20(5), 61–66.',
+        'https://doi.org/10.1287/inte.20.5.61'),
+    'quote': ('Lee, Q. F. (2026). Quoting lead times you can keep: Due-date setting for make-to-order manufacturers. <em>Chmltech Online Journal</em>, 106(6).',
+        'https://www.chmltech.com/post/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers.html'),
+    'sadeqi': ('Sadeqi Bajestani, M., Mun, D., &amp; Kim, D. B. (2026). Human-in-the-loop and large language models in smart manufacturing: Current applications, challenges, and perspectives. <em>Journal of Manufacturing Systems</em>, 86, 913–941.',
+        'https://doi.org/10.1016/j.jmsy.2026.04.027'),
+    'autonomy': ('Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents: Matching oversight to risk and earning autonomy with evidence. <em>Chmltech Online Journal</em>, 105(7).',
+        'https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents.html'),
+    'agmfg': ('Lee, Q. F. (2026). Agentic AI in manufacturing operations: Use cases, architecture and safety boundaries. <em>Chmltech Online Journal</em>, 105(9).',
+        'https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries.html'),
+    'oeellm': ('Lee, Q. F. (2026). The LLM should not do the arithmetic: A tool-grounded architecture for OEE and KPI analysis. <em>Chmltech Online Journal</em>, 106(17).',
+        'https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis.html'),
+    'ramasesh': ('Ramasesh, R. (1990). Dynamic job shop scheduling: A survey of simulation research. <em>Omega</em>, 18(1), 43–57.',
+        'https://doi.org/10.1016/0305-0483(90)90017-4'),
+}
+
+CODE = {"appendix": open(__file__.replace("paper_v106_i18.py", "models/sched/gates_appendix.py"), encoding="utf-8").read().rstrip()}
+
+DOWNLOADS = [
+    dict(file='llm_schedule_gates.py', label='Appendix script', note='Verification gates G1–G4, dispatching baseline and repair (Python 3, standard library)'),
+    dict(file='chmltech-llm-scheduling-model.zip', label='Full model', note='Snapshots, reference CP-SAT model, eight faulty models, gates, results and README (Python 3, OR-Tools)'),
+]
+
+BODY = r"""
+## Introduction
+
+A planner at a high-mix plant knows what a good week looks like: the welder never starves, the promised orders ship, and nothing waits for a machine that is already busy. Writing that down as an optimization model has always needed an operations research specialist, which most small and mid-sized manufacturers do not have. The previous scheduling paper in this journal therefore used dispatching rules, simple priorities that any spreadsheet can apply, and showed that sequencing the bottleneck by modified due date lifted on-time delivery from 77% to 90% in a simulated windows-and-doors plant [@fcs].
+
+Large language models (LLMs) change the economics of the next step. Research since the NL4Opt competition [@nl4opt] has built systems that read a problem description and write the mathematical model and solver code: OptiMUS formulates and debugs mixed-integer models with a team of LLM agents [@optimus], Chain-of-Experts coordinates role-specific agents on complex operations research problems [@coe], and ORLM trains open models for the task and introduced an industrial benchmark [@orlm]. Each reports substantial error rates on harder problems, and a 2026 review of LLMs in manufacturing calls for structured verification, validation and human oversight of LLM outputs, and finds such checks still applied inconsistently [@sadeqi].
+
+A wrong optimization model usually still solves. The solver reports an optimal solution to the problem it was given, the planner sees a clean schedule, and nothing signals that the problem was the wrong one. This paper asks:
+
+- How much does an optimizer add over a good dispatching rule in a realistic week, and what do typical formulation errors cost when the plant follows the resulting schedule?
+- Which checks, independent of the model and of the LLM that wrote it, catch those errors?
+
+It answers with 30 weekly snapshots of the windows-and-doors plant, a reference model, eight deliberately faulty models and four verification gates. The faults are injected by hand; no language model was run, so the study measures what each kind of error costs and whether it is caught, not how often an LLM makes it. Figure 1 shows the workflow the paper ends up recommending: the language model proposes a model, the solver proposes a schedule, and four checks written by the plant decide whether that schedule is released.
+
+FIG fig1-pipeline || Verification gates for an LLM-written scheduling model. The model and the solver propose a schedule; four checks that read only the plant's data and the solver's output decide whether it is released. || Flow diagram: planner's request and ERP extract, LLM writes the model, solver, proposed schedule; below, inside a dashed boundary, four gates in sequence: solver status, feasibility check on the true data, objective recomputed, beats the best dispatching rule. A note says that passing all four releases the schedule and any failure returns the model to the LLM or falls back to the best rule. ||
+
+## The Scheduling Problem
+
+The plant is the composite vinyl window and door maker of the earlier paper: five product families, eight work centres with one machine each, and a welder that is the bottleneck at about 82% load [@fcs]. Each order follows its family's routing; each operation has a setup (15 minutes, 24 at the welder) plus a time per unit, with random variation. The promised date follows ERP logic, one working day per operation plus two days.
+
+Each snapshot is the plant's state at 07:00 on a Monday. The plant first runs for 12 weeks with modified due date at every work centre. Operations started before Monday are history; an operation in progress keeps its machine busy until it ends; every operation not yet started, for orders already in the plant, is to be scheduled, together with the orders confirmed to arrive during the week, each with its arrival time and due date. Across 30 snapshots this gives 10 to 50 open orders (22 on average), 40 to 246 operations and 16 to 164 hours of welding work. Most weeks are comfortable; a few, after a cluster of large orders, are not.
+
+The objective is total tardiness, the sum over orders j of the hours by which each finishes after its due date, Eq. (1), with completion time C<sub>j</sub> and due date d<sub>j</sub>:
+
+TEX T = \sum_j \max\left(0,\; C_j - d_j\right)
+
+The constraints are those of the classical job shop [@pinedo]: an operation cannot start before its order is released or before the previous operation of its order finishes (precedence); each machine processes one operation at a time (capacity) and is not free before the operation it is running ends; and each operation takes its full time including setup. Eq. (2) states precedence for consecutive operations k and k+1 of order j, with start time s and processing time p:
+
+TEX s_{j,k+1} \ge s_{j,k} + p_{j,k}, \qquad s_{j,1} \ge r_j
+
+Machine capacity can be written with interval variables and a no-overlap constraint, as in constraint programming, or with binary ordering variables and a big-M, as in mixed-integer programming, Eq. (3), where y<sub>ab</sub> = 1 if operation a precedes operation b on the same machine:
+
+TEX s_b \ge s_a + p_a - M\,(1 - y_{ab}), \qquad s_a \ge s_b + p_b - M\, y_{ab}
+
+Both are standard; computational studies have found constraint programming stronger than mixed-integer models on larger shop scheduling problems [@kubeck, @naderi]. The reference model uses the CP-SAT solver of Google OR-Tools [@ortools] with interval variables and minimizes Eq. (1). It is warm-started from the best dispatching rule's schedule, as a plant would do in practice, and stopped on a deterministic work limit, so that every run gives the same numbers.
+
+## The Baselines and the Faulty Models
+
+Five dispatching rules give the baseline: first in, first out (FIFO), earliest due date (EDD), shortest processing time (SPT), critical ratio (CR) and modified due date (MDD), the last defined as the later of the due date and the earliest possible finish [@bakerkanet]. Each builds a non-delay schedule: whenever a machine is free and work is waiting, it starts the waiting operation with the best priority [@pinedo]. Dispatching-rule baselines of this kind are standard in job shop simulation research [@ramasesh].
+
+The eight faulty models each change one thing in the reference model (Table 1). The list starts from the error categories reported for LLM-written optimization models (missing or wrong constraints, wrongly translated objectives or constraints, and coding errors [@optimus, @orlm]) and adds errors specific to scheduling data, such as wrong units, ignored data and a mis-sized big-M.
+
+TABLE The eight formulation errors tested. || Each faulty model differs from the reference in one respect only. In the main run every model receives the same warm start; Section 5.2 repeats the study without it.
+| Fault | What the model gets wrong | How it typically arises |
+| F1 | Precedence between an order's operations omitted | Constraint described in the text but not written in code |
+| F2 | Machine capacity written only for the welder | "The welder is the bottleneck" read as "only the welder is constrained" |
+| F3 | Setup time left out of operation times | Time per unit used; setup in a separate column ignored |
+| F4 | Lateness instead of tardiness, so early orders offset late ones | max(0, ·) dropped from the objective |
+| F5 | Makespan minimized instead of total tardiness | "Finish the week's work as early as possible" taken as the goal |
+| F6 | Due dates in working days read as hours | Unit of a data column not checked |
+| F7 | Release times ignored | Orders not yet in the plant treated as available on Monday |
+| F8 | Big-M set to one shift (480 minutes) | A "large number" chosen without reference to the horizon [@camm] |
+
+For each snapshot and each model, the schedule the solver returns is checked against the true problem. If it breaks a true constraint, it is repaired the way a shop floor would repair it: each machine keeps the order of operations in the plan, and every operation starts as soon as its order and its machine allow. The cost of a fault is the true total tardiness of the schedule the plant would run without any checks; with the gates, a flagged schedule would be replaced by the best rule's.
+
+## Results: What the Optimizer Adds and What the Errors Cost
+
+In 22 of the 30 weeks the best dispatching rule already shipped every order on time, and so did the reference model. All the tardiness sits in the other 8 weeks. Over the 30 snapshots the reference model left 1,679 hours of total tardiness, against 1,712 hours for the best rule chosen in each snapshot, which was MDD in every week (Table 2). The optimizer was strictly better than the rule in 7 of the 8 busy weeks, by 2% in total. Because it starts from the rule's schedule it cannot do worse; the solver proved optimality in 23 of the 30 snapshots.
+
+TABLE Total tardiness over 30 weekly snapshots. || Late orders are the mean per snapshot. All tardiness comes from the 8 weeks in which the best rule could not ship every order on time.
+| Method | Total tardiness (h) | Against reference | Late orders per snapshot |
+| Reference CP-SAT model | 1,679 | — | 1.7 |
+| MDD (best rule in every week) | 1,712 | +2% | 1.7 |
+| SPT | 2,219 | +32% | 2.2 |
+| Critical ratio | 3,465 | +106% | 5.8 |
+| FIFO | 3,542 | +111% | 4.0 |
+| EDD | 3,627 | +116% | 4.3 |
+
+The first finding is therefore modest: in a plant already running a good rule, a correct optimizer adds a little, and only in the hard weeks. The faulty models can take away much more (Figure 2). Seven of the eight returned a solution with status optimal or feasible in every snapshot, so the solver gave no warning. Only the mis-sized big-M (F8) made the model infeasible every time: with M = 480 minutes, the constraints force any two operations on the same machine into one 480-minute window, so no machine can hold more than a shift of work.
+
+FIG fig2-tardiness || Total tardiness over 30 weekly snapshots for the reference model and seven faulty models, scored on the schedule the plant would run after repair; the dashed line is the best dispatching rule. The big-M fault (F8) is not shown because its model was infeasible in every snapshot. || Horizontal bars: reference 1,679 hours; no precedence 3,773; capacity at the welder only 5,881; setups omitted 1,808; lateness instead of tardiness 2,891; makespan objective 7,088; due-date unit error 3,191; release times ignored 2,042; best rule 1,712 hours. ||
+
+1. **Wrong objectives are expensive and invisible to the solver.** Minimizing makespan (F5) produced 7,088 hours of tardiness, 4.2 times the reference. Lateness instead of tardiness (F4) and the due-date unit error (F6) produced 1.7 and 1.9 times the reference. All three schedules were feasible: the model solved its problem correctly, and its problem was not the plant's.
+2. **Missing constraints produce schedules the floor cannot run.** With capacity only at the welder (F2), the model let other machines run several orders at once, and the repaired schedule carried 3.5 times the reference tardiness. Without precedence (F1), it let orders be packed before they were cut; repaired, 2.2 times. Leaving out setups (F3) made the model believe the week had more capacity than it did; repaired, 8% more tardiness than the reference.
+3. **Some errors only matter in some weeks.** Ignoring release times (F7) mattered only when a schedule depended on orders that had not yet arrived; over all weeks it cost 22% more tardiness, almost all of it in one busy week.
+
+Counting weeks rather than hours gives the same picture. The faulty schedules were worse than the best rule in 16 of 30 weeks for F2, 15 for F4 and F6, 14 for F5, 6 for F1, 4 for F3 and 1 for F7.
+
+### 4.1 One week in detail
+
+Snapshot 11 (seed 5010) shows how differently the faults behave in a busy week. It has 27 open orders, about 77 hours of welding work, and a welder that cannot finish everything on time. MDD leaves 223 hours of total tardiness; the reference model finds a schedule with 215 hours and 3 late orders.
+
+The precedence-free model (F1) reports a total tardiness of 135 hours, better than the reference, because it lets operations of the same order run at once. Once the floor runs it in routing order, 25 orders are late and tardiness reaches 1,261 hours. The model with capacity at the welder only (F2) reports 198 hours, quietly allowing six other work centres, most often assembly, to run several orders at once; repaired, 614 hours. The model that ignores release times (F7) starts four orders before they arrive; once the plant waits for the orders, the knock-on delays leave 572 hours, because every later operation on the same machines moves with them. The makespan model (F5) is valid in every respect, but it sequences for the last finish, not the due dates, and leaves 375 hours.
+
+These are the failures a planner would discover only on Thursday, when the hot list grows. Each would have been stopped on Monday morning by a gate: F1, F2 and F7 by the feasibility check, F5 by the objective recomputation, and all four by the comparison with MDD.
+
+### 4.2 Why these errors arise
+
+The faults share a cause: each is a place where the plant's description leaves something implicit. "The welder is the bottleneck" is true and useful, but it does not say that the other machines have capacity limits too. A routing table with a setup column and a run-time column does not say that both apply to every operation. "Due in nine days" does not say working days or hours unless the column header does. A human scheduler fills these gaps from experience of the plant; a language model fills them from what is typical in text, which is usually right and occasionally exactly wrong. The literature on LLM optimization modelling reports a related pattern: most errors are in the model rather than the code, and the largest group is constraints or conditions that the description implies rather than states [@optimus, @orlm]. Better prompting helps only if the missing information is added to the prompt; checks against the plant's data do not depend on that.
+
+CALLOUT A wrong scheduling model usually still solves. In this study seven of the eight injected faults returned a schedule in every week with no warning from the solver, and the worst carried more than four times the reference tardiness.
+
+## Four Verification Gates
+
+The checks share one rule: they read the plant's own data and the solver's output, never the model or the LLM's explanation of it, so an error in the model cannot hide from them (Figure 1, lower row).
+
+- **G1, solver status.** The solver must return a feasible or optimal status. This catches infeasible or unbounded models.
+- **G2, feasibility check.** Every release time, every routing step, every busy machine and every machine's one-at-a-time rule is checked against the true data, with true processing times including setups.
+- **G3, objective recomputation.** The plant's KPI, total tardiness in hours, is recomputed from the schedule and compared with the objective value the solver reports. A mismatch means the model optimized something else, in other units, or with other times. For a wrong objective the two numbers are different quantities, so G3 fires by construction; it is only useful if the generated code is required to report the solver's raw objective, not a KPI it recomputes itself.
+- **G4, baseline test.** The schedule, repaired if needed, must be at least as good as the best dispatching rule on the same snapshot.
+
+Figure 3 shows how often each gate fired for each fault in the main run.
+
+FIG fig3-detection || Share of the 30 snapshots in which each verification gate flagged each faulty model, and in which at least one gate did; every model warm-started from the best rule. || A heat map of eight faults against four gates. Solver status catches only the big-M fault. The feasibility check catches the missing-capacity fault in every snapshot, missing precedence in 60%, missing setups in 27% and ignored release times in 10%. Objective recomputation catches lateness, makespan and due-date unit faults in every snapshot. The baseline test fires in 3% to 53% depending on the fault. ||
+
+The gates complement each other. Solver status caught only the big-M fault. The feasibility check caught the missing-constraint faults whenever the solver's schedule actually broke the missing constraint (F2 in every snapshot, F1 in 60%, F3 in 27%, F7 in 10%) and none of the objective faults, whose schedules are feasible. Objective recomputation caught all three objective faults in every snapshot, and the setup fault in 27%.
+
+G4 fires by definition whenever a schedule loses to the best rule, so it cannot miss a schedule that is worse than the rule. The informative result is that it never fired alone: every faulty schedule that ended worse than the best rule had already been flagged by G1, G2 or G3. G4 still earns its place when the generated code reports a recomputed KPI instead of the raw objective, so that G3 is blind, and when a correct model is given no warm start (Section 5.2).
+
+### 5.1 What the gates missed, and why
+
+The gates missed F1 in 12 snapshots, F3 in 22 and F7 in 27. All the F1 and F3 misses, and 22 of the F7 misses, fell in the 22 easy weeks, where the warm start was already a schedule with no late order. The solver had no reason to move away from it, so it returned the rule's schedule unchanged and the faulty model contributed nothing. The remaining F7 misses cost 0.9 hours in total. These misses are therefore not evidence that undetected faults are harmless; they show that the warm start hid the faults in weeks when there was nothing to gain.
+
+### 5.2 The same study without the warm start
+
+Run without the warm start, every fault was caught in every one of the 30 snapshots, by the feasibility check or the objective recomputation, and the faults now did more damage: the precedence-free model carried 6.9 times the tardiness of the correct model and the model ignoring release times 2.4 times. But the correct model, left to find its own schedule within the same work limit, did worse than MDD in 3 of the 30 weeks and left 31% more tardiness than MDD overall (2,246 hours), so G4 flagged a correct model in those 3 weeks. G3 also fired once on the correct model, most likely because the solver's interim solution had slack in a tardiness variable, a harmless false alarm.
+
+The trade-off is clear. The warm start makes the correct model reliable and hides faults in weeks that do not matter; without it, faults are exposed but a correct model sometimes loses to the rule. In both cases the gates leave the plant no worse off than with its best rule, because a flagged schedule is replaced by the rule's.
+
+### 5.3 How the repair method affects the costs
+
+The costs above assume the floor keeps each machine's order of operations from the plan (right-shift repair). Applied to the correct model's own feasible schedules, that repair changes nothing beyond closing small idle gaps (it lowered their tardiness by 0.2%). A different repair, which uses the plan's start times only as priorities and never leaves a machine idle while work waits, raised the correct model's tardiness by 4% on its own schedules, and gave smaller multiples for the infeasible faults: 1.4 times the reference for F1, 1.3 for F2, 1.1 for F3 and 1.0 for F7. The size of the penalty for a missing constraint depends on how the floor recovers; the need to catch it does not.
+
+## Implementation Guide for SMEs
+
+A plant that wants to try LLM-written scheduling models can follow five steps.
+
+1. **Start from a working baseline.** Implement modified due date at every work centre; the earlier paper found that MDD at the welder alone captures most of the gain [@fcs]. It is the fallback schedule and the G4 benchmark, and here it came within 2% of the optimizer and halved the tardiness of FIFO (1,712 hours against 3,542).
+2. **Write the gates before the model.** G1 to G4 take about a page of code (Appendix) and use only data the plant already has: routings, processing and setup times, release and due dates, and what each machine is running now. They are written and reviewed once, by someone who knows the shop floor. Require the generated code to report the solver's objective value and its units.
+3. **Give the LLM the data dictionary, not just the story.** State the units of every column, which times include setup, and which orders are not yet in the plant. Faults F3, F6 and F7 all start with an unstated unit or column.
+4. **Run every schedule through the gates.** A failing gate sends the model back to the LLM with the failing check, for example "operation 3 of order 1042 starts before operation 2 finishes", which is the kind of feedback the multi-agent systems in the literature use to repair models [@optimus, @coe]. If the model still fails, the plant runs the baseline rule that week.
+5. **Keep a person in the loop for the release decision.** The planner approves the released schedule, as the staged-autonomy approach in this journal recommends [@autonomy]; the gates make that approval quick because the planner sees what was checked.
+
+The pattern is the same as for KPI questions in the companion paper: the language model proposes, and deterministic code that the plant controls decides whether the proposal is used [@oeellm, @agmfg].
+
+### 6.1 Pitfalls
+
+- **Trusting "optimal".** Optimal means optimal for the model. The solver proved optimality for the precedence-free model in all 30 snapshots, against 23 for the correct model: a model with constraints missing is an easier problem.
+- **Checking with the model's own numbers.** A feasibility check that uses the model's processing times passes F3. The gates must use the plant's master data.
+- **Expecting large gains in easy weeks.** In 22 of 30 weeks the rule already shipped everything on time. The optimizer's value, and the faults' damage, are concentrated in the busy weeks.
+- **Warm start without gates.** Starting the solver from the rule's schedule protects a correct model but can hide a faulty one in easy weeks. Keep the gates running every week, because a fault that does not bind this week can bind next week.
+- **Promising dates from the optimizer.** A schedule that meets this week's due dates says nothing about whether new quotes are realistic; due-date setting is a separate decision [@quote].
+
+## Conclusions
+
+On 30 Monday snapshots of a composite high-mix plant running at about 82% bottleneck load:
+
+- A correct constraint-programming model left 1,679 hours of total tardiness, 2% less than modified due date, the best rule in every week. All tardiness came from 8 busy weeks; in the other 22 every order shipped on time either way.
+- Seven of eight models with one injected formulation error still returned a schedule in every week without any warning. After the plant repaired their schedules, they carried 1.1 to 4.2 times the reference tardiness; the worst came from optimizing makespan instead of tardiness and from writing machine capacity only for the bottleneck.
+- Four checks that read only the plant's data and the solver's output flagged every faulty schedule that ended worse than the best rule, and the first three did so without help from the rule comparison.
+- With a warm start, the checks missed faults mostly in easy weeks where the solver kept the rule's schedule, and the other misses cost 0.9 hours in total; without one, they caught every fault but also flagged a correct model in 3 weeks. Either way, running the gates every week and falling back to the rule leaves the plant no worse off than its best rule.
+
+The study used one composite plant, one solver, single hand-injected faults and two repair methods; real LLM-written models can contain several errors at once. The full model is available for download to test other faults and plants.
+
+## Appendix: Python Code
+
+The functions below implement gates G1 to G4, the dispatching baseline used for G4, and the right-shift repair. They use only the Python standard library and the plant's data in the format described in the docstring.
+
+CODE appendix || Verification gates for an LLM-written scheduling model (compact version).
+"""

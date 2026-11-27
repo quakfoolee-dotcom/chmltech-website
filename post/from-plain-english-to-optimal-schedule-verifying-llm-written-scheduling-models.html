@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models</title>
+<meta name="description" content="Eight common error types in LLM-written scheduling models, injected and tested on a high-mix plant: what they cost, and four checks that catch the harmful ones.">
+<link rel="canonical" href="https://www.chmltech.com/post/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models">
+<meta property="og:description" content="Eight common error types in LLM-written scheduling models, injected and tested on a high-mix plant: what they cost, and four checks that catch the harmful ones.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=29c448bc">
+<meta property="og:url" content="https://www.chmltech.com/post/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models","item":"https://www.chmltech.com/post/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=be09a9d8">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/27">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="18">
+<script>(function(c,l,a,r,i,t,y){if(!/(^|\.)chmltech\.com$/.test(l.location.hostname))return;try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <div class="nav-dd" data-nav-dd><button type="button" class="nav-dd-btn" aria-expanded="false" aria-controls="nav-dd-ai">AI<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-dd-menu" id="nav-dd-ai"><a href="../llm-leaderboard"><strong>AI Models</strong><span>LLM leaderboard: scores and cost</span></a><a href="../ai-tools"><strong>AI Tools Landscape</strong><span>988 tools mapped, with cost per output</span></a></div></div>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a> / <a href="../insights#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 18</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 27, 2026</span><span>16 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Large language models can turn a planner's description into an optimization model and solver code, but a model that solves is not necessarily right. This paper takes the windows-and-doors plant of an earlier paper, runs it for 12 weeks under a modified-due-date rule, and builds 30 Monday scheduling snapshots of 10 to 50 open orders. Each is solved with a reference constraint-programming model that minimizes total tardiness, with five dispatching rules, and with eight models into which one common error was injected by hand (no language model was run): a missing constraint, the wrong objective, a unit error, ignored data or a mis-sized big-M. In 22 of the 30 weeks every order could ship on time; over all weeks the reference model left 2% less tardiness than the best rule. Seven of the eight faulty models still returned a solution in every snapshot, and once their schedules were made feasible they carried 1.1 to 4.2 times the reference tardiness. Four checks that read only the plant's data and the solver's output are proposed: the solver status, a feasibility check, a recomputation of the objective, and a test against the best dispatching rule. Every faulty schedule that ended worse than the best rule was flagged by one of the first three. With the solver warm-started from the rule, the checks missed some faults, mostly in easy weeks where the solver kept the rule's schedule; without the warm start they caught every fault, but also flagged the correct model in 3 weeks.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> production scheduling; large language models; optimization modeling; constraint programming; job shop; verification; dispatching rules; high-mix manufacturing</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/llm_schedule_gates.py" download><strong>Appendix script</strong> <code>llm_schedule_gates.py</code></a><span>Verification gates G1–G4, dispatching baseline and repair (Python 3, standard library)</span></li><li><a href="../assets/journal/code/chmltech-llm-scheduling-model.zip" download><strong>Full model</strong> <code>chmltech-llm-scheduling-model.zip</code></a><span>Snapshots, reference CP-SAT model, eight faulty models, gates, results and README (Python 3, OR-Tools)</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>A planner at a high-mix plant knows what a good week looks like: the welder never starves, the promised orders ship, and nothing waits for a machine that is already busy. Writing that down as an optimization model has always needed an operations research specialist, which most small and mid-sized manufacturers do not have. The previous scheduling paper in this journal therefore used dispatching rules, simple priorities that any spreadsheet can apply, and showed that sequencing the bottleneck by modified due date lifted on-time delivery from 77% to 90% in a simulated windows-and-doors plant [<a href="#ref-1" class="j-cite">1</a>].</p><p>Large language models (LLMs) change the economics of the next step. Research since the NL4Opt competition [<a href="#ref-2" class="j-cite">2</a>] has built systems that read a problem description and write the mathematical model and solver code: OptiMUS formulates and debugs mixed-integer models with a team of LLM agents [<a href="#ref-3" class="j-cite">3</a>], Chain-of-Experts coordinates role-specific agents on complex operations research problems [<a href="#ref-4" class="j-cite">4</a>], and ORLM trains open models for the task and introduced an industrial benchmark [<a href="#ref-5" class="j-cite">5</a>]. Each reports substantial error rates on harder problems, and a 2026 review of LLMs in manufacturing calls for structured verification, validation and human oversight of LLM outputs, and finds such checks still applied inconsistently [<a href="#ref-6" class="j-cite">6</a>].</p><p>A wrong optimization model usually still solves. The solver reports an optimal solution to the problem it was given, the planner sees a clean schedule, and nothing signals that the problem was the wrong one. This paper asks:</p><ul><li>How much does an optimizer add over a good dispatching rule in a realistic week, and what do typical formulation errors cost when the plant follows the resulting schedule?</li><li>Which checks, independent of the model and of the LLM that wrote it, catch those errors?</li></ul><p>It answers with 30 weekly snapshots of the windows-and-doors plant, a reference model, eight deliberately faulty models and four verification gates. The faults are injected by hand; no language model was run, so the study measures what each kind of error costs and whether it is caught, not how often an LLM makes it. Figure 1 shows the workflow the paper ends up recommending: the language model proposes a model, the solver proposes a schedule, and four checks written by the plant decide whether that schedule is released.</p><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 526.944375 277.632" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Flow diagram: planner&#x27;s request and ERP extract, LLM writes the model, solver, proposed schedule; below, inside a dashed boundary, four gates in sequence: solver status, feasibility check on the true data, objective recomputed, beats the best dispatching rule. A note says that passing all four releases the schedule and any failure returns the model to the LLM or falls back to the best rule.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 277.632 
+L 526.944375 277.632 
+L 526.944375 0 
+L 0 0 
+L 0 277.632 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 23.219707 96.23808 
+L 113.571067 96.23808 
+Q 119.731387 96.23808 119.731387 93.044736 
+L 119.731387 46.209024 
+Q 119.731387 43.01568 113.571067 43.01568 
+L 23.219707 43.01568 
+Q 17.059387 43.01568 17.059387 46.209024 
+L 17.059387 93.044736 
+Q 17.059387 96.23808 23.219707 96.23808 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 151.559708 96.23808 
+L 241.911068 96.23808 
+Q 248.071388 96.23808 248.071388 93.044736 
+L 248.071388 46.209024 
+Q 248.071388 43.01568 241.911068 43.01568 
+L 151.559708 43.01568 
+Q 145.399387 43.01568 145.399387 46.209024 
+L 145.399387 93.044736 
+Q 145.399387 96.23808 151.559708 96.23808 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #dce4ee; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 279.899707 96.23808 
+L 370.251067 96.23808 
+Q 376.411387 96.23808 376.411387 93.044736 
+L 376.411387 46.209024 
+Q 376.411387 43.01568 370.251067 43.01568 
+L 279.899707 43.01568 
+Q 273.739387 43.01568 273.739387 46.209024 
+L 273.739387 93.044736 
+Q 273.739387 96.23808 279.899707 96.23808 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #dce4ee; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 408.239707 96.23808 
+L 498.591067 96.23808 
+Q 504.751387 96.23808 504.751387 93.044736 
+L 504.751387 46.209024 
+Q 504.751387 43.01568 498.591067 43.01568 
+L 408.239707 43.01568 
+Q 402.079387 43.01568 402.079387 46.209024 
+L 402.079387 93.044736 
+Q 402.079387 96.23808 408.239707 96.23808 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 119.731387 69.62688 
+Q 132.565387 69.62688 143.83414 69.62688 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 139.03414 67.22688 
+L 143.83414 69.62688 
+L 139.03414 72.02688 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_7">
+<path d="M 248.071388 69.62688 
+Q 260.905387 69.62688 272.17414 69.62688 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 267.37414 67.22688 
+L 272.17414 69.62688 
+L 267.37414 72.02688 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_8">
+<path d="M 376.411387 69.62688 
+Q 389.245387 69.62688 400.51414 69.62688 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 395.71414 67.22688 
+L 400.51414 69.62688 
+L 395.71414 72.02688 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_9">
+<path d="M 23.219707 229.29408 
+L 113.571067 229.29408 
+Q 119.731387 229.29408 119.731387 226.100736 
+L 119.731387 173.942784 
+Q 119.731387 170.74944 113.571067 170.74944 
+L 23.219707 170.74944 
+Q 17.059387 170.74944 17.059387 173.942784 
+L 17.059387 226.100736 
+Q 17.059387 229.29408 23.219707 229.29408 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #eaf3e0; stroke: #4d7f12; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_10">
+<path d="M 119.731387 200.02176 
+Q 132.565387 200.02176 143.83414 200.02176 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 139.03414 197.62176 
+L 143.83414 200.02176 
+L 139.03414 202.42176 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_11">
+<path d="M 151.559708 229.29408 
+L 241.911068 229.29408 
+Q 248.071388 229.29408 248.071388 226.100736 
+L 248.071388 173.942784 
+Q 248.071388 170.74944 241.911068 170.74944 
+L 151.559708 170.74944 
+Q 145.399387 170.74944 145.399387 173.942784 
+L 145.399387 226.100736 
+Q 145.399387 229.29408 151.559708 229.29408 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #eaf3e0; stroke: #4d7f12; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_12">
+<path d="M 248.071388 200.02176 
+Q 260.905387 200.02176 272.17414 200.02176 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 267.37414 197.62176 
+L 272.17414 200.02176 
+L 267.37414 202.42176 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_13">
+<path d="M 279.899707 229.29408 
+L 370.251067 229.29408 
+Q 376.411387 229.29408 376.411387 226.100736 
+L 376.411387 173.942784 
+Q 376.411387 170.74944 370.251067 170.74944 
+L 279.899707 170.74944 
+Q 273.739387 170.74944 273.739387 173.942784 
+L 273.739387 226.100736 
+Q 273.739387 229.29408 279.899707 229.29408 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #eaf3e0; stroke: #4d7f12; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_14">
+<path d="M 376.411387 200.02176 
+Q 389.245387 200.02176 400.51414 200.02176 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 395.71414 197.62176 
+L 400.51414 200.02176 
+L 395.71414 202.42176 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_15">
+<path d="M 408.239707 229.29408 
+L 498.591067 229.29408 
+Q 504.751387 229.29408 504.751387 226.100736 
+L 504.751387 173.942784 
+Q 504.751387 170.74944 498.591067 170.74944 
+L 408.239707 170.74944 
+Q 402.079387 170.74944 402.079387 173.942784 
+L 402.079387 226.100736 
+Q 402.079387 229.29408 408.239707 229.29408 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #eaf3e0; stroke: #4d7f12; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_16">
+<path d="M 68.395387 130.83264 
+Q 68.395387 150.79104 68.395387 169.184192 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 70.795387 164.384192 
+L 68.395387 169.184192 
+L 65.995387 164.384192 
+z
+" clip-path="url(#p4e572f3111)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_17">
+<path d="M 17.059387 245.2608 
+L 504.751387 245.2608 
+Q 512.451788 245.2608 512.451788 241.26912 
+L 512.451788 158.7744 
+Q 512.451788 154.78272 504.751387 154.78272 
+L 17.059387 154.78272 
+Q 9.358987 154.78272 9.358987 158.7744 
+L 9.358987 241.26912 
+Q 9.358987 245.2608 17.059387 245.2608 
+L 17.059387 245.2608 
+z
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #4d7f12; stroke-linejoin: miter"/>
+</g>
+<g id="line2d_1">
+<path d="M 453.415387 96.23808 
+L 453.415387 130.83264 
+L 68.395387 130.83264 
+" clip-path="url(#p4e572f3111)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: square"/>
+</g>
+<g id="text_1">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(29.080973 57.170191)">Planner's request</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(34.893044 72.171099)">in plain English</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(38.009489 87.965405)">+ ERP extract</text>
+</g>
+<g id="text_2">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(172.052458 58.197378)">LLM writes</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(174.430427 73.026841)">the model</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(157.21613 88.025523)">(CP-SAT or MILP)</text>
+</g>
+<g id="text_3">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="325.075387" y="73.069146" transform="rotate(-0 325.075387 73.069146)">Solver</text>
+</g>
+<g id="text_4">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(431.881559 64.641699)">Proposed</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(432.980739 80.49835)">schedule</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(62.919528 196.005876)">G1</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(39.234841 210.935534)">Solver status</text>
+</g>
+<g id="text_6">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(190.294684 188.534367)">G2</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(159.354372 202.603088)">Feasibility check</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(161.200934 218.360285)">on the true data</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(318.597575 188.534367)">G3</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(303.851052 202.621643)">Objective</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(297.971442 217.451106)">recomputed</text>
+</g>
+<g id="text_8">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(446.803239 188.534367)">G4</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(421.266052 203.417268)">Beats the best</text>
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(417.474958 217.508996)">dispatching rule</text>
+</g>
+<g id="text_9">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="263.472187" y="148.12992" transform="rotate(-0 263.472187 148.12992)">Verification gates: independent of the LLM, written and tested once by the plant</text>
+</g>
+<g id="text_10">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #e07a3a" x="263.472187" y="261.22752" transform="rotate(-0 263.472187 261.22752)">Pass all four: release the schedule.  Any gate fails: return the model to the LLM with the failing check, or run the best rule.</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p4e572f3111">
+<rect x="6.792187" y="5.76" width="513.36" height="266.112"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Verification gates for an LLM-written scheduling model. The model and the solver propose a schedule; four checks that read only the plant's data and the solver's output decide whether it is released.</figcaption></figure></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> The Scheduling Problem</h2><p>The plant is the composite vinyl window and door maker of the earlier paper: five product families, eight work centres with one machine each, and a welder that is the bottleneck at about 82% load [<a href="#ref-1" class="j-cite">1</a>]. Each order follows its family's routing; each operation has a setup (15 minutes, 24 at the welder) plus a time per unit, with random variation. The promised date follows ERP logic, one working day per operation plus two days.</p><p>Each snapshot is the plant's state at 07:00 on a Monday. The plant first runs for 12 weeks with modified due date at every work centre. Operations started before Monday are history; an operation in progress keeps its machine busy until it ends; every operation not yet started, for orders already in the plant, is to be scheduled, together with the orders confirmed to arrive during the week, each with its arrival time and due date. Across 30 snapshots this gives 10 to 50 open orders (22 on average), 40 to 246 operations and 16 to 164 hours of welding work. Most weeks are comfortable; a few, after a cluster of large orders, are not.</p><p>The objective is total tardiness, the sum over orders j of the hours by which each finishes after its due date, Eq. (1), with completion time C<sub>j</sub> and due date d<sub>j</sub>:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[T = \sum_j \max\left(0,\; C_j - d_j\right)\]</span><span class="j-eq-n">(1)</span></div><p>The constraints are those of the classical job shop [<a href="#ref-7" class="j-cite">7</a>]: an operation cannot start before its order is released or before the previous operation of its order finishes (precedence); each machine processes one operation at a time (capacity) and is not free before the operation it is running ends; and each operation takes its full time including setup. Eq. (2) states precedence for consecutive operations k and k+1 of order j, with start time s and processing time p:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[s_{j,k+1} \ge s_{j,k} + p_{j,k}, \qquad s_{j,1} \ge r_j\]</span><span class="j-eq-n">(2)</span></div><p>Machine capacity can be written with interval variables and a no-overlap constraint, as in constraint programming, or with binary ordering variables and a big-M, as in mixed-integer programming, Eq. (3), where y<sub>ab</sub> = 1 if operation a precedes operation b on the same machine:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[s_b \ge s_a + p_a - M\,(1 - y_{ab}), \qquad s_a \ge s_b + p_b - M\, y_{ab}\]</span><span class="j-eq-n">(3)</span></div><p>Both are standard; computational studies have found constraint programming stronger than mixed-integer models on larger shop scheduling problems [<a href="#ref-8" class="j-cite">8</a>, <a href="#ref-9" class="j-cite">9</a>]. The reference model uses the CP-SAT solver of Google OR-Tools [<a href="#ref-10" class="j-cite">10</a>] with interval variables and minimizes Eq. (1). It is warm-started from the best dispatching rule's schedule, as a plant would do in practice, and stopped on a deterministic work limit, so that every run gives the same numbers.</p></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> The Baselines and the Faulty Models</h2><p>Five dispatching rules give the baseline: first in, first out (FIFO), earliest due date (EDD), shortest processing time (SPT), critical ratio (CR) and modified due date (MDD), the last defined as the later of the due date and the earliest possible finish [<a href="#ref-11" class="j-cite">11</a>]. Each builds a non-delay schedule: whenever a machine is free and work is waiting, it starts the waiting operation with the best priority [<a href="#ref-7" class="j-cite">7</a>]. Dispatching-rule baselines of this kind are standard in job shop simulation research [<a href="#ref-12" class="j-cite">12</a>].</p><p>The eight faulty models each change one thing in the reference model (Table 1). The list starts from the error categories reported for LLM-written optimization models (missing or wrong constraints, wrongly translated objectives or constraints, and coding errors [<a href="#ref-3" class="j-cite">3</a>, <a href="#ref-5" class="j-cite">5</a>]) and adds errors specific to scheduling data, such as wrong units, ignored data and a mis-sized big-M.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> The eight formulation errors tested.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Fault</th><th>What the model gets wrong</th><th>How it typically arises</th></tr></thead><tbody><tr><td>F1</td><td>Precedence between an order's operations omitted</td><td>Constraint described in the text but not written in code</td></tr><tr><td>F2</td><td>Machine capacity written only for the welder</td><td>"The welder is the bottleneck" read as "only the welder is constrained"</td></tr><tr><td>F3</td><td>Setup time left out of operation times</td><td>Time per unit used; setup in a separate column ignored</td></tr><tr><td>F4</td><td>Lateness instead of tardiness, so early orders offset late ones</td><td>max(0, ·) dropped from the objective</td></tr><tr><td>F5</td><td>Makespan minimized instead of total tardiness</td><td>"Finish the week's work as early as possible" taken as the goal</td></tr><tr><td>F6</td><td>Due dates in working days read as hours</td><td>Unit of a data column not checked</td></tr><tr><td>F7</td><td>Release times ignored</td><td>Orders not yet in the plant treated as available on Monday</td></tr><tr><td>F8</td><td>Big-M set to one shift (480 minutes)</td><td>A "large number" chosen without reference to the horizon [<a href="#ref-13" class="j-cite">13</a>]</td></tr></tbody></table></div><p class="j-table-note">Each faulty model differs from the reference in one respect only. In the main run every model receives the same warm start; Section 5.2 repeats the study without it.</p></figure><p>For each snapshot and each model, the schedule the solver returns is checked against the true problem. If it breaks a true constraint, it is repaired the way a shop floor would repair it: each machine keeps the order of operations in the plan, and every operation starts as soon as its order and its machine allow. The cost of a fault is the true total tardiness of the schedule the plant would run without any checks; with the gates, a flagged schedule would be replaced by the best rule's.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Results: What the Optimizer Adds and What the Errors Cost</h2><p>In 22 of the 30 weeks the best dispatching rule already shipped every order on time, and so did the reference model. All the tardiness sits in the other 8 weeks. Over the 30 snapshots the reference model left 1,679 hours of total tardiness, against 1,712 hours for the best rule chosen in each snapshot, which was MDD in every week (Table 2). The optimizer was strictly better than the rule in 7 of the 8 busy weeks, by 2% in total. Because it starts from the rule's schedule it cannot do worse; the solver proved optimality in 23 of the 30 snapshots.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Total tardiness over 30 weekly snapshots.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Method</th><th>Total tardiness (h)</th><th>Against reference</th><th>Late orders per snapshot</th></tr></thead><tbody><tr><td>Reference CP-SAT model</td><td>1,679</td><td>—</td><td>1.7</td></tr><tr><td>MDD (best rule in every week)</td><td>1,712</td><td>+2%</td><td>1.7</td></tr><tr><td>SPT</td><td>2,219</td><td>+32%</td><td>2.2</td></tr><tr><td>Critical ratio</td><td>3,465</td><td>+106%</td><td>5.8</td></tr><tr><td>FIFO</td><td>3,542</td><td>+111%</td><td>4.0</td></tr><tr><td>EDD</td><td>3,627</td><td>+116%</td><td>4.3</td></tr></tbody></table></div><p class="j-table-note">Late orders are the mean per snapshot. All tardiness comes from the 8 weeks in which the best rule could not ship every order on time.</p></figure><p>The first finding is therefore modest: in a plant already running a good rule, a correct optimizer adds a little, and only in the hard weeks. The faulty models can take away much more (Figure 2). Seven of the eight returned a solution with status optimal or feasible in every snapshot, so the solver gave no warning. Only the mis-sized big-M (F8) made the model infeasible every time: with M = 480 minutes, the constraints force any two operations on the same machine into one 480-minute window, so no machine can hold more than a shift of work.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 640.6 291.86518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Horizontal bars: reference 1,679 hours; no precedence 3,773; capacity at the welder only 5,881; setups omitted 1,808; lateness instead of tardiness 2,891; makespan objective 7,088; due-date unit error 3,191; release times ignored 2,042; best rule 1,712 hours.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 291.86518 
+L 640.6 291.86518 
+L 640.6 0 
+L 0 0 
+L 0 291.86518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 143.8 249.696 
+L 634.84 249.696 
+L 634.84 5.76 
+L 143.8 5.76 
+L 143.8 249.696 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 143.8 249.696 
+L 143.8 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m6d54397cc7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m6d54397cc7" x="143.8" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="143.8" y="266.867875" transform="rotate(-0 143.8 266.867875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 200.897674 249.696 
+L 200.897674 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m6d54397cc7" x="200.897674" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="200.897674" y="266.867875" transform="rotate(-0 200.897674 266.867875)">1000</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 257.995349 249.696 
+L 257.995349 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m6d54397cc7" x="257.995349" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="257.995349" y="266.867875" transform="rotate(-0 257.995349 266.867875)">2000</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 315.093023 249.696 
+L 315.093023 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m6d54397cc7" x="315.093023" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="315.093023" y="266.867875" transform="rotate(-0 315.093023 266.867875)">3000</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 372.190698 249.696 
+L 372.190698 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m6d54397cc7" x="372.190698" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="372.190698" y="266.867875" transform="rotate(-0 372.190698 266.867875)">4000</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 429.288372 249.696 
+L 429.288372 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m6d54397cc7" x="429.288372" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="429.288372" y="266.867875" transform="rotate(-0 429.288372 266.867875)">5000</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 486.386047 249.696 
+L 486.386047 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m6d54397cc7" x="486.386047" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="486.386047" y="266.867875" transform="rotate(-0 486.386047 266.867875)">6000</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_15">
+<path d="M 543.483721 249.696 
+L 543.483721 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_16">
+<g>
+<use xlink:href="#m6d54397cc7" x="543.483721" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="543.483721" y="266.867875" transform="rotate(-0 543.483721 266.867875)">7000</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_17">
+<path d="M 600.581395 249.696 
+L 600.581395 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_18">
+<g>
+<use xlink:href="#m6d54397cc7" x="600.581395" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="600.581395" y="266.867875" transform="rotate(-0 600.581395 266.867875)">8000</text>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="389.32" y="283.572465" transform="rotate(-0 389.32 283.572465)">Total tardiness over 30 weekly snapshots, after repair (hours)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_19">
+<defs>
+<path id="m8bfc14b3d1" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="41.391101" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="46.477039" transform="rotate(-0 136.8 46.477039)">F0 Reference model</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_20">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="68.79964" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="73.885578" transform="rotate(-0 136.8 73.885578)">F1 No precedence</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_21">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="96.20818" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="101.294117" transform="rotate(-0 136.8 101.294117)">F2 Capacity at weld only</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_22">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="123.616719" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="128.702657" transform="rotate(-0 136.8 128.702657)">F3 Setups omitted</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_23">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="151.025258" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="156.111196" transform="rotate(-0 136.8 156.111196)">F4 Lateness, not tardiness</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_24">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="178.433798" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="183.519735" transform="rotate(-0 136.8 183.519735)">F5 Makespan objective</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_25">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="205.842337" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="210.928275" transform="rotate(-0 136.8 210.928275)">F6 Due-date units</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_26">
+<g>
+<use xlink:href="#m8bfc14b3d1" x="143.8" y="233.250876" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="238.336814" transform="rotate(-0 136.8 238.336814)">F7 Release times ignored</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 143.8 49.613663 
+L 239.639398 49.613663 
+L 239.639398 33.168539 
+L 143.8 33.168539 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #0b2a5a"/>
+</g>
+<g id="patch_4">
+<path d="M 143.8 77.022202 
+L 359.244752 77.022202 
+L 359.244752 60.577079 
+L 143.8 60.577079 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_5">
+<path d="M 143.8 104.430742 
+L 479.585713 104.430742 
+L 479.585713 87.985618 
+L 143.8 87.985618 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_6">
+<path d="M 143.8 131.839281 
+L 247.027837 131.839281 
+L 247.027837 115.394157 
+L 143.8 115.394157 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_7">
+<path d="M 143.8 159.24782 
+L 308.881748 159.24782 
+L 308.881748 142.802697 
+L 143.8 142.802697 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_8">
+<path d="M 143.8 186.65636 
+L 548.486429 186.65636 
+L 548.486429 170.211236 
+L 143.8 170.211236 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_9">
+<path d="M 143.8 214.064899 
+L 325.978695 214.064899 
+L 325.978695 197.619775 
+L 143.8 197.619775 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_10">
+<path d="M 143.8 241.473438 
+L 260.41058 241.473438 
+L 260.41058 225.028315 
+L 143.8 225.028315 
+z
+" clip-path="url(#pd8854e3dd3)" style="fill: #e07a3a"/>
+</g>
+<g id="line2d_27">
+<path d="M 241.568348 249.696 
+L 241.568348 5.76 
+" clip-path="url(#pd8854e3dd3)" style="fill: none; stroke-dasharray: 5.6,4.2; stroke-dashoffset: 0; stroke: #4d7f12; stroke-width: 1.4"/>
+</g>
+<g id="patch_11">
+<path d="M 143.8 249.696 
+L 143.8 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_12">
+<path d="M 143.8 249.696 
+L 634.84 249.696 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #4d7f12" x="244.994208" y="18.808799" transform="rotate(-0 244.994208 18.808799)">Best dispatching rule (MDD): 1,712 h</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="244.994208" y="44.846912" transform="rotate(-0 244.994208 44.846912)">1,679 h</text>
+</g>
+<g id="text_21">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="362.670612" y="72.255451" transform="rotate(-0 362.670612 72.255451)">3,773 h</text>
+</g>
+<g id="text_22">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="483.011574" y="99.66399" transform="rotate(-0 483.011574 99.66399)">5,881 h</text>
+</g>
+<g id="text_23">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="250.453698" y="127.07253" transform="rotate(-0 250.453698 127.07253)">1,808 h</text>
+</g>
+<g id="text_24">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="312.307608" y="154.481069" transform="rotate(-0 312.307608 154.481069)">2,891 h</text>
+</g>
+<g id="text_25">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="551.912289" y="181.889608" transform="rotate(-0 551.912289 181.889608)">7,088 h</text>
+</g>
+<g id="text_26">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="329.404555" y="209.298148" transform="rotate(-0 329.404555 209.298148)">3,191 h</text>
+</g>
+<g id="text_27">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="263.836441" y="236.706687" transform="rotate(-0 263.836441 236.706687)">2,042 h</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pd8854e3dd3">
+<rect x="143.8" y="5.76" width="491.04" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Total tardiness over 30 weekly snapshots for the reference model and seven faulty models, scored on the schedule the plant would run after repair; the dashed line is the best dispatching rule. The big-M fault (F8) is not shown because its model was infeasible in every snapshot.</figcaption></figure><ol><li><strong>Wrong objectives are expensive and invisible to the solver.</strong> Minimizing makespan (F5) produced 7,088 hours of tardiness, 4.2 times the reference. Lateness instead of tardiness (F4) and the due-date unit error (F6) produced 1.7 and 1.9 times the reference. All three schedules were feasible: the model solved its problem correctly, and its problem was not the plant's.</li><li><strong>Missing constraints produce schedules the floor cannot run.</strong> With capacity only at the welder (F2), the model let other machines run several orders at once, and the repaired schedule carried 3.5 times the reference tardiness. Without precedence (F1), it let orders be packed before they were cut; repaired, 2.2 times. Leaving out setups (F3) made the model believe the week had more capacity than it did; repaired, 8% more tardiness than the reference.</li><li><strong>Some errors only matter in some weeks.</strong> Ignoring release times (F7) mattered only when a schedule depended on orders that had not yet arrived; over all weeks it cost 22% more tardiness, almost all of it in one busy week.</li></ol><p>Counting weeks rather than hours gives the same picture. The faulty schedules were worse than the best rule in 16 of 30 weeks for F2, 15 for F4 and F6, 14 for F5, 6 for F1, 4 for F3 and 1 for F7.</p><h3>4.1 One week in detail</h3><p>Snapshot 11 (seed 5010) shows how differently the faults behave in a busy week. It has 27 open orders, about 77 hours of welding work, and a welder that cannot finish everything on time. MDD leaves 223 hours of total tardiness; the reference model finds a schedule with 215 hours and 3 late orders.</p><p>The precedence-free model (F1) reports a total tardiness of 135 hours, better than the reference, because it lets operations of the same order run at once. Once the floor runs it in routing order, 25 orders are late and tardiness reaches 1,261 hours. The model with capacity at the welder only (F2) reports 198 hours, quietly allowing six other work centres, most often assembly, to run several orders at once; repaired, 614 hours. The model that ignores release times (F7) starts four orders before they arrive; once the plant waits for the orders, the knock-on delays leave 572 hours, because every later operation on the same machines moves with them. The makespan model (F5) is valid in every respect, but it sequences for the last finish, not the due dates, and leaves 375 hours.</p><p>These are the failures a planner would discover only on Thursday, when the hot list grows. Each would have been stopped on Monday morning by a gate: F1, F2 and F7 by the feasibility check, F5 by the objective recomputation, and all four by the comparison with MDD.</p><h3>4.2 Why these errors arise</h3><p>The faults share a cause: each is a place where the plant's description leaves something implicit. "The welder is the bottleneck" is true and useful, but it does not say that the other machines have capacity limits too. A routing table with a setup column and a run-time column does not say that both apply to every operation. "Due in nine days" does not say working days or hours unless the column header does. A human scheduler fills these gaps from experience of the plant; a language model fills them from what is typical in text, which is usually right and occasionally exactly wrong. The literature on LLM optimization modelling reports a related pattern: most errors are in the model rather than the code, and the largest group is constraints or conditions that the description implies rather than states [<a href="#ref-3" class="j-cite">3</a>, <a href="#ref-5" class="j-cite">5</a>]. Better prompting helps only if the missing information is added to the prompt; checks against the plant's data do not depend on that.</p><aside class="j-callout"><p>A wrong scheduling model usually still solves. In this study seven of the eight injected faults returned a schedule in every week with no warning from the solver, and the worst carried more than four times the reference tardiness.</p></aside></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Four Verification Gates</h2><p>The checks share one rule: they read the plant's own data and the solver's output, never the model or the LLM's explanation of it, so an error in the model cannot hide from them (Figure 1, lower row).</p><ul><li><strong>G1, solver status.</strong> The solver must return a feasible or optimal status. This catches infeasible or unbounded models.</li><li><strong>G2, feasibility check.</strong> Every release time, every routing step, every busy machine and every machine's one-at-a-time rule is checked against the true data, with true processing times including setups.</li><li><strong>G3, objective recomputation.</strong> The plant's KPI, total tardiness in hours, is recomputed from the schedule and compared with the objective value the solver reports. A mismatch means the model optimized something else, in other units, or with other times. For a wrong objective the two numbers are different quantities, so G3 fires by construction; it is only useful if the generated code is required to report the solver's raw objective, not a KPI it recomputes itself.</li><li><strong>G4, baseline test.</strong> The schedule, repaired if needed, must be at least as good as the best dispatching rule on the same snapshot.</li></ul><p>Figure 3 shows how often each gate fired for each fault in the main run.</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 637.1 295.45318" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">A heat map of eight faults against four gates. Solver status catches only the big-M fault. The feasibility check catches the missing-capacity fault in every snapshot, missing precedence in 60%, missing setups in 27% and ignored release times in 10%. Objective recomputation catches lateness, makespan and due-date unit faults in every snapshot. The baseline test fires in 3% to 53% depending on the fault.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 295.45318 
+L 637.1 295.45318 
+L 637.1 0 
+L 0 0 
+L 0 295.45318 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 140.3 289.69318 
+L 631.34 289.69318 
+L 631.34 34.66918 
+L 140.3 34.66918 
+L 140.3 289.69318 
+z
+" style="fill: none"/>
+</g>
+<g clip-path="url(#p33d2e138a9)">
+<image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAj4AAAFiCAYAAAD2ltK9AAAG0UlEQVR4Xu3YvW0UURSAUWZZC1kmgMDxdkABuALX4BaoAMcWNVGAczoAp8S2CPzziBHJynpar/c7J565Mzf7dJdfXz+PN/AMm6vrZ7wFAC9n9XKfBgDYLeEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIGMZY4zMtkz19Od26jxaVsfvWwsz1Xh8mDqPDhcfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQMYyxhiZbYG9cXN5tjf/wutzevHt9f00e8HFBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMtaZTQE4GMvbo4PZhd1y8QEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgIx1ZlMADsZ4vD+YXdgtFx8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMhYxhgjsy1T3f/+OXUewLZWJx+2fRT+4eIDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyFjGGCOzLVPdXJ5NnUfL5uq6tTBT3f34PnUeHS4+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQsc5synQfz79MnwmwjXebT9s8Bv9x8QEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgAzhAwBkCB8AIEP4AAAZwgcAyBA+AECG8AEAMoQPAJAhfACADOEDAGQIHwAgQ/gAABnCBwDIED4AQIbwAQAyhA8AkCF8AIAM4QMAZAgfACBD+AAAGcIHAMgQPgBAhvABADKEDwCQIXwAgIy/l10rsYgqpnEAAAAASUVORK5CYII=" id="image638b44073e" transform="scale(1 -1) translate(0 -254.88)" x="140.4" y="-34.81318" width="413.28" height="254.88"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1"/>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(168.761273 15.931875)">G1 Solver</text>
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(176.933226 28.636465)">status</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_2"/>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(261.975263 15.931875)">G2 Feasibility</text>
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(280.320732 28.636465)">check</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_3"/>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(366.647379 15.931875)">G3 Objective</text>
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(371.999918 28.636465)">recompute</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_4"/>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(467.15969 15.931875)">G4 Beats best</text>
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; fill: #4a5568" transform="translate(492.706682 28.636465)">rule</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_5"/>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="55.694117" transform="rotate(-0 136.8 55.694117)">F1 No precedence</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_6"/>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="87.572117" transform="rotate(-0 136.8 87.572117)">F2 Capacity at weld only</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_7"/>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="119.450117" transform="rotate(-0 136.8 119.450117)">F3 Setups omitted</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_8"/>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="151.328117" transform="rotate(-0 136.8 151.328117)">F4 Lateness, not tardiness</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_9"/>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="183.206117" transform="rotate(-0 136.8 183.206117)">F5 Makespan objective</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_10"/>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="215.084117" transform="rotate(-0 136.8 215.084117)">F6 Due-date units</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_11"/>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="246.962117" transform="rotate(-0 136.8 246.962117)">F7 Release times ignored</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_12"/>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="136.8" y="278.840117" transform="rotate(-0 136.8 278.840117)">F8 Big-M too small</text>
+</g>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="54.245875" transform="rotate(-0 191.988421 54.245875)">0%</text>
+</g>
+<g id="text_14">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="54.245875" transform="rotate(-0 295.365263 54.245875)">60%</text>
+</g>
+<g id="text_15">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="54.245875" transform="rotate(-0 398.742105 54.245875)">0%</text>
+</g>
+<g id="text_16">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="54.245875" transform="rotate(-0 502.118947 54.245875)">20%</text>
+</g>
+<g id="text_17">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="54.245875" transform="rotate(-0 569.313895 54.245875)">60%</text>
+</g>
+<g id="text_18">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="86.123875" transform="rotate(-0 191.988421 86.123875)">0%</text>
+</g>
+<g id="text_19">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="86.123875" transform="rotate(-0 295.365263 86.123875)">100%</text>
+</g>
+<g id="text_20">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="86.123875" transform="rotate(-0 398.742105 86.123875)">0%</text>
+</g>
+<g id="text_21">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="86.123875" transform="rotate(-0 502.118947 86.123875)">53%</text>
+</g>
+<g id="text_22">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="86.123875" transform="rotate(-0 569.313895 86.123875)">100%</text>
+</g>
+<g id="text_23">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="118.001875" transform="rotate(-0 191.988421 118.001875)">0%</text>
+</g>
+<g id="text_24">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="118.001875" transform="rotate(-0 295.365263 118.001875)">27%</text>
+</g>
+<g id="text_25">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="118.001875" transform="rotate(-0 398.742105 118.001875)">27%</text>
+</g>
+<g id="text_26">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="118.001875" transform="rotate(-0 502.118947 118.001875)">13%</text>
+</g>
+<g id="text_27">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="118.001875" transform="rotate(-0 569.313895 118.001875)">27%</text>
+</g>
+<g id="text_28">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="149.879875" transform="rotate(-0 191.988421 149.879875)">0%</text>
+</g>
+<g id="text_29">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="149.879875" transform="rotate(-0 295.365263 149.879875)">0%</text>
+</g>
+<g id="text_30">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="149.879875" transform="rotate(-0 398.742105 149.879875)">100%</text>
+</g>
+<g id="text_31">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="149.879875" transform="rotate(-0 502.118947 149.879875)">50%</text>
+</g>
+<g id="text_32">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="149.879875" transform="rotate(-0 569.313895 149.879875)">100%</text>
+</g>
+<g id="text_33">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="181.757875" transform="rotate(-0 191.988421 181.757875)">0%</text>
+</g>
+<g id="text_34">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="181.757875" transform="rotate(-0 295.365263 181.757875)">0%</text>
+</g>
+<g id="text_35">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="181.757875" transform="rotate(-0 398.742105 181.757875)">100%</text>
+</g>
+<g id="text_36">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="181.757875" transform="rotate(-0 502.118947 181.757875)">47%</text>
+</g>
+<g id="text_37">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="181.757875" transform="rotate(-0 569.313895 181.757875)">100%</text>
+</g>
+<g id="text_38">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="213.635875" transform="rotate(-0 191.988421 213.635875)">0%</text>
+</g>
+<g id="text_39">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="213.635875" transform="rotate(-0 295.365263 213.635875)">0%</text>
+</g>
+<g id="text_40">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="213.635875" transform="rotate(-0 398.742105 213.635875)">100%</text>
+</g>
+<g id="text_41">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="213.635875" transform="rotate(-0 502.118947 213.635875)">50%</text>
+</g>
+<g id="text_42">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="213.635875" transform="rotate(-0 569.313895 213.635875)">100%</text>
+</g>
+<g id="text_43">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="245.513875" transform="rotate(-0 191.988421 245.513875)">0%</text>
+</g>
+<g id="text_44">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="245.513875" transform="rotate(-0 295.365263 245.513875)">10%</text>
+</g>
+<g id="text_45">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="245.513875" transform="rotate(-0 398.742105 245.513875)">0%</text>
+</g>
+<g id="text_46">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="245.513875" transform="rotate(-0 502.118947 245.513875)">3%</text>
+</g>
+<g id="text_47">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="245.513875" transform="rotate(-0 569.313895 245.513875)">10%</text>
+</g>
+<g id="text_48">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="191.988421" y="277.391875" transform="rotate(-0 191.988421 277.391875)">100%</text>
+</g>
+<g id="text_49">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="295.365263" y="277.391875" transform="rotate(-0 295.365263 277.391875)">0%</text>
+</g>
+<g id="text_50">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="398.742105" y="277.391875" transform="rotate(-0 398.742105 277.391875)">0%</text>
+</g>
+<g id="text_51">
+<text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="502.118947" y="277.391875" transform="rotate(-0 502.118947 277.391875)">0%</text>
+</g>
+<g id="text_52">
+<text style="font-weight: 600; font-size: 10px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="277.391875" transform="rotate(-0 569.313895 277.391875)">100%</text>
+</g>
+<g id="text_53">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="569.313895" y="26.96769" transform="rotate(-0 569.313895 26.96769)">Any gate</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p33d2e138a9">
+<rect x="140.3" y="34.66918" width="491.04" height="255.024"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Share of the 30 snapshots in which each verification gate flagged each faulty model, and in which at least one gate did; every model warm-started from the best rule.</figcaption></figure><p>The gates complement each other. Solver status caught only the big-M fault. The feasibility check caught the missing-constraint faults whenever the solver's schedule actually broke the missing constraint (F2 in every snapshot, F1 in 60%, F3 in 27%, F7 in 10%) and none of the objective faults, whose schedules are feasible. Objective recomputation caught all three objective faults in every snapshot, and the setup fault in 27%.</p><p>G4 fires by definition whenever a schedule loses to the best rule, so it cannot miss a schedule that is worse than the rule. The informative result is that it never fired alone: every faulty schedule that ended worse than the best rule had already been flagged by G1, G2 or G3. G4 still earns its place when the generated code reports a recomputed KPI instead of the raw objective, so that G3 is blind, and when a correct model is given no warm start (Section 5.2).</p><h3>5.1 What the gates missed, and why</h3><p>The gates missed F1 in 12 snapshots, F3 in 22 and F7 in 27. All the F1 and F3 misses, and 22 of the F7 misses, fell in the 22 easy weeks, where the warm start was already a schedule with no late order. The solver had no reason to move away from it, so it returned the rule's schedule unchanged and the faulty model contributed nothing. The remaining F7 misses cost 0.9 hours in total. These misses are therefore not evidence that undetected faults are harmless; they show that the warm start hid the faults in weeks when there was nothing to gain.</p><h3>5.2 The same study without the warm start</h3><p>Run without the warm start, every fault was caught in every one of the 30 snapshots, by the feasibility check or the objective recomputation, and the faults now did more damage: the precedence-free model carried 6.9 times the tardiness of the correct model and the model ignoring release times 2.4 times. But the correct model, left to find its own schedule within the same work limit, did worse than MDD in 3 of the 30 weeks and left 31% more tardiness than MDD overall (2,246 hours), so G4 flagged a correct model in those 3 weeks. G3 also fired once on the correct model, most likely because the solver's interim solution had slack in a tardiness variable, a harmless false alarm.</p><p>The trade-off is clear. The warm start makes the correct model reliable and hides faults in weeks that do not matter; without it, faults are exposed but a correct model sometimes loses to the rule. In both cases the gates leave the plant no worse off than with its best rule, because a flagged schedule is replaced by the rule's.</p><h3>5.3 How the repair method affects the costs</h3><p>The costs above assume the floor keeps each machine's order of operations from the plan (right-shift repair). Applied to the correct model's own feasible schedules, that repair changes nothing beyond closing small idle gaps (it lowered their tardiness by 0.2%). A different repair, which uses the plan's start times only as priorities and never leaves a machine idle while work waits, raised the correct model's tardiness by 4% on its own schedules, and gave smaller multiples for the infeasible faults: 1.4 times the reference for F1, 1.3 for F2, 1.1 for F3 and 1.0 for F7. The size of the penalty for a missing constraint depends on how the floor recovers; the need to catch it does not.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> Implementation Guide for SMEs</h2><p>A plant that wants to try LLM-written scheduling models can follow five steps.</p><ol><li><strong>Start from a working baseline.</strong> Implement modified due date at every work centre; the earlier paper found that MDD at the welder alone captures most of the gain [<a href="#ref-1" class="j-cite">1</a>]. It is the fallback schedule and the G4 benchmark, and here it came within 2% of the optimizer and halved the tardiness of FIFO (1,712 hours against 3,542).</li><li><strong>Write the gates before the model.</strong> G1 to G4 take about a page of code (Appendix) and use only data the plant already has: routings, processing and setup times, release and due dates, and what each machine is running now. They are written and reviewed once, by someone who knows the shop floor. Require the generated code to report the solver's objective value and its units.</li><li><strong>Give the LLM the data dictionary, not just the story.</strong> State the units of every column, which times include setup, and which orders are not yet in the plant. Faults F3, F6 and F7 all start with an unstated unit or column.</li><li><strong>Run every schedule through the gates.</strong> A failing gate sends the model back to the LLM with the failing check, for example "operation 3 of order 1042 starts before operation 2 finishes", which is the kind of feedback the multi-agent systems in the literature use to repair models [<a href="#ref-3" class="j-cite">3</a>, <a href="#ref-4" class="j-cite">4</a>]. If the model still fails, the plant runs the baseline rule that week.</li><li><strong>Keep a person in the loop for the release decision.</strong> The planner approves the released schedule, as the staged-autonomy approach in this journal recommends [<a href="#ref-14" class="j-cite">14</a>]; the gates make that approval quick because the planner sees what was checked.</li></ol><p>The pattern is the same as for KPI questions in the companion paper: the language model proposes, and deterministic code that the plant controls decides whether the proposal is used [<a href="#ref-15" class="j-cite">15</a>, <a href="#ref-16" class="j-cite">16</a>].</p><h3>6.1 Pitfalls</h3><ul><li><strong>Trusting "optimal".</strong> Optimal means optimal for the model. The solver proved optimality for the precedence-free model in all 30 snapshots, against 23 for the correct model: a model with constraints missing is an easier problem.</li><li><strong>Checking with the model's own numbers.</strong> A feasibility check that uses the model's processing times passes F3. The gates must use the plant's master data.</li><li><strong>Expecting large gains in easy weeks.</strong> In 22 of 30 weeks the rule already shipped everything on time. The optimizer's value, and the faults' damage, are concentrated in the busy weeks.</li><li><strong>Warm start without gates.</strong> Starting the solver from the rule's schedule protects a correct model but can hide a faulty one in easy weeks. Keep the gates running every week, because a fault that does not bind this week can bind next week.</li><li><strong>Promising dates from the optimizer.</strong> A schedule that meets this week's due dates says nothing about whether new quotes are realistic; due-date setting is a separate decision [<a href="#ref-17" class="j-cite">17</a>].</li></ul></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Conclusions</h2><p>On 30 Monday snapshots of a composite high-mix plant running at about 82% bottleneck load:</p><ul><li>A correct constraint-programming model left 1,679 hours of total tardiness, 2% less than modified due date, the best rule in every week. All tardiness came from 8 busy weeks; in the other 22 every order shipped on time either way.</li><li>Seven of eight models with one injected formulation error still returned a schedule in every week without any warning. After the plant repaired their schedules, they carried 1.1 to 4.2 times the reference tardiness; the worst came from optimizing makespan instead of tardiness and from writing machine capacity only for the bottleneck.</li><li>Four checks that read only the plant's data and the solver's output flagged every faulty schedule that ended worse than the best rule, and the first three did so without help from the rule comparison.</li><li>With a warm start, the checks missed faults mostly in easy weeks where the solver kept the rule's schedule, and the other misses cost 0.9 hours in total; without one, they caught every fault but also flagged a correct model in 3 weeks. Either way, running the gates every week and falling back to the rule leaves the plant no worse off than its best rule.</li></ul><p>The study used one composite plant, one solver, single hand-injected faults and two repair methods; real LLM-written models can contain several errors at once. The full model is available for download to test other faults and plants.</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Appendix: Python Code</h2><p>The functions below implement gates G1 to G4, the dispatching baseline used for G4, and the right-shift repair. They use only the Python standard library and the plant's data in the format described in the docstring.</p><figure class="j-code"><figcaption>Verification gates for an LLM-written scheduling model (compact version).</figcaption><pre><code>"""Verification gates for an LLM-written scheduling model - Chmltech Online Journal, Vol. 106, Issue 18 (compact).
+
+orders: list of dicts {'rel': release minute, 'due': due minute, 'ops': &#91;(machine, minutes incl. setup, setup minutes), ...&#93;}
+m0:     {machine: minute it becomes free} for operations already running (empty dict if none)
+sched:  sched&#91;j&#93;&#91;k&#93; = start minute of operation k of order j, as returned by the LLM-written model.
+The gates read the plant's own data and the solver's output, never the model itself.
+"""
+
+
+def violations(orders, sched, m0):
+    """G2: check the schedule against the TRUE constraints (release, routing order, busy machines, one job per machine)."""
+    v, by_machine = &#91;&#93;, {}
+    for j, o in enumerate(orders):
+        ready = o&#91;'rel'&#93;
+        for k, (m, p, _) in enumerate(o&#91;'ops'&#93;):
+            s = sched&#91;j&#93;&#91;k&#93;
+            if s &lt; ready:
+                v.append(('release' if k == 0 else 'precedence', j, k))
+            if s &lt; m0.get(m, 0):
+                v.append(('machine busy', j, k))
+            ready = s + p
+            by_machine.setdefault(m, &#91;&#93;).append((s, s + p, j))
+    for m, iv in by_machine.items():
+        iv.sort()
+        v += &#91;('capacity', m, a&#91;2&#93;, b&#91;2&#93;) for a, b in zip(iv, iv&#91;1:&#93;) if b&#91;0&#93; &lt; a&#91;1&#93;&#93;
+    return v
+
+
+def total_tardiness_h(orders, sched):
+    """The plant's KPI, computed from the schedule with the true processing times."""
+    return sum(max(0, sched&#91;j&#93;&#91;-1&#93; + o&#91;'ops'&#93;&#91;-1&#93;&#91;1&#93; - o&#91;'due'&#93;) for j, o in enumerate(orders)) / 60
+
+
+def dispatch(orders, m0, priority):
+    """Non-delay list scheduling: whenever a machine is free and work waits, start the waiting operation with the
+    lowest priority(orders, j, k, now, queued_since). Used for the G4 baseline."""
+    t0 = min(&#91;0&#93; + &#91;o&#91;'rel'&#93; for o in orders&#93;)
+    nxt, ready = &#91;0&#93; * len(orders), &#91;o&#91;'rel'&#93; for o in orders&#93;
+    free = {m: m0.get(m, t0) for o in orders for m, _, _ in o&#91;'ops'&#93;}
+    out = &#91;&#91;None&#93; * len(o&#91;'ops'&#93;) for o in orders&#93;
+    while True:
+        cand = &#91;(max(free&#91;o&#91;'ops'&#93;&#91;nxt&#91;j&#93;&#93;&#91;0&#93;&#93;, ready&#91;j&#93;), j) for j, o in enumerate(orders) if nxt&#91;j&#93; &lt; len(o&#91;'ops'&#93;)&#93;
+        if not cand:
+            return out
+        t = min(c for c, _ in cand)
+        for m in sorted({orders&#91;j&#93;&#91;'ops'&#93;&#91;nxt&#91;j&#93;&#93;&#91;0&#93; for c, j in cand if c &lt;= t}):
+            q = &#91;j for c, j in cand if c &lt;= t and orders&#91;j&#93;&#91;'ops'&#93;&#91;nxt&#91;j&#93;&#93;&#91;0&#93; == m and free&#91;m&#93; &lt;= t and out&#91;j&#93;&#91;nxt&#91;j&#93;&#93; is None&#93;
+            if not q:
+                continue
+            j = min(q, key=lambda j: (priority(orders, j, nxt&#91;j&#93;, t, ready&#91;j&#93;), j))
+            p = orders&#91;j&#93;&#91;'ops'&#93;&#91;nxt&#91;j&#93;&#93;&#91;1&#93;
+            out&#91;j&#93;&#91;nxt&#91;j&#93;&#93; = t; free&#91;m&#93; = ready&#91;j&#93; = t + p; nxt&#91;j&#93; += 1
+            cand = &#91;(max(free&#91;o&#91;'ops'&#93;&#91;nxt&#91;i&#93;&#93;&#91;0&#93;&#93;, ready&#91;i&#93;), i) for i, o in enumerate(orders) if nxt&#91;i&#93; &lt; len(o&#91;'ops'&#93;)&#93;
+
+
+def fifo(O, j, k, now, since): return since                       # first come, first served at each machine
+def edd(O, j, k, now, since):  return O&#91;j&#93;&#91;'due'&#93;
+def spt(O, j, k, now, since):  return O&#91;j&#93;&#91;'ops'&#93;&#91;k&#93;&#91;1&#93;
+def mdd(O, j, k, now, since):  return max(O&#91;j&#93;&#91;'due'&#93;, now + sum(p for _, p, _ in O&#91;j&#93;&#91;'ops'&#93;&#91;k:&#93;))
+
+
+def repair(orders, sched, m0):
+    """What the floor does with an infeasible plan: keep each machine's order of operations from the plan and
+    start every operation as soon as its order and its machine allow (right-shift)."""
+    out, free = &#91;&#91;None&#93; * len(o&#91;'ops'&#93;) for o in orders&#93;, dict(m0)
+    pend = sorted((sched&#91;j&#93;&#91;k&#93;, j, k) for j, o in enumerate(orders) for k in range(len(o&#91;'ops'&#93;)))
+    while pend:
+        i = next(i for i, (_, j, k) in enumerate(pend) if k == 0 or out&#91;j&#93;&#91;k - 1&#93; is not None)
+        _, j, k = pend.pop(i); m, p, _ = orders&#91;j&#93;&#91;'ops'&#93;&#91;k&#93;
+        ready = orders&#91;j&#93;&#91;'rel'&#93; if k == 0 else out&#91;j&#93;&#91;k - 1&#93; + orders&#91;j&#93;&#91;'ops'&#93;&#91;k - 1&#93;&#91;1&#93;
+        out&#91;j&#93;&#91;k&#93; = max(ready, free.get(m, 0)); free&#91;m&#93; = out&#91;j&#93;&#91;k&#93; + p
+    return out
+
+
+def gates(orders, m0, status, sched, reported_objective_h, rules=(fifo, edd, spt, mdd)):
+    """Run G1-G4. reported_objective_h must be the solver's own objective value in hours, not a KPI that the
+    generated code recomputed from its schedule. Returns (passed, report)."""
+    if status not in ('OPTIMAL', 'FEASIBLE') or sched is None:
+        return False, {'G1': 'solver returned ' + status}
+    rep = {'G1': 'ok'}
+    v = violations(orders, sched, m0)
+    rep&#91;'G2'&#93; = f'{len(v)} violations' if v else 'ok'
+    true = total_tardiness_h(orders, sched)
+    rep&#91;'G3'&#93; = 'ok' if abs(true - reported_objective_h) &lt;= 0.05 else f'model claims {reported_objective_h:.1f} h, schedule gives {true:.1f} h'
+    final = total_tardiness_h(orders, repair(orders, sched, m0) if v else sched)
+    best = min(total_tardiness_h(orders, dispatch(orders, m0, r)) for r in rules)
+    rep&#91;'G4'&#93; = 'ok' if final &lt;= best + 0.05 else f'{final:.1f} h against {best:.1f} h for the best rule'
+    return all(x == 'ok' for x in rep.values()), rep</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Lee, Q. F. (2026). Why the ERP schedule fails on the shop floor: Finite-capacity scheduling rules for high-mix manufacturers. <em>Chmltech Online Journal</em>, 106(4). <a href="https://www.chmltech.com/post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capacity-scheduling-rules-for-high-mix-manufacturers" rel="noopener" target="_blank">www.chmltech.com/post/why-the-erp-schedule-fails-on-the-shop-floor-finite-capaci</a></li><li id="ref-2">Ramamonjison, R., Yu, T., Li, R., Li, H., Carenini, G., Ghaddar, B., He, S., Mostajabdaveh, M., Banitalebi-Dehkordi, A., Zhou, Z., &amp; Zhang, Y. (2022). NL4Opt competition: Formulating optimization problems based on their natural language descriptions. <em>Proceedings of the NeurIPS 2022 Competitions Track</em>, PMLR 220, 189–203. <a href="https://proceedings.mlr.press/v220/ramamonjison23a.html" rel="noopener" target="_blank">proceedings.mlr.press/v220/ramamonjison23a.html</a></li><li id="ref-3">AhmadiTeshnizi, A., Gao, W., &amp; Udell, M. (2024). OptiMUS: Scalable optimization modeling with (MI)LP solvers and large language models. <em>Proceedings of the 41st International Conference on Machine Learning</em>, PMLR 235, 577–596. <a href="https://proceedings.mlr.press/v235/ahmaditeshnizi24a.html" rel="noopener" target="_blank">proceedings.mlr.press/v235/ahmaditeshnizi24a.html</a></li><li id="ref-4">Xiao, Z., Zhang, D., Wu, Y., Xu, L., Wang, Y. J., Han, X., Fu, X., Zhong, T., Zeng, J., Song, M., &amp; Chen, G. (2024). Chain-of-Experts: When LLMs meet complex operations research problems. <em>International Conference on Learning Representations</em>. <a href="https://proceedings.iclr.cc/paper_files/paper/2024/hash/d45ee77826332c100a1e15f7765b99ff-Abstract-Conference.html" rel="noopener" target="_blank">proceedings.iclr.cc/paper_files/paper/2024/hash/d45ee77826332c100a1e15f7765b99ff</a></li><li id="ref-5">Huang, C., Tang, Z., Hu, S., Jiang, R., Zheng, X., Ge, D., Wang, B., &amp; Wang, Z. (2025). ORLM: A customizable framework in training large models for automated optimization modeling. <em>Operations Research</em>, 73(6), 2986–3009. <a href="https://doi.org/10.1287/opre.2024.1233" rel="noopener" target="_blank">10.1287/opre.2024.1233</a></li><li id="ref-6">Sadeqi Bajestani, M., Mun, D., &amp; Kim, D. B. (2026). Human-in-the-loop and large language models in smart manufacturing: Current applications, challenges, and perspectives. <em>Journal of Manufacturing Systems</em>, 86, 913–941. <a href="https://doi.org/10.1016/j.jmsy.2026.04.027" rel="noopener" target="_blank">10.1016/j.jmsy.2026.04.027</a></li><li id="ref-7">Pinedo, M. L. (2016). <em>Scheduling: Theory, algorithms, and systems</em> (5th ed.). Springer. <a href="https://doi.org/10.1007/978-3-319-26580-3" rel="noopener" target="_blank">10.1007/978-3-319-26580-3</a></li><li id="ref-8">Ku, W.-Y., &amp; Beck, J. C. (2016). Mixed integer programming models for job shop scheduling: A computational analysis. <em>Computers &amp; Operations Research</em>, 73, 165–173. <a href="https://doi.org/10.1016/j.cor.2016.04.006" rel="noopener" target="_blank">10.1016/j.cor.2016.04.006</a></li><li id="ref-9">Naderi, B., Ruiz, R., &amp; Roshanaei, V. (2023). Mixed-integer programming vs. constraint programming for shop scheduling problems: New results and outlook. <em>INFORMS Journal on Computing</em>, 35(4), 817–843. <a href="https://doi.org/10.1287/ijoc.2023.1287" rel="noopener" target="_blank">10.1287/ijoc.2023.1287</a></li><li id="ref-10">Perron, L., &amp; Didier, F. (2026). <em>OR-Tools CP-SAT</em> (Version 9.15) [Computer software]. Google. <a href="https://developers.google.com/optimization/cp/cp_solver" rel="noopener" target="_blank">developers.google.com/optimization/cp/cp_solver</a></li><li id="ref-11">Baker, K. R., &amp; Kanet, J. J. (1983). Job shop scheduling with modified due dates. <em>Journal of Operations Management</em>, 4(1), 11–22. <a href="https://doi.org/10.1016/0272-6963(83)90022-0" rel="noopener" target="_blank">10.1016/0272-6963(83)90022-0</a></li><li id="ref-12">Ramasesh, R. (1990). Dynamic job shop scheduling: A survey of simulation research. <em>Omega</em>, 18(1), 43–57. <a href="https://doi.org/10.1016/0305-0483(90)90017-4" rel="noopener" target="_blank">10.1016/0305-0483(90)90017-4</a></li><li id="ref-13">Camm, J. D., Raturi, A. S., &amp; Tsubakitani, S. (1990). Cutting big M down to size. <em>Interfaces</em>, 20(5), 61–66. <a href="https://doi.org/10.1287/inte.20.5.61" rel="noopener" target="_blank">10.1287/inte.20.5.61</a></li><li id="ref-14">Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents: Matching oversight to risk and earning autonomy with evidence. <em>Chmltech Online Journal</em>, 105(7). <a href="https://www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-agents" rel="noopener" target="_blank">www.chmltech.com/post/levels-of-autonomy-and-human-in-the-loop-design-for-ai-age</a></li><li id="ref-15">Lee, Q. F. (2026). The LLM should not do the arithmetic: A tool-grounded architecture for OEE and KPI analysis. <em>Chmltech Online Journal</em>, 106(17). <a href="https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis" rel="noopener" target="_blank">www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-archi</a></li><li id="ref-16">Lee, Q. F. (2026). Agentic AI in manufacturing operations: Use cases, architecture and safety boundaries. <em>Chmltech Online Journal</em>, 105(9). <a href="https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries" rel="noopener" target="_blank">www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architect</a></li><li id="ref-17">Lee, Q. F. (2026). Quoting lead times you can keep: Due-date setting for make-to-order manufacturers. <em>Chmltech Online Journal</em>, 106(6). <a href="https://www.chmltech.com/post/quoting-lead-times-you-can-keep-due-date-setting-for-make-to-order-manufacturers" rel="noopener" target="_blank">www.chmltech.com/post/quoting-lead-times-you-can-keep-due-date-setting-for-make-</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models. <em>Chmltech Online Journal</em>, <em>106</em>(18). https://www.chmltech.com/post/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. The Scheduling Problem</a></li><li><a href="#sec-3">3. The Baselines and the Faulty Models</a></li><li><a href="#sec-4">4. Results: What the Optimizer Adds and What the Errors Cost</a></li><li><a href="#sec-5">5. Four Verification Gates</a></li><li><a href="#sec-6">6. Implementation Guide for SMEs</a></li><li><a href="#sec-7">7. Conclusions</a></li><li><a href="#sec-8">8. Appendix: Python Code</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 18</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px;justify-content:center;text-align:center">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence operational-efficiency" data-search="the llm should not do the arithmetic: a tool-grounded architecture for oee and kpi analysis eight common oee calculation errors tested on four weeks of plant data, and an architecture in which the language model asks and explains but code computes. overall equipment effectiveness large language models tool use iso 22400 kpi definitions semantic layer smart manufacturing evaluation"><div class="thumb"><img src="../assets/media/covers/thumbs/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis">The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis</a></h3><p class="muted">Eight common OEE calculation errors tested on four weeks of plant data, and an architecture in which the language model asks and explains but code computes.</p><p class="meta">Vol. 106, Issue 17 · Nov 27, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence digital-technology" data-search="can an llm assess a factory? validating ai-scored smart factory maturity against human assessors how to prove an llm can score smart factory maturity as well as a human assessor: evidence-first pipeline, agreement statistics and how many plants to test. smart factory maturity industry 4.0 assessment smart industry readiness index large language models llm-as-a-judge weighted kappa validation study smes"><div class="thumb"><img src="../assets/media/covers/thumbs/can-an-llm-assess-a-factory-validating-ai-scored-smart-factory-maturity-against-human-assessors.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/can-an-llm-assess-a-factory-validating-ai-scored-smart-factory-maturity-against-human-assessors">Can an LLM Assess a Factory? Validating AI-Scored Smart Factory Maturity Against Human Assessors</a></h3><p class="muted">How to prove an LLM can score smart factory maturity as well as a human assessor: evidence-first pipeline, agreement statistics and how many plants to test.</p><p class="meta">Vol. 106, Issue 16 · Nov 27, 2026 · 14 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue18.pdf" data-fname="Chmltech-Journal-Vol106-Issue18.pdf" data-title="From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models" data-ref="Vol. 106, Issue 18">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 18</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models", "name": "From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models", "abstract": "Large language models can turn a planner's description into an optimization model and solver code, but a model that solves is not necessarily right. This paper takes the windows-and-doors plant of an earlier paper, runs it for 12 weeks under a modified-due-date rule, and builds 30 Monday scheduling snapshots of 10 to 50 open orders. Each is solved with a reference constraint-programming model that minimizes total tardiness, with five dispatching rules, and with eight models into which one common error was injected by hand (no language model was run): a missing constraint, the wrong objective, a unit error, ignored data or a mis-sized big-M. In 22 of the 30 weeks every order could ship on time; over all weeks the reference model left 2% less tardiness than the best rule. Seven of the eight faulty models still returned a solution in every snapshot, and once their schedules were made feasible they carried 1.1 to 4.2 times the reference tardiness. Four checks that read only the plant's data and the solver's output are proposed: the solver status, a feasibility check, a recomputation of the objective, and a test against the best dispatching rule. Every faulty schedule that ended worse than the best rule was flagged by one of the first three. With the solver warm-started from the rule, the checks missed some faults, mostly in easy weeks where the solver kept the rule's schedule; without the warm start they caught every fault, but also flagged the correct model in 3 weeks.", "keywords": "production scheduling, large language models, optimization modeling, constraint programming, job shop, verification, dispatching rules, high-mix manufacturing", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "18", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models", "citation": ["Lee, Q. F. (2026). Why the ERP schedule fails on the shop floor: Finite-capacity scheduling rules for high-mix manufacturers. Chmltech Online Journal, 106(4).", "Ramamonjison, R., Yu, T., Li, R., Li, H., Carenini, G., Ghaddar, B., He, S., Mostajabdaveh, M., Banitalebi-Dehkordi, A., Zhou, Z., &amp; Zhang, Y. (2022). NL4Opt competition: Formulating optimization problems based on their natural language descriptions. Proceedings of the NeurIPS 2022 Competitions Track, PMLR 220, 189–203.", "AhmadiTeshnizi, A., Gao, W., &amp; Udell, M. (2024). OptiMUS: Scalable optimization modeling with (MI)LP solvers and large language models. Proceedings of the 41st International Conference on Machine Learning, PMLR 235, 577–596.", "Xiao, Z., Zhang, D., Wu, Y., Xu, L., Wang, Y. J., Han, X., Fu, X., Zhong, T., Zeng, J., Song, M., &amp; Chen, G. (2024). Chain-of-Experts: When LLMs meet complex operations research problems. International Conference on Learning Representations.", "Huang, C., Tang, Z., Hu, S., Jiang, R., Zheng, X., Ge, D., Wang, B., &amp; Wang, Z. (2025). ORLM: A customizable framework in training large models for automated optimization modeling. Operations Research, 73(6), 2986–3009.", "Sadeqi Bajestani, M., Mun, D., &amp; Kim, D. B. (2026). Human-in-the-loop and large language models in smart manufacturing: Current applications, challenges, and perspectives. Journal of Manufacturing Systems, 86, 913–941.", "Pinedo, M. L. (2016). Scheduling: Theory, algorithms, and systems (5th ed.). Springer.", "Ku, W.-Y., &amp; Beck, J. C. (2016). Mixed integer programming models for job shop scheduling: A computational analysis. Computers &amp; Operations Research, 73, 165–173.", "Naderi, B., Ruiz, R., &amp; Roshanaei, V. (2023). Mixed-integer programming vs. constraint programming for shop scheduling problems: New results and outlook. INFORMS Journal on Computing, 35(4), 817–843.", "Perron, L., &amp; Didier, F. (2026). OR-Tools CP-SAT (Version 9.15) [Computer software]. Google.", "Baker, K. R., &amp; Kanet, J. J. (1983). Job shop scheduling with modified due dates. Journal of Operations Management, 4(1), 11–22.", "Ramasesh, R. (1990). Dynamic job shop scheduling: A survey of simulation research. Omega, 18(1), 43–57.", "Camm, J. D., Raturi, A. S., &amp; Tsubakitani, S. (1990). Cutting big M down to size. Interfaces, 20(5), 61–66.", "Lee, Q. F. (2026). Levels of autonomy and human-in-the-loop design for AI agents: Matching oversight to risk and earning autonomy with evidence. Chmltech Online Journal, 105(7).", "Lee, Q. F. (2026). The LLM should not do the arithmetic: A tool-grounded architecture for OEE and KPI analysis. Chmltech Online Journal, 106(17).", "Lee, Q. F. (2026). Agentic AI in manufacturing operations: Use cases, architecture and safety boundaries. Chmltech Online Journal, 105(9).", "Lee, Q. F. (2026). Quoting lead times you can keep: Due-date setting for make-to-order manufacturers. Chmltech Online Journal, 106(6)."], "image": "https://www.chmltech.com/assets/media/covers/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models.jpg"}</script>
+<!--exam-hub:post--><section class="section"><div class="container stack"><p class="eyebrow">Test what you have read</p><h2 class="h-md">Free AI &amp; Agents practice exams</h2><p class="muted">Interactive exams with an explanation for every answer. No sign-up.</p><div class="index"><a href="../exams/ai-agents/AI_Product_Management_Exam_100Q_V1">AI Product Management Exam<span aria-hidden="true">→</span></a><a href="../exams/ai-agents/Data_Strategy_for_AI_Exam_100Q_V1">Data Strategy for AI Exam<span aria-hidden="true">→</span></a><a href="../exams/ai-agents/LLM_Evaluation_and_Observability_Exam_100Q_V1">LLM Evaluation &amp; Observability Exam<span aria-hidden="true">→</span></a><a href="../ai-practice-exams"><strong>All 24 AI &amp; Agents practice exams</strong><span aria-hidden="true">→</span></a></div></div></section>
+<!--/exam-hub:post-->
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../ai-tools">AI tools landscape</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a href="mailto:info@chmltech.com">info@chmltech.com</a>
+      <a href="../book">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=60d2bb4b" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>

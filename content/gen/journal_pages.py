@@ -40,6 +40,10 @@ JOURNAL_CAT = "chmltech-online-journal"
 # Each paper is listed under the journal and under its subject category (V4.18).
 # Process plant papers are also listed under Process Engineering (V4.40).
 TOPIC = {
+    # Volume 106, Issues 16-18: industrial LLMs for smart factory assessment and optimization (drafts, Nov 27 2026)
+    "can-an-llm-assess-a-factory-validating-ai-scored-smart-factory-maturity-against-human-assessors": ["artificial-intelligence", "digital-technology"],
+    "the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis": ["artificial-intelligence", "operational-efficiency"],
+    "from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models": ["artificial-intelligence", "operational-efficiency"],
     "chmltech-online-journal-volume-103-issue-1": "artificial-intelligence",
     "copy-of-chmltech-online-journal-volume-103-issue-2": "artificial-intelligence",
     "ai-operating-systems-architecture-and-governance-for-enterprise-ai": "artificial-intelligence",

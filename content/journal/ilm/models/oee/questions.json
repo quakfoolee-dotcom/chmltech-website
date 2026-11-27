@@ -1,0 +1,194 @@
+[
+ {
+  "id": "Q01",
+  "question": "What was the plant OEE over the four weeks?",
+  "answer": 77.5843,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "aggregate"
+ },
+ {
+  "id": "Q02",
+  "question": "What was line L1 OEE over the four weeks?",
+  "answer": 78.946,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "aggregate"
+ },
+ {
+  "id": "Q03",
+  "question": "What was line L2 OEE over the four weeks?",
+  "answer": 74.8953,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "aggregate"
+ },
+ {
+  "id": "Q04",
+  "question": "What was line L3 OEE over the four weeks?",
+  "answer": 80.1304,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "aggregate"
+ },
+ {
+  "id": "Q05",
+  "question": "What was line L1 availability over the four weeks?",
+  "answer": 88.9566,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "factor"
+ },
+ {
+  "id": "Q06",
+  "question": "What was line L2 availability over the four weeks?",
+  "answer": 89.6351,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "factor"
+ },
+ {
+  "id": "Q07",
+  "question": "What was line L3 availability over the four weeks?",
+  "answer": 89.0035,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "factor"
+ },
+ {
+  "id": "Q08",
+  "question": "What was line L2 performance over the four weeks?",
+  "answer": 86.1196,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "factor"
+ },
+ {
+  "id": "Q09",
+  "question": "What was line L3 quality (first-pass good share of ideal production time) over the four weeks?",
+  "answer": 96.7362,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "factor"
+ },
+ {
+  "id": "Q10",
+  "question": "What was the plant OEE in week 1?",
+  "answer": 76.7864,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "filter"
+ },
+ {
+  "id": "Q11",
+  "question": "What was the plant OEE in week 3?",
+  "answer": 77.1146,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "filter"
+ },
+ {
+  "id": "Q12",
+  "question": "What was L1 OEE on Saturday shifts only?",
+  "answer": 81.5303,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "filter"
+ },
+ {
+  "id": "Q13",
+  "question": "What was L2 OEE on evening shifts in week 3?",
+  "answer": 73.2737,
+  "unit": "%",
+  "tolerance": 0.1,
+  "type": "filter"
+ },
+ {
+  "id": "Q14",
+  "question": "How many hours of unplanned downtime did L3 have (overlapping stop records merged)?",
+  "answer": 15.615,
+  "unit": "h",
+  "tolerance": 0.1,
+  "type": "stops"
+ },
+ {
+  "id": "Q15",
+  "question": "How many hours of unplanned downtime did the plant have (overlapping stop records merged)?",
+  "answer": 81.5233,
+  "unit": "h",
+  "tolerance": 0.1,
+  "type": "stops"
+ },
+ {
+  "id": "Q16",
+  "question": "How many hours were lost to speed (performance loss) on L1?",
+  "answer": 28.3609,
+  "unit": "h",
+  "tolerance": 0.1,
+  "type": "loss"
+ },
+ {
+  "id": "Q17",
+  "question": "How many hours of ideal production were lost to rejects and rework on L3?",
+  "answer": 3.839,
+  "unit": "h",
+  "tolerance": 0.1,
+  "type": "loss"
+ },
+ {
+  "id": "Q18",
+  "question": "How many good B2000 bottles did the plant make (rejects and reworked bottles excluded)?",
+  "answer": 421344,
+  "unit": "bottles",
+  "tolerance": 0.5,
+  "type": "count"
+ },
+ {
+  "id": "Q19",
+  "question": "How many bottles were reworked on L2?",
+  "answer": 13851,
+  "unit": "bottles",
+  "tolerance": 0.5,
+  "type": "count"
+ },
+ {
+  "id": "Q20",
+  "question": "Which line had the lowest OEE?",
+  "answer": "L2",
+  "unit": "",
+  "tolerance": 0,
+  "type": "rank"
+ },
+ {
+  "id": "Q21",
+  "question": "Which loss (availability, performance or quality) cost line L1 the most hours?",
+  "answer": "availability",
+  "unit": "",
+  "tolerance": 0,
+  "type": "rank"
+ },
+ {
+  "id": "Q22",
+  "question": "Which loss (availability, performance or quality) cost line L2 the most hours?",
+  "answer": "performance",
+  "unit": "",
+  "tolerance": 0,
+  "type": "rank"
+ },
+ {
+  "id": "Q23",
+  "question": "Which loss (availability, performance or quality) cost line L3 the most hours?",
+  "answer": "availability",
+  "unit": "",
+  "tolerance": 0,
+  "type": "rank"
+ },
+ {
+  "id": "Q24",
+  "question": "On which line would halving unplanned downtime recover the most production hours?",
+  "answer": "L1",
+  "unit": "",
+  "tolerance": 0,
+  "type": "rank"
+ }
+]
