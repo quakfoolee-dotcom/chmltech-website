@@ -1,5 +1,21 @@
 # Changelog
 
+## V5.84 — 2026-11-27
+- **Three new Chmltech Online Journal papers, Volume 106, Issues 16–18: industrial large language models for smart factory assessment and optimization.** Published November 27, 2026 in the Division of Artificial Intelligence and Machine Learning. Each paper has a cover, a PDF (`assets/journal/pdf/chmltech-journal-vol106-issue16.pdf` to `issue18.pdf`), an Insights card and a sitemap entry. All three were checked by a reference agent and red-teamed before publication.
+  - **Issue 16, "Can an LLM Assess a Factory? Validating AI-Scored Smart Factory Maturity Against Human Assessors"** (`post/can-an-llm-assess-a-factory-…`). Covers an evidence-first scoring pipeline and a validation design against two human assessors. It includes a simulation of the study (weighted kappa, bias, coverage, non-inferiority power; 300 studies per point, plus a calibration case). Download: `assets/journal/code/llm_assessor_validation_sim.py`.
+  - **Issue 17, "The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis"** (`post/the-llm-should-not-do-the-arithmetic-…`). Tests eight OEE calculation errors on four weeks of data from a composite three-line bottling plant, then sets out a tool-grounded KPI architecture. Downloads:
+    - `oee_appendix.py`
+    - `chmltech-oee-llm-testset.zip`: dataset, reference and error study, 24-question test set and grader.
+  - **Issue 18, "From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models"** (`post/from-plain-english-to-optimal-schedule-…`). Uses 30 Monday snapshots of the Vol. 106, Issue 4 plant, a reference CP-SAT model, five dispatching rules and eight hand-injected formulation faults. Four verification gates are tested with and without a warm start, using deterministic solver settings. Downloads:
+    - `llm_schedule_gates.py`
+    - `chmltech-llm-scheduling-model.zip`
+- Model and paper sources: `content/journal/ilm/`. Build: `python3 -I content/journal/ilm/build.py`. Figures: `content/journal/figure-scripts/ilm_figs.py`. Topics added to `TOPIC` in `content/gen/journal_pages.py`.
+- **Insights "Start here" panel:**
+  - All three papers added to "Use AI in the plant".
+  - Issues 18 and 17 added to the production-output list.
+  - `content/gen/insights_finder.py` now also reads card links in the clean form without `.html`. `seo_pass.py` strips `.html` from those links, so the script had stopped running on the current `insights.html`.
+- Article counts 186 → 189; `sitemap.xml`, `llms.txt` and `content/gen/lastmod.json` updated by `seo_pass.py`.
+
 ## V5.83 — 2026-11-27
 Free self-paced courses: the final exam now opens only after every lesson is complete (all 24 course pages, through the shared course player).
 - **Exam gate.** `assets/js/course.js` checks that lessons 1–N are all marked complete before building the exam. Labs are optional. Learners who already passed keep access to their exam and certificate.

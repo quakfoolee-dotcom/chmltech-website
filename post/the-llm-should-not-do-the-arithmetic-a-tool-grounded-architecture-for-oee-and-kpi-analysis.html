@@ -1,0 +1,1657 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis</title>
+<meta name="description" content="Eight plausible OEE calculation errors tested on four weeks of plant data, and an architecture in which the language model asks and explains but code computes.">
+<link rel="canonical" href="https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Chmltech Ltd.">
+<meta property="og:title" content="The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis">
+<meta property="og:description" content="Eight plausible OEE calculation errors tested on four weeks of plant data, and an architecture in which the language model asks and explains but code computes.">
+<meta property="og:image" content="https://www.chmltech.com/assets/media/covers/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/styles.css?v=29c448bc">
+<meta property="og:url" content="https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis">
+<meta property="og:locale" content="en_CA">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://www.chmltech.com/about">
+<script type="application/ld+json" data-seo="v1">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.chmltech.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.chmltech.com/insights"},{"@type":"ListItem","position":3,"name":"The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis","item":"https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis"}]}]}</script>
+<link rel="stylesheet" href="../assets/css/journal.css?v=be09a9d8">
+<link rel="stylesheet" href="../assets/js/vendor/katex/katex.min.css">
+<meta name="citation_title" content="The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis">
+<meta name="citation_author" content="Quak Foo Lee">
+<meta name="citation_publication_date" content="2026/11/27">
+<meta name="citation_journal_title" content="Chmltech Online Journal">
+<meta name="citation_volume" content="106">
+<meta name="citation_issue" content="17">
+<script>(function(c,l,a,r,i,t,y){if(!/(^|\.)chmltech\.com$/.test(l.location.hostname))return;try{var q=new URLSearchParams(l.location.search).get("notrack");if(q==="on")localStorage.setItem("chm_notrack","1");if(q==="off")localStorage.removeItem("chm_notrack");if(q)alert("Chmltech analytics "+(q==="on"?"OFF":"ON")+" for this browser.");if(localStorage.getItem("chm_notrack")==="1")return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zcd5uqw2cz");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../"><img src="../assets/img/chmltech-logo.png" alt="Chmltech" width="85" height="62"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../insights">Insights</a>
+      <a href="../courses">Courses</a>
+      <div class="nav-dd" data-nav-dd><button type="button" class="nav-dd-btn" aria-expanded="false" aria-controls="nav-dd-ai">AI<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-dd-menu" id="nav-dd-ai"><a href="../llm-leaderboard"><strong>AI Models</strong><span>LLM leaderboard: scores and cost</span></a><a href="../ai-tools"><strong>AI Tools Landscape</strong><span>988 tools mapped, with cost per output</span></a></div></div>
+      <a href="../digital-assessment">Digital Assessment</a>
+      <a href="../funding">Funding</a>
+      <a href="../contact">Contact</a>
+      <a class="btn" href="../book">Book Online</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero dark j-hero">
+  <div class="container stack-lg">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../insights">Insights</a> / <a href="../insights#cat=chmltech-online-journal">Chmltech Online Journal</a></p>
+    <p class="j-masthead"><span>Chmltech Online Journal</span><span>Volume 106, Issue 17</span><span>Research article</span></p>
+    <h1 class="h-xl j-title">The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis</h1>
+    <div class="j-author"><strong>Quak Foo Lee</strong><span>Chief Technology Officer, Chmltech Ltd.</span><span>Division of Artificial Intelligence and Machine Learning · Vancouver, BC, Canada</span></div>
+    <p class="post-meta"><span>Published November 27, 2026</span><span>16 min read</span></p>
+  </div>
+</section>
+<section class="section j-wrap"><div class="container layout-aside">
+  <article class="prose j-paper">
+    <section class="j-abstract" id="abstract"><h2>Abstract</h2><p>Plant managers increasingly ask chat assistants for OEE and expect a reliable number. Overall equipment effectiveness looks like simple arithmetic, but a correct answer depends on definitions that the data rarely states: which downtime is planned, which ideal rate applies to each product, whether reworked units count as good, how overlapping stop records are merged and how shifts are aggregated. This paper builds a four-week extract from a composite three-line bottling plant (104 shift records, 772 stop records) and computes OEE the reference way, following the element definitions of ISO 22400-2, and with eight plausible errors. Aggregation errors such as averaging shift OEE values moved plant OEE by at most 0.4 points here, though by 1.9 points in one narrow slice. Definition errors were much larger: one ideal rate for all products cut plant OEE from 77.6% to 59.4% and made the best line look the worst, another choice of rate gave 142.5%, and counting planned downtime as a loss cost 6.0 points. Summing overlapping stop records left OEE unchanged but moved one line's largest loss from speed to downtime, which would send an improvement team to the wrong problem. Because each error is a silent choice or an algorithmic step, the paper proposes an architecture in which the language model chooses filters and explains results while versioned KPI definitions and tested tools compute every number, and it releases the dataset and a 24-question test set so a plant can check any assistant before trusting it.</p>
+      <p class="j-keywords"><strong>Keywords:</strong> overall equipment effectiveness; large language models; tool use; ISO 22400; KPI definitions; semantic layer; smart manufacturing; evaluation</p></section>
+    <aside class="j-dl-box"><div><strong>Download this paper as a PDF</strong><span>Free. Formatted for printing, with all figures and references.</span></div>
+      <button type="button" class="btn" data-jdl>Download PDF</button></aside>
+    <aside class="j-code-box" id="code"><div><strong>Download the Python code</strong><span>Free, no sign-up. Run it on your own data before changing anything in the plant.</span></div><ul><li><a href="../assets/journal/code/oee_appendix.py" download><strong>Appendix script</strong> <code>oee_appendix.py</code></a><span>Reference OEE calculator (Python 3, standard library); needs the data files in the full package</span></li><li><a href="../assets/journal/code/chmltech-oee-llm-testset.zip" download><strong>Dataset and test set</strong> <code>chmltech-oee-llm-testset.zip</code></a><span>Four-week plant extract (CSV), reference and error study, 24 questions with answers, grader, README</span></li></ul></aside>
+    <section class="j-sec" id="sec-1"><h2><span class="j-num">1.</span> Introduction</h2><p>A plant manager types "Which line lost the most last month, and on what?" into a chat assistant connected to the plant's production data, and gets a confident answer with one decimal place. Whether that number is right depends less on the language model's reasoning than on a chain of definitions the data does not state. Overall equipment effectiveness (OEE) multiplies availability, performance and quality [<a href="#ref-1" class="j-cite">1</a>], and the Chmltech OEE series showed how the three factors turn production hours into money [<a href="#ref-2" class="j-cite">2</a>, <a href="#ref-3" class="j-cite">3</a>]. Behind each factor sit choices: which stops were planned, which ideal rate applies to each product, whether a reworked unit is good, how two records of the same stop are combined and how shifts are added up. Reviews of OEE practice have long noted that plants apply these choices differently [<a href="#ref-4" class="j-cite">4</a>], which is why ISO 22400-2 defines the elements of each indicator [<a href="#ref-5" class="j-cite">5</a>].</p><p>Large language models (LLMs) are now being put between people and these data. A 2026 review of LLMs in smart manufacturing found applications from maintenance to production planning, and stressed human oversight and verification [<a href="#ref-6" class="j-cite">6</a>]. The weak point for KPI questions is well documented: transformer models make errors on multi-step arithmetic that grow with the number of steps [<a href="#ref-7" class="j-cite">7</a>], their mathematical answers change when irrelevant details of a problem change [<a href="#ref-8" class="j-cite">8</a>], in 2023 evaluations they used information in the middle of a long context less reliably than information at its ends [<a href="#ref-9" class="j-cite">9</a>], and they can state unsupported content fluently [<a href="#ref-10" class="j-cite">10</a>]. A shift table of a hundred rows and a stop log of several hundred records is exactly that kind of input.</p><p>This paper asks three practical questions:</p><ul><li>Which OEE calculation errors matter most for the number and for the decisions taken from it?</li><li>What architecture keeps an LLM useful for KPI questions without letting it compute the KPI?</li><li>How can a plant test an assistant before trusting it?</li></ul><p>It answers them with a four-week data extract from a composite bottling plant, a reference calculation, eight deliberate errors, and a 24-question test set released with the paper. It does not report scores for particular language models: such scores go stale within months [<a href="#ref-11" class="j-cite">11</a>], and a plant learns more by testing its own assistant on its own definitions [<a href="#ref-12" class="j-cite">12</a>].</p></section><section class="j-sec" id="sec-2"><h2><span class="j-num">2.</span> OEE, Defined Precisely</h2><p>OEE is the share of planned production time that turned into good product at the ideal rate. ISO 22400-2 builds it from time and quantity elements [<a href="#ref-5" class="j-cite">5</a>]. The <strong>planned busy time</strong> t<sub>PBT</sub> is the shift time less planned downtime such as breaks, scheduled maintenance and periods with no orders. The <strong>actual production time</strong> t<sub>APT</sub> is t<sub>PBT</sub> less unplanned downtime. Availability is their ratio, Eq. (1):</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[A = \frac{t_{\mathrm{APT}}}{t_{\mathrm{PBT}}}\]</span><span class="j-eq-n">(1)</span></div><p>Performance compares the ideal time for the units actually made with the time the line ran, Eq. (2), where n<sub>k</sub> units of product k were made at an ideal rate r<sub>k</sub>:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[P = \frac{\sum_k n_k / r_k}{t_{\mathrm{APT}}}\]</span><span class="j-eq-n">(2)</span></div><p>Quality is the first-pass share of good output, Eq. (3); units that were rejected or reworked are not good at the first pass. With several products, each unit is weighted by its ideal time, so that a 2 L bottle counts for more than a 500 mL bottle; with one product this is simply good units over units produced:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[Q = \frac{\sum_k n_{\mathrm{good},k} / r_k}{\sum_k n_k / r_k}\]</span><span class="j-eq-n">(3)</span></div><p>The product of the three, Eq. (4), cancels the run time: OEE is the ideal time of the good output divided by the planned busy time.</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[\mathrm{OEE} = A \cdot P \cdot Q = \frac{\sum_k n_{\mathrm{good},k} / r_k}{t_{\mathrm{PBT}}}\]</span><span class="j-eq-n">(4)</span></div><p>ISO 22400-2 calls the speed factor effectiveness and counts quality in units [<a href="#ref-5" class="j-cite">5</a>]; this paper uses the common term performance and weights units by ideal time so that Eq. (4) holds exactly for a multi-product line and the losses add up.</p><p>For a line over several shifts, or a plant over several lines, each element is summed first and the ratios are taken afterwards, Eq. (5). Averaging shift OEE values instead gives each shift the same weight whatever its length:</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[A_{\mathrm{plant}} = \frac{\sum_s t_{\mathrm{APT},s}}{\sum_s t_{\mathrm{PBT},s}}, \quad P_{\mathrm{plant}} = \frac{\sum_s \sum_k n_{k,s}/r_k}{\sum_s t_{\mathrm{APT},s}}, \quad Q_{\mathrm{plant}} = \frac{\sum_s \sum_k n_{\mathrm{good},k,s}/r_k}{\sum_s \sum_k n_{k,s}/r_k}\]</span><span class="j-eq-n">(5)</span></div><p>The gap between the plain average and the time-weighted value of any ratio x<sub>s</sub> with weights w<sub>s</sub> (here t<sub>PBT,s</sub>) is minus the covariance between weight and value divided by the mean weight, Eq. (6), with the covariance taken over the n shifts (divisor n). It is zero when all shifts are equally long, and large when short shifts perform differently from long ones.</p><div class="j-eq j-tex" role="math"><span class="j-eq-body">\[\frac{1}{n}\sum_s x_s - \frac{\sum_s w_s x_s}{\sum_s w_s} = -\frac{\operatorname{Cov}(w, x)}{\bar{w}}\]</span><span class="j-eq-n">(6)</span></div></section><section class="j-sec" id="sec-3"><h2><span class="j-num">3.</span> The Test Plant and Its Data</h2><p>The plant is a composite built for this paper: a bottling plant in Vancouver with three filling lines and three bottle sizes, ideal rates of 120, 80 and 50 bottles per minute for 500 mL, 1 L and 2 L bottles (Table 1). The extract covers four weeks, Monday to Saturday.</p><figure class="j-table" id="table-1"><figcaption><strong>Table 1.</strong> The three lines.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Line</th><th>Share of run time</th><th>Shifts</th><th>Planned downtime besides breaks</th></tr></thead><tbody><tr><td>L1</td><td>80% 500 mL, 20% 1 L</td><td>Day and evening, Monday to Friday; short Saturday day shift</td><td>None</td></tr><tr><td>L2</td><td>35% 500 mL, 40% 1 L, 25% 2 L</td><td>Day and evening, Monday to Friday</td><td>One evening with no orders (240 min)</td></tr><tr><td>L3</td><td>25% 1 L, 75% 2 L</td><td>Day shift only, Monday to Friday</td><td>Weekly planned maintenance (120 min)</td></tr></tbody></table></div><p class="j-table-note">Ideal rates: 500 mL 120, 1 L 80, 2 L 50 bottles per minute. All values are design inputs of the composite plant. For simplicity, changeovers are placed inside planned downtime.</p></figure><p>The extract has the three files a manufacturing execution system typically exports: a shift table with 104 rows (shift length, planned downtime, and units produced, rejected and reworked by product), a stop log with 772 unplanned stop records, and an item table with the ideal rates. Overlapping records are common: in 146 cases an operator logged on the line display (HMI) a stop that the controller (PLC) had already recorded, a minute or so apart, as often happens when two systems record downtime. Rejects run at 0.8% to 1.8% and rework at 0.4% to 2.5% depending on the line. Table 2 gives the reference results.</p><figure class="j-table" id="table-2"><figcaption><strong>Table 2.</strong> Reference results over four weeks.</figcaption><div class="j-table-scroll"><table><thead><tr><th></th><th>Availability</th><th>Performance</th><th>Quality</th><th>OEE</th><th>Downtime lost (h)</th><th>Speed lost (h)</th><th>Quality lost (h)</th></tr></thead><tbody><tr><td>L1</td><td>89.0%</td><td>90.0%</td><td>98.6%</td><td>78.9%</td><td>35.2</td><td>28.4</td><td>3.6</td></tr><tr><td>L2</td><td>89.6%</td><td>86.1%</td><td>97.0%</td><td>74.9%</td><td>30.7</td><td>36.8</td><td>6.8</td></tr><tr><td>L3</td><td>89.0%</td><td>93.1%</td><td>96.7%</td><td>80.1%</td><td>15.6</td><td>8.8</td><td>3.8</td></tr><tr><td>Plant</td><td>89.2%</td><td>89.1%</td><td>97.6%</td><td>77.6%</td><td>81.5</td><td>74.0</td><td>14.2</td></tr></tbody></table></div><p class="j-table-note">Computed with Eqs. (1)–(5); overlapping stop records merged; reworked units counted as not good at the first pass. Plant planned busy time is 757 h; the three losses and the good output add up to it.</p></figure><p>Two facts in Table 2 drive decisions. L2 has the lowest OEE, and its largest loss is speed, not downtime, so the improvement project for L2 is a performance project (minor stops and reduced speed, especially on the 2 L product). On L1 and L3 the largest loss is downtime.</p></section><section class="j-sec" id="sec-4"><h2><span class="j-num">4.</span> Eight Ways to Get OEE Wrong</h2><p>Each error below is a choice that a person, a spreadsheet, a database query or a language model can make when the definition is not pinned down. Each was applied alone to the same data (Table 3, Figure 1). The study shows how sensitive OEE is to each choice; it does not measure how often any assistant makes them.</p><figure class="j-table" id="table-3"><figcaption><strong>Table 3.</strong> Plant and line OEE under each calculation error.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Error</th><th>Plant OEE</th><th>Change (points)</th><th>L1</th><th>L2</th><th>L3</th><th>Lowest line</th><th>Largest loss on L2</th></tr></thead><tbody><tr><td>Reference</td><td>77.6%</td><td>—</td><td>78.9%</td><td>74.9%</td><td>80.1%</td><td>L2</td><td>Speed</td></tr><tr><td>E1 Average of shift OEE values</td><td>77.5%</td><td>−0.04</td><td>79.0%</td><td>74.6%</td><td>80.1%</td><td>L2</td><td>—</td></tr><tr><td>E2 Product of averaged A, P and Q</td><td>77.5%</td><td>−0.04</td><td>79.0%</td><td>74.6%</td><td>80.1%</td><td>L2</td><td>—</td></tr><tr><td>E3 One ideal rate, fastest product</td><td>59.4%</td><td>−18.2</td><td>73.7%</td><td>54.1%</td><td>38.4%</td><td><strong>L3</strong></td><td>Speed</td></tr><tr><td>E3b One ideal rate, slowest product</td><td>142.5%</td><td>+64.9</td><td>176.8%</td><td>129.8%</td><td>92.1%</td><td><strong>L3</strong></td><td>Downtime</td></tr><tr><td>E4 Planned downtime counted as loss</td><td>71.6%</td><td>−6.0</td><td>74.1%</td><td>69.3%</td><td>71.1%</td><td>L2</td><td><strong>Downtime</strong></td></tr><tr><td>E5 Overlapping stop records summed</td><td>77.6%</td><td>0.0</td><td>78.9%</td><td>74.9%</td><td>80.1%</td><td>L2</td><td><strong>Downtime</strong></td></tr><tr><td>E6 Rework counted as good</td><td>78.5%</td><td>+0.9</td><td>79.3%</td><td>75.8%</td><td>82.2%</td><td>L2</td><td>Speed</td></tr><tr><td>E7 Unweighted mean of line OEEs</td><td>78.0%</td><td>+0.4</td><td>78.9%</td><td>74.9%</td><td>80.1%</td><td>L2</td><td>—</td></tr></tbody></table></div><p class="j-table-note">Each error applied alone; all other elements as in the reference. Changes are computed from unrounded values. "Largest loss on L2" is not defined for the aggregation errors, which do not change the loss hours.</p></figure><figure class="j-fig" id="figure-1"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-1-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 716.257411 291.86518" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-1-t">Horizontal bars of plant OEE: reference 77.6%; aggregation errors between 77.5% and 78.0%; rework counted as good 78.5%; planned downtime counted as loss 71.6%; one rate for the fastest product 59.4%; one rate for the slowest product 142.5%.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 291.86518 
+L 716.257411 291.86518 
+L 716.257411 0 
+L 0 0 
+L 0 291.86518 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 215.464141 249.696 
+L 706.504141 249.696 
+L 706.504141 5.76 
+L 215.464141 5.76 
+L 215.464141 249.696 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<path d="M 215.464141 249.696 
+L 215.464141 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_2">
+<defs>
+<path id="m3f0b9ddc99" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m3f0b9ddc99" x="215.464141" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="215.464141" y="266.867875" transform="rotate(-0 215.464141 266.867875)">0</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_3">
+<path d="M 285.612712 249.696 
+L 285.612712 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_4">
+<g>
+<use xlink:href="#m3f0b9ddc99" x="285.612712" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="285.612712" y="266.867875" transform="rotate(-0 285.612712 266.867875)">25</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_5">
+<path d="M 355.761283 249.696 
+L 355.761283 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_6">
+<g>
+<use xlink:href="#m3f0b9ddc99" x="355.761283" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="355.761283" y="266.867875" transform="rotate(-0 355.761283 266.867875)">50</text>
+</g>
+</g>
+<g id="xtick_4">
+<g id="line2d_7">
+<path d="M 425.909855 249.696 
+L 425.909855 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_8">
+<g>
+<use xlink:href="#m3f0b9ddc99" x="425.909855" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="425.909855" y="266.867875" transform="rotate(-0 425.909855 266.867875)">75</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_9">
+<path d="M 496.058426 249.696 
+L 496.058426 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_10">
+<g>
+<use xlink:href="#m3f0b9ddc99" x="496.058426" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="496.058426" y="266.867875" transform="rotate(-0 496.058426 266.867875)">100</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_11">
+<path d="M 566.206998 249.696 
+L 566.206998 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_12">
+<g>
+<use xlink:href="#m3f0b9ddc99" x="566.206998" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="566.206998" y="266.867875" transform="rotate(-0 566.206998 266.867875)">125</text>
+</g>
+</g>
+<g id="xtick_7">
+<g id="line2d_13">
+<path d="M 636.355569 249.696 
+L 636.355569 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_14">
+<g>
+<use xlink:href="#m3f0b9ddc99" x="636.355569" y="249.696" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="636.355569" y="266.867875" transform="rotate(-0 636.355569 266.867875)">150</text>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="460.984141" y="283.572465" transform="rotate(-0 460.984141 283.572465)">Plant OEE over four weeks (%)</text>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_15">
+<defs>
+<path id="m1cfa620957" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="24.823128" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="29.909065" transform="rotate(-0 208.464141 29.909065)">E3b One ideal rate, slowest SKU</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_16">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="50.549346" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="55.635283" transform="rotate(-0 208.464141 55.635283)">E6  Rework counted as good</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_17">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="76.275564" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="81.361501" transform="rotate(-0 208.464141 81.361501)">E7  Unweighted mean of line OEEs</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_18">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="102.001782" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="107.087719" transform="rotate(-0 208.464141 107.087719)">Reference (ISO 22400 elements, pooled)</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_19">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="127.728" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="132.813938" transform="rotate(-0 208.464141 132.813938)">E1  Average of shift OEE values</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_20">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="153.454218" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_14">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="158.540156" transform="rotate(-0 208.464141 158.540156)">E2  Product of averaged A, P and Q</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_21">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="179.180436" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_15">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="184.266374" transform="rotate(-0 208.464141 184.266374)">E5  Overlapping stops summed</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_22">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="204.906654" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_16">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="209.992592" transform="rotate(-0 208.464141 209.992592)">E4  Planned downtime counted as loss</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_23">
+<g>
+<use xlink:href="#m1cfa620957" x="215.464141" y="230.632872" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_17">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="208.464141" y="235.71881" transform="rotate(-0 208.464141 235.71881)">E3  One ideal rate, fastest SKU</text>
+</g>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 215.464141 32.798255 
+L 615.391309 32.798255 
+L 615.391309 16.848 
+L 215.464141 16.848 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_4">
+<path d="M 215.464141 58.524473 
+L 435.607383 58.524473 
+L 435.607383 42.574218 
+L 215.464141 42.574218 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_5">
+<path d="M 215.464141 84.250691 
+L 434.301195 84.250691 
+L 434.301195 68.300436 
+L 215.464141 68.300436 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_6">
+<path d="M 215.464141 109.97691 
+L 433.161171 109.97691 
+L 433.161171 94.026654 
+L 215.464141 94.026654 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #0b2a5a"/>
+</g>
+<g id="patch_7">
+<path d="M 215.464141 135.703128 
+L 433.047659 135.703128 
+L 433.047659 119.752872 
+L 215.464141 119.752872 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_8">
+<path d="M 215.464141 161.429346 
+L 433.052216 161.429346 
+L 433.052216 145.47909 
+L 215.464141 145.47909 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_9">
+<path d="M 215.464141 187.155564 
+L 433.161171 187.155564 
+L 433.161171 171.205309 
+L 215.464141 171.205309 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #8a94a6"/>
+</g>
+<g id="patch_10">
+<path d="M 215.464141 212.881782 
+L 416.435668 212.881782 
+L 416.435668 196.931527 
+L 215.464141 196.931527 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_11">
+<path d="M 215.464141 238.608 
+L 382.100461 238.608 
+L 382.100461 222.657745 
+L 215.464141 222.657745 
+z
+" clip-path="url(#pba536b43d7)" style="fill: #e07a3a"/>
+</g>
+<g id="line2d_24">
+<path d="M 433.161171 249.696 
+L 433.161171 5.76 
+" clip-path="url(#pba536b43d7)" style="fill: none; stroke-dasharray: 4.8,3.6; stroke-dashoffset: 0; stroke: #0b2a5a; stroke-width: 1.2"/>
+</g>
+<g id="patch_12">
+<path d="M 215.464141 249.696 
+L 215.464141 5.76 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_13">
+<path d="M 215.464141 249.696 
+L 706.504141 249.696 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_18">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="619.600223" y="28.278938" transform="rotate(-0 619.600223 28.278938)">142.5%  (+64.9 pts)</text>
+</g>
+<g id="text_19">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="439.816297" y="54.005156" transform="rotate(-0 439.816297 54.005156)">78.5%  (+0.9 pts)</text>
+</g>
+<g id="text_20">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="438.51011" y="79.731374" transform="rotate(-0 438.51011 79.731374)">78.0%  (+0.4 pts)</text>
+</g>
+<g id="text_21">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="437.370086" y="105.457592" transform="rotate(-0 437.370086 105.457592)">77.6%</text>
+</g>
+<g id="text_22">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="437.370086" y="131.183811" transform="rotate(-0 437.370086 131.183811)">77.5%  (-0.0 pts)</text>
+</g>
+<g id="text_23">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="437.370086" y="156.910029" transform="rotate(-0 437.370086 156.910029)">77.5%  (-0.0 pts)</text>
+</g>
+<g id="text_24">
+<text style="font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="437.370086" y="182.636247" transform="rotate(-0 437.370086 182.636247)">77.6%  (+0.0 pts)</text>
+</g>
+<g id="text_25">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="437.370086" y="208.362465" transform="rotate(-0 437.370086 208.362465)">71.6%  (-6.0 pts)</text>
+</g>
+<g id="text_26">
+<text style="font-weight: 600; font-size: 9.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start; fill: #0b2a5a" x="437.370086" y="234.088683" transform="rotate(-0 437.370086 234.088683)">59.4%  (-18.2 pts)</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="pba536b43d7">
+<rect x="215.464141" y="5.76" width="491.04" height="243.936"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 1.</strong> Plant OEE over four weeks under the reference calculation and each of the eight errors; orange bars move the result by two points or more.</figcaption></figure><p>Figure 1 shows that the errors fall into two groups of very different size.</p><h3>4.1 Aggregation errors were small here</h3><p>Averaging shift OEE values (E1), multiplying averaged factors (E2) and averaging the three line values (E7) moved plant OEE by 0.04 to 0.4 points. Eq. (6) explains why: 95 of the 104 shifts have the same planned busy time (450 minutes), so the weights hardly vary; the few short shifts (Saturdays, maintenance days and the no-order evening) produce the small gaps seen. The unweighted line average (E7) is slightly high because L3, the line with the highest OEE, runs half as many hours as the others and gets a third of the weight. In a narrow slice the same error is large: on L2's evening shifts in week 3, which include the no-order evening, averaging shift values gives 71.3% against 73.3%. These errors grow in a plant whose shifts or lines differ more in length, or whose short shifts perform differently, but they did not change any ranking here.</p><h3>4.2 Definition errors were large</h3><p><strong>One ideal rate for all products (E3, E3b)</strong> was the largest error. Using the 500 mL rate for every bottle made each 2 L bottle look as if it should have taken 0.5 seconds instead of 1.2, so performance on L3 fell to 44.6% and L3, the best line, appeared to be the worst. Using the slowest rate gave performance above 200% on L1 and an OEE of 142.5%, a value no reader should accept but a chat answer might still report. Ideal rates belong to the product, not the line, and must come from the item master.</p><p><strong>Planned downtime counted as a loss (E4)</strong> turned breaks, planned maintenance and the no-order evening into availability losses and cut plant OEE by 6.0 points; L3, with its weekly maintenance, dropped from the best line to the middle. It also moved the largest loss on every line to downtime. That number measures something different (closer to overall operations effectiveness, which uses shift time as its base); it is not wrong in itself, but it is wrong when reported as OEE or compared with an OEE target.</p><p><strong>Rework counted as good (E6)</strong> raised OEE by 0.9 points overall and by 2.1 points on L3, the line with the most rework. The difference is the cost of the rework loop, which OEE is meant to show.</p><h3>4.3 A correct OEE can still point to the wrong project</h3><p>Summing overlapping stop records instead of merging them (E5) left every OEE value unchanged, because run time cancels in Eq. (4) when it is derived as planned busy time minus stops; if run time is measured independently, for example from a PLC run signal, duplicated stops do change OEE. It still did damage. Summing all 772 records added 21.9 hours of downtime that did not happen (19.6 hours from the 146 HMI duplicates, 2.3 hours from controller records that overlap each other); availability fell by about three points and performance rose by the same amount, since the same output now appeared to come from fewer running hours. On L2 the largest loss moved from speed to downtime (Figure 2). A team reading that answer would start a downtime project on L2 when the reference data point to speed.</p><figure class="j-fig" id="figure-2"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-2-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 566.262324 263.612465" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-2-t">Three panels of grouped bars. Reference: L2&#x27;s largest loss is speed. With duplicates summed, downtime becomes the largest loss on every line. With one ideal rate, speed losses on L2 and L3 grow to 100 and 70 hours.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 263.612465 
+L 566.262324 263.612465 
+L 566.262324 0 
+L 0 0 
+L 0 263.612465 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 47.142324 238.147875 
+L 198.13056 238.147875 
+L 198.13056 21.931875 
+L 47.142324 21.931875 
+L 47.142324 238.147875 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_1">
+<g id="xtick_1">
+<g id="line2d_1">
+<defs>
+<path id="m7b9324646f" d="M 0 0 
+L 0 3.5 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m7b9324646f" x="73.26161" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_1">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="73.26161" y="255.31975" transform="rotate(-0 73.26161 255.31975)">L1</text>
+</g>
+</g>
+<g id="xtick_2">
+<g id="line2d_2">
+<g>
+<use xlink:href="#m7b9324646f" x="122.636442" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_2">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="122.636442" y="255.31975" transform="rotate(-0 122.636442 255.31975)">L2</text>
+</g>
+</g>
+<g id="xtick_3">
+<g id="line2d_3">
+<g>
+<use xlink:href="#m7b9324646f" x="172.011274" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_3">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="172.011274" y="255.31975" transform="rotate(-0 172.011274 255.31975)">L3</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_2">
+<g id="ytick_1">
+<g id="line2d_4">
+<path d="M 47.142324 238.147875 
+L 198.13056 238.147875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_5">
+<defs>
+<path id="m8953e9ef01" d="M 0 0 
+L -3.5 0 
+" style="stroke: #4a5568; stroke-width: 0.8"/>
+</defs>
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_4">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="243.233813" transform="rotate(-0 40.142324 243.233813)">0</text>
+</g>
+</g>
+<g id="ytick_2">
+<g id="line2d_6">
+<path d="M 47.142324 211.120875 
+L 198.13056 211.120875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_7">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="211.120875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_5">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="216.206813" transform="rotate(-0 40.142324 216.206813)">20</text>
+</g>
+</g>
+<g id="ytick_3">
+<g id="line2d_8">
+<path d="M 47.142324 184.093875 
+L 198.13056 184.093875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_9">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="184.093875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_6">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="189.179813" transform="rotate(-0 40.142324 189.179813)">40</text>
+</g>
+</g>
+<g id="ytick_4">
+<g id="line2d_10">
+<path d="M 47.142324 157.066875 
+L 198.13056 157.066875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_11">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="157.066875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_7">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="162.152813" transform="rotate(-0 40.142324 162.152813)">60</text>
+</g>
+</g>
+<g id="ytick_5">
+<g id="line2d_12">
+<path d="M 47.142324 130.039875 
+L 198.13056 130.039875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_13">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="130.039875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_8">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="135.125813" transform="rotate(-0 40.142324 135.125813)">80</text>
+</g>
+</g>
+<g id="ytick_6">
+<g id="line2d_14">
+<path d="M 47.142324 103.012875 
+L 198.13056 103.012875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_15">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="103.012875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_9">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="108.098813" transform="rotate(-0 40.142324 108.098813)">100</text>
+</g>
+</g>
+<g id="ytick_7">
+<g id="line2d_16">
+<path d="M 47.142324 75.985875 
+L 198.13056 75.985875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_17">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="75.985875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_10">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="81.071813" transform="rotate(-0 40.142324 81.071813)">120</text>
+</g>
+</g>
+<g id="ytick_8">
+<g id="line2d_18">
+<path d="M 47.142324 48.958875 
+L 198.13056 48.958875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_19">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="48.958875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_11">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="54.044813" transform="rotate(-0 40.142324 54.044813)">140</text>
+</g>
+</g>
+<g id="ytick_9">
+<g id="line2d_20">
+<path d="M 47.142324 21.931875 
+L 198.13056 21.931875 
+" clip-path="url(#p79a20154a5)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_21">
+<g>
+<use xlink:href="#m8953e9ef01" x="47.142324" y="21.931875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_12">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: end; fill: #4a5568" x="40.142324" y="27.017813" transform="rotate(-0 40.142324 27.017813)">160</text>
+</g>
+</g>
+<g id="text_13">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="15.931875" y="130.039875" transform="rotate(-90 15.931875 130.039875)">Hours lost over four weeks</text>
+</g>
+</g>
+<g id="patch_3">
+<path d="M 54.005426 238.147875 
+L 66.842882 238.147875 
+L 66.842882 190.542067 
+L 54.005426 190.542067 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_4">
+<path d="M 103.380258 238.147875 
+L 116.217714 238.147875 
+L 116.217714 196.688457 
+L 103.380258 196.688457 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_5">
+<path d="M 152.755089 238.147875 
+L 165.592545 238.147875 
+L 165.592545 217.046545 
+L 152.755089 217.046545 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_6">
+<path d="M 66.842882 238.147875 
+L 79.680338 238.147875 
+L 79.680338 199.822369 
+L 66.842882 199.822369 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_7">
+<path d="M 116.217714 238.147875 
+L 129.05517 238.147875 
+L 129.05517 188.381127 
+L 116.217714 188.381127 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_8">
+<path d="M 165.592545 238.147875 
+L 178.430002 238.147875 
+L 178.430002 226.308979 
+L 165.592545 226.308979 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_9">
+<path d="M 79.680338 238.147875 
+L 92.517795 238.147875 
+L 92.517795 233.319333 
+L 79.680338 233.319333 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_10">
+<path d="M 129.05517 238.147875 
+L 141.892626 238.147875 
+L 141.892626 228.955392 
+L 129.05517 228.955392 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_11">
+<path d="M 178.430002 238.147875 
+L 191.267458 238.147875 
+L 191.267458 232.959986 
+L 178.430002 232.959986 
+z
+" clip-path="url(#p79a20154a5)" style="fill: #4d7f12"/>
+</g>
+<g id="line2d_22"/>
+<g id="patch_12">
+<path d="M 47.142324 238.147875 
+L 47.142324 21.931875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_13">
+<path d="M 47.142324 238.147875 
+L 198.13056 238.147875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_14">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="60.424154" y="186.488017" transform="rotate(-0 60.424154 186.488017)">▲</text>
+</g>
+<g id="text_15">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="122.636442" y="184.327077" transform="rotate(-0 122.636442 184.327077)">▲</text>
+</g>
+<g id="text_16">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="159.173817" y="212.992495" transform="rotate(-0 159.173817 212.992495)">▲</text>
+</g>
+<g id="text_17">
+<text style="font-weight: 600; font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="122.636442" y="15.931875" transform="rotate(-0 122.636442 15.931875)">Reference</text>
+</g>
+<g id="legend_1">
+<g id="line2d_23">
+<defs>
+<path id="m79e2e876fe" d="M 0 -3 
+L -3 3 
+L 3 3 
+z
+" style="stroke: #0b2a5a; stroke-linejoin: miter"/>
+</defs>
+<g>
+<use xlink:href="#m79e2e876fe" x="64.242324" y="35.600625" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-linejoin: miter"/>
+</g>
+</g>
+<g id="text_18">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="80.442324" y="38.750625" transform="rotate(-0 80.442324 38.750625)">Largest loss on the line</text>
+</g>
+<g id="patch_14">
+<path d="M 55.242324 54.140273 
+L 73.242324 54.140273 
+L 73.242324 47.840273 
+L 55.242324 47.840273 
+z
+" style="fill: #0b6fa4"/>
+</g>
+<g id="text_19">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="80.442324" y="54.140273" transform="rotate(-0 80.442324 54.140273)">Availability loss</text>
+</g>
+<g id="patch_15">
+<path d="M 55.242324 69.529922 
+L 73.242324 69.529922 
+L 73.242324 63.229922 
+L 55.242324 63.229922 
+z
+" style="fill: #e07a3a"/>
+</g>
+<g id="text_20">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="80.442324" y="69.529922" transform="rotate(-0 80.442324 69.529922)">Performance loss</text>
+</g>
+<g id="patch_16">
+<path d="M 55.242324 84.91957 
+L 73.242324 84.91957 
+L 73.242324 78.61957 
+L 55.242324 78.61957 
+z
+" style="fill: #4d7f12"/>
+</g>
+<g id="text_21">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: start" x="80.442324" y="84.91957" transform="rotate(-0 80.442324 84.91957)">Quality loss</text>
+</g>
+</g>
+</g>
+<g id="axes_2">
+<g id="patch_17">
+<path d="M 228.328207 238.147875 
+L 379.316442 238.147875 
+L 379.316442 21.931875 
+L 228.328207 21.931875 
+L 228.328207 238.147875 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_3">
+<g id="xtick_4">
+<g id="line2d_24">
+<g>
+<use xlink:href="#m7b9324646f" x="254.447493" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_22">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="254.447493" y="255.31975" transform="rotate(-0 254.447493 255.31975)">L1</text>
+</g>
+</g>
+<g id="xtick_5">
+<g id="line2d_25">
+<g>
+<use xlink:href="#m7b9324646f" x="303.822324" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_23">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="303.822324" y="255.31975" transform="rotate(-0 303.822324 255.31975)">L2</text>
+</g>
+</g>
+<g id="xtick_6">
+<g id="line2d_26">
+<g>
+<use xlink:href="#m7b9324646f" x="353.197156" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_24">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="353.197156" y="255.31975" transform="rotate(-0 353.197156 255.31975)">L3</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_4">
+<g id="ytick_10">
+<g id="line2d_27">
+<path d="M 228.328207 238.147875 
+L 379.316442 238.147875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_28">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_11">
+<g id="line2d_29">
+<path d="M 228.328207 211.120875 
+L 379.316442 211.120875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_30">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="211.120875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_12">
+<g id="line2d_31">
+<path d="M 228.328207 184.093875 
+L 379.316442 184.093875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_32">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="184.093875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_13">
+<g id="line2d_33">
+<path d="M 228.328207 157.066875 
+L 379.316442 157.066875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_34">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="157.066875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_14">
+<g id="line2d_35">
+<path d="M 228.328207 130.039875 
+L 379.316442 130.039875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_36">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="130.039875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_15">
+<g id="line2d_37">
+<path d="M 228.328207 103.012875 
+L 379.316442 103.012875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_38">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="103.012875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_16">
+<g id="line2d_39">
+<path d="M 228.328207 75.985875 
+L 379.316442 75.985875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_40">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="75.985875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_17">
+<g id="line2d_41">
+<path d="M 228.328207 48.958875 
+L 379.316442 48.958875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_42">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="48.958875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_18">
+<g id="line2d_43">
+<path d="M 228.328207 21.931875 
+L 379.316442 21.931875 
+" clip-path="url(#p001c6ee71c)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_44">
+<g>
+<use xlink:href="#m8953e9ef01" x="228.328207" y="21.931875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+</g>
+<g id="patch_18">
+<path d="M 235.191308 238.147875 
+L 248.028764 238.147875 
+L 248.028764 177.411449 
+L 235.191308 177.411449 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_19">
+<path d="M 284.56614 238.147875 
+L 297.403596 238.147875 
+L 297.403596 186.285314 
+L 284.56614 186.285314 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_20">
+<path d="M 333.940972 238.147875 
+L 346.778428 238.147875 
+L 346.778428 210.999254 
+L 333.940972 210.999254 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_21">
+<path d="M 248.028764 238.147875 
+L 260.866221 238.147875 
+L 260.866221 212.952987 
+L 248.028764 212.952987 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_22">
+<path d="M 297.403596 238.147875 
+L 310.241052 238.147875 
+L 310.241052 198.784269 
+L 297.403596 198.784269 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_23">
+<path d="M 346.778428 238.147875 
+L 359.615884 238.147875 
+L 359.615884 232.35627 
+L 346.778428 232.35627 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_24">
+<path d="M 260.866221 238.147875 
+L 273.703677 238.147875 
+L 273.703677 233.319333 
+L 260.866221 233.319333 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_25">
+<path d="M 310.241052 238.147875 
+L 323.078509 238.147875 
+L 323.078509 228.955392 
+L 310.241052 228.955392 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_26">
+<path d="M 359.615884 238.147875 
+L 372.45334 238.147875 
+L 372.45334 232.959986 
+L 359.615884 232.959986 
+z
+" clip-path="url(#p001c6ee71c)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_27">
+<path d="M 228.328207 238.147875 
+L 228.328207 21.931875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_28">
+<path d="M 228.328207 238.147875 
+L 379.316442 238.147875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_25">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="241.610036" y="173.357399" transform="rotate(-0 241.610036 173.357399)">▲</text>
+</g>
+<g id="text_26">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="290.984868" y="182.231264" transform="rotate(-0 290.984868 182.231264)">▲</text>
+</g>
+<g id="text_27">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="340.3597" y="206.945204" transform="rotate(-0 340.3597 206.945204)">▲</text>
+</g>
+<g id="text_28">
+<text style="font-weight: 600; font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="303.822324" y="15.931875" transform="rotate(-0 303.822324 15.931875)">E5: overlapping stops summed</text>
+</g>
+</g>
+<g id="axes_3">
+<g id="patch_29">
+<path d="M 409.514089 238.147875 
+L 560.502324 238.147875 
+L 560.502324 21.931875 
+L 409.514089 21.931875 
+L 409.514089 238.147875 
+z
+" style="fill: none"/>
+</g>
+<g id="matplotlib.axis_5">
+<g id="xtick_7">
+<g id="line2d_45">
+<g>
+<use xlink:href="#m7b9324646f" x="435.633375" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_29">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="435.633375" y="255.31975" transform="rotate(-0 435.633375 255.31975)">L1</text>
+</g>
+</g>
+<g id="xtick_8">
+<g id="line2d_46">
+<g>
+<use xlink:href="#m7b9324646f" x="485.008207" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_30">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="485.008207" y="255.31975" transform="rotate(-0 485.008207 255.31975)">L2</text>
+</g>
+</g>
+<g id="xtick_9">
+<g id="line2d_47">
+<g>
+<use xlink:href="#m7b9324646f" x="534.383038" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+<g id="text_31">
+<text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4a5568" x="534.383038" y="255.31975" transform="rotate(-0 534.383038 255.31975)">L3</text>
+</g>
+</g>
+</g>
+<g id="matplotlib.axis_6">
+<g id="ytick_19">
+<g id="line2d_48">
+<path d="M 409.514089 238.147875 
+L 560.502324 238.147875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_49">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="238.147875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_20">
+<g id="line2d_50">
+<path d="M 409.514089 211.120875 
+L 560.502324 211.120875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_51">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="211.120875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_21">
+<g id="line2d_52">
+<path d="M 409.514089 184.093875 
+L 560.502324 184.093875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_53">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="184.093875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_22">
+<g id="line2d_54">
+<path d="M 409.514089 157.066875 
+L 560.502324 157.066875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_55">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="157.066875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_23">
+<g id="line2d_56">
+<path d="M 409.514089 130.039875 
+L 560.502324 130.039875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_57">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="130.039875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_24">
+<g id="line2d_58">
+<path d="M 409.514089 103.012875 
+L 560.502324 103.012875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_59">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="103.012875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_25">
+<g id="line2d_60">
+<path d="M 409.514089 75.985875 
+L 560.502324 75.985875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_61">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="75.985875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_26">
+<g id="line2d_62">
+<path d="M 409.514089 48.958875 
+L 560.502324 48.958875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_63">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="48.958875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+<g id="ytick_27">
+<g id="line2d_64">
+<path d="M 409.514089 21.931875 
+L 560.502324 21.931875 
+" clip-path="url(#p534fc8cf9e)" style="fill: none; stroke: #e6ecf3; stroke-width: 0.8; stroke-linecap: square"/>
+</g>
+<g id="line2d_65">
+<g>
+<use xlink:href="#m8953e9ef01" x="409.514089" y="21.931875" style="fill: #4a5568; stroke: #4a5568; stroke-width: 0.8"/>
+</g>
+</g>
+</g>
+</g>
+<g id="patch_30">
+<path d="M 416.377191 238.147875 
+L 429.214647 238.147875 
+L 429.214647 190.542067 
+L 416.377191 190.542067 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_31">
+<path d="M 465.752022 238.147875 
+L 478.589478 238.147875 
+L 478.589478 196.688457 
+L 465.752022 196.688457 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_32">
+<path d="M 515.126854 238.147875 
+L 527.96431 238.147875 
+L 527.96431 217.046545 
+L 515.126854 217.046545 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #0b6fa4"/>
+</g>
+<g id="patch_33">
+<path d="M 429.214647 238.147875 
+L 442.052103 238.147875 
+L 442.052103 176.721135 
+L 429.214647 176.721135 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_34">
+<path d="M 478.589478 238.147875 
+L 491.426935 238.147875 
+L 491.426935 102.551539 
+L 478.589478 102.551539 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_35">
+<path d="M 527.96431 238.147875 
+L 540.801766 238.147875 
+L 540.801766 143.49613 
+L 527.96431 143.49613 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #e07a3a"/>
+</g>
+<g id="patch_36">
+<path d="M 442.052103 238.147875 
+L 454.889559 238.147875 
+L 454.889559 233.653135 
+L 442.052103 233.653135 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_37">
+<path d="M 491.426935 238.147875 
+L 504.264391 238.147875 
+L 504.264391 231.507679 
+L 491.426935 231.507679 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_38">
+<path d="M 540.801766 238.147875 
+L 553.639223 238.147875 
+L 553.639223 235.663831 
+L 540.801766 235.663831 
+z
+" clip-path="url(#p534fc8cf9e)" style="fill: #4d7f12"/>
+</g>
+<g id="patch_39">
+<path d="M 409.514089 238.147875 
+L 409.514089 21.931875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="patch_40">
+<path d="M 409.514089 238.147875 
+L 560.502324 238.147875 
+" style="fill: none; stroke: #9aa8ba; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+</g>
+<g id="text_32">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="435.633375" y="172.667085" transform="rotate(-0 435.633375 172.667085)">▲</text>
+</g>
+<g id="text_33">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="485.008207" y="98.497489" transform="rotate(-0 485.008207 98.497489)">▲</text>
+</g>
+<g id="text_34">
+<text style="font-size: 8px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="534.383038" y="139.44208" transform="rotate(-0 534.383038 139.44208)">▲</text>
+</g>
+<g id="text_35">
+<text style="font-weight: 600; font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #0b2a5a" x="485.008207" y="15.931875" transform="rotate(-0 485.008207 15.931875)">E3: one rate (fastest SKU)</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p79a20154a5">
+<rect x="47.142324" y="21.931875" width="150.988235" height="216.216"/>
+</clipPath>
+<clipPath id="p001c6ee71c">
+<rect x="228.328207" y="21.931875" width="150.988235" height="216.216"/>
+</clipPath>
+<clipPath id="p534fc8cf9e">
+<rect x="409.514089" y="21.931875" width="150.988235" height="216.216"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 2.</strong> Hours lost to downtime, speed and quality on each line over four weeks: reference calculation, with overlapping stop records summed (E5), and with one ideal rate for all products (E3). The triangle marks each line's largest loss.</figcaption></figure><aside class="j-callout"><p>The errors that matter are not slips of arithmetic but silent choices: which rate, which downtime counts, what is good and how records are merged. A tool can make each choice once, correctly and visibly; a fluent answer cannot show which one it made.</p></aside></section><section class="j-sec" id="sec-5"><h2><span class="j-num">5.</span> Why the Language Model Should Not Compute the Number</h2><p>Each error in Section 4 is either a definition choice or an algorithm. Neither is a good task for free text generation.</p><ol><li><strong>Definition choices are made silently.</strong> When a question says only "OEE", the model must pick a definition. The data rarely say which downtime codes are planned or whether reworked units count, and a fluent answer does not say which choice was made. Errors E3, E4 and E6 are plausible defaults when the definition is not supplied.</li><li><strong>Some steps are algorithms, not reading.</strong> Merging overlapping stop intervals (E5) and weighting ratios by time (E1, E2, E7) are procedures over hundreds of rows. Accuracy on such compositional procedures falls as the number of steps grows [<a href="#ref-7" class="j-cite">7</a>], and the 772 stop records and 104 shift rows of this small extract already exceed what can be checked by eye in a chat window, where information in the middle of a long context is the least reliably used [<a href="#ref-9" class="j-cite">9</a>].</li><li><strong>The answer looks the same whether it is right or wrong.</strong> A wrong OEE of 59.4% reads exactly like a right one, and a model's answer can change when an irrelevant detail of the question changes [<a href="#ref-8" class="j-cite">8</a>]. Without provenance, a user cannot tell a computed number from a plausible one [<a href="#ref-10" class="j-cite">10</a>].</li></ol><p>The research response has been to let models call tools: models that learn when to call a calculator or search engine [<a href="#ref-13" class="j-cite">13</a>], prompting methods in which the model writes a program and an interpreter computes the answer [<a href="#ref-14" class="j-cite">14</a>, <a href="#ref-15" class="j-cite">15</a>], and agent loops that alternate reasoning with actions [<a href="#ref-16" class="j-cite">16</a>]. Writing database queries from questions is a related approach, and a 2023 benchmark found it error-prone on large real databases [<a href="#ref-17" class="j-cite">17</a>]. Against raw tables it has a specific weakness for KPIs: a query that averages shift OEE values runs without error and returns E1. Text-to-SQL against governed views, or a semantic (metrics) layer that encodes the KPI definitions, is a valid form of the architecture below; the failure is generating SQL against raw tables. Generated code moves the arithmetic out of the model but leaves the definition choices in it. The architecture below moves both.</p></section><section class="j-sec" id="sec-6"><h2><span class="j-num">6.</span> A Tool-Grounded Architecture</h2><p>The principle is a division of labour: the language model understands the question, chooses what to compute and explains the result; deterministic code holds the definitions and computes every number (Figure 3).</p><figure class="j-fig" id="figure-3"><div class="j-fig-art"><svg role="img" aria-labelledby="fig-3-t" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 524.88 272.088" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="fig-3-t">Flow diagram: a question goes to an LLM planner, which calls KPI tools; the tools read KPI definitions as code and the plant data, and return a result with provenance (rows, filter, definition id) to the LLM, which writes the answer subject to a number-echo check.</title>
+<defs>
+<style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+</defs>
+<g id="figure_1">
+<g id="patch_1">
+<path d="M 0 272.088 
+L 524.88 272.088 
+L 524.88 0 
+L 0 0 
+L 0 272.088 
+z
+" style="fill: none"/>
+</g>
+<g id="axes_1">
+<g id="patch_2">
+<path d="M 11.92032 175.1292 
+L 66.33648 175.1292 
+Q 72.4968 175.1292 72.4968 172.002384 
+L 72.4968 100.085616 
+Q 72.4968 96.9588 66.33648 96.9588 
+L 11.92032 96.9588 
+Q 5.76 96.9588 5.76 100.085616 
+L 5.76 172.002384 
+Q 5.76 175.1292 11.92032 175.1292 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_3">
+<path d="M 99.19152 167.31216 
+L 158.74128 167.31216 
+Q 164.9016 167.31216 164.9016 164.185344 
+L 164.9016 107.902656 
+Q 164.9016 104.77584 158.74128 104.77584 
+L 99.19152 104.77584 
+Q 93.0312 104.77584 93.0312 107.902656 
+L 93.0312 164.185344 
+Q 93.0312 167.31216 99.19152 167.31216 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #dce4ee; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_4">
+<path d="M 196.72992 83.9304 
+L 323.01648 83.9304 
+Q 329.1768 83.9304 329.1768 80.803584 
+L 329.1768 34.943616 
+Q 329.1768 31.8168 323.01648 31.8168 
+L 196.72992 31.8168 
+Q 190.5696 31.8168 190.5696 34.943616 
+L 190.5696 80.803584 
+Q 190.5696 83.9304 196.72992 83.9304 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #eaf3e0; stroke: #4d7f12; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_5">
+<path d="M 196.72992 162.1008 
+L 323.01648 162.1008 
+Q 329.1768 162.1008 329.1768 158.973984 
+L 329.1768 113.114016 
+Q 329.1768 109.9872 323.01648 109.9872 
+L 196.72992 109.9872 
+Q 190.5696 109.9872 190.5696 113.114016 
+L 190.5696 158.973984 
+Q 190.5696 162.1008 196.72992 162.1008 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #eaf3e0; stroke: #4d7f12; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_6">
+<path d="M 196.72992 240.2712 
+L 323.01648 240.2712 
+Q 329.1768 240.2712 329.1768 237.144384 
+L 329.1768 191.284416 
+Q 329.1768 188.1576 323.01648 188.1576 
+L 196.72992 188.1576 
+Q 190.5696 188.1576 190.5696 191.284416 
+L 190.5696 237.144384 
+Q 190.5696 240.2712 196.72992 240.2712 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_7">
+<path d="M 361.00512 167.31216 
+L 420.55488 167.31216 
+Q 426.7152 167.31216 426.7152 164.185344 
+L 426.7152 107.902656 
+Q 426.7152 104.77584 420.55488 104.77584 
+L 361.00512 104.77584 
+Q 354.8448 104.77584 354.8448 107.902656 
+L 354.8448 164.185344 
+Q 354.8448 167.31216 361.00512 167.31216 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #ffffff; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_8">
+<path d="M 453.40992 167.31216 
+L 512.95968 167.31216 
+Q 519.12 167.31216 519.12 164.185344 
+L 519.12 107.902656 
+Q 519.12 104.77584 512.95968 104.77584 
+L 453.40992 104.77584 
+Q 447.2496 104.77584 447.2496 107.902656 
+L 447.2496 164.185344 
+Q 447.2496 167.31216 453.40992 167.31216 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #dce4ee; stroke: #9aa8ba; stroke-width: 1.1; stroke-linejoin: miter"/>
+</g>
+<g id="patch_9">
+<path d="M 72.4968 136.044 
+Q 82.764 136.044 91.465952 136.044 
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 86.665952 133.644 
+L 91.465952 136.044 
+L 86.665952 138.444 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_10">
+<path d="M 164.9016 136.044 
+Q 177.7356 136.044 189.004352 136.044 
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 184.204352 133.644 
+L 189.004352 136.044 
+L 184.204352 138.444 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_11">
+<path d="M 259.8732 83.9304 
+Q 259.8732 96.9588 259.8732 108.421952 
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 262.2732 103.621952 
+L 259.8732 108.421952 
+L 257.4732 103.621952 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_12">
+<path d="M 259.8732 188.1576 
+Q 259.8732 175.1292 259.8732 163.666048 
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 257.4732 168.466048 
+L 259.8732 163.666048 
+L 262.2732 168.466048 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_13">
+<path d="M 329.1768 136.044 
+Q 342.0108 136.044 353.279552 136.044 
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 348.479552 133.644 
+L 353.279552 136.044 
+L 348.479552 138.444 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_14">
+<path d="M 426.7152 136.044 
+Q 436.9824 136.044 445.684352 136.044 
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+<path d="M 440.884352 133.644 
+L 445.684352 136.044 
+L 440.884352 138.444 
+z
+" clip-path="url(#p3c05b38989)" style="fill: #0b2a5a; stroke: #0b2a5a; stroke-width: 1.4; stroke-linecap: round"/>
+</g>
+<g id="patch_15">
+<path d="M 190.5696 250.69392 
+L 329.1768 250.69392 
+Q 336.8772 250.69392 336.8772 246.7854 
+L 336.8772 27.90828 
+Q 336.8772 23.99976 329.1768 23.99976 
+L 190.5696 23.99976 
+Q 182.8692 23.99976 182.8692 27.90828 
+L 182.8692 246.7854 
+Q 182.8692 250.69392 190.5696 250.69392 
+L 190.5696 250.69392 
+z
+" clip-path="url(#p3c05b38989)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #4d7f12; stroke-linejoin: miter"/>
+</g>
+<g id="text_1">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(20.108869 110.804273)">Question</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(14.889572 125.216051)">"Which line</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(11.009025 139.260797)">lost most last</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(15.193322 152.685387)">month, and</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(17.766056 167.61818)">on what?"</text>
+</g>
+<g id="text_2">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(102.54015 117.164654)">LLM planner</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(100.486322 131.450572)">chooses tool,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(107.727103 146.493053)">filters and</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(109.164291 160.653814)">definition</text>
+</g>
+<g id="text_3">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(211.242262 47.087838)">KPI definitions as code</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(215.141091 60.402741)">ISO 22400 elements,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(210.782419 75.097174)">versioned (oee-def v3)</text>
+</g>
+<g id="text_4">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(241.210153 125.108473)">KPI tools</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(208.438903 138.399469)">compute_oee · loss_tree</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(210.011794 152.270543)">merge_stops · compare</text>
+</g>
+<g id="text_5">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(238.681716 203.274654)">Plant data</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(216.578981 216.671119)">MES shifts, stop log,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(221.745544 230.900084)">counts, SKU rates</text>
+</g>
+<g id="text_6">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(367.491094 118.137779)">Result with</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(364.395234 130.539322)">provenance:</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(367.250625 145.7611)">rows, filter,</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(365.866875 160.653814)">definition id</text>
+</g>
+<g id="text_7">
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(459.800972 118.137779)">LLM writes</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(458.325816 131.450572)">the answer;</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(454.405894 146.343287)">number-echo</text>
+<text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #0b2a5a" transform="translate(470.289488 160.49983)">check</text>
+</g>
+<g id="text_8">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(392.829131 185.084992)">No number in the answer</text>
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; fill: #e07a3a" transform="translate(395.114287 195.97464)">that a tool did not return</text>
+</g>
+<g id="text_9">
+<text style="font-weight: 600; font-size: 9px; font-family: 'Inter', 'DejaVu Sans'; text-anchor: middle; fill: #4d7f12" x="259.8732" y="17.48556" transform="rotate(-0 259.8732 17.48556)">Deterministic, versioned, regression-tested</text>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="p3c05b38989">
+<rect x="5.76" y="5.76" width="513.36" height="260.568"/>
+</clipPath>
+</defs>
+</svg>
+</div><figcaption><strong>Figure 3.</strong> Tool-grounded KPI architecture. The language model plans and explains; versioned KPI definitions and tested tools, inside the dashed boundary, compute every number from the plant data and return it with its provenance.</figcaption></figure><p>Table 4 lists the five components and the failure each one prevents.</p><figure class="j-table" id="table-4"><figcaption><strong>Table 4.</strong> Components of the architecture.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Component</th><th>What it does</th><th>Prevents</th></tr></thead><tbody><tr><td>KPI definitions as code</td><td>One versioned module states the ISO 22400 elements: planned downtime codes, ideal rate per product from the item master, rework rule, stop-merge rule, aggregation from sums</td><td>E3, E3b, E4, E6; two departments reporting different OEE</td></tr><tr><td>KPI tools</td><td>A few functions with typed inputs: compute_oee(lines, dates, shifts), loss_tree(...), merge_stops(...), compare(...); they return a data-quality error instead of a number when A, P or Q falls outside 0–100% or stops fall outside the shift</td><td>E1, E2, E5, E7; arithmetic in text; impossible values such as 142.5%</td></tr><tr><td>Planner (the LLM)</td><td>Turns the question into tool calls and filters; asks when the question is ambiguous ("All shifts, or day shifts only?")</td><td>Silent definition choices</td></tr><tr><td>Provenance</td><td>Every result carries the filter used, row counts and the definition version</td><td>Unverifiable answers; mixing old and new definitions</td></tr><tr><td>Number-echo check</td><td>Software confirms that every number in the answer matches a tool result for the same line, KPI and unit; differences come from the compare() tool, not the text. A stronger option: the model writes placeholders such as {oee.L2} that code fills in</td><td>Numbers the model made up, changed or attached to the wrong line</td></tr></tbody></table></div><p class="j-table-note">Tools are read-only and enforce the user's data permissions.</p></figure><p>The tools are exposed to the model through function calling or the Model Context Protocol, the open standard for connecting assistants to data and tools [<a href="#ref-18" class="j-cite">18</a>, <a href="#ref-19" class="j-cite">19</a>]. The tools and definitions are ordinary software: they are written once, reviewed by the person who owns the KPI, and tested against a reference dataset like the one in this paper. The language model never sees raw shift rows when computing a KPI, which also keeps the context short and the cost low.</p><h3>6.1 A worked exchange</h3><p>Consider the question from the introduction, asked of the test plant: "Which line lost the most last month, and on what?" The planner does not read the shift table. It recognizes two requests and makes two tool calls: compute_oee for each line over the four weeks, and loss_tree for each line over the same period. The tools return, for each line, availability, performance, quality and OEE, the hours lost to downtime, speed and quality, the number of shift rows and stop records used (104 and 772, of which 199 overlapping records, including the 146 HMI duplicates, were merged), and the definition version.</p><p>The model then writes the answer from those results: L2 had the lowest OEE at 74.9%, and its largest loss was speed, 36.8 hours over the month, ahead of 30.7 hours of downtime; on L1 and L3 downtime was the largest loss. Before the answer is shown, the number-echo check confirms that 74.9 is L2's OEE and 36.8 and 30.7 are L2's speed and downtime losses in the tool output. The answer ends with its provenance line: lines L1 to L3, four weeks, 104 shifts, definition version 3.</p><p>Two things did not happen. The model did not decide whether the no-order evening on L2 counts against availability, because the definitions module had already classed it as planned. And the model did not add up stop durations, so the overlapping records could not inflate L2's downtime and redirect the answer toward a downtime project. If the user follows up with "and if we count the no-order evening?", the planner can call the same tool with a named alternative definition and say clearly that the result is no longer OEE as the plant defines it.</p><p>The same pattern answers questions the tools were not built for, within limits. "Was week 3 worse than week 1 on L2?" needs only filters. "Why was L2 slow?" needs data the tools do not have, such as minor stops below the logging threshold or line speed by product, and the right answer is to say so and name the data that would answer it.</p><p>The design follows the safety boundary set out for agentic AI in manufacturing operations [<a href="#ref-20" class="j-cite">20</a>]: the model may read and explain, while anything that becomes a plant record or a decision input is produced by deterministic, testable components.</p></section><section class="j-sec" id="sec-7"><h2><span class="j-num">7.</span> Testing an Assistant Before Trusting It</h2><p>The paper's dataset comes with 24 questions and reference answers (Table 5). They are chosen so that each calculation error in Section 4 produces at least one wrong answer, and so that the ranking questions test decisions, not just numbers.</p><figure class="j-table" id="table-5"><figcaption><strong>Table 5.</strong> The 24-question test set.</figcaption><div class="j-table-scroll"><table><thead><tr><th>Type</th><th>Questions</th><th>Example</th><th>Errors it exposes</th></tr></thead><tbody><tr><td>Aggregate</td><td>4</td><td>What was line L2 OEE over the four weeks?</td><td>E1, E2, E3, E3b, E4, E6, E7</td></tr><tr><td>Factor</td><td>5</td><td>What was line L3 quality (first-pass good share)?</td><td>E3, E3b, E4, E5, E6</td></tr><tr><td>Filter</td><td>4</td><td>What was L2 OEE on evening shifts in week 3?</td><td>Wrong filters; planned no-order time; E1, E2, E3, E4, E6</td></tr><tr><td>Stops</td><td>2</td><td>How many hours of unplanned downtime did L3 have?</td><td>E5</td></tr><tr><td>Loss</td><td>2</td><td>How many hours were lost to speed on L1?</td><td>E3, E3b, E5, E6</td></tr><tr><td>Count</td><td>2</td><td>How many bottles were reworked on L2?</td><td>Wrong columns</td></tr><tr><td>Rank</td><td>5</td><td>Which line had the lowest OEE? Which loss cost L2 the most hours?</td><td>E3, E3b, E4, E5</td></tr></tbody></table></div><p class="j-table-note">Numeric answers must be within 0.1 percentage points or 0.1 hours; counts must be exact; ranking answers must match. Reference answers are in questions.json in the download package.</p></figure><p>The test protocol is short:</p><ol><li>Load only the three data files into the assistant's environment, the way production data would arrive; keep questions.json and results.json out of its reach. Give it the written definitions if you are testing the full system, and withhold them if you are testing whether it asks.</li><li>Ask each question in a fresh conversation, three times. Repeated runs expose answers that change from run to run; sampling several answers and comparing them is itself a known way to improve reasoning reliability [<a href="#ref-21" class="j-cite">21</a>].</li><li>Score with the grader in the package. Accept the assistant only if all 24 answers are within tolerance in all three runs.</li><li>For every miss, find the layer that failed: a wrong tool call (planner), a wrong definition (KPI module), a wrong number in the text (number-echo check).</li></ol><p>Because a public test set may enter future training data, the real test is a plant's own. A plant should replace the composite data with a month of its own, compute the reference answers with its own definitions module, and keep the test as a regression check that is run whenever the model, the prompt or the definitions change [<a href="#ref-12" class="j-cite">12</a>].</p></section><section class="j-sec" id="sec-8"><h2><span class="j-num">8.</span> Implementation Guide for SMEs</h2><p>A small or mid-sized plant can put this architecture in place in an estimated six weeks with its existing MES or spreadsheet exports.</p><ol><li><strong>Write the definitions down (week 1).</strong> List the planned downtime codes, take ideal rates per product from the item master (not the line nameplate), decide how rework is counted, and state that stops are merged and KPIs aggregated from sums. Use ISO 22400 names so that the document survives staff changes [<a href="#ref-5" class="j-cite">5</a>].</li><li><strong>Build the reference calculator (weeks 2–3).</strong> A script like the one in the Appendix, or SQL views, that computes Table 2 for any filter. Check it against a month the team already knows.</li><li><strong>Wrap it as four or five tools (week 4).</strong> Typed inputs (lines, dates, shifts), outputs with the filter, row counts and the definition version.</li><li><strong>Connect the assistant (week 5).</strong> Give it the tools, a short instruction that every number must come from a tool, and permission to ask when a question is ambiguous. Add the number-echo check to the output step.</li><li><strong>Test and monitor (week 6 onward).</strong> Run the 24-question protocol on the composite data, then on the plant's own data. Log every question, tool call and answer.</li></ol><h3>8.1 Pitfalls</h3><ul><li><strong>Nameplate rates.</strong> A line's nameplate rate is usually its fastest product's rate, which is E3 in disguise. Rates belong to products.</li><li><strong>Two downtime sources.</strong> If the controller and the operator display both log stops, decide which is the record or merge them; never add them.</li><li><strong>Changing the definition without a version.</strong> A new rule for planned downtime makes last month's OEE incomparable. Version the definitions and show the version in every answer.</li><li><strong>Letting the model fill gaps.</strong> If a product has no ideal rate, the tool should return an error, not a guess, and the assistant should say what is missing.</li><li><strong>Impossible values.</strong> A performance or OEE above 100% means a wrong rate or a data error. The tool should refuse to return it.</li><li><strong>Testing once.</strong> Model updates change behaviour. Rerun the test set after every change of model, prompt or definitions.</li></ul></section><section class="j-sec" id="sec-9"><h2><span class="j-num">9.</span> Conclusions</h2><p>OEE questions look like arithmetic but are mostly definitions. On four weeks of data from a composite three-line plant:</p><ul><li>Averaging errors moved plant OEE by at most 0.4 points, because planned busy times hardly varied, but by 1.9 points in one narrow slice; they grow with the covariance between planned busy time and shift OEE.</li><li>Definition errors were far larger: one ideal rate for all products gave 59.4% or 142.5% against a reference of 77.6% and made the best line look the worst; counting planned downtime as a loss cost 6.0 points and made downtime the largest loss on every line; counting rework as good added 0.9 points overall and 2.1 on the line with the most rework.</li><li>Summing overlapping stop records left every OEE value unchanged but moved L2's largest loss from speed to downtime, which would send the improvement team to the wrong problem.</li><li>Each error is a silent choice or an algorithmic step, so the language model should choose filters and explain results while versioned definitions and tested tools compute every number, with provenance and a number-echo check on the final text.</li></ul><p>The study uses one composite plant and does not measure particular language models. The released dataset, test set and grader let any plant measure its own assistant against its own definitions, and the same pattern applies to other KPIs whose definitions carry choices, such as first-pass yield, schedule adherence and mean time between failures.</p></section><section class="j-sec" id="sec-10"><h2><span class="j-num">10.</span> Appendix: Python Code</h2><p>The compact calculator below reproduces Table 2 from the three data files in the download package. It uses only the Python standard library.</p><figure class="j-code"><figcaption>Reference OEE calculator (compact version).</figcaption><pre><code>"""Reference OEE calculator - Chmltech Online Journal, Vol. 106, Issue 17 (compact version).
+Reads data/shifts.csv, data/stops.csv and data/skus.csv; prints availability, performance, quality and OEE
+by line and for the plant, aggregated from sums (never by averaging ratios). Quality is measured in ideal minutes, so A x P x Q is the
+ideal time of the good output divided by planned busy time."""
+import csv, os
+from collections import defaultdict
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+D = lambda f: os.path.join(HERE, "data", f)
+
+rate = {r&#91;'sku'&#93;: float(r&#91;'ideal_rate_per_min'&#93;) for r in csv.DictReader(open(D('skus.csv')))}
+stops = defaultdict(list)
+for s in csv.DictReader(open(D('stops.csv'))):
+    stops&#91;s&#91;'shift_id'&#93;&#93;.append((float(s&#91;'start_min'&#93;), float(s&#91;'end_min'&#93;)))
+
+
+def merged_minutes(events):
+    """Unplanned downtime: overlapping or duplicate stop records are merged, not summed."""
+    total, end = 0.0, None
+    for a, b in sorted(events):
+        if end is None or a &gt; end:
+            total += b - a; end = b
+        elif b &gt; end:
+            total += b - end; end = b
+    return total
+
+
+sums = defaultdict(lambda: defaultdict(float))      # line -&gt; pbt, run, ideal, good (ideal minutes)
+for r in csv.DictReader(open(D('shifts.csv'))):
+    pbt = float(r&#91;'shift_min'&#93;) - float(r&#91;'planned_down_min'&#93;)        # planned busy time
+    run = pbt - merged_minutes(stops&#91;r&#91;'shift_id'&#93;&#93;)                  # actual production time
+    for key in (r&#91;'line'&#93;, 'Plant'):
+        t = sums&#91;key&#93;
+        t&#91;'pbt'&#93; += pbt; t&#91;'run'&#93; += run
+        for k in rate:
+            n = int(r&#91;f'{k}_produced'&#93;)
+            good = n - int(r&#91;f'{k}_rejected'&#93;) - int(r&#91;f'{k}_reworked'&#93;)   # first-pass good only
+            t&#91;'ideal'&#93; += n / rate&#91;k&#93;                                  # ideal minutes for the units made
+            t&#91;'good'&#93; += good / rate&#91;k&#93;                                # ideal minutes of the good units
+
+for key in sorted(sums, key=lambda k: (k == 'Plant', k)):
+    t = sums&#91;key&#93;
+    A, P, Q = t&#91;'run'&#93; / t&#91;'pbt'&#93;, t&#91;'ideal'&#93; / t&#91;'run'&#93;, t&#91;'good'&#93; / t&#91;'ideal'&#93;
+    print(f"{key:6s} A {100*A:5.1f}%  P {100*P:5.1f}%  Q {100*Q:5.1f}%  OEE {100*A*P*Q:5.1f}%")</code></pre></figure></section>
+    <section class="j-sec j-refs" id="references"><h2>References</h2><ol><li id="ref-1">Nakajima, S. (1988). <em>Introduction to TPM: Total productive maintenance</em>. Productivity Press. <a href="https://search.worldcat.org/search?q=Nakajima+Introduction+to+TPM+1988" rel="noopener" target="_blank">search.worldcat.org/search?q=Nakajima+Introduction+to+TPM+1988</a></li><li id="ref-2">Lee, Q. F. (2026). What OEE really measures: Where your production hours go (OEE series, Part 1). <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/what-oee-really-measures" rel="noopener" target="_blank">www.chmltech.com/post/what-oee-really-measures.html</a></li><li id="ref-3">Lee, Q. F. (2026). What OEE losses cost: Putting dollars on downtime, speed and scrap (OEE series, Part 2). <em>Chmltech Insights</em>. <a href="https://www.chmltech.com/post/what-oee-losses-cost" rel="noopener" target="_blank">www.chmltech.com/post/what-oee-losses-cost.html</a></li><li id="ref-4">Muchiri, P., &amp; Pintelon, L. (2008). Performance measurement using overall equipment effectiveness (OEE): Literature review and practical application discussion. <em>International Journal of Production Research</em>, 46(13), 3517–3535. <a href="https://doi.org/10.1080/00207540601142645" rel="noopener" target="_blank">10.1080/00207540601142645</a></li><li id="ref-5">International Organization for Standardization. (2014). <em>ISO 22400-2:2014 Automation systems and integration — Key performance indicators (KPIs) for manufacturing operations management — Part 2: Definitions and descriptions</em>. ISO. <a href="https://www.iso.org/standard/54497.html" rel="noopener" target="_blank">www.iso.org/standard/54497.html</a></li><li id="ref-6">Sadeqi Bajestani, M., Mun, D., &amp; Kim, D. B. (2026). Human-in-the-loop and large language models in smart manufacturing: Current applications, challenges, and perspectives. <em>Journal of Manufacturing Systems</em>, 86, 913–941. <a href="https://doi.org/10.1016/j.jmsy.2026.04.027" rel="noopener" target="_blank">10.1016/j.jmsy.2026.04.027</a></li><li id="ref-7">Dziri, N., Lu, X., Sclar, M., Li, X. L., Jiang, L., Lin, B. Y., Welleck, S., West, P., Bhagavatula, C., Le Bras, R., Hwang, J. D., Sanyal, S., Ren, X., Ettinger, A., Harchaoui, Z., &amp; Choi, Y. (2023). Faith and fate: Limits of transformers on compositionality. <em>Advances in Neural Information Processing Systems</em>, 36. <a href="https://arxiv.org/abs/2305.18654" rel="noopener" target="_blank">arxiv.org/abs/2305.18654</a></li><li id="ref-8">Mirzadeh, I., Alizadeh, K., Shahrokhi, H., Tuzel, O., Bengio, S., &amp; Farajtabar, M. (2025). GSM-Symbolic: Understanding the limitations of mathematical reasoning in large language models. <em>International Conference on Learning Representations</em>. <a href="https://arxiv.org/abs/2410.05229" rel="noopener" target="_blank">arxiv.org/abs/2410.05229</a></li><li id="ref-9">Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., &amp; Liang, P. (2024). Lost in the middle: How language models use long contexts. <em>Transactions of the Association for Computational Linguistics</em>, 12, 157–173. <a href="https://doi.org/10.1162/tacl_a_00638" rel="noopener" target="_blank">10.1162/tacl_a_00638</a></li><li id="ref-10">Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., &amp; Fung, P. (2023). Survey of hallucination in natural language generation. <em>ACM Computing Surveys</em>, 55(12), 1–38. <a href="https://doi.org/10.1145/3571730" rel="noopener" target="_blank">10.1145/3571730</a></li><li id="ref-11">Lee, Q. F. (2026). Score versus cost per task: Measuring the returns to reasoning effort in frontier language models. <em>Chmltech Online Journal</em>, 104(7). <a href="https://www.chmltech.com/post/score-versus-cost-per-task-returns-to-reasoning-effort-in-frontier-language-models" rel="noopener" target="_blank">www.chmltech.com/post/score-versus-cost-per-task-returns-to-reasoning-effort-in-</a></li><li id="ref-12">Lee, Q. F. (2026). Evaluating AI agents: Why public benchmarks mislead and how to build your own evaluation. <em>Chmltech Online Journal</em>, 105(10). <a href="https://www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-build-your-own-evaluation" rel="noopener" target="_blank">www.chmltech.com/post/evaluating-ai-agents-why-benchmarks-mislead-and-how-to-bui</a></li><li id="ref-13">Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Hambro, E., Zettlemoyer, L., Cancedda, N., &amp; Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. <em>Advances in Neural Information Processing Systems</em>, 36. <a href="https://arxiv.org/abs/2302.04761" rel="noopener" target="_blank">arxiv.org/abs/2302.04761</a></li><li id="ref-14">Gao, L., Madaan, A., Zhou, S., Alon, U., Liu, P., Yang, Y., Callan, J., &amp; Neubig, G. (2023). PAL: Program-aided language models. <em>Proceedings of the 40th International Conference on Machine Learning</em>, PMLR 202, 10764–10799. <a href="https://arxiv.org/abs/2211.10435" rel="noopener" target="_blank">arxiv.org/abs/2211.10435</a></li><li id="ref-15">Chen, W., Ma, X., Wang, X., &amp; Cohen, W. W. (2023). Program of thoughts prompting: Disentangling computation from reasoning for numerical reasoning tasks. <em>Transactions on Machine Learning Research</em>. <a href="https://arxiv.org/abs/2211.12588" rel="noopener" target="_blank">arxiv.org/abs/2211.12588</a></li><li id="ref-16">Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. <em>International Conference on Learning Representations</em>. <a href="https://arxiv.org/abs/2210.03629" rel="noopener" target="_blank">arxiv.org/abs/2210.03629</a></li><li id="ref-17">Li, J., Hui, B., Qu, G., Yang, J., Li, B., Li, B., Wang, B., Qin, B., Geng, R., Huo, N., Zhou, X., Ma, C., Li, G., Chang, K. C. C., Huang, F., Cheng, R., &amp; Li, Y. (2023). Can LLM already serve as a database interface? A big bench for large-scale database grounded text-to-SQLs. <em>Advances in Neural Information Processing Systems</em>, 36. <a href="https://arxiv.org/abs/2305.03111" rel="noopener" target="_blank">arxiv.org/abs/2305.03111</a></li><li id="ref-18">Anthropic. (2024, November 25). Introducing the Model Context Protocol. <a href="https://www.anthropic.com/news/model-context-protocol" rel="noopener" target="_blank">www.anthropic.com/news/model-context-protocol</a></li><li id="ref-19">Lee, Q. F. (2026). Agent interoperability standards: The Model Context Protocol, agent-to-agent protocols and integration with ERP, CRM and plant systems. <em>Chmltech Online Journal</em>, 105(4). <a href="https://www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-systems" rel="noopener" target="_blank">www.chmltech.com/post/agent-interoperability-standards-mcp-a2a-erp-crm-plant-sys</a></li><li id="ref-20">Lee, Q. F. (2026). Agentic AI in manufacturing operations: Use cases, architecture and safety boundaries. <em>Chmltech Online Journal</em>, 105(9). <a href="https://www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architecture-and-safety-boundaries" rel="noopener" target="_blank">www.chmltech.com/post/agentic-ai-in-manufacturing-operations-use-cases-architect</a></li><li id="ref-21">Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., &amp; Zhou, D. (2023). Self-consistency improves chain of thought reasoning in language models. <em>International Conference on Learning Representations</em>. <a href="https://arxiv.org/abs/2203.11171" rel="noopener" target="_blank">arxiv.org/abs/2203.11171</a></li></ol></section>
+    <section class="j-cite-box"><h2>How to cite this article</h2><p>Lee, Q. F. (2026). The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis. <em>Chmltech Online Journal</em>, <em>106</em>(17). https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis</p>
+      </section>
+  </article>
+  <aside class="aside-sticky j-aside">
+    <nav class="card j-toc" aria-label="Contents"><p class="eyebrow">Contents</p><ol><li><a href="#abstract">Abstract</a></li><li><a href="#sec-1">1. Introduction</a></li><li><a href="#sec-2">2. OEE, Defined Precisely</a></li><li><a href="#sec-3">3. The Test Plant and Its Data</a></li><li><a href="#sec-4">4. Eight Ways to Get OEE Wrong</a></li><li><a href="#sec-5">5. Why the Language Model Should Not Compute the Number</a></li><li><a href="#sec-6">6. A Tool-Grounded Architecture</a></li><li><a href="#sec-7">7. Testing an Assistant Before Trusting It</a></li><li><a href="#sec-8">8. Implementation Guide for SMEs</a></li><li><a href="#sec-9">9. Conclusions</a></li><li><a href="#sec-10">10. Appendix: Python Code</a></li><li><a href="#references">References</a></li></ol></nav>
+    <div class="card" style="padding:22px"><p class="eyebrow">Article</p><p style="font-size:14.5px;margin:6px 0 14px">Chmltech Online Journal<br>Volume 106, Issue 17</p>
+      <button type="button" class="btn btn-ghost" data-jdl>Download PDF</button><a class="btn btn-ghost" href="#code" style="margin-top:10px;justify-content:center;text-align:center">Python code</a></div>
+    <div class="card card-dark" style="padding:24px"><p class="eyebrow">Work with Chmltech</p><h3 style="font-size:20px">Discuss this research</h3><p>Talk to us about applying it in your organization.</p><a class="btn" href="../contact" style="align-self:flex-start">Contact us</a></div>
+  </aside>
+</div></section>
+<section class="section sand j-related"><div class="container">
+  <div class="section-head"><div class="stack"><p class="eyebrow">Chmltech Online Journal</p><h2 class="h-lg">More from the journal</h2></div><a class="btn btn-ghost" href="../insights#cat=chmltech-online-journal">All journal articles</a></div>
+  <div class="grid grid-3"><article class="article" data-cats="chmltech-online-journal artificial-intelligence operational-efficiency" data-search="from plain english to optimal schedule: verifying llm-written scheduling models eight typical errors in llm-written scheduling models, tested on a high-mix plant: what they cost, and four solver-independent checks that catch the harmful ones. production scheduling large language models optimization modeling constraint programming job shop verification dispatching rules high-mix manufacturing"><div class="thumb"><img src="../assets/media/covers/thumbs/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/from-plain-english-to-optimal-schedule-verifying-llm-written-scheduling-models">From Plain English to Optimal Schedule: Verifying LLM-Written Scheduling Models</a></h3><p class="muted">Eight typical errors in LLM-written scheduling models, tested on a high-mix plant: what they cost, and four solver-independent checks that catch the harmful ones.</p><p class="meta">Vol. 106, Issue 18 · Nov 27, 2026 · 14 min read</p></div></article><article class="article" data-cats="chmltech-online-journal artificial-intelligence digital-technology" data-search="can an llm assess a factory? validating ai-scored smart factory maturity against human assessors how to prove an llm can score smart factory maturity as well as a human assessor: evidence-first pipeline, agreement statistics and how many plants to test. smart factory maturity industry 4.0 assessment smart industry readiness index large language models llm-as-a-judge weighted kappa validation study smes"><div class="thumb"><img src="../assets/media/covers/thumbs/can-an-llm-assess-a-factory-validating-ai-scored-smart-factory-maturity-against-human-assessors.jpg" alt="" loading="lazy" decoding="async" width="600" height="338"></div><div class="body"><p class="cat-label">Artificial Intelligence</p><h3><a href="../post/can-an-llm-assess-a-factory-validating-ai-scored-smart-factory-maturity-against-human-assessors">Can an LLM Assess a Factory? Validating AI-Scored Smart Factory Maturity Against Human Assessors</a></h3><p class="muted">How to prove an LLM can score smart factory maturity as well as a human assessor: evidence-first pipeline, agreement statistics and how many plants to test.</p><p class="meta">Vol. 106, Issue 16 · Nov 27, 2026 · 14 min read</p></div></article></div>
+</div></section>
+<dialog class="j-dialog" id="jdl" aria-labelledby="jdl-title" data-pdf="../assets/journal/pdf/chmltech-journal-vol106-issue17.pdf" data-fname="Chmltech-Journal-Vol106-Issue17.pdf" data-title="The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis" data-ref="Vol. 106, Issue 17">
+  <form method="dialog" class="form j-dl-form" novalidate>
+    <button type="button" class="j-dl-close" aria-label="Close">×</button>
+    <p class="eyebrow">Chmltech Online Journal · Vol. 106, Issue 17</p>
+    <h2 class="h-md" id="jdl-title">Download the PDF</h2>
+    <p class="muted j-dl-paper">The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis</p>
+    <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="jdl-name">Full name</label><input id="jdl-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="jdl-email">Work email</label><input id="jdl-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="jdl-company">Company <span class="hint">(optional)</span></label><input id="jdl-company" name="company" autocomplete="organization"></div>
+    <label class="j-dl-consent"><input type="checkbox" name="updates" value="Yes"> Send me occasional updates on new Chmltech research and services. I can unsubscribe at any time.</label>
+    <p class="j-dl-note">We use your details to record this request and may follow up about it. See our <a href="../privacy" target="_blank" rel="noopener">privacy notice</a>.</p>
+    <button type="submit" class="btn">Download PDF</button>
+    <p class="form-status" role="status" tabindex="-1"></p>
+  </form>
+</dialog>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis", "name": "The LLM Should Not Do the Arithmetic: A Tool-Grounded Architecture for OEE and KPI Analysis", "abstract": "Plant managers increasingly ask chat assistants for OEE and expect a reliable number. Overall equipment effectiveness looks like simple arithmetic, but a correct answer depends on definitions that the data rarely states: which downtime is planned, which ideal rate applies to each product, whether reworked units count as good, how overlapping stop records are merged and how shifts are aggregated. This paper builds a four-week extract from a composite three-line bottling plant (104 shift records, 772 stop records) and computes OEE the reference way, following the element definitions of ISO 22400-2, and with eight plausible errors. Aggregation errors such as averaging shift OEE values moved plant OEE by at most 0.4 points here, though by 1.9 points in one narrow slice. Definition errors were much larger: one ideal rate for all products cut plant OEE from 77.6% to 59.4% and made the best line look the worst, another choice of rate gave 142.5%, and counting planned downtime as a loss cost 6.0 points. Summing overlapping stop records left OEE unchanged but moved one line's largest loss from speed to downtime, which would send an improvement team to the wrong problem. Because each error is a silent choice or an algorithmic step, the paper proposes an architecture in which the language model chooses filters and explains results while versioned KPI definitions and tested tools compute every number, and it releases the dataset and a 24-question test set so a plant can check any assistant before trusting it.", "keywords": "overall equipment effectiveness, large language models, tool use, ISO 22400, KPI definitions, semantic layer, smart manufacturing, evaluation", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "author": {"@type": "Person", "@id": "https://www.chmltech.com/about#quak-foo-lee", "name": "Quak Foo Lee", "url": "https://www.chmltech.com/about"}, "publisher": {"@type": "Organization", "@id": "https://www.chmltech.com/#organization", "name": "Chmltech Ltd.", "logo": {"@type": "ImageObject", "url": "https://www.chmltech.com/assets/img/chmltech-logo.png"}}, "isPartOf": {"@type": "PublicationIssue", "issueNumber": "17", "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "106", "isPartOf": {"@type": "Periodical", "name": "Chmltech Online Journal"}}}, "mainEntityOfPage": "https://www.chmltech.com/post/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis", "citation": ["Nakajima, S. (1988). Introduction to TPM: Total productive maintenance. Productivity Press.", "Lee, Q. F. (2026). What OEE really measures: Where your production hours go (OEE series, Part 1). Chmltech Insights.", "Lee, Q. F. (2026). What OEE losses cost: Putting dollars on downtime, speed and scrap (OEE series, Part 2). Chmltech Insights.", "Muchiri, P., &amp; Pintelon, L. (2008). Performance measurement using overall equipment effectiveness (OEE): Literature review and practical application discussion. International Journal of Production Research, 46(13), 3517–3535.", "International Organization for Standardization. (2014). ISO 22400-2:2014 Automation systems and integration — Key performance indicators (KPIs) for manufacturing operations management — Part 2: Definitions and descriptions. ISO.", "Sadeqi Bajestani, M., Mun, D., &amp; Kim, D. B. (2026). Human-in-the-loop and large language models in smart manufacturing: Current applications, challenges, and perspectives. Journal of Manufacturing Systems, 86, 913–941.", "Dziri, N., Lu, X., Sclar, M., Li, X. L., Jiang, L., Lin, B. Y., Welleck, S., West, P., Bhagavatula, C., Le Bras, R., Hwang, J. D., Sanyal, S., Ren, X., Ettinger, A., Harchaoui, Z., &amp; Choi, Y. (2023). Faith and fate: Limits of transformers on compositionality. Advances in Neural Information Processing Systems, 36.", "Mirzadeh, I., Alizadeh, K., Shahrokhi, H., Tuzel, O., Bengio, S., &amp; Farajtabar, M. (2025). GSM-Symbolic: Understanding the limitations of mathematical reasoning in large language models. International Conference on Learning Representations.", "Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., &amp; Liang, P. (2024). Lost in the middle: How language models use long contexts. Transactions of the Association for Computational Linguistics, 12, 157–173.", "Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., &amp; Fung, P. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), 1–38.", "Lee, Q. F. (2026). Score versus cost per task: Measuring the returns to reasoning effort in frontier language models. Chmltech Online Journal, 104(7).", "Lee, Q. F. (2026). Evaluating AI agents: Why public benchmarks mislead and how to build your own evaluation. Chmltech Online Journal, 105(10).", "Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Hambro, E., Zettlemoyer, L., Cancedda, N., &amp; Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. Advances in Neural Information Processing Systems, 36.", "Gao, L., Madaan, A., Zhou, S., Alon, U., Liu, P., Yang, Y., Callan, J., &amp; Neubig, G. (2023). PAL: Program-aided language models. Proceedings of the 40th International Conference on Machine Learning, PMLR 202, 10764–10799.", "Chen, W., Ma, X., Wang, X., &amp; Cohen, W. W. (2023). Program of thoughts prompting: Disentangling computation from reasoning for numerical reasoning tasks. Transactions on Machine Learning Research.", "Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. International Conference on Learning Representations.", "Li, J., Hui, B., Qu, G., Yang, J., Li, B., Li, B., Wang, B., Qin, B., Geng, R., Huo, N., Zhou, X., Ma, C., Li, G., Chang, K. C. C., Huang, F., Cheng, R., &amp; Li, Y. (2023). Can LLM already serve as a database interface? A big bench for large-scale database grounded text-to-SQLs. Advances in Neural Information Processing Systems, 36.", "Anthropic. (2024, November 25). Introducing the Model Context Protocol.", "Lee, Q. F. (2026). Agent interoperability standards: The Model Context Protocol, agent-to-agent protocols and integration with ERP, CRM and plant systems. Chmltech Online Journal, 105(4).", "Lee, Q. F. (2026). Agentic AI in manufacturing operations: Use cases, architecture and safety boundaries. Chmltech Online Journal, 105(9).", "Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., &amp; Zhou, D. (2023). Self-consistency improves chain of thought reasoning in language models. International Conference on Learning Representations."], "image": "https://www.chmltech.com/assets/media/covers/the-llm-should-not-do-the-arithmetic-a-tool-grounded-architecture-for-oee-and-kpi-analysis.jpg"}</script>
+<!--exam-hub:post--><section class="section"><div class="container stack"><p class="eyebrow">Test what you have read</p><h2 class="h-md">Free AI &amp; Agents practice exams</h2><p class="muted">Interactive exams with an explanation for every answer. No sign-up.</p><div class="index"><a href="../exams/ai-agents/AI_Agent_Architecture_and_Patterns_Exam_100Q_V3">AI Agent Architecture &amp; Patterns Exam<span aria-hidden="true">→</span></a><a href="../exams/ai-agents/AI_API_Coding_Exam_100Q_V1">AI API Coding Exam<span aria-hidden="true">→</span></a><a href="../exams/ai-agents/Harness_Engineering_Qualification_Exam_100Q_V1">AI Harness Engineering Qualification Exam<span aria-hidden="true">→</span></a><a href="../ai-practice-exams"><strong>All 24 AI &amp; Agents practice exams</strong><span aria-hidden="true">→</span></a></div></div></section>
+<!--/exam-hub:post-->
+</main>
+<footer class="site-footer">
+  <div class="container top">
+    <div class="col">
+      <span class="brandline"><img src="../assets/img/chmltech-mark.png" alt="" width="44" height="44"><span>Chmltech</span></span>
+      <span>AI, Digital Transformation &amp; Operational Excellence for Canadian SMEs.</span>
+    </div>
+    <div class="col">
+      <span class="title">Explore</span>
+      <a href="../industries">Industries</a>
+      <a href="../solutions">Solutions</a>
+      <a href="../training">Training</a>
+      <a href="../courses">Free courses</a>
+      <a href="../training">Free practice exams</a>
+      <a href="../insights">Insights</a>
+      <a href="../funding">Funding finder</a>
+      <a href="../ai-tools">AI tools landscape</a>
+      <a href="../projects">Projects</a>
+      <a href="../about">About Chmltech</a>
+    </div>
+    <div class="col">
+      <span class="title">Contact</span>
+      <span>Chmltech Ltd.</span>
+      <span>Vancouver, British Columbia, Canada</span>
+      <a href="mailto:info@chmltech.com">info@chmltech.com</a>
+      <a href="../book">Book a strategy call</a>
+    </div>
+    <div class="col">
+      <span class="title">Follow</span>
+      <!-- TODO: replace with Chmltech profile URLs -->
+      <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/" rel="noopener">X (Twitter)</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© <span data-year>2026</span> Chmltech Ltd. All rights reserved. · <a href="../privacy">Privacy</a></span>
+    <span>Advisory Services · Business Consulting · Executive Coaching</span>
+  </div>
+</footer>
+<script src="../assets/js/main.js?v=60d2bb4b" defer></script>
+<script src="../assets/js/journal.js?v=ef88a89c" defer></script>
+<script src="../assets/js/vendor/katex/katex.min.js" defer></script>
+<script src="../assets/js/vendor/katex/auto-render.min.js" defer></script>
+<script src="../assets/js/math.js?v=d839b6a0" defer></script>
+</body>
+</html>
