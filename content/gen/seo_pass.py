@@ -192,6 +192,19 @@ def build_ld(rel, s, title, desc, url, image):
                  "acceptedAnswer": {"@type": "Answer",
                                     "text": " ".join(html.unescape(re.sub(r"<[^>]+>", " ", a)).split())}}
                 for q, a in faqs]})
+    elif rel == "solutions.html":
+        # V5.82: the services overview lists every service page as an ItemList of Service items
+        items = []
+        for i, sl in enumerate(SOLUTIONS, 1):
+            if not os.path.exists(os.path.join(ROOT, sl + ".html")):
+                continue
+            t = html.unescape(g(r"<title>(.*?)</title>", rd(sl + ".html")) or sl)
+            t = re.split(r"\s+[|–-]\s+", t)[0].strip()
+            items.append({"@type": "ListItem", "position": len(items) + 1,
+                          "item": {"@type": "Service", "name": t, "url": f"{SITE}/{sl}",
+                                   "provider": {"@id": ORG_ID}}})
+        objs.append({"@type": "ItemList", "name": "Chmltech consulting services", "url": url,
+                     "numberOfItems": len(items), "itemListElement": items})
     elif slug in SOLUTIONS or slug in INDUSTRIES:
         svc = {"@type": "Service", "name": name, "description": desc, "url": url, "provider": {"@id": ORG_ID},
                "areaServed": {"@type": "Country", "name": "Canada"}}
@@ -510,6 +523,8 @@ def main():
     print(f"contents lists: {article_toc.run(ROOT)} articles")
     import book_box
     print(f"book boxes: {book_box.run(ROOT)} reviews")
+    import site_fixes
+    print(f"plain email links (V5.82): {site_fixes.run(ROOT)} pages")
     import exam_hubs
     print(f"exam hubs and links (V5.81): {exam_hubs.run(ROOT)}")
     sm, ll = [], []
