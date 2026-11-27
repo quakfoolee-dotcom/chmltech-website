@@ -12,6 +12,7 @@ with the shared parts taken out:
   - the <head> (titles, meta, canonical, JSON-LD, analytics, asset links)
   - <header>, <nav> and <footer> (the site menu and footer)
   - <script> blocks that are JSON-LD or the Clarity loader
+  - the email link, whichever form it takes (V5.82)
   - asset version stamps (?v=...) and the ".html" ending of links, with index.html and ./
     treated alike (the V5.77 link clean-up)
 content/gen/lastmod.json keeps {page: [fingerprint, date]}. seo_pass.py calls date_for():
@@ -37,6 +38,8 @@ _STRIP = [
     re.compile(r"<!--.*?-->", re.S),
 ]
 _VER = re.compile(r"\?v=[0-9A-Za-z._-]+")
+# V5.82: the email link changed form sitewide (js-mail "[at]" link -> plain mailto); both count as the same
+_MAIL = re.compile(r'<a (?:class="js-mail" href="[^"]*" data-u="[^"]*" data-d="[^"]*"[^>]*|href="mailto:[^"]*")>[^<]*</a>')
 _HTML_LINK = re.compile(r'((?:href|src|action)=["\'][^"\'#?]*?)(?:index)?\.html(?=["\'#?])', re.I)
 _DOT = re.compile(r'(=["\'])\./(?=["\'#?])')  # V5.77 wrote index.html as ./
 _WS = re.compile(r"\s+")
@@ -47,6 +50,7 @@ def fingerprint(text):
     for pat in _STRIP:
         s = pat.sub(" ", s)
     s = _VER.sub("", s)
+    s = _MAIL.sub("<a>email</a>", s)
     s = _HTML_LINK.sub(r"\1", s)
     s = _DOT.sub(r"\1", s)
     s = _WS.sub(" ", s).strip()
