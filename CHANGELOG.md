@@ -1,5 +1,13 @@
 # Changelog
 
+## V5.83 — 2026-11-27
+Free self-paced courses: the final exam now opens only after every lesson is complete (all 24 course pages, through the shared course player).
+- **Exam gate.** `assets/js/course.js` checks that lessons 1–N are all marked complete before building the exam. Labs are optional. Learners who already passed keep access to their exam and certificate.
+- **Locked state.** In the course outline the exam row shows a lock icon and a lessons-done count (e.g. 12/16) in place of "20 Q", and has `aria-disabled` plus a screen-reader note. The overview's "Go to the final exam" button reads "Final exam: unlocks after all N lessons" while the exam is locked.
+- **Exam page guard.** Opening `#exam` or `#certificate` directly (link, bookmark) while locked shows a panel listing the lessons still to complete, a progress bar and a "Continue: lesson N" button, never the questions.
+- **Reset** locks the exam again. Progress stays in the browser, so the gate guides learners; it is not a secure lock.
+- Cache-busting hashes updated for course.js and course.css on all course pages.
+
 ## V5.82 — 2026-11-27
 On-site fixes from the November 2026 SEO audit (checked against the live code first; the audit was based on Brave's out-of-date copy of the site, so its schema, meta description, thin-page and technical items were already done).
 - **Homepage services grid.** The row of 11 bare "↗" links under "What we do" is now an "All services" grid of 12 cards (Leadership Operating System added), each with a linked heading, a one-line description and a "Learn more" link.
